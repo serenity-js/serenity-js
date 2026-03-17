@@ -1,4 +1,4 @@
-import type { Tag } from '@serenity-js/core/lib/model';
+import type { Tag } from '@serenity-js/core/model';
 import {
     BrowserTag,
     CapabilityTag,
@@ -9,7 +9,7 @@ import {
     PlatformTag,
     ProjectTag,
     ThemeTag
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/model';
 import { match } from 'tiny-types';
 import { equal } from 'tiny-types/objects';
 

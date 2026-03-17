@@ -1,7 +1,7 @@
 import type { Answerable, AnswersQuestions, CollectsArtifacts, UsesAbilities } from '@serenity-js/core';
 import { ConfigurationError, Interaction } from '@serenity-js/core';
-import type { Path } from '@serenity-js/core/lib/io';
-import { d } from '@serenity-js/core/lib/io';
+import type { Path } from '@serenity-js/core/io';
+import { d } from '@serenity-js/core/io';
 import { CallAnApi } from '@serenity-js/rest';
 import type { AxiosRequestConfig } from 'axios';
 

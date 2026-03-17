@@ -9,7 +9,7 @@ import {
     TestCompromisedError,
     Timestamp
 } from '@serenity-js/core';
-import type { DomainEvent } from '@serenity-js/core/lib/events';
+import type { DomainEvent } from '@serenity-js/core/events';
 import {
     SceneFinished,
     SceneStarts,
@@ -21,14 +21,14 @@ import {
     TestRunStarts,
     TestSuiteFinished,
     TestSuiteStarts,
-} from '@serenity-js/core/lib/events/index.js';
+} from '@serenity-js/core/events';
 import {
     FileSystem,
     FileSystemLocation,
     Path,
     RequirementsHierarchy,
     trimmed
-} from '@serenity-js/core/lib/io/index.js';
+} from '@serenity-js/core/io';
 import {
     CapabilityTag,
     CorrelationId,
@@ -41,7 +41,7 @@ import {
     ImplementationPending,
     Name,
     TestSuiteDetails,
-} from '@serenity-js/core/lib/model/index.js';
+} from '@serenity-js/core/model';
 import { beforeEach, describe, it } from 'mocha';
 
 import { SerenityReporterForJasmine } from '../src/SerenityReporterForJasmine.js';

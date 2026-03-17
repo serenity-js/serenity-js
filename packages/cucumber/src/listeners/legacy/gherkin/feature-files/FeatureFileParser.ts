@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 
-import type { Path } from '@serenity-js/core/lib/io/index.js';
+import type { Path } from '@serenity-js/core/io';
 
 import type { GherkinDocument } from '../nodes/index.js';
 import { UnableToParseFeatureFileError, UnableToReadFeatureFileError } from './errors/index.js';

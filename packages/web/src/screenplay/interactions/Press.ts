@@ -1,6 +1,6 @@
 import type { Activity, Answerable, AnswersQuestions, UsesAbilities } from '@serenity-js/core';
 import { Interaction, Question, the } from '@serenity-js/core';
-import { asyncMap } from '@serenity-js/core/lib/io';
+import { asyncMap } from '@serenity-js/core/io';
 
 import { BrowseTheWeb } from '../abilities/index.js';
 import type { PageElement } from '../models/index.js';

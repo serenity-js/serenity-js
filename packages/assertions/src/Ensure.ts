@@ -18,7 +18,7 @@ import {
     RaiseErrors,
     the
 } from '@serenity-js/core';
-import type { FileSystemLocation } from '@serenity-js/core/lib/io';
+import type { FileSystemLocation } from '@serenity-js/core/io';
 
 import { EnsureEventually } from './EnsureEventually.js';
 

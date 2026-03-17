@@ -1,6 +1,6 @@
 import type { Answerable, AnswersQuestions, CollectsArtifacts, UsesAbilities } from '@serenity-js/core';
 import { Interaction, the } from '@serenity-js/core';
-import { Name, Photo } from '@serenity-js/core/lib/model';
+import { Name, Photo } from '@serenity-js/core/model';
 
 import { BrowseTheWeb } from '../abilities/index.js';
 

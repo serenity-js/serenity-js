@@ -2,7 +2,7 @@ import 'mocha';
 
 import { expect, givenFollowingEvents } from '@integration/testing-tools';
 import { AssertionError, ImplementationPendingError, LogicError } from '@serenity-js/core';
-import { SceneFinished, SceneFinishes, SceneStarts, TaskFinished, TaskStarts, TestRunFinished } from '@serenity-js/core/lib/events';
+import { SceneFinished, SceneFinishes, SceneStarts, TaskFinished, TaskStarts, TestRunFinished } from '@serenity-js/core/events';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -12,7 +12,7 @@ import {
     ExecutionSuccessful,
     ImplementationPending,
     Outcome,
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/model';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
 

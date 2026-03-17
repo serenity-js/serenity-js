@@ -1,5 +1,5 @@
 import type { Serenity } from '@serenity-js/core';
-import type { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
+import type { ModuleLoader } from '@serenity-js/core/io';
 
 import cucumberMessagesListener from './CucumberMessagesListener.js';
 

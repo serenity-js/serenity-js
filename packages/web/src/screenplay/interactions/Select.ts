@@ -1,5 +1,5 @@
 import { type Answerable, Interaction,the } from '@serenity-js/core';
-import { asyncMap, commaSeparated, stringified } from '@serenity-js/core/lib/io/index.js';
+import { asyncMap, commaSeparated, stringified } from '@serenity-js/core/io';
 
 import type { PageElement } from '../models/index.js';
 import { SelectOption } from '../models/index.js';

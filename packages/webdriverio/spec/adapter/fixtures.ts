@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import type { StageCrewMember} from '@serenity-js/core';
 import { AssertionError, Duration, ImplementationPendingError, TestCompromisedError, Timestamp } from '@serenity-js/core';
-import type { DomainEvent} from '@serenity-js/core/lib/events/index.js';
-import { RetryableSceneDetected, SceneFinished, SceneFinishes, SceneStarts, TestRunFinished, TestRunFinishes, TestRunStarts, TestSuiteFinished, TestSuiteStarts } from '@serenity-js/core/lib/events/index.js';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io/index.js';
+import type { DomainEvent} from '@serenity-js/core/events';
+import { RetryableSceneDetected, SceneFinished, SceneFinishes, SceneStarts, TestRunFinished, TestRunFinishes, TestRunStarts, TestSuiteFinished, TestSuiteStarts } from '@serenity-js/core/events';
+import { FileSystemLocation, Path } from '@serenity-js/core/io';
 import type {
-    Outcome} from '@serenity-js/core/lib/model/index.js';
+    Outcome} from '@serenity-js/core/model';
 import {
     Category,
     CorrelationId,
@@ -19,7 +19,7 @@ import {
     Name,
     ScenarioDetails,
     TestSuiteDetails,
-} from '@serenity-js/core/lib/model/index.js';
+} from '@serenity-js/core/model';
 
 function thrown<T extends Error>(error: T): T {
     try {

@@ -65,7 +65,7 @@ Migrate all `@serenity-js/*/lib/<submodule>` import paths to clean `@serenity-js
   - Compile all integration test modules and ensure no errors. Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 2.4, 3.4, 4.3, 5.5, 6.3, 7.4, 10.1_
 
-- [-] 5. Migrate example projects
+- [x] 5. Migrate example projects
   - [x] 5.1 Update imports in `examples/cucumber-domain-level-testing/`
     - Replace `@serenity-js/core/lib/model` → `@serenity-js/core/model` in `features/support/screenplay/interactions/EnterOperand.ts` and `UseOperator.ts`
     - _Requirements: 8.1, 8.3_
@@ -141,6 +141,41 @@ Migrate all `@serenity-js/*/lib/<submodule>` import paths to clean `@serenity-js
   - _Requirements: 14.17, 14.18, 10.4_
 
 - [x] 13. Final verification — grep for remaining legacy imports
+  - Run `grep -r "@serenity-js/[^/]*/lib/" integration/ examples/ packages/*/src/ packages/*/spec/ --include="*.ts" -l` excluding `node_modules/`, `lib/`, and `esm/` directories
+  - Confirm zero results — no legacy `@serenity-js/*/lib/` import paths remain in any source or spec file
+  - _Requirements: 11.4, 11.5, 11.6_
+
+- [x] 14. Migrate integration/web-specs spec files
+  - [x] 14.1 Update imports in `integration/web-specs/spec/stage/crew/photographer/`
+    - Replace `@serenity-js/core/lib/stage` → `@serenity-js/core/stage` in `create.ts`
+    - Replace `@serenity-js/core/lib/io` → `@serenity-js/core/io` and `@serenity-js/core/lib/model` → `@serenity-js/core/model` in `fixtures.ts`
+    - Replace `@serenity-js/core/lib/events` → `@serenity-js/core/events` and `@serenity-js/core/lib/model` → `@serenity-js/core/model` in `Photographer.spec.ts`
+    - Replace legacy imports in all `strategies/*.spec.ts` files
+    - _Requirements: 16.1, 16.2, 16.3, 16.4_
+
+  - [x] 14.2 Update imports in `integration/web-specs/spec/expectations/`
+    - Replace `@serenity-js/core/lib/io` → `@serenity-js/core/io` in `isEnabled.spec.ts`, `isActive.spec.ts`, `isPresent.spec.ts`, `isSelected.spec.ts`
+    - _Requirements: 16.3_
+
+  - [x] 14.3 Update imports in `integration/web-specs/spec/screenplay/`
+    - Replace `@serenity-js/core/lib/io` → `@serenity-js/core/io` in `interactions/Wait.spec.ts`, `models/PageElements.spec.ts`
+    - Replace `@serenity-js/core/lib/events` → `@serenity-js/core/events` and `@serenity-js/core/lib/model` → `@serenity-js/core/model` in `interactions/TakeScreenshot.spec.ts`, `interactions/execute-script/*.spec.ts`, `models/ModalDialog.spec.ts`
+    - _Requirements: 16.1, 16.2, 16.3_
+
+- [x] 15. Checkpoint — Verify web-specs compilation
+  - Compile `integration/web-specs` and ensure no errors. Ensure all tests pass, ask the user if questions arise.
+  - _Requirements: 16.5_
+
+- [x] 16. Migrate legacy Cucumber registration files
+  - [x] 16.1 Update `--require` arguments in `integration/cucumber-1/src/register-cucumber.ts` and `integration/cucumber-2/src/register-cucumber.ts`
+    - Replace `node_modules/@serenity-js/cucumber/lib/index.js` → `@serenity-js/cucumber`
+    - _Requirements: 17.1_
+
+- [x] 17. Checkpoint — Verify cucumber-1 and cucumber-2 compilation
+  - Compile `integration/cucumber-1` and `integration/cucumber-2` and ensure no errors. Ensure all tests pass, ask the user if questions arise.
+  - _Requirements: 17.2_
+
+- [x] 18. Final verification — grep for remaining legacy imports (updated)
   - Run `grep -r "@serenity-js/[^/]*/lib/" integration/ examples/ packages/*/src/ packages/*/spec/ --include="*.ts" -l` excluding `node_modules/`, `lib/`, and `esm/` directories
   - Confirm zero results — no legacy `@serenity-js/*/lib/` import paths remain in any source or spec file
   - _Requirements: 11.4, 11.5, 11.6_

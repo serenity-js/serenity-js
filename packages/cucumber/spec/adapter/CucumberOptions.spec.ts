@@ -2,8 +2,8 @@ import { fileURLToPath } from 'node:url';
 
 import { expect } from '@integration/testing-tools';
 import { ConfigurationError } from '@serenity-js/core';
-import type { FileSystem } from '@serenity-js/core/lib/io';
-import { FileFinder, Path, Version } from '@serenity-js/core/lib/io';
+import type { FileSystem } from '@serenity-js/core/io';
+import { FileFinder, Path, Version } from '@serenity-js/core/io';
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 

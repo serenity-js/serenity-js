@@ -1,6 +1,6 @@
 import type { Answerable, AnswersQuestions} from '@serenity-js/core';
 import { d, Interaction, LogicError } from '@serenity-js/core';
-import type { FileSystemLocation } from '@serenity-js/core/lib/io';
+import type { FileSystemLocation } from '@serenity-js/core/io';
 
 import type { PageElement } from '../models/index.js';
 

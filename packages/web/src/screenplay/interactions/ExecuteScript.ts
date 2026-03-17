@@ -1,7 +1,7 @@
 import type { Answerable, AnswersQuestions, CollectsArtifacts, UsesAbilities } from '@serenity-js/core';
 import { Interaction, LogicError, the } from '@serenity-js/core';
-import { asyncMap } from '@serenity-js/core/lib/io';
-import { Name, TextData } from '@serenity-js/core/lib/model';
+import { asyncMap } from '@serenity-js/core/io';
+import { Name, TextData } from '@serenity-js/core/model';
 
 import { BrowseTheWeb } from '../abilities/index.js';
 

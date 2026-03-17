@@ -1,5 +1,5 @@
-import { Path } from '@serenity-js/core/lib/io/index.js';
-import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/lib/model/index.js';
+import { Path } from '@serenity-js/core/io';
+import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/model';
 
 import { AmbiguousStepDefinitionError } from '../../errors/index.js';
 import type { Dependencies } from './Dependencies.js';

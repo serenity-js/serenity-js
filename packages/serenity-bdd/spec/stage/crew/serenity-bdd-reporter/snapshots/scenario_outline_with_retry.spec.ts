@@ -2,10 +2,10 @@
 import { contentsOf, EventRecorder, EventStreamEmitter, expect } from '@integration/testing-tools';
 import type { Actor, Cast } from '@serenity-js/core';
 import { Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
-import type { DomainEvent } from '@serenity-js/core/lib/events';
-import { ArtifactGenerated } from '@serenity-js/core/lib/events';
-import { FileSystem, Path } from '@serenity-js/core/lib/io';
-import { TestReport } from '@serenity-js/core/lib/model';
+import type { DomainEvent } from '@serenity-js/core/events';
+import { ArtifactGenerated } from '@serenity-js/core/events';
+import { FileSystem, Path } from '@serenity-js/core/io';
+import { TestReport } from '@serenity-js/core/model';
 import { beforeEach, describe, it } from 'mocha';
 
 import { SerenityBDDReporter } from '../../../../../src';

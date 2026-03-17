@@ -1,4 +1,4 @@
-import type { Outcome } from '@serenity-js/core/lib/model';
+import type { Outcome } from '@serenity-js/core/model';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -6,7 +6,7 @@ import {
     ExecutionIgnored,
     ExecutionSkipped,
     ImplementationPending
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/model';
 import { match } from 'tiny-types';
 
 import type { ErrorDetailsSchema } from '../../serenity-bdd-report-schema';

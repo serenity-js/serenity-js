@@ -9,9 +9,9 @@ import {
     RetryableSceneDetected,
     SceneFinished,
     SceneTagged
-} from '@serenity-js/core/lib/events';
-import { Path } from '@serenity-js/core/lib/io';
-import type {     CorrelationId,Outcome } from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/events';
+import { Path } from '@serenity-js/core/io';
+import type {     CorrelationId,Outcome } from '@serenity-js/core/model';
 import {
     ArbitraryTag,
     ExecutionFailedWithAssertionError,
@@ -19,7 +19,7 @@ import {
     ExecutionIgnored,
     ExecutionSkipped,
     ExecutionSuccessful
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/model';
 import { type JSONObject } from 'tiny-types';
 
 import { WorkerEventStreamReader } from '../api/WorkerEventStreamReader.js';

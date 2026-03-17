@@ -1,6 +1,6 @@
 import type { Stage, StageCrewMember } from '@serenity-js/core';
 import { LogicError } from '@serenity-js/core';
-import type { DomainEvent } from '@serenity-js/core/lib/events/index.js';
+import type { DomainEvent } from '@serenity-js/core/events';
 import {
     AsyncOperationAttempted,
     AsyncOperationCompleted,
@@ -10,8 +10,8 @@ import {
     TestRunFinishes,
     TestSuiteFinished,
     TestSuiteStarts
-} from '@serenity-js/core/lib/events/index.js';
-import type { Outcome, TestSuiteDetails } from '@serenity-js/core/lib/model/index.js';
+} from '@serenity-js/core/events';
+import type { Outcome, TestSuiteDetails } from '@serenity-js/core/model';
 import {
     CorrelationId,
     Description,
@@ -23,7 +23,7 @@ import {
     ImplementationPending,
     Name,
     ProblemIndication
-} from '@serenity-js/core/lib/model/index.js';
+} from '@serenity-js/core/model';
 import type { Test as testStats } from '@wdio/reporter';
 import type { Capabilities, Frameworks } from '@wdio/types';
 import type { EventEmitter } from 'events';

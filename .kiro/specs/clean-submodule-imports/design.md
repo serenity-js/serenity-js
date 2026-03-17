@@ -8,12 +8,14 @@ The migration is mechanical: every import path matching `@serenity-js/<package>/
 
 ### Scope
 
-Files affected fall into four categories:
+Files affected fall into six categories:
 
 1. **Testing Tools source** (`integration/testing-tools/src/`): 8 source files with legacy imports from `@serenity-js/core/lib/events`, `@serenity-js/core/lib/model`, and `@serenity-js/core/lib/stage`
 2. **Integration test specs** (`integration/*/spec/` and `integration/*/src/`): ~60+ spec files across cucumber-specs, jasmine, playwright-test, mocha, webdriverio-*, and protractor-* modules importing from `@serenity-js/core/lib/events`, `@serenity-js/core/lib/model`, `@serenity-js/core/lib/io`, and `@serenity-js/playwright-test/lib/events`
-3. **Example projects** (`examples/cucumber-domain-level-testing/`): 2 files importing from `@serenity-js/core/lib/model`
-4. **Package source and spec files** (`packages/*/src/` and `packages/*/spec/`):
+3. **Web specs integration tests** (`integration/web-specs/spec/`): ~17 spec files importing from `@serenity-js/core/lib/events`, `@serenity-js/core/lib/model`, `@serenity-js/core/lib/io`, and `@serenity-js/core/lib/stage`
+4. **Legacy Cucumber registration** (`integration/cucumber-1/src/` and `integration/cucumber-2/src/`): 2 files with `--require` string arguments containing `node_modules/@serenity-js/cucumber/lib/index.js`
+5. **Example projects** (`examples/cucumber-domain-level-testing/`): 2 files importing from `@serenity-js/core/lib/model`
+6. **Package source and spec files** (`packages/*/src/` and `packages/*/spec/`):
    - `packages/rest/` — 2 source files + 1 spec file importing from `@serenity-js/core/lib/model`, `@serenity-js/core/lib/io`, `@serenity-js/core/lib/events`
    - `packages/serenity-bdd/` — ~20+ source files + ~12 spec files importing from `@serenity-js/core/lib/events`, `@serenity-js/core/lib/io`, `@serenity-js/core/lib/model`
    - `packages/protractor/` — ~8 source files + ~4 spec files importing from `@serenity-js/core/lib/adapter`, `@serenity-js/core/lib/events`, `@serenity-js/core/lib/io`, `@serenity-js/core/lib/model`, `@serenity-js/core/lib/stage`, `@serenity-js/web/lib/scripts`, `@serenity-js/cucumber/lib/adapter`, `@serenity-js/mocha/lib/adapter`
@@ -126,6 +128,28 @@ Four import styles exist in the codebase and all must be preserved:
 - `stage/EventRecorder.ts` — named import from `core/lib/events/index.js`
 - `stage/StdOutReporter.ts` — namespace import from `core/lib/events/index.js`
 - `stage/TestRunnerTagger.ts` — namespace import from `core/lib/events/index.js`, named import from `core/lib/model/index.js`
+
+**Web Specs** (`integration/web-specs/spec/`):
+- `stage/crew/photographer/create.ts` — named import from `core/lib/stage`
+- `stage/crew/photographer/fixtures.ts` — named imports from `core/lib/io`, `core/lib/model`
+- `stage/crew/photographer/Photographer.spec.ts` — named imports from `core/lib/events`, `core/lib/model`
+- `stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts` — named imports from `core/lib/events`, `core/lib/model`, `core/lib/stage`
+- `stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts` — named imports from `core/lib/events`, `core/lib/model`, `core/lib/stage`
+- `stage/crew/photographer/strategies/TakePhotosOfInteractions.errors.spec.ts` — named imports from `core/lib/events`, `core/lib/model`, `core/lib/stage`
+- `stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts` — named imports from `core/lib/events`, `core/lib/model`, `core/lib/stage`
+- `expectations/isEnabled.spec.ts` — named import from `core/lib/io`
+- `expectations/isActive.spec.ts` — named import from `core/lib/io`
+- `expectations/isPresent.spec.ts` — named import from `core/lib/io`
+- `expectations/isSelected.spec.ts` — named import from `core/lib/io`
+- `screenplay/interactions/Wait.spec.ts` — named import from `core/lib/io`
+- `screenplay/interactions/TakeScreenshot.spec.ts` — named imports from `core/lib/events`, `core/lib/model`
+- `screenplay/interactions/execute-script/ExecuteSynchronousScript.spec.ts` — named imports from `core/lib/events`, `core/lib/model`
+- `screenplay/interactions/execute-script/ExecuteAsynchronousScript.spec.ts` — named imports from `core/lib/events`, `core/lib/model`
+- `screenplay/models/PageElements.spec.ts` — named import from `core/lib/io`
+- `screenplay/models/ModalDialog.spec.ts` — named imports from `core/lib/events`, `core/lib/model`
+
+**Legacy Cucumber Registration** (`integration/cucumber-1/src/` and `integration/cucumber-2/src/`):
+- `register-cucumber.ts` — `--require` string argument with `node_modules/@serenity-js/cucumber/lib/index.js`
 
 **Cucumber Specs** (`integration/cucumber-specs/`):
 - `src/index.ts` — named import from `core/lib/io`

@@ -1,7 +1,7 @@
 import util from 'node:util';
 
 import { LogicError } from '@serenity-js/core';
-import { inspectedObject } from '@serenity-js/core/lib/io';
+import { inspectedObject } from '@serenity-js/core/io';
 
 import type { PageElement } from './PageElement.js';
 import { RootLocator } from './RootLocator.js';

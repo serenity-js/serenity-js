@@ -16,8 +16,8 @@ import type {
 import { mergeTests, test as playwrightBaseTest } from '@playwright/test';
 import type { DiffFormatter } from '@serenity-js/core';
 import { AnsiDiffFormatter, Cast, Clock, Duration, Serenity, TakeNotes } from '@serenity-js/core';
-import { SceneFinishes, SceneTagged } from '@serenity-js/core/lib/events';
-import { BrowserTag, ExecutionSuccessful, PlatformTag } from '@serenity-js/core/lib/model';
+import { SceneFinishes, SceneTagged } from '@serenity-js/core/events';
+import { BrowserTag, ExecutionSuccessful, PlatformTag } from '@serenity-js/core/model';
 import { BrowseTheWebWithPlaywright, SerenitySelectorEngines } from '@serenity-js/playwright';
 import { CallAnApi } from '@serenity-js/rest';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';

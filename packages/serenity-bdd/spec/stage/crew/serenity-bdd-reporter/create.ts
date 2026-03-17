@@ -1,7 +1,7 @@
 import { EventRecorder } from '@integration/testing-tools';
 import type { Actor, Cast } from '@serenity-js/core';
 import { Clock, Duration, ErrorFactory, Stage, StageManager } from '@serenity-js/core';
-import { FileSystem, Path } from '@serenity-js/core/lib/io';
+import { FileSystem, Path } from '@serenity-js/core/io';
 import type { JSONObject } from 'tiny-types';
 
 import type { SerenityBDDReporterConfig } from '../../../../src';

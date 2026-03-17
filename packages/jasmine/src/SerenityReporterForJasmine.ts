@@ -19,9 +19,9 @@ import {
     TestRunStarts,
     TestSuiteFinished,
     TestSuiteStarts,
-} from '@serenity-js/core/lib/events/index.js';
-import type { RequirementsHierarchy } from '@serenity-js/core/lib/io/index.js';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io/index.js';
+} from '@serenity-js/core/events';
+import type { RequirementsHierarchy } from '@serenity-js/core/io';
+import { FileSystemLocation, Path } from '@serenity-js/core/io';
 import {
     ActivityDetails,
     Category,
@@ -39,7 +39,7 @@ import {
     type Tag,
     Tags,
     TestSuiteDetails,
-} from '@serenity-js/core/lib/model/index.js';
+} from '@serenity-js/core/model';
 
 import type {
     Expectation,

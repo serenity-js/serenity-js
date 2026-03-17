@@ -1,8 +1,8 @@
 import { fileURLToPath } from 'node:url';
 
 import { expect } from '@integration/testing-tools';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { ArbitraryTag, Description, IssueTag, Name, ScenarioParameters } from '@serenity-js/core/lib/model';
+import { FileSystemLocation, Path } from '@serenity-js/core/io';
+import { ArbitraryTag, Description, IssueTag, Name, ScenarioParameters } from '@serenity-js/core/model';
 import { describe, it } from 'mocha';
 
 import type { FeatureFileMap} from '../../../../../src/listeners/legacy/gherkin/index.js';

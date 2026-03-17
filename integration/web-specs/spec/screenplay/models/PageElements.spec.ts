@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, startsWith } from '@serenity-js/assertions';
 import { Actor, actorCalled, Answerable, AssertionError, Duration, Interaction, notes, QuestionAdapter, Timestamp, Wait } from '@serenity-js/core';
-import { trimmed } from '@serenity-js/core/lib/io';
+import { trimmed } from '@serenity-js/core/io';
 import { By, Click, CssClasses, Navigate, PageElement, PageElements, Text } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
 

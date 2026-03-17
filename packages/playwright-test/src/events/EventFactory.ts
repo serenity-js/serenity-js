@@ -10,9 +10,9 @@ import {
     SceneTagged,
     SceneTemplateDetected,
     TestRunnerDetected
-} from '@serenity-js/core/lib/events';
-import { FileSystem, FileSystemLocation, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';
-import type { Outcome, Tag } from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/events';
+import { FileSystem, FileSystemLocation, Path, RequirementsHierarchy } from '@serenity-js/core/io';
+import type { Outcome, Tag } from '@serenity-js/core/model';
 import {
     Category,
     Description,
@@ -21,7 +21,7 @@ import {
     ScenarioDetails,
     ScenarioParameters,
     Tags
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/model';
 
 import { PlaywrightSceneId } from './PlaywrightSceneId.js';
 

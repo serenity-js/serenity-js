@@ -1,7 +1,7 @@
 import { expect } from '@integration/testing-tools';
 import { AssertionError, TestCompromisedError } from '@serenity-js/core';
 import type {
-    ProblemIndication} from '@serenity-js/core/lib/model';
+    ProblemIndication} from '@serenity-js/core/model';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -10,7 +10,7 @@ import {
     ExecutionSkipped,
     ExecutionSuccessful,
     ImplementationPending
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/model';
 import { strictEqual } from 'assert';
 import { describe, it, Test } from 'mocha';
 

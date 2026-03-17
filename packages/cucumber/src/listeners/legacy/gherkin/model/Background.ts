@@ -1,5 +1,5 @@
-import type { FileSystemLocation } from '@serenity-js/core/lib/io/index.js';
-import type { Description, Name } from '@serenity-js/core/lib/model/index.js';
+import type { FileSystemLocation } from '@serenity-js/core/io';
+import type { Description, Name } from '@serenity-js/core/model';
 
 import { FeatureFileNode } from './FeatureFileNode.js';
 import type { Step } from './Step.js';

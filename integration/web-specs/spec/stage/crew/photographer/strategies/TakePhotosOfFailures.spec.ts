@@ -3,9 +3,9 @@ import 'mocha';
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { isPresent } from '@serenity-js/assertions';
 import { Duration, Wait } from '@serenity-js/core';
-import { ActivityRelatedArtifactGenerated, ActivityStarts, SceneFinishes, SceneStarts } from '@serenity-js/core/lib/events';
-import { CorrelationId, ExecutionSuccessful, Photo } from '@serenity-js/core/lib/model';
-import { Stage } from '@serenity-js/core/lib/stage';
+import { ActivityRelatedArtifactGenerated, ActivityStarts, SceneFinishes, SceneStarts } from '@serenity-js/core/events';
+import { CorrelationId, ExecutionSuccessful, Photo } from '@serenity-js/core/model';
+import { Stage } from '@serenity-js/core/stage';
 import { BrowseTheWeb, By, PageElement, Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 
 import { create } from '../create';

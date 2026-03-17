@@ -2,9 +2,9 @@ import type { FullConfig } from '@playwright/test';
 import type { FullResult, Reporter, Suite, TestCase, TestError, TestResult, } from '@playwright/test/reporter';
 import type { ClassDescription, StageCrewMember, StageCrewMemberBuilder } from '@serenity-js/core';
 import { Clock, Duration, Serenity, Timestamp } from '@serenity-js/core';
-import type { OutputStream } from '@serenity-js/core/lib/adapter';
-import { TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
-import { ExecutionFailedWithError, ExecutionSuccessful, } from '@serenity-js/core/lib/model';
+import type { OutputStream } from '@serenity-js/core/adapter';
+import { TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/events';
+import { ExecutionFailedWithError, ExecutionSuccessful, } from '@serenity-js/core/model';
 
 import { PlaywrightErrorParser } from './PlaywrightErrorParser.js';
 import { PlaywrightEventBuffer } from './PlaywrightEventBuffer.js';

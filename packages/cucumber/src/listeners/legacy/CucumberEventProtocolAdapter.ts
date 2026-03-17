@@ -1,8 +1,8 @@
 import { RuntimeError } from '@serenity-js/core';
-import { AssertionError, ErrorSerialiser, ImplementationPendingError, TestCompromisedError } from '@serenity-js/core/lib/errors/index.js';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io/index.js';
+import { AssertionError, ErrorSerialiser, ImplementationPendingError, TestCompromisedError } from '@serenity-js/core/errors';
+import { FileSystemLocation, Path } from '@serenity-js/core/io';
 import type {
-    Outcome} from '@serenity-js/core/lib/model/index.js';
+    Outcome} from '@serenity-js/core/model';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -11,7 +11,7 @@ import {
     ExecutionSuccessful,
     ImplementationPending,
     Name
-} from '@serenity-js/core/lib/model/index.js';
+} from '@serenity-js/core/model';
 import { ensure, isDefined } from 'tiny-types';
 
 import { AmbiguousStepDefinitionError } from '../../errors/index.js';

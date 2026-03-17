@@ -1,4 +1,4 @@
-import { ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionIgnored, ExecutionSkipped, ImplementationPending } from '@serenity-js/core/lib/model/index.js';
+import { ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionIgnored, ExecutionSkipped, ImplementationPending } from '@serenity-js/core/model';
 
 import type { AggregatedCategories, AggregatedCategory } from './Summary.js';
 import type { TerminalTheme } from './themes/index.js';

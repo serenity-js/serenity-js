@@ -1,5 +1,5 @@
 import { serenity } from '@serenity-js/core';
-import { ModuleLoader, Version } from '@serenity-js/core/lib/io/index.js';
+import { ModuleLoader, Version } from '@serenity-js/core/io';
 import * as process from 'process';
 
 import { createListener as createLegacyListener } from './listeners/legacy/index.js';

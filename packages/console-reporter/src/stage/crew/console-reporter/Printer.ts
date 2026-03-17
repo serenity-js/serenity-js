@@ -1,4 +1,4 @@
-import type { OutputStream } from '@serenity-js/core/lib/adapter/index.js';
+import type { OutputStream } from '@serenity-js/core/adapter';
 
 /**
  * A simple abstraction around the standard output stream

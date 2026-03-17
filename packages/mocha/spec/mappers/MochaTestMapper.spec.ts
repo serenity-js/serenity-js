@@ -1,6 +1,6 @@
 import { expect } from '@integration/testing-tools';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { ArbitraryTag, Category, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
+import { FileSystemLocation, Path } from '@serenity-js/core/io';
+import { ArbitraryTag, Category, Name, ScenarioDetails } from '@serenity-js/core/model';
 import { describe, it } from 'mocha';
 
 import { MochaTestMapper } from '../../src/mappers/index.js';

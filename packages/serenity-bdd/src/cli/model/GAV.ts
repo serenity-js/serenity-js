@@ -1,4 +1,4 @@
-import { Path } from '@serenity-js/core/lib/io';
+import { Path } from '@serenity-js/core/io';
 import { ensure, isDefined, isInRange, isInteger, matches, property, TinyType } from 'tiny-types';
 
 /**

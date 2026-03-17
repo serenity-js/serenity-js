@@ -1,4 +1,4 @@
-import { JSONData } from '@serenity-js/core/lib/model';
+import { JSONData } from '@serenity-js/core/model';
 
 /**
  * An update on the progress of the Serenity BDD jar download.
