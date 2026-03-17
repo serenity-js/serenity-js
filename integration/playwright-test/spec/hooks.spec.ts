@@ -10,7 +10,7 @@ import {
     SceneFinishes,
     SceneStarts,
     SceneTagged
-} from '@serenity-js/core/lib/events';
+} from '@serenity-js/core/events';
 import {
     CapabilityTag,
     ExecutionFailedWithAssertionError,
@@ -20,8 +20,8 @@ import {
     Name,
     ProblemIndication,
     ThemeTag
-} from '@serenity-js/core/lib/model';
-import { PlaywrightSceneId } from '@serenity-js/playwright-test/lib/events';
+} from '@serenity-js/core/model';
+import { PlaywrightSceneId } from '@serenity-js/playwright-test/events';
 import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../src/playwright-test';

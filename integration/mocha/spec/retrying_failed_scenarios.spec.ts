@@ -1,7 +1,7 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { Timestamp } from '@serenity-js/core';
-import { RetryableSceneDetected, SceneFinished, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
-import { ArbitraryTag, CorrelationId, ExecutionIgnored, ExecutionRetriedTag, ExecutionSuccessful, FeatureTag, Name, ProblemIndication } from '@serenity-js/core/lib/model';
+import { RetryableSceneDetected, SceneFinished, SceneStarts, SceneTagged, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/events';
+import { ArbitraryTag, CorrelationId, ExecutionIgnored, ExecutionRetriedTag, ExecutionSuccessful, FeatureTag, Name, ProblemIndication } from '@serenity-js/core/model';
 import { describe, it } from 'mocha';
 
 import { mocha } from '../src/mocha';

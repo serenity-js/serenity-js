@@ -13,17 +13,17 @@ import {
     TestRunFinishes,
     TestRunnerDetected,
     TestRunStarts,
-} from '@serenity-js/core/lib/events';
-import { FileSystem, ModuleLoader, Path, trimmed } from '@serenity-js/core/lib/io';
-import type { CorrelationId } from '@serenity-js/core/lib/model';
-import { ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/events';
+import { FileSystem, ModuleLoader, Path, trimmed } from '@serenity-js/core/io';
+import type { CorrelationId } from '@serenity-js/core/model';
+import { ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/model';
 import {
     CucumberCLIAdapter,
     type CucumberConfig,
     type SerenityFormatterOutput,
     StandardOutput,
     TempFileOutput as TemporaryFileOutput
-} from '@serenity-js/cucumber/lib/adapter';
+} from '@serenity-js/cucumber/adapter';
 import { given } from 'mocha-testdata';
 
 import { cucumberVersion } from '../src';

@@ -1,6 +1,6 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { ActivityRelatedArtifactGenerated, InteractionStarts, SceneFinished, SceneStarts, SceneTagged } from '@serenity-js/core/lib/events';
-import { CapabilityTag, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+import { ActivityRelatedArtifactGenerated, InteractionStarts, SceneFinished, SceneStarts, SceneTagged } from '@serenity-js/core/events';
+import { CapabilityTag, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/model';
 import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../src/playwright-test';

@@ -12,8 +12,8 @@ import {
     TestRunFinishes,
     TestRunnerDetected,
     TestRunStarts,
-} from '@serenity-js/core/lib/events';
-import { CorrelationId, ExecutionFailedWithError, FeatureTag, Name } from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/events';
+import { CorrelationId, ExecutionFailedWithError, FeatureTag, Name } from '@serenity-js/core/model';
 
 import { cucumber, cucumberVersion } from '../src';
 

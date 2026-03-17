@@ -1,6 +1,6 @@
 import * as childProcess from 'node:child_process';
 
-import * as events from '@serenity-js/core/lib/events/index.js';
+import * as events from '@serenity-js/core/events';
 
 import { DTO } from '../child-process-reporter/index.js';
 import { SpawnResult } from './SpawnResult.js';

@@ -1,8 +1,8 @@
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { SceneFinished, SceneFinishes, SceneParametersDetected, SceneSequenceDetected, SceneStarts } from '@serenity-js/core/lib/events';
-import { Category, CorrelationId, Description, Name } from '@serenity-js/core/lib/model';
+import { SceneFinished, SceneFinishes, SceneParametersDetected, SceneSequenceDetected, SceneStarts } from '@serenity-js/core/events';
+import { Category, CorrelationId, Description, Name } from '@serenity-js/core/model';
 
 import { cucumber, cucumberVersion } from '../src';
 

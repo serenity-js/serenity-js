@@ -1,5 +1,5 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { DomainEvent, SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { DomainEvent, SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/events';
 import {
     ArbitraryTag,
     CapabilityTag,
@@ -7,7 +7,7 @@ import {
     FeatureTag,
     Name,
     ProjectTag
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/model';
 import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../../src/playwright-test';
