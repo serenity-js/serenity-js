@@ -23,7 +23,7 @@ export class WebdriverIOModalDialogHandler extends ModalDialogHandler implements
         }
 
     private currentHandler: (dialog: WebdriverIO.Dialog) => Promise<void>;
-    private dialog?: WebdriverIO.Dialog;
+    private pendingDialogHandling: Promise<void> = Promise.resolve();
 
     constructor(private readonly browser: WebdriverIO.Browser) {
         super();
@@ -33,7 +33,9 @@ export class WebdriverIOModalDialogHandler extends ModalDialogHandler implements
         this.browser.on('dialog', this.onDialog);
     }
 
-    private onDialog = this.tryToHandleDialog.bind(this);
+    private onDialog = (dialog: WebdriverIO.Dialog) => {
+        this.pendingDialogHandling = this.tryToHandleDialog(dialog);
+    };
 
     private async tryToHandleDialog(dialog: WebdriverIO.Dialog): Promise<void> {
         try {
@@ -84,13 +86,18 @@ export class WebdriverIOModalDialogHandler extends ModalDialogHandler implements
     }
 
     async dismiss(): Promise<void> {
-        if (! this.dialog) {
-            return;
+        try {
+            const message = await this.browser.getAlertText();
+            await this.browser.dismissAlert();
+            this.modalDialog = new DismissedModalDialog(message);
         }
-
-        const message = this.dialog.message();
-        await this.dialog.dismiss();
-        this.modalDialog = new DismissedModalDialog(message);
+        catch (error) {
+            // Dialog might have already been handled by the event listener
+            if (error.message?.includes(WebdriverProtocolErrorCode.NoSuchAlertError)) {
+                return;
+            }
+            throw error;
+        }
     }
 
     async reset(): Promise<void> {
@@ -102,6 +109,7 @@ export class WebdriverIOModalDialogHandler extends ModalDialogHandler implements
      * @override
      */
     async last(): Promise<ModalDialog> {
+        await this.pendingDialogHandling;
         return this.modalDialog;
     }
 
