@@ -1,2 +1,2 @@
-export * from './Notifier';
-export * from './ResultMapper';
+export * from './Notifier.js';
+export * from './ResultMapper.js';

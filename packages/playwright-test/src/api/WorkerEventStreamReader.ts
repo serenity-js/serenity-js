@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 
-import type { DomainEvent } from '@serenity-js/core/lib/events';
-import * as events from '@serenity-js/core/lib/events';
+import type { DomainEvent } from '@serenity-js/core/events';
+import * as events from '@serenity-js/core/events';
 import type { JSONObject } from 'tiny-types';
 
 export class WorkerEventStreamReader {

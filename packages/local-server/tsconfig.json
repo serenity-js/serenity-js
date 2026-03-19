@@ -1,3 +1,23 @@
 {
-  "extends": "../../tsconfig.json"
+  "extends": "../../tsconfig.options.json",
+
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "./lib",
+    "module": "Node20",
+    "moduleResolution": "Node16",
+    "esModuleInterop": true,
+    "types": [
+      "node",
+      "mocha"
+    ]
+  },
+
+  "include": [
+    "src/**/*.ts",
+    "spec/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

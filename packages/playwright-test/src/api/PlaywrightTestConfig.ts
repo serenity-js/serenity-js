@@ -1,6 +1,6 @@
 import type { PlaywrightTestConfig as BasePlaywrightTestConfig } from '@playwright/test';
 
-import type { SerenityFixtures, SerenityWorkerFixtures } from './serenity-fixtures';
+import type { SerenityFixtures, SerenityWorkerFixtures } from './serenity-fixtures.js';
 
 /**
  * Convenience alias for [PlaywrightTestConfig](https://playwright.dev/docs/test-configuration) object

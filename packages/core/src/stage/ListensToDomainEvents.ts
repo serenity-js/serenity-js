@@ -1,4 +1,4 @@
-import type { DomainEvent } from '../events';
+import type { DomainEvent } from '../events/index.js';
 
 /**
  * A [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) that can listen and react to [Serenity/JS domain events](https://serenity-js.org/api/core-events/class/DomainEvent/)

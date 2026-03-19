@@ -1,6 +1,6 @@
-import type { AbilityType } from './AbilityType';
-import type { SerialisedAbility } from './SerialisedAbility';
-import type { UsesAbilities } from './UsesAbilities';
+import type { AbilityType } from './AbilityType.js';
+import type { SerialisedAbility } from './SerialisedAbility.js';
+import type { UsesAbilities } from './UsesAbilities.js';
 
 /**
  * **Abilities** enable [actors](https://serenity-js.org/api/core/class/Actor/)
@@ -363,6 +363,53 @@ import type { UsesAbilities } from './UsesAbilities';
 export abstract class Ability {
 
     /**
+     * Symbol used to brand Ability instances for cross-module instanceof checks.
+     * This addresses the dual-package hazard where the same class loaded from
+     * both ESM and CJS creates distinct constructor functions.
+     */
+    private static readonly TYPE_BRAND = Symbol.for('@serenity-js/core/Ability');
+
+    /**
+     * Custom instanceof check that works across module boundaries.
+     * This addresses the dual-package hazard where the same class loaded from
+     * both ESM and CJS creates distinct constructor functions.
+     *
+     * The check walks up the prototype chain of the instance and compares
+     * constructor names, which remain consistent across module boundaries.
+     */
+    static [Symbol.hasInstance](instance: unknown): boolean {
+        if (instance === null || typeof instance !== 'object') {
+            return false;
+        }
+
+        // First, verify this is an Ability instance using the brand
+        if ((instance as any)[Ability.TYPE_BRAND] !== true) {
+            return false;
+        }
+
+        // When checking against the base Ability class, any branded instance qualifies
+        if (this.name === 'Ability') {
+            return true;
+        }
+
+        // For subclass checks, walk the prototype chain and compare by name
+        // This works across ESM/CJS boundaries where constructor references differ
+        let proto = Object.getPrototypeOf(instance);
+        while (proto !== null) {
+            if (proto.constructor?.name === this.name) {
+                return true;
+            }
+            proto = Object.getPrototypeOf(proto);
+        }
+
+        return false;
+    }
+
+    protected constructor() {
+        (this as any)[Ability.TYPE_BRAND] = true;
+    }
+
+    /**
      * Used to access an [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) of the given type
      * from within the [`Interaction`](https://serenity-js.org/api/core/class/Interaction/) and [`Question`](https://serenity-js.org/api/core/class/Question/) classes.
      *
@@ -441,7 +488,7 @@ export abstract class Ability {
      * ```
      */
     static abilityType(): AbilityType<Ability> {
-        return Ability.abilityTypeOf(this);
+        return Ability.abilityTypeOf(this as unknown as AbilityType<Ability>);
     }
 
     /**
@@ -473,8 +520,20 @@ export abstract class Ability {
     private static ancestorTypes(abilityType: AbilityType<Ability>, ancestors: Array<AbilityType<Ability>> = []): Array<AbilityType<Ability>> {
         const parentType = Object.getPrototypeOf(abilityType);
 
-        return ! parentType || parentType === Ability
+        return ! parentType || Ability.isAbilityClass(parentType)
             ? ancestors
             : this.ancestorTypes(parentType, [ parentType, ...ancestors ]);
+    }
+
+    /**
+     * Checks if the given constructor is the Ability base class.
+     * Uses name comparison to work across ESM/CJS module boundaries
+     * where the same class loaded from different module systems
+     * creates distinct constructor functions.
+     */
+    private static isAbilityClass(constructor: unknown): boolean {
+        return typeof constructor === 'function'
+            && constructor.name === 'Ability'
+            && typeof (constructor as typeof Ability).abilityType === 'function';
     }
 }

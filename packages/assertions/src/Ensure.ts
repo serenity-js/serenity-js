@@ -18,9 +18,9 @@ import {
     RaiseErrors,
     the
 } from '@serenity-js/core';
-import type { FileSystemLocation } from '@serenity-js/core/lib/io';
+import type { FileSystemLocation } from '@serenity-js/core/io';
 
-import { EnsureEventually } from './EnsureEventually';
+import { EnsureEventually } from './EnsureEventually.js';
 
 /**
  * The [interaction](https://serenity-js.org/api/core/class/Interaction/) to `Ensure`

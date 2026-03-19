@@ -1,1 +1,1 @@
-export * from './AmbiguousStepDefinitionError';
+export * from './AmbiguousStepDefinitionError.js';

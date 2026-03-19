@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/prevent-abbreviations */
-import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter';
-import { Config, FileFinder, FileSystem, ModuleLoader, Path } from '@serenity-js/core/lib/io';
-import type { CucumberConfig } from '@serenity-js/cucumber/lib/adapter';
+import type { TestRunnerAdapter } from '@serenity-js/core/adapter';
+import { Config, FileFinder, FileSystem, ModuleLoader, Path } from '@serenity-js/core/io';
+import type { CucumberConfig } from '@serenity-js/cucumber/adapter';
 
 import type { CucumberAdapterConfig } from './CucumberAdapterConfig';
 
@@ -51,7 +51,7 @@ export class TestRunnerLoader {
      * @param mochaOpts
      */
     forMocha(mochaOpts: object /* MochaConfig */): TestRunnerAdapter {
-        const { MochaAdapter } = this.moduleLoader.require('@serenity-js/mocha/lib/adapter')
+        const { MochaAdapter } = this.moduleLoader.require('@serenity-js/mocha/adapter')
         return new MochaAdapter(mochaOpts, this.moduleLoader);
     }
 
@@ -62,7 +62,7 @@ export class TestRunnerLoader {
      * @param adapterConfig
      */
     forCucumber(cucumberOpts: object /* CucumberConfig */, adapterConfig: CucumberAdapterConfig): TestRunnerAdapter {
-        const { CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput } = this.moduleLoader.require('@serenity-js/cucumber/lib/adapter');
+        const { CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput } = this.moduleLoader.require('@serenity-js/cucumber/adapter');
 
         const config = new Config<CucumberConfig>(cucumberOpts)
             .whereIf(adapterConfig.uniqueFormatterOutputs, 'format', values =>

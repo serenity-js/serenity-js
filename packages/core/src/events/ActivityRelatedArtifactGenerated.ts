@@ -1,10 +1,10 @@
 import type { JSONObject } from 'tiny-types';
 import { ensure, isDefined } from 'tiny-types';
 
-import type { SerialisedArtifact } from '../model';
-import { Artifact, CorrelationId, Name } from '../model';
-import { Timestamp } from '../screenplay';
-import { ArtifactGenerated } from './ArtifactGenerated';
+import type { SerialisedArtifact } from '../model/index.js';
+import { Artifact, CorrelationId, Name } from '../model/index.js';
+import { Timestamp } from '../screenplay/index.js';
+import { ArtifactGenerated } from './ArtifactGenerated.js';
 
 /**
  * @group Events

@@ -1,7 +1,7 @@
-import type { Discardable, SerialisedAbility } from '../../abilities';
-import { Ability } from '../../abilities';
-import type { Clock, DelayedCallback, Duration, RepeatUntilLimits } from '../models';
-import { Scheduler } from '../models';
+import type { Discardable, SerialisedAbility } from '../../abilities/index.js';
+import { Ability } from '../../abilities/index.js';
+import type { Clock, DelayedCallback, Duration, RepeatUntilLimits } from '../models/index.js';
+import { Scheduler } from '../models/index.js';
 
 /**
  * An [`Ability`](https://serenity-js.org/api/core/class/Ability/) that enables an [`Actor`](https://serenity-js.org/api/core/class/Actor/) to schedule a callback function

@@ -11,7 +11,7 @@ import {
     TestRunFinishes,
     TestRunnerDetected,
     TestRunStarts,
-} from '@serenity-js/core/lib/events';
+} from '@serenity-js/core/events';
 import {
     CapabilityTag,
     CorrelationId,
@@ -19,7 +19,7 @@ import {
     ExecutionSuccessful,
     FeatureTag,
     Name
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/model';
 import { describe, it } from 'mocha';
 
 import { protractor } from '../src/protractor';

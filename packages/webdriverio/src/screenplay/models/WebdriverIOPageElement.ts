@@ -3,7 +3,7 @@ import 'webdriverio';
 import { LogicError } from '@serenity-js/core';
 import type { SwitchableOrigin } from '@serenity-js/web';
 import { Key, PageElement, SelectOption } from '@serenity-js/web';
-import * as scripts from '@serenity-js/web/lib/scripts/index.js';
+import * as scripts from '@serenity-js/web/scripts';
 
 import type { WebdriverIOLocator } from './locators/index.js';
 import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';
@@ -165,6 +165,20 @@ export class WebdriverIOPageElement extends PageElement<WebdriverIO.Element> {
 
     async value(): Promise<string> {
         const element = await this.nativeElement();
+        const browser = await this.browserFor(element);
+
+        // WebdriverIO v9 returns empty string for non-input elements instead of throwing
+        // Check if element actually supports the value property
+        const hasValueProperty = await browser.execute(
+            /* c8 ignore next */
+            (element_: HTMLElement) => 'value' in element_,
+            element as unknown as HTMLElement
+        );
+
+        if (! hasValueProperty) {
+            return undefined;
+        }
+
         return await element.getValue() as string;
     }
 

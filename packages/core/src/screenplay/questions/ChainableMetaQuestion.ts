@@ -1,6 +1,6 @@
-import type { Answerable } from '../Answerable';
-import type { Question } from '../Question';
-import type { MetaQuestion } from './MetaQuestion';
+import type { Answerable } from '../Answerable.js';
+import type { Question } from '../Question.js';
+import type { MetaQuestion } from './MetaQuestion.js';
 
 /**
  * A chainable meta-question is a [`MetaQuestion`](https://serenity-js.org/api/core/interface/MetaQuestion/) that can be answered

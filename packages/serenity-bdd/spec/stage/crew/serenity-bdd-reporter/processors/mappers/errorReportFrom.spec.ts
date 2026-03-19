@@ -2,7 +2,7 @@ import { inspect } from 'node:util';
 
 import { expect } from '@integration/testing-tools';
 import { AssertionError, ConfigurationError } from '@serenity-js/core';
-import { trimmed } from '@serenity-js/core/lib/io';
+import { trimmed } from '@serenity-js/core/io';
 import { describe, it } from 'mocha';
 
 import { errorReportFrom } from '../../../../../../src/stage/crew/serenity-bdd-reporter/processors/mappers';

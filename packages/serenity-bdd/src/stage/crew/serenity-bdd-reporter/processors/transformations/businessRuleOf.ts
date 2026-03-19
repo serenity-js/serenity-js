@@ -1,4 +1,4 @@
-import type { BusinessRule } from '@serenity-js/core/lib/model';
+import type { BusinessRule } from '@serenity-js/core/model';
 
 import { escapeHtml } from '../mappers';
 import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';

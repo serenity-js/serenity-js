@@ -1,12 +1,12 @@
 import path from 'node:path';
 
-import { ErrorStackParser } from '../errors';
-import { FileSystemLocation, Path } from '../io';
-import type { UsesAbilities } from './abilities';
-import type { PerformsActivities } from './activities';
-import type { Answerable } from './Answerable';
-import type { AnswersQuestions } from './questions/AnswersQuestions';
-import { Describable } from './questions/Describable';
+import { ErrorStackParser } from '../errors/index.js';
+import { FileSystemLocation, Path } from '../io/index.js';
+import type { UsesAbilities } from './abilities/index.js';
+import type { PerformsActivities } from './activities/index.js';
+import type { Answerable } from './Answerable.js';
+import type { AnswersQuestions } from './questions/AnswersQuestions.js';
+import { Describable } from './questions/Describable.js';
 
 /**
  * **Activities** represents [tasks](https://serenity-js.org/api/core/class/Task/) and [interactions](https://serenity-js.org/api/core/class/Interaction/) to be performed by an [actor](https://serenity-js.org/api/core/class/Actor/).

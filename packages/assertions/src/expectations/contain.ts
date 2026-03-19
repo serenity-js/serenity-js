@@ -1,5 +1,5 @@
 import { Expectation } from '@serenity-js/core';
-import { equal } from 'tiny-types/lib/objects';
+import { equal } from 'tiny-types/lib/objects/index.js';
 
 /**
  * Produces an [expectation](https://serenity-js.org/api/core/class/Expectation/) that is met when the actual array of `Item[]` contains

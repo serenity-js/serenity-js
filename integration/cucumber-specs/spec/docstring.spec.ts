@@ -1,8 +1,8 @@
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { ActivityStarts } from '@serenity-js/core/lib/events';
-import { Name } from '@serenity-js/core/lib/model';
+import { ActivityStarts } from '@serenity-js/core/events';
+import { Name } from '@serenity-js/core/model';
 
 import { cucumber, cucumberVersion } from '../src';
 

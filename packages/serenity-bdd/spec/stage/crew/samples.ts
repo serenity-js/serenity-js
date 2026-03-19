@@ -1,5 +1,5 @@
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { Category, Name, Photo, ScenarioDetails } from '@serenity-js/core/lib/model';
+import { FileSystemLocation, Path } from '@serenity-js/core/io';
+import { Category, Name, Photo, ScenarioDetails } from '@serenity-js/core/model';
 
 export const defaultCardScenario = new ScenarioDetails(
     new Name('Paying with a default card'),

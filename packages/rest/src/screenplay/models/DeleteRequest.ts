@@ -2,7 +2,7 @@ import type { Answerable, WithAnswerableProperties } from '@serenity-js/core';
 import { Question } from '@serenity-js/core';
 import type { AxiosRequestConfig } from 'axios';
 
-import { HTTPRequest } from './HTTPRequest';
+import { HTTPRequest } from './HTTPRequest.js';
 
 /**
  * The DELETE method requests that the origin server remove the

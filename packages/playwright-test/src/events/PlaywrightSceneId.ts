@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 
 import type { FullProject, TestCase, TestResult } from '@playwright/test/reporter';
-import { CorrelationId } from '@serenity-js/core/lib/model';
+import { CorrelationId } from '@serenity-js/core/model';
 
 export class PlaywrightSceneId extends CorrelationId {
 

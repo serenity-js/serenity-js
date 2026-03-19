@@ -1,13 +1,28 @@
-
-const Module = require('module'); // No type definitions available
+import { createRequire } from 'node:module';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 
-import { Version } from '../Version';
+import { Version } from '../Version.js';
+
+// Get the Module object for internal resolution APIs
+const bootstrapRequire = createRequire(pathToFileURL(path.join(process.cwd(), 'package.json')).href);
+const Module = bootstrapRequire('module'); // No type definitions available
+
+/**
+ * Creates a require function for the given directory.
+ * Uses createRequire to create a require function anchored to the specified cwd.
+ */
+function createRequireForCwd(cwd: string): NodeRequire {
+    const contextFile = path.join(cwd, 'noop.js');
+    return createRequire(pathToFileURL(contextFile).href);
+}
 
 /**
  * Dynamically loads Node modules located relative to `cwd`.
  */
 export class ModuleLoader {
+
+    private readonly requireFn: NodeRequire;
 
     /**
      * @param {string} cwd
@@ -20,6 +35,8 @@ export class ModuleLoader {
         public readonly cwd: string,
         public readonly useRequireCache: boolean = true,
     ) {
+        // Create a require function anchored to the cwd
+        this.requireFn = createRequireForCwd(cwd);
     }
 
     /**
@@ -62,16 +79,16 @@ export class ModuleLoader {
      */
     require(moduleId: string): any {
         try {
-            return require(this.cachedIfNeeded(this.resolve(moduleId)));
+            return this.requireFn(this.cachedIfNeeded(this.resolve(moduleId)));
         }
         catch {
-            return require(this.cachedIfNeeded(moduleId));
+            return this.requireFn(this.cachedIfNeeded(moduleId));
         }
     }
 
     private cachedIfNeeded(moduleId: string): string {
         if (! this.useRequireCache) {
-            delete require.cache[moduleId];
+            delete this.requireFn.cache[moduleId];
         }
 
         return moduleId;

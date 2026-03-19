@@ -8,8 +8,8 @@ import { afterEach, describe } from 'mocha';
 import { given } from 'mocha-testdata';
 import { satisfies } from 'semver';
 
-import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '../src';
-import servers = require('./servers');
+import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '../src/index.js';
+import servers from './servers/index.js';
 
 describe('ManageALocalServer', () => {
 

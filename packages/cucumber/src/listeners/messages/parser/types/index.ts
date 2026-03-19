@@ -1,2 +1,2 @@
-export * from './ExtractedScenario';
-export * from './ExtractedScenarioOutline';
+export * from './ExtractedScenario.js';
+export * from './ExtractedScenarioOutline.js';

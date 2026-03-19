@@ -1,2 +1,2 @@
-export * from './EventFactory';
-export * from './PlaywrightSceneId';
+export * from './EventFactory.js';
+export * from './PlaywrightSceneId.js';

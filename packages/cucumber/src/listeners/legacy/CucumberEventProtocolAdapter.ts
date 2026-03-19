@@ -1,8 +1,8 @@
 import { RuntimeError } from '@serenity-js/core';
-import { AssertionError, ErrorSerialiser, ImplementationPendingError, TestCompromisedError } from '@serenity-js/core/lib/errors';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+import { AssertionError, ErrorSerialiser, ImplementationPendingError, TestCompromisedError } from '@serenity-js/core/errors';
+import { FileSystemLocation, Path } from '@serenity-js/core/io';
 import type {
-    Outcome} from '@serenity-js/core/lib/model';
+    Outcome} from '@serenity-js/core/model';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -11,13 +11,13 @@ import {
     ExecutionSuccessful,
     ImplementationPending,
     Name
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/model';
 import { ensure, isDefined } from 'tiny-types';
 
-import { AmbiguousStepDefinitionError } from '../../errors';
-import type { CucumberFormatterOptions } from './CucumberFormatterOptions';
-import type { Dependencies } from './Dependencies';
-import { Feature, Hook, Scenario, ScenarioOutline, Step } from './gherkin';
+import { AmbiguousStepDefinitionError } from '../../errors/index.js';
+import type { CucumberFormatterOptions } from './CucumberFormatterOptions.js';
+import type { Dependencies } from './Dependencies.js';
+import { Feature, Hook, Scenario, ScenarioOutline, Step } from './gherkin/index.js';
 
 interface Location {
     uri: string;

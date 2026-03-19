@@ -1,5 +1,5 @@
 import { Timestamp } from '@serenity-js/core';
-import type { CorrelationId, Name, Outcome } from '@serenity-js/core/lib/model';
+import type { CorrelationId, Name, Outcome } from '@serenity-js/core/model';
 
 import { escapeHtml, outcomeReportFrom } from '../mappers';
 import type { SerenityBDDReportContext } from '../SerenityBDDReportContext';

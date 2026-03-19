@@ -11,8 +11,8 @@ import {
     TestRunFinishes,
     TestRunnerDetected,
     TestRunStarts
-} from '@serenity-js/core/lib/events';
-import { trimmed } from '@serenity-js/core/lib/io';
+} from '@serenity-js/core/events';
+import { trimmed } from '@serenity-js/core/io';
 import {
     CapabilityTag,
     ExecutionCompromised,
@@ -22,8 +22,8 @@ import {
     Name,
     ProblemIndication,
     ThemeTag
-} from '@serenity-js/core/lib/model';
-import { PlaywrightSceneId } from '@serenity-js/playwright-test/lib/events';
+} from '@serenity-js/core/model';
+import { PlaywrightSceneId } from '@serenity-js/playwright-test/events';
 import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../../src/playwright-test';

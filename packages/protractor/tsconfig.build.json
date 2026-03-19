@@ -1,14 +1,18 @@
 {
-  "extends": "../../tsconfig.build.json",
-  "compilerOptions": {
-    "outDir": "lib",
-    "rootDir": "src",
-    "lib": [
-      "es2022",
-      "dom"
+    "extends": "../../tsconfig.build.json",
+    "compilerOptions": {
+        "outDir": "lib",
+        "lib": [
+            "es2023",
+            "dom"
+        ]
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "lib",
+        "node_modules",
+        "spec"
     ]
-  },
-  "include": [
-    "src/**/*.ts"
-  ]
 }

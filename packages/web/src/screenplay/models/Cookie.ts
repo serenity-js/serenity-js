@@ -3,9 +3,9 @@ import { Interaction, Question, the, Timestamp } from '@serenity-js/core';
 import type { Predicate } from 'tiny-types';
 import { ensure, isBoolean, isDefined, isInstanceOf, isOneOf, isPlainObject, isString } from 'tiny-types';
 
-import { CookieMissingError } from '../../errors';
-import { BrowseTheWeb } from '../abilities';
-import type { CookieData } from './CookieData';
+import { CookieMissingError } from '../../errors/index.js';
+import { BrowseTheWeb } from '../abilities/index.js';
+import type { CookieData } from './CookieData.js';
 
 /**
  * A Screenplay Pattern-style model responsible for managing cookies available to the current [`Page`](https://serenity-js.org/api/web/class/Page/).

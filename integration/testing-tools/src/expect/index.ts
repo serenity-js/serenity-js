@@ -2,7 +2,7 @@ import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import sinonChai from 'sinon-chai';
 
-import { assertions } from './tiny-types';
+import { assertions } from './tiny-types/index.js';
 
 chai.use(chaiAsPromised);
 chai.use(sinonChai);

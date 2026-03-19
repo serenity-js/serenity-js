@@ -1,10 +1,10 @@
 
 import { expect } from '@integration/testing-tools';
 import { Clock, ConfigurationError, Serenity } from '@serenity-js/core';
-import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
-import { ModuleLoader, Path } from '@serenity-js/core/lib/io/index.js';
-import type { Outcome } from '@serenity-js/core/lib/model/index.js';
-import { ExecutionIgnored } from '@serenity-js/core/lib/model/index.js';
+import type { TestRunnerAdapter } from '@serenity-js/core/adapter';
+import { ModuleLoader, Path } from '@serenity-js/core/io';
+import type { Outcome } from '@serenity-js/core/model';
+import { ExecutionIgnored } from '@serenity-js/core/model';
 import type { Capabilities, Reporters } from '@wdio/types';
 import { EventEmitter } from 'events';
 import { beforeEach, describe, it } from 'mocha';
@@ -55,7 +55,7 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
 
             const config = defaultConfig();
 
-            loader.require.withArgs('@serenity-js/mocha/lib/adapter/index.js').returns({ MochaAdapter: FakeTestRunnerAdapter })
+            loader.require.withArgs('@serenity-js/mocha/adapter').returns({ MochaAdapter: FakeTestRunnerAdapter })
 
             await factory.init(cid, config, specURIs, capabilities, baseReporter);
 
@@ -70,7 +70,7 @@ describe('WebdriverIOFrameworkAdapterFactory', () => {
                 }
             });
 
-            loader.require.withArgs('@serenity-js/mocha/lib/adapter/index.js').returns({ MochaAdapter: FakeTestRunnerAdapter })
+            loader.require.withArgs('@serenity-js/mocha/adapter').returns({ MochaAdapter: FakeTestRunnerAdapter })
 
             await factory.init(cid, config, specURIs, capabilities, baseReporter);
 

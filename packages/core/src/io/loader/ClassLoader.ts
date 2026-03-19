@@ -1,8 +1,8 @@
-import type { ClassDescription } from '../../config';
-import { ConfigurationError } from '../../errors';
-import { d } from '../format';
-import type { ClassDescriptionParser } from './ClassDescriptionParser';
-import type { ModuleLoader } from './ModuleLoader';
+import type { ClassDescription } from '../../config/index.js';
+import { ConfigurationError } from '../../errors/index.js';
+import { d } from '../format.js';
+import type { ClassDescriptionParser } from './ClassDescriptionParser.js';
+import type { ModuleLoader } from './ModuleLoader.js';
 
 export class ClassLoader {
     constructor(

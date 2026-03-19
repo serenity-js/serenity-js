@@ -1,4 +1,4 @@
-import { JSONData } from './JSONData';
+import { JSONData } from './JSONData.js';
 
 export class TextData extends JSONData {
     static fromJSON(value: { contentType: string, data: string }): TextData {

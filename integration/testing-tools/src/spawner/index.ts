@@ -1,3 +1,3 @@
-export * from './debug';
-export * from './spawner';
-export * from './SpawnResult';
+export * from './debug.js';
+export * from './spawner.js';
+export * from './SpawnResult.js';

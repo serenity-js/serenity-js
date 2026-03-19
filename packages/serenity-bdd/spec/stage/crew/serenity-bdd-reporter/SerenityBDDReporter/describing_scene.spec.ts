@@ -10,8 +10,8 @@ import {
     SceneFinished,
     SceneStarts,
     TestRunFinishes
-} from '@serenity-js/core/lib/events';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+} from '@serenity-js/core/events';
+import { FileSystemLocation, Path } from '@serenity-js/core/io';
 import {
     Category,
     CorrelationId,
@@ -19,7 +19,7 @@ import {
     ExecutionSuccessful,
     Name,
     ScenarioDetails
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/model';
 import { beforeEach, describe, it } from 'mocha';
 
 import { defaultCardScenario } from '../../samples';

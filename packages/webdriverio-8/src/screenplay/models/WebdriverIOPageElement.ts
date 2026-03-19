@@ -3,7 +3,7 @@ import 'webdriverio';
 import { LogicError } from '@serenity-js/core';
 import type { SwitchableOrigin } from '@serenity-js/web';
 import { Key, PageElement, SelectOption } from '@serenity-js/web';
-import * as scripts from '@serenity-js/web/lib/scripts/index.js';
+import * as scripts from '@serenity-js/web/scripts';
 
 import type { WebdriverIOLocator } from './locators/index.js';
 import { WebdriverProtocolErrorCode } from './WebdriverProtocolErrorCode.js';

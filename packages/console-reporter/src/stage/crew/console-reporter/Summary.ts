@@ -1,7 +1,7 @@
 import { Duration, Timestamp } from '@serenity-js/core';
 import type {
     Outcome,
-    ScenarioDetails} from '@serenity-js/core/lib/model';
+    ScenarioDetails} from '@serenity-js/core/model';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -10,7 +10,7 @@ import {
     ExecutionSkipped,
     ExecutionSuccessful,
     ImplementationPending
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/model';
 
 /**
  * @package

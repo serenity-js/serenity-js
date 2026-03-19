@@ -21,14 +21,11 @@
   "type": "module",
   "module": "./esm/index.js",
   "exports": {
-    ".": [
-      {
-        "types": "./esm/index.d.ts",
-        "import": "./esm/index.js",
-        "require": "./lib/index.js"
-      },
-      "./lib/index.js"
-    ],
+    ".": {
+      "types": "./esm/index.d.ts",
+      "import": "./esm/index.js",
+      "require": "./lib/index.js"
+    },
     "./package.json": "./package.json"
   },
   "keywords": [
@@ -56,11 +53,11 @@
     "clean": "rimraf target",
     "test": "c8 npm run test:no-coverage",
     "test:no-coverage": "mocha --config .mocharc.yml --spec='spec/**/*.spec.*'",
-    "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs && npm run compile:cjs-package",
+    "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs-package && npm run compile:cjs",
     "compile:clean": "rimraf lib esm",
     "compile:esm": "tsc --project tsconfig-esm.build.json",
-    "compile:cjs": "tsc --project tsconfig-cjs.build.json",
-    "compile:cjs-package": "node -e \"require('fs').writeFileSync('lib/package.json', '{ \\\"type\\\": \\\"commonjs\\\" }')\""
+    "compile:cjs-package": "node -e \"require('fs').mkdirSync('lib', { recursive: true }); require('fs').writeFileSync('lib/package.json', '{ \\\"type\\\": \\\"commonjs\\\" }')\"",
+    "compile:cjs": "tsc --project tsconfig-cjs.build.json"
   },
   "repository": {
     "type": "git",
@@ -79,7 +76,7 @@
     "@serenity-js/web": "workspace:*",
     "@wdio/reporter": "8.43.0",
     "deepmerge": "4.3.1",
-    "tiny-types": "1.24.3"
+    "tiny-types": "2.0.5"
   },
   "peerDependencies": {
     "@serenity-js/cucumber": "^3.0.0",
@@ -114,7 +111,7 @@
     "mocha": "11.7.5",
     "mocha-multi": "1.1.7",
     "mocha-testdata": "1.2.0",
-    "puppeteer-core": "24.38.0",
+    "puppeteer-core": "24.39.1",
     "start-server-and-test": "2.1.5",
     "webdriverio": "8.46.0"
   }

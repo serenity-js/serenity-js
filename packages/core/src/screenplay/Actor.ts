@@ -1,18 +1,18 @@
-import { ConfigurationError, TestCompromisedError } from '../errors';
-import { ActivityRelatedArtifactGenerated } from '../events';
-import { ValueInspector } from '../io';
-import type { Artifact } from '../model';
-import { Name, } from '../model';
-import type { Stage } from '../stage';
-import type { AbilityType, CanHaveAbilities, Discardable, Initialisable, UsesAbilities } from './abilities';
-import { Ability, AnswerQuestions, PerformActivities } from './abilities';
-import type { PerformsActivities } from './activities';
-import type { Activity } from './Activity';
-import type { Answerable } from './Answerable';
-import type { CollectsArtifacts } from './artifacts';
-import type { AnswersQuestions } from './questions';
-import type { SerialisedActor } from './SerialisedActor';
-import type { TellsTime, Timestamp } from './time';
+import { ConfigurationError, TestCompromisedError } from '../errors/index.js';
+import { ActivityRelatedArtifactGenerated } from '../events/index.js';
+import { ValueInspector } from '../io/index.js';
+import type { Artifact } from '../model/index.js';
+import { Name, } from '../model/index.js';
+import type { Stage } from '../stage/index.js';
+import type { AbilityType, CanHaveAbilities, Discardable, Initialisable, UsesAbilities } from './abilities/index.js';
+import { Ability, AnswerQuestions, PerformActivities } from './abilities/index.js';
+import type { PerformsActivities } from './activities/index.js';
+import type { Activity } from './Activity.js';
+import type { Answerable } from './Answerable.js';
+import type { CollectsArtifacts } from './artifacts/index.js';
+import type { AnswersQuestions } from './questions/index.js';
+import type { SerialisedActor } from './SerialisedActor.js';
+import type { TellsTime, Timestamp } from './time/index.js';
 
 /**
  * **Actors** represent **people** and **external systems** interacting with the system under test.
@@ -80,7 +80,12 @@ export class Actor implements PerformsActivities,
     CollectsArtifacts,
     TellsTime
 {
-    private readonly abilities: Map<AbilityType<Ability>, Ability> = new Map<AbilityType<Ability>, Ability>();
+    /**
+     * Map of abilities keyed by ability type name.
+     * Using string keys instead of constructor references to work across ESM/CJS module boundaries
+     * where the same class loaded from different module systems creates distinct constructor functions.
+     */
+    private readonly abilities: Map<string, Ability> = new Map<string, Ability>();
 
     constructor(
         public readonly name: string,
@@ -110,7 +115,7 @@ export class Actor implements PerformsActivities,
 
         if (! found) {
             throw new ConfigurationError(
-                `${ this.name } can ${ Array.from(this.abilities.keys()).map(type => type.name).join(', ') }. ` +
+                `${ this.name } can ${ Array.from(this.abilities.values()).map(ability => ability.constructor.name).join(', ') }. ` +
                 `They can't, however, ${ abilityType.name } yet. ` +
                 `Did you give them the ability to do so?`
             );
@@ -236,7 +241,7 @@ export class Actor implements PerformsActivities,
     }
 
     private findAbilitiesOfType<T>(...methodNames: Array<keyof T>): Array<Ability & T> {
-        const abilitiesFrom = (map: Map<AbilityType<Ability>, Ability>): Ability[] =>
+        const abilitiesFrom = (map: Map<string, Ability>): Ability[] =>
             Array.from(map.values());
 
         const abilitiesWithDesiredMethods = (ability: Ability & T): boolean =>
@@ -247,7 +252,7 @@ export class Actor implements PerformsActivities,
     }
 
     private findAbilityTo<T extends Ability>(doSomething: AbilityType<T>): T | undefined {
-        return this.abilities.get(doSomething.abilityType()) as T;
+        return this.abilities.get(doSomething.abilityType().name) as T;
     }
 
     private acquireAbility(ability: Ability): void {
@@ -255,7 +260,7 @@ export class Actor implements PerformsActivities,
             throw new ConfigurationError(`Custom abilities must extend Ability from '@serenity-js/core'. Received ${ ValueInspector.typeOf(ability) }`);
         }
 
-        this.abilities.set(ability.abilityType(), ability);
+        this.abilities.set(ability.abilityType().name, ability);
     }
 
     /**

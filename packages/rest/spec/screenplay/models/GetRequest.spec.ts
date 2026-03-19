@@ -1,9 +1,9 @@
 import { actorCalled, engage, q, Question } from '@serenity-js/core';
 import { beforeEach, describe, it } from 'mocha';
 
-import { GetRequest } from '../../../src';
-import { actors } from '../../actors';
-import { expect } from '../../expect';
+import { GetRequest } from '../../../src/index.js';
+import { actors } from '../../actors.js';
+import { expect } from '../../expect.js';
 
 describe('GetRequest', () => {
 

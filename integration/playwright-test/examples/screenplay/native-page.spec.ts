@@ -1,6 +1,6 @@
 import { endsWith, Ensure, equals, isPresent } from '@serenity-js/assertions';
 import { Question, Wait } from '@serenity-js/core';
-import { asyncMap } from '@serenity-js/core/lib/io';
+import { asyncMap } from '@serenity-js/core/io';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { afterEach, describe, expect, it, test } from '@serenity-js/playwright-test';
 import { BrowseTheWeb, By, Click, Navigate, Page, PageElement } from '@serenity-js/web';

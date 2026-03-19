@@ -1,5 +1,5 @@
 import { Stage, StageCrewMember } from '@serenity-js/core';
-import * as events from '@serenity-js/core/lib/events';
+import * as events from '@serenity-js/core/events';
 import { Writable } from 'stream';
 
 export class StdOutReporter implements StageCrewMember {

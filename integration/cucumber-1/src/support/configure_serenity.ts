@@ -3,6 +3,7 @@ import { serenity, StreamReporter } from '@serenity-js/core';
 
 import { Actors } from './Actors';
 
+// Cucumber 1.x expects support files to export a function
 export = function () {
 
     serenity.configure({

@@ -1,7 +1,7 @@
 import type { AnswersQuestions, CollectsArtifacts, UsesAbilities } from '@serenity-js/core';
 import { Interaction } from '@serenity-js/core';
 
-import { ManageALocalServer } from '../abilities';
+import { ManageALocalServer } from '../abilities/index.js';
 
 /**
  * Stops the local server. Should be used in `afterEach` block to make sure that the server

@@ -1,1 +1,1 @@
-export * from './BrowseTheWeb';
+export * from './BrowseTheWeb.js';

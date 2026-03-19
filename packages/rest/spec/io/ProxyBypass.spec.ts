@@ -2,7 +2,7 @@ import { expect } from '@integration/testing-tools';
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { ProxyBypass } from '../../src/io/ProxyBypass';
+import { ProxyBypass } from '../../src/io/ProxyBypass.js';
 
 describe('ProxyBypass', () => {
 

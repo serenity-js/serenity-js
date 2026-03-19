@@ -5,8 +5,8 @@ import { type WorkerInfo } from '@playwright/test';
 import type { TestCase } from '@playwright/test/reporter';
 import type { Stage, StageCrewMember } from '@serenity-js/core';
 import { LogicError } from '@serenity-js/core';
-import type { DomainEvent } from '@serenity-js/core/lib/events';
-import { CorrelationId } from '@serenity-js/core/lib/model';
+import type { DomainEvent } from '@serenity-js/core/events';
+import { CorrelationId } from '@serenity-js/core/model';
 import type { JSONObject } from 'tiny-types';
 
 export class WorkerEventStreamWriter implements StageCrewMember {

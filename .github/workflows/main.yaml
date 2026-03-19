@@ -37,7 +37,7 @@ jobs:
         uses: ./.github/actions/upload-compressed-artifact
         with:
           artifact-name: 'compiled-libs'
-          artifact-path: 'package.json "integration/*/lib/*" "packages/*/lib/*" "packages/*/esm/*" "packages/serenity-bdd/cache/*"'
+          artifact-path: 'package.json "integration/*/lib/*" "integration/*/esm/*" "packages/*/lib/*" "packages/*/esm/*" "packages/serenity-bdd/cache/*"'
 
   #
   # Test
@@ -383,7 +383,7 @@ jobs:
           git_username: ${{ secrets.RELEASE_GH_USERNAME }}
 
       - name: Download compiled libs
-        uses: actions/download-artifact@70fc10c6e5e1ce46ad2ea6f2b72d43f7d47b13c3 # v8
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
         with:
           name: compiled-libs
       - name: Decompress Libs

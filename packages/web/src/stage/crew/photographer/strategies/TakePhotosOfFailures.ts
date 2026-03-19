@@ -1,8 +1,8 @@
-import type { DomainEvent} from '@serenity-js/core/lib/events';
-import { InteractionFinished } from '@serenity-js/core/lib/events';
-import { ImplementationPending } from '@serenity-js/core/lib/model';
+import type { DomainEvent} from '@serenity-js/core/events';
+import { InteractionFinished } from '@serenity-js/core/events';
+import { ImplementationPending } from '@serenity-js/core/model';
 
-import { PhotoTakingStrategy } from './PhotoTakingStrategy';
+import { PhotoTakingStrategy } from './PhotoTakingStrategy.js';
 
 /**
  * Configures the [`Photographer`](https://serenity-js.org/api/web/class/Photographer/) to take photos (a.k.a. screenshots)

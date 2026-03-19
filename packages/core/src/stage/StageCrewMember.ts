@@ -1,5 +1,5 @@
-import type { ListensToDomainEvents } from './ListensToDomainEvents';
-import type { Stage } from './Stage';
+import type { ListensToDomainEvents } from './ListensToDomainEvents.js';
+import type { Stage } from './Stage.js';
 
 /**
  * You can think of the [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) as an in-memory microservice that reacts to [Serenity/JS domain events](https://serenity-js.org/api/core-events/class/DomainEvent/),
@@ -15,8 +15,8 @@ import type { Stage } from './Stage';
  *
  * ```ts
  * import { Stage, StageCrewMember } from '@serenity-js/core'
- * import * as events from '@serenity-js/core/lib/events'
- * import { ArbitraryTag } from '@serenity-js/core/lib/model'
+ * import * as events from '@serenity-js/core/events'
+ * import { ArbitraryTag } from '@serenity-js/core/model'
  *
  * export class TestRunnerTagger implements StageCrewMember {
  *

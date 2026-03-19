@@ -1,4 +1,4 @@
-import { DomainEvent } from '@serenity-js/core/lib/events';
+import { DomainEvent } from '@serenity-js/core/events';
 
 export class PickEvent {
     static from(events: DomainEvent[]): PickEvent {

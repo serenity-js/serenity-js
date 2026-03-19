@@ -1,9 +1,9 @@
-import { LogicError } from '../../errors';
-import type { DomainEvent} from '../../events';
-import { SceneSequenceDetected, SceneStarts } from '../../events';
-import { d } from '../../io/format';
-import type { CorrelationId, ScenarioDetails } from '../../model';
-import { DomainEventQueue } from './DomainEventQueue';
+import { LogicError } from '../../errors/index.js';
+import type { DomainEvent} from '../../events/index.js';
+import { SceneSequenceDetected, SceneStarts } from '../../events/index.js';
+import { d } from '../../io/format.js';
+import type { CorrelationId, ScenarioDetails } from '../../model/index.js';
+import { DomainEventQueue } from './DomainEventQueue.js';
 
 /**
  * @group Stage

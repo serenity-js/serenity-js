@@ -1,11 +1,11 @@
-import { d } from '../../io';
-import type { PerformsActivities } from '../activities';
-import type { Activity } from '../Activity';
-import type { Answerable } from '../Answerable';
-import type { AnswersQuestions } from '../questions';
-import { Task } from '../Task';
-import type { Expectation } from './Expectation';
-import { ExpectationMet } from './expectations';
+import { d } from '../../io/index.js';
+import type { PerformsActivities } from '../activities/index.js';
+import type { Activity } from '../Activity.js';
+import type { Answerable } from '../Answerable.js';
+import type { AnswersQuestions } from '../questions/index.js';
+import { Task } from '../Task.js';
+import type { Expectation } from './Expectation.js';
+import { ExpectationMet } from './expectations/index.js';
 
 /**
  * A [flow control statement](https://en.wikipedia.org/wiki/Control_flow)

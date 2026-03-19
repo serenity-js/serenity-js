@@ -1,2 +1,2 @@
-export * from './PlaywrightLocator';
-export * from './PlaywrightRootLocator';
+export * from './PlaywrightLocator.js';
+export * from './PlaywrightRootLocator.js';

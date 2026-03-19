@@ -1,7 +1,7 @@
 import path from 'node:path';
 
 import { actorCalled, configure } from '@serenity-js/core';
-import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';
+import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import * as process from 'process';
 
 import type { Argv } from '../Argv';

@@ -1,6 +1,6 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent, StdOutReporter } from '@integration/testing-tools';
 import { AssertionError } from '@serenity-js/core';
-import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
+import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/events';
 import {
     BrowserTag,
     CapabilityTag,
@@ -9,7 +9,7 @@ import {
     Name,
     PlatformTag,
     ProblemIndication
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/model';
 import { describe, it } from 'mocha';
 
 import { wdio } from '../src';

@@ -1,8 +1,7 @@
 /* eslint-disable unicorn/prevent-abbreviations */
-import chaiModule = require('chai');
-
-import chaiAsPromised = require('chai-as-promised');
-import sinonChai = require('sinon-chai');
+import * as chaiModule from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import sinonChai from 'sinon-chai';
 import { TinyType } from 'tiny-types';
 
 chaiModule.use(function (chai, utils) {

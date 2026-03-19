@@ -1,12 +1,12 @@
 import type { JSONValue } from 'tiny-types';
 
-import { asyncMap, d } from '../../io';
-import { ExpectationDetails, ExpectationMet, ExpectationNotMet } from '../';
-import type { Answerable, AnswersQuestions, QuestionAdapter} from '../index';
-import { the } from '../index';
-import { Question } from '../Question';
-import { Describable } from '../questions';
-import type { ExpectationOutcome } from './expectations';
+import { asyncMap, d } from '../../io/index.js';
+import { ExpectationDetails, ExpectationMet, ExpectationNotMet } from '..//index.js';
+import type { Answerable, AnswersQuestions, QuestionAdapter} from '../index.js';
+import { the } from '../index.js';
+import { Question } from '../Question.js';
+import { Describable } from '../questions/index.js';
+import type { ExpectationOutcome } from './expectations/index.js';
 
 /**
  * @group Expectations

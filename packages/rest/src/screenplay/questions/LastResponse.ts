@@ -2,7 +2,7 @@ import type { QuestionAdapter } from '@serenity-js/core';
 import { Question } from '@serenity-js/core';
 import type { RawAxiosResponseHeaders } from 'axios';
 
-import { CallAnApi } from '../abilities';
+import { CallAnApi } from '../abilities/index.js';
 
 /**
  * Provides access to the properties of the last [`AxiosResponse`](https://axios-http.com/docs/res_schema) object,

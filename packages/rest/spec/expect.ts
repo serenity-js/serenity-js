@@ -1,6 +1,6 @@
-import chaiModule = require('chai');
-import chaiAsPromised = require('chai-as-promised');
+import * as chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
 
-chaiModule.use(chaiAsPromised);
+chai.use(chaiAsPromised);
 
-export const expect = chaiModule.expect;
+export const expect = chai.expect;

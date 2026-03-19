@@ -1,5 +1,5 @@
-import type { CorrelationIdFactory } from '@serenity-js/core/lib/model';
-import { CorrelationId } from '@serenity-js/core/lib/model';
+import type { CorrelationIdFactory } from '@serenity-js/core/model';
+import { CorrelationId } from '@serenity-js/core/model';
 
 export class PlaywrightTestSceneIdFactory implements CorrelationIdFactory {
     private testId: CorrelationId;

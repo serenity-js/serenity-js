@@ -1,9 +1,9 @@
 import type { JSONObject } from 'tiny-types';
 import { ensure, isDefined } from 'tiny-types';
 
-import { BusinessRule, CorrelationId, ScenarioDetails } from '../model';
-import { Timestamp } from '../screenplay';
-import { DomainEvent } from './DomainEvent';
+import { BusinessRule, CorrelationId, ScenarioDetails } from '../model/index.js';
+import { Timestamp } from '../screenplay/index.js';
+import { DomainEvent } from './DomainEvent.js';
 
 /**
  * Emitted by [@serenity-js/cucumber](https://serenity-js.org/api/cucumber)

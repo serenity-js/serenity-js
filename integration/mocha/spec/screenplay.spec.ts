@@ -1,6 +1,6 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
-import { trimmed } from '@serenity-js/core/lib/io';
+import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/events';
+import { trimmed } from '@serenity-js/core/io';
 import {
     CapabilityTag,
     ExecutionFailedWithAssertionError,
@@ -9,7 +9,7 @@ import {
     FeatureTag,
     Name,
     ProblemIndication
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/model';
 import { describe, it } from 'mocha';
 
 import { mocha } from '../src/mocha';

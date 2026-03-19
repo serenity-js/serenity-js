@@ -1,9 +1,9 @@
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError } from '@serenity-js/core';
-import { trimmed } from '@serenity-js/core/lib/io';
+import { trimmed } from '@serenity-js/core/io';
 import { describe, it } from 'mocha';
 
-import { Ensure, equals, property } from '../../src';
+import { Ensure, equals, property } from '../../src/index.js';
 
 interface Person {
     name: string;

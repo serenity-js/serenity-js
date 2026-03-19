@@ -1,10 +1,10 @@
 import type { Answerable, AnswersQuestions, ChainableMetaQuestion, UsesAbilities } from '@serenity-js/core';
 import { Question, the } from '@serenity-js/core';
 
-import { BrowseTheWeb } from '../abilities';
-import type { Locator } from './Locator';
-import type { PageElement } from './PageElement';
-import type { Selector } from './selectors';
+import { BrowseTheWeb } from '../abilities/index.js';
+import type { Locator } from './Locator.js';
+import type { PageElement } from './PageElement.js';
+import type { Selector } from './selectors/index.js';
 
 /**
  * @group Models

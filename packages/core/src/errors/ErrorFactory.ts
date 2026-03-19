@@ -2,14 +2,14 @@ import { types } from 'node:util';
 
 import type { ArrayChange, Change } from 'diff';
 import { diffArrays, diffJson } from 'diff';
-import { equal } from 'tiny-types/lib/objects';
+import { equal } from 'tiny-types/lib/objects/equal.js';
 
-import { inspected, ValueInspector } from '../io';
-import { Unanswered } from '../screenplay/questions/Unanswered';
-import type { DiffFormatter } from './diff';
-import { AnsiDiffFormatter } from './diff/AnsiDiffFormatter';
-import type { ErrorOptions } from './ErrorOptions';
-import type { RuntimeError } from './model';
+import { inspected, ValueInspector } from '../io/index.js';
+import { Unanswered } from '../screenplay/questions/Unanswered.js';
+import { AnsiDiffFormatter } from './diff/AnsiDiffFormatter.js';
+import type { DiffFormatter } from './diff/index.js';
+import type { ErrorOptions } from './ErrorOptions.js';
+import type { RuntimeError } from './model/index.js';
 
 /**
  * Generates Serenity/JS [`RuntimeError`](https://serenity-js.org/api/core/class/RuntimeError/) objects based

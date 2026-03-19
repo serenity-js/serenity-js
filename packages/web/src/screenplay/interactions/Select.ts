@@ -1,9 +1,8 @@
 import { type Answerable, Interaction,the } from '@serenity-js/core';
-import { asyncMap, commaSeparated } from '@serenity-js/core/lib/io';
-import { stringified } from '@serenity-js/core/lib/io/stringified';
+import { asyncMap, commaSeparated, stringified } from '@serenity-js/core/io';
 
-import type { PageElement } from '../models';
-import { SelectOption } from '../models';
+import type { PageElement } from '../models/index.js';
+import { SelectOption } from '../models/index.js';
 
 /**
  * Instructs an [actor](https://serenity-js.org/api/core/class/Actor/) who has the [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)

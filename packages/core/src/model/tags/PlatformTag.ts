@@ -1,6 +1,6 @@
 import type { JSONObject } from 'tiny-types';
 
-import { Tag } from './Tag';
+import { Tag } from './Tag.js';
 
 /**
  * @access public

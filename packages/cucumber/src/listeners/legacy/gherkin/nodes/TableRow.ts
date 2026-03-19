@@ -1,5 +1,5 @@
-import type { ASTNode } from './ASTNode';
-import type { TableCell } from './TableCell';
+import type { ASTNode } from './ASTNode.js';
+import type { TableCell } from './TableCell.js';
 
 /**
  * @private

@@ -11,8 +11,8 @@ import {
     SceneStarts,
     SceneTemplateDetected,
     TestRunFinishes,
-} from '@serenity-js/core/lib/events';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+} from '@serenity-js/core/events';
+import { FileSystemLocation, Path } from '@serenity-js/core/io';
 import {
     BusinessRule,
     Category,
@@ -22,7 +22,7 @@ import {
     Name,
     ScenarioDetails,
     ScenarioParameters
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/model';
 import { beforeEach, describe, it } from 'mocha';
 
 import { create } from '../create';

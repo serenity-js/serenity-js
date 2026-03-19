@@ -1,7 +1,7 @@
 import { ensure, isDefined, type JSONObject } from 'tiny-types';
 
-import { Duration } from './Duration';
-import { Timestamp } from './Timestamp';
+import { Duration } from './Duration.js';
+import { Timestamp } from './Timestamp.js';
 
 /**
  * A [`Clock`](https://serenity-js.org/api/core/class/Clock/) tells the time. This abstraction allows Serenity/JS to have a single place

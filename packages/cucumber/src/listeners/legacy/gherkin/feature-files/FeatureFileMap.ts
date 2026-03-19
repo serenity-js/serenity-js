@@ -1,6 +1,6 @@
 
-import type { Constructor } from '../constructables';
-import { ItemNotFoundError } from './errors';
+import type { Constructor } from '../constructables.js';
+import { ItemNotFoundError } from './errors/index.js';
 
 /**
  * @private

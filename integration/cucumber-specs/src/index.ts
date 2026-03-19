@@ -1,15 +1,16 @@
 import { SpawnResult } from '@integration/testing-tools';
 import { LogicError } from '@serenity-js/core';
-import { ModuleLoader, Version } from '@serenity-js/core/lib/io';
+import { ModuleLoader, Version } from '@serenity-js/core/io';
 
 import { CucumberRunner } from './CucumberRunner';
 
 export function registerRunner(
     pathToCucumberExecutable: string,
     cwd: string,
-    args: string[]
+    args: string[],
+    execArgv: string[] = []
 ): void {
-    (global as any).cucumberRunner = new CucumberRunner(pathToCucumberExecutable, cwd, args);
+    (global as any).cucumberRunner = new CucumberRunner(pathToCucumberExecutable, cwd, args, execArgv);
 }
 
 export async function cucumber(pathToFeatureFile: string, stepDefinitionsFileNames: string | string[], scenarioArguments: string[] = []): Promise<SpawnResult> {

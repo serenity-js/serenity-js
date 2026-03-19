@@ -1,8 +1,8 @@
 import { serenity } from '@serenity-js/core';
-import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io';
+import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import type { MochaOptions, Runner } from 'mocha';
 
-import { SerenityReporterForMocha } from './SerenityReporterForMocha';
+import { SerenityReporterForMocha } from './SerenityReporterForMocha.js';
 
 /**
  * Registers a Mocha reporter that emits [Serenity/JS domain events](https://serenity-js.org/api/core-events/class/DomainEvent/)
@@ -18,4 +18,11 @@ function bootstrap(runner: Runner, options?: MochaOptions): SerenityReporterForM
     return new SerenityReporterForMocha(serenity, requirementsHierarchy, runner, options);
 }
 
-export = bootstrap;
+export default bootstrap;
+
+// CommonJS compatibility - assign to module.exports for Mocha reporter loading
+// This is needed because Mocha expects module.exports to be the reporter function
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = bootstrap;
+    module.exports.default = bootstrap;
+}

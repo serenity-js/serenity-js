@@ -8,8 +8,8 @@ import type {
 } from '@serenity-js/core';
 import { d, LogicError, Question } from '@serenity-js/core';
 
-import { BrowseTheWeb } from '../abilities';
-import { PageElement } from '../models';
+import { BrowseTheWeb } from '../abilities/index.js';
+import { PageElement } from '../models/index.js';
 
 /**
  * Uses the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to retrieve

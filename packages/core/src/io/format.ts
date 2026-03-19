@@ -1,5 +1,5 @@
-import type { Answerable } from '../screenplay';
-import { stringified } from './stringified';
+import type { Answerable } from '../screenplay/index.js';
+import { stringified } from './stringified.js';
 
 /**
  * `format` is a factory function returning

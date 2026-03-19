@@ -1,5 +1,5 @@
-import { Ability, type SerialisedAbility } from '../abilities';
-import { Notepad } from './Notepad';
+import { Ability, type SerialisedAbility } from '../abilities/index.js';
+import { Notepad } from './Notepad.js';
 
 /**
  * An [`Ability`](https://serenity-js.org/api/core/class/Ability/) that enables an [`Actor`](https://serenity-js.org/api/core/class/Actor/) to remember information

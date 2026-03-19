@@ -1,6 +1,6 @@
 import { expect } from '@integration/testing-tools';
 import { Stage } from '@serenity-js/core';
-import { FileSystem, Path } from '@serenity-js/core/lib/io';
+import { FileSystem, Path } from '@serenity-js/core/io';
 import { describe, it } from 'mocha';
 import { createStubInstance } from 'sinon';
 import type { JSONObject } from 'tiny-types';

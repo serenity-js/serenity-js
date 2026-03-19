@@ -1,7 +1,7 @@
 import type { JSONObject } from 'tiny-types';
 
-import { ErrorSerialiser } from '../ErrorSerialiser';
-import { RuntimeError } from './RuntimeError';
+import { ErrorSerialiser } from '../ErrorSerialiser.js';
+import { RuntimeError } from './RuntimeError.js';
 
 /**
  * Thrown to indicate that the test can't be performed due to an issue with a downstream dependency.

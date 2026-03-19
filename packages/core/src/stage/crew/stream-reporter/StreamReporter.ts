@@ -1,10 +1,10 @@
 import type { Writable } from 'stream';
 import { ensure, isDefined, isString } from 'tiny-types';
 
-import type { DomainEvent } from '../../../events';
-import { FileSystem, Path } from '../../../io';
-import type { Stage } from '../../Stage';
-import type { StageCrewMember } from '../../StageCrewMember';
+import type { DomainEvent } from '../../../events/index.js';
+import { FileSystem, Path } from '../../../io/index.js';
+import type { Stage } from '../../Stage.js';
+import type { StageCrewMember } from '../../StageCrewMember.js';
 
 /**
  * Serialises all the [`DomainEvent`](https://serenity-js.org/api/core-events/class/DomainEvent/) objects it receives and streams

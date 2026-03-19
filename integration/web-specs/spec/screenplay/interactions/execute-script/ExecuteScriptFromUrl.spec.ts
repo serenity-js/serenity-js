@@ -3,8 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
-import { By, ExecuteScript, Navigate, PageElement, Text } from '@serenity-js/web';
-import { Switch } from '@serenity-js/web/src';
+import { By, ExecuteScript, Navigate, PageElement, Switch, Text } from '@serenity-js/web';
 
 // todo: introduce question about baseUrl
 const port = process.env.PORT ?? 8080;
@@ -21,7 +20,7 @@ describe('ExecuteScriptFromUrl', function () {
         const location = activity.instantiationLocation();
 
         expect(location.path.basename()).to.equal('ExecuteScriptFromUrl.spec.ts');
-        expect(location.line).to.equal(20);
+        expect(location.line).to.equal(19);
         expect(location.column).to.equal(40);
     });
 

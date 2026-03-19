@@ -1,3 +1,3 @@
-export * from './abilities';
-export * from './interactions';
-export * from './questions';
+export * from './abilities/index.js';
+export * from './interactions/index.js';
+export * from './questions/index.js';

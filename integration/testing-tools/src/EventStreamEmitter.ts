@@ -1,5 +1,5 @@
 import { ConfigurationError, Stage } from '@serenity-js/core';
-import * as events from '@serenity-js/core/lib/events';
+import * as events from '@serenity-js/core/events';
 
 export class EventStreamEmitter {
     constructor(private readonly stage: Stage) {

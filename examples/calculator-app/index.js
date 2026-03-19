@@ -13,7 +13,7 @@ server.listen(port, () => {
 // ---
 
 function inMemoryServer() {
-    require('ts-node/register');
+    require('tsx');
     return require('./src/rest-api');
 }
 

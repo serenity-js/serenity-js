@@ -1,7 +1,7 @@
 import 'webdriverio';
 
 import { type Discardable, LogicError } from '@serenity-js/core';
-import { CorrelationId } from '@serenity-js/core/lib/model/index.js';
+import { CorrelationId } from '@serenity-js/core/model';
 import type { BrowserCapabilities } from '@serenity-js/web';
 import { BrowsingSession } from '@serenity-js/web';
 

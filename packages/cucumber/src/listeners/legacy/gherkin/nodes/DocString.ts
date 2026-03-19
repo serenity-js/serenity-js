@@ -1,4 +1,4 @@
-import type { StepArgument } from './StepArgument';
+import type { StepArgument } from './StepArgument.js';
 
 /**
  * @private

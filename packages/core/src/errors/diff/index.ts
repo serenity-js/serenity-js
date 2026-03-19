@@ -1,3 +1,3 @@
-export * from './AnsiDiffFormatter';
-export * from './DiffFormatter';
-export * from './NoOpDiffFormatter';
+export * from './AnsiDiffFormatter.js';
+export * from './DiffFormatter.js';
+export * from './NoOpDiffFormatter.js';

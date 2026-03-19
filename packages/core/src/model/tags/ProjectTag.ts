@@ -1,4 +1,4 @@
-import { Tag } from './Tag';
+import { Tag } from './Tag.js';
 
 /**
  * Used to categorise tests by the project they belong to.

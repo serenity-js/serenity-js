@@ -1,5 +1,5 @@
 import type { Timestamp } from '@serenity-js/core';
-import type { CorrelationId, Name } from '@serenity-js/core/lib/model';
+import type { CorrelationId, Name } from '@serenity-js/core/model';
 
 import type { TestStepSchema } from '../../serenity-bdd-report-schema';
 import { escapeHtml } from '../mappers';

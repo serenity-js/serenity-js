@@ -1,5 +1,5 @@
 import { serenity } from '@serenity-js/core';
-import { Path } from '@serenity-js/core/lib/io';
+import { Path } from '@serenity-js/core/io';
 import type { Runner } from 'protractor';
 
 import { ProtractorFrameworkAdapter } from './ProtractorFrameworkAdapter';

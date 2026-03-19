@@ -1,14 +1,14 @@
-import { ErrorSerialiser } from '../../errors';
-import { d } from '../../io';
-import { stringified } from '../../io/stringified';
-import { LogEntry, Name } from '../../model';
-import type { UsesAbilities } from '../abilities';
-import type { Answerable } from '../Answerable';
-import type { Answered } from '../Answered';
-import type { CollectsArtifacts } from '../artifacts';
-import { Interaction } from '../Interaction';
-import type { AnswersQuestions } from '../questions';
-import type { DebuggingResult } from './DebuggingResult';
+import { ErrorSerialiser } from '../../errors/index.js';
+import { d } from '../../io/index.js';
+import { stringified } from '../../io/stringified.js';
+import { LogEntry, Name } from '../../model/index.js';
+import type { UsesAbilities } from '../abilities/index.js';
+import type { Answerable } from '../Answerable.js';
+import type { Answered } from '../Answered.js';
+import type { CollectsArtifacts } from '../artifacts/index.js';
+import { Interaction } from '../Interaction.js';
+import type { AnswersQuestions } from '../questions/index.js';
+import type { DebuggingResult } from './DebuggingResult.js';
 
 /**
  * Instructs the [actor](https://serenity-js.org/api/core/class/Actor/) to evaluate and [log](https://serenity-js.org/api/core/class/Log/) the provided [answerable](https://serenity-js.org/api/core/#Answerable) values.

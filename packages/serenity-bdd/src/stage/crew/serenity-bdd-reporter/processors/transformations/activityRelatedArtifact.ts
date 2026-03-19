@@ -1,8 +1,8 @@
 import { inspect } from 'node:util';
 
 import type { Timestamp } from '@serenity-js/core';
-import type { Artifact, CorrelationId, Name, RequestAndResponse} from '@serenity-js/core/lib/model';
-import { HTTPRequestResponse, JSONData, LogEntry, TextData } from '@serenity-js/core/lib/model';
+import type { Artifact, CorrelationId, Name, RequestAndResponse} from '@serenity-js/core/model';
+import { HTTPRequestResponse, JSONData, LogEntry, TextData } from '@serenity-js/core/model';
 import { createHash } from 'crypto';
 import { match } from 'tiny-types';
 

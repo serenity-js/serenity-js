@@ -1,4 +1,4 @@
-import { FeatureFileNode } from './FeatureFileNode';
+import { FeatureFileNode } from './FeatureFileNode.js';
 
 /**
  * @private

@@ -7,9 +7,9 @@ import { given } from 'mocha-testdata';
 import type { Server } from 'net';
 import { satisfies } from 'semver';
 
-import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '../../../src';
-import type { RequestListener } from '../../../src/screenplay/abilities';
-import servers = require('../../servers');
+import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '../../../src/index.js';
+import type { RequestListener } from '../../../src/screenplay/abilities/index.js';
+import servers from '../../servers/index.js';
 
 describe('StartALocalServer', () => {
 

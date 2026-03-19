@@ -16,10 +16,10 @@ import {
     type AxiosResponse,
 } from 'axios';
 import { type JSONObject } from 'tiny-types';
-import { isObject } from 'tiny-types/lib/objects';
+import { isObject } from 'tiny-types/lib/objects/index.js';
 
-import type { AxiosRequestConfigDefaults, AxiosRequestConfigProxyDefaults } from '../../io';
-import { createAxios } from '../../io';
+import type { AxiosRequestConfigDefaults, AxiosRequestConfigProxyDefaults } from '../../io/index.js';
+import { createAxios } from '../../io/index.js';
 
 /**
  * An [ability](https://serenity-js.org/api/core/class/Ability/) that wraps [axios client](https://axios-http.com/docs/api_intro) and enables

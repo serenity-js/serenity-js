@@ -1,8 +1,8 @@
 import type { JSONObject} from 'tiny-types';
 import { ensure, isDefined, TinyType } from 'tiny-types';
 
-import { FileSystemLocation } from '../io/FileSystemLocation';
-import { Name } from './Name';
+import { FileSystemLocation } from '../io/FileSystemLocation.js';
+import { Name } from './Name.js';
 
 export class ActivityDetails extends TinyType {
     static fromJSON(o: JSONObject): ActivityDetails {

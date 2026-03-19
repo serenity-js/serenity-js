@@ -9,7 +9,7 @@ import {
     TestRunFinishes,
     TestRunnerDetected,
     TestRunStarts
-} from '@serenity-js/core/lib/events';
+} from '@serenity-js/core/events';
 import {
     ArbitraryTag,
     CapabilityTag,
@@ -21,7 +21,7 @@ import {
     ManualTag,
     Name,
     ThemeTag
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/model';
 import { describe, it } from 'mocha';
 
 import { jasmine } from '../src/jasmine';
