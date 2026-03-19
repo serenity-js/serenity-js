@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.42.0](https://github.com/serenity-js/serenity-js/compare/v3.41.2...v3.42.0) (2026-03-19)
+
+
+### Bug Fixes
+
+* **deps:** update webdriverio dependencies to ^9.26.1 ([909dd12](https://github.com/serenity-js/serenity-js/commit/909dd12036e5988058fa1a99aee50a5ab9412ddb))
+* **webdriverio:** resolve modal dialog race condition and viewport size issues ([1f4d0f0](https://github.com/serenity-js/serenity-js/commit/1f4d0f057872027c4652a80ea4e7f5d7086a5846))
+* **webdriverio:** return undefined for non-input elements in value() ([b887aa5](https://github.com/serenity-js/serenity-js/commit/b887aa565cc0f44c61b2132975910d26328451b1))
+
+
+
+
+
 ## [3.41.2](https://github.com/serenity-js/serenity-js/compare/v3.41.1...v3.41.2) (2026-03-05)
 
 

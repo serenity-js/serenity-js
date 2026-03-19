@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.42.0](https://github.com/serenity-js/serenity-js/compare/v3.41.2...v3.42.0) (2026-03-19)
+
+
+### Bug Fixes
+
+* **cucumber:** revert clean import path for legacy Cucumber 1.x/2.x ([af2d5a6](https://github.com/serenity-js/serenity-js/commit/af2d5a6776e92c1740ecd7ee9e210e1908c830d6))
+* **cucumber:** use --compiler option for legacy Cucumber versions ([a87e12e](https://github.com/serenity-js/serenity-js/commit/a87e12e4b0ca8cbff4d5c224e960130065d448b5))
+* **deps:** update dependency lru-cache to v11.2.7 ([d92ee9a](https://github.com/serenity-js/serenity-js/commit/d92ee9a0d9d29256ae2fbf1fef5987dd3985e4d7))
+* **deps:** update webdriverio dependencies to ^9.26.1 ([909dd12](https://github.com/serenity-js/serenity-js/commit/909dd12036e5988058fa1a99aee50a5ab9412ddb))
+* **mocha:** add CommonJS compatibility for Mocha reporter loading ([5fa8162](https://github.com/serenity-js/serenity-js/commit/5fa81628ce2e7fc92285318bd64b9ed30c05f2fc))
+* **web:** add Symbol.hasInstance to Key class for ESM/CJS compatibility ([6820f0e](https://github.com/serenity-js/serenity-js/commit/6820f0e0ca7d4a8f67ee316f300d2f5a71c290ba))
+* **webdriverio:** resolve modal dialog race condition and viewport size issues ([1f4d0f0](https://github.com/serenity-js/serenity-js/commit/1f4d0f057872027c4652a80ea4e7f5d7086a5846))
+* **webdriverio:** return undefined for non-input elements in value() ([b887aa5](https://github.com/serenity-js/serenity-js/commit/b887aa565cc0f44c61b2132975910d26328451b1))
+
+
+### Features
+
+* **core:** add dual ESM/CJS build support ([09b457d](https://github.com/serenity-js/serenity-js/commit/09b457dee4a0b86d650af845ba224651e7805a11))
+* **core:** add dual ESM/CJS build support for Wave 2 packages ([0e2631c](https://github.com/serenity-js/serenity-js/commit/0e2631ca7cdbe68da7feec343eaf4f7fe9bb64d6))
+* **core:** add ESM/CJS dual build support for web packages ([94c5a64](https://github.com/serenity-js/serenity-js/commit/94c5a6423dc369477bbabbacee5a54f8fca20209))
+
+
+
+
+
 ## [3.41.2](https://github.com/serenity-js/serenity-js/compare/v3.41.1...v3.41.2) (2026-03-05)
 
 
