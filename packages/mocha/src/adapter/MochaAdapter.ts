@@ -13,7 +13,7 @@ import type { MochaConfig } from './MochaConfig.js';
 
 /**
  * Allows for programmatic execution of Mocha test scenarios,
- * using [`SerenityReporterForMocha`](https://serenity-js.org/api/mocha/function/export=/) to report progress.
+ * using Serenity/JS reporter for mocha to report progress.
  *
  * ## Learn more
  * - [`TestRunnerAdapter`](https://serenity-js.org/api/core-adapter/interface/TestRunnerAdapter/)
