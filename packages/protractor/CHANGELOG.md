@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.42.0](https://github.com/serenity-js/serenity-js/compare/v3.41.2...v3.42.0) (2026-03-19)
+
+
+### Features
+
+* **core:** add ESM/CJS dual build support for web packages ([94c5a64](https://github.com/serenity-js/serenity-js/commit/94c5a6423dc369477bbabbacee5a54f8fca20209))
+
+
+
+
+
 ## [3.41.2](https://github.com/serenity-js/serenity-js/compare/v3.41.1...v3.41.2) (2026-03-05)
 
 
