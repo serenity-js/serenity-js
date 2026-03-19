@@ -1,5 +1,5 @@
-import type { Ability } from './Ability';
-import type { AbilityType } from './AbilityType';
+import type { Ability } from './Ability.js';
+import type { AbilityType } from './AbilityType.js';
 
 /**
  * Describes an [`Actor`](https://serenity-js.org/api/core/class/Actor/) who can use their [abilities](https://serenity-js.org/api/core/class/Ability/) to perform an [`Activity`](https://serenity-js.org/api/core/class/Activity/)

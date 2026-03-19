@@ -1,7 +1,7 @@
-import { Ability } from '../screenplay/abilities/Ability';
-import type { Stage } from '../stage/Stage';
-import type { ErrorOptions } from './ErrorOptions';
-import type { RuntimeError } from './model/RuntimeError';
+import { Ability } from '../screenplay/abilities/Ability.js';
+import type { Stage } from '../stage/Stage.js';
+import type { ErrorOptions } from './ErrorOptions.js';
+import type { RuntimeError } from './model/RuntimeError.js';
 
 /**
  * An [`Ability`](https://serenity-js.org/api/core/class/Ability/) that enables an [`Actor`](https://serenity-js.org/api/core/class/Actor/) to create a Serenity/JS [`RuntimeError`](https://serenity-js.org/api/core/class/RuntimeError/)

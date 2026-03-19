@@ -1,12 +1,12 @@
-import { Path } from '@serenity-js/core/lib/io';
-import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/lib/model';
+import { Path } from '@serenity-js/core/io';
+import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/model';
 
-import { AmbiguousStepDefinitionError } from '../../errors';
-import type { Dependencies } from './Dependencies';
-import type { FeatureFileMap, Step } from './gherkin';
-import { Feature, Scenario, ScenarioOutline } from './gherkin';
+import { AmbiguousStepDefinitionError } from '../../errors/index.js';
+import type { Dependencies } from './Dependencies.js';
+import type { FeatureFileMap, Step } from './gherkin/index.js';
+import { Feature, Scenario, ScenarioOutline } from './gherkin/index.js';
 
-export = function ({ serenity, notifier, resultMapper, loader, cache }: Dependencies) {
+export default function ({ serenity, notifier, resultMapper, loader, cache }: Dependencies) {
     return function (): void {
         this.registerHandler('BeforeFeatures', () => {
             notifier.testRunStarts();
@@ -106,7 +106,7 @@ export = function ({ serenity, notifier, resultMapper, loader, cache }: Dependen
                 );
         });
     };
-};
+}
 
 function get(object, property) {
     const getter = 'get' + property.charAt(0).toUpperCase() + property.slice(1);

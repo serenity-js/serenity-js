@@ -1,8 +1,8 @@
 import type { Stage } from '@serenity-js/core';
-import type { DomainEvent} from '@serenity-js/core/lib/events';
-import { AsyncOperationAttempted, AsyncOperationCompleted, SceneStarts, SceneTagged } from '@serenity-js/core/lib/events';
-import { BrowserTag, CorrelationId, Description, Name, PlatformTag } from '@serenity-js/core/lib/model';
-import type { StageCrewMember } from '@serenity-js/core/lib/stage';
+import type { DomainEvent} from '@serenity-js/core/events';
+import { AsyncOperationAttempted, AsyncOperationCompleted, SceneStarts, SceneTagged } from '@serenity-js/core/events';
+import { BrowserTag, CorrelationId, Description, Name, PlatformTag } from '@serenity-js/core/model';
+import type { StageCrewMember } from '@serenity-js/core/stage';
 
 import type { StandardisedCapabilities } from './StandardisedCapabilities';
 

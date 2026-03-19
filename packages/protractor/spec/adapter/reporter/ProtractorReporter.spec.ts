@@ -1,10 +1,10 @@
 import { expect } from '@integration/testing-tools';
 import { AssertionError, Duration, ImplementationPendingError, TestCompromisedError, Timestamp } from '@serenity-js/core';
-import { SceneFinished, SceneStarts } from '@serenity-js/core/lib/events';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
+import { SceneFinished, SceneStarts } from '@serenity-js/core/events';
+import { FileSystemLocation, Path } from '@serenity-js/core/io';
 import type {
     Outcome,
-    ProblemIndication} from '@serenity-js/core/lib/model';
+    ProblemIndication} from '@serenity-js/core/model';
 import {
     Category,
     CorrelationId,
@@ -17,7 +17,7 @@ import {
     ImplementationPending,
     Name,
     ScenarioDetails,
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/model';
 import { describe } from 'mocha';
 import { given } from 'mocha-testdata';
 import { Runner } from 'protractor';

@@ -1,7 +1,7 @@
 import type { Answerable, QuestionAdapter } from '@serenity-js/core';
 import { Question, the } from '@serenity-js/core';
 
-import type { PageElement } from '../models';
+import type { PageElement } from '../models/index.js';
 
 /**
  * Uses the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to retrieve

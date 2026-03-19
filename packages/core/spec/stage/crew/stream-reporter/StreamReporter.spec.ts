@@ -1,3 +1,6 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 import { Writable } from 'stream';
@@ -7,6 +10,9 @@ import { Clock, Duration, ErrorFactory, Stage, StageManager, StreamReporter, Tim
 import { TestRunFinished } from '../../../../src/events';
 import { ExecutionSuccessful } from '../../../../src/model';
 import { expect } from '../../../expect';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 describe('StreamReporter', () => {
 

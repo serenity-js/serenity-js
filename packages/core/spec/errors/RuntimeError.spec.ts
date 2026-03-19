@@ -1,7 +1,11 @@
+import { fileURLToPath } from 'node:url';
+
 import { beforeEach, describe, it } from 'mocha';
 
 import { RuntimeError } from '../../src/errors';
 import { expect } from '../expect';
+
+const __filename = fileURLToPath(import.meta.url);
 
 describe('RuntimeError', () => {
 

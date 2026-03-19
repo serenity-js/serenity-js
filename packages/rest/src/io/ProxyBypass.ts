@@ -1,6 +1,6 @@
 import type { URL } from 'node:url';
 
-import { createUrl } from './createUrl';
+import { createUrl } from './createUrl.js';
 
 export abstract class ProxyBypass {
     static create(value: string | undefined): ProxyBypass {

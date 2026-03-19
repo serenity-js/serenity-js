@@ -11,8 +11,8 @@ import {
     TestRunStarts,
     TestSuiteFinished,
     TestSuiteStarts,
-} from '@serenity-js/core/lib/events';
-import { CorrelationId, ExecutionFailedWithAssertionError, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/events';
+import { CorrelationId, ExecutionFailedWithAssertionError, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/model';
 import { describe, it } from 'mocha';
 
 import { mocha } from '../src/mocha';

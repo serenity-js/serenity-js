@@ -19,7 +19,7 @@ import {
     the,
     TimeoutExpiredError
 } from '@serenity-js/core';
-import type { FileSystemLocation } from '@serenity-js/core/lib/io';
+import type { FileSystemLocation } from '@serenity-js/core/io';
 
 /**
  * The [interaction](https://serenity-js.org/api/core/class/Interaction/) to `EnsureEventually`

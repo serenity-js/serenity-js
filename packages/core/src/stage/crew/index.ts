@@ -1,2 +1,2 @@
-export * from './artifact-archiver';
-export * from './stream-reporter';
+export * from './artifact-archiver/index.js';
+export * from './stream-reporter/index.js';

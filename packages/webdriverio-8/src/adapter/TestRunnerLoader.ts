@@ -1,7 +1,7 @@
 import { ConfigurationError } from '@serenity-js/core';
-import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
-import type { ModuleLoader} from '@serenity-js/core/lib/io/index.js';
-import { Config, FileFinder, FileSystem, Path } from '@serenity-js/core/lib/io/index.js';
+import type { TestRunnerAdapter } from '@serenity-js/core/adapter';
+import type { ModuleLoader} from '@serenity-js/core/io';
+import { Config, FileFinder, FileSystem, Path } from '@serenity-js/core/io';
 
 import type { WebdriverIOConfig } from '../config/index.js';
 
@@ -42,7 +42,7 @@ export class TestRunnerLoader {
     }
 
     private cucumberAdapter(cucumberOptions?: TestRunnerOptions): TestRunnerAdapter {
-        const { CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput } = this.loader.require('@serenity-js/cucumber/lib/adapter/index.js');
+        const { CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput } = this.loader.require('@serenity-js/cucumber/adapter');
 
         delete cucumberOptions?.timeout;   // todo: support setting a timeout via config?
         delete cucumberOptions?.parallel;  // WebdriverIO handles that already
@@ -84,7 +84,7 @@ export class TestRunnerLoader {
 
     private mochaAdapter(mochaOptions: TestRunnerOptions): TestRunnerAdapter {
         // todo: update path to mocha adapter too
-        const { MochaAdapter } = this.loader.require('@serenity-js/mocha/lib/adapter/index.js')
+        const { MochaAdapter } = this.loader.require('@serenity-js/mocha/adapter')
         return new MochaAdapter(mochaOptions, this.loader);
     }
 }

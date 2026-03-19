@@ -1,6 +1,6 @@
 import type { Chalk } from 'chalk'; // eslint-disable-line unicorn/import-style
 
-import { ThemeForColourTerminals } from './ThemeForColourTerminals';
+import { ThemeForColourTerminals } from './ThemeForColourTerminals.js';
 
 /**
  * A simple colour theme for terminals with dark backgrounds.

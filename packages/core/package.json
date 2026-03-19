@@ -16,8 +16,275 @@
     "access": "public",
     "provenance": true
   },
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "type": "module",
+  "module": "./esm/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./esm/index.d.ts",
+        "default": "./esm/index.js"
+      },
+      "require": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      }
+    },
+    "./adapter": {
+      "import": {
+        "types": "./esm/adapter/index.d.ts",
+        "default": "./esm/adapter/index.js"
+      },
+      "require": {
+        "types": "./lib/adapter/index.d.ts",
+        "default": "./lib/adapter/index.js"
+      }
+    },
+    "./config": {
+      "import": {
+        "types": "./esm/config/index.d.ts",
+        "default": "./esm/config/index.js"
+      },
+      "require": {
+        "types": "./lib/config/index.d.ts",
+        "default": "./lib/config/index.js"
+      }
+    },
+    "./errors": {
+      "import": {
+        "types": "./esm/errors/index.d.ts",
+        "default": "./esm/errors/index.js"
+      },
+      "require": {
+        "types": "./lib/errors/index.d.ts",
+        "default": "./lib/errors/index.js"
+      }
+    },
+    "./events": {
+      "import": {
+        "types": "./esm/events/index.d.ts",
+        "default": "./esm/events/index.js"
+      },
+      "require": {
+        "types": "./lib/events/index.d.ts",
+        "default": "./lib/events/index.js"
+      }
+    },
+    "./io": {
+      "import": {
+        "types": "./esm/io/index.d.ts",
+        "default": "./esm/io/index.js"
+      },
+      "require": {
+        "types": "./lib/io/index.d.ts",
+        "default": "./lib/io/index.js"
+      }
+    },
+    "./model": {
+      "import": {
+        "types": "./esm/model/index.d.ts",
+        "default": "./esm/model/index.js"
+      },
+      "require": {
+        "types": "./lib/model/index.d.ts",
+        "default": "./lib/model/index.js"
+      }
+    },
+    "./screenplay": {
+      "import": {
+        "types": "./esm/screenplay/index.d.ts",
+        "default": "./esm/screenplay/index.js"
+      },
+      "require": {
+        "types": "./lib/screenplay/index.d.ts",
+        "default": "./lib/screenplay/index.js"
+      }
+    },
+    "./stage": {
+      "import": {
+        "types": "./esm/stage/index.d.ts",
+        "default": "./esm/stage/index.js"
+      },
+      "require": {
+        "types": "./lib/stage/index.d.ts",
+        "default": "./lib/stage/index.js"
+      }
+    },
+    "./lib/adapter": {
+      "import": {
+        "types": "./esm/adapter/index.d.ts",
+        "default": "./esm/adapter/index.js"
+      },
+      "require": {
+        "types": "./lib/adapter/index.d.ts",
+        "default": "./lib/adapter/index.js"
+      }
+    },
+    "./lib/config": {
+      "import": {
+        "types": "./esm/config/index.d.ts",
+        "default": "./esm/config/index.js"
+      },
+      "require": {
+        "types": "./lib/config/index.d.ts",
+        "default": "./lib/config/index.js"
+      }
+    },
+    "./lib/errors": {
+      "import": {
+        "types": "./esm/errors/index.d.ts",
+        "default": "./esm/errors/index.js"
+      },
+      "require": {
+        "types": "./lib/errors/index.d.ts",
+        "default": "./lib/errors/index.js"
+      }
+    },
+    "./lib/events": {
+      "import": {
+        "types": "./esm/events/index.d.ts",
+        "default": "./esm/events/index.js"
+      },
+      "require": {
+        "types": "./lib/events/index.d.ts",
+        "default": "./lib/events/index.js"
+      }
+    },
+    "./lib/io": {
+      "import": {
+        "types": "./esm/io/index.d.ts",
+        "default": "./esm/io/index.js"
+      },
+      "require": {
+        "types": "./lib/io/index.d.ts",
+        "default": "./lib/io/index.js"
+      }
+    },
+    "./lib/model": {
+      "import": {
+        "types": "./esm/model/index.d.ts",
+        "default": "./esm/model/index.js"
+      },
+      "require": {
+        "types": "./lib/model/index.d.ts",
+        "default": "./lib/model/index.js"
+      }
+    },
+    "./lib/screenplay": {
+      "import": {
+        "types": "./esm/screenplay/index.d.ts",
+        "default": "./esm/screenplay/index.js"
+      },
+      "require": {
+        "types": "./lib/screenplay/index.d.ts",
+        "default": "./lib/screenplay/index.js"
+      }
+    },
+    "./lib/stage": {
+      "import": {
+        "types": "./esm/stage/index.d.ts",
+        "default": "./esm/stage/index.js"
+      },
+      "require": {
+        "types": "./lib/stage/index.d.ts",
+        "default": "./lib/stage/index.js"
+      }
+    },
+    "./lib/adapter/index.js": {
+      "import": {
+        "types": "./esm/adapter/index.d.ts",
+        "default": "./esm/adapter/index.js"
+      },
+      "require": {
+        "types": "./lib/adapter/index.d.ts",
+        "default": "./lib/adapter/index.js"
+      }
+    },
+    "./lib/config/index.js": {
+      "import": {
+        "types": "./esm/config/index.d.ts",
+        "default": "./esm/config/index.js"
+      },
+      "require": {
+        "types": "./lib/config/index.d.ts",
+        "default": "./lib/config/index.js"
+      }
+    },
+    "./lib/errors/index.js": {
+      "import": {
+        "types": "./esm/errors/index.d.ts",
+        "default": "./esm/errors/index.js"
+      },
+      "require": {
+        "types": "./lib/errors/index.d.ts",
+        "default": "./lib/errors/index.js"
+      }
+    },
+    "./lib/events/index.js": {
+      "import": {
+        "types": "./esm/events/index.d.ts",
+        "default": "./esm/events/index.js"
+      },
+      "require": {
+        "types": "./lib/events/index.d.ts",
+        "default": "./lib/events/index.js"
+      }
+    },
+    "./lib/io/index.js": {
+      "import": {
+        "types": "./esm/io/index.d.ts",
+        "default": "./esm/io/index.js"
+      },
+      "require": {
+        "types": "./lib/io/index.d.ts",
+        "default": "./lib/io/index.js"
+      }
+    },
+    "./lib/model/index.js": {
+      "import": {
+        "types": "./esm/model/index.d.ts",
+        "default": "./esm/model/index.js"
+      },
+      "require": {
+        "types": "./lib/model/index.d.ts",
+        "default": "./lib/model/index.js"
+      }
+    },
+    "./lib/screenplay/index.js": {
+      "import": {
+        "types": "./esm/screenplay/index.d.ts",
+        "default": "./esm/screenplay/index.js"
+      },
+      "require": {
+        "types": "./lib/screenplay/index.d.ts",
+        "default": "./lib/screenplay/index.js"
+      }
+    },
+    "./lib/stage/index.js": {
+      "import": {
+        "types": "./esm/stage/index.d.ts",
+        "default": "./esm/stage/index.js"
+      },
+      "require": {
+        "types": "./lib/stage/index.d.ts",
+        "default": "./lib/stage/index.js"
+      }
+    },
+    "./lib/*.js": "./lib/*.js",
+    "./lib/*": "./lib/*",
+    "./esm/adapter": "./esm/adapter/index.js",
+    "./esm/config": "./esm/config/index.js",
+    "./esm/errors": "./esm/errors/index.js",
+    "./esm/events": "./esm/events/index.js",
+    "./esm/io": "./esm/io/index.js",
+    "./esm/model": "./esm/model/index.js",
+    "./esm/screenplay": "./esm/screenplay/index.js",
+    "./esm/stage": "./esm/stage/index.js",
+    "./esm/*.js": "./esm/*.js",
+    "./esm/*": "./esm/*.js",
+    "./package.json": "./package.json"
+  },
   "keywords": [
     "automation",
     "integration",
@@ -33,8 +300,12 @@
   "scripts": {
     "clean": "rimraf target",
     "test": "c8 npm run test:no-coverage",
-    "test:no-coverage": "mocha --config ../../.mocharc.yml --spec='spec/**/*.spec.*'",
-    "compile": "rimraf lib && tsc --project tsconfig.build.json"
+    "test:no-coverage": "mocha --config .mocharc.yml --spec='spec/**/*.spec.*'",
+    "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs-package && npm run compile:cjs",
+    "compile:clean": "rimraf lib esm",
+    "compile:esm": "tsc --project tsconfig-esm.build.json",
+    "compile:cjs-package": "node -e \"require('fs').mkdirSync('lib', { recursive: true }); require('fs').writeFileSync('lib/package.json', '{ \\\"type\\\": \\\"commonjs\\\" }')\"",
+    "compile:cjs": "tsc --project tsconfig-cjs.build.json"
   },
   "dependencies": {
     "@paralleldrive/cuid2": "2.3.1",
@@ -45,7 +316,7 @@
     "filenamify": "4.3.0",
     "graceful-fs": "4.2.11",
     "semver": "7.7.4",
-    "tiny-types": "1.24.3",
+    "tiny-types": "2.0.5",
     "upath": "2.0.1",
     "validate-npm-package-name": "7.0.2"
   },

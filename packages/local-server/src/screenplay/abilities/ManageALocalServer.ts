@@ -1,6 +1,6 @@
 import { Ability, ConfigurationError } from '@serenity-js/core';
 import * as http from 'http';
-import withShutdownSupport = require('http-shutdown');
+import withShutdownSupport from 'http-shutdown';
 import * as https from 'https';
 import type * as net from 'net';
 import { getPortPromise } from 'portfinder';

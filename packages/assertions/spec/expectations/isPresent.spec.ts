@@ -1,11 +1,11 @@
 import { expect } from '@integration/testing-tools';
 import type { Optional} from '@serenity-js/core';
 import { actorCalled, AssertionError, Question } from '@serenity-js/core';
-import { trimmed } from '@serenity-js/core/lib/io';
+import { trimmed } from '@serenity-js/core/io';
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { Ensure, isPresent } from '../../src';
+import { Ensure, isPresent } from '../../src/index.js';
 
 describe('isPresent', () => {
 

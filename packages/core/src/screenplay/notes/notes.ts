@@ -1,5 +1,5 @@
-import { Notepad } from './Notepad';
-import type { NotepadAdapter } from './NotepadAdapter';
+import { Notepad } from './Notepad.js';
+import type { NotepadAdapter } from './NotepadAdapter.js';
 
 /**
  * Alias for [`Notepad.notes`](https://serenity-js.org/api/core/class/Notepad/#notes).

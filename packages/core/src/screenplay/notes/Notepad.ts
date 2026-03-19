@@ -1,8 +1,8 @@
 import { TinyType } from 'tiny-types';
 
-import { LogicError } from '../../errors';
-import { d } from '../../io';
-import { NotepadAdapter } from './NotepadAdapter';
+import { LogicError } from '../../errors/index.js';
+import { d } from '../../io/index.js';
+import { NotepadAdapter } from './NotepadAdapter.js';
 
 /**
  * Stores notes recorded by an [`Actor`](https://serenity-js.org/api/core/class/Actor/).

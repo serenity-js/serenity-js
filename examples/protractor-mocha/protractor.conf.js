@@ -25,7 +25,7 @@ exports.config = {
 
     mochaOpts: {
         require: [
-            'ts-node/register',
+            'tsx',
         ],
         retries: 2
     },

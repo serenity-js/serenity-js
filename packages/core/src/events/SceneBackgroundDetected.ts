@@ -1,9 +1,9 @@
 import type { JSONObject } from 'tiny-types';
 import { ensure, isDefined } from 'tiny-types';
 
-import { CorrelationId, Description, Name } from '../model';
-import type { Timestamp } from '../screenplay';
-import { DomainEvent } from './DomainEvent';
+import { CorrelationId, Description, Name } from '../model/index.js';
+import type { Timestamp } from '../screenplay/index.js';
+import { DomainEvent } from './DomainEvent.js';
 
 /**
  * @group Events

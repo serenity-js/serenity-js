@@ -1,5 +1,5 @@
 import { expect } from '@integration/testing-tools';
-import type { CucumberConfig } from '@serenity-js/cucumber/lib/adapter';
+import type { CucumberConfig } from '@serenity-js/cucumber/adapter';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';

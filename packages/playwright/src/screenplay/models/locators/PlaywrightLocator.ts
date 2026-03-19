@@ -3,10 +3,10 @@ import type { ByRoleSelectorOptions, PageElement, RootLocator, Selector } from '
 import { ByCss, ByCssContainingText, ByDeepCss, ById, ByRole, ByTagName, ByXPath, Locator } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
-import { SerenitySelectorEngines } from '../../../selector-engines';
-import { promised } from '../../promised';
-import { PlaywrightPageElement } from '../PlaywrightPageElement';
-import type { PlaywrightRootLocator } from './PlaywrightRootLocator';
+import { SerenitySelectorEngines } from '../../../selector-engines/index.js';
+import { promised } from '../../promised.js';
+import { PlaywrightPageElement } from '../PlaywrightPageElement.js';
+import type { PlaywrightRootLocator } from './PlaywrightRootLocator.js';
 
 /**
  * Playwright-specific implementation of [`Locator`](https://serenity-js.org/api/web/class/Locator/).

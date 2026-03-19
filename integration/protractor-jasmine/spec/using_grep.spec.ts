@@ -1,6 +1,6 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
-import { CapabilityTag, ExecutionSkipped, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+import { SceneFinished, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/events';
+import { CapabilityTag, ExecutionSkipped, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/model';
 import { describe, it } from 'mocha';
 
 import { protractor } from '../src/protractor';

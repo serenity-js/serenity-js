@@ -16,8 +16,52 @@
     "access": "public",
     "provenance": true
   },
-  "main": "lib/index.js",
+  "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "type": "module",
+  "module": "./esm/index.js",
+  "exports": {
+    ".": {
+      "types": "./esm/index.d.ts",
+      "import": "./esm/index.js",
+      "require": "./lib/index.js"
+    },
+    "./events": {
+      "types": "./lib/events/index.d.ts",
+      "import": "./esm/events/index.js",
+      "require": "./lib/events/index.js"
+    },
+    "./reporter": {
+      "types": "./lib/reporter/index.d.ts",
+      "import": "./esm/reporter/index.js",
+      "require": "./lib/reporter/index.js"
+    },
+    "./api": {
+      "types": "./lib/api/index.d.ts",
+      "import": "./esm/api/index.js",
+      "require": "./lib/api/index.js"
+    },
+    "./lib/events": {
+      "types": "./lib/events/index.d.ts",
+      "import": "./esm/events/index.js",
+      "require": "./lib/events/index.js"
+    },
+    "./lib/reporter": {
+      "types": "./lib/reporter/index.d.ts",
+      "import": "./esm/reporter/index.js",
+      "require": "./lib/reporter/index.js"
+    },
+    "./lib/api": {
+      "types": "./lib/api/index.d.ts",
+      "import": "./esm/api/index.js",
+      "require": "./lib/api/index.js"
+    },
+    "./lib/*.js": "./lib/*.js",
+    "./lib/*": "./lib/*",
+    "./esm/*.js": "./esm/*.js",
+    "./esm/*": "./esm/*.js",
+    "./package.json": "./package.json"
+  },
   "keywords": [
     "automation",
     "browser",
@@ -45,7 +89,11 @@
     "clean": "rimraf target",
     "~test": "c8 npm run test:no-coverage",
     "~test:no-coverage": "playwright test",
-    "compile": "rimraf lib && tsc --project tsconfig.build.json"
+    "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs-package && npm run compile:cjs",
+    "compile:clean": "rimraf lib esm",
+    "compile:esm": "tsc --project tsconfig-esm.build.json",
+    "compile:cjs-package": "node -e \"require('fs').mkdirSync('lib', { recursive: true }); require('fs').writeFileSync('lib/package.json', '{ \\\"type\\\": \\\"commonjs\\\" }')\"",
+    "compile:cjs": "tsc --project tsconfig-cjs.build.json"
   },
   "repository": {
     "type": "git",
@@ -65,7 +113,7 @@
     "@serenity-js/web": "workspace:*",
     "axios": "1.13.6",
     "deepmerge": "4.3.1",
-    "tiny-types": "1.24.3"
+    "tiny-types": "2.0.5"
   },
   "peerDependencies": {
     "@playwright/test": "~1.58.2"

@@ -1,11 +1,11 @@
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError } from '@serenity-js/core';
-import { trimmed } from '@serenity-js/core/lib/io';
+import { trimmed } from '@serenity-js/core/io';
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 import { TinyTypeOf } from 'tiny-types';
 
-import { Ensure, equals } from '../../src';
+import { Ensure, equals } from '../../src/index.js';
 
 describe('equals', () => {
 

@@ -1,4 +1,4 @@
-import { TinyType } from 'tiny-types';
+import { isTinyType, TinyType } from 'tiny-types';
 
 export function equals(chai: any, utils: any) {
     const Assertion = chai.Assertion;
@@ -7,7 +7,7 @@ export function equals(chai: any, utils: any) {
         return function assertTinyTypes(another: TinyType) {
 
             const object = this._obj;
-            return object && object instanceof TinyType ? this.assert(
+            return object && isTinyType(object) ? this.assert(
                 object.equals(another),
                 `expected #{this} to equal #{exp} but got #{act}`,
                 `expected #{this} to not equal #{exp} but got #{act}`,

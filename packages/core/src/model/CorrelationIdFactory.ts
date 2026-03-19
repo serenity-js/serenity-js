@@ -1,4 +1,4 @@
-import type { CorrelationId } from './CorrelationId';
+import type { CorrelationId } from './CorrelationId.js';
 
 export interface CorrelationIdFactory {
     /**

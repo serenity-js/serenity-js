@@ -1,2 +1,2 @@
-export * from './io';
-export * from './screenplay';
+export * from './io/index.js';
+export * from './screenplay/index.js';

@@ -1,6 +1,6 @@
-import type { ASTNode } from './ASTNode';
-import type { ScenarioDefinition } from './ScenarioDefinition';
-import type { Tag } from './Tag';
+import type { ASTNode } from './ASTNode.js';
+import type { ScenarioDefinition } from './ScenarioDefinition.js';
+import type { Tag } from './Tag.js';
 
 /**
  * @private

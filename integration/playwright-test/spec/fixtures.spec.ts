@@ -4,8 +4,8 @@ import {
     InteractionStarts,
     SceneFinished,
     SceneStarts
-} from '@serenity-js/core/lib/events';
-import { ExecutionFailedWithError, ExecutionSuccessful, Name } from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/events';
+import { ExecutionFailedWithError, ExecutionSuccessful, Name } from '@serenity-js/core/model';
 import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../src/playwright-test';

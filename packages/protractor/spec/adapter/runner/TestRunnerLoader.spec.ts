@@ -1,7 +1,7 @@
 import { expect } from '@integration/testing-tools';
-import { FileSystem, ModuleLoader, Path } from '@serenity-js/core/lib/io';
-import { CucumberFormat } from '@serenity-js/cucumber/lib/adapter';
-import { StandardOutput, TempFileOutput } from '@serenity-js/cucumber/lib/adapter/output';
+import { FileSystem, ModuleLoader, Path } from '@serenity-js/core/io';
+import { CucumberFormat } from '@serenity-js/cucumber/adapter';
+import { StandardOutput, TempFileOutput } from '@serenity-js/cucumber/adapter';
 import { beforeEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 import * as sinon from 'sinon';
@@ -62,7 +62,7 @@ describe('TestRunnerLoader', () => {
                 const testRunnerLoader = createTestRunnerLoader(exampleRunnerId);
 
                 const MochaAdapter = sinon.spy();
-                moduleLoader.require.withArgs('@serenity-js/mocha/lib/adapter').returns({ MochaAdapter })
+                moduleLoader.require.withArgs('@serenity-js/mocha/adapter').returns({ MochaAdapter })
 
                 const runner_ = testRunnerLoader.forMocha(mochaOpts);
 
@@ -88,7 +88,7 @@ describe('TestRunnerLoader', () => {
                 const testRunnerLoader = createTestRunnerLoader(exampleRunnerId);
 
                 const CucumberCLIAdapter = sinon.spy();
-                moduleLoader.require.withArgs('@serenity-js/cucumber/lib/adapter').returns({ CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput  })
+                moduleLoader.require.withArgs('@serenity-js/cucumber/adapter').returns({ CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput  })
 
                 const runner_ = testRunnerLoader.forCucumber(cucumberOpts, adapterConfig);
 
@@ -160,7 +160,7 @@ describe('TestRunnerLoader', () => {
                 const testRunnerLoader = createTestRunnerLoader(exampleRunnerId);
 
                 const CucumberCLIAdapter = sinon.spy();
-                moduleLoader.require.withArgs('@serenity-js/cucumber/lib/adapter').returns({ CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput  })
+                moduleLoader.require.withArgs('@serenity-js/cucumber/adapter').returns({ CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput  })
 
                 const runner_ = testRunnerLoader.forCucumber(cucumberOpts, adapterConfig);
 

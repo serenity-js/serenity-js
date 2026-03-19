@@ -1,5 +1,5 @@
 import { RuntimeError, serenity } from '@serenity-js/core';
-import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/lib/io/index.js';
+import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 
 import { monkeyPatched } from './monkeyPatched.js';
 import { SerenityReporterForJasmine } from './SerenityReporterForJasmine.js';

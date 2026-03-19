@@ -1,9 +1,9 @@
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError } from '@serenity-js/core';
-import { trimmed } from '@serenity-js/core/lib/io';
+import { trimmed } from '@serenity-js/core/io';
 import { describe, it } from 'mocha';
 
-import { endsWith, Ensure } from '../../src';
+import { endsWith, Ensure } from '../../src/index.js';
 
 describe('endsWith', () => {
 

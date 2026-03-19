@@ -1,7 +1,7 @@
-import type { CorrelationId } from '@serenity-js/core/lib/model';
+import type { CorrelationId } from '@serenity-js/core/model';
 
-import type { BrowserCapabilities } from './BrowserCapabilities';
-import type { Page } from './Page';
+import type { BrowserCapabilities } from './BrowserCapabilities.js';
+import type { Page } from './Page.js';
 
 /**
  * Represents the pages open in the current browsing context.

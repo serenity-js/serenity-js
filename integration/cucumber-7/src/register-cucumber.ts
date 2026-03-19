@@ -12,7 +12,7 @@ const pathToCucumberExecutable = path.resolve(
 const cwd = path.resolve(__dirname, '../');
 
 registerRunner(pathToCucumberExecutable, cwd, [
-    '--require-module', 'ts-node/register',
+    '--require-module', 'tsx/cjs',
     '--format', '@serenity-js/cucumber',
     '--format-options', `{ "specDirectory": "${ path.resolve(__dirname, '../../cucumber-specs/features') }" }`,
     '--require', require.resolve('./support/configure_serenity'),

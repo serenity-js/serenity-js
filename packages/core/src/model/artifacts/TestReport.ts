@@ -1,6 +1,6 @@
 import type { JSONObject } from 'tiny-types';
 
-import { Artifact } from '../Artifact';
+import { Artifact } from '../Artifact.js';
 
 export class TestReport extends Artifact {
 

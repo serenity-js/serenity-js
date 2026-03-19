@@ -2,8 +2,8 @@
 import type { EventRecorder} from '@integration/testing-tools';
 import { expect, PickEvent } from '@integration/testing-tools';
 import type { Stage } from '@serenity-js/core';
-import { ArtifactGenerated, SceneFinished, SceneStarts, SceneTagged, TestRunFinishes } from '@serenity-js/core/lib/events';
-import { ArbitraryTag, BrowserTag, CapabilityTag, CorrelationId, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, PlatformTag, ThemeTag } from '@serenity-js/core/lib/model';
+import { ArtifactGenerated, SceneFinished, SceneStarts, SceneTagged, TestRunFinishes } from '@serenity-js/core/events';
+import { ArbitraryTag, BrowserTag, CapabilityTag, CorrelationId, ExecutionSuccessful, FeatureTag, IssueTag, ManualTag, PlatformTag, ThemeTag } from '@serenity-js/core/model';
 import { beforeEach, describe, it } from 'mocha';
 
 import { defaultCardScenario } from '../../samples';

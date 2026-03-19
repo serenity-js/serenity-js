@@ -1,4 +1,4 @@
-import type { ScenarioDetails, ScenarioParameters } from '@serenity-js/core/lib/model';
+import type { ScenarioDetails, ScenarioParameters } from '@serenity-js/core/model';
 
 import type { DataTableDataSetDescriptorSchema, DataTableSchema } from '../../../serenity-bdd-report-schema';
 import { escapeHtml } from '../../mappers';

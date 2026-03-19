@@ -1,9 +1,9 @@
 import { expect } from '@integration/testing-tools';
 import { actorCalled, AssertionError } from '@serenity-js/core';
-import { trimmed } from '@serenity-js/core/lib/io';
+import { trimmed } from '@serenity-js/core/io';
 import { describe, it } from 'mocha';
 
-import { contain, Ensure } from '../../src';
+import { contain, Ensure } from '../../src/index.js';
 
 describe('contain', () => {
     it('allows for the actor flow to continue when the "actual" contains the "expected" text', () => {

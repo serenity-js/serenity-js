@@ -1,4 +1,4 @@
-import type { Location } from './Location';
+import type { Location } from './Location.js';
 
 /**
  * @private

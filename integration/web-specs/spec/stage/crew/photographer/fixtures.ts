@@ -1,6 +1,6 @@
 import { Activity, Interaction, Task } from '@serenity-js/core';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { ActivityDetails, Category, CorrelationId, Name, ScenarioDetails } from '@serenity-js/core/lib/model';
+import { FileSystemLocation, Path } from '@serenity-js/core/io';
+import { ActivityDetails, Category, CorrelationId, Name, ScenarioDetails } from '@serenity-js/core/model';
 
 export class Perform {
     static interactionThatSucceeds = (id = 1): Interaction =>

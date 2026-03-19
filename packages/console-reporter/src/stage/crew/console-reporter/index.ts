@@ -1,2 +1,2 @@
-export * from './ConsoleReporter';
-export * from './ConsoleReporterConfig';
+export * from './ConsoleReporter.js';
+export * from './ConsoleReporterConfig.js';

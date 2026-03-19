@@ -1,9 +1,9 @@
 import type { JSONObject} from 'tiny-types';
 import { ensure, isDefined, TinyType } from 'tiny-types';
 
-import { FileSystemLocation } from '../io';
-import { Category } from './Category';
-import { Name } from './Name';
+import { FileSystemLocation } from '../io/index.js';
+import { Category } from './Category.js';
+import { Name } from './Name.js';
 
 export class ScenarioDetails extends TinyType {
     static fromJSON(o: JSONObject): ScenarioDetails {

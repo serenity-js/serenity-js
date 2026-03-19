@@ -1,9 +1,9 @@
 import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent, when } from '@integration/testing-tools';
-import { BusinessRuleDetected, FeatureNarrativeDetected, SceneDescriptionDetected, SceneFinished, SceneFinishes, SceneStarts, SceneTagged } from '@serenity-js/core/lib/events';
-import { trimmed } from '@serenity-js/core/lib/io';
-import { BusinessRule, CorrelationId, Description, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';
+import { BusinessRuleDetected, FeatureNarrativeDetected, SceneDescriptionDetected, SceneFinished, SceneFinishes, SceneStarts, SceneTagged } from '@serenity-js/core/events';
+import { trimmed } from '@serenity-js/core/io';
+import { BusinessRule, CorrelationId, Description, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/model';
 
 import { cucumber, cucumberVersion } from '../src';
 

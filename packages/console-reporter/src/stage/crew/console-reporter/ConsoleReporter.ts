@@ -1,8 +1,8 @@
 import type { Duration, ListensToDomainEvents, Stage, StageCrewMemberBuilder, Timestamp } from '@serenity-js/core';
 import { AssertionError, d, DomainEventQueues, LogicError } from '@serenity-js/core';
-import type { OutputStream } from '@serenity-js/core/lib/adapter';
+import type { OutputStream } from '@serenity-js/core/adapter';
 import type {
-    DomainEvent} from '@serenity-js/core/lib/events';
+    DomainEvent} from '@serenity-js/core/events';
 import {
     ActivityRelatedArtifactGenerated,
     InteractionFinished,
@@ -13,11 +13,11 @@ import {
     TaskStarts,
     TestRunFinished,
     TestRunStarts,
-} from '@serenity-js/core/lib/events';
+} from '@serenity-js/core/events';
 import type {
     CorrelationId,
     Name,
-    Outcome} from '@serenity-js/core/lib/model';
+    Outcome} from '@serenity-js/core/model';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -28,16 +28,18 @@ import {
     ImplementationPending,
     LogEntry,
     ProblemIndication,
-} from '@serenity-js/core/lib/model';
-import { Instance as ChalkInstance } from 'chalk'; // eslint-disable-line unicorn/import-style
+} from '@serenity-js/core/model';
+import chalk from 'chalk';  
 import { ensure, isDefined, match } from 'tiny-types';
 
-import type { ConsoleReporterConfig } from './ConsoleReporterConfig';
-import { Printer } from './Printer';
-import { Summary } from './Summary';
-import { SummaryFormatter } from './SummaryFormatter';
-import type { TerminalTheme} from './themes';
-import { ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForMonochromaticTerminals } from './themes';
+import type { ConsoleReporterConfig } from './ConsoleReporterConfig.js';
+import { Printer } from './Printer.js';
+import { Summary } from './Summary.js';
+import { SummaryFormatter } from './SummaryFormatter.js';
+import type { TerminalTheme} from './themes/index.js';
+import { ThemeForDarkTerminals, ThemeForLightTerminals, ThemeForMonochromaticTerminals } from './themes/index.js';
+
+const ChalkInstance = chalk.Instance;
 
 /**
  * A [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) that uses [standard output](https://en.wikipedia.org/wiki/Standard_streams)
@@ -446,22 +448,25 @@ export class ConsoleReporter implements ListensToDomainEvents {
     }
 
     private iconFrom(outcome: Outcome): string {
-        switch (outcome.constructor) {
-            case ExecutionCompromised:
-            case ExecutionFailedWithError:
-            case ExecutionFailedWithAssertionError:
-                return '✗ ';
-            case ImplementationPending:
-                return '☕';
-            case ExecutionSkipped:
-                return '⇢ ';
-            case ExecutionIgnored:
-                return '? ';
-            case ExecutionSuccessful:
-                return '✓ ';
-            default:
-                return '';
+        // Use instanceof instead of constructor comparison to work across ESM/CJS boundaries
+        if (outcome instanceof ExecutionCompromised ||
+            outcome instanceof ExecutionFailedWithError ||
+            outcome instanceof ExecutionFailedWithAssertionError) {
+            return '✗ ';
         }
+        if (outcome instanceof ImplementationPending) {
+            return '☕';
+        }
+        if (outcome instanceof ExecutionSkipped) {
+            return '⇢ ';
+        }
+        if (outcome instanceof ExecutionIgnored) {
+            return '? ';
+        }
+        if (outcome instanceof ExecutionSuccessful) {
+            return '✓ ';
+        }
+        return '';
     }
 }
 

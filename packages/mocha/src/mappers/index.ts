@@ -1,2 +1,2 @@
-export * from './MochaOutcomeMapper';
-export * from './MochaTestMapper';
+export * from './MochaOutcomeMapper.js';
+export * from './MochaTestMapper.js';

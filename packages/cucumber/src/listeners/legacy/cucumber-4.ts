@@ -1,10 +1,10 @@
-import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/lib/model';
+import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/model';
 
-import { cucumberEventProtocolAdapter } from './CucumberEventProtocolAdapter';
-import type { Dependencies } from './Dependencies';
+import { cucumberEventProtocolAdapter } from './CucumberEventProtocolAdapter.js';
+import type { Dependencies } from './Dependencies.js';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export = function (dependencies: Dependencies) {
+export default function (dependencies: Dependencies) {
     const { BeforeAll, After, AfterAll } = dependencies.cucumber;
 
     BeforeAll(function () {
@@ -31,4 +31,4 @@ export = function (dependencies: Dependencies) {
     });
 
     return cucumberEventProtocolAdapter(dependencies);
-};
+}

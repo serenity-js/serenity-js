@@ -20,7 +20,7 @@ import {
     TestCompromisedError
 } from '@serenity-js/core';
 import type {
-    DomainEvent} from '@serenity-js/core/lib/events';
+    DomainEvent} from '@serenity-js/core/events';
 import {
     BusinessRuleDetected,
     FeatureNarrativeDetected,
@@ -35,13 +35,13 @@ import {
     TaskFinished,
     TaskStarts,
     TestRunnerDetected,
-} from '@serenity-js/core/lib/events';
-import { FileSystem, FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { RequirementsHierarchy } from '@serenity-js/core/lib/io';
+} from '@serenity-js/core/events';
+import { FileSystem, FileSystemLocation, Path } from '@serenity-js/core/io';
+import { RequirementsHierarchy } from '@serenity-js/core/io';
 import type {
     CorrelationId,
     Outcome,
-    Tag} from '@serenity-js/core/lib/model';
+    Tag} from '@serenity-js/core/model';
 import {
     ActivityDetails,
     ArbitraryTag,
@@ -59,11 +59,11 @@ import {
     ScenarioDetails,
     ScenarioParameters,
     Tags,
-} from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/model';
 
-import type { EventDataCollector, IParsedTestStep, ITestCaseAttempt } from '../types/cucumber';
-import { TestStepFormatter } from './TestStepFormatter';
-import type { ExtractedScenario, ExtractedScenarioOutline } from './types';
+import type { EventDataCollector, IParsedTestStep, ITestCaseAttempt } from '../types/cucumber.js';
+import { TestStepFormatter } from './TestStepFormatter.js';
+import type { ExtractedScenario, ExtractedScenarioOutline } from './types/index.js';
 
 /**
  * @package

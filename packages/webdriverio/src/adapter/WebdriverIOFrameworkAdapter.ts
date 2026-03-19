@@ -2,9 +2,9 @@ import 'webdriverio';
 
 import type { Serenity } from '@serenity-js/core';
 import { AnsiDiffFormatter, ArtifactArchiver, Cast, TakeNotes } from '@serenity-js/core';
-import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
-import type { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
-import { Path } from '@serenity-js/core/lib/io/index.js';
+import type { TestRunnerAdapter } from '@serenity-js/core/adapter';
+import type { ModuleLoader } from '@serenity-js/core/io';
+import { Path } from '@serenity-js/core/io';
 import { CallAnApi } from '@serenity-js/rest';
 import type { Capabilities } from '@wdio/types';
 import * as deepmerge from 'deepmerge';

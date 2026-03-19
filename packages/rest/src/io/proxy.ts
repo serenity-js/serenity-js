@@ -3,11 +3,11 @@ import * as process from 'node:process';
 
 import { ensure, isDefined } from 'tiny-types';
 
-import type { AxiosRequestConfigDefaults, AxiosRequestConfigProxyDefaults } from './AxiosRequestConfigDefaults';
-import { createUrl } from './createUrl';
-import { EnvironmentVariables } from './EnvironmentVariables';
-import { ProxyAgent } from './ProxyAgent';
-import { ProxyBypass } from './ProxyBypass';
+import type { AxiosRequestConfigDefaults, AxiosRequestConfigProxyDefaults } from './AxiosRequestConfigDefaults.js';
+import { createUrl } from './createUrl.js';
+import { EnvironmentVariables } from './EnvironmentVariables.js';
+import { ProxyAgent } from './ProxyAgent.js';
+import { ProxyBypass } from './ProxyBypass.js';
 
 /**
  * @param options

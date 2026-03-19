@@ -2,8 +2,8 @@ import 'mocha';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { AssertionError } from '@serenity-js/core';
-import { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';
-import { CorrelationId, ExecutionFailedWithAssertionError, FeatureTag, Name } from '@serenity-js/core/lib/model';
+import { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/events';
+import { CorrelationId, ExecutionFailedWithAssertionError, FeatureTag, Name } from '@serenity-js/core/model';
 
 import { cucumber, cucumberVersion } from '../src';
 

@@ -1,4 +1,4 @@
-import type { ASTNode } from './ASTNode';
+import type { ASTNode } from './ASTNode.js';
 
 /**
  * @private

@@ -1,7 +1,7 @@
 import type { QuestionAdapter } from '@serenity-js/core';
 import { Question } from '@serenity-js/core';
 
-import { BrowseTheWeb } from '../abilities';
+import { BrowseTheWeb } from '../abilities/index.js';
 
 /**
  * Uses the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to retrieve

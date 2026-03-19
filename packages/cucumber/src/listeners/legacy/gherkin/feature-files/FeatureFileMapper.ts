@@ -1,11 +1,11 @@
-import type { Path } from '@serenity-js/core/lib/io';
-import { FileSystemLocation } from '@serenity-js/core/lib/io';
-import type { Tag} from '@serenity-js/core/lib/model';
-import { Description, Name, ScenarioParameters, Tags } from '@serenity-js/core/lib/model';
+import type { Path } from '@serenity-js/core/io';
+import { FileSystemLocation } from '@serenity-js/core/io';
+import type { Tag} from '@serenity-js/core/model';
+import { Description, Name, ScenarioParameters, Tags } from '@serenity-js/core/model';
 
-import { Background, Feature, Scenario, ScenarioOutline, Step } from '../model';
-import type * as nodes from '../nodes';
-import { FeatureFileMap } from './FeatureFileMap';
+import { Background, Feature, Scenario, ScenarioOutline, Step } from '../model/index.js';
+import type * as nodes from '../nodes/index.js';
+import { FeatureFileMap } from './FeatureFileMap.js';
 
 /**
  * @private

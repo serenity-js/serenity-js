@@ -1,11 +1,11 @@
 import type { JSONObject } from 'tiny-types';
 
-import { OperationInterruptedError, TimeoutExpiredError } from '../../../errors';
-import type { Clock } from './Clock';
-import type { DelayedCallback } from './DelayedCallback';
-import { Duration } from './Duration';
-import type { RepeatUntilLimits } from './RepeatUntilLimits';
-import type { Timestamp } from './Timestamp';
+import { OperationInterruptedError, TimeoutExpiredError } from '../../../errors/index.js';
+import type { Clock } from './Clock.js';
+import type { DelayedCallback } from './DelayedCallback.js';
+import { Duration } from './Duration.js';
+import type { RepeatUntilLimits } from './RepeatUntilLimits.js';
+import type { Timestamp } from './Timestamp.js';
 
 /**
  * @group Time

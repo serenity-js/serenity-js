@@ -1,10 +1,10 @@
 import type { JSONObject } from 'tiny-types';
 import { ensure, isDefined } from 'tiny-types';
 
-import { CorrelationId } from '../../model';
-import type { SerialisedActor } from '../../screenplay';
-import { Timestamp } from '../../screenplay';
-import { DomainEvent } from '../DomainEvent';
+import { CorrelationId } from '../../model/index.js';
+import type { SerialisedActor } from '../../screenplay/index.js';
+import { Timestamp } from '../../screenplay/index.js';
+import { DomainEvent } from '../DomainEvent.js';
 
 /**
  * Emitted when an [`Actor`](https://serenity-js.org/api/core/class/Actor/) becomes

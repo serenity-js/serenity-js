@@ -1,4 +1,4 @@
-import type { Question } from './Question';
+import type { Question } from './Question.js';
 
 /**
  * Describes the type of answer a given [`Answerable`](https://serenity-js.org/api/core/#Answerable) would

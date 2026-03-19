@@ -1,12 +1,12 @@
 import { EventRecorder, expect } from '@integration/testing-tools';
 import type { Answerable, AnswersQuestions, RuntimeError} from '@serenity-js/core';
 import { actorCalled, AssertionError, configure, Expectation, LogicError, TestCompromisedError } from '@serenity-js/core';
-import { trimmed } from '@serenity-js/core/lib/io';
+import { trimmed } from '@serenity-js/core/io';
 import { beforeEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { Ensure, equals } from '../src';
-import { isIdenticalTo, p, q } from './fixtures';
+import { Ensure, equals } from '../src/index.js';
+import { isIdenticalTo, p, q } from './fixtures.js';
 
 describe('Ensure', () => {
 

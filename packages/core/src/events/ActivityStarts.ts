@@ -1,8 +1,8 @@
 import { ensure, isDefined } from 'tiny-types';
 
-import type { ActivityDetails, CorrelationId } from '../model';
-import type { Timestamp } from '../screenplay';
-import { DomainEvent } from './DomainEvent';
+import type { ActivityDetails, CorrelationId } from '../model/index.js';
+import type { Timestamp } from '../screenplay/index.js';
+import { DomainEvent } from './DomainEvent.js';
 
 /**
  * Emitted when an [`Activity`](https://serenity-js.org/api/core/class/Activity/) starts.

@@ -3,7 +3,7 @@ import { URL } from 'node:url';
 import type { Answerable, AnswersQuestions, CollectsArtifacts, UsesAbilities } from '@serenity-js/core';
 import { d, Interaction, LogicError } from '@serenity-js/core';
 
-import { CallAnApi } from '../abilities';
+import { CallAnApi } from '../abilities/index.js';
 
 /**
  * Changes configuration of the [ability](https://serenity-js.org/api/core/class/Ability/) to [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi/)

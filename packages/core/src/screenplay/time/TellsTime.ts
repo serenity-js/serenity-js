@@ -1,4 +1,4 @@
-import type { Timestamp } from './models';
+import type { Timestamp } from './models/index.js';
 
 /**
  * Describes an [`Actor`](https://serenity-js.org/api/core/class/Actor/) or a supporting class capable of telling

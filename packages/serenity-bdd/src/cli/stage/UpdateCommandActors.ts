@@ -1,6 +1,6 @@
 import type { Actor, Cast } from '@serenity-js/core';
 import { TakeNotes } from '@serenity-js/core';
-import type { Path } from '@serenity-js/core/lib/io';
+import type { Path } from '@serenity-js/core/io';
 import type { AxiosRequestConfigDefaults} from '@serenity-js/rest';
 import { CallAnApi } from '@serenity-js/rest';
 

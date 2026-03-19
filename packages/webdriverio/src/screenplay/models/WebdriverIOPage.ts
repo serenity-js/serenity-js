@@ -3,7 +3,7 @@ import 'webdriverio';
 import { URL } from 'node:url';
 
 import { type Discardable, List, LogicError } from '@serenity-js/core';
-import type { CorrelationId } from '@serenity-js/core/lib/model/index.js';
+import type { CorrelationId } from '@serenity-js/core/model';
 import type { Cookie, CookieData, ModalDialogHandler, PageElements, Selector } from '@serenity-js/web';
 import {
     ArgumentDehydrator,
@@ -14,7 +14,7 @@ import {
     PageElement,
     PageElementsLocator
 } from '@serenity-js/web';
-import * as scripts from '@serenity-js/web/lib/scripts/index.js';
+import * as scripts from '@serenity-js/web/scripts';
 import type { TransformElement } from 'webdriverio';
 
 import { WebdriverIOExistingElementLocator, WebdriverIOLocator, WebdriverIORootLocator } from './locators/index.js';
@@ -262,7 +262,23 @@ export class WebdriverIOPage extends Page<WebdriverIO.Element> implements Discar
 
     async setViewportSize(size: { width: number, height: number }): Promise<void> {
         return await this.inContextOfThisPage(async () => {
-            await this.browser.setViewport(size);
+            // Use BiDi setViewport when available as it handles devicePixelRatio correctly
+            if (this.browser.isBidi) {
+                return this.browser.setViewport(size);
+            }
+
+            // Fall back to classic WebDriver approach for non-BiDi sessions
+            const desiredWindowSize = await this.browser.execute(`
+                var currentViewportWidth  = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+                var currentViewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+
+                return {
+                    width:  Math.max(window.outerWidth  - currentViewportWidth  + ${ size.width },  ${ size.width }),
+                    height: Math.max(window.outerHeight - currentViewportHeight + ${ size.height }, ${ size.height }),
+                };
+            `) as { width: number, height: number };
+
+            return this.browser.setWindowSize(desiredWindowSize.width, desiredWindowSize.height);
         });
     }
 

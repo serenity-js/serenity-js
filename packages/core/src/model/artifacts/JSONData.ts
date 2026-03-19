@@ -1,6 +1,6 @@
 import type { JSONValue } from 'tiny-types';
 
-import { Artifact } from '../Artifact';
+import { Artifact } from '../Artifact.js';
 
 export class JSONData extends Artifact {
     static fromJSON(value: JSONValue): JSONData {

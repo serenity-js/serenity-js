@@ -1,7 +1,7 @@
-import { ImplementationPendingError } from '../errors';
-import type { PerformsActivities } from './activities';
-import { Activity } from './Activity';
-import type { Answerable } from './Answerable';
+import { ImplementationPendingError } from '../errors/index.js';
+import type { PerformsActivities } from './activities/index.js';
+import { Activity } from './Activity.js';
+import type { Answerable } from './Answerable.js';
 
 /**
  * **Tasks** model **[sequences of activities](https://serenity-js.org/api/core/class/Activity/)**
@@ -103,7 +103,7 @@ import type { Answerable } from './Answerable';
  * import { Task, the } from '@serenity-js/core'
  * import { Click, Enter, Key, Press } from '@serenity-js/web'
  *
- * import { FlightFinder } from './ui/flight-finder'
+ * import { FlightFinder } from './ui/flight-finder.js'
  *
  * const specifyOriginCity = (originCity: string) =>
  *     Task.where(the`#actor specifies origin city of ${ originCity }`,
@@ -129,7 +129,7 @@ import type { Answerable } from './Answerable';
  * import { Task, the } from '@serenity-js/core'
  * import { Click, Enter, Key, PageElement, Press } from '@serenity-js/web'
  *
- * import { FlightFinder } from './ui/flight-finder'
+ * import { FlightFinder } from './ui/flight-finder.js'
  *
  * const specifyOriginCity = (originCity: string) =>
  *     Task.where(the`#actor specifies origin city of ${ originCity }`,

@@ -1,7 +1,7 @@
 import { LogicError } from '@serenity-js/core';
 import type { SwitchableOrigin } from '@serenity-js/web';
 import { PageElement, SelectOption } from '@serenity-js/web';
-import * as scripts from '@serenity-js/web/lib/scripts';
+import * as scripts from '@serenity-js/web/scripts';
 import type { ElementFinder} from 'protractor';
 import { by, type Locator, protractor, type WebElement } from 'protractor';
 

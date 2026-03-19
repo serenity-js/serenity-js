@@ -1,6 +1,6 @@
 import { ensure, isDefined, property } from 'tiny-types';
 
-import type { SerenityConfig } from '../config';
+import type { SerenityConfig } from '../config/index.js';
 import {
     ConfigurationError,
     ErrorFactory,
@@ -8,7 +8,7 @@ import {
     LogicError,
     RaiseErrors,
     type RuntimeError
-} from '../errors';
+} from '../errors/index.js';
 import {
     ActorEntersStage,
     ActorSpotlighted,
@@ -21,12 +21,12 @@ import {
     SceneFinishes,
     SceneStarts,
     TestRunFinishes
-} from '../events';
-import { type ActivityDetails, CorrelationId, type CorrelationIdFactory, Name } from '../model';
-import { Actor, type Clock, type Duration, ScheduleWork, type Timestamp } from '../screenplay';
-import type { ListensToDomainEvents } from '../stage';
-import type { Cast } from './Cast';
-import type { StageManager } from './StageManager';
+} from '../events/index.js';
+import { type ActivityDetails, CorrelationId, type CorrelationIdFactory, Name } from '../model/index.js';
+import { Actor, type Clock, type Duration, ScheduleWork, type Timestamp } from '../screenplay/index.js';
+import type { ListensToDomainEvents } from '../stage/index.js';
+import type { Cast } from './Cast.js';
+import type { StageManager } from './StageManager.js';
 
 /**
  * Stage is the place where [actors](https://serenity-js.org/api/core/class/Actor/) perform.

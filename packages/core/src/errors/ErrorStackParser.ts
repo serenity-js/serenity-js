@@ -1,4 +1,5 @@
-import * as parser from 'error-stack-parser';
+import type { StackFrame } from 'error-stack-parser';
+import parser from 'error-stack-parser';
 
 /**
  * A thin wrapper around error-stack-parser module
@@ -9,7 +10,7 @@ import * as parser from 'error-stack-parser';
  * @group Errors
  */
 export class ErrorStackParser {
-    parse(error: Error): parser.StackFrame[] {
+    parse(error: Error): StackFrame[] {
         return parser.parse(error);
     }
 }

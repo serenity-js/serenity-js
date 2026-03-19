@@ -1,10 +1,10 @@
 import type { Stage } from '@serenity-js/core';
 import { LogicError } from '@serenity-js/core';
-import type { ActivityFinished, ActivityStarts, DomainEvent } from '@serenity-js/core/lib/events';
-import { ActivityRelatedArtifactGenerated, AsyncOperationAborted, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed } from '@serenity-js/core/lib/events';
-import { CorrelationId, Description, Name, Photo } from '@serenity-js/core/lib/model';
+import type { ActivityFinished, ActivityStarts, DomainEvent } from '@serenity-js/core/events';
+import { ActivityRelatedArtifactGenerated, AsyncOperationAborted, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed } from '@serenity-js/core/events';
+import { CorrelationId, Description, Name, Photo } from '@serenity-js/core/model';
 
-import { BrowseTheWeb } from '../../../../screenplay';
+import { BrowseTheWeb } from '../../../../screenplay/index.js';
 
 /**
  * Configures the [`Photographer`](https://serenity-js.org/api/web/class/Photographer/) to take photos, a.k.a. screenshots,

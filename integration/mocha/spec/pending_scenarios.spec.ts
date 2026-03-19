@@ -1,6 +1,6 @@
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
-import { SceneFinished, SceneStarts, TestRunnerDetected } from '@serenity-js/core/lib/events';
-import { ImplementationPending, Name } from '@serenity-js/core/lib/model';
+import { SceneFinished, SceneStarts, TestRunnerDetected } from '@serenity-js/core/events';
+import { ImplementationPending, Name } from '@serenity-js/core/model';
 import { describe, it } from 'mocha';
 
 import { mocha } from '../src/mocha';

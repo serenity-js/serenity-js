@@ -1,3 +1,3 @@
-export * from './dragAndDrop';
-export * from './isVisible';
-export * from './rehydrate';
+export * from './dragAndDrop.js';
+export * from './isVisible.js';
+export * from './rehydrate.js';

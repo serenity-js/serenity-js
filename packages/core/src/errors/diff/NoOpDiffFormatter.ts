@@ -1,4 +1,4 @@
-import type { DiffFormatter } from './DiffFormatter';
+import type { DiffFormatter } from './DiffFormatter.js';
 
 /**
  * A no-op [`DiffFormatter`](https://serenity-js.org/api/core/interface/DiffFormatter/) that produces output identical to input.

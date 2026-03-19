@@ -1,4 +1,4 @@
-import type { SwitchableOrigin } from './SwitchableOrigin';
+import type { SwitchableOrigin } from './SwitchableOrigin.js';
 
 /**
  * Describes a Serenity/JS model object that can be switched _to_ and switched back _from_

@@ -1,6 +1,6 @@
 import { ensure, isDefined } from 'tiny-types';
 
-import { ModalDialog } from './ModalDialog';
+import { ModalDialog } from './ModalDialog.js';
 
 /**
  * `AcceptedModalDialog` represents a [`ModalDialog`](https://serenity-js.org/api/web/class/ModalDialog/) that has been accepted

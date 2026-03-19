@@ -12,8 +12,8 @@ import {
     ArtifactGenerated,
     SceneFinishes,
     SceneStarts
-} from '@serenity-js/core/lib/events';
-import { ExecutionSuccessful, TextData } from '@serenity-js/core/lib/model';
+} from '@serenity-js/core/events';
+import { ExecutionSuccessful, TextData } from '@serenity-js/core/model';
 import {
     By,
     ExecuteScript,

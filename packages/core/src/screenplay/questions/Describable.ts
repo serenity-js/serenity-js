@@ -1,7 +1,7 @@
-import { ValueInspector } from '../../io/reflection/ValueInspector';
-import type { UsesAbilities } from '../abilities/UsesAbilities';
-import type { Answerable } from '../Answerable';
-import type { AnswersQuestions } from './AnswersQuestions';
+import { ValueInspector } from '../../io/reflection/ValueInspector.js';
+import type { UsesAbilities } from '../abilities/UsesAbilities.js';
+import type { Answerable } from '../Answerable.js';
+import type { AnswersQuestions } from './AnswersQuestions.js';
 
 const descriptionField = Symbol('description');
 

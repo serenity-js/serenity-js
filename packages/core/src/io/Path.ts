@@ -1,6 +1,9 @@
 import filenamify from 'filenamify';
 import { ensure, isDefined, isGreaterThan, property, TinyType } from 'tiny-types';
-import path, { sep } from 'upath';
+import upath from 'upath';
+
+const { sep } = upath;
+const path = upath;
 
 export class Path extends TinyType {
     private static readonly Separator = '/';

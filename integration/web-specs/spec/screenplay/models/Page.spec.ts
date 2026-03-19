@@ -156,7 +156,9 @@ describe('Page', () => {
                     Click.on(NewTab.closeLink()),
                 ),
 
-                Ensure.that(Page.whichTitle(equals(NewTab.title)), not(isPresent())),
+                // Use Ensure.eventually to handle the race condition where the window
+                // might not be fully closed yet after clicking the close link
+                Ensure.eventually(Page.whichTitle(equals(NewTab.title)), not(isPresent())),
             ));
 
         it('correctly discards of Pages that have been explicitly closed', () =>

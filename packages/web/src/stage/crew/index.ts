@@ -1,1 +1,1 @@
-export * from './photographer';
+export * from './photographer/index.js';

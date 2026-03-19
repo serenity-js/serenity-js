@@ -1,3 +1,3 @@
-export * from './feature-files';
-export * from './GherkinParserAdapter';
-export * from './model';
+export * from './feature-files/index.js';
+export * from './GherkinParserAdapter.js';
+export * from './model/index.js';

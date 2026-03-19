@@ -1,11 +1,11 @@
-import { d } from '../../io';
-import { stringified } from '../../io/stringified';
-import { LogEntry, Name } from '../../model';
-import type { UsesAbilities } from '../abilities';
-import type { Answerable } from '../Answerable';
-import type { CollectsArtifacts } from '../artifacts';
-import { Interaction } from '../Interaction';
-import type { AnswersQuestions } from '../questions';
+import { d } from '../../io/index.js';
+import { stringified } from '../../io/stringified.js';
+import { LogEntry, Name } from '../../model/index.js';
+import type { UsesAbilities } from '../abilities/index.js';
+import type { Answerable } from '../Answerable.js';
+import type { CollectsArtifacts } from '../artifacts/index.js';
+import { Interaction } from '../Interaction.js';
+import type { AnswersQuestions } from '../questions/index.js';
 
 /**
  * Instructs the [`Actor`](https://serenity-js.org/api/core/class/Actor/)

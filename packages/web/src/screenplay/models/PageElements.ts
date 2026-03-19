@@ -1,9 +1,9 @@
 import type { Answerable } from '@serenity-js/core';
 import { MetaList } from '@serenity-js/core';
 
-import type { PageElement } from './PageElement';
-import { PageElementsLocator } from './PageElementsLocator';
-import type { Selector } from './selectors';
+import type { PageElement } from './PageElement.js';
+import { PageElementsLocator } from './PageElementsLocator.js';
+import type { Selector } from './selectors/index.js';
 
 /**
  * Uses the [actor's](https://serenity-js.org/api/core/class/Actor/) [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) to identify

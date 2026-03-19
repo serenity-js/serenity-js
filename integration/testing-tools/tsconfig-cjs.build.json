@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.build.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "outDir": "lib",
+    "rootDir": "src",
+    "target": "es2022",
+    "skipLibCheck": true,
+    "types": [
+      "node",
+      "chai-as-promised"
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}

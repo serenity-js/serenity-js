@@ -1,2 +1,2 @@
-export * from './OutputStream';
-export * from './TestRunnerAdapter';
+export * from './OutputStream.js';
+export * from './TestRunnerAdapter.js';

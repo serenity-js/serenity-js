@@ -1,4 +1,4 @@
-import type { Description } from '@serenity-js/core/lib/model';
+import type { Description } from '@serenity-js/core/model';
 
 import type { SceneSequenceReportContext } from '../SceneSequenceReportContext';
 

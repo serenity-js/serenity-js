@@ -1,4 +1,4 @@
-import * as events from '@serenity-js/core/lib/events';
+import * as events from '@serenity-js/core/events';
 
 export interface SpawnResult {
     events: events.DomainEvent[];

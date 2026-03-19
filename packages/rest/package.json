@@ -16,8 +16,22 @@
     "access": "public",
     "provenance": true
   },
-  "main": "lib/index.js",
+  "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "type": "module",
+  "module": "./esm/index.js",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./esm/index.js",
+      "require": "./lib/index.js"
+    },
+    "./lib/*.js": "./lib/*.js",
+    "./lib/*": "./lib/*",
+    "./esm/*.js": "./esm/*.js",
+    "./esm/*": "./esm/*.js",
+    "./package.json": "./package.json"
+  },
   "keywords": [
     "automation",
     "integration",
@@ -36,8 +50,12 @@
   "scripts": {
     "clean": "rimraf target",
     "test": "c8 npm run test:no-coverage",
-    "test:no-coverage": "mocha --config ../../.mocharc.yml --spec='spec/**/*.spec.*'",
-    "compile": "rimraf lib && tsc --project tsconfig.build.json"
+    "test:no-coverage": "mocha --config .mocharc.yml --spec='spec/**/*.spec.*'",
+    "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs-package && npm run compile:cjs",
+    "compile:clean": "rimraf lib esm",
+    "compile:esm": "tsc --project tsconfig-esm.build.json",
+    "compile:cjs-package": "node -e \"require('fs').mkdirSync('lib', { recursive: true }); require('fs').writeFileSync('lib/package.json', '{ \\\"type\\\": \\\"commonjs\\\" }')\"",
+    "compile:cjs": "tsc --project tsconfig-cjs.build.json"
   },
   "repository": {
     "type": "git",
@@ -56,8 +74,8 @@
     "axios": "1.13.6",
     "http-proxy-agent": "7.0.2",
     "https-proxy-agent": "7.0.6",
-    "lru-cache": "11.2.6",
-    "tiny-types": "1.24.3"
+    "lru-cache": "11.2.7",
+    "tiny-types": "2.0.5"
   },
   "devDependencies": {
     "@integration/testing-tools": "workspace:*",
@@ -68,7 +86,7 @@
     "c8": "11.0.0",
     "mocha": "11.7.5",
     "mocha-multi": "1.1.7",
-    "ts-node": "10.9.2",
+    "tsx": "4.21.0",
     "typescript": "5.9.3"
   }
 }

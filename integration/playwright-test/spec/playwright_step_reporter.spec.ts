@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { Timestamp } from '@serenity-js/core';
-import { TestRunFinished, TestRunStarts } from '@serenity-js/core/lib/events';
+import { TestRunFinished, TestRunStarts } from '@serenity-js/core/events';
 import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../src/playwright-test';

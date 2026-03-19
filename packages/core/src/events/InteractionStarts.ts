@@ -1,8 +1,8 @@
 import type { JSONObject } from 'tiny-types';
 
-import { ActivityDetails, CorrelationId } from '../model';
-import { Timestamp } from '../screenplay';
-import { ActivityStarts } from './ActivityStarts';
+import { ActivityDetails, CorrelationId } from '../model/index.js';
+import { Timestamp } from '../screenplay/index.js';
+import { ActivityStarts } from './ActivityStarts.js';
 
 /**
  * Emitted when an [`Interaction`](https://serenity-js.org/api/core/class/Interaction/) starts.

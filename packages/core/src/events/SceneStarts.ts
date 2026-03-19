@@ -1,9 +1,9 @@
 import type { JSONObject } from 'tiny-types';
 import { ensure, isDefined } from 'tiny-types';
 
-import { CorrelationId, ScenarioDetails } from '../model';
-import { Timestamp } from '../screenplay';
-import { DomainEvent } from './DomainEvent';
+import { CorrelationId, ScenarioDetails } from '../model/index.js';
+import { Timestamp } from '../screenplay/index.js';
+import { DomainEvent } from './DomainEvent.js';
 
 /**
  * Emitted by a Serenity/JS test runner adapter when a test scenario and its associated test hooks are about to start.

@@ -1,10 +1,10 @@
-import { CorrelationId } from '@serenity-js/core/lib/model';
+import { CorrelationId } from '@serenity-js/core/model';
 import type { BrowserCapabilities } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
-import type { ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions';
-import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
-import { PlaywrightPage } from './PlaywrightPage';
+import type { ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions.js';
+import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession.js';
+import { PlaywrightPage } from './PlaywrightPage.js';
 
 /**
  *  @group Models

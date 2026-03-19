@@ -2,7 +2,7 @@ import { URL } from 'node:url';
 
 import { isTrue } from '@serenity-js/assertions';
 import { actorCalled, Check, configure } from '@serenity-js/core';
-import { Path } from '@serenity-js/core/lib/io';
+import { Path } from '@serenity-js/core/io';
 import * as https from 'https';
 
 import type { Argv } from '../Argv';

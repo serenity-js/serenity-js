@@ -1,11 +1,11 @@
 import type { JSONObject } from 'tiny-types';
 import { ensure, isDefined } from 'tiny-types';
 
-import { Path } from '../io';
-import type { ArtifactType} from '../model';
-import { Artifact, CorrelationId, Name } from '../model';
-import { Timestamp } from '../screenplay';
-import { DomainEvent } from './DomainEvent';
+import { Path } from '../io/index.js';
+import type { ArtifactType} from '../model/index.js';
+import { Artifact, CorrelationId, Name } from '../model/index.js';
+import { Timestamp } from '../screenplay/index.js';
+import { DomainEvent } from './DomainEvent.js';
 
 /**
  * @group Events

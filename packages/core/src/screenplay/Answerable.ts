@@ -1,4 +1,4 @@
-import type { Question } from './Question';
+import type { Question } from './Question.js';
 
 /**
  * A union type that provides a convenient way to represent any value

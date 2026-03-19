@@ -2,9 +2,9 @@
 import type { EventRecorder} from '@integration/testing-tools';
 import { expect, PickEvent } from '@integration/testing-tools';
 import type { Stage } from '@serenity-js/core';
-import { ArtifactGenerated, SceneFinished, SceneParametersDetected, SceneSequenceDetected, SceneStarts, SceneTagged, SceneTemplateDetected, TestRunFinishes } from '@serenity-js/core/lib/events';
-import { FileSystemLocation, Path } from '@serenity-js/core/lib/io';
-import { BrowserTag, Category, CorrelationId, Description, ExecutionFailedWithError, ExecutionSuccessful, Name, PlatformTag, ScenarioDetails, ScenarioParameters } from '@serenity-js/core/lib/model';
+import { ArtifactGenerated, SceneFinished, SceneParametersDetected, SceneSequenceDetected, SceneStarts, SceneTagged, SceneTemplateDetected, TestRunFinishes } from '@serenity-js/core/events';
+import { FileSystemLocation, Path } from '@serenity-js/core/io';
+import { BrowserTag, Category, CorrelationId, Description, ExecutionFailedWithError, ExecutionSuccessful, Name, PlatformTag, ScenarioDetails, ScenarioParameters } from '@serenity-js/core/model';
 import { beforeEach, describe, it } from 'mocha';
 
 import { create } from '../create';

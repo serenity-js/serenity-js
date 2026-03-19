@@ -1,15 +1,15 @@
 import { ensure, isGreaterThanOrEqualTo, isInRange } from 'tiny-types';
 
-import { AssertionError, ListItemNotFoundError, RaiseErrors, TimeoutExpiredError } from '../../../errors';
-import { d } from '../../../io';
-import type { UsesAbilities } from '../../abilities';
-import type { Answerable } from '../../Answerable';
-import { Interaction } from '../../Interaction';
-import type { AnswersQuestions, Expectation, ExpectationOutcome} from '../../questions';
-import { the } from '../../questions';
-import { ExpectationMet } from '../../questions';
-import { ScheduleWork } from '../abilities';
-import { Duration } from '../models';
+import { AssertionError, ListItemNotFoundError, RaiseErrors, TimeoutExpiredError } from '../../../errors/index.js';
+import { d } from '../../../io/index.js';
+import type { UsesAbilities } from '../../abilities/index.js';
+import type { Answerable } from '../../Answerable.js';
+import { Interaction } from '../../Interaction.js';
+import type { AnswersQuestions, Expectation, ExpectationOutcome} from '../../questions/index.js';
+import { the } from '../../questions/index.js';
+import { ExpectationMet } from '../../questions/index.js';
+import { ScheduleWork } from '../abilities/index.js';
+import { Duration } from '../models/index.js';
 
 /**
  * `Wait` is a synchronisation statement that instructs the [actor](https://serenity-js.org/api/core/class/Actor/)

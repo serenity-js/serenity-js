@@ -1,9 +1,9 @@
 import type { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
 import { Question, the } from '@serenity-js/core';
-import { asyncMap } from '@serenity-js/core/lib/io';
+import { asyncMap } from '@serenity-js/core/io';
 
-import type { PageElement } from '../models';
-import { PageElementInteraction } from './PageElementInteraction';
+import type { PageElement } from '../models/index.js';
+import { PageElementInteraction } from './PageElementInteraction.js';
 
 /**
  * Instructs an [actor](https://serenity-js.org/api/core/class/Actor/) who has the [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)

@@ -1,9 +1,9 @@
 import type { BrowserCapabilities } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
-import type { ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions';
-import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession';
-import type { PlaywrightPage } from './PlaywrightPage';
+import type { ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions.js';
+import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession.js';
+import type { PlaywrightPage } from './PlaywrightPage.js';
 
 /**
  *  @group Models

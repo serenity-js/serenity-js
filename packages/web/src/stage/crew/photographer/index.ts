@@ -1,2 +1,2 @@
-export * from './Photographer';
-export * from './strategies';
+export * from './Photographer.js';
+export * from './strategies/index.js';

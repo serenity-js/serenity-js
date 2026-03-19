@@ -1,5 +1,5 @@
 import type { Serenity } from '@serenity-js/core';
-import type { ModuleLoader, Path } from '@serenity-js/core/lib/io/index.js';
+import type { ModuleLoader, Path } from '@serenity-js/core/io';
 import type { Capabilities } from '@wdio/types';
 import type { EventEmitter } from 'events';
 

@@ -1,6 +1,6 @@
-import type { ASTNode } from './ASTNode';
-import type { TableRow } from './TableRow';
-import type { Tag } from './Tag';
+import type { ASTNode } from './ASTNode.js';
+import type { TableRow } from './TableRow.js';
+import type { Tag } from './Tag.js';
 
 /**
  * @private

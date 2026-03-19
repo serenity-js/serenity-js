@@ -1,1 +1,1 @@
-export * from './screenplay';
+export * from './screenplay/index.js';

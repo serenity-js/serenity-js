@@ -1,2 +1,2 @@
-export * from './ChildProcessReporter';
-export * from './DTO';
+export * from './ChildProcessReporter.js';
+export * from './DTO.js';

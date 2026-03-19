@@ -1,6 +1,6 @@
 import type { JSONObject } from 'tiny-types';
 
-import { JSONData } from './JSONData';
+import { JSONData } from './JSONData.js';
 
 /**
  * The value of the `HTTPRequestResponse` artifact describing an HTTP request/response pair.

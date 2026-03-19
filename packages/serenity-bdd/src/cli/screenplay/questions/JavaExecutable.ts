@@ -3,7 +3,7 @@ import { promisify } from 'node:util';
 
 import type { AnswersQuestions, UsesAbilities } from '@serenity-js/core';
 import { Question } from '@serenity-js/core';
-import { Path } from '@serenity-js/core/lib/io';
+import { Path } from '@serenity-js/core/io';
 const findJavaHome = promisify(require('find-java-home'));
 
 /**

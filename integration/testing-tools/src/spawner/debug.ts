@@ -1,4 +1,4 @@
-import { SpawnResult } from './SpawnResult';
+import { SpawnResult } from './SpawnResult.js';
 
 export function ifExitCodeIsOtherThan(expectedExitCode: number, fn: (result: SpawnResult) => SpawnResult) {
     return (result: SpawnResult): SpawnResult => {

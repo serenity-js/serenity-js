@@ -1,7 +1,7 @@
-import type { TestRunnerAdapter } from '@serenity-js/core/lib/adapter/index.js';
-import type { ModuleLoader } from '@serenity-js/core/lib/io/index.js';
-import type { Outcome } from '@serenity-js/core/lib/model/index.js';
-import { ExecutionIgnored } from '@serenity-js/core/lib/model/index.js';
+import type { TestRunnerAdapter } from '@serenity-js/core/adapter';
+import type { ModuleLoader } from '@serenity-js/core/io';
+import type { Outcome } from '@serenity-js/core/model';
+import { ExecutionIgnored } from '@serenity-js/core/model';
 
 import type { SerenityReporterForJasmineConfig } from '../bootstrap.js';
 import reporter from '../index.js';

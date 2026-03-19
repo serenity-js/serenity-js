@@ -1,15 +1,16 @@
 import type { Envelope } from '@cucumber/messages';
 import { IdGenerator } from '@cucumber/messages';
 import type { Serenity } from '@serenity-js/core';
-import type { DomainEvent } from '@serenity-js/core/lib/events';
-import { SceneFinishes, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';
-import type { ModuleLoader } from '@serenity-js/core/lib/io';
-import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/lib/model';
+import type { DomainEvent } from '@serenity-js/core/events';
+import { SceneFinishes, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/events';
+import type { ModuleLoader } from '@serenity-js/core/io';
+import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/model';
 
-import { CucumberMessagesParser } from './parser/CucumberMessagesParser';
-import type { IParsedTestStep } from './types/cucumber';
+import { CucumberMessagesParser } from './parser/CucumberMessagesParser.js';
+import type { IParsedTestStep } from './types/cucumber.js';
 
-export = function (serenity: Serenity, moduleLoader: ModuleLoader) {    // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export default function (serenity: Serenity, moduleLoader: ModuleLoader) {
 
     const
         { Formatter, formatterHelpers } = moduleLoader.require('@cucumber/cucumber'),

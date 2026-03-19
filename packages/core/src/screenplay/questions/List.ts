@@ -1,14 +1,14 @@
-import { ListItemNotFoundError, LogicError } from '../../errors';
-import { d } from '../../io';
-import type { UsesAbilities } from '../abilities';
-import type { Actor } from '../Actor';
-import type { Answerable } from '../Answerable';
-import type { MetaQuestionAdapter, QuestionAdapter } from '../Question';
-import { Question } from '../Question';
-import type { AnswersQuestions, ChainableMetaQuestion, MetaQuestion } from '../questions';
-import { Task } from '../Task';
-import type { Expectation } from './Expectation';
-import { ExpectationMet } from './expectations';
+import { ListItemNotFoundError, LogicError } from '../../errors/index.js';
+import { d } from '../../io/index.js';
+import type { UsesAbilities } from '../abilities/index.js';
+import type { Actor } from '../Actor.js';
+import type { Answerable } from '../Answerable.js';
+import type { MetaQuestionAdapter, QuestionAdapter } from '../Question.js';
+import { Question } from '../Question.js';
+import type { AnswersQuestions, ChainableMetaQuestion, MetaQuestion } from '../questions/index.js';
+import { Task } from '../Task.js';
+import type { Expectation } from './Expectation.js';
+import { ExpectationMet } from './expectations/index.js';
 
 /**
  * Serenity/JS Screenplay Pattern-style wrapper around [`Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)

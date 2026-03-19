@@ -1,12 +1,12 @@
-import { asyncMap, ValueInspector } from '../../io';
-import type { UsesAbilities } from '../abilities';
-import type { Answerable } from '../Answerable';
-import type { MetaQuestionAdapter, QuestionAdapter } from '../Question';
-import { Question } from '../Question';
-import type { AnswersQuestions } from './AnswersQuestions';
-import { Describable } from './Describable';
-import type { DescriptionFormattingOptions } from './DescriptionFormattingOptions';
-import type { MetaQuestion } from './MetaQuestion';
+import { asyncMap, ValueInspector } from '../../io/index.js';
+import type { UsesAbilities } from '../abilities/index.js';
+import type { Answerable } from '../Answerable.js';
+import type { MetaQuestionAdapter, QuestionAdapter } from '../Question.js';
+import { Question } from '../Question.js';
+import type { AnswersQuestions } from './AnswersQuestions.js';
+import { Describable } from './Describable.js';
+import type { DescriptionFormattingOptions } from './DescriptionFormattingOptions.js';
+import type { MetaQuestion } from './MetaQuestion.js';
 
 /**
  * Creates a single-line description of an [`Activity`](https://serenity-js.org/api/core/class/Activity/) by transforming

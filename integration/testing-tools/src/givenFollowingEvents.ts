@@ -1,5 +1,5 @@
-import { DomainEvent } from '@serenity-js/core/lib/events';
-import { StageCrewMember } from '@serenity-js/core/lib/stage';
+import { DomainEvent } from '@serenity-js/core/events';
+import { StageCrewMember } from '@serenity-js/core/stage';
 
 export function givenFollowingEvents(...events: DomainEvent[]) {
     return ({

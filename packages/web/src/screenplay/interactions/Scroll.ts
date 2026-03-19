@@ -1,7 +1,7 @@
 import type { Answerable, AnswersQuestions, UsesAbilities } from '@serenity-js/core';
 import { Interaction, the } from '@serenity-js/core';
 
-import type { PageElement } from '../models';
+import type { PageElement } from '../models/index.js';
 
 /**
  * Instructs an [actor](https://serenity-js.org/api/core/class/Actor/) who has the [ability](https://serenity-js.org/api/core/class/Ability/) to [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)

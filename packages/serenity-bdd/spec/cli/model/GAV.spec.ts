@@ -1,5 +1,5 @@
 import { expect } from '@integration/testing-tools';
-import { Path } from '@serenity-js/core/lib/io';
+import { Path } from '@serenity-js/core/io';
 import { describe, it } from 'mocha';
 
 import { GAV } from '../../../src/cli/model';
