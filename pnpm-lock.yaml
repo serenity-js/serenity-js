@@ -2468,8 +2468,8 @@ importers:
         specifier: 1.1.7
         version: 1.1.7(mocha@11.7.5)
       tsx:
-        specifier: 4.20.3
-        version: 4.20.3
+        specifier: 4.21.0
+        version: 4.21.0
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -2590,8 +2590,8 @@ importers:
         specifier: 1.1.7
         version: 1.1.7(mocha@11.7.5)
       tsx:
-        specifier: 4.20.3
-        version: 4.20.3
+        specifier: 4.21.0
+        version: 4.21.0
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -2691,8 +2691,8 @@ importers:
         specifier: 10.9.2
         version: 10.9.2(@types/node@24.12.0)(typescript@5.9.3)
       tsx:
-        specifier: 4.20.3
-        version: 4.20.3
+        specifier: 4.21.0
+        version: 4.21.0
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -2722,8 +2722,8 @@ importers:
         specifier: 1.1.7
         version: 1.1.7(mocha@11.7.5)
       tsx:
-        specifier: 4.20.3
-        version: 4.20.3
+        specifier: 4.21.0
+        version: 4.21.0
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -9780,6 +9780,7 @@ packages:
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     deprecated: |-
       You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+
       (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
   qs@6.14.0:
@@ -10845,11 +10846,6 @@ packages:
   tsscmp@1.0.6:
     resolution: {integrity: sha512-LxhtAkPDTkVCMQjt2h6eBVY28KCjikZqZfMcC15YBeNjkgUpdCfBu5HoiOTDu86v6smE8yOjyEktJ8hlbANHQA==}
     engines: {node: '>=0.6.x'}
-
-  tsx@4.20.3:
-    resolution: {integrity: sha512-qjbnuR9Tr+FJOMBqJCW5ehvIo/buZq7vH7qD7JziU98h6l3qGy0a/yPFjwO+y0/T7GFpNgNAvEcPPVfyT8rrPQ==}
-    engines: {node: '>=18.0.0'}
-    hasBin: true
 
   tsx@4.21.0:
     resolution: {integrity: sha512-5C1sg4USs1lfG0GFb2RLXsdpXqBSEhAaA/0kPL01wxzpMqLILNxIxIOKiILz+cdg/pLnOUxFYOR5yhHU666wbw==}
@@ -20739,13 +20735,6 @@ snapshots:
   tslib@2.8.1: {}
 
   tsscmp@1.0.6: {}
-
-  tsx@4.20.3:
-    dependencies:
-      esbuild: 0.25.12
-      get-tsconfig: 4.13.0
-    optionalDependencies:
-      fsevents: 2.3.3
 
   tsx@4.21.0:
     dependencies:
