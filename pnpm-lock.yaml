@@ -2011,8 +2011,8 @@ importers:
         specifier: 11.0.0
         version: 11.0.0
       chromedriver:
-        specifier: 145.0.6
-        version: 145.0.6
+        specifier: 147.0.1
+        version: 147.0.1
       mocha:
         specifier: 11.7.5
         version: 11.7.5
@@ -2160,8 +2160,8 @@ importers:
         specifier: 11.0.0
         version: 11.0.0
       chromedriver:
-        specifier: 145.0.6
-        version: 145.0.6
+        specifier: 147.0.1
+        version: 147.0.1
       ci-info:
         specifier: 4.4.0
         version: 4.4.0
@@ -2188,7 +2188,7 @@ importers:
         version: 5.9.3
       wdio-chromedriver-service:
         specifier: 8.1.1
-        version: 8.1.1(@wdio/types@8.41.0)(chromedriver@145.0.6)(webdriverio@8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13))
+        version: 8.1.1(@wdio/types@8.41.0)(chromedriver@147.0.1)(webdriverio@8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13))
       webdriverio:
         specifier: 8.42.0
         version: 8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
@@ -6082,8 +6082,8 @@ packages:
     engines: {node: '>=12.13.0'}
     hasBin: true
 
-  chromedriver@145.0.6:
-    resolution: {integrity: sha512-qobFdfjk7G7U9GKB6RYGBuqQ8L0QG1M30p90sNIWLKdpeobhsedfBhVxRqT4m/nWAtM0PhNb9GDD9qzDwSSGlA==}
+  chromedriver@147.0.1:
+    resolution: {integrity: sha512-bGmw/dtwI5VX5BwbK4Vlotl9Yfm+np/FV54GG6IAXJDZUdGVCa5ABM8NjHpPzRzoum6bAvGTpPOdDtMpxSvalg==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -9780,6 +9780,7 @@ packages:
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     deprecated: |-
       You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+
       (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
   qs@6.14.0:
@@ -15279,7 +15280,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  chromedriver@145.0.6:
+  chromedriver@147.0.1:
     dependencies:
       '@testim/chrome-version': 1.1.4
       axios: 1.13.6(debug@4.4.3)
@@ -21029,7 +21030,7 @@ snapshots:
     dependencies:
       defaults: 1.0.4
 
-  wdio-chromedriver-service@8.1.1(@wdio/types@8.41.0)(chromedriver@145.0.6)(webdriverio@8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)):
+  wdio-chromedriver-service@8.1.1(@wdio/types@8.41.0)(chromedriver@147.0.1)(webdriverio@8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)):
     dependencies:
       '@wdio/logger': 8.38.0
       fs-extra: 11.3.0
@@ -21038,7 +21039,7 @@ snapshots:
       webdriverio: 8.42.0(devtools@8.42.0(encoding@0.1.13))(encoding@0.1.13)
     optionalDependencies:
       '@wdio/types': 8.41.0
-      chromedriver: 145.0.6
+      chromedriver: 147.0.1
     transitivePeerDependencies:
       - supports-color
 
