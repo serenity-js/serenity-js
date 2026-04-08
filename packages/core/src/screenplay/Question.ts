@@ -51,6 +51,34 @@ import type { WithAnswerableProperties } from './WithAnswerableProperties.js';
  *  )
  * ```
  *
+ * However, it's worth noting that sometimes you don't even need a custom question.
+ * You  can instead use a [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter),
+ * which proxies the known members of the type.
+ * In our list example, we can use a Serenity/JS [`List`](https://serenity-js.org/api/core/class/List/)
+ * which conveniently already has a `last()`.
+ *
+ * ```ts
+ * import { Page } from '@serenity-js/web'
+ * import { actorCalled, List } from '@serenity-js/core'
+ * import { Ensure, equals, includes } from '@serenity-js/assertions'
+ *
+ * const list = List.of([ 1, 2, 3 ]);
+ *
+ * await actorCalled('Quentin').attemptsTo(
+ *   Ensure.that(list.last(), equals(3)),
+ * )
+ *
+ * const urlPath = () =>
+ *   Page.current()
+ *     .url()        // ← QuestionAdapter<URL>, lets you access all the regular members of URL as QuestionAdapters
+ *     .pathname     // ← QuestionAdapter<string>
+ *     .describedAs('the URL path');  // ← Optionally, add a clear and concise description
+ *
+ * await actorCalled('Quentin').attemptsTo(
+ *   Ensure.that(urlPath(), includes('index.html')),
+ * )
+ * ```
+ *
  * ## Implementing a Question that uses an Ability
  *
  * Just like the [interactions](https://serenity-js.org/api/core/class/Interaction/), a [`Question`](https://serenity-js.org/api/core/class/Question/)
@@ -64,7 +92,7 @@ import type { WithAnswerableProperties } from './WithAnswerableProperties.js';
  *  import { CallAnApi } from '@serenity-js/rest'
  *
  *  const TextOfLastResponseStatus = () =>
- *    Question.about<number>(`the text of the last response status`, actor => {
+ *    Question.about(`the text of the last response status`, actor => {
  *      return CallAnApi.as(actor).mapLastResponse(response => response.statusText)
  *    })
  * ```
@@ -86,7 +114,7 @@ import type { WithAnswerableProperties } from './WithAnswerableProperties.js';
  * import { Ensure, equals } from '@serenity-js/assertions'
  *
  * const RequestWasSuccessful = () =>
- *   Question.about<number>(`the text of the last response status`, async actor => {
+ *   Question.about<boolean>(`the request was successful`, async actor => {
  *     const status = await actor.answer(LastResponse.status());
  *
  *     return status === 200;
