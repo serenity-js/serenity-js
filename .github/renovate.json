@@ -30,7 +30,6 @@
         "/fast-glob/",
         "/filenamify/",
         "/graceful-fs/",
-        "/moment/",
         "/upath/",
         "/validate-npm-package-name/"
       ]
@@ -50,7 +49,8 @@
         "/^@cucumber/",
         "/cli-table3/",
         "/gherkin/"
-      ]
+      ],
+      "semanticCommitType": "chore"
     },
     {
       "groupName": "Cucumber legacy (ignored)",
@@ -112,12 +112,10 @@
       ],
       "matchPackageNames": [
         "/@types/html-minifier/",
-        "/@types/selenium-webdriver/",
         "/body-parser/",
         "/html-minifier/",
         "/protractor/",
-        "/query-selector-shadow-dom/",
-        "/selenium-webdriver/"
+        "/query-selector-shadow-dom/"
       ]
     },
     {
@@ -193,7 +191,8 @@
         "/^jasmine$/",
         "/^@types/jasmine$/"
       ],
-      "allowedVersions": "< 6"
+      "allowedVersions": "< 6",
+      "semanticCommitType": "chore"
     },
     {
       "groupName": "Jasmine dependencies",
@@ -210,7 +209,8 @@
       "matchPackageNames": [
         "/^jasmine$/",
         "/^@types/jasmine$/"
-      ]
+      ],
+      "semanticCommitType": "chore"
     },
     {
       "groupName": "Serenity BDD dependencies",
@@ -220,7 +220,6 @@
       "matchPackageNames": [
         "/@types/progress/",
         "/find-java-home/",
-        "/https-proxy-agent/",
         "/if-env/",
         "/progress/",
         "/which/",
