@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.42.1](https://github.com/serenity-js/serenity-js/compare/v3.42.0...v3.42.1) (2026-04-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency diff to v8.0.4 ([0e5be70](https://github.com/serenity-js/serenity-js/commit/0e5be7046bf3fdea96679c9dc2a54e8c24ef97e4))
+* **deps:** update dependency proxy to v4 ([fc723ec](https://github.com/serenity-js/serenity-js/commit/fc723ecdad5416d9d1881427a7f48bc059afa624))
+* **deps:** update dependency tiny-types to v2 ([c619e08](https://github.com/serenity-js/serenity-js/commit/c619e08a1fc6a04dc68a895296f803cef2cfb02c))
+* **deps:** update playwright dependencies to v1.59.1 ([a65e205](https://github.com/serenity-js/serenity-js/commit/a65e20562618728ad82fff883eab567c9861deec))
+* **deps:** update react monorepo to v19.2.5 ([da3af8b](https://github.com/serenity-js/serenity-js/commit/da3af8b8d03b0136bccb95d064170e53a460d06f))
+* **deps:** update rest dependencies ([277382c](https://github.com/serenity-js/serenity-js/commit/277382c6cf88330586519b6a88b7e78015309a53))
+* **deps:** update webdriverio dependencies to ^9.27.0 ([35f0edb](https://github.com/serenity-js/serenity-js/commit/35f0edb7a9cce1eefe3007657cb7bc918c53686d))
+
+
+
+
+
 # [3.42.0](https://github.com/serenity-js/serenity-js/compare/v3.41.2...v3.42.0) (2026-03-19)
 
 
