@@ -50,32 +50,34 @@ import type { WithAnswerableProperties } from './WithAnswerableProperties.js';
  *    Ensure.that(LastItemOf([1,2,3]), equals(3)),
  *  )
  * ```
- * However, it's worth noting that sometimes you don't even need a custom question. You
- * can instead use a QuestionAdapter, which proxies the known members of the type. For our list
- * example, we can use a Serenity/JS List which conveniently already has a `last()`
- * 
+ *
+ * However, it's worth noting that sometimes you don't even need a custom question.
+ * You  can instead use a [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter),
+ * which proxies the known members of the type.
+ * In our list example, we can use a Serenity/JS [`List`](https://serenity-js.org/api/core/class/List/)
+ * which conveniently already has a `last()`.
+ *
  * ```ts
- * import { Page } from '@serenity-js/web';
- * import { actorCalled, List } from '@serenity-js/core';
+ * import { Page } from '@serenity-js/web'
+ * import { actorCalled, List } from '@serenity-js/core'
  * import { Ensure, equals, includes } from '@serenity-js/assertions'
- * 
+ *
  * const list = List.of([ 1, 2, 3 ]);
- * 
+ *
  * await actorCalled('Quentin').attemptsTo(
  *   Ensure.that(list.last(), equals(3)),
  * )
- * 
- * 
+ *
  * const urlPath = () =>
- *   Page.current().url()  // ← This is a QuestionAdapter<URL>
- *     .pathname         // ← So you can access all the normal members of URL as QuestionAdapters; this is a QuestionAdapter<string>
- *     .describedAs('the URL path');  // ← This part helps make it clearer or more concise what the thing is, but is optional.
+ *   Page.current()
+ *     .url()        // ← QuestionAdapter<URL>, lets you access all the regular members of URL as QuestionAdapters
+ *     .pathname     // ← QuestionAdapter<string>
+ *     .describedAs('the URL path');  // ← Optionally, add a clear and concise description
  *
  * await actorCalled('Quentin').attemptsTo(
  *   Ensure.that(urlPath(), includes('index.html')),
  * )
  * ```
- *
  *
  * ## Implementing a Question that uses an Ability
  *
