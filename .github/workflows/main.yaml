@@ -181,6 +181,47 @@ jobs:
           files: integration/*/target/coverage/lcov.info
           incomplete: true
 
+  test-integration-playwright-electron:
+    name: 'Integration: Playwright Electron'
+    needs:
+      - lint
+      - compile
+    runs-on: ubuntu-24.04
+    permissions:
+      checks: write
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - name: Set up Node
+        uses: ./.github/actions/setup-node
+      - name: Set up Java
+        uses: ./.github/actions/setup-java
+      - name: Download compiled libs
+        uses: ./.github/actions/download-compressed-artifact
+        with:
+          artifact-name: 'compiled-libs'
+      - name: Install xvfb
+        run: sudo apt-get update && sudo apt-get install -y xvfb
+      - name: Test
+        run: |
+          mkdir target && \
+          make INTEGRATION_SCOPE=playwright-electron-ci integration-test
+      - name: Upload test reports
+        if: failure()
+        uses: ./.github/actions/upload-compressed-artifact
+        with:
+          artifact-name: 'test-integration-reports-playwright-electron'
+          artifact-path: 'package.json "integration/*/target/site/serenity"'
+      - name: Qlty
+        uses: qltysh/qlty-action/coverage@a19242102d17e497f437d7466aa01b528537e899 # v2.2.0
+        with:
+          oidc: true
+          command: publish
+          files: integration/*/target/coverage/lcov.info
+          incomplete: true
+
   test-integration-protractor:
     name: 'Integration: Protractor'
     needs:
@@ -335,6 +376,7 @@ jobs:
       - test-linux-node-lts-active
       - test-integration
       - test-integration-playwright
+      - test-integration-playwright-electron
       - test-integration-protractor
       - test-integration-webdriverio
     runs-on: ubuntu-24.04
@@ -370,6 +412,7 @@ jobs:
       - test-windows-node-lts-active
       - test-integration
       - test-integration-playwright
+      - test-integration-playwright-electron
       - test-integration-protractor
       - test-integration-webdriverio
     steps:

@@ -1,0 +1,12 @@
+check-leaks: false
+color: true
+diff: true
+exit: true
+full-trace: true
+reporter: spec
+require:
+  - 'ts-node/register'
+timeout: 60000
+v8-stack-trace-limit: 100
+spec:
+  - './spec/electron/**/*.spec.ts'

@@ -23,6 +23,9 @@
     "test:acceptance": "cross-env PORT=8082 start-server-and-test start http://localhost:8082 test:acceptance:run",
     "start": "npx web-specs-start",
     "test:acceptance:run": "c8 mocha --config .mocharc.yml",
+    "test:electron": "failsafe clean test:electron:run test:report",
+    "test:electron:run": "npx xvfb-maybe bash -c 'TS_NODE_PROJECT=tsconfig.electron.json c8 mocha --config .mocharc.electron.yml'",
+    "test:electron:ci": "xvfb-run --auto-servernum --server-args='-screen 0 1280x960x24' bash -c 'TS_NODE_PROJECT=tsconfig.electron.json c8 mocha --config .mocharc.electron.yml'",
     "test:report": "serenity-bdd run"
   },
   "repository": {
@@ -36,8 +39,10 @@
     "node": "^20 || ^22 || ^24"
   },
   "devDependencies": {
+    "@integration/electron-app": "workspace:*",
     "@integration/testing-tools": "workspace:*",
     "@integration/web-specs": "workspace:*",
+    "@serenity-js/assertions": "workspace:*",
     "@serenity-js/console-reporter": "workspace:*",
     "@serenity-js/core": "workspace:*",
     "@serenity-js/mocha": "workspace:*",
@@ -49,12 +54,14 @@
     "c8": "11.0.0",
     "ci-info": "4.4.0",
     "cross-env": "10.1.0",
+    "electron": "36.4.0",
     "mocha": "11.7.5",
     "mocha-multi": "1.1.7",
     "npm-failsafe": "1.4.0",
     "playwright": "1.59.1",
     "start-server-and-test": "3.0.0",
     "ts-node": "10.9.2",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "xvfb-maybe": "0.2.1"
   }
 }

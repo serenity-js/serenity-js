@@ -1598,12 +1598,18 @@ importers:
 
   integration/playwright-web:
     devDependencies:
+      '@integration/electron-app':
+        specifier: workspace:*
+        version: link:../electron-app
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../testing-tools
       '@integration/web-specs':
         specifier: workspace:*
         version: link:../web-specs
+      '@serenity-js/assertions':
+        specifier: workspace:*
+        version: link:../../packages/assertions
       '@serenity-js/console-reporter':
         specifier: workspace:*
         version: link:../../packages/console-reporter
@@ -1637,6 +1643,9 @@ importers:
       cross-env:
         specifier: 10.1.0
         version: 10.1.0
+      electron:
+        specifier: 36.4.0
+        version: 36.4.0
       mocha:
         specifier: 11.7.5
         version: 11.7.5
@@ -1658,6 +1667,9 @@ importers:
       typescript:
         specifier: 5.9.3
         version: 5.9.3
+      xvfb-maybe:
+        specifier: 0.2.1
+        version: 0.2.1
 
   integration/protractor-cucumber:
     dependencies:
@@ -11565,6 +11577,10 @@ packages:
   xtend@4.0.2:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}
     engines: {node: '>=0.4'}
+
+  xvfb-maybe@0.2.1:
+    resolution: {integrity: sha512-9IyRz3l6Qyhl6LvnGRF5jMPB4oBEepQnuzvVAFTynP6ACLLSevqigICJ9d/+ofl29m2daeaVBChnPYUnaeJ7yA==}
+    hasBin: true
 
   y18n@4.0.3:
     resolution: {integrity: sha512-JKhqTOwSrqNA1NY5lSztJ1GrBiUodLMmIZuLiDaMRJ+itFd+ABVE8XBjOvIWL+rSqNDC74LCSFmlb/U4UZ4hJQ==}
@@ -21760,6 +21776,13 @@ snapshots:
       '@babel/runtime-corejs3': 7.26.0
 
   xtend@4.0.2: {}
+
+  xvfb-maybe@0.2.1:
+    dependencies:
+      debug: 2.6.9
+      which: 1.3.1
+    transitivePeerDependencies:
+      - supports-color
 
   y18n@4.0.3: {}
 
