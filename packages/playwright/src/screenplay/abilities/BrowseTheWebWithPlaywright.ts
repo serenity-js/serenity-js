@@ -5,6 +5,7 @@ import * as playwright from 'playwright-core';
 import type { ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions.js';
 import {
     PlaywrightBrowsingSessionWithBrowser,
+    PlaywrightBrowsingSessionWithElectron,
     PlaywrightBrowsingSessionWithPage
 } from '../models/index.js';
 
@@ -162,6 +163,45 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.Locator>
 
     static usingPage(page: playwright.Page, extraBrowserContextOptions?: ExtraBrowserContextOptions): BrowseTheWebWithPlaywright {
         return new BrowseTheWebWithPlaywright(new PlaywrightBrowsingSessionWithPage(page, extraBrowserContextOptions, playwright.selectors));
+    }
+
+    /**
+     * Creates an ability to browse the web using an already-launched Electron application.
+     *
+     * Use this method when the Electron application lifecycle is managed externally,
+     * such as in Playwright Test where the app is launched per-worker.
+     *
+     * ## Example
+     *
+     * ```typescript
+     * import { _electron as electron } from 'playwright';
+     * import { actorCalled } from '@serenity-js/core';
+     * import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
+     *
+     * const electronApp = await electron.launch({ args: ['main.js'] });
+     *
+     * const actor = actorCalled('Tester').whoCan(
+     *     BrowseTheWebWithPlaywright.usingElectronApp(electronApp)
+     * );
+     *
+     * // After tests, close the app manually
+     * await electronApp.close();
+     * ```
+     *
+     * @param electronApp - An already-launched Playwright ElectronApplication instance
+     * @param extraBrowserContextOptions - Optional configuration for timeouts and navigation
+     */
+    static usingElectronApp(
+        electronApp: playwright.ElectronApplication,
+        extraBrowserContextOptions?: ExtraBrowserContextOptions
+    ): BrowseTheWebWithPlaywright {
+        return new BrowseTheWebWithPlaywright(
+            new PlaywrightBrowsingSessionWithElectron(
+                electronApp,
+                extraBrowserContextOptions ?? {},
+                playwright.selectors
+            )
+        );
     }
 
     /**
