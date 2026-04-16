@@ -166,8 +166,8 @@ importers:
   examples/cucumber-domain-level-testing:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 12.7.0
-        version: 12.7.0
+        specifier: 12.8.1
+        version: 12.8.1
       '@examples/calculator-app':
         specifier: workspace:*
         version: link:../calculator-app
@@ -205,8 +205,8 @@ importers:
   examples/cucumber-reporting:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 12.7.0
-        version: 12.7.0
+        specifier: 12.8.1
+        version: 12.8.1
       '@serenity-js/assertions':
         specifier: workspace:*
         version: link:../../packages/assertions
@@ -241,8 +241,8 @@ importers:
   examples/cucumber-rest-api-level-testing:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 12.7.0
-        version: 12.7.0
+        specifier: 12.8.1
+        version: 12.8.1
       '@examples/calculator-app':
         specifier: workspace:*
         version: link:../calculator-app
@@ -961,8 +961,8 @@ importers:
   integration/cucumber-12:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 12.7.0
-        version: 12.7.0
+        specifier: 12.8.1
+        version: 12.8.1
       '@integration/cucumber-specs':
         specifier: workspace:*
         version: link:../cucumber-specs
@@ -1647,8 +1647,8 @@ importers:
   integration/protractor-cucumber:
     dependencies:
       '@cucumber/cucumber':
-        specifier: 12.7.0
-        version: 12.7.0
+        specifier: 12.8.1
+        version: 12.8.1
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../testing-tools
@@ -1971,8 +1971,8 @@ importers:
   integration/webdriverio-8-cucumber:
     dependencies:
       '@cucumber/cucumber':
-        specifier: 12.7.0
-        version: 12.7.0
+        specifier: 12.8.1
+        version: 12.8.1
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../testing-tools
@@ -2196,8 +2196,8 @@ importers:
   integration/webdriverio-cucumber:
     dependencies:
       '@cucumber/cucumber':
-        specifier: 12.7.0
-        version: 12.7.0
+        specifier: 12.8.1
+        version: 12.8.1
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../testing-tools
@@ -2553,8 +2553,8 @@ importers:
         specifier: 39.0.0
         version: 39.0.0
       '@cucumber/messages':
-        specifier: 32.2.0
-        version: 32.2.0
+        specifier: 32.3.1
+        version: 32.3.1
       '@serenity-js/core':
         specifier: workspace:*
         version: link:../core
@@ -2569,8 +2569,8 @@ importers:
         version: 2.0.5
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 12.7.0
-        version: 12.7.0
+        specifier: 12.8.1
+        version: 12.8.1
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../../integration/testing-tools
@@ -3472,11 +3472,6 @@ packages:
     engines: {node: 18 || 20 || 22 || >=23}
     hasBin: true
 
-  '@cucumber/cucumber@12.7.0':
-    resolution: {integrity: sha512-7A/9CJpJDxv1SQ7hAZU0zPn2yRxx6XMR+LO4T94Enm3cYNWsEEj+RGX38NLX4INT+H6w5raX3Csb/qs4vUBsOA==}
-    engines: {node: 20 || 22 || >=24}
-    hasBin: true
-
   '@cucumber/cucumber@12.8.1':
     resolution: {integrity: sha512-hCXxiStjbZsRVZlV+CMywkqBtJ6RZTQeXSBZGPHm1YoIOI6YB8pCo0KlnJMmxfKfoeUKagtQMNPnpJBXwhkUjQ==}
     engines: {node: 20 || 22 || >=24}
@@ -3616,11 +3611,6 @@ packages:
     peerDependencies:
       '@cucumber/messages': '*'
 
-  '@cucumber/junit-xml-formatter@0.9.0':
-    resolution: {integrity: sha512-WF+A7pBaXpKMD1i7K59Nk5519zj4extxY4+4nSgv5XLsGXHDf1gJnb84BkLUzevNtp2o2QzMG0vWLwSm8V5blw==}
-    peerDependencies:
-      '@cucumber/messages': '*'
-
   '@cucumber/message-streams@2.1.0':
     resolution: {integrity: sha512-Yh3mw3qv6QL9NI/ihkZF8V9MX2GbnR6oktv34kC3uAbrQy9d/b2SZ3HNjG3J9JQqpV4B7Om3SPElJYIeo66TrA==}
 
@@ -3658,11 +3648,11 @@ packages:
   '@cucumber/messages@27.2.0':
     resolution: {integrity: sha512-f2o/HqKHgsqzFLdq6fAhfG1FNOQPdBdyMGpKwhb7hZqg0yZtx9BVqkTyuoNk83Fcvk3wjMVfouFXXHNEk4nddA==}
 
-  '@cucumber/messages@32.0.1':
-    resolution: {integrity: sha512-1OSoW+GQvFUNAl6tdP2CTBexTXMNJF0094goVUcvugtQeXtJ0K8sCP0xbq7GGoiezs/eJAAOD03+zAPT64orHQ==}
-
   '@cucumber/messages@32.2.0':
     resolution: {integrity: sha512-oYp1dgL2TByYWL51Z+rNm+/mFtJhiPU9WS03goes9EALb8d9GFcXRbG1JluFLFaChF1YDqIzLac0kkC3tv1DjQ==}
+
+  '@cucumber/messages@32.3.1':
+    resolution: {integrity: sha512-yNQq1KoXRYaEKrWMFmpUQX7TdeQuU9jeGgJAZ3dArTsC/T4NpJ6DnqaJIIgwPnz/wtQIQTNX7/h0rOuF5xY4qQ==}
 
   '@cucumber/pretty-formatter@1.0.1':
     resolution: {integrity: sha512-A1lU4VVP0aUWdOTmpdzvXOyEYuPtBDI0xYwYJnmoMDplzxMdhcHk86lyyvYDoMoPzzq6OkOE3isuosvUU4X7IQ==}
@@ -3672,11 +3662,6 @@ packages:
 
   '@cucumber/query@13.1.0':
     resolution: {integrity: sha512-QBndVZOjXB3cPBw1tmIGWMIyttSAL1voJY4uveySsP5hMH2mk/mSeUIBNGjMZKvjCyalTTg57/MT4Sk560ZffQ==}
-    peerDependencies:
-      '@cucumber/messages': '*'
-
-  '@cucumber/query@14.6.0':
-    resolution: {integrity: sha512-bPbfpkDsFCBn95erh3un76QViPqGAo3T7iYews0yA3/JRNoV009s7acxxY+f+OMABPFl0TJVIZlvqX+KayQ+Eg==}
     peerDependencies:
       '@cucumber/messages': '*'
 
@@ -11940,49 +11925,6 @@ snapshots:
       yaml: 2.7.0
       yup: 1.6.1
 
-  '@cucumber/cucumber@12.7.0':
-    dependencies:
-      '@cucumber/ci-environment': 13.0.0
-      '@cucumber/cucumber-expressions': 19.0.0
-      '@cucumber/gherkin': 38.0.0
-      '@cucumber/gherkin-streams': 6.0.0(@cucumber/gherkin@38.0.0)(@cucumber/message-streams@4.0.1(@cucumber/messages@32.0.1))(@cucumber/messages@32.0.1)
-      '@cucumber/gherkin-utils': 11.0.0
-      '@cucumber/html-formatter': 23.0.0(@cucumber/messages@32.0.1)
-      '@cucumber/junit-xml-formatter': 0.9.0(@cucumber/messages@32.0.1)
-      '@cucumber/message-streams': 4.0.1(@cucumber/messages@32.0.1)
-      '@cucumber/messages': 32.0.1
-      '@cucumber/pretty-formatter': 1.0.1(@cucumber/cucumber@12.7.0)(@cucumber/messages@32.0.1)
-      '@cucumber/tag-expressions': 9.1.0
-      assertion-error-formatter: 3.0.0
-      capital-case: 1.0.4
-      chalk: 4.1.2
-      cli-table3: 0.6.5
-      commander: 14.0.0
-      debug: 4.4.3(supports-color@8.1.1)
-      error-stack-parser: 2.1.4
-      figures: 3.2.0
-      glob: 13.0.5
-      has-ansi: 4.0.1
-      indent-string: 4.0.0
-      is-installed-globally: 0.4.0
-      is-stream: 2.0.1
-      knuth-shuffle-seeded: 1.0.6
-      lodash.merge: 4.6.2
-      lodash.mergewith: 4.6.2
-      luxon: 3.7.2
-      mime: 3.0.0
-      mkdirp: 3.0.1
-      mz: 2.7.0
-      progress: 2.0.3
-      read-package-up: 12.0.0
-      semver: 7.7.4
-      string-argv: 0.3.1
-      supports-color: 8.1.1
-      type-fest: 4.41.0
-      util-arity: 1.1.0
-      yaml: 2.8.2
-      yup: 1.7.1
-
   '@cucumber/cucumber@12.8.1':
     dependencies:
       '@cucumber/ci-environment': 13.0.0
@@ -12236,14 +12178,6 @@ snapshots:
       commander: 9.1.0
       source-map-support: 0.5.21
 
-  '@cucumber/gherkin-streams@6.0.0(@cucumber/gherkin@38.0.0)(@cucumber/message-streams@4.0.1(@cucumber/messages@32.0.1))(@cucumber/messages@32.0.1)':
-    dependencies:
-      '@cucumber/gherkin': 38.0.0
-      '@cucumber/message-streams': 4.0.1(@cucumber/messages@32.0.1)
-      '@cucumber/messages': 32.0.1
-      commander: 14.0.0
-      source-map-support: 0.5.21
-
   '@cucumber/gherkin-streams@6.0.0(@cucumber/gherkin@38.0.0)(@cucumber/message-streams@4.1.1(@cucumber/messages@32.2.0))(@cucumber/messages@32.2.0)':
     dependencies:
       '@cucumber/gherkin': 38.0.0
@@ -12255,7 +12189,7 @@ snapshots:
   '@cucumber/gherkin-utils@11.0.0':
     dependencies:
       '@cucumber/gherkin': 38.0.0
-      '@cucumber/messages': 32.2.0
+      '@cucumber/messages': 32.3.1
       '@teppeis/multimaps': 3.0.0
       commander: 14.0.2
       source-map-support: 0.5.21
@@ -12325,11 +12259,11 @@ snapshots:
 
   '@cucumber/gherkin@38.0.0':
     dependencies:
-      '@cucumber/messages': 32.2.0
+      '@cucumber/messages': 32.3.1
 
   '@cucumber/gherkin@39.0.0':
     dependencies:
-      '@cucumber/messages': 32.0.1
+      '@cucumber/messages': 32.3.1
 
   '@cucumber/html-formatter@15.0.2':
     dependencies:
@@ -12357,10 +12291,6 @@ snapshots:
     dependencies:
       '@cucumber/messages': 24.1.0
 
-  '@cucumber/html-formatter@23.0.0(@cucumber/messages@32.0.1)':
-    dependencies:
-      '@cucumber/messages': 32.0.1
-
   '@cucumber/html-formatter@23.0.0(@cucumber/messages@32.2.0)':
     dependencies:
       '@cucumber/messages': 32.2.0
@@ -12377,14 +12307,6 @@ snapshots:
     dependencies:
       '@cucumber/messages': 27.2.0
       '@cucumber/query': 13.1.0(@cucumber/messages@27.2.0)
-      '@teppeis/multimaps': 3.0.0
-      luxon: 3.7.2
-      xmlbuilder: 15.1.1
-
-  '@cucumber/junit-xml-formatter@0.9.0(@cucumber/messages@32.0.1)':
-    dependencies:
-      '@cucumber/messages': 32.0.1
-      '@cucumber/query': 14.6.0(@cucumber/messages@32.0.1)
       '@teppeis/multimaps': 3.0.0
       luxon: 3.7.2
       xmlbuilder: 15.1.1
@@ -12412,10 +12334,6 @@ snapshots:
   '@cucumber/message-streams@4.0.1(@cucumber/messages@27.2.0)':
     dependencies:
       '@cucumber/messages': 27.2.0
-
-  '@cucumber/message-streams@4.0.1(@cucumber/messages@32.0.1)':
-    dependencies:
-      '@cucumber/messages': 32.0.1
 
   '@cucumber/message-streams@4.1.1(@cucumber/messages@32.2.0)':
     dependencies:
@@ -12478,24 +12396,15 @@ snapshots:
       reflect-metadata: 0.2.2
       uuid: 11.0.5
 
-  '@cucumber/messages@32.0.1':
-    dependencies:
-      class-transformer: 0.5.1
-      reflect-metadata: 0.2.2
-
   '@cucumber/messages@32.2.0':
     dependencies:
       class-transformer: 0.5.1
       reflect-metadata: 0.2.2
 
-  '@cucumber/pretty-formatter@1.0.1(@cucumber/cucumber@12.7.0)(@cucumber/messages@32.0.1)':
+  '@cucumber/messages@32.3.1':
     dependencies:
-      '@cucumber/cucumber': 12.7.0
-      '@cucumber/messages': 32.0.1
-      ansi-styles: 5.2.0
-      cli-table3: 0.6.5
-      figures: 3.2.0
-      ts-dedent: 2.2.0
+      class-transformer: 0.5.1
+      reflect-metadata: 0.2.2
 
   '@cucumber/pretty-formatter@1.0.1(@cucumber/cucumber@12.8.1)(@cucumber/messages@32.2.0)':
     dependencies:
@@ -12510,12 +12419,6 @@ snapshots:
     dependencies:
       '@cucumber/messages': 27.2.0
       '@teppeis/multimaps': 3.0.0
-
-  '@cucumber/query@14.6.0(@cucumber/messages@32.0.1)':
-    dependencies:
-      '@cucumber/messages': 32.0.1
-      '@teppeis/multimaps': 3.0.0
-      lodash.sortby: 4.7.0
 
   '@cucumber/query@15.0.1(@cucumber/messages@32.2.0)':
     dependencies:
