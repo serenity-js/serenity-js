@@ -7,3 +7,4 @@ export * from './PlaywrightBrowsingSessionWithPage.js';
 export * from './PlaywrightCookie.js';
 export * from './PlaywrightPage.js';
 export * from './PlaywrightPageElement.js';
+export * from './SelfLaunchingPlaywrightBrowsingSessionWithElectron.js';
