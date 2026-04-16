@@ -8,6 +8,8 @@ COMPILE_SCOPE=all
 # all
 # cucumber-all
 # playwright-all
+# playwright-electron
+# playwright-electron-ci
 # protractor-all
 # webdriverio-8-all
 # jasmine

@@ -61,6 +61,8 @@
     "integration-test:playwright-test-ct": "lerna run test --scope @integration/playwright-test-ct",
     "integration-test:rest": "lerna run test --scope @integration/rest",
     "integration-test:playwright-web": "lerna run test --scope @integration/playwright-web",
+    "integration-test:playwright-electron": "lerna run test:electron --scope @integration/playwright-web",
+    "integration-test:playwright-electron-ci": "lerna run test:electron:ci --scope @integration/playwright-web",
     "integration-test:protractor-all": "lerna run test --concurrency 1 --scope @integration/protractor-*",
     "integration-test:protractor-test-runners": "lerna run test --concurrency 1 --scope @integration/protractor-cucumber --scope @integration/protractor-jasmine --scope @integration/protractor-mocha",
     "integration-test:protractor-cucumber": "lerna run test --scope @integration/protractor-cucumber",
