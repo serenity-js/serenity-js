@@ -202,6 +202,8 @@ jobs:
         uses: ./.github/actions/download-compressed-artifact
         with:
           artifact-name: 'compiled-libs'
+      - name: Compile Electron app
+        run: make COMPILE_SCOPE=@integration compile
       - name: Install xvfb
         run: sudo apt-get update && sudo apt-get install -y xvfb
       - name: Test
