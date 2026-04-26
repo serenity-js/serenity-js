@@ -2,7 +2,12 @@ import { Ability, Log, Question } from '@serenity-js/core';
 import { describe, it, test } from '@serenity-js/playwright-test';
 
 class MyAbility extends Ability {
-    message = () => `Hello from ${ this.constructor.name }`
+    constructor() {
+        super();
+    }
+
+    message = () =>
+        `Hello from ${ this.constructor.name }`
 }
 
 const Message = () => Question.about(`message`, async actor => {

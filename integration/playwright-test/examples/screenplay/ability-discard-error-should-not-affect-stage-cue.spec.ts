@@ -15,12 +15,20 @@ class Actors {
 const NotDoTooMuch = () => Interaction.where(`#actor doesn't do much`, () => void 0);
 
 class CauseErrorWhenAbilityDiscarded extends Ability {
+    constructor() {
+        super();
+    }
+
     discard() {
         return Promise.reject(new TypeError(`Some internal error in ability`));
     }
 }
 
 class SucceedWhenAbilityDiscarded extends Ability {
+    constructor() {
+        super();
+    }
+
     discard() {
         return Promise.resolve();
     }

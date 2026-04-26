@@ -6,7 +6,12 @@ const Message = () => Question.about(`message`, async actor => {
 });
 
 class MyAbility extends Ability {
-    message = () => `Hello from ${ this.constructor.name }`
+    constructor() {
+        super();
+    }
+
+    message = () =>
+        `Hello from ${ this.constructor.name }`
 }
 
 describe('Playwright Test reporting', () => {
