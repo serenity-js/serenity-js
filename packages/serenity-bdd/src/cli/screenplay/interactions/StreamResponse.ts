@@ -47,9 +47,8 @@ export class StreamResponse extends Interaction {
 
                 actor.collect(Notification.fromJSON({ message: `Downloading ${ config.url } to ${ this.destination.value }` }));
 
-                const
-                    totalBytes  = Number.parseInt(response.headers['content-length'], 10),
-                    output      = UseFileSystem.as(actor).createWriteStreamTo(this.destination);
+                const totalBytes = Number.parseInt(response.headers['content-length'] as string, 10);
+                const output = UseFileSystem.as(actor).createWriteStreamTo(this.destination);
 
                 let totalDownloadedBytes  = 0;
 
