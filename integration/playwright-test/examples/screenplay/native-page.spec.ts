@@ -29,7 +29,7 @@ describe('Playwright Test integration', () => {
             const localServerUrl = await actor.answer(LocalServer.url());
             const expectedLocalServerUrl = localServerUrl + '/';
 
-            expect(await page.url()).toEqual(expectedLocalServerUrl);
+            expect(page.url()).toEqual(expectedLocalServerUrl);
         });
 
         it('allows for interactions with the page object to change the state of the page associated with the actor', async ({ actor, page }) => {
