@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.42.2](https://github.com/serenity-js/serenity-js/compare/v3.42.1...v3.42.2) (2026-04-26)
+
+
+### Bug Fixes
+
+* **deps:** update rest dependencies ([525abcb](https://github.com/serenity-js/serenity-js/commit/525abcb26ad45e1963f883e86ccf650bd2229c20))
+* **playwright:** aligned package.json exports to use conditional import/require types ([a8966e9](https://github.com/serenity-js/serenity-js/commit/a8966e94d74c24b3d2821e99e51bf3b24121b55e))
+
+
+
+
+
 ## [3.42.1](https://github.com/serenity-js/serenity-js/compare/v3.42.0...v3.42.1) (2026-04-08)
 
 
