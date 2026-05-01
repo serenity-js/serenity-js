@@ -56,4 +56,8 @@ export class PlaywrightBrowsingSessionWithPage extends PlaywrightBrowsingSession
             browserVersion: browser.version()
         }
     }
+
+    async discard(): Promise<void> {
+        await this.closeAllPages();
+    }
 }

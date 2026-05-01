@@ -1,10 +1,10 @@
-import type { Discardable } from '@serenity-js/core';
+import type { Discardable, Initialisable } from '@serenity-js/core';
 import { BrowseTheWeb } from '@serenity-js/web';
 import * as playwright from 'playwright-core';
 
 import type { ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions.js';
-import type { ElectronLaunchOptions } from '../models/ElectronLaunchOptions.js';
 import {
+    type ElectronLaunchOptions,
     PlaywrightBrowsingSessionWithBrowser,
     PlaywrightBrowsingSessionWithElectron,
     PlaywrightBrowsingSessionWithPage,
@@ -157,13 +157,22 @@ import {
  *
  * @group Abilities
  */
-export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.Locator> implements Discardable {
-
-    static using(browser: playwright.Browser, browserContextOptions?: playwright.BrowserContextOptions, extraBrowserContextOptions?: ExtraBrowserContextOptions): BrowseTheWebWithPlaywright {
+export class BrowseTheWebWithPlaywright
+    extends BrowseTheWeb<playwright.Locator>
+    implements Initialisable, Discardable
+{
+    static using(
+        browser: playwright.Browser,
+        browserContextOptions?: playwright.BrowserContextOptions,
+        extraBrowserContextOptions?: ExtraBrowserContextOptions
+    ): BrowseTheWebWithPlaywright {
         return new BrowseTheWebWithPlaywright(new PlaywrightBrowsingSessionWithBrowser(browser, browserContextOptions, extraBrowserContextOptions, playwright.selectors));
     }
 
-    static usingPage(page: playwright.Page, extraBrowserContextOptions?: ExtraBrowserContextOptions): BrowseTheWebWithPlaywright {
+    static usingPage(
+        page: playwright.Page,
+        extraBrowserContextOptions?: ExtraBrowserContextOptions
+    ): BrowseTheWebWithPlaywright {
         return new BrowseTheWebWithPlaywright(new PlaywrightBrowsingSessionWithPage(page, extraBrowserContextOptions, playwright.selectors));
     }
 
@@ -175,7 +184,7 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.Locator>
      *
      * ## Example
      *
-     * ```typescript
+     * ```ts
      * import { _electron as electron } from 'playwright';
      * import { actorCalled } from '@serenity-js/core';
      * import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
@@ -244,6 +253,14 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.Locator>
         );
     }
 
+    async initialise(): Promise<void> {
+        await (this.session as unknown as Initialisable)?.initialise?.();
+    }
+
+    isInitialised(): boolean {
+        return (this.session as unknown as Initialisable)?.isInitialised?.() ?? true;
+    }
+
     /**
      * Automatically closes any open [pages](https://serenity-js.org/api/web/class/Page/) when the [SceneFinishes](https://serenity-js.org/api/core-events/class/SceneFinishes/)
      *
@@ -254,11 +271,6 @@ export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.Locator>
      * - [`Discardable`](https://serenity-js.org/api/core/interface/Discardable/)
      */
     async discard(): Promise<void> {
-        await this.session.closeAllPages();
-
-        // Close the Electron app if this is a self-launching session
-        if (this.session instanceof SelfLaunchingPlaywrightBrowsingSessionWithElectron) {
-            await this.session.closeElectronApp();
-        }
+        await (this.session as unknown as Discardable)?.discard?.();
     }
 }

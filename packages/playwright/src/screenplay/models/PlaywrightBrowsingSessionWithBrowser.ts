@@ -1,3 +1,4 @@
+import type { Discardable } from '@serenity-js/core';
 import type { BrowserCapabilities } from '@serenity-js/web';
 import type * as playwright from 'playwright-core';
 
@@ -8,7 +9,10 @@ import type { PlaywrightPage } from './PlaywrightPage.js';
 /**
  *  @group Models
  */
-export class PlaywrightBrowsingSessionWithBrowser extends PlaywrightBrowsingSession {
+export class PlaywrightBrowsingSessionWithBrowser
+    extends PlaywrightBrowsingSession
+    implements Discardable
+{
 
     constructor(
         protected readonly browser: playwright.Browser,
@@ -20,6 +24,7 @@ export class PlaywrightBrowsingSessionWithBrowser extends PlaywrightBrowsingSess
     }
 
     protected override async createBrowserContext(): Promise<playwright.BrowserContext> {
+        // todo: move to initialise?
         return this.browser.newContext(this.browserContextOptions);
     }
 
@@ -37,18 +42,18 @@ export class PlaywrightBrowsingSessionWithBrowser extends PlaywrightBrowsingSess
         return allPages.at(-1);
     }
 
-    override async closeAllPages(): Promise<void> {
-        await super.closeAllPages();
-
-        const context = await this.browserContext();
-        await context.close();
-    }
-
     override async browserCapabilities(): Promise<BrowserCapabilities> {
         return {
             browserName: (this.browser as any)._initializer.name,   // todo: raise a PR to Playwright to expose this information
             platformName: process.platform,                         // todo: get the actual platform from Playwright
             browserVersion: this.browser.version()
         }
+    }
+
+    async discard(): Promise<void> {
+        await this.closeAllPages();
+
+        const context = await this.browserContext();
+        await context.close();
     }
 }

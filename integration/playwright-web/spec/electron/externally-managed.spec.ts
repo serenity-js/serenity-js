@@ -1,6 +1,6 @@
 import 'mocha';
 
-import { actorCalled, configure, Duration, engage, NoOpDiffFormatter } from '@serenity-js/core';
+import { actorCalled, configure, Duration, NoOpDiffFormatter } from '@serenity-js/core';
 import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
 import * as path from 'path';
 import { _electron as electron, ElectronApplication } from 'playwright';
@@ -18,27 +18,24 @@ describe('Externally-managed Electron session', () => {
 
         // Launch the Electron app
         electronApp = await electron.launch({
-            args: [path.join(electronAppPath, 'lib', 'main.js')],
+            args: [ path.join(electronAppPath, 'lib', 'main.js') ],
             cwd: electronAppPath,
         });
 
         // Wait for the first window
         await electronApp.firstWindow();
 
-        // Configure Serenity/JS with the externally-managed Electron session
         configure({
             diffFormatter: new NoOpDiffFormatter(),
-            crew: []
-        });
-
-        // Engage the cast that provides the Electron ability
-        engage({
-            prepare: (actor) => actor.whoCan(
-                BrowseTheWebWithPlaywright.usingElectronApp(electronApp, {
-                    defaultNavigationTimeout: Duration.ofSeconds(5).inMilliseconds(),
-                    defaultTimeout: Duration.ofSeconds(3).inMilliseconds(),
-                })
-            ),
+            crew: [],
+            actors: {
+                prepare: (actor) => actor.whoCan(
+                    BrowseTheWebWithPlaywright.usingElectronApp(electronApp, {
+                        defaultNavigationTimeout: Duration.ofSeconds(5).inMilliseconds(),
+                        defaultTimeout: Duration.ofSeconds(3).inMilliseconds(),
+                    })
+                ),
+            },
         });
     });
 
@@ -48,7 +45,8 @@ describe('Externally-managed Electron session', () => {
         // Dismiss the actor to clean up abilities
         try {
             await actorCalled('ExternalTester').dismiss();
-        } catch {
+        }
+        catch {
             // Actor may not exist yet
         }
 

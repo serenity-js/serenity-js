@@ -15,7 +15,7 @@ import { PlaywrightPage } from './PlaywrightPage.js';
  *
  * ## Example
  *
- * ```typescript
+ * ```ts
  * import { _electron as electron } from 'playwright';
  * import { actorCalled } from '@serenity-js/core';
  * import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
@@ -35,7 +35,7 @@ import { PlaywrightPage } from './PlaywrightPage.js';
 export class PlaywrightBrowsingSessionWithElectron extends PlaywrightBrowsingSession {
 
     constructor(
-        protected readonly electronApp: playwright.ElectronApplication,
+        protected electronApp: playwright.ElectronApplication,
         extraBrowserContextOptions: Partial<ExtraBrowserContextOptions>,
         selectors: playwright.Selectors,
     ) {
@@ -56,7 +56,8 @@ export class PlaywrightBrowsingSessionWithElectron extends PlaywrightBrowsingSes
         if (windows.length === 0) {
             // Wait for the first window to open
             targetPage = await this.electronApp.firstWindow();
-        } else {
+        }
+        else {
             // Use the last opened window
             targetPage = windows.at(-1)!;
         }
@@ -120,7 +121,8 @@ export class PlaywrightBrowsingSessionWithElectron extends PlaywrightBrowsingSes
                 () => process.versions.electron
             );
             return version || 'unknown';
-        } catch {
+        }
+        catch {
             return 'unknown';
         }
     }

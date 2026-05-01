@@ -1,12 +1,9 @@
-import type { Initialisable } from '@serenity-js/core';
-import type { BrowserCapabilities } from '@serenity-js/web';
+import type { Discardable, Initialisable } from '@serenity-js/core';
 import * as playwright from 'playwright-core';
 
 import type { ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions.js';
 import type { ElectronLaunchOptions } from './ElectronLaunchOptions.js';
-import { PlaywrightBrowsingSession } from './PlaywrightBrowsingSession.js';
 import { PlaywrightBrowsingSessionWithElectron } from './PlaywrightBrowsingSessionWithElectron.js';
-import type { PlaywrightPage } from './PlaywrightPage.js';
 
 /**
  * Self-launching implementation of [`PlaywrightBrowsingSession`](https://serenity-js.org/api/playwright/class/PlaywrightBrowsingSession/)
@@ -34,18 +31,16 @@ import type { PlaywrightPage } from './PlaywrightPage.js';
  * @group Models
  */
 export class SelfLaunchingPlaywrightBrowsingSessionWithElectron
-    extends PlaywrightBrowsingSession
-    implements Initialisable
+    extends PlaywrightBrowsingSessionWithElectron
+    implements Initialisable, Discardable
 {
-    private electronApp: playwright.ElectronApplication | undefined;
-    private delegate: PlaywrightBrowsingSessionWithElectron | undefined;
-
     constructor(
         private readonly launchOptions: ElectronLaunchOptions,
-        private readonly extraOptions: Partial<ExtraBrowserContextOptions>,
-        private readonly playwrightSelectors: playwright.Selectors,
+        extraBrowserContextOptions: Partial<ExtraBrowserContextOptions>,
+        selectors: playwright.Selectors,
     ) {
-        super(extraOptions, playwrightSelectors);
+        // setting electronApp to undefined since it's lazily initialised
+        super(undefined, extraBrowserContextOptions, selectors);
     }
 
     /**
@@ -60,11 +55,6 @@ export class SelfLaunchingPlaywrightBrowsingSessionWithElectron
         }
 
         this.electronApp = await playwright._electron.launch(this.launchOptions);
-        this.delegate = new PlaywrightBrowsingSessionWithElectron(
-            this.electronApp,
-            this.extraOptions,
-            this.playwrightSelectors,
-        );
     }
 
     /**
@@ -72,43 +62,6 @@ export class SelfLaunchingPlaywrightBrowsingSessionWithElectron
      */
     isInitialised(): boolean {
         return this.electronApp !== undefined;
-    }
-
-    protected override async createBrowserContext(): Promise<playwright.BrowserContext> {
-        await this.ensureInitialised();
-        return this.electronApp!.context();
-    }
-
-    protected override async registerCurrentPage(): Promise<PlaywrightPage> {
-        await this.ensureInitialised();
-        return this.delegate!.currentPage();
-    }
-
-    override async currentPage(): Promise<PlaywrightPage> {
-        await this.ensureInitialised();
-        return this.delegate!.currentPage();
-    }
-
-    override async allPages(): Promise<PlaywrightPage[]> {
-        await this.ensureInitialised();
-        return this.delegate!.allPages();
-    }
-
-    /**
-     * Closes all Electron windows but does NOT close the Electron application itself.
-     */
-    override async closeAllPages(): Promise<void> {
-        if (this.delegate) {
-            await this.delegate.closeAllPages();
-        }
-    }
-
-    /**
-     * Returns [basic meta-data](https://serenity-js.org/api/web/interface/BrowserCapabilities/) about the Electron application.
-     */
-    override async browserCapabilities(): Promise<BrowserCapabilities> {
-        await this.ensureInitialised();
-        return this.delegate!.browserCapabilities();
     }
 
     /**
@@ -119,13 +72,13 @@ export class SelfLaunchingPlaywrightBrowsingSessionWithElectron
         if (this.electronApp) {
             await this.electronApp.close();
             this.electronApp = undefined;
-            this.delegate = undefined;
         }
     }
 
-    private async ensureInitialised(): Promise<void> {
-        if (!this.isInitialised()) {
-            await this.initialise();
-        }
+    async discard(): Promise<void> {
+        await this.closeAllPages();
+
+        this.pages.clear();
+        this.currentBrowserPage = undefined;
     }
 }
