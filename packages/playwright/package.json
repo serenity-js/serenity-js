@@ -1,6 +1,6 @@
 {
   "name": "@serenity-js/playwright",
-  "version": "3.42.1",
+  "version": "3.42.2",
   "description": "Adapter that integrates @serenity-js/web with Playwright, enabling Serenity/JS reporting and using the Screenplay Pattern to write component and end-to-end test scenarios",
   "author": {
     "name": "Jan Molak",
@@ -22,9 +22,14 @@
   "module": "./esm/index.js",
   "exports": {
     ".": {
-      "types": "./esm/index.d.ts",
-      "import": "./esm/index.js",
-      "require": "./lib/index.js"
+      "import": {
+        "types": "./esm/index.d.ts",
+        "default": "./esm/index.js"
+      },
+      "require": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      }
     },
     "./lib/*": "./lib/*",
     "./esm/*": "./esm/*",

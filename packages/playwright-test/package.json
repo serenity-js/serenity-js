@@ -1,6 +1,6 @@
 {
   "name": "@serenity-js/playwright-test",
-  "version": "3.42.1",
+  "version": "3.42.2",
   "description": "Serenity/JS test runner adapter for Playwright Test, combining Playwright's developer experience with the advanced reporting and automation capabilities of Serenity/JS",
   "author": {
     "name": "Jan Molak",
@@ -22,39 +22,74 @@
   "module": "./esm/index.js",
   "exports": {
     ".": {
-      "types": "./esm/index.d.ts",
-      "import": "./esm/index.js",
-      "require": "./lib/index.js"
+      "import": {
+        "types": "./esm/index.d.ts",
+        "default": "./esm/index.js"
+      },
+      "require": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      }
     },
     "./events": {
-      "types": "./lib/events/index.d.ts",
-      "import": "./esm/events/index.js",
-      "require": "./lib/events/index.js"
+      "import": {
+        "types": "./esm/events/index.d.ts",
+        "default": "./esm/events/index.js"
+      },
+      "require": {
+        "types": "./lib/events/index.d.ts",
+        "default": "./lib/events/index.js"
+      }
     },
     "./reporter": {
-      "types": "./lib/reporter/index.d.ts",
-      "import": "./esm/reporter/index.js",
-      "require": "./lib/reporter/index.js"
+      "import": {
+        "types": "./esm/reporter/index.d.ts",
+        "default": "./esm/reporter/index.js"
+      },
+      "require": {
+        "types": "./lib/reporter/index.d.ts",
+        "default": "./lib/reporter/index.js"
+      }
     },
     "./api": {
-      "types": "./lib/api/index.d.ts",
-      "import": "./esm/api/index.js",
-      "require": "./lib/api/index.js"
+      "import": {
+        "types": "./esm/api/index.d.ts",
+        "default": "./esm/api/index.js"
+      },
+      "require": {
+        "types": "./lib/api/index.d.ts",
+        "default": "./lib/api/index.js"
+      }
     },
     "./lib/events": {
-      "types": "./lib/events/index.d.ts",
-      "import": "./esm/events/index.js",
-      "require": "./lib/events/index.js"
+      "import": {
+        "types": "./esm/events/index.d.ts",
+        "default": "./esm/events/index.js"
+      },
+      "require": {
+        "types": "./lib/events/index.d.ts",
+        "default": "./lib/events/index.js"
+      }
     },
     "./lib/reporter": {
-      "types": "./lib/reporter/index.d.ts",
-      "import": "./esm/reporter/index.js",
-      "require": "./lib/reporter/index.js"
+      "import": {
+        "types": "./esm/reporter/index.d.ts",
+        "default": "./esm/reporter/index.js"
+      },
+      "require": {
+        "types": "./lib/reporter/index.d.ts",
+        "default": "./lib/reporter/index.js"
+      }
     },
     "./lib/api": {
-      "types": "./lib/api/index.d.ts",
-      "import": "./esm/api/index.js",
-      "require": "./lib/api/index.js"
+      "import": {
+        "types": "./esm/api/index.d.ts",
+        "default": "./esm/api/index.js"
+      },
+      "require": {
+        "types": "./lib/api/index.d.ts",
+        "default": "./lib/api/index.js"
+      }
     },
     "./lib/*.js": "./lib/*.js",
     "./lib/*": "./lib/*",
@@ -111,7 +146,7 @@
     "@serenity-js/playwright": "workspace:*",
     "@serenity-js/rest": "workspace:*",
     "@serenity-js/web": "workspace:*",
-    "axios": "1.15.0",
+    "axios": "1.15.2",
     "deepmerge": "4.3.1",
     "tiny-types": "2.0.5"
   },

@@ -308,7 +308,7 @@ jobs:
         uses: ./.github/actions/upload-compressed-artifact
         with:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
-          artifact-path: 'package.json "integration/*/target/site/serenity"'
+          artifact-path: 'package.json "integration/*/target"'
       - name: Qlty
         uses: qltysh/qlty-action/coverage@a19242102d17e497f437d7466aa01b528537e899 # v2.2.0
         with:

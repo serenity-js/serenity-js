@@ -18,6 +18,10 @@ describe('Playwright Test reporting', () => {
 const NotDoTooMuch = () => Interaction.where(`#actor doesn't do much`, () => void 0);
 
 class CauseErrorWhenDiscarded extends Ability {
+    constructor() {
+        super();
+    }
+
     discard() {
         return Promise.reject(new TypeError(`Some internal error in ability`));
     }
