@@ -12,7 +12,14 @@
  *
  * @group Abilities
  */
-export interface Initialisable {
+export abstract class Initialisable {
+
+    static isInitialisable<T>(value: T): value is T & Initialisable {
+        return typeof (value['initialise']) === 'function'
+            && value['initialise'].length === 0
+            && typeof value['isInitialised'] === 'function'
+            && value['isInitialised'].length === 0;
+    }
 
     /**
      * Initialises the ability. Invoked whenever [`Actor.attemptsTo`](https://serenity-js.org/api/core/class/Actor/#attemptsTo) method is called,
@@ -21,7 +28,7 @@ export interface Initialisable {
      * Make sure to implement [`Initialisable.isInitialised`](https://serenity-js.org/api/core/interface/Initialisable/#isInitialised) so that it returns `true`
      * when the ability has been successfully initialised.
      */
-    initialise(): Promise<void> | void;
+    abstract initialise(): Promise<void> | void;
 
     /**
      * Should return `true` when all the resources that the given ability needs
@@ -30,5 +37,5 @@ export interface Initialisable {
      *
      * @returns {boolean}
      */
-    isInitialised(): boolean;
+    abstract isInitialised(): boolean;
 }

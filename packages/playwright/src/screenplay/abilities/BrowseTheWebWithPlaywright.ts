@@ -1,4 +1,4 @@
-import type { Discardable, Initialisable } from '@serenity-js/core';
+import { Discardable, Initialisable } from '@serenity-js/core';
 import { BrowseTheWeb } from '@serenity-js/web';
 import * as playwright from 'playwright-core';
 
@@ -254,11 +254,15 @@ export class BrowseTheWebWithPlaywright
     }
 
     async initialise(): Promise<void> {
-        await (this.session as unknown as Initialisable)?.initialise?.();
+        if (Initialisable.isInitialisable(this.session)) {
+            await this.session.initialise();
+        }
     }
 
     isInitialised(): boolean {
-        return (this.session as unknown as Initialisable)?.isInitialised?.() ?? true;
+        return Initialisable.isInitialisable(this.session)
+            ? this.session.isInitialised()
+            : true;
     }
 
     /**
@@ -271,6 +275,8 @@ export class BrowseTheWebWithPlaywright
      * - [`Discardable`](https://serenity-js.org/api/core/interface/Discardable/)
      */
     async discard(): Promise<void> {
-        await (this.session as unknown as Discardable)?.discard?.();
+        if (Discardable.isDiscardable(this.session)) {
+            await this.session.discard();
+        }
     }
 }

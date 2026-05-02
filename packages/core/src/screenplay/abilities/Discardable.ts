@@ -17,10 +17,15 @@
  *
  * @group Abilities
  */
-export interface Discardable {
+export abstract class Discardable {
+
+    static isDiscardable<T>(value: T): value is T & Discardable {
+        return typeof (value['discard']) === 'function'
+            && value['discard'].length === 0;
+    }
 
     /**
      * Discards the resources associated with this ability.
      */
-    discard(): Promise<void> | void;
+    abstract discard(): Promise<void> | void;
 }

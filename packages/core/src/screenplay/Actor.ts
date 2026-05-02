@@ -4,8 +4,8 @@ import { ValueInspector } from '../io/index.js';
 import type { Artifact } from '../model/index.js';
 import { Name, } from '../model/index.js';
 import type { Stage } from '../stage/index.js';
-import type { AbilityType, CanHaveAbilities, Discardable, Initialisable, UsesAbilities } from './abilities/index.js';
-import { Ability, AnswerQuestions, PerformActivities } from './abilities/index.js';
+import type { AbilityType, CanHaveAbilities, UsesAbilities } from './abilities/index.js';
+import { Ability, AnswerQuestions, Discardable, Initialisable, PerformActivities } from './abilities/index.js';
 import type { PerformsActivities } from './activities/index.js';
 import type { Activity } from './Activity.js';
 import type { Answerable } from './Answerable.js';
@@ -194,7 +194,7 @@ export class Actor implements PerformsActivities,
      * [discardable](https://serenity-js.org/api/core/interface/Discardable/) [ability](https://serenity-js.org/api/core/class/Ability/) it's been configured with.
      */
     dismiss(): Promise<void> {
-        return this.findAbilitiesOfType<Discardable>('discard')
+        return this.findAbilitiesWhere(Discardable.isDiscardable)
             .reduce(
                 (previous: Promise<void>, ability: (Discardable & Ability)) =>
                     previous.then(() => ability.discard()),
@@ -227,7 +227,7 @@ export class Actor implements PerformsActivities,
     }
 
     private initialiseAbilities(): Promise<void> {
-        return this.findAbilitiesOfType<Initialisable>('initialise', 'isInitialised')
+        return this.findAbilitiesWhere(Initialisable.isInitialisable)
             .filter(ability => !ability.isInitialised())
             .reduce(
                 (previous: Promise<void>, ability: (Initialisable & Ability)) =>
@@ -240,15 +240,12 @@ export class Actor implements PerformsActivities,
             )
     }
 
-    private findAbilitiesOfType<T>(...methodNames: Array<keyof T>): Array<Ability & T> {
+    private findAbilitiesWhere<T>(filter: (ability: Ability) => ability is Ability & T): Array<Ability & T> {
         const abilitiesFrom = (map: Map<string, Ability>): Ability[] =>
             Array.from(map.values());
 
-        const abilitiesWithDesiredMethods = (ability: Ability & T): boolean =>
-            methodNames.every(methodName => typeof (ability[methodName]) === 'function');
-
         return abilitiesFrom(this.abilities)
-            .filter(abilitiesWithDesiredMethods) as Array<Ability & T>;
+            .filter(filter) as Array<Ability & T>;
     }
 
     private findAbilityTo<T extends Ability>(doSomething: AbilityType<T>): T | undefined {
