@@ -1377,6 +1377,12 @@ importers:
 
   integration/electron-app:
     devDependencies:
+      '@serenity-js/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@serenity-js/web':
+        specifier: workspace:*
+        version: link:../../packages/web
       '@types/node':
         specifier: 22.16.0
         version: 22.16.0

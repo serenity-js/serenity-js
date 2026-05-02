@@ -14,6 +14,18 @@
     "access": "private"
   },
   "main": "lib/main.js",
+  "types": "./lib/main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/main.d.ts",
+      "default": "./lib/main.js"
+    },
+    "./serenity": {
+      "types": "./lib/serenity.d.ts",
+      "default": "./lib/serenity.js"
+    },
+    "./package.json": "./package.json"
+  },
   "keywords": [
     "serenity-js",
     "internal",
@@ -35,7 +47,13 @@
   "engines": {
     "node": "^20 || ^22 || ^24"
   },
+  "peerDependencies": {
+    "@serenity-js/core": "workspace:*",
+    "@serenity-js/web": "workspace:*"
+  },
   "devDependencies": {
+    "@serenity-js/core": "workspace:*",
+    "@serenity-js/web": "workspace:*",
     "@types/node": "22.16.0",
     "electron": "36.4.0",
     "rimraf": "6.0.1",

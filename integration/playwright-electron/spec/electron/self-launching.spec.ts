@@ -11,7 +11,7 @@ describe('Self-launching Electron session', () => {
     before(async function () {
         this.timeout(30_000);
 
-        const electronAppPath = path.resolve(__dirname, '../../node_modules/@integration/electron-app');
+        const electronAppPath = path.resolve(__dirname, '../../../electron-app');
 
         const electronOptions: ElectronLaunchOptions = {
             args: [ path.join(electronAppPath, 'lib', 'main.js') ],
