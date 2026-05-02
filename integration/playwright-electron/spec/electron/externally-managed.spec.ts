@@ -16,7 +16,6 @@ describe('Externally-managed Electron session', () => {
 
         const electronAppPath = path.resolve(__dirname, '../../node_modules/@integration/electron-app');
 
-        // Launch the Electron app
         electronApp = await electron.launch({
             args: [ path.join(electronAppPath, 'lib', 'main.js') ],
             cwd: electronAppPath,
@@ -42,17 +41,8 @@ describe('Externally-managed Electron session', () => {
     after(async function () {
         this.timeout(10_000);
 
-        // Dismiss the actor to clean up abilities
-        try {
-            await actorCalled('ExternalTester').dismiss();
-        }
-        catch {
-            // Actor may not exist yet
-        }
-
-        if (electronApp) {
-            await electronApp.close();
-        }
+        await actorCalled('ExternalTester').dismiss();
+        await electronApp.close();
     });
 
     // Run the shared test suite

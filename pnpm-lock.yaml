@@ -1507,6 +1507,78 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
 
+  integration/playwright-electron:
+    devDependencies:
+      '@integration/electron-app':
+        specifier: workspace:*
+        version: link:../electron-app
+      '@integration/testing-tools':
+        specifier: workspace:*
+        version: link:../testing-tools
+      '@integration/web-specs':
+        specifier: workspace:*
+        version: link:../web-specs
+      '@serenity-js/assertions':
+        specifier: workspace:*
+        version: link:../../packages/assertions
+      '@serenity-js/console-reporter':
+        specifier: workspace:*
+        version: link:../../packages/console-reporter
+      '@serenity-js/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@serenity-js/mocha':
+        specifier: workspace:*
+        version: link:../../packages/mocha
+      '@serenity-js/playwright':
+        specifier: workspace:*
+        version: link:../../packages/playwright
+      '@serenity-js/rest':
+        specifier: workspace:*
+        version: link:../../packages/rest
+      '@serenity-js/serenity-bdd':
+        specifier: workspace:*
+        version: link:../../packages/serenity-bdd
+      '@serenity-js/web':
+        specifier: workspace:*
+        version: link:../../packages/web
+      '@types/mocha':
+        specifier: 10.0.10
+        version: 10.0.10
+      c8:
+        specifier: 11.0.0
+        version: 11.0.0
+      ci-info:
+        specifier: 4.4.0
+        version: 4.4.0
+      cross-env:
+        specifier: 10.1.0
+        version: 10.1.0
+      electron:
+        specifier: 36.4.0
+        version: 36.4.0
+      mocha:
+        specifier: 11.7.5
+        version: 11.7.5
+      mocha-multi:
+        specifier: 1.1.7
+        version: 1.1.7(mocha@11.7.5)
+      npm-failsafe:
+        specifier: 1.4.0
+        version: 1.4.0
+      playwright:
+        specifier: 1.59.1
+        version: 1.59.1
+      ts-node:
+        specifier: 10.9.2
+        version: 10.9.2(@types/node@24.12.2)(typescript@5.9.3)
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+      xvfb-maybe:
+        specifier: 0.2.1
+        version: 0.2.1
+
   integration/playwright-test:
     dependencies:
       '@integration/testing-tools':
@@ -1598,9 +1670,6 @@ importers:
 
   integration/playwright-web:
     devDependencies:
-      '@integration/electron-app':
-        specifier: workspace:*
-        version: link:../electron-app
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../testing-tools
@@ -1643,9 +1712,6 @@ importers:
       cross-env:
         specifier: 10.1.0
         version: 10.1.0
-      electron:
-        specifier: 36.4.0
-        version: 36.4.0
       mocha:
         specifier: 11.7.5
         version: 11.7.5
@@ -1667,9 +1733,6 @@ importers:
       typescript:
         specifier: 5.9.3
         version: 5.9.3
-      xvfb-maybe:
-        specifier: 0.2.1
-        version: 0.2.1
 
   integration/protractor-cucumber:
     dependencies:

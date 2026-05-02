@@ -9,8 +9,6 @@ import { describeElectronBehavior } from './shared-electron-tests';
 
 describe('Self-launching Electron session', () => {
 
-    let electronApp: ElectronApplication;
-
     before(async function () {
         this.timeout(30_000);
 
@@ -20,8 +18,6 @@ describe('Self-launching Electron session', () => {
             args: [ path.join(electronAppPath, 'lib', 'main.js') ],
             cwd: electronAppPath,
         };
-
-        await electronApp.firstWindow();
 
         configure({
             diffFormatter: new NoOpDiffFormatter(),
@@ -40,17 +36,7 @@ describe('Self-launching Electron session', () => {
     after(async function () {
         this.timeout(10_000);
 
-        // Dismiss the actor to clean up abilities
-        try {
-            await actorCalled('SelfLaunchTester').dismiss();
-        }
-        catch {
-            // Actor may not exist yet
-        }
-
-        if (electronApp) {
-            await electronApp.close();
-        }
+        await actorCalled('SelfLaunchTester').dismiss();
     });
 
     // Run the shared test suite
