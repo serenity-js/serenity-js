@@ -209,7 +209,7 @@ jobs:
       - name: Test
         run: |
           mkdir target && \
-          make INTEGRATION_SCOPE=playwright-electron-ci integration-test
+          make INTEGRATION_SCOPE=playwright-electron integration-test
       - name: Upload test reports
         if: failure()
         uses: ./.github/actions/upload-compressed-artifact
