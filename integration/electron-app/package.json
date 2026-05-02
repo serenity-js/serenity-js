@@ -20,7 +20,6 @@
     "electron"
   ],
   "scripts": {
-    "clean": "rimraf lib",
     "compile": "npm run compile:clean && npm run compile:ts",
     "compile:clean": "rimraf lib",
     "compile:ts": "tsc --project tsconfig.build.json",
