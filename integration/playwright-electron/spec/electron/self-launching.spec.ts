@@ -3,7 +3,6 @@ import 'mocha';
 import { actorCalled, configure, Duration, NoOpDiffFormatter } from '@serenity-js/core';
 import { BrowseTheWebWithPlaywright, type ElectronLaunchOptions } from '@serenity-js/playwright';
 import * as path from 'path';
-import { ElectronApplication } from 'playwright';
 
 import { describeElectronBehavior } from './shared-electron-tests';
 
