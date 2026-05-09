@@ -1,0 +1,16 @@
+{
+  "extends": "../../.c8rc.json",
+  "reportDir": "./target/coverage",
+  "allowExternal": true,
+  "include": [
+    "**/packages/core/lib/**/*.js",
+    "**/packages/web/lib/**/*.js",
+    "**/packages/playwright/lib/**/*.js"
+  ],
+  "exclude": [
+    "**/target/**",
+    "**/spec/**",
+    "**/*.d.ts",
+    "**/*.spec.ts"
+  ]
+}

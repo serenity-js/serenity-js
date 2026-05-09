@@ -1,11 +1,14 @@
-import type { Discardable } from '@serenity-js/core';
+import { Discardable, Initialisable } from '@serenity-js/core';
 import { BrowseTheWeb } from '@serenity-js/web';
 import * as playwright from 'playwright-core';
 
 import type { ExtraBrowserContextOptions } from '../../ExtraBrowserContextOptions.js';
 import {
+    type ElectronLaunchOptions,
     PlaywrightBrowsingSessionWithBrowser,
-    PlaywrightBrowsingSessionWithPage
+    PlaywrightBrowsingSessionWithElectron,
+    PlaywrightBrowsingSessionWithPage,
+    SelfLaunchingPlaywrightBrowsingSessionWithElectron
 } from '../models/index.js';
 
 /**
@@ -154,24 +157,126 @@ import {
  *
  * @group Abilities
  */
-export class BrowseTheWebWithPlaywright extends BrowseTheWeb<playwright.Locator> implements Discardable {
-
-    static using(browser: playwright.Browser, browserContextOptions?: playwright.BrowserContextOptions, extraBrowserContextOptions?: ExtraBrowserContextOptions): BrowseTheWebWithPlaywright {
+export class BrowseTheWebWithPlaywright
+    extends BrowseTheWeb<playwright.Locator>
+    implements Initialisable, Discardable
+{
+    static using(
+        browser: playwright.Browser,
+        browserContextOptions?: playwright.BrowserContextOptions,
+        extraBrowserContextOptions?: ExtraBrowserContextOptions
+    ): BrowseTheWebWithPlaywright {
         return new BrowseTheWebWithPlaywright(new PlaywrightBrowsingSessionWithBrowser(browser, browserContextOptions, extraBrowserContextOptions, playwright.selectors));
     }
 
-    static usingPage(page: playwright.Page, extraBrowserContextOptions?: ExtraBrowserContextOptions): BrowseTheWebWithPlaywright {
+    static usingPage(
+        page: playwright.Page,
+        extraBrowserContextOptions?: ExtraBrowserContextOptions
+    ): BrowseTheWebWithPlaywright {
         return new BrowseTheWebWithPlaywright(new PlaywrightBrowsingSessionWithPage(page, extraBrowserContextOptions, playwright.selectors));
     }
 
     /**
+     * Creates an ability to browse the web using an already-launched Electron application.
+     *
+     * Use this method when the Electron application lifecycle is managed externally,
+     * such as in Playwright Test where the app is launched per-worker.
+     *
+     * ## Example
+     *
+     * ```ts
+     * import { _electron as electron } from 'playwright';
+     * import { actorCalled } from '@serenity-js/core';
+     * import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
+     *
+     * const electronApp = await electron.launch({ args: ['main.js'] });
+     *
+     * const actor = actorCalled('Tester').whoCan(
+     *     BrowseTheWebWithPlaywright.usingElectronApp(electronApp)
+     * );
+     *
+     * // After tests, close the app manually
+     * await electronApp.close();
+     * ```
+     *
+     * @param electronApp - An already-launched Playwright ElectronApplication instance
+     * @param extraBrowserContextOptions - Optional configuration for timeouts and navigation
+     */
+    static usingElectronApp(
+        electronApp: playwright.ElectronApplication,
+        extraBrowserContextOptions?: ExtraBrowserContextOptions
+    ): BrowseTheWebWithPlaywright {
+        return new BrowseTheWebWithPlaywright(
+            new PlaywrightBrowsingSessionWithElectron(
+                electronApp,
+                extraBrowserContextOptions ?? {},
+                playwright.selectors
+            )
+        );
+    }
+
+    /**
+     * Creates an ability to browse the web by launching and managing an Electron application.
+     *
+     * Use this method when you want Serenity/JS to manage the Electron application lifecycle.
+     * The app is launched on first use and closed when the ability is discarded.
+     *
+     * ## Example
+     *
+     * ```typescript
+     * import { actorCalled } from '@serenity-js/core';
+     * import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
+     *
+     * const actor = actorCalled('Tester').whoCan(
+     *     BrowseTheWebWithPlaywright.launchingElectronApp({
+     *         args: ['path/to/main.js'],
+     *         cwd: 'path/to/app',
+     *     })
+     * );
+     *
+     * // The app is automatically closed when the actor is dismissed
+     * ```
+     *
+     * @param launchOptions - Options for launching the Electron application
+     * @param extraBrowserContextOptions - Optional configuration for timeouts and navigation
+     */
+    static launchingElectronApp(
+        launchOptions: ElectronLaunchOptions,
+        extraBrowserContextOptions?: ExtraBrowserContextOptions
+    ): BrowseTheWebWithPlaywright {
+        return new BrowseTheWebWithPlaywright(
+            new SelfLaunchingPlaywrightBrowsingSessionWithElectron(
+                launchOptions,
+                extraBrowserContextOptions ?? {},
+                playwright.selectors
+            )
+        );
+    }
+
+    async initialise(): Promise<void> {
+        if (Initialisable.isInitialisable(this.session)) {
+            await this.session.initialise();
+        }
+    }
+
+    isInitialised(): boolean {
+        return Initialisable.isInitialisable(this.session)
+            ? this.session.isInitialised()
+            : true;
+    }
+
+    /**
      * Automatically closes any open [pages](https://serenity-js.org/api/web/class/Page/) when the [SceneFinishes](https://serenity-js.org/api/core-events/class/SceneFinishes/)
+     *
+     * For self-launching Electron sessions, also closes the Electron application.
      *
      * #### Learn more
      * - [`PlaywrightBrowsingSession.closeAllPages`](https://serenity-js.org/api/playwright/class/PlaywrightBrowsingSession/#closeAllPages)
      * - [`Discardable`](https://serenity-js.org/api/core/interface/Discardable/)
      */
     async discard(): Promise<void> {
-        await this.session.closeAllPages();
+        if (Discardable.isDiscardable(this.session)) {
+            await this.session.discard();
+        }
     }
 }

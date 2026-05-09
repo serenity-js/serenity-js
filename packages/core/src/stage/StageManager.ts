@@ -1,17 +1,17 @@
 import type { DomainEvent } from '../events/index.js';
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed } from '../events/index.js';
 import type { CorrelationId, Description, Name } from '../model/index.js';
-import type { Clock, Duration, TellsTime, Timestamp } from '../screenplay/index.js';
+import type { Clock, Duration, Timestamp } from '../screenplay/index.js';
 import type { ListensToDomainEvents } from '../stage/index.js';
 
 /**
  * @group Stage
  */
-export class StageManager implements TellsTime {
+export class StageManager {
     private readonly subscribers: ListensToDomainEvents[] = [];
     private readonly wip: WIP;
 
-    constructor(private cueTimeout: Duration, private readonly clock: Clock) {
+    constructor(private cueTimeout: Duration, clock: Clock) {
         this.wip = new WIP(cueTimeout, clock);
     }
 
@@ -69,10 +69,6 @@ export class StageManager implements TellsTime {
         if (this.wip.hasActiveOperations()) {
             throw new Error(this.wip.descriptionOfTimedOutOperations());
         }
-    }
-
-    currentTime(): Timestamp {
-        return this.clock.now();
     }
 }
 

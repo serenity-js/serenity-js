@@ -11,9 +11,9 @@ import type { Actor, Timestamp } from './screenplay/index.js';
 import { Clock, Duration } from './screenplay/index.js';
 import type { Cast } from './stage/Cast.js';
 import { Extras } from './stage/Extras.js';
-import type { StageCrewMember, StageCrewMemberBuilder } from './stage/index.js';
+import type { ActorLifecycleManager, StageCrewMember, StageCrewMemberBuilder } from './stage/index.js';
+import { StageManager } from './stage/index.js';
 import { Stage } from './stage/Stage.js';
-import { StageManager } from './stage/StageManager.js';
 
 /**
  * @group Serenity
@@ -34,11 +34,13 @@ export class Serenity implements EmitsDomainEvents {
      * @param clock
      * @param cwd
      * @param sceneIdFactory
+     * @param actorLifecycleManager - Optional custom ActorLifecycleManager instance
      */
     constructor(
         clock: Clock = new Clock(),
         cwd: string = process.cwd(),
         sceneIdFactory: CorrelationIdFactory = CorrelationId,
+        actorLifecycleManager?: ActorLifecycleManager,
     ) {
         this.stage = new Stage(
             Serenity.defaultActors,
@@ -47,6 +49,7 @@ export class Serenity implements EmitsDomainEvents {
             clock,
             Serenity.defaultInteractionTimeout,
             sceneIdFactory,
+            actorLifecycleManager,
         );
 
         this.classLoader = new ClassLoader(

@@ -15,7 +15,7 @@
   },
   "scripts": {
     "clean": "rimraf target",
-    "test": "mocha --config ../../.mocharc.yml --timeout=60000 --spec='spec/**/*.spec.*'"
+    "test": "npx xvfb-maybe mocha --config .mocharc.yml"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "node": "^20 || ^22 || ^24"
   },
   "dependencies": {
+    "@integration/electron-app": "workspace:*",
     "@integration/testing-tools": "workspace:*",
     "@playwright/test": "1.59.1",
     "@serenity-js/assertions": "workspace:*",
@@ -44,6 +45,7 @@
     "mocha": "11.7.5",
     "mocha-multi": "1.1.7",
     "ts-node": "10.9.2",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "xvfb-maybe": "0.2.1"
   }
 }

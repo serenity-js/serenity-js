@@ -12,7 +12,7 @@ export function create(timeout: Duration = Duration.ofSeconds(5), cast?: Cast): 
     const
         stageManager = new StageManager(timeout, clock),
         stage = new Stage(
-            cast || (serenity as any).stage.cast,
+            cast || (serenity as any).stage.actorLifecycleManager.cast,
             stageManager, new ErrorFactory(),
             clock,
             interactionTimeout

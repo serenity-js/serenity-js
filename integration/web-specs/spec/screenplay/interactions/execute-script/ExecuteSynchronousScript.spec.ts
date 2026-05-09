@@ -215,7 +215,7 @@ describe('ExecuteSynchronousScript', function () {
 
     it('emits the events so that the details of the script being executed can be reported', async () => {
         const frozenClock = new Clock(() => new Date('1970-01-01'));
-        const actors = (serenity as any).stage.cast;
+        const actors = (serenity as any).stage.actorLifecycleManager.cast;
         const localSerenity = new Serenity(frozenClock);
         const recorder = new EventRecorder();
 

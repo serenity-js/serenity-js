@@ -2,10 +2,7 @@ packages:
   - examples/*
   - integration/*
   - packages/*
-onlyBuiltDependencies:
-  - chromedriver
-  - cucumber-expressions
-  - nx
+
 ignoredBuiltDependencies:
   - core-js
   - core-js-pure
@@ -14,3 +11,9 @@ ignoredBuiltDependencies:
   - es5-ext
   - esbuild
   - geckodriver
+
+onlyBuiltDependencies:
+  - chromedriver
+  - cucumber-expressions
+  - electron
+  - nx

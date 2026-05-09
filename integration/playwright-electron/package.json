@@ -1,0 +1,61 @@
+{
+  "name": "@integration/playwright-electron",
+  "version": "3.0.0",
+  "description": "Internal module to help test integration of Serenity/JS with Playwright",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "keywords": [
+    "serenity-js",
+    "internal"
+  ],
+  "scripts": {
+    "clean": "rimraf target",
+    "test": "failsafe clean test:acceptance test:report",
+    "test:acceptance": "npx xvfb-maybe c8 mocha --config .mocharc.yml",
+    "test:report": "serenity-bdd run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/serenity-js/serenity-js/issues"
+  },
+  "engines": {
+    "node": "^20 || ^22 || ^24"
+  },
+  "devDependencies": {
+    "@integration/electron-app": "workspace:*",
+    "@integration/testing-tools": "workspace:*",
+    "@integration/web-specs": "workspace:*",
+    "@serenity-js/assertions": "workspace:*",
+    "@serenity-js/console-reporter": "workspace:*",
+    "@serenity-js/core": "workspace:*",
+    "@serenity-js/mocha": "workspace:*",
+    "@serenity-js/playwright": "workspace:*",
+    "@serenity-js/rest": "workspace:*",
+    "@serenity-js/serenity-bdd": "workspace:*",
+    "@serenity-js/web": "workspace:*",
+    "@types/mocha": "10.0.10",
+    "c8": "11.0.0",
+    "ci-info": "4.4.0",
+    "cross-env": "10.1.0",
+    "electron": "36.4.0",
+    "mocha": "11.7.5",
+    "mocha-multi": "1.1.7",
+    "npm-failsafe": "1.4.0",
+    "playwright": "1.59.1",
+    "ts-node": "10.9.2",
+    "typescript": "5.9.3",
+    "xvfb-maybe": "0.2.1"
+  }
+}
