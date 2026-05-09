@@ -33,7 +33,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "compile:all": "lerna run compile",
-    "compile:libs": "lerna run compile --scope @serenity-js/* --scope @integration/testing-tools --scope @integration/cucumber-specs",
+    "compile:libs": "lerna run compile --scope @serenity-js/* --scope @integration/electron-app --scope @integration/testing-tools --scope @integration/cucumber-specs",
     "compile:@serenity-js": "lerna run compile --scope @serenity-js/*",
     "compile:@integration": "lerna run compile --scope @integration/*",
     "compile:@examples": "lerna run compile --scope @examples/*",
