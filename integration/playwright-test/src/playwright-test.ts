@@ -24,9 +24,12 @@ export function playwrightTest(...params: string[]): Promise<SpawnResult> {
         [[], []]
     );
 
-    const env = Object.fromEntries(
-        reporters.map(([name, outputPath]) => [ `REPORTER_${ name.toUpperCase() }`, outputPath ])
-    );
+    const env = {
+        ...process.env,
+        ...Object.fromEntries(
+            reporters.map(([name, outputPath]) => [ `REPORTER_${ name.toUpperCase() }`, outputPath ])
+        ),
+    };
 
     return spawner(
         playwrightExecutable,

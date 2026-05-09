@@ -163,8 +163,6 @@ jobs:
         uses: ./.github/actions/download-compressed-artifact
         with:
           artifact-name: 'compiled-libs'
-      - name: Install xvfb
-        run: sudo apt-get update && sudo apt-get install -y xvfb
       - name: Test
         run: |
           mkdir target && \
