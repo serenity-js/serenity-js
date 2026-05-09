@@ -56,7 +56,7 @@ describe('ModalDialog', () => {
         it('dismisses dialogs by default, therefore allowing for screenshots to be taken', async () => {
 
             const clock = new Clock();
-            const actors = (serenity as any).stage.cast
+            const actors = (serenity as any).stage.actorLifecycleManager.cast
             const localSerenity = new Serenity(clock);
             const recorder = new EventRecorder();
 

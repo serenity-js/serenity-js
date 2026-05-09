@@ -15,7 +15,7 @@ describe('TakeScreenshot', () => {
 
     beforeEach(() => {
         const frozenClock = new Clock(() => new Date('1970-01-01'));
-        const actors = (serenity as any).stage.cast;
+        const actors = (serenity as any).stage.actorLifecycleManager.cast;
         localSerenity = new Serenity(frozenClock);
         recorder = new EventRecorder();
 

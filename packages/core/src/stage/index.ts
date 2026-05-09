@@ -1,3 +1,4 @@
+export * from './ActorLifecycleManager.js';
 export * from './Cast.js';
 export * from './crew/index.js';
 export * from './Extras.js';

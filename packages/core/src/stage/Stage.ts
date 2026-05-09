@@ -1,17 +1,13 @@
-import { ensure, isDefined, property } from 'tiny-types';
+import { ensure, isDefined } from 'tiny-types';
 
 import type { SerenityConfig } from '../config/index.js';
 import {
-    ConfigurationError,
     ErrorFactory,
     type ErrorOptions,
     LogicError,
-    RaiseErrors,
     type RuntimeError
 } from '../errors/index.js';
 import {
-    ActorEntersStage,
-    ActorSpotlighted,
     ActorStageExitAttempted,
     ActorStageExitCompleted,
     ActorStageExitFailed,
@@ -23,9 +19,11 @@ import {
     TestRunFinishes
 } from '../events/index.js';
 import { type ActivityDetails, CorrelationId, type CorrelationIdFactory, Name } from '../model/index.js';
-import { Actor, type Clock, type Duration, ScheduleWork, type Timestamp } from '../screenplay/index.js';
-import type { ListensToDomainEvents } from '../stage/index.js';
+import type { Actor} from '../screenplay/index.js';
+import type { Clock, Duration, Timestamp } from '../screenplay/index.js';
+import { ActorLifecycleManager, type StageFocus } from './ActorLifecycleManager.js';
 import type { Cast } from './Cast.js';
+import type { ListensToDomainEvents } from './ListensToDomainEvents.js';
 import type { StageManager } from './StageManager.js';
 
 /**
@@ -48,50 +46,33 @@ export class Stage implements EmitsDomainEvents {
 
     public static readonly unknownSceneId = new CorrelationId('unknown')
 
-    /**
-     * Actors instantiated after the scene has started,
-     * who will be dismissed when the scene finishes.
-     */
-    private actorsOnFrontStage: Map<string, Actor> = new Map<string, Actor>();
-
-    /**
-     * Actors instantiated before the scene has started,
-     * who will be dismissed when the test run finishes.
-     */
-    private actorsOnBackstage: Map<string, Actor> = new Map<string, Actor>();
-
-    private actorsOnStage: Map<string, Actor> = this.actorsOnBackstage;
-
-    /**
-     * The most recent actor referenced via the [`Actor`](https://serenity-js.org/api/core/class/Actor/) method
-     */
-    private actorInTheSpotlight: Actor = undefined;
-
-    /**
-     * The scene in which the spotlight was last set.
-     * Used to detect when the spotlight shifts to a different scene context.
-     */
-    private sceneOfSpotlightedActor: CorrelationId = undefined;
-
     private currentActivity: { id: CorrelationId, details: ActivityDetails } = undefined;
 
     private currentScene: CorrelationId = Stage.unknownSceneId;
 
+    private readonly actorLifecycleManager: ActorLifecycleManager
+
     /**
-     * @param cast
-     * @param manager
-     * @param errors
-     * @param clock
-     * @param interactionTimeout
-     * @param sceneIdFactory
+     * Creates a new Stage instance.
+     *
+     * @param cast - The default cast to use for preparing actors
+     * @param manager - The stage manager responsible for notifying listeners of domain events
+     * @param errors - Factory for creating runtime errors with proper context
+     * @param clock - Clock used for timestamping domain events
+     * @param interactionTimeout - Default timeout for actor interactions
+     * @param sceneIdFactory - Factory for creating scene correlation IDs
+     * @param actorLifecycleManager - Optional custom ActorLifecycleManager instance.
+     *        When provided, allows test runner adapters to control actor lifecycle programmatically.
+     *        If not provided, a default manager is created.
      */
     constructor(
-        private cast: Cast,
-        private manager: StageManager,
+        cast: Cast,
+        private readonly manager: StageManager,
         private errors: ErrorFactory,
         private readonly clock: Clock,
-        private interactionTimeout: Duration,
+        interactionTimeout: Duration,
         private readonly sceneIdFactory: CorrelationIdFactory = CorrelationId,
+        actorLifecycleManager?: ActorLifecycleManager,
     ) {
         ensure('Cast', cast, isDefined());
         ensure('StageManager', manager, isDefined());
@@ -99,13 +80,18 @@ export class Stage implements EmitsDomainEvents {
         ensure('Clock', clock, isDefined());
         ensure('interactionTimeout', interactionTimeout, isDefined());
         ensure('sceneIdFactory', sceneIdFactory, isDefined());
+
+        this.actorLifecycleManager = actorLifecycleManager ?? new ActorLifecycleManager(cast, this.clock, interactionTimeout);
+        this.actorLifecycleManager.assignTo(this);
     }
 
     configure(options: Pick<SerenityConfig, 'actors' | 'cueTimeout' | 'interactionTimeout' | 'diffFormatter'>): void {
-        this.interactionTimeout = options.interactionTimeout || this.interactionTimeout;
+        if (options.interactionTimeout) {
+            this.actorLifecycleManager.configure({ interactionTimeout: options.interactionTimeout });
+        }
 
         if (options.actors) {
-            this.engage(options.actors);
+            this.actorLifecycleManager.engage(options.actors);
         }
 
         if (options.cueTimeout) {
@@ -134,52 +120,7 @@ export class Stage implements EmitsDomainEvents {
      *  Case-sensitive name of the Actor, e.g. `Alice`
      */
     actor(name: string): Actor {
-        if (! this.instantiatedActorCalled(name)) {
-            let actor;
-            try {
-                const newActor = new Actor(name, this, [
-                    new RaiseErrors(this),
-                    new ScheduleWork(this.clock, this.interactionTimeout)
-                ]);
-
-                actor = this.cast.prepare(newActor);
-            }
-            catch (error) {
-                throw new ConfigurationError(`${ this.typeOf(this.cast) } encountered a problem when preparing actor "${ name }" for stage`, error);
-            }
-
-            if (! (actor instanceof Actor)) {
-                throw new ConfigurationError(`Instead of a new instance of actor "${ name }", ${ this.typeOf(this.cast) } returned ${ actor }`);
-            }
-
-            this.actorsOnStage.set(name, actor);
-
-            this.announce(
-                new ActorEntersStage(
-                    this.currentScene,
-                    actor.toJSON(),
-                )
-            )
-        }
-
-        const previousActorInSpotlight = this.actorInTheSpotlight;
-        const previousSceneOfSpotlightedActor = this.sceneOfSpotlightedActor;
-        this.actorInTheSpotlight = this.instantiatedActorCalled(name);
-        this.sceneOfSpotlightedActor = this.currentScene;
-
-        const spotlightShifted = this.actorInTheSpotlight !== previousActorInSpotlight
-            || ! this.currentScene.equals(previousSceneOfSpotlightedActor);
-
-        if (spotlightShifted) {
-            this.announce(
-                new ActorSpotlighted(
-                    this.currentScene,
-                    this.actorInTheSpotlight.toJSON(),
-                )
-            );
-        }
-
-        return this.actorInTheSpotlight;
+        return this.actorLifecycleManager.actor(name);
     }
 
     /**
@@ -190,18 +131,14 @@ export class Stage implements EmitsDomainEvents {
      *  If no [`Actor`](https://serenity-js.org/api/core/class/Actor/) has been activated yet
      */
     theActorInTheSpotlight(): Actor {
-        if (! this.actorInTheSpotlight) {
-            throw new LogicError(`There is no actor in the spotlight yet. Make sure you instantiate one with stage.actor(actorName) before calling this method.`);
-        }
-
-        return this.actorInTheSpotlight;
+        return this.actorLifecycleManager.actorInTheSpotlight();
     }
 
     /**
      * Returns `true` if there is an [`Actor`](https://serenity-js.org/api/core/class/Actor/) in the spotlight, `false` otherwise.
      */
     theShowHasStarted(): boolean {
-        return !! this.actorInTheSpotlight;
+        return this.actorLifecycleManager.hasActorInTheSpotlight();
     }
 
     /**
@@ -211,12 +148,12 @@ export class Stage implements EmitsDomainEvents {
      * @param actors
      */
     engage(actors: Cast): void {
-        this.cast = ensure('actors', actors, isDefined(), property('prepare', isDefined()));
+        this.actorLifecycleManager.engage(actors);
     }
 
     /**
      * Assigns listeners to be notified of [Serenity/JS domain events](https://serenity-js.org/api/core-events/class/DomainEvent/)
-     * emitted via [`Stage.announce`](https://serenity-js.org/api/core/class/Stage/#announce).s
+     * emitted via [`Stage.announce`](https://serenity-js.org/api/core/class/Stage/#announce).
      *
      * @param listeners
      */
@@ -238,24 +175,70 @@ export class Stage implements EmitsDomainEvents {
 
     private announceSingle(event: DomainEvent): void {
         if (event instanceof SceneStarts) {
-            this.actorsOnStage = this.actorsOnFrontStage;
+            this.actorLifecycleManager.switchFocus('foreground');
         }
 
         if (event instanceof SceneFinishes || event instanceof TestRunFinishes) {
-            this.notifyOfStageExit(this.currentSceneId());
+            this.notifyOfStageExit(this.actorLifecycleManager.currentFocus());
         }
 
         this.manager.notifyOf(event);
 
         if (event instanceof SceneFinishes) {
-            this.dismiss(this.actorsOnStage);
-
-            this.actorsOnStage = this.actorsOnBackstage;
+            this.dismissActorsIn('foreground');
+            this.actorLifecycleManager.switchFocus('background');
         }
 
         if (event instanceof TestRunFinishes) {
-            this.dismiss(this.actorsOnStage);
+            this.dismissActorsIn('background');
         }
+    }
+
+    private notifyOfStageExit(focus: StageFocus): void {
+        for (const actor of this.actorLifecycleManager.actorsIn(focus)) {
+            this.announce(new ActorStageExitStarts(
+                this.currentSceneId(),
+                actor.toJSON(),
+                this.currentTime(),
+            ));
+        }
+    }
+
+    private async dismissActorsIn(focus: StageFocus): Promise<void> {
+        const actors = this.actorLifecycleManager.actorsIn(focus);
+
+        this.actorLifecycleManager.clearSpotlightIfIn(focus);
+
+        // Wait for the Photographer to finish taking any screenshots
+        await this.manager.waitForAsyncOperationsToComplete();
+
+        const actorsToDismiss = new Map<Actor, CorrelationId>(actors.map(actor => [ actor, CorrelationId.create() ]));
+
+        for (const [ actor, correlationId ] of actorsToDismiss) {
+            this.announce(new ActorStageExitAttempted(
+                correlationId,
+                new Name(actor.name),
+                this.currentTime(),
+            ));
+        }
+
+        // Try to dismiss each actor
+        for (const [ actor, correlationId ] of actorsToDismiss) {
+            try {
+                await actor.dismiss();
+
+                this.announce(new ActorStageExitCompleted(correlationId, new Name(actor.name), this.currentTime()));
+            }
+            catch (error) {
+                this.announce(new ActorStageExitFailed(
+                    error,
+                    correlationId,
+                    this.currentTime()
+                ));
+            }
+        }
+
+        this.actorLifecycleManager.clearActorsIn(focus);
     }
 
     /**
@@ -263,7 +246,7 @@ export class Stage implements EmitsDomainEvents {
      * [`DomainEvent`](https://serenity-js.org/api/core-events/class/DomainEvent/) objects are instantiated by you programmatically.
      */
     currentTime(): Timestamp {
-        return this.manager.currentTime();
+        return this.clock.now();
     }
 
     /**
@@ -342,66 +325,5 @@ export class Stage implements EmitsDomainEvents {
             location: this.currentActivity?.details.location,
             ...options,
         });
-    }
-
-    private instantiatedActorCalled(name: string): Actor | undefined {
-        return this.actorsOnBackstage.has(name)
-            ? this.actorsOnBackstage.get(name)
-            : this.actorsOnFrontStage.get(name)
-    }
-
-    private notifyOfStageExit(sceneId: CorrelationId): void {
-        for (const actor of this.actorsOnStage.values()) {
-            this.announce(new ActorStageExitStarts(
-                sceneId,
-                actor.toJSON(),
-                this.currentTime(),
-            ));
-        }
-    }
-
-    private async dismiss(activeActors: Map<string, Actor>): Promise<void> {
-        const actors = Array.from(activeActors.values());
-
-        if (actors.includes(this.actorInTheSpotlight)) {
-            this.actorInTheSpotlight = undefined;
-        }
-
-        // Wait for the Photographer to finish taking any screenshots
-        await this.manager.waitForAsyncOperationsToComplete();
-
-        const actorsToDismiss = new Map<Actor, CorrelationId>(actors.map(actor => [actor, CorrelationId.create()]));
-
-        for (const [ actor, correlationId ] of actorsToDismiss) {
-            this.announce(new ActorStageExitAttempted(
-                correlationId,
-                new Name(actor.name),
-                this.currentTime(),
-            ));
-        }
-
-        // Try to dismiss each actor
-        for (const [ actor, correlationId ] of actorsToDismiss) {
-            try {
-                await actor.dismiss();
-
-                this.announce(new ActorStageExitCompleted(correlationId, new Name(actor.name), this.currentTime()));
-            }
-            catch (error) {
-                this.announce(new ActorStageExitFailed(
-                    error,
-                    correlationId,
-                    this.currentTime()
-                ));
-            }
-        }
-
-        activeActors.clear();
-    }
-
-    private typeOf(cast: Cast): string {
-        return cast.constructor === Object
-            ? 'Cast'
-            : cast.constructor.name;
     }
 }
