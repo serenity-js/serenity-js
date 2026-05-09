@@ -13,6 +13,7 @@ export default tseslint.config(
             '**/esm/**',
             '**/lib/**',
             'integration/**/examples/**/*.js',
+            '**/target/**',
         ],
     },
 

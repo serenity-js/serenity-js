@@ -1587,6 +1587,9 @@ importers:
 
   integration/playwright-test:
     dependencies:
+      '@integration/electron-app':
+        specifier: workspace:*
+        version: link:../electron-app
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../testing-tools

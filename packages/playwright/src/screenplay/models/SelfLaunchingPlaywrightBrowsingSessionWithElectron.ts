@@ -55,6 +55,7 @@ export class SelfLaunchingPlaywrightBrowsingSessionWithElectron
         }
 
         this.electronApp = await playwright._electron.launch(this.launchOptions);
+        this.currentBrowserPage = await this.registerCurrentPage();
     }
 
     /**
@@ -76,7 +77,7 @@ export class SelfLaunchingPlaywrightBrowsingSessionWithElectron
     }
 
     async discard(): Promise<void> {
-        await this.closeAllPages();
+        await this.closeElectronApp();
 
         this.pages.clear();
         this.currentBrowserPage = undefined;
