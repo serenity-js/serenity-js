@@ -119,6 +119,8 @@ export interface SerenityFixtures {
      * Configures the name given to the default Serenity/JS [`actor`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actor)
      * injected into a [test scenario](https://serenity-js.org/api/playwright-test/function/it/).
      *
+     * Defaults to `'Serena'`.
+     *
      * #### Learn more
      * - Declaring a Serenity/JS [test scenario](https://serenity-js.org/api/playwright-test/function/it/)
      * - [`SerenityFixtures`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/)
@@ -168,17 +170,6 @@ export interface SerenityFixtures {
      * - [`Ability`](https://serenity-js.org/api/core/class/Ability/)
      */
     cueTimeout: number | Duration;
-
-    /**
-     * The maximum default amount of time allowed for interactions such as [`Wait.until`](https://serenity-js.org/api/core/class/Wait/#until)
-     * to complete.
-     *
-     * Defaults to **5 seconds**, can be overridden per interaction.
-     *
-     * #### Learn more
-     * - [`Wait.until`](https://serenity-js.org/api/core/class/Wait/#until)
-     */
-    interactionTimeout: number | Duration;
 
     /**
      * Convenience properties to be used with the [ability](https://serenity-js.org/api/core/class/Ability/)
@@ -443,12 +434,33 @@ export interface SerenityFixtures {
  */
 export interface SerenityWorkerFixtures {
     /**
-     * Name and version of the operating system that Playwright Test worker process runs on.
+     * Information about the operating system platform where the Playwright Test worker process runs.
+     *
+     * Returns an object with:
+     * - `name` - The platform name: `'Windows'`, `'macOS'`, or `'Linux'`
+     * - `version` - The OS version string from `os.release()`
+     *
+     * This information is used to tag test scenarios with platform metadata
+     * for reporting purposes.
      */
     platform: { name: string, version: string };
 
     /**
-     * Retrieves the root object of the Serenity/JS framework.
+     * The root [`Serenity`](https://serenity-js.org/api/core/class/Serenity/) instance for this worker.
+     *
+     * Provides access to the Serenity/JS framework for advanced use cases, such as:
+     * - Announcing custom [domain events](https://serenity-js.org/api/core-events/class/DomainEvent/)
+     * - Accessing the current time via [`serenity.currentTime()`](https://serenity-js.org/api/core/class/Serenity/#currentTime)
+     * - Configuring the framework programmatically
+     *
+     * :::tip
+     * In most test scenarios, you won't need to interact with the `serenity` fixture directly.
+     * Instead, use the [`actor`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actor)
+     * or [`actorCalled`](https://serenity-js.org/api/playwright-test/interface/SerenityWorkerFixtures/#actorCalled) fixtures.
+     * :::
+     *
+     * #### Learn more
+     * - [`Serenity`](https://serenity-js.org/api/core/class/Serenity/)
      */
     serenity: Serenity;
 
@@ -467,5 +479,70 @@ export interface SerenityWorkerFixtures {
      * @param name
      */
     actorCalled: (name: string) => Actor;
+
+    /**
+     * The maximum default amount of time allowed for interactions such as [`Wait.until`](https://serenity-js.org/api/core/class/Wait/#until)
+     * to complete.
+     *
+     * Defaults to **5 seconds**, can be overridden per interaction.
+     *
+     * #### Learn more
+     * - [`Wait.until`](https://serenity-js.org/api/core/class/Wait/#until)
+     */
+    interactionTimeout: number | Duration;
+
+    /**
+     * Extra abilities given to actors at the worker scope, on top of the default ones
+     * provided by the [`actors`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#actors) fixture.
+     *
+     * Unlike [`extraAbilities`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#extraAbilities),
+     * which are test-scoped, `extraWorkerAbilities` persist across all tests within the same worker process.
+     * This is useful for abilities that are expensive to create or that maintain state across tests.
+     *
+     * #### Extra abilities for all actors
+     *
+     * To give the same set of extra abilities to all the actors, provide an array of
+     * [`Ability`](https://serenity-js.org/api/core/class/Ability/) objects:
+     *
+     * ```typescript
+     * // playwright.config.ts
+     * import type { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test'
+     * import { defineConfig } from '@playwright/test'
+     * import { MySharedAbility } from './MySharedAbility'
+     *
+     * export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
+     *     use: {
+     *         extraWorkerAbilities: [ new MySharedAbility() ],
+     *     },
+     * })
+     * ```
+     *
+     * #### Extra abilities for selected actors
+     *
+     * To give extra abilities only to selected actors, provide a function that maps
+     * the actor name to an array of [`Ability`](https://serenity-js.org/api/core/class/Ability/) objects:
+     *
+     * ```typescript
+     * // playwright.config.ts
+     * import type { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test'
+     * import { defineConfig } from '@playwright/test'
+     * import { MySharedAbility } from './MySharedAbility'
+     *
+     * export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
+     *     use: {
+     *         extraWorkerAbilities: (actorName: string) => {
+     *             return actorName === 'Admin'
+     *                 ? [ new MySharedAbility() ]
+     *                 : [];
+     *         },
+     *     },
+     * })
+     * ```
+     *
+     * #### Learn more
+     * - [`extraAbilities`](https://serenity-js.org/api/playwright-test/interface/SerenityFixtures/#extraAbilities) - test-scoped extra abilities
+     * - [`Ability`](https://serenity-js.org/api/core/class/Ability/)
+     */
+    extraWorkerAbilities: ((actorName: string) => Ability[]) | Ability[];
 }
 

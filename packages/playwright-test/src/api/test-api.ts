@@ -18,6 +18,7 @@ import type { DiffFormatter } from '@serenity-js/core';
 import { AnsiDiffFormatter, Cast, Clock, Duration, Serenity, TakeNotes } from '@serenity-js/core';
 import { SceneFinishes, SceneTagged } from '@serenity-js/core/events';
 import { BrowserTag, ExecutionSuccessful, PlatformTag } from '@serenity-js/core/model';
+import { ActorLifecycleManager } from '@serenity-js/core/stage';
 import { BrowseTheWebWithPlaywright, SerenitySelectorEngines } from '@serenity-js/playwright';
 import { CallAnApi } from '@serenity-js/rest';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
@@ -35,10 +36,13 @@ interface SerenityInternalFixtures {
 }
 
 interface SerenityInternalWorkerFixtures {
+    clockInternal: Clock;
     configureWorkerInternal: void;
     sceneIdFactoryInternal: PlaywrightTestSceneIdFactory;
     diffFormatterInternal: DiffFormatter;
     eventStreamWriterInternal: WorkerEventStreamWriter;
+    workerCastInternal: Cast;
+    actorLifecycleManagerInternal: ActorLifecycleManager;
 }
 
 export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, SerenityWorkerFixtures & SerenityInternalWorkerFixtures, PlaywrightTestArgs & PlaywrightTestOptions, PlaywrightWorkerArgs & PlaywrightWorkerOptions> = {
@@ -60,7 +64,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
 
     interactionTimeout: [
         Duration.ofSeconds(5),
-        { option: true },
+        { scope: 'worker', option: true },
     ],
 
     crew: [
@@ -80,18 +84,23 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
 
     actors: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-        async ({ axios, extraAbilities, extraContextOptions, page }, use): Promise<void> => {
+        async ({ axios, extraAbilities, extraContextOptions, extraWorkerAbilities, page }, use): Promise<void> => {
             await use(Cast.where(actor => {
 
-                const abilities = Array.isArray(extraAbilities)
+                const extraTestScopeAbilities = Array.isArray(extraAbilities)
                     ? extraAbilities
                     : extraAbilities(actor.name);
+
+                const extraWorkerScopeAbilities = Array.isArray(extraWorkerAbilities)
+                    ? extraWorkerAbilities
+                    : extraWorkerAbilities(actor.name);
 
                 return actor.whoCan(
                     BrowseTheWebWithPlaywright.usingPage(page, extraContextOptions),
                     TakeNotes.usingAnEmptyNotepad(),
                     CallAnApi.using(axios),
-                    ...abilities,
+                    ...extraWorkerScopeAbilities,
+                    ...extraTestScopeAbilities,
                 );
             }));
         },
@@ -127,12 +136,54 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
         { scope: 'worker', box: true },
     ],
 
+    workerCastInternal: [
+
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+        async ({ extraWorkerAbilities, browser }, use) => {
+            const cast = Cast.where(actor => {
+                const extraWorkerScopeAbilities = Array.isArray(extraWorkerAbilities)
+                    ? extraWorkerAbilities
+                    : extraWorkerAbilities(actor.name);
+
+                return actor.whoCan(
+                    BrowseTheWebWithPlaywright.using(browser),
+                    TakeNotes.usingAnEmptyNotepad(),
+                    ...extraWorkerScopeAbilities,
+                    // todo: consider making `axios` a fixture and injecting an ability to CallAnApi
+                );
+            });
+            await use(cast);
+        },
+        { scope: 'worker', box: true },
+    ],
+
+    clockInternal: [
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+        async ({}, use) => {
+            await use(new Clock());
+        },
+        { scope: 'worker', box: true },
+    ],
+
+    actorLifecycleManagerInternal: [
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+        async ({ clockInternal, workerCastInternal, interactionTimeout }, use) => {
+            const actorLifecycleManager = new ActorLifecycleManager(
+                workerCastInternal,
+                clockInternal,
+                asDuration(interactionTimeout),
+            );
+            await use(actorLifecycleManager);
+        },
+        { scope: 'worker', box: true },
+    ],
+
     serenity: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-        async ({ playwright, sceneIdFactoryInternal }, use, workerInfo) => {
+        async ({ actorLifecycleManagerInternal, playwright, sceneIdFactoryInternal }, use, workerInfo) => {
             const clock = new Clock();
             const cwd = process.cwd();
-            const serenity = new Serenity(clock, cwd, sceneIdFactoryInternal);
+            const serenity = new Serenity(clock, cwd, sceneIdFactoryInternal, actorLifecycleManagerInternal);
 
             const serenitySelectorEngines = new SerenitySelectorEngines();
             await serenitySelectorEngines.ensureRegisteredWith(playwright.selectors);
@@ -160,14 +211,21 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
 
     configureWorkerInternal: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-        async ({ diffFormatterInternal, eventStreamWriterInternal, sceneIdFactoryInternal, serenity, browser }, use, info: WorkerInfo) => {
+        async ({ diffFormatterInternal, eventStreamWriterInternal, extraWorkerAbilities, sceneIdFactoryInternal, serenity, browser }, use, info: WorkerInfo) => {
 
             serenity.configure({
-                actors: Cast.where(actor => actor.whoCan(
-                    BrowseTheWebWithPlaywright.using(browser),
-                    TakeNotes.usingAnEmptyNotepad(),
-                    // todo: consider making `axios` a fixture and injecting an ability to CallAnApi
-                )),
+                actors: Cast.where(actor => {
+                    const extraWorkerScopeAbilities = Array.isArray(extraWorkerAbilities)
+                        ? extraWorkerAbilities
+                        : extraWorkerAbilities(actor.name);
+
+                    return actor.whoCan(
+                        BrowseTheWebWithPlaywright.using(browser),
+                        TakeNotes.usingAnEmptyNotepad(),
+                        ...extraWorkerScopeAbilities,
+                        // todo: consider making `axios` a fixture and injecting an ability to CallAnApi
+                    );
+                }),
                 crew: [
                     eventStreamWriterInternal,
                 ],
@@ -186,7 +244,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
 
     configureScenarioInternal: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-        async ({ actors, browser, browserName, crew, cueTimeout, diffFormatterInternal, eventStreamWriterInternal, interactionTimeout, platform, sceneIdFactoryInternal, serenity }, use, info: TestInfo) => {
+        async ({ actorLifecycleManagerInternal, actors, browser, browserName, crew, cueTimeout, diffFormatterInternal, eventStreamWriterInternal, interactionTimeout, platform, sceneIdFactoryInternal, serenity }, use, info: TestInfo) => {
 
             serenity.configure({
                 actors: asCast(actors),
@@ -208,6 +266,10 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
             sceneIdFactoryInternal.setTestId(playwrightSceneId.value);
             const sceneId = serenity.assignNewSceneId();
 
+            // Switch focus to foreground at the start of each test
+            // This ensures actors created during the test are added to the foreground
+            actorLifecycleManagerInternal.switchFocus('foreground');
+
             serenity.announce(
                 new SceneTagged(
                     sceneId,
@@ -224,6 +286,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
             await use(void 0);
 
             try {
+                // SceneFinishes will trigger dismissActorsIn('foreground') and switchFocus('background')
                 serenity.announce(
                     new SceneFinishes(sceneId, new ExecutionSuccessful(), serenity.currentTime()),
                 );
@@ -239,7 +302,12 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
 
     extraAbilities: [
         [],
-        { option: true },
+        { option: true, scope: 'test' },
+    ],
+
+    extraWorkerAbilities: [
+        [],
+        { option: true, scope: 'worker' },
     ],
 
     actorCalled: [
