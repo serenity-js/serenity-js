@@ -272,7 +272,7 @@ export class BrowseTheWebWithPlaywright
      *
      * #### Learn more
      * - [`PlaywrightBrowsingSession.closeAllPages`](https://serenity-js.org/api/playwright/class/PlaywrightBrowsingSession/#closeAllPages)
-     * - [`Discardable`](https://serenity-js.org/api/core/interface/Discardable/)
+     * - [`Discardable`](https://serenity-js.org/api/core/class/Discardable/)
      */
     async discard(): Promise<void> {
         if (Discardable.isDiscardable(this.session)) {

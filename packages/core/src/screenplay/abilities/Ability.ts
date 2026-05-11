@@ -43,8 +43,8 @@ import type { UsesAbilities } from './UsesAbilities.js';
  * From the technical perspective, an **ability** is an [adapter](https://en.wikipedia.org/wiki/Adapter_pattern)
  * around an interface-specific integration library, such as a web browser driver, an HTTP client, a database client, and so on.
  * You give an actor an ability, and it's the ability's responsibility to provide a consistent API around the integration library and deal with any of its quirks.
- * Abilities **encapsulate integration libraries** and handle their [configuration and initialisation](https://serenity-js.org/api/core/interface/Initialisable/),
- * the process of [freeing up any resources](https://serenity-js.org/api/core/interface/Discardable/) they hold,
+ * Abilities **encapsulate integration libraries** and handle their [configuration and initialisation](https://serenity-js.org/api/core/class/Initialisable/),
+ * the process of [freeing up any resources](https://serenity-js.org/api/core/class/Discardable/) they hold,
  * as well as managing any state associated with the library.
  *
  * ### Portable interactions with web interfaces
@@ -269,8 +269,8 @@ import type { UsesAbilities } from './UsesAbilities.js';
  *
  * Abilities that rely on resources that need to be initialised before they can be used,
  * or discarded before the actor is dismissed can implement
- * the [`Initialisable`](https://serenity-js.org/api/core/interface/Initialisable/)
- * or [`Discardable`](https://serenity-js.org/api/core/interface/Discardable/) interfaces, respectively.
+ * the [`Initialisable`](https://serenity-js.org/api/core/class/Initialisable/)
+ * or [`Discardable`](https://serenity-js.org/api/core/class/Discardable/) interfaces, respectively.
  *
  * ### Defining a custom ability to `QueryPostgresDB`
  *
@@ -352,8 +352,8 @@ import type { UsesAbilities } from './UsesAbilities.js';
  *
  * ## Learn more
  * - [`AbilityType`](https://serenity-js.org/api/core/#AbilityType)
- * - [`Initialisable`](https://serenity-js.org/api/core/interface/Initialisable/)
- * - [`Discardable`](https://serenity-js.org/api/core/interface/Discardable/)
+ * - [`Initialisable`](https://serenity-js.org/api/core/class/Initialisable/)
+ * - [`Discardable`](https://serenity-js.org/api/core/class/Discardable/)
  * - [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/)
  * - [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi/)
  * - [`TakeNotes`](https://serenity-js.org/api/core/class/TakeNotes/)

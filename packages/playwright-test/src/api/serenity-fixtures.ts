@@ -166,7 +166,7 @@ export interface SerenityFixtures {
      *
      * #### Learn more
      * - [`SerenityConfig.cueTimeout`](https://serenity-js.org/api/core/class/SerenityConfig/#cueTimeout)
-     * - [`Discardable`](https://serenity-js.org/api/core/interface/Discardable/)
+     * - [`Discardable`](https://serenity-js.org/api/core/class/Discardable/)
      * - [`Ability`](https://serenity-js.org/api/core/class/Ability/)
      */
     cueTimeout: number | Duration;

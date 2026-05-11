@@ -34,7 +34,7 @@ export type StageFocus = 'foreground' | 'background';
  * By default, actors created before the actual test scenario starts, e.g. in beforeAll hooks, are placed in the `'background'` focus area.
  * When a [`SceneStarts`](https://serenity-js.org/api/core-events/class/SceneStarts/) event is announced,
  * the focus switches to `'foreground'`. When a [`SceneFinishes`](https://serenity-js.org/api/core-events/class/SceneFinishes/)
- * event is announced, foreground actors are dismissed, their abilities [discarded](https://serenity-js.org/api/core/interface/Discardable/)
+ * event is announced, foreground actors are dismissed, their abilities [discarded](https://serenity-js.org/api/core/class/Discardable/)
  * and focus returns to `'background'`.
  *
  * ## Custom lifecycle management

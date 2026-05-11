@@ -6,7 +6,7 @@ import { AsyncOperationCompleted } from '../AsyncOperationCompleted.js';
 
 /**
  * Emitted when an [`Actor`](https://serenity-js.org/api/core/class/Actor/) and its abilities
- * are correctly [released](https://serenity-js.org/api/core/interface/Discardable/) either
+ * are correctly [released](https://serenity-js.org/api/core/class/Discardable/) either
  * upon the [`SceneFinishes`](https://serenity-js.org/api/core-events/class/SceneFinishes/) event
  * for actors initialised within the scope of a test scenario,
  * or upon the [`TestRunFinishes`](https://serenity-js.org/api/core-events/class/TestRunFinishes/) event

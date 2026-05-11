@@ -2,13 +2,13 @@
  * An interface to be implemented by any [`Ability`](https://serenity-js.org/api/core/class/Ability/) that needs to initialise
  * the resources it uses, e.g. establish a database connection.
  *
- * The [`Initialisable.initialise`](https://serenity-js.org/api/core/interface/Initialisable/#initialise) method is invoked whenever [`Actor.attemptsTo`](https://serenity-js.org/api/core/class/Actor/#attemptsTo) method is called,
- * but **only when** [`Initialisable.isInitialised`](https://serenity-js.org/api/core/interface/Initialisable/#isInitialised) returns false. This is to avoid initialising abilities more than once.
+ * The [`Initialisable.initialise`](https://serenity-js.org/api/core/class/Initialisable/#initialise) method is invoked whenever [`Actor.attemptsTo`](https://serenity-js.org/api/core/class/Actor/#attemptsTo) method is called,
+ * but **only when** [`Initialisable.isInitialised`](https://serenity-js.org/api/core/class/Initialisable/#isInitialised) returns false. This is to avoid initialising abilities more than once.
  *
  * ## Learn more
  * - [`Ability`](https://serenity-js.org/api/core/class/Ability/)
  * - [`AbilityType`](https://serenity-js.org/api/core/#AbilityType)
- * - [`Discardable`](https://serenity-js.org/api/core/interface/Discardable/)
+ * - [`Discardable`](https://serenity-js.org/api/core/class/Discardable/)
  *
  * @group Abilities
  */
@@ -23,9 +23,9 @@ export abstract class Initialisable {
 
     /**
      * Initialises the ability. Invoked whenever [`Actor.attemptsTo`](https://serenity-js.org/api/core/class/Actor/#attemptsTo) method is called,
-     * but **only when** [`Initialisable.isInitialised`](https://serenity-js.org/api/core/interface/Initialisable/#isInitialised) returns false.
+     * but **only when** [`Initialisable.isInitialised`](https://serenity-js.org/api/core/class/Initialisable/#isInitialised) returns false.
      *
-     * Make sure to implement [`Initialisable.isInitialised`](https://serenity-js.org/api/core/interface/Initialisable/#isInitialised) so that it returns `true`
+     * Make sure to implement [`Initialisable.isInitialised`](https://serenity-js.org/api/core/class/Initialisable/#isInitialised) so that it returns `true`
      * when the ability has been successfully initialised.
      */
     abstract initialise(): Promise<void> | void;

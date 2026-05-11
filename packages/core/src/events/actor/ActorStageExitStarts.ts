@@ -10,7 +10,7 @@ import { DomainEvent } from '../DomainEvent.js';
  * [`TestRunFinishes`](https://serenity-js.org/api/core-events/class/TestRunFinishes/) events
  * to notify the [stage crew members](https://serenity-js.org/api/core/interface/StageCrewMember/)
  * about the final state of the [actors](https://serenity-js.org/api/core/class/Actor/) and their abilities
- * before they're [released](https://serenity-js.org/api/core/interface/Discardable/).
+ * before they're [released](https://serenity-js.org/api/core/class/Discardable/).
  *
  * @group Events
  */

@@ -9,7 +9,7 @@ import { DomainEvent } from './DomainEvent.js';
 /**
  * Emitted by a Serenity/JS test runner adapter, right before a test and all its associated test hooks finish.
  * Triggers any clean-up operations that might be required, such as discarding of
- * the [discardable](https://serenity-js.org/api/core/interface/Discardable/) abilities.
+ * the [discardable](https://serenity-js.org/api/core/class/Discardable/) abilities.
  *
  * The `outcome` property contains the test outcome determined so far, before any cleanup operations.
  * This allows stage crew members like the WebdriverIO notifier to invoke hooks with the test result

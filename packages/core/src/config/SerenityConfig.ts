@@ -39,7 +39,7 @@ export abstract class SerenityConfig {
      * The maximum amount of time between [SceneFinishes](https://serenity-js.org/api/core-events/class/SceneFinishes/) and [SceneFinished](https://serenity-js.org/api/core-events/class/SceneFinished/) events
      * that Serenity/JS should wait for any post-scenario
      * async operations to complete. Those include generating the screenshots,
-     * saving reports to disk, [dismissing the actors](https://serenity-js.org/api/core/interface/Discardable/), and so on.
+     * saving reports to disk, [dismissing the actors](https://serenity-js.org/api/core/class/Discardable/), and so on.
      *
      * Defaults to 5 seconds.
      *

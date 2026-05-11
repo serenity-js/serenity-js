@@ -6,7 +6,7 @@ import { Timestamp } from '../../screenplay/index.js';
 import { AsyncOperationFailed } from '../AsyncOperationFailed.js';
 
 /**
- * Emitted when [releasing](https://serenity-js.org/api/core/interface/Discardable/) an
+ * Emitted when [releasing](https://serenity-js.org/api/core/class/Discardable/) an
  * [`Actor`](https://serenity-js.org/api/core/class/Actor/) or its abilities
  * resulted in an error either
  * upon the [`SceneFinishes`](https://serenity-js.org/api/core-events/class/SceneFinishes/) event
