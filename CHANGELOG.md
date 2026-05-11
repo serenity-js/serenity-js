@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.43.0](https://github.com/serenity-js/serenity-js/compare/v3.42.2...v3.43.0) (2026-05-11)
+
+
+### Bug Fixes
+
+* **core:** introduced Initialisable.isInitialisable and Discardable.isDiscardable ([a8c260d](https://github.com/serenity-js/serenity-js/commit/a8c260db850f8d50f8b289d123fe95c9aa859a5e))
+* **deps:** update cucumber ([709715b](https://github.com/serenity-js/serenity-js/commit/709715b66fac6adb79ecdc5e89870bc22643ec64))
+* **deps:** update dependency semver to v7.8.0 ([c76c7ea](https://github.com/serenity-js/serenity-js/commit/c76c7eaef92c840859fa080494f702f8d32372bc))
+* **deps:** update react monorepo to v19.2.6 ([bf47950](https://github.com/serenity-js/serenity-js/commit/bf479509b3be2e9c3a5f109a396c8cf253473f65))
+* **deps:** update rest dependencies ([a933e10](https://github.com/serenity-js/serenity-js/commit/a933e1060a0298104ac1ab7843c386e06277f070))
+* **deps:** update webdriverio dependencies to ^9.27.1 ([6296832](https://github.com/serenity-js/serenity-js/commit/6296832dd6ef5f1ba4056429f732180973906404))
+* **playwright-test:** ensure actors are dismissed between tests ([eda4f3a](https://github.com/serenity-js/serenity-js/commit/eda4f3a82a4f06b0cecb7fe981d1128429c3dfaf))
+
+
+### Features
+
+* **playwright:** add Electron app integration support (Phase 1) ([cb90f5b](https://github.com/serenity-js/serenity-js/commit/cb90f5be4e42f5d16dadd0f4171c58acbe499ac2)), closes [serenity-js/serenity-js#1488](https://github.com/serenity-js/serenity-js/issues/1488)
+* **playwright:** add self-launching Electron session support (Phase 2) ([965ea08](https://github.com/serenity-js/serenity-js/commit/965ea088393702e0efaffef5a67be9b2b603853d)), closes [serenity-js/serenity-js#1488](https://github.com/serenity-js/serenity-js/issues/1488)
+
+
+
+
+
 ## [3.42.2](https://github.com/serenity-js/serenity-js/compare/v3.42.1...v3.42.2) (2026-04-26)
 
 

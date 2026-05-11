@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.43.0](https://github.com/serenity-js/serenity-js/compare/v3.42.2...v3.43.0) (2026-05-11)
+
+
+### Bug Fixes
+
+* **deps:** update rest dependencies ([a933e10](https://github.com/serenity-js/serenity-js/commit/a933e1060a0298104ac1ab7843c386e06277f070))
+* **playwright-test:** ensure actors are dismissed between tests ([eda4f3a](https://github.com/serenity-js/serenity-js/commit/eda4f3a82a4f06b0cecb7fe981d1128429c3dfaf))
+
+
+
+
+
 ## [3.42.2](https://github.com/serenity-js/serenity-js/compare/v3.42.1...v3.42.2) (2026-04-26)
 
 

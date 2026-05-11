@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.43.0](https://github.com/serenity-js/serenity-js/compare/v3.42.2...v3.43.0) (2026-05-11)
+
+
+### Bug Fixes
+
+* **core:** introduced Initialisable.isInitialisable and Discardable.isDiscardable ([a8c260d](https://github.com/serenity-js/serenity-js/commit/a8c260db850f8d50f8b289d123fe95c9aa859a5e))
+* **deps:** update dependency semver to v7.8.0 ([c76c7ea](https://github.com/serenity-js/serenity-js/commit/c76c7eaef92c840859fa080494f702f8d32372bc))
+
+
+
+
+
 ## [3.42.2](https://github.com/serenity-js/serenity-js/compare/v3.42.1...v3.42.2) (2026-04-26)
 
 **Note:** Version bump only for package @serenity-js/core

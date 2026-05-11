@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.43.0](https://github.com/serenity-js/serenity-js/compare/v3.42.2...v3.43.0) (2026-05-11)
+
+
+### Bug Fixes
+
+* **core:** introduced Initialisable.isInitialisable and Discardable.isDiscardable ([a8c260d](https://github.com/serenity-js/serenity-js/commit/a8c260db850f8d50f8b289d123fe95c9aa859a5e))
+
+
+### Features
+
+* **playwright:** add Electron app integration support (Phase 1) ([cb90f5b](https://github.com/serenity-js/serenity-js/commit/cb90f5be4e42f5d16dadd0f4171c58acbe499ac2)), closes [serenity-js/serenity-js#1488](https://github.com/serenity-js/serenity-js/issues/1488)
+* **playwright:** add self-launching Electron session support (Phase 2) ([965ea08](https://github.com/serenity-js/serenity-js/commit/965ea088393702e0efaffef5a67be9b2b603853d)), closes [serenity-js/serenity-js#1488](https://github.com/serenity-js/serenity-js/issues/1488)
+
+
+
+
+
 ## [3.42.2](https://github.com/serenity-js/serenity-js/compare/v3.42.1...v3.42.2) (2026-04-26)
 
 
