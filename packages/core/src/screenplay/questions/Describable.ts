@@ -1,4 +1,4 @@
-import { ValueInspector } from '../../io/reflection/ValueInspector.js';
+import { ValueInspector } from '../../io/reflection/index.js';
 import type { UsesAbilities } from '../abilities/UsesAbilities.js';
 import type { Answerable } from '../Answerable.js';
 import type { AnswersQuestions } from './AnswersQuestions.js';
