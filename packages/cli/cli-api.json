@@ -1,0 +1,25 @@
+{
+    "$schema": "https://serenity-js.org/schemas/cli-api.json",
+    "module": "cli",
+    "version": "1.0.0",
+    "commands": {
+        "check-installation": {
+            "description": "Verifies Node.js version, lists detected Serenity/JS modules, and checks compatibility with installed dependencies",
+            "activity": "CheckInstallation",
+            "parameters": {},
+            "returns": {
+                "type": "InstallationReport",
+                "description": "Report containing Node.js version, detected modules, and compatibility status"
+            }
+        },
+        "check-updates": {
+            "description": "Compares installed Serenity/JS module versions with the latest available versions",
+            "activity": "CheckUpdates",
+            "parameters": {},
+            "returns": {
+                "type": "UpdateReport",
+                "description": "Report containing outdated modules and update commands"
+            }
+        }
+    }
+}

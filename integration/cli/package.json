@@ -1,0 +1,43 @@
+{
+  "name": "@integration/cli",
+  "version": "3.0.0",
+  "description": "Serenity/JS CLI integration tests",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "scripts": {
+    "clean": "rimraf target",
+    "test": "mocha --config ../../.mocharc.yml --timeout=60000 --spec='spec/**/*.spec.*'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/serenity-js/serenity-js/issues"
+  },
+  "engines": {
+    "node": "^20 || ^22 || ^24"
+  },
+  "dependencies": {
+    "@integration/testing-tools": "workspace:*",
+    "@serenity-js/cli": "workspace:*",
+    "@serenity-js/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/chai": "4.3.20",
+    "@types/mocha": "10.0.10",
+    "mocha": "11.7.5",
+    "mocha-multi": "1.1.7",
+    "ts-node": "10.9.2",
+    "typescript": "5.9.3"
+  }
+}

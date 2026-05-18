@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+
+import * as path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const cliModuleDirectory = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+
+import('../lib/index.js').then(({ bootstrap }) => {
+    bootstrap({
+        argv: process.argv.slice(2),
+        cliModuleDirectory,
+    });
+});
