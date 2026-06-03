@@ -66,8 +66,14 @@ jobs:
         run: |
           echo "Installed browsers:" && \
           ls -la browsers && \
+          echo "Installed Chrome:" && \
           ls -la ./browsers/chrome && \
-          ls -la ./browsers/chromedriver
+          echo "Installed Chrome linux-129.0.6668.100:" && \
+          ls -la ./browsers/chrome/linux-129.0.6668.100 && \
+          echo "Installed Chromedriver:" && \
+          ls -la ./browsers/chromedriver && \          
+          echo "Installed Chromedriver linux-129.0.6668.100:" && \
+          ls -la ./browsers/chromedriver/linux-129.0.6668.100
       - name: Test
         run: make test
       - name: Qlty
