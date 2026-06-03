@@ -20,8 +20,12 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       - name: Set up Node
         uses: ./.github/actions/setup-node
-      - name: Lint
-        run: make lint
+      - name: Debug browsers
+        run: |
+          echo "Installed browsers:" && \
+          tree ./browsers 
+          - name: Lint
+            run: make lint
 
   compile:
     name: 'Compile'
@@ -65,15 +69,7 @@ jobs:
       - name: Debug browsers
         run: |
           echo "Installed browsers:" && \
-          ls -la browsers && \
-          echo "Installed Chrome:" && \
-          ls -la ./browsers/chrome && \
-          echo "Installed Chrome linux-129.0.6668.100:" && \
-          ls -la ./browsers/chrome/linux-129.0.6668.100 && \
-          echo "Installed Chromedriver:" && \
-          ls -la ./browsers/chromedriver && \          
-          echo "Installed Chromedriver linux-129.0.6668.100:" && \
-          ls -la ./browsers/chromedriver/linux-129.0.6668.100
+          tree ./browsers
       - name: Test
         run: make test
       - name: Qlty
