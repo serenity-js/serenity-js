@@ -23,3 +23,11 @@ runs:
     - name: Install dependencies
       shell: bash
       run: pnpm install
+
+    - name: Verify browser install
+      shell: bash
+      run: |
+        echo "=== Checking chromedriver after pnpm install ===" && \
+        find "$(pwd)/browsers/chromedriver" -type f -ls 2>/dev/null || echo "No chromedriver dir" && \
+        echo "=== Checking chrome after pnpm install ===" && \
+        find "$(pwd)/browsers/chrome" -type f -name "chrome" -ls 2>/dev/null || echo "No chrome binary"
