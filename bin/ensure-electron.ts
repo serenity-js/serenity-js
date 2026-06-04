@@ -9,36 +9,28 @@
  * Can be removed when Electron upgrades its extraction mechanism.
  */
 import { execSync } from 'node:child_process';
-import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
-import { join, resolve, dirname } from 'node:path';
-import { platform, arch, homedir } from 'node:os';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+// Find the electron package directory using Node's module resolution
+import { createRequire } from 'node:module';
+import { arch, homedir, platform } from 'node:os';
+import { join } from 'node:path';
 
-// Find the electron package directory
-const electronPaths = [
-    'node_modules/.pnpm/electron@42.3.2/node_modules/electron',
-    'integration/playwright-electron/node_modules/electron',
-    'integration/electron-app/node_modules/electron',
-];
+const require = createRequire(import.meta.url);
+let electronDirectory: string | undefined;
 
-let electronDir;
-for (const p of electronPaths) {
-    const full = resolve(p);
-    if (existsSync(join(full, 'package.json'))) {
-        electronDir = full;
-        break;
-    }
-}
-
-if (!electronDir) {
+try {
+    const electronMain = require.resolve('electron');
+    electronDirectory = join(electronMain, '..');
+} catch {
     console.log('[ensure-electron] Electron package not found, skipping');
     process.exit(0);
 }
 
-const pathFile = join(electronDir, 'path.txt');
-const distDir = join(electronDir, 'dist');
+const pathFile = join(electronDirectory, 'path.txt');
+const distributionDirectory = join(electronDirectory, 'dist');
 
 // Determine the expected platform path
-function getPlatformPath() {
+function getPlatformPath(): string {
     switch (platform()) {
         case 'darwin': return 'Electron.app/Contents/MacOS/Electron';
         case 'linux': return 'electron';
@@ -48,7 +40,7 @@ function getPlatformPath() {
 }
 
 const platformPath = getPlatformPath();
-const electronBinary = join(distDir, platformPath);
+const electronBinary = join(distributionDirectory, platformPath);
 
 // Check if electron is already installed
 if (existsSync(pathFile) && existsSync(electronBinary)) {
@@ -59,13 +51,13 @@ if (existsSync(pathFile) && existsSync(electronBinary)) {
 console.log('[ensure-electron] Electron binary missing, attempting to install...');
 
 // Read electron version from package.json
-const { version } = JSON.parse(readFileSync(join(electronDir, 'package.json'), 'utf8'));
+const { version } = JSON.parse(readFileSync(join(electronDirectory, 'package.json'), 'utf8'));
 
-// Determine download URL
+// Determine download parameters
 const os = platform();
 const cpuArch = arch();
-let electronPlatform, electronArch;
 
+let electronPlatform: string;
 switch (os) {
     case 'darwin': electronPlatform = 'darwin'; break;
     case 'linux': electronPlatform = 'linux'; break;
@@ -73,6 +65,7 @@ switch (os) {
     default: electronPlatform = os;
 }
 
+let electronArch: string;
 switch (cpuArch) {
     case 'x64': electronArch = 'x64'; break;
     case 'arm64': electronArch = 'arm64'; break;
@@ -80,28 +73,28 @@ switch (cpuArch) {
     default: electronArch = cpuArch;
 }
 
-const filename = `electron-v${version}-${electronPlatform}-${electronArch}.zip`;
-const url = `https://github.com/electron/electron/releases/download/v${version}/${filename}`;
-const cacheDir = process.env.electron_config_cache || join(homedir(), '.cache', 'electron');
-const cachedZip = join(cacheDir, filename);
+const filename = `electron-v${ version }-${ electronPlatform }-${ electronArch }.zip`;
+const url = `https://github.com/electron/electron/releases/download/v${ version }/${ filename }`;
+const cacheDirectory = process.env.electron_config_cache || join(homedir(), '.cache', 'electron');
+const cachedZip = join(cacheDirectory, filename);
 
 // Download if not cached
 if (!existsSync(cachedZip)) {
-    console.log(`[ensure-electron] Downloading ${url}...`);
-    mkdirSync(cacheDir, { recursive: true });
-    execSync(`curl -L -o "${cachedZip}" "${url}"`, { stdio: 'inherit' });
+    console.log(`[ensure-electron] Downloading ${ url }...`);
+    mkdirSync(cacheDirectory, { recursive: true });
+    execSync(`curl -L -o "${ cachedZip }" "${ url }"`, { stdio: 'inherit' });
 }
 
 // Extract using system unzip
-console.log(`[ensure-electron] Extracting ${cachedZip} to ${distDir}...`);
-mkdirSync(distDir, { recursive: true });
+console.log(`[ensure-electron] Extracting ${ cachedZip } to ${ distributionDirectory }...`);
+mkdirSync(distributionDirectory, { recursive: true });
 
 if (os === 'win32') {
-    execSync(`powershell -Command "Expand-Archive -Force '${cachedZip}' '${distDir}'"`, { stdio: 'inherit' });
+    execSync(`powershell -Command "Expand-Archive -Force '${ cachedZip }' '${ distributionDirectory }'"`, { stdio: 'inherit' });
 } else {
-    execSync(`unzip -o -q "${cachedZip}" -d "${distDir}"`, { stdio: 'inherit' });
+    execSync(`unzip -o -q "${ cachedZip }" -d "${ distributionDirectory }"`, { stdio: 'inherit' });
 }
 
 // Write path.txt
 writeFileSync(pathFile, platformPath);
-console.log(`[ensure-electron] Electron installed successfully at ${electronBinary}`);
+console.log(`[ensure-electron] Electron installed successfully at ${ electronBinary }`);
