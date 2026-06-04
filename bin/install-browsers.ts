@@ -1,5 +1,28 @@
+/**
+ * Browser installation script for Protractor and WebdriverIO tests.
+ *
+ * Uses @puppeteer/browsers CLI to download Chrome and ChromeDriver binaries.
+ *
+ * ## Workaround: extract-zip silent failure
+ *
+ * @puppeteer/browsers@2.x uses `extract-zip` (which depends on `yauzl`) to extract downloaded zip archives.
+ * On Node 24 + ubuntu-24.04 (GitHub Actions runners), this extraction silently fails for large binary files
+ * (chromedriver ~17MB, chrome ~250MB) while small text files (LICENSE, THIRD_PARTY_NOTICES) extract fine.
+ * The zip archive remains on disk (normally it would be deleted after successful extraction).
+ *
+ * This issue motivated the Puppeteer team to switch to CLI-based extraction in @puppeteer/browsers@3
+ * (see https://github.com/puppeteer/puppeteer/pull/14960 and https://github.com/puppeteer/puppeteer/issues/15080).
+ *
+ * As a workaround, after running @puppeteer/browsers install, this script checks for leftover zip files
+ * (indicating incomplete extraction) and re-extracts them using the system `unzip` command.
+ *
+ * This workaround can be removed when either:
+ * - @puppeteer/browsers@2 fixes the extraction issue
+ * - This project upgrades to @puppeteer/browsers@3 (which requires system `unzip` to be installed)
+ * - The root cause in extract-zip/yauzl/Node.js is identified and fixed
+ */
 import { execSync } from 'node:child_process';
-import { existsSync, mkdirSync, readdirSync, unlinkSync } from 'node:fs';
+import { existsSync, readdirSync, unlinkSync } from 'node:fs';
 import { resolve } from 'node:path';
 import * as process from 'node:process';
 
