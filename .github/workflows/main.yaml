@@ -63,13 +63,7 @@ jobs:
       - name: Debug browsers
         run: |
           echo "Installed browsers:" && \
-          tree ./browsers && \
-          echo "--- Checking chromedriver zip contents ---" && \
-          unzip -l ./browsers/chromedriver/129.0.6668.100-chromedriver-linux64.zip 2>/dev/null || echo "zip not found" && \
-          echo "--- Checking chromedriver extracted dir ---" && \
-          find ./browsers/chromedriver/linux-129.0.6668.100 -type f -ls 2>/dev/null || echo "dir not found" && \
-          echo "--- Checking chrome extracted dir ---" && \
-          find ./browsers/chrome/linux-129.0.6668.100 -type f -name "chrome" -ls 2>/dev/null || echo "chrome binary not found"
+          tree ./browsers
       - name: Test
         run: make test
       - name: Qlty
