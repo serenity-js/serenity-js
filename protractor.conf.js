@@ -1,17 +1,38 @@
 const { computeExecutablePath } = require('@puppeteer/browsers')
 const { resolve } = require('path')
+const { existsSync, readdirSync, readFileSync } = require('fs')
 
 // Chrome 129 is the last version that correctly supports Selenium 3
 // Chrome 130 and later require Selenium 4 for browser.executeScript to correctly resolve WebElement arguments
 const defaults = {
-    buildId: '129',
+    buildId: '129.0.6668.100',
     cacheDir: resolve(__dirname, './browsers'),
 };
+
+// Debug: print resolution details to help diagnose CI path issues
+const chromedriverDir = resolve(defaults.cacheDir, 'chromedriver');
+const metadataPath = resolve(chromedriverDir, '.metadata');
+console.log('[protractor.conf.js] @puppeteer/browsers resolved from:', require.resolve('@puppeteer/browsers'));
+console.log('[protractor.conf.js] cacheDir:', defaults.cacheDir);
+console.log('[protractor.conf.js] buildId:', defaults.buildId);
+console.log('[protractor.conf.js] chromedriver dir exists:', existsSync(chromedriverDir));
+if (existsSync(chromedriverDir)) {
+    console.log('[protractor.conf.js] chromedriver dir contents:', readdirSync(chromedriverDir));
+}
+console.log('[protractor.conf.js] .metadata exists:', existsSync(metadataPath));
+if (existsSync(metadataPath)) {
+    console.log('[protractor.conf.js] .metadata contents:', readFileSync(metadataPath, 'utf8'));
+}
 
 const binaries = {
     chromedriver: computeExecutablePath({ browser: 'chromedriver', ...defaults }),
     chrome: computeExecutablePath({ browser: 'chrome', ...defaults }),
 }
+
+console.log('[protractor.conf.js] resolved chromedriver path:', binaries.chromedriver);
+console.log('[protractor.conf.js] chromedriver exists:', existsSync(binaries.chromedriver));
+console.log('[protractor.conf.js] resolved chrome path:', binaries.chrome);
+console.log('[protractor.conf.js] chrome exists:', existsSync(binaries.chrome));
 
 module.exports = {
 
