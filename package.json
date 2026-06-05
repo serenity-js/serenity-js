@@ -24,8 +24,7 @@
     "testing"
   ],
   "scripts": {
-    "postinstall": "pnpm postinstall:protractor && pnpm postinstall:playwright && pnpm postinstall:webdriverio && pnpm postinstall:electron",
-    "postinstall:electron": "npx tsx bin/ensure-electron.ts",
+    "postinstall": "pnpm postinstall:protractor && pnpm postinstall:playwright && pnpm postinstall:webdriverio",
     "postinstall:playwright": "npx playwright install --with-deps",
     "postinstall:protractor": "npx tsx bin/install-browsers.ts chrome@129.0.6668.100 chromedriver@129.0.6668.100",
     "postinstall:webdriverio": "npx tsx bin/install-browsers.ts chrome@stable chromedriver@stable",
@@ -134,6 +133,14 @@
   },
   "engines": {
     "node": ">=22.12 || ^24"
+  },
+  "pnpm": {
+    "overrides": {
+      "yauzl": "^3.3.2"
+    },
+    "overridesExplanation": {
+      "yauzl": "yauzl@2.x uses fd-slicer@1.x which has a broken stream lifecycle on Node.js >= 24.16.0, causing extract-zip to silently fail on large files. See electron/electron#51619"
+    }
   },
   "packageManager": "pnpm@10.28.2+sha512.41872f037ad22f7348e3b1debbaf7e867cfd448f2726d9cf74c08f19507c31d2c8e7a11525b983febc2df640b5438dee6023ebb1f84ed43cc2d654d2bc326264"
 }
