@@ -26,7 +26,7 @@ export function controllers(api: express.Application, calculator: Calculator) {
     api.get('/api/calculations/:calculation_id', (request: express.Request, response: express.Response) => {
 
         const
-            calculationId = new CalculationId(request.params.calculation_id),
+            calculationId = new CalculationId(request.params.calculation_id as string),
             query = new GetCalculationResult(calculationId);
 
         const result = calculator.submit(query);
