@@ -65,7 +65,7 @@ jobs:
       - name: Test
         run: make test
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@a19242102d17e497f437d7466aa01b528537e899 # v2.2.0
+        uses: qltysh/qlty-action/coverage@fd52dc852530a708d68c3b7342f8d33d1df4cd55 # v2.2.1
         with:
           oidc: true
           command: publish
@@ -155,7 +155,7 @@ jobs:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target/site/serenity"'
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@a19242102d17e497f437d7466aa01b528537e899 # v2.2.0
+        uses: qltysh/qlty-action/coverage@fd52dc852530a708d68c3b7342f8d33d1df4cd55 # v2.2.1
         with:
           oidc: true
           command: publish
@@ -200,7 +200,7 @@ jobs:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target/site/serenity"'
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@a19242102d17e497f437d7466aa01b528537e899 # v2.2.0
+        uses: qltysh/qlty-action/coverage@fd52dc852530a708d68c3b7342f8d33d1df4cd55 # v2.2.1
         with:
           oidc: true
           command: publish
@@ -248,7 +248,7 @@ jobs:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target"'
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@a19242102d17e497f437d7466aa01b528537e899 # v2.2.0
+        uses: qltysh/qlty-action/coverage@fd52dc852530a708d68c3b7342f8d33d1df4cd55 # v2.2.1
         with:
           oidc: true
           command: publish
@@ -299,7 +299,7 @@ jobs:
           mkdir target && \
           make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@a19242102d17e497f437d7466aa01b528537e899 # v2.2.0
+        uses: qltysh/qlty-action/coverage@fd52dc852530a708d68c3b7342f8d33d1df4cd55 # v2.2.1
         with:
           oidc: true
           command: publish
@@ -328,7 +328,7 @@ jobs:
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@a19242102d17e497f437d7466aa01b528537e899 # v2.2.0
+        uses: qltysh/qlty-action/coverage@fd52dc852530a708d68c3b7342f8d33d1df4cd55 # v2.2.1
         with:
           oidc: true
           command: complete
