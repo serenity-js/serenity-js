@@ -169,8 +169,8 @@ importers:
   examples/cucumber-domain-level-testing:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 12.8.3
-        version: 12.8.3
+        specifier: 12.9.0
+        version: 12.9.0
       '@examples/calculator-app':
         specifier: workspace:*
         version: link:../calculator-app
@@ -208,8 +208,8 @@ importers:
   examples/cucumber-reporting:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 12.8.3
-        version: 12.8.3
+        specifier: 12.9.0
+        version: 12.9.0
       '@serenity-js/assertions':
         specifier: workspace:*
         version: link:../../packages/assertions
@@ -244,8 +244,8 @@ importers:
   examples/cucumber-rest-api-level-testing:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 12.8.3
-        version: 12.8.3
+        specifier: 12.9.0
+        version: 12.9.0
       '@examples/calculator-app':
         specifier: workspace:*
         version: link:../calculator-app
@@ -964,8 +964,8 @@ importers:
   integration/cucumber-12:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 12.8.3
-        version: 12.8.3
+        specifier: 12.9.0
+        version: 12.9.0
       '@integration/cucumber-specs':
         specifier: workspace:*
         version: link:../cucumber-specs
@@ -1752,8 +1752,8 @@ importers:
   integration/protractor-cucumber:
     dependencies:
       '@cucumber/cucumber':
-        specifier: 12.8.3
-        version: 12.8.3
+        specifier: 12.9.0
+        version: 12.9.0
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../testing-tools
@@ -2076,8 +2076,8 @@ importers:
   integration/webdriverio-8-cucumber:
     dependencies:
       '@cucumber/cucumber':
-        specifier: 12.8.3
-        version: 12.8.3
+        specifier: 12.9.0
+        version: 12.9.0
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../testing-tools
@@ -2301,8 +2301,8 @@ importers:
   integration/webdriverio-cucumber:
     dependencies:
       '@cucumber/cucumber':
-        specifier: 12.8.3
-        version: 12.8.3
+        specifier: 12.9.0
+        version: 12.9.0
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../testing-tools
@@ -2674,8 +2674,8 @@ importers:
         version: 2.0.5
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 12.8.3
-        version: 12.8.3
+        specifier: 12.9.0
+        version: 12.9.0
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../../integration/testing-tools
@@ -3593,11 +3593,6 @@ packages:
   '@cucumber/cucumber@11.3.0':
     resolution: {integrity: sha512-1YGsoAzRfDyVOnRMTSZP/EcFsOBElOKa2r+5nin0DJAeK+Mp0mzjcmSllMgApGtck7Ji87wwy3kFONfHUHMn4g==}
     engines: {node: 18 || 20 || 22 || >=23}
-    hasBin: true
-
-  '@cucumber/cucumber@12.8.3':
-    resolution: {integrity: sha512-4F6YAO0kuFhHvIlQLV7aDJ5mwdmiynecO0dqg3VQURA4PFljJ4QbM0I2+1n8WhIBFzJpNayKOY/FhKH4Cp9QHA==}
-    engines: {node: 20 || 22 || >=24}
     hasBin: true
 
   '@cucumber/cucumber@12.9.0':
@@ -12148,48 +12143,6 @@ snapshots:
       yaml: 2.9.0
       yup: 1.6.1
 
-  '@cucumber/cucumber@12.8.3':
-    dependencies:
-      '@cucumber/ci-environment': 13.0.0
-      '@cucumber/cucumber-expressions': 19.0.0
-      '@cucumber/gherkin': 38.0.0
-      '@cucumber/gherkin-streams': 6.0.0(@cucumber/gherkin@38.0.0)(@cucumber/message-streams@4.1.1(@cucumber/messages@32.3.1))(@cucumber/messages@32.3.1)
-      '@cucumber/gherkin-utils': 11.0.0
-      '@cucumber/html-formatter': 23.1.0(@cucumber/messages@32.3.1)
-      '@cucumber/junit-xml-formatter': 0.13.3(@cucumber/messages@32.3.1)
-      '@cucumber/message-streams': 4.1.1(@cucumber/messages@32.3.1)
-      '@cucumber/messages': 32.3.1
-      '@cucumber/pretty-formatter': 1.0.1(@cucumber/cucumber@12.8.3)(@cucumber/messages@32.3.1)
-      '@cucumber/tag-expressions': 9.1.0
-      assertion-error-formatter: 3.0.0
-      capital-case: 1.0.4
-      chalk: 4.1.2
-      cli-table3: 0.6.5
-      commander: 14.0.3
-      debug: 4.4.3(supports-color@8.1.1)
-      error-stack-parser: 2.1.4
-      figures: 3.2.0
-      glob: 13.0.6
-      has-ansi: 4.0.1
-      indent-string: 4.0.0
-      is-installed-globally: 0.4.0
-      is-stream: 2.0.1
-      knuth-shuffle-seeded: 1.0.6
-      lodash.merge: 4.6.2
-      lodash.mergewith: 4.6.2
-      luxon: 3.7.2
-      mkdirp: 3.0.1
-      mz: 2.7.0
-      progress: 2.0.3
-      read-package-up: 12.0.0
-      semver: 7.7.4
-      string-argv: 0.3.1
-      supports-color: 8.1.1
-      type-fest: 4.41.0
-      util-arity: 1.1.0
-      yaml: 2.9.0
-      yup: 1.7.1
-
   '@cucumber/cucumber@12.9.0':
     dependencies:
       '@cucumber/ci-environment': 13.0.0
@@ -12665,15 +12618,6 @@ snapshots:
     dependencies:
       class-transformer: 0.5.1
       reflect-metadata: 0.2.2
-
-  '@cucumber/pretty-formatter@1.0.1(@cucumber/cucumber@12.8.3)(@cucumber/messages@32.3.1)':
-    dependencies:
-      '@cucumber/cucumber': 12.8.3
-      '@cucumber/messages': 32.3.1
-      ansi-styles: 5.2.0
-      cli-table3: 0.6.5
-      figures: 3.2.0
-      ts-dedent: 2.2.0
 
   '@cucumber/pretty-formatter@1.0.1(@cucumber/cucumber@12.9.0)(@cucumber/messages@32.3.1)':
     dependencies:
