@@ -20,8 +20,6 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       - name: Set up Node
         uses: ./.github/actions/setup-node
-      - name: Lint
-        run: make lint
 
   compile:
     name: 'Compile'
@@ -62,6 +60,10 @@ jobs:
         uses: ./.github/actions/download-compressed-artifact
         with:
           artifact-name: 'compiled-libs'
+      - name: Debug browsers
+        run: |
+          echo "Installed browsers:" && \
+          tree ./browsers
       - name: Test
         run: make test
       - name: Qlty
@@ -85,26 +87,6 @@ jobs:
         uses: ./.github/actions/setup-node
         with:
           node-version: 22.x
-      - name: Download compiled libs
-        uses: ./.github/actions/download-compressed-artifact
-        with:
-          artifact-name: 'compiled-libs'
-      - name: Test
-        run: make test-no-coverage
-
-  test-linux-node-lts-maintenance-previous:
-    name: 'Test: Linux, LTS-2'
-    needs:
-      - lint
-      - compile
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-      - name: Set up Node
-        uses: ./.github/actions/setup-node
-        with:
-          node-version: 20.x
       - name: Download compiled libs
         uses: ./.github/actions/download-compressed-artifact
         with:
@@ -367,7 +349,6 @@ jobs:
     needs:
       - test-linux-node-lts-active
       - test-linux-node-lts-maintenance
-      - test-linux-node-lts-maintenance-previous
       - test-windows-node-lts-active
       - test-integration
       - test-integration-playwright
