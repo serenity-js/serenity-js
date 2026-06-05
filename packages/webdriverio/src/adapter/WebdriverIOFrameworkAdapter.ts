@@ -62,7 +62,7 @@ export class WebdriverIOFrameworkAdapter {
 
         const outputStreamBufferPrinter = new OutputStreamBufferPrinter(
             outputStreamBuffer,
-            reporter.getWriteStreamObject('@serenity-js/webdriverio-8')
+            reporter.getWriteStreamObject('@serenity-js/webdriverio')
         );
 
         this.serenity.configure({
