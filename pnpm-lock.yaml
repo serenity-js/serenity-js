@@ -1414,8 +1414,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/jasmine
       jasmine:
-        specifier: 6.2.0
-        version: 6.2.0
+        specifier: 6.3.0
+        version: 6.3.0
     devDependencies:
       '@types/chai':
         specifier: 4.3.20
@@ -1813,8 +1813,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/web
       jasmine:
-        specifier: 6.2.0
-        version: 6.2.0
+        specifier: 6.3.0
+        version: 6.3.0
       protractor:
         specifier: 7.0.0
         version: 7.0.0
@@ -2165,8 +2165,8 @@ importers:
         specifier: 11.0.0
         version: 11.0.0
       jasmine:
-        specifier: 6.2.0
-        version: 6.2.0
+        specifier: 6.3.0
+        version: 6.3.0
       mocha:
         specifier: 11.7.6
         version: 11.7.6
@@ -2384,8 +2384,8 @@ importers:
         specifier: 11.0.0
         version: 11.0.0
       jasmine:
-        specifier: 6.2.0
-        version: 6.2.0
+        specifier: 6.3.0
+        version: 6.3.0
       mocha:
         specifier: 11.7.6
         version: 11.7.6
@@ -2720,8 +2720,8 @@ importers:
         specifier: 11.0.0
         version: 11.0.0
       jasmine:
-        specifier: 6.2.0
-        version: 6.2.0
+        specifier: 6.3.0
+        version: 6.3.0
       mocha:
         specifier: 11.7.6
         version: 11.7.6
@@ -8476,6 +8476,9 @@ packages:
   jasmine-core@6.2.0:
     resolution: {integrity: sha512-b16WZG/pFEFj8qRW1ss7nDuNGYz9ji8BDGj7fJNrROauk5rj/diO3KPOuyIpcgUChdC+c0PfQ8iUk4nHE+EN4w==}
 
+  jasmine-core@6.3.0:
+    resolution: {integrity: sha512-eMm5qBovNjNoGOcgE/W207+wrcK5zrQv0Rg/rWGboUJUmZp0dFCpHTyjpuDAfCwRCqg7f9U2q2jtv/aUuzdCQg==}
+
   jasmine@2.8.0:
     resolution: {integrity: sha512-KbdGQTf5jbZgltoHs31XGiChAPumMSY64OZMWLNYnEnMfG5uwGBhffePwuskexjT+/Jea/gU3qAU8344hNohSw==}
     hasBin: true
@@ -8486,6 +8489,10 @@ packages:
 
   jasmine@6.2.0:
     resolution: {integrity: sha512-dvYt7bidcu0JvvSbiUnSDW7UQQiflUwDr6C+5wzoZ0J7RY9u+UcoSIzyhMPj6fnU/tC7KinJ5QrjwD2Y9p4T4w==}
+    hasBin: true
+
+  jasmine@6.3.0:
+    resolution: {integrity: sha512-u6L7yYtrtS1JALlp7f4k7Wz7o7ZKXauSKKkXc0L3qUkKrdaxYvNiMHhHp5gtTuVZZXVihXRxS7bWwDBX1wJ7EQ==}
     hasBin: true
 
   jasminewd2@2.2.0:
@@ -17338,7 +17345,7 @@ snapshots:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.8
+      minimatch: 3.1.5
       once: 1.4.0
       path-is-absolute: 1.0.1
 
@@ -18008,6 +18015,8 @@ snapshots:
 
   jasmine-core@6.2.0: {}
 
+  jasmine-core@6.3.0: {}
+
   jasmine@2.8.0:
     dependencies:
       exit: 0.1.2
@@ -18024,6 +18033,12 @@ snapshots:
       '@jasminejs/reporters': 1.0.0
       glob: 13.0.6
       jasmine-core: 6.2.0
+
+  jasmine@6.3.0:
+    dependencies:
+      '@jasminejs/reporters': 1.0.0
+      glob: 13.0.6
+      jasmine-core: 6.3.0
 
   jasminewd2@2.2.0: {}
 
