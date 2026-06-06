@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.43.3](https://github.com/serenity-js/serenity-js/compare/v3.43.2...v3.43.3) (2026-06-06)
+
+
+### Bug Fixes
+
+* **core:** drop Node 20 support, require Node \>=22.12 ([08cbd88](https://github.com/serenity-js/serenity-js/commit/08cbd88ab545402b7c439178fd83152183f741e8))
+
+
+
+
+
 ## [3.43.2](https://github.com/serenity-js/serenity-js/compare/v3.43.1...v3.43.2) (2026-05-13)
 
 **Note:** Version bump only for package @serenity-js/console-reporter

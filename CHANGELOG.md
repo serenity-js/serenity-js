@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.43.3](https://github.com/serenity-js/serenity-js/compare/v3.43.2...v3.43.3) (2026-06-06)
+
+
+### Bug Fixes
+
+* **core:** drop Node 20 support, require Node \>=22.12 ([08cbd88](https://github.com/serenity-js/serenity-js/commit/08cbd88ab545402b7c439178fd83152183f741e8))
+* **deps:** update dependency @cucumber/cucumber to v12.9.0 ([fd86a42](https://github.com/serenity-js/serenity-js/commit/fd86a42816097896a4c78b2e381d44e9c368fd48))
+* **deps:** update dependency morgan to v1.11.0 ([36e05b6](https://github.com/serenity-js/serenity-js/commit/36e05b62cc375ca6b8e3bb90c0f49ed1b32eb374))
+* **deps:** update dependency semver to v7.8.2 ([d29555a](https://github.com/serenity-js/serenity-js/commit/d29555a17741ef945dc4938651091b291a1dc8f1))
+* **deps:** update react monorepo ([b8306c4](https://github.com/serenity-js/serenity-js/commit/b8306c4e781b518d37a1bce9df8053e3bf6810bc))
+* **deps:** update rest dependencies ([5fbd550](https://github.com/serenity-js/serenity-js/commit/5fbd5505fb11a2cc7536b8933ddc0d70efcf0a64))
+* **deps:** update webdriverio dependencies to ^9.27.2 ([9628401](https://github.com/serenity-js/serenity-js/commit/96284015f6d5021b48347091ec3dcd867c030343))
+* **webdriverio:** correced reporter name ([ab56667](https://github.com/serenity-js/serenity-js/commit/ab56667e889f799118ea7f221b627f4acc3bd211))
+
+
+
+
+
 ## [3.43.2](https://github.com/serenity-js/serenity-js/compare/v3.43.1...v3.43.2) (2026-05-13)
 
 

@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.43.3](https://github.com/serenity-js/serenity-js/compare/v3.43.2...v3.43.3) (2026-06-06)
+
+
+### Bug Fixes
+
+* **core:** drop Node 20 support, require Node \>=22.12 ([08cbd88](https://github.com/serenity-js/serenity-js/commit/08cbd88ab545402b7c439178fd83152183f741e8))
+* **deps:** update rest dependencies ([5fbd550](https://github.com/serenity-js/serenity-js/commit/5fbd5505fb11a2cc7536b8933ddc0d70efcf0a64))
+* **deps:** update webdriverio dependencies to ^9.27.2 ([9628401](https://github.com/serenity-js/serenity-js/commit/96284015f6d5021b48347091ec3dcd867c030343))
+* **webdriverio:** correced reporter name ([ab56667](https://github.com/serenity-js/serenity-js/commit/ab56667e889f799118ea7f221b627f4acc3bd211))
+
+
+
+
+
 ## [3.43.2](https://github.com/serenity-js/serenity-js/compare/v3.43.1...v3.43.2) (2026-05-13)
 
 **Note:** Version bump only for package @serenity-js/webdriverio
