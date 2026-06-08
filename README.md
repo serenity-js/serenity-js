@@ -85,14 +85,13 @@ Add Serenity/JS to an existing **Playwright Test** project:
 **1. Install Serenity/JS modules and reporting tools:**
 
 ```bash
-npm install --save-dev @serenity-js/core @serenity-js/console-reporter @serenity-js/playwright @serenity-js/playwright-test @serenity-js/rest @serenity-js/web @serenity-js/serenity-bdd rimraf npm-failsafe
+npm install --save-dev @serenity-js/core @serenity-js/console-reporter @serenity-js/playwright @serenity-js/playwright-test @serenity-js/rest @serenity-js/web @serenity-js/serenity-bdd @serenity-js/assertions rimraf npm-failsafe
 ```
 
 **2. Update `playwright.config.ts` to register the [Serenity/JS reporter](https://serenity-js.org/handbook/test-runners/playwright-test/configuration/?ref=github-serenity-js-readme):**
 
 ```diff
-- import { defineConfig, devices } from '@playwright/test';
-+ import { defineConfig, devices } from '@playwright/test';
+  import { defineConfig, devices } from '@playwright/test';
 + import { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test';
 
 - export default defineConfig({
@@ -156,8 +155,8 @@ That's it. Your existing tests gain structured reporting immediately. Adopt the 
 
 ## Community
 
-- [Community Chat](https://matrix.to/#/#serenity-js:gitter.im)
 - [GitHub Discussions](https://github.com/orgs/serenity-js/discussions) — Q&A and feature proposals
+- [Community Chat](https://matrix.to/#/#serenity-js:gitter.im)
 - [LinkedIn](https://www.linkedin.com/company/serenity-js)
 - [YouTube](https://www.youtube.com/@serenity-js)
 - [Blog](https://serenity-js.org/blog/?ref=github-serenity-js-readme)
