@@ -47,6 +47,8 @@ describe('Swag Labs', () => {
 
 Tests read like specifications. Each Task (`Authenticate`, `Inventory`, `Checkout`) is reusable across scenarios, test runners, and integration tools. [See the full implementation →](https://serenity-js.org/getting-started/playwright/?ref=github-serenity-js-readme#complete-example)
 
+> **Note:** The username and password above are public demo values from [saucedemo.com](https://www.saucedemo.com). In real projects, use environment variables or a secrets manager.
+
 ---
 
 ## Why Serenity/JS?
