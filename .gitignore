@@ -22,9 +22,8 @@ integration/*/package-lock.json
 packages/*/package-lock.json
 
 # Build Artifacts
-documentation/*/target/
+.playwright-mcp/
 integration/*/target/
-integration-web/*/target/
 packages/*/target/
 packages/*/lib/
 packages/*/esm/
@@ -35,3 +34,6 @@ integration/*/esm/
 /out/
 
 tsconfig.tsbuildinfo
+
+# Config
+.env
