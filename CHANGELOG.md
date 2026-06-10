@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.43.4](https://github.com/serenity-js/serenity-js/compare/v3.43.3...v3.43.4) (2026-06-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency proxy to v4.1.0 ([d35ab15](https://github.com/serenity-js/serenity-js/commit/d35ab151a4ffc52da772ed613cd40c96b5c94fb3))
+* **deps:** update dependency semver to v7.8.4 ([7ae8f25](https://github.com/serenity-js/serenity-js/commit/7ae8f25cd458ab74d4036d643ce2f6120b55367e))
+* **deps:** update jasmine dependencies to v6.3.0 ([f129f6b](https://github.com/serenity-js/serenity-js/commit/f129f6b4025037a7b56882f5d65649292d34964e))
+* **eslint:** ignore step_definitions directories in unicorn/filename-case ([324e4c7](https://github.com/serenity-js/serenity-js/commit/324e4c7fb75a6bc220d4b79d7fdde477ffab24aa))
+
+
+
+
+
 ## [3.43.3](https://github.com/serenity-js/serenity-js/compare/v3.43.2...v3.43.3) (2026-06-06)
 
 

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.43.4](https://github.com/serenity-js/serenity-js/compare/v3.43.3...v3.43.4) (2026-06-10)
+
+**Note:** Version bump only for package @serenity-js/protractor
+
+
+
+
+
 ## [3.43.3](https://github.com/serenity-js/serenity-js/compare/v3.43.2...v3.43.3) (2026-06-06)
 
 
