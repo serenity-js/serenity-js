@@ -1390,8 +1390,8 @@ importers:
         specifier: 24.13.1
         version: 24.13.1
       electron:
-        specifier: 42.3.3
-        version: 42.3.3
+        specifier: 42.4.0
+        version: 42.4.0
       rimraf:
         specifier: 6.1.3
         version: 6.1.3
@@ -1564,8 +1564,8 @@ importers:
         specifier: 10.1.0
         version: 10.1.0
       electron:
-        specifier: 42.3.3
-        version: 42.3.3
+        specifier: 42.4.0
+        version: 42.4.0
       mocha:
         specifier: 11.7.6
         version: 11.7.6
@@ -3807,6 +3807,10 @@ packages:
 
   '@cucumber/tag-expressions@9.1.0':
     resolution: {integrity: sha512-bvHjcRFZ+J1TqIa9eFNO1wGHqwx4V9ZKV3hYgkuK/VahHx73uiP4rKV3JVrvWSMrwrFvJG6C8aEwnCWSvbyFdQ==}
+
+  '@electron-internal/extract-zip@1.0.2':
+    resolution: {integrity: sha512-VJuNETNPEhrmQEZezeTZO5TZMV+dobBRyJ7zHjGJWIhMS7m7W1UeClt69u4hkUxv9ZZVxuli/E9Yvc4gDNHGsg==}
+    engines: {node: '>=22.12.0'}
 
   '@electron/get@5.0.0':
     resolution: {integrity: sha512-pjoBpru1KdEtcExBnuHAP1cAc/5faoedw0hzJkL3o4/IJp7HNF1+fbrdxT3gMYRX2oJfvnA/WXeCTVQpYYxyJA==}
@@ -7078,8 +7082,8 @@ packages:
   electron-to-chromium@1.5.367:
     resolution: {integrity: sha512-4Mk/mrynCNQ+atY40D3UpmhLWB6AHMbYMlIrPhHcMF6x0L7O0b052FCAsxw1LlaR++UFuNg3D/A6XCuGDa0guQ==}
 
-  electron@42.3.3:
-    resolution: {integrity: sha512-0MwYp9wTb7TrtTalOYqeW+suqd9T/Znstr/nDLKqFGIjHdBZX339guo3mQqTPURRZ/UQmYM4uMpzKpI5wLptfQ==}
+  electron@42.4.0:
+    resolution: {integrity: sha512-OXXqh9LD9KxXPv2Fe25EfU9N9AvWTuV6V81sfhQaNvTAXCd9ONA+Q4OWvMe+CmYD6xIwjFxGGtG/ZphDYYC5OQ==}
     engines: {node: '>= 22.12.0'}
     hasBin: true
 
@@ -12642,6 +12646,8 @@ snapshots:
 
   '@cucumber/tag-expressions@9.1.0': {}
 
+  '@electron-internal/extract-zip@1.0.2': {}
+
   '@electron/get@5.0.0':
     dependencies:
       debug: 4.4.3(supports-color@5.5.0)
@@ -16385,11 +16391,11 @@ snapshots:
 
   electron-to-chromium@1.5.367: {}
 
-  electron@42.3.3:
+  electron@42.4.0:
     dependencies:
+      '@electron-internal/extract-zip': 1.0.2
       '@electron/get': 5.0.0
       '@types/node': 24.13.1
-      extract-zip: 2.0.1
     transitivePeerDependencies:
       - supports-color
 
