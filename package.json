@@ -136,7 +136,7 @@
   },
   "pnpm": {
     "overrides": {
-      "yauzl": "^3.3.2"
+      "yauzl": "^3.4.0"
     },
     "overridesExplanation": {
       "yauzl": "yauzl@2.x uses fd-slicer@1.x which has a broken stream lifecycle on Node.js >= 24.16.0, causing extract-zip to silently fail on large files. See electron/electron#51619"
