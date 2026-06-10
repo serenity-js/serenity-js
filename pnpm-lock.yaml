@@ -1971,8 +1971,8 @@ importers:
         specifier: 1.17.0
         version: 1.17.0(debug@4.4.3)
       proxy:
-        specifier: 4.0.0
-        version: 4.0.0
+        specifier: 4.1.0
+        version: 4.1.0
     devDependencies:
       '@types/chai':
         specifier: 4.3.20
@@ -5944,9 +5944,6 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  basic-auth-parser@0.0.2-1:
-    resolution: {integrity: sha512-GFj8iVxo9onSU6BnnQvVwqvxh60UcSHJEDnIk3z4B6iOjsKSmqe+ibW0Rsz7YO7IE1HG3D3tqCNIidP46SZVdQ==}
-
   basic-auth@2.0.1:
     resolution: {integrity: sha512-NF+epuEdnUYVlGuhaxbbq+dvJttwLnGY+YixlXlME5KpQ5W3CnXA5cVTneY3SPbPDRkcjMbifrwmFYcClgOZeg==}
     engines: {node: '>= 0.8'}
@@ -9917,8 +9914,8 @@ packages:
     resolution: {integrity: sha512-cJ+oHTW1VAEa8cJslgmUZrc+sjRKgAKl3Zyse6+PV38hZe/V6Z14TbCuXcan9F9ghlz4QrFr2c92TNF82UkYHA==}
     engines: {node: '>=10'}
 
-  proxy@4.0.0:
-    resolution: {integrity: sha512-qYi7N3kisRTQW0Y13JL0upO8e9mVLpu4yuxrXvWzCsaJVA9yqVF+iQkC/rCdnx2lGPQhC+qjefWSY7M6SHclhQ==}
+  proxy@4.1.0:
+    resolution: {integrity: sha512-X3gqRNkp5dLWQolWksIfFSltI0ls8oQ01+tckxnPoz3bQ5+OUsdE7bwX/i/Q3TDEG4gx2PQjc3D07dIx90CQdg==}
     engines: {node: '>= 20'}
     hasBin: true
 
@@ -15064,8 +15061,6 @@ snapshots:
 
   baseline-browser-mapping@2.10.33: {}
 
-  basic-auth-parser@0.0.2-1: {}
-
   basic-auth@2.0.1:
     dependencies:
       safe-buffer: 5.1.2
@@ -19753,7 +19748,7 @@ snapshots:
   proxy-agent@6.3.1:
     dependencies:
       agent-base: 7.1.4
-      debug: 4.3.4
+      debug: 4.4.3(supports-color@5.5.0)
       http-proxy-agent: 7.0.2
       https-proxy-agent: 7.0.6
       lru-cache: 7.18.3
@@ -19793,10 +19788,9 @@ snapshots:
 
   proxy-from-env@2.1.0: {}
 
-  proxy@4.0.0:
+  proxy@4.1.0:
     dependencies:
       args: 5.0.3
-      basic-auth-parser: 0.0.2-1
       debug: 4.4.3(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
