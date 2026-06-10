@@ -89,6 +89,7 @@ export default tseslint.config(
                     '[a-z0-9_]+\\.spec\\.ts$',
                     '[a-z0-9_]+\\.steps\\.ts$',
                     'configure_serenity\\.ts',
+                    '^step_definitions$',
                     'API',
                     'AST',
                     'BDD',
