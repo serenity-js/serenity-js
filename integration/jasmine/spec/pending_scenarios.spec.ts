@@ -64,7 +64,7 @@ describe('@serenity-js/jasmine', function () {
                         expect(outcome).to.be.instanceOf(ImplementationPending);
 
                         expect(outcome.error).to.be.instanceof(ImplementationPendingError);
-                        expect(outcome.error.message).to.equal('');                             // there's no message when the entire describe has been disabled
+                        expect(outcome.error.message).to.equal('Temporarily disabled with xdescribe');
                     })
                 ;
             }));
