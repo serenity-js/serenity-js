@@ -325,8 +325,8 @@ importers:
         specifier: 6.0.0
         version: 6.0.0
       jasmine:
-        specifier: 6.2.0
-        version: 6.2.0
+        specifier: 6.3.0
+        version: 6.3.0
       npm-failsafe:
         specifier: 1.4.0
         version: 1.4.0
@@ -514,8 +514,8 @@ importers:
         specifier: 5.2.1
         version: 5.2.1
       jasmine:
-        specifier: 6.2.0
-        version: 6.2.0
+        specifier: 6.3.0
+        version: 6.3.0
       npm-failsafe:
         specifier: 1.4.0
         version: 1.4.0
@@ -562,8 +562,8 @@ importers:
         specifier: 6.0.0
         version: 6.0.0
       jasmine:
-        specifier: 6.2.0
-        version: 6.2.0
+        specifier: 6.3.0
+        version: 6.3.0
       npm-failsafe:
         specifier: 1.4.0
         version: 1.4.0
@@ -721,8 +721,8 @@ importers:
         specifier: 9.27.2
         version: 9.27.2
       jasmine:
-        specifier: 6.2.0
-        version: 6.2.0
+        specifier: 6.3.0
+        version: 6.3.0
       npm-failsafe:
         specifier: 1.4.0
         version: 1.4.0
@@ -8481,6 +8481,9 @@ packages:
   jasmine-core@6.2.0:
     resolution: {integrity: sha512-b16WZG/pFEFj8qRW1ss7nDuNGYz9ji8BDGj7fJNrROauk5rj/diO3KPOuyIpcgUChdC+c0PfQ8iUk4nHE+EN4w==}
 
+  jasmine-core@6.3.0:
+    resolution: {integrity: sha512-eMm5qBovNjNoGOcgE/W207+wrcK5zrQv0Rg/rWGboUJUmZp0dFCpHTyjpuDAfCwRCqg7f9U2q2jtv/aUuzdCQg==}
+
   jasmine@2.8.0:
     resolution: {integrity: sha512-KbdGQTf5jbZgltoHs31XGiChAPumMSY64OZMWLNYnEnMfG5uwGBhffePwuskexjT+/Jea/gU3qAU8344hNohSw==}
     hasBin: true
@@ -8491,6 +8494,10 @@ packages:
 
   jasmine@6.2.0:
     resolution: {integrity: sha512-dvYt7bidcu0JvvSbiUnSDW7UQQiflUwDr6C+5wzoZ0J7RY9u+UcoSIzyhMPj6fnU/tC7KinJ5QrjwD2Y9p4T4w==}
+    hasBin: true
+
+  jasmine@6.3.0:
+    resolution: {integrity: sha512-u6L7yYtrtS1JALlp7f4k7Wz7o7ZKXauSKKkXc0L3qUkKrdaxYvNiMHhHp5gtTuVZZXVihXRxS7bWwDBX1wJ7EQ==}
     hasBin: true
 
   jasminewd2@2.2.0:
@@ -18017,6 +18024,8 @@ snapshots:
 
   jasmine-core@6.2.0: {}
 
+  jasmine-core@6.3.0: {}
+
   jasmine@2.8.0:
     dependencies:
       exit: 0.1.2
@@ -18033,6 +18042,12 @@ snapshots:
       '@jasminejs/reporters': 1.0.0
       glob: 13.0.6
       jasmine-core: 6.2.0
+
+  jasmine@6.3.0:
+    dependencies:
+      '@jasminejs/reporters': 1.0.0
+      glob: 13.0.6
+      jasmine-core: 6.3.0
 
   jasminewd2@2.2.0: {}
 
