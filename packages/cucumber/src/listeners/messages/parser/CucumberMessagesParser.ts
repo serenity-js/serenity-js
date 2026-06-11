@@ -153,13 +153,19 @@ export class CucumberMessagesParser {
     }
 
     parseTestStepFinished(message: TestStepStarted): DomainEvent[] {
-        return this.extract(this.stepFrom(message), (step): DomainEvent | void => {
+        const { testCaseStartedId, testStepId } = message;
+        const testCaseAttempt = this.eventDataCollector.getTestCaseAttempt(testCaseStartedId);
+        const rawTestStepIndex = testCaseAttempt.testCase.testSteps.findIndex(step => step.id === testStepId);
+        const rawTestStep = testCaseAttempt.testCase.testSteps[rawTestStepIndex];
+        const parsedStep = this.parseTestCaseAttempt(testCaseAttempt).testSteps[rawTestStepIndex];
+
+        return this.extract(parsedStep, (step): DomainEvent | void => {
             if (this.shouldReportStep(step)) {
                 return new TaskFinished(
                     this.serenity.currentSceneId(),
                     this.currentStepActivityId,
                     this.activityDetailsFor(step),
-                    this.outcomeFrom(step.result, step),
+                    this.outcomeFrom(step.result, rawTestStep?.stepDefinitionIds, step),
                     this.serenity.currentTime()
                 );
             }
@@ -300,7 +306,7 @@ export class CucumberMessagesParser {
         );
     }
 
-    private outcomeFrom(worstResult: TestStepResult, ...steps: IParsedTestStep[]): Outcome {
+    private outcomeFrom(worstResult: TestStepResult, stepDefinitionIds: readonly string[] | undefined, ...steps: IParsedTestStep[]): Outcome {
 
         const Status = TestStepResultStatus;
 
@@ -332,17 +338,10 @@ export class CucumberMessagesParser {
                 }
 
                 // Cucumber 13+ no longer includes the error message in TestStepResult for ambiguous steps.
-                // Construct a meaningful message from the available step information.
-                const ambiguousSteps = steps.filter(step => step.result.status === Status.AMBIGUOUS);
-                const locations = ambiguousSteps
-                    .map(step => step.actionLocation ? `  ${step.actionLocation.uri}:${step.actionLocation.line}` : undefined)
-                    .filter(Boolean);
-
-                const message = locations.length > 0
-                    ? ['Multiple step definitions match:', ...locations].join('\n')
-                    : 'Multiple step definitions match:';
-
-                const error = ErrorSerialiser.deserialiseFromStackTrace(message);
+                // Reconstruct from the matching step definitions in the support code library.
+                const error = ErrorSerialiser.deserialiseFromStackTrace(
+                    this.ambiguousStepMessage(stepDefinitionIds)
+                );
                 return new ExecutionFailedWithError(error);
             }
 
@@ -375,7 +374,12 @@ export class CucumberMessagesParser {
         const worstStepResult   = parsed.testCase.worstTestStepResult;
         const willBeRetried     = worstStepResult.willBeRetried ||      // Cucumber 7
                                   testCaseAttempt.willBeRetried         // Cucumber 8
-        const outcome           = this.outcomeFrom(worstStepResult, ...parsed.testSteps);
+
+        // Find the stepDefinitionIds for the worst step (needed for AMBIGUOUS handling in Cucumber 13+)
+        const worstRawStep = testCaseAttempt.testCase.testSteps.find((step, index) =>
+            testCaseAttempt.stepResults[step.id]?.status === worstStepResult.status
+        );
+        const outcome           = this.outcomeFrom(worstStepResult, worstRawStep?.stepDefinitionIds, ...parsed.testSteps);
 
         const tags = [];
 
@@ -388,6 +392,28 @@ export class CucumberMessagesParser {
         }
 
         return { outcome, willBeRetried, tags };
+    }
+
+    private ambiguousStepMessage(stepDefinitionIds: readonly string[] | undefined): string {
+        if (! stepDefinitionIds || stepDefinitionIds.length === 0) {
+            return 'Multiple step definitions match:';
+        }
+
+        const matchingDefinitions = stepDefinitionIds
+            .map(id => this.supportCodeLibrary.stepDefinitions.find((sd: any) => sd.id === id))
+            .filter(Boolean);
+
+        if (matchingDefinitions.length === 0) {
+            return 'Multiple step definitions match:';
+        }
+
+        const lines = matchingDefinitions.map((sd: any) => {
+            const pattern = sd.pattern?.toString() ?? sd.expression?.regexp?.toString() ?? 'unknown';
+            const location = sd.uri && sd.line !== undefined ? `${sd.uri}:${sd.line}` : '';
+            return location ? `  ${pattern} - ${location}` : `  ${pattern}`;
+        });
+
+        return ['Multiple step definitions match:', ...lines].join('\n');
     }
 
     private absolutePathFrom(relativePath: string): Path {
