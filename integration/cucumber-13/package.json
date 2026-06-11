@@ -1,7 +1,7 @@
 {
-  "name": "@examples/cucumber-domain-level-testing",
+  "name": "@integration/cucumber-13",
   "version": "3.0.0",
-  "description": "Example implementation",
+  "description": "Specs verifying integration between Serenity/JS and Cucumber.js",
   "author": {
     "name": "Jan Molak",
     "email": "jan.molak@smartcodeltd.co.uk",
@@ -13,15 +13,9 @@
   "config": {
     "access": "private"
   },
-  "main": "lib/index.js",
-  "types": "./lib/index.d.ts",
   "scripts": {
     "clean": "rimraf target",
-    "test:update-serenity": "serenity-bdd update --ignoreSSL",
-    "test:acceptance": "cucumber-js",
-    "test:report": "serenity-bdd run",
-    "test": "failsafe clean test:update-serenity test:acceptance test:report",
-    "verify": "npm test"
+    "test": "c8 mocha --parallel --config .mocharc.yml"
   },
   "repository": {
     "type": "git",
@@ -35,15 +29,15 @@
   },
   "devDependencies": {
     "@cucumber/cucumber": "13.0.0",
-    "@examples/calculator-app": "workspace:*",
-    "@serenity-js/assertions": "workspace:*",
-    "@serenity-js/console-reporter": "workspace:*",
+    "@integration/testing-tools": "workspace:*",
+    "@integration/cucumber-specs": "workspace:*",
     "@serenity-js/core": "workspace:*",
     "@serenity-js/cucumber": "workspace:*",
-    "@serenity-js/rest": "workspace:*",
-    "@serenity-js/serenity-bdd": "workspace:*",
+    "@types/mocha": "10.0.10",
     "@types/chai": "4.3.20",
-    "npm-failsafe": "1.4.0",
+    "c8": "11.0.0",
+    "mocha": "11.7.6",
+    "mocha-multi": "1.1.7",
     "tsx": "4.22.4",
     "typescript": "5.9.3"
   }
