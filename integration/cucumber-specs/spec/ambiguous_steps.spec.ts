@@ -33,8 +33,14 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                         const lines = error.message.split('\n');
 
                         expect(lines[0]).to.equal('Multiple step definitions match:');
-                        expect(lines[1]).to.contain('/^.*step .* passes$/');
-                        expect(lines[2]).to.contain('/^.*step .* passes$/');
+
+                        // Cucumber 13+ no longer includes step definition patterns in the
+                        // AMBIGUOUS TestStepResult message, so the adapter can only report
+                        // the generic "Multiple step definitions match:" message.
+                        if (cucumberVersion().major() < 13) {
+                            expect(lines[1]).to.contain('/^.*step .* passes$/');
+                            expect(lines[2]).to.contain('/^.*step .* passes$/');
+                        }
                     })
                     .next(SceneFinishes, event => {
                         expect(event.sceneId).to.equal(currentSceneId);

@@ -325,7 +325,27 @@ export class CucumberMessagesParser {
             case Status.PENDING:
                 return new ImplementationPending(new ImplementationPendingError('Step implementation pending'));
 
-            case Status.AMBIGUOUS:
+            case Status.AMBIGUOUS: {
+                if (worstResult.message) {
+                    const error = ErrorSerialiser.deserialiseFromStackTrace(worstResult.message);
+                    return new ExecutionFailedWithError(error);
+                }
+
+                // Cucumber 13+ no longer includes the error message in TestStepResult for ambiguous steps.
+                // Construct a meaningful message from the available step information.
+                const ambiguousSteps = steps.filter(step => step.result.status === Status.AMBIGUOUS);
+                const locations = ambiguousSteps
+                    .map(step => step.actionLocation ? `  ${step.actionLocation.uri}:${step.actionLocation.line}` : undefined)
+                    .filter(Boolean);
+
+                const message = locations.length > 0
+                    ? ['Multiple step definitions match:', ...locations].join('\n')
+                    : 'Multiple step definitions match:';
+
+                const error = ErrorSerialiser.deserialiseFromStackTrace(message);
+                return new ExecutionFailedWithError(error);
+            }
+
             case Status.FAILED: {
                 const error = ErrorSerialiser.deserialiseFromStackTrace(worstResult.message);
                 if (error instanceof AssertionError) {
