@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.44.0](https://github.com/serenity-js/serenity-js/compare/v3.43.4...v3.44.0) (2026-06-13)
+
+
+### Bug Fixes
+
+* **cucumber:** handle Cucumber 13 behavioral changes ([f534493](https://github.com/serenity-js/serenity-js/commit/f53449309f1c246334c87ca0133852d052fbb3d5))
+* **cucumber:** reconstruct ambiguous step error message from support code library ([b0bd8ce](https://github.com/serenity-js/serenity-js/commit/b0bd8ce65bd556035c459ea7c5c606125c957bbd))
+
+
+### Features
+
+* **cucumber:** add support for Cucumber 13 ([8302366](https://github.com/serenity-js/serenity-js/commit/830236632eb05e0228e89658ee1f4e7e20fb5863))
+
+
+
+
+
 ## [3.43.4](https://github.com/serenity-js/serenity-js/compare/v3.43.3...v3.43.4) (2026-06-10)
 
 **Note:** Version bump only for package @serenity-js/cucumber
