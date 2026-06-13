@@ -51,10 +51,13 @@ describe('CucumberCLIAdapter', function () {
         it('runs together with native Cucumber formatters, when configured to print to a temp file', async () => {
             const output = await run({ format: [ 'progress' ] }, new TemporaryFileOutput(new FileSystem(rootDirectory)));
 
-            expect(output).to.include(trimmed`
-                | 1 scenario (1 passed)
-                | 1 step (1 passed)
-            `);
+            // Cucumber 13+ counts the internal after hook as an additional step in the progress output
+            const expectedSteps = cucumberVersion().major() >= 13
+                ? '2 steps (2 passed)'
+                : '1 step (1 passed)';
+
+            expect(output).to.include('1 scenario (1 passed)');
+            expect(output).to.include(expectedSteps);
 
             let currentSceneId: CorrelationId;
 
@@ -89,10 +92,13 @@ describe('CucumberCLIAdapter', function () {
             config: {
                 format: [ 'progress' ],
             },
-            expectedOutput: trimmed`
-                | 1 scenario (1 passed)
-                | 1 step (1 passed)
-            `
+            // Cucumber 13+ counts the internal after hook as an additional step in the progress output
+            expectedOutput: cucumberVersion().major() >= 13
+                ? '2 steps (2 passed)'
+                : trimmed`
+                    | 1 scenario (1 passed)
+                    | 1 step (1 passed)
+                `
         }, {
             description: 'custom formats => custom output',
             config: {
