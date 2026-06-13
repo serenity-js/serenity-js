@@ -2,18 +2,35 @@ packages:
   - examples/*
   - integration/*
   - packages/*
-
-ignoredBuiltDependencies:
-  - core-js
-  - core-js-pure
-  - dtrace-provider
-  - edgedriver
-  - es5-ext
-  - esbuild
-  - geckodriver
-
-onlyBuiltDependencies:
-  - chromedriver
-  - cucumber-expressions
-  - electron
-  - nx
+overrides:
+  # yauzl@2.x uses fd-slicer@1.x which has a broken stream lifecycle on Node.js >= 24.16.0,
+  # causing extract-zip to silently fail on large files. See electron/electron#51619
+  yauzl: ^3.4.0
+linkWorkspacePackages: deep
+hoistWorkspacePackages: true
+disallowWorkspaceCycles: true
+hoistPattern:
+  - '!@types/cucumber'
+  - '!@cucumber/*'
+  - '!cucumber'
+  - '!gherkin'
+  - '!@types/jasmine'
+  - '!jasmine'
+  - '!webdriverio'
+  - '!@wdio/*'
+  - '!protractor'
+  - '!selenium-webdriver'
+allowBuilds:
+  chromedriver: true
+  cucumber-expressions: true
+  electron: true
+  nx: true
+  core-js: false
+  core-js-pure: false
+  dtrace-provider: false
+  edgedriver: false
+  es5-ext: false
+  esbuild: false
+  geckodriver: false
+minimumReleaseAgeExclude:
+  - eslint@10.5.0
