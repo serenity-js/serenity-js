@@ -14,7 +14,7 @@
       --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, monospace;
 
       /* Font sizes */
-      --font-2xs: 0.625rem;   /* 10px */
+      --font-2xs: 0.75rem;    /* 12px - minimum */
       --font-xs: 0.75rem;     /* 12px */
       --font-sm: 0.8125rem;   /* 13px */
       --font-base: 0.875rem;  /* 14px */
@@ -326,7 +326,7 @@
     }
 
     .topbar-subtitle {
-      font-size: var(--font-base);
+      font-size: var(--font-md);
       color: var(--text-secondary);
     }
 
@@ -379,7 +379,7 @@
     }
 
     .card-title {
-      font-size: var(--font-base);
+      font-size: var(--font-md);
       font-weight: 500;
       color: var(--text-secondary);
       text-transform: uppercase;
@@ -428,7 +428,7 @@
       gap: 6px;
       padding: 6px 14px;
       border-radius: 20px;
-      font-size: var(--font-base);
+      font-size: var(--font-md);
       font-weight: 500;
       cursor: pointer;
       border: 1px solid var(--border-color);
@@ -476,7 +476,7 @@
       display: flex;
       align-items: center;
       gap: var(--space-sm);
-      font-size: var(--font-base);
+      font-size: var(--font-md);
     }
 
     .legend-dot {
@@ -649,7 +649,7 @@
       align-items: center;
       gap: var(--space-md);
       flex-wrap: wrap;
-      font-size: var(--font-base);
+      font-size: var(--font-md);
       color: var(--text-secondary);
     }
 
@@ -657,7 +657,7 @@
       display: flex;
       align-items: center;
       gap: var(--space-sm);
-      font-size: var(--font-base);
+      font-size: var(--font-md);
       color: var(--text-primary);
       margin-bottom: var(--space-lg);
     }
@@ -670,6 +670,14 @@
 
     [data-theme="light"] .breadcrumb a {
       color: var(--accent);
+    }
+
+    [data-theme="light"] .ci-link {
+      color: var(--accent);
+    }
+
+    [data-theme="dark"] .ci-link {
+      color: #a5a7ff;
     }
 
     .breadcrumb a:hover { text-decoration: underline; }
@@ -714,7 +722,7 @@
 
     .activity-name {
       flex: 1;
-      font-size: var(--font-base);
+      font-size: var(--font-md);
       min-width: 0;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -724,7 +732,7 @@
     .activity-name.task { font-weight: 500; }
 
     .activity-duration {
-      font-size: var(--font-xs);
+      font-size: var(--font-sm);
       color: var(--text-secondary);
       font-family: var(--font-mono);
       white-space: nowrap;
@@ -742,12 +750,12 @@
     .error-name {
       font-weight: 600;
       color: var(--color-failed);
-      font-size: var(--font-base);
+      font-size: var(--font-md);
       margin-bottom: 4px;
     }
 
     .error-message {
-      font-size: var(--font-base);
+      font-size: var(--font-md);
       margin-bottom: var(--space-sm);
     }
 
@@ -793,7 +801,7 @@
       align-items: center;
       gap: var(--space-sm);
       padding: var(--space-sm) 0;
-      font-size: var(--font-base);
+      font-size: var(--font-md);
     }
 
     .cast-avatar {
@@ -886,7 +894,7 @@
 
     .slowest-name {
       flex: 1;
-      font-size: var(--font-base);
+      font-size: var(--font-md);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -1350,8 +1358,8 @@
                 <div class="trend-bar" style="height:${run.outcomes.failed * scale}px;background:var(--color-failed)"></div>
                 <div class="trend-bar" style="height:${run.outcomes.passed * scale}px;background:var(--color-passed)"></div>
                 <span class="trend-label">${run.label.replace('build #', '#')}</span>
-                <span class="trend-label" style="font-size:9px">${new Date(run.timestamp).toLocaleDateString(undefined, {month:'short', day:'numeric'})}</span>
-                <span class="trend-label" style="font-size:9px">${new Date(run.timestamp).toLocaleTimeString(undefined, {hour:'2-digit', minute:'2-digit'})}</span>
+                <span class="trend-label" style="font-size:var(--font-xs)">${new Date(run.timestamp).toLocaleDateString(undefined, {month:'short', day:'numeric'})}</span>
+                <span class="trend-label" style="font-size:var(--font-xs)">${new Date(run.timestamp).toLocaleTimeString(undefined, {hour:'2-digit', minute:'2-digit'})}</span>
               </div>
             `;
           })}
@@ -1458,7 +1466,7 @@
       return html`
         <div>
           ${historicalRun ? html`
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px var(--space-md);margin-bottom:var(--space-md);background:var(--accent-light);border:1px solid var(--accent);border-radius:var(--radius-sm);font-size:var(--font-base)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px var(--space-md);margin-bottom:var(--space-md);background:var(--accent-light);border:1px solid var(--accent);border-radius:var(--radius-sm);font-size:var(--font-md)">
               <span>Viewing results from: <strong>${historicalRun.label}</strong> (${new Date(historicalRun.timestamp).toLocaleString()}) — ${formatDuration(historicalRun.duration)}</span>
               <a href="#/tests" style="cursor:pointer;color:var(--accent);font-weight:500;text-decoration:underline">show latest</a>
             </div>
@@ -1607,7 +1615,7 @@
       return html`
         <div>
           ${historicalRun ? html`
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px var(--space-md);margin-bottom:var(--space-md);background:var(--accent-light);border:1px solid var(--accent);border-radius:var(--radius-sm);font-size:var(--font-base)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px var(--space-md);margin-bottom:var(--space-md);background:var(--accent-light);border:1px solid var(--accent);border-radius:var(--radius-sm);font-size:var(--font-md)">
               <span>Viewing results from: <strong>${historicalRun.label}</strong> (${new Date(historicalRun.timestamp).toLocaleString()}) — ${formatDuration(historicalRun.duration)}</span>
               <a onClick=${showLatest} style="cursor:pointer;color:var(--accent);font-weight:500;text-decoration:underline">show latest</a>
             </div>
@@ -1659,6 +1667,10 @@
               </div>
             ` : null}
 
+            ${scenario.narrative ? html`
+              <div style="margin-bottom:var(--space-md);padding:var(--space-md);background:var(--bg-primary);border-radius:var(--radius-sm);border-left:3px solid var(--accent);font-size:var(--font-md);color:var(--text-secondary);white-space:pre-line;line-height:1.6;font-style:italic">${scenario.narrative}</div>
+            ` : null}
+
             ${hasCast ? html`
               <div class="cast-section">
                 <div class="card-title" style="margin-bottom:var(--space-sm)">Cast</div>
@@ -1690,7 +1702,7 @@
                   ${scenario.executionHistory.map((entry, idx) => {
                     const isActive = runIndex === idx;
                     const blockStyle = 'width:20px;height:20px;border-radius:4px;background:var(--color-' + outcomeClass(entry.outcome) + ');opacity:' + (isActive ? '1' : '0.85') + ';display:flex;align-items:center;justify-content:center;font-size:var(--font-2xs);color:#fff;font-weight:600' + (isActive ? ';box-shadow:0 0 0 2px var(--bg-surface), 0 0 0 4px var(--accent)' : '');
-                    const labelStyle = 'font-size:9px;color:' + (isActive ? 'var(--accent)' : 'var(--text-disabled)') + ';font-weight:' + (isActive ? '600' : '400');
+                    const labelStyle = 'font-size:var(--font-xs);color:' + (isActive ? 'var(--accent)' : 'var(--text-disabled)') + ';font-weight:' + (isActive ? '600' : '400');
                     const handleRunClick = (e) => { e.stopPropagation(); onNavigate(scenarioUrl(scenario) + '?run=' + idx); };
                     return html`
                     <div style="display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"
@@ -1748,6 +1760,25 @@
             <span class="activity-name ${activity.type === 'Task' ? 'task' : ''}">${activity.name}</span>
             <span class="activity-duration">${formatDuration(activity.duration)}</span>
           </div>
+          ${activity.dataTable ? html`
+            <div style="margin-left:var(--space-lg);margin-top:var(--space-xs);margin-bottom:var(--space-sm);overflow-x:auto">
+              <table style="border-collapse:collapse;font-size:var(--font-sm);font-family:var(--font-mono);width:auto">
+                <thead>
+                  <tr>${activity.dataTable.headers.map(h => html`<th style="padding:4px 10px;border:1px solid var(--border-color);background:var(--bg-primary);font-weight:600;white-space:nowrap">${h}</th>`)}</tr>
+                </thead>
+                <tbody>
+                  ${activity.dataTable.rows.map(row => html`
+                    <tr>${row.map(cell => html`<td style="padding:4px 10px;border:1px solid var(--border-color);white-space:nowrap">${cell}</td>`)}</tr>
+                  `)}
+                </tbody>
+              </table>
+            </div>
+          ` : null}
+          ${activity.docString ? html`
+            <div style="margin-left:var(--space-lg);margin-top:var(--space-xs);margin-bottom:var(--space-sm)">
+              <pre style="font-size:var(--font-sm);font-family:var(--font-mono);background:var(--bg-primary);padding:var(--space-sm) var(--space-md);border-radius:var(--radius-sm);border:1px solid var(--border-color);white-space:pre-wrap;margin:0">${activity.docString}</pre>
+            </div>
+          ` : null}
           ${activity.children && activity.children.length > 0 ? html`
             <div style="margin-left:var(--space-sm)">
               ${activity.children.map(child => html`<${ActivityNode} activity=${child} />`)}
@@ -1907,7 +1938,7 @@
       return html`
         <div>
           ${errHistoricalRun ? html`
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px var(--space-md);margin-bottom:var(--space-md);background:var(--accent-light);border:1px solid var(--accent);border-radius:var(--radius-sm);font-size:var(--font-base)">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px var(--space-md);margin-bottom:var(--space-md);background:var(--accent-light);border:1px solid var(--accent);border-radius:var(--radius-sm);font-size:var(--font-md)">
               <span>Viewing errors from: <strong>${errHistoricalRun.label}</strong> (${new Date(errHistoricalRun.timestamp).toLocaleString()})</span>
               <a onClick=${errShowLatest} style="cursor:pointer;color:var(--accent);font-weight:500;text-decoration:underline">show latest</a>
             </div>
@@ -2074,7 +2105,7 @@
 
       return html`
         <div>
-          <div style="margin-bottom:var(--space-md);font-size:var(--font-base);color:var(--text-secondary)">
+          <div style="margin-bottom:var(--space-md);font-size:var(--font-md);color:var(--text-secondary)">
             ${flaky.length} flaky ${flaky.length === 1 ? 'test' : 'tests'} detected across ${DATA.history.length} runs
           </div>
 
@@ -2200,8 +2231,8 @@
           ${gaps.length === 0 ? html`
             <div class="card" style="text-align:center;padding:var(--space-2xl)">
               <div style="font-size:32px;margin-bottom:var(--space-sm)">🎉</div>
-              <div style="font-size:16px;font-weight:500">Full Coverage</div>
-              <div style="font-size:var(--font-base);color:var(--text-secondary);margin-top:4px">All requirement areas have active tests.</div>
+              <div style="font-size:var(--font-md);font-weight:500">Full Coverage</div>
+              <div style="font-size:var(--font-md);color:var(--text-secondary);margin-top:4px">All requirement areas have active tests.</div>
             </div>
           ` : html`
             <div class="card">
@@ -2359,7 +2390,7 @@
                        title="${s.name} — ${formatDuration(s.duration)}">
                     <div style="width:${labelWidth}px;flex-shrink:0;padding-right:var(--space-sm);display:flex;align-items:center;gap:6px;overflow:hidden">
                       ${sortBy === 'duration' ? html`<span style="width:24px;text-align:center;font-size:var(--font-2xs);color:var(--text-disabled);font-weight:600;flex-shrink:0">#${i + 1}</span>` : null}
-                      <span class="scenario-outcome-icon ${outcomeClass(s.outcome)}" style="width:18px;height:18px;font-size:9px;flex-shrink:0">${outcomeIcon(s.outcome)}</span>
+                      <span class="scenario-outcome-icon ${outcomeClass(s.outcome)}" style="width:18px;height:18px;font-size:var(--font-xs);flex-shrink:0">${outcomeIcon(s.outcome)}</span>
                       <span style="font-size:var(--font-sm);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.name}</span>
                     </div>
                     <div style="flex:1;position:relative;height:16px">
@@ -2386,7 +2417,7 @@
               const originalIndex = DATA.history.indexOf(run);
               return html`
               <div class="scenario-item" onClick=${() => onNavigate('/tests?run=' + originalIndex)} style="cursor:pointer">
-                <div class="scenario-outcome-icon passed" style="background:var(--accent-light);color:var(--accent)">
+                <div class="scenario-outcome-icon passed" style="background:var(--accent-light);color:var(--text-primary)">
                   #
                 </div>
                 <div class="scenario-info">
@@ -2395,7 +2426,7 @@
                     <span>${new Date(run.timestamp).toLocaleString()}</span>
                     <span>•</span>
                     <span>${formatDuration(run.duration)}</span>
-                    ${run.ciJobUrl ? html`<span>•</span><a href=${run.ciJobUrl} target="_blank" rel="noopener" onClick=${(e) => e.stopPropagation()} style="color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:3px" title="View CI job"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>CI</a>` : null}
+                    ${run.ciJobUrl ? html`<span>•</span><a href=${run.ciJobUrl} target="_blank" rel="noopener" onClick=${(e) => e.stopPropagation()} style="color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:3px" class="ci-link" title="View CI job"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>CI</a>` : null}
                   </div>
                 </div>
                 <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
