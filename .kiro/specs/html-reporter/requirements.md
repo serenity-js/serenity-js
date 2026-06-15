@@ -412,3 +412,148 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 8. THE HTML_Reporter SHALL sanitize the rendered HTML to prevent XSS when README content contains raw HTML (strip `<script>`, `on*` attributes, etc.)
 9. THE Requirements view SHALL display coverage statistics (pass rate, test count) alongside each node, integrated with the README documentation
 10. THE Requirements view SHALL visually indicate nodes with no test coverage (coverage gaps) inline within the hierarchy tree
+
+## Functional Test Scenarios
+
+The following test scenarios should be implemented as Playwright Test acceptance tests under `integration/html-reporter/` to verify the HTML report template behaviour. These are derived from issues discovered and behaviours identified during the template prototyping phase.
+
+### Navigation & Routing
+
+1. Clicking the Serenity/JS logo navigates to the dashboard (`#/`)
+2. Sidebar nav items navigate to the correct hash routes
+3. Sidebar collapses to icon-only mode and persists state in localStorage
+4. Collapsed sidebar shows tooltips on icon hover
+5. Collapsed sidebar shows the circular Serenity/JS icon (not the full wordmark)
+6. Mobile hamburger menu opens/closes the sidebar overlay
+7. Hash-based routing renders the correct view for all routes
+
+### Dashboard
+
+8. Dashboard displays total tests, pass rate, test run duration, and slowest test cards
+9. Donut chart shows correct outcome breakdown proportions
+10. Clicking donut legend items navigates to test scenarios with the appropriate filter
+11. Trend chart bars are clickable and navigate to the corresponding test run
+12. Trend bar tooltips show full outcome breakdown (passed, failed, pending, skipped, compromised)
+13. Slowest tests list items navigate to the corresponding scenario detail view
+14. Pass rate card click navigates to non-passing filter
+15. Dashboard layout adapts responsively on narrow viewports
+
+### Test Scenarios View
+
+16. Scenarios are grouped by category with sticky headers by default
+17. Clicking a category segment in a sticky header populates the search with exact match
+18. Search with double quotes matches exact substring
+19. Search without quotes matches all words (AND logic)
+20. Search includes tag names (not just scenario name and category)
+21. Clearing the search shows all scenarios again
+22. Filter chips (All, Passed, Failed, Pending, Skipped, Compromised) filter the list correctly
+23. Sort controls (Category, Name, Slowest, Status) change the list order
+24. Sort "Status" puts failures first, then errors, compromised, pending, skipped, passing last
+25. Sort "Slowest" orders by duration descending
+26. Sort "Name" produces alphabetical flat list (no category groups)
+27. All filter/sort/search state is preserved in the URL hash and deep-linkable
+28. URL hash state is restored on page load
+29. Run selector pills switch between test runs via `?run=N`
+30. Clicking the latest run pill removes `?run=` from URL
+31. Historical run banner appears when viewing a non-latest run
+32. "show latest" link in the banner removes the run parameter
+33. Clicking a scenario navigates to its detail view, preserving `?run=N` if set
+34. Tag chips on scenario rows are clickable and filter to that tag
+35. Tag chips display the tag name without adding extra `@` prefix (avoiding `@@`)
+36. Browser badges display correctly for scenarios with browser tags
+
+### Test Scenario Detail View
+
+37. Breadcrumb shows "Test Scenarios › Category › Subcategory › Scenario name"
+38. Breadcrumb "Test Scenarios" link preserves `?run=N` context
+39. Breadcrumb category segments populate search with exact match on click
+40. Run selector pills navigate between runs for the same scenario
+41. Historical run banner appears with "show latest" link
+42. Execution history blocks highlight the currently viewed run with a ring
+43. Clicking an execution history block navigates to that run's detail
+44. Copy button copies the test source path to clipboard
+45. Narrative (feature description) renders as italic blockquote when present
+46. Tags display as chips in the detail header
+47. Cast section displays actor names and their abilities with details
+48. Activity tree renders hierarchically with correct indentation
+49. Activity tree shows data tables as HTML tables below steps
+50. Activity tree shows docstrings as formatted pre blocks below steps
+51. Nested activities (Task containing Interactions) render recursively
+52. Retry tabs switch between attempt activity trees
+53. Error block shows error name, message, and stack trace
+54. Scenario with missing `cast` field does not crash the view
+55. Scenario with missing `tags` field does not crash the view
+56. Navigating to a non-existent scenario shows "Test scenario not found"
+
+### Tags View
+
+57. Tags are grouped by type (Feature, Issue, Tag, Browser) with section headers
+58. Each tag card shows name, scenario count, and colour-coded pass rate with progress bar
+59. Clicking a tag card navigates to test scenarios filtered by that tag name
+60. Pass rate tooltip shows "Pass rate: X%"
+61. Grid layout adapts to viewport width (responsive columns)
+
+### Errors View
+
+62. Errors are grouped by type category (Assertion Errors, Compromised Tests, Timeout Errors, Runtime Errors)
+63. Summary cards show count per error category
+64. Each error entry shows scenario name, source path, and error message (no stack trace)
+65. Clicking an error entry navigates to the scenario detail view
+66. Run selector pills allow viewing errors from historical runs
+67. Historical run banner appears with "show latest" link
+
+### Requirements View
+
+68. Requirements hierarchy displays as an expandable tree with directories and files
+69. Directory nodes expand/collapse on click, files navigate to filtered test scenarios
+70. README content renders as styled HTML when a directory node is expanded
+71. README bullet lists are properly indented
+72. Coverage stats (Coverage %, Pass Rate %, Gaps) display in summary cards
+73. Nodes with no tests show "No tests" indicator in red
+74. Multiple nesting levels render with correct indentation
+
+### Flaky Tests View
+
+75. Flaky tests are grouped by category with sticky headers
+76. Outcome history mini-chart shows pass/fail pattern across runs
+77. Flakiness percentage is displayed per test
+78. Clicking a flaky test navigates to its scenario detail
+
+### Timeline View
+
+79. Stats cards show slowest, fastest, average, and total run duration
+80. Execution order toggle shows Gantt-chart with time axis
+81. Slowest first toggle shows bars sorted by duration
+82. Clicking a timeline row navigates to the scenario detail
+83. Test names are visible in each row alongside the duration bar
+
+### Test Runs View
+
+84. Runs are listed in reverse chronological order (most recent first)
+85. Each run shows label, timestamp, duration, pass rate, and scenario count
+86. CI link opens in new tab without triggering row navigation
+87. CI link has proper contrast in both light and dark modes
+88. Clicking a run row navigates to test scenarios for that run
+
+### System Context View
+
+89. Node.js version, test runner, OS, Serenity/JS version are displayed
+90. CI/CD section shows provider, build number, branch, commit when available
+
+### Theme & Accessibility
+
+91. Dark mode is detected from OS preference on first load
+92. Theme toggle switches between dark and light modes
+93. Theme preference persists in localStorage across reloads
+94. All text elements have minimum 12px font size (no text smaller than 0.75rem)
+95. Breadcrumb links have sufficient contrast in dark mode (#a5a7ff)
+96. Tag chips have sufficient contrast in dark mode (--text-primary colour)
+97. Font size scale uses CSS custom properties (adjustable from one place)
+
+### Data Loading & Edge Cases
+
+98. Report renders correctly when loaded via `file://` protocol
+99. Report renders when `data.js` has no history (empty `history` array)
+100. Report renders when `data.js` has no tags (empty `tags` array)
+101. Report renders when `data.js` has no requirements (`requirements` is null)
+102. Report handles scenarios with missing optional fields (cast, tags, executionHistory, activities) without crashing
