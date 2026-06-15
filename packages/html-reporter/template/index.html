@@ -1005,6 +1005,28 @@
       font-weight: 500;
     }
 
+    /* ===== Readme Content ===== */
+    .readme-content ul,
+    .readme-content ol {
+      padding-left: var(--space-lg);
+      margin: var(--space-sm) 0;
+    }
+
+    .readme-content li {
+      margin-bottom: var(--space-xs);
+    }
+
+    .readme-content p {
+      margin-bottom: var(--space-sm);
+    }
+
+    .readme-content h1, .readme-content h2, .readme-content h3,
+    .readme-content h4, .readme-content h5, .readme-content h6 {
+      margin-top: var(--space-md);
+      margin-bottom: var(--space-sm);
+      font-weight: 600;
+    }
+
     /* ===== Responsive ===== */
     @media (max-width: 768px) {
       .sidebar {
@@ -1167,7 +1189,7 @@
         { path: '/tags', label: 'Tags', icon: 'tags' },
         { path: '/errors', label: 'Errors', icon: 'errors' },
         { path: '/flaky', label: 'Flaky Tests', icon: 'flaky' },
-        { path: '/coverage', label: 'Coverage', icon: 'coverage' },
+        { path: '/requirements', label: 'Requirements', icon: 'coverage' },
         { path: '/timeline', label: 'Timeline', icon: 'timeline' },
         { path: '/system', label: 'System Context', icon: 'system' },
       ];
@@ -2146,132 +2168,77 @@
       `;
     }
 
-    function CoverageView({ onNavigate }) {
+    function RequirementsPageView({ onNavigate }) {
       const requirements = DATA.requirements;
 
       if (!requirements) {
         return html`
           <div class="placeholder-view">
             ${icons.coverage}
-            <h2>Coverage Gaps</h2>
-            <p>Configure a <code>specDirectory</code> to derive the requirements hierarchy and identify coverage gaps.</p>
+            <h2>Requirements</h2>
+            <p>Configure a <code>specDirectory</code> to derive the requirements hierarchy.</p>
           </div>
         `;
       }
 
-      // Find gaps: areas with no tests or mostly pending/skipped
-      const gaps = useMemo(() => {
-        const result = [];
-        function walk(node, depth) {
-          const total = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
-          const passing = node.outcomes.passed || 0;
-          const hasNoTests = node.scenarioCount === 0 || total === 0;
-          const mostlyPending = total > 0 && (node.outcomes.pending + (node.outcomes.skipped || 0)) > passing;
-
-          if (node.type === 'file' && hasNoTests) {
-            result.push({ ...node, severity: 'none', depth });
-          } else if (node.type === 'file' && mostlyPending) {
-            result.push({ ...node, severity: 'partial', depth });
-          } else if (node.type === 'directory' && node.children) {
-            const dirTotal = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
-            if (dirTotal === 0 && node.children.length > 0) {
-              result.push({ ...node, severity: 'none', depth });
-            } else {
-              node.children.forEach(child => walk(child, depth + 1));
-            }
-          }
-        }
-        if (requirements.children) {
-          requirements.children.forEach(child => walk(child, 0));
-        }
-        // Sort: no coverage first, then partial
-        result.sort((a, b) => {
-          if (a.severity === 'none' && b.severity !== 'none') return -1;
-          if (a.severity !== 'none' && b.severity === 'none') return 1;
-          return 0;
-        });
-        return result;
-      }, []);
-
-      // Also show the full tree summary
+      // Calculate coverage stats
       const totalFiles = useMemo(() => {
         let count = 0;
+        function walk(node) { if (node.type === 'file') count++; if (node.children) node.children.forEach(walk); }
+        if (requirements.children) requirements.children.forEach(walk);
+        return count;
+      }, []);
+
+      const gapCount = useMemo(() => {
+        let count = 0;
         function walk(node) {
-          if (node.type === 'file') count++;
-          if (node.children) node.children.forEach(walk);
+          const total = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
+          if (node.type === 'file' && (node.scenarioCount === 0 || total === 0)) count++;
+          else if (node.type === 'directory' && node.children) node.children.forEach(walk);
         }
         if (requirements.children) requirements.children.forEach(walk);
         return count;
       }, []);
 
-      const coveredFiles = totalFiles - gaps.filter(g => g.severity === 'none' && g.type === 'file').length;
+      const coveredFiles = totalFiles - gapCount;
       const coveragePercent = totalFiles > 0 ? Math.round((coveredFiles / totalFiles) * 100) : 100;
+      const totalScenarios = Object.values(requirements.outcomes).reduce((a, b) => a + b, 0);
+      const passRate = totalScenarios > 0 ? Math.round((requirements.outcomes.passed / totalScenarios) * 100) : 0;
 
       return html`
         <div>
-          <!-- Summary cards -->
           <div class="grid-stats" style="margin-bottom:var(--space-md)">
             <div class="card">
               <div class="card-title">Coverage</div>
               <div class="card-value" style="color:${coveragePercent >= 80 ? 'var(--color-passed)' : coveragePercent >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'}">${coveragePercent}%</div>
-              <div class="card-subtitle">${coveredFiles} of ${totalFiles} files have tests</div>
+              <div class="card-subtitle">${coveredFiles} of ${totalFiles} areas have tests</div>
             </div>
             <div class="card">
-              <div class="card-title">No Tests</div>
-              <div class="card-value" style="color:var(--color-failed)">${gaps.filter(g => g.severity === 'none').length}</div>
-              <div class="card-subtitle">files or areas with zero coverage</div>
+              <div class="card-title">Pass Rate</div>
+              <div class="card-value" style="color:${passRate >= 80 ? 'var(--color-passed)' : passRate >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'}">${passRate}%</div>
+              <div class="card-subtitle">${totalScenarios} scenarios total</div>
             </div>
             <div class="card">
-              <div class="card-title">Mostly Pending</div>
-              <div class="card-value" style="color:var(--color-pending)">${gaps.filter(g => g.severity === 'partial').length}</div>
-              <div class="card-subtitle">files with mostly pending/skipped tests</div>
+              <div class="card-title">Gaps</div>
+              <div class="card-value" style="color:${gapCount === 0 ? 'var(--color-passed)' : 'var(--color-failed)'}">${gapCount}</div>
+              <div class="card-subtitle">areas with no test coverage</div>
             </div>
           </div>
 
-          ${gaps.length === 0 ? html`
-            <div class="card" style="text-align:center;padding:var(--space-2xl)">
-              <div style="font-size:32px;margin-bottom:var(--space-sm)">🎉</div>
-              <div style="font-size:var(--font-md);font-weight:500">Full Coverage</div>
-              <div style="font-size:var(--font-md);color:var(--text-secondary);margin-top:4px">All requirement areas have active tests.</div>
-            </div>
-          ` : html`
-            <div class="card">
-              <div class="card-title" style="margin-bottom:var(--space-md)">Coverage Gaps</div>
-              ${gaps.map(gap => html`
-                <div class="scenario-item" onClick=${() => onNavigate('/tests?search=' + encodeURIComponent('"' + (gap.displayName || gap.name) + '"'))}>
-                  <div class="scenario-outcome-icon ${gap.severity === 'none' ? 'failed' : 'pending'}" style="width:40px;height:40px;font-size:${gap.severity === 'none' ? '1.5rem' : '2rem'}">
-                    ${gap.severity === 'none' ? '○' : '◑'}
-                  </div>
-                  <div class="scenario-info">
-                    <div class="scenario-name">${gap.displayName || gap.name}</div>
-                    <div class="scenario-meta">
-                      <span class="scenario-source">${gap.path}</span>
-                      <span>•</span>
-                      <span style="color:${gap.severity === 'none' ? 'var(--color-failed)' : 'var(--color-pending)'}">${gap.severity === 'none' ? 'No tests' : 'Mostly pending/skipped'}</span>
-                    </div>
-                  </div>
-                  ${gap.scenarioCount !== undefined && gap.scenarioCount > 0 ? html`
-                    <span style="font-size:var(--font-xs);color:var(--text-secondary)">${gap.scenarioCount} scenario${gap.scenarioCount > 1 ? 's' : ''}</span>
-                  ` : null}
-                </div>
-              `)}
-            </div>
-          `}
-
-          <!-- Full requirements tree -->
-          <div class="card" style="margin-top:var(--space-md)">
-            <div class="card-title" style="margin-bottom:var(--space-md)">Requirements Hierarchy</div>
-            ${requirements.children.map(node => html`<${RequirementsNode} node=${node} onNavigate=${onNavigate} depth=${0} />`)}
+          <div class="card">
+            ${requirements.children.map(node => html`<${ReqNode} node=${node} onNavigate=${onNavigate} depth=${0} />`)}
           </div>
         </div>
       `;
     }
 
-    function RequirementsNode({ node, onNavigate, depth }) {
+    function ReqNode({ node, onNavigate, depth }) {
       const [expanded, setExpanded] = useState(depth < 1);
       const total = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
       const passRate = total > 0 ? Math.round((node.outcomes.passed / total) * 100) : 0;
       const hasChildren = node.type === 'directory' && node.children && node.children.length > 0;
+      const hasGap = total === 0 && (node.scenarioCount === 0 || node.type === 'directory');
+      const passColor = total > 0 ? (passRate >= 80 ? 'var(--color-passed)' : passRate >= 50 ? 'var(--color-pending)' : 'var(--color-failed)') : 'var(--color-failed)';
 
       return html`
         <div style="margin-left:${depth * 20}px;margin-bottom:2px">
@@ -2280,16 +2247,19 @@
             ${hasChildren ? html`
               <span style="font-size:1.5rem;line-height:1;color:var(--text-primary);width:28px;text-align:center;cursor:pointer">${expanded ? '▾' : '▸'}</span>
             ` : html`<span style="width:28px"></span>`}
-            <span style="font-size:var(--font-md);font-weight:${node.type === 'directory' ? '500' : '400'};flex:1">${node.displayName || node.name}</span>
+            <span style="font-size:var(--font-md);font-weight:${node.type === 'directory' ? '600' : '400'};flex:1">${node.displayName || node.name}</span>
             ${total > 0 ? html`
-              <span style="font-size:var(--font-sm);font-weight:500;color:${passRate >= 80 ? 'var(--color-passed)' : passRate >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'}">${passRate}%</span>
-              <span style="font-size:var(--font-xs);color:var(--text-secondary);width:40px;text-align:right">${total}</span>
+              <span style="font-size:var(--font-sm);font-weight:500;color:${passColor}">${passRate}%</span>
+              <span style="font-size:var(--font-xs);color:var(--text-secondary);min-width:50px;text-align:right">${total} test${total > 1 ? 's' : ''}</span>
             ` : html`
-              <span style="font-size:var(--font-xs);color:var(--color-failed);font-weight:500">No tests</span>
+              <span style="font-size:var(--font-xs);color:var(--color-failed);font-weight:500">${hasGap ? 'No tests' : ''}</span>
             `}
           </div>
+          ${hasChildren && expanded && node.readme ? html`
+            <div class="readme-content" style="margin-left:${28 + 8}px;margin-bottom:var(--space-md);padding:var(--space-md) var(--space-lg);background:var(--bg-surface);border-radius:var(--radius-sm);border-left:3px solid var(--accent);font-size:var(--font-md);color:var(--text-primary);line-height:1.7" dangerouslySetInnerHTML=${{ __html: node.readme }}></div>
+          ` : null}
           ${hasChildren && expanded ? html`
-            ${node.children.map(child => html`<${RequirementsNode} node=${child} onNavigate=${onNavigate} depth=${depth + 1} />`)}
+            ${node.children.map(child => html`<${ReqNode} node=${child} onNavigate=${onNavigate} depth=${depth + 1} />`)}
           ` : null}
         </div>
       `;
@@ -2495,9 +2465,9 @@
       } else if (route === '/flaky') {
         view = html`<${FlakyView} onNavigate=${navigate} />`;
         pageTitle = 'Flaky Tests';
-      } else if (route === '/coverage') {
-        view = html`<${CoverageView} onNavigate=${navigate} />`;
-        pageTitle = 'Coverage Gaps';
+      } else if (route === '/requirements') {
+        view = html`<${RequirementsPageView} onNavigate=${navigate} />`;
+        pageTitle = 'Requirements';
       } else if (route === '/timeline') {
         view = html`<${TimelineView} onNavigate=${navigate} />`;
         pageTitle = 'Timeline';

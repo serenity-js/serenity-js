@@ -395,3 +395,20 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
   - Enriching `TestRunFinished` with optional CI context
   - A configuration-only approach where the reporter reads env vars directly
 - **Priority:** Address after the initial HTML reporter implementation is stable.
+
+### Requirement 29: README Rendering in Requirements View
+
+**User Story:** As a Product Owner or Engineer, I want README files from the spec directory to be rendered as living documentation within the requirements hierarchy, so that I can understand what each product area does without leaving the test report.
+
+#### Acceptance Criteria
+
+1. WHEN a `README.md` file exists in a directory within the configured Spec_Directory, THE HTML_Reporter SHALL read its content and render it to HTML
+2. THE HTML_Reporter SHALL use a lightweight Markdown parser (e.g. `marked`) to convert README content to HTML at report generation time
+3. THE Data_File SHALL include the rendered HTML in the corresponding requirements hierarchy node as a `readme` property
+4. THE Report_Template SHALL display the rendered README content inline when a requirements hierarchy node is expanded in the Requirements view
+5. THE Report_Template SHALL style README content with proper typography: paragraph spacing, list indentation, heading hierarchy, code blocks, and links
+6. THE Report_Template SHALL support READMEs at any nesting level of the Requirements_Hierarchy (not just top-level directories)
+7. IF a directory does not contain a `README.md` file, THEN the `readme` property SHALL be omitted from that node in the Data_File
+8. THE HTML_Reporter SHALL sanitize the rendered HTML to prevent XSS when README content contains raw HTML (strip `<script>`, `on*` attributes, etc.)
+9. THE Requirements view SHALL display coverage statistics (pass rate, test count) alongside each node, integrated with the README documentation
+10. THE Requirements view SHALL visually indicate nodes with no test coverage (coverage gaps) inline within the hierarchy tree

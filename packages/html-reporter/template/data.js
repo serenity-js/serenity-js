@@ -998,6 +998,7 @@ window.__SERENITY_REPORT_DATA__ = {
         displayName: "Frequent Flyers",
         path: "frequent_flyers",
         type: "directory",
+        readme: "<p>The <strong>Frequent Flyers</strong> programme allows members to earn and transfer loyalty points between family members.</p><h4>Business Rules</h4><ul><li>Points can only be transferred between members of the same family group</li><li>A member cannot transfer more points than they currently hold</li><li>Status points are never transferable</li></ul>",
         outcomes: { passed: 3, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
         children: [
           { name: "transferring_points_between_members.feature", displayName: "Transferring Points Between Members", path: "frequent_flyers/transferring_points_between_members.feature", type: "file", outcomes: { passed: 3, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 3 },
@@ -1036,6 +1037,7 @@ window.__SERENITY_REPORT_DATA__ = {
         displayName: "Booking Flights",
         path: "booking_flights",
         type: "directory",
+        readme: "<p>As a <strong>traveller</strong>, I want to search for available flights, select seats, and complete payment so that I can book my journey.</p><p><em>Note: This feature area is planned for Sprint 12. No tests have been written yet.</em></p>",
         outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
         children: [
           { name: "searching_for_flights.feature", displayName: "Searching For Flights", path: "booking_flights/searching_for_flights.feature", type: "file", outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0 },
