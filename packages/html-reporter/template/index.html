@@ -1,0 +1,2512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serenity/JS Report</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="https://serenity-js.org/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://serenity-js.org/icons/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="https://serenity-js.org/icons/apple-touch-icon.png">
+  <style>
+    /* ===== CSS Custom Properties ===== */
+    :root {
+      --font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, monospace;
+
+      /* Font sizes */
+      --font-2xs: 0.625rem;   /* 10px */
+      --font-xs: 0.75rem;     /* 12px */
+      --font-sm: 0.8125rem;   /* 13px */
+      --font-base: 0.875rem;  /* 14px */
+      --font-md: 1rem;        /* 16px */
+      --font-lg: 1.125rem;    /* 18px */
+      --font-xl: 1.375rem;    /* 22px */
+      --font-2xl: 1.75rem;    /* 28px */
+
+      /* Spacing */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+
+      /* Border radius */
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 20px;
+
+      /* Transitions */
+      --transition: 0.2s ease;
+
+      /* Sidebar */
+      --sidebar-width: 260px;
+      --sidebar-collapsed-width: 64px;
+    }
+
+    /* Light theme */
+    [data-theme="light"] {
+      --bg-primary: #f4f5fa;
+      --bg-surface: #ffffff;
+      --bg-sidebar: #2b2c40;
+      --bg-hover: #f0f1f6;
+      --bg-active: rgba(105, 108, 255, 0.08);
+
+      --text-primary: #3a3541de;
+      --text-secondary: #3a354199;
+      --text-disabled: #3a354161;
+      --text-sidebar: #d2d2d8;
+      --text-sidebar-active: #ffffff;
+
+      --border-color: #3a35411f;
+      --divider: #3a35410d;
+
+      --shadow-sm: 0 2px 6px rgba(47, 43, 61, 0.04), 0 0 transparent;
+      --shadow-md: 0 4px 14px rgba(47, 43, 61, 0.08);
+      --shadow-lg: 0 6px 20px rgba(47, 43, 61, 0.12);
+
+      --accent: #696cff;
+      --accent-light: rgba(105, 108, 255, 0.16);
+
+      --color-passed: #28c76f;
+      --color-passed-bg: rgba(40, 199, 111, 0.12);
+      --color-failed: #ea5455;
+      --color-failed-bg: rgba(234, 84, 85, 0.12);
+      --color-pending: #ff9f43;
+      --color-pending-bg: rgba(255, 159, 67, 0.12);
+      --color-skipped: #a8aaae;
+      --color-skipped-bg: rgba(168, 170, 174, 0.12);
+      --color-compromised: #7367f0;
+      --color-compromised-bg: rgba(115, 103, 240, 0.12);
+    }
+
+    /* Dark theme */
+    [data-theme="dark"] {
+      --bg-primary: #232333;
+      --bg-surface: #2b2c40;
+      --bg-sidebar: #2b2c40;
+      --bg-hover: #33344a;
+      --bg-active: rgba(105, 108, 255, 0.16);
+
+      --text-primary: #e7e3fcde;
+      --text-secondary: #e7e3fc99;
+      --text-disabled: #e7e3fc61;
+      --text-sidebar: #a3a4b5;
+      --text-sidebar-active: #ffffff;
+
+      --border-color: #e7e3fc1f;
+      --divider: #e7e3fc0d;
+
+      --shadow-sm: 0 2px 6px rgba(15, 15, 26, 0.2);
+      --shadow-md: 0 4px 14px rgba(15, 15, 26, 0.35);
+      --shadow-lg: 0 6px 20px rgba(15, 15, 26, 0.45);
+
+      --accent: #696cff;
+      --accent-light: rgba(105, 108, 255, 0.24);
+
+      --color-passed: #28c76f;
+      --color-passed-bg: rgba(40, 199, 111, 0.16);
+      --color-failed: #ea5455;
+      --color-failed-bg: rgba(234, 84, 85, 0.16);
+      --color-pending: #ff9f43;
+      --color-pending-bg: rgba(255, 159, 67, 0.16);
+      --color-skipped: #a8aaae;
+      --color-skipped-bg: rgba(168, 170, 174, 0.16);
+      --color-compromised: #7367f0;
+      --color-compromised-bg: rgba(115, 103, 240, 0.16);
+    }
+
+    /* ===== Reset ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      font-family: var(--font-family);
+      font-size: var(--font-md);
+      line-height: 1.5;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #app {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ===== Sidebar ===== */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: var(--bg-sidebar);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition);
+      overflow-y: auto;
+    }
+
+    .sidebar-brand {
+      padding: var(--space-lg) var(--space-md);
+      display: flex;
+      align-items: center;
+    }
+
+    .sidebar-brand svg {
+      width: 100%;
+      max-width: 180px;
+      height: auto;
+    }
+
+    .sidebar-nav {
+      padding: var(--space-sm) var(--space-md);
+      flex: 1;
+    }
+
+    .nav-section-label {
+      font-size: var(--font-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-disabled);
+      padding: var(--space-md) var(--space-md) var(--space-xs);
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: 10px var(--space-md);
+      border-radius: var(--radius-sm);
+      color: var(--text-sidebar);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all var(--transition);
+      font-size: var(--font-md);
+      margin-bottom: 2px;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-sidebar-active);
+    }
+
+    .nav-item.active {
+      background: linear-gradient(135deg, var(--accent), #5a5deb);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(105, 108, 255, 0.4);
+    }
+
+    .nav-item svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      opacity: 0.85;
+    }
+
+    .nav-item.active svg { opacity: 1; }
+
+    /* Sidebar collapsed state */
+    .sidebar.collapsed {
+      width: var(--sidebar-collapsed-width);
+    }
+
+    .sidebar-brand svg.brand-icon {
+      display: none;
+    }
+
+    .sidebar.collapsed .sidebar-brand svg.brand-full {
+      display: none;
+    }
+
+    .sidebar.collapsed .sidebar-brand svg.brand-icon {
+      display: block;
+    }
+
+    .sidebar.collapsed .sidebar-brand {
+      justify-content: center;
+      padding: var(--space-md);
+    }
+
+    .sidebar.collapsed .nav-section-label {
+      display: none;
+    }
+
+    .sidebar.collapsed .nav-item {
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .sidebar.collapsed .nav-item span {
+      display: none;
+    }
+
+    .sidebar.collapsed .nav-badge {
+      display: none;
+    }
+
+    .sidebar.collapsed .sidebar-collapse-btn span {
+      display: none;
+    }
+
+    .sidebar-collapse-btn {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: 10px var(--space-md);
+      margin: var(--space-sm) var(--space-md);
+      border-radius: var(--radius-sm);
+      color: var(--text-sidebar);
+      cursor: pointer;
+      transition: all var(--transition);
+      font-size: var(--font-sm);
+      border: none;
+      background: none;
+      width: 100%;
+    }
+
+    .sidebar-collapse-btn:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-sidebar-active);
+    }
+
+    .sidebar.collapsed .sidebar-collapse-btn {
+      justify-content: center;
+      padding: 10px;
+      margin: var(--space-sm) 4px;
+    }
+
+    .sidebar.collapsed + .main-content,
+    .main-content.sidebar-collapsed {
+      margin-left: var(--sidebar-collapsed-width);
+    }
+
+    .nav-badge {
+      margin-left: auto;
+      background: var(--color-failed);
+      color: #fff;
+      font-size: var(--font-xs);
+      font-weight: 600;
+      padding: 1px 7px;
+      border-radius: 10px;
+    }
+
+    /* ===== Main Content ===== */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      padding: var(--space-lg);
+      min-height: 100vh;
+      transition: margin-left var(--transition);
+    }
+
+    /* ===== Top Bar ===== */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-lg);
+      gap: var(--space-md);
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .topbar-title {
+      font-size: var(--font-xl);
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+
+    .topbar-subtitle {
+      font-size: var(--font-base);
+      color: var(--text-secondary);
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .btn-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-icon:hover {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+    }
+
+    .btn-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .hamburger {
+      display: none;
+    }
+
+    /* ===== Cards ===== */
+    .card {
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-lg);
+      transition: box-shadow var(--transition);
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-title {
+      font-size: var(--font-base);
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: var(--space-sm);
+    }
+
+    .card-value {
+      font-size: var(--font-2xl);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .card-subtitle {
+      font-size: var(--font-sm);
+      color: var(--text-secondary);
+      margin-top: var(--space-xs);
+    }
+
+    /* ===== Grid Layouts ===== */
+    .grid-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    /* ===== Outcome Filter Bar ===== */
+    .filter-bar {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-lg);
+    }
+
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: var(--font-base);
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      transition: all var(--transition);
+    }
+
+    .filter-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .filter-chip.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .filter-chip .count {
+      font-weight: 700;
+    }
+
+    .filter-chip.passed.active { background: var(--color-passed); border-color: var(--color-passed); }
+    .filter-chip.failed.active { background: var(--color-failed); border-color: var(--color-failed); }
+    .filter-chip.pending.active { background: var(--color-pending); border-color: var(--color-pending); }
+    .filter-chip.skipped.active { background: var(--color-skipped); border-color: var(--color-skipped); }
+    .filter-chip.compromised.active { background: var(--color-compromised); border-color: var(--color-compromised); }
+
+    /* ===== Donut Chart ===== */
+    .donut-chart {
+      display: flex;
+      align-items: center;
+      gap: var(--space-lg);
+      flex: 1;
+    }
+
+    .donut-legend {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-size: var(--font-base);
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ===== Test Scenario List ===== */
+    .scenario-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .scenario-group-header {
+      font-size: var(--font-sm);
+      font-weight: 600;
+      color: var(--text-secondary);
+      padding: var(--space-md) var(--space-md) var(--space-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--divider);
+      margin-top: var(--space-md);
+    }
+
+    .scenario-group-header:first-child { margin-top: 0; }
+
+    .scenario-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+
+    .scenario-item:hover {
+      background: var(--bg-hover);
+    }
+
+    .scenario-outcome-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: var(--font-md);
+      font-weight: 700;
+    }
+
+    .scenario-outcome-icon.passed { background: var(--color-passed-bg); color: var(--color-passed); }
+    .scenario-outcome-icon.failed { background: var(--color-failed-bg); color: var(--color-failed); }
+    .scenario-outcome-icon.pending { background: var(--color-pending-bg); color: var(--color-pending); }
+    .scenario-outcome-icon.skipped { background: var(--color-skipped-bg); color: var(--color-skipped); }
+    .scenario-outcome-icon.compromised { background: var(--color-compromised-bg); color: var(--color-compromised); }
+
+    .scenario-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .scenario-name {
+      font-size: var(--font-md);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .scenario-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-top: 2px;
+      font-size: var(--font-sm);
+      color: var(--text-secondary);
+    }
+
+    .scenario-source {
+      font-family: var(--font-mono);
+      font-size: var(--font-xs);
+    }
+
+    .scenario-duration {
+      font-size: var(--font-sm);
+      color: var(--text-secondary);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: var(--font-xs);
+      font-weight: 600;
+      text-transform: lowercase;
+    }
+
+    .badge-chromium { background: #e8f5e9; color: #2e7d32; }
+    .badge-firefox { background: #fff3e0; color: #e65100; }
+    .badge-webkit { background: #e3f2fd; color: #1565c0; }
+
+    [data-theme="dark"] .badge-chromium { background: rgba(40, 199, 111, 0.15); color: #66bb6a; }
+    [data-theme="dark"] .badge-firefox { background: rgba(255, 159, 67, 0.15); color: #ffa726; }
+    [data-theme="dark"] .badge-webkit { background: rgba(66, 165, 245, 0.15); color: #42a5f5; }
+
+    .retries-badge {
+      font-size: var(--font-xs);
+      color: var(--color-pending);
+      font-weight: 500;
+    }
+
+    /* ===== Search ===== */
+    .search-input {
+      width: 100%;
+      padding: 10px var(--space-md);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-size: var(--font-md);
+      outline: none;
+      transition: border-color var(--transition);
+      margin-bottom: var(--space-md);
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+    }
+
+    .search-input::placeholder {
+      color: var(--text-disabled);
+    }
+
+    /* ===== Test Scenario Detail ===== */
+    .scenario-detail-header {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .scenario-detail-outcome {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .scenario-detail-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .scenario-detail-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      font-size: var(--font-base);
+      color: var(--text-secondary);
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-size: var(--font-base);
+      color: var(--text-primary);
+      margin-bottom: var(--space-lg);
+    }
+
+    .breadcrumb a {
+      color: #a5a7ff;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    [data-theme="light"] .breadcrumb a {
+      color: var(--accent);
+    }
+
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    /* Activity Tree */
+    .activity-tree {
+      padding: 0;
+    }
+
+    .activity-node {
+      padding: 6px 0;
+      padding-left: var(--space-md);
+      border-left: 2px solid var(--border-color);
+      margin-left: 8px;
+    }
+
+    .activity-node:last-child {
+      border-left-color: transparent;
+    }
+
+    .activity-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: 4px 0;
+    }
+
+    .activity-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--font-2xs);
+      flex-shrink: 0;
+    }
+
+    .activity-icon.passed { background: var(--color-passed-bg); color: var(--color-passed); }
+    .activity-icon.failed { background: var(--color-failed-bg); color: var(--color-failed); }
+    .activity-icon.compromised { background: var(--color-compromised-bg); color: var(--color-compromised); }
+
+    .activity-name {
+      flex: 1;
+      font-size: var(--font-base);
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .activity-name.task { font-weight: 500; }
+
+    .activity-duration {
+      font-size: var(--font-xs);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      white-space: nowrap;
+    }
+
+    /* Error display */
+    .error-block {
+      background: var(--color-failed-bg);
+      border: 1px solid rgba(234, 84, 85, 0.25);
+      border-radius: var(--radius-sm);
+      padding: var(--space-md);
+      margin-top: var(--space-md);
+    }
+
+    .error-name {
+      font-weight: 600;
+      color: var(--color-failed);
+      font-size: var(--font-base);
+      margin-bottom: 4px;
+    }
+
+    .error-message {
+      font-size: var(--font-base);
+      margin-bottom: var(--space-sm);
+    }
+
+    .error-stack {
+      font-family: var(--font-mono);
+      font-size: var(--font-xs);
+      color: var(--text-secondary);
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 200px;
+      overflow-y: auto;
+      padding: var(--space-sm);
+      background: var(--bg-primary);
+      border-radius: var(--radius-sm);
+    }
+
+    /* Tags */
+    .tag-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: var(--font-xs);
+      font-weight: 500;
+      background: var(--accent-light);
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    .tag-chip:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* Cast */
+    .cast-section {
+      margin-top: var(--space-md);
+    }
+
+    .cast-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) 0;
+      font-size: var(--font-base);
+    }
+
+    .cast-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: var(--font-sm);
+    }
+
+    /* Retry tabs */
+    .retry-tabs {
+      display: flex;
+      gap: 2px;
+      margin-bottom: var(--space-md);
+      background: var(--bg-primary);
+      border-radius: var(--radius-sm);
+      padding: 3px;
+    }
+
+    .retry-tab {
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: var(--font-sm);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition);
+      color: var(--text-secondary);
+    }
+
+    .retry-tab:hover { color: var(--text-primary); }
+    .retry-tab.active { background: var(--bg-surface); color: var(--text-primary); box-shadow: var(--shadow-sm); }
+    .retry-tab.failed { color: var(--color-failed); }
+    .retry-tab.passed { color: var(--color-passed); }
+
+    /* ===== Trend Chart ===== */
+    .trend-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 180px;
+      padding-top: var(--space-md);
+    }
+
+    .trend-bar-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-end;
+      gap: 4px;
+    }
+
+    .trend-bar {
+      width: 100%;
+      border-radius: 3px 3px 0 0;
+      min-height: 2px;
+    }
+
+    .trend-label {
+      font-size: var(--font-2xs);
+      color: var(--text-disabled);
+      margin-top: 4px;
+      white-space: nowrap;
+    }
+
+    /* Slowest tests mini-list */
+    .slowest-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--divider);
+    }
+
+    .slowest-item:last-child { border-bottom: none; }
+
+    .slowest-rank {
+      font-size: var(--font-xs);
+      font-weight: 600;
+      color: var(--text-disabled);
+      width: 20px;
+    }
+
+    .slowest-name {
+      flex: 1;
+      font-size: var(--font-base);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .slowest-dur {
+      font-size: var(--font-sm);
+      font-weight: 600;
+      color: var(--color-pending);
+      font-family: var(--font-mono);
+    }
+
+    /* ===== Tags View ===== */
+    .tags-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .tag-card {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--bg-surface);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .tag-card:hover { box-shadow: var(--shadow-md); }
+
+    .tag-card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-light);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: var(--font-md);
+    }
+
+    .tag-card-info { flex: 1; }
+    .tag-card-name { font-size: var(--font-md); font-weight: 500; }
+    .tag-card-count { font-size: var(--font-sm); color: var(--text-secondary); }
+
+    /* ===== Placeholder Views ===== */
+    .placeholder-view {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-2xl);
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    .placeholder-view svg {
+      width: 64px;
+      height: 64px;
+      margin-bottom: var(--space-md);
+      opacity: 0.4;
+    }
+
+    .placeholder-view h2 {
+      font-size: var(--font-lg);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    /* ===== System Context ===== */
+    .context-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .context-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+    }
+
+    .context-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-light);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .context-label {
+      font-size: var(--font-sm);
+      color: var(--text-secondary);
+    }
+
+    .context-value {
+      font-size: var(--font-md);
+      font-weight: 500;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .grid-2col {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .grid-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== Overlay (mobile sidebar) ===== */
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 99;
+    }
+
+    .sidebar-overlay.visible {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <!-- Load mock data -->
+  <script src="./data.js"></script>
+
+  <!-- Preact + HTM from CDN (prototype only — will be bundled for production) -->
+  <script type="module">
+    import { h, render, Component } from 'https://esm.sh/preact@10.22.0';
+    import { useState, useEffect, useMemo, useCallback } from 'https://esm.sh/preact@10.22.0/hooks';
+    import htm from 'https://esm.sh/htm@3.1.1';
+
+    const html = htm.bind(h);
+
+    // ===== Utilities =====
+    const DATA = window.__SERENITY_REPORT_DATA__;
+
+    function formatDuration(ms) {
+      if (ms === 0) return '—';
+      if (ms < 1000) return ms + 'ms';
+      if (ms < 60000) return (ms / 1000).toFixed(1) + 's';
+      const mins = Math.floor(ms / 60000);
+      const secs = Math.round((ms % 60000) / 1000);
+      return mins + 'm ' + secs + 's';
+    }
+
+    function outcomeClass(outcome) {
+      const map = { SUCCESS: 'passed', FAILURE: 'failed', PENDING: 'pending', SKIPPED: 'skipped', COMPROMISED: 'compromised', ERROR: 'failed' };
+      return map[outcome] || 'skipped';
+    }
+
+    function outcomeIcon(outcome) {
+      const map = { SUCCESS: '✓', FAILURE: '✗', PENDING: '◷', SKIPPED: '⊘', COMPROMISED: '⚠', ERROR: '✗' };
+      return map[outcome] || '?';
+    }
+
+    function getBrowserTag(scenario) {
+      const tag = scenario.tags.find(t => t.type === 'browser');
+      return tag ? tag.name : null;
+    }
+
+    function scenarioUrl(scenario, run) {
+      const base = '/tests/' + encodeURIComponent(scenario.source.path + ':' + scenario.source.line);
+      return run !== undefined && run !== null ? base + '?run=' + run : base;
+    }
+
+    /**
+     * Search matching logic:
+     * - Quoted strings ("exact phrase") match as an exact substring
+     * - Unquoted words match individually — ALL words must appear somewhere in the name or category
+     * - Matching is case-insensitive
+     *
+     * Examples:
+     * - "Reports Passing Scenarios" → exact match only
+     * - Reports Scenarios → matches anything containing BOTH "reports" AND "scenarios"
+     * - Reports "Passing Scenarios" → matches "reports" AND exact "Passing Scenarios"
+     */
+    function matchesSearch(scenario, query) {
+      const tagNames = (scenario.tags || []).map(t => t.name).join(' ');
+      const text = (scenario.name + ' ' + scenario.category + ' ' + tagNames).toLowerCase();
+      const tokens = parseSearchTokens(query.toLowerCase());
+      return tokens.every(token => text.includes(token));
+    }
+
+    function parseSearchTokens(query) {
+      const tokens = [];
+      const regex = /"([^"]+)"|(\S+)/g;
+      let match;
+      while ((match = regex.exec(query)) !== null) {
+        const token = match[1] || match[2].replace(/"/g, '');
+        if (token) tokens.push(token);
+      }
+      return tokens;
+    }
+
+    // ===== Theme Management =====
+    function initTheme() {
+      const stored = localStorage.getItem('serenity-theme');
+      if (stored) return stored;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // ===== Router =====
+    function getRoute() {
+      const hash = window.location.hash || '#/';
+      return hash.slice(1);
+    }
+
+    // ===== Icons (inline SVG) =====
+    const icons = {
+      dashboard: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>`,
+      testScenarios: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6m-6 4h4"/></svg>`,
+      tags: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>`,
+      errors: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+      flaky: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+      coverage: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+      timeline: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+      testRuns: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/><circle cx="12" cy="12" r="1"/></svg>`,
+
+      system: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
+      sun: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`,
+      moon: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>`,
+      menu: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>`,
+      chevron: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>`,
+    };
+
+    // ===== Sidebar Component =====
+    function Sidebar({ route, sidebarOpen, collapsed, onNavigate, onClose, onToggleCollapse }) {
+      const navItems = [
+        { path: '/', label: 'Dashboard', icon: 'dashboard' },
+        { path: '/tests', label: 'Test Scenarios', icon: 'testScenarios', badge: DATA.summary.outcomes.failed },
+        { path: '/test-runs', label: 'Test Runs', icon: 'testRuns' },
+        { path: '/tags', label: 'Tags', icon: 'tags' },
+        { path: '/errors', label: 'Errors', icon: 'errors' },
+        { path: '/flaky', label: 'Flaky Tests', icon: 'flaky' },
+        { path: '/coverage', label: 'Coverage', icon: 'coverage' },
+        { path: '/timeline', label: 'Timeline', icon: 'timeline' },
+        { path: '/system', label: 'System Context', icon: 'system' },
+      ];
+
+      const isActive = (path) => {
+        if (path === '/') return route === '/' || route === '';
+        return route.startsWith(path);
+      };
+
+      return html`
+        <aside class="sidebar ${sidebarOpen ? 'open' : ''} ${collapsed ? 'collapsed' : ''}">
+          <div class="sidebar-brand" style="cursor:pointer" onClick=${() => { onNavigate('/'); onClose(); }}>
+            <svg class="brand-full" viewBox="0 0 1103 244" xmlns="http://www.w3.org/2000/svg" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2"><g transform="translate(295.633,110.998)"><path d="M0,47.128L22.342,47.128C23.913,59.695 28.975,70.168 50.095,70.168C63.884,70.168 73.658,62.488 73.658,50.968C73.658,39.448 67.898,35.084 47.651,31.768C17.804,27.753 3.666,18.677 3.666,-4.712C3.666,-25.134 21.12,-40.494 47.127,-40.494C74.008,-40.494 90.065,-28.275 92.509,-4.363L71.215,-4.363C68.945,-17.454 61.44,-23.039 47.127,-23.039C32.989,-23.039 25.658,-16.232 25.658,-6.632C25.658,3.491 29.848,8.554 51.491,11.695C80.814,15.71 96,24.088 96,49.048C96,70.691 77.673,87.622 50.095,87.622C16.059,87.622 1.745,70.691 0,47.128" style="fill:rgb(255,210,0);fill-rule:nonzero"/></g><g transform="translate(472.968,160.569)"><path d="M0,-18.85C-1.048,-34.559 -9.077,-41.541 -22.168,-41.541C-34.909,-41.541 -43.462,-32.989 -45.557,-18.85L0,-18.85ZM-67.55,-8.377L-67.55,-9.774C-67.55,-38.05 -48.175,-56.901 -22.168,-56.901C0.523,-56.901 20.945,-43.461 20.945,-10.821L20.945,-4.712L-45.906,-4.712C-45.208,12.568 -36.48,22.342 -20.771,22.342C-8.029,22.342 -1.396,17.281 0.174,8.379L20.596,8.379C17.629,27.579 2.094,38.051 -21.295,38.051C-48.175,38.051 -67.55,20.422 -67.55,-8.377" style="fill:rgb(253,211,10);fill-rule:nonzero"/></g><g transform="translate(513.981,195.304)"><path d="M0,-89.716L14.487,-89.716L14.487,-73.309C20.248,-83.607 28.103,-90.763 44.51,-91.287L44.51,-77.672C26.183,-76.8 14.487,-71.039 14.487,-48.524L14.487,1.571L0,1.571L0,-89.716Z" style="fill:white;fill-rule:nonzero"/></g><g transform="translate(638.254,160.046)"><path d="M0,-17.629C-1.396,-36.48 -11.171,-43.985 -26.182,-43.985C-41.018,-43.985 -50.967,-33.861 -53.411,-17.629L0,-17.629ZM-68.945,-7.855L-68.945,-9.251C-68.945,-36.829 -51.316,-56.029 -26.182,-56.029C-5.062,-56.029 14.837,-43.287 14.837,-10.648L14.837,-5.935L-53.935,-5.935C-53.236,14.836 -43.287,26.356 -24.61,26.356C-10.473,26.356 -2.269,21.12 -0.349,10.473L14.139,10.473C10.996,28.8 -4.189,38.4 -24.785,38.4C-50.618,38.4 -68.945,20.247 -68.945,-7.855" style="fill:white;fill-rule:nonzero"/></g><g transform="translate(674.382,195.304)"><path d="M0,-89.716L14.487,-89.716L14.487,-75.229C18.676,-83.781 28.8,-91.287 43.811,-91.287C62.661,-91.287 75.927,-80.988 75.927,-54.458L75.927,1.571L61.439,1.571L61.439,-55.505C61.439,-71.564 54.633,-78.72 39.971,-78.72C26.53,-78.72 14.487,-70.167 14.487,-53.76L14.487,1.571L0,1.571L0,-89.716Z" style="fill:white;fill-rule:nonzero"/></g><g transform="translate(-85.035,-230.002)"><path d="M858.267,335.59L872.754,335.59L872.754,426.877L858.267,426.877L858.267,335.59ZM855.649,306.964C855.649,301.727 860.013,297.364 865.25,297.364C870.486,297.364 874.849,301.727 874.849,306.964C874.849,312.201 870.486,316.564 865.25,316.564C860.013,316.564 855.649,312.201 855.649,306.964" style="fill:white;fill-rule:nonzero"/></g><g transform="translate(819.66,108.905)"><path d="M0,65.105L0,8.901L-13.091,8.901L-13.091,-3.317L0,-3.317L0,-24.087L14.487,-24.087L14.487,-3.317L35.781,-3.317L35.781,8.901L14.487,8.901L14.487,63.709C14.487,72.61 18.502,76.974 25.833,76.974C30.371,76.974 33.861,76.276 37.004,75.054L37.004,87.272C34.036,88.319 30.545,89.192 24.61,89.192C8.029,89.192 0,79.418 0,65.105" style="fill:white;fill-rule:nonzero"/></g><g transform="translate(903.089,146.781)"><path d="M0,40.668L-35.782,-41.193L-20.247,-41.193L7.68,24.261L32.989,-41.193L47.825,-41.193L-2.618,81.861L-17.28,81.861L0,40.668Z" style="fill:white;fill-rule:nonzero"/></g><g transform="matrix(1.433,0,0,1.433,986.565,190.288)"><path d="M0,-69.537L7.752,-69.537L-14.976,0L-22.651,0L0,-69.537Z" style="fill:rgb(253,211,10);fill-rule:nonzero"/></g><g transform="matrix(1.433,0,0,1.433,995.297,99.491)"><path d="M0,51.326L0,43.5C1.882,44.252 3.763,44.853 6.924,44.853C11.815,44.853 14.977,42.295 14.977,35.672L14.977,-1.58L25.061,-1.58L25.061,35.898C25.061,47.562 18.363,52.906 8.429,52.906C3.989,52.906 1.731,52.228 0,51.326" style="fill:rgb(253,211,10);fill-rule:nonzero"/></g><g transform="matrix(1.433,0,0,1.433,1042.74,121.278)"><path d="M0,20.316L9.633,20.316C10.311,25.736 12.493,30.25 21.599,30.25C27.544,30.25 31.759,26.939 31.759,21.972C31.759,17.005 29.275,15.125 20.545,13.695C7.677,11.962 1.581,8.05 1.581,-2.034C1.581,-10.84 9.106,-17.461 20.319,-17.461C31.909,-17.461 38.833,-12.194 39.886,-1.883L30.705,-1.883C29.727,-7.528 26.49,-9.936 20.319,-9.936C14.224,-9.936 11.063,-7.002 11.063,-2.862C11.063,1.504 12.869,3.685 22.201,5.039C34.844,6.771 41.392,10.382 41.392,21.144C41.392,30.476 33.489,37.777 21.599,37.777C6.924,37.777 0.753,30.476 0,20.316" style="fill:rgb(253,211,10);fill-rule:nonzero"/></g><g transform="translate(231.034,174.238)"><path d="M0,-105.012L-67.217,-37.795L-20.276,-37.795C-27.321,4.986 -64.557,37.726 -109.302,37.726C-140.698,37.726 -168.388,21.599 -184.557,-2.797L-206.843,19.49C-184.762,49.356 -149.296,68.726 -109.302,68.726C-42.347,68.726 11.93,14.449 11.93,-52.506C11.93,-71.316 7.646,-89.125 0,-105.012M-198.328,-67.216C-191.283,-109.998 -154.047,-142.738 -109.302,-142.738C-77.906,-142.738 -50.216,-126.611 -34.047,-102.215L-11.761,-124.501C-33.842,-154.368 -69.308,-173.738 -109.302,-173.738C-176.257,-173.738 -230.534,-119.46 -230.534,-52.506C-230.534,-33.695 -226.25,-15.886 -218.604,0L-151.387,-67.216L-198.328,-67.216Z" style="fill:white;fill-rule:nonzero"/></g><g transform="matrix(0,-1,-1,0,121.732,90.328)"><path d="M-31.404,-31.404C-48.749,-31.404 -62.808,-17.344 -62.808,0C-62.808,17.344 -48.749,31.404 -31.404,31.404C-14.06,31.404 0,17.344 0,0C0,-17.344 -14.06,-31.404 -31.404,-31.404" style="fill:rgb(253,211,10);fill-rule:nonzero"/></g></svg>
+            <svg class="brand-icon" viewBox="0 0 244 244" xmlns="http://www.w3.org/2000/svg" style="width:32px;height:32px;fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2">
+              <g transform="matrix(0,-0.887622,-0.887622,0,121.732,93.8568)"><path d="M-31.404,-31.404C-48.749,-31.404 -62.808,-17.344 -62.808,0C-62.808,17.344 -48.749,31.404 -31.404,31.404C-14.06,31.404 0,17.344 0,0C0,-17.344 -14.06,-31.404 -31.404,-31.404" style="fill:rgb(253,211,10);fill-rule:nonzero"/></g>
+              <g transform="matrix(0.887622,0,0,0.887622,218.751,168.337)"><path d="M0,-105.012L-67.217,-37.795L-20.276,-37.795C-27.321,4.986 -64.557,37.726 -109.302,37.726C-140.698,37.726 -168.388,21.599 -184.557,-2.797L-206.843,19.49C-184.762,49.356 -149.296,68.726 -109.302,68.726C-42.347,68.726 11.93,14.449 11.93,-52.506C11.93,-71.316 7.646,-89.125 0,-105.012M-198.328,-67.216C-191.283,-109.998 -154.047,-142.738 -109.302,-142.738C-77.906,-142.738 -50.216,-126.611 -34.047,-102.215L-11.761,-124.501C-33.842,-154.368 -69.308,-173.738 -109.302,-173.738C-176.257,-173.738 -230.534,-119.46 -230.534,-52.506C-230.534,-33.695 -226.25,-15.886 -218.604,0L-151.387,-67.216L-198.328,-67.216Z" style="fill:white;fill-rule:nonzero"/></g>
+            </svg>
+          </div>
+          <nav class="sidebar-nav">
+            <div class="nav-section-label">Report</div>
+            ${navItems.map(item => html`
+              <div class="nav-item ${isActive(item.path) ? 'active' : ''}"
+                   title=${item.label}
+                   onClick=${() => { onNavigate(item.path); onClose(); }}>
+                ${icons[item.icon]}
+                <span>${item.label}</span>
+                ${item.badge > 0 ? html`<span class="nav-badge">${item.badge}</span>` : null}
+              </div>
+            `)}
+          </nav>
+          <button class="sidebar-collapse-btn" onClick=${onToggleCollapse} title=${collapsed ? 'Expand sidebar' : 'Collapse sidebar'}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;flex-shrink:0;transform:${collapsed ? 'rotate(180deg)' : 'none'};transition:transform 0.2s"><polyline points="15 18 9 12 15 6"/></svg>
+            <span>Collapse</span>
+          </button>
+        </aside>
+      `;
+    }
+
+    // ===== Dashboard View =====
+    function DashboardView({ onNavigate }) {
+      const { summary, history, scenarios } = DATA;
+      const passRate = ((summary.outcomes.passed / summary.totalScenarios) * 100).toFixed(1);
+      const sorted = [...scenarios].sort((a, b) => b.duration - a.duration);
+      const slowest = sorted.slice(0, 5);
+      const fastest = sorted[sorted.length - 1];
+
+      return html`
+        <div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-md);margin-bottom:var(--space-md)">
+            <div class="card" style="display:flex;flex-direction:column">
+              <div class="card-title">Test Results</div>
+              <div class="donut-chart">
+                <${DonutChart} outcomes=${summary.outcomes} total=${summary.totalScenarios} />
+                <div class="donut-legend">
+                  <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=passed')}><span class="legend-dot" style="background:var(--color-passed)"></span> Passed (${summary.outcomes.passed})</div>
+                  <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=failed')}><span class="legend-dot" style="background:var(--color-failed)"></span> Failed (${summary.outcomes.failed})</div>
+                  <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=pending')}><span class="legend-dot" style="background:var(--color-pending)"></span> Pending (${summary.outcomes.pending})</div>
+                  <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=skipped')}><span class="legend-dot" style="background:var(--color-skipped)"></span> Skipped (${summary.outcomes.skipped})</div>
+                  <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=compromised')}><span class="legend-dot" style="background:var(--color-compromised)"></span> Compromised (${summary.outcomes.compromised})</div>
+                </div>
+              </div>
+              <div style="margin-top:var(--space-md);font-size:var(--font-sm);color:var(--text-secondary)">${summary.totalScenarios} scenarios • ${summary.testRunner}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:var(--space-md)">
+              <div class="card" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=non-passing')}>
+                <div class="card-title">Pass Rate</div>
+                <div class="card-value" style="color: var(--color-passed)">${passRate}%</div>
+                <div class="card-subtitle">${summary.outcomes.passed} of ${summary.totalScenarios} passed</div>
+              </div>
+              <div class="card">
+                <div class="card-title">Test Run Duration</div>
+                <div class="card-value">${formatDuration(summary.duration)}</div>
+                <div class="card-subtitle">${new Date(summary.finishedAt).toLocaleTimeString()}</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:var(--space-md)">
+              <div class="card" style="cursor:pointer" onClick=${() => sorted[0] && onNavigate(scenarioUrl(sorted[0]))}>
+                <div class="card-title">Slowest Test</div>
+                <div class="card-value">${formatDuration(sorted[0]?.duration || 0)}</div>
+                <div class="card-subtitle" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${sorted[0]?.name || '—'}</div>
+              </div>
+              <div class="card">
+                <div class="card-title">Failed</div>
+                <div class="card-value" style="color:var(--color-failed)">${summary.outcomes.failed + summary.outcomes.error}</div>
+                <div class="card-subtitle">${summary.outcomes.compromised} compromised</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom:var(--space-md)">
+            <div class="card-title">Trend (Last ${history.length} runs)</div>
+            <${TrendChart} history=${history} onNavigate=${onNavigate} />
+          </div>
+
+          <div class="card">
+            <div class="card-title">Slowest Tests</div>
+            ${slowest.map((s, i) => html`
+              <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(s))} style="cursor:pointer">
+                <span class="slowest-rank">#${i + 1}</span>
+                <span class="slowest-name">${s.name}</span>
+                <span class="slowest-dur">${formatDuration(s.duration)}</span>
+              </div>
+            `)}
+          </div>
+        </div>
+      `;
+    }
+
+    // ===== Filter Bar =====
+    function FilterBar({ outcomes, total, activeFilter, onFilter }) {
+      const filters = [
+        { key: 'all', label: 'All', count: total },
+        { key: 'passed', label: 'Passed', count: outcomes.passed },
+        { key: 'failed', label: 'Failed', count: outcomes.failed },
+        { key: 'pending', label: 'Pending', count: outcomes.pending },
+        { key: 'skipped', label: 'Skipped', count: outcomes.skipped },
+        { key: 'compromised', label: 'Compromised', count: outcomes.compromised },
+      ];
+
+      return html`
+        <div class="filter-bar" role="group" aria-label="Filter tests by outcome">
+          <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;align-self:center">Status:</span>
+          ${filters.map(f => html`
+            <button class="filter-chip ${f.key} ${(activeFilter || 'all') === f.key ? 'active' : ''}"
+                    onClick=${() => onFilter && onFilter(f.key)}
+                    aria-pressed=${(activeFilter || 'all') === f.key}>
+              <span>${f.label}</span>
+              <span class="count">${f.count}</span>
+            </button>
+          `)}
+        </div>
+      `;
+    }
+
+    // ===== Donut Chart =====
+    function DonutChart({ outcomes, total }) {
+      const size = 140;
+      const strokeWidth = 18;
+      const radius = (size - strokeWidth) / 2;
+      const circumference = 2 * Math.PI * radius;
+      const center = size / 2;
+
+      const segments = [
+        { count: outcomes.passed, color: 'var(--color-passed)' },
+        { count: outcomes.failed, color: 'var(--color-failed)' },
+        { count: outcomes.pending, color: 'var(--color-pending)' },
+        { count: outcomes.skipped, color: 'var(--color-skipped)' },
+        { count: outcomes.compromised, color: 'var(--color-compromised)' },
+      ];
+
+      let offset = 0;
+      return html`
+        <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="flex-shrink:0">
+          ${segments.map(seg => {
+            const pct = seg.count / total;
+            const dashLen = pct * circumference;
+            const dashOffset = -offset * circumference;
+            offset += pct;
+            if (seg.count === 0) return null;
+            return html`<circle cx="${center}" cy="${center}" r="${radius}"
+              fill="none" stroke="${seg.color}" stroke-width="${strokeWidth}"
+              stroke-dasharray="${dashLen} ${circumference - dashLen}"
+              stroke-dashoffset="${dashOffset}"
+              transform="rotate(-90 ${center} ${center})"
+              style="transition: stroke-dasharray 0.6s ease"/>`;
+          })}
+          <text x="${center}" y="${center}" text-anchor="middle" dy="0.35em"
+                fill="var(--text-primary)" font-size="22" font-weight="700">${total}</text>
+        </svg>
+      `;
+    }
+
+    // ===== Trend Chart =====
+    function TrendChart({ history, onNavigate }) {
+      const maxTotal = Math.max(...history.map(h => Object.values(h.outcomes).reduce((a, b) => a + b, 0)));
+
+      return html`
+        <div class="trend-chart">
+          ${history.map((run, i) => {
+            const total = Object.values(run.outcomes).reduce((a, b) => a + b, 0);
+            const scale = 80 / maxTotal;
+            return html`
+              <div class="trend-bar-group" style="cursor:pointer" title="${run.label} — ${total} tests: ${run.outcomes.passed} passed, ${run.outcomes.failed} failed, ${run.outcomes.pending} pending, ${run.outcomes.skipped} skipped, ${run.outcomes.compromised} compromised"
+                   onClick=${() => onNavigate && onNavigate('/tests?run=' + i)}>
+                <div class="trend-bar" style="height:${run.outcomes.compromised * scale}px;background:var(--color-compromised)"></div>
+                <div class="trend-bar" style="height:${run.outcomes.skipped * scale}px;background:var(--color-skipped)"></div>
+                <div class="trend-bar" style="height:${run.outcomes.pending * scale}px;background:var(--color-pending)"></div>
+                <div class="trend-bar" style="height:${run.outcomes.failed * scale}px;background:var(--color-failed)"></div>
+                <div class="trend-bar" style="height:${run.outcomes.passed * scale}px;background:var(--color-passed)"></div>
+                <span class="trend-label">${run.label.replace('build #', '#')}</span>
+                <span class="trend-label" style="font-size:9px">${new Date(run.timestamp).toLocaleDateString(undefined, {month:'short', day:'numeric'})}</span>
+                <span class="trend-label" style="font-size:9px">${new Date(run.timestamp).toLocaleTimeString(undefined, {hour:'2-digit', minute:'2-digit'})}</span>
+              </div>
+            `;
+          })}
+        </div>
+      `;
+    }
+
+    // ===== Test Scenarios List View =====
+    function ScenariosView({ onNavigate, route }) {
+      const [search, setSearch] = useState(() => {
+        const hash = window.location.hash;
+        const params = hash.includes('?') ? new URLSearchParams(hash.split('?')[1]) : null;
+        return params?.get('search') || '';
+      });
+      const [filter, setFilter] = useState(() => {
+        const hash = window.location.hash;
+        const params = hash.includes('?') ? new URLSearchParams(hash.split('?')[1]) : null;
+        return params?.get('filter') || 'all';
+      });
+      const [sort, setSort] = useState(() => {
+        const hash = window.location.hash;
+        const params = hash.includes('?') ? new URLSearchParams(hash.split('?')[1]) : null;
+        return params?.get('sort') || 'category';
+      });
+
+      // Sync state from route prop when URL changes externally (e.g. tag chip click)
+      useEffect(() => {
+        const params = route.includes('?') ? new URLSearchParams(route.split('?')[1]) : null;
+        const newSearch = params?.get('search') || '';
+        const newFilter = params?.get('filter') || 'all';
+        const newSort = params?.get('sort') || 'category';
+        setSearch(newSearch);
+        setFilter(newFilter);
+        setSort(newSort);
+      }, [route]);
+
+      const filtered = useMemo(() => {
+        let result = DATA.scenarios;
+        if (filter === 'non-passing') {
+          result = result.filter(s => s.outcome !== 'SUCCESS');
+        } else if (filter !== 'all') {
+          const outcomeMap = { passed: 'SUCCESS', failed: 'FAILURE', pending: 'PENDING', skipped: 'SKIPPED', compromised: 'COMPROMISED' };
+          result = result.filter(s => s.outcome === outcomeMap[filter]);
+        }
+        if (search) {
+          result = result.filter(s => matchesSearch(s, search));
+        }
+        // Apply sorting
+        if (sort === 'name') {
+          result = [...result].sort((a, b) => a.name.localeCompare(b.name));
+        } else if (sort === 'duration') {
+          result = [...result].sort((a, b) => b.duration - a.duration);
+        } else if (sort === 'status') {
+          const statusOrder = { FAILURE: 1, ERROR: 2, COMPROMISED: 3, PENDING: 4, SKIPPED: 5, SUCCESS: 6 };
+          result = [...result].sort((a, b) => (statusOrder[a.outcome] || 6) - (statusOrder[b.outcome] || 6));
+        }
+        return result;
+      }, [search, filter, sort]);
+
+      // Sync state to URL hash
+      useEffect(() => {
+        const params = new URLSearchParams();
+        if (search) params.set('search', search);
+        if (filter && filter !== 'all') params.set('filter', filter);
+        if (sort && sort !== 'category') params.set('sort', sort);
+        if (runIndex !== null) params.set('run', String(runIndex));
+        const paramStr = params.toString();
+        const newHash = paramStr ? '#/tests?' + paramStr : '#/tests';
+        if (window.location.hash !== newHash) {
+          window.history.replaceState(null, '', newHash);
+        }
+      }, [search, filter, sort]);
+
+      // Group by category
+      const grouped = useMemo(() => {
+        const groups = {};
+        for (const s of filtered) {
+          if (!groups[s.category]) groups[s.category] = [];
+          groups[s.category].push(s);
+        }
+        return groups;
+      }, [filtered]);
+
+      // Detect if viewing a historical run (reactive to route prop from App)
+      const runParams = route.includes('?') ? new URLSearchParams(route.split('?')[1]) : null;
+      const runStr = runParams ? runParams.get('run') : null;
+      const runIndex = runStr !== null ? parseInt(runStr, 10) : null;
+
+      const historicalRun = (runIndex !== null && runIndex !== DATA.history.length - 1) ? DATA.history[runIndex] : null;
+
+      // Precompute run selector pills
+      const runPills = DATA.history.map((run, idx) => {
+        const isLatest = idx === DATA.history.length - 1;
+        const isActive = runIndex === idx || (runIndex === null && isLatest);
+        const passRate = Math.round((run.outcomes.passed / Object.values(run.outcomes).reduce((a, b) => a + b, 0)) * 100);
+        const pillStyle = 'display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:12px;font-size:var(--font-xs);font-weight:500;cursor:pointer;transition:all 0.2s;border:1px solid ' + (isActive ? 'var(--accent)' : 'var(--border-color)') + ';background:' + (isActive ? 'var(--accent)' : 'var(--bg-surface)') + ';color:' + (isActive ? '#fff' : 'var(--text-secondary)');
+        const target = isLatest ? '/tests' : '/tests?run=' + idx;
+        const label = run.label.replace('build ', '');
+        const title = run.label + ' — ' + new Date(run.timestamp).toLocaleDateString() + ' — ' + passRate + '% pass rate';
+        const onClick = () => onNavigate(target);
+        return { pillStyle, label, title, onClick };
+      });
+
+      return html`
+        <div>
+          ${historicalRun ? html`
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px var(--space-md);margin-bottom:var(--space-md);background:var(--accent-light);border:1px solid var(--accent);border-radius:var(--radius-sm);font-size:var(--font-base)">
+              <span>Viewing results from: <strong>${historicalRun.label}</strong> (${new Date(historicalRun.timestamp).toLocaleString()}) — ${formatDuration(historicalRun.duration)}</span>
+              <a href="#/tests" style="cursor:pointer;color:var(--accent);font-weight:500;text-decoration:underline">show latest</a>
+            </div>
+          ` : null}
+
+          <div style="display:flex;align-items:center;gap:var(--space-sm);margin-bottom:var(--space-md);flex-wrap:wrap">
+            <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Test run:</span>
+            ${runPills.map(pill => html`
+              <div style=${pill.pillStyle} onClick=${pill.onClick} title=${pill.title}>
+                <span>${pill.label}</span>
+              </div>
+            `)}
+          </div>
+
+          <div style="position:relative;margin-bottom:var(--space-md)">
+            <input class="search-input" type="text" placeholder="Find test scenarios..."
+                   value=${search} onInput=${e => setSearch(e.target.value)}
+                   aria-label="Find test scenarios" style="margin-bottom:0;padding-right:36px" />
+            ${search ? html`<button onClick=${() => setSearch('')}
+              style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-secondary);font-size:var(--font-lg);padding:4px;line-height:1"
+              aria-label="Clear search">✕</button>` : null}
+          </div>
+
+          <${FilterBar} outcomes=${DATA.summary.outcomes} total=${DATA.summary.totalScenarios}
+                         activeFilter=${filter} onFilter=${setFilter} />
+
+          <div style="display:flex;align-items:center;gap:var(--space-sm);margin-bottom:var(--space-md)">
+            <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Sort:</span>
+            <button class="filter-chip ${sort === 'category' ? 'active' : ''}" onClick=${() => setSort('category')}>Category</button>
+            <button class="filter-chip ${sort === 'name' ? 'active' : ''}" onClick=${() => setSort('name')}>Name</button>
+            <button class="filter-chip ${sort === 'duration' ? 'active' : ''}" onClick=${() => setSort('duration')}>Slowest</button>
+            <button class="filter-chip ${sort === 'status' ? 'active' : ''}" onClick=${() => setSort('status')}>Status</button>
+          </div>
+
+          <div class="card">
+            <div style="font-size:var(--font-sm);color:var(--text-secondary);margin-bottom:var(--space-md)">
+              Showing ${filtered.length} of ${DATA.scenarios.length} test scenarios
+            </div>
+            <div class="scenario-list">
+              ${sort === 'category' ? Object.entries(grouped).map(([category, scenarios]) => {
+                const segments = category.split(' › ');
+                return html`
+                <div class="scenario-group-header" style="position:sticky;top:0;background:var(--bg-surface);z-index:1">
+                  ${segments.map((segment, idx) => html`
+                    <span style="cursor:pointer" onClick=${() => setSearch('"' + segment + '"')}>${segment}</span>${idx < segments.length - 1 ? html`<span style="margin:0 4px;text-decoration:none;cursor:default"> › </span>` : null}
+                  `)}
+                </div>
+                ${scenarios.map(scenario => html`
+                  <div class="scenario-item" onClick=${() => onNavigate(scenarioUrl(scenario, runIndex))}>
+                    <div class="scenario-outcome-icon ${outcomeClass(scenario.outcome)}">
+                      ${outcomeIcon(scenario.outcome)}
+                    </div>
+                    <div class="scenario-info">
+                      <div class="scenario-name">${scenario.name}</div>
+                      <div class="scenario-meta">
+                        <span class="scenario-source">${scenario.source.path}:${scenario.source.line}</span>
+                        ${getBrowserTag(scenario) ? html`<span class="badge badge-${getBrowserTag(scenario)}">${getBrowserTag(scenario)}</span>` : null}
+                        ${scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
+                        ${(scenario.tags || []).filter(t => t.type !== 'feature' && t.type !== 'browser').map(t => html`<a href=${'#/tests?search=' + encodeURIComponent('"' + t.name + '"')} class="tag-chip" style="font-size:var(--font-2xs);padding:1px 6px;text-decoration:none" onClick=${(e) => e.stopPropagation()}>${t.name}</a>`)}
+                      </div>
+                    </div>
+                    <span class="scenario-duration">${formatDuration(scenario.duration)}</span>
+                  </div>
+                `)}
+              `;
+              }) : filtered.map(scenario => html`
+                  <div class="scenario-item" onClick=${() => onNavigate(scenarioUrl(scenario, runIndex))}>
+                    <div class="scenario-outcome-icon ${outcomeClass(scenario.outcome)}">
+                      ${outcomeIcon(scenario.outcome)}
+                    </div>
+                    <div class="scenario-info">
+                      <div class="scenario-name">${scenario.name}</div>
+                      <div class="scenario-meta">
+                        <span class="scenario-source">${scenario.source.path}:${scenario.source.line}</span>
+                        ${getBrowserTag(scenario) ? html`<span class="badge badge-${getBrowserTag(scenario)}">${getBrowserTag(scenario)}</span>` : null}
+                        ${scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
+                        ${(scenario.tags || []).filter(t => t.type !== 'feature' && t.type !== 'browser').map(t => html`<a href=${'#/tests?search=' + encodeURIComponent('"' + t.name + '"')} class="tag-chip" style="font-size:var(--font-2xs);padding:1px 6px;text-decoration:none" onClick=${(e) => e.stopPropagation()}>${t.name}</a>`)}
+                      </div>
+                    </div>
+                    <span class="scenario-duration">${formatDuration(scenario.duration)}</span>
+                  </div>
+              `)}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ===== Test Scenario Detail View =====
+    function ScenarioDetailView({ scenarioId, onNavigate }) {
+      // Strip query params from scenarioId (e.g., "path%3Aline?run=1" → "path%3Aline")
+      const cleanId = scenarioId.split('?')[0];
+      const params = scenarioId.includes('?') ? new URLSearchParams(scenarioId.split('?')[1]) : null;
+      const runIndex = params?.get('run') !== null && params?.get('run') !== undefined ? parseInt(params.get('run'), 10) : null;
+
+      const scenario = DATA.scenarios.find(s => {
+        const sourceKey = s.source.path + ':' + s.source.line;
+        return sourceKey === decodeURIComponent(cleanId) || s.id === cleanId;
+      });
+      const [activeAttempt, setActiveAttempt] = useState(0);
+
+      if (!scenario) {
+        return html`<div class="card"><p>Test scenario not found.</p></div>`;
+      }
+
+      // Default missing fields to prevent runtime errors
+      if (!scenario.tags) scenario.tags = [];
+      if (!scenario.cast) scenario.cast = [];
+      if (!scenario.activities) scenario.activities = [];
+      if (!scenario.executionHistory) scenario.executionHistory = [];
+
+      const hasRetries = scenario.attempts && scenario.attempts.length > 0;
+      const hasCast = scenario.cast.length > 0;
+      const hasTags = scenario.tags.length > 0;
+      const hasExecutionHistory = scenario.executionHistory.length > 0;
+      const currentActivities = hasRetries && activeAttempt < scenario.attempts.length
+        ? scenario.attempts[activeAttempt].activities
+        : scenario.activities;
+      const currentError = hasRetries && activeAttempt < scenario.attempts.length
+        ? scenario.attempts[activeAttempt].error
+        : scenario.error;
+
+      // Determine if viewing a historical run (not the latest)
+      const isHistoricalRun = runIndex !== null && runIndex !== DATA.history.length - 1;
+      const historicalRun = isHistoricalRun ? DATA.history[runIndex] : null;
+
+      // Precompute run selector pills
+      const detailRunPills = DATA.history.map((run, idx) => {
+        const isLatest = idx === DATA.history.length - 1;
+        const isActive = runIndex === idx || (runIndex === null && isLatest);
+        const passRate = Math.round((run.outcomes.passed / Object.values(run.outcomes).reduce((a, b) => a + b, 0)) * 100);
+        const pillStyle = 'display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:12px;font-size:var(--font-xs);font-weight:500;cursor:pointer;transition:all 0.2s;border:1px solid ' + (isActive ? 'var(--accent)' : 'var(--border-color)') + ';background:' + (isActive ? 'var(--accent)' : 'var(--bg-surface)') + ';color:' + (isActive ? '#fff' : 'var(--text-secondary)');
+        const target = isLatest ? scenarioUrl(scenario) : scenarioUrl(scenario, idx);
+        const label = run.label.replace('build ', '');
+        const title = run.label + ' — ' + new Date(run.timestamp).toLocaleDateString() + ' — ' + passRate + '% pass rate';
+        const onClick = () => onNavigate(target);
+        return { pillStyle, label, title, onClick };
+      });
+
+      const showLatest = () => onNavigate(scenarioUrl(scenario));
+      const copyTestPath = () => {
+        const text = scenario.source.path + ':' + scenario.source.line;
+        navigator.clipboard.writeText(text).catch(() => {});
+      };
+
+      return html`
+        <div>
+          ${historicalRun ? html`
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px var(--space-md);margin-bottom:var(--space-md);background:var(--accent-light);border:1px solid var(--accent);border-radius:var(--radius-sm);font-size:var(--font-base)">
+              <span>Viewing results from: <strong>${historicalRun.label}</strong> (${new Date(historicalRun.timestamp).toLocaleString()}) — ${formatDuration(historicalRun.duration)}</span>
+              <a onClick=${showLatest} style="cursor:pointer;color:var(--accent);font-weight:500;text-decoration:underline">show latest</a>
+            </div>
+          ` : null}
+
+          <div style="display:flex;align-items:center;gap:var(--space-sm);margin-bottom:var(--space-md);flex-wrap:wrap">
+            <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Test run:</span>
+            ${detailRunPills.map(pill => html`
+              <div style=${pill.pillStyle} onClick=${pill.onClick} title=${pill.title}>
+                <span>${pill.label}</span>
+              </div>
+            `)}
+          </div>
+
+          <div class="breadcrumb">
+            <a onClick=${() => onNavigate('/tests' + (runIndex !== null ? '?run=' + runIndex : ''))}>Test Scenarios</a>
+            ${scenario.category.split(' › ').map((segment) => html`
+              <span>›</span>
+              <a onClick=${() => onNavigate('/tests?search=' + encodeURIComponent('"' + segment + '"'))}>${segment}</a>
+            `)}
+            <span>›</span>
+            <span>${scenario.name}</span>
+          </div>
+
+          <div class="card" style="margin-bottom:var(--space-md)">
+            <div class="scenario-detail-header">
+              <div class="scenario-detail-outcome scenario-outcome-icon ${outcomeClass(scenario.outcome)}">
+                ${outcomeIcon(scenario.outcome)}
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="display:flex;align-items:center;gap:var(--space-sm)">
+                  <div class="scenario-detail-title" style="flex:1;min-width:0">${scenario.name}</div>
+                  <button onClick=${copyTestPath} title="Copy test path to clipboard" style="flex-shrink:0;width:28px;height:28px;border-radius:var(--radius-sm);border:none;background:var(--bg-hover);color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                  </button>
+                </div>
+                <div class="scenario-detail-meta">
+                  <span>${formatDuration(scenario.duration)}</span>
+                  <span>•</span>
+                  <span class="scenario-source">${scenario.source.path}:${scenario.source.line}</span>
+                  ${getBrowserTag(scenario) ? html`<span class="badge badge-${getBrowserTag(scenario)}">${getBrowserTag(scenario)}</span>` : null}
+                </div>
+              </div>
+            </div>
+
+            ${hasTags ? html`
+              <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:var(--space-md)">
+                ${scenario.tags.map(t => html`<span class="tag-chip">${t.type}:${t.name}</span>`)}
+              </div>
+            ` : null}
+
+            ${hasCast ? html`
+              <div class="cast-section">
+                <div class="card-title" style="margin-bottom:var(--space-sm)">Cast</div>
+                ${scenario.cast.map(actor => html`
+                  <div style="margin-bottom:var(--space-md)">
+                    <div class="cast-item">
+                      <div class="cast-avatar">${actor.name[0]}</div>
+                      <div style="font-weight:500">${actor.name}</div>
+                    </div>
+                    <div style="margin-left:36px;font-size:var(--font-sm);color:var(--text-secondary)">
+                      <div style="margin-bottom:2px;font-weight:500;color:var(--text-primary)">${actor.name} can:</div>
+                      <ul style="list-style:disc;padding-left:var(--space-md);margin:0">
+                        ${actor.abilities.map(ability => html`
+                          <li style="margin-bottom:2px;font-family:${ability.details ? 'var(--font-mono)' : 'inherit'};font-size:${ability.details ? '11px' : '12px'}">
+                            <strong>${ability.name}</strong>${ability.details ? html`<span style="color:var(--text-disabled)"> ${ability.details}</span>` : null}
+                          </li>
+                        `)}
+                      </ul>
+                    </div>
+                  </div>
+                `)}
+              </div>
+            ` : null}
+
+            ${hasExecutionHistory ? html`
+              <div style="margin-top:var(--space-md)">
+                <div class="card-title" style="margin-bottom:var(--space-sm)">Execution History</div>
+                <div style="display:flex;gap:4px;align-items:center;flex-wrap:wrap">
+                  ${scenario.executionHistory.map((entry, idx) => {
+                    const isActive = runIndex === idx;
+                    const blockStyle = 'width:20px;height:20px;border-radius:4px;background:var(--color-' + outcomeClass(entry.outcome) + ');opacity:' + (isActive ? '1' : '0.85') + ';display:flex;align-items:center;justify-content:center;font-size:var(--font-2xs);color:#fff;font-weight:600' + (isActive ? ';box-shadow:0 0 0 2px var(--bg-surface), 0 0 0 4px var(--accent)' : '');
+                    const labelStyle = 'font-size:9px;color:' + (isActive ? 'var(--accent)' : 'var(--text-disabled)') + ';font-weight:' + (isActive ? '600' : '400');
+                    const handleRunClick = (e) => { e.stopPropagation(); onNavigate(scenarioUrl(scenario) + '?run=' + idx); };
+                    return html`
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"
+                         title="${entry.run}: ${entry.outcome}"
+                         onClick=${handleRunClick}>
+                      <div style=${blockStyle}>${outcomeIcon(entry.outcome)}</div>
+                      <span style=${labelStyle}>${entry.run}</span>
+                    </div>
+                  `;
+                  })}
+                </div>
+              </div>
+            ` : null}
+          </div>
+
+          ${hasRetries ? html`
+            <div class="retry-tabs">
+              ${scenario.attempts.map((attempt, i) => html`
+                <div class="retry-tab ${activeAttempt === i ? 'active' : ''} ${outcomeClass(attempt.outcome)}"
+                     onClick=${() => setActiveAttempt(i)}>
+                  Attempt ${attempt.attemptNumber} (${attempt.outcome === 'SUCCESS' ? 'passed' : 'failed'})
+                </div>
+              `)}
+            </div>
+          ` : null}
+
+          ${currentActivities.length > 0 ? html`
+            <div class="card" style="margin-bottom:var(--space-md)">
+              <div class="card-title">Activity Tree</div>
+              <div class="activity-tree">
+                ${currentActivities.map(activity => html`<${ActivityNode} activity=${activity} />`)}
+              </div>
+            </div>
+          ` : null}
+
+          ${currentError ? html`
+            <div class="error-block">
+              <div class="error-name">${currentError.name}</div>
+              <div class="error-message">${currentError.message}</div>
+              <pre class="error-stack">${currentError.stack}</pre>
+            </div>
+          ` : null}
+        </div>
+      `;
+    }
+
+    // ===== Activity Node (recursive) =====
+    function ActivityNode({ activity }) {
+      return html`
+        <div class="activity-node">
+          <div class="activity-row">
+            <div class="activity-icon ${outcomeClass(activity.outcome)}">
+              ${outcomeIcon(activity.outcome)}
+            </div>
+            <span class="activity-name ${activity.type === 'Task' ? 'task' : ''}">${activity.name}</span>
+            <span class="activity-duration">${formatDuration(activity.duration)}</span>
+          </div>
+          ${activity.children && activity.children.length > 0 ? html`
+            <div style="margin-left:var(--space-sm)">
+              ${activity.children.map(child => html`<${ActivityNode} activity=${child} />`)}
+            </div>
+          ` : null}
+        </div>
+      `;
+    }
+
+    // ===== Tags View =====
+    function TagsView({ onNavigate }) {
+      // Group tags by type
+      const tagsByType = {};
+      for (const tag of DATA.tags) {
+        const type = tag.type || 'other';
+        if (!tagsByType[type]) tagsByType[type] = [];
+        tagsByType[type].push(tag);
+      }
+
+      // Order types: feature first, then alphabetical
+      const typeOrder = Object.keys(tagsByType).sort((a, b) => {
+        if (a === 'feature') return -1;
+        if (b === 'feature') return 1;
+        return a.localeCompare(b);
+      });
+
+      // Precompute render data
+      const typeIcons = { feature: '📋', tag: '#', issue: '🐛', browser: '🌐', capability: '🎯', theme: '📚' };
+      const renderGroups = typeOrder.map(type => {
+        const tags = tagsByType[type];
+        const items = tags.map(tag => {
+          const passRate = tag.scenarioCount > 0 ? Math.round((tag.passed / tag.scenarioCount) * 100) : 0;
+          const passColor = passRate >= 80 ? 'var(--color-passed)' : passRate >= 50 ? 'var(--color-pending)' : 'var(--color-failed)';
+          return { name: tag.name, scenarioCount: tag.scenarioCount, passRate, passColor, icon: typeIcons[type] || '#' };
+        });
+        return { type, label: type.charAt(0).toUpperCase() + type.slice(1), items };
+      });
+
+      // Flatten for template rendering
+      const renderItems = [];
+      for (const group of renderGroups) {
+        renderItems.push({ kind: 'header', label: group.label, count: group.items.length });
+        for (const item of group.items) {
+          renderItems.push({ kind: 'tag', ...item });
+        }
+      }
+
+      return html`
+        <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));gap:var(--space-sm)">
+          ${renderItems.map(item => {
+            if (item.kind === 'header') {
+              return html`
+                <div style="grid-column:1/-1;padding:var(--space-md) 0 var(--space-sm);font-size:var(--font-sm);font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--divider);margin-top:var(--space-md)">
+                  ${item.label} <span style="font-weight:400;color:var(--text-disabled)">(${item.count})</span>
+                </div>
+              `;
+            }
+            const barWidth = item.passRate + '%';
+            const barColor = item.passColor;
+            return html`
+              <div class="tag-card" onClick=${() => onNavigate('/tests?search=' + encodeURIComponent('"' + item.name + '"'))}>
+                <div class="tag-card-icon">${item.icon}</div>
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-sm);margin-bottom:4px">
+                    <div class="tag-card-name">${item.name}</div>
+                    <span style="font-size:var(--font-sm);font-weight:600;color:${barColor};flex-shrink:0;min-width:36px;text-align:right" title="Pass rate: ${item.passRate}%">${item.passRate}%</span>
+                  </div>
+                  <div style="height:4px;border-radius:2px;background:var(--border-color);overflow:hidden">
+                    <div style="height:100%;width:${barWidth};background:${barColor};border-radius:2px;transition:width 0.3s"></div>
+                  </div>
+                  <div class="tag-card-count" style="margin-top:4px">${item.scenarioCount} scenario${item.scenarioCount > 1 ? 's' : ''}</div>
+                </div>
+              </div>
+            `;
+          })}
+        </div>
+      `;
+    }
+
+    // ===== Errors View =====
+    function ErrorsView({ onNavigate, route }) {
+      // Parse run index from route
+      const errRunParams = (route && route.includes('?')) ? new URLSearchParams(route.split('?')[1]) : null;
+      const errRunStr = errRunParams ? errRunParams.get('run') : null;
+      const errRunIndex = errRunStr !== null ? parseInt(errRunStr, 10) : null;
+      const errIsHistorical = errRunIndex !== null && errRunIndex !== DATA.history.length - 1;
+      const errHistoricalRun = errIsHistorical ? DATA.history[errRunIndex] : null;
+
+      // Precompute run pills
+      const errRunPills = DATA.history.map((run, idx) => {
+        const isLatest = idx === DATA.history.length - 1;
+        const isActive = errRunIndex === idx || (errRunIndex === null && isLatest);
+        const pillStyle = 'display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:12px;font-size:var(--font-xs);font-weight:500;cursor:pointer;transition:all 0.2s;border:1px solid ' + (isActive ? 'var(--accent)' : 'var(--border-color)') + ';background:' + (isActive ? 'var(--accent)' : 'var(--bg-surface)') + ';color:' + (isActive ? '#fff' : 'var(--text-secondary)');
+        const target = isLatest ? '/errors' : '/errors?run=' + idx;
+        const label = run.label.replace('build ', '');
+        const title = run.label + ' — ' + new Date(run.timestamp).toLocaleDateString();
+        const onClick = () => onNavigate(target);
+        return { pillStyle, label, title, onClick };
+      });
+      const errShowLatest = () => onNavigate('/errors');
+
+      const errorScenarios = DATA.scenarios.filter(s => s.error);
+
+      // Classify errors into categories
+      function classifyError(error) {
+        const name = (error.name || '').toLowerCase();
+        const msg = (error.message || '').toLowerCase();
+        if (name.includes('compromised')) return 'Compromised Tests';
+        if (name.includes('assert') || name.includes('assertion')) return 'Assertion Errors';
+        if (msg.includes('timed out') || msg.includes('timeout')) return 'Timeout Errors';
+        return 'Runtime Errors';
+      }
+
+      // Group by category only — no sub-grouping by message
+      const categories = {};
+      for (const s of errorScenarios) {
+        const cat = classifyError(s.error);
+        if (!categories[cat]) categories[cat] = [];
+        categories[cat].push(s);
+      }
+
+      // Sort categories by total impact
+      const categoryOrder = Object.entries(categories).map(([name, scenarios]) => {
+        return { name, scenarios };
+      }).sort((a, b) => b.scenarios.length - a.scenarios.length);
+
+      const categoryColors = { 'Assertion Errors': 'var(--color-failed)', 'Compromised Tests': 'var(--color-compromised)', 'Timeout Errors': 'var(--color-pending)', 'Runtime Errors': 'var(--color-failed)' };
+      const categoryIcons = { 'Assertion Errors': '≠', 'Compromised Tests': '⚠', 'Timeout Errors': '⏱', 'Runtime Errors': '✗' };
+
+      // Precompute summary cards
+      const summaryCards = categoryOrder.map(cat => ({
+        title: cat.name,
+        value: String(cat.scenarios.length),
+        color: categoryColors[cat.name] || 'var(--color-failed)',
+        subtitle: cat.scenarios.length === 1 ? '1 test' : cat.scenarios.length + ' tests',
+      }));
+
+      // Precompute flat render list: headers + scenario items
+      const renderItems = [];
+      for (const cat of categoryOrder) {
+        renderItems.push({ type: 'header', icon: categoryIcons[cat.name] || '✗', name: cat.name, count: cat.scenarios.length });
+        for (const s of cat.scenarios) {
+          renderItems.push({ type: 'scenario', scenario: s });
+        }
+      }
+
+      if (errorScenarios.length === 0) {
+        return html`
+          <div class="placeholder-view">
+            ${icons.errors}
+            <h2>No Errors</h2>
+            <p>All tests passed without errors.</p>
+          </div>
+        `;
+      }
+
+      return html`
+        <div>
+          ${errHistoricalRun ? html`
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px var(--space-md);margin-bottom:var(--space-md);background:var(--accent-light);border:1px solid var(--accent);border-radius:var(--radius-sm);font-size:var(--font-base)">
+              <span>Viewing errors from: <strong>${errHistoricalRun.label}</strong> (${new Date(errHistoricalRun.timestamp).toLocaleString()})</span>
+              <a onClick=${errShowLatest} style="cursor:pointer;color:var(--accent);font-weight:500;text-decoration:underline">show latest</a>
+            </div>
+          ` : null}
+
+          <div style="display:flex;align-items:center;gap:var(--space-sm);margin-bottom:var(--space-md);flex-wrap:wrap">
+            <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Test run:</span>
+            ${errRunPills.map(pill => html`
+              <div style=${pill.pillStyle} onClick=${pill.onClick} title=${pill.title}>
+                <span>${pill.label}</span>
+              </div>
+            `)}
+          </div>
+
+          <div class="grid-stats" style="margin-bottom:var(--space-md)">
+            ${summaryCards.map(card => html`
+              <div class="card">
+                <div class="card-title">${card.title}</div>
+                <div class="card-value" style="color:${card.color}">${card.value}</div>
+                <div class="card-subtitle">${card.subtitle}</div>
+              </div>
+            `)}
+          </div>
+          <div class="card">
+            ${renderItems.map(item => {
+              if (item.type === 'header') {
+                return html`
+                  <div class="scenario-group-header" style="position:sticky;top:0;background:var(--bg-surface);z-index:1;display:flex;align-items:center;gap:var(--space-sm)">
+                    <span>${item.icon}</span>
+                    <span>${item.name}</span>
+                    <span style="font-size:var(--font-xs);color:var(--text-disabled);font-weight:400">(${item.count})</span>
+                  </div>
+                `;
+              }
+              const s = item.scenario;
+              return html`
+                <div class="scenario-item" style="align-items:flex-start" onClick=${() => onNavigate(scenarioUrl(s))}>
+                  <div class="scenario-outcome-icon failed" style="width:20px;height:20px;font-size:var(--font-2xs);margin-top:2px">✗</div>
+                  <div class="scenario-info">
+                    <div class="scenario-name">${s.name}</div>
+                    <div class="scenario-meta">
+                      <span class="scenario-source">${s.source.path}:${s.source.line}</span>
+                    </div>
+                    <div style="font-size:var(--font-sm);color:var(--text-secondary);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.error.message}</div>
+                  </div>
+                  <span class="scenario-duration">${formatDuration(s.duration)}</span>
+                </div>
+              `;
+            })}
+          </div>
+        </div>
+      `;
+    }
+
+    // ===== System Context View =====
+    function SystemContextView() {
+      const ctx = DATA.systemContext;
+
+      return html`
+        <div class="card">
+          <div class="card-title" style="margin-bottom:var(--space-lg)">Environment</div>
+          <div class="context-grid">
+            <div class="context-item">
+              <div class="context-icon">⚡</div>
+              <div>
+                <div class="context-label">Node.js</div>
+                <div class="context-value">${ctx.nodeVersion}</div>
+              </div>
+            </div>
+            <div class="context-item">
+              <div class="context-icon">🧪</div>
+              <div>
+                <div class="context-label">Test Runner</div>
+                <div class="context-value">${ctx.testRunner.name} ${ctx.testRunner.version}</div>
+              </div>
+            </div>
+            <div class="context-item">
+              <div class="context-icon">🖥</div>
+              <div>
+                <div class="context-label">Operating System</div>
+                <div class="context-value">${ctx.os.name} ${ctx.os.version} (${ctx.os.arch})</div>
+              </div>
+            </div>
+            <div class="context-item">
+              <div class="context-icon">📦</div>
+              <div>
+                <div class="context-label">Serenity/JS</div>
+                <div class="context-value">v${ctx.serenityVersion}</div>
+              </div>
+            </div>
+            ${ctx.browsers.map(b => html`
+              <div class="context-item">
+                <div class="context-icon">🌐</div>
+                <div>
+                  <div class="context-label">${b.name}</div>
+                  <div class="context-value">${b.version}</div>
+                </div>
+              </div>
+            `)}
+          </div>
+
+          ${ctx.ci ? html`
+            <div style="margin-top:var(--space-xl)">
+              <div class="card-title" style="margin-bottom:var(--space-md)">CI / CD</div>
+              <div class="context-grid">
+                <div class="context-item">
+                  <div class="context-icon">🏗</div>
+                  <div>
+                    <div class="context-label">Provider</div>
+                    <div class="context-value">${ctx.ci.provider}</div>
+                  </div>
+                </div>
+                <div class="context-item">
+                  <div class="context-icon">#</div>
+                  <div>
+                    <div class="context-label">Build</div>
+                    <div class="context-value">#${ctx.ci.buildNumber}</div>
+                  </div>
+                </div>
+                <div class="context-item">
+                  <div class="context-icon">🌿</div>
+                  <div>
+                    <div class="context-label">Branch</div>
+                    <div class="context-value">${ctx.ci.branch}</div>
+                  </div>
+                </div>
+                <div class="context-item">
+                  <div class="context-icon">📝</div>
+                  <div>
+                    <div class="context-label">Commit</div>
+                    <div class="context-value" style="font-family:var(--font-mono);font-size:var(--font-sm)">${ctx.ci.commit} — ${ctx.ci.commitMessage}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ` : null}
+        </div>
+      `;
+    }
+
+    // ===== Placeholder Views =====
+    function FlakyView({ onNavigate }) {
+      const flaky = DATA.flakyTests || [];
+
+      if (flaky.length === 0) {
+        return html`
+          <div class="placeholder-view">
+            ${icons.flaky}
+            <h2>No Flaky Tests Detected</h2>
+            <p>Requires trend data from multiple runs to identify flaky tests.<br/>Run your test suite several times to populate history.</p>
+          </div>
+        `;
+      }
+
+      // Group by category
+      const grouped = useMemo(() => {
+        const groups = {};
+        for (const t of flaky) {
+          if (!groups[t.category]) groups[t.category] = [];
+          groups[t.category].push(t);
+        }
+        return groups;
+      }, []);
+
+      return html`
+        <div>
+          <div style="margin-bottom:var(--space-md);font-size:var(--font-base);color:var(--text-secondary)">
+            ${flaky.length} flaky ${flaky.length === 1 ? 'test' : 'tests'} detected across ${DATA.history.length} runs
+          </div>
+
+          <div class="card">
+            ${Object.entries(grouped).map(([category, tests]) => html`
+              <div class="scenario-group-header" style="position:sticky;top:0;background:var(--bg-surface);z-index:1">
+                ${category.split(' › ').map((segment, idx, arr) => html`
+                  <span style="cursor:pointer" onClick=${(e) => { e.stopPropagation(); onNavigate('/tests?search=' + encodeURIComponent('"' + segment + '"')); }}>${segment}</span>${idx < arr.length - 1 ? html`<span style="margin:0 4px;text-decoration:none;cursor:default"> › </span>` : null}
+                `)}
+              </div>
+              ${tests.map(test => html`
+                <div class="scenario-item" onClick=${() => onNavigate(scenarioUrl(test))} style="align-items:flex-start">
+                  <div class="scenario-outcome-icon pending" style="margin-top:2px">⚡</div>
+                  <div class="scenario-info" style="flex:1">
+                    <div class="scenario-name">${test.name}</div>
+                    <div class="scenario-meta">
+                      <span class="scenario-source">${test.source.path}:${test.source.line}</span>
+                    </div>
+                    <!-- Outcome history mini-chart -->
+                    <div style="display:flex;gap:3px;margin-top:6px;align-items:center">
+                      ${test.history.map((outcome, idx) => html`
+                        <div style="display:flex;flex-direction:column;align-items:center;gap:1px" title="${test.labels[idx]}: ${outcome}">
+                          <div style="width:14px;height:14px;border-radius:3px;background:var(--color-${outcomeClass(outcome)});opacity:0.85"></div>
+                          <span style="font-size:8px;color:var(--text-disabled)">${test.labels[idx]}</span>
+                        </div>
+                      `)}
+                    </div>
+                  </div>
+                  <div style="text-align:right;flex-shrink:0">
+                    <div style="font-size:var(--font-lg);font-weight:700;color:var(--color-pending)">${Math.round(test.flakinessRate * 100)}%</div>
+                    <div style="font-size:var(--font-2xs);color:var(--text-secondary)">flaky</div>
+                  </div>
+                </div>
+              `)}
+            `)}
+          </div>
+        </div>
+      `;
+    }
+
+    function CoverageView({ onNavigate }) {
+      const requirements = DATA.requirements;
+
+      if (!requirements) {
+        return html`
+          <div class="placeholder-view">
+            ${icons.coverage}
+            <h2>Coverage Gaps</h2>
+            <p>Configure a <code>specDirectory</code> to derive the requirements hierarchy and identify coverage gaps.</p>
+          </div>
+        `;
+      }
+
+      // Find gaps: areas with no tests or mostly pending/skipped
+      const gaps = useMemo(() => {
+        const result = [];
+        function walk(node, depth) {
+          const total = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
+          const passing = node.outcomes.passed || 0;
+          const hasNoTests = node.scenarioCount === 0 || total === 0;
+          const mostlyPending = total > 0 && (node.outcomes.pending + (node.outcomes.skipped || 0)) > passing;
+
+          if (node.type === 'file' && hasNoTests) {
+            result.push({ ...node, severity: 'none', depth });
+          } else if (node.type === 'file' && mostlyPending) {
+            result.push({ ...node, severity: 'partial', depth });
+          } else if (node.type === 'directory' && node.children) {
+            const dirTotal = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
+            if (dirTotal === 0 && node.children.length > 0) {
+              result.push({ ...node, severity: 'none', depth });
+            } else {
+              node.children.forEach(child => walk(child, depth + 1));
+            }
+          }
+        }
+        if (requirements.children) {
+          requirements.children.forEach(child => walk(child, 0));
+        }
+        // Sort: no coverage first, then partial
+        result.sort((a, b) => {
+          if (a.severity === 'none' && b.severity !== 'none') return -1;
+          if (a.severity !== 'none' && b.severity === 'none') return 1;
+          return 0;
+        });
+        return result;
+      }, []);
+
+      // Also show the full tree summary
+      const totalFiles = useMemo(() => {
+        let count = 0;
+        function walk(node) {
+          if (node.type === 'file') count++;
+          if (node.children) node.children.forEach(walk);
+        }
+        if (requirements.children) requirements.children.forEach(walk);
+        return count;
+      }, []);
+
+      const coveredFiles = totalFiles - gaps.filter(g => g.severity === 'none' && g.type === 'file').length;
+      const coveragePercent = totalFiles > 0 ? Math.round((coveredFiles / totalFiles) * 100) : 100;
+
+      return html`
+        <div>
+          <!-- Summary cards -->
+          <div class="grid-stats" style="margin-bottom:var(--space-md)">
+            <div class="card">
+              <div class="card-title">Coverage</div>
+              <div class="card-value" style="color:${coveragePercent >= 80 ? 'var(--color-passed)' : coveragePercent >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'}">${coveragePercent}%</div>
+              <div class="card-subtitle">${coveredFiles} of ${totalFiles} files have tests</div>
+            </div>
+            <div class="card">
+              <div class="card-title">No Tests</div>
+              <div class="card-value" style="color:var(--color-failed)">${gaps.filter(g => g.severity === 'none').length}</div>
+              <div class="card-subtitle">files or areas with zero coverage</div>
+            </div>
+            <div class="card">
+              <div class="card-title">Mostly Pending</div>
+              <div class="card-value" style="color:var(--color-pending)">${gaps.filter(g => g.severity === 'partial').length}</div>
+              <div class="card-subtitle">files with mostly pending/skipped tests</div>
+            </div>
+          </div>
+
+          ${gaps.length === 0 ? html`
+            <div class="card" style="text-align:center;padding:var(--space-2xl)">
+              <div style="font-size:32px;margin-bottom:var(--space-sm)">🎉</div>
+              <div style="font-size:16px;font-weight:500">Full Coverage</div>
+              <div style="font-size:var(--font-base);color:var(--text-secondary);margin-top:4px">All requirement areas have active tests.</div>
+            </div>
+          ` : html`
+            <div class="card">
+              <div class="card-title" style="margin-bottom:var(--space-md)">Coverage Gaps</div>
+              ${gaps.map(gap => html`
+                <div class="scenario-item" onClick=${() => onNavigate('/tests?search=' + encodeURIComponent('"' + (gap.displayName || gap.name) + '"'))}>
+                  <div class="scenario-outcome-icon ${gap.severity === 'none' ? 'failed' : 'pending'}" style="width:40px;height:40px;font-size:${gap.severity === 'none' ? '1.5rem' : '2rem'}">
+                    ${gap.severity === 'none' ? '○' : '◑'}
+                  </div>
+                  <div class="scenario-info">
+                    <div class="scenario-name">${gap.displayName || gap.name}</div>
+                    <div class="scenario-meta">
+                      <span class="scenario-source">${gap.path}</span>
+                      <span>•</span>
+                      <span style="color:${gap.severity === 'none' ? 'var(--color-failed)' : 'var(--color-pending)'}">${gap.severity === 'none' ? 'No tests' : 'Mostly pending/skipped'}</span>
+                    </div>
+                  </div>
+                  ${gap.scenarioCount !== undefined && gap.scenarioCount > 0 ? html`
+                    <span style="font-size:var(--font-xs);color:var(--text-secondary)">${gap.scenarioCount} scenario${gap.scenarioCount > 1 ? 's' : ''}</span>
+                  ` : null}
+                </div>
+              `)}
+            </div>
+          `}
+
+          <!-- Full requirements tree -->
+          <div class="card" style="margin-top:var(--space-md)">
+            <div class="card-title" style="margin-bottom:var(--space-md)">Requirements Hierarchy</div>
+            ${requirements.children.map(node => html`<${RequirementsNode} node=${node} onNavigate=${onNavigate} depth=${0} />`)}
+          </div>
+        </div>
+      `;
+    }
+
+    function RequirementsNode({ node, onNavigate, depth }) {
+      const [expanded, setExpanded] = useState(depth < 1);
+      const total = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
+      const passRate = total > 0 ? Math.round((node.outcomes.passed / total) * 100) : 0;
+      const hasChildren = node.type === 'directory' && node.children && node.children.length > 0;
+
+      return html`
+        <div style="margin-left:${depth * 20}px;margin-bottom:2px">
+          <div class="scenario-item" style="padding:8px var(--space-sm)"
+               onClick=${() => hasChildren ? setExpanded(!expanded) : onNavigate('/tests?search=' + encodeURIComponent('"' + (node.displayName || node.name) + '"'))}>
+            ${hasChildren ? html`
+              <span style="font-size:1.5rem;line-height:1;color:var(--text-primary);width:28px;text-align:center;cursor:pointer">${expanded ? '▾' : '▸'}</span>
+            ` : html`<span style="width:28px"></span>`}
+            <span style="font-size:var(--font-md);font-weight:${node.type === 'directory' ? '500' : '400'};flex:1">${node.displayName || node.name}</span>
+            ${total > 0 ? html`
+              <span style="font-size:var(--font-sm);font-weight:500;color:${passRate >= 80 ? 'var(--color-passed)' : passRate >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'}">${passRate}%</span>
+              <span style="font-size:var(--font-xs);color:var(--text-secondary);width:40px;text-align:right">${total}</span>
+            ` : html`
+              <span style="font-size:var(--font-xs);color:var(--color-failed);font-weight:500">No tests</span>
+            `}
+          </div>
+          ${hasChildren && expanded ? html`
+            ${node.children.map(child => html`<${RequirementsNode} node=${child} onNavigate=${onNavigate} depth=${depth + 1} />`)}
+          ` : null}
+        </div>
+      `;
+    }
+
+    function TimelineView({ onNavigate }) {
+      const [sortBy, setSortBy] = useState('time'); // 'time' or 'duration'
+      const allScenarios = DATA.scenarios.filter(s => s.duration > 0);
+      const start = new Date(DATA.summary.startedAt).getTime();
+      const end = new Date(DATA.summary.finishedAt).getTime();
+      const totalDur = end - start;
+
+      const scenarios = useMemo(() => {
+        if (sortBy === 'duration') return [...allScenarios].sort((a, b) => b.duration - a.duration);
+        return allScenarios; // execution order (already sorted by startedAt in mock)
+      }, [sortBy]);
+
+      const durations = allScenarios.map(s => s.duration);
+      const avg = durations.length ? Math.round(durations.reduce((a, b) => a + b, 0) / durations.length) : 0;
+      const slowest = Math.max(...durations);
+      const fastest = Math.min(...durations.filter(d => d > 0));
+
+      function formatTime(ts) {
+        const d = new Date(ts);
+        return [d.getHours(), d.getMinutes(), d.getSeconds()]
+          .map(n => String(n).padStart(2, '0')).join(':');
+      }
+
+      const ticks = useMemo(() => {
+        const result = [];
+        if (totalDur <= 0) return result;
+        const intervals = [1000, 2000, 5000, 10000, 15000, 30000, 60000, 120000, 300000];
+        let interval = intervals.find(i => totalDur / i <= 10) || Math.ceil(totalDur / 8 / 1000) * 1000;
+        let t = Math.ceil(start / interval) * interval;
+        while (t <= end) {
+          result.push(t);
+          t += interval;
+        }
+        return result;
+      }, [start, end, totalDur]);
+
+      const rowHeight = 28;
+      const labelWidth = 380;
+
+      return html`
+        <div>
+          <!-- Stats cards -->
+          <div class="grid-stats" style="margin-bottom:var(--space-md)">
+            <div class="card">
+              <div class="card-title">Slowest</div>
+              <div class="card-value" style="color:var(--color-failed)">${formatDuration(slowest)}</div>
+            </div>
+            <div class="card">
+              <div class="card-title">Fastest</div>
+              <div class="card-value" style="color:var(--color-passed)">${formatDuration(fastest)}</div>
+            </div>
+            <div class="card">
+              <div class="card-title">Average</div>
+              <div class="card-value">${formatDuration(avg)}</div>
+            </div>
+            <div class="card">
+              <div class="card-title">Total Run</div>
+              <div class="card-value">${formatDuration(DATA.summary.duration)}</div>
+            </div>
+          </div>
+
+          <!-- Sort toggle -->
+          <div style="display:flex;gap:4px;margin-bottom:var(--space-md)">
+            <button class="filter-chip ${sortBy === 'time' ? 'active' : ''}" onClick=${() => setSortBy('time')}>Execution order</button>
+            <button class="filter-chip ${sortBy === 'duration' ? 'active' : ''}" onClick=${() => setSortBy('duration')}>Slowest first</button>
+          </div>
+
+          <div class="card">
+            <!-- X-axis header (only in execution order mode) -->
+            ${sortBy === 'time' ? html`
+              <div style="display:flex;margin-bottom:4px">
+                <div style="width:${labelWidth}px;flex-shrink:0"></div>
+                <div style="flex:1;position:relative;height:20px;margin-right:56px">
+                  ${ticks.map(t => {
+                    const left = ((t - start) / totalDur) * 100;
+                    return html`<span style="position:absolute;left:${left}%;transform:translateX(-50%);font-size:var(--font-2xs);color:var(--text-secondary);font-family:var(--font-mono);white-space:nowrap">${formatTime(t)}</span>`;
+                  })}
+                </div>
+              </div>
+            ` : null}
+
+            <!-- Rows -->
+            <div style="border-top:1px solid var(--border-color)">
+              ${scenarios.map((s, i) => {
+                const sStart = new Date(s.startedAt).getTime();
+                const left = sortBy === 'time' ? ((sStart - start) / totalDur) * 100 : 0;
+                const width = sortBy === 'time'
+                  ? Math.max((s.duration / totalDur) * 100, 0.5)
+                  : Math.max((s.duration / slowest) * 100, 0.5);
+                return html`
+                  <div style="display:flex;align-items:center;height:${rowHeight}px;border-bottom:1px solid var(--divider);cursor:pointer"
+                       onClick=${() => onNavigate(scenarioUrl(s))}
+                       title="${s.name} — ${formatDuration(s.duration)}">
+                    <div style="width:${labelWidth}px;flex-shrink:0;padding-right:var(--space-sm);display:flex;align-items:center;gap:6px;overflow:hidden">
+                      ${sortBy === 'duration' ? html`<span style="width:24px;text-align:center;font-size:var(--font-2xs);color:var(--text-disabled);font-weight:600;flex-shrink:0">#${i + 1}</span>` : null}
+                      <span class="scenario-outcome-icon ${outcomeClass(s.outcome)}" style="width:18px;height:18px;font-size:9px;flex-shrink:0">${outcomeIcon(s.outcome)}</span>
+                      <span style="font-size:var(--font-sm);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.name}</span>
+                    </div>
+                    <div style="flex:1;position:relative;height:16px">
+                      <div style="position:absolute;left:${left}%;width:${width}%;height:100%;border-radius:3px;background:var(--color-${outcomeClass(s.outcome)});opacity:0.85"></div>
+                    </div>
+                    <span style="width:50px;flex-shrink:0;text-align:right;font-size:var(--font-xs);color:var(--text-secondary);font-family:var(--font-mono);padding-left:6px">${formatDuration(s.duration)}</span>
+                  </div>
+                `;
+              })}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ===== Test Runs View =====
+    function TestRunsView({ onNavigate }) {
+      const runs = [...DATA.history].reverse();
+      return html`
+        <div class="card">
+          <div class="card-title">Test Run History</div>
+          <div class="scenario-list">
+            ${runs.map((run) => {
+              const originalIndex = DATA.history.indexOf(run);
+              return html`
+              <div class="scenario-item" onClick=${() => onNavigate('/tests?run=' + originalIndex)} style="cursor:pointer">
+                <div class="scenario-outcome-icon passed" style="background:var(--accent-light);color:var(--accent)">
+                  #
+                </div>
+                <div class="scenario-info">
+                  <div class="scenario-name">${run.label}</div>
+                  <div class="scenario-meta">
+                    <span>${new Date(run.timestamp).toLocaleString()}</span>
+                    <span>•</span>
+                    <span>${formatDuration(run.duration)}</span>
+                    ${run.ciJobUrl ? html`<span>•</span><a href=${run.ciJobUrl} target="_blank" rel="noopener" onClick=${(e) => e.stopPropagation()} style="color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:3px" title="View CI job"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>CI</a>` : null}
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
+                  <span style="font-size:var(--font-md);font-weight:600;color:var(--color-passed)">${Math.round((run.outcomes.passed / Object.values(run.outcomes).reduce((a, b) => a + b, 0)) * 100)}%</span>
+                  <span style="font-size:var(--font-xs);color:var(--text-secondary)">${Object.values(run.outcomes).reduce((a, b) => a + b, 0)} scenarios</span>
+                </div>
+              </div>
+            `;
+            })}
+          </div>
+        </div>
+      `;
+    }
+
+    // ===== App Component =====
+    function App() {
+      const [theme, setTheme] = useState(initTheme);
+      const [route, setRoute] = useState(getRoute);
+      const [sidebarOpen, setSidebarOpen] = useState(false);
+      const [sidebarCollapsed, setSidebarCollapsed] = useState(() => localStorage.getItem('serenity-sidebar-collapsed') === 'true');
+
+      useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('serenity-theme', theme);
+      }, [theme]);
+
+      useEffect(() => {
+        const onHash = () => setRoute(getRoute());
+        window.addEventListener('hashchange', onHash);
+        return () => window.removeEventListener('hashchange', onHash);
+      }, []);
+
+      const navigate = useCallback((path) => {
+        window.location.hash = '#' + path;
+      }, []);
+
+      const toggleTheme = () => setTheme(t => t === 'light' ? 'dark' : 'light');
+      const toggleSidebar = () => setSidebarCollapsed(c => { const next = !c; localStorage.setItem('serenity-sidebar-collapsed', String(next)); return next; });
+
+      // Route matching
+      let view;
+      let pageTitle = 'Dashboard';
+
+      if (route === '/' || route === '') {
+        view = html`<${DashboardView} onNavigate=${navigate} />`;
+        pageTitle = DATA.summary.title;
+      } else if (route === '/tests') {
+        view = html`<${ScenariosView} onNavigate=${navigate} route=${route} />`;
+        pageTitle = 'Test Scenarios';
+      } else if (route.startsWith('/tests?')) {
+        view = html`<${ScenariosView} onNavigate=${navigate} route=${route} />`;
+        pageTitle = 'Test Scenarios';
+      } else if (route.startsWith('/tests/')) {
+        const id = route.split('/tests/')[1];
+        view = html`<${ScenarioDetailView} scenarioId=${id} onNavigate=${navigate} />`;
+        pageTitle = 'Test Scenario';
+      } else if (route === '/tags') {
+        view = html`<${TagsView} onNavigate=${navigate} />`;
+        pageTitle = 'Tags';
+      } else if (route === '/test-runs') {
+        view = html`<${TestRunsView} onNavigate=${navigate} />`;
+        pageTitle = 'Test Runs';
+      } else if (route === '/errors' || route.startsWith('/errors?')) {
+        view = html`<${ErrorsView} onNavigate=${navigate} route=${route} />`;
+        pageTitle = 'Errors';
+      } else if (route === '/flaky') {
+        view = html`<${FlakyView} onNavigate=${navigate} />`;
+        pageTitle = 'Flaky Tests';
+      } else if (route === '/coverage') {
+        view = html`<${CoverageView} onNavigate=${navigate} />`;
+        pageTitle = 'Coverage Gaps';
+      } else if (route === '/timeline') {
+        view = html`<${TimelineView} onNavigate=${navigate} />`;
+        pageTitle = 'Timeline';
+      } else if (route === '/system') {
+        view = html`<${SystemContextView} />`;
+        pageTitle = 'System Context';
+      } else {
+        view = html`<div class="card"><p>Page not found.</p></div>`;
+        pageTitle = 'Not Found';
+      }
+
+      return html`
+        <div class="sidebar-overlay ${sidebarOpen ? 'visible' : ''}" onClick=${() => setSidebarOpen(false)}></div>
+        <${Sidebar} route=${route} sidebarOpen=${sidebarOpen} collapsed=${sidebarCollapsed}
+                    onNavigate=${navigate} onClose=${() => setSidebarOpen(false)} onToggleCollapse=${toggleSidebar} />
+        <main class="main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}"
+              style="margin-left:${sidebarCollapsed ? 'var(--sidebar-collapsed-width)' : 'var(--sidebar-width)'}">
+          <div class="topbar">
+            <div class="topbar-left">
+              <button class="btn-icon hamburger" onClick=${() => setSidebarOpen(true)} aria-label="Open menu">
+                ${icons.menu}
+              </button>
+              <div>
+                <div class="topbar-title">${pageTitle}</div>
+                <div class="topbar-subtitle">${DATA.summary.testRunner} • ${new Date(DATA.summary.finishedAt).toLocaleDateString()} ${new Date(DATA.summary.finishedAt).toLocaleTimeString()}</div>
+              </div>
+            </div>
+            <div class="topbar-actions">
+              <button class="btn-icon" onClick=${toggleTheme} aria-label="Toggle theme">
+                ${theme === 'light' ? icons.moon : icons.sun}
+              </button>
+            </div>
+          </div>
+          ${view}
+        </main>
+      `;
+    }
+
+    // ===== Mount =====
+    render(html`<${App} />`, document.getElementById('app'));
+  </script>
+</body>
+</html>
