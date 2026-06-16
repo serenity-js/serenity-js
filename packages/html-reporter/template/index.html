@@ -1233,7 +1233,7 @@
         { path: '/tests', label: 'Test Scenarios', icon: 'testScenarios', badge: DATA.summary.outcomes.failed },
         { path: '/requirements', label: 'Requirements', icon: 'coverage' },
         { path: '/errors', label: 'Errors', icon: 'errors' },
-        { path: '/flaky', label: 'Flaky Tests', icon: 'flaky' },
+        { path: '/stability', label: 'Stability', icon: 'flaky' },
         { path: '/timeline', label: 'Timeline', icon: 'timeline' },
         { path: '/tags', label: 'Tags', icon: 'tags' },
         { path: '/test-runs', label: 'Test Runs', icon: 'testRuns' },
@@ -1352,7 +1352,7 @@
               <div class="card">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-sm)">
                   <div class="card-title" style="margin-bottom:0">Most Unstable</div>
-                  <a style="font-size:var(--font-xs);color:var(--accent);cursor:pointer;text-decoration:none" onClick=${() => onNavigate('/flaky')}>View all →</a>
+                  <a style="font-size:var(--font-xs);color:var(--accent);cursor:pointer;text-decoration:none" onClick=${() => onNavigate('/stability')}>View all →</a>
                 </div>
                 ${flakyTests.map(t => html`
                   <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(t))} style="cursor:pointer">
@@ -2478,8 +2478,8 @@
         return html`
           <div class="placeholder-view">
             ${icons.flaky}
-            <h2>No Flaky Tests Detected</h2>
-            <p>Requires trend data from multiple runs to identify flaky tests.<br/>Run your test suite several times to populate history.</p>
+            <h2>No Unstable Tests Detected</h2>
+            <p>Requires trend data from multiple runs to identify tests with inconsistent results.<br/>Run your test suite several times to populate history.</p>
           </div>
         `;
       }
@@ -2873,9 +2873,9 @@
       } else if (route === '/errors' || route.startsWith('/errors?')) {
         view = html`<${ErrorsView} onNavigate=${navigate} route=${route} />`;
         pageTitle = 'Errors';
-      } else if (route === '/flaky') {
+      } else if (route === '/stability') {
         view = html`<${FlakyView} onNavigate=${navigate} />`;
-        pageTitle = 'Flaky Tests';
+        pageTitle = 'Stability';
       } else if (route === '/requirements') {
         view = html`<${RequirementsPageView} onNavigate=${navigate} />`;
         pageTitle = 'Requirements';
