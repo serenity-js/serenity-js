@@ -502,6 +502,16 @@
       letter-spacing: 0.5px;
       border-bottom: 1px solid var(--divider);
       margin-top: var(--space-md);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      direction: rtl;
+      text-align: left;
+    }
+
+    .scenario-group-header > span {
+      direction: ltr;
+      unicode-bidi: bidi-override;
     }
 
     .scenario-group-header:first-child { margin-top: 0; }
@@ -1028,6 +1038,31 @@
 
       .dashboard-trend-grid > * {
         min-width: 0;
+      }
+
+      .timeline-row-label {
+        display: none !important;
+      }
+
+      .timeline-row {
+        flex-wrap: wrap !important;
+        padding: 6px 0 !important;
+      }
+
+      .timeline-row-name {
+        display: flex !important;
+        width: 100% !important;
+        padding: 0 var(--space-sm) !important;
+      }
+
+      .timeline-row-bar {
+        width: calc(100% - 40px) !important;
+        margin-left: 24px;
+        margin-top: 4px;
+      }
+
+      .timeline-x-axis {
+        display: none !important;
       }
     }
 
@@ -2615,7 +2650,7 @@
         return result;
       }, [start, end, totalDur]);
 
-      const rowHeight = 28;
+      const rowHeight = window.innerWidth <= 768 ? 52 : 28;
       const labelWidth = 380;
       const parentRef = useRef(null);
 
@@ -2657,7 +2692,7 @@
           <div class="card" style="padding-bottom:0">
             <!-- X-axis header (only in execution order mode) -->
             ${sortBy === 'time' ? html`
-              <div style="display:flex;margin-bottom:4px">
+              <div class="timeline-x-axis" style="display:flex;margin-bottom:4px">
                 <div style="width:${labelWidth}px;flex-shrink:0"></div>
                 <div style="flex:1;position:relative;height:20px;margin-right:56px">
                   ${ticks.map(t => {
@@ -2681,18 +2716,23 @@
                     : Math.max((s.duration / slowest) * 100, 0.5);
                   const clickHandler = () => onNavigate(scenarioUrl(s));
                   return html`
-                    <div style="position:absolute;top:0;left:0;width:100%;height:${rowHeight}px;transform:translateY(${virtualRow.start}px);display:flex;align-items:center;border-bottom:1px solid var(--divider);cursor:pointer"
+                    <div class="timeline-row" style="position:absolute;top:0;left:0;width:100%;height:${rowHeight}px;transform:translateY(${virtualRow.start}px);display:flex;align-items:center;border-bottom:1px solid var(--divider);cursor:pointer"
                          onClick=${clickHandler}
                          title="${s.name} — ${formatDuration(s.duration)}">
-                      <div style="width:${labelWidth}px;flex-shrink:0;padding-right:var(--space-sm);display:flex;align-items:center;gap:6px;overflow:hidden">
+                      <div class="timeline-row-label" style="width:${labelWidth}px;flex-shrink:0;padding-right:var(--space-sm);display:flex;align-items:center;gap:6px;overflow:hidden">
                         ${sortBy === 'duration' ? html`<span style="width:24px;text-align:center;font-size:var(--font-2xs);color:var(--text-disabled);font-weight:600;flex-shrink:0">#${i + 1}</span>` : null}
                         <span class="scenario-outcome-icon ${outcomeClass(s.outcome)}" style="width:18px;height:18px;font-size:var(--font-xs);flex-shrink:0">${outcomeIcon(s.outcome)}</span>
                         <span style="font-size:var(--font-sm);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.name}</span>
                       </div>
-                      <div style="flex:1;position:relative;height:16px">
+                      <div class="timeline-row-name" style="display:none;align-items:center;gap:6px;overflow:hidden">
+                        <span class="scenario-outcome-icon ${outcomeClass(s.outcome)}" style="width:18px;height:18px;font-size:var(--font-xs);flex-shrink:0">${outcomeIcon(s.outcome)}</span>
+                        <span style="font-size:var(--font-sm);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1">${s.name}</span>
+                        <span style="font-size:var(--font-xs);color:var(--text-secondary);font-family:var(--font-mono);white-space:nowrap">${formatDuration(s.duration)}</span>
+                      </div>
+                      <div class="timeline-row-bar" style="flex:1;position:relative;height:16px">
                         <div style="position:absolute;left:${left}%;width:${width}%;height:100%;border-radius:3px;background:var(--color-${outcomeClass(s.outcome)});opacity:0.85"></div>
                       </div>
-                      <span style="width:50px;flex-shrink:0;text-align:right;font-size:var(--font-xs);color:var(--text-secondary);font-family:var(--font-mono);padding-left:6px">${formatDuration(s.duration)}</span>
+                      <span class="timeline-row-label" style="width:50px;flex-shrink:0;text-align:right;font-size:var(--font-xs);color:var(--text-secondary);font-family:var(--font-mono);padding-left:6px">${formatDuration(s.duration)}</span>
                     </div>
                   `;
                 })}
