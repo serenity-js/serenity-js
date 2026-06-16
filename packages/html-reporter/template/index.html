@@ -54,7 +54,7 @@
       --bg-active: rgba(105, 108, 255, 0.08);
 
       --text-primary: #3a3541de;
-      --text-secondary: #3a354199;
+      --text-secondary: #3a35418c;
       --text-disabled: #3a354161;
       --text-sidebar: #d2d2d8;
       --text-sidebar-active: #ffffff;
@@ -90,7 +90,7 @@
       --bg-active: rgba(105, 108, 255, 0.16);
 
       --text-primary: #e7e3fcde;
-      --text-secondary: #e7e3fc99;
+      --text-secondary: #e7e3fc8c;
       --text-disabled: #e7e3fc61;
       --text-sidebar: #a3a4b5;
       --text-sidebar-active: #ffffff;
@@ -842,38 +842,6 @@
     .retry-tab.failed { color: var(--color-failed); }
     .retry-tab.passed { color: var(--color-passed); }
 
-    /* ===== Trend Chart ===== */
-    .trend-chart {
-      display: flex;
-      align-items: flex-end;
-      gap: 6px;
-      height: 180px;
-      padding-top: var(--space-md);
-    }
-
-    .trend-bar-group {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: 100%;
-      justify-content: flex-end;
-      gap: 4px;
-    }
-
-    .trend-bar {
-      width: 100%;
-      border-radius: 3px 3px 0 0;
-      min-height: 2px;
-    }
-
-    .trend-label {
-      font-size: var(--font-2xs);
-      color: var(--text-disabled);
-      margin-top: 4px;
-      white-space: nowrap;
-    }
-
     /* Slowest tests mini-list */
     .slowest-item {
       display: flex;
@@ -1038,7 +1006,8 @@
       }
 
       .main-content {
-        margin-left: 0;
+        margin-left: 0 !important;
+        overflow-x: hidden;
       }
 
       .hamburger {
@@ -1051,6 +1020,36 @@
 
       .grid-stats {
         grid-template-columns: repeat(2, 1fr);
+      }
+
+      .dashboard-trend-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .dashboard-trend-grid > * {
+        min-width: 0;
+      }
+    }
+
+    @media (min-width: 1440px) {
+      .dashboard-trend-grid {
+        grid-template-columns: 2fr 1fr !important;
+      }
+    }
+
+    @media (max-width: 1439px) {
+      .dashboard-trend-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .dashboard-trend-grid > * {
+        min-width: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-stats-grid {
+        grid-template-columns: 1fr !important;
       }
     }
 
@@ -1080,10 +1079,15 @@
   <!-- Load mock data -->
   <script src="./data.js"></script>
 
+  <!-- Chart.js + zoom plugin (prototype only — will be bundled inline for production) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.2.0/dist/chartjs-plugin-zoom.min.js"></script>
+
   <!-- Preact + HTM from CDN (prototype only — will be bundled for production) -->
   <script type="module">
     import { h, render, Component } from 'https://esm.sh/preact@10.22.0';
-    import { useState, useEffect, useMemo, useCallback } from 'https://esm.sh/preact@10.22.0/hooks';
+    import { useState, useEffect, useMemo, useCallback, useRef } from 'https://esm.sh/preact@10.22.0/hooks';
     import htm from 'https://esm.sh/htm@3.1.1';
 
     const html = htm.bind(h);
@@ -1167,9 +1171,9 @@
       dashboard: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>`,
       testScenarios: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6m-6 4h4"/></svg>`,
       tags: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>`,
-      errors: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+      errors: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="17" r="0.5" fill="currentColor"/></svg>`,
       flaky: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
-      coverage: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+      coverage: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>`,
       timeline: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
       testRuns: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/><circle cx="12" cy="12" r="1"/></svg>`,
 
@@ -1238,7 +1242,7 @@
 
       return html`
         <div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-md);margin-bottom:var(--space-md)">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-md);margin-bottom:var(--space-md)" class="dashboard-stats-grid">
             <div class="card" style="display:flex;flex-direction:column">
               <div class="card-title">Test Results</div>
               <div class="donut-chart">
@@ -1279,20 +1283,46 @@
             </div>
           </div>
 
-          <div class="card" style="margin-bottom:var(--space-md)">
-            <div class="card-title">Trend (Last ${history.length} runs)</div>
-            <${TrendChart} history=${history} onNavigate=${onNavigate} />
-          </div>
-
-          <div class="card">
-            <div class="card-title">Slowest Tests</div>
-            ${slowest.map((s, i) => html`
-              <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(s))} style="cursor:pointer">
-                <span class="slowest-rank">#${i + 1}</span>
-                <span class="slowest-name">${s.name}</span>
-                <span class="slowest-dur">${formatDuration(s.duration)}</span>
+          <div style="display:grid;grid-template-columns:2fr 1fr;gap:var(--space-md);margin-bottom:var(--space-md)" class="dashboard-trend-grid">
+            <div class="card" style="overflow:hidden">
+              <div class="card-title">Trend (Last ${history.length} runs)</div>
+              <${TrendChart} history=${history} onNavigate=${onNavigate} />
+            </div>
+            <div style="display:flex;flex-direction:column;gap:var(--space-md)">
+              <div class="card" style="flex:1">
+                <div class="card-title">Slowest Tests</div>
+                ${slowest.map((s, i) => html`
+                  <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(s))} style="cursor:pointer">
+                    <span class="slowest-rank">#${i + 1}</span>
+                    <span class="slowest-name">${s.name}</span>
+                    <span class="slowest-dur">${formatDuration(s.duration)}</span>
+                  </div>
+                `)}
               </div>
-            `)}
+              ${DATA.flakyTests && DATA.flakyTests.length > 0 ? html`
+                <div class="card">
+                  <div class="card-title">Most Unstable</div>
+                  ${DATA.flakyTests.slice(0, 3).map(t => html`
+                    <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(t))} style="cursor:pointer">
+                      <span style="font-size:var(--font-sm);font-weight:600;color:var(--color-pending);width:36px">${Math.round(t.flakinessRate * 100)}%</span>
+                      <span class="slowest-name">${t.name}</span>
+                    </div>
+                  `)}
+                </div>
+              ` : null}
+              ${DATA.newFailures && DATA.newFailures.length > 0 ? html`
+                <div class="card">
+                  <div class="card-title" style="color:var(--color-failed)">New Failures</div>
+                  ${DATA.newFailures.slice(0, 3).map(t => html`
+                    <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(t))} style="cursor:pointer">
+                      <span style="font-size:var(--font-sm);color:var(--color-failed)">✗</span>
+                      <span class="slowest-name">${t.name}</span>
+                    </div>
+                  `)}
+                  <div style="font-size:var(--font-xs);color:var(--text-secondary);margin-top:var(--space-sm)">Passed in previous run, failing now</div>
+                </div>
+              ` : null}
+            </div>
           </div>
         </div>
       `;
@@ -1324,67 +1354,187 @@
       `;
     }
 
-    // ===== Donut Chart =====
+    // ===== Donut Chart (Chart.js) =====
     function DonutChart({ outcomes, total }) {
-      const size = 140;
-      const strokeWidth = 18;
-      const radius = (size - strokeWidth) / 2;
-      const circumference = 2 * Math.PI * radius;
-      const center = size / 2;
+      const canvasRef = useRef(null);
+      const chartRef = useRef(null);
 
-      const segments = [
-        { count: outcomes.passed, color: 'var(--color-passed)' },
-        { count: outcomes.failed, color: 'var(--color-failed)' },
-        { count: outcomes.pending, color: 'var(--color-pending)' },
-        { count: outcomes.skipped, color: 'var(--color-skipped)' },
-        { count: outcomes.compromised, color: 'var(--color-compromised)' },
-      ];
+      useEffect(() => {
+        if (!canvasRef.current) return;
+        if (chartRef.current) chartRef.current.destroy();
 
-      let offset = 0;
+        const isDark = localStorage.getItem('serenity-theme') === 'dark' || (!localStorage.getItem('serenity-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+        chartRef.current = new Chart(canvasRef.current, {
+          type: 'doughnut',
+          data: {
+            labels: ['Passed', 'Failed', 'Pending', 'Skipped', 'Compromised'],
+            datasets: [{
+              data: [outcomes.passed, outcomes.failed, outcomes.pending, outcomes.skipped, outcomes.compromised],
+              backgroundColor: ['#28c76f', '#ea5455', '#ff9f43', '#a8aaae', '#7367f0'],
+              borderWidth: 0,
+            }],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            cutout: '65%',
+            plugins: {
+              legend: { display: false },
+              tooltip: { enabled: true },
+            },
+          },
+          plugins: [{
+            id: 'centerText',
+            afterDraw: (chart) => {
+              const ctx = chart.ctx;
+              const centerX = (chart.chartArea.left + chart.chartArea.right) / 2;
+              const centerY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
+              ctx.save();
+              ctx.font = 'bold 22px -apple-system, BlinkMacSystemFont, sans-serif';
+              ctx.fillStyle = isDark ? '#e7e3fcde' : '#3a3541de';
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'middle';
+              ctx.fillText(String(total), centerX, centerY);
+              ctx.restore();
+            },
+          }],
+        });
+
+        return () => { if (chartRef.current) chartRef.current.destroy(); };
+      }, [outcomes, total]);
+
       return html`
-        <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="flex-shrink:0">
-          ${segments.map(seg => {
-            const pct = seg.count / total;
-            const dashLen = pct * circumference;
-            const dashOffset = -offset * circumference;
-            offset += pct;
-            if (seg.count === 0) return null;
-            return html`<circle cx="${center}" cy="${center}" r="${radius}"
-              fill="none" stroke="${seg.color}" stroke-width="${strokeWidth}"
-              stroke-dasharray="${dashLen} ${circumference - dashLen}"
-              stroke-dashoffset="${dashOffset}"
-              transform="rotate(-90 ${center} ${center})"
-              style="transition: stroke-dasharray 0.6s ease"/>`;
-          })}
-          <text x="${center}" y="${center}" text-anchor="middle" dy="0.35em"
-                fill="var(--text-primary)" font-size="22" font-weight="700">${total}</text>
-        </svg>
+        <div style="width:120px;height:120px;flex-shrink:0">
+          <canvas ref=${canvasRef}></canvas>
+        </div>
       `;
     }
 
-    // ===== Trend Chart =====
+    // ===== Trend Chart (Chart.js) =====
     function TrendChart({ history, onNavigate }) {
-      const maxTotal = Math.max(...history.map(h => Object.values(h.outcomes).reduce((a, b) => a + b, 0)));
+      const canvasRef = useRef(null);
+      const chartRef = useRef(null);
+      const [chartTheme, setChartTheme] = useState(() => localStorage.getItem('serenity-theme') || 'light');
+
+      // Watch for theme changes
+      useEffect(() => {
+        const observer = new MutationObserver(() => {
+          const t = document.documentElement.getAttribute('data-theme') || 'light';
+          setChartTheme(t);
+        });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+        // Watch for resize to adjust visible range
+        const handleResize = () => {
+          if (!chartRef.current) return;
+          const isMobile = window.innerWidth <= 768;
+          const xScale = chartRef.current.options.scales.x;
+          if (isMobile && history.length > 3) {
+            xScale.min = history.length - 3;
+          } else {
+            xScale.min = undefined;
+          }
+          chartRef.current.update('none');
+        };
+        window.addEventListener('resize', handleResize);
+
+        return () => { observer.disconnect(); window.removeEventListener('resize', handleResize); };
+      }, []);
+
+      useEffect(() => {
+        if (!canvasRef.current || history.length === 0) return;
+        if (chartRef.current) chartRef.current.destroy();
+
+        const isDark = chartTheme === 'dark';
+        const textColor = isDark ? 'rgba(255,255,255,0.7)' : 'rgba(46,38,61,0.7)';
+        const gridColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)';
+
+        chartRef.current = new Chart(canvasRef.current, {
+          type: 'line',
+          data: {
+            labels: history.map(h => h.label.replace('build ', '')),
+            datasets: [
+              {
+                label: 'Passed',
+                data: history.map(h => h.outcomes.passed),
+                borderColor: '#28c76f',
+                backgroundColor: 'rgba(40, 199, 111, 0.1)',
+                fill: true,
+                tension: 0.3,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+              },
+              {
+                label: 'Failed',
+                data: history.map(h => h.outcomes.failed + (h.outcomes.error || 0)),
+                borderColor: '#ea5455',
+                backgroundColor: 'rgba(234, 84, 85, 0.1)',
+                fill: true,
+                tension: 0.3,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+              },
+              {
+                label: 'Other',
+                data: history.map(h => h.outcomes.pending + h.outcomes.skipped + h.outcomes.compromised),
+                borderColor: '#ff9f43',
+                backgroundColor: 'rgba(255, 159, 67, 0.1)',
+                fill: true,
+                tension: 0.3,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            resizeDelay: 100,
+            interaction: { intersect: false, mode: 'index' },
+            onClick: (evt, elements) => {
+              if (elements.length > 0) {
+                const idx = elements[0].index;
+                onNavigate && onNavigate('/tests?run=' + idx);
+              }
+            },
+            plugins: {
+              legend: { display: true, position: 'bottom', labels: { color: textColor, usePointStyle: true, padding: 16 } },
+              tooltip: {
+                callbacks: {
+                  title: (items) => {
+                    const idx = items[0].dataIndex;
+                    const run = history[idx];
+                    return run.label + ' — ' + new Date(run.timestamp).toLocaleDateString();
+                  },
+                },
+              },
+              zoom: {
+                pan: { enabled: true, mode: 'x' },
+                zoom: { wheel: { enabled: false }, pinch: { enabled: true }, mode: 'x' },
+                limits: { x: { min: 0, max: history.length - 1 } },
+              },
+            },
+            scales: {
+              x: {
+                ticks: { color: textColor },
+                grid: { color: gridColor },
+                min: window.innerWidth <= 768 && history.length > 3 ? history.length - 3 : undefined,
+                max: history.length - 1,
+              },
+              y: { beginAtZero: true, ticks: { color: textColor, precision: 0 }, grid: { color: gridColor } },
+            },
+          },
+        });
+
+        return () => { if (chartRef.current) chartRef.current.destroy(); };
+      }, [history, chartTheme]);
+
+      if (history.length === 0) return null;
 
       return html`
-        <div class="trend-chart">
-          ${history.map((run, i) => {
-            const total = Object.values(run.outcomes).reduce((a, b) => a + b, 0);
-            const scale = 80 / maxTotal;
-            return html`
-              <div class="trend-bar-group" style="cursor:pointer" title="${run.label} — ${total} tests: ${run.outcomes.passed} passed, ${run.outcomes.failed} failed, ${run.outcomes.pending} pending, ${run.outcomes.skipped} skipped, ${run.outcomes.compromised} compromised"
-                   onClick=${() => onNavigate && onNavigate('/tests?run=' + i)}>
-                <div class="trend-bar" style="height:${run.outcomes.compromised * scale}px;background:var(--color-compromised)"></div>
-                <div class="trend-bar" style="height:${run.outcomes.skipped * scale}px;background:var(--color-skipped)"></div>
-                <div class="trend-bar" style="height:${run.outcomes.pending * scale}px;background:var(--color-pending)"></div>
-                <div class="trend-bar" style="height:${run.outcomes.failed * scale}px;background:var(--color-failed)"></div>
-                <div class="trend-bar" style="height:${run.outcomes.passed * scale}px;background:var(--color-passed)"></div>
-                <span class="trend-label">${run.label.replace('build #', '#')}</span>
-                <span class="trend-label" style="font-size:var(--font-xs)">${new Date(run.timestamp).toLocaleDateString(undefined, {month:'short', day:'numeric'})}</span>
-                <span class="trend-label" style="font-size:var(--font-xs)">${new Date(run.timestamp).toLocaleTimeString(undefined, {hour:'2-digit', minute:'2-digit'})}</span>
-              </div>
-            `;
-          })}
+        <div style="position:relative;width:100%;height:400px;overflow:hidden">
+          <canvas ref=${canvasRef}></canvas>
         </div>
       `;
     }

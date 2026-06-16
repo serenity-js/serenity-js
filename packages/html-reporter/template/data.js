@@ -411,6 +411,13 @@ window.__SERENITY_REPORT_DATA__ = {
       ],
       retries: 0,
       cast: [],
+      executionHistory: [
+        { run: "#85", outcome: "SUCCESS" },
+        { run: "#86", outcome: "SUCCESS" },
+        { run: "#87", outcome: "SUCCESS" },
+        { run: "#88", outcome: "SUCCESS" },
+        { run: "#89", outcome: "FAILURE" },
+      ],
       activities: [
         {
           type: "Interaction", name: "Given a step that passes", outcome: "SUCCESS", duration: 10,
@@ -1086,6 +1093,26 @@ window.__SERENITY_REPORT_DATA__ = {
       flakinessRate: 0.25,
       history: ["SUCCESS", "SUCCESS", "COMPROMISED", "SUCCESS", "COMPROMISED"],
       labels: ["#85", "#86", "#87", "#88", "#89"],
+    },
+  ],
+
+  // Scenarios that failed in the latest run but passed in the previous run (regressions)
+  newFailures: [
+    {
+      id: "scenario-8",
+      name: "A scenario failing with a Node.js AssertionError",
+      category: "Reporting Results › Reports Failing Scenarios",
+      source: { path: "reporting_results/reports_failing_scenarios.feature", line: 31 },
+      previousOutcome: "SUCCESS",
+      currentOutcome: "FAILURE",
+    },
+    {
+      id: "scenario-12",
+      name: "A timed out scenario",
+      category: "Reporting Results › Reports Timed Out Scenarios",
+      source: { path: "reporting_results/reports_timed_out_scenarios.feature", line: 8 },
+      previousOutcome: "SUCCESS",
+      currentOutcome: "FAILURE",
     },
   ],
 

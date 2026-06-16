@@ -145,6 +145,23 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 7. WHEN a Scene has Tags, THE Report_Template SHALL display the Tags as clickable labels
 8. WHEN a Scene involved one or more Actors, THE Report_Template SHALL display the cast — listing each Actor's name and their Abilities (e.g. BrowseTheWeb, CallAnApi, TakeNotes)
 
+#### Design Notes — Source Code Permalinks in Activity Tree
+
+- **Opportunity:** Serenity/JS already tracks the source location (file path + line number) where each activity (Task, Interaction) was instantiated. If we also know the VCS provider (GitHub, GitLab, Bitbucket), the commit hash, and the project/repository name, we can generate permalinks from each activity in the tree directly to the corresponding source line.
+- **Example permalink formats:**
+  - GitHub: `https://github.com/{org}/{repo}/blob/{commit}/{filePath}#L{line}`
+  - GitLab: `https://gitlab.com/{org}/{repo}/-/blob/{commit}/{filePath}#L{line}`
+  - Bitbucket: `https://bitbucket.org/{org}/{repo}/src/{commit}/{filePath}#lines-{line}`
+- **Required data:**
+  - VCS provider (detect from CI env vars or accept as configuration)
+  - Repository URL or `{org}/{repo}` (detect from `GITHUB_REPOSITORY`, `CI_PROJECT_PATH`, or parse from the `repository` field in the project's `package.json`)
+  - Commit hash (detect from `GITHUB_SHA`, `CI_COMMIT_SHA`, `GIT_COMMIT`, or read from `.git/HEAD`)
+  - Source file path + line per activity (already available in Serenity/JS reporting)
+- **Auto-detection from package.json:** The `repository` field in `package.json` (e.g. `{ "type": "git", "url": "https://github.com/org/repo.git" }` or shorthand `"org/repo"`) can be parsed to determine the VCS provider and repository path without requiring explicit configuration.
+- **Configuration option:** `sourceCodeUrl` pattern, e.g. `https://github.com/org/repo/blob/{commit}/{path}#L{line}`
+- **Template rendering:** Each activity name in the tree would become a clickable link (opening in a new tab) when source location + VCS config is available. When not configured, activities render as plain text (current behaviour).
+- **Priority:** Address after the initial HTML reporter implementation is stable.
+
 ### Requirement 9: Tag-Based Filtering
 
 **User Story:** As a Product Owner, I want to filter test results by tags, so that I can focus on specific subsets of my test suite.
@@ -317,6 +334,18 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 6. THE Report_Template SHALL display the Serenity/JS version
 7. WHERE custom environment metadata is available (e.g. CI build number, branch name, commit hash), THE Report_Template SHALL display it in the system context view
 8. THE HTML_Reporter SHALL collect system context information from Domain_Events (e.g. TestRunnerDetected) and from the Node.js runtime environment
+
+#### Design Notes
+
+- **Serenity/JS core change required:** The reporting mechanism needs to detect and emit the following data to populate the System Context view:
+  - **Node.js version**: Read from `process.version` at reporter initialization
+  - **OS name, version, arch**: Read from `os.platform()`, `os.release()`, `os.arch()`
+  - **Serenity/JS version**: Read from `@serenity-js/core` package.json version
+  - **Test runner name and version**: Already partially available via `TestRunnerDetected` domain event; may need to enrich with version info from the runner's package.json
+  - **Browser names and versions**: Available from `BrowserDetected` and `BrowserVersion` tags emitted by `@serenity-js/playwright`, `@serenity-js/webdriverio` etc.
+  - **CI metadata** (provider, build number, branch, commit, commit message): Detect from standard CI environment variables (GITHUB_*, GITLAB_CI, JENKINS_*, CIRCLECI, etc.)
+- **Possible approach**: Emit a `SystemContextDetected` domain event early in the test run (or enrich `TestRunFinished`) carrying all system context as a structured object. The HTML reporter collects this and serialises it into the `systemContext` property of `data.js`.
+- **Priority:** Address after the initial HTML reporter implementation is stable.
 
 ### Requirement 23: Performance / Speedboard View
 
