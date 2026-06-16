@@ -885,6 +885,23 @@
       font-family: var(--font-mono);
     }
 
+    .view-all-link {
+      font-size: var(--font-sm);
+      font-weight: 500;
+      color: var(--accent);
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    [data-theme="dark"] .view-all-link {
+      color: #a5a7ff;
+    }
+
+    .view-all-link:hover {
+      text-decoration: underline;
+    }
+
     /* ===== Tags View ===== */
     .tags-grid {
       display: grid;
@@ -1214,7 +1231,7 @@
       testScenarios: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6m-6 4h4"/></svg>`,
       tags: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>`,
       errors: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="17" r="0.5" fill="currentColor"/></svg>`,
-      flaky: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+      flaky: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
       coverage: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>`,
       timeline: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
       testRuns: html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/><circle cx="12" cy="12" r="1"/></svg>`,
@@ -1308,7 +1325,7 @@
                   <div class="card-title">Pass Rate</div>
                   <div class="card-value" style="color:var(--color-passed)">${passRate}%</div>
                   <div class="card-subtitle">${summary.outcomes.passed} of ${summary.totalScenarios} passed</div>
-                  <a style="font-size:var(--font-xs);color:var(--accent);cursor:pointer;text-decoration:none;margin-top:var(--space-sm);display:inline-block" onClick=${(e) => { e.stopPropagation(); onNavigate('/requirements'); }}>Requirements</a>
+                  <a class="view-all-link" style="margin-top:var(--space-sm);display:inline-block" onClick=${(e) => { e.stopPropagation(); onNavigate('/requirements'); }}>Requirements</a>
                 </div>
                 <div class="card" style="flex:1;cursor:pointer" onClick=${() => onNavigate('/tests?filter=failed')}>
                   <div class="card-title">Total Failed</div>
@@ -1330,7 +1347,7 @@
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-sm)">
                 <div class="card-title" style="margin-bottom:0;color:var(--color-failed)">New Failures</div>
                 ${newFailures.length > 0 ? html`
-                  <a style="font-size:var(--font-xs);color:var(--accent);cursor:pointer;text-decoration:none" onClick=${() => onNavigate('/tests?filter=new-failures')}>View all →</a>
+                  <a class="view-all-link" onClick=${() => onNavigate('/tests?filter=new-failures')}>View all →</a>
                 ` : null}
               </div>
               ${newFailures.length > 0 ? html`
@@ -1352,7 +1369,7 @@
               <div class="card">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-sm)">
                   <div class="card-title" style="margin-bottom:0">Most Unstable</div>
-                  <a style="font-size:var(--font-xs);color:var(--accent);cursor:pointer;text-decoration:none" onClick=${() => onNavigate('/stability')}>View all →</a>
+                  <a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>
                 </div>
                 ${flakyTests.map(t => html`
                   <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(t))} style="cursor:pointer">
@@ -1365,7 +1382,7 @@
             <div class="card" style="flex:1">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-sm)">
                 <div class="card-title" style="margin-bottom:0">Slowest Tests</div>
-                <a style="font-size:var(--font-xs);color:var(--accent);cursor:pointer;text-decoration:none" onClick=${() => onNavigate('/tests?sort=duration')}>View all →</a>
+                <a class="view-all-link" onClick=${() => onNavigate('/tests?sort=duration')}>View all →</a>
               </div>
               ${slowest.map((s, i) => html`
                 <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(s))} style="cursor:pointer">
@@ -2497,7 +2514,7 @@
       return html`
         <div>
           <div style="margin-bottom:var(--space-md);font-size:var(--font-md);color:var(--text-secondary)">
-            ${flaky.length} flaky ${flaky.length === 1 ? 'test' : 'tests'} detected across ${DATA.history.length} runs
+            ${flaky.length} unstable ${flaky.length === 1 ? 'test' : 'tests'} detected across ${DATA.history.length} runs
           </div>
 
           <div class="card">
@@ -2527,7 +2544,7 @@
                   </div>
                   <div style="text-align:right;flex-shrink:0">
                     <div style="font-size:var(--font-lg);font-weight:700;color:var(--color-pending)">${Math.round(test.flakinessRate * 100)}%</div>
-                    <div style="font-size:var(--font-2xs);color:var(--text-secondary)">flaky</div>
+                    <div style="font-size:var(--font-2xs);color:var(--text-secondary)">unstable</div>
                   </div>
                 </div>
               `)}
