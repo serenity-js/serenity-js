@@ -1280,90 +1280,100 @@
       const passRate = ((summary.outcomes.passed / summary.totalScenarios) * 100).toFixed(1);
       const sorted = [...scenarios].sort((a, b) => b.duration - a.duration);
       const slowest = sorted.slice(0, 5);
-      const fastest = sorted[sorted.length - 1];
+      const newFailures = (DATA.newFailures || []).slice(0, 5);
+      const flakyTests = (DATA.flakyTests || []).slice(0, 5);
 
       return html`
-        <div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-md);margin-bottom:var(--space-md)" class="dashboard-stats-grid">
-            <div class="card" style="display:flex;flex-direction:column">
-              <div class="card-title">Test Results</div>
-              <div class="donut-chart">
-                <${DonutChart} outcomes=${summary.outcomes} total=${summary.totalScenarios} />
-                <div class="donut-legend">
-                  <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=passed')}><span class="legend-dot" style="background:var(--color-passed)"></span> Passed (${summary.outcomes.passed})</div>
-                  <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=failed')}><span class="legend-dot" style="background:var(--color-failed)"></span> Failed (${summary.outcomes.failed})</div>
-                  <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=pending')}><span class="legend-dot" style="background:var(--color-pending)"></span> Pending (${summary.outcomes.pending})</div>
-                  <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=skipped')}><span class="legend-dot" style="background:var(--color-skipped)"></span> Skipped (${summary.outcomes.skipped})</div>
-                  <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=compromised')}><span class="legend-dot" style="background:var(--color-compromised)"></span> Compromised (${summary.outcomes.compromised})</div>
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:var(--space-md)" class="dashboard-trend-grid">
+          <!-- Left column -->
+          <div style="display:flex;flex-direction:column;gap:var(--space-md)">
+            <!-- Row 1: Test Results + Pass Rate / Failed -->
+            <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:var(--space-md)" class="dashboard-stats-grid">
+              <div class="card" style="display:flex;flex-direction:column">
+                <div class="card-title">Test Results</div>
+                <div class="donut-chart">
+                  <${DonutChart} outcomes=${summary.outcomes} total=${summary.totalScenarios} />
+                  <div class="donut-legend">
+                    <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=passed')}><span class="legend-dot" style="background:var(--color-passed)"></span> Passed (${summary.outcomes.passed})</div>
+                    <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=failed')}><span class="legend-dot" style="background:var(--color-failed)"></span> Failed (${summary.outcomes.failed})</div>
+                    <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=pending')}><span class="legend-dot" style="background:var(--color-pending)"></span> Pending (${summary.outcomes.pending})</div>
+                    <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=skipped')}><span class="legend-dot" style="background:var(--color-skipped)"></span> Skipped (${summary.outcomes.skipped})</div>
+                    <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=compromised')}><span class="legend-dot" style="background:var(--color-compromised)"></span> Compromised (${summary.outcomes.compromised})</div>
+                  </div>
+                </div>
+                <div style="margin-top:var(--space-md);font-size:var(--font-sm);color:var(--text-secondary)">${summary.totalScenarios} scenarios • ${summary.testRunner}</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:var(--space-md)">
+                <div class="card" style="flex:1;cursor:pointer" onClick=${() => onNavigate('/tests?filter=non-passing')}>
+                  <div class="card-title">Pass Rate</div>
+                  <div class="card-value" style="color:var(--color-passed)">${passRate}%</div>
+                  <div class="card-subtitle">${summary.outcomes.passed} of ${summary.totalScenarios} passed</div>
+                  <a style="font-size:var(--font-xs);color:var(--accent);cursor:pointer;text-decoration:none;margin-top:var(--space-sm);display:inline-block" onClick=${(e) => { e.stopPropagation(); onNavigate('/requirements'); }}>Requirements</a>
+                </div>
+                <div class="card" style="flex:1;cursor:pointer" onClick=${() => onNavigate('/tests?filter=failed')}>
+                  <div class="card-title">Total Failed</div>
+                  <div class="card-value" style="color:var(--color-failed)">${summary.outcomes.failed + summary.outcomes.error}</div>
+                  <div class="card-subtitle">${summary.outcomes.compromised} compromised</div>
                 </div>
               </div>
-              <div style="margin-top:var(--space-md);font-size:var(--font-sm);color:var(--text-secondary)">${summary.totalScenarios} scenarios • ${summary.testRunner}</div>
             </div>
-            <div style="display:flex;flex-direction:column;gap:var(--space-md)">
-              <div class="card" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=non-passing')}>
-                <div class="card-title">Pass Rate</div>
-                <div class="card-value" style="color: var(--color-passed)">${passRate}%</div>
-                <div class="card-subtitle">${summary.outcomes.passed} of ${summary.totalScenarios} passed</div>
-              </div>
-              <div class="card">
-                <div class="card-title">Test Run Duration</div>
-                <div class="card-value">${formatDuration(summary.duration)}</div>
-                <div class="card-subtitle">${new Date(summary.finishedAt).toLocaleTimeString()}</div>
-              </div>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:var(--space-md)">
-              <div class="card" style="cursor:pointer" onClick=${() => sorted[0] && onNavigate(scenarioUrl(sorted[0]))}>
-                <div class="card-title">Slowest Test</div>
-                <div class="card-value">${formatDuration(sorted[0]?.duration || 0)}</div>
-                <div class="card-subtitle" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${sorted[0]?.name || '—'}</div>
-              </div>
-              <div class="card">
-                <div class="card-title">Failed</div>
-                <div class="card-value" style="color:var(--color-failed)">${summary.outcomes.failed + summary.outcomes.error}</div>
-                <div class="card-subtitle">${summary.outcomes.compromised} compromised</div>
-              </div>
-            </div>
-          </div>
-
-          <div style="display:grid;grid-template-columns:2fr 1fr;gap:var(--space-md);margin-bottom:var(--space-md)" class="dashboard-trend-grid">
+            <!-- Row 2: Trend chart -->
             <div class="card" style="overflow:hidden">
               <div class="card-title">Trend (Last ${history.length} runs)</div>
               <${TrendChart} history=${history} onNavigate=${onNavigate} />
             </div>
-            <div style="display:flex;flex-direction:column;gap:var(--space-md)">
-              <div class="card" style="flex:1">
-                <div class="card-title">Slowest Tests</div>
-                ${slowest.map((s, i) => html`
-                  <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(s))} style="cursor:pointer">
-                    <span class="slowest-rank">#${i + 1}</span>
-                    <span class="slowest-name">${s.name}</span>
-                    <span class="slowest-dur">${formatDuration(s.duration)}</span>
+          </div>
+
+          <!-- Right column: New Failures / Most Unstable / Slowest Tests -->
+          <div style="display:flex;flex-direction:column;gap:var(--space-md)">
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-sm)">
+                <div class="card-title" style="margin-bottom:0;color:var(--color-failed)">New Failures</div>
+                ${newFailures.length > 0 ? html`
+                  <a style="font-size:var(--font-xs);color:var(--accent);cursor:pointer;text-decoration:none" onClick=${() => onNavigate('/tests?filter=new-failures')}>View all →</a>
+                ` : null}
+              </div>
+              ${newFailures.length > 0 ? html`
+                ${newFailures.map(t => html`
+                  <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(t))} style="cursor:pointer">
+                    <span style="font-size:var(--font-sm);color:var(--color-failed)">✗</span>
+                    <span class="slowest-name">${t.name}</span>
+                  </div>
+                `)}
+                <div style="font-size:var(--font-xs);color:var(--text-secondary);margin-top:var(--space-sm)">Passed in previous run, failing now</div>
+              ` : html`
+                <div style="padding:var(--space-md) 0;text-align:center;color:var(--color-passed)">
+                  <div style="font-size:var(--font-lg);margin-bottom:var(--space-xs)">✓</div>
+                  <div style="font-size:var(--font-md)">Well done! No new failures</div>
+                </div>
+              `}
+            </div>
+            ${flakyTests.length > 0 ? html`
+              <div class="card">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-sm)">
+                  <div class="card-title" style="margin-bottom:0">Most Unstable</div>
+                  <a style="font-size:var(--font-xs);color:var(--accent);cursor:pointer;text-decoration:none" onClick=${() => onNavigate('/flaky')}>View all →</a>
+                </div>
+                ${flakyTests.map(t => html`
+                  <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(t))} style="cursor:pointer">
+                    <span style="font-size:var(--font-sm);font-weight:600;color:var(--color-pending);width:36px">${Math.round(t.flakinessRate * 100)}%</span>
+                    <span class="slowest-name">${t.name}</span>
                   </div>
                 `)}
               </div>
-              ${DATA.flakyTests && DATA.flakyTests.length > 0 ? html`
-                <div class="card">
-                  <div class="card-title">Most Unstable</div>
-                  ${DATA.flakyTests.slice(0, 3).map(t => html`
-                    <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(t))} style="cursor:pointer">
-                      <span style="font-size:var(--font-sm);font-weight:600;color:var(--color-pending);width:36px">${Math.round(t.flakinessRate * 100)}%</span>
-                      <span class="slowest-name">${t.name}</span>
-                    </div>
-                  `)}
+            ` : null}
+            <div class="card" style="flex:1">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-sm)">
+                <div class="card-title" style="margin-bottom:0">Slowest Tests</div>
+                <a style="font-size:var(--font-xs);color:var(--accent);cursor:pointer;text-decoration:none" onClick=${() => onNavigate('/tests?sort=duration')}>View all →</a>
+              </div>
+              ${slowest.map((s, i) => html`
+                <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(s))} style="cursor:pointer">
+                  <span class="slowest-rank">#${i + 1}</span>
+                  <span class="slowest-name">${s.name}</span>
+                  <span class="slowest-dur">${formatDuration(s.duration)}</span>
                 </div>
-              ` : null}
-              ${DATA.newFailures && DATA.newFailures.length > 0 ? html`
-                <div class="card">
-                  <div class="card-title" style="color:var(--color-failed)">New Failures</div>
-                  ${DATA.newFailures.slice(0, 3).map(t => html`
-                    <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(t))} style="cursor:pointer">
-                      <span style="font-size:var(--font-sm);color:var(--color-failed)">✗</span>
-                      <span class="slowest-name">${t.name}</span>
-                    </div>
-                  `)}
-                  <div style="font-size:var(--font-xs);color:var(--text-secondary);margin-top:var(--space-sm)">Passed in previous run, failing now</div>
-                </div>
-              ` : null}
+              `)}
             </div>
           </div>
         </div>
@@ -1372,10 +1382,12 @@
 
     // ===== Filter Bar =====
     function FilterBar({ outcomes, total, activeFilter, onFilter }) {
+      const newFailuresCount = (DATA.newFailures || []).length;
       const filters = [
         { key: 'all', label: 'All', count: total },
         { key: 'passed', label: 'Passed', count: outcomes.passed },
         { key: 'failed', label: 'Failed', count: outcomes.failed },
+        { key: 'new-failures', label: 'New Failures', count: newFailuresCount },
         { key: 'pending', label: 'Pending', count: outcomes.pending },
         { key: 'skipped', label: 'Skipped', count: outcomes.skipped },
         { key: 'compromised', label: 'Compromised', count: outcomes.compromised },
@@ -1506,6 +1518,7 @@
                 tension: 0.3,
                 pointRadius: 4,
                 pointHoverRadius: 6,
+                yAxisID: 'y',
               },
               {
                 label: 'Failed',
@@ -1516,6 +1529,7 @@
                 tension: 0.3,
                 pointRadius: 4,
                 pointHoverRadius: 6,
+                yAxisID: 'y',
               },
               {
                 label: 'Other',
@@ -1526,6 +1540,19 @@
                 tension: 0.3,
                 pointRadius: 4,
                 pointHoverRadius: 6,
+                yAxisID: 'y',
+              },
+              {
+                label: 'Duration',
+                data: history.map(h => h.duration),
+                borderColor: isDark ? 'rgba(105,108,255,0.7)' : 'rgba(105,108,255,0.6)',
+                backgroundColor: 'transparent',
+                borderDash: [4, 4],
+                fill: false,
+                tension: 0.3,
+                pointRadius: 3,
+                pointHoverRadius: 5,
+                yAxisID: 'y1',
               },
             ],
           },
@@ -1543,11 +1570,23 @@
             plugins: {
               legend: { display: true, position: 'bottom', labels: { color: textColor, usePointStyle: true, padding: 16 } },
               tooltip: {
+                usePointStyle: false,
                 callbacks: {
                   title: (items) => {
                     const idx = items[0].dataIndex;
                     const run = history[idx];
                     return run.label + ' — ' + new Date(run.timestamp).toLocaleDateString();
+                  },
+                  label: (context) => {
+                    const label = context.dataset.label || '';
+                    if (label === 'Duration') {
+                      return label + ': ' + formatDuration(context.raw);
+                    }
+                    return label + ': ' + context.raw;
+                  },
+                  labelColor: (context) => {
+                    const color = context.dataset.borderColor;
+                    return { borderColor: color, backgroundColor: color };
                   },
                 },
               },
@@ -1564,7 +1603,8 @@
                 min: window.innerWidth <= 768 && history.length > 3 ? history.length - 3 : undefined,
                 max: history.length - 1,
               },
-              y: { beginAtZero: true, ticks: { color: textColor, precision: 0 }, grid: { color: gridColor } },
+              y: { beginAtZero: true, ticks: { color: textColor, precision: 0 }, grid: { color: gridColor }, title: { display: false } },
+              y1: { position: 'right', beginAtZero: true, ticks: { color: textColor, callback: (v) => formatDuration(v) }, grid: { drawOnChartArea: false }, title: { display: false } },
             },
           },
         });
@@ -1790,6 +1830,10 @@
         let result = DATA.scenarios;
         if (filter === 'non-passing') {
           result = result.filter(s => s.outcome !== 'SUCCESS');
+        } else if (filter === 'new-failures') {
+          // New failures: scenarios that failed/compromised in current run but passed in previous
+          const newFailureIds = new Set((DATA.newFailures || []).map(s => s.source.path + ':' + s.source.line));
+          result = result.filter(s => newFailureIds.has(s.source.path + ':' + s.source.line));
         } else if (filter !== 'all') {
           const outcomeMap = { passed: 'SUCCESS', failed: 'FAILURE', pending: 'PENDING', skipped: 'SKIPPED', compromised: 'COMPROMISED' };
           result = result.filter(s => s.outcome === outcomeMap[filter]);

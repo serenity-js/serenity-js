@@ -442,6 +442,78 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 9. THE Requirements view SHALL display coverage statistics (pass rate, test count) alongside each node, integrated with the README documentation
 10. THE Requirements view SHALL visually indicate nodes with no test coverage (coverage gaps) inline within the hierarchy tree
 
+### Requirement 30: Virtual Scrolling for Large Datasets
+
+**User Story:** As an Engineer, I want the report to remain performant with thousands of test scenarios, so that I can navigate quickly even in large test suites.
+
+#### Acceptance Criteria
+
+1. THE Report_Template SHALL use virtual scrolling (rendering only visible items) for the Test Scenarios list view
+2. THE Report_Template SHALL use virtual scrolling for the Timeline view's scenario rows
+3. WHEN the dataset contains 5000+ scenarios, THE Report_Template SHALL render only the visible rows plus a configurable overscan buffer (not the entire list)
+4. THE Report_Template SHALL maintain correct scroll position and item ordering when scrolling through virtualized lists
+5. WHEN the viewport is resized across the 1024px breakpoint, THE Report_Template SHALL recalculate virtualized item positions and re-render with the appropriate row height
+
+### Requirement 31: Responsive Timeline Layout
+
+**User Story:** As an Engineer, I want the timeline view to adapt its layout for different screen sizes, so that I can review execution timing on tablets and phones.
+
+#### Acceptance Criteria
+
+1. WHEN the viewport width exceeds 1024px, THE Timeline view SHALL display the desktop Gantt chart layout: scenario label on the left (380px), horizontal bar positioned by execution start time, duration label on the right, and time axis ticks above
+2. WHEN the viewport width is 1024px or narrower, THE Timeline view SHALL display a stacked mobile layout: scenario name on the first line, proportional duration bar on the second line (positioned at left=0, width proportional to duration/slowest)
+3. WHEN the viewport is resized between mobile and desktop breakpoints, THE Timeline view SHALL reactively switch layouts without requiring a page reload
+4. THE Timeline view SHALL hide the time axis (x-axis ticks) on viewports 1024px or narrower
+5. THE mobile layout rows SHALL be 52px tall; the desktop layout rows SHALL be 28px tall
+
+### Requirement 32: Sticky Category Headers in Virtualized Scenario List
+
+**User Story:** As an Engineer, I want category group headers to remain visible while scrolling through a category's scenarios, so that I always know which group I'm looking at.
+
+#### Acceptance Criteria
+
+1. WHEN the Test Scenarios view is sorted by "Category" and the user scrolls within a group, THE Report_Template SHALL display the current group's header pinned to the top of the scroll container
+2. THE sticky header SHALL update to reflect the currently visible group as the user scrolls between groups
+3. THE sticky header SHALL be hidden when the original group header is still visible in the viewport
+4. WHEN the sort mode is changed away from "Category" (e.g. Name, Slowest, Status), THE sticky header SHALL be hidden
+5. THE group headers SHALL have consistent spacing: 16px gap above the header (separating from previous group) and 16px gap below the header border (before first scenario in the group), except for the first header which has no top gap
+
+### Requirement 33: Group Header Truncation on Narrow Viewports
+
+**User Story:** As an Engineer viewing the report on a narrow screen, I want long category paths to be truncated from the beginning, so that the most specific (last) segment remains visible.
+
+#### Acceptance Criteria
+
+1. WHEN a group header text overflows its container width, THE Report_Template SHALL truncate from the left (beginning) and display an ellipsis
+2. THE last segment of the category path (e.g. "Reports Failing Scenarios" in "Reporting Results › Reports Failing Scenarios") SHALL remain visible when truncation occurs
+3. THE full category path SHALL remain visible on viewports wide enough to display it without overflow
+
+### Requirement 34: Dashboard Layout with Right-Side Action Cards
+
+**User Story:** As a Product Owner, I want the dashboard to show actionable information (new failures, unstable tests, slowest tests) in a consistent column alongside the trend chart, so that I can quickly assess what needs attention.
+
+#### Acceptance Criteria
+
+1. THE Dashboard SHALL use a 2-column grid layout: a wider left column containing the Test Results card (with Pass Rate and Total Failed to its right) and the Trend chart below; and a narrower right column containing New Failures, Most Unstable, and Slowest Tests cards stacked vertically
+2. THE right column cards SHALL all have the same width (1fr of the 2fr/1fr grid)
+3. THE "New Failures" card SHALL show up to 5 scenarios that passed in the previous run but failed in the current run, with a "View all →" link navigating to `/tests?filter=new-failures`
+4. WHEN there are no new failures, THE "New Failures" card SHALL display an encouraging message: "Well done! No new failures" with a green checkmark
+5. THE "Most Unstable" card SHALL show up to 5 flaky scenarios with their flakiness rate percentage, with a "View all →" link navigating to `/flaky`
+6. THE "Slowest Tests" card SHALL show the top 5 slowest scenarios with their durations, with a "View all →" link navigating to `/tests?sort=duration`
+7. THE Trend chart SHALL include a Duration dataset (dashed line) plotted against a right y-axis, showing test run duration over time
+8. THE right y-axis SHALL display duration values using the `formatDuration` function (handling ms, seconds, minutes, hours)
+9. THE Trend chart tooltip SHALL display formatted duration (e.g. "4.2s", "2m 15s") for the Duration dataset, and filled colour boxes for each series in the legend
+
+### Requirement 35: Pending Outcome Icon
+
+**User Story:** As an Engineer, I want outcome icons to render consistently and be well-centered, so that the visual indicators are clear and professional.
+
+#### Acceptance Criteria
+
+1. THE Report_Template SHALL use an en-dash character (–) for the pending outcome icon
+2. THE pending icon SHALL be vertically and horizontally centered within its circular container
+3. THE outcome icons SHALL use the following characters: ✓ (passed), ✗ (failed), – (pending), ⊘ (skipped), ⚠ (compromised)
+
 ## Functional Test Scenarios
 
 The following test scenarios should be implemented as Playwright Test acceptance tests under `integration/html-reporter/` to verify the HTML report template behaviour. These are derived from issues discovered and behaviours identified during the template prototyping phase.
@@ -586,3 +658,55 @@ The following test scenarios should be implemented as Playwright Test acceptance
 100. Report renders when `data.js` has no tags (empty `tags` array)
 101. Report renders when `data.js` has no requirements (`requirements` is null)
 102. Report handles scenarios with missing optional fields (cast, tags, executionHistory, activities) without crashing
+
+### Virtual Scrolling & Performance
+
+103. Timeline view uses virtualized rendering — only visible rows exist in the DOM
+104. Test Scenarios list uses virtualized rendering — only visible rows exist in the DOM
+105. Scrolling through 100+ scenarios in the list does not create more than ~50 DOM nodes
+106. Virtual scroll maintains correct item order after scrolling to bottom and back to top
+107. Sticky group header appears when scrolling within a category group
+108. Sticky group header updates to show the correct category when crossing group boundaries
+109. Sticky group header is hidden when sort mode is not "Category"
+110. Group headers have z-index above scenario items (no text overlap)
+111. Scenario row height (66px) contains all content without overflow into adjacent items
+
+### Responsive Timeline
+
+112. At viewport >1024px, timeline shows desktop Gantt layout (label | bar | duration)
+113. At viewport ≤1024px, timeline shows stacked mobile layout (name + bar below)
+114. Resizing from desktop to tablet switches timeline to stacked layout without reload
+115. Resizing from tablet to desktop switches timeline to Gantt layout without reload
+116. Desktop timeline shows time axis ticks above the Gantt chart
+117. Mobile/tablet timeline hides the time axis ticks
+118. Mobile timeline bar uses `left: 0` (proportional width, not timeline-offset)
+
+### Group Header Truncation
+
+119. On narrow viewports, long group headers truncate from the left with ellipsis
+120. The last segment of a multi-level category path remains visible when truncated
+121. On wide viewports, the full category path displays without truncation
+
+### Dashboard Layout
+
+122. Dashboard displays 2-column grid: left (test results + trend) and right (action cards)
+123. Right column shows New Failures, Most Unstable, Slowest Tests in that order
+124. All right column cards have the same width
+125. "New Failures" card shows up to 5 entries with "View all →" link to `/tests?filter=new-failures`
+126. "New Failures" card shows "Well done! No new failures" when empty
+127. "Most Unstable" card shows up to 5 entries with "View all →" link to `/flaky`
+128. "Slowest Tests" card shows top 5 with "View all →" link to `/tests?sort=duration`
+129. Clicking a slowest test entry navigates to its scenario detail
+130. Clicking a new failure entry navigates to its scenario detail
+131. Clicking a most unstable entry navigates to its scenario detail
+132. Pass Rate card navigates to `/tests?filter=non-passing` on click
+133. Total Failed card navigates to `/tests?filter=failed` on click
+134. "Requirements" link in Pass Rate card navigates to `/requirements`
+135. Trend chart includes Duration dataset as dashed purple line on right y-axis
+136. Trend chart right y-axis labels use formatDuration (handles ms/s/m/h)
+137. Trend chart tooltip shows formatted duration for Duration series
+138. Trend chart tooltip legend boxes are filled with solid dataset colours
+
+### Pending Icon
+
+139. Pending scenarios show an en-dash (–) icon that is centered in the outcome circle
