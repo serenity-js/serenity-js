@@ -2506,46 +2506,39 @@
     // ===== Placeholder Views =====
     function FlakyView({ onNavigate }) {
       const flaky = DATA.flakyTests || [];
-      const degraded = DATA.newFailures || [];
-      const recovered = DATA.newPasses || [];
 
-      const [filter, setFilter] = useState('all');
+      const [filter, setFilter] = useState('unstable');
       const [search, setSearch] = useState('');
       const [sort, setSort] = useState('category');
 
-      const hasNoData = flaky.length === 0 && degraded.length === 0 && recovered.length === 0;
+      const hasNoData = flaky.length === 0;
 
       if (hasNoData) {
         return html`
           <div class="placeholder-view">
             ${icons.flaky}
             <h2>All Tests Stable</h2>
-            <p>No degraded, recovered, or unstable results detected.<br/>Run your test suite several times to populate history.</p>
+            <p>No unstable results detected.<br/>Run your test suite several times to populate history.</p>
           </div>
         `;
       }
 
-      // Merge flaky data into degraded/recovered items when they also appear in flakyTests
-      const enrichWithHistory = (items, kind) => items.map(t => {
-        const flakyMatch = flaky.find(f => f.id === t.id);
-        return { ...t, kind, history: flakyMatch?.history, labels: flakyMatch?.labels, flakinessRate: flakyMatch?.flakinessRate };
-      });
+      // Derive degraded/recovered from flakyTests based on most recent outcome
+      const allUnstable = useMemo(() => flaky.map(t => {
+        const lastOutcome = t.history && t.history.length > 0 ? t.history[t.history.length - 1] : null;
+        const kind = lastOutcome === 'SUCCESS' ? 'recovered' : 'degraded';
+        return { ...t, kind };
+      }), []);
 
-      // Build unified list based on filter
+      const degradedCount = allUnstable.filter(t => t.kind === 'degraded').length;
+      const recoveredCount = allUnstable.filter(t => t.kind === 'recovered').length;
+
+      // Build list based on filter
       const allItems = useMemo(() => {
-        const degradedItems = enrichWithHistory(degraded, 'degraded');
-        const recoveredItems = enrichWithHistory(recovered, 'recovered');
-        const unstableItems = flaky.map(t => ({ ...t, kind: 'unstable' }));
-
-        if (filter === 'degraded') return degradedItems;
-        if (filter === 'recovered') return recoveredItems;
-        if (filter === 'unstable') return unstableItems;
-        const seen = new Set();
-        const result = [];
-        for (const item of [...degradedItems, ...recoveredItems]) { seen.add(item.id); result.push(item); }
-        for (const item of unstableItems) { if (!seen.has(item.id)) result.push(item); }
-        return result;
-      }, [filter]);
+        if (filter === 'degraded') return allUnstable.filter(t => t.kind === 'degraded');
+        if (filter === 'recovered') return allUnstable.filter(t => t.kind === 'recovered');
+        return allUnstable; // 'unstable' shows all
+      }, [filter, allUnstable]);
 
       // Apply search filter
       const searchedItems = useMemo(() => {
@@ -2665,13 +2658,12 @@
 
       const kindIcon = (kind) => {
         if (kind === 'degraded') return html`<span class="scenario-outcome-icon failed">✗</span>`;
-        if (kind === 'recovered') return html`<span class="scenario-outcome-icon passed">✓</span>`;
         return html`<span class="scenario-outcome-icon pending">⚡</span>`;
       };
 
       const kindLabel = (kind) => {
-        if (kind === 'degraded') return 'was passing, now failing';
-        if (kind === 'recovered') return 'was failing, now passing';
+        if (kind === 'degraded') return 'currently failing';
+        if (kind === 'recovered') return 'currently passing';
         return '';
       };
 
@@ -2689,17 +2681,14 @@
 
           <!-- Filter tabs -->
           <div style="display:flex;gap:var(--space-sm);margin-bottom:var(--space-md);flex-wrap:wrap">
-            <button class="filter-chip ${filter === 'all' ? 'active' : ''}" onClick=${() => setFilter('all')}>
-              All <span class="count">${degraded.length + recovered.length + flaky.length}</span>
+            <button class="filter-chip ${filter === 'unstable' ? 'active' : ''}" onClick=${() => setFilter('unstable')}>
+              Unstable <span class="count">${flaky.length}</span>
             </button>
             <button class="filter-chip failed ${filter === 'degraded' ? 'active' : ''}" onClick=${() => setFilter('degraded')}>
-              Degraded <span class="count">${degraded.length}</span>
+              Degraded <span class="count">${degradedCount}</span>
             </button>
             <button class="filter-chip passed ${filter === 'recovered' ? 'active' : ''}" onClick=${() => setFilter('recovered')}>
-              Recovered <span class="count">${recovered.length}</span>
-            </button>
-            <button class="filter-chip pending ${filter === 'unstable' ? 'active' : ''}" onClick=${() => setFilter('unstable')}>
-              Unstable <span class="count">${flaky.length}</span>
+              Recovered <span class="count">${recoveredCount}</span>
             </button>
           </div>
 
