@@ -1094,6 +1094,15 @@ window.__SERENITY_REPORT_DATA__ = {
       history: ["SUCCESS", "SUCCESS", "COMPROMISED", "SUCCESS", "COMPROMISED"],
       labels: ["#85", "#86", "#87", "#88", "#89"],
     },
+    {
+      id: "scenario-1",
+      name: "Transfer points between existing members",
+      category: "Frequent Flyers › Transferring Points Between Members",
+      source: { path: "frequent_flyers/transferring_points_between_members.feature", line: 22 },
+      flakinessRate: 0.2,
+      history: ["SUCCESS", "FAILURE", "SUCCESS", "FAILURE", "SUCCESS"],
+      labels: ["#85", "#86", "#87", "#88", "#89"],
+    },
   ],
 
   // Scenarios that failed in the latest run but passed in the previous run (regressions)
@@ -1113,6 +1122,34 @@ window.__SERENITY_REPORT_DATA__ = {
       source: { path: "reporting_results/reports_timed_out_scenarios.feature", line: 8 },
       previousOutcome: "SUCCESS",
       currentOutcome: "FAILURE",
+    },
+  ],
+
+  // Scenarios that passed in the latest run but failed in the previous run (recoveries)
+  newPasses: [
+    {
+      id: "scenario-1",
+      name: "Transfer points between existing members",
+      category: "Frequent Flyers › Transferring Points Between Members",
+      source: { path: "frequent_flyers/transferring_points_between_members.feature", line: 22 },
+      previousOutcome: "FAILURE",
+      currentOutcome: "SUCCESS",
+    },
+    {
+      id: "scenario-4",
+      name: "A passing scenario",
+      category: "Reporting Results › Reports Passing Scenarios",
+      source: { path: "reporting_results/reports_passing_scenarios.feature", line: 8 },
+      previousOutcome: "FAILURE",
+      currentOutcome: "SUCCESS",
+    },
+    {
+      id: "scenario-13",
+      name: "People who make Serenity happen — jan-molak",
+      category: "Reporting Results › Reports Scenario Outlines",
+      source: { path: "reporting_results/reports_scenario_outlines.feature", line: 8 },
+      previousOutcome: "FAILURE",
+      currentOutcome: "SUCCESS",
     },
   ],
 
