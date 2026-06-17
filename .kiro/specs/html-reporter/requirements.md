@@ -2,15 +2,17 @@
 
 ## Introduction
 
-The `@serenity-js/html-reporter` module is a pure static HTML reporter for Serenity/JS that replaces the Java-based Serenity BDD CLI. It produces a self-contained report consisting of only two files: `index.html` (with all CSS and JS embedded inline) and `data.js` (test results assigned to a global variable). The `data.js` file is updated on each subsequent test run to accumulate execution history and trend data. The report works on `file://` protocol, GitHub Pages, GitLab Pages, S3, and any static hosting without a backend or fetch API.
+The `@serenity-js/html-reporter` module is a pure static HTML reporter for Serenity/JS that replaces the Java-based Serenity BDD CLI. The module ships with the HTML report template and all required JavaScript libraries (Preact, Chart.js, @tanstack/virtual-core, etc.) as npm dependencies. Upon completion of a test run, it produces a self-contained report under a configurable output directory (default: `./reports/serenity-js`). The generated `index.html` inlines all CSS, JavaScript, and library code so that the report functions in air-gapped corporate environments with no external network requests — only user-generated artifacts (screenshots, videos, traces) are loaded as separate files. Each test run produces its own `db.json` file and associated artifacts under a timestamped subdirectory (`test-runs/<timestamp>/`). Historical test run data files are preserved between runs, enabling trend analysis and execution history. The report works on `file://` protocol, GitHub Pages, GitLab Pages, S3, and any static hosting without a backend or fetch API.
 
 **Visual Design Reference:** The report UI should follow the clean, card-based dashboard style of the Materio Vuetify admin template: https://demos.themeselection.com/materio-vuetify-nuxtjs-admin-template-free/demo/dashboard — using a similar approach to layout, spacing, card elevation, typography, and colour palette for both light and dark modes.
 
 ## Glossary
 
-- **HTML_Reporter**: The `@serenity-js/html-reporter` StageCrewMember that collects domain events and produces the static HTML report
-- **Report_Output**: The output directory containing the generated report files (index.html, data.js)
-- **Data_File**: The `data.js` file containing serialized test results assigned to `window.__SERENITY_REPORT_DATA__`, updated on each test run to accumulate historical data
+- **HTML_Reporter**: The `@serenity-js/html-reporter` StageCrewMember that collects domain events, stores per-run data and artifacts, and produces the static HTML report
+- **Report_Output**: The output directory containing the generated report (default: `./reports/serenity-js`). Contains `index.html`, `data.js`, and the `test-runs/` subdirectory
+- **Test_Run_Directory**: A timestamped subdirectory under `test-runs/` (e.g. `test-runs/2024-06-15T14:30:00.000Z/`) containing the `db.json` data file and any artifacts (screenshots, videos, traces) produced during that test run
+- **Run_Data_File**: The `db.json` file within a Test_Run_Directory, containing the complete test execution data for a single test run. Preserved between runs to enable trend analysis
+- **Data_Snapshot**: The `data.js` file at the Report_Output root, regenerated on each test run by aggregating all Run_Data_Files. Assigned to `window.__SERENITY_REPORT_DATA__` for consumption by the Report_Template
 - **Report_Template**: The static HTML/CSS/JS template that renders the report from the global data variable
 - **Scene**: A single test scenario (e.g. a Playwright Test `test()`, a Cucumber scenario, a Mocha `it()`)
 - **Activity_Tree**: The hierarchical tree of Tasks, Interactions, and their outcomes within a Scene
@@ -18,13 +20,16 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 - **Stage**: The Serenity/JS messaging infrastructure that distributes Domain_Events to StageCrewMembers
 - **StageCrewMember**: An interface for in-memory services that react to Domain_Events published by the Stage
 - **StageCrewMemberBuilder**: A factory interface for creating complex StageCrewMembers with injected dependencies
-- **Artifact**: A file-based output produced during a test run (screenshot, JSON report, etc.)
+- **Artifact**: A file-based output produced during a test run (screenshot, video, trace file, log) stored within the Test_Run_Directory
 - **Tag**: A metadata label attached to a Scene (e.g. feature name, issue reference, capability)
 - **Requirements_Hierarchy**: A tree structure that mirrors the user's directory layout under the Spec_Directory, with no predefined semantic meaning per nesting level — directories are simply navigable grouping nodes and test files can appear at any depth
 - **Spec_Directory**: The configurable root directory from which the Requirements_Hierarchy is derived
-- **Test_Run**: A complete execution of the test suite, producing one set of results
-- **Trend_Data**: Historical test run summaries accumulated within the Data_File's `history` array across successive test runs
-- **Flaky_Test**: A test that has both passed and failed across recent Test_Runs without code changes
+- **Test_Run**: A complete execution of the test suite, producing one Run_Data_File and associated artifacts in a new Test_Run_Directory
+- **Trend_Data**: Historical test run summaries derived by aggregating Run_Data_Files across successive test runs
+- **Unstable_Test**: A test whose most recent executions (within the Stability_Window) include both passes and failures, indicating non-deterministic behaviour
+- **Regressed_Test**: A test whose previous execution was a pass but whose current (most recent) execution is a failure
+- **Recovered_Test**: A test whose previous execution was a failure but whose current (most recent) execution is a pass
+- **Stability_Window**: The number of most recent test run executions considered when evaluating test stability (configurable, default: 5)
 
 ## Requirements
 
@@ -39,7 +44,7 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 3. WHEN the HTML_Reporter is assigned to a Stage, THE HTML_Reporter SHALL begin collecting Domain_Events
 4. THE HTML_Reporter SHALL support configuration via the crew array in test runner configuration (Playwright Test, WebdriverIO, Cucumber, Mocha, Jasmine)
 5. THE HTML_Reporter SHALL accept an `outputDirectory` configuration option specifying the Report_Output path
-6. THE HTML_Reporter SHALL default the `outputDirectory` to `./target/site/serenity-html` when no configuration is provided
+6. THE HTML_Reporter SHALL default the `outputDirectory` to `./reports/serenity-js` when no configuration is provided
 7. THE HTML_Reporter SHALL accept a `specDirectory` configuration option for deriving the Requirements_Hierarchy
 8. THE HTML_Reporter SHALL work alongside other StageCrewMembers without interfering with their operation
 
@@ -64,15 +69,20 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 
 #### Acceptance Criteria
 
-1. WHEN a TestRunFinishes event is received, THE HTML_Reporter SHALL generate the Report_Output directory
-2. THE HTML_Reporter SHALL write the Data_File containing serialized test results assigned to `window.__SERENITY_REPORT_DATA__`
-3. THE HTML_Reporter SHALL write the `index.html` file (with all CSS and JS embedded inline) to the Report_Output directory
-4. IF the `index.html` file already exists in the Report_Output directory, THEN THE HTML_Reporter SHALL overwrite it with the latest version
-4. THE HTML_Reporter SHALL emit an AsyncOperationAttempted event before report generation begins
-5. THE HTML_Reporter SHALL emit an AsyncOperationCompleted event when report generation succeeds
-6. IF report generation fails, THEN THE HTML_Reporter SHALL emit an AsyncOperationFailed event with the error details
-7. THE HTML_Reporter SHALL complete report generation within 10 seconds for a test suite of up to 1000 Scenes
-8. THE HTML_Reporter SHALL produce valid UTF-8 encoded output files supporting international characters
+1. WHEN a TestRunFinishes event is received, THE HTML_Reporter SHALL create a new Test_Run_Directory named with an ISO 8601 timestamp (e.g. `test-runs/2024-06-15T14:30:00.000Z/`)
+2. THE HTML_Reporter SHALL write the Run_Data_File (`db.json`) containing the complete test execution data for the current run into the Test_Run_Directory
+3. THE HTML_Reporter SHALL store any Artifacts (screenshots, videos, traces) produced during the test run into the same Test_Run_Directory
+4. AFTER writing the Run_Data_File, THE HTML_Reporter SHALL aggregate all existing Run_Data_Files from `test-runs/*/db.json` to produce the Data_Snapshot (`data.js`) at the Report_Output root
+5. THE HTML_Reporter SHALL write the `index.html` file to the Report_Output root by inlining all JavaScript libraries from npm dependencies and all CSS into the template
+6. IF the `index.html` file already exists in the Report_Output directory, THEN THE HTML_Reporter SHALL overwrite it with the latest version
+7. THE HTML_Reporter SHALL emit an AsyncOperationAttempted event before report generation begins
+8. THE HTML_Reporter SHALL emit an AsyncOperationCompleted event when report generation succeeds
+9. IF report generation fails, THEN THE HTML_Reporter SHALL emit an AsyncOperationFailed event with the error details
+10. THE HTML_Reporter SHALL complete report generation within 10 seconds for a test suite of up to 1000 Scenes
+11. THE HTML_Reporter SHALL produce valid UTF-8 encoded output files supporting international characters
+12. SINCE the reporter process is single-process, THE HTML_Reporter MAY assume that the data produced for a given test run is atomic and wholly produced by itself (no concurrent writers to the same Test_Run_Directory)
+13. THE HTML_Reporter SHALL NOT modify or delete any existing Test_Run_Directories or their contents — only `index.html` and `data.js` at the Report_Output root are regenerated on each run
+14. ONLY WHEN the user has explicitly configured a `maxHistory` limit SHALL the HTML_Reporter remove older Test_Run_Directories that exceed that limit
 
 ### Requirement 4: Data File Format
 
@@ -80,14 +90,21 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 
 #### Acceptance Criteria
 
-1. THE Data_File SHALL assign test results to `window.__SERENITY_REPORT_DATA__` as a JavaScript object literal
-2. THE Data_File SHALL contain a `summary` property with pass, fail, pending, skipped, and compromised counts
-3. THE Data_File SHALL contain a `scenes` array with one entry per Scene, including name, outcome, duration, tags, and Activity_Tree
-4. THE Data_File SHALL contain a `tags` array listing all unique Tags with their associated Scene counts
-5. THE Data_File SHALL contain a `requirements` property representing the Requirements_Hierarchy tree
-6. THE Data_File SHALL escape special characters in string values to produce valid JavaScript
-7. THE Data_File SHALL include artifact references (screenshot paths, video paths) as relative URLs from the Report_Output directory
-8. WHEN the `data.js` file is included via a `<script>` tag, THE Data_File SHALL be parseable by any standard JavaScript engine without errors
+1. THE Data_Snapshot SHALL assign test results to `window.__SERENITY_REPORT_DATA__` as a JavaScript object literal
+2. THE Data_Snapshot SHALL contain a `summary` property with pass, fail, pending, skipped, and compromised counts for the latest test run
+3. THE Data_Snapshot SHALL contain a `scenes` array with one entry per Scene from the latest test run, including name, outcome, duration, startedAt timestamp, tags, and Activity_Tree
+4. THE Data_Snapshot SHALL contain a `tags` array listing all unique Tags with their associated Scene counts
+5. THE Data_Snapshot SHALL contain a `requirements` property representing the Requirements_Hierarchy tree
+6. THE Data_Snapshot SHALL escape special characters in string values to produce valid JavaScript
+7. THE Data_Snapshot SHALL include artifact references (screenshot paths, video paths) as relative URLs from the Report_Output directory (e.g. `test-runs/2024-06-15T14:30:00.000Z/screenshot-001.png`)
+8. WHEN the `data.js` file is included via a `<script>` tag, THE Data_Snapshot SHALL be parseable by any standard JavaScript engine without errors
+
+#### Run Data File Format
+
+9. THE Run_Data_File (`db.json`) SHALL be a valid JSON file containing the complete test execution data for a single test run
+10. THE Run_Data_File SHALL contain: timestamp, duration, outcome counts, scenes array (each with startedAt timestamp), tags, test runner metadata, and system context
+11. THE Run_Data_File SHALL include artifact references as relative paths from the Test_Run_Directory (e.g. `screenshot-001.png`)
+12. THE Run_Data_File SHALL be independently parseable and self-contained (no references to external state)
 
 ### Requirement 5: Data File Serialisation
 
@@ -95,27 +112,38 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 
 #### Acceptance Criteria
 
-1. THE HTML_Reporter SHALL produce a Data_File that, when evaluated by a JavaScript engine, produces an object structurally equivalent to the in-memory representation
-2. FOR ALL Scene records collected during a test run, serialising to Data_File and evaluating the result SHALL produce objects with the same property values (round-trip property)
+1. THE HTML_Reporter SHALL produce a Run_Data_File that, when parsed as JSON, produces an object structurally equivalent to the in-memory representation
+2. FOR ALL Scene records collected during a test run, serialising to the Run_Data_File and parsing the result SHALL produce objects with the same property values (round-trip property)
 3. THE HTML_Reporter SHALL serialise Duration values as numeric milliseconds
 4. THE HTML_Reporter SHALL serialise Timestamp values as ISO 8601 strings
 5. THE HTML_Reporter SHALL serialise Outcome values as string identifiers (e.g. "SUCCESS", "FAILURE", "PENDING", "SKIPPED", "COMPROMISED", "ERROR")
 6. THE HTML_Reporter SHALL serialise the Activity_Tree as nested arrays preserving parent-child relationships
+7. THE Data_Snapshot aggregation SHALL correctly merge scene execution histories from multiple Run_Data_Files, ordered chronologically
 
 ### Requirement 6: Static Report Template
 
-**User Story:** As an Engineer, I want the report to be a fully static website, so that I can open it on file:// protocol, deploy to GitHub Pages, or serve from any static host without a backend.
+**User Story:** As an Engineer working in an air-gapped corporate environment, I want the report to be a fully self-contained static website with no external dependencies, so that I can open it on file:// protocol or serve it from any host without internet access.
 
 #### Acceptance Criteria
 
 1. THE Report_Template SHALL load test data exclusively from the `window.__SERENITY_REPORT_DATA__` global variable set by the `data.js` script
-2. THE Report_Output SHALL consist of exactly two files: `index.html` (with all CSS and JS embedded inline) and `data.js`
+2. THE Report_Output SHALL contain at minimum: `index.html`, `data.js`, and a `test-runs/` directory with one or more timestamped subdirectories
 3. THE `index.html` file SHALL include the `data.js` file via a `<script src="./data.js"></script>` tag
 4. THE Report_Template SHALL render correctly when opened via `file://` protocol in a modern browser
 5. THE Report_Template SHALL render correctly when served from any static hosting (GitHub Pages, GitLab Pages, S3)
-6. THE Report_Template SHALL use no fetch API, XMLHttpRequest, or WebSocket calls for loading test data
-7. THE Report_Template SHALL use a client-side framework (Preact or similar lightweight library) for rendering, bundled inline within `index.html`
-8. THE `index.html` SHALL have no external dependencies (no CDN links, no separate CSS/JS files other than `data.js`)
+6. THE Report_Template SHALL make no external network requests whatsoever — no CDN links, no fetch calls, no WebSocket connections, no external font loading
+7. THE `index.html` SHALL inline all JavaScript libraries (Preact, Chart.js, chartjs-plugin-zoom, @tanstack/virtual-core, HTM, etc.) directly within `<script>` tags
+8. THE `index.html` SHALL inline all CSS within `<style>` tags (no external stylesheets or font imports)
+9. THE only external file references in `index.html` SHALL be `data.js` and user-generated artifacts (screenshots, videos, traces) within `test-runs/` subdirectories
+10. THE Report_Output directory structure SHALL be self-contained and relocatable (all internal references use relative paths)
+
+#### Design Notes — Module Packaging
+
+- THE `@serenity-js/html-reporter` npm package SHALL declare all client-side libraries (Preact, Chart.js, chartjs-plugin-zoom, @tanstack/virtual-core, HTM) as npm dependencies
+- THE module SHALL ship with a report template (source form) that references these libraries
+- AT report generation time, THE HTML_Reporter SHALL produce the final `index.html` by inlining all library code from the installed npm dependencies into the template
+- THIS approach ensures libraries are versioned, updatable via standard npm mechanisms, and auditable for security — while the output remains fully offline-capable
+- THE template source MAY use CDN imports during development (for fast iteration in a browser), but the production output generated by the reporter MUST inline everything
 
 ### Requirement 7: Summary Dashboard View
 
@@ -196,11 +224,13 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 2. WHEN a thumbnail is clicked, THE Report_Template SHALL display the full-size screenshot in a lightbox overlay
 3. WHEN a Scene has an associated video recording, THE Report_Template SHALL display an inline video player in the Scene Detail View
 4. WHEN a Scene has an associated Playwright trace file, THE Report_Template SHALL display a download link and/or a link to open the trace in trace.playwright.dev
-5. THE Report_Template SHALL reference media files using relative paths from the Report_Output directory
-6. THE HTML_Reporter SHALL copy referenced media files into the Report_Output directory during report generation
-7. THE Report_Template SHALL display a placeholder when a referenced media file is missing
-8. WHEN a Scene has associated log attachments (browser logs, stdout/stderr, server logs, or other textual data), THE Report_Template SHALL display them as expandable text blocks within the Scene Detail View
-9. THE Report_Template SHALL support the following attachment types: screenshots (per step), video recordings (per test), Playwright trace files (per test), and text logs (per test or per step)
+5. THE Report_Template SHALL reference media files using relative paths from the Report_Output directory (e.g. `test-runs/2024-06-15T14:30:00.000Z/screenshot-001.png`)
+6. THE HTML_Reporter SHALL write artifact files directly into the Test_Run_Directory during the test run, without relying on ArtifactArchiver or any external archiving mechanism
+7. WHEN an ActivityRelatedArtifactGenerated event is received, THE HTML_Reporter SHALL persist the artifact to the Test_Run_Directory and record its relative path in the Run_Data_File
+8. THE Report_Template SHALL display a placeholder when a referenced media file is missing
+9. WHEN a Scene has associated log attachments (browser logs, stdout/stderr, server logs, or other textual data), THE Report_Template SHALL display them as expandable text blocks within the Scene Detail View
+10. THE Report_Template SHALL support the following attachment types: screenshots (per step), video recordings (per test), Playwright trace files (per test), and text logs (per test or per step)
+11. SINCE tests within a test run can execute in parallel, THE HTML_Reporter SHALL use unique filenames for artifacts (e.g. `screenshot-<correlationId>-<sequence>.png`) to avoid collisions
 
 ### Requirement 12: Requirements Hierarchy View
 
@@ -220,11 +250,13 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 
 #### Acceptance Criteria
 
-1. WHEN a previous `data.js` file exists in the Report_Output directory, THE HTML_Reporter SHALL read it to retrieve historical Test_Run data before writing the updated file
-2. THE Data_File SHALL contain a `history` array with summary results from previous Test_Runs (timestamp, outcome counts, optional build label)
-3. THE HTML_Reporter SHALL append the current Test_Run's summary to the `history` array when writing `data.js`
+1. WHEN producing the Data_Snapshot, THE HTML_Reporter SHALL read all existing Run_Data_Files from `test-runs/*/db.json` to construct historical Trend_Data
+2. THE Data_Snapshot SHALL contain a `history` array with summary results from all available Test_Runs (timestamp, outcome counts, duration, optional build label, optional CI job URL)
+3. THE HTML_Reporter SHALL order the `history` array chronologically (oldest first) based on Test_Run_Directory timestamps
 4. THE Report_Template SHALL display trend data as a line or bar chart showing outcome counts per historical run
-5. WHERE a maximum history limit is configured, THE HTML_Reporter SHALL retain only the most recent N entries in the `history` array
+5. WHERE a maximum history limit is configured, THE HTML_Reporter SHALL retain only the most recent N Test_Run_Directories (deleting older directories and their artifacts)
+6. THE HTML_Reporter SHALL derive execution history for individual Scenes by correlating scene identifiers across Run_Data_Files (matching by source file path + line number)
+7. Run_Data_Files SHALL be preserved between test runs to enable trend analysis — they are the source of truth for history, not the Data_Snapshot
 
 ### Requirement 14: Error Analysis View
 
@@ -238,19 +270,24 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 4. WHEN an error group is selected, THE Report_Template SHALL list all Scenes affected by that error with links to their detail views
 5. THE Report_Template SHALL display the error type/class name, the error message, and an example stack trace for each error group
 6. THE Report_Template SHALL visually distinguish errors that affected a large proportion of the test run (e.g. >50% of failed Scenes) as potential root causes
+7. THE Report_Template SHALL use virtual scrolling (rendering only visible items) for the error list, consistent with the approach defined in Requirement 31
+8. WHEN errors are grouped by type category, THE Report_Template SHALL display sticky category headers that remain pinned to the top of the scroll container while the user scrolls within a group, consistent with the approach defined in Requirement 33
 
-### Requirement 15: Flaky Tests View
+### Requirement 15: Stability View
 
-**User Story:** As an Engineer or Product Owner, I want a dedicated flaky tests view showing the most unstable areas of the system, so that I can prioritise fixing unreliable tests and assess which parts of the system are least trustworthy.
+**User Story:** As an Engineer or Product Owner, I want a dedicated stability view showing tests with non-deterministic outcomes, so that I can prioritise fixing unreliable tests and assess which parts of the system are least trustworthy.
 
 #### Acceptance Criteria
 
-1. THE Report_Template SHALL provide a dedicated "Flaky Tests" view accessible from the main navigation
-2. WHILE Trend_Data from multiple Test_Runs is available, THE Report_Template SHALL identify Scenes that have both passed and failed across recent runs
-3. THE Report_Template SHALL list all identified Flaky_Tests sorted by instability (most flaky first)
-4. THE Report_Template SHALL display the pass/fail ratio for each Flaky_Test across available Trend_Data
-5. THE Report_Template SHALL group flaky tests by their location in the Requirements_Hierarchy (when available) so users can identify which areas of the system are most unstable
-6. WHEN a Flaky_Test entry is selected, THE Report_Template SHALL navigate to the Scene Detail View for that test
+1. THE Report_Template SHALL provide a dedicated "Stability" view accessible from the main navigation
+2. THE HTML_Reporter SHALL determine test stability based on the Stability_Window (configurable, default: 5 most recent executions)
+3. WHILE Trend_Data from multiple Test_Runs is available, THE Report_Template SHALL identify Unstable_Tests — Scenes that have both passed and failed within the Stability_Window
+4. THE Report_Template SHALL list all identified Unstable_Tests sorted by instability rate (highest first)
+5. THE Report_Template SHALL display the pass/fail ratio for each Unstable_Test across the Stability_Window
+6. THE Report_Template SHALL group unstable tests by their location in the Requirements_Hierarchy (when available) so users can identify which areas of the system are most unstable
+7. WHEN an Unstable_Test entry is selected, THE Report_Template SHALL navigate to the Scene Detail View for that test
+8. THE Report_Template SHALL classify tests as "regressed" (Regressed_Test: previous execution passed, current failed) or "recovered" (Recovered_Test: previous execution failed, current passed) based on the two most recent run outcomes
+9. THE Report_Template SHALL display explanatory text or tooltips defining "unstable", "regressed", and "recovered" so users understand the terminology
 
 ### Requirement 16: Timeline View
 
@@ -301,14 +338,42 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 
 #### Acceptance Criteria
 
-1. THE HTML_Reporter SHALL accept an `outputDirectory` option (string) for the report destination path
+1. THE HTML_Reporter SHALL accept an `outputDirectory` option (string) for the report destination path (default: `./reports/serenity-js`)
 2. THE HTML_Reporter SHALL accept a `specDirectory` option (string) for the Requirements_Hierarchy root
 3. WHERE a `title` option is configured, THE Report_Template SHALL display the custom title in the report header
-4. WHERE a `maxHistory` option is configured, THE HTML_Reporter SHALL retain only the specified number of historical data files
-5. IF the configured `outputDirectory` is not writable, THEN THE HTML_Reporter SHALL throw a ConfigurationError with a descriptive message
-6. IF the configured `specDirectory` does not exist, THEN THE HTML_Reporter SHALL throw a ConfigurationError with a descriptive message
+4. WHERE a `maxHistory` option is configured, THE HTML_Reporter SHALL retain only the specified number of most recent Test_Run_Directories (deleting older directories and their artifacts during aggregation)
+5. THE HTML_Reporter SHALL accept a `stabilityWindow` option (number) specifying how many recent test runs to consider when determining test stability (default: 5)
+6. IF the configured `outputDirectory` is not writable, THEN THE HTML_Reporter SHALL throw a ConfigurationError with a descriptive message
+7. IF the configured `specDirectory` does not exist, THEN THE HTML_Reporter SHALL throw a ConfigurationError with a descriptive message
 
-### Requirement 21: Coverage Gaps View
+### Requirement 21: Output Directory Structure
+
+**User Story:** As an Engineer, I want a predictable output directory structure, so that I can integrate the report with CI artifact publishing and understand where test data is stored.
+
+#### Acceptance Criteria
+
+1. THE Report_Output directory SHALL have the following structure:
+   ```
+   reports/serenity-js/
+   ├── index.html              # Report template (regenerated each run)
+   ├── data.js                 # Aggregated data snapshot (regenerated each run)
+   └── test-runs/
+       ├── 2024-06-14T10:00:00.000Z/
+       │   ├── db.json         # Run data for this test run
+       │   ├── screenshot-001.png
+       │   └── video-login.webm
+       └── 2024-06-15T14:30:00.000Z/
+           ├── db.json         # Run data for this test run
+           ├── screenshot-001.png
+           └── trace-checkout.zip
+   ```
+2. THE Test_Run_Directory name SHALL be the ISO 8601 UTC timestamp of when the test run started (e.g. `2024-06-15T14:30:00.000Z`)
+3. THE HTML_Reporter SHALL create the Test_Run_Directory at the start of the test run (before artifacts are produced) so that parallel test workers can write artifacts immediately
+4. THE HTML_Reporter SHALL NOT depend on ArtifactArchiver or any external artifact management mechanism — it is solely responsible for persisting artifacts under the Report_Output directory
+5. THE Report_Output directory SHALL be fully self-contained and relocatable — all internal references (data.js to artifacts, index.html to data.js) SHALL use relative paths
+6. WHEN the Report_Output directory is published as a static site (e.g. GitHub Pages), THE report SHALL function correctly without server-side processing
+
+### Requirement 22: Coverage Gaps View
 
 **User Story:** As a Product Owner or Engineer, I want a dedicated view highlighting areas of the system with the least test coverage, so that I can identify under-tested product areas and prioritise where to add more tests.
 
@@ -320,7 +385,7 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 4. THE Report_Template SHALL sort coverage gaps by severity (areas with no coverage first, then areas with mostly pending/skipped tests)
 5. WHEN a coverage gap entry is selected, THE Report_Template SHALL navigate to the corresponding node in the Requirements Hierarchy View
 
-### Requirement 22: System Context View
+### Requirement 23: System Context View
 
 **User Story:** As an Engineer, I want a dedicated view showing the system context of the test run, so that I can understand the environment in which tests were executed and correlate failures with specific runtime conditions.
 
@@ -347,7 +412,7 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 - **Possible approach**: Emit a `SystemContextDetected` domain event early in the test run (or enrich `TestRunFinished`) carrying all system context as a structured object. The HTML reporter collects this and serialises it into the `systemContext` property of `data.js`.
 - **Priority:** Address after the initial HTML reporter implementation is stable.
 
-### Requirement 23: Performance / Speedboard View
+### Requirement 24: Performance / Speedboard View
 
 **User Story:** As an Engineer, I want a dedicated view ranking tests by execution duration (slowest first), so that I can identify which tests to optimise for faster CI feedback.
 
@@ -359,7 +424,7 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 4. THE Report_Template SHALL display performance statistics: fastest test, slowest test, average duration, and total execution time
 5. WHEN a Speedboard entry is selected, THE Report_Template SHALL navigate to the Scene Detail View for that test
 
-### Requirement 24: Source File Location Display
+### Requirement 25: Source File Location Display
 
 **User Story:** As an Engineer, I want each test to show its source file and line number, so that I can quickly locate the relevant test code.
 
@@ -367,21 +432,22 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 
 1. WHEN displaying a Scene in any list or detail view, THE Report_Template SHALL show the source file path and line number (e.g. `recording_items.spec.ts:36`)
 2. THE source location SHALL be displayed as a secondary label beneath or alongside the Scene name
-3. THE Data_File SHALL include the source file location for each Scene as a path relative to the configured `specDirectory` (not the absolute path or workspace-root-relative path)
-4. THE HTML_Reporter SHALL strip the `specDirectory` prefix from source file paths before including them in the Data_File
+3. THE Data_Snapshot SHALL include the source file location for each Scene as a path relative to the configured `specDirectory` (not the absolute path or workspace-root-relative path)
+4. THE HTML_Reporter SHALL strip the `specDirectory` prefix from source file paths before including them in the Run_Data_File
 
-### Requirement 25: Quick Outcome Filter Bar
+### Requirement 26: Quick Outcome Filter Bar
 
-**User Story:** As an Engineer or Product Owner, I want prominent one-click filter links for each outcome status (All, Passed, Failed, Flaky, Skipped), so that I can instantly focus on the subset of results I care about.
+**User Story:** As an Engineer or Product Owner, I want prominent one-click filter chips for each outcome status (All, Passed, Failed, Pending, Skipped, Compromised), so that I can instantly focus on the subset of results I care about.
 
 #### Acceptance Criteria
 
-1. THE Report_Template SHALL display a filter bar at the top of the Scene list showing links for: All, Passed, Failed, Flaky, Skipped — each with a count of matching Scenes
-2. WHEN a filter link is clicked, THE Report_Template SHALL immediately filter the Scene list to show only Scenes with the corresponding outcome
+1. THE Report_Template SHALL display a filter bar at the top of the Scene list showing chips for: All, Passed, Failed, Pending, Skipped, Compromised — each with a count of matching Scenes
+2. WHEN a filter chip is clicked, THE Report_Template SHALL immediately filter the Scene list to show only Scenes with the corresponding outcome
 3. THE Report_Template SHALL visually highlight the currently active filter
 4. THE Report_Template SHALL update the URL hash to reflect the active filter for bookmarking and sharing
+5. THE Report_Template SHALL support a `non-passing` composite filter (accessible via URL hash `?filter=non-passing`) that shows all Scenes with outcomes other than SUCCESS
 
-### Requirement 26: Browser/Project Badge per Test
+### Requirement 27: Browser/Project Badge per Test
 
 **User Story:** As an Engineer, I want to see which browser or project configuration each test ran under, so that I can quickly identify browser-specific failures.
 
@@ -389,9 +455,9 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 
 1. WHEN a Scene was executed under a specific browser or project configuration, THE Report_Template SHALL display a badge (e.g. "chromium", "firefox", "webkit") next to the Scene name
 2. THE badge SHALL be clickable to filter the Scene list to only tests from that browser/project
-3. THE Data_File SHALL include the browser/project tag for each Scene as captured from the SceneTagged domain events
+3. THE Run_Data_File SHALL include the browser/project tag for each Scene as captured from the SceneTagged domain events
 
-### Requirement 27: Retry Execution Grouping
+### Requirement 28: Retry Execution Grouping
 
 **User Story:** As an Engineer, I want retried test executions grouped together in the same view with the ability to switch between attempts, so that I can compare what changed between the failed attempt and the successful retry to understand the root cause of intermittent failures.
 
@@ -404,13 +470,13 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 5. THE Report_Template SHALL indicate the final outcome of the test (i.e. whether the last retry passed or failed) as the primary outcome shown in list views
 6. THE Report_Template SHALL display the total number of retry attempts alongside the Scene name in list views (e.g. "Login test (2 attempts)")
 
-### Requirement 28: CI Job Link per Test Run
+### Requirement 29: CI Job Link per Test Run
 
 **User Story:** As an Engineer, I want each test run in the history to link back to its CI job, so that I can quickly navigate to the build logs and artifacts for further investigation.
 
 #### Acceptance Criteria
 
-1. THE Data_File `history` entries SHALL support an optional `ciJobUrl` field containing the URL to the CI job that produced that test run
+1. THE Data_Snapshot `history` entries SHALL support an optional `ciJobUrl` field containing the URL to the CI job that produced that test run
 2. WHEN a `ciJobUrl` is present for a history entry, THE Report_Template SHALL display a clickable link icon (opening in a new tab) next to the test run label in the Test Runs view
 3. THE HTML_Reporter SHALL populate the `ciJobUrl` field from CI environment variables when available (e.g. `GITHUB_SERVER_URL + '/' + GITHUB_REPOSITORY + '/actions/runs/' + GITHUB_RUN_ID` for GitHub Actions)
 4. THE HTML_Reporter SHALL support a `ciJobUrl` configuration option that accepts a URL pattern with `{buildNumber}` placeholder (e.g. `https://github.com/org/repo/actions/runs/{buildNumber}`)
@@ -425,7 +491,7 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
   - A configuration-only approach where the reporter reads env vars directly
 - **Priority:** Address after the initial HTML reporter implementation is stable.
 
-### Requirement 29: README Rendering in Requirements View
+### Requirement 30: README Rendering in Requirements View
 
 **User Story:** As a Product Owner or Engineer, I want README files from the spec directory to be rendered as living documentation within the requirements hierarchy, so that I can understand what each product area does without leaving the test report.
 
@@ -433,16 +499,16 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 
 1. WHEN a `README.md` file exists in a directory within the configured Spec_Directory, THE HTML_Reporter SHALL read its content and render it to HTML
 2. THE HTML_Reporter SHALL use a lightweight Markdown parser (e.g. `marked`) to convert README content to HTML at report generation time
-3. THE Data_File SHALL include the rendered HTML in the corresponding requirements hierarchy node as a `readme` property
+3. THE Data_Snapshot SHALL include the rendered HTML in the corresponding requirements hierarchy node as a `readme` property
 4. THE Report_Template SHALL display the rendered README content inline when a requirements hierarchy node is expanded in the Requirements view
 5. THE Report_Template SHALL style README content with proper typography: paragraph spacing, list indentation, heading hierarchy, code blocks, and links
 6. THE Report_Template SHALL support READMEs at any nesting level of the Requirements_Hierarchy (not just top-level directories)
-7. IF a directory does not contain a `README.md` file, THEN the `readme` property SHALL be omitted from that node in the Data_File
+7. IF a directory does not contain a `README.md` file, THEN the `readme` property SHALL be omitted from that node in the Data_Snapshot
 8. THE HTML_Reporter SHALL sanitize the rendered HTML to prevent XSS when README content contains raw HTML (strip `<script>`, `on*` attributes, etc.)
 9. THE Requirements view SHALL display coverage statistics (pass rate, test count) alongside each node, integrated with the README documentation
 10. THE Requirements view SHALL visually indicate nodes with no test coverage (coverage gaps) inline within the hierarchy tree
 
-### Requirement 30: Virtual Scrolling for Large Datasets
+### Requirement 31: Virtual Scrolling for Large Datasets
 
 **User Story:** As an Engineer, I want the report to remain performant with thousands of test scenarios, so that I can navigate quickly even in large test suites.
 
@@ -454,7 +520,7 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 4. THE Report_Template SHALL maintain correct scroll position and item ordering when scrolling through virtualized lists
 5. WHEN the viewport is resized across the 1024px breakpoint, THE Report_Template SHALL recalculate virtualized item positions and re-render with the appropriate row height
 
-### Requirement 31: Responsive Timeline Layout
+### Requirement 32: Responsive Timeline Layout
 
 **User Story:** As an Engineer, I want the timeline view to adapt its layout for different screen sizes, so that I can review execution timing on tablets and phones.
 
@@ -466,7 +532,7 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 4. THE Timeline view SHALL hide the time axis (x-axis ticks) on viewports 1024px or narrower
 5. THE mobile layout rows SHALL be 52px tall; the desktop layout rows SHALL be 28px tall
 
-### Requirement 32: Sticky Category Headers in Virtualized Scenario List
+### Requirement 33: Sticky Category Headers in Virtualized Scenario List
 
 **User Story:** As an Engineer, I want category group headers to remain visible while scrolling through a category's scenarios, so that I always know which group I'm looking at.
 
@@ -478,7 +544,7 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 4. WHEN the sort mode is changed away from "Category" (e.g. Name, Slowest, Status), THE sticky header SHALL be hidden
 5. THE group headers SHALL have consistent spacing: 16px gap above the header (separating from previous group) and 16px gap below the header border (before first scenario in the group), except for the first header which has no top gap
 
-### Requirement 33: Group Header Truncation on Narrow Viewports
+### Requirement 34: Group Header Truncation on Narrow Viewports
 
 **User Story:** As an Engineer viewing the report on a narrow screen, I want long category paths to be truncated from the beginning, so that the most specific (last) segment remains visible.
 
@@ -488,7 +554,7 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 2. THE last segment of the category path (e.g. "Reports Failing Scenarios" in "Reporting Results › Reports Failing Scenarios") SHALL remain visible when truncation occurs
 3. THE full category path SHALL remain visible on viewports wide enough to display it without overflow
 
-### Requirement 34: Dashboard Layout with Right-Side Action Cards
+### Requirement 35: Dashboard Layout with Right-Side Action Cards
 
 **User Story:** As a Product Owner, I want the dashboard to show actionable information (new failures, unstable tests, slowest tests) in a consistent column alongside the trend chart, so that I can quickly assess what needs attention.
 
@@ -498,13 +564,13 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 2. THE right column cards SHALL all have the same width (1fr of the 2fr/1fr grid)
 3. THE "New Failures" card SHALL show up to 5 scenarios that passed in the previous run but failed in the current run, with a "View all →" link navigating to `/tests?filter=new-failures`
 4. WHEN there are no new failures, THE "New Failures" card SHALL display an encouraging message: "Well done! No new failures" with a green checkmark
-5. THE "Most Unstable" card SHALL show up to 5 flaky scenarios with their flakiness rate percentage, with a "View all →" link navigating to `/flaky`
+5. THE "Most Unstable" card SHALL show up to 5 unstable scenarios with their instability rate percentage, with a "View all →" link navigating to `/stability`
 6. THE "Slowest Tests" card SHALL show the top 5 slowest scenarios with their durations, with a "View all →" link navigating to `/tests?sort=duration`
 7. THE Trend chart SHALL include a Duration dataset (dashed line) plotted against a right y-axis, showing test run duration over time
 8. THE right y-axis SHALL display duration values using the `formatDuration` function (handling ms, seconds, minutes, hours)
 9. THE Trend chart tooltip SHALL display formatted duration (e.g. "4.2s", "2m 15s") for the Duration dataset, and filled colour boxes for each series in the legend
 
-### Requirement 35: Pending Outcome Icon
+### Requirement 36: Pending Outcome Icon
 
 **User Story:** As an Engineer, I want outcome icons to render consistently and be well-centered, so that the visual indicators are clear and professional.
 
@@ -513,6 +579,45 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 1. THE Report_Template SHALL use an en-dash character (–) for the pending outcome icon
 2. THE pending icon SHALL be vertically and horizontally centered within its circular container
 3. THE outcome icons SHALL use the following characters: ✓ (passed), ✗ (failed), – (pending), ⊘ (skipped), ⚠ (compromised)
+
+### Requirement 37: Test Runs View
+
+**User Story:** As an Engineer, I want a dedicated view listing all historical test runs found in the data folder, so that I can navigate between runs, compare outcomes over time, and access CI job links.
+
+#### Acceptance Criteria
+
+1. THE Report_Template SHALL provide a dedicated "Test Runs" view accessible from the main navigation
+2. THE Report_Template SHALL display all historical test runs found in the `test-runs/` directory, listed in reverse chronological order (most recent first)
+3. EACH test run entry SHALL display: run label, timestamp, total duration, pass rate, and scenario count
+4. WHEN a test run entry is clicked, THE Report_Template SHALL navigate to the Test Scenarios view filtered to that run (`/tests?run=N`)
+5. WHERE a `ciJobUrl` is present for a test run, THE Report_Template SHALL display a clickable link icon that opens the CI job in a new tab
+6. THE CI link click SHALL NOT trigger the row navigation (event propagation stopped)
+
+### Requirement 38: Duration Formatting
+
+**User Story:** As an Engineer, I want durations displayed in human-readable format appropriate to their magnitude, so that I can quickly understand timing at a glance.
+
+#### Acceptance Criteria
+
+1. THE Report_Template SHALL format duration values using the following rules:
+   - Values < 1000ms: display as integer milliseconds (e.g. "85ms")
+   - Values ≥ 1000ms and < 60000ms: display as seconds with one decimal (e.g. "4.2s")
+   - Values ≥ 60000ms and < 3600000ms: display as minutes and seconds (e.g. "2m 15s")
+   - Values ≥ 3600000ms: display as hours and minutes (e.g. "1h 3m")
+2. ALL views that display durations (Dashboard, Test Scenarios, Scenario Detail, Timeline, Test Runs, Trend chart axis) SHALL use this consistent formatting
+3. THE Trend chart right y-axis labels SHALL use the same duration formatting for the Duration dataset
+
+### Requirement 39: Trend Chart Interaction
+
+**User Story:** As an Engineer, I want to pan and zoom the trend chart when there are many historical runs, so that I can focus on a specific time range without losing the full history context.
+
+#### Acceptance Criteria
+
+1. THE Trend chart SHALL support horizontal panning (click-and-drag on X axis) when more data points exist than can comfortably display
+2. THE Trend chart SHALL support pinch-to-zoom on touch devices
+3. ON viewports ≤ 768px with more than 3 historical runs, THE Trend chart SHALL initially show only the most recent 3 runs (with the ability to pan left to see older runs)
+4. ON wider viewports, THE Trend chart SHALL show all available history by default
+5. Clicking a trend bar SHALL navigate to the test scenarios for that run (`/tests?run=N`)
 
 ## Functional Test Scenarios
 
@@ -548,7 +653,7 @@ The following test scenarios should be implemented as Playwright Test acceptance
 20. Search includes tag names (not just scenario name and category)
 21. Clearing the search shows all scenarios again
 22. Filter chips (All, Passed, Failed, Pending, Skipped, Compromised) filter the list correctly
-23. Sort controls (Category, Name, Slowest, Status) change the list order
+23. Sort select dropdown (Category, Name, Slowest, Status) changes the list order
 24. Sort "Status" puts failures first, then errors, compromised, pending, skipped, passing last
 25. Sort "Slowest" orders by duration descending
 26. Sort "Name" produces alphabetical flat list (no category groups)
@@ -562,151 +667,263 @@ The following test scenarios should be implemented as Playwright Test acceptance
 34. Tag chips on scenario rows are clickable and filter to that tag
 35. Tag chips display the tag name without adding extra `@` prefix (avoiding `@@`)
 36. Browser badges display correctly for scenarios with browser tags
+37. Status filter and sort select are on the same row on wide viewports
+38. Sort select wraps to its own left-aligned row on narrow viewports (≤768px)
 
 ### Test Scenario Detail View
 
-37. Breadcrumb shows "Test Scenarios › Category › Subcategory › Scenario name"
-38. Breadcrumb "Test Scenarios" link preserves `?run=N` context
-39. Breadcrumb category segments populate search with exact match on click
-40. Run selector pills navigate between runs for the same scenario
-41. Historical run banner appears with "show latest" link
-42. Execution history blocks highlight the currently viewed run with a ring
-43. Clicking an execution history block navigates to that run's detail
-44. Copy button copies the test source path to clipboard
-45. Narrative (feature description) renders as italic blockquote when present
-46. Tags display as chips in the detail header
-47. Cast section displays actor names and their abilities with details
-48. Activity tree renders hierarchically with correct indentation
-49. Activity tree shows data tables as HTML tables below steps
-50. Activity tree shows docstrings as formatted pre blocks below steps
-51. Nested activities (Task containing Interactions) render recursively
-52. Retry tabs switch between attempt activity trees
-53. Error block shows error name, message, and stack trace
-54. Scenario with missing `cast` field does not crash the view
-55. Scenario with missing `tags` field does not crash the view
-56. Navigating to a non-existent scenario shows "Test scenario not found"
+39. Breadcrumb shows "Test Scenarios › Category › Subcategory › Scenario name"
+40. Breadcrumb "Test Scenarios" link preserves `?run=N` context
+41. Breadcrumb category segments populate search with exact match on click
+42. Execution history blocks are displayed above the narrative and cast sections
+43. Execution history blocks highlight the currently viewed run with a ring
+44. Clicking an execution history block navigates to that run's detail (`?run=N`)
+45. Copy button copies the test source path to clipboard
+46. Narrative (feature description) renders as italic blockquote when present
+47. Tags display as chips in the detail header
+48. Execution history appears between tags and narrative (order: tags → history → narrative → cast)
+49. Cast section displays actor names and their abilities with details
+50. Activity tree renders hierarchically with correct indentation
+51. Activity tree shows data tables as HTML tables below steps
+52. Activity tree shows docstrings as formatted pre blocks below steps
+53. Nested activities (Task containing Interactions) render recursively
+54. Retry tabs switch between attempt activity trees
+55. Error block shows error name, message, and stack trace
+56. Scenario with missing `cast` field does not crash the view
+57. Scenario with missing `tags` field does not crash the view
+58. Scenario with missing `executionHistory` field does not crash the view
+59. Navigating to a non-existent scenario shows "Test scenario not found"
 
 ### Tags View
 
-57. Tags are grouped by type (Feature, Issue, Tag, Browser) with section headers
-58. Each tag card shows name, scenario count, and colour-coded pass rate with progress bar
-59. Clicking a tag card navigates to test scenarios filtered by that tag name
-60. Pass rate tooltip shows "Pass rate: X%"
-61. Grid layout adapts to viewport width (responsive columns)
+60. Tags are grouped by type (Feature, Issue, Tag, Browser) with section headers
+61. Each tag card shows name, scenario count, and colour-coded pass rate with progress bar
+62. Clicking a tag card navigates to test scenarios filtered by that tag name
+63. Pass rate tooltip shows "Pass rate: X%"
+64. Grid layout adapts to viewport width (responsive columns)
 
 ### Errors View
 
-62. Errors are grouped by type category (Assertion Errors, Compromised Tests, Timeout Errors, Runtime Errors)
-63. Summary cards show count per error category
-64. Each error entry shows scenario name, source path, and error message (no stack trace)
-65. Clicking an error entry navigates to the scenario detail view
-66. Run selector pills allow viewing errors from historical runs
-67. Historical run banner appears with "show latest" link
+65. Errors are grouped by type category (Assertion Errors, Compromised Tests, Timeout Errors, Runtime Errors)
+66. Summary cards are compact single-line layout (title + count on one row)
+67. Each error entry shows scenario name, source path, and error message (no stack trace)
+68. Clicking an error entry navigates to the scenario detail view
+69. Run selector pills allow viewing errors from historical runs
+70. Historical run banner appears with "show latest" link
+71. Error list uses virtualized rendering — only visible rows exist in the DOM
+72. Sticky category headers remain pinned when scrolling within an error type group
+73. Error category headers are left-aligned (not reversed by RTL direction)
+74. Sticky header shows icon, category name, and count when scrolled past a group
 
 ### Requirements View
 
-68. Requirements hierarchy displays as an expandable tree with directories and files
-69. Directory nodes expand/collapse on click, files navigate to filtered test scenarios
-70. README content renders as styled HTML when a directory node is expanded
-71. README bullet lists are properly indented
-72. Coverage stats (Coverage %, Pass Rate %, Gaps) display in summary cards
-73. Nodes with no tests show "No tests" indicator in red
-74. Multiple nesting levels render with correct indentation
+75. Requirements hierarchy displays as an expandable tree with directories and files
+76. Directory nodes expand/collapse on click, files navigate to filtered test scenarios
+77. README content renders as styled HTML when a directory node is expanded
+78. README bullet lists are properly indented
+79. Coverage stats (Coverage %, Pass Rate %, Gaps) display as compact single-line cards
+80. Nodes with no tests show "No tests" indicator in red
+81. Multiple nesting levels render with correct indentation
 
-### Flaky Tests View
+### Stability View
 
-75. Flaky tests are grouped by category with sticky headers
-76. Outcome history mini-chart shows pass/fail pattern across runs
-77. Flakiness percentage is displayed per test
-78. Clicking a flaky test navigates to its scenario detail
+82. Unstable tests are grouped by category with sticky headers
+83. "State:" label precedes the filter pills (Unstable, Regressed, Recovered)
+84. Sort select dropdown (Category, Name) is on the same row as state filters on wide viewports
+85. Sort select wraps to its own left-aligned row on narrow viewports (≤768px)
+86. Outcome history mini-chart shows pass/fail pattern across runs
+87. Instability percentage is displayed per test
+88. Clicking an unstable test navigates to its scenario detail
+89. Stability list uses virtualized rendering with sticky category headers
 
 ### Timeline View
 
-79. Stats cards show slowest, fastest, average, and total run duration
-80. Execution order toggle shows Gantt-chart with time axis
-81. Slowest first toggle shows bars sorted by duration
-82. Clicking a timeline row navigates to the scenario detail
-83. Test names are visible in each row alongside the duration bar
+90. Stats cards are compact single-line layout (title + value on one row)
+91. Execution order toggle shows Gantt-chart with time axis
+92. Slowest first toggle shows bars sorted by duration
+93. Clicking a timeline row navigates to the scenario detail
+94. Test names are visible in each row alongside the duration bar
 
 ### Test Runs View
 
-84. Runs are listed in reverse chronological order (most recent first)
-85. Each run shows label, timestamp, duration, pass rate, and scenario count
-86. CI link opens in new tab without triggering row navigation
-87. CI link has proper contrast in both light and dark modes
-88. Clicking a run row navigates to test scenarios for that run
+95. Runs are listed in reverse chronological order (most recent first)
+96. Each run shows label, timestamp, duration, pass rate, and scenario count
+97. CI link opens in new tab without triggering row navigation
+98. CI link has proper contrast in both light and dark modes
+99. Clicking a run row navigates to test scenarios for that run
 
 ### System Context View
 
-89. Node.js version, test runner, OS, Serenity/JS version are displayed
-90. CI/CD section shows provider, build number, branch, commit when available
+100. Node.js version, test runner, OS, Serenity/JS version are displayed
+101. CI/CD section shows provider, build number, branch, commit when available
 
 ### Theme & Accessibility
 
-91. Dark mode is detected from OS preference on first load
-92. Theme toggle switches between dark and light modes
-93. Theme preference persists in localStorage across reloads
-94. All text elements have minimum 12px font size (no text smaller than 0.75rem)
-95. Breadcrumb links have sufficient contrast in dark mode (#a5a7ff)
-96. Tag chips have sufficient contrast in dark mode (--text-primary colour)
-97. Font size scale uses CSS custom properties (adjustable from one place)
+102. Dark mode is detected from OS preference on first load
+103. Theme toggle switches between dark and light modes
+104. Theme preference persists in localStorage across reloads
+105. All text elements have minimum 12px font size (no text smaller than 0.75rem)
+106. Breadcrumb links have sufficient contrast in dark mode (#a5a7ff)
+107. Tag chips have sufficient contrast in dark mode (--text-primary colour)
+108. Font size scale uses CSS custom properties (adjustable from one place)
 
 ### Data Loading & Edge Cases
 
-98. Report renders correctly when loaded via `file://` protocol
-99. Report renders when `data.js` has no history (empty `history` array)
-100. Report renders when `data.js` has no tags (empty `tags` array)
-101. Report renders when `data.js` has no requirements (`requirements` is null)
-102. Report handles scenarios with missing optional fields (cast, tags, executionHistory, activities) without crashing
+109. Report renders correctly when loaded via `file://` protocol
+110. Report renders when `data.js` has no history (empty `history` array)
+111. Report renders when `data.js` has no tags (empty `tags` array)
+112. Report renders when `data.js` has no requirements (`requirements` is null)
+113. Report handles scenarios with missing optional fields (cast, tags, executionHistory, activities) without crashing
 
 ### Virtual Scrolling & Performance
 
-103. Timeline view uses virtualized rendering — only visible rows exist in the DOM
-104. Test Scenarios list uses virtualized rendering — only visible rows exist in the DOM
-105. Scrolling through 100+ scenarios in the list does not create more than ~50 DOM nodes
-106. Virtual scroll maintains correct item order after scrolling to bottom and back to top
-107. Sticky group header appears when scrolling within a category group
-108. Sticky group header updates to show the correct category when crossing group boundaries
-109. Sticky group header is hidden when sort mode is not "Category"
-110. Group headers have z-index above scenario items (no text overlap)
-111. Scenario row height (66px) contains all content without overflow into adjacent items
+114. Timeline view uses virtualized rendering — only visible rows exist in the DOM
+115. Test Scenarios list uses virtualized rendering — only visible rows exist in the DOM
+116. Errors view list uses virtualized rendering — only visible rows exist in the DOM
+117. Stability view list uses virtualized rendering — only visible rows exist in the DOM
+118. Scrolling through 100+ scenarios in the list does not create more than ~50 DOM nodes
+119. Virtual scroll maintains correct item order after scrolling to bottom and back to top
+120. Sticky group header appears when scrolling within a category group
+121. Sticky group header updates to show the correct category when crossing group boundaries
+122. Sticky group header is hidden when sort mode is not "Category"
+123. Group headers have z-index above scenario items (no text overlap)
+124. Scenario row height (66px) contains all content without overflow into adjacent items
+125. Sticky header text is not cropped (header height accommodates padding + text line-height)
 
 ### Responsive Timeline
 
-112. At viewport >1024px, timeline shows desktop Gantt layout (label | bar | duration)
-113. At viewport ≤1024px, timeline shows stacked mobile layout (name + bar below)
-114. Resizing from desktop to tablet switches timeline to stacked layout without reload
-115. Resizing from tablet to desktop switches timeline to Gantt layout without reload
-116. Desktop timeline shows time axis ticks above the Gantt chart
-117. Mobile/tablet timeline hides the time axis ticks
-118. Mobile timeline bar uses `left: 0` (proportional width, not timeline-offset)
+126. At viewport >1024px, timeline shows desktop Gantt layout (label | bar | duration)
+127. At viewport ≤1024px, timeline shows stacked mobile layout (name + bar below)
+128. Resizing from desktop to tablet switches timeline to stacked layout without reload
+129. Resizing from tablet to desktop switches timeline to Gantt layout without reload
+130. Desktop timeline shows time axis ticks above the Gantt chart
+131. Mobile/tablet timeline hides the time axis ticks
+132. Mobile timeline bar uses `left: 0` (proportional width, not timeline-offset)
 
 ### Group Header Truncation
 
-119. On narrow viewports, long group headers truncate from the left with ellipsis
-120. The last segment of a multi-level category path remains visible when truncated
-121. On wide viewports, the full category path displays without truncation
+133. On narrow viewports, long group headers truncate from the left with ellipsis
+134. The last segment of a multi-level category path remains visible when truncated
+135. On wide viewports, the full category path displays without truncation
 
 ### Dashboard Layout
 
-122. Dashboard displays 2-column grid: left (test results + trend) and right (action cards)
-123. Right column shows New Failures, Most Unstable, Slowest Tests in that order
-124. All right column cards have the same width
-125. "New Failures" card shows up to 5 entries with "View all →" link to `/tests?filter=new-failures`
-126. "New Failures" card shows "Well done! No new failures" when empty
-127. "Most Unstable" card shows up to 5 entries with "View all →" link to `/flaky`
-128. "Slowest Tests" card shows top 5 with "View all →" link to `/tests?sort=duration`
-129. Clicking a slowest test entry navigates to its scenario detail
-130. Clicking a new failure entry navigates to its scenario detail
-131. Clicking a most unstable entry navigates to its scenario detail
-132. Pass Rate card navigates to `/tests?filter=non-passing` on click
-133. Total Failed card navigates to `/tests?filter=failed` on click
-134. "Requirements" link in Pass Rate card navigates to `/requirements`
-135. Trend chart includes Duration dataset as dashed purple line on right y-axis
-136. Trend chart right y-axis labels use formatDuration (handles ms/s/m/h)
-137. Trend chart tooltip shows formatted duration for Duration series
-138. Trend chart tooltip legend boxes are filled with solid dataset colours
+136. Dashboard displays 2-column grid: left (test results + trend) and right (action cards)
+137. Right column shows New Failures, Most Unstable, Slowest Tests in that order
+138. All right column cards have the same width
+139. "New Failures" card shows up to 5 entries with "View all →" link to `/tests?filter=new-failures`
+140. "New Failures" card shows "Well done! No new failures" when empty
+141. "Most Unstable" card shows up to 5 entries with "View all →" link to `/stability`
+142. "Slowest Tests" card shows top 5 with "View all →" link to `/tests?sort=duration`
+143. Clicking a slowest test entry navigates to its scenario detail
+144. Clicking a new failure entry navigates to its scenario detail
+145. Clicking a most unstable entry navigates to its scenario detail
+146. Pass Rate card navigates to `/tests?filter=non-passing` on click
+147. Total Failed card navigates to `/tests?filter=failed` on click
+148. "Requirements" link in Pass Rate card navigates to `/requirements`
+149. Trend chart includes Duration dataset as dashed purple line on right y-axis
+150. Trend chart right y-axis labels use formatDuration (handles ms/s/m/h)
+151. Trend chart tooltip shows formatted duration for Duration series
+152. Trend chart tooltip legend boxes are filled with solid dataset colours
+153. Dashboard does not overflow horizontally after resize cycle (wide → narrow → wide)
 
-### Pending Icon
+### Responsive Layout
 
-139. Pending scenarios show an en-dash (–) icon that is centered in the outcome circle
+154. Main content area does not overflow horizontally at any viewport width
+155. Dashboard grid columns use `minmax(0, Xfr)` to prevent content from expanding beyond container
+156. Pending scenarios show an en-dash (–) icon that is centered in the outcome circle
+
+### Data Layer — Report Generation (unit/integration tests)
+
+157. HTML_Reporter creates a Test_Run_Directory named with ISO 8601 UTC timestamp on TestRunFinishes
+158. HTML_Reporter writes db.json to the Test_Run_Directory containing complete test execution data
+159. HTML_Reporter stores screenshot artifacts in the Test_Run_Directory with unique filenames
+160. HTML_Reporter stores video artifacts in the Test_Run_Directory
+161. HTML_Reporter stores trace file artifacts in the Test_Run_Directory
+162. HTML_Reporter does not use or depend on ArtifactArchiver
+163. HTML_Reporter creates the Test_Run_Directory before artifacts are produced (at test run start)
+
+### Data Layer — Aggregation (unit/integration tests)
+
+164. HTML_Reporter aggregates all `test-runs/*/db.json` files into `data.js` on TestRunFinishes
+165. Aggregated `data.js` assigns data to `window.__SERENITY_REPORT_DATA__`
+166. Aggregated `data.js` contains a `history` array ordered chronologically (oldest first)
+167. Aggregated `data.js` contains `scenes` from the latest test run
+168. Aggregated `data.js` derives execution history per scene by correlating across Run_Data_Files (matching by source file path + line number)
+169. Aggregated `data.js` identifies unstable tests from cross-run outcome variation within the stability window
+170. Aggregated `data.js` includes artifact references as relative paths from the Report_Output root (e.g. `test-runs/2024-06-15T14:30:00.000Z/screenshot-001.png`)
+171. When `maxHistory` is configured, aggregation retains only the N most recent Test_Run_Directories
+172. When `maxHistory` is configured, aggregation deletes older Test_Run_Directories and their artifacts
+173. Aggregation produces valid JavaScript when `data.js` is evaluated (no syntax errors, proper escaping)
+174. Aggregation handles a single Test_Run_Directory (first run, no prior history)
+175. Aggregation handles Run_Data_Files with missing optional fields without crashing
+
+### Data Layer — Run Data File Format (unit tests)
+
+176. Run_Data_File is valid JSON parseable by `JSON.parse`
+177. Run_Data_File contains: timestamp, duration, outcome counts, scenarios array
+178. Run_Data_File scenario entries include: name, category, outcome, duration, startedAt, source location, tags, activity tree
+179. Run_Data_File includes artifact references as relative paths within the Test_Run_Directory
+180. Duration values are serialized as numeric milliseconds
+181. Timestamp values are serialized as ISO 8601 strings
+182. Outcome values are serialized as string identifiers (SUCCESS, FAILURE, PENDING, SKIPPED, COMPROMISED, ERROR)
+183. Activity trees preserve parent-child nesting structure
+184. Round-trip: serializing scene data to JSON and parsing it back produces equivalent objects
+
+### Data Layer — Output Directory Structure (integration tests)
+
+185. First test run creates `reports/serenity-js/` directory structure with index.html, data.js, and test-runs/ subdirectory
+186. Second test run creates a new Test_Run_Directory without affecting the first
+187. After two test runs, `data.js` history array contains two entries
+188. Report_Output is self-contained — all paths are relative and the directory is relocatable
+189. Report functions correctly when the entire output directory is served via static HTTP
+190. Report functions correctly when opened via `file://` protocol after being moved to a different location
+
+### Air-Gap & Bundling (integration tests)
+
+191. Generated `index.html` contains no `<script src="http` or `<link href="http` external references
+192. Generated `index.html` inlines Preact library code within a `<script>` tag
+193. Generated `index.html` inlines Chart.js library code within a `<script>` tag
+194. Generated `index.html` inlines chartjs-plugin-zoom library code within a `<script>` tag
+195. Generated `index.html` inlines @tanstack/virtual-core library code within a `<script>` tag
+196. Generated `index.html` contains no `@import` CSS rules referencing external URLs
+197. Report renders all views correctly with network requests blocked (offline mode)
+198. The only network requests when viewing the report are for user artifacts (screenshots, videos) referenced in `test-runs/` subdirectories
+
+### Duration Formatting
+
+199. Duration < 1000ms displays as integer milliseconds (e.g. "85ms")
+200. Duration ≥ 1s and < 60s displays as seconds with one decimal (e.g. "4.2s")
+201. Duration ≥ 60s and < 1h displays as minutes and seconds (e.g. "2m 15s")
+202. Duration ≥ 1h displays as hours and minutes (e.g. "1h 3m")
+203. Duration formatting is consistent across all views (dashboard, scenarios, timeline, test runs, trend chart)
+
+### Trend Chart Interaction
+
+204. Trend chart supports horizontal panning when many runs are available
+205. On narrow viewports (≤768px) with >3 runs, trend chart initially shows only the last 3
+206. On wide viewports, trend chart shows all available runs
+207. Clicking a trend bar navigates to the corresponding test run
+
+### Stability Window
+
+208. With `stabilityWindow` defaulting to 5, only the last 5 executions are considered when determining unstable tests
+209. A test that was unstable 10 runs ago but stable for the last 5 runs is NOT shown as unstable
+210. With `stabilityWindow` set to 3, only the last 3 executions are considered for stability
+211. Instability percentage is calculated based on the stability window, not all historical runs
+
+### Non-Passing Filter
+
+212. URL `#/tests?filter=non-passing` shows all scenarios with outcomes other than SUCCESS
+213. Pass Rate card on dashboard navigates to `/tests?filter=non-passing`
+214. Non-passing filter includes FAILURE, PENDING, SKIPPED, COMPROMISED, and ERROR outcomes
+
+### Test Runs View
+
+215. Test Runs view is accessible from the sidebar navigation
+216. All historical test runs from `test-runs/` directory are displayed
+217. Runs are ordered with most recent first
+218. Each entry shows run label, timestamp, duration, pass rate, and scenario count
+219. Clicking a run navigates to `/tests?run=N`
+220. CI job link icon opens in new tab when `ciJobUrl` is present
+221. CI link click does not trigger row navigation
