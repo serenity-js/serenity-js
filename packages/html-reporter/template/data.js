@@ -1078,7 +1078,7 @@ window.__SERENITY_REPORT_DATA__ = {
     },
     {
       id: "scenario-7",
-      name: "should allow me to edit a todo item",
+      name: "A scenario failing with a Serenity/JS Screenplay AssertionError",
       category: "Reporting Results › Reports Failing Scenarios",
       source: { path: "reporting_results/reports_failing_scenarios.feature", line: 24 },
       flakinessRate: 0.4,
@@ -1086,11 +1086,11 @@ window.__SERENITY_REPORT_DATA__ = {
       labels: ["#85", "#86", "#87", "#88", "#89"],
     },
     {
-      id: "scenario-11",
-      name: "should persist data after page reload",
+      id: "scenario-10",
+      name: "A compromised scenario",
       category: "Reporting Results › Reports Compromised Scenarios",
       source: { path: "reporting_results/reports_compromised_scenarios.feature", line: 8 },
-      flakinessRate: 0.25,
+      flakinessRate: 0.4,
       history: ["SUCCESS", "SUCCESS", "COMPROMISED", "SUCCESS", "COMPROMISED"],
       labels: ["#85", "#86", "#87", "#88", "#89"],
     },
