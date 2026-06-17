@@ -299,6 +299,8 @@
     .main-content {
       margin-left: var(--sidebar-width);
       flex: 1;
+      min-width: 0;
+      overflow-x: hidden;
       padding: var(--space-lg);
       min-height: 100vh;
       transition: margin-left var(--transition);
@@ -457,6 +459,32 @@
     .filter-chip.pending.active { background: var(--color-pending); border-color: var(--color-pending); }
     .filter-chip.skipped.active { background: var(--color-skipped); border-color: var(--color-skipped); }
     .filter-chip.compromised.active { background: var(--color-compromised); border-color: var(--color-compromised); }
+
+    /* ===== Sort Select ===== */
+    .sort-select {
+      appearance: none;
+      -webkit-appearance: none;
+      padding: 6px 32px 6px 12px;
+      border-radius: 20px;
+      font-size: var(--font-md);
+      font-weight: 500;
+      font-family: var(--font-family);
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236c6c6c' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 12px center;
+      color: var(--text-primary);
+      transition: all var(--transition);
+    }
+
+    .sort-select:hover {
+      border-color: var(--accent);
+    }
+
+    .sort-select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px var(--accent-light);
+    }
 
     /* ===== Donut Chart ===== */
     .donut-chart {
@@ -1087,6 +1115,20 @@
       }
     }
 
+    .sort-group {
+      display: flex;
+      gap: var(--space-sm);
+      align-items: center;
+      margin-left: auto;
+    }
+
+    @media (max-width: 768px) {
+      .sort-group {
+        margin-left: 0;
+        flex-basis: 100%;
+      }
+    }
+
     /* ===== Overlay (mobile sidebar) ===== */
     .sidebar-overlay {
       display: none;
@@ -1302,11 +1344,11 @@
       const flakyTests = (DATA.flakyTests || []).slice(0, 5);
 
       return html`
-        <div style="display:grid;grid-template-columns:2fr 1fr;gap:var(--space-md)" class="dashboard-trend-grid">
+        <div style="display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:var(--space-md);overflow:hidden" class="dashboard-trend-grid">
           <!-- Left column -->
-          <div style="display:flex;flex-direction:column;gap:var(--space-md)">
+          <div style="display:flex;flex-direction:column;gap:var(--space-md);min-width:0">
             <!-- Row 1: Test Results + Pass Rate / Failed -->
-            <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:var(--space-md)" class="dashboard-stats-grid">
+            <div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:var(--space-md)" class="dashboard-stats-grid">
               <div class="card" style="display:flex;flex-direction:column">
                 <div class="card-title">Test Results</div>
                 <div class="donut-chart">
@@ -1343,7 +1385,7 @@
           </div>
 
           <!-- Right column: Degraded / Recovered / Most Unstable / Slowest Tests -->
-          <div style="display:flex;flex-direction:column;gap:var(--space-md)">
+          <div style="display:flex;flex-direction:column;gap:var(--space-md);min-width:0;overflow:hidden">
             <div class="card">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-sm)">
                 <div class="card-title" style="margin-bottom:0;color:var(--color-failed)">Degraded</div>
@@ -1420,7 +1462,7 @@
     }
 
     // ===== Filter Bar =====
-    function FilterBar({ outcomes, total, activeFilter, onFilter }) {
+    function FilterBar({ outcomes, total, activeFilter, onFilter, sortOptions, activeSort, onSort }) {
       const filters = [
         { key: 'all', label: 'All', count: total },
         { key: 'passed', label: 'Passed', count: outcomes.passed },
@@ -1431,7 +1473,7 @@
       ];
 
       return html`
-        <div class="filter-bar" role="group" aria-label="Filter tests by outcome">
+        <div class="filter-bar" role="group" aria-label="Filter tests by outcome" style="align-items:center">
           <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;align-self:center">Status:</span>
           ${filters.map(f => html`
             <button class="filter-chip ${f.key} ${(activeFilter || 'all') === f.key ? 'active' : ''}"
@@ -1441,6 +1483,14 @@
               <span class="count">${f.count}</span>
             </button>
           `)}
+          ${sortOptions ? html`
+            <div class="sort-group">
+              <label style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px" for="sort-select">Sort:</label>
+              <select id="sort-select" class="sort-select" value=${activeSort} onChange=${(e) => onSort(e.target.value)} aria-label="Sort order">
+                ${sortOptions.map(s => html`<option value=${s.key} selected=${activeSort === s.key}>${s.label}</option>`)}
+              </select>
+            </div>
+          ` : null}
         </div>
       `;
     }
@@ -1662,9 +1712,9 @@
     function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, setSearch }) {
       const parentRef = useRef(null);
       const SCENARIO_ROW_HEIGHT = 66;
-      const GROUP_HEADER_HEIGHT_FIRST = 60;  // 44px content + 16px gap below
-      const GROUP_HEADER_HEIGHT_REST = 76;   // 16px gap above + 44px content + 16px gap below
-      const GROUP_HEADER_CONTENT_HEIGHT = 44;
+      const GROUP_HEADER_HEIGHT_FIRST = 62;  // 46px content + 16px gap below
+      const GROUP_HEADER_HEIGHT_REST = 78;   // 16px gap above + 46px content + 16px gap below
+      const GROUP_HEADER_CONTENT_HEIGHT = 46;
 
       // Flatten grouped data into a single list of items for virtualization
       const flatItems = useMemo(() => {
@@ -1731,7 +1781,7 @@
         stickyElRef.current = document.createElement('div');
         stickyElRef.current.id = 'vs-sticky-header';
         stickyElRef.current.className = 'scenario-group-header';
-        stickyElRef.current.style.cssText = 'display:none;position:sticky;top:0;width:100%;height:44px;z-index:3;background:var(--bg-surface);box-shadow:0 1px 0 var(--border-color);margin-bottom:-44px;padding:var(--space-md) var(--space-md) var(--space-sm);font-size:var(--font-sm);font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px';
+        stickyElRef.current.style.cssText = 'display:none;position:sticky;top:0;width:100%;height:46px;flex-shrink:0;z-index:3;background:var(--bg-surface);box-shadow:0 1px 0 var(--border-color);margin-bottom:-46px;padding:var(--space-md) var(--space-md) var(--space-sm);font-size:var(--font-sm);font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px';
       }
 
       // Use a ref callback to re-insert the sticky element after every Preact commit
@@ -1791,7 +1841,7 @@
       }, [sort, flatItems]);
 
       return html`
-        <div ref=${parentRefCallback} class="scenario-list" style="max-height:calc(100vh - 380px);overflow-y:auto;position:relative">
+        <div ref=${parentRefCallback} style="max-height:calc(100vh - 380px);overflow-y:auto;position:relative">
           <div style="height:${virtualizer.getTotalSize()}px;width:100%;position:relative">
             ${virtualizer.getVirtualItems().map(virtualRow => {
               const item = flatItems[virtualRow.index];
@@ -1958,15 +2008,14 @@
           </div>
 
           <${FilterBar} outcomes=${DATA.summary.outcomes} total=${DATA.summary.totalScenarios}
-                         activeFilter=${filter} onFilter=${setFilter} />
-
-          <div style="display:flex;align-items:center;gap:var(--space-sm);margin-bottom:var(--space-md)">
-            <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Sort:</span>
-            <button class="filter-chip ${sort === 'category' ? 'active' : ''}" onClick=${() => setSort('category')}>Category</button>
-            <button class="filter-chip ${sort === 'name' ? 'active' : ''}" onClick=${() => setSort('name')}>Name</button>
-            <button class="filter-chip ${sort === 'duration' ? 'active' : ''}" onClick=${() => setSort('duration')}>Slowest</button>
-            <button class="filter-chip ${sort === 'status' ? 'active' : ''}" onClick=${() => setSort('status')}>Status</button>
-          </div>
+                         activeFilter=${filter} onFilter=${setFilter}
+                         sortOptions=${[
+                           { key: 'category', label: 'Category' },
+                           { key: 'name', label: 'Name' },
+                           { key: 'duration', label: 'Slowest' },
+                           { key: 'status', label: 'Status' },
+                         ]}
+                         activeSort=${sort} onSort=${setSort} />
 
           <div class="card">
             <div style="font-size:var(--font-sm);color:var(--text-secondary);margin-bottom:var(--space-md)">
@@ -2013,24 +2062,6 @@
         ? scenario.attempts[activeAttempt].error
         : scenario.error;
 
-      // Determine if viewing a historical run (not the latest)
-      const isHistoricalRun = runIndex !== null && runIndex !== DATA.history.length - 1;
-      const historicalRun = isHistoricalRun ? DATA.history[runIndex] : null;
-
-      // Precompute run selector pills
-      const detailRunPills = DATA.history.map((run, idx) => {
-        const isLatest = idx === DATA.history.length - 1;
-        const isActive = runIndex === idx || (runIndex === null && isLatest);
-        const passRate = Math.round((run.outcomes.passed / Object.values(run.outcomes).reduce((a, b) => a + b, 0)) * 100);
-        const pillStyle = 'display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:12px;font-size:var(--font-xs);font-weight:500;cursor:pointer;transition:all 0.2s;border:1px solid ' + (isActive ? 'var(--accent)' : 'var(--border-color)') + ';background:' + (isActive ? 'var(--accent)' : 'var(--bg-surface)') + ';color:' + (isActive ? '#fff' : 'var(--text-secondary)');
-        const target = isLatest ? scenarioUrl(scenario) : scenarioUrl(scenario, idx);
-        const label = run.label.replace('build ', '');
-        const title = run.label + ' — ' + new Date(run.timestamp).toLocaleDateString() + ' — ' + passRate + '% pass rate';
-        const onClick = () => onNavigate(target);
-        return { pillStyle, label, title, onClick };
-      });
-
-      const showLatest = () => onNavigate(scenarioUrl(scenario));
       const copyTestPath = () => {
         const text = scenario.source.path + ':' + scenario.source.line;
         navigator.clipboard.writeText(text).catch(() => {});
@@ -2038,22 +2069,6 @@
 
       return html`
         <div>
-          ${historicalRun ? html`
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px var(--space-md);margin-bottom:var(--space-md);background:var(--accent-light);border:1px solid var(--accent);border-radius:var(--radius-sm);font-size:var(--font-md)">
-              <span>Viewing results from: <strong>${historicalRun.label}</strong> (${new Date(historicalRun.timestamp).toLocaleString()}) — ${formatDuration(historicalRun.duration)}</span>
-              <a onClick=${showLatest} style="cursor:pointer;color:var(--accent);font-weight:500;text-decoration:underline">show latest</a>
-            </div>
-          ` : null}
-
-          <div style="display:flex;align-items:center;gap:var(--space-sm);margin-bottom:var(--space-md);flex-wrap:wrap">
-            <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Test run:</span>
-            ${detailRunPills.map(pill => html`
-              <div style=${pill.pillStyle} onClick=${pill.onClick} title=${pill.title}>
-                <span>${pill.label}</span>
-              </div>
-            `)}
-          </div>
-
           <div class="breadcrumb">
             <a onClick=${() => onNavigate('/tests' + (runIndex !== null ? '?run=' + runIndex : ''))}>Test Scenarios</a>
             ${scenario.category.split(' › ').map((segment) => html`
@@ -2091,6 +2106,28 @@
               </div>
             ` : null}
 
+            ${hasExecutionHistory ? html`
+              <div style="margin-bottom:var(--space-md)">
+                <div class="card-title" style="margin-bottom:var(--space-sm)">Execution History</div>
+                <div style="display:flex;gap:4px;align-items:center;flex-wrap:wrap">
+                  ${scenario.executionHistory.map((entry, idx) => {
+                    const isActive = runIndex === idx;
+                    const blockStyle = 'width:20px;height:20px;border-radius:4px;background:var(--color-' + outcomeClass(entry.outcome) + ');opacity:' + (isActive ? '1' : '0.85') + ';display:flex;align-items:center;justify-content:center;font-size:var(--font-2xs);color:#fff;font-weight:600' + (isActive ? ';box-shadow:0 0 0 2px var(--bg-surface), 0 0 0 4px var(--accent)' : '');
+                    const labelStyle = 'font-size:var(--font-xs);color:' + (isActive ? 'var(--accent)' : 'var(--text-disabled)') + ';font-weight:' + (isActive ? '600' : '400');
+                    const handleRunClick = (e) => { e.stopPropagation(); onNavigate(scenarioUrl(scenario) + '?run=' + idx); };
+                    return html`
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"
+                         title="${entry.run}: ${entry.outcome}"
+                         onClick=${handleRunClick}>
+                      <div style=${blockStyle}>${outcomeIcon(entry.outcome)}</div>
+                      <span style=${labelStyle}>${entry.run}</span>
+                    </div>
+                  `;
+                  })}
+                </div>
+              </div>
+            ` : null}
+
             ${scenario.narrative ? html`
               <div style="margin-bottom:var(--space-md);padding:var(--space-md);background:var(--bg-primary);border-radius:var(--radius-sm);border-left:3px solid var(--accent);font-size:var(--font-md);color:var(--text-secondary);white-space:pre-line;line-height:1.6;font-style:italic">${scenario.narrative}</div>
             ` : null}
@@ -2116,28 +2153,6 @@
                     </div>
                   </div>
                 `)}
-              </div>
-            ` : null}
-
-            ${hasExecutionHistory ? html`
-              <div style="margin-top:var(--space-md)">
-                <div class="card-title" style="margin-bottom:var(--space-sm)">Execution History</div>
-                <div style="display:flex;gap:4px;align-items:center;flex-wrap:wrap">
-                  ${scenario.executionHistory.map((entry, idx) => {
-                    const isActive = runIndex === idx;
-                    const blockStyle = 'width:20px;height:20px;border-radius:4px;background:var(--color-' + outcomeClass(entry.outcome) + ');opacity:' + (isActive ? '1' : '0.85') + ';display:flex;align-items:center;justify-content:center;font-size:var(--font-2xs);color:#fff;font-weight:600' + (isActive ? ';box-shadow:0 0 0 2px var(--bg-surface), 0 0 0 4px var(--accent)' : '');
-                    const labelStyle = 'font-size:var(--font-xs);color:' + (isActive ? 'var(--accent)' : 'var(--text-disabled)') + ';font-weight:' + (isActive ? '600' : '400');
-                    const handleRunClick = (e) => { e.stopPropagation(); onNavigate(scenarioUrl(scenario) + '?run=' + idx); };
-                    return html`
-                    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"
-                         title="${entry.run}: ${entry.outcome}"
-                         onClick=${handleRunClick}>
-                      <div style=${blockStyle}>${outcomeIcon(entry.outcome)}</div>
-                      <span style=${labelStyle}>${entry.run}</span>
-                    </div>
-                  `;
-                  })}
-                </div>
               </div>
             ` : null}
           </div>
@@ -2341,13 +2356,118 @@
       }));
 
       // Precompute flat render list: headers + scenario items
-      const renderItems = [];
-      for (const cat of categoryOrder) {
-        renderItems.push({ type: 'header', icon: categoryIcons[cat.name] || '✗', name: cat.name, count: cat.scenarios.length });
-        for (const s of cat.scenarios) {
-          renderItems.push({ type: 'scenario', scenario: s });
+      const renderItems = useMemo(() => {
+        const items = [];
+        for (const cat of categoryOrder) {
+          items.push({ type: 'header', icon: categoryIcons[cat.name] || '✗', name: cat.name, count: cat.scenarios.length });
+          for (const s of cat.scenarios) {
+            items.push({ type: 'scenario', scenario: s });
+          }
         }
+        return items;
+      }, [categoryOrder]);
+
+      // Virtualizer constants
+      const ERROR_ROW_HEIGHT = 82;
+      const ERROR_HEADER_HEIGHT_FIRST = 62;   // 46px content + 16px gap below
+      const ERROR_HEADER_HEIGHT_REST = 78;    // 16px gap above + 46px content + 16px gap below
+      const ERROR_HEADER_CONTENT_HEIGHT = 46;
+
+      // Build header indices for sticky behavior
+      const headerIndices = useMemo(() => {
+        const indices = [];
+        renderItems.forEach((item, i) => { if (item.type === 'header') indices.push(i); });
+        return indices;
+      }, [renderItems]);
+
+      // Virtual scroll setup
+      const errParentRef = useRef(null);
+      const errActiveStickyRef = useRef(-1);
+
+      const errRangeExtractor = useCallback((range) => {
+        if (headerIndices.length === 0) {
+          errActiveStickyRef.current = -1;
+          return defaultRangeExtractor(range);
+        }
+        let activeStickyIndex = headerIndices[0];
+        for (const idx of headerIndices) {
+          if (idx > range.startIndex) break;
+          activeStickyIndex = idx;
+        }
+        errActiveStickyRef.current = activeStickyIndex;
+        const defaultRange = defaultRangeExtractor(range);
+        if (!defaultRange.includes(activeStickyIndex)) return [activeStickyIndex, ...defaultRange];
+        return defaultRange;
+      }, [headerIndices]);
+
+      const errVirtualizer = useVirtualizer({
+        count: renderItems.length,
+        getScrollElement: () => errParentRef.current,
+        estimateSize: (index) => {
+          if (renderItems[index].type !== 'header') return ERROR_ROW_HEIGHT;
+          return index === 0 ? ERROR_HEADER_HEIGHT_FIRST : ERROR_HEADER_HEIGHT_REST;
+        },
+        overscan: 15,
+        rangeExtractor: errRangeExtractor,
+      });
+
+      // Imperative sticky header
+      const errStickyElRef = useRef(null);
+      if (!errStickyElRef.current) {
+        errStickyElRef.current = document.createElement('div');
+        errStickyElRef.current.id = 'vs-errors-sticky';
+        errStickyElRef.current.className = 'scenario-group-header';
+        errStickyElRef.current.style.cssText = 'display:none;position:sticky;top:0;width:100%;height:46px;flex-shrink:0;z-index:3;background:var(--bg-surface);box-shadow:0 1px 0 var(--border-color);margin-bottom:-46px;padding:var(--space-md) var(--space-md) var(--space-sm);font-size:var(--font-sm);font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;direction:ltr';
       }
+
+      const errParentRefCallback = useCallback((node) => {
+        errParentRef.current = node;
+        if (node) {
+          const stickyEl = errStickyElRef.current;
+          if (stickyEl.parentNode !== node) node.insertBefore(stickyEl, node.firstChild);
+        }
+      }, []);
+
+      useEffect(() => {
+        const el = errParentRef.current;
+        const stickyEl = errStickyElRef.current;
+        if (!el) { stickyEl.style.display = 'none'; return; }
+        const headerStarts = [];
+        let pos = 0;
+        for (let i = 0; i < renderItems.length; i++) {
+          if (renderItems[i].type === 'header') headerStarts.push({ index: i, start: pos, item: renderItems[i] });
+          const hHeight = i === 0 ? ERROR_HEADER_HEIGHT_FIRST : ERROR_HEADER_HEIGHT_REST;
+          pos += renderItems[i].type === 'header' ? hHeight : ERROR_ROW_HEIGHT;
+        }
+        let currentName = '';
+        const onScroll = () => {
+          const scrollTop = el.scrollTop;
+          let activeHeader = null;
+          for (const h of headerStarts) { if (h.start <= scrollTop) activeHeader = h; else break; }
+          const activeHeaderHeight = activeHeader && activeHeader.index === 0 ? ERROR_HEADER_HEIGHT_FIRST : ERROR_HEADER_HEIGHT_REST;
+          if (!activeHeader || scrollTop <= activeHeader.start + activeHeaderHeight) { stickyEl.style.display = 'none'; return; }
+          stickyEl.style.display = 'flex';
+          stickyEl.style.alignItems = 'center';
+          stickyEl.style.gap = 'var(--space-sm)';
+          if (currentName !== activeHeader.item.name) {
+            currentName = activeHeader.item.name;
+            stickyEl.innerHTML = '';
+            const iconSpan = document.createElement('span');
+            iconSpan.textContent = activeHeader.item.icon;
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = activeHeader.item.name;
+            const countSpan = document.createElement('span');
+            countSpan.textContent = '(' + activeHeader.item.count + ')';
+            countSpan.style.cssText = 'font-size:var(--font-xs);color:var(--text-disabled);font-weight:400';
+            stickyEl.appendChild(iconSpan);
+            stickyEl.appendChild(nameSpan);
+            stickyEl.appendChild(countSpan);
+          }
+        };
+        el.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+        return () => el.removeEventListener('scroll', onScroll);
+      }, [renderItems]);
 
       if (errorScenarios.length === 0) {
         return html`
@@ -2379,39 +2499,49 @@
 
           <div class="grid-stats" style="margin-bottom:var(--space-md)">
             ${summaryCards.map(card => html`
-              <div class="card">
-                <div class="card-title">${card.title}</div>
-                <div class="card-value" style="color:${card.color}">${card.value}</div>
-                <div class="card-subtitle">${card.subtitle}</div>
+              <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)">
+                <div class="card-title" style="margin-bottom:0">${card.title}</div>
+                <div class="card-value" style="color:${card.color};font-size:var(--font-lg)">${card.value}</div>
               </div>
             `)}
           </div>
-          <div class="card">
-            ${renderItems.map(item => {
-              if (item.type === 'header') {
-                return html`
-                  <div class="scenario-group-header" style="position:sticky;top:0;background:var(--bg-surface);z-index:1;display:flex;align-items:center;gap:var(--space-sm)">
-                    <span>${item.icon}</span>
-                    <span>${item.name}</span>
-                    <span style="font-size:var(--font-xs);color:var(--text-disabled);font-weight:400">(${item.count})</span>
-                  </div>
-                `;
-              }
-              const s = item.scenario;
-              return html`
-                <div class="scenario-item" style="align-items:flex-start" onClick=${() => onNavigate(scenarioUrl(s))}>
-                  <div class="scenario-outcome-icon failed" style="width:20px;height:20px;font-size:var(--font-2xs);margin-top:2px">✗</div>
-                  <div class="scenario-info">
-                    <div class="scenario-name">${s.name}</div>
-                    <div class="scenario-meta">
-                      <span class="scenario-source">${s.source.path}:${s.source.line}</span>
+          <div class="card" style="padding-bottom:0">
+            <div style="font-size:var(--font-sm);color:var(--text-secondary);margin-bottom:var(--space-md)">
+              Showing ${errorScenarios.length} ${errorScenarios.length === 1 ? 'error' : 'errors'}
+            </div>
+            <div ref=${errParentRefCallback} style="max-height:calc(100vh - 380px);overflow-y:auto;position:relative">
+              <div style="height:${errVirtualizer.getTotalSize()}px;width:100%;position:relative">
+                ${errVirtualizer.getVirtualItems().map(virtualRow => {
+                  const item = renderItems[virtualRow.index];
+                  if (item.type === 'header') {
+                    const topOffset = virtualRow.index === 0 ? 0 : 16;
+                    return html`
+                      <div style="position:absolute;top:0;left:0;width:100%;height:${ERROR_HEADER_CONTENT_HEIGHT}px;transform:translateY(${virtualRow.start + topOffset}px);background:var(--bg-surface);z-index:1;display:flex;align-items:center;gap:var(--space-sm);direction:ltr"
+                           class="scenario-group-header">
+                        <span>${item.icon}</span>
+                        <span>${item.name}</span>
+                        <span style="font-size:var(--font-xs);color:var(--text-disabled);font-weight:400">(${item.count})</span>
+                      </div>
+                    `;
+                  }
+                  const s = item.scenario;
+                  return html`
+                    <div style="position:absolute;top:0;left:0;width:100%;height:${ERROR_ROW_HEIGHT}px;transform:translateY(${virtualRow.start}px);overflow:hidden;align-items:flex-start"
+                         class="scenario-item" onClick=${() => onNavigate(scenarioUrl(s))}>
+                      <div class="scenario-outcome-icon failed" style="width:20px;height:20px;font-size:var(--font-2xs);margin-top:2px;flex-shrink:0">✗</div>
+                      <div class="scenario-info">
+                        <div class="scenario-name">${s.name}</div>
+                        <div class="scenario-meta">
+                          <span class="scenario-source">${s.source.path}:${s.source.line}</span>
+                        </div>
+                        <div style="font-size:var(--font-sm);color:var(--text-secondary);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.error.message}</div>
+                      </div>
+                      <span class="scenario-duration">${formatDuration(s.duration)}</span>
                     </div>
-                    <div style="font-size:var(--font-sm);color:var(--text-secondary);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.error.message}</div>
-                  </div>
-                  <span class="scenario-duration">${formatDuration(s.duration)}</span>
-                </div>
-              `;
-            })}
+                  `;
+                })}
+              </div>
+            </div>
           </div>
         </div>
       `;
@@ -2554,9 +2684,9 @@
 
       // Flatten into virtualizer items (headers + scenarios)
       const STABILITY_ROW_HEIGHT = 56;
-      const STABILITY_HEADER_HEIGHT_FIRST = 60;
-      const STABILITY_HEADER_HEIGHT_REST = 76;
-      const STABILITY_HEADER_CONTENT_HEIGHT = 44;
+      const STABILITY_HEADER_HEIGHT_FIRST = 62;
+      const STABILITY_HEADER_HEIGHT_REST = 78;
+      const STABILITY_HEADER_CONTENT_HEIGHT = 46;
 
       const flatItems = useMemo(() => {
         if (sort !== 'category') return sortedItems.map(t => ({ type: 'scenario', item: t }));
@@ -2616,7 +2746,7 @@
         stickyElRef.current = document.createElement('div');
         stickyElRef.current.id = 'vs-stability-sticky';
         stickyElRef.current.className = 'scenario-group-header';
-        stickyElRef.current.style.cssText = 'display:none;position:sticky;top:0;width:100%;height:44px;z-index:3;background:var(--bg-surface);box-shadow:0 1px 0 var(--border-color);margin-bottom:-44px;padding:var(--space-md) var(--space-md) var(--space-sm);font-size:var(--font-sm);font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px';
+        stickyElRef.current.style.cssText = 'display:none;position:sticky;top:0;width:100%;height:46px;flex-shrink:0;z-index:3;background:var(--bg-surface);box-shadow:0 1px 0 var(--border-color);margin-bottom:-46px;padding:var(--space-md) var(--space-md) var(--space-sm);font-size:var(--font-sm);font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px';
       }
 
       const parentRefCallback = useCallback((node) => {
@@ -2679,8 +2809,9 @@
               aria-label="Clear search">✕</button>` : null}
           </div>
 
-          <!-- Filter tabs -->
-          <div style="display:flex;gap:var(--space-sm);margin-bottom:var(--space-md);flex-wrap:wrap">
+          <!-- Filter and sort -->
+          <div style="display:flex;gap:var(--space-sm);margin-bottom:var(--space-md);flex-wrap:wrap;align-items:center">
+            <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">State:</span>
             <button class="filter-chip ${filter === 'unstable' ? 'active' : ''}" onClick=${() => setFilter('unstable')}>
               Unstable <span class="count">${flaky.length}</span>
             </button>
@@ -2690,13 +2821,13 @@
             <button class="filter-chip passed ${filter === 'recovered' ? 'active' : ''}" onClick=${() => setFilter('recovered')}>
               Recovered <span class="count">${recoveredCount}</span>
             </button>
-          </div>
-
-          <!-- Sort controls -->
-          <div style="display:flex;align-items:center;gap:var(--space-sm);margin-bottom:var(--space-md)">
-            <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Sort:</span>
-            <button class="filter-chip ${sort === 'category' ? 'active' : ''}" onClick=${() => setSort('category')}>Category</button>
-            <button class="filter-chip ${sort === 'name' ? 'active' : ''}" onClick=${() => setSort('name')}>Name</button>
+            <div class="sort-group">
+              <label style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px" for="stability-sort-select">Sort:</label>
+              <select id="stability-sort-select" class="sort-select" value=${sort} onChange=${(e) => setSort(e.target.value)} aria-label="Sort order">
+                <option value="category" selected=${sort === 'category'}>Category</option>
+                <option value="name" selected=${sort === 'name'}>Name</option>
+              </select>
+            </div>
           </div>
 
           <!-- Results list (virtualized) -->
@@ -2704,7 +2835,7 @@
             <div style="font-size:var(--font-sm);color:var(--text-secondary);margin-bottom:var(--space-md)">
               Showing ${sortedItems.length} ${sortedItems.length === 1 ? 'test' : 'tests'}
             </div>
-            <div ref=${parentRefCallback} class="scenario-list" style="max-height:calc(100vh - 380px);overflow-y:auto;position:relative">
+            <div ref=${parentRefCallback} style="max-height:calc(100vh - 380px);overflow-y:auto;position:relative">
               <div style="height:${virtualizer.getTotalSize()}px;width:100%;position:relative">
                 ${virtualizer.getVirtualItems().map(virtualRow => {
                   const flatItem = flatItems[virtualRow.index];
@@ -2735,9 +2866,10 @@
                       <div style="display:flex;align-items:center;gap:var(--space-md);flex-shrink:0">
                         ${t.history ? html`
                           <div style="display:flex;gap:2px;align-items:center">
-                            ${t.history.map((outcome, idx) => html`
-                              <div style="width:12px;height:12px;border-radius:2px;background:var(--color-${outcomeClass(outcome)});opacity:0.85" title="${t.labels[idx]}: ${outcome}"></div>
-                            `)}
+                            ${t.history.map((outcome, idx) => {
+                              const runClickHandler = (e) => { e.stopPropagation(); onNavigate(scenarioUrl(t) + '?run=' + idx); };
+                              return html`<div style="width:12px;height:12px;border-radius:2px;background:var(--color-${outcomeClass(outcome)});opacity:0.85;cursor:pointer" title="${t.labels[idx]}: ${outcome}" onClick=${runClickHandler}></div>`;
+                            })}
                           </div>
                         ` : null}
                         ${t.flakinessRate !== undefined ? html`
@@ -2796,20 +2928,20 @@
       return html`
         <div>
           <div class="grid-stats" style="margin-bottom:var(--space-md)">
-            <div class="card">
-              <div class="card-title">Coverage</div>
-              <div class="card-value" style="color:${coveragePercent >= 80 ? 'var(--color-passed)' : coveragePercent >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'}">${coveragePercent}%</div>
-              <div class="card-subtitle">${coveredFiles} of ${totalFiles} areas have tests</div>
+            <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)">
+              <div class="card-title" style="margin-bottom:0">Coverage</div>
+              <div class="card-value" style="color:${coveragePercent >= 80 ? 'var(--color-passed)' : coveragePercent >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'};font-size:var(--font-lg)">${coveragePercent}%</div>
+              <div class="card-subtitle" style="margin-top:0;margin-left:auto">${coveredFiles} of ${totalFiles} areas have tests</div>
             </div>
-            <div class="card">
-              <div class="card-title">Pass Rate</div>
-              <div class="card-value" style="color:${passRate >= 80 ? 'var(--color-passed)' : passRate >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'}">${passRate}%</div>
-              <div class="card-subtitle">${totalScenarios} scenarios total</div>
+            <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)">
+              <div class="card-title" style="margin-bottom:0">Pass Rate</div>
+              <div class="card-value" style="color:${passRate >= 80 ? 'var(--color-passed)' : passRate >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'};font-size:var(--font-lg)">${passRate}%</div>
+              <div class="card-subtitle" style="margin-top:0;margin-left:auto">${totalScenarios} scenarios total</div>
             </div>
-            <div class="card">
-              <div class="card-title">Gaps</div>
-              <div class="card-value" style="color:${gapCount === 0 ? 'var(--color-passed)' : 'var(--color-failed)'}">${gapCount}</div>
-              <div class="card-subtitle">areas with no test coverage</div>
+            <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)">
+              <div class="card-title" style="margin-bottom:0">Gaps</div>
+              <div class="card-value" style="color:${gapCount === 0 ? 'var(--color-passed)' : 'var(--color-failed)'};font-size:var(--font-lg)">${gapCount}</div>
+              <div class="card-subtitle" style="margin-top:0;margin-left:auto">areas with no test coverage</div>
             </div>
           </div>
 
@@ -2920,21 +3052,21 @@
         <div>
           <!-- Stats cards -->
           <div class="grid-stats" style="margin-bottom:var(--space-md)">
-            <div class="card">
-              <div class="card-title">Slowest</div>
-              <div class="card-value" style="color:var(--color-failed)">${formatDuration(slowest)}</div>
+            <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)">
+              <div class="card-title" style="margin-bottom:0">Slowest</div>
+              <div class="card-value" style="color:var(--color-failed);font-size:var(--font-lg)">${formatDuration(slowest)}</div>
             </div>
-            <div class="card">
-              <div class="card-title">Fastest</div>
-              <div class="card-value" style="color:var(--color-passed)">${formatDuration(fastest)}</div>
+            <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)">
+              <div class="card-title" style="margin-bottom:0">Fastest</div>
+              <div class="card-value" style="color:var(--color-passed);font-size:var(--font-lg)">${formatDuration(fastest)}</div>
             </div>
-            <div class="card">
-              <div class="card-title">Average</div>
-              <div class="card-value">${formatDuration(avg)}</div>
+            <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)">
+              <div class="card-title" style="margin-bottom:0">Average</div>
+              <div class="card-value" style="font-size:var(--font-lg)">${formatDuration(avg)}</div>
             </div>
-            <div class="card">
-              <div class="card-title">Total Run</div>
-              <div class="card-value">${formatDuration(DATA.summary.duration)}</div>
+            <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)">
+              <div class="card-title" style="margin-bottom:0">Total Run</div>
+              <div class="card-value" style="font-size:var(--font-lg)">${formatDuration(DATA.summary.duration)}</div>
             </div>
           </div>
 
