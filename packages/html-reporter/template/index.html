@@ -1298,6 +1298,7 @@
       const sorted = [...scenarios].sort((a, b) => b.duration - a.duration);
       const slowest = sorted.slice(0, 5);
       const newFailures = (DATA.newFailures || []).slice(0, 5);
+      const newPasses = (DATA.newPasses || []).slice(0, 5);
       const flakyTests = (DATA.flakyTests || []).slice(0, 5);
 
       return html`
@@ -1341,13 +1342,13 @@
             </div>
           </div>
 
-          <!-- Right column: New Failures / Most Unstable / Slowest Tests -->
+          <!-- Right column: Degraded / Recovered / Most Unstable / Slowest Tests -->
           <div style="display:flex;flex-direction:column;gap:var(--space-md)">
             <div class="card">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-sm)">
-                <div class="card-title" style="margin-bottom:0;color:var(--color-failed)">New Failures</div>
+                <div class="card-title" style="margin-bottom:0;color:var(--color-failed)">Degraded</div>
                 ${newFailures.length > 0 ? html`
-                  <a class="view-all-link" onClick=${() => onNavigate('/tests?filter=new-failures')}>View all →</a>
+                  <a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>
                 ` : null}
               </div>
               ${newFailures.length > 0 ? html`
@@ -1357,11 +1358,32 @@
                     <span class="slowest-name">${t.name}</span>
                   </div>
                 `)}
-                <div style="font-size:var(--font-xs);color:var(--text-secondary);margin-top:var(--space-sm)">Passed in previous run, failing now</div>
+                <div style="font-size:var(--font-xs);color:var(--text-secondary);margin-top:var(--space-sm)">Was passing, now failing</div>
               ` : html`
                 <div style="padding:var(--space-md) 0;text-align:center;color:var(--color-passed)">
                   <div style="font-size:var(--font-lg);margin-bottom:var(--space-xs)">✓</div>
-                  <div style="font-size:var(--font-md)">Well done! No new failures</div>
+                  <div style="font-size:var(--font-md)">Well done! No degraded tests</div>
+                </div>
+              `}
+            </div>
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-sm)">
+                <div class="card-title" style="margin-bottom:0;color:var(--color-passed)">Recovered</div>
+                ${newPasses.length > 0 ? html`
+                  <a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>
+                ` : null}
+              </div>
+              ${newPasses.length > 0 ? html`
+                ${newPasses.map(t => html`
+                  <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(t))} style="cursor:pointer">
+                    <span style="font-size:var(--font-sm);color:var(--color-passed)">✓</span>
+                    <span class="slowest-name">${t.name}</span>
+                  </div>
+                `)}
+                <div style="font-size:var(--font-xs);color:var(--text-secondary);margin-top:var(--space-sm)">Was failing, now passing</div>
+              ` : html`
+                <div style="padding:var(--space-md) 0;text-align:center;color:var(--text-secondary)">
+                  <div style="font-size:var(--font-md)">No newly recovered tests</div>
                 </div>
               `}
             </div>
@@ -1373,7 +1395,7 @@
                 </div>
                 ${flakyTests.map(t => html`
                   <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(t))} style="cursor:pointer">
-                    <span style="font-size:var(--font-sm);font-weight:600;color:var(--color-pending);width:36px">${Math.round(t.flakinessRate * 100)}%</span>
+                    <span style="font-size:var(--font-sm);font-weight:600;color:var(--color-pending);width:36px" title="Failure ratio: ${Math.round(t.flakinessRate * 100)}%">${Math.round(t.flakinessRate * 100)}%</span>
                     <span class="slowest-name">${t.name}</span>
                   </div>
                 `)}
@@ -1399,12 +1421,10 @@
 
     // ===== Filter Bar =====
     function FilterBar({ outcomes, total, activeFilter, onFilter }) {
-      const newFailuresCount = (DATA.newFailures || []).length;
       const filters = [
         { key: 'all', label: 'All', count: total },
         { key: 'passed', label: 'Passed', count: outcomes.passed },
         { key: 'failed', label: 'Failed', count: outcomes.failed },
-        { key: 'new-failures', label: 'New Failures', count: newFailuresCount },
         { key: 'pending', label: 'Pending', count: outcomes.pending },
         { key: 'skipped', label: 'Skipped', count: outcomes.skipped },
         { key: 'compromised', label: 'Compromised', count: outcomes.compromised },
@@ -1847,10 +1867,6 @@
         let result = DATA.scenarios;
         if (filter === 'non-passing') {
           result = result.filter(s => s.outcome !== 'SUCCESS');
-        } else if (filter === 'new-failures') {
-          // New failures: scenarios that failed/compromised in current run but passed in previous
-          const newFailureIds = new Set((DATA.newFailures || []).map(s => s.source.path + ':' + s.source.line));
-          result = result.filter(s => newFailureIds.has(s.source.path + ':' + s.source.line));
         } else if (filter !== 'all') {
           const outcomeMap = { passed: 'SUCCESS', failed: 'FAILURE', pending: 'PENDING', skipped: 'SKIPPED', compromised: 'COMPROMISED' };
           result = result.filter(s => s.outcome === outcomeMap[filter]);
@@ -2490,65 +2506,169 @@
     // ===== Placeholder Views =====
     function FlakyView({ onNavigate }) {
       const flaky = DATA.flakyTests || [];
+      const degraded = DATA.newFailures || [];
+      const recovered = DATA.newPasses || [];
 
-      if (flaky.length === 0) {
+      const [filter, setFilter] = useState('all');
+      const [search, setSearch] = useState('');
+      const [sort, setSort] = useState('category');
+
+      const hasNoData = flaky.length === 0 && degraded.length === 0 && recovered.length === 0;
+
+      if (hasNoData) {
         return html`
           <div class="placeholder-view">
             ${icons.flaky}
-            <h2>No Unstable Tests Detected</h2>
-            <p>Requires trend data from multiple runs to identify tests with inconsistent results.<br/>Run your test suite several times to populate history.</p>
+            <h2>All Tests Stable</h2>
+            <p>No degraded, recovered, or unstable results detected.<br/>Run your test suite several times to populate history.</p>
           </div>
         `;
       }
 
-      // Group by category
+      // Merge flaky data into degraded/recovered items when they also appear in flakyTests
+      const enrichWithHistory = (items, kind) => items.map(t => {
+        const flakyMatch = flaky.find(f => f.id === t.id);
+        return { ...t, kind, history: flakyMatch?.history, labels: flakyMatch?.labels, flakinessRate: flakyMatch?.flakinessRate };
+      });
+
+      // Build unified list based on filter
+      const allItems = useMemo(() => {
+        const degradedItems = enrichWithHistory(degraded, 'degraded');
+        const recoveredItems = enrichWithHistory(recovered, 'recovered');
+        const unstableItems = flaky.map(t => ({ ...t, kind: 'unstable' }));
+
+        if (filter === 'degraded') return degradedItems;
+        if (filter === 'recovered') return recoveredItems;
+        if (filter === 'unstable') return unstableItems;
+        // 'all' — combine all, deduplicating by id (prefer degraded/recovered over unstable)
+        const seen = new Set();
+        const result = [];
+        for (const item of [...degradedItems, ...recoveredItems]) {
+          seen.add(item.id);
+          result.push(item);
+        }
+        for (const item of unstableItems) {
+          if (!seen.has(item.id)) result.push(item);
+        }
+        return result;
+      }, [filter]);
+
+      // Apply search filter
+      const searchedItems = useMemo(() => {
+        if (!search) return allItems;
+        return allItems.filter(t => matchesSearch(t, search));
+      }, [allItems, search]);
+
+      // Apply sorting
+      const sortedItems = useMemo(() => {
+        if (sort === 'name') return [...searchedItems].sort((a, b) => a.name.localeCompare(b.name));
+        if (sort === 'category') return [...searchedItems].sort((a, b) => (a.category || '').localeCompare(b.category || ''));
+        return searchedItems;
+      }, [searchedItems, sort]);
+
+      // Group by category for category sort
       const grouped = useMemo(() => {
+        if (sort !== 'category') return null;
         const groups = {};
-        for (const t of flaky) {
-          if (!groups[t.category]) groups[t.category] = [];
-          groups[t.category].push(t);
+        for (const t of sortedItems) {
+          const cat = t.category || 'Uncategorised';
+          if (!groups[cat]) groups[cat] = [];
+          groups[cat].push(t);
         }
         return groups;
-      }, []);
+      }, [sortedItems, sort]);
+
+      const kindIcon = (kind) => {
+        if (kind === 'degraded') return html`<span class="scenario-outcome-icon failed">✗</span>`;
+        if (kind === 'recovered') return html`<span class="scenario-outcome-icon passed">✓</span>`;
+        return html`<span class="scenario-outcome-icon pending">⚡</span>`;
+      };
+
+      const kindLabel = (kind) => {
+        if (kind === 'degraded') return 'was passing, now failing';
+        if (kind === 'recovered') return 'was failing, now passing';
+        return '';
+      };
+
+      const renderItem = (t) => html`
+        <div class="scenario-item" onClick=${() => onNavigate(scenarioUrl(t))} style="align-items:flex-start">
+          ${kindIcon(t.kind)}
+          <div class="scenario-info" style="flex:1">
+            <div class="scenario-name">${t.name}</div>
+            <div class="scenario-meta">
+              <span class="scenario-source">${t.source.path}:${t.source.line}</span>
+              ${kindLabel(t.kind) ? html`<span style="color:var(--text-disabled)">•</span><span>${kindLabel(t.kind)}</span>` : null}
+            </div>
+            ${t.history ? html`
+              <div style="display:flex;gap:3px;margin-top:6px;align-items:center">
+                ${t.history.map((outcome, idx) => html`
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:1px" title="${t.labels[idx]}: ${outcome}">
+                    <div style="width:14px;height:14px;border-radius:3px;background:var(--color-${outcomeClass(outcome)});opacity:0.85"></div>
+                    <span style="font-size:8px;color:var(--text-disabled)">${t.labels[idx]}</span>
+                  </div>
+                `)}
+              </div>
+            ` : null}
+          </div>
+          ${t.flakinessRate !== undefined ? html`
+            <div style="text-align:right;flex-shrink:0" title="Failure ratio: ${Math.round(t.flakinessRate * 100)}%">
+              <div style="font-size:var(--font-lg);font-weight:700;color:var(--color-pending)">${Math.round(t.flakinessRate * 100)}%</div>
+              <div style="font-size:var(--font-2xs);color:var(--text-secondary)">failure ratio</div>
+            </div>
+          ` : null}
+        </div>
+      `;
 
       return html`
         <div>
-          <div style="margin-bottom:var(--space-md);font-size:var(--font-md);color:var(--text-secondary)">
-            ${flaky.length} unstable ${flaky.length === 1 ? 'test' : 'tests'} detected across ${DATA.history.length} runs
+          <!-- Filter tabs -->
+          <div style="display:flex;gap:var(--space-sm);margin-bottom:var(--space-md);flex-wrap:wrap">
+            <button class="filter-chip ${filter === 'all' ? 'active' : ''}" onClick=${() => setFilter('all')}>
+              All <span class="count">${degraded.length + recovered.length + flaky.length}</span>
+            </button>
+            <button class="filter-chip failed ${filter === 'degraded' ? 'active' : ''}" onClick=${() => setFilter('degraded')}>
+              Degraded <span class="count">${degraded.length}</span>
+            </button>
+            <button class="filter-chip passed ${filter === 'recovered' ? 'active' : ''}" onClick=${() => setFilter('recovered')}>
+              Recovered <span class="count">${recovered.length}</span>
+            </button>
+            <button class="filter-chip pending ${filter === 'unstable' ? 'active' : ''}" onClick=${() => setFilter('unstable')}>
+              Unstable <span class="count">${flaky.length}</span>
+            </button>
           </div>
 
+          <!-- Search -->
+          <div style="position:relative;margin-bottom:var(--space-md)">
+            <input class="search-input" type="text" placeholder="Find test scenarios..."
+                   value=${search} onInput=${e => setSearch(e.target.value)}
+                   aria-label="Find test scenarios" style="margin-bottom:0;padding-right:36px" />
+            ${search ? html`<button onClick=${() => setSearch('')}
+              style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-secondary);font-size:var(--font-lg);padding:4px;line-height:1"
+              aria-label="Clear search">✕</button>` : null}
+          </div>
+
+          <!-- Sort controls -->
+          <div style="display:flex;align-items:center;gap:var(--space-sm);margin-bottom:var(--space-md)">
+            <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Sort:</span>
+            <button class="filter-chip ${sort === 'category' ? 'active' : ''}" onClick=${() => setSort('category')}>Category</button>
+            <button class="filter-chip ${sort === 'name' ? 'active' : ''}" onClick=${() => setSort('name')}>Name</button>
+          </div>
+
+          <!-- Results list -->
           <div class="card">
-            ${Object.entries(grouped).map(([category, tests]) => html`
-              <div class="scenario-group-header" style="position:sticky;top:0;background:var(--bg-surface);z-index:1">
-                ${category.split(' › ').map((segment, idx, arr) => html`
-                  <span style="cursor:pointer" onClick=${(e) => { e.stopPropagation(); onNavigate('/tests?search=' + encodeURIComponent('"' + segment + '"')); }}>${segment}</span>${idx < arr.length - 1 ? html`<span style="margin:0 4px;text-decoration:none;cursor:default"> › </span>` : null}
-                `)}
-              </div>
-              ${tests.map(test => html`
-                <div class="scenario-item" onClick=${() => onNavigate(scenarioUrl(test))} style="align-items:flex-start">
-                  <div class="scenario-outcome-icon pending" style="margin-top:2px">⚡</div>
-                  <div class="scenario-info" style="flex:1">
-                    <div class="scenario-name">${test.name}</div>
-                    <div class="scenario-meta">
-                      <span class="scenario-source">${test.source.path}:${test.source.line}</span>
-                    </div>
-                    <!-- Outcome history mini-chart -->
-                    <div style="display:flex;gap:3px;margin-top:6px;align-items:center">
-                      ${test.history.map((outcome, idx) => html`
-                        <div style="display:flex;flex-direction:column;align-items:center;gap:1px" title="${test.labels[idx]}: ${outcome}">
-                          <div style="width:14px;height:14px;border-radius:3px;background:var(--color-${outcomeClass(outcome)});opacity:0.85"></div>
-                          <span style="font-size:8px;color:var(--text-disabled)">${test.labels[idx]}</span>
-                        </div>
-                      `)}
-                    </div>
-                  </div>
-                  <div style="text-align:right;flex-shrink:0">
-                    <div style="font-size:var(--font-lg);font-weight:700;color:var(--color-pending)">${Math.round(test.flakinessRate * 100)}%</div>
-                    <div style="font-size:var(--font-2xs);color:var(--text-secondary)">unstable</div>
-                  </div>
+            <div style="font-size:var(--font-sm);color:var(--text-secondary);margin-bottom:var(--space-md)">
+              Showing ${sortedItems.length} ${sortedItems.length === 1 ? 'test' : 'tests'}
+            </div>
+            <div class="scenario-list">
+              ${sort === 'category' && grouped ? Object.entries(grouped).map(([category, tests]) => html`
+                <div class="scenario-group-header">
+                  ${category.split(' › ').map((segment, idx, arr) => html`
+                    <span style="cursor:pointer" onClick=${() => setSearch('"' + segment + '"')}>${segment}</span>${idx < arr.length - 1 ? html`<span style="margin:0 4px;text-decoration:none;cursor:default"> › </span>` : null}
+                  `)}
                 </div>
-              `)}
-            `)}
+                ${tests.map(renderItem)}
+              `) : sortedItems.map(renderItem)}
+            </div>
           </div>
         </div>
       `;
