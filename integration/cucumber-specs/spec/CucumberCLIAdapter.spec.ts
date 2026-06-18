@@ -71,7 +71,7 @@ describe('CucumberCLIAdapter', function () {
 
                     currentSceneId = event.sceneId;
                 })
-                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('JS')))
+                .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Cucumber')))
                 .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a passing scenario')))
                 .next(ActivityStarts, event => expect(event.details.name).to.equal(new Name('Given a step that passes')))
                 .next(ActivityFinished, event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
@@ -127,7 +127,7 @@ describe('CucumberCLIAdapter', function () {
 
                     currentSceneId = event.sceneId;
                 })
-                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('JS')))
+                .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                 .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a passing scenario')))
                 .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that passes')))
                 .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
@@ -162,7 +162,7 @@ describe('CucumberCLIAdapter', function () {
                         expect(event.details.location.column).to.equal(3);
                         currentSceneId = event.sceneId;
                     })
-                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('JS')))
+                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a passing scenario')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that passes')))
                     .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
@@ -195,7 +195,7 @@ describe('CucumberCLIAdapter', function () {
                         expect(event.details.location.column).to.equal(3);
                         currentSceneId = event.sceneId;
                     })
-                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('JS')))
+                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a passing scenario')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that passes')))
                     .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSuccessful()))
