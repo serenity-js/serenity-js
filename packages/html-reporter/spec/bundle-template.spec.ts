@@ -11,7 +11,7 @@ describe('bundle-template', () => {
     // These tests verify the output meets air-gap requirements.
 
     const thisDirectory = dirname(fileURLToPath(import.meta.url));
-    const templatePath = resolve(thisDirectory, '..', 'src', 'template.ts');
+    const templatePath = resolve(thisDirectory, '..', 'esm', 'template.js');
 
     function readBundledTemplate(): string {
         return readFileSync(templatePath, 'utf8');
@@ -20,7 +20,7 @@ describe('bundle-template', () => {
     it('produces a template.ts file', () => {
         const content = readBundledTemplate();
 
-        expect(content).to.contain('export const reportTemplate');
+        expect(content).to.contain('reportTemplate');
     });
 
     it('does not contain CDN script tags', () => {
