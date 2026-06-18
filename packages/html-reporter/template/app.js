@@ -1397,6 +1397,16 @@
     function SystemContextView() {
       const ctx = DATA.systemContext;
 
+      if (!ctx) {
+        return html`
+          <div class="placeholder-view">
+            ${icons.system}
+            <h2>System Context</h2>
+            <p>System context information is not yet available.<br/>It will be populated once the reporter collects environment metadata.</p>
+          </div>
+        `;
+      }
+
       return html`
         <div class="card">
           <div class="card-title" style="margin-bottom:var(--space-lg)">Environment</div>
