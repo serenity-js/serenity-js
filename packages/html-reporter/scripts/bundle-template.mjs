@@ -1,105 +1,73 @@
 /**
  * Bundle Template Script
  *
- * Reads the development template (template/index.html) and replaces CDN
- * script imports with inlined library code from node_modules.
+ * Uses esbuild to bundle the template app (Preact, Chart.js, HTM, etc.)
+ * into a single IIFE, then assembles the final index.html by injecting
+ * the bundled JS and CSS into the HTML shell.
  *
  * Output: lib/template.js and esm/template.js
- *
- * This runs AFTER tsc compilation so that the bundled template
- * is placed alongside the compiled output in both CJS and ESM directories.
  */
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildSync } from 'esbuild';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const packageRoot = resolve(__dirname, '..');
+const templateDir = resolve(packageRoot, 'template');
 
-// Read the development template
-const templatePath = resolve(packageRoot, 'template', 'index.html');
-let template = readFileSync(templatePath, 'utf8');
+// --- Step 1: Bundle the app JS with esbuild ---
 
-// --- Replace UMD script tags with inlined code ---
+const result = buildSync({
+    entryPoints: [resolve(templateDir, 'app.js')],
+    bundle: true,
+    format: 'iife',
+    write: false,
+    minify: false,
+    target: 'es2020',
+    // Chart.js, Hammer.js, and chartjs-plugin-zoom are UMD globals
+    // loaded via separate <script> tags before the app
+    nodePaths: [resolve(packageRoot, 'node_modules')],
+});
 
-const umdReplacements = [
-    {
-        pattern: /<script src="https:\/\/cdn\.jsdelivr\.net\/npm\/chart\.js@[^"]+"><\/script>/,
-        file: resolve(packageRoot, 'node_modules', 'chart.js', 'dist', 'chart.umd.js'),
-    },
-    {
-        pattern: /<script src="https:\/\/cdn\.jsdelivr\.net\/npm\/hammerjs@[^"]+"><\/script>/,
-        file: resolve(packageRoot, 'node_modules', 'hammerjs', 'hammer.min.js'),
-    },
-    {
-        pattern: /<script src="https:\/\/cdn\.jsdelivr\.net\/npm\/chartjs-plugin-zoom@[^"]+"><\/script>/,
-        file: resolve(packageRoot, 'node_modules', 'chartjs-plugin-zoom', 'dist', 'chartjs-plugin-zoom.min.js'),
-    },
-];
+const bundledAppJs = new TextDecoder().decode(result.outputFiles[0].contents);
 
-for (const { pattern, file } of umdReplacements) {
-    const code = readFileSync(file, 'utf8');
-    template = template.replace(pattern, `<script>${code}</script>`);
-}
+// --- Step 2: Read UMD libraries ---
 
-// --- Replace ES module imports with inlined code ---
+const chartJs = readFileSync(resolve(packageRoot, 'node_modules', 'chart.js', 'dist', 'chart.umd.js'), 'utf8');
+const hammerJs = readFileSync(resolve(packageRoot, 'node_modules', 'hammerjs', 'hammer.min.js'), 'utf8');
+const chartjsZoom = readFileSync(resolve(packageRoot, 'node_modules', 'chartjs-plugin-zoom', 'dist', 'chartjs-plugin-zoom.min.js'), 'utf8');
 
-const preactSource = readFileSync(resolve(packageRoot, 'node_modules', 'preact', 'dist', 'preact.module.js'), 'utf8');
-const preactHooksSource = readFileSync(resolve(packageRoot, 'node_modules', 'preact', 'hooks', 'dist', 'hooks.module.js'), 'utf8');
-const htmSource = readFileSync(resolve(packageRoot, 'node_modules', 'htm', 'dist', 'htm.module.js'), 'utf8');
-const virtualCoreSource = readFileSync(resolve(packageRoot, 'node_modules', '@tanstack', 'virtual-core', 'dist', 'esm', 'index.js'), 'utf8');
+// Combine all JS: UMD globals first, then the bundled app
+const allJs = [chartJs, hammerJs, chartjsZoom, bundledAppJs].join('\n;\n');
 
-const esmPreamble = `
-// === Inlined: preact ===
-const preactModule = (() => { ${preactSource}; return { h, render, Component }; })();
-const { h, render, Component } = preactModule;
+// --- Step 3: Read CSS ---
 
-// === Inlined: preact/hooks ===
-const hooksModule = (() => { ${preactHooksSource}; return { useState, useEffect, useMemo, useCallback, useRef }; })();
-const { useState, useEffect, useMemo, useCallback, useRef } = hooksModule;
+const styles = readFileSync(resolve(templateDir, 'styles.css'), 'utf8');
 
-// === Inlined: htm ===
-const htmModule = (() => { ${htmSource}; return htm; })();
-const htm = htmModule.bind(h);
-const html = htm;
+// --- Step 4: Assemble the final HTML ---
 
-// === Inlined: @tanstack/virtual-core ===
-const virtualCoreModule = (() => { ${virtualCoreSource}; return { observeElementRect, observeElementOffset, elementScroll, Virtualizer, defaultRangeExtractor }; })();
-const { observeElementRect, observeElementOffset, elementScroll, Virtualizer, defaultRangeExtractor } = virtualCoreModule;
-`;
+let shell = readFileSync(resolve(templateDir, 'shell.html'), 'utf8');
+shell = shell.replace('/* __STYLES__ */', styles);
+shell = shell.replace('/* __APP__ */', allJs);
 
-// Remove the ESM import lines and replace with inlined preamble
-const esmImportPattern = /import\s*\{[^}]+\}\s*from\s*'https:\/\/esm\.sh\/[^']+';?\n?/g;
-const htmImportPattern = /import\s+htm\s+from\s+'https:\/\/esm\.sh\/[^']+';?\n?/;
+// --- Step 5: Write outputs ---
 
-template = template.replace(esmImportPattern, '');
-template = template.replace(htmImportPattern, '');
-
-// Insert preamble after the <script type="module"> opening tag
-template = template.replace(
-    /(<script type="module">)/,
-    `<script>\n${esmPreamble}\n`
-);
-
-// --- Write to both lib/ and esm/ ---
-
-const escaped = template
+// Write as a JS module that exports the HTML string
+const escaped = shell
     .replace(/\\/g, '\\\\')
     .replace(/`/g, '\\`')
     .replace(/\$\{/g, '\\${');
 
-// CJS output
 const cjsContent = `"use strict";\nObject.defineProperty(exports, "__esModule", { value: true });\nexports.reportTemplate = \`${escaped}\`;\n`;
 mkdirSync(resolve(packageRoot, 'lib'), { recursive: true });
 writeFileSync(resolve(packageRoot, 'lib', 'template.js'), cjsContent, 'utf8');
 
-// ESM output
 const esmContent = `export const reportTemplate = \`${escaped}\`;\n`;
 mkdirSync(resolve(packageRoot, 'esm'), { recursive: true });
 writeFileSync(resolve(packageRoot, 'esm', 'template.js'), esmContent, 'utf8');
 
-// Declaration file (shared)
 const dtsContent = `export declare const reportTemplate: string;\n`;
 writeFileSync(resolve(packageRoot, 'lib', 'template.d.ts'), dtsContent, 'utf8');
 writeFileSync(resolve(packageRoot, 'esm', 'template.d.ts'), dtsContent, 'utf8');
