@@ -24,6 +24,11 @@ export class FileSystem {
         return this.writeFile(relativeOrAbsolutePathToFile, data, encoding);
     }
 
+    public storeSync(relativeOrAbsolutePathToFile: Path, data: string | NodeJS.ArrayBufferView, encoding?: NodeFS.WriteFileOptions): Path {
+        this.ensureDirectoryExistsAtSync(relativeOrAbsolutePathToFile.directory());
+        return this.writeFileSync(relativeOrAbsolutePathToFile, data, encoding);
+    }
+
     public readFile(relativeOrAbsolutePathToFile: Path, options?: { encoding?: null | undefined; flag?: string | undefined; }): Promise<Buffer>
     public readFile(relativeOrAbsolutePathToFile: Path, options: { encoding: BufferEncoding; flag?: string | undefined; } | NodeJS.BufferEncoding): Promise<string>
     public readFile(relativeOrAbsolutePathToFile: Path, options?: (NodeFS.ObjectEncodingOptions & { flag?: string | undefined; }) | NodeJS.BufferEncoding): Promise<string | Buffer> {
@@ -97,6 +102,15 @@ export class FileSystem {
         const absolutePath = this.resolve(relativeOrAbsolutePathToDirectory);
 
         await this.fs.promises.mkdir(absolutePath.value, { recursive: true, mode: this.directoryMode });
+
+        return absolutePath;
+    }
+
+    public ensureDirectoryExistsAtSync(relativeOrAbsolutePathToDirectory: Path): Path {
+
+        const absolutePath = this.resolve(relativeOrAbsolutePathToDirectory);
+
+        this.fs.mkdirSync(absolutePath.value, { recursive: true, mode: this.directoryMode });
 
         return absolutePath;
     }
