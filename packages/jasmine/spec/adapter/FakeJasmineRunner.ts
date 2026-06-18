@@ -23,6 +23,7 @@ export class FakeJasmineRunner {
 
     public readonly jasmine = {
         DEFAULT_TIMEOUT_INTERVAL: undefined,
+        version: '6.0.0',
         Suite: () => void 0,
         Spec: () => void 0,
         getEnv() {

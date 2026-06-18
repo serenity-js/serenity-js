@@ -13,7 +13,7 @@ import {
     TestSuiteFinished,
     TestSuiteStarts,
 } from '@serenity-js/core/events';
-import { FileSystemLocation, Path, type RequirementsHierarchy } from '@serenity-js/core/io';
+import { FileSystemLocation, Path, type RequirementsHierarchy, type Version } from '@serenity-js/core/io';
 import {
     ArbitraryTag,
     CorrelationId,
@@ -45,12 +45,14 @@ export class SerenityReporterForMocha extends reporters.Base {
     /**
      * @param {Serenity} serenity
      * @param requirementsHierarchy
+     * @param mochaVersion
      * @param {mocha~Runner} runner
      * @param {mocha~MochaOptions} options
      */
     constructor(
         private readonly serenity: Serenity,
         private readonly requirementsHierarchy: RequirementsHierarchy,
+        private readonly mochaVersion: Version,
         runner: Runner,
         options?: MochaOptions,
     ) {
@@ -214,7 +216,7 @@ export class SerenityReporterForMocha extends reporters.Base {
             ... this.requirementsHierarchy.requirementTagsFor(scenarioDetails.location.path, scenarioDetails.category.value)
                 .map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime())),
 
-            new TestRunnerDetected(this.currentSceneId, new Name('Mocha'), this.serenity.currentTime()),
+            new TestRunnerDetected(this.currentSceneId, new Name('Mocha'), this.mochaVersion, this.serenity.currentTime()),
 
             ... scenarioTags.map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime())),
         );

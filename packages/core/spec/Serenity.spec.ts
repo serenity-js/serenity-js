@@ -1,4 +1,3 @@
-
 import { describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
@@ -6,6 +5,7 @@ import { ConfigurationError } from '../src';
 import type { OutputStream } from '../src/adapter';
 import type { DomainEvent} from '../src/events';
 import { ActivityFinished, ActivityStarts, ActorEntersStage, ActorSpotlighted, TestRunnerDetected } from '../src/events';
+import { Version } from '../src/io';
 import { CorrelationId, Name } from '../src/model';
 import type { Actor } from '../src/screenplay';
 import { Clock, Interaction } from '../src/screenplay';
@@ -191,7 +191,7 @@ describe('Serenity', () => {
 
         serenity.configure({ crew: [ listener ] });
 
-        serenity.announce(new TestRunnerDetected(CorrelationId.create(), testRunnerName, serenity.currentTime()));
+        serenity.announce(new TestRunnerDetected(CorrelationId.create(), testRunnerName, new Version('1.0.0'), serenity.currentTime()));
 
         return serenity.waitForNextCue().
             then(() => {

@@ -117,6 +117,32 @@ Include runnable examples in JSDoc:
  */
 ```
 
+## Good Citizen Rule
+
+Serenity/JS code follows the "Good Citizen" principle:
+
+- **Never accept `undefined` or `null` as a parameter** — use guard clauses (`ensure(...)`) to validate inputs
+- **Never return `undefined` or `null`** — use the Null Object pattern, throw an error, or use a guard method (`isX()` / `hasX()`) so callers check before calling
+- **Use guard methods over optional returns** — prefer `detector.isCI()` + `detector.detect()` over `detector.detect(): CIContext | undefined`
+- **Domain events have no optional properties** — all fields are required at construction time; deserialization may provide sensible defaults for backwards compatibility with older serialized data
+
+```typescript
+// Bad: returns undefined
+function findUser(id: string): User | undefined { ... }
+
+// Good: guard method + guaranteed return
+function hasUser(id: string): boolean { ... }
+function getUser(id: string): User { ... }  // throws if not found
+
+// Bad: optional parameter
+constructor(private readonly version?: Version) { }
+
+// Good: required parameter with validation
+constructor(private readonly version: Version) {
+    ensure('version', version, isDefined());
+}
+```
+
 ## Error Handling
 
 ### Custom Error Classes

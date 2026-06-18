@@ -36,6 +36,7 @@ import {
     TaskStarts,
     TestRunnerDetected,
 } from '@serenity-js/core/events';
+import type { Version } from '@serenity-js/core/io';
 import { FileSystem, FileSystemLocation, Path } from '@serenity-js/core/io';
 import { RequirementsHierarchy } from '@serenity-js/core/io';
 import type {
@@ -91,6 +92,7 @@ export class CucumberMessagesParser {
             parsedArgvOptions: { specDirectory?: string },
         },
         private readonly shouldReportStep: (parsedTestStep: IParsedTestStep) => boolean,
+        private readonly testRunnerVersion: Version,
     ) {
         this.cwd                = formatterOptionsAndDependencies.cwd;
         this.eventDataCollector = formatterOptionsAndDependencies.eventDataCollector;
@@ -125,10 +127,10 @@ export class CucumberMessagesParser {
                 ),
             ]),
 
-            ...this.extract(this.scenarioFrom(testCaseAttempt), ({ featureDescription, rule, scenarioDescription, tags, testRunnerName }) => [
+            ...this.extract(this.scenarioFrom(testCaseAttempt), ({ featureDescription, rule, scenarioDescription, tags, testRunnerName, testRunnerVersion }) => [
                 new SceneStarts(currentSceneId, this.currentScenario, this.serenity.currentTime()),
                 featureDescription && new FeatureNarrativeDetected(currentSceneId, featureDescription, this.serenity.currentTime()),
-                new TestRunnerDetected(currentSceneId, testRunnerName, this.serenity.currentTime()),
+                new TestRunnerDetected(currentSceneId, testRunnerName, testRunnerVersion, this.serenity.currentTime()),
                 !! scenarioDescription && new SceneDescriptionDetected(currentSceneId, scenarioDescription, this.serenity.currentTime()),
                 !! rule && new BusinessRuleDetected(currentSceneId, this.currentScenario, rule, this.serenity.currentTime()),
                 ...tags.map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),
@@ -262,7 +264,8 @@ export class CucumberMessagesParser {
             featureDescription:     gherkinDocument.feature.description && new Description(gherkinDocument.feature.description),
             scenarioDescription:    scenarioDescription && new Description(scenarioDescription),
             rule:                   rule && new BusinessRule(new Name(rule.name), new Description(rule.description.trim())),
-            testRunnerName:         new Name('JS'),
+            testRunnerName:         new Name('Cucumber'),
+            testRunnerVersion:      this.testRunnerVersion,
             tags:                   this.requirementsHierarchy.requirementTagsFor(Path.from(this.cwd).resolve(Path.from(gherkinDocument.uri)), gherkinDocument.feature.name).concat(scenarioTags),
         };
     }

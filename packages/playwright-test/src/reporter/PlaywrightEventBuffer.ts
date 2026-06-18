@@ -10,7 +10,7 @@ import {
     SceneFinished,
     SceneTagged
 } from '@serenity-js/core/events';
-import { Path } from '@serenity-js/core/io';
+import { Path, Version } from '@serenity-js/core/io';
 import type {     CorrelationId,Outcome } from '@serenity-js/core/model';
 import {
     ArbitraryTag,
@@ -39,8 +39,8 @@ export class PlaywrightEventBuffer {
         workerIndex: number;
     }>();
 
-    configure(config: Pick<FullConfig, 'rootDir'>): void {
-        this.eventFactory = new EventFactory(Path.from(config.rootDir));
+    configure(config: Pick<FullConfig, 'rootDir' | 'version'>): void {
+        this.eventFactory = new EventFactory(Path.from(config.rootDir), new Version(config.version));
     }
 
     appendTestStart(test: TestCase, result: TestResult): void {

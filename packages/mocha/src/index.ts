@@ -1,5 +1,5 @@
 import { serenity } from '@serenity-js/core';
-import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
+import { FileSystem, ModuleLoader, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import type { MochaOptions, Runner } from 'mocha';
 
 import { SerenityReporterForMocha } from './SerenityReporterForMocha.js';
@@ -14,8 +14,10 @@ function bootstrap(runner: Runner, options?: MochaOptions): SerenityReporterForM
         new FileSystem(cwd),
         options?.reporterOptions?.specDirectory && cwd.resolve(Path.from(options?.reporterOptions?.specDirectory)),
     );
+    const loader = new ModuleLoader(cwd.value);
+    const mochaVersion = loader.versionOf('mocha');
 
-    return new SerenityReporterForMocha(serenity, requirementsHierarchy, runner, options);
+    return new SerenityReporterForMocha(serenity, requirementsHierarchy, mochaVersion, runner, options);
 }
 
 export default bootstrap;
