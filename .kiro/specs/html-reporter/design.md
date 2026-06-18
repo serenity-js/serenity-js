@@ -741,7 +741,32 @@ These are scenarios that don't naturally fit within a single-runner integration 
 3. **Video artifacts**: Large video files may arrive as file paths rather than base64 data. Need to verify how Playwright exposes video paths via domain events and whether we copy or symlink. Add an integration test in `integration/playwright-test/` to exercise video recording and attachment.
 4. ~~**TestRunnerDetected enrichment**~~: **Resolved — start here.** Enrich the `TestRunnerDetected` event in `@serenity-js/core` with an optional `version` field (backwards-compatible additive change). Implement this first and validate across integration modules before starting the main HTML reporter work.
 
-## Implementation Order
+## Remaining Work
+
+### Wire up to real projects (high priority)
+- Configure the HTML reporter in `examples/playwright-test-todomvc` to produce real `data.js`
+- Validate scene identity correlation works with parameterised tests and scenario outlines
+- Remove mock `template/data.js` once examples produce real output
+
+### Features not yet implemented
+- `DataSnapshotAggregator`: derive per-scene `executionHistory` (correlating same test across runs by `name@path`)
+- `DataSnapshotAggregator`: produce `newFailures` / `newPasses` (regressed/recovered tests)
+- Requirements hierarchy derivation (reading spec directory structure)
+- Cast/abilities collection from events
+- Video/trace artifact handling (large file copy vs base64)
+- `maxHistory` pruning integration test
+
+### Template bundling refinement
+- The Preact/HTM/virtual-core IIFE inlining is a rough first pass — needs testing in the actual report rendered in a browser
+
+### CI / packaging
+- Add `@serenity-js/html-reporter` to Lerna publish configuration
+- Add to CI test matrix
+- Add to monorepo Nx project graph
+
+### Documentation
+- README.md for the package
+- Usage examples in JSDoc
 
 Based on the dependency graph and risk reduction, the implementation should proceed in this order:
 

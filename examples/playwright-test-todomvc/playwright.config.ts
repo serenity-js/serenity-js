@@ -43,6 +43,7 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
                 [ '@serenity-js/serenity-bdd', { reporter: { includeAbilityDetails: true } } ],
                 // '@serenity-js/console-reporter',
                 [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+                [ '@serenity-js/html-reporter:HtmlReporter', { outputDirectory: 'target/site/serenity-html' } ],
                 // [ '@serenity-js/core:StreamReporter', { outputFile: 'target/events.ndjson' }]
             ]
         }]
