@@ -32,10 +32,9 @@ export default function (serenity: Serenity, moduleLoader: ModuleLoader) {
             this.parser = new CucumberMessagesParser(
                 serenity,
                 formatterHelpers,
-                options,
+                { ...options, testRunnerVersion: cucumberVersion },
                 (step: IParsedTestStep) =>
                     step?.actionLocation?.uri !== CucumberMessagesListener.fakeInternalAfterHookUri,
-                cucumberVersion,
             );
 
             this.supportCodeLibrary = this.supportCodeLibrary ?? options.supportCodeLibrary;

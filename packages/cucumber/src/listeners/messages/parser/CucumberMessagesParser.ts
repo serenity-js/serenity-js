@@ -80,6 +80,7 @@ export class CucumberMessagesParser {
     private readonly snippetBuilder: any;
     private readonly supportCodeLibrary: any;
     private readonly requirementsHierarchy: RequirementsHierarchy;
+    private readonly testRunnerVersion: Version;
 
     constructor(
         private readonly serenity: Serenity,
@@ -90,13 +91,15 @@ export class CucumberMessagesParser {
             snippetBuilder: any,
             supportCodeLibrary: any,
             parsedArgvOptions: { specDirectory?: string },
+            testRunnerVersion: Version,
         },
         private readonly shouldReportStep: (parsedTestStep: IParsedTestStep) => boolean,
-        private readonly testRunnerVersion: Version,
     ) {
         this.cwd                = formatterOptionsAndDependencies.cwd;
         this.eventDataCollector = formatterOptionsAndDependencies.eventDataCollector;
         this.snippetBuilder     = formatterOptionsAndDependencies.snippetBuilder;
+        this.supportCodeLibrary = formatterOptionsAndDependencies.supportCodeLibrary;
+        this.testRunnerVersion  = formatterOptionsAndDependencies.testRunnerVersion;
         this.supportCodeLibrary = formatterOptionsAndDependencies.supportCodeLibrary;
         this.requirementsHierarchy = new RequirementsHierarchy(
             new FileSystem(Path.from(formatterOptionsAndDependencies.cwd)),

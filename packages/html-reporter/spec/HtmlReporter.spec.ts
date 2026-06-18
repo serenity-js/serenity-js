@@ -230,7 +230,7 @@ describe('HtmlReporter', () => {
             const scene = content.scenes[0];
             expect(scene.name).to.equal('A passing test');
             expect(scene.category).to.equal('Login');
-            expect(scene.outcome).to.equal('SUCCESS');
+            expect(scene.outcome).to.deep.equal({ code: 64 });
             expect(scene.source).to.deep.equal({ path: 'features/login.feature', line: 10 });
             expect(scene.startedAt).to.equal('2024-06-15T14:30:00.000Z');
             expect(scene.duration).to.equal(100);
@@ -281,7 +281,7 @@ describe('HtmlReporter', () => {
             expect(activities).to.have.lengthOf(1);
             expect(activities[0].type).to.equal('Interaction');
             expect(activities[0].name).to.equal('Alice clicks button');
-            expect(activities[0].outcome).to.equal('SUCCESS');
+            expect(activities[0].outcome).to.deep.equal({ code: 64 });
             expect(activities[0].duration).to.equal(50);
         });
 
@@ -311,7 +311,7 @@ describe('HtmlReporter', () => {
             const content = JSON.parse(filesystem.readFileSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/db.json', 'utf8') as string);
             const activity = content.scenes[0].activities[0];
 
-            expect(activity.outcome).to.equal('FAILURE');
+            expect(activity.outcome.code).to.equal(4);
             expect(activity.error.name).to.equal('AssertionError');
             expect(activity.error.message).to.equal('Expected true to equal false');
             expect(activity.error.stack).to.contain('Verify.ts:10:5');

@@ -1,3 +1,5 @@
+import type { SerialisedOutcome } from '@serenity-js/core/model';
+
 /**
  * The data model for a single test run, serialised as db.json.
  *
@@ -25,7 +27,7 @@ export interface OutcomeCounts {
 export interface SceneRecord {
     name: string;
     category: string;
-    outcome: string;
+    outcome: SerialisedOutcome;
     duration: number;
     startedAt: string;
     source: { path: string; line: number };
@@ -42,7 +44,7 @@ export interface SceneRecord {
 export interface ActivityRecord {
     type: string;
     name: string;
-    outcome: string;
+    outcome: SerialisedOutcome;
     duration: number;
     children: ActivityRecord[];
     error?: ErrorRecord;
@@ -62,7 +64,7 @@ export interface TagRecord {
 
 export interface AttemptRecord {
     attemptNumber: number;
-    outcome: string;
+    outcome: SerialisedOutcome;
     duration: number;
     activities: ActivityRecord[];
     error?: ErrorRecord;

@@ -18,6 +18,12 @@ match.plugins = ["duplication"]
 match.file_patterns = ["packages/webdriverio-8/**"]
 set.ignored = true
 
+# Ignore duplication issues for html-reporter mock data (intentionally repetitive test fixture)
+[[triage]]
+match.plugins = ["duplication"]
+match.file_patterns = ["packages/html-reporter/template/data.js"]
+set.ignored = true
+
 [[source]]
 name = "default"
 default = true

@@ -1,5 +1,14 @@
 import type { FileSystem } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
+import type { SerialisedOutcome } from '@serenity-js/core/model';
+import {
+    ExecutionCompromised,
+    ExecutionFailedWithAssertionError,
+    ExecutionFailedWithError,
+    ExecutionSkipped,
+    ExecutionSuccessful,
+    ImplementationPending,
+} from '@serenity-js/core/model';
 
 import type { RunData } from './model/RunData.js';
 
@@ -54,7 +63,11 @@ export class DataSnapshotAggregator {
                 finishedAt: latestRun.timestamp, // simplified
                 testRunner: latestRun.testRunner,
             },
-            scenarios: latestRun.scenes,
+            scenarios: latestRun.scenes.map(scene => ({
+                ...scene,
+                outcome: outcomeCodeToDisplayString(scene.outcome.code),
+                activities: scene.activities.map(activity => this.mapActivityOutcome(activity)),
+            })),
             history: allRuns.map(run => ({
                 timestamp: run.timestamp,
                 duration: run.duration,
@@ -96,7 +109,7 @@ export class DataSnapshotAggregator {
                 if (!testOutcomes.has(identity)) {
                     testOutcomes.set(identity, { name: scene.name, category: scene.category, source: scene.source, outcomes: [] });
                 }
-                testOutcomes.get(identity).outcomes.push(scene.outcome);
+                testOutcomes.get(identity).outcomes.push(outcomeCodeToDisplayString(scene.outcome.code));
             }
         }
 
@@ -119,7 +132,25 @@ export class DataSnapshotAggregator {
         return unstable.sort((a, b) => b.flakinessRate - a.flakinessRate);
     }
 
+    private mapActivityOutcome(activity: { outcome: SerialisedOutcome; children: any[]; [key: string]: any }): any {
+        return {
+            ...activity,
+            outcome: outcomeCodeToDisplayString(activity.outcome.code),
+            children: activity.children.map(child => this.mapActivityOutcome(child)),
+        };
+    }
+
     private resolveRunLabel(timestamp: string): string {
         return new Date(timestamp).toISOString();
     }
+}
+
+function outcomeCodeToDisplayString(code: number): string {
+    if (code === ExecutionSuccessful.Code) return 'SUCCESS';
+    if (code === ExecutionFailedWithAssertionError.Code) return 'FAILURE';
+    if (code === ExecutionFailedWithError.Code) return 'ERROR';
+    if (code === ExecutionCompromised.Code) return 'COMPROMISED';
+    if (code === ImplementationPending.Code) return 'PENDING';
+    if (code === ExecutionSkipped.Code) return 'SKIPPED';
+    return 'ERROR';
 }
