@@ -15,6 +15,7 @@ import { CorrelationId, Description, Name } from '@serenity-js/core/model';
 import { ensure, isDefined } from 'tiny-types';
 
 import { ArtifactWriter } from './ArtifactWriter.js';
+import { DataSnapshotAggregator } from './DataSnapshotAggregator.js';
 import type { HtmlReporterConfig } from './HtmlReporterConfig.js';
 import { ReportTemplateWriter } from './ReportTemplateWriter.js';
 import { RunDataWriter } from './RunDataWriter.js';
@@ -55,12 +56,14 @@ export class HtmlReporter implements StageCrewMember {
         private readonly artifactWriter: ArtifactWriter,
         private readonly sceneDataCollector: SceneDataCollector,
         private readonly runDataWriter: RunDataWriter,
+        private readonly aggregator: DataSnapshotAggregator,
         private readonly templateWriter: ReportTemplateWriter,
         private stage?: Stage,
     ) {
         ensure('artifactWriter', artifactWriter, isDefined());
         ensure('sceneDataCollector', sceneDataCollector, isDefined());
         ensure('runDataWriter', runDataWriter, isDefined());
+        ensure('aggregator', aggregator, isDefined());
         ensure('templateWriter', templateWriter, isDefined());
     }
 
@@ -117,7 +120,10 @@ export class HtmlReporter implements StageCrewMember {
             // 2. Write db.json for this run
             this.runDataWriter.write(runData, this.artifactWriter.getRunDirectory());
 
-            // 3. Write the report template (index.html)
+            // 3. Aggregate all historical db.json files into data.js
+            this.aggregator.aggregate();
+
+            // 4. Write the report template (index.html)
             this.templateWriter.write();
 
             this.stage.announce(new AsyncOperationCompleted(
@@ -155,12 +161,18 @@ class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
         const artifactWriter = new ArtifactWriter(outputFileSystem);
         const sceneDataCollector = new SceneDataCollector();
         const runDataWriter = new RunDataWriter(outputFileSystem);
+        const aggregator = new DataSnapshotAggregator(outputFileSystem, {
+            stabilityWindow: this.config.stabilityWindow ?? 5,
+            maxHistory: this.config.maxHistory,
+            title: this.config.title,
+        });
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
 
         return new HtmlReporter(
             artifactWriter,
             sceneDataCollector,
             runDataWriter,
+            aggregator,
             templateWriter,
             stage,
         );

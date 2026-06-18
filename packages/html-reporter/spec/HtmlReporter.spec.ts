@@ -31,6 +31,7 @@ import { createFsFromVolume, Volume } from 'memfs';
 import { beforeEach, describe, it } from 'mocha';
 
 import { ArtifactWriter } from '../src/ArtifactWriter.js';
+import { DataSnapshotAggregator } from '../src/DataSnapshotAggregator.js';
 import { HtmlReporter } from '../src/HtmlReporter.js';
 import { ReportTemplateWriter } from '../src/ReportTemplateWriter.js';
 import { RunDataWriter } from '../src/RunDataWriter.js';
@@ -64,9 +65,10 @@ describe('HtmlReporter', () => {
         const artifactWriter = new ArtifactWriter(outputFileSystem);
         const sceneDataCollector = new SceneDataCollector();
         const runDataWriter = new RunDataWriter(outputFileSystem);
+        const aggregator = new DataSnapshotAggregator(outputFileSystem, { stabilityWindow: 5 });
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
 
-        const reporter = new HtmlReporter(artifactWriter, sceneDataCollector, runDataWriter, templateWriter, stage);
+        const reporter = new HtmlReporter(artifactWriter, sceneDataCollector, runDataWriter, aggregator, templateWriter, stage);
 
         return { reporter, filesystem };
     }
