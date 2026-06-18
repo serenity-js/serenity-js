@@ -115,6 +115,16 @@ export class FileSystem {
         return absolutePath;
     }
 
+    public readdirSync(relativeOrAbsolutePathToDirectory: Path): string[] {
+        const absolutePath = this.resolve(relativeOrAbsolutePathToDirectory);
+        return this.fs.readdirSync(absolutePath.value) as string[];
+    }
+
+    public removeSync(relativeOrAbsolutePathToFileOrDirectory: Path): void {
+        const absolutePath = this.resolve(relativeOrAbsolutePathToFileOrDirectory);
+        this.fs.rmSync(absolutePath.value, { recursive: true, force: true });
+    }
+
     public rename(source: Path, destination: Path): Promise<void> {
         return this.fs.promises.rename(source.value, destination.value);
     }
