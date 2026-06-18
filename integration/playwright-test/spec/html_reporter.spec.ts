@@ -4,7 +4,7 @@ import path from 'node:path';
 import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';
 import { Timestamp } from '@serenity-js/core';
 import { TestRunFinished, TestRunStarts } from '@serenity-js/core/events';
-import { afterEach, beforeEach, describe, it } from 'mocha';
+import { beforeEach, describe, it } from 'mocha';
 
 import { playwrightTestWithHtmlReporter } from '../src/playwright-test-with-html-reporter';
 
@@ -46,15 +46,15 @@ describe('@serenity-js/html-reporter', function () {
 
                     // Verify db.json exists in the test run directory
                     const runDirectory = path.join(testRunsDirectory, runDirectories[0]);
-                    const dbJsonPath = path.join(runDirectory, 'db.json');
-                    expect(fs.existsSync(dbJsonPath)).to.equal(true);
+                    const databaseJsonPath = path.join(runDirectory, 'db.json');
+                    expect(fs.existsSync(databaseJsonPath)).to.equal(true);
 
                     // Verify db.json content
-                    const dbJson = JSON.parse(fs.readFileSync(dbJsonPath, 'utf8'));
-                    expect(dbJson).to.have.property('timestamp');
-                    expect(dbJson).to.have.property('scenes').that.is.an('array').with.length.greaterThan(0);
-                    expect(dbJson).to.have.property('testRunner', 'Playwright');
-                    expect(dbJson).to.have.property('testRunnerVersion').that.matches(/^\d+\.\d+\.\d+/);
+                    const databaseJson = JSON.parse(fs.readFileSync(databaseJsonPath, 'utf8'));
+                    expect(databaseJson).to.have.property('timestamp');
+                    expect(databaseJson).to.have.property('scenes').that.is.an('array').with.length.greaterThan(0);
+                    expect(databaseJson).to.have.property('testRunner', 'Playwright');
+                    expect(databaseJson).to.have.property('testRunnerVersion').that.matches(/^\d+\.\d+\.\d+/);
 
                     // Verify data.js content
                     const dataJs = fs.readFileSync(path.join(outputDirectory, 'data.js'), 'utf8');
@@ -96,8 +96,8 @@ describe('@serenity-js/html-reporter', function () {
                 .then(result => {
                     // Get the first run directory and add a marker file
                     const testRunsDirectory = path.join(outputDirectory, 'test-runs');
-                    const firstRunDir = fs.readdirSync(testRunsDirectory)[0];
-                    fs.writeFileSync(path.join(testRunsDirectory, firstRunDir, 'marker.txt'), 'do-not-delete');
+                    const firstRunDirectory = fs.readdirSync(testRunsDirectory)[0];
+                    fs.writeFileSync(path.join(testRunsDirectory, firstRunDirectory, 'marker.txt'), 'do-not-delete');
 
                     return result;
                 })
@@ -112,10 +112,10 @@ describe('@serenity-js/html-reporter', function () {
                     // Marker file should still exist in the first run directory
                     const testRunsDirectory = path.join(outputDirectory, 'test-runs');
                     const runDirectories = fs.readdirSync(testRunsDirectory).sort();
-                    const firstRunDir = runDirectories[0];
+                    const firstRunDirectory = runDirectories[0];
 
                     expect(
-                        fs.readFileSync(path.join(testRunsDirectory, firstRunDir, 'marker.txt'), 'utf8')
+                        fs.readFileSync(path.join(testRunsDirectory, firstRunDirectory, 'marker.txt'), 'utf8')
                     ).to.equal('do-not-delete');
                 }));
     });
