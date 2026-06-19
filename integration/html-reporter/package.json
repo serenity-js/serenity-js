@@ -1,0 +1,40 @@
+{
+  "name": "@integration/html-reporter",
+  "version": "3.0.0",
+  "description": "Internal module to test the Serenity/JS HTML reporter renders correctly in a browser",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "keywords": [
+    "serenity-js",
+    "internal"
+  ],
+  "scripts": {
+    "clean": "rimraf target",
+    "test": "mocha --config .mocharc.yml"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git"
+  },
+  "engines": {
+    "node": ">=22.12 || ^24"
+  },
+  "devDependencies": {
+    "@integration/testing-tools": "workspace:*",
+    "@serenity-js/html-reporter": "workspace:*",
+    "@types/mocha": "10.0.10",
+    "mocha": "11.7.6",
+    "playwright": "1.60.0",
+    "ts-node": "10.9.2",
+    "typescript": "5.9.3"
+  }
+}

@@ -174,7 +174,7 @@ class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
         }, this.config.specDirectory
             ? new RequirementsHierarchy(projectFileSystem, Path.from(this.config.specDirectory))
             : undefined,
-            this.config.specDirectory ? projectFileSystem : undefined,
+        this.config.specDirectory ? projectFileSystem : undefined,
         );
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
         const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()), { projectName: this.config.projectName });

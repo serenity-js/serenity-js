@@ -1,7 +1,6 @@
 import type { FileSystem } from '@serenity-js/core/io';
-import { Path } from '@serenity-js/core/io';
 import type { RequirementsHierarchy } from '@serenity-js/core/io';
-import { marked } from 'marked';
+import { Path } from '@serenity-js/core/io';
 import type { SerialisedOutcome } from '@serenity-js/core/model';
 import {
     ExecutionCompromised,
@@ -11,6 +10,7 @@ import {
     ExecutionSuccessful,
     ImplementationPending,
 } from '@serenity-js/core/model';
+import { marked } from 'marked';
 
 import type { RunData } from './model/RunData.js';
 
@@ -125,23 +125,23 @@ export class DataSnapshotAggregator {
         for (const scene of run.scenes) {
             const segments = this.requirementsHierarchy.hierarchyFor(Path.from(scene.source.path));
             const fileName = segments[segments.length - 1];
-            const dirs = segments.slice(0, -1);
+            const directories = segments.slice(0, -1);
 
-            let currentDir = root;
-            for (let i = 0; i < dirs.length; i++) {
-                const dirKey = dirs.slice(0, i + 1).join('/');
-                if (!nodeMap.has(dirKey)) {
-                    const dir: any = { type: 'directory', name: dirs[i], outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, children: [] };
-                    currentDir.children.push(dir);
-                    nodeMap.set(dirKey, dir);
+            let currentDirectory = root;
+            for (let i = 0; i < directories.length; i++) {
+                const directoryKey = directories.slice(0, i + 1).join('/');
+                if (!nodeMap.has(directoryKey)) {
+                    const directory: any = { type: 'directory', name: directories[i], outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, children: [] };
+                    currentDirectory.children.push(directory);
+                    nodeMap.set(directoryKey, directory);
                 }
-                currentDir = nodeMap.get(dirKey);
+                currentDirectory = nodeMap.get(directoryKey);
             }
 
             const fileKey = segments.join('/');
             if (!nodeMap.has(fileKey)) {
                 const file: any = { type: 'file', name: fileName, outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, scenarios: [] };
-                currentDir.children.push(file);
+                currentDirectory.children.push(file);
                 nodeMap.set(fileKey, file);
             }
 
@@ -154,9 +154,9 @@ export class DataSnapshotAggregator {
 
             root.scenarioCount++;
             root.outcomes[outcomeKey]++;
-            if (currentDir !== root) {
-                currentDir.scenarioCount++;
-                currentDir.outcomes[outcomeKey]++;
+            if (currentDirectory !== root) {
+                currentDirectory.scenarioCount++;
+                currentDirectory.outcomes[outcomeKey]++;
             }
         }
 
@@ -173,8 +173,8 @@ export class DataSnapshotAggregator {
         return root;
     }
 
-    private attachReadme(node: any, dirPath: Path): void {
-        const readmePath = dirPath.join(Path.from('readme.md'));
+    private attachReadme(node: any, directoryPath: Path): void {
+        const readmePath = directoryPath.join(Path.from('readme.md'));
         if (this.projectFileSystem.exists(readmePath)) {
             const content = this.projectFileSystem.readFileSync(readmePath, { encoding: 'utf8' }) as string;
             node.readme = marked.parse(content, { async: false }) as string;
