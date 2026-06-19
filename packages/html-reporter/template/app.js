@@ -1175,7 +1175,7 @@
       });
       const errShowLatest = () => onNavigate('/errors');
 
-      const errorScenarios = DATA.scenarios.filter(s => s.error);
+      const errorScenarios = DATA.scenarios.filter(s => s.error || s.outcome === 'FAILURE' || s.outcome === 'ERROR' || s.outcome === 'COMPROMISED');
 
       // Classify errors into categories
       function classifyError(error) {
@@ -1190,7 +1190,7 @@
       // Group by category only — no sub-grouping by message
       const categories = {};
       for (const s of errorScenarios) {
-        const cat = classifyError(s.error);
+        const cat = classifyError(s.error || { name: s.outcome, message: '' });
         if (!categories[cat]) categories[cat] = [];
         categories[cat].push(s);
       }
@@ -1390,7 +1390,7 @@
                         <div class="scenario-meta">
                           <span class="scenario-source">${s.source.path}:${s.source.line}</span>
                         </div>
-                        <div style="font-size:var(--font-sm);color:var(--text-secondary);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.error.message}</div>
+                        <div style="font-size:var(--font-sm);color:var(--text-secondary);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.error ? s.error.message : s.outcome}</div>
                       </div>
                       <span class="scenario-duration">${formatDuration(s.duration)}</span>
                     </div>
