@@ -195,6 +195,7 @@ class SceneRecordBuilder {
             duration: 0,
             startedAt: event.timestamp.toJSON(),
             children: [],
+            location: { path: event.details.location.path.value, line: event.details.location.line, column: event.details.location.column },
         };
 
         if (this.activityStack.length > 0) {

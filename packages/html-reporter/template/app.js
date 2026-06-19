@@ -27,7 +27,7 @@
     }
 
     function outcomeIcon(outcome) {
-      const map = { SUCCESS: '✓', FAILURE: '✗', PENDING: '◌', SKIPPED: '⊘', COMPROMISED: '⚠', ERROR: '!' };
+      const map = { SUCCESS: '✓', FAILURE: '✗', PENDING: '–', SKIPPED: '⊘', COMPROMISED: '⚠', ERROR: '!' };
       return map[outcome] || '?';
     }
 
@@ -198,8 +198,24 @@
       const passRate = ((summary.outcomes.passed / summary.totalScenarios) * 100).toFixed(1);
       const sorted = [...scenarios].sort((a, b) => b.duration - a.duration);
       const slowest = sorted.slice(0, 5);
-      const newFailures = (DATA.newFailures || []).slice(0, 5);
-      const newPasses = (DATA.newPasses || []).slice(0, 5);
+      const newFailures = useMemo(() => {
+        if (DATA.history.length < 2) return [];
+        return DATA.scenarios.filter(s => {
+          if (!s.executionHistory || s.executionHistory.length < 2) return false;
+          const prev = s.executionHistory[s.executionHistory.length - 2];
+          const curr = s.executionHistory[s.executionHistory.length - 1];
+          return prev && curr && prev.outcome === 'SUCCESS' && curr.outcome !== 'SUCCESS';
+        }).slice(0, 5);
+      }, []);
+      const newPasses = useMemo(() => {
+        if (DATA.history.length < 2) return [];
+        return DATA.scenarios.filter(s => {
+          if (!s.executionHistory || s.executionHistory.length < 2) return false;
+          const prev = s.executionHistory[s.executionHistory.length - 2];
+          const curr = s.executionHistory[s.executionHistory.length - 1];
+          return prev && curr && prev.outcome !== 'SUCCESS' && curr.outcome === 'SUCCESS';
+        }).slice(0, 5);
+      }, []);
       const flakyTests = (DATA.flakyTests || []).slice(0, 5);
 
       return html`
@@ -234,6 +250,14 @@
                 </div>
               </div>
             </div>
+            <!-- Branch and commit info -->
+            ${DATA.systemContext && DATA.systemContext.ci ? html`
+              <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-md);flex-wrap:wrap">
+                ${DATA.systemContext.ci.branch ? html`<div style="display:flex;align-items:center;gap:var(--space-xs)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;flex-shrink:0"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg><span style="font-size:var(--font-sm);font-weight:500">${DATA.systemContext.ci.branch}</span></div>` : null}
+                ${DATA.systemContext.ci.commit ? html`<div style="display:flex;align-items:center;gap:var(--space-xs)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;flex-shrink:0"><circle cx="12" cy="12" r="4"/><line x1="1" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="23" y2="12"/></svg><span style="font-size:var(--font-sm);font-family:var(--font-mono)">${DATA.systemContext.ci.commit}</span></div>` : null}
+                ${DATA.systemContext.ci.provider ? html`<div style="font-size:var(--font-xs);color:var(--text-secondary);margin-left:auto">${DATA.systemContext.ci.provider}</div>` : null}
+              </div>
+            ` : null}
             <!-- Row 2: Trend chart -->
             <div class="card" style="overflow:hidden">
               <div class="card-title">Trend (Last ${history.length} runs)</div>
@@ -387,10 +411,11 @@
               const centerX = (chart.chartArea.left + chart.chartArea.right) / 2;
               const centerY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
               ctx.save();
-              ctx.font = 'bold 22px -apple-system, BlinkMacSystemFont, sans-serif';
-              ctx.fillStyle = isDark ? '#e7e3fcde' : '#3a3541de';
+              ctx.font = 'bold 24px -apple-system, BlinkMacSystemFont, sans-serif';
+              ctx.fillStyle = isDark ? '#ffffff' : '#3a3541de';
               ctx.textAlign = 'center';
               ctx.textBaseline = 'middle';
+              if (isDark) { ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 4; }
               ctx.fillText(String(total), centerX, centerY);
               ctx.restore();
             },
@@ -497,7 +522,7 @@
                 type: 'line',
                 label: 'Slowest Test',
                 data: history.map(h => h.slowest || 0),
-                borderColor: '#ea5455',
+                borderColor: '#ff9f43',
                 backgroundColor: 'transparent',
                 borderDash: [2, 2],
                 borderWidth: 2,
@@ -512,9 +537,24 @@
                 type: 'line',
                 label: 'Fastest Test',
                 data: history.map(h => h.fastest || 0),
-                borderColor: '#28c76f',
+                borderColor: '#00cfe8',
                 backgroundColor: 'transparent',
                 borderDash: [2, 2],
+                borderWidth: 2,
+                fill: false,
+                tension: 0.3,
+                pointRadius: 2,
+                pointHoverRadius: 4,
+                yAxisID: 'y1',
+                order: 1,
+              },
+              {
+                type: 'line',
+                label: 'Average Test',
+                data: history.map(h => h.average || 0),
+                borderColor: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(100,100,100,0.6)',
+                backgroundColor: 'transparent',
+                borderDash: [3, 3],
                 borderWidth: 2,
                 fill: false,
                 tension: 0.3,
@@ -548,7 +588,7 @@
                   },
                   label: (context) => {
                     const label = context.dataset.label || '';
-                    if (label === 'Duration' || label === 'Total Duration' || label === 'Slowest Test' || label === 'Fastest Test') {
+                    if (label === 'Duration' || label === 'Total Duration' || label === 'Slowest Test' || label === 'Fastest Test' || label === 'Average Test') {
                       return label + ': ' + formatDuration(context.raw);
                     }
                     return label + ': ' + context.raw;
@@ -752,9 +792,9 @@
                   <div class="scenario-info">
                     <div class="scenario-name">${scenario.name}</div>
                     <div class="scenario-tags">
-                      ${getBrowserTag(scenario) ? html`<span class="badge badge-${getBrowserTag(scenario)}">${getBrowserTag(scenario)}</span>` : null}
+                      ${getBrowserTag(scenario) ? html`<a href=${'#/tests?search=' + encodeURIComponent('"' + getBrowserTag(scenario) + '"')} class="badge badge-${getBrowserTag(scenario)}" style="text-decoration:none;cursor:pointer" onClick=${stopProp}>${getBrowserTag(scenario)}</a>` : null}
                       ${scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
-                      ${(scenario.tags || []).filter(t => t.type !== 'feature' && t.type !== 'browser').map(t => html`<a href=${'#/tests?search=' + encodeURIComponent('"' + t.name + '"')} class="tag-chip" style="font-size:var(--font-2xs);padding:1px 6px;text-decoration:none" onClick=${stopProp}>${t.name}</a>`)}
+                      ${[...new Map((scenario.tags || []).filter(t => t.type !== 'feature' && t.type !== 'browser').map(t => [t.type + ':' + t.name, t])).values()].map(t => html`<a href=${'#/tests?search=' + encodeURIComponent('"' + t.name + '"')} class="tag-chip" style="font-size:var(--font-2xs);padding:1px 6px;text-decoration:none" onClick=${stopProp}>${t.name}</a>`)}
                     </div>
                     <div class="scenario-meta">
                       <span class="scenario-source" style="direction:rtl;text-align:left;unicode-bidi:plaintext">${relativeSourcePath(scenario)}</span>
@@ -866,6 +906,17 @@
         return { pillStyle, label, title, onClick };
       });
 
+      // Compute outcomes for the selected run (not always the latest)
+      const runOutcomes = useMemo(() => {
+        if (runIndex !== null && DATA.history[runIndex]) {
+          return DATA.history[runIndex].outcomes;
+        }
+        return DATA.summary.outcomes;
+      }, [runIndex]);
+      const runTotal = useMemo(() => {
+        return Object.values(runOutcomes).reduce((a, b) => a + b, 0);
+      }, [runOutcomes]);
+
       return html`
         <div>
           ${historicalRun ? html`
@@ -893,7 +944,7 @@
               aria-label="Clear search">✕</button>` : null}
           </div>
 
-          <${FilterBar} outcomes=${DATA.summary.outcomes} total=${DATA.summary.totalScenarios}
+          <${FilterBar} outcomes=${runOutcomes} total=${runTotal}
                          activeFilter=${filter} onFilter=${setFilter}
                          sortOptions=${[
                            { key: 'category', label: 'Category' },
@@ -927,6 +978,19 @@
       });
       const [activeAttempt, setActiveAttempt] = useState(0);
       const [lightboxIndex, setLightboxIndex] = useState(-1);
+
+      // Handle photo deep-link: scroll to and highlight photo on load
+      useEffect(() => {
+        const hash = window.location.hash;
+        const photoMatch = hash.match(/&photo=(\d+)/);
+        if (photoMatch) {
+          const photoIdx = parseInt(photoMatch[1], 10);
+          setTimeout(() => {
+            const el = document.getElementById('photo-' + photoIdx);
+            if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.classList.add('photo-highlight'); setTimeout(() => el.classList.remove('photo-highlight'), 2000); }
+          }, 300);
+        }
+      }, []);
 
       if (!scenario) {
         return html`<div class="card"><p>Test scenario not found.</p></div>`;
@@ -990,7 +1054,7 @@
 
             ${hasTags ? html`
               <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:var(--space-md)">
-                ${scenario.tags.map(t => html`<span class="tag-chip">${t.type}:${t.name}</span>`)}
+                ${[...new Map(scenario.tags.map(t => [t.type + ':' + t.name, t])).values()].map(t => html`<span class="tag-chip">${t.type}:${t.name}</span>`)}
               </div>
             ` : null}
 
@@ -1059,6 +1123,8 @@
           ${currentActivities.length > 0 ? html`
             <div class="card" style="margin-bottom:var(--space-md)">
               <div class="card-title">Activity Tree</div>
+              <!-- TODO: For parameterised scenarios (scenario outlines), display step templates with placeholders and a data table.
+                   Needs aggregator to provide scenario.stepTemplate and scenario.dataTable fields. -->
               <div class="activity-tree">
                 ${currentActivities.map(activity => html`<${ActivityNode} activity=${activity} />`)}
               </div>
@@ -1138,33 +1204,64 @@
     // ===== Activity Node (recursive) =====
     function ActivityNode({ activity }) {
       const hasPhoto = activity.artifacts && activity.artifacts.some(a => a.path && a.path.endsWith('.png'));
+      const { displayName, parsedDataTable, parsedDocString } = useMemo(() => {
+        const name = activity.name;
+        const lines = name.split('\n');
+        const firstTableIdx = lines.findIndex(l => l.trim().startsWith('|'));
+        if (firstTableIdx > 0 || (firstTableIdx === 0 && lines.length > 1)) {
+          const textLines = [];
+          const tableLines = [];
+          let inTable = false;
+          for (const line of lines) {
+            if (line.trim().startsWith('|')) { inTable = true; tableLines.push(line); }
+            else if (!inTable) textLines.push(line);
+            else { textLines.push(line); inTable = false; }
+          }
+          if (tableLines.length > 0) {
+            const headers = tableLines[0].split('|').filter(c => c.trim()).map(c => c.trim());
+            const rows = tableLines.slice(1).map(row => row.split('|').filter(c => c.trim()).map(c => c.trim()));
+            return { displayName: textLines.join('\n').replace(/:\s*$/, ':'), parsedDataTable: { headers, rows }, parsedDocString: null };
+          }
+        }
+        const colonIdx = name.indexOf(':\n');
+        if (colonIdx > 0 && !name.substring(colonIdx + 2).trim().startsWith('|')) {
+          const prefix = name.substring(0, colonIdx + 1);
+          const docContent = name.substring(colonIdx + 2);
+          return { displayName: prefix, parsedDataTable: null, parsedDocString: docContent };
+        }
+        return { displayName: name, parsedDataTable: null, parsedDocString: null };
+      }, [activity.name]);
+      const effectiveDataTable = activity.dataTable || parsedDataTable;
+      const effectiveDocString = activity.docString || parsedDocString;
       return html`
         <div class="activity-node">
           <div class="activity-row">
             <div class="activity-icon ${outcomeClass(activity.outcome)}">
               ${outcomeIcon(activity.outcome)}
             </div>
-            <span class="activity-name ${activity.type === 'Task' ? 'task' : ''}">${activity.name}</span>
-            ${hasPhoto ? html`<span style="cursor:pointer;opacity:0.7;font-size:var(--font-sm)" title="View screenshot" onClick=${(e) => { e.stopPropagation(); const el = document.querySelector('[id^=photo-]'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }}>📷</span>` : null}
+            <span class="activity-name ${activity.type === 'Task' ? 'task' : ''}">${displayName}</span>
+            ${hasPhoto ? html`<span style="cursor:pointer;opacity:0.7;font-size:var(--font-sm)" title="View screenshot" onClick=${(e) => { e.stopPropagation(); const photos = document.querySelectorAll('.photo-strip-item'); for (const p of photos) { p.classList.remove('photo-highlight'); } const idx = [...photos].findIndex(p => p.querySelector('.photo-strip-caption')?.textContent === activity.name); if (idx >= 0) { const hash = window.location.hash.split('&photo=')[0]; window.history.replaceState(null, '', hash + '&photo=' + idx); const el = document.getElementById('photo-' + idx); if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.classList.add('photo-highlight'); setTimeout(() => el.classList.remove('photo-highlight'), 2000); } } }}>📷</span>` : null}
+            ${activity.location ? html`<span style="cursor:pointer;opacity:0.7;font-size:var(--font-sm)" title="Copy invocation location: ${activity.location.path}:${activity.location.line}" onClick=${(e) => { e.stopPropagation(); navigator.clipboard.writeText(activity.location.path + ':' + activity.location.line).catch(() => {}); }}>📋</span>` : null}
             <span class="activity-duration">${formatDuration(activity.duration)}</span>
+            ${activity.outcome === 'PENDING' && activity.location ? html`<span style="font-size:var(--font-xs);color:var(--text-secondary);font-family:var(--font-mono)" title="Pending step location">${activity.location.path.split('/').pop()}:${activity.location.line}</span>` : null}
           </div>
-          ${activity.dataTable ? html`
+          ${effectiveDataTable ? html`
             <div style="margin-left:var(--space-lg);margin-top:var(--space-xs);margin-bottom:var(--space-sm);overflow-x:auto">
               <table style="border-collapse:collapse;font-size:var(--font-sm);font-family:var(--font-mono);width:auto">
                 <thead>
-                  <tr>${activity.dataTable.headers.map(h => html`<th style="padding:4px 10px;border:1px solid var(--border-color);background:var(--bg-primary);font-weight:600;white-space:nowrap">${h}</th>`)}</tr>
+                  <tr>${effectiveDataTable.headers.map(h => html`<th style="padding:4px 10px;border:1px solid var(--border-color);background:var(--bg-primary);font-weight:600;white-space:nowrap">${h}</th>`)}</tr>
                 </thead>
                 <tbody>
-                  ${activity.dataTable.rows.map(row => html`
+                  ${effectiveDataTable.rows.map(row => html`
                     <tr>${row.map(cell => html`<td style="padding:4px 10px;border:1px solid var(--border-color);white-space:nowrap">${cell}</td>`)}</tr>
                   `)}
                 </tbody>
               </table>
             </div>
           ` : null}
-          ${activity.docString ? html`
+          ${effectiveDocString ? html`
             <div style="margin-left:var(--space-lg);margin-top:var(--space-xs);margin-bottom:var(--space-sm)">
-              <pre style="font-size:var(--font-sm);font-family:var(--font-mono);background:var(--bg-primary);padding:var(--space-sm) var(--space-md);border-radius:var(--radius-sm);border:1px solid var(--border-color);white-space:pre-wrap;margin:0">${activity.docString}</pre>
+              <pre style="font-size:var(--font-sm);font-family:var(--font-mono);background:var(--bg-primary);padding:var(--space-sm) var(--space-md);border-radius:var(--radius-sm);border:1px solid var(--border-color);white-space:pre-wrap;margin:0">${effectiveDocString}</pre>
             </div>
           ` : null}
           ${activity.children && activity.children.length > 0 ? html`
@@ -1871,9 +1968,12 @@
       const gapCount = useMemo(() => {
         let count = 0;
         function walk(node) {
-          const total = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
-          if (node.type === 'file' && (node.scenarioCount === 0 || total === 0)) count++;
-          else if (node.type === 'directory' && node.children) node.children.forEach(walk);
+          if (node.type === 'file') {
+            const pending = (node.outcomes.pending || 0) + (node.outcomes.skipped || 0);
+            const total = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
+            if (total === 0 || pending > 0) count++;
+          }
+          if (node.children) node.children.forEach(walk);
         }
         if (requirements.children) requirements.children.forEach(walk);
         return count;
@@ -1887,20 +1987,20 @@
       return html`
         <div>
           <div class="grid-stats" style="margin-bottom:var(--space-md)">
-            <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)">
+            <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)" title="${coveredFiles} of ${totalFiles} areas are fully covered (no pending or skipped tests)">
               <div class="card-title" style="margin-bottom:0">Coverage</div>
               <div class="card-value" style="color:${coveragePercent >= 80 ? 'var(--color-passed)' : coveragePercent >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'};font-size:var(--font-lg)">${coveragePercent}%</div>
-              <div class="card-subtitle" style="margin-top:0;margin-left:auto">${coveredFiles} of ${totalFiles} areas have tests</div>
+              <div class="card-subtitle" style="margin-top:0;margin-left:auto">${coveredFiles} of ${totalFiles} areas fully covered</div>
             </div>
-            <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)">
+            <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)" title="${requirements.outcomes.passed || 0} of ${totalScenarios} scenarios are passing">
               <div class="card-title" style="margin-bottom:0">Pass Rate</div>
               <div class="card-value" style="color:${passRate >= 80 ? 'var(--color-passed)' : passRate >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'};font-size:var(--font-lg)">${passRate}%</div>
               <div class="card-subtitle" style="margin-top:0;margin-left:auto">${totalScenarios} scenarios total</div>
             </div>
-            <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)">
+            <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)" title="${gapCount} ${gapCount === 1 ? 'area has' : 'areas have'} incomplete tests (pending or skipped)">
               <div class="card-title" style="margin-bottom:0">Gaps</div>
               <div class="card-value" style="color:${gapCount === 0 ? 'var(--color-passed)' : 'var(--color-failed)'};font-size:var(--font-lg)">${gapCount}</div>
-              <div class="card-subtitle" style="margin-top:0;margin-left:auto">areas with no test coverage</div>
+              <div class="card-subtitle" style="margin-top:0;margin-left:auto">${gapCount === 1 ? 'area' : 'areas'} with incomplete tests</div>
             </div>
           </div>
 

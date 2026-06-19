@@ -52,6 +52,7 @@ export interface ActivityRecord {
     duration: number;
     startedAt?: string;
     children: ActivityRecord[];
+    location?: { path: string; line: number; column: number };
     error?: ErrorRecord;
     artifacts?: ArtifactReference[];
 }

@@ -30,6 +30,9 @@ The `@serenity-js/html-reporter` module is a pure static HTML reporter for Seren
 - **Regressed_Test**: A test whose previous execution was a pass but whose current (most recent) execution is a failure
 - **Recovered_Test**: A test whose previous execution was a failure but whose current (most recent) execution is a pass
 - **Stability_Window**: The number of most recent test run executions considered when evaluating test stability (configurable, default: 5)
+- **Pass_Rate**: The percentage of all identified scenarios that are currently passing. Calculated as `(passing scenarios / total scenarios) * 100`. Answers "how healthy is my suite right now?"
+- **Coverage**: The percentage of leaf nodes (test files) in the Requirements_Hierarchy that are fully covered — meaning they have at least one scenario and none of their scenarios are pending or skipped. A leaf node is "covered" if `total_scenarios > 0 AND (pending + skipped) == 0`. Answers "what percentage of my test areas are fully exercised by running tests?"
+- **Coverage_Gaps**: The number of leaf nodes (test files) in the Requirements_Hierarchy that have incomplete coverage — meaning they either have no scenarios at all, or at least one of their scenarios is pending or skipped. Answers "how many test areas have work that isn't done?"
 
 ## Requirements
 

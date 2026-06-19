@@ -56,6 +56,29 @@ export class DataSnapshotAggregator {
 
         const latestRun = allRuns[allRuns.length - 1];
 
+        // Compute degraded (newFailures) and recovered (newPasses)
+        const newFailures: Array<{ name: string; category: string; source: { path: string; line: number } }> = [];
+        const newPasses: Array<{ name: string; category: string; source: { path: string; line: number } }> = [];
+
+        if (allRuns.length >= 2) {
+            const prevRun = allRuns[allRuns.length - 2];
+            const prevOutcomes = new Map(prevRun.scenes.map(s => [s.source.path + ':' + s.source.line, s.outcome.code]));
+
+            for (const scene of latestRun.scenes) {
+                const key = scene.source.path + ':' + scene.source.line;
+                const prevCode = prevOutcomes.get(key);
+                if (prevCode !== undefined) {
+                    const prevSuccess = prevCode === ExecutionSuccessful.Code;
+                    const currSuccess = scene.outcome.code === ExecutionSuccessful.Code;
+                    if (prevSuccess && !currSuccess) {
+                        newFailures.push({ name: scene.name, category: scene.category, source: scene.source });
+                    } else if (!prevSuccess && currSuccess) {
+                        newPasses.push({ name: scene.name, category: scene.category, source: scene.source });
+                    }
+                }
+            }
+        }
+
         // Build the data snapshot
         const snapshot = {
             summary: {
@@ -77,6 +100,7 @@ export class DataSnapshotAggregator {
                 }).filter(Boolean);
                 return {
                     ...scene,
+                    tags: [...new Map(scene.tags.map(t => [t.type + ':' + t.name, t])).values()],
                     outcome: outcomeCodeToDisplayString(scene.outcome.code),
                     activities: scene.activities.map(activity => this.mapActivityOutcome(activity)),
                     executionHistory,
@@ -91,10 +115,13 @@ export class DataSnapshotAggregator {
                     label: this.resolveRunLabel(run.timestamp),
                     slowest: durations.length > 0 ? Math.max(...durations) : 0,
                     fastest: durations.length > 0 ? Math.min(...durations) : 0,
+                    average: durations.length > 0 ? Math.round(durations.reduce((a, b) => a + b, 0) / durations.length) : 0,
                 };
             }),
             tags: this.computeTagStats(latestRun),
             unstableTests: this.identifyUnstableTests(allRuns),
+            newFailures,
+            newPasses,
             systemContext: latestRun.systemContext ? {
                 nodeVersion: latestRun.systemContext.nodeVersion,
                 os: latestRun.systemContext.os,
