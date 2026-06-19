@@ -37,6 +37,7 @@ export interface SceneRecord {
     tags: TagRecord[];
     activities: ActivityRecord[];
     error?: ErrorRecord;
+    video?: string;
     retries?: number;
     attempts?: AttemptRecord[];
     cast?: ActorRecord[];

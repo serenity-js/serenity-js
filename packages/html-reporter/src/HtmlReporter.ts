@@ -3,6 +3,7 @@ import { DomainEventQueues } from '@serenity-js/core';
 import type { DomainEvent } from '@serenity-js/core/events';
 import {
     ActivityRelatedArtifactGenerated,
+    ArtifactGenerated,
     AsyncOperationAttempted,
     AsyncOperationCompleted,
     AsyncOperationFailed,
@@ -96,6 +97,10 @@ export class HtmlReporter implements StageCrewMember {
             this.artifactWriter.write(event);
         }
 
+        if (event instanceof ArtifactGenerated && !(event instanceof ActivityRelatedArtifactGenerated)) {
+            this.artifactWriter.writeSceneArtifact(event);
+        }
+
         if (event instanceof TestRunFinishes) {
             this.generateReport();
         }
@@ -120,6 +125,7 @@ export class HtmlReporter implements StageCrewMember {
                 this.testRunnerVersion,
                 this.artifactWriter.getArtifactPaths(),
                 this.systemContextDetector.detect(),
+                this.artifactWriter.getSceneArtifactPaths(),
             );
 
             // 2. Write db.json for this run

@@ -1073,6 +1073,15 @@
             </div>
           ` : null}
 
+          ${scenario.video ? html`
+            <div class="card" style="margin-top:var(--space-md)">
+              <div class="card-title">Video Recording</div>
+              <video controls preload="metadata" style="width:100%;border-radius:var(--radius-sm);margin-top:var(--space-sm)">
+                <source src=${scenario.video} type="video/webm" />
+              </video>
+            </div>
+          ` : null}
+
           ${(() => {
             const photos = [];
             const scenarioStart = new Date(scenario.startedAt).getTime();

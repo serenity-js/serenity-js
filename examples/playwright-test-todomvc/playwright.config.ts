@@ -60,8 +60,7 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
         /* Base URL to use in actions like `await page.goto('/')`. */
         baseURL: 'https://todo-app.serenity-js.org/#/',
 
-        // video: 'on-first-retry',
-        // video: 'on',
+        video: 'on',
 
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         // trace: 'on',

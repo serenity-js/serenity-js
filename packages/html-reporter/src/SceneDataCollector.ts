@@ -44,12 +44,24 @@ export class SceneDataCollector {
         testRunnerVersion: string,
         artifactPaths: Map<string, Path[]>,
         systemContext: SystemContext,
+        sceneArtifactPaths?: Map<string, Path[]>,
     ): RunData {
         const scenes: SceneRecord[] = [];
 
         queues.forEach(queue => {
             const events = queue.drain();
-            scenes.push(new SceneRecordBuilder(artifactPaths).build(events));
+            const record = new SceneRecordBuilder(artifactPaths).build(events);
+            // Attach scene-level video if available
+            if (sceneArtifactPaths) {
+                const sceneId = events.find(e => 'sceneId' in e)?.sceneId?.value;
+                if (sceneId && sceneArtifactPaths.has(sceneId)) {
+                    const videoPaths = sceneArtifactPaths.get(sceneId).filter(p => p.value.endsWith('.webm'));
+                    if (videoPaths.length > 0) {
+                        record.video = videoPaths[0].value;
+                    }
+                }
+            }
+            scenes.push(record);
         });
 
         return {

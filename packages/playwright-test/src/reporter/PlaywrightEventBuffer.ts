@@ -1,9 +1,11 @@
 import path from 'node:path';
+import { readFileSync } from 'node:fs';
 
 import { type FullConfig } from '@playwright/test';
 import { type TestCase, type TestResult } from '@playwright/test/reporter';
 import { Duration, LogicError, Timestamp } from '@serenity-js/core';
 import {
+    ArtifactGenerated,
     type DomainEvent,
     InteractionFinished,
     RetryableSceneDetected,
@@ -18,7 +20,9 @@ import {
     ExecutionFailedWithError,
     ExecutionIgnored,
     ExecutionSkipped,
-    ExecutionSuccessful
+    ExecutionSuccessful,
+    Name,
+    Photo,
 } from '@serenity-js/core/model';
 import { type JSONObject } from 'tiny-types';
 
@@ -153,6 +157,20 @@ export class PlaywrightEventBuffer {
         this.events.get(sceneId.value).push(
             this.eventFactory.createSceneFinishedEvent(test, result, scenarioOutcome)
         );
+
+        // Emit video artifacts if present
+        for (const attachment of result.attachments) {
+            if (attachment.contentType === 'video/webm' && attachment.path) {
+                try {
+                    const videoBuffer = readFileSync(attachment.path);
+                    this.events.get(sceneId.value).push(
+                        new ArtifactGenerated(sceneId, new Name('video'), Photo.fromBuffer(videoBuffer))
+                    );
+                } catch {
+                    // Video file may not be available yet
+                }
+            }
+        }
     }
 
     flush(test: TestCase, result: TestResult): DomainEvent[] {
