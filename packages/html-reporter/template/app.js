@@ -36,6 +36,14 @@
       return tag ? tag.name : null;
     }
 
+    function relativeSourcePath(scenario) {
+      const p = scenario.source.path;
+      const specDir = DATA.requirements ? DATA.requirements.name : 'spec';
+      const marker = '/' + specDir + '/';
+      const idx = p.indexOf(marker);
+      return (idx !== -1 ? p.slice(idx + marker.length) : p) + ':' + scenario.source.line;
+    }
+
     function scenarioUrl(scenario, run) {
       const base = '/tests/' + encodeURIComponent(scenario.source.path + ':' + scenario.source.line);
       return run !== undefined && run !== null ? base + '?run=' + run : base;
@@ -724,7 +732,7 @@
                   <div class="scenario-info">
                     <div class="scenario-name">${scenario.name}</div>
                     <div class="scenario-meta">
-                      <span class="scenario-source">${scenario.source.path}:${scenario.source.line}</span>
+                      <span class="scenario-source" style="direction:rtl;text-align:left;unicode-bidi:plaintext">${relativeSourcePath(scenario)}</span>
                       ${getBrowserTag(scenario) ? html`<span class="badge badge-${getBrowserTag(scenario)}">${getBrowserTag(scenario)}</span>` : null}
                       ${scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
                       ${(scenario.tags || []).filter(t => t.type !== 'feature' && t.type !== 'browser').map(t => html`<a href=${'#/tests?search=' + encodeURIComponent('"' + t.name + '"')} class="tag-chip" style="font-size:var(--font-2xs);padding:1px 6px;text-decoration:none" onClick=${stopProp}>${t.name}</a>`)}

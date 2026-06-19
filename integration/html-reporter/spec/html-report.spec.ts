@@ -64,7 +64,7 @@ describe('HTML Reporter', () => {
 
             it('shows source paths', async () => {
                 const text = await page.textContent('body');
-                expect(text).to.contain('/project/spec/todo/display.spec.ts');
+                expect(text).to.contain('todo/display.spec.ts');
             });
         });
 
