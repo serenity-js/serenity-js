@@ -1851,16 +1851,22 @@
     }
 
     function TimelineView({ onNavigate }) {
-      const [sortBy, setSortBy] = useState('time'); // 'time' or 'duration'
+      const [sortBy, setSortBy] = useState('time');
+      const [filter, setFilter] = useState('all');
       const allScenarios = DATA.scenarios.filter(s => s.duration > 0);
       const start = new Date(DATA.summary.startedAt).getTime();
       const end = new Date(DATA.summary.finishedAt).getTime();
       const totalDur = end - start;
 
       const scenarios = useMemo(() => {
-        if (sortBy === 'duration') return [...allScenarios].sort((a, b) => b.duration - a.duration);
-        return allScenarios;
-      }, [sortBy]);
+        let result = allScenarios;
+        if (filter !== 'all') {
+          const outcomeMap = { passed: 'SUCCESS', failed: 'FAILURE', pending: 'PENDING', skipped: 'SKIPPED', compromised: 'COMPROMISED' };
+          result = result.filter(s => s.outcome === outcomeMap[filter]);
+        }
+        if (sortBy === 'duration') return [...result].sort((a, b) => b.duration - a.duration);
+        return result;
+      }, [sortBy, filter]);
 
       const durations = allScenarios.map(s => s.duration);
       const avg = durations.length ? Math.round(durations.reduce((a, b) => a + b, 0) / durations.length) : 0;
@@ -1901,11 +1907,13 @@
             </div>
           </div>
 
-          <!-- Sort toggle -->
-          <div style="display:flex;gap:4px;margin-bottom:var(--space-md)">
-            <button class="filter-chip ${sortBy === 'time' ? 'active' : ''}" onClick=${() => setSortBy('time')}>Execution order</button>
-            <button class="filter-chip ${sortBy === 'duration' ? 'active' : ''}" onClick=${() => setSortBy('duration')}>Slowest first</button>
-          </div>
+          <${FilterBar} outcomes=${DATA.summary.outcomes} total=${allScenarios.length}
+                       activeFilter=${filter} onFilter=${setFilter}
+                       sortOptions=${[
+                         { key: 'time', label: 'Execution order' },
+                         { key: 'duration', label: 'Slowest first' },
+                       ]}
+                       activeSort=${sortBy} onSort=${setSortBy} />
 
           <div class="card" style="padding-bottom:0">
             <!-- Virtualized Rows -->
