@@ -108,6 +108,7 @@ class SceneRecordBuilder {
     private readonly activityStack: Array<{ record: ActivityRecord; startTimestamp: Timestamp }> = [];
     private readonly rootActivities: ActivityRecord[] = [];
     private readonly artifacts: ArtifactReference[] = [];
+    private sceneError: ErrorRecord | undefined;
 
     constructor(private readonly artifactPaths: Map<string, Path[]>) {
     }
@@ -134,6 +135,10 @@ class SceneRecordBuilder {
 
         if (this.narrative) {
             record.narrative = this.narrative;
+        }
+
+        if (this.sceneError) {
+            record.error = this.sceneError;
         }
 
         if (this.artifacts.length > 0) {
@@ -221,6 +226,9 @@ class SceneRecordBuilder {
     private handleSceneFinished(event: SceneFinished): void {
         this.outcome = event.outcome.toJSON();
         this.duration = event.timestamp.diff(this.sceneStartTimestamp).inMilliseconds();
+        if (event.outcome instanceof ProblemIndication) {
+            this.sceneError = errorFrom(event.outcome);
+        }
     }
 }
 
