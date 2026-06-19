@@ -54,7 +54,8 @@
      */
     function matchesSearch(scenario, query) {
       const tagNames = (scenario.tags || []).map(t => t.name).join(' ');
-      const text = (scenario.name + ' ' + scenario.category + ' ' + tagNames).toLowerCase();
+      const sourcePath = scenario.source?.path || '';
+      const text = (scenario.name + ' ' + scenario.category + ' ' + tagNames + ' ' + sourcePath).toLowerCase();
       const tokens = parseSearchTokens(query.toLowerCase());
       return tokens.every(token => text.includes(token));
     }
