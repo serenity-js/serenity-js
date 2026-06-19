@@ -1134,6 +1134,15 @@
     }
 
     /* ===== Overlay (mobile sidebar) ===== */
+    @media (max-width: 1024px) {
+      .scenario-meta .tag-chip {
+        margin-top: 2px;
+      }
+      .scenario-meta {
+        row-gap: 2px;
+      }
+    }
+
     .sidebar-overlay {
       display: none;
       position: fixed;

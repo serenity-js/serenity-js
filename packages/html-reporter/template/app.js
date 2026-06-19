@@ -563,7 +563,7 @@
     // ===== Virtualized Scenario List Component =====
     function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, setSearch }) {
       const parentRef = useRef(null);
-      const SCENARIO_ROW_HEIGHT = 66;
+      const SCENARIO_ROW_HEIGHT = window.innerWidth <= 1024 ? 86 : 66;
       const GROUP_HEADER_HEIGHT_FIRST = 62;  // 46px content + 16px gap below
       const GROUP_HEADER_HEIGHT_REST = 78;   // 16px gap above + 46px content + 16px gap below
       const GROUP_HEADER_CONTENT_HEIGHT = 46;
