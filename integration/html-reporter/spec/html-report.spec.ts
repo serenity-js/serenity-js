@@ -72,7 +72,7 @@ describe('HTML Reporter', () => {
 
             before(async () => {
                 await page.goto(`${baseUrl}/index.html#/tests?search=%22complete.spec%22`);
-                await page.waitForSelector('.scenario-item, [class*="showing"]');
+                await page.waitForFunction(() => document.body.textContent?.includes('Showing 1 of 5'));
             });
 
             it('filters scenarios matching source file name', async () => {
@@ -171,7 +171,8 @@ describe('HTML Reporter', () => {
     describe('Errors', () => {
 
         before(async () => {
-            await page.goto(`${baseUrl}/index.html#/errors`, { waitUntil: 'networkidle' });
+            await page.goto(`${baseUrl}/index.html#/errors`);
+            await page.waitForFunction(() => document.body.textContent?.includes('Expected item'));
         });
 
         it('displays error scenarios', async () => {

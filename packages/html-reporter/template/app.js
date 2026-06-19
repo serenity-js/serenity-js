@@ -1867,38 +1867,8 @@
       const slowest = Math.max(...durations);
       const fastest = Math.min(...durations.filter(d => d > 0));
 
-      function formatTime(ts) {
-        const d = new Date(ts);
-        return [d.getHours(), d.getMinutes(), d.getSeconds()]
-          .map(n => String(n).padStart(2, '0')).join(':');
-      }
+      const rowHeight = 52;
 
-      const ticks = useMemo(() => {
-        const result = [];
-        if (totalDur <= 0) return result;
-        const intervals = [1000, 2000, 5000, 10000, 15000, 30000, 60000, 120000, 300000];
-        let interval = intervals.find(i => totalDur / i <= 10) || Math.ceil(totalDur / 8 / 1000) * 1000;
-        let t = Math.ceil(start / interval) * interval;
-        while (t <= end) {
-          result.push(t);
-          t += interval;
-        }
-        return result;
-      }, [start, end, totalDur]);
-
-      const isMobileLayout = () => window.innerWidth <= 1024;
-      const [rowHeight, setRowHeight] = useState(isMobileLayout() ? 52 : 28);
-
-      useEffect(() => {
-        const onResize = () => {
-          const newHeight = isMobileLayout() ? 52 : 28;
-          setRowHeight(prev => prev !== newHeight ? newHeight : prev);
-        };
-        window.addEventListener('resize', onResize);
-        return () => window.removeEventListener('resize', onResize);
-      }, []);
-
-      const labelWidth = 320;
       const parentRef = useRef(null);
 
       const virtualizer = useVirtualizer({
@@ -1908,10 +1878,6 @@
         overscan: 20,
       });
 
-      // Invalidate virtualizer measurements when row height changes (responsive resize)
-      useEffect(() => {
-        virtualizer.measure();
-      }, [rowHeight]);
 
       return html`
         <div>
@@ -1942,19 +1908,6 @@
           </div>
 
           <div class="card" style="padding-bottom:0">
-            <!-- X-axis header (only in execution order + desktop mode) -->
-            ${sortBy === 'time' && rowHeight <= 28 ? html`
-              <div class="timeline-x-axis" style="display:flex;margin-bottom:4px">
-                <div style="width:${labelWidth}px;flex-shrink:0"></div>
-                <div style="flex:1;position:relative;height:20px;margin-right:56px">
-                  ${ticks.map(t => {
-                    const left = ((t - start) / totalDur) * 100;
-                    return html`<span style="position:absolute;left:${left}%;transform:translateX(-50%);font-size:var(--font-2xs);color:var(--text-secondary);font-family:var(--font-mono);white-space:nowrap">${formatTime(t)}</span>`;
-                  })}
-                </div>
-              </div>
-            ` : null}
-
             <!-- Virtualized Rows -->
             <div ref=${parentRef} style="border-top:1px solid var(--border-color);max-height:calc(100vh - 320px);overflow-y:auto">
               <div style="height:${virtualizer.getTotalSize()}px;width:100%;position:relative">
@@ -1967,32 +1920,20 @@
                     ? Math.max((s.duration / totalDur) * 100, Math.min((s.duration / slowest) * 8, 15))
                     : Math.max((s.duration / slowest) * 100, 0.5);
                   const clickHandler = () => onNavigate(scenarioUrl(s));
-                  const isMobile = rowHeight > 28;
-                  const mobileWidth = Math.max((s.duration / slowest) * 100, 5);
+                  const barWidth = sortBy === 'time' ? width : Math.max((s.duration / slowest) * 100, 3);
+                  const nameColor = s.outcome !== 'SUCCESS' ? 'color:var(--color-' + outcomeClass(s.outcome) + ')' : '';
                   return html`
-                    <div class="timeline-row" style="position:absolute;top:0;left:0;width:100%;height:${rowHeight}px;transform:translateY(${virtualRow.start}px);display:flex;${isMobile ? 'flex-direction:column;justify-content:center;padding:4px var(--space-sm)' : 'align-items:center'};border-bottom:1px solid var(--divider);cursor:pointer"
+                    <div class="timeline-row" style="position:absolute;top:0;left:0;width:100%;height:${rowHeight}px;transform:translateY(${virtualRow.start}px);display:flex;flex-direction:column;justify-content:center;padding:4px var(--space-sm);border-bottom:1px solid var(--divider);cursor:pointer"
                          onClick=${clickHandler}
-                         title="${s.name} — ${formatDuration(s.duration)}">
-                      ${isMobile ? html`
-                        <div style="display:flex;align-items:center;gap:6px;overflow:hidden">
-                          <span class="scenario-outcome-icon ${outcomeClass(s.outcome)}" style="width:18px;height:18px;font-size:var(--font-xs);flex-shrink:0">${outcomeIcon(s.outcome)}</span>
-                          <span style="font-size:var(--font-sm);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1">${s.name}</span>
-                          <span style="font-size:var(--font-xs);color:var(--text-secondary);font-family:var(--font-mono);white-space:nowrap;flex-shrink:0">${formatDuration(s.duration)}</span>
-                        </div>
-                        <div style="height:10px;margin-left:24px;margin-top:2px;position:relative">
-                          <div style="position:absolute;left:0;width:${mobileWidth}%;height:100%;border-radius:3px;background:var(--color-${outcomeClass(s.outcome)});opacity:0.85" title="Started: ${new Date(s.startedAt).toLocaleTimeString()} • Duration: ${formatDuration(s.duration)}"></div>
-                        </div>
-                      ` : html`
-                        <div class="timeline-row-label" style="width:${labelWidth}px;flex-shrink:0;padding-right:var(--space-sm);display:flex;align-items:center;gap:6px;overflow:hidden">
-                          ${sortBy === 'duration' ? html`<span style="width:24px;text-align:center;font-size:var(--font-2xs);color:var(--text-disabled);font-weight:600;flex-shrink:0">#${i + 1}</span>` : null}
-                          <span class="scenario-outcome-icon ${outcomeClass(s.outcome)}" style="width:18px;height:18px;font-size:var(--font-xs);flex-shrink:0">${outcomeIcon(s.outcome)}</span>
-                          <span style="font-size:var(--font-sm);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.name}</span>
-                        </div>
-                        <div class="timeline-row-bar" style="flex:1;position:relative;height:16px">
-                          <div style="position:absolute;left:${left}%;width:${width}%;height:100%;border-radius:3px;background:var(--color-${outcomeClass(s.outcome)});opacity:0.85" title="Started: ${new Date(s.startedAt).toLocaleTimeString()} • Duration: ${formatDuration(s.duration)}"></div>
-                        </div>
-                        <span class="timeline-row-label" style="width:50px;flex-shrink:0;text-align:right;font-size:var(--font-xs);color:var(--text-secondary);font-family:var(--font-mono);padding-left:6px">${formatDuration(s.duration)}</span>
-                      `}
+                         title="Started: ${new Date(s.startedAt).toLocaleTimeString()} • Duration: ${formatDuration(s.duration)}">
+                      <div style="display:flex;align-items:center;gap:6px;overflow:hidden">
+                        <span class="scenario-outcome-icon ${outcomeClass(s.outcome)}" style="width:18px;height:18px;font-size:var(--font-xs);flex-shrink:0">${outcomeIcon(s.outcome)}</span>
+                        <span style="font-size:var(--font-sm);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;${nameColor}">${s.category} › ${s.name}</span>
+                        <span style="font-size:var(--font-xs);${s.outcome !== 'SUCCESS' ? 'color:var(--color-' + outcomeClass(s.outcome) + ')' : 'color:var(--text-secondary)'};font-family:var(--font-mono);white-space:nowrap;flex-shrink:0">${formatDuration(s.duration)}</span>
+                      </div>
+                      <div style="height:10px;margin-left:24px;margin-top:2px;position:relative">
+                        <div style="position:absolute;left:${left}%;width:${barWidth}%;height:100%;border-radius:3px;background:var(--color-${outcomeClass(s.outcome)});opacity:0.85"></div>
+                      </div>
                     </div>
                   `;
                 })}
