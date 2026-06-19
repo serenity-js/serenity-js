@@ -383,8 +383,6 @@
         if (!canvasRef.current) return;
         if (chartRef.current) chartRef.current.destroy();
 
-        const isDark = localStorage.getItem('serenity-theme') === 'dark' || (!localStorage.getItem('serenity-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-
         chartRef.current = new Chart(canvasRef.current, {
           type: 'doughnut',
           data: {
@@ -407,15 +405,16 @@
           plugins: [{
             id: 'centerText',
             afterDraw: (chart) => {
+              const dark = document.documentElement.getAttribute('data-theme') === 'dark';
               const ctx = chart.ctx;
               const centerX = (chart.chartArea.left + chart.chartArea.right) / 2;
               const centerY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
               ctx.save();
               ctx.font = 'bold 24px -apple-system, BlinkMacSystemFont, sans-serif';
-              ctx.fillStyle = isDark ? '#ffffff' : '#3a3541de';
+              ctx.fillStyle = dark ? '#ffffff' : '#3a3541de';
               ctx.textAlign = 'center';
               ctx.textBaseline = 'middle';
-              if (isDark) { ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 4; }
+              if (dark) { ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 4; }
               ctx.fillText(String(total), centerX, centerY);
               ctx.restore();
             },
@@ -424,6 +423,12 @@
 
         return () => { if (chartRef.current) chartRef.current.destroy(); };
       }, [outcomes, total]);
+
+      useEffect(() => {
+        const observer = new MutationObserver(() => { if (chartRef.current) chartRef.current.update(); });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        return () => observer.disconnect();
+      }, []);
 
       return html`
         <div style="width:120px;height:120px;flex-shrink:0">
@@ -519,49 +524,33 @@
                 order: 1,
               },
               {
-                type: 'line',
-                label: 'Slowest Test',
-                data: history.map(h => h.slowest || 0),
-                borderColor: '#ff9f43',
-                backgroundColor: 'transparent',
-                borderDash: [2, 2],
-                borderWidth: 2,
-                fill: false,
-                tension: 0.3,
-                pointRadius: 2,
-                pointHoverRadius: 4,
+                type: 'bar',
+                label: 'Duration Range',
+                data: history.map(h => [h.fastest || 0, h.slowest || 0]),
+                backgroundColor: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.4)',
+                borderColor: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.6)',
+                borderWidth: 1,
+                borderSkipped: false,
+                barPercentage: 0.05,
+                categoryPercentage: 1,
                 yAxisID: 'y1',
-                order: 1,
+                order: 0,
+                grouped: false,
               },
               {
                 type: 'line',
-                label: 'Fastest Test',
-                data: history.map(h => h.fastest || 0),
-                borderColor: '#00cfe8',
-                backgroundColor: 'transparent',
-                borderDash: [2, 2],
-                borderWidth: 2,
-                fill: false,
-                tension: 0.3,
-                pointRadius: 2,
-                pointHoverRadius: 4,
-                yAxisID: 'y1',
-                order: 1,
-              },
-              {
-                type: 'line',
-                label: 'Average Test',
+                label: 'Average Duration',
                 data: history.map(h => h.average || 0),
-                borderColor: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(100,100,100,0.6)',
-                backgroundColor: 'transparent',
-                borderDash: [3, 3],
-                borderWidth: 2,
+                borderColor: 'transparent',
+                backgroundColor: isDark ? '#ffffff' : '#3a3541',
+                pointStyle: 'rectRot',
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                borderWidth: 0,
                 fill: false,
-                tension: 0.3,
-                pointRadius: 2,
-                pointHoverRadius: 4,
+                showLine: false,
                 yAxisID: 'y1',
-                order: 1,
+                order: 0,
               },
             ],
           },
@@ -588,13 +577,17 @@
                   },
                   label: (context) => {
                     const label = context.dataset.label || '';
-                    if (label === 'Duration' || label === 'Total Duration' || label === 'Slowest Test' || label === 'Fastest Test' || label === 'Average Test') {
+                    if (label === 'Duration Range') {
+                      const [low, high] = context.raw;
+                      return 'Fastest: ' + formatDuration(low) + ' · Slowest: ' + formatDuration(high);
+                    }
+                    if (label === 'Duration' || label === 'Total Duration' || label === 'Average Duration') {
                       return label + ': ' + formatDuration(context.raw);
                     }
                     return label + ': ' + context.raw;
                   },
                   labelColor: (context) => {
-                    const color = context.dataset.borderColor;
+                    const color = context.dataset.borderColor === 'transparent' ? context.dataset.backgroundColor : context.dataset.borderColor;
                     return { borderColor: color, backgroundColor: color };
                   },
                 },
@@ -614,7 +607,7 @@
                 max: history.length - 1,
               },
               y: { stacked: true, beginAtZero: true, ticks: { color: textColor, precision: 0 }, grid: { color: gridColor }, title: { display: false } },
-              y1: { type: 'logarithmic', position: 'right', ticks: { color: textColor, callback: (v) => formatDuration(v), maxTicksLimit: 6 }, grid: { drawOnChartArea: false }, title: { display: false } },
+              y1: { type: 'logarithmic', position: 'right', ticks: { color: textColor, callback: (v) => formatDuration(v), maxTicksLimit: 6 }, grid: { drawOnChartArea: true, color: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)', borderDash: [3, 3] }, title: { display: false } },
             },
           },
         });
