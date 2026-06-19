@@ -1898,7 +1898,7 @@
         return () => window.removeEventListener('resize', onResize);
       }, []);
 
-      const labelWidth = 380;
+      const labelWidth = 320;
       const parentRef = useRef(null);
 
       const virtualizer = useVirtualizer({
@@ -1964,7 +1964,7 @@
                   const sStart = new Date(s.startedAt).getTime();
                   const left = sortBy === 'time' ? ((sStart - start) / totalDur) * 100 : 0;
                   const width = sortBy === 'time'
-                    ? Math.max((s.duration / totalDur) * 100, 0.5)
+                    ? Math.max((s.duration / totalDur) * 100, Math.min((s.duration / slowest) * 8, 15))
                     : Math.max((s.duration / slowest) * 100, 0.5);
                   const clickHandler = () => onNavigate(scenarioUrl(s));
                   const isMobile = rowHeight > 28;
@@ -1980,7 +1980,7 @@
                           <span style="font-size:var(--font-xs);color:var(--text-secondary);font-family:var(--font-mono);white-space:nowrap;flex-shrink:0">${formatDuration(s.duration)}</span>
                         </div>
                         <div style="height:10px;margin-left:24px;margin-top:2px;position:relative">
-                          <div style="position:absolute;left:0;width:${mobileWidth}%;height:100%;border-radius:3px;background:var(--color-${outcomeClass(s.outcome)});opacity:0.85"></div>
+                          <div style="position:absolute;left:0;width:${mobileWidth}%;height:100%;border-radius:3px;background:var(--color-${outcomeClass(s.outcome)});opacity:0.85" title="Started: ${new Date(s.startedAt).toLocaleTimeString()} • Duration: ${formatDuration(s.duration)}"></div>
                         </div>
                       ` : html`
                         <div class="timeline-row-label" style="width:${labelWidth}px;flex-shrink:0;padding-right:var(--space-sm);display:flex;align-items:center;gap:6px;overflow:hidden">
@@ -1989,7 +1989,7 @@
                           <span style="font-size:var(--font-sm);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.name}</span>
                         </div>
                         <div class="timeline-row-bar" style="flex:1;position:relative;height:16px">
-                          <div style="position:absolute;left:${left}%;width:${width}%;height:100%;border-radius:3px;background:var(--color-${outcomeClass(s.outcome)});opacity:0.85"></div>
+                          <div style="position:absolute;left:${left}%;width:${width}%;height:100%;border-radius:3px;background:var(--color-${outcomeClass(s.outcome)});opacity:0.85" title="Started: ${new Date(s.startedAt).toLocaleTimeString()} • Duration: ${formatDuration(s.duration)}"></div>
                         </div>
                         <span class="timeline-row-label" style="width:50px;flex-shrink:0;text-align:right;font-size:var(--font-xs);color:var(--text-secondary);font-family:var(--font-mono);padding-left:6px">${formatDuration(s.duration)}</span>
                       `}

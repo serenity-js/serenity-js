@@ -64,7 +64,7 @@ export class DataSnapshotAggregator {
                 outcomes: latestRun.outcomes,
                 duration: latestRun.duration,
                 startedAt: latestRun.timestamp,
-                finishedAt: new Date(new Date(latestRun.timestamp).getTime() + latestRun.duration).toISOString(),
+                finishedAt: this.computeFinishedAt(latestRun),
                 testRunner: latestRun.testRunner,
             },
             scenarios: latestRun.scenes.map(scene => ({
@@ -179,6 +179,17 @@ export class DataSnapshotAggregator {
             const content = this.projectFileSystem.readFileSync(readmePath, { encoding: 'utf8' }) as string;
             node.readme = marked.parse(content, { async: false }) as string;
         }
+    }
+
+    private computeFinishedAt(run: RunData): string {
+        let latest = new Date(run.timestamp).getTime();
+        for (const scene of run.scenes) {
+            const end = new Date(scene.startedAt).getTime() + scene.duration;
+            if (end > latest) {
+                latest = end;
+            }
+        }
+        return new Date(latest).toISOString();
     }
 
     private mapOutcomeToKey(outcome: string): string {
