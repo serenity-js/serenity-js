@@ -136,7 +136,7 @@
     function Sidebar({ route, sidebarOpen, collapsed, onNavigate, onClose, onToggleCollapse }) {
       const navItems = [
         { path: '/', label: 'Dashboard', icon: 'dashboard' },
-        { path: '/tests', label: 'Test Scenarios', icon: 'testScenarios', badge: DATA.summary.outcomes.failed },
+        { path: '/tests', label: 'Test Scenarios', icon: 'testScenarios', badge: DATA.summary.outcomes.failed + (DATA.summary.outcomes.error || 0) },
         { path: '/requirements', label: 'Requirements', icon: 'coverage' },
         { path: '/errors', label: 'Errors', icon: 'errors' },
         { path: '/stability', label: 'Stability', icon: 'flaky' },
@@ -206,7 +206,7 @@
                   <${DonutChart} outcomes=${summary.outcomes} total=${summary.totalScenarios} />
                   <div class="donut-legend">
                     <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=passed')}><span class="legend-dot" style="background:var(--color-passed)"></span> Passed (${summary.outcomes.passed})</div>
-                    <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=failed')}><span class="legend-dot" style="background:var(--color-failed)"></span> Failed (${summary.outcomes.failed})</div>
+                    <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=failed')}><span class="legend-dot" style="background:var(--color-failed)"></span> Failed (${summary.outcomes.failed + (summary.outcomes.error || 0)})</div>
                     <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=pending')}><span class="legend-dot" style="background:var(--color-pending)"></span> Pending (${summary.outcomes.pending})</div>
                     <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=skipped')}><span class="legend-dot" style="background:var(--color-skipped)"></span> Skipped (${summary.outcomes.skipped})</div>
                     <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=compromised')}><span class="legend-dot" style="background:var(--color-compromised)"></span> Compromised (${summary.outcomes.compromised})</div>
@@ -317,7 +317,7 @@
       const filters = [
         { key: 'all', label: 'All', count: total },
         { key: 'passed', label: 'Passed', count: outcomes.passed },
-        { key: 'failed', label: 'Failed', count: outcomes.failed },
+        { key: 'failed', label: 'Failed', count: outcomes.failed + (outcomes.error || 0) },
         { key: 'pending', label: 'Pending', count: outcomes.pending },
         { key: 'skipped', label: 'Skipped', count: outcomes.skipped },
         { key: 'compromised', label: 'Compromised', count: outcomes.compromised },
@@ -362,7 +362,7 @@
           data: {
             labels: ['Passed', 'Failed', 'Pending', 'Skipped', 'Compromised'],
             datasets: [{
-              data: [outcomes.passed, outcomes.failed, outcomes.pending, outcomes.skipped, outcomes.compromised],
+              data: [outcomes.passed, outcomes.failed + (outcomes.error || 0), outcomes.pending, outcomes.skipped, outcomes.compromised],
               backgroundColor: ['#28c76f', '#ea5455', '#ff9f43', '#a8aaae', '#7367f0'],
               borderWidth: 0,
             }],
@@ -770,7 +770,7 @@
           result = result.filter(s => s.outcome !== 'SUCCESS');
         } else if (filter !== 'all') {
           const outcomeMap = { passed: 'SUCCESS', failed: 'FAILURE', pending: 'PENDING', skipped: 'SKIPPED', compromised: 'COMPROMISED' };
-          result = result.filter(s => s.outcome === outcomeMap[filter]);
+          result = result.filter(s => filter === 'failed' ? s.outcome === 'FAILURE' || s.outcome === 'ERROR' : s.outcome === outcomeMap[filter]);
         }
         if (search) {
           result = result.filter(s => matchesSearch(s, search));
@@ -1862,7 +1862,7 @@
         let result = allScenarios;
         if (filter !== 'all') {
           const outcomeMap = { passed: 'SUCCESS', failed: 'FAILURE', pending: 'PENDING', skipped: 'SKIPPED', compromised: 'COMPROMISED' };
-          result = result.filter(s => s.outcome === outcomeMap[filter]);
+          result = result.filter(s => filter === 'failed' ? s.outcome === 'FAILURE' || s.outcome === 'ERROR' : s.outcome === outcomeMap[filter]);
         }
         if (sortBy === 'duration') return [...result].sort((a, b) => b.duration - a.duration);
         return result;
