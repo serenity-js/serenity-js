@@ -214,8 +214,7 @@
                   <${DonutChart} outcomes=${summary.outcomes} total=${summary.totalScenarios} />
                   <div class="donut-legend">
                     <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=passed')}><span class="legend-dot" style="background:var(--color-passed)"></span> Passed (${summary.outcomes.passed})</div>
-                    <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=failed')}><span class="legend-dot" style="background:var(--color-failed)"></span> Failed (${summary.outcomes.failed})</div>
-                    <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=error')}><span class="legend-dot" style="background:var(--color-compromised)"></span> Error (${(summary.outcomes.error || 0) + (summary.outcomes.compromised || 0)})</div>
+                    <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=failed')}><span class="legend-dot" style="background:var(--color-failed)"></span> Failed (${(summary.outcomes.failed || 0) + (summary.outcomes.error || 0) + (summary.outcomes.compromised || 0)})</div>
                     <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=skipped')}><span class="legend-dot" style="background:var(--color-skipped)"></span> Skipped (${(summary.outcomes.skipped || 0) + (summary.outcomes.pending || 0)})</div>
                   </div>
                 </div>
@@ -324,8 +323,7 @@
       const filters = [
         { key: 'all', label: 'All', count: total },
         { key: 'passed', label: 'Passed', count: outcomes.passed },
-        { key: 'failed', label: 'Failed', count: outcomes.failed },
-        { key: 'error', label: 'Error', count: (outcomes.error || 0) + (outcomes.compromised || 0) },
+        { key: 'failed', label: 'Failed', count: (outcomes.failed || 0) + (outcomes.error || 0) + (outcomes.compromised || 0) },
         { key: 'skipped', label: 'Skipped', count: (outcomes.skipped || 0) + (outcomes.pending || 0) },
       ];
 
@@ -366,10 +364,10 @@
         chartRef.current = new Chart(canvasRef.current, {
           type: 'doughnut',
           data: {
-            labels: ['Passed', 'Failed', 'Error', 'Skipped'],
+            labels: ['Passed', 'Failed', 'Skipped'],
             datasets: [{
-              data: [outcomes.passed, outcomes.failed, (outcomes.error || 0) + (outcomes.compromised || 0), (outcomes.skipped || 0) + (outcomes.pending || 0)],
-              backgroundColor: ['#28c76f', '#ea5455', '#b71c1c', '#a8aaae'],
+              data: [outcomes.passed, (outcomes.failed || 0) + (outcomes.error || 0) + (outcomes.compromised || 0), (outcomes.skipped || 0) + (outcomes.pending || 0)],
+              backgroundColor: ['#28c76f', '#ea5455', '#a8aaae'],
               borderWidth: 0,
             }],
           },
@@ -465,17 +463,8 @@
               {
                 type: 'bar',
                 label: 'Failed',
-                data: history.map(h => h.outcomes.failed),
+                data: history.map(h => (h.outcomes.failed || 0) + (h.outcomes.error || 0) + (h.outcomes.compromised || 0)),
                 backgroundColor: '#ea5455',
-                stack: 'outcomes',
-                yAxisID: 'y',
-                order: 2,
-              },
-              {
-                type: 'bar',
-                label: 'Error',
-                data: history.map(h => (h.outcomes.error || 0) + (h.outcomes.compromised || 0)),
-                backgroundColor: '#b71c1c',
                 stack: 'outcomes',
                 yAxisID: 'y',
                 order: 2,
@@ -781,7 +770,7 @@
         if (filter === 'non-passing') {
           result = result.filter(s => s.outcome !== 'SUCCESS');
         } else if (filter !== 'all') {
-          const filterMatch = { passed: ['SUCCESS'], failed: ['FAILURE'], error: ['ERROR', 'COMPROMISED'], skipped: ['SKIPPED', 'PENDING'] };
+          const filterMatch = { passed: ['SUCCESS'], failed: ['FAILURE', 'ERROR', 'COMPROMISED'], skipped: ['SKIPPED', 'PENDING'] };
           const allowed = filterMatch[filter];
           if (allowed) result = result.filter(s => allowed.includes(s.outcome));
         }
@@ -1874,7 +1863,7 @@
       const scenarios = useMemo(() => {
         let result = allScenarios;
         if (filter !== 'all') {
-          const filterMatch = { passed: ['SUCCESS'], failed: ['FAILURE'], error: ['ERROR', 'COMPROMISED'], skipped: ['SKIPPED', 'PENDING'] };
+          const filterMatch = { passed: ['SUCCESS'], failed: ['FAILURE', 'ERROR', 'COMPROMISED'], skipped: ['SKIPPED', 'PENDING'] };
           const allowed = filterMatch[filter];
           if (allowed) result = result.filter(s => allowed.includes(s.outcome));
         }
