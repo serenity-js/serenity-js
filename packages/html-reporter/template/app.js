@@ -573,7 +573,7 @@
                 max: history.length - 1,
               },
               y: { stacked: true, beginAtZero: true, ticks: { color: textColor, precision: 0 }, grid: { color: gridColor }, title: { display: false } },
-              y1: { type: 'logarithmic', position: 'right', ticks: { color: textColor, callback: (v) => formatDuration(v) }, grid: { drawOnChartArea: false }, title: { display: false } },
+              y1: { type: 'logarithmic', position: 'right', ticks: { color: textColor, callback: (v) => formatDuration(v), maxTicksLimit: 6 }, grid: { drawOnChartArea: false }, title: { display: false } },
             },
           },
         });
