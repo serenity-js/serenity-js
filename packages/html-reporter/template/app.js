@@ -8,6 +8,10 @@
     // ===== Utilities =====
     const DATA = window.__SERENITY_REPORT_DATA__;
 
+    function RawHtml({ content, ...props }) {
+      return h('div', { ...props, dangerouslySetInnerHTML: { __html: content } });
+    }
+
     function formatDuration(ms) {
       if (ms === 0) return '—';
       if (ms < 1000) return ms + 'ms';
@@ -1801,6 +1805,10 @@
             </div>
           </div>
 
+          ${requirements.readme ? html`
+            <${RawHtml} content=${requirements.readme} class="card" style="margin-bottom:var(--space-md);padding:var(--space-md) var(--space-lg);border-left:3px solid var(--accent);font-size:var(--font-md);color:var(--text-primary);line-height:1.7" />
+          ` : null}
+
           <div class="card">
             ${requirements.children.map(node => html`<${ReqNode} node=${node} onNavigate=${onNavigate} depth=${0} />`)}
           </div>
@@ -1832,7 +1840,7 @@
             `}
           </div>
           ${hasChildren && expanded && node.readme ? html`
-            <div class="readme-content" style="margin-left:${28 + 8}px;margin-bottom:var(--space-md);padding:var(--space-md) var(--space-lg);background:var(--bg-surface);border-radius:var(--radius-sm);border-left:3px solid var(--accent);font-size:var(--font-md);color:var(--text-primary);line-height:1.7" dangerouslySetInnerHTML=${{ __html: node.readme }}></div>
+            <${RawHtml} content=${node.readme} class="readme-content" style="margin-left:${28 + 8}px;margin-bottom:var(--space-md);padding:var(--space-md) var(--space-lg);background:var(--bg-surface);border-radius:var(--radius-sm);border-left:3px solid var(--accent);font-size:var(--font-md);color:var(--text-primary);line-height:1.7" />
           ` : null}
           ${hasChildren && expanded ? html`
             ${node.children.map(child => html`<${ReqNode} node=${child} onNavigate=${onNavigate} depth=${depth + 1} />`)}

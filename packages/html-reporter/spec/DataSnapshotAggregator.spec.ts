@@ -212,7 +212,7 @@ describe('DataSnapshotAggregator', () => {
 
         it('builds a requirements tree from scenario source paths when specDirectory is configured', () => {
             const projectFs = createFsFromVolume(Volume.fromNestedJSON({
-                '/project': { spec: { 'readme.md': 'Root narrative', login: { 'basic.spec.ts': '' }, 'checkout.spec.ts': '' } }
+                '/project': { spec: { 'readme.md': '**bold** text', login: { 'basic.spec.ts': '' }, 'checkout.spec.ts': '' } }
             }, '/')) as unknown as typeof fs;
             const projectFileSystem = new FileSystem(Path.from('/project'), projectFs);
             const hierarchy = new RequirementsHierarchy(projectFileSystem, Path.from('spec'));
@@ -245,7 +245,7 @@ describe('DataSnapshotAggregator', () => {
 
             const names = data.requirements.children.map((c: any) => c.name).sort();
             expect(names).to.deep.equal(['checkout', 'login']);
-            expect(data.requirements.readme).to.equal('Root narrative');
+            expect(data.requirements.readme).to.contain('<strong>bold</strong>');
         });
 
         it('does not produce requirements when specDirectory is not configured', () => {

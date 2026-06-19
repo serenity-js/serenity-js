@@ -205,7 +205,7 @@ describe('HtmlReporter', () => {
 
         it('includes requirements hierarchy in data.js when specDirectory is configured', () => {
             const projectFs = createFsFromVolume(Volume.fromNestedJSON({
-                '/project': { spec: { 'readme.md': 'Project narrative', 'example.spec.ts': '' } }
+                '/project': { spec: { 'readme.md': '**Project** narrative', 'example.spec.ts': '' } }
             }, '/')) as unknown as typeof fs;
             const projectFileSystem = new FileSystem(Path.from('/project'), projectFs);
             const hierarchy = new RequirementsHierarchy(projectFileSystem, Path.from('spec'));
@@ -237,7 +237,7 @@ describe('HtmlReporter', () => {
 
             expect(data.requirements).to.exist;
             expect(data.requirements.name).to.equal('spec');
-            expect(data.requirements.readme).to.equal('Project narrative');
+            expect(data.requirements.readme).to.contain('<strong>Project</strong>');
             expect(data.requirements.scenarioCount).to.equal(1);
             expect(data.requirements.outcomes.passed).to.equal(1);
             expect(data.requirements.children).to.have.lengthOf(1);

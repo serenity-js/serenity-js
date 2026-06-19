@@ -76,11 +76,13 @@
     "@serenity-js/core": "workspace:*"
   },
   "dependencies": {
+    "marked": "14.0.0",
     "tiny-types": "2.0.5"
   },
   "devDependencies": {
-    "@serenity-js/core": "workspace:*",
     "@integration/testing-tools": "workspace:*",
+    "@serenity-js/core": "workspace:*",
+    "@tanstack/virtual-core": "3.13.6",
     "@types/chai": "4.3.20",
     "@types/mocha": "10.0.10",
     "@types/sinon": "17.0.4",
@@ -95,7 +97,6 @@
     "mocha-multi": "1.1.7",
     "preact": "10.25.4",
     "sinon": "19.0.2",
-    "@tanstack/virtual-core": "3.13.6",
     "tsx": "4.22.4",
     "typescript": "5.9.3"
   }

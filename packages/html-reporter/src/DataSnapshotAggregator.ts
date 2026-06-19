@@ -1,6 +1,7 @@
 import type { FileSystem } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
 import type { RequirementsHierarchy } from '@serenity-js/core/io';
+import { marked } from 'marked';
 import type { SerialisedOutcome } from '@serenity-js/core/model';
 import {
     ExecutionCompromised,
@@ -175,7 +176,8 @@ export class DataSnapshotAggregator {
     private attachReadme(node: any, dirPath: Path): void {
         const readmePath = dirPath.join(Path.from('readme.md'));
         if (this.projectFileSystem.exists(readmePath)) {
-            node.readme = this.projectFileSystem.readFileSync(readmePath, { encoding: 'utf8' }) as string;
+            const content = this.projectFileSystem.readFileSync(readmePath, { encoding: 'utf8' }) as string;
+            node.readme = marked.parse(content, { async: false }) as string;
         }
     }
 
