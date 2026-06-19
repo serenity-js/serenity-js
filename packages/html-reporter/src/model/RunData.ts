@@ -49,6 +49,7 @@ export interface ActivityRecord {
     name: string;
     outcome: SerialisedOutcome;
     duration: number;
+    startedAt?: string;
     children: ActivityRecord[];
     error?: ErrorRecord;
     artifacts?: ArtifactReference[];

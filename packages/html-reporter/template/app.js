@@ -926,6 +926,7 @@
         return sourceKey === decodeURIComponent(cleanId) || s.id === cleanId;
       });
       const [activeAttempt, setActiveAttempt] = useState(0);
+      const [lightboxIndex, setLightboxIndex] = useState(-1);
 
       if (!scenario) {
         return html`<div class="card"><p>Test scenario not found.</p></div>`;
@@ -942,6 +943,7 @@
       const hasTags = scenario.tags.length > 0;
       const hasExecutionHistory = scenario.executionHistory.length > 0;
       const currentActivities = hasRetries && activeAttempt < scenario.attempts.length
+
         ? scenario.attempts[activeAttempt].activities
         : scenario.activities;
       const currentError = hasRetries && activeAttempt < scenario.attempts.length
@@ -1070,12 +1072,63 @@
               <pre class="error-stack">${currentError.stack}</pre>
             </div>
           ` : null}
+
+          ${(() => {
+            const photos = [];
+            const scenarioStart = new Date(scenario.startedAt).getTime();
+            function collectPhotos(activities) {
+              for (const a of activities) {
+                if (a.artifacts) {
+                  for (const art of a.artifacts) {
+                    if (art.path && art.path.endsWith('.png')) {
+                      const actStart = a.startedAt ? new Date(a.startedAt).getTime() : scenarioStart;
+                      photos.push({ path: art.path, name: a.name, wallClock: a.startedAt, offsetMs: actStart - scenarioStart });
+                    }
+                  }
+                }
+                if (a.children) collectPhotos(a.children);
+              }
+            }
+            collectPhotos(currentActivities);
+            if (photos.length === 0) return null;
+            return html`
+              <div class="card" style="margin-top:var(--space-md)">
+                <div class="card-title">Screenshots (${photos.length})</div>
+                <div class="photo-strip" id="photo-strip">
+                  ${photos.map((photo, idx) => html`
+                    <div class="photo-strip-item" id=${'photo-' + idx}>
+                      <img src=${photo.path} loading="lazy" alt=${photo.name} onClick=${() => setLightboxIndex(idx)} />
+                      <div class="photo-strip-caption">${photo.name}</div>
+                      <div class="photo-strip-time">${photo.wallClock ? new Date(photo.wallClock).toLocaleTimeString() : ''} · +${formatDuration(photo.offsetMs)}</div>
+                    </div>
+                  `)}
+                </div>
+              </div>
+              ${lightboxIndex >= 0 && lightboxIndex < photos.length ? html`
+                <div class="lightbox-overlay" onClick=${(e) => { if (e.target.classList.contains('lightbox-overlay')) setLightboxIndex(-1); }}
+                     onKeyDown=${(e) => { if (e.key === 'Escape') setLightboxIndex(-1); else if (e.key === 'ArrowRight' && lightboxIndex < photos.length - 1) setLightboxIndex(lightboxIndex + 1); else if (e.key === 'ArrowLeft' && lightboxIndex > 0) setLightboxIndex(lightboxIndex - 1); }}
+                     tabIndex="0" ref=${(el) => { if (el) el.focus(); }}>
+                  <div class="lightbox-content">
+                    <button class="lightbox-close" onClick=${() => setLightboxIndex(-1)}>✕</button>
+                    ${lightboxIndex > 0 ? html`<button class="lightbox-nav lightbox-prev" onClick=${() => setLightboxIndex(lightboxIndex - 1)}>‹</button>` : null}
+                    ${lightboxIndex < photos.length - 1 ? html`<button class="lightbox-nav lightbox-next" onClick=${() => setLightboxIndex(lightboxIndex + 1)}>›</button>` : null}
+                    <img src=${photos[lightboxIndex].path} alt=${photos[lightboxIndex].name} />
+                    <div class="lightbox-caption">
+                      <div>${photos[lightboxIndex].name}</div>
+                      <div style="font-size:var(--font-xs);color:var(--text-secondary);font-family:var(--font-mono)">${photos[lightboxIndex].wallClock ? new Date(photos[lightboxIndex].wallClock).toLocaleTimeString() : ''} · +${formatDuration(photos[lightboxIndex].offsetMs)} · ${lightboxIndex + 1}/${photos.length}</div>
+                    </div>
+                  </div>
+                </div>
+              ` : null}
+            `;
+          })()}
         </div>
       `;
     }
 
     // ===== Activity Node (recursive) =====
     function ActivityNode({ activity }) {
+      const hasPhoto = activity.artifacts && activity.artifacts.some(a => a.path && a.path.endsWith('.png'));
       return html`
         <div class="activity-node">
           <div class="activity-row">
@@ -1083,6 +1136,7 @@
               ${outcomeIcon(activity.outcome)}
             </div>
             <span class="activity-name ${activity.type === 'Task' ? 'task' : ''}">${activity.name}</span>
+            ${hasPhoto ? html`<span style="cursor:pointer;opacity:0.7;font-size:var(--font-sm)" title="View screenshot" onClick=${(e) => { e.stopPropagation(); const el = document.querySelector('[id^=photo-]'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }}>📷</span>` : null}
             <span class="activity-duration">${formatDuration(activity.duration)}</span>
           </div>
           ${activity.dataTable ? html`

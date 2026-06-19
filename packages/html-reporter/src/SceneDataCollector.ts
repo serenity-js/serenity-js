@@ -181,6 +181,7 @@ class SceneRecordBuilder {
             name: event.details.name.value,
             outcome: { code: ImplementationPending.Code },
             duration: 0,
+            startedAt: event.timestamp.toJSON(),
             children: [],
         };
 
