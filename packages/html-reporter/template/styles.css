@@ -63,6 +63,8 @@
       --color-passed-bg: rgba(40, 199, 111, 0.12);
       --color-failed: #ea5455;
       --color-failed-bg: rgba(234, 84, 85, 0.12);
+      --color-error: #ff9f43;
+      --color-error-bg: rgba(255, 159, 67, 0.12);
       --color-pending: #ff9f43;
       --color-pending-bg: rgba(255, 159, 67, 0.12);
       --color-skipped: #a8aaae;
@@ -99,6 +101,8 @@
       --color-passed-bg: rgba(40, 199, 111, 0.16);
       --color-failed: #ea5455;
       --color-failed-bg: rgba(234, 84, 85, 0.16);
+      --color-error: #ff9f43;
+      --color-error-bg: rgba(255, 159, 67, 0.16);
       --color-pending: #ff9f43;
       --color-pending-bg: rgba(255, 159, 67, 0.16);
       --color-skipped: #a8aaae;
@@ -561,6 +565,7 @@
 
     .scenario-outcome-icon.passed { background: var(--color-passed-bg); color: var(--color-passed); }
     .scenario-outcome-icon.failed { background: var(--color-failed-bg); color: var(--color-failed); }
+    .scenario-outcome-icon.error { background: var(--color-pending-bg); color: var(--color-pending); }
     .scenario-outcome-icon.pending { background: var(--color-pending-bg); color: var(--color-pending); }
     .scenario-outcome-icon.skipped { background: var(--color-skipped-bg); color: var(--color-skipped); }
     .scenario-outcome-icon.compromised { background: var(--color-compromised-bg); color: var(--color-compromised); }
@@ -745,6 +750,7 @@
 
     .activity-icon.passed { background: var(--color-passed-bg); color: var(--color-passed); }
     .activity-icon.failed { background: var(--color-failed-bg); color: var(--color-failed); }
+    .activity-icon.error { background: var(--color-pending-bg); color: var(--color-pending); }
     .activity-icon.compromised { background: var(--color-compromised-bg); color: var(--color-compromised); }
 
     .activity-name {

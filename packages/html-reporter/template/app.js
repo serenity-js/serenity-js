@@ -22,12 +22,12 @@
     }
 
     function outcomeClass(outcome) {
-      const map = { SUCCESS: 'passed', FAILURE: 'failed', PENDING: 'pending', SKIPPED: 'skipped', COMPROMISED: 'compromised', ERROR: 'failed' };
+      const map = { SUCCESS: 'passed', FAILURE: 'failed', PENDING: 'pending', SKIPPED: 'skipped', COMPROMISED: 'compromised', ERROR: 'error' };
       return map[outcome] || 'skipped';
     }
 
     function outcomeIcon(outcome) {
-      const map = { SUCCESS: '✓', FAILURE: '✗', PENDING: '–', SKIPPED: '⊘', COMPROMISED: '⚠', ERROR: '✗' };
+      const map = { SUCCESS: '✓', FAILURE: '✗', PENDING: '◌', SKIPPED: '⊘', COMPROMISED: '⚠', ERROR: '!' };
       return map[outcome] || '?';
     }
 
