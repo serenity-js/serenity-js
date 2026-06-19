@@ -1807,7 +1807,7 @@
           </div>
 
           ${requirements.readme ? html`
-            <${RawHtml} content=${requirements.readme} class="card" style="margin-bottom:var(--space-md);padding:var(--space-md) var(--space-lg);border-left:3px solid var(--accent);font-size:var(--font-md);color:var(--text-primary);line-height:1.7" />
+            <${RawHtml} content=${requirements.readme} class="card readme-content" style="margin-bottom:var(--space-md);padding:var(--space-md) var(--space-lg);border-left:3px solid var(--accent);font-size:var(--font-md);color:var(--text-primary);line-height:1.7" />
           ` : null}
 
           <div class="card">

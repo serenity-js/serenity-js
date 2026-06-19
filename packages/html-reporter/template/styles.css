@@ -1040,6 +1040,15 @@
       font-weight: 600;
     }
 
+    .readme-content a {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    [data-theme="dark"] .readme-content a {
+      color: #a5a7ff;
+    }
+
     /* ===== Responsive ===== */
     @media (max-width: 768px) {
       .sidebar {
