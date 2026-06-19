@@ -563,7 +563,7 @@
     // ===== Virtualized Scenario List Component =====
     function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, setSearch }) {
       const parentRef = useRef(null);
-      const SCENARIO_ROW_HEIGHT = window.innerWidth <= 1024 ? 86 : 66;
+      const SCENARIO_ROW_HEIGHT = 92;
       const GROUP_HEADER_HEIGHT_FIRST = 62;  // 46px content + 16px gap below
       const GROUP_HEADER_HEIGHT_REST = 78;   // 16px gap above + 46px content + 16px gap below
       const GROUP_HEADER_CONTENT_HEIGHT = 46;
@@ -720,11 +720,13 @@
                   </div>
                   <div class="scenario-info">
                     <div class="scenario-name">${scenario.name}</div>
-                    <div class="scenario-meta">
-                      <span class="scenario-source" style="direction:rtl;text-align:left;unicode-bidi:plaintext">${relativeSourcePath(scenario)}</span>
+                    <div class="scenario-tags">
                       ${getBrowserTag(scenario) ? html`<span class="badge badge-${getBrowserTag(scenario)}">${getBrowserTag(scenario)}</span>` : null}
                       ${scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
                       ${(scenario.tags || []).filter(t => t.type !== 'feature' && t.type !== 'browser').map(t => html`<a href=${'#/tests?search=' + encodeURIComponent('"' + t.name + '"')} class="tag-chip" style="font-size:var(--font-2xs);padding:1px 6px;text-decoration:none" onClick=${stopProp}>${t.name}</a>`)}
+                    </div>
+                    <div class="scenario-meta">
+                      <span class="scenario-source" style="direction:rtl;text-align:left;unicode-bidi:plaintext">${relativeSourcePath(scenario)}</span>
                     </div>
                   </div>
                   <span class="scenario-duration">${formatDuration(scenario.duration)}</span>

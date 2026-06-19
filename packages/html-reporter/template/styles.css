@@ -1133,13 +1133,20 @@
       }
     }
 
+    .scenario-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
     /* ===== Overlay (mobile sidebar) ===== */
     @media (max-width: 1024px) {
-      .scenario-meta .tag-chip {
-        margin-top: 2px;
-      }
       .scenario-meta {
         row-gap: 2px;
+      }
+      .scenario-tags {
+        margin-top: 4px;
       }
     }
 
