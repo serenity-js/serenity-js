@@ -345,4 +345,96 @@ describe('DataSnapshotAggregator', () => {
             expect(data.unstableTests).to.have.lengthOf(0);
         });
     });
+
+    describe('tag statistics', () => {
+
+        it('computes scenarioCount and passed for each tag', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-15T14:30:00.000Z': {
+                        'db.json': JSON.stringify({
+                            timestamp: '2024-06-15T14:30:00.000Z', duration: 500,
+                            outcomes: { passed: 2, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                { name: 'A', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [{ type: 'browser', name: 'chrome' }], activities: [] },
+                                { name: 'B', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.100Z', source: { path: 'a.ts', line: 5 }, tags: [{ type: 'browser', name: 'chrome' }], activities: [] },
+                                { name: 'C', category: 'S', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T14:30:00.200Z', source: { path: 'b.ts', line: 1 }, tags: [{ type: 'browser', name: 'chrome' }, { type: 'tag', name: 'slow' }], activities: [] },
+                            ],
+                            tags: [], testRunner: 'M', testRunnerVersion: '1.0.0',
+                        }),
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            const chromeTag = data.tags.find((t: any) => t.name === 'chrome');
+            expect(chromeTag.scenarioCount).to.equal(3);
+            expect(chromeTag.passed).to.equal(2);
+            const slowTag = data.tags.find((t: any) => t.name === 'slow');
+            expect(slowTag.scenarioCount).to.equal(1);
+            expect(slowTag.passed).to.equal(0);
+        });
+    });
+
+    describe('execution history', () => {
+
+        it('correlates scenarios across runs by source path and line', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-14T10:00:00.000Z': {
+                        'db.json': JSON.stringify({
+                            timestamp: '2024-06-14T10:00:00.000Z', duration: 100,
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }],
+                            tags: [], testRunner: 'M', testRunnerVersion: '1.0.0',
+                        }),
+                    },
+                    '2024-06-15T10:00:00.000Z': {
+                        'db.json': JSON.stringify({
+                            timestamp: '2024-06-15T10:00:00.000Z', duration: 100,
+                            outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [{ name: 'T', category: 'S', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }],
+                            tags: [], testRunner: 'M', testRunnerVersion: '1.0.0',
+                        }),
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            expect(data.scenarios[0].executionHistory).to.have.lengthOf(2);
+            expect(data.scenarios[0].executionHistory[0].outcome).to.equal('SUCCESS');
+            expect(data.scenarios[0].executionHistory[1].outcome).to.equal('FAILURE');
+        });
+    });
+
+    describe('history duration stats', () => {
+
+        it('includes slowest and fastest test durations per run', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-15T14:30:00.000Z': {
+                        'db.json': JSON.stringify({
+                            timestamp: '2024-06-15T14:30:00.000Z', duration: 500,
+                            outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                { name: 'Fast', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] },
+                                { name: 'Slow', category: 'S', outcome: { code: 64 }, duration: 400, startedAt: '2024-06-15T14:30:00.100Z', source: { path: 'a.ts', line: 5 }, tags: [], activities: [] },
+                            ],
+                            tags: [], testRunner: 'M', testRunnerVersion: '1.0.0',
+                        }),
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            expect(data.history[0].slowest).to.equal(400);
+            expect(data.history[0].fastest).to.equal(100);
+        });
+    });
 });

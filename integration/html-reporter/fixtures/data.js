@@ -17,7 +17,11 @@ window.__SERENITY_REPORT_DATA__ = {
       "startedAt": "2024-06-15T14:30:00.000Z",
       "source": { "path": "/project/spec/todo/display.spec.ts", "line": 5 },
       "tags": [{ "type": "feature", "name": "Todo List" }, { "type": "browser", "name": "chromium 120.0" }],
-      "activities": [{ "name": "Navigate to /todos", "type": "Interaction", "outcome": "SUCCESS", "duration": 400 }]
+      "activities": [{ "name": "Navigate to /todos", "type": "Interaction", "outcome": "SUCCESS", "duration": 400 }],
+      "executionHistory": [
+        { "outcome": "SUCCESS", "run": "build 1" },
+        { "outcome": "SUCCESS", "run": "build 2" }
+      ]
     },
     {
       "name": "should add a new item",
