@@ -67,11 +67,21 @@ export class DataSnapshotAggregator {
                 finishedAt: this.computeFinishedAt(latestRun),
                 testRunner: latestRun.testRunner,
             },
-            scenarios: latestRun.scenes.map(scene => ({
-                ...scene,
-                outcome: outcomeCodeToDisplayString(scene.outcome.code),
-                activities: scene.activities.map(activity => this.mapActivityOutcome(activity)),
-            })),
+            scenarios: latestRun.scenes.map(scene => {
+                const key = scene.source.path + ':' + scene.source.line;
+                const executionHistory = allRuns.map(run => {
+                    const match = run.scenes.find(s => s.source.path + ':' + s.source.line === key);
+                    return match
+                        ? { outcome: outcomeCodeToDisplayString(match.outcome.code), run: this.resolveRunLabel(run.timestamp) }
+                        : undefined;
+                }).filter(Boolean);
+                return {
+                    ...scene,
+                    outcome: outcomeCodeToDisplayString(scene.outcome.code),
+                    activities: scene.activities.map(activity => this.mapActivityOutcome(activity)),
+                    executionHistory,
+                };
+            }),
             history: allRuns.map(run => ({
                 timestamp: run.timestamp,
                 duration: run.duration,
