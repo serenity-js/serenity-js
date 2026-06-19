@@ -1853,7 +1853,7 @@
     function TimelineView({ onNavigate }) {
       const [sortBy, setSortBy] = useState('time');
       const [filter, setFilter] = useState('all');
-      const allScenarios = DATA.scenarios.filter(s => s.duration > 0);
+      const allScenarios = DATA.scenarios;
       const start = new Date(DATA.summary.startedAt).getTime();
       const end = new Date(DATA.summary.finishedAt).getTime();
       const totalDur = end - start;
@@ -1868,7 +1868,7 @@
         return result;
       }, [sortBy, filter]);
 
-      const durations = allScenarios.map(s => s.duration);
+      const durations = allScenarios.map(s => s.duration).filter(d => d > 0);
       const avg = durations.length ? Math.round(durations.reduce((a, b) => a + b, 0) / durations.length) : 0;
       const slowest = Math.max(...durations);
       const fastest = Math.min(...durations.filter(d => d > 0));
