@@ -2,29 +2,22 @@ import { execSync } from 'node:child_process';
 import { hostname } from 'node:os';
 
 /**
- * Runtime context for a test run executed in a CI environment.
+ * Runtime context for a test run.
  */
-export interface CIContext {
+export interface RuntimeContext {
     provider: string;
     buildNumber: string;
     branch: string;
     commit: string;
     commitMessage?: string;
-    jobUrl: string;
+    commitAuthor?: string;
+    jobUrl?: string;
+    workflow?: string;
+    repositoryUrl?: string;
+    baseBranch?: string;
+    pullRequestNumber?: string;
+    triggeredBy?: string;
 }
-
-/**
- * Runtime context for a test run executed locally (not in CI).
- */
-export interface LocalContext {
-    provider: string;
-    buildNumber: string;
-    branch: string;
-    commit: string;
-    commitMessage: string;
-}
-
-export type RuntimeContext = CIContext | LocalContext;
 
 /**
  * Detects CI provider metadata from environment variables,
@@ -53,7 +46,14 @@ export class CIDetector {
                 buildNumber: this.env.GITHUB_RUN_NUMBER,
                 branch: this.env.GITHUB_REF_NAME,
                 commit: this.env.GITHUB_SHA?.slice(0, 8),
+                commitMessage: this.git('log -1 --pretty=%s'),
+                commitAuthor: this.git('log -1 --pretty=%an'),
                 jobUrl: `${ this.env.GITHUB_SERVER_URL }/${ this.env.GITHUB_REPOSITORY }/actions/runs/${ this.env.GITHUB_RUN_ID }`,
+                workflow: this.env.GITHUB_WORKFLOW,
+                repositoryUrl: `${ this.env.GITHUB_SERVER_URL }/${ this.env.GITHUB_REPOSITORY }`,
+                baseBranch: this.env.GITHUB_BASE_REF || undefined,
+                pullRequestNumber: this.env.GITHUB_EVENT_NAME === 'pull_request' ? this.env.GITHUB_REF_NAME?.replace(/.*\//, '') : undefined,
+                triggeredBy: this.env.GITHUB_ACTOR,
             };
         }
 
@@ -64,7 +64,13 @@ export class CIDetector {
                 branch: this.env.CI_COMMIT_REF_NAME,
                 commit: this.env.CI_COMMIT_SHORT_SHA,
                 commitMessage: this.env.CI_COMMIT_MESSAGE,
+                commitAuthor: this.env.CI_COMMIT_AUTHOR,
                 jobUrl: this.env.CI_JOB_URL,
+                workflow: this.env.CI_PIPELINE_NAME,
+                repositoryUrl: this.env.CI_PROJECT_URL,
+                baseBranch: this.env.CI_MERGE_REQUEST_TARGET_BRANCH_NAME || undefined,
+                pullRequestNumber: this.env.CI_MERGE_REQUEST_IID || undefined,
+                triggeredBy: this.env.GITLAB_USER_LOGIN,
             };
         }
 
@@ -74,7 +80,12 @@ export class CIDetector {
                 buildNumber: this.env.BUILD_NUMBER,
                 branch: this.env.GIT_BRANCH,
                 commit: this.env.GIT_COMMIT?.slice(0, 8),
+                commitMessage: this.git('log -1 --pretty=%s'),
+                commitAuthor: this.git('log -1 --pretty=%an'),
                 jobUrl: this.env.BUILD_URL,
+                workflow: this.env.JOB_NAME,
+                repositoryUrl: this.env.GIT_URL,
+                triggeredBy: this.env.BUILD_USER || undefined,
             };
         }
 
@@ -84,20 +95,28 @@ export class CIDetector {
                 buildNumber: this.env.CIRCLE_BUILD_NUM,
                 branch: this.env.CIRCLE_BRANCH,
                 commit: this.env.CIRCLE_SHA1?.slice(0, 8),
+                commitMessage: this.git('log -1 --pretty=%s'),
+                commitAuthor: this.git('log -1 --pretty=%an'),
                 jobUrl: this.env.CIRCLE_BUILD_URL,
+                workflow: this.env.CIRCLE_WORKFLOW_ID,
+                repositoryUrl: this.env.CIRCLE_REPOSITORY_URL,
+                pullRequestNumber: this.env.CIRCLE_PR_NUMBER || undefined,
+                triggeredBy: this.env.CIRCLE_USERNAME,
             };
         }
 
         return this.detectLocal();
     }
 
-    private detectLocal(): LocalContext {
+    private detectLocal(): RuntimeContext {
         return {
-            provider: hostname(),
+            provider: `localhost (${ hostname() })`,
             buildNumber: new Date().toISOString().slice(0, 16).replace('T', ' '),
             branch: this.git('rev-parse --abbrev-ref HEAD'),
             commit: this.git('rev-parse --short HEAD'),
             commitMessage: this.git('log -1 --pretty=%s'),
+            commitAuthor: this.git('log -1 --pretty=%an'),
+            repositoryUrl: this.git('remote get-url origin'),
         };
     }
 

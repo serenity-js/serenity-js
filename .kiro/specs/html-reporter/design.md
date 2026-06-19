@@ -755,6 +755,7 @@ These are scenarios that don't naturally fit within a single-runner integration 
 - Cast/abilities collection from events
 - Video/trace artifact handling (large file copy vs base64)
 - `maxHistory` pruning integration test
+- **Introduce `EnvironmentDetected` domain event**: Currently, the `SystemContextDetector` detects `environmentUnderTest` from `BASE_URL` / `TEST_ENV` environment variables. A cleaner approach would be to introduce a new domain event (e.g. `EnvironmentDetected` or `TestEnvironmentConfigured`) emitted by each test runner adapter, which would carry the `baseURL` directly from the runner's configuration (Playwright's `use.baseURL`, WebdriverIO's `baseUrl`, etc.). This would require changes to `@serenity-js/core` (new event), and each adapter package (`@serenity-js/playwright-test`, `@serenity-js/webdriverio`, `@serenity-js/mocha`, `@serenity-js/jasmine`, `@serenity-js/cucumber`) to emit the event. The `HtmlReporter` would then observe this event and include the value in the system context, eliminating the need for env var–based detection.
 
 ### Template bundling refinement
 - The Preact/HTM/virtual-core IIFE inlining is a rough first pass — needs testing in the actual report rendered in a browser

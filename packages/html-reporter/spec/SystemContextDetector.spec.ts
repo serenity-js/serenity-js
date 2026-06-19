@@ -35,6 +35,30 @@ describe('SystemContextDetector', () => {
         expect(context.serenityVersion.toString()).to.match(/^\d+\.\d+\.\d+/);
     });
 
+    it('detects package manager', () => {
+        const detector = new SystemContextDetector(new CIDetector({}), moduleLoader);
+
+        const context = detector.detect();
+
+        expect(context.packageManager).to.be.a('string').that.is.oneOf(['pnpm', 'yarn', 'npm', 'bun']);
+    });
+
+    it('detects project name from package.json', () => {
+        const detector = new SystemContextDetector(new CIDetector({}), moduleLoader);
+
+        const context = detector.detect();
+
+        expect(context.projectName).to.be.a('string');
+    });
+
+    it('allows projectName to be overridden via config', () => {
+        const detector = new SystemContextDetector(new CIDetector({}), moduleLoader, { projectName: 'My Custom Project' });
+
+        const context = detector.detect();
+
+        expect(context.projectName).to.equal('My Custom Project');
+    });
+
     it('includes CI runtime context when running in CI', () => {
         const ciDetector = new CIDetector({
             GITHUB_ACTIONS: 'true',

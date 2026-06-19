@@ -34,4 +34,10 @@ export interface HtmlReporterConfig {
      * @default 5
      */
     stabilityWindow?: number;
+
+    /**
+     * Custom project name displayed in the report.
+     * When not specified, the name is read from the closest `package.json`.
+     */
+    projectName?: string;
 }

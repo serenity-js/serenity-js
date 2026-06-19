@@ -1,5 +1,7 @@
 import type { SerialisedOutcome } from '@serenity-js/core/model';
 
+import type { SystemContext } from '../SystemContextDetector.js';
+
 /**
  * The data model for a single test run, serialised as db.json.
  *
@@ -13,6 +15,7 @@ export interface RunData {
     tags: TagRecord[];
     testRunner: string;
     testRunnerVersion: string;
+    systemContext: SystemContext;
 }
 
 export interface OutcomeCounts {

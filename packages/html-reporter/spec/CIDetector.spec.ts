@@ -49,6 +49,8 @@ describe('CIDetector', () => {
                 GITHUB_SERVER_URL: 'https://github.com',
                 GITHUB_REPOSITORY: 'serenity-js/serenity-js',
                 GITHUB_RUN_ID: '9876543210',
+                GITHUB_WORKFLOW: 'CI',
+                GITHUB_ACTOR: 'jan-molak',
             });
 
             const context = detector.detect();
@@ -58,6 +60,9 @@ describe('CIDetector', () => {
             expect(context.branch).to.equal('main');
             expect(context.commit).to.equal('abc123de');
             expect(context.jobUrl).to.equal('https://github.com/serenity-js/serenity-js/actions/runs/9876543210');
+            expect(context.workflow).to.equal('CI');
+            expect(context.repositoryUrl).to.equal('https://github.com/serenity-js/serenity-js');
+            expect(context.triggeredBy).to.equal('jan-molak');
         });
 
         it('detects GitLab CI metadata', () => {
@@ -67,7 +72,13 @@ describe('CIDetector', () => {
                 CI_COMMIT_REF_NAME: 'feature/login',
                 CI_COMMIT_SHORT_SHA: 'a1b2c3d4',
                 CI_COMMIT_MESSAGE: 'fix: resolve login issue',
+                CI_COMMIT_AUTHOR: 'Jan Molak',
                 CI_JOB_URL: 'https://gitlab.com/org/repo/-/jobs/123',
+                CI_PIPELINE_NAME: 'default',
+                CI_PROJECT_URL: 'https://gitlab.com/org/repo',
+                CI_MERGE_REQUEST_IID: '42',
+                CI_MERGE_REQUEST_TARGET_BRANCH_NAME: 'main',
+                GITLAB_USER_LOGIN: 'jan.molak',
             });
 
             const context = detector.detect();
@@ -77,7 +88,13 @@ describe('CIDetector', () => {
             expect(context.branch).to.equal('feature/login');
             expect(context.commit).to.equal('a1b2c3d4');
             expect(context.commitMessage).to.equal('fix: resolve login issue');
+            expect(context.commitAuthor).to.equal('Jan Molak');
             expect(context.jobUrl).to.equal('https://gitlab.com/org/repo/-/jobs/123');
+            expect(context.workflow).to.equal('default');
+            expect(context.repositoryUrl).to.equal('https://gitlab.com/org/repo');
+            expect(context.pullRequestNumber).to.equal('42');
+            expect(context.baseBranch).to.equal('main');
+            expect(context.triggeredBy).to.equal('jan.molak');
         });
 
         it('detects Jenkins metadata', () => {
@@ -121,10 +138,34 @@ describe('CIDetector', () => {
 
             const context = detector.detect();
 
-            expect(context.provider).to.be.a('string').that.is.not.empty;
+            expect(context.provider).to.be.a('string').that.matches(/^localhost \(.+\)$/);
             expect(context.buildNumber).to.be.a('string').that.is.not.empty;
             expect(context.branch).to.be.a('string');
             expect(context.commit).to.be.a('string');
+            expect(context.commitMessage).to.be.a('string');
+            expect(context.commitAuthor).to.be.a('string');
+            expect(context.repositoryUrl).to.be.a('string');
+        });
+
+        it('detects GitHub Actions pull request metadata', () => {
+            const detector = new CIDetector({
+                GITHUB_ACTIONS: 'true',
+                GITHUB_RUN_NUMBER: '142',
+                GITHUB_REF_NAME: '7/merge',
+                GITHUB_SHA: 'abc123def456',
+                GITHUB_SERVER_URL: 'https://github.com',
+                GITHUB_REPOSITORY: 'serenity-js/serenity-js',
+                GITHUB_RUN_ID: '9876543210',
+                GITHUB_WORKFLOW: 'CI',
+                GITHUB_ACTOR: 'jan-molak',
+                GITHUB_EVENT_NAME: 'pull_request',
+                GITHUB_BASE_REF: 'main',
+            });
+
+            const context = detector.detect();
+
+            expect(context.pullRequestNumber).to.equal('merge');
+            expect(context.baseBranch).to.equal('main');
         });
     });
 });

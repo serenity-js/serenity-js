@@ -28,6 +28,7 @@ import {
 } from '@serenity-js/core/model';
 
 import type { ActivityRecord, ArtifactReference, ErrorRecord, OutcomeCounts, RunData, SceneRecord, TagRecord } from './model/RunData.js';
+import type { SystemContext } from './SystemContextDetector.js';
 
 /**
  * Transforms DomainEventQueues into the RunData model.
@@ -42,6 +43,7 @@ export class SceneDataCollector {
         testRunnerName: string,
         testRunnerVersion: string,
         artifactPaths: Map<string, Path[]>,
+        systemContext: SystemContext,
     ): RunData {
         const scenes: SceneRecord[] = [];
 
@@ -58,6 +60,7 @@ export class SceneDataCollector {
             tags: this.collectUniqueTags(scenes),
             testRunner: testRunnerName,
             testRunnerVersion,
+            systemContext,
         };
     }
 

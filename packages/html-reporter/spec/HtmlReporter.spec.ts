@@ -31,11 +31,13 @@ import { createFsFromVolume, Volume } from 'memfs';
 import { beforeEach, describe, it } from 'mocha';
 
 import { ArtifactWriter } from '../src/ArtifactWriter.js';
+import { CIDetector } from '../src/CiDetector.js';
 import { DataSnapshotAggregator } from '../src/DataSnapshotAggregator.js';
 import { HtmlReporter } from '../src/HtmlReporter.js';
 import { ReportTemplateWriter } from '../src/ReportTemplateWriter.js';
 import { RunDataWriter } from '../src/RunDataWriter.js';
 import { SceneDataCollector } from '../src/SceneDataCollector.js';
+import { SystemContextDetector } from '../src/SystemContextDetector.js';
 
 describe('HtmlReporter', () => {
 
@@ -67,8 +69,9 @@ describe('HtmlReporter', () => {
         const runDataWriter = new RunDataWriter(outputFileSystem);
         const aggregator = new DataSnapshotAggregator(outputFileSystem, { stabilityWindow: 5 });
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
+        const systemContextDetector = new SystemContextDetector(new CIDetector({}), { cwd: process.cwd(), versionOf: () => new Version('3.44.0') } as any);
 
-        const reporter = new HtmlReporter(artifactWriter, sceneDataCollector, runDataWriter, aggregator, templateWriter, stage);
+        const reporter = new HtmlReporter(artifactWriter, sceneDataCollector, runDataWriter, aggregator, templateWriter, systemContextDetector, stage);
 
         return { reporter, filesystem };
     }
@@ -182,6 +185,22 @@ describe('HtmlReporter', () => {
 
             // New directory created alongside
             expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/db.json')).to.equal(true);
+        });
+
+        it('includes system context in db.json', () => {
+            const { reporter, filesystem } = createReporter();
+            
+            stage.assign(reporter);
+
+            stage.announce(new TestRunStarts(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
+            stage.announce(new TestRunFinishes(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
+
+            const content = JSON.parse(filesystem.readFileSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/db.json', 'utf8') as string);
+            expect(content).to.have.property('systemContext');
+            expect(content.systemContext).to.have.property('nodeVersion', process.version);
+            expect(content.systemContext).to.have.property('os').that.has.property('arch');
+            expect(content.systemContext).to.have.property('serenityVersion', '3.44.0');
+            expect(content.systemContext).to.have.property('runtime').that.has.property('provider');
         });
     });
 

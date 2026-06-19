@@ -173,6 +173,39 @@ describe('DataSnapshotAggregator', () => {
             const data = readDataJs(filesystem);
             expect(data.summary.title).to.equal('My Project Report');
         });
+
+        it('includes system context from the latest run in the data snapshot', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-15T14:30:00.000Z': {
+                        'db.json': JSON.stringify({
+                            timestamp: '2024-06-15T14:30:00.000Z', duration: 100,
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [{ name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
+                            tags: [], testRunner: 'Mocha', testRunnerVersion: '11.0.0',
+                            systemContext: {
+                                nodeVersion: 'v22.0.0',
+                                os: { name: 'darwin', version: '24.0.0', arch: 'arm64' },
+                                serenityVersion: '3.44.0',
+                                runtime: { provider: 'GitHub Actions', buildNumber: '42', branch: 'main', commit: 'abc123de', jobUrl: 'https://github.com/org/repo/actions/runs/1' },
+                            },
+                        }),
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            expect(data.systemContext).to.deep.equal({
+                nodeVersion: 'v22.0.0',
+                os: { name: 'darwin', version: '24.0.0', arch: 'arm64' },
+                serenityVersion: '3.44.0',
+                testRunner: { name: 'Mocha', version: '11.0.0' },
+                browsers: [],
+                ci: { provider: 'GitHub Actions', buildNumber: '42', branch: 'main', commit: 'abc123de', jobUrl: 'https://github.com/org/repo/actions/runs/1' },
+            });
+        });
     });
 
     describe('maxHistory pruning', () => {

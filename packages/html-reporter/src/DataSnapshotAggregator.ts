@@ -76,11 +76,39 @@ export class DataSnapshotAggregator {
             })),
             tags: latestRun.tags,
             unstableTests: this.identifyUnstableTests(allRuns),
+            systemContext: latestRun.systemContext ? {
+                nodeVersion: latestRun.systemContext.nodeVersion,
+                os: latestRun.systemContext.os,
+                serenityVersion: latestRun.systemContext.serenityVersion,
+                testRunner: { name: latestRun.testRunner, version: latestRun.testRunnerVersion },
+                browsers: this.extractBrowsers(latestRun),
+                ci: latestRun.systemContext.runtime,
+                projectName: latestRun.systemContext.projectName,
+                packageManager: latestRun.systemContext.packageManager,
+                environmentUnderTest: latestRun.systemContext.environmentUnderTest,
+            } : undefined,
         };
 
         // Write data.js
         const js = `window.__SERENITY_REPORT_DATA__ = ${ JSON.stringify(snapshot, undefined, 2) };\n`;
         this.fileSystem.storeSync(Path.from('data.js'), js, 'utf8');
+    }
+
+    private extractBrowsers(run: RunData): Array<{ name: string; version: string }> {
+        const browsers = new Map<string, string>();
+        for (const scene of run.scenes) {
+            for (const tag of scene.tags) {
+                if (tag.type === 'browser') {
+                    const parts = tag.name.split(' ');
+                    const name = parts[0] || tag.name;
+                    const version = parts.slice(1).join(' ') || '';
+                    if (!browsers.has(name)) {
+                        browsers.set(name, version);
+                    }
+                }
+            }
+        }
+        return [...browsers.entries()].map(([name, version]) => ({ name, version }));
     }
 
     private findRunDirectories(): Path[] {

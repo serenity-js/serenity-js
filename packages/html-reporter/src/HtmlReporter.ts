@@ -10,16 +10,18 @@ import {
     TestRunnerDetected,
     TestRunStarts,
 } from '@serenity-js/core/events';
-import { FileSystem, Path } from '@serenity-js/core/io';
+import { FileSystem, ModuleLoader, Path } from '@serenity-js/core/io';
 import { CorrelationId, Description, Name } from '@serenity-js/core/model';
 import { ensure, isDefined } from 'tiny-types';
 
 import { ArtifactWriter } from './ArtifactWriter.js';
+import { CIDetector } from './CiDetector.js';
 import { DataSnapshotAggregator } from './DataSnapshotAggregator.js';
 import type { HtmlReporterConfig } from './HtmlReporterConfig.js';
 import { ReportTemplateWriter } from './ReportTemplateWriter.js';
 import { RunDataWriter } from './RunDataWriter.js';
 import { SceneDataCollector } from './SceneDataCollector.js';
+import { SystemContextDetector } from './SystemContextDetector.js';
 
 /**
  * A {@link StageCrewMember} that produces a self-contained static HTML report.
@@ -58,6 +60,7 @@ export class HtmlReporter implements StageCrewMember {
         private readonly runDataWriter: RunDataWriter,
         private readonly aggregator: DataSnapshotAggregator,
         private readonly templateWriter: ReportTemplateWriter,
+        private readonly systemContextDetector: SystemContextDetector,
         private stage?: Stage,
     ) {
         ensure('artifactWriter', artifactWriter, isDefined());
@@ -65,6 +68,7 @@ export class HtmlReporter implements StageCrewMember {
         ensure('runDataWriter', runDataWriter, isDefined());
         ensure('aggregator', aggregator, isDefined());
         ensure('templateWriter', templateWriter, isDefined());
+        ensure('systemContextDetector', systemContextDetector, isDefined());
     }
 
     assignedTo(stage: Stage): StageCrewMember {
@@ -115,6 +119,7 @@ export class HtmlReporter implements StageCrewMember {
                 this.testRunnerName,
                 this.testRunnerVersion,
                 this.artifactWriter.getArtifactPaths(),
+                this.systemContextDetector.detect(),
             );
 
             // 2. Write db.json for this run
@@ -167,6 +172,7 @@ class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
             title: this.config.title,
         });
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
+        const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()), { projectName: this.config.projectName });
 
         return new HtmlReporter(
             artifactWriter,
@@ -174,6 +180,7 @@ class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
             runDataWriter,
             aggregator,
             templateWriter,
+            systemContextDetector,
             stage,
         );
     }
