@@ -88,7 +88,7 @@ export class DataSnapshotAggregator {
                 outcomes: run.outcomes,
                 label: this.resolveRunLabel(run.timestamp),
             })),
-            tags: latestRun.tags,
+            tags: this.computeTagStats(latestRun),
             unstableTests: this.identifyUnstableTests(allRuns),
             systemContext: latestRun.systemContext ? {
                 nodeVersion: latestRun.systemContext.nodeVersion,
@@ -189,6 +189,24 @@ export class DataSnapshotAggregator {
             const content = this.projectFileSystem.readFileSync(readmePath, { encoding: 'utf8' }) as string;
             node.readme = marked.parse(content, { async: false }) as string;
         }
+    }
+
+    private computeTagStats(run: RunData): Array<{ type: string; name: string; scenarioCount: number; passed: number }> {
+        const tagMap = new Map<string, { type: string; name: string; scenarioCount: number; passed: number }>();
+        for (const scene of run.scenes) {
+            for (const tag of scene.tags) {
+                const key = tag.type + ':' + tag.name;
+                if (!tagMap.has(key)) {
+                    tagMap.set(key, { type: tag.type, name: tag.name, scenarioCount: 0, passed: 0 });
+                }
+                const entry = tagMap.get(key);
+                entry.scenarioCount++;
+                if (scene.outcome.code === ExecutionSuccessful.Code) {
+                    entry.passed++;
+                }
+            }
+        }
+        return [...tagMap.values()];
     }
 
     private computeFinishedAt(run: RunData): string {
