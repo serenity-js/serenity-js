@@ -1223,7 +1223,7 @@
       }, [categoryOrder]);
 
       // Virtualizer constants
-      const ERROR_ROW_HEIGHT = 82;
+      const ERROR_ROW_HEIGHT = 108;
       const ERROR_HEADER_HEIGHT_FIRST = 62;   // 46px content + 16px gap below
       const ERROR_HEADER_HEIGHT_REST = 78;    // 16px gap above + 46px content + 16px gap below
       const ERROR_HEADER_CONTENT_HEIGHT = 46;
@@ -1383,13 +1383,13 @@
                   return html`
                     <div style="position:absolute;top:0;left:0;width:100%;height:${ERROR_ROW_HEIGHT}px;transform:translateY(${virtualRow.start}px);overflow:hidden;align-items:flex-start"
                          class="scenario-item" onClick=${() => onNavigate(scenarioUrl(s))}>
-                      <div class="scenario-outcome-icon failed" style="width:20px;height:20px;font-size:var(--font-2xs);margin-top:2px;flex-shrink:0">✗</div>
+                      <div class="scenario-outcome-icon ${outcomeClass(s.outcome)}" style="width:20px;height:20px;font-size:var(--font-2xs);margin-top:2px;flex-shrink:0">${outcomeIcon(s.outcome)}</div>
                       <div class="scenario-info">
                         <div class="scenario-name">${s.name}</div>
+                        <div style="font-size:var(--font-sm);color:var(--color-${outcomeClass(s.outcome)});margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.error ? s.error.message : s.outcome}</div>
                         <div class="scenario-meta">
-                          <span class="scenario-source">${s.source.path}:${s.source.line}</span>
+                          <span class="scenario-source" style="direction:rtl;text-align:left;unicode-bidi:plaintext">${relativeSourcePath(s)}</span>
                         </div>
-                        <div style="font-size:var(--font-sm);color:var(--text-secondary);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.error ? s.error.message : s.outcome}</div>
                       </div>
                       <span class="scenario-duration">${formatDuration(s.duration)}</span>
                     </div>
