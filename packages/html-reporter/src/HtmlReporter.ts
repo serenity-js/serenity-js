@@ -10,7 +10,7 @@ import {
     TestRunnerDetected,
     TestRunStarts,
 } from '@serenity-js/core/events';
-import { FileSystem, ModuleLoader, Path } from '@serenity-js/core/io';
+import { FileSystem, ModuleLoader, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import { CorrelationId, Description, Name } from '@serenity-js/core/model';
 import { ensure, isDefined } from 'tiny-types';
 
@@ -166,12 +166,16 @@ class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
         const artifactWriter = new ArtifactWriter(outputFileSystem);
         const sceneDataCollector = new SceneDataCollector();
         const runDataWriter = new RunDataWriter(outputFileSystem);
+        const projectFileSystem = new FileSystem(Path.from(process.cwd()));
         const aggregator = new DataSnapshotAggregator(outputFileSystem, {
             stabilityWindow: this.config.stabilityWindow ?? 5,
             maxHistory: this.config.maxHistory,
             title: this.config.title,
-            specDirectory: this.config.specDirectory,
-        });
+        }, this.config.specDirectory
+            ? new RequirementsHierarchy(projectFileSystem, Path.from(this.config.specDirectory))
+            : undefined,
+            this.config.specDirectory ? projectFileSystem : undefined,
+        );
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
         const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()), { projectName: this.config.projectName });
 

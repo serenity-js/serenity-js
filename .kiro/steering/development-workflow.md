@@ -6,6 +6,20 @@
 
 This is non-negotiable. Every change to source code under `packages/*/src/` must be accompanied by corresponding test changes under `packages/*/spec/` (or `integration/`) that verify the new or modified behaviour. No exceptions.
 
+### Required Sequence for Every Change
+
+1. **Write or update the test first** — Before touching any file under `src/`, write a test under `spec/` that describes the expected behaviour. Run it and confirm it fails (or would fail without your upcoming change).
+2. **Make the production code change** — Write the minimal implementation to make the test pass.
+3. **Run the tests** — Confirm all tests pass before considering the change complete.
+4. **Never skip steps** — If you find yourself editing `src/` without having first edited `spec/`, stop and write the test. If you refactor production code, update or add tests that prove the refactoring preserves behaviour.
+
+### What "justifies" a production code change
+
+- A **new feature** requires a new test that fails without the feature.
+- A **bug fix** requires a test that reproduces the bug (fails before, passes after).
+- A **refactor** requires either existing tests that still pass, or new tests that verify the preserved behaviour at the new interface boundary.
+- A **change in wiring** (e.g., passing a new dependency to a constructor) requires an integration-level test proving the wiring works end-to-end.
+
 ## Test-Driven Development (TDD)
 
 All features in Serenity/JS follow a strict test-driven development approach:

@@ -1,5 +1,6 @@
 import type { FileSystem } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
+import type { RequirementsHierarchy } from '@serenity-js/core/io';
 import type { SerialisedOutcome } from '@serenity-js/core/model';
 import {
     ExecutionCompromised,
@@ -16,7 +17,6 @@ interface AggregatorConfig {
     stabilityWindow: number;
     maxHistory?: number;
     title?: string;
-    specDirectory?: string;
 }
 
 /**
@@ -29,6 +29,8 @@ export class DataSnapshotAggregator {
     constructor(
         private readonly fileSystem: FileSystem,
         private readonly config: AggregatorConfig,
+        private readonly requirementsHierarchy?: RequirementsHierarchy,
+        private readonly projectFileSystem?: FileSystem,
     ) {
     }
 
@@ -88,7 +90,7 @@ export class DataSnapshotAggregator {
                 packageManager: latestRun.systemContext.packageManager,
                 environmentUnderTest: latestRun.systemContext.environmentUnderTest,
             } : undefined,
-            requirements: this.config.specDirectory ? this.buildRequirements(latestRun) : undefined,
+            requirements: this.requirementsHierarchy ? this.buildRequirements(latestRun) : undefined,
         };
 
         // Write data.js
@@ -114,62 +116,67 @@ export class DataSnapshotAggregator {
     }
 
     private buildRequirements(run: RunData): any {
-        const specDir = this.config.specDirectory;
-        const root: any = { type: 'directory', name: specDir, outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, children: [] };
-        const dirMap = new Map<string, any>();
-        dirMap.set('', root);
+        const rootName = this.requirementsHierarchy.rootDirectory().basename();
+        const root: any = { type: 'directory', name: rootName, outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, children: [] };
+        const nodeMap = new Map<string, any>();
+        nodeMap.set('', root);
 
         for (const scene of run.scenes) {
-            let relativePath = scene.source.path;
-            if (specDir && relativePath.includes(specDir)) {
-                relativePath = relativePath.slice(relativePath.indexOf(specDir) + specDir.length).replace(/^\//, '');
-            }
+            const segments = this.requirementsHierarchy.hierarchyFor(Path.from(scene.source.path));
+            const fileName = segments[segments.length - 1];
+            const dirs = segments.slice(0, -1);
 
-            const parts = relativePath.split('/');
-            const fileName = parts.pop() || relativePath;
             let currentDir = root;
-
-            for (const part of parts) {
-                const dirKey = parts.slice(0, parts.indexOf(part) + 1).join('/');
-                if (!dirMap.has(dirKey)) {
-                    const dir: any = { type: 'directory', name: part, outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, children: [] };
+            for (let i = 0; i < dirs.length; i++) {
+                const dirKey = dirs.slice(0, i + 1).join('/');
+                if (!nodeMap.has(dirKey)) {
+                    const dir: any = { type: 'directory', name: dirs[i], outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, children: [] };
                     currentDir.children.push(dir);
-                    dirMap.set(dirKey, dir);
+                    nodeMap.set(dirKey, dir);
                 }
-                currentDir = dirMap.get(dirKey);
+                currentDir = nodeMap.get(dirKey);
             }
 
-            const fileKey = [...parts, fileName].join('/');
-            if (!dirMap.has(fileKey)) {
+            const fileKey = segments.join('/');
+            if (!nodeMap.has(fileKey)) {
                 const file: any = { type: 'file', name: fileName, outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, scenarios: [] };
                 currentDir.children.push(file);
-                dirMap.set(fileKey, file);
+                nodeMap.set(fileKey, file);
             }
 
-            const fileNode = dirMap.get(fileKey);
-            const outcomeLabel = outcomeCodeToDisplayString(scene.outcome.code);
-            const outcomeKey = this.mapOutcomeToKey(outcomeLabel);
+            const fileNode = nodeMap.get(fileKey);
+            const outcomeKey = this.mapOutcomeToKey(outcomeCodeToDisplayString(scene.outcome.code));
 
             fileNode.scenarioCount++;
-            if (fileNode.outcomes[outcomeKey] !== undefined) {
-                fileNode.outcomes[outcomeKey]++;
-            }
-            fileNode.scenarios.push({ name: scene.name, outcome: outcomeLabel });
+            fileNode.outcomes[outcomeKey]++;
+            fileNode.scenarios.push({ name: scene.name, outcome: outcomeCodeToDisplayString(scene.outcome.code) });
 
-            // Propagate up
             root.scenarioCount++;
-            if (root.outcomes[outcomeKey] !== undefined) {
-                root.outcomes[outcomeKey]++;
-            }
+            root.outcomes[outcomeKey]++;
             if (currentDir !== root) {
                 currentDir.scenarioCount++;
-                if (currentDir.outcomes[outcomeKey] !== undefined) {
-                    currentDir.outcomes[outcomeKey]++;
+                currentDir.outcomes[outcomeKey]++;
+            }
+        }
+
+        if (this.projectFileSystem) {
+            const specRoot = this.requirementsHierarchy.rootDirectory();
+            this.attachReadme(root, specRoot);
+            for (const [key, node] of nodeMap) {
+                if (key && node.type === 'directory') {
+                    this.attachReadme(node, specRoot.join(Path.from(key)));
                 }
             }
         }
 
         return root;
+    }
+
+    private attachReadme(node: any, dirPath: Path): void {
+        const readmePath = dirPath.join(Path.from('readme.md'));
+        if (this.projectFileSystem.exists(readmePath)) {
+            node.readme = this.projectFileSystem.readFileSync(readmePath, { encoding: 'utf8' }) as string;
+        }
     }
 
     private mapOutcomeToKey(outcome: string): string {

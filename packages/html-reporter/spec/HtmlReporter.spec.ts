@@ -16,7 +16,7 @@ import {
     TestRunnerDetected,
     TestRunStarts,
 } from '@serenity-js/core/events';
-import { FileSystem, FileSystemLocation, Path, Version } from '@serenity-js/core/io';
+import { FileSystem, FileSystemLocation, Path, RequirementsHierarchy, Version } from '@serenity-js/core/io';
 import {
     ActivityDetails,
     ArbitraryTag,
@@ -201,6 +201,47 @@ describe('HtmlReporter', () => {
             expect(content.systemContext).to.have.property('os').that.has.property('arch');
             expect(content.systemContext).to.have.property('serenityVersion', '3.44.0');
             expect(content.systemContext).to.have.property('runtime').that.has.property('provider');
+        });
+
+        it('includes requirements hierarchy in data.js when specDirectory is configured', () => {
+            const projectFs = createFsFromVolume(Volume.fromNestedJSON({
+                '/project': { spec: { 'readme.md': 'Project narrative', 'example.spec.ts': '' } }
+            }, '/')) as unknown as typeof fs;
+            const projectFileSystem = new FileSystem(Path.from('/project'), projectFs);
+            const hierarchy = new RequirementsHierarchy(projectFileSystem, Path.from('spec'));
+
+            const reportFs = createFsFromVolume(Volume.fromNestedJSON({
+                [outputDirectory.value]: {},
+            }, '/')) as unknown as typeof fs;
+            const outputFileSystem = new FileSystem(outputDirectory, reportFs);
+            const aggregator = new DataSnapshotAggregator(outputFileSystem, { stabilityWindow: 5 }, hierarchy, projectFileSystem);
+            const artifactWriter = new ArtifactWriter(outputFileSystem);
+            const sceneDataCollector = new SceneDataCollector();
+            const runDataWriter = new RunDataWriter(outputFileSystem);
+            const templateWriter = new ReportTemplateWriter(outputFileSystem);
+            const systemContextDetector = new SystemContextDetector(new CIDetector({}), { cwd: process.cwd(), versionOf: () => new Version('3.44.0') } as any);
+            const reporter = new HtmlReporter(artifactWriter, sceneDataCollector, runDataWriter, aggregator, templateWriter, systemContextDetector, stage);
+
+            stage.assign(reporter);
+
+            const scenarioDetails = new ScenarioDetails(new Name('should work'), new Category('Example'), new FileSystemLocation(Path.from('/project/spec/example.spec.ts'), 1, 1));
+            const sceneId = CorrelationId.create();
+
+            stage.announce(new TestRunStarts(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
+            stage.announce(new SceneStarts(sceneId, scenarioDetails, new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
+            stage.announce(new SceneFinished(sceneId, scenarioDetails, new ExecutionSuccessful(), new Timestamp(new Date('2024-06-15T14:30:00.100Z'))));
+            stage.announce(new TestRunFinishes(new Timestamp(new Date('2024-06-15T14:30:00.200Z'))));
+
+            const dataJs = reportFs.readFileSync('/reports/serenity-js/data.js', 'utf8') as string;
+            const data = JSON.parse(dataJs.replace(/^window\.__SERENITY_REPORT_DATA__\s*=\s*/, '').replace(/;\s*$/, ''));
+
+            expect(data.requirements).to.exist;
+            expect(data.requirements.name).to.equal('spec');
+            expect(data.requirements.readme).to.equal('Project narrative');
+            expect(data.requirements.scenarioCount).to.equal(1);
+            expect(data.requirements.outcomes.passed).to.equal(1);
+            expect(data.requirements.children).to.have.lengthOf(1);
+            expect(data.requirements.children[0].name).to.equal('example');
         });
     });
 

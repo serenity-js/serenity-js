@@ -1,7 +1,7 @@
 import type * as fs from 'node:fs';
 
 import { expect } from '@integration/testing-tools';
-import { FileSystem, Path } from '@serenity-js/core/io';
+import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import { createFsFromVolume, Volume } from 'memfs';
 import { describe, it } from 'mocha';
 
@@ -11,7 +11,7 @@ describe('DataSnapshotAggregator', () => {
 
     const outputDirectory = Path.from('/reports/serenity-js');
 
-    function createAggregator(tree: Record<string, any>, config: { maxHistory?: number; stabilityWindow?: number; title?: string; specDirectory?: string } = {}): { aggregator: DataSnapshotAggregator; filesystem: typeof fs } {
+    function createAggregator(tree: Record<string, any>, config: { maxHistory?: number; stabilityWindow?: number; title?: string } = {}, requirementsHierarchy?: RequirementsHierarchy, projectFileSystem?: FileSystem): { aggregator: DataSnapshotAggregator; filesystem: typeof fs } {
         const filesystem = createFsFromVolume(Volume.fromNestedJSON({
             [outputDirectory.value]: tree,
         }, '/')) as unknown as typeof fs;
@@ -21,8 +21,7 @@ describe('DataSnapshotAggregator', () => {
             stabilityWindow: config.stabilityWindow ?? 5,
             maxHistory: config.maxHistory,
             title: config.title,
-            specDirectory: config.specDirectory,
-        });
+        }, requirementsHierarchy, projectFileSystem);
 
         return { aggregator, filesystem };
     }
@@ -212,6 +211,12 @@ describe('DataSnapshotAggregator', () => {
     describe('requirements hierarchy', () => {
 
         it('builds a requirements tree from scenario source paths when specDirectory is configured', () => {
+            const projectFs = createFsFromVolume(Volume.fromNestedJSON({
+                '/project': { spec: { 'readme.md': 'Root narrative', login: { 'basic.spec.ts': '' }, 'checkout.spec.ts': '' } }
+            }, '/')) as unknown as typeof fs;
+            const projectFileSystem = new FileSystem(Path.from('/project'), projectFs);
+            const hierarchy = new RequirementsHierarchy(projectFileSystem, Path.from('spec'));
+
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
@@ -227,7 +232,7 @@ describe('DataSnapshotAggregator', () => {
                         }),
                     },
                 },
-            }, { specDirectory: 'spec' });
+            }, {}, hierarchy, projectFileSystem);
 
             aggregator.aggregate();
 
@@ -237,6 +242,10 @@ describe('DataSnapshotAggregator', () => {
             expect(data.requirements.outcomes.passed).to.equal(2);
             expect(data.requirements.outcomes.failed).to.equal(1);
             expect(data.requirements.children).to.have.lengthOf(2);
+
+            const names = data.requirements.children.map((c: any) => c.name).sort();
+            expect(names).to.deep.equal(['checkout', 'login']);
+            expect(data.requirements.readme).to.equal('Root narrative');
         });
 
         it('does not produce requirements when specDirectory is not configured', () => {
