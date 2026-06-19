@@ -11,7 +11,7 @@ describe('DataSnapshotAggregator', () => {
 
     const outputDirectory = Path.from('/reports/serenity-js');
 
-    function createAggregator(tree: Record<string, any>, config: { maxHistory?: number; stabilityWindow?: number; title?: string } = {}): { aggregator: DataSnapshotAggregator; filesystem: typeof fs } {
+    function createAggregator(tree: Record<string, any>, config: { maxHistory?: number; stabilityWindow?: number; title?: string; specDirectory?: string } = {}): { aggregator: DataSnapshotAggregator; filesystem: typeof fs } {
         const filesystem = createFsFromVolume(Volume.fromNestedJSON({
             [outputDirectory.value]: tree,
         }, '/')) as unknown as typeof fs;
@@ -21,6 +21,7 @@ describe('DataSnapshotAggregator', () => {
             stabilityWindow: config.stabilityWindow ?? 5,
             maxHistory: config.maxHistory,
             title: config.title,
+            specDirectory: config.specDirectory,
         });
 
         return { aggregator, filesystem };
@@ -205,6 +206,57 @@ describe('DataSnapshotAggregator', () => {
                 browsers: [],
                 ci: { provider: 'GitHub Actions', buildNumber: '42', branch: 'main', commit: 'abc123de', jobUrl: 'https://github.com/org/repo/actions/runs/1' },
             });
+        });
+    });
+
+    describe('requirements hierarchy', () => {
+
+        it('builds a requirements tree from scenario source paths when specDirectory is configured', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-15T14:30:00.000Z': {
+                        'db.json': JSON.stringify({
+                            timestamp: '2024-06-15T14:30:00.000Z', duration: 500,
+                            outcomes: { passed: 2, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/spec/login/basic.spec.ts', line: 1 }, tags: [], activities: [] },
+                                { name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T14:30:00.100Z', source: { path: '/project/spec/login/basic.spec.ts', line: 5 }, tags: [], activities: [] },
+                                { name: 'Test C', category: 'Suite', outcome: { code: 4 }, duration: 200, startedAt: '2024-06-15T14:30:00.300Z', source: { path: '/project/spec/checkout.spec.ts', line: 1 }, tags: [], activities: [] },
+                            ],
+                            tags: [], testRunner: 'Mocha', testRunnerVersion: '11.0.0',
+                        }),
+                    },
+                },
+            }, { specDirectory: 'spec' });
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            expect(data.requirements).to.exist;
+            expect(data.requirements.scenarioCount).to.equal(3);
+            expect(data.requirements.outcomes.passed).to.equal(2);
+            expect(data.requirements.outcomes.failed).to.equal(1);
+            expect(data.requirements.children).to.have.lengthOf(2);
+        });
+
+        it('does not produce requirements when specDirectory is not configured', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-15T14:30:00.000Z': {
+                        'db.json': JSON.stringify({
+                            timestamp: '2024-06-15T14:30:00.000Z', duration: 100,
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [{ name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
+                            tags: [], testRunner: 'Mocha', testRunnerVersion: '11.0.0',
+                        }),
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            expect(data.requirements).to.be.undefined;
         });
     });
 

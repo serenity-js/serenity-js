@@ -170,6 +170,7 @@ class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
             stabilityWindow: this.config.stabilityWindow ?? 5,
             maxHistory: this.config.maxHistory,
             title: this.config.title,
+            specDirectory: this.config.specDirectory,
         });
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
         const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()), { projectName: this.config.projectName });

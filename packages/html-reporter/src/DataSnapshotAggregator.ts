@@ -16,6 +16,7 @@ interface AggregatorConfig {
     stabilityWindow: number;
     maxHistory?: number;
     title?: string;
+    specDirectory?: string;
 }
 
 /**
@@ -87,6 +88,7 @@ export class DataSnapshotAggregator {
                 packageManager: latestRun.systemContext.packageManager,
                 environmentUnderTest: latestRun.systemContext.environmentUnderTest,
             } : undefined,
+            requirements: this.config.specDirectory ? this.buildRequirements(latestRun) : undefined,
         };
 
         // Write data.js
@@ -109,6 +111,77 @@ export class DataSnapshotAggregator {
             }
         }
         return [...browsers.entries()].map(([name, version]) => ({ name, version }));
+    }
+
+    private buildRequirements(run: RunData): any {
+        const specDir = this.config.specDirectory;
+        const root: any = { type: 'directory', name: specDir, outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, children: [] };
+        const dirMap = new Map<string, any>();
+        dirMap.set('', root);
+
+        for (const scene of run.scenes) {
+            let relativePath = scene.source.path;
+            if (specDir && relativePath.includes(specDir)) {
+                relativePath = relativePath.slice(relativePath.indexOf(specDir) + specDir.length).replace(/^\//, '');
+            }
+
+            const parts = relativePath.split('/');
+            const fileName = parts.pop() || relativePath;
+            let currentDir = root;
+
+            for (const part of parts) {
+                const dirKey = parts.slice(0, parts.indexOf(part) + 1).join('/');
+                if (!dirMap.has(dirKey)) {
+                    const dir: any = { type: 'directory', name: part, outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, children: [] };
+                    currentDir.children.push(dir);
+                    dirMap.set(dirKey, dir);
+                }
+                currentDir = dirMap.get(dirKey);
+            }
+
+            const fileKey = [...parts, fileName].join('/');
+            if (!dirMap.has(fileKey)) {
+                const file: any = { type: 'file', name: fileName, outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, scenarios: [] };
+                currentDir.children.push(file);
+                dirMap.set(fileKey, file);
+            }
+
+            const fileNode = dirMap.get(fileKey);
+            const outcomeLabel = outcomeCodeToDisplayString(scene.outcome.code);
+            const outcomeKey = this.mapOutcomeToKey(outcomeLabel);
+
+            fileNode.scenarioCount++;
+            if (fileNode.outcomes[outcomeKey] !== undefined) {
+                fileNode.outcomes[outcomeKey]++;
+            }
+            fileNode.scenarios.push({ name: scene.name, outcome: outcomeLabel });
+
+            // Propagate up
+            root.scenarioCount++;
+            if (root.outcomes[outcomeKey] !== undefined) {
+                root.outcomes[outcomeKey]++;
+            }
+            if (currentDir !== root) {
+                currentDir.scenarioCount++;
+                if (currentDir.outcomes[outcomeKey] !== undefined) {
+                    currentDir.outcomes[outcomeKey]++;
+                }
+            }
+        }
+
+        return root;
+    }
+
+    private mapOutcomeToKey(outcome: string): string {
+        switch (outcome) {
+            case 'SUCCESS': return 'passed';
+            case 'FAILURE': return 'failed';
+            case 'ERROR': return 'error';
+            case 'COMPROMISED': return 'compromised';
+            case 'PENDING': return 'pending';
+            case 'SKIPPED': return 'skipped';
+            default: return 'error';
+        }
     }
 
     private findRunDirectories(): Path[] {

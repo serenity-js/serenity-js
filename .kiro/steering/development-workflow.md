@@ -1,5 +1,11 @@
 # Serenity/JS Development Workflow
 
+## Mandatory Testing Rule
+
+**When making ANY production code changes, you MUST ensure that you create new or update existing tests.**
+
+This is non-negotiable. Every change to source code under `packages/*/src/` must be accompanied by corresponding test changes under `packages/*/spec/` (or `integration/`) that verify the new or modified behaviour. No exceptions.
+
 ## Test-Driven Development (TDD)
 
 All features in Serenity/JS follow a strict test-driven development approach:
