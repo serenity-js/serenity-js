@@ -1839,8 +1839,8 @@
             ` : html`<span style="width:28px"></span>`}
             <span style="font-size:var(--font-md);font-weight:${node.type === 'directory' ? '600' : '400'};flex:1">${node.displayName || node.name}</span>
             ${total > 0 ? html`
-              <span style="font-size:var(--font-sm);font-weight:500;color:${passColor}">${passRate}%</span>
-              <span style="font-size:var(--font-xs);color:var(--text-secondary);min-width:50px;text-align:right">${total} test${total > 1 ? 's' : ''}</span>
+              <span style="font-size:var(--font-sm);font-weight:500;color:${passColor}" title="${node.outcomes.passed} passed, ${node.outcomes.failed || 0} failed, ${(node.outcomes.error || 0) + (node.outcomes.compromised || 0)} error, ${(node.outcomes.skipped || 0) + (node.outcomes.pending || 0)} skipped">${passRate}%</span>
+              <span style="font-size:var(--font-xs);color:var(--text-secondary);min-width:80px;text-align:right;display:inline-flex;gap:6px;justify-content:flex-end">${node.outcomes.passed ? html`<span style="color:var(--color-passed)">${node.outcomes.passed}✓</span>` : null}${node.outcomes.failed ? html`<span style="color:var(--color-failed)">${node.outcomes.failed}✗</span>` : null}${(node.outcomes.error || 0) + (node.outcomes.compromised || 0) > 0 ? html`<span style="color:var(--color-error)">${(node.outcomes.error || 0) + (node.outcomes.compromised || 0)}!</span>` : null}${(node.outcomes.skipped || 0) + (node.outcomes.pending || 0) > 0 ? html`<span style="color:var(--color-skipped)">${(node.outcomes.skipped || 0) + (node.outcomes.pending || 0)}⊘</span>` : null}</span>
             ` : html`
               <span style="font-size:var(--font-xs);color:var(--color-failed);font-weight:500">${hasGap ? 'No tests' : ''}</span>
             `}
