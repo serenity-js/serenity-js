@@ -45,7 +45,9 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
                 [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
                 [ '@serenity-js/html-reporter:HtmlReporter', {
                     outputDirectory: 'reports/serenity',
-                    specDirectory: './spec' }
+                    specDirectory: './spec',
+                    maxHistory: 10,
+                }
                 ],
                 // [ '@serenity-js/core:StreamReporter', { outputFile: 'target/events.ndjson' }]
             ]
