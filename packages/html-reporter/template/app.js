@@ -222,8 +222,8 @@
                 </div>
                 <div class="card" style="flex:1;cursor:pointer" onClick=${() => onNavigate('/tests?filter=failed')}>
                   <div class="card-title">Total Failed</div>
-                  <div class="card-value" style="color:var(--color-failed)">${summary.outcomes.failed + summary.outcomes.error}</div>
-                  <div class="card-subtitle">${summary.outcomes.compromised} compromised</div>
+                  <div class="card-value" style="color:var(--color-failed)">${summary.outcomes.failed + (summary.outcomes.error || 0) + (summary.outcomes.compromised || 0)}</div>
+                  <div class="card-subtitle">${[summary.outcomes.failed ? summary.outcomes.failed + ' assertion' + (summary.outcomes.failed > 1 ? ' failures' : ' failure') : '', summary.outcomes.error ? summary.outcomes.error + ' error' + (summary.outcomes.error > 1 ? 's' : '') : '', summary.outcomes.compromised ? summary.outcomes.compromised + ' compromised' : ''].filter(Boolean).join(', ') || 'No failures'}</div>
                 </div>
               </div>
             </div>
