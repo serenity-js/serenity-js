@@ -361,7 +361,7 @@
             labels: ['Passed', 'Failed', 'Error', 'Skipped'],
             datasets: [{
               data: [outcomes.passed, outcomes.failed, (outcomes.error || 0) + (outcomes.compromised || 0), (outcomes.skipped || 0) + (outcomes.pending || 0)],
-              backgroundColor: ['#28c76f', '#ea5455', '#7367f0', '#a8aaae'],
+              backgroundColor: ['#28c76f', '#ea5455', '#b71c1c', '#a8aaae'],
               borderWidth: 0,
             }],
           },
@@ -467,7 +467,7 @@
                 type: 'bar',
                 label: 'Error',
                 data: history.map(h => (h.outcomes.error || 0) + (h.outcomes.compromised || 0)),
-                backgroundColor: '#7367f0',
+                backgroundColor: '#b71c1c',
                 stack: 'outcomes',
                 yAxisID: 'y',
                 order: 2,
