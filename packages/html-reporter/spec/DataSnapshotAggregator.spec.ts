@@ -65,6 +65,8 @@ describe('DataSnapshotAggregator', () => {
             expect(data.summary.totalScenarios).to.equal(4);
             expect(data.summary.outcomes.passed).to.equal(3);
             expect(data.summary.outcomes.failed).to.equal(1);
+            expect(data.summary.startedAt).to.equal('2024-06-15T14:30:00.000Z');
+            expect(data.summary.finishedAt).to.equal('2024-06-15T14:30:01.000Z');
         });
 
         it('assigns data to window.__SERENITY_REPORT_DATA__', () => {

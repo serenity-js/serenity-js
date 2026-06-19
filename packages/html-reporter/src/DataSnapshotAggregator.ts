@@ -64,7 +64,7 @@ export class DataSnapshotAggregator {
                 outcomes: latestRun.outcomes,
                 duration: latestRun.duration,
                 startedAt: latestRun.timestamp,
-                finishedAt: latestRun.timestamp, // simplified
+                finishedAt: new Date(new Date(latestRun.timestamp).getTime() + latestRun.duration).toISOString(),
                 testRunner: latestRun.testRunner,
             },
             scenarios: latestRun.scenes.map(scene => ({
