@@ -480,7 +480,7 @@
               },
               {
                 type: 'line',
-                label: 'Duration',
+                label: 'Total Duration',
                 data: history.map(h => h.duration),
                 borderColor: isDark ? 'rgba(105,108,255,0.7)' : 'rgba(105,108,255,0.6)',
                 backgroundColor: 'transparent',
@@ -489,6 +489,36 @@
                 tension: 0.3,
                 pointRadius: 3,
                 pointHoverRadius: 5,
+                yAxisID: 'y1',
+                order: 1,
+              },
+              {
+                type: 'line',
+                label: 'Slowest Test',
+                data: history.map(h => h.slowest || 0),
+                borderColor: '#ea5455',
+                backgroundColor: 'transparent',
+                borderDash: [2, 2],
+                borderWidth: 1.5,
+                fill: false,
+                tension: 0.3,
+                pointRadius: 2,
+                pointHoverRadius: 4,
+                yAxisID: 'y1',
+                order: 1,
+              },
+              {
+                type: 'line',
+                label: 'Fastest Test',
+                data: history.map(h => h.fastest || 0),
+                borderColor: '#28c76f',
+                backgroundColor: 'transparent',
+                borderDash: [2, 2],
+                borderWidth: 1.5,
+                fill: false,
+                tension: 0.3,
+                pointRadius: 2,
+                pointHoverRadius: 4,
                 yAxisID: 'y1',
                 order: 1,
               },
@@ -517,7 +547,7 @@
                   },
                   label: (context) => {
                     const label = context.dataset.label || '';
-                    if (label === 'Duration') {
+                    if (label === 'Duration' || label === 'Total Duration' || label === 'Slowest Test' || label === 'Fastest Test') {
                       return label + ': ' + formatDuration(context.raw);
                     }
                     return label + ': ' + context.raw;

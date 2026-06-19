@@ -82,12 +82,17 @@ export class DataSnapshotAggregator {
                     executionHistory,
                 };
             }),
-            history: allRuns.map(run => ({
-                timestamp: run.timestamp,
-                duration: run.duration,
-                outcomes: run.outcomes,
-                label: this.resolveRunLabel(run.timestamp),
-            })),
+            history: allRuns.map(run => {
+                const durations = run.scenes.map(s => s.duration).filter(d => d > 0);
+                return {
+                    timestamp: run.timestamp,
+                    duration: run.duration,
+                    outcomes: run.outcomes,
+                    label: this.resolveRunLabel(run.timestamp),
+                    slowest: durations.length > 0 ? Math.max(...durations) : 0,
+                    fastest: durations.length > 0 ? Math.min(...durations) : 0,
+                };
+            }),
             tags: this.computeTagStats(latestRun),
             unstableTests: this.identifyUnstableTests(allRuns),
             systemContext: latestRun.systemContext ? {
