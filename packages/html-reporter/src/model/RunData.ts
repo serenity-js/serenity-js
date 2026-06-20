@@ -42,7 +42,21 @@ export interface SceneRecord {
     attempts?: AttemptRecord[];
     cast?: ActorRecord[];
     narrative?: string;
+    description?: string;
     artifacts?: ArtifactReference[];
+    scenarioOutline?: {
+        template: string;
+        parameters: ScenarioParameterSet[];
+    };
+}
+
+export interface ScenarioParameterSet {
+    name: string;
+    description?: string;
+    values: Record<string, string>;
+    outcome: SerialisedOutcome;
+    duration: number;
+    activities: ActivityRecord[];
 }
 
 export interface ActivityRecord {

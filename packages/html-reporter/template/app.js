@@ -79,6 +79,19 @@
       return tokens;
     }
 
+    // ===== Toast Notification =====
+    function showToast(message) {
+      const existing = document.getElementById('serenity-toast');
+      if (existing) existing.remove();
+      const el = document.createElement('div');
+      el.id = 'serenity-toast';
+      el.textContent = message;
+      el.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--text-primary);color:var(--bg-surface);padding:8px 16px;border-radius:6px;font-size:13px;z-index:9999;opacity:0;transition:opacity 0.2s;pointer-events:none';
+      document.body.appendChild(el);
+      requestAnimationFrame(() => { el.style.opacity = '1'; });
+      setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.remove(), 200); }, 2000);
+    }
+
     // ===== Virtual Scroll Hook (wraps @tanstack/virtual-core for Preact) =====
     function useVirtualizer(options) {
       const [, rerender] = useState(0);
@@ -1009,7 +1022,7 @@
 
       const copyTestPath = () => {
         const text = scenario.source.path + ':' + scenario.source.line;
-        navigator.clipboard.writeText(text).catch(() => {});
+        navigator.clipboard.writeText(text).then(() => showToast('Path copied to clipboard')).catch(() => {});
       };
 
       return html`
@@ -1077,6 +1090,10 @@
               <div style="margin-bottom:var(--space-md);padding:var(--space-md);background:var(--bg-primary);border-radius:var(--radius-sm);border-left:3px solid var(--accent);font-size:var(--font-md);color:var(--text-secondary);white-space:pre-line;line-height:1.6;font-style:italic">${scenario.narrative}</div>
             ` : null}
 
+            ${scenario.description ? html`
+              <div style="margin-bottom:var(--space-md);padding:var(--space-md);background:var(--bg-primary);border-radius:var(--radius-sm);border-left:3px solid var(--border-color);font-size:var(--font-md);color:var(--text-primary);white-space:pre-line;line-height:1.6">${scenario.description}</div>
+            ` : null}
+
             ${hasCast ? html`
               <div class="cast-section">
                 <div class="card-title" style="margin-bottom:var(--space-sm)">Cast</div>
@@ -1113,14 +1130,17 @@
             </div>
           ` : null}
 
-          ${currentActivities.length > 0 ? html`
+          ${currentActivities.length > 0 || scenario.scenarioOutline ? html`
             <div class="card" style="margin-bottom:var(--space-md)">
               <div class="card-title">Activity Tree</div>
-              <!-- TODO: For parameterised scenarios (scenario outlines), display step templates with placeholders and a data table.
-                   Needs aggregator to provide scenario.stepTemplate and scenario.dataTable fields. -->
-              <div class="activity-tree">
-                ${currentActivities.map(activity => html`<${ActivityNode} activity=${activity} />`)}
-              </div>
+              ${scenario.scenarioOutline ? html`
+                <div style="margin-bottom:var(--space-md);padding:var(--space-sm) var(--space-md);background:var(--bg-primary);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:var(--font-sm);white-space:pre-line;color:var(--text-secondary)">${scenario.scenarioOutline.template}</div>
+                <${ParameterSetGroups} parameters=${scenario.scenarioOutline.parameters} />
+              ` : html`
+                <div class="activity-tree">
+                  ${currentActivities.map(activity => html`<${ActivityNode} activity=${activity} />`)}
+                </div>
+              `}
             </div>
           ` : null}
 
@@ -1194,6 +1214,106 @@
       `;
     }
 
+    // ===== Parameter Set Groups (groups examples by their Examples: name) =====
+    function ParameterSetGroups({ parameters }) {
+      // Group parameter sets by name+description transitions
+      const groups = useMemo(() => {
+        const result = [];
+        let current = null;
+        for (const ps of parameters) {
+          const key = (ps.name || '') + '\0' + (ps.description || '');
+          if (!current || current.key !== key) {
+            current = { key, name: ps.name, description: ps.description, items: [] };
+            result.push(current);
+          }
+          current.items.push(ps);
+        }
+        return result;
+      }, [parameters]);
+
+      // Single group with no name and no description: render flat
+      if (groups.length === 1 && !groups[0].name && !groups[0].description) {
+        return html`${groups[0].items.map((ps, idx) => html`<${ParameterSetNode} ps=${ps} index=${idx} groupIndex=${0} forceExpanded=${undefined} />`)}`;
+      }
+
+      return html`${groups.map((group, idx) => html`<${ParameterSetGroup} group=${group} index=${idx} />`)}`;
+    }
+
+    function ParameterSetGroup({ group, index }) {
+      const [expanded, setExpanded] = useState(true);
+      const [forceExpanded, setForceExpanded] = useState(undefined);
+      const passCount = group.items.filter(ps => ps.outcome === 'SUCCESS' || (ps.outcome && ps.outcome.code === 64)).length;
+      const label = group.name || ('Examples' + (index !== undefined ? ' #' + (index + 1) : ''));
+      const collapseAll = (e) => { e.stopPropagation(); setForceExpanded(false); };
+      const expandAll = (e) => { e.stopPropagation(); setForceExpanded(true); };
+      return html`
+        <div style="margin-bottom:var(--space-md);border:1px solid var(--border-color);border-radius:var(--radius-sm);overflow:hidden">
+          <div style="display:flex;align-items:center;gap:var(--space-sm);padding:var(--space-sm) var(--space-md);background:var(--bg-primary);cursor:pointer;user-select:none"
+               onClick=${() => setExpanded(!expanded)}>
+            <span style="font-size:var(--font-sm);transform:${expanded ? 'rotate(90deg)' : 'none'};transition:transform 0.2s">▸</span>
+            <span style="font-size:var(--font-md);font-weight:600">${label}</span>
+            <span style="margin-left:auto;display:flex;align-items:center;gap:var(--space-sm)">
+              <button onClick=${expandAll} title="Expand all examples" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px;display:flex;opacity:0.6">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M7 9l5 5 5-5"/><path d="M7 15l5 5 5-5"/></svg>
+              </button>
+              <button onClick=${collapseAll} title="Collapse all examples" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px;display:flex;opacity:0.6">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M17 15l-5-5-5 5"/><path d="M17 9l-5-5-5 5"/></svg>
+              </button>
+              <span style="font-size:var(--font-xs);color:var(--text-secondary)">${passCount}/${group.items.length} passed</span>
+            </span>
+          </div>
+          ${group.description ? html`
+            <div style="padding:var(--space-xs) var(--space-md) ${expanded ? '0' : 'var(--space-xs)'};font-size:var(--font-sm);color:var(--text-secondary);font-style:italic;border-top:1px solid var(--divider)">${group.description}</div>
+          ` : null}
+          ${expanded ? html`
+            <div style="padding:var(--space-sm) var(--space-md)">
+              ${group.items.map((ps, idx) => html`<${ParameterSetNode} ps=${ps} index=${idx} groupIndex=${index} forceExpanded=${forceExpanded} />`)}
+            </div>
+          ` : null}
+        </div>
+      `;
+    }
+
+    // ===== Parameter Set Node (scenario outline example) =====
+    function ParameterSetNode({ ps, index, groupIndex, forceExpanded }) {
+      const exampleId = (groupIndex !== undefined ? groupIndex + '-' : '') + (index + 1);
+      const isLinked = (() => {
+        const hash = window.location.hash;
+        const m = hash.match(/[&?]example=([^&]*)/);
+        return m && m[1] === exampleId;
+      })();
+      const [expanded, setExpanded] = useState(true);
+      useEffect(() => { if (forceExpanded !== undefined) setExpanded(forceExpanded); }, [forceExpanded]);
+      const nodeRef = useRef(null);
+      const copyLink = (e) => {
+        e.stopPropagation();
+        const hash = window.location.hash.replace(/([&?])example=[^&]*/g, '');
+        const url = window.location.origin + window.location.pathname + window.location.search + hash + (hash.includes('?') ? '&' : '?') + 'example=' + exampleId;
+        navigator.clipboard.writeText(url).then(() => showToast('Link copied to clipboard')).catch(() => {});
+      };
+      useEffect(() => { if (isLinked && nodeRef.current) nodeRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, []);
+      const paramSummary = Object.entries(ps.values).map(([k, v]) => k + ': ' + v).join(', ');
+      return html`
+        <div ref=${nodeRef} style="margin-bottom:var(--space-sm);border:1px solid ${isLinked ? 'var(--accent)' : 'var(--border-color)'};border-radius:var(--radius-sm);overflow:hidden">
+          <div style="display:flex;align-items:center;gap:var(--space-sm);padding:var(--space-sm) var(--space-md);background:var(--bg-primary);cursor:pointer;user-select:none"
+               onClick=${() => setExpanded(!expanded)}>
+            <span style="font-size:var(--font-sm);transform:${expanded ? 'rotate(90deg)' : 'none'};transition:transform 0.2s">▸</span>
+            <span class="scenario-outcome-icon ${outcomeClass(ps.outcome)}" style="width:18px;height:18px;font-size:var(--font-2xs);flex-shrink:0">${outcomeIcon(ps.outcome)}</span>
+            <span style="font-size:var(--font-sm);font-weight:500">#${index + 1} — ${paramSummary}</span>
+            <button onClick=${copyLink} title="Copy link to this example" style="margin-left:auto;background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px;line-height:1;opacity:0.6;display:flex;align-items:center">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+            </button>
+            <span style="font-size:var(--font-xs);color:var(--text-secondary)">${formatDuration(ps.duration)}</span>
+          </div>
+          ${expanded && ps.activities.length > 0 ? html`
+            <div class="activity-tree" style="padding:var(--space-sm) var(--space-md)">
+              ${ps.activities.map(activity => html`<${ActivityNode} activity=${activity} />`)}
+            </div>
+          ` : null}
+        </div>
+      `;
+    }
+
     // ===== Activity Node (recursive) =====
     function ActivityNode({ activity }) {
       const hasPhoto = activity.artifacts && activity.artifacts.some(a => a.path && a.path.endsWith('.png'));
@@ -1234,7 +1354,7 @@
             </div>
             <span class="activity-name ${activity.type === 'Task' ? 'task' : ''}">${displayName}</span>
             ${hasPhoto ? html`<span style="cursor:pointer;opacity:0.7;font-size:var(--font-sm)" title="View screenshot" onClick=${(e) => { e.stopPropagation(); const photos = document.querySelectorAll('.photo-strip-item'); for (const p of photos) { p.classList.remove('photo-highlight'); } const idx = [...photos].findIndex(p => p.querySelector('.photo-strip-caption')?.textContent === activity.name); if (idx >= 0) { const hash = window.location.hash.split('&photo=')[0]; window.history.replaceState(null, '', hash + '&photo=' + idx); const el = document.getElementById('photo-' + idx); if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.classList.add('photo-highlight'); setTimeout(() => el.classList.remove('photo-highlight'), 2000); } } }}>📷</span>` : null}
-            ${activity.location ? html`<span style="cursor:pointer;opacity:0.7;font-size:var(--font-sm)" title="Copy invocation location: ${activity.location.path}:${activity.location.line}" onClick=${(e) => { e.stopPropagation(); navigator.clipboard.writeText(activity.location.path + ':' + activity.location.line).catch(() => {}); }}>📋</span>` : null}
+            ${activity.location ? html`<span style="cursor:pointer;opacity:0.6;display:inline-flex;align-items:center" title="Copy invocation location: ${activity.location.path}:${activity.location.line}" onClick=${(e) => { e.stopPropagation(); navigator.clipboard.writeText(activity.location.path + ':' + activity.location.line).then(() => showToast('Location copied to clipboard')).catch(() => {}); }}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></span>` : null}
             <span class="activity-duration">${formatDuration(activity.duration)}</span>
             ${activity.outcome === 'PENDING' && activity.location ? html`<span style="font-size:var(--font-xs);color:var(--text-secondary);font-family:var(--font-mono)" title="Pending step location">${activity.location.path.split('/').pop()}:${activity.location.line}</span>` : null}
           </div>

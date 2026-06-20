@@ -6,9 +6,13 @@ import {
     FeatureNarrativeDetected,
     InteractionFinished,
     InteractionStarts,
+    SceneDescriptionDetected,
     SceneFinished,
+    SceneParametersDetected,
+    SceneSequenceDetected,
     SceneStarts,
     SceneTagged,
+    SceneTemplateDetected,
     TaskFinished,
     TaskStarts,
 } from '@serenity-js/core/events';
@@ -27,7 +31,7 @@ import {
     ImplementationPending,
 } from '@serenity-js/core/model';
 
-import type { ActivityRecord, ArtifactReference, ErrorRecord, OutcomeCounts, RunData, SceneRecord, TagRecord } from './model/RunData.js';
+import type { ActivityRecord, ArtifactReference, ErrorRecord, OutcomeCounts, RunData, ScenarioParameterSet, SceneRecord, TagRecord } from './model/RunData.js';
 import type { SystemContext } from './SystemContextDetector.js';
 
 /**
@@ -116,11 +120,19 @@ class SceneRecordBuilder {
     private outcome: SerialisedOutcome;
     private duration = 0;
     private narrative: string | undefined;
+    private description: string | undefined;
     private readonly tags: TagRecord[] = [];
     private readonly activityStack: Array<{ record: ActivityRecord; startTimestamp: Timestamp }> = [];
-    private readonly rootActivities: ActivityRecord[] = [];
+    private rootActivities: ActivityRecord[] = [];
     private readonly artifacts: ArtifactReference[] = [];
     private sceneError: ErrorRecord | undefined;
+
+    // Scenario outline support
+    private isScenarioOutline = false;
+    private template: string | undefined;
+    private readonly parameterSets: ScenarioParameterSet[] = [];
+    private currentParameterSet: { name: string; description?: string; values: Record<string, string> } | undefined;
+    private currentExampleStartTimestamp: Timestamp | undefined;
 
     constructor(private readonly artifactPaths: Map<string, Path[]>) {
     }
@@ -142,11 +154,15 @@ class SceneRecordBuilder {
             startedAt: this.startedAt,
             source: { path: this.sourcePath, line: this.sourceLine },
             tags: this.tags,
-            activities: this.rootActivities,
+            activities: this.isScenarioOutline ? [] : this.rootActivities,
         };
 
         if (this.narrative) {
             record.narrative = this.narrative;
+        }
+
+        if (this.description) {
+            record.description = this.description;
         }
 
         if (this.sceneError) {
@@ -157,16 +173,35 @@ class SceneRecordBuilder {
             record.artifacts = this.artifacts;
         }
 
+        if (this.isScenarioOutline && this.template) {
+            record.scenarioOutline = {
+                template: this.template,
+                parameters: this.parameterSets,
+            };
+        }
+
         return record;
     }
 
     private processEvent(event: DomainEvent & { sceneId: CorrelationId }): void {
-        if (event instanceof SceneStarts) {
+        if (event instanceof SceneSequenceDetected) {
+            this.isScenarioOutline = true;
+        } else if (event instanceof SceneTemplateDetected) {
+            this.template = event.template.value;
+        } else if (event instanceof SceneParametersDetected) {
+            this.currentParameterSet = {
+                name: event.parameters.name.value,
+                description: event.parameters.description.value || undefined,
+                values: event.parameters.values,
+            };
+        } else if (event instanceof SceneStarts) {
             this.handleSceneStarts(event);
         } else if (event instanceof SceneTagged) {
             this.tags.push({ type: event.tag.type, name: event.tag.name });
         } else if (event instanceof FeatureNarrativeDetected) {
             this.narrative = event.description.value;
+        } else if (event instanceof SceneDescriptionDetected) {
+            this.description = event.description.value;
         } else if (event instanceof TaskStarts || event instanceof InteractionStarts) {
             this.handleActivityStarts(event);
         } else if (event instanceof TaskFinished || event instanceof InteractionFinished) {
@@ -179,12 +214,22 @@ class SceneRecordBuilder {
     }
 
     private handleSceneStarts(event: SceneStarts): void {
-        this.name = event.details.name.value;
-        this.category = event.details.category.value;
-        this.sourcePath = event.details.location.path.value;
-        this.sourceLine = event.details.location.line;
-        this.startedAt = event.timestamp.toISOString();
-        this.sceneStartTimestamp = event.timestamp;
+        if (!this.name) {
+            // First SceneStarts sets the scene metadata
+            this.name = event.details.name.value;
+            this.category = event.details.category.value;
+            this.sourcePath = event.details.location.path.value;
+            this.sourceLine = event.details.location.line;
+            this.startedAt = event.timestamp.toISOString();
+            this.sceneStartTimestamp = event.timestamp;
+        }
+
+        if (this.isScenarioOutline && this.currentParameterSet) {
+            // Start collecting activities for this example row
+            this.rootActivities = [];
+            this.activityStack.length = 0;
+            this.currentExampleStartTimestamp = event.timestamp;
+        }
     }
 
     private handleActivityStarts(event: TaskStarts | InteractionStarts): void {
@@ -238,6 +283,19 @@ class SceneRecordBuilder {
     }
 
     private handleSceneFinished(event: SceneFinished): void {
+        if (this.isScenarioOutline && this.currentParameterSet) {
+            this.parameterSets.push({
+                name: this.currentParameterSet.name,
+                description: this.currentParameterSet.description,
+                values: this.currentParameterSet.values,
+                outcome: event.outcome.toJSON(),
+                duration: event.timestamp.diff(this.currentExampleStartTimestamp).inMilliseconds(),
+                activities: this.rootActivities,
+            });
+            this.currentParameterSet = undefined;
+        }
+
+        // Always update the overall scene outcome/duration to the last one
         this.outcome = event.outcome.toJSON();
         this.duration = event.timestamp.diff(this.sceneStartTimestamp).inMilliseconds();
         if (event.outcome instanceof ProblemIndication) {
