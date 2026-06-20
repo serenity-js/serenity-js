@@ -61,18 +61,18 @@ export class DataSnapshotAggregator {
         const newPasses: Array<{ name: string; category: string; source: { path: string; line: number } }> = [];
 
         if (allRuns.length >= 2) {
-            const prevRun = allRuns[allRuns.length - 2];
-            const prevOutcomes = new Map(prevRun.scenes.map(s => [s.source.path + ':' + s.source.line, s.outcome.code]));
+            const previousRun = allRuns[allRuns.length - 2];
+            const previousOutcomes = new Map(previousRun.scenes.map(s => [s.source.path + ':' + s.source.line, s.outcome.code]));
 
             for (const scene of latestRun.scenes) {
                 const key = scene.source.path + ':' + scene.source.line;
-                const prevCode = prevOutcomes.get(key);
-                if (prevCode !== undefined) {
-                    const prevSuccess = prevCode === ExecutionSuccessful.Code;
-                    const currSuccess = scene.outcome.code === ExecutionSuccessful.Code;
-                    if (prevSuccess && !currSuccess) {
+                const previousCode = previousOutcomes.get(key);
+                if (previousCode !== undefined) {
+                    const previousSuccess = previousCode === ExecutionSuccessful.Code;
+                    const currentSuccess = scene.outcome.code === ExecutionSuccessful.Code;
+                    if (previousSuccess && !currentSuccess) {
                         newFailures.push({ name: scene.name, category: scene.category, source: scene.source });
-                    } else if (!prevSuccess && currSuccess) {
+                    } else if (!previousSuccess && currentSuccess) {
                         newPasses.push({ name: scene.name, category: scene.category, source: scene.source });
                     }
                 }
