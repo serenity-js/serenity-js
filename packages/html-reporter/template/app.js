@@ -1027,7 +1027,7 @@
       const currentError = hasRetries && activeAttempt < scenario.attempts.length
         ? scenario.attempts[activeAttempt].error
         : scenario.error;
-      const errorLocation = currentError ? (function findLoc(acts) { for (const a of acts) { if (a.outcome !== 'SUCCESS' && a.location) return a.location; if (a.children) { const r = findLoc(a.children); if (r) return r; } } return null; })(currentActivities) : null;
+      const errorLocation = currentError ? (function findLoc(acts) { for (const a of acts) { if (a.outcome !== 'SUCCESS' && a.outcome !== 'SKIPPED' && a.location) return a.location; if (a.children) { const r = findLoc(a.children); if (r) return r; } } return null; })(currentActivities) : null;
 
       const copyTestPath = () => {
         const text = scenario.source.path + ':' + scenario.source.line;
