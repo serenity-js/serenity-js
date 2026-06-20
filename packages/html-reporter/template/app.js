@@ -2318,6 +2318,11 @@
       }, [theme]);
 
       useEffect(() => {
+        const failures = (DATA.summary.outcomes.failed || 0) + (DATA.summary.outcomes.error || 0) + (DATA.summary.outcomes.compromised || 0);
+        document.title = `${ DATA.summary.title } | Serenity/JS (${ failures === 0 ? '✓' : failures })`;
+      }, []);
+
+      useEffect(() => {
         const onHash = () => setRoute(getRoute());
         window.addEventListener('hashchange', onHash);
         return () => window.removeEventListener('hashchange', onHash);
