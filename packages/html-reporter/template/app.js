@@ -2288,6 +2288,7 @@
                     <span>${new Date(run.timestamp).toLocaleString()}</span>
                     <span>•</span>
                     <span>${formatDuration(run.duration)}</span>
+                    ${run.commit ? html`<span>•</span>${run.repositoryUrl ? html`<a href="${run.repositoryUrl.replace(/\.git$/, '').replace(/^git@([^:]+):/, 'https://$1/')}/commit/${run.commit}" target="_blank" rel="noopener" onClick=${(e) => e.stopPropagation()} style="font-family:var(--font-mono);font-size:var(--font-xs);color:var(--accent);text-decoration:none" title="View commit">${run.commit}</a>` : html`<span style="font-family:var(--font-mono);font-size:var(--font-xs)">${run.commit}</span>`}` : null}
                     ${run.ciJobUrl ? html`<span>•</span><a href=${run.ciJobUrl} target="_blank" rel="noopener" onClick=${(e) => e.stopPropagation()} style="color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:3px" class="ci-link" title="View CI job"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>CI</a>` : null}
                   </div>
                 </div>

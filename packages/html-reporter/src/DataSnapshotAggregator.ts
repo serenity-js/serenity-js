@@ -118,6 +118,7 @@ export class DataSnapshotAggregator {
             }),
             history: allRuns.map(run => {
                 const durations = run.scenes.map(s => s.duration).filter(d => d > 0);
+                const ci = run.systemContext?.ci;
                 return {
                     timestamp: run.timestamp,
                     duration: run.duration,
@@ -126,6 +127,9 @@ export class DataSnapshotAggregator {
                     slowest: durations.length > 0 ? Math.max(...durations) : 0,
                     fastest: durations.length > 0 ? Math.min(...durations) : 0,
                     average: durations.length > 0 ? Math.round(durations.reduce((a, b) => a + b, 0) / durations.length) : 0,
+                    ...(ci?.commit ? { commit: ci.commit } : {}),
+                    ...(ci?.jobUrl ? { ciJobUrl: ci.jobUrl } : {}),
+                    ...(ci?.repositoryUrl ? { repositoryUrl: ci.repositoryUrl } : {}),
                 };
             }),
             tags: this.computeTagStats(latestRun),
