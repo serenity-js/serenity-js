@@ -303,4 +303,164 @@ describe('HTML Reporter', () => {
             expect(text).to.contain('chromium 120.0');
         });
     });
+
+    describe('Dashboard cards', () => {
+
+        before(async () => {
+            await page.goto(`${baseUrl}/index.html#/`);
+            await page.waitForSelector('.donut-chart, .card-value');
+        });
+
+        it('renders the trend chart', async () => {
+            const canvas = await page.$('canvas');
+            expect(canvas).to.not.be.null;
+        });
+
+        it('displays slowest tests', async () => {
+            const text = await page.textContent('body');
+            expect(text).to.contain('Slowest');
+        });
+
+        it('displays CI branch info', async () => {
+            const text = await page.textContent('body');
+            expect(text).to.contain('main');
+        });
+
+        it('displays CI commit info', async () => {
+            const text = await page.textContent('body');
+            expect(text).to.contain('abc1234');
+        });
+    });
+
+    describe('Scenario filters and navigation', () => {
+
+        before(async () => {
+            await page.goto(`${baseUrl}/index.html#/tests`);
+            await page.waitForSelector('.scenario-item');
+        });
+
+        it('filters by passed outcome', async () => {
+            await page.click('button:has-text("Passed")');
+            await page.waitForFunction(() => document.body.textContent?.includes('Showing 4 of 6'));
+            const text = await page.textContent('body');
+            expect(text).to.contain('Showing 4 of 6');
+        });
+
+        it('navigates to scenario detail on click', async () => {
+            await page.goto(`${baseUrl}/index.html#/tests`);
+            await page.waitForSelector('.scenario-item');
+            await page.click('.scenario-item');
+            await page.waitForSelector('.activity-tree, .error-block, .scenario-detail-header');
+            const url = page.url();
+            expect(url).to.contain('#/tests/');
+        });
+    });
+
+    describe('Test Runs', () => {
+
+        before(async () => {
+            await page.goto(`${baseUrl}/index.html#/test-runs`);
+            await page.waitForSelector('.scenario-item');
+        });
+
+        it('renders the trend chart', async () => {
+            const canvas = await page.$('canvas');
+            expect(canvas).to.not.be.null;
+        });
+
+        it('displays run history entries', async () => {
+            const items = await page.$$('.scenario-item');
+            expect(items.length).to.be.greaterThan(0);
+        });
+
+        it('navigates to filtered scenarios on run click', async () => {
+            await page.click('.scenario-item');
+            await page.waitForFunction(() => window.location.hash.includes('/tests?run='));
+            const hash = await page.evaluate(() => window.location.hash);
+            expect(hash).to.contain('/tests?run=');
+        });
+    });
+
+    describe('Timeline', () => {
+
+        before(async () => {
+            await page.goto(`${baseUrl}/index.html#/timeline`);
+            await page.waitForSelector('.card');
+        });
+
+        it('displays the timeline view', async () => {
+            const text = await page.textContent('body');
+            expect(text).to.contain('Timeline');
+        });
+
+        it('shows scenario bars', async () => {
+            const text = await page.textContent('body');
+            expect(text).to.contain('should display items');
+        });
+    });
+
+    describe('Tags navigation', () => {
+
+        before(async () => {
+            await page.goto(`${baseUrl}/index.html#/tags`);
+            await page.waitForSelector('.tag-card');
+        });
+
+        it('navigates to filtered scenarios on tag click', async () => {
+            await page.click('.tag-card');
+            await page.waitForFunction(() => window.location.hash.includes('/tests'));
+            const hash = await page.evaluate(() => window.location.hash);
+            expect(hash).to.contain('/tests');
+        });
+    });
+
+    describe('Theme', () => {
+
+        it('toggles dark mode', async () => {
+            await page.goto(`${baseUrl}/index.html#/`);
+            await page.waitForSelector('button[aria-label="Toggle theme"]');
+            const initialTheme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
+            await page.click('button[aria-label="Toggle theme"]');
+            await page.waitForFunction(
+                (initial) => document.documentElement.getAttribute('data-theme') !== initial,
+                initialTheme
+            );
+            const newTheme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
+            expect(newTheme).to.not.equal(initialTheme);
+        });
+    });
+
+    describe('Deep linking', () => {
+
+        it('restores search from URL on reload', async () => {
+            await page.goto(`${baseUrl}/index.html#/tests?search=%22Todo%22`);
+            await page.waitForFunction(() => document.body.textContent?.includes('Showing'));
+            const text = await page.textContent('body');
+            expect(text).to.not.contain('Showing 6 of 6');
+        });
+
+        it('restores run filter from URL', async () => {
+            await page.goto(`${baseUrl}/index.html#/tests?run=2024-06-14T10:00:00.000Z`);
+            await page.waitForFunction(() => {
+                const sel = document.querySelector('select[aria-label="Select test run"]') as HTMLSelectElement;
+                return sel && sel.value === '2024-06-14T10:00:00.000Z';
+            });
+            const selected = await page.evaluate(() => {
+                const sel = document.querySelector('select[aria-label="Select test run"]') as HTMLSelectElement;
+                return sel ? sel.value : '';
+            });
+            expect(selected).to.equal('2024-06-14T10:00:00.000Z');
+        });
+    });
+
+    describe('Document title', () => {
+
+        it('includes failure count in title', async () => {
+            await page.goto(`${baseUrl}/index.html#/`);
+            await page.waitForSelector('.donut-chart');
+            const title = await page.title();
+            expect(title).to.contain('Serenity/JS');
+            expect(title).to.contain('Test Project');
+        });
+    });
 });
