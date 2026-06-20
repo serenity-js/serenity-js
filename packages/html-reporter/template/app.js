@@ -225,17 +225,26 @@
           <div style="display:flex;flex-direction:column;gap:var(--space-md);min-width:0">
             <!-- Row 1: Test Results + Pass Rate / Failed -->
             <div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:var(--space-md)" class="dashboard-stats-grid">
-              <div class="card" style="display:flex;flex-direction:column">
-                <div class="card-title">Test Results</div>
-                <div class="donut-chart">
-                  <${DonutChart} outcomes=${summary.outcomes} total=${summary.totalScenarios} />
-                  <div class="donut-legend">
-                    <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=passed')}><span class="legend-dot" style="background:var(--color-passed)"></span> Passed (${summary.outcomes.passed})</div>
-                    <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=failed')}><span class="legend-dot" style="background:var(--color-failed)"></span> Failed (${(summary.outcomes.failed || 0) + (summary.outcomes.error || 0) + (summary.outcomes.compromised || 0)})</div>
-                    <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=skipped')}><span class="legend-dot" style="background:var(--color-skipped)"></span> Skipped (${(summary.outcomes.skipped || 0) + (summary.outcomes.pending || 0)})</div>
+              <div style="display:flex;flex-direction:column;gap:var(--space-md)">
+                <div class="card" style="display:flex;flex-direction:column;flex:1">
+                  <div class="card-title">Test Results</div>
+                  <div class="donut-chart">
+                    <${DonutChart} outcomes=${summary.outcomes} total=${summary.totalScenarios} />
+                    <div class="donut-legend">
+                      <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=passed')}><span class="legend-dot" style="background:var(--color-passed)"></span> Passed (${summary.outcomes.passed})</div>
+                      <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=failed')}><span class="legend-dot" style="background:var(--color-failed)"></span> Failed (${(summary.outcomes.failed || 0) + (summary.outcomes.error || 0) + (summary.outcomes.compromised || 0)})</div>
+                      <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=skipped')}><span class="legend-dot" style="background:var(--color-skipped)"></span> Skipped (${(summary.outcomes.skipped || 0) + (summary.outcomes.pending || 0)})</div>
+                    </div>
                   </div>
+                  <div style="margin-top:var(--space-md);font-size:var(--font-sm);color:var(--text-secondary)">${summary.totalScenarios} scenarios • ${summary.testRunner}</div>
                 </div>
-                <div style="margin-top:var(--space-md);font-size:var(--font-sm);color:var(--text-secondary)">${summary.totalScenarios} scenarios • ${summary.testRunner}</div>
+                ${DATA.systemContext && DATA.systemContext.ci ? html`
+                  <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-md);flex-wrap:wrap">
+                    ${DATA.systemContext.ci.branch ? html`<div style="display:flex;align-items:center;gap:var(--space-xs)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;flex-shrink:0"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg><span style="font-size:var(--font-sm);font-weight:500">${DATA.systemContext.ci.branch}</span></div>` : null}
+                    ${DATA.systemContext.ci.commit ? html`<div style="display:flex;align-items:center;gap:var(--space-xs)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;flex-shrink:0"><circle cx="12" cy="12" r="4"/><line x1="1" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="23" y2="12"/></svg><span style="font-size:var(--font-sm);font-family:var(--font-mono)">${DATA.systemContext.ci.commit}</span></div>` : null}
+                    ${DATA.systemContext.ci.provider ? html`<div style="font-size:var(--font-xs);color:var(--text-secondary);margin-left:auto">${DATA.systemContext.ci.provider}</div>` : null}
+                  </div>
+                ` : null}
               </div>
               <div style="display:flex;flex-direction:column;gap:var(--space-md)">
                 <div class="card" style="flex:1;cursor:pointer" onClick=${() => onNavigate('/tests?filter=non-passing')}>
@@ -251,14 +260,6 @@
                 </div>
               </div>
             </div>
-            <!-- Branch and commit info -->
-            ${DATA.systemContext && DATA.systemContext.ci ? html`
-              <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-md);flex-wrap:wrap">
-                ${DATA.systemContext.ci.branch ? html`<div style="display:flex;align-items:center;gap:var(--space-xs)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;flex-shrink:0"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg><span style="font-size:var(--font-sm);font-weight:500">${DATA.systemContext.ci.branch}</span></div>` : null}
-                ${DATA.systemContext.ci.commit ? html`<div style="display:flex;align-items:center;gap:var(--space-xs)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;flex-shrink:0"><circle cx="12" cy="12" r="4"/><line x1="1" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="23" y2="12"/></svg><span style="font-size:var(--font-sm);font-family:var(--font-mono)">${DATA.systemContext.ci.commit}</span></div>` : null}
-                ${DATA.systemContext.ci.provider ? html`<div style="font-size:var(--font-xs);color:var(--text-secondary);margin-left:auto">${DATA.systemContext.ci.provider}</div>` : null}
-              </div>
-            ` : null}
             <!-- Row 2: Trend chart -->
             <div class="card" style="overflow:hidden">
               <div class="card-title">Trend (Last ${history.length} runs)</div>
