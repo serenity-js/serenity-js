@@ -179,4 +179,19 @@ Before submitting changes:
 - [ ] Edge cases are covered with explicit tests
 - [ ] All unit tests pass (`make test`)
 - [ ] Integration tests pass if applicable (`make integration-test`)
+- [ ] ESLint passes on all modified files with no errors (`npx eslint <files>`)
 - [ ] No implementation code exists without corresponding tests
+
+## Pre-Commit Linting Rule
+
+**Before committing ANY changes, you MUST run ESLint on all modified files and fix any errors.**
+
+Run ESLint on the changed files:
+
+```bash
+npx eslint path/to/changed/file1.ts path/to/changed/file2.ts
+```
+
+- Fix all errors before committing. Do not commit code with lint errors.
+- Warnings should be reviewed and fixed where possible.
+- Use `npx eslint --fix` only for auto-fixable issues (formatting, import ordering). Review the result before committing.

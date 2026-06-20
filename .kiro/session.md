@@ -22,7 +22,7 @@
 ### 3. Scenario Outline rendering (NOT YET COMMITTED)
 **Status**: Implemented, compiled (441KB), 60 tests passing, visually verified.
 
-Proper scenario outline support in the HTML reporter. Previously all parameterised examples were rendered as a flat activity list within a single scene. Now they're grouped as separate collapsible instances.
+Prop![Screenshot 2026-06-20 at 16.48.19.png](../examples/cucumber-reporting/Screenshot%202026-06-20%20at%2016.48.19.png)er scenario outline support in the HTML reporter. Previously all parameterised examples were rendered as a flat activity list within a single scene. Now they're grouped as separate collapsible instances.
 
 **Files modified:**
 - `packages/html-reporter/src/model/RunData.ts` — Added `ScenarioParameterSet` interface and optional `scenarioOutline` field to `SceneRecord`
