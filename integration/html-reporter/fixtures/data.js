@@ -99,6 +99,9 @@ window.__SERENITY_REPORT_DATA__ = {
     { "label": "build 2", "timestamp": "2024-06-15T14:30:00.000Z", "duration": 5000, "outcomes": { "passed": 3, "failed": 1, "pending": 1, "skipped": 0, "compromised": 0 } }
   ],
   "flakyTests": [],
+  "unstableTests": [
+    { "name": "should complete an item", "category": "Todo List", "source": { "path": "/project/spec/todo/complete.spec.ts", "line": 3 }, "flakinessRate": 0.5 }
+  ],
   "newFailures": [
     { "name": "should complete an item", "source": { "path": "/project/spec/todo/complete.spec.ts", "line": 3 }, "tags": [] }
   ],

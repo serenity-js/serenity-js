@@ -217,7 +217,7 @@
       const newPasses = useMemo(() => {
         return (DATA.newPasses || []).slice(0, 5);
       }, []);
-      const flakyTests = (DATA.flakyTests || []).slice(0, 5);
+      const flakyTests = (DATA.unstableTests || []).slice(0, 5);
 
       return html`
         <div style="display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:var(--space-md);overflow:hidden" class="dashboard-trend-grid">
@@ -1800,7 +1800,7 @@
 
     // ===== Placeholder Views =====
     function FlakyView({ onNavigate }) {
-      const flaky = DATA.flakyTests || [];
+      const flaky = DATA.unstableTests || [];
 
       const [filter, setFilter] = useState('unstable');
       const [search, setSearch] = useState('');

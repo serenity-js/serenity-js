@@ -267,6 +267,24 @@ describe('HTML Reporter', () => {
         });
     });
 
+    describe('Stability', () => {
+
+        before(async () => {
+            await page.goto(`${baseUrl}/index.html#/stability`);
+            await page.waitForFunction(() => document.body.textContent?.includes('should complete an item'));
+        });
+
+        it('displays unstable tests', async () => {
+            const text = await page.textContent('body');
+            expect(text).to.contain('should complete an item');
+        });
+
+        it('shows the flakiness rate', async () => {
+            const text = await page.textContent('body');
+            expect(text).to.contain('50%');
+        });
+    });
+
     describe('Tags', () => {
 
         before(async () => {
