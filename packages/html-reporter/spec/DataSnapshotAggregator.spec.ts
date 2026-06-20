@@ -437,4 +437,43 @@ describe('DataSnapshotAggregator', () => {
             expect(data.history[0].fastest).to.equal(100);
         });
     });
+
+    describe('activity location and outcome mapping', () => {
+
+        it('preserves activity location and maps outcome codes to display strings', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-15T14:30:00.000Z': {
+                        'db.json': JSON.stringify({
+                            timestamp: '2024-06-15T14:30:00.000Z', duration: 100,
+                            outcomes: { passed: 0, failed: 0, pending: 1, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [{
+                                name: 'A pending scenario', category: 'Suite', outcome: { code: 8 }, duration: 12,
+                                startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'features/pending.feature', line: 7 }, tags: [],
+                                activities: [
+                                    { type: 'Task', name: 'Given a step that passes', outcome: { code: 64 }, duration: 0, startedAt: '2024-06-15T14:30:00.000Z', children: [], location: { path: 'features/pending.feature', line: 14 } },
+                                    { type: 'Task', name: 'And a pending step', outcome: { code: 8 }, duration: 1, startedAt: '2024-06-15T14:30:00.001Z', children: [], location: { path: 'features/pending.feature', line: 15 } },
+                                    { type: 'Task', name: 'And a skipped step', outcome: { code: 32 }, duration: 0, startedAt: '2024-06-15T14:30:00.002Z', children: [], location: { path: 'features/pending.feature', line: 16 } },
+                                ],
+                            }],
+                            tags: [], testRunner: 'Cucumber', testRunnerVersion: '12.0.0',
+                        }),
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            const activities = data.scenarios[0].activities;
+
+            expect(activities).to.have.lengthOf(3);
+            expect(activities[0].outcome).to.equal('SUCCESS');
+            expect(activities[0].location).to.deep.equal({ path: 'features/pending.feature', line: 14 });
+            expect(activities[1].outcome).to.equal('PENDING');
+            expect(activities[1].location).to.deep.equal({ path: 'features/pending.feature', line: 15 });
+            expect(activities[2].outcome).to.equal('SKIPPED');
+            expect(activities[2].location).to.deep.equal({ path: 'features/pending.feature', line: 16 });
+        });
+    });
 });

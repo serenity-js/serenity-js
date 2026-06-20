@@ -40,7 +40,7 @@ describe('SceneDataCollector', () => {
             );
 
             const sceneId1 = CorrelationId.create();
-            const sceneId2 = CorrelationId.create();
+            const sceneId2_ = CorrelationId.create();
 
             const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
             const t1 = new Timestamp(new Date('2024-01-01T00:00:00.100Z'));

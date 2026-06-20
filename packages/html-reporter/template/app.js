@@ -489,6 +489,10 @@
         const textColor = isDark ? 'rgba(255,255,255,0.7)' : 'rgba(46,38,61,0.7)';
         const gridColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)';
 
+        const allDurations = history.flatMap(h => [h.fastest, h.slowest, h.average, h.duration].filter(v => v > 0));
+        const minDuration = allDurations.length > 0 ? Math.min(...allDurations) : undefined;
+        const maxDuration = allDurations.length > 0 ? Math.max(...allDurations) : undefined;
+
         chartRef.current = new Chart(canvasRef.current, {
           type: 'bar',
           data: {
@@ -500,6 +504,7 @@
                 data: history.map(h => h.outcomes.passed),
                 backgroundColor: '#28c76f',
                 stack: 'outcomes',
+                maxBarThickness: 80,
                 yAxisID: 'y',
                 order: 2,
               },
@@ -509,6 +514,7 @@
                 data: history.map(h => (h.outcomes.failed || 0) + (h.outcomes.error || 0) + (h.outcomes.compromised || 0)),
                 backgroundColor: '#ea5455',
                 stack: 'outcomes',
+                maxBarThickness: 80,
                 yAxisID: 'y',
                 order: 2,
               },
@@ -518,6 +524,7 @@
                 data: history.map(h => (h.outcomes.skipped || 0) + (h.outcomes.pending || 0)),
                 backgroundColor: '#a8aaae',
                 stack: 'outcomes',
+                maxBarThickness: 80,
                 yAxisID: 'y',
                 order: 2,
               },
@@ -546,6 +553,7 @@
                 borderSkipped: false,
                 barPercentage: 0.05,
                 categoryPercentage: 1,
+                maxBarThickness: 12,
                 yAxisID: 'y1',
                 order: 0,
                 grouped: false,
@@ -620,7 +628,7 @@
                 max: history.length - 1,
               },
               y: { stacked: true, beginAtZero: true, ticks: { color: textColor, precision: 0 }, grid: { color: gridColor }, title: { display: false } },
-              y1: { type: 'logarithmic', position: 'right', ticks: { color: textColor, callback: (v) => formatDuration(v), maxTicksLimit: 6 }, grid: { drawOnChartArea: true, color: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)', borderDash: [3, 3] }, title: { display: false } },
+              y1: { type: 'logarithmic', position: 'right', min: minDuration ? minDuration * 0.8 : undefined, max: maxDuration ? maxDuration * 1.2 : undefined, ticks: { color: textColor, callback: (v) => formatDuration(v), maxTicksLimit: 8 }, grid: { drawOnChartArea: true, color: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)', borderDash: [3, 3] }, title: { display: false } },
             },
           },
         });
@@ -1019,6 +1027,7 @@
       const currentError = hasRetries && activeAttempt < scenario.attempts.length
         ? scenario.attempts[activeAttempt].error
         : scenario.error;
+      const errorLocation = currentError ? (function findLoc(acts) { for (const a of acts) { if (a.outcome !== 'SUCCESS' && a.location) return a.location; if (a.children) { const r = findLoc(a.children); if (r) return r; } } return null; })(currentActivities) : null;
 
       const copyTestPath = () => {
         const text = scenario.source.path + ':' + scenario.source.line;
@@ -1146,7 +1155,7 @@
 
           ${currentError ? html`
             <div class="error-block">
-              <div class="error-name">${currentError.name}</div>
+              <div class="error-name" style="display:flex;align-items:center;gap:var(--space-sm)">${currentError.name}${errorLocation ? html`<span style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-size:var(--font-xs);font-weight:400;font-family:var(--font-mono);color:var(--text-secondary)">${errorLocation.path.split('/').pop()}:${errorLocation.line}<span style="cursor:pointer;opacity:0.6;display:inline-flex;align-items:center" title="Copy location" onClick=${(e) => { e.stopPropagation(); navigator.clipboard.writeText(errorLocation.path + ':' + errorLocation.line).then(() => showToast('Location copied to clipboard')).catch(() => {}); }}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></span></span>` : null}</div>
               <div class="error-message">${currentError.message}</div>
               <pre class="error-stack">${currentError.stack}</pre>
             </div>

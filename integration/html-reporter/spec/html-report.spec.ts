@@ -28,7 +28,7 @@ describe('HTML Reporter', () => {
 
         it('displays the pass rate', async () => {
             const text = await page.textContent('body');
-            expect(text).to.contain('60.0%');
+            expect(text).to.contain('66.7%');
         });
 
         it('displays degraded tests', async () => {
@@ -38,7 +38,7 @@ describe('HTML Reporter', () => {
 
         it('displays the total scenario count', async () => {
             const text = await page.textContent('body');
-            expect(text).to.contain('5 scenarios');
+            expect(text).to.contain('6 scenarios');
         });
     });
 
@@ -53,7 +53,7 @@ describe('HTML Reporter', () => {
 
             it('displays all scenarios', async () => {
                 const text = await page.textContent('body');
-                expect(text).to.contain('Showing 5 of 5 test scenarios');
+                expect(text).to.contain('Showing 6 of 6 test scenarios');
             });
 
             it('shows scenario names', async () => {
@@ -72,12 +72,12 @@ describe('HTML Reporter', () => {
 
             before(async () => {
                 await page.goto(`${baseUrl}/index.html#/tests?search=%22complete.spec%22`);
-                await page.waitForFunction(() => document.body.textContent?.includes('Showing 1 of 5'));
+                await page.waitForFunction(() => document.body.textContent?.includes('Showing 1 of 6'));
             });
 
             it('filters scenarios matching source file name', async () => {
                 const text = await page.textContent('body');
-                expect(text).to.contain('Showing 1 of 5 test scenarios');
+                expect(text).to.contain('Showing 1 of 6 test scenarios');
                 expect(text).to.contain('should complete an item');
             });
         });
@@ -86,9 +86,9 @@ describe('HTML Reporter', () => {
 
             it('filters scenarios by category name', async () => {
                 await page.evaluate(() => window.location.hash = '#/tests?search=%22Persistence%22');
-                await page.waitForFunction(() => document.body.textContent?.includes('Showing 2 of 5'));
+                await page.waitForFunction(() => document.body.textContent?.includes('Showing 2 of 6'));
                 const text = await page.textContent('body');
-                expect(text).to.contain('Showing 2 of 5 test scenarios');
+                expect(text).to.contain('Showing 2 of 6 test scenarios');
             });
         });
     });
@@ -120,7 +120,7 @@ describe('HTML Reporter', () => {
 
         it('displays scenario counts per requirement', async () => {
             const text = await page.textContent('body');
-            expect(text).to.contain('5 scenarios total');
+            expect(text).to.contain('6 scenarios total');
         });
     });
 
@@ -183,6 +183,70 @@ describe('HTML Reporter', () => {
         it('shows error messages', async () => {
             const text = await page.textContent('body');
             expect(text).to.contain('Expected item to be checked');
+        });
+    });
+
+    describe('Pending scenario detail', () => {
+
+        before(async () => {
+            await page.goto(`${baseUrl}/index.html#/tests/${encodeURIComponent('/project/spec/persistence.spec.ts:20')}`);
+            await page.waitForFunction(() => document.body.textContent?.includes('ImplementationPendingError'));
+        });
+
+        it('displays the error name', async () => {
+            const errorName = await page.textContent('.error-name');
+            expect(errorName).to.contain('ImplementationPendingError');
+        });
+
+        it('displays the failing step location next to the error name', async () => {
+            const errorName = await page.textContent('.error-name');
+            expect(errorName).to.contain('persistence.spec.ts:22');
+        });
+
+        it('displays a copy location button in the error block', async () => {
+            const copyButton = await page.$('.error-name [title="Copy location"]');
+            expect(copyButton).to.not.be.null;
+        });
+
+        it('displays activity locations in the activity tree', async () => {
+            const text = await page.textContent('.activity-tree');
+            expect(text).to.contain('Given a step that passes');
+            expect(text).to.contain('And a step that is pending');
+        });
+
+        it('displays copy invocation location buttons for activities', async () => {
+            const btns = await page.$$('[title*="Copy invocation location"]');
+            expect(btns.length).to.be.greaterThan(0);
+        });
+    });
+
+    describe('Scenario outline detail', () => {
+
+        before(async () => {
+            await page.goto(`${baseUrl}/index.html#/tests/${encodeURIComponent('/project/features/greetings.feature:3')}`);
+            await page.waitForFunction(() => document.body.textContent?.includes('should greet'));
+        });
+
+        it('displays the scenario outline template', async () => {
+            const text = await page.textContent('body');
+            expect(text).to.contain('Given <Developer> is a contributor');
+        });
+
+        it('groups examples by parameter set name', async () => {
+            const text = await page.textContent('body');
+            expect(text).to.contain('contributors');
+        });
+
+        it('displays parameter values for each example', async () => {
+            const text = await page.textContent('body');
+            expect(text).to.contain('jan-molak');
+            expect(text).to.contain('alice');
+        });
+
+        it('displays activities for each example row', async () => {
+            const text = await page.textContent('body');
+            expect(text).to.contain('Given jan-molak is a contributor');
+            expect(text).to.contain('Given alice is a contributor');
         });
     });
 
