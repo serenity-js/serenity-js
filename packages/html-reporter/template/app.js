@@ -1495,18 +1495,14 @@
       const errIsHistorical = errRunIndex !== null && errRunIndex !== DATA.history.length - 1;
       const errHistoricalRun = errIsHistorical ? DATA.history[errRunIndex] : null;
 
-      // Precompute run pills
-      const errRunPills = DATA.history.map((run, idx) => {
+      // Precompute active run timestamp for dropdown
+      const errActiveRunTs = errRunIndex !== null && DATA.history[errRunIndex] ? DATA.history[errRunIndex].timestamp : DATA.history[DATA.history.length - 1]?.timestamp;
+      const onErrRunChange = (e) => {
+        const ts = e.target.value;
+        const idx = DATA.history.findIndex(r => r.timestamp === ts);
         const isLatest = idx === DATA.history.length - 1;
-        const isActive = errRunIndex === idx || (errRunIndex === null && isLatest);
-        const pillStyle = 'display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:12px;font-size:var(--font-xs);font-weight:500;cursor:pointer;transition:all 0.2s;border:1px solid ' + (isActive ? 'var(--accent)' : 'var(--border-color)') + ';background:' + (isActive ? 'var(--accent)' : 'var(--bg-surface)') + ';color:' + (isActive ? '#fff' : 'var(--text-secondary)');
-        const target = isLatest ? '/errors' : '/errors?run=' + run.timestamp;
-        const label = run.label.replace('build ', '');
-        const title = run.label + ' — ' + new Date(run.timestamp).toLocaleDateString();
-        const onClick = () => onNavigate(target);
-        return { pillStyle, label, title, onClick };
-      });
-      const errShowLatest = () => onNavigate('/errors');
+        onNavigate(isLatest ? '/errors' : '/errors?run=' + ts);
+      };
 
       const errorScenarios = DATA.scenarios.filter(s => s.error || s.outcome === 'FAILURE' || s.outcome === 'ERROR' || s.outcome === 'COMPROMISED');
 
@@ -1679,11 +1675,13 @@
 
           <div style="display:flex;align-items:center;gap:var(--space-sm);margin-bottom:var(--space-md);flex-wrap:wrap">
             <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Test run:</span>
-            ${errRunPills.map(pill => html`
-              <div style=${pill.pillStyle} onClick=${pill.onClick} title=${pill.title}>
-                <span>${pill.label}</span>
-              </div>
-            `)}
+            <select class="sort-select" value=${errActiveRunTs} onChange=${onErrRunChange} aria-label="Select test run" style="min-width:200px">
+              ${[...DATA.history].reverse().map((run) => {
+                const passRate = Math.round((run.outcomes.passed / Object.values(run.outcomes).reduce((a, b) => a + b, 0)) * 100);
+                const label = run.label.replace('build ', '') + ' — ' + new Date(run.timestamp).toLocaleDateString() + ' — ' + passRate + '% pass rate';
+                return html`<option value=${run.timestamp} selected=${run.timestamp === errActiveRunTs}>${label}</option>`;
+              })}
+            </select>
           </div>
 
           <div class="grid-stats" style="margin-bottom:var(--space-md)">
