@@ -31,9 +31,26 @@ describe('HTML Reporter', () => {
             expect(text).to.contain('66.7%');
         });
 
-        it('displays degraded tests', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('should complete an item');
+        it('displays degraded tests in the Degraded card', async () => {
+            const cards = await page.$$('.card');
+            let degradedCardText = '';
+            for (const card of cards) {
+                const text = await card.textContent();
+                if (text?.includes('Degraded')) { degradedCardText = text; break; }
+            }
+            expect(degradedCardText).to.contain('should complete an item');
+            expect(degradedCardText).to.not.contain('No degraded tests');
+        });
+
+        it('displays recovered tests in the Recovered card', async () => {
+            const cards = await page.$$('.card');
+            let recoveredCardText = '';
+            for (const card of cards) {
+                const text = await card.textContent();
+                if (text?.includes('Recovered')) { recoveredCardText = text; break; }
+            }
+            expect(recoveredCardText).to.contain('should persist items');
+            expect(recoveredCardText).to.not.contain('No newly recovered tests');
         });
 
         it('displays the total scenario count', async () => {

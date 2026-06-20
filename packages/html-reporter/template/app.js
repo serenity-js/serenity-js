@@ -212,22 +212,10 @@
       const sorted = [...scenarios].sort((a, b) => b.duration - a.duration);
       const slowest = sorted.slice(0, 5);
       const newFailures = useMemo(() => {
-        if (DATA.history.length < 2) return [];
-        return DATA.scenarios.filter(s => {
-          if (!s.executionHistory || s.executionHistory.length < 2) return false;
-          const prev = s.executionHistory[s.executionHistory.length - 2];
-          const curr = s.executionHistory[s.executionHistory.length - 1];
-          return prev && curr && prev.outcome === 'SUCCESS' && curr.outcome !== 'SUCCESS';
-        }).slice(0, 5);
+        return (DATA.newFailures || []).slice(0, 5);
       }, []);
       const newPasses = useMemo(() => {
-        if (DATA.history.length < 2) return [];
-        return DATA.scenarios.filter(s => {
-          if (!s.executionHistory || s.executionHistory.length < 2) return false;
-          const prev = s.executionHistory[s.executionHistory.length - 2];
-          const curr = s.executionHistory[s.executionHistory.length - 1];
-          return prev && curr && prev.outcome !== 'SUCCESS' && curr.outcome === 'SUCCESS';
-        }).slice(0, 5);
+        return (DATA.newPasses || []).slice(0, 5);
       }, []);
       const flakyTests = (DATA.flakyTests || []).slice(0, 5);
 

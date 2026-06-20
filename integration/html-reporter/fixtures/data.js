@@ -102,7 +102,9 @@ window.__SERENITY_REPORT_DATA__ = {
   "newFailures": [
     { "name": "should complete an item", "source": { "path": "/project/spec/todo/complete.spec.ts", "line": 3 }, "tags": [] }
   ],
-  "newPasses": [],
+  "newPasses": [
+    { "name": "should persist items", "source": { "path": "/project/spec/persistence.spec.ts", "line": 1 }, "tags": [] }
+  ],
   "requirements": {
     "type": "directory",
     "name": "spec",
