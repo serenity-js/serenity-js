@@ -16,6 +16,7 @@ export interface RuntimeContext {
     repositoryUrl?: string;
     baseBranch?: string;
     pullRequestNumber?: string;
+    pullRequestUrl?: string;
     triggeredBy?: string;
 }
 
@@ -41,6 +42,8 @@ export class CIDetector {
 
     detect(): RuntimeContext {
         if (this.env.GITHUB_ACTIONS) {
+            const prNumber = this.env.GITHUB_EVENT_NAME === 'pull_request' ? this.env.GITHUB_REF_NAME?.replace(/.*\//, '') : undefined;
+            const repoUrl = `${ this.env.GITHUB_SERVER_URL }/${ this.env.GITHUB_REPOSITORY }`;
             return {
                 provider: 'GitHub Actions',
                 buildNumber: this.env.GITHUB_RUN_NUMBER,
@@ -48,16 +51,18 @@ export class CIDetector {
                 commit: this.env.GITHUB_SHA?.slice(0, 8),
                 commitMessage: this.git('log -1 --pretty=%s'),
                 commitAuthor: this.git('log -1 --pretty=%an'),
-                jobUrl: `${ this.env.GITHUB_SERVER_URL }/${ this.env.GITHUB_REPOSITORY }/actions/runs/${ this.env.GITHUB_RUN_ID }`,
+                jobUrl: `${ repoUrl }/actions/runs/${ this.env.GITHUB_RUN_ID }`,
                 workflow: this.env.GITHUB_WORKFLOW,
-                repositoryUrl: `${ this.env.GITHUB_SERVER_URL }/${ this.env.GITHUB_REPOSITORY }`,
+                repositoryUrl: repoUrl,
                 baseBranch: this.env.GITHUB_BASE_REF || undefined,
-                pullRequestNumber: this.env.GITHUB_EVENT_NAME === 'pull_request' ? this.env.GITHUB_REF_NAME?.replace(/.*\//, '') : undefined,
+                pullRequestNumber: prNumber,
+                pullRequestUrl: prNumber ? `${ repoUrl }/pull/${ prNumber }` : undefined,
                 triggeredBy: this.env.GITHUB_ACTOR,
             };
         }
 
         if (this.env.GITLAB_CI) {
+            const mrIid = this.env.CI_MERGE_REQUEST_IID || undefined;
             return {
                 provider: 'GitLab CI',
                 buildNumber: this.env.CI_PIPELINE_IID,
@@ -69,7 +74,8 @@ export class CIDetector {
                 workflow: this.env.CI_PIPELINE_NAME,
                 repositoryUrl: this.env.CI_PROJECT_URL,
                 baseBranch: this.env.CI_MERGE_REQUEST_TARGET_BRANCH_NAME || undefined,
-                pullRequestNumber: this.env.CI_MERGE_REQUEST_IID || undefined,
+                pullRequestNumber: mrIid,
+                pullRequestUrl: mrIid && this.env.CI_PROJECT_URL ? `${ this.env.CI_PROJECT_URL }/-/merge_requests/${ mrIid }` : undefined,
                 triggeredBy: this.env.GITLAB_USER_LOGIN,
             };
         }
@@ -85,6 +91,8 @@ export class CIDetector {
                 jobUrl: this.env.BUILD_URL,
                 workflow: this.env.JOB_NAME,
                 repositoryUrl: this.env.GIT_URL,
+                pullRequestNumber: this.env.CHANGE_ID || undefined,
+                pullRequestUrl: this.env.CHANGE_URL || undefined,
                 triggeredBy: this.env.BUILD_USER || undefined,
             };
         }
@@ -101,6 +109,7 @@ export class CIDetector {
                 workflow: this.env.CIRCLE_WORKFLOW_ID,
                 repositoryUrl: this.env.CIRCLE_REPOSITORY_URL,
                 pullRequestNumber: this.env.CIRCLE_PR_NUMBER || undefined,
+                pullRequestUrl: this.env.CIRCLE_PULL_REQUEST || undefined,
                 triggeredBy: this.env.CIRCLE_USERNAME,
             };
         }
