@@ -46,7 +46,9 @@
 
     function scenarioUrl(scenario, run) {
       const base = '/tests/' + encodeURIComponent(scenario.source.path + ':' + scenario.source.line);
-      return run !== undefined && run !== null ? base + '?run=' + run : base;
+      if (run === undefined || run === null) return base;
+      const ts = typeof run === 'number' && DATA.history[run] ? DATA.history[run].timestamp : run;
+      return base + '?run=' + ts;
     }
 
     /**
@@ -185,8 +187,9 @@
             <div class="nav-section-label">Report</div>
             ${navItems.map(item => html`
               <div class="nav-item ${isActive(item.path) ? 'active' : ''}"
-                   title=${item.label}
-                   onClick=${() => { onNavigate(item.path); onClose(); }}>
+                   title=${item.label} role="button" tabindex="0"
+                   onClick=${() => { onNavigate(item.path); onClose(); }}
+                   onKeyDown=${(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onNavigate(item.path); onClose(); } }}>
                 ${icons[item.icon]}
                 <span>${item.label}</span>
                 ${item.badge > 0 ? html`<span class="nav-badge">${item.badge}</span>` : null}
@@ -575,7 +578,7 @@
             onClick: (evt, elements) => {
               if (elements.length > 0) {
                 const idx = elements[0].index;
-                onNavigate && onNavigate('/tests?run=' + idx);
+                onNavigate && onNavigate('/tests?run=' + history[idx].timestamp);
               }
             },
             plugins: {
@@ -791,7 +794,8 @@
               const stopProp = (e) => e.stopPropagation();
               return html`
                 <div style="position:absolute;top:0;left:0;width:100%;height:${SCENARIO_ROW_HEIGHT}px;transform:translateY(${virtualRow.start}px);overflow:hidden"
-                     class="scenario-item" onClick=${clickHandler}>
+                     class="scenario-item" role="button" tabindex="0" onClick=${clickHandler}
+                     onKeyDown=${(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); clickHandler(); } }}>
                   <div class="scenario-outcome-icon ${outcomeClass(scenario.outcome)}">
                     ${outcomeIcon(scenario.outcome)}
                   </div>
@@ -874,7 +878,7 @@
         if (search) params.set('search', search);
         if (filter && filter !== 'all') params.set('filter', filter);
         if (sort && sort !== 'category') params.set('sort', sort);
-        if (runIndex !== null) params.set('run', String(runIndex));
+        if (runIndex !== null && DATA.history[runIndex]) params.set('run', DATA.history[runIndex].timestamp);
         const paramStr = params.toString();
         const newHash = paramStr ? '#/tests?' + paramStr : '#/tests';
         if (window.location.hash !== newHash) {
@@ -895,22 +899,24 @@
       // Detect if viewing a historical run (reactive to route prop from App)
       const runParams = route.includes('?') ? new URLSearchParams(route.split('?')[1]) : null;
       const runStr = runParams ? runParams.get('run') : null;
-      const runIndex = runStr !== null ? parseInt(runStr, 10) : null;
+      const runIndex = useMemo(() => {
+        if (runStr === null) return null;
+        const byTs = DATA.history.findIndex(r => r.timestamp === runStr);
+        if (byTs >= 0) return byTs;
+        const parsed = parseInt(runStr, 10);
+        return isNaN(parsed) ? null : parsed;
+      }, [runStr]);
 
       const historicalRun = (runIndex !== null && runIndex !== DATA.history.length - 1) ? DATA.history[runIndex] : null;
 
-      // Precompute run selector pills
-      const runPills = DATA.history.map((run, idx) => {
+      // Run selector: active timestamp for the select
+      const activeRunTimestamp = runIndex !== null && DATA.history[runIndex] ? DATA.history[runIndex].timestamp : DATA.history[DATA.history.length - 1]?.timestamp;
+      const onRunChange = (e) => {
+        const ts = e.target.value;
+        const idx = DATA.history.findIndex(r => r.timestamp === ts);
         const isLatest = idx === DATA.history.length - 1;
-        const isActive = runIndex === idx || (runIndex === null && isLatest);
-        const passRate = Math.round((run.outcomes.passed / Object.values(run.outcomes).reduce((a, b) => a + b, 0)) * 100);
-        const pillStyle = 'display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:12px;font-size:var(--font-xs);font-weight:500;cursor:pointer;transition:all 0.2s;border:1px solid ' + (isActive ? 'var(--accent)' : 'var(--border-color)') + ';background:' + (isActive ? 'var(--accent)' : 'var(--bg-surface)') + ';color:' + (isActive ? '#fff' : 'var(--text-secondary)');
-        const target = isLatest ? '/tests' : '/tests?run=' + idx;
-        const label = run.label.replace('build ', '');
-        const title = run.label + ' — ' + new Date(run.timestamp).toLocaleDateString() + ' — ' + passRate + '% pass rate';
-        const onClick = () => onNavigate(target);
-        return { pillStyle, label, title, onClick };
-      });
+        onNavigate(isLatest ? '/tests' : '/tests?run=' + ts);
+      };
 
       // Compute outcomes for the selected run (not always the latest)
       const runOutcomes = useMemo(() => {
@@ -934,11 +940,13 @@
 
           <div style="display:flex;align-items:center;gap:var(--space-sm);margin-bottom:var(--space-md);flex-wrap:wrap">
             <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Test run:</span>
-            ${runPills.map(pill => html`
-              <div style=${pill.pillStyle} onClick=${pill.onClick} title=${pill.title}>
-                <span>${pill.label}</span>
-              </div>
-            `)}
+            <select class="sort-select" value=${activeRunTimestamp} onChange=${onRunChange} aria-label="Select test run" style="min-width:200px">
+              ${DATA.history.map((run) => {
+                const passRate = Math.round((run.outcomes.passed / Object.values(run.outcomes).reduce((a, b) => a + b, 0)) * 100);
+                const label = run.label.replace('build ', '') + ' — ' + new Date(run.timestamp).toLocaleDateString() + ' — ' + passRate + '% pass rate';
+                return html`<option value=${run.timestamp} selected=${run.timestamp === activeRunTimestamp}>${label}</option>`;
+              })}
+            </select>
           </div>
 
           <div style="position:relative;margin-bottom:var(--space-md)">
@@ -973,10 +981,17 @@
 
     // ===== Test Scenario Detail View =====
     function ScenarioDetailView({ scenarioId, onNavigate }) {
-      // Strip query params from scenarioId (e.g., "path%3Aline?run=1" → "path%3Aline")
+      // Strip query params from scenarioId (e.g., "path%3Aline?run=ts" → "path%3Aline")
       const cleanId = scenarioId.split('?')[0];
       const params = scenarioId.includes('?') ? new URLSearchParams(scenarioId.split('?')[1]) : null;
-      const runIndex = params?.get('run') !== null && params?.get('run') !== undefined ? parseInt(params.get('run'), 10) : null;
+      const runStr = params?.get('run');
+      const runIndex = useMemo(() => {
+        if (runStr === null || runStr === undefined) return null;
+        const byTs = DATA.history.findIndex(r => r.timestamp === runStr);
+        if (byTs >= 0) return byTs;
+        const parsed = parseInt(runStr, 10);
+        return isNaN(parsed) ? null : parsed;
+      }, [runStr]);
 
       const scenario = DATA.scenarios.find(s => {
         const sourceKey = s.source.path + ':' + s.source.line;
@@ -984,6 +999,8 @@
       });
       const [activeAttempt, setActiveAttempt] = useState(0);
       const [lightboxIndex, setLightboxIndex] = useState(-1);
+      const [treeKey, setTreeKey] = useState(0);
+      const [treeExpanded, setTreeExpanded] = useState(true);
 
       // Handle photo deep-link: scroll to and highlight photo on load
       useEffect(() => {
@@ -1029,7 +1046,7 @@
       return html`
         <div>
           <div class="breadcrumb">
-            <a onClick=${() => onNavigate('/tests' + (runIndex !== null ? '?run=' + runIndex : ''))}>Test Scenarios</a>
+            <a onClick=${() => onNavigate('/tests' + (runIndex !== null && DATA.history[runIndex] ? '?run=' + DATA.history[runIndex].timestamp : ''))}>Test Scenarios</a>
             ${scenario.category.split(' › ').map((segment) => html`
               <span>›</span>
               <a onClick=${() => onNavigate('/tests?search=' + encodeURIComponent('"' + segment + '"'))}>${segment}</a>
@@ -1053,7 +1070,7 @@
                 <div class="scenario-detail-meta">
                   <span>${formatDuration(scenario.duration)}</span>
                   <span>•</span>
-                  <span class="scenario-source">${scenario.source.path}:${scenario.source.line}</span>
+                  <span class="scenario-source">${relativeSourcePath(scenario)}</span>
                   ${getBrowserTag(scenario) ? html`<span class="badge badge-${getBrowserTag(scenario)}">${getBrowserTag(scenario)}</span>` : null}
                 </div>
               </div>
@@ -1073,7 +1090,7 @@
                     const isActive = runIndex === idx;
                     const blockStyle = 'width:20px;height:20px;border-radius:4px;background:var(--color-' + outcomeClass(entry.outcome) + ');opacity:' + (isActive ? '1' : '0.85') + ';display:flex;align-items:center;justify-content:center;font-size:var(--font-2xs);color:#fff;font-weight:600' + (isActive ? ';box-shadow:0 0 0 2px var(--bg-surface), 0 0 0 4px var(--accent)' : '');
                     const labelStyle = 'font-size:var(--font-xs);color:' + (isActive ? 'var(--accent)' : 'var(--text-disabled)') + ';font-weight:' + (isActive ? '600' : '400');
-                    const handleRunClick = (e) => { e.stopPropagation(); onNavigate(scenarioUrl(scenario) + '?run=' + idx); };
+                    const handleRunClick = (e) => { e.stopPropagation(); onNavigate(scenarioUrl(scenario) + '?run=' + (DATA.history[idx] ? DATA.history[idx].timestamp : idx)); };
                     return html`
                     <div style="display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"
                          title="${entry.run}: ${entry.outcome}"
@@ -1133,13 +1150,17 @@
 
           ${currentActivities.length > 0 || scenario.scenarioOutline ? html`
             <div class="card" style="margin-bottom:var(--space-md)">
-              <div class="card-title">Activity Tree</div>
+              <div style="display:flex;align-items:center;gap:var(--space-sm);margin-bottom:var(--space-sm)">
+                <div class="card-title" style="margin-bottom:0">Activity Tree</div>
+                <button onClick=${() => { setTreeExpanded(true); setTreeKey(k => k + 1); }} title="Expand all" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px 4px;font-size:var(--font-sm);opacity:0.7" aria-label="Expand all">▼</button>
+                <button onClick=${() => { setTreeExpanded(false); setTreeKey(k => k + 1); }} title="Collapse all" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px 4px;font-size:var(--font-sm);opacity:0.7" aria-label="Collapse all">▶</button>
+              </div>
               ${scenario.scenarioOutline ? html`
                 <div style="margin-bottom:var(--space-md);padding:var(--space-sm) var(--space-md);background:var(--bg-primary);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:var(--font-sm);white-space:pre-line;color:var(--text-secondary)">${scenario.scenarioOutline.template}</div>
                 <${ParameterSetGroups} parameters=${scenario.scenarioOutline.parameters} />
               ` : html`
-                <div class="activity-tree">
-                  ${currentActivities.map(activity => html`<${ActivityNode} activity=${activity} />`)}
+                <div class="activity-tree" key=${treeKey}>
+                  ${currentActivities.map(activity => html`<${ActivityNode} activity=${activity} defaultExpanded=${treeExpanded} />`)}
                 </div>
               `}
             </div>
@@ -1316,7 +1337,9 @@
     }
 
     // ===== Activity Node (recursive) =====
-    function ActivityNode({ activity }) {
+    function ActivityNode({ activity, defaultExpanded }) {
+      const hasChildren = activity.children && activity.children.length > 0;
+      const [expanded, setExpanded] = useState(defaultExpanded !== undefined ? defaultExpanded : true);
       const hasPhoto = activity.artifacts && activity.artifacts.some(a => a.path && a.path.endsWith('.png'));
       const { displayName, parsedDataTable, parsedDocString } = useMemo(() => {
         const name = activity.name;
@@ -1349,7 +1372,8 @@
       const effectiveDocString = activity.docString || parsedDocString;
       return html`
         <div class="activity-node">
-          <div class="activity-row">
+          <div class="activity-row" style=${hasChildren ? 'cursor:pointer' : ''} onClick=${hasChildren ? () => setExpanded(!expanded) : undefined}>
+            ${hasChildren ? html`<span style="font-size:var(--font-xs);width:12px;flex-shrink:0;text-align:center;transform:${expanded ? 'rotate(90deg)' : 'none'};transition:transform 0.15s">▸</span>` : html`<span style="width:12px;flex-shrink:0"></span>`}
             <div class="activity-icon ${outcomeClass(activity.outcome)}">
               ${outcomeIcon(activity.outcome)}
             </div>
@@ -1377,9 +1401,9 @@
               <pre style="font-size:var(--font-sm);font-family:var(--font-mono);background:var(--bg-primary);padding:var(--space-sm) var(--space-md);border-radius:var(--radius-sm);border:1px solid var(--border-color);white-space:pre-wrap;margin:0">${effectiveDocString}</pre>
             </div>
           ` : null}
-          ${activity.children && activity.children.length > 0 ? html`
+          ${activity.children && activity.children.length > 0 && expanded ? html`
             <div style="margin-left:var(--space-sm)">
-              ${activity.children.map(child => html`<${ActivityNode} activity=${child} />`)}
+              ${activity.children.map(child => html`<${ActivityNode} activity=${child} defaultExpanded=${defaultExpanded} />`)}
             </div>
           ` : null}
         </div>
@@ -1461,7 +1485,13 @@
       // Parse run index from route
       const errRunParams = (route && route.includes('?')) ? new URLSearchParams(route.split('?')[1]) : null;
       const errRunStr = errRunParams ? errRunParams.get('run') : null;
-      const errRunIndex = errRunStr !== null ? parseInt(errRunStr, 10) : null;
+      const errRunIndex = useMemo(() => {
+        if (errRunStr === null) return null;
+        const byTs = DATA.history.findIndex(r => r.timestamp === errRunStr);
+        if (byTs >= 0) return byTs;
+        const parsed = parseInt(errRunStr, 10);
+        return isNaN(parsed) ? null : parsed;
+      }, [errRunStr]);
       const errIsHistorical = errRunIndex !== null && errRunIndex !== DATA.history.length - 1;
       const errHistoricalRun = errIsHistorical ? DATA.history[errRunIndex] : null;
 
@@ -1470,7 +1500,7 @@
         const isLatest = idx === DATA.history.length - 1;
         const isActive = errRunIndex === idx || (errRunIndex === null && isLatest);
         const pillStyle = 'display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:12px;font-size:var(--font-xs);font-weight:500;cursor:pointer;transition:all 0.2s;border:1px solid ' + (isActive ? 'var(--accent)' : 'var(--border-color)') + ';background:' + (isActive ? 'var(--accent)' : 'var(--bg-surface)') + ';color:' + (isActive ? '#fff' : 'var(--text-secondary)');
-        const target = isLatest ? '/errors' : '/errors?run=' + idx;
+        const target = isLatest ? '/errors' : '/errors?run=' + run.timestamp;
         const label = run.label.replace('build ', '');
         const title = run.label + ' — ' + new Date(run.timestamp).toLocaleDateString();
         const onClick = () => onNavigate(target);
@@ -2276,9 +2306,8 @@
           <div class="card-title">Test Run History</div>
           <div class="scenario-list">
             ${runs.map((run) => {
-              const originalIndex = DATA.history.indexOf(run);
               return html`
-              <div class="scenario-item" onClick=${() => onNavigate('/tests?run=' + originalIndex)} style="cursor:pointer">
+              <div class="scenario-item" onClick=${() => onNavigate('/tests?run=' + run.timestamp)} style="cursor:pointer">
                 <div class="scenario-outcome-icon passed" style="background:var(--accent-light);color:var(--text-primary)">
                   #
                 </div>
