@@ -104,6 +104,16 @@ export class DataSnapshotAggregator {
                     outcome: outcomeCodeToDisplayString(scene.outcome.code),
                     activities: scene.activities.map(activity => this.mapActivityOutcome(activity)),
                     executionHistory,
+                    ...(scene.scenarioOutline ? {
+                        scenarioOutline: {
+                            template: scene.scenarioOutline.template,
+                            parameters: scene.scenarioOutline.parameters.map(ps => ({
+                                ...ps,
+                                outcome: outcomeCodeToDisplayString(ps.outcome.code),
+                                activities: ps.activities.map(activity => this.mapActivityOutcome(activity)),
+                            })),
+                        },
+                    } : {}),
                 };
             }),
             history: allRuns.map(run => {
