@@ -20,7 +20,7 @@ const templateDir = resolve(packageRoot, 'template');
 // --- Step 1: Bundle the app JS with esbuild ---
 
 const result = buildSync({
-    entryPoints: [resolve(templateDir, 'app.js')],
+    entryPoints: [resolve(templateDir, 'app.tsx')],
     bundle: true,
     format: 'iife',
     write: false,
