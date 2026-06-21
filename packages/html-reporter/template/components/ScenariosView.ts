@@ -1,0 +1,331 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { defaultRangeExtractor } from '@tanstack/virtual-core';
+import htm from 'htm';
+import { h } from 'preact';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
+
+import { useVirtualizer } from '../hooks';
+import { DATA, formatDuration, getBrowserTag, matchesSearch, outcomeClass, outcomeIcon, relativeSourcePath, scenarioUrl } from '../utils';
+import { FilterBar } from './FilterBar';
+
+const html = htm.bind(h);
+
+// ===== Virtualized Scenario List Component =====
+function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, setSearch }) {
+    const parentRef = useRef(null);
+    const SCENARIO_ROW_HEIGHT = 108;
+    const GROUP_HEADER_HEIGHT_FIRST = 62;
+    const GROUP_HEADER_HEIGHT_REST = 78;
+    const GROUP_HEADER_CONTENT_HEIGHT = 46;
+
+    const flatItems = useMemo(() => {
+        if (sort === 'category') {
+            const items = [];
+            for (const [category, scenarios] of Object.entries(grouped)) {
+                items.push({ type: 'header', category });
+                for (const scenario of scenarios) {
+                    items.push({ type: 'scenario', scenario });
+                }
+            }
+            return items;
+        }
+        return filtered.map(scenario => ({ type: 'scenario', scenario }));
+    }, [sort, filtered, grouped]);
+
+    const headerIndices = useMemo(() => {
+        const indices = [];
+        flatItems.forEach((item, i) => {
+            if (item.type === 'header') indices.push(i);
+        });
+        return indices;
+    }, [flatItems]);
+
+    const activeStickyRef = useRef(-1);
+
+    const rangeExtractor = useCallback((range) => {
+        if (sort !== 'category' || headerIndices.length === 0) {
+            activeStickyRef.current = -1;
+            return defaultRangeExtractor(range);
+        }
+        let activeStickyIndex = headerIndices[0];
+        for (const index of headerIndices) {
+            if (index > range.startIndex) break;
+            activeStickyIndex = index;
+        }
+        activeStickyRef.current = activeStickyIndex;
+
+        const defaultRange = defaultRangeExtractor(range);
+        if (!defaultRange.includes(activeStickyIndex)) {
+            return [activeStickyIndex, ...defaultRange];
+        }
+        return defaultRange;
+    }, [sort, headerIndices]);
+
+    const virtualizer = useVirtualizer({
+        count: flatItems.length,
+        getScrollElement: () => parentRef.current,
+        estimateSize: (index) => flatItems[index].type === 'header' ? (index === 0 ? GROUP_HEADER_HEIGHT_FIRST : GROUP_HEADER_HEIGHT_REST) : SCENARIO_ROW_HEIGHT,
+        overscan: 15,
+        rangeExtractor,
+    });
+
+    const stickyElementRef = useRef(null);
+    if (!stickyElementRef.current) {
+        stickyElementRef.current = document.createElement('div');
+        stickyElementRef.current.id = 'vs-sticky-header';
+        stickyElementRef.current.className = 'scenario-group-header';
+        stickyElementRef.current.style.cssText = 'display:none;position:sticky;top:0;width:100%;height:46px;flex-shrink:0;z-index:3;background:var(--bg-surface);box-shadow:0 1px 0 var(--border-color);margin-bottom:-46px;padding:var(--space-md) var(--space-md) var(--space-sm);font-size:var(--font-sm);font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px';
+    }
+
+    const parentRefCallback = useCallback((node) => {
+        parentRef.current = node;
+        if (node && sort === 'category') {
+            const stickyElement = stickyElementRef.current;
+            if (stickyElement.parentNode !== node) {
+                node.insertBefore(stickyElement, node.firstChild);
+            }
+        }
+    }, [sort]);
+
+    useEffect(() => {
+        const element = parentRef.current;
+        const stickyElement = stickyElementRef.current;
+        if (!element || sort !== 'category') {
+            stickyElement.style.display = 'none';
+            return;
+        }
+        let currentCategory = '';
+
+        const headerStarts = [];
+        let pos = 0;
+        for (let i = 0; i < flatItems.length; i++) {
+            if (flatItems[i].type === 'header') {
+                headerStarts.push({ index: i, start: pos, category: flatItems[i].category });
+            }
+            const headerHeight = i === 0 ? GROUP_HEADER_HEIGHT_FIRST : GROUP_HEADER_HEIGHT_REST;
+            pos += flatItems[i].type === 'header' ? headerHeight : SCENARIO_ROW_HEIGHT;
+        }
+
+        const onScroll = () => {
+            const scrollTop = element.scrollTop;
+            let activeHeader = null;
+            for (const h of headerStarts) {
+                if (h.start <= scrollTop) activeHeader = h;
+                else break;
+            }
+            const activeHeaderHeight = activeHeader && activeHeader.index === 0 ? GROUP_HEADER_HEIGHT_FIRST : GROUP_HEADER_HEIGHT_REST;
+            if (!activeHeader || scrollTop <= activeHeader.start + activeHeaderHeight) {
+                stickyElement.style.display = 'none';
+                return;
+            }
+            stickyElement.style.display = 'block';
+            if (currentCategory !== activeHeader.category) {
+                currentCategory = activeHeader.category;
+                stickyElement.textContent = activeHeader.category.replace(/ › /g, '  ›  ');
+            }
+        };
+        element.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+        return () => element.removeEventListener('scroll', onScroll);
+    }, [sort, flatItems]);
+
+    return html`
+    <div ref=${parentRefCallback} style="max-height:calc(100vh - 380px);overflow-y:auto;position:relative">
+      <div style="height:${virtualizer.getTotalSize()}px;width:100%;position:relative">
+        ${virtualizer.getVirtualItems().map(virtualRow => {
+            const item = flatItems[virtualRow.index];
+            if (item.type === 'header') {
+                const segments = item.category.split(' › ');
+                const topOffset = virtualRow.index === 0 ? 0 : 16;
+                return html`
+              <div style="position:absolute;top:0;left:0;width:100%;height:${GROUP_HEADER_CONTENT_HEIGHT}px;transform:translateY(${virtualRow.start + topOffset}px);background:var(--bg-surface);z-index:1"
+                   class="scenario-group-header">
+                ${segments.map((segment, index) => html`
+                  <span style="cursor:pointer" onClick=${() => setSearch('"' + segment + '"')}>${segment}</span>${index < segments.length - 1 ? html`<span style="margin:0 4px;text-decoration:none;cursor:default"> › </span>` : null}
+                `)}
+              </div>
+            `;
+            }
+            const scenario = item.scenario;
+            const clickHandler = () => onNavigate(scenarioUrl(scenario, runIndex));
+            const stopProp = (e) => e.stopPropagation();
+            return html`
+            <div style="position:absolute;top:0;left:0;width:100%;height:${SCENARIO_ROW_HEIGHT}px;transform:translateY(${virtualRow.start}px);overflow:hidden"
+                 class="scenario-item" role="button" tabindex="0" onClick=${clickHandler}
+                 onKeyDown=${(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); clickHandler(); } }}>
+              <div class="scenario-outcome-icon ${outcomeClass(scenario.outcome)}">
+                ${outcomeIcon(scenario.outcome)}
+              </div>
+              <div class="scenario-info">
+                <div class="scenario-name">${scenario.name}</div>
+                <div class="scenario-tags">
+                  ${getBrowserTag(scenario) ? html`<a href=${'#/tests?search=' + encodeURIComponent('"' + getBrowserTag(scenario) + '"')} class="badge badge-${getBrowserTag(scenario)}" style="text-decoration:none;cursor:pointer" onClick=${stopProp}>${getBrowserTag(scenario)}</a>` : null}
+                  ${scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
+                  ${[...new Map((scenario.tags || []).filter(t => t.type !== 'feature' && t.type !== 'browser').map(t => [t.type + ':' + t.name, t])).values()].map(t => html`<a href=${'#/tests?search=' + encodeURIComponent('"' + t.name + '"')} class="tag-chip" style="font-size:var(--font-2xs);padding:1px 6px;text-decoration:none" onClick=${stopProp}>${t.name}</a>`)}
+                </div>
+                <div class="scenario-meta">
+                  <span class="scenario-source" style="direction:rtl;text-align:left;unicode-bidi:plaintext">${relativeSourcePath(scenario)}</span>
+                </div>
+              </div>
+              <span class="scenario-duration">${formatDuration(scenario.duration)}</span>
+            </div>
+          `;
+        })}
+      </div>
+    </div>
+  `;
+}
+
+// ===== Test Scenarios List View =====
+export function ScenariosView({ onNavigate, route }) {
+    const [search, setSearch] = useState(() => {
+        const hash = window.location.hash;
+        const params = hash.includes('?') ? new URLSearchParams(hash.split('?')[1]) : null;
+        return params?.get('search') || '';
+    });
+    const [filter, setFilter] = useState(() => {
+        const hash = window.location.hash;
+        const params = hash.includes('?') ? new URLSearchParams(hash.split('?')[1]) : null;
+        return params?.get('filter') || 'all';
+    });
+    const [sort, setSort] = useState(() => {
+        const hash = window.location.hash;
+        const params = hash.includes('?') ? new URLSearchParams(hash.split('?')[1]) : null;
+        return params?.get('sort') || 'category';
+    });
+
+    useEffect(() => {
+        const params = route.includes('?') ? new URLSearchParams(route.split('?')[1]) : null;
+        const newSearch = params?.get('search') || '';
+        const newFilter = params?.get('filter') || 'all';
+        const newSort = params?.get('sort') || 'category';
+        setSearch(newSearch);
+        setFilter(newFilter);
+        setSort(newSort);
+    }, [route]);
+
+    const filtered = useMemo(() => {
+        let result = DATA.scenarios;
+        if (filter === 'non-passing') {
+            result = result.filter(s => s.outcome !== 'SUCCESS');
+        } else if (filter !== 'all') {
+            const filterMatch = { passed: ['SUCCESS'], failed: ['FAILURE', 'ERROR', 'COMPROMISED'], skipped: ['SKIPPED', 'PENDING'] };
+            const allowed = filterMatch[filter];
+            if (allowed) result = result.filter(s => allowed.includes(s.outcome));
+        }
+        if (search) {
+            result = result.filter(s => matchesSearch(s, search));
+        }
+        if (sort === 'name') {
+            result = [...result].sort((a, b) => a.name.localeCompare(b.name));
+        } else if (sort === 'duration') {
+            result = [...result].sort((a, b) => b.duration - a.duration);
+        } else if (sort === 'status') {
+            const statusOrder = { FAILURE: 1, ERROR: 2, COMPROMISED: 3, PENDING: 4, SKIPPED: 5, SUCCESS: 6 };
+            result = [...result].sort((a, b) => (statusOrder[a.outcome] || 6) - (statusOrder[b.outcome] || 6));
+        }
+        return result;
+    }, [search, filter, sort]);
+
+    // Detect run index from route
+    const runParameters = route.includes('?') ? new URLSearchParams(route.split('?')[1]) : null;
+    const runString = runParameters ? runParameters.get('run') : null;
+    const runIndex = useMemo(() => {
+        if (runString === null) return null;
+        const byTs = DATA.history.findIndex(r => r.timestamp === runString);
+        if (byTs >= 0) return byTs;
+        const parsed = parseInt(runString, 10);
+        return isNaN(parsed) ? null : parsed;
+    }, [runString]);
+
+    useEffect(() => {
+        const params = new URLSearchParams();
+        if (search) params.set('search', search);
+        if (filter && filter !== 'all') params.set('filter', filter);
+        if (sort && sort !== 'category') params.set('sort', sort);
+        if (runIndex !== null && DATA.history[runIndex]) params.set('run', DATA.history[runIndex].timestamp);
+        const parameterString = params.toString();
+        const newHash = parameterString ? '#/tests?' + parameterString : '#/tests';
+        if (window.location.hash !== newHash) {
+            window.history.replaceState(null, '', newHash);
+        }
+    }, [search, filter, sort]);
+
+    const grouped = useMemo(() => {
+        const groups = {};
+        for (const s of filtered) {
+            if (!groups[s.category]) groups[s.category] = [];
+            groups[s.category].push(s);
+        }
+        return groups;
+    }, [filtered]);
+
+    const historicalRun = (runIndex !== null && runIndex !== DATA.history.length - 1) ? DATA.history[runIndex] : null;
+
+    const activeRunTimestamp = runIndex !== null && DATA.history[runIndex] ? DATA.history[runIndex].timestamp : DATA.history[DATA.history.length - 1]?.timestamp;
+    const onRunChange = (e) => {
+        const ts = e.target.value;
+        const index = DATA.history.findIndex(r => r.timestamp === ts);
+        const isLatest = index === DATA.history.length - 1;
+        onNavigate(isLatest ? '/tests' : '/tests?run=' + ts);
+    };
+
+    const runOutcomes = useMemo(() => {
+        if (runIndex !== null && DATA.history[runIndex]) {
+            return DATA.history[runIndex].outcomes;
+        }
+        return DATA.summary.outcomes;
+    }, [runIndex]);
+    const runTotal = useMemo(() => {
+        return Object.values(runOutcomes).reduce((a, b) => a + b, 0);
+    }, [runOutcomes]);
+
+    return html`
+    <div>
+      ${historicalRun ? html`
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px var(--space-md);margin-bottom:var(--space-md);background:var(--accent-light);border:1px solid var(--accent);border-radius:var(--radius-sm);font-size:var(--font-md)">
+          <span>Viewing results from: <strong>${historicalRun.label}</strong> (${new Date(historicalRun.timestamp).toLocaleString()}) — ${formatDuration(historicalRun.duration)}</span>
+          <a href="#/tests" style="cursor:pointer;color:var(--accent);font-weight:500;text-decoration:underline">show latest</a>
+        </div>
+      ` : null}
+
+      <div style="display:flex;align-items:center;gap:var(--space-sm);margin-bottom:var(--space-md);flex-wrap:wrap">
+        <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Test run:</span>
+        <select class="sort-select" value=${activeRunTimestamp} onChange=${onRunChange} aria-label="Select test run" style="min-width:200px">
+          ${[...DATA.history].reverse().map((run) => {
+                const passRate = Math.round((run.outcomes.passed / Object.values(run.outcomes).reduce((a, b) => a + b, 0)) * 100);
+                const label = run.label.replace('build ', '') + ' — ' + new Date(run.timestamp).toLocaleDateString() + ' — ' + passRate + '% pass rate';
+                return html`<option value=${run.timestamp} selected=${run.timestamp === activeRunTimestamp}>${label}</option>`;
+            })}
+        </select>
+      </div>
+
+      <div style="position:relative;margin-bottom:var(--space-md)">
+        <input class="search-input" type="text" placeholder="Find test scenarios..."
+               value=${search} onInput=${e => setSearch(e.target.value)}
+               aria-label="Find test scenarios" style="margin-bottom:0;padding-right:36px" />
+        ${search ? html`<button onClick=${() => setSearch('')}
+          style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-secondary);font-size:var(--font-lg);padding:4px;line-height:1"
+          aria-label="Clear search">✕</button>` : null}
+      </div>
+
+      <${FilterBar} outcomes=${runOutcomes} total=${runTotal}
+                     activeFilter=${filter} onFilter=${setFilter}
+                     sortOptions=${[
+                            { key: 'category', label: 'Category' },
+                            { key: 'name', label: 'Name' },
+                            { key: 'duration', label: 'Slowest' },
+                            { key: 'status', label: 'Status' },
+                        ]}
+                     activeSort=${sort} onSort=${setSort} />
+
+      <div class="card">
+        <div style="font-size:var(--font-sm);color:var(--text-secondary);margin-bottom:var(--space-md)">
+          Showing ${filtered.length} of ${DATA.scenarios.length} test scenarios
+        </div>
+        <${VirtualScenarioList} filtered=${filtered} grouped=${grouped} sort=${sort}
+          onNavigate=${onNavigate} runIndex=${runIndex} setSearch=${setSearch} />
+      </div>
+    </div>
+  `;
+}
