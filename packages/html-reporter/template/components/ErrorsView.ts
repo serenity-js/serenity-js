@@ -2,9 +2,9 @@
 import { defaultRangeExtractor } from '@tanstack/virtual-core';
 import htm from 'htm';
 import { h } from 'preact';
-import { useCallback, useEffect, useMemo, useRef } from 'preact/hooks';
+import { useCallback, useMemo, useRef } from 'preact/hooks';
 
-import { useVirtualizer } from '../hooks';
+import { useStickyHeader, useVirtualizer } from '../hooks';
 import { DATA, formatDuration, outcomeClass, outcomeIcon, relativeSourcePath, scenarioUrl } from '../utils';
 import { icons } from './icons';
 
@@ -116,62 +116,31 @@ export function ErrorsView({ onNavigate, route }) {
         rangeExtractor: errorRangeExtractor,
     });
 
-    const errorStickyElementRef = useRef(null);
-    if (!errorStickyElementRef.current) {
-        errorStickyElementRef.current = document.createElement('div');
-        errorStickyElementRef.current.id = 'vs-errors-sticky';
-        errorStickyElementRef.current.className = 'scenario-group-header';
-        errorStickyElementRef.current.style.cssText = 'display:none;position:sticky;top:0;width:100%;height:46px;flex-shrink:0;z-index:3;background:var(--bg-surface);box-shadow:0 1px 0 var(--border-color);margin-bottom:-46px;padding:var(--space-md) var(--space-md) var(--space-sm);font-size:var(--font-sm);font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;direction:ltr';
-    }
-
-    const errorParentRefCallback = useCallback((node) => {
-        errorParentRef.current = node;
-        if (node) {
-            const stickyElement = errorStickyElementRef.current;
-            if (stickyElement.parentNode !== node) node.insertBefore(stickyElement, node.firstChild);
-        }
-    }, []);
-
-    useEffect(() => {
-        const element = errorParentRef.current;
-        const stickyElement = errorStickyElementRef.current;
-        if (!element) { stickyElement.style.display = 'none'; return; }
-        const headerStarts = [];
-        let pos = 0;
-        for (let i = 0; i < renderItems.length; i++) {
-            if (renderItems[i].type === 'header') headerStarts.push({ index: i, start: pos, item: renderItems[i] });
-            const hHeight = i === 0 ? ERROR_HEADER_HEIGHT_FIRST : ERROR_HEADER_HEIGHT_REST;
-            pos += renderItems[i].type === 'header' ? hHeight : ERROR_ROW_HEIGHT;
-        }
-        let currentName = '';
-        const onScroll = () => {
-            const scrollTop = element.scrollTop;
-            let activeHeader = null;
-            for (const h of headerStarts) { if (h.start <= scrollTop) activeHeader = h; else break; }
-            const activeHeaderHeight = activeHeader && activeHeader.index === 0 ? ERROR_HEADER_HEIGHT_FIRST : ERROR_HEADER_HEIGHT_REST;
-            if (!activeHeader || scrollTop <= activeHeader.start + activeHeaderHeight) { stickyElement.style.display = 'none'; return; }
-            stickyElement.style.display = 'flex';
-            stickyElement.style.alignItems = 'center';
-            stickyElement.style.gap = 'var(--space-sm)';
-            if (currentName !== activeHeader.item.name) {
-                currentName = activeHeader.item.name;
-                stickyElement.innerHTML = '';
-                const iconSpan = document.createElement('span');
-                iconSpan.textContent = activeHeader.item.icon;
-                const nameSpan = document.createElement('span');
-                nameSpan.textContent = activeHeader.item.name;
-                const countSpan = document.createElement('span');
-                countSpan.textContent = '(' + activeHeader.item.count + ')';
-                countSpan.style.cssText = 'font-size:var(--font-xs);color:var(--text-disabled);font-weight:400';
-                stickyElement.appendChild(iconSpan);
-                stickyElement.appendChild(nameSpan);
-                stickyElement.appendChild(countSpan);
-            }
-        };
-        element.addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
-        return () => element.removeEventListener('scroll', onScroll);
-    }, [renderItems]);
+    const { parentRefCallback: errorParentRefCallback } = useStickyHeader({
+        parentRef: errorParentRef,
+        id: 'vs-errors-sticky',
+        flatItems: renderItems,
+        enabled: true,
+        headerHeight: ERROR_HEADER_HEIGHT_REST,
+        firstHeaderHeight: ERROR_HEADER_HEIGHT_FIRST,
+        rowHeight: ERROR_ROW_HEIGHT,
+        renderContent: (element, item) => {
+            element.style.display = 'flex';
+            element.style.alignItems = 'center';
+            element.style.gap = 'var(--space-sm)';
+            element.innerHTML = '';
+            const iconSpan = document.createElement('span');
+            iconSpan.textContent = item.icon;
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = item.name;
+            const countSpan = document.createElement('span');
+            countSpan.textContent = '(' + item.count + ')';
+            countSpan.style.cssText = 'font-size:var(--font-xs);color:var(--text-disabled);font-weight:400';
+            element.appendChild(iconSpan);
+            element.appendChild(nameSpan);
+            element.appendChild(countSpan);
+        },
+    });
 
     if (errorScenarios.length === 0) {
         return html`

@@ -2,9 +2,9 @@
 import { defaultRangeExtractor } from '@tanstack/virtual-core';
 import htm from 'htm';
 import { h } from 'preact';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import { useCallback, useMemo, useRef, useState } from 'preact/hooks';
 
-import { useVirtualizer } from '../hooks';
+import { useStickyHeader, useVirtualizer } from '../hooks';
 import { DATA, matchesSearch, outcomeClass, scenarioUrl } from '../utils';
 import { icons } from './icons';
 
@@ -108,50 +108,18 @@ export function StabilityView({ onNavigate }) {
         rangeExtractor,
     });
 
-    const stickyElementRef = useRef(null);
-    if (!stickyElementRef.current) {
-        stickyElementRef.current = document.createElement('div');
-        stickyElementRef.current.id = 'vs-stability-sticky';
-        stickyElementRef.current.className = 'scenario-group-header';
-        stickyElementRef.current.style.cssText = 'display:none;position:sticky;top:0;width:100%;height:46px;flex-shrink:0;z-index:3;background:var(--bg-surface);box-shadow:0 1px 0 var(--border-color);margin-bottom:-46px;padding:var(--space-md) var(--space-md) var(--space-sm);font-size:var(--font-sm);font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px';
-    }
-
-    const parentRefCallback = useCallback((node) => {
-        parentRef.current = node;
-        if (node && sort === 'category') {
-            const stickyElement = stickyElementRef.current;
-            if (stickyElement.parentNode !== node) node.insertBefore(stickyElement, node.firstChild);
-        }
-    }, [sort]);
-
-    useEffect(() => {
-        const element = parentRef.current;
-        const stickyElement = stickyElementRef.current;
-        if (!element || sort !== 'category') { stickyElement.style.display = 'none'; return; }
-        const headerStarts = [];
-        let pos = 0;
-        for (let i = 0; i < flatItems.length; i++) {
-            if (flatItems[i].type === 'header') headerStarts.push({ index: i, start: pos, category: flatItems[i].category });
-            const hHeight = i === 0 ? STABILITY_HEADER_HEIGHT_FIRST : STABILITY_HEADER_HEIGHT_REST;
-            pos += flatItems[i].type === 'header' ? hHeight : STABILITY_ROW_HEIGHT;
-        }
-        let currentCategory = '';
-        const onScroll = () => {
-            const scrollTop = element.scrollTop;
-            let activeHeader = null;
-            for (const h of headerStarts) { if (h.start <= scrollTop) activeHeader = h; else break; }
-            const activeHeaderHeight = activeHeader && activeHeader.index === 0 ? STABILITY_HEADER_HEIGHT_FIRST : STABILITY_HEADER_HEIGHT_REST;
-            if (!activeHeader || scrollTop <= activeHeader.start + activeHeaderHeight) { stickyElement.style.display = 'none'; return; }
-            stickyElement.style.display = 'block';
-            if (currentCategory !== activeHeader.category) {
-                currentCategory = activeHeader.category;
-                stickyElement.textContent = activeHeader.category.replace(/ › /g, '  ›  ');
-            }
-        };
-        element.addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
-        return () => element.removeEventListener('scroll', onScroll);
-    }, [sort, flatItems]);
+    const { parentRefCallback } = useStickyHeader({
+        parentRef,
+        id: 'vs-stability-sticky',
+        flatItems,
+        enabled: sort === 'category',
+        headerHeight: STABILITY_HEADER_HEIGHT_REST,
+        firstHeaderHeight: STABILITY_HEADER_HEIGHT_FIRST,
+        rowHeight: STABILITY_ROW_HEIGHT,
+        renderContent: (element, item) => {
+            element.textContent = item.category.replace(/ › /g, '  ›  ');
+        },
+    });
 
     const kindIcon = (kind) => {
         if (kind === 'degraded') return html`<span class="scenario-outcome-icon failed">✗</span>`;
