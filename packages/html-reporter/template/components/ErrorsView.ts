@@ -7,6 +7,7 @@ import { useCallback, useMemo, useRef } from 'preact/hooks';
 import { useStickyHeader, useVirtualizer } from '../hooks';
 import { DATA, formatDuration, outcomeClass, outcomeIcon, relativeSourcePath, scenarioUrl } from '../utils';
 import { icons } from './icons';
+import { RunSelector } from './RunSelector';
 
 const html = htm.bind(h);
 
@@ -161,16 +162,7 @@ export function ErrorsView({ onNavigate, route }) {
         </div>
       ` : null}
 
-      <div style="display:flex;align-items:center;gap:var(--space-sm);margin-bottom:var(--space-md);flex-wrap:wrap">
-        <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">Test run:</span>
-        <select class="sort-select" value=${errorActiveRunTs} onChange=${onErrorRunChange} aria-label="Select test run" style="min-width:200px">
-          ${[...DATA.history].reverse().map((run) => {
-                const passRate = Math.round((run.outcomes.passed / Object.values(run.outcomes).reduce((a, b) => a + b, 0)) * 100);
-                const label = run.label.replace('build ', '') + ' — ' + new Date(run.timestamp).toLocaleDateString() + ' — ' + passRate + '% pass rate';
-                return html`<option value=${run.timestamp} selected=${run.timestamp === errorActiveRunTs}>${label}</option>`;
-            })}
-        </select>
-      </div>
+      <${RunSelector} activeTimestamp=${errorActiveRunTs} onRunChange=${onErrorRunChange} />
 
       <div class="grid-stats" style="margin-bottom:var(--space-md)">
         ${summaryCards.map(card => html`
