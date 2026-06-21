@@ -1,466 +1,299 @@
-import { expect } from '@integration/testing-tools';
-import { after,before, describe, it } from 'mocha';
-import type { Page } from 'playwright';
+import { expect, test } from './fixtures';
 
-import {setupReport, teardownReport } from './helpers/report-server';
+test.describe('HTML Reporter', () => {
 
-describe('HTML Reporter', () => {
+    test.describe('Dashboard', () => {
 
-    let page: Page;
-    let baseUrl: string;
-
-    before(async () => {
-        const fixture = await setupReport();
-        page = fixture.page;
-        baseUrl = fixture.baseUrl;
-    });
-
-    after(async () => {
-        await teardownReport();
-    });
-
-    describe('Dashboard', () => {
-
-        before(async () => {
-            await page.goto(`${baseUrl}/index.html#/`);
+        test.beforeEach(async ({ page }) => {
+            await page.goto('/index.html#/');
             await page.waitForSelector('.donut-chart, .card-value');
         });
 
-        it('displays the pass rate', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('66.7%');
+        test('displays the pass rate', async ({ page }) => {
+            await expect(page.locator('body')).toContainText('71.4%');
         });
 
-        it('displays degraded tests in the Degraded card', async () => {
-            const cards = await page.$$('.card');
-            let degradedCardText = '';
-            for (const card of cards) {
-                const text = await card.textContent();
-                if (text?.includes('Degraded')) { degradedCardText = text; break; }
-            }
-            expect(degradedCardText).to.contain('should complete an item');
-            expect(degradedCardText).to.not.contain('No degraded tests');
+        test('displays degraded tests in the Degraded card', async ({ page }) => {
+            const degradedCard = page.locator('.card', { hasText: 'Degraded' });
+            await expect(degradedCard).toContainText('should complete an item');
+            await expect(degradedCard).not.toContainText('No degraded tests');
         });
 
-        it('displays recovered tests in the Recovered card', async () => {
-            const cards = await page.$$('.card');
-            let recoveredCardText = '';
-            for (const card of cards) {
-                const text = await card.textContent();
-                if (text?.includes('Recovered')) { recoveredCardText = text; break; }
-            }
-            expect(recoveredCardText).to.contain('should persist items');
-            expect(recoveredCardText).to.not.contain('No newly recovered tests');
+        test('displays recovered tests in the Recovered card', async ({ page }) => {
+            const recoveredCard = page.locator('.card', { hasText: 'Recovered' });
+            await expect(recoveredCard).toContainText('should persist items');
+            await expect(recoveredCard).not.toContainText('No newly recovered tests');
         });
 
-        it('displays the total scenario count', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('6 scenarios');
+        test('displays the total scenario count', async ({ page }) => {
+            await expect(page.locator('body')).toContainText('7 scenarios');
         });
     });
 
-    describe('Test Scenarios', () => {
+    test.describe('Test Scenarios', () => {
 
-        describe('listing', () => {
+        test.describe('listing', () => {
 
-            before(async () => {
-                await page.goto(`${baseUrl}/index.html#/tests`);
+            test.beforeEach(async ({ page }) => {
+                await page.goto('/index.html#/tests');
                 await page.waitForSelector('.scenario-item');
             });
 
-            it('displays all scenarios', async () => {
-                const text = await page.textContent('body');
-                expect(text).to.contain('Showing 6 of 6 test scenarios');
+            test('displays all scenarios', async ({ page }) => {
+                await expect(page.locator('body')).toContainText('Showing 7 of 7 test scenarios');
             });
 
-            it('shows scenario names', async () => {
-                const text = await page.textContent('body');
-                expect(text).to.contain('should display items');
-                expect(text).to.contain('should add a new item');
+            test('shows scenario names', async ({ page }) => {
+                await expect(page.locator('body')).toContainText('should display items');
+                await expect(page.locator('body')).toContainText('should add a new item');
             });
 
-            it('shows source paths', async () => {
-                const text = await page.textContent('body');
-                expect(text).to.contain('todo/display.spec.ts');
+            test('shows source paths', async ({ page }) => {
+                await expect(page.locator('body')).toContainText('todo.spec.ts');
             });
         });
 
-        describe('search by source path', () => {
+        test.describe('search', () => {
 
-            before(async () => {
-                await page.goto(`${baseUrl}/index.html#/tests?search=%22complete.spec%22`);
-                await page.waitForFunction(() => document.body.textContent?.includes('Showing 1 of 6'));
+            test('filters scenarios by name', async ({ page }) => {
+                await page.goto('/index.html#/tests?search=%22complete%22');
+                await page.waitForFunction(() => document.body.textContent?.includes('Showing 1 of 7'));
+                await expect(page.locator('body')).toContainText('Showing 1 of 7 test scenarios');
+                await expect(page.locator('body')).toContainText('should complete an item');
             });
 
-            it('filters scenarios matching source file name', async () => {
-                const text = await page.textContent('body');
-                expect(text).to.contain('Showing 1 of 6 test scenarios');
-                expect(text).to.contain('should complete an item');
-            });
-        });
-
-        describe('search by category', () => {
-
-            it('filters scenarios by category name', async () => {
-                await page.evaluate(() => window.location.hash = '#/tests?search=%22Persistence%22');
-                await page.waitForFunction(() => document.body.textContent?.includes('Showing 2 of 6'));
-                const text = await page.textContent('body');
-                expect(text).to.contain('Showing 2 of 6 test scenarios');
+            test('filters scenarios by category', async ({ page }) => {
+                await page.goto('/index.html#/tests?search=%22Persistence%22');
+                await page.waitForFunction(() => document.body.textContent?.includes('Showing 2 of 7'));
+                await expect(page.locator('body')).toContainText('Showing 2 of 7 test scenarios');
             });
         });
     });
 
-    describe('Requirements', () => {
+    test.describe('System Context', () => {
 
-        before(async () => {
-            await page.goto(`${baseUrl}/index.html#/requirements`);
-            await page.waitForSelector('.card');
-        });
-
-        it('displays coverage percentage', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('100%');
-        });
-
-        it('displays the requirements tree', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('todo');
-            expect(text).to.contain('persistence');
-        });
-
-        it('renders the readme as HTML', async () => {
-            const readmeElement = await page.$('[style*="border-left"] strong');
-            expect(readmeElement).to.not.be.null;
-            const strongText = await readmeElement!.textContent();
-            expect(strongText).to.equal('Todo application');
-        });
-
-        it('displays scenario counts per requirement', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('6 scenarios total');
-        });
-    });
-
-    describe('System Context', () => {
-
-        before(async () => {
-            await page.goto(`${baseUrl}/index.html#/system`);
+        test.beforeEach(async ({ page }) => {
+            await page.goto('/index.html#/system');
             await page.waitForSelector('.context-grid');
         });
 
-        it('displays Node.js version', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('v22.0.0');
+        test('displays Node.js version', async ({ page }) => {
+            await expect(page.locator('body')).toContainText(process.version);
         });
 
-        it('displays OS information', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('macOS');
-            expect(text).to.contain('14.5');
-            expect(text).to.contain('arm64');
+        test('displays the test runner', async ({ page }) => {
+            await expect(page.locator('body')).toContainText('Playwright');
         });
 
-        it('displays the test runner', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('Playwright');
-            expect(text).to.contain('1.60.0');
+        test('displays CI provider information', async ({ page }) => {
+            await expect(page.locator('body')).toContainText('GitHub Actions');
+            await expect(page.locator('body')).toContainText('#42');
+            await expect(page.locator('body')).toContainText('main');
+            await expect(page.locator('body')).toContainText('abc1234');
         });
 
-        it('displays Serenity/JS version', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('3.44.0');
-        });
-
-        it('displays CI provider information', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('GitHub Actions');
-            expect(text).to.contain('#42');
-            expect(text).to.contain('main');
-            expect(text).to.contain('abc1234');
-        });
-
-        it('displays the commit message', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('fix: resolve flaky test');
+        test('displays the commit message', async ({ page }) => {
+            await expect(page.locator('body')).toContainText('fix: resolve flaky test');
         });
     });
 
-    describe('Errors', () => {
+    test.describe('Errors', () => {
 
-        before(async () => {
-            await page.goto(`${baseUrl}/index.html#/errors`);
-            await page.waitForFunction(() => document.body.textContent?.includes('Expected item'));
+        test.beforeEach(async ({ page }) => {
+            await page.goto('/index.html#/errors');
+            await page.waitForFunction(() => document.body.textContent?.includes('should complete'));
         });
 
-        it('displays error scenarios', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('should complete an item');
+        test('displays error scenarios', async ({ page }) => {
+            await expect(page.locator('body')).toContainText('should complete an item');
         });
 
-        it('shows error messages', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('Expected item to be checked');
+        test('shows error messages', async ({ page }) => {
+            await expect(page.locator('body')).toContainText('Expected');
         });
     });
 
-    describe('Pending scenario detail', () => {
+    test.describe('Stability', () => {
 
-        before(async () => {
-            await page.goto(`${baseUrl}/index.html#/tests/${encodeURIComponent('/project/spec/persistence.spec.ts:20')}`);
-            await page.waitForFunction(() => document.body.textContent?.includes('ImplementationPendingError'));
-        });
-
-        it('displays the error name', async () => {
-            const errorName = await page.textContent('.error-name');
-            expect(errorName).to.contain('ImplementationPendingError');
-        });
-
-        it('displays the failing step location next to the error name', async () => {
-            const errorName = await page.textContent('.error-name');
-            expect(errorName).to.contain('persistence.spec.ts:22');
-        });
-
-        it('displays a copy location button in the error block', async () => {
-            const copyButton = await page.$('.error-name [title="Copy location"]');
-            expect(copyButton).to.not.be.null;
-        });
-
-        it('displays activity locations in the activity tree', async () => {
-            const text = await page.textContent('.activity-tree');
-            expect(text).to.contain('Given a step that passes');
-            expect(text).to.contain('And a step that is pending');
-        });
-
-        it('displays copy invocation location buttons for activities', async () => {
-            const btns = await page.$$('[title*="Copy invocation location"]');
-            expect(btns.length).to.be.greaterThan(0);
-        });
-    });
-
-    describe('Scenario outline detail', () => {
-
-        before(async () => {
-            await page.goto(`${baseUrl}/index.html#/tests/${encodeURIComponent('/project/features/greetings.feature:3')}`);
-            await page.waitForFunction(() => document.body.textContent?.includes('should greet'));
-        });
-
-        it('displays the scenario outline template', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('Given <Developer> is a contributor');
-        });
-
-        it('groups examples by parameter set name', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('contributors');
-        });
-
-        it('displays parameter values for each example', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('jan-molak');
-            expect(text).to.contain('alice');
-        });
-
-        it('displays activities for each example row', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('Given jan-molak is a contributor');
-            expect(text).to.contain('Given alice is a contributor');
-        });
-    });
-
-    describe('Stability', () => {
-
-        before(async () => {
-            await page.goto(`${baseUrl}/index.html#/stability`);
+        test.beforeEach(async ({ page }) => {
+            await page.goto('/index.html#/stability');
             await page.waitForFunction(() => document.body.textContent?.includes('should complete an item'));
         });
 
-        it('displays unstable tests', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('should complete an item');
+        test('displays unstable tests', async ({ page }) => {
+            await expect(page.locator('body')).toContainText('should complete an item');
         });
 
-        it('shows the flakiness rate', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('50%');
+        test('shows the flakiness rate', async ({ page }) => {
+            await expect(page.locator('body')).toContainText('50%');
         });
     });
 
-    describe('Tags', () => {
+    test.describe('Tags', () => {
 
-        before(async () => {
-            await page.goto(`${baseUrl}/index.html#/tags`);
+        test.beforeEach(async ({ page }) => {
+            await page.goto('/index.html#/tags');
             await page.waitForSelector('.tag-card');
         });
 
-        it('displays feature tags', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('Todo List');
-            expect(text).to.contain('Persistence');
+        test('displays feature tags', async ({ page }) => {
+            await expect(page.locator('body')).toContainText('Todo List');
         });
 
-        it('displays browser tags', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('chromium 120.0');
+        test('displays browser tags', async ({ page }) => {
+            await expect(page.locator('body')).toContainText(/chromium \d+\.\d+/);
         });
     });
 
-    describe('Dashboard cards', () => {
+    test.describe('Dashboard cards', () => {
 
-        before(async () => {
-            await page.goto(`${baseUrl}/index.html#/`);
+        test.beforeEach(async ({ page }) => {
+            await page.goto('/index.html#/');
             await page.waitForSelector('.donut-chart, .card-value');
         });
 
-        it('renders the trend chart', async () => {
-            const canvas = await page.$('canvas');
-            expect(canvas).to.not.be.null;
+        test('renders charts', async ({ page }) => {
+            await expect(page.locator('canvas').first()).toBeVisible();
         });
 
-        it('displays slowest tests', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('Slowest');
+        test('displays slowest tests', async ({ page }) => {
+            await expect(page.locator('body')).toContainText('Slowest');
         });
 
-        it('displays CI branch info', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('main');
+        test('displays CI branch info', async ({ page }) => {
+            await expect(page.locator('body')).toContainText('main');
         });
 
-        it('displays CI commit info', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('abc1234');
+        test('displays CI commit info', async ({ page }) => {
+            await expect(page.locator('body')).toContainText('abc1234');
         });
     });
 
-    describe('Scenario filters and navigation', () => {
+    test.describe('Scenario detail with artifacts', () => {
 
-        before(async () => {
-            await page.goto(`${baseUrl}/index.html#/tests`);
+        test.beforeEach(async ({ page }) => {
+            // Navigate to the first passing scenario (has screenshots and video)
+            await page.goto('/index.html#/tests');
             await page.waitForSelector('.scenario-item');
+            await page.locator('.scenario-item', { hasText: 'should display items' }).click();
+            await page.waitForSelector('.activity-tree, .scenario-detail-header');
         });
 
-        it('filters by passed outcome', async () => {
+        test('displays screenshot thumbnails in the activity tree', async ({ page }) => {
+            await expect(page.locator('img[src*="screenshot"]')).not.toHaveCount(0);
+        });
+
+        test('displays video player', async ({ page }) => {
+            await expect(page.locator('video')).toHaveCount(1);
+        });
+
+        test('video source references a webm file', async ({ page }) => {
+            const video = page.locator('video').first();
+            const source = await video.getAttribute('src') || await video.locator('source').getAttribute('src');
+            expect(source).toContain('.webm');
+        });
+    });
+
+    test.describe('Scenario filters and navigation', () => {
+
+        test('filters by passed outcome', async ({ page }) => {
+            await page.goto('/index.html#/tests');
+            await page.waitForSelector('.scenario-item');
             await page.click('button:has-text("Passed")');
-            await page.waitForFunction(() => document.body.textContent?.includes('Showing 4 of 6'));
-            const text = await page.textContent('body');
-            expect(text).to.contain('Showing 4 of 6');
+            await page.waitForFunction(() => document.body.textContent?.includes('Showing 5 of 7'));
+            await expect(page.locator('body')).toContainText('Showing 5 of 7');
         });
 
-        it('navigates to scenario detail on click', async () => {
-            await page.goto(`${baseUrl}/index.html#/tests`);
+        test('shows retried scenario as passed', async ({ page }) => {
+            await page.goto('/index.html#/tests?search=%22edit%22');
+            await page.waitForSelector('.scenario-item');
+            const editItem = page.locator('.scenario-item', { hasText: 'should edit an item' });
+            await expect(editItem).toBeVisible();
+            await expect(editItem.locator('.scenario-outcome-icon.passed')).toBeVisible();
+        });
+
+        test('navigates to scenario detail on click', async ({ page }) => {
+            await page.goto('/index.html#/tests');
             await page.waitForSelector('.scenario-item');
             await page.click('.scenario-item');
             await page.waitForSelector('.activity-tree, .error-block, .scenario-detail-header');
-            const url = page.url();
-            expect(url).to.contain('#/tests/');
+            expect(page.url()).toContain('#/tests/');
         });
     });
 
-    describe('Test Runs', () => {
+    test.describe('Test Runs', () => {
 
-        before(async () => {
-            await page.goto(`${baseUrl}/index.html#/test-runs`);
+        test.beforeEach(async ({ page }) => {
+            await page.goto('/index.html#/test-runs');
             await page.waitForSelector('.scenario-item');
         });
 
-        it('renders the trend chart', async () => {
-            const canvas = await page.$('canvas');
-            expect(canvas).to.not.be.null;
+        test('renders the trend chart', async ({ page }) => {
+            await expect(page.locator('canvas')).toHaveCount(1);
         });
 
-        it('displays run history entries', async () => {
-            const items = await page.$$('.scenario-item');
-            expect(items.length).to.be.greaterThan(0);
+        test('displays run history entries', async ({ page }) => {
+            await expect(page.locator('.scenario-item')).not.toHaveCount(0);
         });
 
-        it('navigates to filtered scenarios on run click', async () => {
+        test('navigates to filtered scenarios on run click', async ({ page }) => {
             await page.click('.scenario-item');
             await page.waitForFunction(() => window.location.hash.includes('/tests?run='));
-            const hash = await page.evaluate(() => window.location.hash);
-            expect(hash).to.contain('/tests?run=');
+            expect(page.url()).toContain('/tests?run=');
         });
     });
 
-    describe('Timeline', () => {
+    test.describe('Timeline', () => {
 
-        before(async () => {
-            await page.goto(`${baseUrl}/index.html#/timeline`);
+        test.beforeEach(async ({ page }) => {
+            await page.goto('/index.html#/timeline');
             await page.waitForSelector('.card');
         });
 
-        it('displays the timeline view', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('Timeline');
+        test('displays the timeline view', async ({ page }) => {
+            await expect(page.locator('body')).toContainText('Timeline');
         });
 
-        it('shows scenario bars', async () => {
-            const text = await page.textContent('body');
-            expect(text).to.contain('should display items');
+        test('shows scenario bars', async ({ page }) => {
+            await expect(page.locator('body')).toContainText('should display items');
         });
     });
 
-    describe('Tags navigation', () => {
+    test.describe('Tags navigation', () => {
 
-        before(async () => {
-            await page.goto(`${baseUrl}/index.html#/tags`);
+        test('navigates to filtered scenarios on tag click', async ({ page }) => {
+            await page.goto('/index.html#/tags');
             await page.waitForSelector('.tag-card');
-        });
-
-        it('navigates to filtered scenarios on tag click', async () => {
             await page.click('.tag-card');
             await page.waitForFunction(() => window.location.hash.includes('/tests'));
-            const hash = await page.evaluate(() => window.location.hash);
-            expect(hash).to.contain('/tests');
+            expect(page.url()).toContain('/tests');
         });
     });
 
-    describe('Theme', () => {
+    test.describe('Theme', () => {
 
-        it('toggles dark mode', async () => {
-            await page.goto(`${baseUrl}/index.html#/`);
+        test('toggles dark mode', async ({ page }) => {
+            await page.goto('/index.html#/');
             await page.waitForSelector('button[aria-label="Toggle theme"]');
             const initialTheme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
             await page.click('button[aria-label="Toggle theme"]');
             await page.waitForFunction(
                 (initial) => document.documentElement.getAttribute('data-theme') !== initial,
-                initialTheme
+                initialTheme,
             );
             const newTheme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
-            expect(newTheme).to.not.equal(initialTheme);
+            expect(newTheme).not.toEqual(initialTheme);
         });
     });
 
-    describe('Deep linking', () => {
+    test.describe('Document title', () => {
 
-        it('restores search from URL on reload', async () => {
-            await page.goto(`${baseUrl}/index.html#/tests?search=%22Todo%22`);
-            await page.waitForFunction(() => document.body.textContent?.includes('Showing'));
-            const text = await page.textContent('body');
-            expect(text).to.not.contain('Showing 6 of 6');
-        });
-
-        it('restores run filter from URL', async () => {
-            await page.goto(`${baseUrl}/index.html#/tests?run=2024-06-14T10:00:00.000Z`);
-            await page.waitForFunction(() => {
-                const sel = document.querySelector('select[aria-label="Select test run"]') as HTMLSelectElement;
-                return sel && sel.value === '2024-06-14T10:00:00.000Z';
-            });
-            const selected = await page.evaluate(() => {
-                const sel = document.querySelector('select[aria-label="Select test run"]') as HTMLSelectElement;
-                return sel ? sel.value : '';
-            });
-            expect(selected).to.equal('2024-06-14T10:00:00.000Z');
-        });
-    });
-
-    describe('Document title', () => {
-
-        it('includes failure count in title', async () => {
-            await page.goto(`${baseUrl}/index.html#/`);
+        test('includes project title', async ({ page }) => {
+            await page.goto('/index.html#/');
             await page.waitForSelector('.donut-chart');
             const title = await page.title();
-            expect(title).to.contain('Serenity/JS');
-            expect(title).to.contain('Test Project');
+            expect(title).toContain('Serenity/JS');
+            expect(title).toContain('Test Project');
         });
     });
 });

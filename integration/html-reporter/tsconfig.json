@@ -2,14 +2,14 @@
   "extends": "../../tsconfig.options.json",
 
   "compilerOptions": {
-    "lib": ["es2022", "dom"],
+    "lib": ["es2023", "dom"],
     "types": [
-      "node",
-      "mocha"
+      "node"
     ]
   },
 
   "include": [
-    "spec/**/*.ts"
+    "spec/**/*.ts",
+    "playwright.config.ts"
   ]
 }

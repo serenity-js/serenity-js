@@ -183,7 +183,7 @@ class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
         this.config.specDirectory ? projectFileSystem : undefined,
         );
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
-        const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()), { projectName: this.config.projectName });
+        const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()), { projectName: this.config.projectName, runtime: this.config.ci });
 
         return new HtmlReporter(
             artifactWriter,

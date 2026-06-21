@@ -40,4 +40,20 @@ export interface HtmlReporterConfig {
      * When not specified, the name is read from the closest `package.json`.
      */
     projectName?: string;
+
+    /**
+     * Override CI/CD runtime context with explicit values.
+     * When provided, auto-detection from environment variables is skipped.
+     * Useful for testing or when the reporter runs outside of CI.
+     */
+    ci?: {
+        provider?: string;
+        buildNumber?: string;
+        branch?: string;
+        commit?: string;
+        commitMessage?: string;
+        commitAuthor?: string;
+        jobUrl?: string;
+        repositoryUrl?: string;
+    };
 }

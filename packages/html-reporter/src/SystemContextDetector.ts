@@ -29,7 +29,7 @@ export class SystemContextDetector {
     constructor(
         private readonly ciDetector: CIDetector,
         private readonly moduleLoader: ModuleLoader,
-        private readonly overrides: { projectName?: string } = {},
+        private readonly overrides: { projectName?: string; runtime?: Partial<RuntimeContext> } = {},
     ) {
     }
 
@@ -42,7 +42,9 @@ export class SystemContextDetector {
                 arch: os.arch(),
             },
             serenityVersion: this.moduleLoader.versionOf('@serenity-js/core'),
-            runtime: this.ciDetector.detect(),
+            runtime: this.overrides.runtime
+                ? { ...this.ciDetector.detect(), ...this.overrides.runtime } as RuntimeContext
+                : this.ciDetector.detect(),
             projectName: this.overrides.projectName || this.detectProjectName(),
             packageManager: this.detectPackageManager(),
             environmentUnderTest: this.detectEnvironmentUnderTest(),
