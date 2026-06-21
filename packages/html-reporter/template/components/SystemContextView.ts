@@ -20,6 +20,11 @@ export function SystemContextView() {
     `;
     }
 
+    const testRunner = context.testRunner || {};
+    const operatingSystem = context.os || {};
+    const browsers = context.browsers || [];
+    const ci = context.ci;
+
     return html`
     <div class="card">
       <div class="card-title" style="margin-bottom:var(--space-lg)">Environment</div>
@@ -35,14 +40,14 @@ export function SystemContextView() {
           <div class="context-icon">🧪</div>
           <div>
             <div class="context-label">Test Runner</div>
-            <div class="context-value">${context.testRunner.name} ${context.testRunner.version}</div>
+            <div class="context-value">${testRunner.name} ${testRunner.version}</div>
           </div>
         </div>
         <div class="context-item">
           <div class="context-icon">🖥</div>
           <div>
             <div class="context-label">Operating System</div>
-            <div class="context-value">${context.os.name} ${context.os.version} (${context.os.arch})</div>
+            <div class="context-value">${operatingSystem.name} ${operatingSystem.version} (${operatingSystem.arch})</div>
           </div>
         </div>
         <div class="context-item">
@@ -52,7 +57,7 @@ export function SystemContextView() {
             <div class="context-value">v${context.serenityVersion}</div>
           </div>
         </div>
-        ${context.browsers.map(b => html`
+        ${browsers.map(b => html`
           <div class="context-item">
             <div class="context-icon">🌐</div>
             <div>
@@ -63,7 +68,7 @@ export function SystemContextView() {
         `)}
       </div>
 
-      ${context.ci ? html`
+      ${ci ? html`
         <div style="margin-top:var(--space-xl)">
           <div class="card-title" style="margin-bottom:var(--space-md)">CI / CD</div>
           <div class="context-grid">
@@ -71,28 +76,28 @@ export function SystemContextView() {
               <div class="context-icon">🏗</div>
               <div>
                 <div class="context-label">Provider</div>
-                <div class="context-value">${context.ci.provider}</div>
+                <div class="context-value">${ci.provider}</div>
               </div>
             </div>
             <div class="context-item">
               <div class="context-icon">#</div>
               <div>
                 <div class="context-label">Build</div>
-                <div class="context-value">#${context.ci.buildNumber}</div>
+                <div class="context-value">#${ci.buildNumber}</div>
               </div>
             </div>
             <div class="context-item">
               <div class="context-icon">🌿</div>
               <div>
                 <div class="context-label">Branch</div>
-                <div class="context-value">${context.ci.branch}</div>
+                <div class="context-value">${ci.branch}</div>
               </div>
             </div>
             <div class="context-item">
               <div class="context-icon">📝</div>
               <div>
                 <div class="context-label">Commit</div>
-                <div class="context-value" style="font-family:var(--font-mono);font-size:var(--font-sm)">${context.ci.commit} — ${context.ci.commitMessage}</div>
+                <div class="context-value" style="font-family:var(--font-mono);font-size:var(--font-sm)">${ci.commit} — ${ci.commitMessage}</div>
               </div>
             </div>
           </div>
