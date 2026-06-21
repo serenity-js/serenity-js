@@ -1,64 +1,81 @@
-# Session Summary — 2026-06-20
+# Session Summary — 2026-06-20/21/22
 
 ## Branch: `feat/html-reporter`
 
-## Completed Work
+## Current Status
 
-### 1. Trend Chart: Duration Range & Average Duration alignment (committed)
-**Commit**: `fix(html-reporter): improve trend chart readability and theme responsiveness`
+All work committed and pushed to `origin/feat/html-reporter`. ~103 commits ahead of `main`.
+- **Unit tests**: 61 passing
+- **Integration tests**: 37 passing (now using @playwright/test)
+- **ESLint**: Clean across all changed files
+- **Bundle size**: 449KB (down from 454KB at start of refactoring)
 
-- Fixed the candlestick alignment issue by replacing `stack: 'duration'` with `grouped: false` on the Duration Range bar dataset (prevents Chart.js from offsetting it from center)
-- Changed colours from orange to theme-aware neutral colours following financial chart conventions:
-  - Duration Range bar: dark gray (light mode) / light gray (dark mode)
-  - Average Duration marker: solid dark/white diamond
-- Added subtle dashed grid lines for the right (logarithmic) Y-axis to help read duration values
-- Fixed tooltip labelColor to use backgroundColor as fallback when borderColor is transparent
+## Completed Work (this session — 2026-06-21/22)
 
-### 2. Doughnut Chart: theme-responsive center text (committed in same commit)
-- Fixed the doughnut chart center text colour not updating on theme change
-- Root cause: `isDark` was captured once in a closure and never updated
-- Fix: Read `document.documentElement.getAttribute('data-theme')` dynamically in `afterDraw` callback + added MutationObserver to trigger `chart.update()` on theme change
+### Integration Test Migration (Mocha → @playwright/test)
+- Replaced Mocha + raw Playwright with `@playwright/test` (37 integration tests)
+- Stub spec produces controlled outcomes via `@serenity-js/playwright-test` adapter
+- CI metadata injected via new `HtmlReporterConfig.ci` field (additive, non-breaking)
+- Historical run variants generated programmatically for trend/stability testing
+- Screenshots and video artifacts captured and verified
+- Retried scenario (fails first attempt, passes on retry via `testInfo.retry`)
+- `pretest` script: runs stub → generates history; `test`: serves report via http-server + webServer config
 
-### 3. Scenario Outline rendering (NOT YET COMMITTED)
-**Status**: Implemented, compiled (441KB), 60 tests passing, visually verified.
+### Template Modularisation (Phase 1)
+- Converted `app.js` (2,436 lines) → `app.tsx` (7-line entry point) + 16 component files
+- Extracted `utils/`: format.ts, navigation.ts, data.ts, toast.ts, raw-html.ts
+- Extracted `hooks/`: useVirtualizer.ts, useStickyHeader.ts
+- Extracted `components/`: App, Sidebar, DashboardView, ScenariosView, ScenarioDetailView, ErrorsView, StabilityView, TagsView, TimelineView, TestRunsView, RequirementsView, SystemContextView, FilterBar, ActivityNode, RunSelector, icons
+- All files use TypeScript with 4-space indent, HTM tagged templates, ESLint clean
 
-Prop![Screenshot 2026-06-20 at 16.48.19.png](../examples/cucumber-reporting/Screenshot%202026-06-20%20at%2016.48.19.png)er scenario outline support in the HTML reporter. Previously all parameterised examples were rendered as a flat activity list within a single scene. Now they're grouped as separate collapsible instances.
+### DRY Refactoring (Phases 2–3)
+- `useStickyHeader` hook eliminates 3× duplication (~60 lines each in ScenariosView, ErrorsView, StabilityView)
+- `RunSelector` component eliminates duplication between ScenariosView and ErrorsView
 
-**Files modified:**
-- `packages/html-reporter/src/model/RunData.ts` — Added `ScenarioParameterSet` interface and optional `scenarioOutline` field to `SceneRecord`
-- `packages/html-reporter/src/SceneDataCollector.ts` — `SceneRecordBuilder` now handles `SceneSequenceDetected`, `SceneParametersDetected`, `SceneTemplateDetected` events; tracks `SceneStarts` boundaries to group activities per example row
-- `packages/html-reporter/src/DataSnapshotAggregator.ts` — Passes through `scenarioOutline` data with mapped outcomes
-- `packages/html-reporter/template/app.js` — Detects `scenarioOutline` and renders template + collapsible numbered example instances instead of flat activity tree
+### Defensive Rendering (Phase 6)
+- SystemContextView guards against missing nested objects (testRunner, os, browsers, ci)
+- ScenarioDetailView already had guards for tags, cast, activities, executionHistory
 
-**Key technical insight:** In `DomainEventQueues`, scenario outline example rows get merged into ONE queue because `SceneSequenceDetected` (which is not `instanceof SceneStarts`) matches via `sameScenarioMatch` on equal `ScenarioDetails`. All events for all example rows share one queue. The `SceneRecordBuilder` now detects the pattern: `SceneSequenceDetected → SceneTemplateDetected → [SceneParametersDetected → SceneStarts → activities → SceneFinished]*` and groups them into `scenarioOutline.parameters[]`.
+### Config Enhancement
+- Added `ci` override field to `HtmlReporterConfig` — allows injecting predictable CI metadata
+- `SystemContextDetector` merges override over auto-detected values
 
-**Note:** After implementing this, the source line for the merged scenario changes (from example line to outline template line). Old report URLs with `?:74` won't match the new `:26`.
+### Cleanup
+- Deleted stale `template/index.html` prototype (3,279 lines removed)
 
-## Local Dev Server
-- Port 9876 serves reports from `examples/cucumber-reporting/reports/serenity`
-- Node PID was 15560 (may have changed)
+## Key Files Modified
+- `packages/html-reporter/template/` — entire directory restructured
+- `packages/html-reporter/src/HtmlReporterConfig.ts` — new `ci` field
+- `packages/html-reporter/src/SystemContextDetector.ts` — runtime override support
+- `packages/html-reporter/src/HtmlReporter.ts` — wires ci config
+- `packages/html-reporter/scripts/bundle-template.mjs` — entry point updated to app.tsx
+- `integration/html-reporter/` — fully rewritten (Mocha → @playwright/test + real reporter)
+
+## Next Steps
+
+### Remaining Refactoring Tasks
+- [ ] Phase 4: Break up `DataSnapshotAggregator.aggregate()` into smaller, testable methods
+  - Extract `buildRequirements()` into a separate class
+  - Split into `buildSnapshot()`, `enrichScenesWithHistory()`, `computeDegradedRecovered()`, `buildHistory()`
+  - Add focused unit tests for each extracted method
+- [ ] Phase 7: Replace inline styles with utility/component classes (lower priority, incremental)
+
+### Template TSX Conversion (optional, incremental)
+- The component files use `.ts` extension with HTM tagged templates
+- Could gradually convert to `.tsx` with real JSX syntax for better IDE support
+- Not urgent — current setup works with esbuild bundling
+
+### Test Coverage Gaps to Address
+- Dashboard: trend chart interaction, slowest tests navigation
+- Scenario detail: retry/attempt tabs (blocked on adapter support)
+- Timeline: click-to-navigate
+- Deep linking: URL state restoration on reload
 
 ## Useful Commands
 ```bash
-cd packages/html-reporter && npm run compile    # Compile template (bundles app.js → lib/esm)
-cd packages/html-reporter && pnpm test          # Run unit tests
-cd examples/cucumber-reporting && npx cucumber-js  # Regenerate report
+cd packages/html-reporter && npm run compile         # Full compile (ESM + CJS + template)
+cd packages/html-reporter && npm run compile:template  # Template only (faster)
+cd packages/html-reporter && pnpm test               # Unit tests (61)
+cd integration/html-reporter && npm test             # Integration tests (pretest + 37 assertions)
+cd integration/html-reporter && npx playwright test  # Just the assertions (assumes report exists)
 ```
-
-### 4. Scenario Outline: Named Example Set Grouping (NOT YET COMMITTED)
-**Status**: Implemented, compiled (443KB), 60 tests passing, visually verified.
-
-Added `ParameterSetGroups` and `ParameterSetGroup` components to `app.js` that group scenario outline examples by their `Examples:` set name (from `SceneParametersDetected` events).
-
-Each named group renders as a collapsible section showing:
-- Bold group name (e.g. "Serenity/JS contributors")  
-- Italic description from the feature file (e.g. "Here are some of the amazing people...")
-- Pass count summary (e.g. "12/12 passed")
-- Individual parameterised examples nested inside
-
-**Key fix:** The outcome at render time is a string (`'SUCCESS'`) mapped by `DataSnapshotAggregator`, not the raw `SerialisedOutcome` object with a `.code` property.
-
-## Next Steps
-1. **Commit** all scenario outline changes (basic rendering + grouping)
-2. Consider URL stability — the merged scene now uses the outline template line, not the first example line
-3. Any other reporter improvements identified during review
