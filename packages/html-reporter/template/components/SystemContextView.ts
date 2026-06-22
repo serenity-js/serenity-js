@@ -70,7 +70,7 @@ export function SystemContextView() {
 
       ${ci ? html`
         <div style="margin-top:var(--space-xl)">
-          <div class="card-title" style="margin-bottom:var(--space-md)">CI / CD</div>
+          <div class="card-title mb-md">CI / CD</div>
           <div class="context-grid">
             <div class="context-item">
               <div class="context-icon">🏗</div>

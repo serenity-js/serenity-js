@@ -156,7 +156,7 @@ export function ErrorsView({ onNavigate, route }) {
     return html`
     <div>
       ${errorHistoricalRun ? html`
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px var(--space-md);margin-bottom:var(--space-md);background:var(--accent-light);border:1px solid var(--accent);border-radius:var(--radius-sm);font-size:var(--font-md)">
+        <div class="historical-banner">
           <span>Viewing errors from: <strong>${errorHistoricalRun.label}</strong> (${new Date(errorHistoricalRun.timestamp).toLocaleString()})</span>
           <a onClick=${errorShowLatest} style="cursor:pointer;color:var(--accent);font-weight:500;text-decoration:underline">show latest</a>
         </div>
@@ -164,15 +164,15 @@ export function ErrorsView({ onNavigate, route }) {
 
       <${RunSelector} activeTimestamp=${errorActiveRunTs} onRunChange=${onErrorRunChange} />
 
-      <div class="grid-stats" style="margin-bottom:var(--space-md)">
+      <div class="grid-stats mb-md">
         ${summaryCards.map(card => html`
-          <div class="card" class="stat-card">
-            <div class="card-title" style="margin-bottom:0">${card.title}</div>
+          <div class="card stat-card">
+            <div class="card-title mb-0">${card.title}</div>
             <div class="card-value" style="color:${card.color};font-size:var(--font-lg)">${card.value}</div>
           </div>
         `)}
       </div>
-      <div class="card" style="padding-bottom:0">
+      <div class="card pb-0">
         <div class="text-muted mb-md">
           Showing ${errorScenarios.length} ${errorScenarios.length === 1 ? 'error' : 'errors'}
         </div>

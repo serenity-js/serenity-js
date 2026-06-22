@@ -237,7 +237,7 @@ export function ScenariosView({ onNavigate, route }) {
     return html`
     <div>
       ${historicalRun ? html`
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px var(--space-md);margin-bottom:var(--space-md);background:var(--accent-light);border:1px solid var(--accent);border-radius:var(--radius-sm);font-size:var(--font-md)">
+        <div class="historical-banner">
           <span>Viewing results from: <strong>${historicalRun.label}</strong> (${new Date(historicalRun.timestamp).toLocaleString()}) — ${formatDuration(historicalRun.duration)}</span>
           <a href="#/tests" style="cursor:pointer;color:var(--accent);font-weight:500;text-decoration:underline">show latest</a>
         </div>
@@ -250,7 +250,7 @@ export function ScenariosView({ onNavigate, route }) {
                value=${search} onInput=${e => setSearch(e.target.value)}
                aria-label="Find test scenarios" style="margin-bottom:0;padding-right:36px" />
         ${search ? html`<button onClick=${() => setSearch('')}
-          style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-secondary);font-size:var(--font-lg);padding:4px;line-height:1"
+          class="btn-clear"
           aria-label="Clear search">✕</button>` : null}
       </div>
 

@@ -45,21 +45,21 @@ export function TimelineView({ onNavigate }) {
 
     return html`
     <div>
-      <div class="grid-stats" style="margin-bottom:var(--space-md)">
-        <div class="card" class="stat-card">
-          <div class="card-title" style="margin-bottom:0">Slowest</div>
+      <div class="grid-stats mb-md">
+        <div class="card stat-card">
+          <div class="card-title mb-0">Slowest</div>
           <div class="card-value" style="color:var(--color-failed);font-size:var(--font-lg)">${formatDuration(slowest)}</div>
         </div>
-        <div class="card" class="stat-card">
-          <div class="card-title" style="margin-bottom:0">Fastest</div>
+        <div class="card stat-card">
+          <div class="card-title mb-0">Fastest</div>
           <div class="card-value" style="color:var(--color-passed);font-size:var(--font-lg)">${formatDuration(fastest)}</div>
         </div>
-        <div class="card" class="stat-card">
-          <div class="card-title" style="margin-bottom:0">Average</div>
+        <div class="card stat-card">
+          <div class="card-title mb-0">Average</div>
           <div class="card-value" style="font-size:var(--font-lg)">${formatDuration(avg)}</div>
         </div>
-        <div class="card" class="stat-card">
-          <div class="card-title" style="margin-bottom:0">Total Run</div>
+        <div class="card stat-card">
+          <div class="card-title mb-0">Total Run</div>
           <div class="card-value" style="font-size:var(--font-lg)">${formatDuration(DATA.summary.duration)}</div>
         </div>
       </div>
@@ -72,7 +72,7 @@ export function TimelineView({ onNavigate }) {
                     ]}
                    activeSort=${sortBy} onSort=${setSortBy} />
 
-      <div class="card" style="padding-bottom:0">
+      <div class="card pb-0">
         <div ref=${parentRef} style="border-top:1px solid var(--border-color);max-height:calc(100vh - 320px);overflow-y:auto">
           <div style="height:${virtualizer.getTotalSize()}px;width:100%;position:relative">
             ${virtualizer.getVirtualItems().map(virtualRow => {

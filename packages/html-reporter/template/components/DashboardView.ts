@@ -299,9 +299,9 @@ export function DashboardView({ onNavigate }) {
             ${DATA.systemContext && DATA.systemContext.ci ? html`
               <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-md);flex-wrap:wrap">
                 ${(() => { const ci = DATA.systemContext.ci; const repoUrl = ci.repositoryUrl ? ci.repositoryUrl.replace(/\.git$/, '').replace(/^git@([^:]+):/, 'https://$1/') : ''; return html`
-                  ${ci.branch ? html`<div style="display:flex;align-items:center;gap:var(--space-xs)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;flex-shrink:0"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>${repoUrl ? html`<a href="${repoUrl}/tree/${ci.branch}" target="_blank" style="font-size:var(--font-sm);font-weight:500;color:inherit;text-decoration:none" onMouseOver=${(e) => e.target.style.textDecoration='underline'} onMouseOut=${(e) => e.target.style.textDecoration='none'}>${ci.branch}</a>` : html`<span style="font-size:var(--font-sm);font-weight:500">${ci.branch}</span>`}</div>` : null}
-                  ${ci.commit ? html`<div style="display:flex;align-items:center;gap:var(--space-xs)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;flex-shrink:0"><circle cx="12" cy="12" r="4"/><line x1="1" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="23" y2="12"/></svg>${repoUrl ? html`<a href="${repoUrl}/commit/${ci.commit}" target="_blank" style="font-size:var(--font-sm);font-family:var(--font-mono);color:inherit;text-decoration:none" onMouseOver=${(e) => e.target.style.textDecoration='underline'} onMouseOut=${(e) => e.target.style.textDecoration='none'}>${ci.commit}</a>` : html`<span style="font-size:var(--font-sm);font-family:var(--font-mono)">${ci.commit}</span>`}</div>` : null}
-                  ${ci.pullRequestUrl ? html`<div style="display:flex;align-items:center;gap:var(--space-xs)"><a href="${ci.pullRequestUrl}" target="_blank" style="font-size:var(--font-sm);color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:3px" onMouseOver=${(e) => e.target.style.textDecoration='underline'} onMouseOut=${(e) => e.target.style.textDecoration='none'}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;flex-shrink:0"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 9v12"/><path d="M18 9a9 9 0 0 0-9 9"/></svg>PR #${ci.pullRequestNumber || ''}</a></div>` : null}
+                  ${ci.branch ? html`<div class="flex-row gap-xs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm" style="flex-shrink:0"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>${repoUrl ? html`<a href="${repoUrl}/tree/${ci.branch}" target="_blank" style="font-size:var(--font-sm);font-weight:500;color:inherit;text-decoration:none" onMouseOver=${(e) => e.target.style.textDecoration='underline'} onMouseOut=${(e) => e.target.style.textDecoration='none'}>${ci.branch}</a>` : html`<span style="font-size:var(--font-sm);font-weight:500">${ci.branch}</span>`}</div>` : null}
+                  ${ci.commit ? html`<div class="flex-row gap-xs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm" style="flex-shrink:0"><circle cx="12" cy="12" r="4"/><line x1="1" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="23" y2="12"/></svg>${repoUrl ? html`<a href="${repoUrl}/commit/${ci.commit}" target="_blank" style="font-size:var(--font-sm);font-family:var(--font-mono);color:inherit;text-decoration:none" onMouseOver=${(e) => e.target.style.textDecoration='underline'} onMouseOut=${(e) => e.target.style.textDecoration='none'}>${ci.commit}</a>` : html`<span style="font-size:var(--font-sm);font-family:var(--font-mono)">${ci.commit}</span>`}</div>` : null}
+                  ${ci.pullRequestUrl ? html`<div class="flex-row gap-xs"><a href="${ci.pullRequestUrl}" target="_blank" style="font-size:var(--font-sm);color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:3px" onMouseOver=${(e) => e.target.style.textDecoration='underline'} onMouseOut=${(e) => e.target.style.textDecoration='none'}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm" style="flex-shrink:0"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 9v12"/><path d="M18 9a9 9 0 0 0-9 9"/></svg>PR #${ci.pullRequestNumber || ''}</a></div>` : null}
                   ${ci.provider ? html`<div style="font-size:var(--font-xs);color:var(--text-secondary);margin-left:auto">${ci.jobUrl ? html`<a href="${ci.jobUrl}" target="_blank" style="color:inherit;text-decoration:none" onMouseOver=${(e) => e.target.style.textDecoration='underline'} onMouseOut=${(e) => e.target.style.textDecoration='none'}>${ci.provider}</a>` : ci.provider}</div>` : null}
                 `; })()}
               </div>
@@ -376,7 +376,7 @@ export function DashboardView({ onNavigate }) {
         ${flakyTests.length > 0 ? html`
           <div class="card">
             <div class="card-header">
-              <div class="card-title" style="margin-bottom:0">Most Unstable</div>
+              <div class="card-title mb-0">Most Unstable</div>
               <a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>
             </div>
             ${flakyTests.map(t => html`
@@ -389,7 +389,7 @@ export function DashboardView({ onNavigate }) {
         ` : null}
         <div class="card" style="flex:1">
           <div class="card-header">
-            <div class="card-title" style="margin-bottom:0">Slowest Tests</div>
+            <div class="card-title mb-0">Slowest Tests</div>
             <a class="view-all-link" onClick=${() => onNavigate('/tests?sort=duration')}>View all →</a>
           </div>
           ${slowest.map((s, i) => html`

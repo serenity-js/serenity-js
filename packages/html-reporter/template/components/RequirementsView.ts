@@ -82,19 +82,19 @@ export function RequirementsView({ onNavigate }) {
 
     return html`
     <div>
-      <div class="grid-stats" style="margin-bottom:var(--space-md)">
-        <div class="card" class="stat-card" title="${coveredFiles} of ${totalFiles} areas are fully covered (no pending or skipped tests)">
-          <div class="card-title" style="margin-bottom:0">Coverage</div>
+      <div class="grid-stats mb-md">
+        <div class="card stat-card" title="${coveredFiles} of ${totalFiles} areas are fully covered (no pending or skipped tests)">
+          <div class="card-title mb-0">Coverage</div>
           <div class="card-value" style="color:${coveragePercent >= 80 ? 'var(--color-passed)' : coveragePercent >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'};font-size:var(--font-lg)">${coveragePercent}%</div>
           <div class="card-subtitle" style="margin-top:0;margin-left:auto">${coveredFiles} of ${totalFiles} areas fully covered</div>
         </div>
-        <div class="card" class="stat-card" title="${requirements.outcomes.passed || 0} of ${totalScenarios} scenarios are passing">
-          <div class="card-title" style="margin-bottom:0">Pass Rate</div>
+        <div class="card stat-card" title="${requirements.outcomes.passed || 0} of ${totalScenarios} scenarios are passing">
+          <div class="card-title mb-0">Pass Rate</div>
           <div class="card-value" style="color:${passRate >= 80 ? 'var(--color-passed)' : passRate >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'};font-size:var(--font-lg)">${passRate}%</div>
           <div class="card-subtitle" style="margin-top:0;margin-left:auto">${totalScenarios} scenarios total</div>
         </div>
-        <div class="card" class="stat-card" title="${gapCount} ${gapCount === 1 ? 'area has' : 'areas have'} incomplete tests (pending or skipped)">
-          <div class="card-title" style="margin-bottom:0">Gaps</div>
+        <div class="card stat-card" title="${gapCount} ${gapCount === 1 ? 'area has' : 'areas have'} incomplete tests (pending or skipped)">
+          <div class="card-title mb-0">Gaps</div>
           <div class="card-value" style="color:${gapCount === 0 ? 'var(--color-passed)' : 'var(--color-failed)'};font-size:var(--font-lg)">${gapCount}</div>
           <div class="card-subtitle" style="margin-top:0;margin-left:auto">${gapCount === 1 ? 'area' : 'areas'} with incomplete tests</div>
         </div>

@@ -139,7 +139,7 @@ export function StabilityView({ onNavigate }) {
                value=${search} onInput=${e => setSearch(e.target.value)}
                aria-label="Find test scenarios" style="margin-bottom:0;padding-right:36px" />
         ${search ? html`<button onClick=${() => setSearch('')}
-          style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-secondary);font-size:var(--font-lg);padding:4px;line-height:1"
+          class="btn-clear"
           aria-label="Clear search">✕</button>` : null}
       </div>
 
@@ -163,7 +163,7 @@ export function StabilityView({ onNavigate }) {
         </div>
       </div>
 
-      <div class="card" style="padding-bottom:0">
+      <div class="card pb-0">
         <div class="text-muted mb-md">
           Showing ${sortedItems.length} ${sortedItems.length === 1 ? 'test' : 'tests'}
         </div>
@@ -188,7 +188,7 @@ export function StabilityView({ onNavigate }) {
                 <div style="position:absolute;top:0;left:0;width:100%;height:${STABILITY_ROW_HEIGHT}px;transform:translateY(${virtualRow.start}px);overflow:hidden"
                      class="scenario-item" onClick=${clickHandler}>
                   ${kindIcon(t.kind)}
-                  <div class="scenario-info" style="flex:1;min-width:0">
+                  <div class="scenario-info flex-1">
                     <div class="scenario-name">${t.name}</div>
                     <div class="scenario-meta">
                       <span class="scenario-source">${t.source.path}:${t.source.line}</span>

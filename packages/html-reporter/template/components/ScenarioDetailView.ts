@@ -46,12 +46,12 @@ function ParameterSetGroup({ group, index }) {
         <span style="font-size:var(--font-md);font-weight:600">${label}</span>
         <span style="margin-left:auto;display:flex;align-items:center;gap:var(--space-sm)">
           <button onClick=${expandAll} title="Expand all examples" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px;display:flex;opacity:0.6">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M7 9l5 5 5-5"/><path d="M7 15l5 5 5-5"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><path d="M7 9l5 5 5-5"/><path d="M7 15l5 5 5-5"/></svg>
           </button>
           <button onClick=${collapseAll} title="Collapse all examples" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px;display:flex;opacity:0.6">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M17 15l-5-5-5 5"/><path d="M17 9l-5-5-5 5"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><path d="M17 15l-5-5-5 5"/><path d="M17 9l-5-5-5 5"/></svg>
           </button>
-          <span style="font-size:var(--font-xs);color:var(--text-secondary)">${passCount}/${group.items.length} passed</span>
+          <span class="text-xs-muted">${passCount}/${group.items.length} passed</span>
         </span>
       </div>
       ${group.description ? html`
@@ -93,9 +93,9 @@ function ParameterSetNode({ ps, index, groupIndex, forceExpanded }) {
         <span class="scenario-outcome-icon ${outcomeClass(ps.outcome)}" style="width:18px;height:18px;font-size:var(--font-2xs);flex-shrink:0">${outcomeIcon(ps.outcome)}</span>
         <span style="font-size:var(--font-sm);font-weight:500">#${index + 1} — ${parameterSummary}</span>
         <button onClick=${copyLink} title="Copy link to this example" style="margin-left:auto;background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px;line-height:1;opacity:0.6;display:flex;align-items:center">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
         </button>
-        <span style="font-size:var(--font-xs);color:var(--text-secondary)">${formatDuration(ps.duration)}</span>
+        <span class="text-xs-muted">${formatDuration(ps.duration)}</span>
       </div>
       ${expanded && ps.activities.length > 0 ? html`
         <div class="activity-tree" style="padding:var(--space-sm) var(--space-md)">
@@ -178,16 +178,16 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
         <span>${scenario.name}</span>
       </div>
 
-      <div class="card" style="margin-bottom:var(--space-md)">
+      <div class="card mb-md">
         <div class="scenario-detail-header">
           <div class="scenario-detail-outcome scenario-outcome-icon ${outcomeClass(scenario.outcome)}">
             ${outcomeIcon(scenario.outcome)}
           </div>
           <div class="flex-1">
             <div class="flex-row gap-sm">
-              <div class="scenario-detail-title" style="flex:1;min-width:0">${scenario.name}</div>
+              <div class="scenario-detail-title flex-1">${scenario.name}</div>
               <button onClick=${copyTestPath} title="Copy test path to clipboard" style="flex-shrink:0;width:28px;height:28px;border-radius:var(--radius-sm);border:none;background:var(--bg-hover);color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
               </button>
             </div>
             <div class="scenario-detail-meta">
@@ -207,7 +207,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
 
         ${hasExecutionHistory ? html`
           <div class="mb-md">
-            <div class="card-title" style="margin-bottom:var(--space-sm)">Execution History</div>
+            <div class="card-title mb-sm">Execution History</div>
             <div style="display:flex;gap:4px;align-items:center;flex-wrap:wrap">
               ${scenario.executionHistory.map((entry, index) => {
                     const isActive = runIndex === index;
@@ -237,7 +237,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
 
         ${hasCast ? html`
           <div class="cast-section">
-            <div class="card-title" style="margin-bottom:var(--space-sm)">Cast</div>
+            <div class="card-title mb-sm">Cast</div>
             ${scenario.cast.map(actor => html`
               <div class="mb-md">
                 <div class="cast-item">
@@ -272,9 +272,9 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
       ` : null}
 
       ${currentActivities.length > 0 || scenario.scenarioOutline ? html`
-        <div class="card" style="margin-bottom:var(--space-md)">
+        <div class="card mb-md">
           <div style="display:flex;align-items:center;gap:var(--space-sm);margin-bottom:var(--space-sm)">
-            <div class="card-title" style="margin-bottom:0">Activity Tree</div>
+            <div class="card-title mb-0">Activity Tree</div>
             <button onClick=${() => { setTreeExpanded(true); setTreeKey(k => k + 1); }} title="Expand all" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px 4px;font-size:var(--font-sm);opacity:0.7" aria-label="Expand all">▼</button>
             <button onClick=${() => { setTreeExpanded(false); setTreeKey(k => k + 1); }} title="Collapse all" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px 4px;font-size:var(--font-sm);opacity:0.7" aria-label="Collapse all">▶</button>
           </div>
@@ -298,7 +298,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
       ` : null}
 
       ${scenario.video ? html`
-        <div class="card" style="margin-top:var(--space-md)">
+        <div class="card mt-md">
           <div class="card-title">Video Recording</div>
           <video controls preload="metadata" style="width:100%;border-radius:var(--radius-sm);margin-top:var(--space-sm)">
             <source src=${scenario.video} type="video/webm" />
@@ -325,7 +325,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
             collectPhotos(currentActivities);
             if (photos.length === 0) return null;
             return html`
-          <div class="card" style="margin-top:var(--space-md)">
+          <div class="card mt-md">
             <div class="card-title">Screenshots (${photos.length})</div>
             <div class="photo-strip" id="photo-strip">
               ${photos.map((photo, index) => html`
