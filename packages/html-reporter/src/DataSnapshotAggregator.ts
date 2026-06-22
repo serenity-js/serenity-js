@@ -284,9 +284,12 @@ export class DataSnapshotAggregator {
 
             root.scenarioCount++;
             root.outcomes[outcomeKey]++;
-            if (currentDirectory !== root) {
-                currentDirectory.scenarioCount++;
-                currentDirectory.outcomes[outcomeKey]++;
+            for (let i = 0; i < directories.length; i++) {
+                const dirNode = nodeMap.get(directories.slice(0, i + 1).join('/'));
+                if (dirNode && dirNode !== root) {
+                    dirNode.scenarioCount++;
+                    dirNode.outcomes[outcomeKey]++;
+                }
             }
         }
 
