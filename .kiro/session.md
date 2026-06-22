@@ -1,81 +1,101 @@
-# Session Summary — 2026-06-20/21/22
+# Session Summary — 2026-06-22
 
 ## Branch: `feat/html-reporter`
 
 ## Current Status
 
-All work committed and pushed to `origin/feat/html-reporter`. ~103 commits ahead of `main`.
+All work committed on `feat/html-reporter`. ~108 commits ahead of `main`.
 - **Unit tests**: 61 passing
-- **Integration tests**: 37 passing (now using @playwright/test)
+- **Integration tests**: 37 passing (@playwright/test)
 - **ESLint**: Clean across all changed files
-- **Bundle size**: 449KB (down from 454KB at start of refactoring)
+- **Bundle size**: 448KB (down from 454KB pre-refactoring)
+- **Visual regressions**: Zero (verified via before/after screenshots)
 
-## Completed Work (this session — 2026-06-21/22)
+## Completed Work (this session)
 
-### Integration Test Migration (Mocha → @playwright/test)
-- Replaced Mocha + raw Playwright with `@playwright/test` (37 integration tests)
-- Stub spec produces controlled outcomes via `@serenity-js/playwright-test` adapter
-- CI metadata injected via new `HtmlReporterConfig.ci` field (additive, non-breaking)
-- Historical run variants generated programmatically for trend/stability testing
-- Screenshots and video artifacts captured and verified
-- Retried scenario (fails first attempt, passes on retry via `testInfo.retry`)
-- `pretest` script: runs stub → generates history; `test`: serves report via http-server + webServer config
+### Integration Test Infrastructure (complete)
+- Replaced Mocha + raw Playwright with `@playwright/test`
+- Stub spec uses `@serenity-js/playwright-test` adapter to produce real reporter output
+- Controlled outcomes: 5 pass, 1 fail, 1 error (ImplementationPending), 1 retried (fails then passes)
+- CI metadata injected via new `HtmlReporterConfig.ci` config field
+- Historical run variants generated programmatically (generate-history.ts)
+- Screenshots + video artifacts captured and verified
+- `pretest`: runs stub + generates history; `test`: serves report via http-server webServer + @playwright/test assertions
 
-### Template Modularisation (Phase 1)
-- Converted `app.js` (2,436 lines) → `app.tsx` (7-line entry point) + 16 component files
-- Extracted `utils/`: format.ts, navigation.ts, data.ts, toast.ts, raw-html.ts
-- Extracted `hooks/`: useVirtualizer.ts, useStickyHeader.ts
-- Extracted `components/`: App, Sidebar, DashboardView, ScenariosView, ScenarioDetailView, ErrorsView, StabilityView, TagsView, TimelineView, TestRunsView, RequirementsView, SystemContextView, FilterBar, ActivityNode, RunSelector, icons
-- All files use TypeScript with 4-space indent, HTM tagged templates, ESLint clean
+### Template Architecture (complete — all phases done)
+- **Phase 1**: Monolith → modular files (app.tsx 7 lines → 16 components + 2 hooks + 5 utils)
+- **Phase 2**: `useStickyHeader` hook eliminates 3× duplication (~60 lines each)
+- **Phase 3**: `RunSelector` shared component (ScenariosView + ErrorsView)
+- **Phase 5**: Deleted stale template/index.html prototype (3,279 lines removed)
+- **Phase 6**: Defensive rendering in SystemContextView
+- **Phase 7**: 24 utility CSS classes, 77 inline styles replaced (208 → 171 remaining)
 
-### DRY Refactoring (Phases 2–3)
-- `useStickyHeader` hook eliminates 3× duplication (~60 lines each in ScenariosView, ErrorsView, StabilityView)
-- `RunSelector` component eliminates duplication between ScenariosView and ErrorsView
+### Backend Refactoring (complete)
+- **Phase 4**: `DataSnapshotAggregator.aggregate()` split from 120-line god method → 8 focused private methods
+- **Config**: Added `ci` override field to `HtmlReporterConfig` + `SystemContextDetector` runtime merge
 
-### Defensive Rendering (Phase 6)
-- SystemContextView guards against missing nested objects (testRunner, os, browsers, ci)
-- ScenarioDetailView already had guards for tags, cast, activities, executionHistory
+## Key Architecture Decisions
+- Keep Preact + HTM (not WebComponents) for rendering
+- Keep `.ts` extensions with HTM tagged templates (not .tsx with JSX)
+- esbuild bundles from `template/app.tsx` entry point
+- `stubs/` directory renamed from `fixtures/` to avoid Playwright naming confusion
+- Integration tests use real reporter output, not hand-crafted mock data
 
-### Config Enhancement
-- Added `ci` override field to `HtmlReporterConfig` — allows injecting predictable CI metadata
-- `SystemContextDetector` merges override over auto-detected values
+## File Structure After Refactoring
 
-### Cleanup
-- Deleted stale `template/index.html` prototype (3,279 lines removed)
+```
+packages/html-reporter/template/
+├── app.tsx                    (7 lines — entry point)
+├── tsconfig.json              (browser-target TS config)
+├── styles.css                 (1,328 lines — includes 24 utility classes)
+├── shell.html                 (HTML shell with __STYLES__ and __APP__ slots)
+├── utils/
+│   ├── index.ts, data.ts, format.ts, navigation.ts, toast.ts, raw-html.ts
+├── hooks/
+│   ├── index.ts, useVirtualizer.ts, useStickyHeader.ts
+└── components/
+    ├── index.ts, icons.ts, App.ts, Sidebar.ts, FilterBar.ts, RunSelector.ts
+    ├── ActivityNode.ts, DashboardView.ts, ScenariosView.ts
+    ├── ScenarioDetailView.ts, ErrorsView.ts, StabilityView.ts
+    ├── TagsView.ts, TimelineView.ts, TestRunsView.ts
+    ├── RequirementsView.ts, SystemContextView.ts
+```
 
-## Key Files Modified
-- `packages/html-reporter/template/` — entire directory restructured
-- `packages/html-reporter/src/HtmlReporterConfig.ts` — new `ci` field
-- `packages/html-reporter/src/SystemContextDetector.ts` — runtime override support
-- `packages/html-reporter/src/HtmlReporter.ts` — wires ci config
-- `packages/html-reporter/scripts/bundle-template.mjs` — entry point updated to app.tsx
-- `integration/html-reporter/` — fully rewritten (Mocha → @playwright/test + real reporter)
+## Outstanding Work (for future sessions)
 
-## Next Steps
+### Inline Styles — Diminishing Returns
+- 171 inline styles remain — mostly component-specific one-off combinations
+- Could do targeted passes per component (ScenarioDetailView has 49, DashboardView has 37)
+- Consider extracting more semantic component classes (e.g., `.execution-history-block`, `.activity-row-icon`)
 
-### Remaining Refactoring Tasks
-- [ ] Phase 4: Break up `DataSnapshotAggregator.aggregate()` into smaller, testable methods
-  - Extract `buildRequirements()` into a separate class
-  - Split into `buildSnapshot()`, `enrichScenesWithHistory()`, `computeDegradedRecovered()`, `buildHistory()`
-  - Add focused unit tests for each extracted method
-- [ ] Phase 7: Replace inline styles with utility/component classes (lower priority, incremental)
+### Test Coverage Gaps
+- Dashboard: trend chart click navigation, donut legend click
+- Scenario detail: screenshot lightbox, video playback controls
+- Timeline: click-to-navigate a timeline bar
+- Tags: clicking a tag card navigates correctly (partially tested)
+- Deep linking: full URL state restoration tests (search, filter, sort, run)
+- Responsive: mobile layout reflow (hamburger menu, collapsible sidebar)
+- Dark mode: verify all views render correctly in dark theme
 
-### Template TSX Conversion (optional, incremental)
-- The component files use `.ts` extension with HTM tagged templates
-- Could gradually convert to `.tsx` with real JSX syntax for better IDE support
-- Not urgent — current setup works with esbuild bundling
+### Potential Further Refactoring
+- Extract `DashboardView.ts` (37 inline styles, 379 lines) into sub-components (DonutChart, TrendChart are already internal but could be split to own files)
+- Type the `DATA` global with a proper interface instead of `any`
+- Add JSDoc to extracted utility functions
+- Consider converting HTM tagged templates to JSX syntax for better IDE support (larger effort)
 
-### Test Coverage Gaps to Address
-- Dashboard: trend chart interaction, slowest tests navigation
-- Scenario detail: retry/attempt tabs (blocked on adapter support)
-- Timeline: click-to-navigate
-- Deep linking: URL state restoration on reload
+### Remaining Design Doc Items (from requirements.md)
+- Scenario outline rendering improvements (expand/collapse individual examples)
+- Screenshot lightbox overlay
+- Keyboard navigation audit (Tab/Enter/Escape)
+- ARIA live regions for dynamic content
+- Source code permalinks in activity tree (VCS provider detection)
 
 ## Useful Commands
 ```bash
 cd packages/html-reporter && npm run compile         # Full compile (ESM + CJS + template)
-cd packages/html-reporter && npm run compile:template  # Template only (faster)
+cd packages/html-reporter && npm run compile:template  # Template only (faster iteration)
 cd packages/html-reporter && pnpm test               # Unit tests (61)
-cd integration/html-reporter && npm test             # Integration tests (pretest + 37 assertions)
-cd integration/html-reporter && npx playwright test  # Just the assertions (assumes report exists)
+cd integration/html-reporter && npm test             # Full flow: pretest (stub + history) + assertions (37)
+cd integration/html-reporter && npx playwright test  # Just assertions (assumes report exists)
+npx eslint packages/html-reporter/template/**/*.ts   # Lint template code
 ```
