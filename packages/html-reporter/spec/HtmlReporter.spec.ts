@@ -32,11 +32,13 @@ import { createFsFromVolume, Volume } from 'memfs';
 import { ArtifactWriter } from '../src/ArtifactWriter.js';
 import { CIDetector } from '../src/CiDetector.js';
 import { DataSnapshotAggregator } from '../src/DataSnapshotAggregator.js';
+import { HtmlReportGenerator } from '../src/HtmlReportGenerator.js';
 import { HtmlReporter } from '../src/HtmlReporter.js';
 import { ReportTemplateWriter } from '../src/ReportTemplateWriter.js';
 import { RunDataWriter } from '../src/RunDataWriter.js';
 import { SceneDataCollector } from '../src/SceneDataCollector.js';
 import { SystemContextDetector } from '../src/SystemContextDetector.js';
+import { TestRunArchiver } from '../src/TestRunArchiver.js';
 
 test.describe('HtmlReporter', () => {
 
@@ -70,7 +72,9 @@ test.describe('HtmlReporter', () => {
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
         const systemContextDetector = new SystemContextDetector(new CIDetector({}), { cwd: process.cwd(), versionOf: () => new Version('3.44.0') } as any);
 
-        const reporter = new HtmlReporter(artifactWriter, sceneDataCollector, runDataWriter, aggregator, templateWriter, systemContextDetector, stage);
+        const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, stage);
+        const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
+        const reporter = new HtmlReporter(archiver, generator);
 
         return { reporter, filesystem };
     }
@@ -219,7 +223,9 @@ test.describe('HtmlReporter', () => {
             const runDataWriter = new RunDataWriter(outputFileSystem);
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
             const systemContextDetector = new SystemContextDetector(new CIDetector({}), { cwd: process.cwd(), versionOf: () => new Version('3.44.0') } as any);
-            const reporter = new HtmlReporter(artifactWriter, sceneDataCollector, runDataWriter, aggregator, templateWriter, systemContextDetector, stage);
+            const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, stage);
+            const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
+            const reporter = new HtmlReporter(archiver, generator);
 
             stage.assign(reporter);
 

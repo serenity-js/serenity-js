@@ -20,6 +20,9 @@
   "types": "./lib/index.d.ts",
   "type": "module",
   "module": "./esm/index.js",
+  "bin": {
+    "html-reporter": "./bin/html-reporter.mjs"
+  },
   "exports": {
     ".": {
       "import": {
@@ -76,6 +79,7 @@
     "@serenity-js/core": "workspace:*"
   },
   "dependencies": {
+    "glob": "11.0.2",
     "marked": "14.0.0",
     "tiny-types": "2.0.5"
   },
