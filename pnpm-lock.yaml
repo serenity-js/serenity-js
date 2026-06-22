@@ -1467,6 +1467,9 @@ importers:
       '@serenity-js/web':
         specifier: workspace:*
         version: link:../../packages/web
+      c8:
+        specifier: 11.0.0
+        version: 11.0.0
       http-server:
         specifier: 14.1.1
         version: 14.1.1
@@ -2794,24 +2797,15 @@ importers:
         specifier: 2.0.5
         version: 2.0.5
     devDependencies:
-      '@integration/testing-tools':
-        specifier: workspace:*
-        version: link:../../integration/testing-tools
+      '@playwright/test':
+        specifier: 1.60.0
+        version: 1.60.0
       '@serenity-js/core':
         specifier: workspace:*
         version: link:../core
       '@tanstack/virtual-core':
         specifier: 3.13.6
         version: 3.13.6
-      '@types/chai':
-        specifier: 4.3.20
-        version: 4.3.20
-      '@types/mocha':
-        specifier: 10.0.10
-        version: 10.0.10
-      '@types/sinon':
-        specifier: 17.0.4
-        version: 17.0.4
       c8:
         specifier: 11.0.0
         version: 11.0.0
@@ -2833,18 +2827,9 @@ importers:
       memfs:
         specifier: 4.57.7
         version: 4.57.7(tslib@2.8.1)
-      mocha:
-        specifier: 11.7.6
-        version: 11.7.6
-      mocha-multi:
-        specifier: 1.1.7
-        version: 1.1.7(mocha@11.7.6)
       preact:
         specifier: 10.25.4
         version: 10.25.4
-      sinon:
-        specifier: 19.0.2
-        version: 19.0.2
       tsx:
         specifier: 4.22.4
         version: 4.22.4
@@ -10791,9 +10776,6 @@ packages:
 
   sinon@18.0.1:
     resolution: {integrity: sha512-a2N2TDY1uGviajJ6r4D1CyRAkzE9NNVlYOV1wX5xQDuAk0ONgzgRl0EjCQuRCPxOwp13ghsMwt9Gdldujs39qw==}
-
-  sinon@19.0.2:
-    resolution: {integrity: sha512-euuToqM+PjO4UgXeLETsfQiuoyPXlqFezr6YZDFwHR3t4qaX0fZUe1MfPMznTL5f8BWrVS89KduLdMUsxFCO6g==}
 
   sinon@20.0.0:
     resolution: {integrity: sha512-+FXOAbdnj94AQIxH0w1v8gzNxkawVvNqE3jUzRLptR71Oykeu2RrQXXl/VQjKay+Qnh73fDt/oDfMo6xMeDQbQ==}
@@ -21095,15 +21077,6 @@ snapshots:
       '@sinonjs/fake-timers': 11.2.2
       '@sinonjs/samsam': 8.0.3
       diff: 5.2.2
-      nise: 6.1.5
-      supports-color: 7.2.0
-
-  sinon@19.0.2:
-    dependencies:
-      '@sinonjs/commons': 3.0.1
-      '@sinonjs/fake-timers': 13.0.5
-      '@sinonjs/samsam': 8.0.3
-      diff: 7.0.0
       nise: 6.1.5
       supports-color: 7.2.0
 

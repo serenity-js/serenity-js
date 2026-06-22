@@ -2,10 +2,9 @@ import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { expect } from '@integration/testing-tools';
-import { describe, it } from 'mocha';
+import { expect, test } from '@playwright/test';
 
-describe('bundle-template', () => {
+test.describe('bundle-template', () => {
 
     // The bundled template is generated at compile time by scripts/bundle-template.mjs
     // These tests verify the output meets air-gap requirements.
@@ -17,48 +16,48 @@ describe('bundle-template', () => {
         return readFileSync(templatePath, 'utf8');
     }
 
-    it('produces a template.ts file', () => {
+    test('produces a template.ts file', () => {
         const content = readBundledTemplate();
 
-        expect(content).to.contain('reportTemplate');
+        expect(content).toContain('reportTemplate');
     });
 
-    it('does not contain CDN script tags', () => {
+    test('does not contain CDN script tags', () => {
         const content = readBundledTemplate();
 
-        expect(content).not.to.contain('cdn.jsdelivr.net');
-        expect(content).not.to.contain('esm.sh');
-        expect(content).not.to.contain('unpkg.com');
+        expect(content).not.toContain('cdn.jsdelivr.net');
+        expect(content).not.toContain('esm.sh');
+        expect(content).not.toContain('unpkg.com');
     });
 
-    it('inlines Chart.js library code', () => {
+    test('inlines Chart.js library code', () => {
         const content = readBundledTemplate();
 
         // Chart.js UMD bundle defines the Chart global
-        expect(content).to.contain('Chart');
+        expect(content).toContain('Chart');
     });
 
-    it('inlines Preact library code', () => {
+    test('inlines Preact library code', () => {
         const content = readBundledTemplate();
 
-        expect(content).to.contain('preact');
+        expect(content).toContain('preact');
     });
 
-    it('inlines @tanstack/virtual-core library code', () => {
+    test('inlines @tanstack/virtual-core library code', () => {
         const content = readBundledTemplate();
 
-        expect(content).to.contain('Virtualizer');
+        expect(content).toContain('Virtualizer');
     });
 
-    it('inlines HTM library code', () => {
+    test('inlines HTM library code', () => {
         const content = readBundledTemplate();
 
-        expect(content).to.contain('htm');
+        expect(content).toContain('htm');
     });
 
-    it('retains the data.js script reference', () => {
+    test('retains the data.js script reference', () => {
         const content = readBundledTemplate();
 
-        expect(content).to.contain('./data.js');
+        expect(content).toContain('./data.js');
     });
 });

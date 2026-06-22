@@ -1,4 +1,4 @@
-import { expect } from '@integration/testing-tools';
+import { expect, test } from '@playwright/test';
 import { DomainEventQueues, Timestamp } from '@serenity-js/core';
 import {
     InteractionFinished,
@@ -21,15 +21,14 @@ import {
     ScenarioDetails,
     ScenarioParameters,
 } from '@serenity-js/core/model';
-import { describe, it } from 'mocha';
 
 import { SceneDataCollector } from '../src/SceneDataCollector.js';
 
-describe('SceneDataCollector', () => {
+test.describe('SceneDataCollector', () => {
 
-    describe('scenario outline support', () => {
+    test.describe('scenario outline support', () => {
 
-        it('groups example rows into scenarioOutline.parameters', () => {
+        test('groups example rows into scenarioOutline.parameters', () => {
             const collector = new SceneDataCollector();
             const queues = new DomainEventQueues();
 
@@ -81,31 +80,31 @@ describe('SceneDataCollector', () => {
                 { nodeVersion: 'v22', os: { name: 'linux', version: '6', arch: 'x64' }, serenityVersion: '3.44.0', testRunner: { name: 'Cucumber', version: '12.0.0' }, browsers: [], runtime: { provider: 'node', version: 'v22' } },
             );
 
-            expect(runData.scenes).to.have.lengthOf(1);
+            expect(runData.scenes).toHaveLength(1);
             const scene = runData.scenes[0];
 
-            expect(scene.name).to.equal('should greet <Developer>');
-            expect(scene.activities).to.deep.equal([]);
+            expect(scene.name).toBe('should greet <Developer>');
+            expect(scene.activities).toEqual([]);
 
-            expect(scene.scenarioOutline).to.exist;
-            expect(scene.scenarioOutline.template).to.contain('Given <Developer> is a contributor');
-            expect(scene.scenarioOutline.parameters).to.have.lengthOf(2);
+            expect(scene.scenarioOutline).toBeDefined();
+            expect(scene.scenarioOutline.template).toContain('Given <Developer> is a contributor');
+            expect(scene.scenarioOutline.parameters).toHaveLength(2);
 
             const row1 = scene.scenarioOutline.parameters[0];
-            expect(row1.name).to.equal('contributors');
-            expect(row1.values).to.deep.equal({ Developer: 'jan-molak' });
-            expect(row1.outcome.code).to.equal(64); // ExecutionSuccessful.Code
-            expect(row1.activities).to.have.lengthOf(1);
-            expect(row1.activities[0].name).to.equal('Given jan-molak is a contributor');
+            expect(row1.name).toBe('contributors');
+            expect(row1.values).toEqual({ Developer: 'jan-molak' });
+            expect(row1.outcome.code).toBe(64); // ExecutionSuccessful.Code
+            expect(row1.activities).toHaveLength(1);
+            expect(row1.activities[0].name).toBe('Given jan-molak is a contributor');
 
             const row2 = scene.scenarioOutline.parameters[1];
-            expect(row2.values).to.deep.equal({ Developer: 'alice' });
-            expect(row2.outcome.code).to.equal(2); // ExecutionFailedWithError.Code
-            expect(row2.activities).to.have.lengthOf(1);
-            expect(row2.activities[0].name).to.equal('Given alice is a contributor');
+            expect(row2.values).toEqual({ Developer: 'alice' });
+            expect(row2.outcome.code).toBe(2); // ExecutionFailedWithError.Code
+            expect(row2.activities).toHaveLength(1);
+            expect(row2.activities[0].name).toBe('Given alice is a contributor');
         });
 
-        it('does not produce scenarioOutline for regular scenarios', () => {
+        test('does not produce scenarioOutline for regular scenarios', () => {
             const collector = new SceneDataCollector();
             const queues = new DomainEventQueues();
 
@@ -123,8 +122,8 @@ describe('SceneDataCollector', () => {
 
             const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Mocha', '11.0.0', new Map(), { nodeVersion: 'v22', os: { name: 'linux', version: '6', arch: 'x64' }, serenityVersion: '3.44.0', testRunner: { name: 'Mocha', version: '11.0.0' }, browsers: [], runtime: { provider: 'node', version: 'v22' } });
 
-            expect(runData.scenes).to.have.lengthOf(1);
-            expect(runData.scenes[0].scenarioOutline).to.be.undefined;
+            expect(runData.scenes).toHaveLength(1);
+            expect(runData.scenes[0].scenarioOutline).toBeUndefined();
         });
     });
 });

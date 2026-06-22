@@ -1,6 +1,6 @@
 import type * as fs from 'node:fs';
 
-import { expect } from '@integration/testing-tools';
+import { expect, test } from '@playwright/test';
 import type { Cast, StageCrewMember } from '@serenity-js/core';
 import { Clock, Duration, ErrorFactory, Stage, StageManager, Timestamp } from '@serenity-js/core';
 import type { DomainEvent } from '@serenity-js/core/events';
@@ -28,7 +28,6 @@ import {
     ScenarioDetails,
 } from '@serenity-js/core/model';
 import { createFsFromVolume, Volume } from 'memfs';
-import { beforeEach, describe, it } from 'mocha';
 
 import { ArtifactWriter } from '../src/ArtifactWriter.js';
 import { CIDetector } from '../src/CiDetector.js';
@@ -39,7 +38,7 @@ import { RunDataWriter } from '../src/RunDataWriter.js';
 import { SceneDataCollector } from '../src/SceneDataCollector.js';
 import { SystemContextDetector } from '../src/SystemContextDetector.js';
 
-describe('HtmlReporter', () => {
+test.describe('HtmlReporter', () => {
 
     const outputDirectory = Path.from('/reports/serenity-js');
     const clock = new Clock();
@@ -76,42 +75,42 @@ describe('HtmlReporter', () => {
         return { reporter, filesystem };
     }
 
-    beforeEach(() => {
+    test.beforeEach(() => {
         stage = new Stage(new Extras(), new StageManager(Duration.ofMilliseconds(250), new Clock()), new ErrorFactory(), clock, interactionTimeout);
         recorder = new EventCollector();
         stage.assign(recorder);
     });
 
-    describe('StageCrewMember integration', () => {
+    test.describe('StageCrewMember integration', () => {
 
-        it('implements the StageCrewMember interface via fromJSON builder', () => {
+        test('implements the StageCrewMember interface via fromJSON builder', () => {
             const { reporter } = createReporter();
 
-            expect(reporter).to.have.property('assignedTo');
-            expect(reporter).to.have.property('notifyOf');
+            expect(reporter).toHaveProperty('assignedTo');
+            expect(reporter).toHaveProperty('notifyOf');
         });
 
-        it('can be assigned to a stage', () => {
+        test('can be assigned to a stage', () => {
             const { reporter } = createReporter();
             const assigned = reporter.assignedTo(stage);
 
-            expect(assigned).to.equal(reporter);
+            expect(assigned).toBe(reporter);
         });
     });
 
-    describe('report generation', () => {
+    test.describe('report generation', () => {
 
-        it('creates a test run directory named with ISO 8601 timestamp on TestRunStarts', () => {
+        test('creates a test run directory named with ISO 8601 timestamp on TestRunStarts', () => {
             const { reporter, filesystem } = createReporter();
             
             stage.assign(reporter);
 
             stage.announce(new TestRunStarts(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
 
-            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z')).to.equal(true);
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z')).toBe(true);
         });
 
-        it('emits AsyncOperationAttempted before report generation on TestRunFinishes', () => {
+        test('emits AsyncOperationAttempted before report generation on TestRunFinishes', () => {
             const { reporter } = createReporter();
             
             stage.assign(reporter);
@@ -120,10 +119,10 @@ describe('HtmlReporter', () => {
             stage.announce(new TestRunFinishes(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
 
             const asyncAttempted = recorder.events.find(e => e instanceof AsyncOperationAttempted);
-            expect(asyncAttempted).to.be.instanceOf(AsyncOperationAttempted);
+            expect(asyncAttempted).toBeInstanceOf(AsyncOperationAttempted);
         });
 
-        it('emits AsyncOperationCompleted when report generation succeeds', () => {
+        test('emits AsyncOperationCompleted when report generation succeeds', () => {
             const { reporter } = createReporter();
             
             stage.assign(reporter);
@@ -132,10 +131,10 @@ describe('HtmlReporter', () => {
             stage.announce(new TestRunFinishes(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
 
             const asyncCompleted = recorder.events.find(e => e instanceof AsyncOperationCompleted);
-            expect(asyncCompleted).to.be.instanceOf(AsyncOperationCompleted);
+            expect(asyncCompleted).toBeInstanceOf(AsyncOperationCompleted);
         });
 
-        it('writes db.json to the test run directory', () => {
+        test('writes db.json to the test run directory', () => {
             const { reporter, filesystem } = createReporter();
             
             stage.assign(reporter);
@@ -144,15 +143,15 @@ describe('HtmlReporter', () => {
             stage.announce(new TestRunFinishes(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
 
             const databaseJsonPath = '/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/db.json';
-            expect(filesystem.existsSync(databaseJsonPath)).to.equal(true);
+            expect(filesystem.existsSync(databaseJsonPath)).toBe(true);
 
             const content = JSON.parse(filesystem.readFileSync(databaseJsonPath, 'utf8') as string);
-            expect(content).to.have.property('timestamp', '2024-06-15T14:30:00.000Z');
-            expect(content).to.have.property('outcomes');
-            expect(content).to.have.property('scenes').that.is.an('array');
+            expect(content).toHaveProperty('timestamp', '2024-06-15T14:30:00.000Z');
+            expect(content).toHaveProperty('outcomes');
+            expect(Array.isArray(content.scenes)).toBe(true);
         });
 
-        it('writes index.html to the output directory', () => {
+        test('writes index.html to the output directory', () => {
             const { reporter, filesystem } = createReporter();
             
             stage.assign(reporter);
@@ -160,10 +159,10 @@ describe('HtmlReporter', () => {
             stage.announce(new TestRunStarts(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
             stage.announce(new TestRunFinishes(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
 
-            expect(filesystem.existsSync('/reports/serenity-js/index.html')).to.equal(true);
+            expect(filesystem.existsSync('/reports/serenity-js/index.html')).toBe(true);
         });
 
-        it('does not modify existing test run directories', () => {
+        test('does not modify existing test run directories', () => {
             const { reporter, filesystem } = createReporter({
                 'test-runs': {
                     '2024-06-14T10:00:00.000Z': {
@@ -181,13 +180,13 @@ describe('HtmlReporter', () => {
             // Existing data untouched
             expect(
                 filesystem.readFileSync('/reports/serenity-js/test-runs/2024-06-14T10:00:00.000Z/screenshot-001.png', 'utf8'),
-            ).to.equal('existing-data');
+            ).toBe('existing-data');
 
             // New directory created alongside
-            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/db.json')).to.equal(true);
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/db.json')).toBe(true);
         });
 
-        it('includes system context in db.json', () => {
+        test('includes system context in db.json', () => {
             const { reporter, filesystem } = createReporter();
             
             stage.assign(reporter);
@@ -196,14 +195,14 @@ describe('HtmlReporter', () => {
             stage.announce(new TestRunFinishes(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
 
             const content = JSON.parse(filesystem.readFileSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/db.json', 'utf8') as string);
-            expect(content).to.have.property('systemContext');
-            expect(content.systemContext).to.have.property('nodeVersion', process.version);
-            expect(content.systemContext).to.have.property('os').that.has.property('arch');
-            expect(content.systemContext).to.have.property('serenityVersion', '3.44.0');
-            expect(content.systemContext).to.have.property('runtime').that.has.property('provider');
+            expect(content).toHaveProperty('systemContext');
+            expect(content.systemContext).toHaveProperty('nodeVersion', process.version);
+            expect(content.systemContext.os).toHaveProperty('arch');
+            expect(content.systemContext).toHaveProperty('serenityVersion', '3.44.0');
+            expect(content.systemContext.runtime).toHaveProperty('provider');
         });
 
-        it('includes requirements hierarchy in data.js when specDirectory is configured', () => {
+        test('includes requirements hierarchy in data.js when specDirectory is configured', () => {
             const projectFs = createFsFromVolume(Volume.fromNestedJSON({
                 '/project': { spec: { 'readme.md': '**Project** narrative', 'example.spec.ts': '' } }
             }, '/')) as unknown as typeof fs;
@@ -235,19 +234,19 @@ describe('HtmlReporter', () => {
             const dataJs = reportFs.readFileSync('/reports/serenity-js/data.js', 'utf8') as string;
             const data = JSON.parse(dataJs.replace(/^window\.__SERENITY_REPORT_DATA__\s*=\s*/, '').replace(/;\s*$/, ''));
 
-            expect(data.requirements).to.exist;
-            expect(data.requirements.name).to.equal('spec');
-            expect(data.requirements.readme).to.contain('<strong>Project</strong>');
-            expect(data.requirements.scenarioCount).to.equal(1);
-            expect(data.requirements.outcomes.passed).to.equal(1);
-            expect(data.requirements.children).to.have.lengthOf(1);
-            expect(data.requirements.children[0].name).to.equal('example');
+            expect(data.requirements).toBeDefined();
+            expect(data.requirements.name).toBe('spec');
+            expect(data.requirements.readme).toContain('<strong>Project</strong>');
+            expect(data.requirements.scenarioCount).toBe(1);
+            expect(data.requirements.outcomes.passed).toBe(1);
+            expect(data.requirements.children).toHaveLength(1);
+            expect(data.requirements.children[0].name).toBe('example');
         });
     });
 
-    describe('domain event collection', () => {
+    test.describe('domain event collection', () => {
 
-        it('records test runner name and version from TestRunnerDetected', () => {
+        test('records test runner name and version from TestRunnerDetected', () => {
             const { reporter, filesystem } = createReporter();
             
             stage.assign(reporter);
@@ -263,11 +262,11 @@ describe('HtmlReporter', () => {
             stage.announce(new TestRunFinishes(time));
 
             const content = JSON.parse(filesystem.readFileSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/db.json', 'utf8') as string);
-            expect(content.testRunner).to.equal('Playwright');
-            expect(content.testRunnerVersion).to.equal('1.45.0');
+            expect(content.testRunner).toBe('Playwright');
+            expect(content.testRunnerVersion).toBe('1.45.0');
         });
 
-        it('records scene name, category, source location, and outcome', () => {
+        test('records scene name, category, source location, and outcome', () => {
             const { reporter, filesystem } = createReporter();
             
             stage.assign(reporter);
@@ -287,18 +286,18 @@ describe('HtmlReporter', () => {
             stage.announce(new TestRunFinishes(endTime));
 
             const content = JSON.parse(filesystem.readFileSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/db.json', 'utf8') as string);
-            expect(content.scenes).to.have.lengthOf(1);
+            expect(content.scenes).toHaveLength(1);
 
             const scene = content.scenes[0];
-            expect(scene.name).to.equal('A passing test');
-            expect(scene.category).to.equal('Login');
-            expect(scene.outcome).to.deep.equal({ code: 64 });
-            expect(scene.source).to.deep.equal({ path: 'features/login.feature', line: 10 });
-            expect(scene.startedAt).to.equal('2024-06-15T14:30:00.000Z');
-            expect(scene.duration).to.equal(100);
+            expect(scene.name).toBe('A passing test');
+            expect(scene.category).toBe('Login');
+            expect(scene.outcome).toEqual({ code: 64 });
+            expect(scene.source).toEqual({ path: 'features/login.feature', line: 10 });
+            expect(scene.startedAt).toBe('2024-06-15T14:30:00.000Z');
+            expect(scene.duration).toBe(100);
         });
 
-        it('records tags from SceneTagged events', () => {
+        test('records tags from SceneTagged events', () => {
             const { reporter, filesystem } = createReporter();
             
             stage.assign(reporter);
@@ -314,11 +313,11 @@ describe('HtmlReporter', () => {
             stage.announce(new TestRunFinishes(time));
 
             const content = JSON.parse(filesystem.readFileSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/db.json', 'utf8') as string);
-            expect(content.scenes[0].tags).to.deep.include({ type: 'tag', name: 'smoke' });
-            expect(content.tags).to.deep.include({ type: 'tag', name: 'smoke' });
+            expect(content.scenes[0].tags).toContainEqual({ type: 'tag', name: 'smoke' });
+            expect(content.tags).toContainEqual({ type: 'tag', name: 'smoke' });
         });
 
-        it('builds activity tree from Task and Interaction events', () => {
+        test('builds activity tree from Task and Interaction events', () => {
             const { reporter, filesystem } = createReporter();
             
             stage.assign(reporter);
@@ -340,14 +339,14 @@ describe('HtmlReporter', () => {
             const content = JSON.parse(filesystem.readFileSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/db.json', 'utf8') as string);
             const activities = content.scenes[0].activities;
 
-            expect(activities).to.have.lengthOf(1);
-            expect(activities[0].type).to.equal('Interaction');
-            expect(activities[0].name).to.equal('Alice clicks button');
-            expect(activities[0].outcome).to.deep.equal({ code: 64 });
-            expect(activities[0].duration).to.equal(50);
+            expect(activities).toHaveLength(1);
+            expect(activities[0].type).toBe('Interaction');
+            expect(activities[0].name).toBe('Alice clicks button');
+            expect(activities[0].outcome).toEqual({ code: 64 });
+            expect(activities[0].duration).toBe(50);
         });
 
-        it('records error details for failed activities', () => {
+        test('records error details for failed activities', () => {
             const { reporter, filesystem } = createReporter();
             
             stage.assign(reporter);
@@ -373,13 +372,13 @@ describe('HtmlReporter', () => {
             const content = JSON.parse(filesystem.readFileSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/db.json', 'utf8') as string);
             const activity = content.scenes[0].activities[0];
 
-            expect(activity.outcome.code).to.equal(4);
-            expect(activity.error.name).to.equal('AssertionError');
-            expect(activity.error.message).to.equal('Expected true to equal false');
-            expect(activity.error.stack).to.contain('Verify.ts:10:5');
+            expect(activity.outcome.code).toBe(4);
+            expect(activity.error.name).toBe('AssertionError');
+            expect(activity.error.message).toBe('Expected true to equal false');
+            expect(activity.error.stack).toContain('Verify.ts:10:5');
         });
 
-        it('summarises outcome counts across all scenes', () => {
+        test('summarises outcome counts across all scenes', () => {
             const { reporter, filesystem } = createReporter();
             
             stage.assign(reporter);
@@ -403,12 +402,12 @@ describe('HtmlReporter', () => {
             stage.announce(new TestRunFinishes(time));
 
             const content = JSON.parse(filesystem.readFileSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/db.json', 'utf8') as string);
-            expect(content.outcomes.passed).to.equal(2);
-            expect(content.outcomes.failed).to.equal(1);
-            expect(content.outcomes.pending).to.equal(0);
+            expect(content.outcomes.passed).toBe(2);
+            expect(content.outcomes.failed).toBe(1);
+            expect(content.outcomes.pending).toBe(0);
         });
 
-        it('correctly associates events with their respective scenes using correlation IDs', () => {
+        test('correctly associates events with their respective scenes using correlation IDs', () => {
             const { reporter, filesystem } = createReporter();
             
             stage.assign(reporter);
@@ -431,11 +430,11 @@ describe('HtmlReporter', () => {
             stage.announce(new TestRunFinishes(endTime));
 
             const content = JSON.parse(filesystem.readFileSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/db.json', 'utf8') as string);
-            expect(content.scenes).to.have.lengthOf(2);
-            expect(content.scenes[0].name).to.equal('Scene A');
-            expect(content.scenes[0].tags).to.deep.include({ type: 'tag', name: 'tag-a' });
-            expect(content.scenes[1].name).to.equal('Scene B');
-            expect(content.scenes[1].tags).to.deep.include({ type: 'tag', name: 'tag-b' });
+            expect(content.scenes).toHaveLength(2);
+            expect(content.scenes[0].name).toBe('Scene A');
+            expect(content.scenes[0].tags).toContainEqual({ type: 'tag', name: 'tag-a' });
+            expect(content.scenes[1].name).toBe('Scene B');
+            expect(content.scenes[1].tags).toContainEqual({ type: 'tag', name: 'tag-b' });
         });
     });
 });

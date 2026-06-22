@@ -1,65 +1,68 @@
-import { expect } from '@integration/testing-tools';
+import { expect, test } from '@playwright/test';
 import { ModuleLoader } from '@serenity-js/core/io';
-import { describe, it } from 'mocha';
 
 import { CIDetector } from '../src/CiDetector.js';
 import { SystemContextDetector } from '../src/SystemContextDetector.js';
 
-describe('SystemContextDetector', () => {
+test.describe('SystemContextDetector', () => {
 
     const moduleLoader = new ModuleLoader(process.cwd());
 
-    it('detects Node.js version', () => {
+    test('detects Node.js version', () => {
         const detector = new SystemContextDetector(new CIDetector({}), moduleLoader);
 
         const context = detector.detect();
 
-        expect(context.nodeVersion).to.equal(process.version);
+        expect(context.nodeVersion).toBe(process.version);
     });
 
-    it('detects operating system info', () => {
+    test('detects operating system info', () => {
         const detector = new SystemContextDetector(new CIDetector({}), moduleLoader);
 
         const context = detector.detect();
 
-        expect(context.os).to.have.property('name').that.is.a('string');
-        expect(context.os).to.have.property('version').that.is.a('string');
-        expect(context.os).to.have.property('arch').that.is.a('string');
+        expect(context.os).toHaveProperty('name');
+        expect(typeof context.os.name).toBe('string');
+        expect(context.os).toHaveProperty('version');
+        expect(typeof context.os.version).toBe('string');
+        expect(context.os).toHaveProperty('arch');
+        expect(typeof context.os.arch).toBe('string');
     });
 
-    it('detects Serenity/JS version as a Version object', () => {
+    test('detects Serenity/JS version as a Version object', () => {
         const detector = new SystemContextDetector(new CIDetector({}), moduleLoader);
 
         const context = detector.detect();
 
-        expect(context.serenityVersion.toString()).to.match(/^\d+\.\d+\.\d+/);
+        expect(context.serenityVersion.toString()).toMatch(/^\d+\.\d+\.\d+/);
     });
 
-    it('detects package manager', () => {
+    test('detects package manager', () => {
         const detector = new SystemContextDetector(new CIDetector({}), moduleLoader);
 
         const context = detector.detect();
 
-        expect(context.packageManager).to.be.a('string').that.is.oneOf(['pnpm', 'yarn', 'npm', 'bun']);
+        expect(typeof context.packageManager).toBe('string');
+        expect(['pnpm', 'yarn', 'npm', 'bun']).toContain(context.packageManager);
     });
 
-    it('detects project name from package.json', () => {
+    test('detects project name from package.json', () => {
         const detector = new SystemContextDetector(new CIDetector({}), moduleLoader);
 
         const context = detector.detect();
 
-        expect(context.projectName).to.be.a('string');
+        expect(typeof context.projectName).toBe('string');
     });
 
-    it('allows projectName to be overridden via config', () => {
+    test('allows projectName to be overridden via config', () => {
         const detector = new SystemContextDetector(new CIDetector({}), moduleLoader, { projectName: 'My Custom Project' });
 
         const context = detector.detect();
 
-        expect(context.projectName).to.equal('My Custom Project');
+        expect(context.projectName).toBe('My Custom Project');
     });
 
-    it('includes CI runtime context when running in CI', () => {
+    test('includes CI runtime context when running in CI', () => {
         const ciDetector = new CIDetector({
             GITHUB_ACTIONS: 'true',
             GITHUB_RUN_NUMBER: '42',
@@ -73,18 +76,22 @@ describe('SystemContextDetector', () => {
 
         const context = detector.detect();
 
-        expect(context.runtime.provider).to.equal('GitHub Actions');
-        expect(context.runtime.buildNumber).to.equal('42');
+        expect(context.runtime.provider).toBe('GitHub Actions');
+        expect(context.runtime.buildNumber).toBe('42');
     });
 
-    it('provides local runtime context when not running in CI', () => {
+    test('provides local runtime context when not running in CI', () => {
         const detector = new SystemContextDetector(new CIDetector({}), moduleLoader);
 
         const context = detector.detect();
 
-        expect(context.runtime.provider).to.be.a('string').that.is.not.empty;
-        expect(context.runtime.buildNumber).to.be.a('string').that.is.not.empty;
-        expect(context.runtime.branch).to.be.a('string').that.is.not.empty;
-        expect(context.runtime.commit).to.be.a('string').that.is.not.empty;
+        expect(typeof context.runtime.provider).toBe('string');
+        expect(context.runtime.provider).toBeTruthy();
+        expect(typeof context.runtime.buildNumber).toBe('string');
+        expect(context.runtime.buildNumber).toBeTruthy();
+        expect(typeof context.runtime.branch).toBe('string');
+        expect(context.runtime.branch).toBeTruthy();
+        expect(typeof context.runtime.commit).toBe('string');
+        expect(context.runtime.commit).toBeTruthy();
     });
 });

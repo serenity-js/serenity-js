@@ -1,13 +1,12 @@
 import type * as fs from 'node:fs';
 
-import { expect } from '@integration/testing-tools';
+import { expect, test } from '@playwright/test';
 import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import { createFsFromVolume, Volume } from 'memfs';
-import { describe, it } from 'mocha';
 
 import { DataSnapshotAggregator } from '../src/DataSnapshotAggregator.js';
 
-describe('DataSnapshotAggregator', () => {
+test.describe('DataSnapshotAggregator', () => {
 
     const outputDirectory = Path.from('/reports/serenity-js');
 
@@ -33,9 +32,9 @@ describe('DataSnapshotAggregator', () => {
         return JSON.parse(json);
     }
 
-    describe('aggregation', () => {
+    test.describe('aggregation', () => {
 
-        it('produces data.js from a single test run', () => {
+        test('produces data.js from a single test run', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
@@ -59,17 +58,17 @@ describe('DataSnapshotAggregator', () => {
 
             aggregator.aggregate();
 
-            expect(filesystem.existsSync('/reports/serenity-js/data.js')).to.equal(true);
+            expect(filesystem.existsSync('/reports/serenity-js/data.js')).toBe(true);
             const data = readDataJs(filesystem);
-            expect(data.scenarios).to.have.lengthOf(4);
-            expect(data.summary.totalScenarios).to.equal(4);
-            expect(data.summary.outcomes.passed).to.equal(3);
-            expect(data.summary.outcomes.failed).to.equal(1);
-            expect(data.summary.startedAt).to.equal('2024-06-15T14:30:00.000Z');
-            expect(data.summary.finishedAt).to.equal('2024-06-15T14:30:01.000Z');
+            expect(data.scenarios).toHaveLength(4);
+            expect(data.summary.totalScenarios).toBe(4);
+            expect(data.summary.outcomes.passed).toBe(3);
+            expect(data.summary.outcomes.failed).toBe(1);
+            expect(data.summary.startedAt).toBe('2024-06-15T14:30:00.000Z');
+            expect(data.summary.finishedAt).toBe('2024-06-15T14:30:01.000Z');
         });
 
-        it('assigns data to window.__SERENITY_REPORT_DATA__', () => {
+        test('assigns data to window.__SERENITY_REPORT_DATA__', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
@@ -86,11 +85,11 @@ describe('DataSnapshotAggregator', () => {
             aggregator.aggregate();
 
             const content = filesystem.readFileSync('/reports/serenity-js/data.js', 'utf8') as string;
-            expect(content).to.match(/^window\.__SERENITY_REPORT_DATA__\s*=/);
-            expect(content).to.match(/;\s*$/);
+            expect(content).toMatch(/^window\.__SERENITY_REPORT_DATA__\s*=/);
+            expect(content).toMatch(/;\s*$/);
         });
 
-        it('builds history array ordered chronologically from multiple runs', () => {
+        test('builds history array ordered chronologically from multiple runs', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-14T10:00:00.000Z': {
@@ -121,12 +120,12 @@ describe('DataSnapshotAggregator', () => {
             aggregator.aggregate();
 
             const data = readDataJs(filesystem);
-            expect(data.history).to.have.lengthOf(2);
-            expect(data.history[0].timestamp).to.equal('2024-06-14T10:00:00.000Z');
-            expect(data.history[1].timestamp).to.equal('2024-06-15T14:30:00.000Z');
+            expect(data.history).toHaveLength(2);
+            expect(data.history[0].timestamp).toBe('2024-06-14T10:00:00.000Z');
+            expect(data.history[1].timestamp).toBe('2024-06-15T14:30:00.000Z');
         });
 
-        it('uses scenes from the latest run in the snapshot', () => {
+        test('uses scenes from the latest run in the snapshot', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-14T10:00:00.000Z': {
@@ -151,12 +150,12 @@ describe('DataSnapshotAggregator', () => {
             aggregator.aggregate();
 
             const data = readDataJs(filesystem);
-            expect(data.scenarios).to.have.lengthOf(1);
-            expect(data.scenarios[0].name).to.equal('New Test');
-            expect(data.summary.testRunner).to.equal('Playwright');
+            expect(data.scenarios).toHaveLength(1);
+            expect(data.scenarios[0].name).toBe('New Test');
+            expect(data.summary.testRunner).toBe('Playwright');
         });
 
-        it('applies custom title from configuration', () => {
+        test('applies custom title from configuration', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
@@ -173,10 +172,10 @@ describe('DataSnapshotAggregator', () => {
             aggregator.aggregate();
 
             const data = readDataJs(filesystem);
-            expect(data.summary.title).to.equal('My Project Report');
+            expect(data.summary.title).toBe('My Project Report');
         });
 
-        it('includes system context from the latest run in the data snapshot', () => {
+        test('includes system context from the latest run in the data snapshot', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
@@ -199,7 +198,7 @@ describe('DataSnapshotAggregator', () => {
             aggregator.aggregate();
 
             const data = readDataJs(filesystem);
-            expect(data.systemContext).to.deep.equal({
+            expect(data.systemContext).toEqual({
                 nodeVersion: 'v22.0.0',
                 os: { name: 'darwin', version: '24.0.0', arch: 'arm64' },
                 serenityVersion: '3.44.0',
@@ -210,9 +209,9 @@ describe('DataSnapshotAggregator', () => {
         });
     });
 
-    describe('requirements hierarchy', () => {
+    test.describe('requirements hierarchy', () => {
 
-        it('builds a requirements tree from scenario source paths when specDirectory is configured', () => {
+        test('builds a requirements tree from scenario source paths when specDirectory is configured', () => {
             const projectFs = createFsFromVolume(Volume.fromNestedJSON({
                 '/project': { spec: { 'readme.md': '**bold** text', login: { 'basic.spec.ts': '' }, 'checkout.spec.ts': '' } }
             }, '/')) as unknown as typeof fs;
@@ -239,18 +238,18 @@ describe('DataSnapshotAggregator', () => {
             aggregator.aggregate();
 
             const data = readDataJs(filesystem);
-            expect(data.requirements).to.exist;
-            expect(data.requirements.scenarioCount).to.equal(3);
-            expect(data.requirements.outcomes.passed).to.equal(2);
-            expect(data.requirements.outcomes.failed).to.equal(1);
-            expect(data.requirements.children).to.have.lengthOf(2);
+            expect(data.requirements).toBeDefined();
+            expect(data.requirements.scenarioCount).toBe(3);
+            expect(data.requirements.outcomes.passed).toBe(2);
+            expect(data.requirements.outcomes.failed).toBe(1);
+            expect(data.requirements.children).toHaveLength(2);
 
             const names = data.requirements.children.map((c: any) => c.name).sort();
-            expect(names).to.deep.equal(['checkout', 'login']);
-            expect(data.requirements.readme).to.contain('<strong>bold</strong>');
+            expect(names).toEqual(['checkout', 'login']);
+            expect(data.requirements.readme).toContain('<strong>bold</strong>');
         });
 
-        it('does not produce requirements when specDirectory is not configured', () => {
+        test('does not produce requirements when specDirectory is not configured', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
@@ -267,13 +266,13 @@ describe('DataSnapshotAggregator', () => {
             aggregator.aggregate();
 
             const data = readDataJs(filesystem);
-            expect(data.requirements).to.be.undefined;
+            expect(data.requirements).toBeUndefined();
         });
     });
 
-    describe('maxHistory pruning', () => {
+    test.describe('maxHistory pruning', () => {
 
-        it('retains only the most recent N test run directories when maxHistory is configured', () => {
+        test('retains only the most recent N test run directories when maxHistory is configured', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-13T10:00:00.000Z': { 'db.json': JSON.stringify({ timestamp: '2024-06-13T10:00:00.000Z', duration: 100, outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: 'M', testRunnerVersion: '1.0.0' }), 'screenshot.png': 'old-data' },
@@ -285,19 +284,19 @@ describe('DataSnapshotAggregator', () => {
             aggregator.aggregate();
 
             // Oldest run should be removed
-            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-13T10:00:00.000Z')).to.equal(false);
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-13T10:00:00.000Z')).toBe(false);
             // Two most recent retained
-            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-14T10:00:00.000Z')).to.equal(true);
-            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-15T10:00:00.000Z')).to.equal(true);
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-14T10:00:00.000Z')).toBe(true);
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-15T10:00:00.000Z')).toBe(true);
 
             const data = readDataJs(filesystem);
-            expect(data.history).to.have.lengthOf(2);
+            expect(data.history).toHaveLength(2);
         });
     });
 
-    describe('unstable test identification', () => {
+    test.describe('unstable test identification', () => {
 
-        it('identifies tests with mixed outcomes within the stability window as unstable', () => {
+        test('identifies tests with mixed outcomes within the stability window as unstable', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-13T10:00:00.000Z': { 'db.json': JSON.stringify({ timestamp: '2024-06-13T10:00:00.000Z', duration: 100, outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Flaky Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: 'M', testRunnerVersion: '1.0.0' }) },
@@ -309,11 +308,11 @@ describe('DataSnapshotAggregator', () => {
             aggregator.aggregate();
 
             const data = readDataJs(filesystem);
-            expect(data.unstableTests).to.have.lengthOf(1);
-            expect(data.unstableTests[0].name).to.equal('Flaky Test');
+            expect(data.unstableTests).toHaveLength(1);
+            expect(data.unstableTests[0].name).toBe('Flaky Test');
         });
 
-        it('does not flag a test as unstable if all outcomes within the stability window are the same', () => {
+        test('does not flag a test as unstable if all outcomes within the stability window are the same', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-13T10:00:00.000Z': { 'db.json': JSON.stringify({ timestamp: '2024-06-13T10:00:00.000Z', duration: 100, outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Stable Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: 'M', testRunnerVersion: '1.0.0' }) },
@@ -324,10 +323,10 @@ describe('DataSnapshotAggregator', () => {
             aggregator.aggregate();
 
             const data = readDataJs(filesystem);
-            expect(data.unstableTests).to.have.lengthOf(0);
+            expect(data.unstableTests).toHaveLength(0);
         });
 
-        it('considers only the last N runs when determining stability', () => {
+        test('considers only the last N runs when determining stability', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     // Old failure (outside window of 2)
@@ -342,13 +341,13 @@ describe('DataSnapshotAggregator', () => {
 
             const data = readDataJs(filesystem);
             // Old failure is outside the window of 2, so test is stable
-            expect(data.unstableTests).to.have.lengthOf(0);
+            expect(data.unstableTests).toHaveLength(0);
         });
     });
 
-    describe('tag statistics', () => {
+    test.describe('tag statistics', () => {
 
-        it('computes scenarioCount and passed for each tag', () => {
+        test('computes scenarioCount and passed for each tag', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
@@ -370,17 +369,17 @@ describe('DataSnapshotAggregator', () => {
 
             const data = readDataJs(filesystem);
             const chromeTag = data.tags.find((t: any) => t.name === 'chrome');
-            expect(chromeTag.scenarioCount).to.equal(3);
-            expect(chromeTag.passed).to.equal(2);
+            expect(chromeTag.scenarioCount).toBe(3);
+            expect(chromeTag.passed).toBe(2);
             const slowTag = data.tags.find((t: any) => t.name === 'slow');
-            expect(slowTag.scenarioCount).to.equal(1);
-            expect(slowTag.passed).to.equal(0);
+            expect(slowTag.scenarioCount).toBe(1);
+            expect(slowTag.passed).toBe(0);
         });
     });
 
-    describe('execution history', () => {
+    test.describe('execution history', () => {
 
-        it('correlates scenarios across runs by source path and line', () => {
+        test('correlates scenarios across runs by source path and line', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-14T10:00:00.000Z': {
@@ -405,15 +404,15 @@ describe('DataSnapshotAggregator', () => {
             aggregator.aggregate();
 
             const data = readDataJs(filesystem);
-            expect(data.scenarios[0].executionHistory).to.have.lengthOf(2);
-            expect(data.scenarios[0].executionHistory[0].outcome).to.equal('SUCCESS');
-            expect(data.scenarios[0].executionHistory[1].outcome).to.equal('FAILURE');
+            expect(data.scenarios[0].executionHistory).toHaveLength(2);
+            expect(data.scenarios[0].executionHistory[0].outcome).toBe('SUCCESS');
+            expect(data.scenarios[0].executionHistory[1].outcome).toBe('FAILURE');
         });
     });
 
-    describe('history duration stats', () => {
+    test.describe('history duration stats', () => {
 
-        it('includes slowest and fastest test durations per run', () => {
+        test('includes slowest and fastest test durations per run', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
@@ -433,14 +432,14 @@ describe('DataSnapshotAggregator', () => {
             aggregator.aggregate();
 
             const data = readDataJs(filesystem);
-            expect(data.history[0].slowest).to.equal(400);
-            expect(data.history[0].fastest).to.equal(100);
+            expect(data.history[0].slowest).toBe(400);
+            expect(data.history[0].fastest).toBe(100);
         });
     });
 
-    describe('activity location and outcome mapping', () => {
+    test.describe('activity location and outcome mapping', () => {
 
-        it('preserves activity location and maps outcome codes to display strings', () => {
+        test('preserves activity location and maps outcome codes to display strings', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
@@ -467,13 +466,13 @@ describe('DataSnapshotAggregator', () => {
             const data = readDataJs(filesystem);
             const activities = data.scenarios[0].activities;
 
-            expect(activities).to.have.lengthOf(3);
-            expect(activities[0].outcome).to.equal('SUCCESS');
-            expect(activities[0].location).to.deep.equal({ path: 'features/pending.feature', line: 14 });
-            expect(activities[1].outcome).to.equal('PENDING');
-            expect(activities[1].location).to.deep.equal({ path: 'features/pending.feature', line: 15 });
-            expect(activities[2].outcome).to.equal('SKIPPED');
-            expect(activities[2].location).to.deep.equal({ path: 'features/pending.feature', line: 16 });
+            expect(activities).toHaveLength(3);
+            expect(activities[0].outcome).toBe('SUCCESS');
+            expect(activities[0].location).toEqual({ path: 'features/pending.feature', line: 14 });
+            expect(activities[1].outcome).toBe('PENDING');
+            expect(activities[1].location).toEqual({ path: 'features/pending.feature', line: 15 });
+            expect(activities[2].outcome).toBe('SKIPPED');
+            expect(activities[2].location).toEqual({ path: 'features/pending.feature', line: 16 });
         });
     });
 });

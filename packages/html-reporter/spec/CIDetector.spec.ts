@@ -1,46 +1,40 @@
-import { expect } from '@integration/testing-tools';
-import { describe, it } from 'mocha';
+import { expect, test } from '@playwright/test';
 
 import { CIDetector } from '../src/CiDetector.js';
 
-describe('CIDetector', () => {
+test.describe('CIDetector', () => {
 
-    describe('isCI()', () => {
+    test.describe('isCI()', () => {
 
-        it('returns false when no CI environment variables are set', () => {
+        test('returns false when no CI environment variables are set', () => {
             const detector = new CIDetector({});
-
-            expect(detector.isCI()).to.equal(false);
+            expect(detector.isCI()).toBe(false);
         });
 
-        it('returns true when GITHUB_ACTIONS is set', () => {
+        test('returns true when GITHUB_ACTIONS is set', () => {
             const detector = new CIDetector({ GITHUB_ACTIONS: 'true' });
-
-            expect(detector.isCI()).to.equal(true);
+            expect(detector.isCI()).toBe(true);
         });
 
-        it('returns true when GITLAB_CI is set', () => {
+        test('returns true when GITLAB_CI is set', () => {
             const detector = new CIDetector({ GITLAB_CI: 'true' });
-
-            expect(detector.isCI()).to.equal(true);
+            expect(detector.isCI()).toBe(true);
         });
 
-        it('returns true when JENKINS_URL is set', () => {
+        test('returns true when JENKINS_URL is set', () => {
             const detector = new CIDetector({ JENKINS_URL: 'http://jenkins.example.com' });
-
-            expect(detector.isCI()).to.equal(true);
+            expect(detector.isCI()).toBe(true);
         });
 
-        it('returns true when CIRCLECI is set', () => {
+        test('returns true when CIRCLECI is set', () => {
             const detector = new CIDetector({ CIRCLECI: 'true' });
-
-            expect(detector.isCI()).to.equal(true);
+            expect(detector.isCI()).toBe(true);
         });
     });
 
-    describe('detect()', () => {
+    test.describe('detect()', () => {
 
-        it('detects GitHub Actions metadata', () => {
+        test('detects GitHub Actions metadata', () => {
             const detector = new CIDetector({
                 GITHUB_ACTIONS: 'true',
                 GITHUB_RUN_NUMBER: '142',
@@ -55,17 +49,17 @@ describe('CIDetector', () => {
 
             const context = detector.detect();
 
-            expect(context.provider).to.equal('GitHub Actions');
-            expect(context.buildNumber).to.equal('142');
-            expect(context.branch).to.equal('main');
-            expect(context.commit).to.equal('abc123de');
-            expect(context.jobUrl).to.equal('https://github.com/serenity-js/serenity-js/actions/runs/9876543210');
-            expect(context.workflow).to.equal('CI');
-            expect(context.repositoryUrl).to.equal('https://github.com/serenity-js/serenity-js');
-            expect(context.triggeredBy).to.equal('jan-molak');
+            expect(context.provider).toBe('GitHub Actions');
+            expect(context.buildNumber).toBe('142');
+            expect(context.branch).toBe('main');
+            expect(context.commit).toBe('abc123de');
+            expect(context.jobUrl).toBe('https://github.com/serenity-js/serenity-js/actions/runs/9876543210');
+            expect(context.workflow).toBe('CI');
+            expect(context.repositoryUrl).toBe('https://github.com/serenity-js/serenity-js');
+            expect(context.triggeredBy).toBe('jan-molak');
         });
 
-        it('detects GitLab CI metadata', () => {
+        test('detects GitLab CI metadata', () => {
             const detector = new CIDetector({
                 GITLAB_CI: 'true',
                 CI_PIPELINE_IID: '55',
@@ -83,21 +77,21 @@ describe('CIDetector', () => {
 
             const context = detector.detect();
 
-            expect(context.provider).to.equal('GitLab CI');
-            expect(context.buildNumber).to.equal('55');
-            expect(context.branch).to.equal('feature/login');
-            expect(context.commit).to.equal('a1b2c3d4');
-            expect(context.commitMessage).to.equal('fix: resolve login issue');
-            expect(context.commitAuthor).to.equal('Jan Molak');
-            expect(context.jobUrl).to.equal('https://gitlab.com/org/repo/-/jobs/123');
-            expect(context.workflow).to.equal('default');
-            expect(context.repositoryUrl).to.equal('https://gitlab.com/org/repo');
-            expect(context.pullRequestNumber).to.equal('42');
-            expect(context.baseBranch).to.equal('main');
-            expect(context.triggeredBy).to.equal('jan.molak');
+            expect(context.provider).toBe('GitLab CI');
+            expect(context.buildNumber).toBe('55');
+            expect(context.branch).toBe('feature/login');
+            expect(context.commit).toBe('a1b2c3d4');
+            expect(context.commitMessage).toBe('fix: resolve login issue');
+            expect(context.commitAuthor).toBe('Jan Molak');
+            expect(context.jobUrl).toBe('https://gitlab.com/org/repo/-/jobs/123');
+            expect(context.workflow).toBe('default');
+            expect(context.repositoryUrl).toBe('https://gitlab.com/org/repo');
+            expect(context.pullRequestNumber).toBe('42');
+            expect(context.baseBranch).toBe('main');
+            expect(context.triggeredBy).toBe('jan.molak');
         });
 
-        it('detects Jenkins metadata', () => {
+        test('detects Jenkins metadata', () => {
             const detector = new CIDetector({
                 JENKINS_URL: 'http://jenkins.example.com',
                 BUILD_NUMBER: '301',
@@ -108,14 +102,14 @@ describe('CIDetector', () => {
 
             const context = detector.detect();
 
-            expect(context.provider).to.equal('Jenkins');
-            expect(context.buildNumber).to.equal('301');
-            expect(context.branch).to.equal('origin/main');
-            expect(context.commit).to.equal('deadbeef');
-            expect(context.jobUrl).to.equal('http://jenkins.example.com/job/my-project/301/');
+            expect(context.provider).toBe('Jenkins');
+            expect(context.buildNumber).toBe('301');
+            expect(context.branch).toBe('origin/main');
+            expect(context.commit).toBe('deadbeef');
+            expect(context.jobUrl).toBe('http://jenkins.example.com/job/my-project/301/');
         });
 
-        it('detects CircleCI metadata', () => {
+        test('detects CircleCI metadata', () => {
             const detector = new CIDetector({
                 CIRCLECI: 'true',
                 CIRCLE_BUILD_NUM: '78',
@@ -126,28 +120,28 @@ describe('CIDetector', () => {
 
             const context = detector.detect();
 
-            expect(context.provider).to.equal('CircleCI');
-            expect(context.buildNumber).to.equal('78');
-            expect(context.branch).to.equal('develop');
-            expect(context.commit).to.equal('cafe1234');
-            expect(context.jobUrl).to.equal('https://circleci.com/gh/org/repo/78');
+            expect(context.provider).toBe('CircleCI');
+            expect(context.buildNumber).toBe('78');
+            expect(context.branch).toBe('develop');
+            expect(context.commit).toBe('cafe1234');
+            expect(context.jobUrl).toBe('https://circleci.com/gh/org/repo/78');
         });
 
-        it('provides local context when not running in CI', () => {
+        test('provides local context when not running in CI', () => {
             const detector = new CIDetector({});
 
             const context = detector.detect();
 
-            expect(context.provider).to.be.a('string').that.matches(/^localhost \(.+\)$/);
-            expect(context.buildNumber).to.be.a('string').that.is.not.empty;
-            expect(context.branch).to.be.a('string');
-            expect(context.commit).to.be.a('string');
-            expect(context.commitMessage).to.be.a('string');
-            expect(context.commitAuthor).to.be.a('string');
-            expect(context.repositoryUrl).to.be.a('string');
+            expect(context.provider).toMatch(/^localhost \(.+\)$/);
+            expect(context.buildNumber).toBeTruthy();
+            expect(context.branch).toEqual(expect.any(String));
+            expect(context.commit).toEqual(expect.any(String));
+            expect(context.commitMessage).toEqual(expect.any(String));
+            expect(context.commitAuthor).toEqual(expect.any(String));
+            expect(context.repositoryUrl).toEqual(expect.any(String));
         });
 
-        it('detects GitHub Actions pull request metadata', () => {
+        test('detects GitHub Actions pull request metadata', () => {
             const detector = new CIDetector({
                 GITHUB_ACTIONS: 'true',
                 GITHUB_RUN_NUMBER: '142',
@@ -164,8 +158,8 @@ describe('CIDetector', () => {
 
             const context = detector.detect();
 
-            expect(context.pullRequestNumber).to.equal('merge');
-            expect(context.baseBranch).to.equal('main');
+            expect(context.pullRequestNumber).toBe('merge');
+            expect(context.baseBranch).toBe('main');
         });
     });
 });
