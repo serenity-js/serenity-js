@@ -8,7 +8,7 @@ import { describe, it } from 'mocha';
 
 import { jasmineSpawner } from '../src/jasmine';
 
-describe('@serenity-js/jasmine', function () {
+describe('Serenity/JS', function () {
 
     this.timeout(30000);
 

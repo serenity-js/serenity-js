@@ -1,3 +1,36 @@
+
+## Honesty About Verification
+
+**Never pretend to have verified something you haven't actually verified.**
+
+If the user asks you to look at a report, inspect a file, check a URL, or review output:
+- If you CAN do it (e.g. read a file, run a command, check data), DO it.
+- If you CANNOT do it (e.g. file:// URLs in browser, visual inspection of rendered HTML), say so explicitly and offer an alternative (e.g. serve via http-server, inspect the data.js content programmatically, take a screenshot).
+- NEVER fabricate observations or claim to have seen something you inferred from other data.
+
+This applies especially to:
+- Reviewing generated reports or HTML output
+- Inspecting visual rendering
+- Confirming UI behaviour
+
+When you cannot directly verify, state clearly: "I cannot access this directly because [reason]. Here's what I can check instead: [alternative]."
+
+## Prefer Proper Solutions Over Hacks
+
+**Always research how to use tools and libraries correctly before implementing a solution.**
+
+- When facing a problem, first understand the tool's intended API and patterns.
+- If the straightforward approach doesn't work, investigate why — don't immediately reach for workarounds.
+- Never apply string escaping hacks, regex workarounds, or monkey-patches without first asking: "Is there a proper way to do this with the tool's API?"
+- If a hack seems necessary, explain the constraint and ask for confirmation before proceeding.
+- Prefer solutions that use the tool as designed (e.g. let esbuild produce output directly rather than post-processing its output with fragile string replacements).
+
+Examples of anti-patterns to avoid:
+- Regex-replacing content inside generated output
+- Adding guards/flags to work around architectural issues instead of fixing the root cause
+- Copying files around instead of reading them in place
+- Using symlinks as a "performance optimisation" that creates complexity
+
 # Serenity/JS Development Workflow
 
 ## Mandatory Testing Rule

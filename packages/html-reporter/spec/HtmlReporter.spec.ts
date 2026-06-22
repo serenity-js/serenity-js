@@ -72,7 +72,7 @@ test.describe('HtmlReporter', () => {
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
         const systemContextDetector = new SystemContextDetector(new CIDetector({}), { cwd: process.cwd(), versionOf: () => new Version('3.44.0') } as any);
 
-        const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, stage);
+        const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, undefined, stage);
         const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
         const reporter = new HtmlReporter(archiver, generator);
 
@@ -223,7 +223,7 @@ test.describe('HtmlReporter', () => {
             const runDataWriter = new RunDataWriter(outputFileSystem);
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
             const systemContextDetector = new SystemContextDetector(new CIDetector({}), { cwd: process.cwd(), versionOf: () => new Version('3.44.0') } as any);
-            const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, stage);
+            const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, undefined, stage);
             const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
             const reporter = new HtmlReporter(archiver, generator);
 

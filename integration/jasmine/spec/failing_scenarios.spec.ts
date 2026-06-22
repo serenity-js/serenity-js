@@ -7,7 +7,7 @@ import { describe, it } from 'mocha';
 
 import { jasmine } from '../src/jasmine';
 
-describe('@serenity-js/jasmine', function () {
+describe('Serenity/JS', function () {
 
     describe('recognises a failing scenario that', () => {
 

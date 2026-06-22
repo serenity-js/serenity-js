@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+
 import type { FileSystem } from '@serenity-js/core/io';
 import type { RequirementsHierarchy } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
@@ -35,11 +37,13 @@ export class DataSnapshotAggregator {
     ) {
     }
 
-    aggregate(): void {
+    aggregate(externalRunPaths?: string[]): void {
         const runDirectories = this.findRunDirectories();
         this.pruneOldRuns(runDirectories);
 
-        const allRuns = this.loadRuns(runDirectories);
+        const allRuns = externalRunPaths
+            ? this.loadExternalRuns(externalRunPaths)
+            : this.loadRuns(runDirectories);
         if (allRuns.length === 0) {
             return;
         }
@@ -81,6 +85,38 @@ export class DataSnapshotAggregator {
         });
     }
 
+    private loadExternalRuns(paths: string[]): RunData[] {
+        const runsById = new Map<string, RunData>();
+
+        for (const dbJsonPath of paths) {
+            const content = readFileSync(dbJsonPath, 'utf8');
+            const run = JSON.parse(content) as RunData;
+            const dirName = dbJsonPath.replace(/\/db\.json$/, '').replace(/.*\//, '');
+
+            const existing = runsById.get(dirName);
+            if (existing) {
+                // Merge scenes and outcomes
+                existing.scenes.push(...run.scenes);
+                existing.outcomes.passed += run.outcomes.passed;
+                existing.outcomes.failed += run.outcomes.failed;
+                existing.outcomes.pending += run.outcomes.pending;
+                existing.outcomes.skipped += run.outcomes.skipped;
+                existing.outcomes.compromised += run.outcomes.compromised;
+                existing.outcomes.error += run.outcomes.error;
+                // Merge tags
+                for (const tag of (run.tags || [])) {
+                    if (!existing.tags.some(t => t.type === tag.type && t.name === tag.name)) {
+                        existing.tags.push(tag);
+                    }
+                }
+            } else {
+                runsById.set(dirName, run);
+            }
+        }
+
+        return [...runsById.values()].sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+    }
+
     private computeDegradedRecovered(allRuns: RunData[]): { newFailures: Array<{ name: string; category: string; source: { path: string; line: number } }>; newPasses: Array<{ name: string; category: string; source: { path: string; line: number } }> } {
         const newFailures: Array<{ name: string; category: string; source: { path: string; line: number } }> = [];
         const newPasses: Array<{ name: string; category: string; source: { path: string; line: number } }> = [];
@@ -111,13 +147,17 @@ export class DataSnapshotAggregator {
     }
 
     private buildSummary(latestRun: RunData): { title: string; totalScenarios: number; outcomes: typeof latestRun.outcomes; duration: number; startedAt: string; finishedAt: string; testRunner: string } {
+        const startedAt = this.computeStartedAt(latestRun);
+        const finishedAt = this.computeFinishedAt(latestRun);
+        const duration = new Date(finishedAt).getTime() - new Date(startedAt).getTime();
+
         return {
             title: this.config.title || latestRun.testRunner,
             totalScenarios: latestRun.scenes.length,
             outcomes: latestRun.outcomes,
-            duration: latestRun.duration,
-            startedAt: latestRun.timestamp,
-            finishedAt: this.computeFinishedAt(latestRun),
+            duration,
+            startedAt,
+            finishedAt,
             testRunner: latestRun.testRunner,
         };
     }
@@ -286,6 +326,19 @@ export class DataSnapshotAggregator {
             }
         }
         return [...tagMap.values()];
+    }
+
+    private computeStartedAt(run: RunData): string {
+        let earliest = new Date(run.timestamp).getTime();
+        for (const scene of run.scenes) {
+            if (scene.startedAt) {
+                const start = new Date(scene.startedAt).getTime();
+                if (start < earliest) {
+                    earliest = start;
+                }
+            }
+        }
+        return new Date(earliest).toISOString();
     }
 
     private computeFinishedAt(run: RunData): string {

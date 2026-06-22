@@ -1,9 +1,8 @@
 /**
  * Bundle Template Script
  *
- * Uses esbuild to bundle the template app (Preact, Chart.js, HTM, etc.)
- * into a single IIFE, then assembles the final index.html by injecting
- * the bundled JS and CSS into the HTML shell.
+ * Uses esbuild to bundle the template app into a single IIFE,
+ * then constructs the final index.html programmatically.
  *
  * Output: lib/template.js and esm/template.js
  */
@@ -17,7 +16,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const packageRoot = resolve(__dirname, '..');
 const templateDir = resolve(packageRoot, 'template');
 
-// --- Step 1: Bundle the app JS with esbuild (includes Chart.js, Preact, HTM, etc.) ---
+// --- Step 1: Bundle the app JS ---
 
 const result = buildSync({
     entryPoints: [resolve(templateDir, 'app.tsx')],
@@ -29,21 +28,37 @@ const result = buildSync({
     nodePaths: [resolve(packageRoot, 'node_modules')],
 });
 
-const allJs = new TextDecoder().decode(result.outputFiles[0].contents);
+const appJs = new TextDecoder().decode(result.outputFiles[0].contents);
 
 // --- Step 2: Read CSS ---
 
 const styles = readFileSync(resolve(templateDir, 'styles.css'), 'utf8');
 
-// --- Step 3: Assemble the final HTML ---
+// --- Step 3: Construct HTML ---
 
-let shell = readFileSync(resolve(templateDir, 'shell.html'), 'utf8');
-shell = shell.replace('/* __STYLES__ */', styles);
-shell = shell.replace('/* __APP__ */', allJs);
+const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serenity/JS Report</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="https://serenity-js.org/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://serenity-js.org/icons/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="https://serenity-js.org/icons/apple-touch-icon.png">
+  <style>
+${styles}
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="./data.js"></script>
+  <script>${appJs}</script>
+</body>
+</html>`;
 
 // --- Step 4: Write outputs ---
 
-const escaped = shell
+const escaped = html
     .replace(/\\/g, '\\\\')
     .replace(/`/g, '\\`')
     .replace(/\$\{/g, '\\${');

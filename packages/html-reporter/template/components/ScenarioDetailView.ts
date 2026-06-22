@@ -120,7 +120,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
     }, [runString]);
 
     const scenario = DATA.scenarios.find(s => {
-        const sourceKey = s.source.path + ':' + s.source.line;
+        const sourceKey = s.source.line ? s.source.path + ':' + s.source.line : s.source.path;
         return sourceKey === decodeURIComponent(cleanId) || s.id === cleanId;
     });
     const [activeAttempt, setActiveAttempt] = useState(0);
@@ -162,7 +162,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
     const errorLocation = currentError ? (function findLoc(acts) { for (const a of acts) { if (a.outcome !== 'SUCCESS' && a.outcome !== 'SKIPPED' && a.location) return a.location; if (a.children) { const r = findLoc(a.children); if (r) return r; } } return null; })(currentActivities) : null;
 
     const copyTestPath = () => {
-        const text = scenario.source.path + ':' + scenario.source.line;
+        const text = scenario.source.line ? scenario.source.path + ':' + scenario.source.line : scenario.source.path;
         navigator.clipboard.writeText(text).then(() => showToast('Path copied to clipboard')).catch(() => {});
     };
 

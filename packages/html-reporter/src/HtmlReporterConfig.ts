@@ -42,6 +42,15 @@ export interface HtmlReporterConfig {
     projectName?: string;
 
     /**
+     * Identifier for the test run directory.
+     * Defaults to GITHUB_RUN_NUMBER, CI_PIPELINE_IID, BUILD_NUMBER,
+     * CIRCLE_BUILD_NUM, or the current ISO timestamp (in that order).
+     * Override to ensure consistency across parallel CI jobs
+     * contributing to the same test run.
+     */
+    testRunId?: string;
+
+    /**
      * Override CI/CD runtime context with explicit values.
      * When provided, auto-detection from environment variables is skipped.
      * Useful for testing or when the reporter runs outside of CI.

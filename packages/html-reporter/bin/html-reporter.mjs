@@ -13,8 +13,7 @@
  *   --specRoot   Root directory for requirements hierarchy
  */
 
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { basename, dirname, resolve } from 'node:path';
+import { resolve } from 'node:path';
 
 import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import { glob } from 'glob';
@@ -42,47 +41,25 @@ if (!args.input) {
 }
 
 const outputDir = resolve(args.output || './reports/serenity-js');
-const testRunsDir = resolve(outputDir, 'test-runs');
-mkdirSync(testRunsDir, { recursive: true });
 
 // Resolve input glob to find db.json files
 const inputPatterns = args.input.split(',').map(p => p.trim());
-let collected = 0;
+const dbJsonPaths = [];
 
 for (const pattern of inputPatterns) {
     const dbPattern = pattern.endsWith('db.json') ? pattern : pattern + '/db.json';
     const matches = glob.sync(dbPattern, { absolute: true });
-
-    for (const dbJsonPath of matches) {
-        const sourceDir = dirname(dbJsonPath);
-        const parentName = basename(dirname(sourceDir));
-        const runName = basename(sourceDir);
-        const destName = parentName === 'test-runs' ? runName : `${parentName}--${runName}`;
-        const destDir = resolve(testRunsDir, destName);
-
-        if (!existsSync(destDir)) {
-            // Symlink the source directory to avoid copying large artifacts
-            const { symlinkSync } = await import('node:fs');
-            try {
-                symlinkSync(sourceDir, destDir, 'dir');
-            } catch {
-                // Fallback: copy db.json only (symlinks may fail on some systems)
-                mkdirSync(destDir, { recursive: true });
-                writeFileSync(resolve(destDir, 'db.json'), readFileSync(dbJsonPath));
-            }
-            collected++;
-        }
-    }
+    dbJsonPaths.push(...matches);
 }
 
-if (collected === 0) {
+if (dbJsonPaths.length === 0) {
     console.error(`No test run data found matching: ${args.input}`);
     process.exit(1);
 }
 
-console.log(`Collected ${collected} test runs`);
+console.log(`Found ${dbJsonPaths.length} test runs`);
 
-// Run aggregation
+// Run aggregation — reads db.json files in-place, no copying
 const outputFileSystem = new FileSystem(Path.from(outputDir));
 
 let requirementsHierarchy;
@@ -98,7 +75,7 @@ const aggregator = new DataSnapshotAggregator(outputFileSystem, {
     title: args.title,
 }, requirementsHierarchy, projectFileSystem);
 
-aggregator.aggregate();
+aggregator.aggregate(dbJsonPaths);
 
 const templateWriter = new ReportTemplateWriter(outputFileSystem);
 templateWriter.write();

@@ -45,7 +45,8 @@ import { SystemContextDetector } from './SystemContextDetector.js';
 export class TestRunArchiver implements StageCrewMember {
 
     private readonly eventQueues = new DomainEventQueues();
-    private testRunStartedAt: string;
+    private resolvedTestRunId: string;
+    private testRunTimestamp: string;
     private testRunnerName = 'unknown';
     private testRunnerVersion = '0.0.0';
 
@@ -58,6 +59,7 @@ export class TestRunArchiver implements StageCrewMember {
         private readonly sceneDataCollector: SceneDataCollector,
         private readonly runDataWriter: RunDataWriter,
         private readonly systemContextDetector: SystemContextDetector,
+        private readonly testRunId?: string,
         private stage?: Stage,
     ) {
         ensure('artifactWriter', artifactWriter, isDefined());
@@ -74,8 +76,9 @@ export class TestRunArchiver implements StageCrewMember {
     notifyOf(event: DomainEvent): void {
 
         if (event instanceof TestRunStarts) {
-            this.testRunStartedAt = event.timestamp.toISOString();
-            this.artifactWriter.createRunDirectory(this.testRunStartedAt);
+            this.testRunTimestamp = event.timestamp.toISOString();
+            this.resolvedTestRunId = this.testRunId || detectTestRunId() || this.testRunTimestamp;
+            this.artifactWriter.createRunDirectory(this.resolvedTestRunId);
         }
 
         if (event instanceof TestRunnerDetected) {
@@ -113,7 +116,7 @@ export class TestRunArchiver implements StageCrewMember {
         try {
             const runData = this.sceneDataCollector.collect(
                 this.eventQueues,
-                this.testRunStartedAt,
+                this.testRunTimestamp,
                 this.testRunnerName,
                 this.testRunnerVersion,
                 this.artifactWriter.getArtifactPaths(),
@@ -144,6 +147,17 @@ export class TestRunArchiver implements StageCrewMember {
 /**
  * @package
  */
+function detectTestRunId(): string | undefined {
+    return process.env.GITHUB_RUN_NUMBER
+        || process.env.CI_PIPELINE_IID
+        || process.env.BUILD_NUMBER       // Jenkins
+        || process.env.CIRCLE_BUILD_NUM   // CircleCI
+        || undefined;
+}
+
+/**
+ * @package
+ */
 class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> {
 
     constructor(private readonly config: HtmlReporterConfig) {
@@ -160,6 +174,6 @@ class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> 
         const runDataWriter = new RunDataWriter(outputFileSystem);
         const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()), { projectName: this.config.projectName, runtime: this.config.ci });
 
-        return new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, stage);
+        return new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, this.config.testRunId, stage);
     }
 }

@@ -1,4 +1,5 @@
 import type * as fs from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 
 import { expect, test } from '@playwright/test';
 import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
@@ -473,6 +474,53 @@ test.describe('DataSnapshotAggregator', () => {
             expect(activities[1].location).toEqual({ path: 'features/pending.feature', line: 15 });
             expect(activities[2].outcome).toBe('SKIPPED');
             expect(activities[2].location).toEqual({ path: 'features/pending.feature', line: 16 });
+        });
+    });
+
+    test.describe('external run aggregation', () => {
+
+        test('merges db.json files with the same testRunId directory name', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            // Write two db.json files simulating different modules with same testRunId
+            const tmpDir1 = '/tmp/serenity-test-merge/module-a/test-runs/42';
+            const tmpDir2 = '/tmp/serenity-test-merge/module-b/test-runs/42';
+            mkdirSync(tmpDir1, { recursive: true });
+            mkdirSync(tmpDir2, { recursive: true });
+
+            writeFileSync(tmpDir1 + '/db.json', JSON.stringify({
+                timestamp: '2024-06-15T14:30:00.000Z', duration: 500,
+                outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test A', category: 'Mocha', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [{ type: 'tag', name: 'mocha' }], activities: [] },
+                    { name: 'Test B', category: 'Mocha', outcome: { code: 64 }, duration: 300, startedAt: '2024-06-15T14:30:00.200Z', source: { path: 'a.spec.ts', line: 5 }, tags: [{ type: 'tag', name: 'mocha' }], activities: [] },
+                ],
+                tags: [{ type: 'tag', name: 'mocha' }], testRunner: 'Mocha', testRunnerVersion: '11.0.0',
+            }));
+
+            writeFileSync(tmpDir2 + '/db.json', JSON.stringify({
+                timestamp: '2024-06-15T14:30:01.000Z', duration: 400,
+                outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test C', category: 'Jasmine', outcome: { code: 64 }, duration: 150, startedAt: '2024-06-15T14:30:01.000Z', source: { path: 'c.spec.ts', line: 1 }, tags: [{ type: 'tag', name: 'jasmine' }], activities: [] },
+                    { name: 'Test D', category: 'Jasmine', outcome: { code: 4 }, duration: 250, startedAt: '2024-06-15T14:30:01.150Z', source: { path: 'c.spec.ts', line: 5 }, tags: [{ type: 'tag', name: 'jasmine' }], activities: [] },
+                ],
+                tags: [{ type: 'tag', name: 'jasmine' }], testRunner: 'Jasmine', testRunnerVersion: '5.0.0',
+            }));
+
+            aggregator.aggregate([tmpDir1 + '/db.json', tmpDir2 + '/db.json']);
+
+            expect(filesystem.existsSync('/reports/serenity-js/data.js')).toBe(true);
+            const data = readDataJs(filesystem);
+
+            // Merged: 4 scenarios from both modules
+            expect(data.scenarios).toHaveLength(4);
+            expect(data.summary.totalScenarios).toBe(4);
+            expect(data.summary.outcomes.passed).toBe(3);
+            expect(data.summary.outcomes.failed).toBe(1);
+
+            // Only 1 history entry (merged into one run)
+            expect(data.history).toHaveLength(1);
         });
     });
 });

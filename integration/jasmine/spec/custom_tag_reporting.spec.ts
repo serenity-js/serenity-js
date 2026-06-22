@@ -26,7 +26,7 @@ import { describe, it } from 'mocha';
 
 import { jasmine } from '../src/jasmine';
 
-describe('@serenity-js/jasmine', function () {
+describe('Serenity/JS', function () {
 
     it('emits custom tags if present on describe or test title so that Serenity BDD can aggregate them correctly', () => jasmine( 'examples/custom_tags/custom_tags_in_title.spec.js')
         .then(ifExitCodeIsOtherThan(0, logOutput))
