@@ -68,14 +68,24 @@ export class SceneDataCollector {
             scenes.push(record);
         });
 
+        const startedAt = scenes.length > 0
+            ? scenes.reduce((earliest, s) => s.startedAt < earliest ? s.startedAt : earliest, scenes[0].startedAt)
+            : testRunStartedAt;
+
+        const finishedAt = scenes.length > 0
+            ? new Date(scenes.reduce((latest, s) => {
+                const end = new Date(s.startedAt).getTime() + s.duration;
+                return end > latest ? end : latest;
+            }, 0)).toISOString()
+            : testRunStartedAt;
+
         return {
-            timestamp: testRunStartedAt,
-            duration: scenes.reduce((total, scene) => total + scene.duration, 0),
+            startedAt,
+            finishedAt,
             outcomes: this.summariseOutcomes(scenes),
             scenes,
             tags: this.collectUniqueTags(scenes),
-            testRunner: testRunnerName,
-            testRunnerVersion,
+            testRunner: { name: testRunnerName, version: testRunnerVersion },
             systemContext,
         };
     }

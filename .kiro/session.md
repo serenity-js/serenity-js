@@ -5,13 +5,24 @@
 ## Current Status
 
 All work committed on `feat/html-reporter`. ~108 commits ahead of `main`.
-- **Unit tests**: 61 passing
+- **Unit tests**: 61 passing (Playwright Test)
+- **Component tests**: 18 passing (Playwright Test + Chromium)
 - **Integration tests**: 37 passing (@playwright/test)
 - **ESLint**: Clean across all changed files
 - **Bundle size**: 448KB (down from 454KB pre-refactoring)
 - **Visual regressions**: Zero (verified via before/after screenshots)
 
 ## Completed Work (this session)
+
+### Test Framework Migration: Mocha → Playwright Test (complete)
+- Migrated all 6 unit test files from Mocha+Chai+Sinon to Playwright Test
+- Created component harness with esbuild-based `mount()` fixture for isolated UI component testing
+- Added component tests: FilterBar (4), SystemContextView (5), TagsView (4), TimelineView (6)
+- Removed devDependencies: mocha, mocha-multi, sinon, c8, @types/chai, @types/mocha, @types/sinon, @integration/testing-tools
+- Removed config files: .mocharc.yml, .mocha-reporters.json, .c8rc.json
+- Updated test script: `pnpm test` → `npx playwright test`
+- Two Playwright projects: 'unit' (no browser) and 'components' (chromium)
+- Total: 79 tests in 4.5s
 
 ### Integration Test Infrastructure (complete)
 - Replaced Mocha + raw Playwright with `@playwright/test`
@@ -44,7 +55,23 @@ All work committed on `feat/html-reporter`. ~108 commits ahead of `main`.
 ## File Structure After Refactoring
 
 ```
-packages/html-reporter/template/
+packages/html-reporter/
+├── playwright.config.ts       (2 projects: unit + components)
+├── spec/
+│   ├── CIDetector.spec.ts            (Playwright Test, 11 tests)
+│   ├── SystemContextDetector.spec.ts (Playwright Test, 8 tests)
+│   ├── SceneDataCollector.spec.ts    (Playwright Test, 2 tests)
+│   ├── DataSnapshotAggregator.spec.ts (Playwright Test, 16 tests)
+│   ├── HtmlReporter.spec.ts          (Playwright Test, 17 tests)
+│   ├── bundle-template.spec.ts       (Playwright Test, 7 tests)
+│   └── components/
+│       ├── fixtures.ts               (mount helper with esbuild)
+│       ├── data-factories.ts         (test data builders)
+│       ├── FilterBar.spec.ts         (4 tests)
+│       ├── TagsView.spec.ts          (4 tests)
+│       ├── SystemContextView.spec.ts (5 tests)
+│       └── TimelineView.spec.ts      (6 tests — was 5)
+├── template/
 ├── app.tsx                    (7 lines — entry point)
 ├── tsconfig.json              (browser-target TS config)
 ├── styles.css                 (1,328 lines — includes 24 utility classes)
@@ -69,10 +96,10 @@ packages/html-reporter/template/
 - Consider extracting more semantic component classes (e.g., `.execution-history-block`, `.activity-row-icon`)
 
 ### Test Coverage Gaps
-- Dashboard: trend chart click navigation, donut legend click
+- Dashboard: trend chart click navigation, donut legend click (requires Chart.js mock or real chart interaction)
 - Scenario detail: screenshot lightbox, video playback controls
-- Timeline: click-to-navigate a timeline bar
-- Tags: clicking a tag card navigates correctly (partially tested)
+- Timeline: ✅ click-to-navigate (tested via filter + sort), duration stats
+- Tags: ✅ clicking a tag card navigates correctly
 - Deep linking: full URL state restoration tests (search, filter, sort, run)
 - Responsive: mobile layout reflow (hamburger menu, collapsible sidebar)
 - Dark mode: verify all views render correctly in dark theme
@@ -94,8 +121,11 @@ packages/html-reporter/template/
 ```bash
 cd packages/html-reporter && npm run compile         # Full compile (ESM + CJS + template)
 cd packages/html-reporter && npm run compile:template  # Template only (faster iteration)
-cd packages/html-reporter && pnpm test               # Unit tests (61)
+cd packages/html-reporter && pnpm test               # All tests: 79 (61 unit + 18 component)
+cd packages/html-reporter && npx playwright test --project=unit        # Unit tests only
+cd packages/html-reporter && npx playwright test --project=components  # Component tests only
 cd integration/html-reporter && npm test             # Full flow: pretest (stub + history) + assertions (37)
 cd integration/html-reporter && npx playwright test  # Just assertions (assumes report exists)
 npx eslint packages/html-reporter/template/**/*.ts   # Lint template code
+npx eslint packages/html-reporter/spec/             # Lint test code
 ```

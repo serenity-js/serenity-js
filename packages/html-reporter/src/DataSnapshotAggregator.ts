@@ -103,6 +103,9 @@ export class DataSnapshotAggregator {
                 existing.outcomes.skipped += run.outcomes.skipped;
                 existing.outcomes.compromised += run.outcomes.compromised;
                 existing.outcomes.error += run.outcomes.error;
+                // Pick earliest startedAt and latest finishedAt
+                if (run.startedAt < existing.startedAt) existing.startedAt = run.startedAt;
+                if (run.finishedAt > existing.finishedAt) existing.finishedAt = run.finishedAt;
                 // Merge tags
                 for (const tag of (run.tags || [])) {
                     if (!existing.tags.some(t => t.type === tag.type && t.name === tag.name)) {
@@ -114,7 +117,7 @@ export class DataSnapshotAggregator {
             }
         }
 
-        return [...runsById.values()].sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+        return [...runsById.values()].sort((a, b) => a.startedAt.localeCompare(b.startedAt));
     }
 
     private computeDegradedRecovered(allRuns: RunData[]): { newFailures: Array<{ name: string; category: string; source: { path: string; line: number } }>; newPasses: Array<{ name: string; category: string; source: { path: string; line: number } }> } {
@@ -147,18 +150,16 @@ export class DataSnapshotAggregator {
     }
 
     private buildSummary(latestRun: RunData): { title: string; totalScenarios: number; outcomes: typeof latestRun.outcomes; duration: number; startedAt: string; finishedAt: string; testRunner: string } {
-        const startedAt = this.computeStartedAt(latestRun);
-        const finishedAt = this.computeFinishedAt(latestRun);
-        const duration = new Date(finishedAt).getTime() - new Date(startedAt).getTime();
+        const duration = new Date(latestRun.finishedAt).getTime() - new Date(latestRun.startedAt).getTime();
 
         return {
-            title: this.config.title || latestRun.testRunner,
+            title: this.config.title || latestRun.testRunner.name,
             totalScenarios: latestRun.scenes.length,
             outcomes: latestRun.outcomes,
             duration,
-            startedAt,
-            finishedAt,
-            testRunner: latestRun.testRunner,
+            startedAt: latestRun.startedAt,
+            finishedAt: latestRun.finishedAt,
+            testRunner: latestRun.testRunner.name,
         };
     }
 
@@ -168,7 +169,7 @@ export class DataSnapshotAggregator {
             const executionHistory = allRuns.map(run => {
                 const match = run.scenes.find(s => s.source.path + ':' + s.source.line === key);
                 return match
-                    ? { outcome: outcomeCodeToDisplayString(match.outcome.code), run: this.resolveRunLabel(run.timestamp) }
+                    ? { outcome: outcomeCodeToDisplayString(match.outcome.code), run: this.resolveRunLabel(run.startedAt) }
                     : undefined;
             }).filter(Boolean);
             return {
@@ -196,10 +197,10 @@ export class DataSnapshotAggregator {
             const durations = run.scenes.map(s => s.duration).filter(d => d > 0);
             const ci = run.systemContext?.runtime;
             return {
-                timestamp: run.timestamp,
-                duration: run.duration,
+                timestamp: run.startedAt,
+                duration: new Date(run.finishedAt).getTime() - new Date(run.startedAt).getTime(),
                 outcomes: run.outcomes,
-                label: this.resolveRunLabel(run.timestamp),
+                label: this.resolveRunLabel(run.startedAt),
                 slowest: durations.length > 0 ? Math.max(...durations) : 0,
                 fastest: durations.length > 0 ? Math.min(...durations) : 0,
                 average: durations.length > 0 ? Math.round(durations.reduce((a, b) => a + b, 0) / durations.length) : 0,
@@ -219,7 +220,7 @@ export class DataSnapshotAggregator {
             nodeVersion: latestRun.systemContext.nodeVersion,
             os: latestRun.systemContext.os,
             serenityVersion: latestRun.systemContext.serenityVersion,
-            testRunner: { name: latestRun.testRunner, version: latestRun.testRunnerVersion },
+            testRunner: latestRun.testRunner,
             browsers: this.extractBrowsers(latestRun),
             ci: latestRun.systemContext.runtime,
             projectName: latestRun.systemContext.projectName,
@@ -326,30 +327,6 @@ export class DataSnapshotAggregator {
             }
         }
         return [...tagMap.values()];
-    }
-
-    private computeStartedAt(run: RunData): string {
-        let earliest = new Date(run.timestamp).getTime();
-        for (const scene of run.scenes) {
-            if (scene.startedAt) {
-                const start = new Date(scene.startedAt).getTime();
-                if (start < earliest) {
-                    earliest = start;
-                }
-            }
-        }
-        return new Date(earliest).toISOString();
-    }
-
-    private computeFinishedAt(run: RunData): string {
-        let latest = new Date(run.timestamp).getTime();
-        for (const scene of run.scenes) {
-            const end = new Date(scene.startedAt).getTime() + scene.duration;
-            if (end > latest) {
-                latest = end;
-            }
-        }
-        return new Date(latest).toISOString();
     }
 
     private mapOutcomeToKey(outcome: string): string {

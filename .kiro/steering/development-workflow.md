@@ -30,6 +30,7 @@ Examples of anti-patterns to avoid:
 - Adding guards/flags to work around architectural issues instead of fixing the root cause
 - Copying files around instead of reading them in place
 - Using symlinks as a "performance optimisation" that creates complexity
+- Using sed/awk to modify structured files (JSON, TypeScript, YAML) — write a Node.js script instead
 
 # Serenity/JS Development Workflow
 

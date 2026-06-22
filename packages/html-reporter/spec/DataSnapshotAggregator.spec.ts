@@ -40,8 +40,8 @@ test.describe('DataSnapshotAggregator', () => {
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
                         'db.json': JSON.stringify({
-                            timestamp: '2024-06-15T14:30:00.000Z',
-                            duration: 1000,
+                            startedAt: '2024-06-15T14:30:00.000Z',
+                            finishedAt: '2024-06-15T14:30:01.000Z',
                             outcomes: { passed: 3, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [
                                 { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
@@ -50,8 +50,7 @@ test.describe('DataSnapshotAggregator', () => {
                                 { name: 'Test D', category: 'Suite', outcome: { code: 4 }, duration: 400, startedAt: '2024-06-15T14:30:00.600Z', source: { path: 'b.spec.ts', line: 5 }, tags: [], activities: [] },
                             ],
                             tags: [],
-                            testRunner: 'Mocha',
-                            testRunnerVersion: '11.0.0',
+                            testRunner: { name: 'Mocha', version: '11.0.0' },
                         }),
                     },
                 },
@@ -74,10 +73,10 @@ test.describe('DataSnapshotAggregator', () => {
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
                         'db.json': JSON.stringify({
-                            timestamp: '2024-06-15T14:30:00.000Z', duration: 100,
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.100Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
-                            tags: [], testRunner: 'Mocha', testRunnerVersion: '11.0.0',
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
                         }),
                     },
                 },
@@ -95,24 +94,24 @@ test.describe('DataSnapshotAggregator', () => {
                 'test-runs': {
                     '2024-06-14T10:00:00.000Z': {
                         'db.json': JSON.stringify({
-                            timestamp: '2024-06-14T10:00:00.000Z', duration: 500,
+                            startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.500Z',
                             outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [
                                 { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
                                 { name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 400, startedAt: '2024-06-14T10:00:00.100Z', source: { path: 'a.spec.ts', line: 5 }, tags: [], activities: [] },
                             ],
-                            tags: [], testRunner: 'Mocha', testRunnerVersion: '11.0.0',
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
                         }),
                     },
                     '2024-06-15T14:30:00.000Z': {
                         'db.json': JSON.stringify({
-                            timestamp: '2024-06-15T14:30:00.000Z', duration: 1000,
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:01.000Z',
                             outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [
                                 { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
                                 { name: 'Test B', category: 'Suite', outcome: { code: 4 }, duration: 900, startedAt: '2024-06-15T14:30:00.100Z', source: { path: 'a.spec.ts', line: 5 }, tags: [], activities: [] },
                             ],
-                            tags: [], testRunner: 'Mocha', testRunnerVersion: '11.0.0',
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
                         }),
                     },
                 },
@@ -131,18 +130,18 @@ test.describe('DataSnapshotAggregator', () => {
                 'test-runs': {
                     '2024-06-14T10:00:00.000Z': {
                         'db.json': JSON.stringify({
-                            timestamp: '2024-06-14T10:00:00.000Z', duration: 500,
+                            startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.500Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'Old Test', category: 'Suite', outcome: { code: 64 }, duration: 500, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'old.spec.ts', line: 1 }, tags: [], activities: [] }],
-                            tags: [], testRunner: 'Mocha', testRunnerVersion: '11.0.0',
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
                         }),
                     },
                     '2024-06-15T14:30:00.000Z': {
                         'db.json': JSON.stringify({
-                            timestamp: '2024-06-15T14:30:00.000Z', duration: 200,
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.200Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'New Test', category: 'Suite', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'new.spec.ts', line: 1 }, tags: [], activities: [] }],
-                            tags: [], testRunner: 'Playwright', testRunnerVersion: '1.45.0',
+                            tags: [], testRunner: { name: 'Playwright', version: '1.45.0' },
                         }),
                     },
                 },
@@ -161,10 +160,10 @@ test.describe('DataSnapshotAggregator', () => {
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
                         'db.json': JSON.stringify({
-                            timestamp: '2024-06-15T14:30:00.000Z', duration: 100,
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.100Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
-                            tags: [], testRunner: 'Mocha', testRunnerVersion: '11.0.0',
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
                         }),
                     },
                 },
@@ -181,10 +180,10 @@ test.describe('DataSnapshotAggregator', () => {
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
                         'db.json': JSON.stringify({
-                            timestamp: '2024-06-15T14:30:00.000Z', duration: 100,
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.100Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
-                            tags: [], testRunner: 'Mocha', testRunnerVersion: '11.0.0',
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
                             systemContext: {
                                 nodeVersion: 'v22.0.0',
                                 os: { name: 'darwin', version: '24.0.0', arch: 'arm64' },
@@ -223,14 +222,14 @@ test.describe('DataSnapshotAggregator', () => {
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
                         'db.json': JSON.stringify({
-                            timestamp: '2024-06-15T14:30:00.000Z', duration: 500,
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
                             outcomes: { passed: 2, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [
                                 { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/spec/login/basic.spec.ts', line: 1 }, tags: [], activities: [] },
                                 { name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T14:30:00.100Z', source: { path: '/project/spec/login/basic.spec.ts', line: 5 }, tags: [], activities: [] },
                                 { name: 'Test C', category: 'Suite', outcome: { code: 4 }, duration: 200, startedAt: '2024-06-15T14:30:00.300Z', source: { path: '/project/spec/checkout.spec.ts', line: 1 }, tags: [], activities: [] },
                             ],
-                            tags: [], testRunner: 'Mocha', testRunnerVersion: '11.0.0',
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
                         }),
                     },
                 },
@@ -255,10 +254,10 @@ test.describe('DataSnapshotAggregator', () => {
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
                         'db.json': JSON.stringify({
-                            timestamp: '2024-06-15T14:30:00.000Z', duration: 100,
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.100Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
-                            tags: [], testRunner: 'Mocha', testRunnerVersion: '11.0.0',
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
                         }),
                     },
                 },
@@ -276,9 +275,9 @@ test.describe('DataSnapshotAggregator', () => {
         test('retains only the most recent N test run directories when maxHistory is configured', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-06-13T10:00:00.000Z': { 'db.json': JSON.stringify({ timestamp: '2024-06-13T10:00:00.000Z', duration: 100, outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: 'M', testRunnerVersion: '1.0.0' }), 'screenshot.png': 'old-data' },
-                    '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ timestamp: '2024-06-14T10:00:00.000Z', duration: 100, outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: 'M', testRunnerVersion: '1.0.0' }) },
-                    '2024-06-15T10:00:00.000Z': { 'db.json': JSON.stringify({ timestamp: '2024-06-15T10:00:00.000Z', duration: 100, outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: 'M', testRunnerVersion: '1.0.0' }) },
+                    '2024-06-13T10:00:00.000Z': { 'db.json': JSON.stringify({ startedAt: '2024-06-13T10:00:00.000Z', finishedAt: '2024-06-13T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }), 'screenshot.png': 'old-data' },
+                    '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    '2024-06-15T10:00:00.000Z': { 'db.json': JSON.stringify({ startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
                 },
             }, { maxHistory: 2 });
 
@@ -300,9 +299,9 @@ test.describe('DataSnapshotAggregator', () => {
         test('identifies tests with mixed outcomes within the stability window as unstable', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-06-13T10:00:00.000Z': { 'db.json': JSON.stringify({ timestamp: '2024-06-13T10:00:00.000Z', duration: 100, outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Flaky Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: 'M', testRunnerVersion: '1.0.0' }) },
-                    '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ timestamp: '2024-06-14T10:00:00.000Z', duration: 100, outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Flaky Test', category: 'Suite', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: 'M', testRunnerVersion: '1.0.0' }) },
-                    '2024-06-15T10:00:00.000Z': { 'db.json': JSON.stringify({ timestamp: '2024-06-15T10:00:00.000Z', duration: 100, outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Flaky Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: 'M', testRunnerVersion: '1.0.0' }) },
+                    '2024-06-13T10:00:00.000Z': { 'db.json': JSON.stringify({ startedAt: '2024-06-13T10:00:00.000Z', finishedAt: '2024-06-13T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Flaky Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Flaky Test', category: 'Suite', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    '2024-06-15T10:00:00.000Z': { 'db.json': JSON.stringify({ startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Flaky Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
                 },
             }, { stabilityWindow: 5 });
 
@@ -316,8 +315,8 @@ test.describe('DataSnapshotAggregator', () => {
         test('does not flag a test as unstable if all outcomes within the stability window are the same', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-06-13T10:00:00.000Z': { 'db.json': JSON.stringify({ timestamp: '2024-06-13T10:00:00.000Z', duration: 100, outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Stable Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: 'M', testRunnerVersion: '1.0.0' }) },
-                    '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ timestamp: '2024-06-14T10:00:00.000Z', duration: 100, outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Stable Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: 'M', testRunnerVersion: '1.0.0' }) },
+                    '2024-06-13T10:00:00.000Z': { 'db.json': JSON.stringify({ startedAt: '2024-06-13T10:00:00.000Z', finishedAt: '2024-06-13T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Stable Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Stable Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
                 },
             }, { stabilityWindow: 5 });
 
@@ -331,10 +330,10 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     // Old failure (outside window of 2)
-                    '2024-06-12T10:00:00.000Z': { 'db.json': JSON.stringify({ timestamp: '2024-06-12T10:00:00.000Z', duration: 100, outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Test', category: 'S', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-12T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: 'M', testRunnerVersion: '1.0.0' }) },
+                    '2024-06-12T10:00:00.000Z': { 'db.json': JSON.stringify({ startedAt: '2024-06-12T10:00:00.000Z', finishedAt: '2024-06-12T10:00:00.100Z', outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Test', category: 'S', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-12T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
                     // Recent passes (inside window of 2)
-                    '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ timestamp: '2024-06-14T10:00:00.000Z', duration: 100, outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Test', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: 'M', testRunnerVersion: '1.0.0' }) },
-                    '2024-06-15T10:00:00.000Z': { 'db.json': JSON.stringify({ timestamp: '2024-06-15T10:00:00.000Z', duration: 100, outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Test', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: 'M', testRunnerVersion: '1.0.0' }) },
+                    '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Test', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    '2024-06-15T10:00:00.000Z': { 'db.json': JSON.stringify({ startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Test', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
                 },
             }, { stabilityWindow: 2 });
 
@@ -353,14 +352,14 @@ test.describe('DataSnapshotAggregator', () => {
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
                         'db.json': JSON.stringify({
-                            timestamp: '2024-06-15T14:30:00.000Z', duration: 500,
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
                             outcomes: { passed: 2, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [
                                 { name: 'A', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [{ type: 'browser', name: 'chrome' }], activities: [] },
                                 { name: 'B', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.100Z', source: { path: 'a.ts', line: 5 }, tags: [{ type: 'browser', name: 'chrome' }], activities: [] },
                                 { name: 'C', category: 'S', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T14:30:00.200Z', source: { path: 'b.ts', line: 1 }, tags: [{ type: 'browser', name: 'chrome' }, { type: 'tag', name: 'slow' }], activities: [] },
                             ],
-                            tags: [], testRunner: 'M', testRunnerVersion: '1.0.0',
+                            tags: [], testRunner: { name: 'M', version: '1.0.0' },
                         }),
                     },
                 },
@@ -385,18 +384,18 @@ test.describe('DataSnapshotAggregator', () => {
                 'test-runs': {
                     '2024-06-14T10:00:00.000Z': {
                         'db.json': JSON.stringify({
-                            timestamp: '2024-06-14T10:00:00.000Z', duration: 100,
+                            startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }],
-                            tags: [], testRunner: 'M', testRunnerVersion: '1.0.0',
+                            tags: [], testRunner: { name: 'M', version: '1.0.0' },
                         }),
                     },
                     '2024-06-15T10:00:00.000Z': {
                         'db.json': JSON.stringify({
-                            timestamp: '2024-06-15T10:00:00.000Z', duration: 100,
+                            startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z',
                             outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'T', category: 'S', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }],
-                            tags: [], testRunner: 'M', testRunnerVersion: '1.0.0',
+                            tags: [], testRunner: { name: 'M', version: '1.0.0' },
                         }),
                     },
                 },
@@ -418,13 +417,13 @@ test.describe('DataSnapshotAggregator', () => {
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
                         'db.json': JSON.stringify({
-                            timestamp: '2024-06-15T14:30:00.000Z', duration: 500,
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
                             outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [
                                 { name: 'Fast', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] },
                                 { name: 'Slow', category: 'S', outcome: { code: 64 }, duration: 400, startedAt: '2024-06-15T14:30:00.100Z', source: { path: 'a.ts', line: 5 }, tags: [], activities: [] },
                             ],
-                            tags: [], testRunner: 'M', testRunnerVersion: '1.0.0',
+                            tags: [], testRunner: { name: 'M', version: '1.0.0' },
                         }),
                     },
                 },
@@ -445,7 +444,7 @@ test.describe('DataSnapshotAggregator', () => {
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
                         'db.json': JSON.stringify({
-                            timestamp: '2024-06-15T14:30:00.000Z', duration: 100,
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.100Z',
                             outcomes: { passed: 0, failed: 0, pending: 1, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{
                                 name: 'A pending scenario', category: 'Suite', outcome: { code: 8 }, duration: 12,
@@ -456,7 +455,7 @@ test.describe('DataSnapshotAggregator', () => {
                                     { type: 'Task', name: 'And a skipped step', outcome: { code: 32 }, duration: 0, startedAt: '2024-06-15T14:30:00.002Z', children: [], location: { path: 'features/pending.feature', line: 16 } },
                                 ],
                             }],
-                            tags: [], testRunner: 'Cucumber', testRunnerVersion: '12.0.0',
+                            tags: [], testRunner: { name: 'Cucumber', version: '12.0.0' },
                         }),
                     },
                 },
@@ -489,23 +488,23 @@ test.describe('DataSnapshotAggregator', () => {
             mkdirSync(tmpDir2, { recursive: true });
 
             writeFileSync(tmpDir1 + '/db.json', JSON.stringify({
-                timestamp: '2024-06-15T14:30:00.000Z', duration: 500,
+                startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
                 outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                 scenes: [
                     { name: 'Test A', category: 'Mocha', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [{ type: 'tag', name: 'mocha' }], activities: [] },
                     { name: 'Test B', category: 'Mocha', outcome: { code: 64 }, duration: 300, startedAt: '2024-06-15T14:30:00.200Z', source: { path: 'a.spec.ts', line: 5 }, tags: [{ type: 'tag', name: 'mocha' }], activities: [] },
                 ],
-                tags: [{ type: 'tag', name: 'mocha' }], testRunner: 'Mocha', testRunnerVersion: '11.0.0',
+                tags: [{ type: 'tag', name: 'mocha' }], testRunner: { name: 'Mocha', version: '11.0.0' },
             }));
 
             writeFileSync(tmpDir2 + '/db.json', JSON.stringify({
-                timestamp: '2024-06-15T14:30:01.000Z', duration: 400,
+                startedAt: '2024-06-15T14:30:01.000Z', finishedAt: '2024-06-15T14:30:01.400Z',
                 outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                 scenes: [
                     { name: 'Test C', category: 'Jasmine', outcome: { code: 64 }, duration: 150, startedAt: '2024-06-15T14:30:01.000Z', source: { path: 'c.spec.ts', line: 1 }, tags: [{ type: 'tag', name: 'jasmine' }], activities: [] },
                     { name: 'Test D', category: 'Jasmine', outcome: { code: 4 }, duration: 250, startedAt: '2024-06-15T14:30:01.150Z', source: { path: 'c.spec.ts', line: 5 }, tags: [{ type: 'tag', name: 'jasmine' }], activities: [] },
                 ],
-                tags: [{ type: 'tag', name: 'jasmine' }], testRunner: 'Jasmine', testRunnerVersion: '5.0.0',
+                tags: [{ type: 'tag', name: 'jasmine' }], testRunner: { name: 'Jasmine', version: '5.0.0' },
             }));
 
             aggregator.aggregate([tmpDir1 + '/db.json', tmpDir2 + '/db.json']);

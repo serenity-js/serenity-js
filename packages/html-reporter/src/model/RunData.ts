@@ -8,13 +8,12 @@ import type { SystemContext } from '../SystemContextDetector.js';
  * @package
  */
 export interface RunData {
-    timestamp: string;
-    duration: number;
+    startedAt: string;
+    finishedAt: string;
     outcomes: OutcomeCounts;
     scenes: SceneRecord[];
     tags: TagRecord[];
-    testRunner: string;
-    testRunnerVersion: string;
+    testRunner: { name: string; version: string };
     systemContext: SystemContext;
 }
 

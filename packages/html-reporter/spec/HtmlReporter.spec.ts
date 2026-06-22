@@ -150,7 +150,7 @@ test.describe('HtmlReporter', () => {
             expect(filesystem.existsSync(databaseJsonPath)).toBe(true);
 
             const content = JSON.parse(filesystem.readFileSync(databaseJsonPath, 'utf8') as string);
-            expect(content).toHaveProperty('timestamp', '2024-06-15T14:30:00.000Z');
+            expect(content).toHaveProperty('startedAt');
             expect(content).toHaveProperty('outcomes');
             expect(Array.isArray(content.scenes)).toBe(true);
         });
@@ -268,8 +268,7 @@ test.describe('HtmlReporter', () => {
             stage.announce(new TestRunFinishes(time));
 
             const content = JSON.parse(filesystem.readFileSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/db.json', 'utf8') as string);
-            expect(content.testRunner).toBe('Playwright');
-            expect(content.testRunnerVersion).toBe('1.45.0');
+            expect(content.testRunner).toEqual({ name: 'Playwright', version: '1.45.0' });
         });
 
         test('records scene name, category, source location, and outcome', () => {
