@@ -15,6 +15,19 @@ This applies especially to:
 
 When you cannot directly verify, state clearly: "I cannot access this directly because [reason]. Here's what I can check instead: [alternative]."
 
+## Verification Before Presenting Results
+
+**Every change must be verified before being presented as complete.**
+
+Before saying "done" or committing:
+1. **Run ALL tests** — both unit tests (`pnpm test` in the package) AND integration tests (`npm test` in `integration/html-reporter`). Not just the subset you think is relevant.
+2. **Write tests for new code** — every new function, utility, or behaviour change MUST have a corresponding test. No exceptions.
+3. **Visually verify UI changes** — when modifying the report template, serve it and screenshot with Playwright to confirm the change renders correctly. Check multiple views, not just one.
+4. **Verify the full pipeline** — when changing how data flows (db.json schema, aggregation, template rendering), run the entire chain: compile → run integration module → aggregate → serve → screenshot.
+5. **Don't commit broken code** — if tests fail, fix them before committing. A "WIP" commit with known failures is acceptable only as a last resort with explicit acknowledgement.
+
+If you cannot verify something, say so explicitly rather than assuming it works.
+
 ## Prefer Proper Solutions Over Hacks
 
 **Always research how to use tools and libraries correctly before implementing a solution.**
