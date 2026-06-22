@@ -4,7 +4,7 @@ import { h } from 'preact';
 import { useMemo, useRef, useState } from 'preact/hooks';
 
 import { useVirtualizer } from '../hooks';
-import { DATA, formatDuration, outcomeClass, outcomeIcon, scenarioUrl } from '../utils';
+import { DATA, formatDuration, formatTimestamp, outcomeClass, outcomeIcon, scenarioUrl } from '../utils';
 import { FilterBar } from './FilterBar';
 
 const html = htm.bind(h);
@@ -89,7 +89,7 @@ export function TimelineView({ onNavigate }) {
                 return html`
                 <div class="timeline-row" style="position:absolute;top:0;left:0;width:100%;height:${rowHeight}px;transform:translateY(${virtualRow.start}px);display:flex;flex-direction:column;justify-content:center;padding:4px var(--space-sm);border-bottom:1px solid var(--divider);cursor:pointer"
                      onClick=${clickHandler}
-                     title="Started: ${new Date(s.startedAt).toLocaleTimeString()} • Duration: ${formatDuration(s.duration)}">
+                     title="Started: ${formatTimestamp(s.startedAt)} • Duration: ${formatDuration(s.duration)}">
                   <div style="display:flex;align-items:center;gap:6px;overflow:hidden">
                     <span class="scenario-outcome-icon ${outcomeClass(s.outcome)}" style="width:18px;height:18px;font-size:var(--font-xs);flex-shrink:0">${outcomeIcon(s.outcome)}</span>
                     <span style="font-size:var(--font-sm);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;${nameColor}">${s.category} › ${s.name}</span>

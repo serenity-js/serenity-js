@@ -5,7 +5,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
-import { DATA, formatDuration, scenarioUrl } from '../utils';
+import { DATA, formatDuration, formatTimestamp, scenarioUrl } from '../utils';
 
 const html = htm.bind(h);
 
@@ -116,7 +116,7 @@ export function TrendChart({ history, onNavigate }) {
         chartRef.current = new Chart(canvasRef.current, {
             type: 'bar',
             data: {
-                labels: history.map(h => h.label.replace('build ', '')),
+                labels: history.map(h => formatTimestamp(h.timestamp)),
                 datasets: [
                     {
                         type: 'bar',
@@ -214,7 +214,7 @@ export function TrendChart({ history, onNavigate }) {
                             title: (items) => {
                                 const index = items[0].dataIndex;
                                 const run = history[index];
-                                return run.label + ' — ' + new Date(run.timestamp).toLocaleDateString();
+                                return run.label + ' — ' + formatTimestamp(run.timestamp);
                             },
                             label: (context) => {
                                 const label = context.dataset.label || '';

@@ -3,7 +3,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
 
-import { DATA } from '../utils';
+import { DATA, formatTimestamp } from '../utils';
 import { DashboardView } from './DashboardView';
 import { ErrorsView } from './ErrorsView';
 import { icons } from './icons';
@@ -114,7 +114,7 @@ export function App() {
           </button>
           <div>
             <div class="topbar-title">${pageTitle}</div>
-            <div class="topbar-subtitle">${DATA.summary.testRunner} • ${new Date(DATA.summary.finishedAt).toLocaleDateString()} ${new Date(DATA.summary.finishedAt).toLocaleTimeString()}</div>
+            <div class="topbar-subtitle">${DATA.summary.testRunner} • ${formatTimestamp(DATA.summary.finishedAt)}</div>
           </div>
         </div>
         <div class="topbar-actions">

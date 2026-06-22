@@ -19,3 +19,9 @@ export function outcomeIcon(outcome: string): string {
     const map: Record<string, string> = { SUCCESS: '✓', FAILURE: '✗', PENDING: '–', SKIPPED: '⊘', COMPROMISED: '⚠', ERROR: '!' };
     return map[outcome] || '?';
 }
+
+export function formatTimestamp(iso: string): string {
+    const d = new Date(iso);
+    return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
+        + ' ' + d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+}

@@ -2,7 +2,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import { DATA, formatDuration } from '../utils';
+import { DATA, formatDuration, formatTimestamp } from '../utils';
 import { TrendChart } from './DashboardView';
 
 const html = htm.bind(h);
@@ -26,7 +26,7 @@ export function TestRunsView({ onNavigate }) {
             <div class="scenario-info">
               <div class="scenario-name">${run.label}</div>
               <div class="scenario-meta">
-                <span>${new Date(run.timestamp).toLocaleString()}</span>
+                <span>${formatTimestamp(run.timestamp)}</span>
                 <span>•</span>
                 <span>${formatDuration(run.duration)}</span>
                 ${run.branch ? html`<span>•</span><span style="display:inline-flex;align-items:center;gap:3px">${(() => { const repoUrl = run.repositoryUrl ? run.repositoryUrl.replace(/\.git$/, '').replace(/^git@([^:]+):/, 'https://$1/') : ''; return html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-xs"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>${repoUrl ? html`<a href="${repoUrl}/tree/${run.branch}" target="_blank" rel="noopener" onClick=${(e) => e.stopPropagation()} style="font-size:var(--font-xs);color:inherit;text-decoration:none" onMouseOver=${(e) => e.target.style.textDecoration='underline'} onMouseOut=${(e) => e.target.style.textDecoration='none'}>${run.branch}</a>` : html`<span style="font-size:var(--font-xs)">${run.branch}</span>`}`; })()}</span>` : null}

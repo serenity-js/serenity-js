@@ -5,7 +5,7 @@ import { h } from 'preact';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
 import { useStickyHeader, useVirtualizer } from '../hooks';
-import { DATA, formatDuration, getBrowserTag, matchesSearch, outcomeClass, outcomeIcon, relativeSourcePath, scenarioUrl } from '../utils';
+import { DATA, formatDuration, formatTimestamp, getBrowserTag, matchesSearch, outcomeClass, outcomeIcon, relativeSourcePath, scenarioUrl } from '../utils';
 import { FilterBar } from './FilterBar';
 import { RunSelector } from './RunSelector';
 
@@ -238,7 +238,7 @@ export function ScenariosView({ onNavigate, route }) {
     <div>
       ${historicalRun ? html`
         <div class="historical-banner">
-          <span>Viewing results from: <strong>${historicalRun.label}</strong> (${new Date(historicalRun.timestamp).toLocaleString()}) — ${formatDuration(historicalRun.duration)}</span>
+          <span>Viewing results from: <strong>${historicalRun.label}</strong> (${formatTimestamp(historicalRun.timestamp)}) — ${formatDuration(historicalRun.duration)}</span>
           <a href="#/tests" style="cursor:pointer;color:var(--accent);font-weight:500;text-decoration:underline">show latest</a>
         </div>
       ` : null}
