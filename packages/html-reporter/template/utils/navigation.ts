@@ -12,11 +12,13 @@ export function relativeSourcePath(scenario: Scenario): string {
     const specDirectory = DATA.requirements ? DATA.requirements.name : 'spec';
     const marker = '/' + specDirectory + '/';
     const index = p.indexOf(marker);
-    return (index !== -1 ? p.slice(index + marker.length) : p) + ':' + scenario.source.line;
+    const relativePath = index !== -1 ? p.slice(index + marker.length) : p;
+    return scenario.source.line ? relativePath + ':' + scenario.source.line : relativePath;
 }
 
 export function scenarioUrl(scenario: Scenario, run?: number | string | null): string {
-    const base = '/tests/' + encodeURIComponent(scenario.source.path + ':' + scenario.source.line);
+    const id = scenario.source.line ? scenario.source.path + ':' + scenario.source.line : scenario.source.path;
+    const base = '/tests/' + encodeURIComponent(id);
     if (run === undefined || run === null) return base;
     const ts = typeof run === 'number' && DATA.history[run] ? DATA.history[run].timestamp : run;
     return base + '?run=' + ts;

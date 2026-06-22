@@ -111,7 +111,7 @@ function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, se
                 ${outcomeIcon(scenario.outcome)}
               </div>
               <div class="scenario-info">
-                <div class="scenario-name">${scenario.name}</div>
+                <div class="scenario-name">${scenario.category ? scenario.category + ' › ' : ''}${scenario.name}</div>
                 <div class="scenario-tags">
                   ${getBrowserTag(scenario) ? html`<a href=${'#/tests?search=' + encodeURIComponent('"' + getBrowserTag(scenario) + '"')} class="badge badge-${getBrowserTag(scenario)}" style="text-decoration:none;cursor:pointer" onClick=${stopProp}>${getBrowserTag(scenario)}</a>` : null}
                   ${scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
