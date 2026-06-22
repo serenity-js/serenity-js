@@ -21,7 +21,7 @@ const latestDatabase = JSON.parse(readFileSync(resolve(latestRunDirectory, 'db.j
 // Create a historical run (1 day earlier) with inverted outcomes:
 // - "should complete an item" was PASSING (now it fails → degraded)
 // - "should persist items" was FAILING (now it passes → recovered)
-const previousTimestamp = new Date(new Date(latestDatabase.timestamp).getTime() - 86_400_000).toISOString();
+const previousTimestamp = new Date(new Date(latestDatabase.startedAt).getTime() - 86_400_000).toISOString();
 
 const previousScenes = latestDatabase.scenes.map((scene: any) => {
     const clone = { ...scene, startedAt: previousTimestamp, activities: [...scene.activities] };
@@ -49,7 +49,7 @@ for (const scene of previousScenes) {
 
 const previousDatabase = {
     ...latestDatabase,
-    timestamp: previousTimestamp,
+    startedAt: previousTimestamp, finishedAt: new Date(new Date(previousTimestamp).getTime() + 5000).toISOString(),
     outcomes: previousOutcomes,
     scenes: previousScenes,
 };
