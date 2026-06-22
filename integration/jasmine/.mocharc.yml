@@ -4,9 +4,9 @@ diff: true
 full-trace: true
 reporter: '@serenity-js/mocha'
 require:
+  - ts-node/register
   - ./setup.ts
 timeout: 30000
 v8-stack-trace-limit: 100
 node-option:
   - trace-warnings
-  - import=tsx/esm
