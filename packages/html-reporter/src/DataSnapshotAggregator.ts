@@ -169,7 +169,7 @@ export class DataSnapshotAggregator {
             const executionHistory = allRuns.map(run => {
                 const match = run.scenes.find(s => s.source.path + ':' + s.source.line === key);
                 return match
-                    ? { outcome: outcomeCodeToDisplayString(match.outcome.code), run: this.resolveRunLabel(run.startedAt) }
+                    ? { outcome: outcomeCodeToDisplayString(match.outcome.code), run: this.resolveRunLabel(run) }
                     : undefined;
             }).filter(Boolean);
             return {
@@ -200,7 +200,7 @@ export class DataSnapshotAggregator {
                 timestamp: run.startedAt,
                 duration: new Date(run.finishedAt).getTime() - new Date(run.startedAt).getTime(),
                 outcomes: run.outcomes,
-                label: this.resolveRunLabel(run.startedAt),
+                label: this.resolveRunLabel(run),
                 slowest: durations.length > 0 ? Math.max(...durations) : 0,
                 fastest: durations.length > 0 ? Math.min(...durations) : 0,
                 average: durations.length > 0 ? Math.round(durations.reduce((a, b) => a + b, 0) / durations.length) : 0,
@@ -398,8 +398,8 @@ export class DataSnapshotAggregator {
         };
     }
 
-    private resolveRunLabel(timestamp: string): string {
-        return new Date(timestamp).toISOString();
+    private resolveRunLabel(run: RunData): string {
+        return run.testRunId || run.startedAt;
     }
 }
 

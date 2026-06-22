@@ -8,6 +8,7 @@ import type { SystemContext } from '../SystemContextDetector.js';
  * @package
  */
 export interface RunData {
+    testRunId?: string;
     startedAt: string;
     finishedAt: string;
     outcomes: OutcomeCounts;

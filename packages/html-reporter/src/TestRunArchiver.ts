@@ -124,6 +124,7 @@ export class TestRunArchiver implements StageCrewMember {
                 this.artifactWriter.getSceneArtifactPaths(),
             );
 
+            runData.testRunId = this.resolvedTestRunId;
             this.runDataWriter.write(runData, this.artifactWriter.getRunDirectory());
 
             this.stage.announce(new AsyncOperationCompleted(
