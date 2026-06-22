@@ -54,7 +54,7 @@ export function TagsView({ onNavigate }) {
             return html`
           <div class="tag-card" onClick=${() => onNavigate('/tests?search=' + encodeURIComponent('"' + item.name + '"'))}>
             <div class="tag-card-icon">${item.icon}</div>
-            <div style="flex:1;min-width:0">
+            <div class="flex-1">
               <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-sm);margin-bottom:4px">
                 <div class="tag-card-name">${item.name}</div>
                 <span style="font-size:var(--font-sm);font-weight:600;color:${barColor};flex-shrink:0;min-width:36px;text-align:right" title="Pass rate: ${item.passRate}%">${item.passRate}%</span>

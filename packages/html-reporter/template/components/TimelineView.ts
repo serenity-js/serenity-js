@@ -46,19 +46,19 @@ export function TimelineView({ onNavigate }) {
     return html`
     <div>
       <div class="grid-stats" style="margin-bottom:var(--space-md)">
-        <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)">
+        <div class="card" class="stat-card">
           <div class="card-title" style="margin-bottom:0">Slowest</div>
           <div class="card-value" style="color:var(--color-failed);font-size:var(--font-lg)">${formatDuration(slowest)}</div>
         </div>
-        <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)">
+        <div class="card" class="stat-card">
           <div class="card-title" style="margin-bottom:0">Fastest</div>
           <div class="card-value" style="color:var(--color-passed);font-size:var(--font-lg)">${formatDuration(fastest)}</div>
         </div>
-        <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)">
+        <div class="card" class="stat-card">
           <div class="card-title" style="margin-bottom:0">Average</div>
           <div class="card-value" style="font-size:var(--font-lg)">${formatDuration(avg)}</div>
         </div>
-        <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)">
+        <div class="card" class="stat-card">
           <div class="card-title" style="margin-bottom:0">Total Run</div>
           <div class="card-value" style="font-size:var(--font-lg)">${formatDuration(DATA.summary.duration)}</div>
         </div>

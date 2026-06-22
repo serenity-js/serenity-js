@@ -1301,3 +1301,28 @@
     .sidebar-overlay.visible {
       display: block;
     }
+
+    /* ===== Utility Classes ===== */
+    .flex-row { display: flex; align-items: center; }
+    .flex-col { display: flex; flex-direction: column; }
+    .flex-between { display: flex; justify-content: space-between; align-items: center; }
+    .flex-wrap { flex-wrap: wrap; }
+    .flex-1 { flex: 1; min-width: 0; }
+
+    .gap-xs { gap: var(--space-xs); }
+    .gap-sm { gap: var(--space-sm); }
+    .gap-md { gap: var(--space-md); }
+
+    .mb-sm { margin-bottom: var(--space-sm); }
+    .mb-md { margin-bottom: var(--space-md); }
+    .mb-lg { margin-bottom: var(--space-lg); }
+
+    .text-muted { font-size: var(--font-sm); color: var(--text-secondary); }
+    .text-xs-muted { font-size: var(--font-xs); color: var(--text-secondary); }
+    .label-upper { font-size: var(--font-xs); font-weight: 500; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .clickable { cursor: pointer; }
+    .scroll-container { max-height: calc(100vh - 380px); overflow-y: auto; position: relative; }
+
+    .stat-card { padding: var(--space-sm) var(--space-md); display: flex; align-items: center; gap: var(--space-sm); }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-sm); }

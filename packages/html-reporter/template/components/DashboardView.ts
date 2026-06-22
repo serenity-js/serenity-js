@@ -283,15 +283,15 @@ export function DashboardView({ onNavigate }) {
       <div style="display:flex;flex-direction:column;gap:var(--space-md);min-width:0">
         <!-- Row 1: Test Results + Pass Rate / Failed -->
         <div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:var(--space-md)" class="dashboard-stats-grid">
-          <div style="display:flex;flex-direction:column;gap:var(--space-md)">
+          <div class="flex-col gap-md">
             <div class="card" style="display:flex;flex-direction:column;flex:1">
               <div class="card-title">Test Results</div>
               <div class="donut-chart">
                 <${DonutChart} outcomes=${summary.outcomes} total=${summary.totalScenarios} />
                 <div class="donut-legend">
-                  <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=passed')}><span class="legend-dot" style="background:var(--color-passed)"></span> Passed (${summary.outcomes.passed})</div>
-                  <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=failed')}><span class="legend-dot" style="background:var(--color-failed)"></span> Failed (${(summary.outcomes.failed || 0) + (summary.outcomes.error || 0) + (summary.outcomes.compromised || 0)})</div>
-                  <div class="legend-item" style="cursor:pointer" onClick=${() => onNavigate('/tests?filter=skipped')}><span class="legend-dot" style="background:var(--color-skipped)"></span> Skipped (${(summary.outcomes.skipped || 0) + (summary.outcomes.pending || 0)})</div>
+                  <div class="legend-item clickable" onClick=${() => onNavigate('/tests?filter=passed')}><span class="legend-dot" style="background:var(--color-passed)"></span> Passed (${summary.outcomes.passed})</div>
+                  <div class="legend-item clickable" onClick=${() => onNavigate('/tests?filter=failed')}><span class="legend-dot" style="background:var(--color-failed)"></span> Failed (${(summary.outcomes.failed || 0) + (summary.outcomes.error || 0) + (summary.outcomes.compromised || 0)})</div>
+                  <div class="legend-item clickable" onClick=${() => onNavigate('/tests?filter=skipped')}><span class="legend-dot" style="background:var(--color-skipped)"></span> Skipped (${(summary.outcomes.skipped || 0) + (summary.outcomes.pending || 0)})</div>
                 </div>
               </div>
               <div style="margin-top:var(--space-md);font-size:var(--font-sm);color:var(--text-secondary)">${summary.totalScenarios} scenarios • ${summary.testRunner}</div>
@@ -307,7 +307,7 @@ export function DashboardView({ onNavigate }) {
               </div>
             ` : null}
           </div>
-          <div style="display:flex;flex-direction:column;gap:var(--space-md)">
+          <div class="flex-col gap-md">
             <div class="card" style="flex:1;cursor:pointer" onClick=${() => onNavigate('/tests?filter=non-passing')}>
               <div class="card-title">Pass Rate</div>
               <div class="card-value" style="color:var(--color-passed)">${passRate}%</div>
@@ -331,7 +331,7 @@ export function DashboardView({ onNavigate }) {
       <!-- Right column: Degraded / Recovered / Most Unstable / Slowest Tests -->
       <div style="display:flex;flex-direction:column;gap:var(--space-md);min-width:0;overflow:hidden">
         <div class="card">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-sm)">
+          <div class="card-header">
             <div class="card-title" style="margin-bottom:0;color:var(--color-failed)">Degraded</div>
             ${newFailures.length > 0 ? html`
               <a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>
@@ -339,7 +339,7 @@ export function DashboardView({ onNavigate }) {
           </div>
           ${newFailures.length > 0 ? html`
             ${newFailures.map(t => html`
-              <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(t))} style="cursor:pointer">
+              <div class="slowest-item clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
                 <span style="font-size:var(--font-sm);color:var(--color-failed)">✗</span>
                 <span class="slowest-name">${t.name}</span>
               </div>
@@ -353,7 +353,7 @@ export function DashboardView({ onNavigate }) {
           `}
         </div>
         <div class="card">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-sm)">
+          <div class="card-header">
             <div class="card-title" style="margin-bottom:0;color:var(--color-passed)">Recovered</div>
             ${newPasses.length > 0 ? html`
               <a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>
@@ -361,7 +361,7 @@ export function DashboardView({ onNavigate }) {
           </div>
           ${newPasses.length > 0 ? html`
             ${newPasses.map(t => html`
-              <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(t))} style="cursor:pointer">
+              <div class="slowest-item clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
                 <span style="font-size:var(--font-sm);color:var(--color-passed)">✓</span>
                 <span class="slowest-name">${t.name}</span>
               </div>
@@ -375,12 +375,12 @@ export function DashboardView({ onNavigate }) {
         </div>
         ${flakyTests.length > 0 ? html`
           <div class="card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-sm)">
+            <div class="card-header">
               <div class="card-title" style="margin-bottom:0">Most Unstable</div>
               <a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>
             </div>
             ${flakyTests.map(t => html`
-              <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(t))} style="cursor:pointer">
+              <div class="slowest-item clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
                 <span style="font-size:var(--font-sm);font-weight:600;color:var(--color-pending);width:36px" title="Failure ratio: ${Math.round(t.flakinessRate * 100)}%">${Math.round(t.flakinessRate * 100)}%</span>
                 <span class="slowest-name">${t.name}</span>
               </div>
@@ -388,12 +388,12 @@ export function DashboardView({ onNavigate }) {
           </div>
         ` : null}
         <div class="card" style="flex:1">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-sm)">
+          <div class="card-header">
             <div class="card-title" style="margin-bottom:0">Slowest Tests</div>
             <a class="view-all-link" onClick=${() => onNavigate('/tests?sort=duration')}>View all →</a>
           </div>
           ${slowest.map((s, i) => html`
-            <div class="slowest-item" onClick=${() => onNavigate(scenarioUrl(s))} style="cursor:pointer">
+            <div class="slowest-item clickable" onClick=${() => onNavigate(scenarioUrl(s))}>
               <span class="slowest-rank">#${i + 1}</span>
               <span class="slowest-name">${s.name}</span>
               <span class="slowest-dur">${formatDuration(s.duration)}</span>

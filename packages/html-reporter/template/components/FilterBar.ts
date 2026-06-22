@@ -25,7 +25,7 @@ export function FilterBar({ outcomes, total, activeFilter, onFilter, sortOptions
       `)}
       ${sortOptions ? html`
         <div class="sort-group">
-          <label style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px" for="sort-select">Sort:</label>
+          <label class="label-upper" for="sort-select">Sort:</label>
           <select id="sort-select" class="sort-select" value=${activeSort} onChange=${(e) => onSort(e.target.value)} aria-label="Sort order">
             ${sortOptions.map(s => html`<option value=${s.key} selected=${activeSort === s.key}>${s.label}</option>`)}
           </select>

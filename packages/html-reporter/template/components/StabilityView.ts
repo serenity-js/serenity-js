@@ -144,7 +144,7 @@ export function StabilityView({ onNavigate }) {
       </div>
 
       <div style="display:flex;gap:var(--space-sm);margin-bottom:var(--space-md);flex-wrap:wrap;align-items:center">
-        <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px">State:</span>
+        <span class="label-upper">State:</span>
         <button class="filter-chip ${filter === 'unstable' ? 'active' : ''}" onClick=${() => setFilter('unstable')}>
           Unstable <span class="count">${flaky.length}</span>
         </button>
@@ -155,7 +155,7 @@ export function StabilityView({ onNavigate }) {
           Recovered <span class="count">${recoveredCount}</span>
         </button>
         <div class="sort-group">
-          <label style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px" for="stability-sort-select">Sort:</label>
+          <label class="label-upper" for="stability-sort-select">Sort:</label>
           <select id="stability-sort-select" class="sort-select" value=${sort} onChange=${(e) => setSort(e.target.value)} aria-label="Sort order">
             <option value="category" selected=${sort === 'category'}>Category</option>
             <option value="name" selected=${sort === 'name'}>Name</option>
@@ -164,10 +164,10 @@ export function StabilityView({ onNavigate }) {
       </div>
 
       <div class="card" style="padding-bottom:0">
-        <div style="font-size:var(--font-sm);color:var(--text-secondary);margin-bottom:var(--space-md)">
+        <div class="text-muted mb-md">
           Showing ${sortedItems.length} ${sortedItems.length === 1 ? 'test' : 'tests'}
         </div>
-        <div ref=${parentRefCallback} style="max-height:calc(100vh - 380px);overflow-y:auto;position:relative">
+        <div ref=${parentRefCallback} class="scroll-container">
           <div style="height:${virtualizer.getTotalSize()}px;width:100%;position:relative">
             ${virtualizer.getVirtualItems().map(virtualRow => {
                 const flatItem = flatItems[virtualRow.index];
@@ -177,7 +177,7 @@ export function StabilityView({ onNavigate }) {
                   <div style="position:absolute;top:0;left:0;width:100%;height:${STABILITY_HEADER_CONTENT_HEIGHT}px;transform:translateY(${virtualRow.start + topOffset}px);background:var(--bg-surface);z-index:1"
                        class="scenario-group-header">
                     ${flatItem.category.split(' › ').map((segment, index, array) => html`
-                      <span style="cursor:pointer" onClick=${() => setSearch('"' + segment + '"')}>${segment}</span>${index < array.length - 1 ? html`<span style="margin:0 4px;text-decoration:none;cursor:default"> › </span>` : null}
+                      <span class="clickable" onClick=${() => setSearch('"' + segment + '"')}>${segment}</span>${index < array.length - 1 ? html`<span style="margin:0 4px;text-decoration:none;cursor:default"> › </span>` : null}
                     `)}
                   </div>
                 `;

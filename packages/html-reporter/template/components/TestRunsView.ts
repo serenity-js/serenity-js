@@ -19,7 +19,7 @@ export function TestRunsView({ onNavigate }) {
       <div class="scenario-list">
         ${runs.map((run) => {
             return html`
-          <div class="scenario-item" onClick=${() => onNavigate('/tests?run=' + run.timestamp)} style="cursor:pointer">
+          <div class="scenario-item" onClick=${() => onNavigate('/tests?run=' + run.timestamp)}>
             <div class="scenario-outcome-icon passed" style="background:var(--accent-light);color:var(--text-primary)">
               #
             </div>

@@ -166,17 +166,17 @@ export function ErrorsView({ onNavigate, route }) {
 
       <div class="grid-stats" style="margin-bottom:var(--space-md)">
         ${summaryCards.map(card => html`
-          <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-sm)">
+          <div class="card" class="stat-card">
             <div class="card-title" style="margin-bottom:0">${card.title}</div>
             <div class="card-value" style="color:${card.color};font-size:var(--font-lg)">${card.value}</div>
           </div>
         `)}
       </div>
       <div class="card" style="padding-bottom:0">
-        <div style="font-size:var(--font-sm);color:var(--text-secondary);margin-bottom:var(--space-md)">
+        <div class="text-muted mb-md">
           Showing ${errorScenarios.length} ${errorScenarios.length === 1 ? 'error' : 'errors'}
         </div>
-        <div ref=${errorParentRefCallback} style="max-height:calc(100vh - 380px);overflow-y:auto;position:relative">
+        <div ref=${errorParentRefCallback} class="scroll-container">
           <div style="height:${errorVirtualizer.getTotalSize()}px;width:100%;position:relative">
             ${errorVirtualizer.getVirtualItems().map(virtualRow => {
                 const item = renderItems[virtualRow.index];

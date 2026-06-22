@@ -84,7 +84,7 @@ function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, se
     });
 
     return html`
-    <div ref=${parentRefCallback} style="max-height:calc(100vh - 380px);overflow-y:auto;position:relative">
+    <div ref=${parentRefCallback} class="scroll-container">
       <div style="height:${virtualizer.getTotalSize()}px;width:100%;position:relative">
         ${virtualizer.getVirtualItems().map(virtualRow => {
             const item = flatItems[virtualRow.index];
@@ -95,7 +95,7 @@ function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, se
               <div style="position:absolute;top:0;left:0;width:100%;height:${GROUP_HEADER_CONTENT_HEIGHT}px;transform:translateY(${virtualRow.start + topOffset}px);background:var(--bg-surface);z-index:1"
                    class="scenario-group-header">
                 ${segments.map((segment, index) => html`
-                  <span style="cursor:pointer" onClick=${() => setSearch('"' + segment + '"')}>${segment}</span>${index < segments.length - 1 ? html`<span style="margin:0 4px;text-decoration:none;cursor:default"> › </span>` : null}
+                  <span class="clickable" onClick=${() => setSearch('"' + segment + '"')}>${segment}</span>${index < segments.length - 1 ? html`<span style="margin:0 4px;text-decoration:none;cursor:default"> › </span>` : null}
                 `)}
               </div>
             `;
@@ -265,7 +265,7 @@ export function ScenariosView({ onNavigate, route }) {
                      activeSort=${sort} onSort=${setSort} />
 
       <div class="card">
-        <div style="font-size:var(--font-sm);color:var(--text-secondary);margin-bottom:var(--space-md)">
+        <div class="text-muted mb-md">
           Showing ${filtered.length} of ${DATA.scenarios.length} test scenarios
         </div>
         <${VirtualScenarioList} filtered=${filtered} grouped=${grouped} sort=${sort}

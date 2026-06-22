@@ -183,8 +183,8 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
           <div class="scenario-detail-outcome scenario-outcome-icon ${outcomeClass(scenario.outcome)}">
             ${outcomeIcon(scenario.outcome)}
           </div>
-          <div style="flex:1;min-width:0">
-            <div style="display:flex;align-items:center;gap:var(--space-sm)">
+          <div class="flex-1">
+            <div class="flex-row gap-sm">
               <div class="scenario-detail-title" style="flex:1;min-width:0">${scenario.name}</div>
               <button onClick=${copyTestPath} title="Copy test path to clipboard" style="flex-shrink:0;width:28px;height:28px;border-radius:var(--radius-sm);border:none;background:var(--bg-hover);color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -206,7 +206,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
         ` : null}
 
         ${hasExecutionHistory ? html`
-          <div style="margin-bottom:var(--space-md)">
+          <div class="mb-md">
             <div class="card-title" style="margin-bottom:var(--space-sm)">Execution History</div>
             <div style="display:flex;gap:4px;align-items:center;flex-wrap:wrap">
               ${scenario.executionHistory.map((entry, index) => {
@@ -239,7 +239,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
           <div class="cast-section">
             <div class="card-title" style="margin-bottom:var(--space-sm)">Cast</div>
             ${scenario.cast.map(actor => html`
-              <div style="margin-bottom:var(--space-md)">
+              <div class="mb-md">
                 <div class="cast-item">
                   <div class="cast-avatar">${actor.name[0]}</div>
                   <div style="font-weight:500">${actor.name}</div>
