@@ -116,7 +116,7 @@ export function TrendChart({ history, onNavigate }) {
         chartRef.current = new Chart(canvasRef.current, {
             type: 'bar',
             data: {
-                labels: history.map(h => formatTimestamp(h.timestamp)),
+                labels: history.map(h => h.label + ' — ' + formatTimestamp(h.timestamp)),
                 datasets: [
                     {
                         type: 'bar',
