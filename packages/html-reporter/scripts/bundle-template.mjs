@@ -17,44 +17,32 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const packageRoot = resolve(__dirname, '..');
 const templateDir = resolve(packageRoot, 'template');
 
-// --- Step 1: Bundle the app JS with esbuild ---
+// --- Step 1: Bundle the app JS with esbuild (includes Chart.js, Preact, HTM, etc.) ---
 
 const result = buildSync({
     entryPoints: [resolve(templateDir, 'app.tsx')],
     bundle: true,
     format: 'iife',
     write: false,
-    minify: false,
+    minify: true,
     target: 'es2020',
-    // Chart.js, Hammer.js, and chartjs-plugin-zoom are UMD globals
-    // loaded via separate <script> tags before the app
     nodePaths: [resolve(packageRoot, 'node_modules')],
 });
 
-const bundledAppJs = new TextDecoder().decode(result.outputFiles[0].contents);
+const allJs = new TextDecoder().decode(result.outputFiles[0].contents);
 
-// --- Step 2: Read UMD libraries ---
-
-const chartJs = readFileSync(resolve(packageRoot, 'node_modules', 'chart.js', 'dist', 'chart.umd.js'), 'utf8');
-const hammerJs = readFileSync(resolve(packageRoot, 'node_modules', 'hammerjs', 'hammer.min.js'), 'utf8');
-const chartjsZoom = readFileSync(resolve(packageRoot, 'node_modules', 'chartjs-plugin-zoom', 'dist', 'chartjs-plugin-zoom.min.js'), 'utf8');
-
-// Combine all JS: UMD globals first, then the bundled app
-const allJs = [chartJs, hammerJs, chartjsZoom, bundledAppJs].join('\n;\n');
-
-// --- Step 3: Read CSS ---
+// --- Step 2: Read CSS ---
 
 const styles = readFileSync(resolve(templateDir, 'styles.css'), 'utf8');
 
-// --- Step 4: Assemble the final HTML ---
+// --- Step 3: Assemble the final HTML ---
 
 let shell = readFileSync(resolve(templateDir, 'shell.html'), 'utf8');
 shell = shell.replace('/* __STYLES__ */', styles);
 shell = shell.replace('/* __APP__ */', allJs);
 
-// --- Step 5: Write outputs ---
+// --- Step 4: Write outputs ---
 
-// Write as a JS module that exports the HTML string
 const escaped = shell
     .replace(/\\/g, '\\\\')
     .replace(/`/g, '\\`')

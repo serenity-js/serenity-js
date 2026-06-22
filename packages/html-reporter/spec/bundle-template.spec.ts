@@ -40,13 +40,15 @@ test.describe('bundle-template', () => {
     test('inlines Preact library code', () => {
         const content = readBundledTemplate();
 
-        expect(content).toContain('preact');
+        // Preact's vnode implementation uses these internal property names
+        expect(content).toContain('__k');
     });
 
     test('inlines @tanstack/virtual-core library code', () => {
         const content = readBundledTemplate();
 
-        expect(content).toContain('Virtualizer');
+        // Virtual-core uses scrollOffset in its virtualizer implementation
+        expect(content).toContain('scrollOffset');
     });
 
     test('inlines HTM library code', () => {
