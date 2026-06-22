@@ -1,5 +1,6 @@
 export function formatDuration(ms: number): string {
     if (ms === 0) return '—';
+    ms = Math.round(ms * 10) / 10;  // avoid floating point artefacts
     if (ms < 1000) return ms + 'ms';
     if (ms < 60_000) return (ms / 1000).toFixed(1) + 's';
     const mins = Math.floor(ms / 60_000);

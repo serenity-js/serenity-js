@@ -24,7 +24,7 @@ export function TestRunsView({ onNavigate }) {
               #
             </div>
             <div class="scenario-info">
-              <div class="scenario-name">${run.label}</div>
+              <div class="scenario-name">${formatTimestamp(run.timestamp)}</div>
               <div class="scenario-meta">
                 <span>${formatTimestamp(run.timestamp)}</span>
                 <span>•</span>

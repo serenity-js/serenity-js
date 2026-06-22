@@ -114,7 +114,7 @@ export function App() {
           </button>
           <div>
             <div class="topbar-title">${pageTitle}</div>
-            <div class="topbar-subtitle">${DATA.summary.testRunner} • ${formatTimestamp(DATA.summary.finishedAt)}</div>
+            <div class="topbar-subtitle" title="${DATA.summary.finishedAt}">${DATA.summary.testRunner} • ${formatTimestamp(DATA.summary.finishedAt)}</div>
           </div>
         </div>
         <div class="topbar-actions">
