@@ -37,8 +37,33 @@ export class DataSnapshotAggregator {
 
     aggregate(): void {
         const runDirectories = this.findRunDirectories();
+        this.pruneOldRuns(runDirectories);
 
-        // Apply maxHistory pruning
+        const allRuns = this.loadRuns(runDirectories);
+        if (allRuns.length === 0) {
+            return;
+        }
+
+        const latestRun = allRuns[allRuns.length - 1];
+        const { newFailures, newPasses } = this.computeDegradedRecovered(allRuns);
+
+        const snapshot = {
+            summary: this.buildSummary(latestRun),
+            scenarios: this.enrichScenarios(latestRun, allRuns),
+            history: this.buildHistory(allRuns),
+            tags: this.computeTagStats(latestRun),
+            unstableTests: this.identifyUnstableTests(allRuns),
+            newFailures,
+            newPasses,
+            systemContext: this.buildSystemContext(latestRun),
+            requirements: this.requirementsHierarchy ? this.buildRequirements(latestRun) : undefined,
+        };
+
+        const js = `window.__SERENITY_REPORT_DATA__ = ${ JSON.stringify(snapshot, undefined, 2) };\n`;
+        this.fileSystem.storeSync(Path.from('data.js'), js, 'utf8');
+    }
+
+    private pruneOldRuns(runDirectories: Path[]): void {
         if (this.config.maxHistory && runDirectories.length > this.config.maxHistory) {
             const toRemove = runDirectories.slice(0, runDirectories.length - this.config.maxHistory);
             for (const directory of toRemove) {
@@ -46,114 +71,121 @@ export class DataSnapshotAggregator {
             }
             runDirectories.splice(0, runDirectories.length - this.config.maxHistory);
         }
+    }
 
-        // Parse all run data files
-        const allRuns: RunData[] = runDirectories.map(directory => {
+    private loadRuns(runDirectories: Path[]): RunData[] {
+        return runDirectories.map(directory => {
             const databaseJsonPath = directory.join(Path.from('db.json'));
             const content = this.fileSystem.readFileSync(databaseJsonPath, { encoding: 'utf8' }) as string;
             return JSON.parse(content) as RunData;
         });
+    }
 
-        const latestRun = allRuns[allRuns.length - 1];
-
-        // Compute degraded (newFailures) and recovered (newPasses)
+    private computeDegradedRecovered(allRuns: RunData[]): { newFailures: Array<{ name: string; category: string; source: { path: string; line: number } }>; newPasses: Array<{ name: string; category: string; source: { path: string; line: number } }> } {
         const newFailures: Array<{ name: string; category: string; source: { path: string; line: number } }> = [];
         const newPasses: Array<{ name: string; category: string; source: { path: string; line: number } }> = [];
 
-        if (allRuns.length >= 2) {
-            const previousRun = allRuns[allRuns.length - 2];
-            const previousOutcomes = new Map(previousRun.scenes.map(s => [s.source.path + ':' + s.source.line, s.outcome.code]));
+        if (allRuns.length < 2) {
+            return { newFailures, newPasses };
+        }
 
-            for (const scene of latestRun.scenes) {
-                const key = scene.source.path + ':' + scene.source.line;
-                const previousCode = previousOutcomes.get(key);
-                if (previousCode !== undefined) {
-                    const previousSuccess = previousCode === ExecutionSuccessful.Code;
-                    const currentSuccess = scene.outcome.code === ExecutionSuccessful.Code;
-                    if (previousSuccess && !currentSuccess) {
-                        newFailures.push({ name: scene.name, category: scene.category, source: scene.source });
-                    } else if (!previousSuccess && currentSuccess) {
-                        newPasses.push({ name: scene.name, category: scene.category, source: scene.source });
-                    }
+        const latestRun = allRuns[allRuns.length - 1];
+        const previousRun = allRuns[allRuns.length - 2];
+        const previousOutcomes = new Map(previousRun.scenes.map(s => [s.source.path + ':' + s.source.line, s.outcome.code]));
+
+        for (const scene of latestRun.scenes) {
+            const key = scene.source.path + ':' + scene.source.line;
+            const previousCode = previousOutcomes.get(key);
+            if (previousCode !== undefined) {
+                const previousSuccess = previousCode === ExecutionSuccessful.Code;
+                const currentSuccess = scene.outcome.code === ExecutionSuccessful.Code;
+                if (previousSuccess && !currentSuccess) {
+                    newFailures.push({ name: scene.name, category: scene.category, source: scene.source });
+                } else if (!previousSuccess && currentSuccess) {
+                    newPasses.push({ name: scene.name, category: scene.category, source: scene.source });
                 }
             }
         }
 
-        // Build the data snapshot
-        const snapshot = {
-            summary: {
-                title: this.config.title || latestRun.testRunner,
-                totalScenarios: latestRun.scenes.length,
-                outcomes: latestRun.outcomes,
-                duration: latestRun.duration,
-                startedAt: latestRun.timestamp,
-                finishedAt: this.computeFinishedAt(latestRun),
-                testRunner: latestRun.testRunner,
-            },
-            scenarios: latestRun.scenes.map(scene => {
-                const key = scene.source.path + ':' + scene.source.line;
-                const executionHistory = allRuns.map(run => {
-                    const match = run.scenes.find(s => s.source.path + ':' + s.source.line === key);
-                    return match
-                        ? { outcome: outcomeCodeToDisplayString(match.outcome.code), run: this.resolveRunLabel(run.timestamp) }
-                        : undefined;
-                }).filter(Boolean);
-                return {
-                    ...scene,
-                    tags: [...new Map(scene.tags.map(t => [t.type + ':' + t.name, t])).values()],
-                    outcome: outcomeCodeToDisplayString(scene.outcome.code),
-                    activities: scene.activities.map(activity => this.mapActivityOutcome(activity)),
-                    executionHistory,
-                    ...(scene.scenarioOutline ? {
-                        scenarioOutline: {
-                            template: scene.scenarioOutline.template,
-                            parameters: scene.scenarioOutline.parameters.map(ps => ({
-                                ...ps,
-                                outcome: outcomeCodeToDisplayString(ps.outcome.code),
-                                activities: ps.activities.map(activity => this.mapActivityOutcome(activity)),
-                            })),
-                        },
-                    } : {}),
-                };
-            }),
-            history: allRuns.map(run => {
-                const durations = run.scenes.map(s => s.duration).filter(d => d > 0);
-                const ci = run.systemContext?.runtime;
-                return {
-                    timestamp: run.timestamp,
-                    duration: run.duration,
-                    outcomes: run.outcomes,
-                    label: this.resolveRunLabel(run.timestamp),
-                    slowest: durations.length > 0 ? Math.max(...durations) : 0,
-                    fastest: durations.length > 0 ? Math.min(...durations) : 0,
-                    average: durations.length > 0 ? Math.round(durations.reduce((a, b) => a + b, 0) / durations.length) : 0,
-                    ...(ci?.commit ? { commit: ci.commit } : {}),
-                    ...(ci?.branch ? { branch: ci.branch } : {}),
-                    ...(ci?.jobUrl ? { ciJobUrl: ci.jobUrl } : {}),
-                    ...(ci?.repositoryUrl ? { repositoryUrl: ci.repositoryUrl } : {}),
-                };
-            }),
-            tags: this.computeTagStats(latestRun),
-            unstableTests: this.identifyUnstableTests(allRuns),
-            newFailures,
-            newPasses,
-            systemContext: latestRun.systemContext ? {
-                nodeVersion: latestRun.systemContext.nodeVersion,
-                os: latestRun.systemContext.os,
-                serenityVersion: latestRun.systemContext.serenityVersion,
-                testRunner: { name: latestRun.testRunner, version: latestRun.testRunnerVersion },
-                browsers: this.extractBrowsers(latestRun),
-                ci: latestRun.systemContext.runtime,
-                projectName: latestRun.systemContext.projectName,
-                packageManager: latestRun.systemContext.packageManager,
-                environmentUnderTest: latestRun.systemContext.environmentUnderTest,
-            } : undefined,
-            requirements: this.requirementsHierarchy ? this.buildRequirements(latestRun) : undefined,
-        };
+        return { newFailures, newPasses };
+    }
 
-        // Write data.js
-        const js = `window.__SERENITY_REPORT_DATA__ = ${ JSON.stringify(snapshot, undefined, 2) };\n`;
-        this.fileSystem.storeSync(Path.from('data.js'), js, 'utf8');
+    private buildSummary(latestRun: RunData): { title: string; totalScenarios: number; outcomes: typeof latestRun.outcomes; duration: number; startedAt: string; finishedAt: string; testRunner: string } {
+        return {
+            title: this.config.title || latestRun.testRunner,
+            totalScenarios: latestRun.scenes.length,
+            outcomes: latestRun.outcomes,
+            duration: latestRun.duration,
+            startedAt: latestRun.timestamp,
+            finishedAt: this.computeFinishedAt(latestRun),
+            testRunner: latestRun.testRunner,
+        };
+    }
+
+    private enrichScenarios(latestRun: RunData, allRuns: RunData[]): unknown[] {
+        return latestRun.scenes.map(scene => {
+            const key = scene.source.path + ':' + scene.source.line;
+            const executionHistory = allRuns.map(run => {
+                const match = run.scenes.find(s => s.source.path + ':' + s.source.line === key);
+                return match
+                    ? { outcome: outcomeCodeToDisplayString(match.outcome.code), run: this.resolveRunLabel(run.timestamp) }
+                    : undefined;
+            }).filter(Boolean);
+            return {
+                ...scene,
+                tags: [...new Map(scene.tags.map(t => [t.type + ':' + t.name, t])).values()],
+                outcome: outcomeCodeToDisplayString(scene.outcome.code),
+                activities: scene.activities.map(activity => this.mapActivityOutcome(activity)),
+                executionHistory,
+                ...(scene.scenarioOutline ? {
+                    scenarioOutline: {
+                        template: scene.scenarioOutline.template,
+                        parameters: scene.scenarioOutline.parameters.map(ps => ({
+                            ...ps,
+                            outcome: outcomeCodeToDisplayString(ps.outcome.code),
+                            activities: ps.activities.map(activity => this.mapActivityOutcome(activity)),
+                        })),
+                    },
+                } : {}),
+            };
+        });
+    }
+
+    private buildHistory(allRuns: RunData[]): unknown[] {
+        return allRuns.map(run => {
+            const durations = run.scenes.map(s => s.duration).filter(d => d > 0);
+            const ci = run.systemContext?.runtime;
+            return {
+                timestamp: run.timestamp,
+                duration: run.duration,
+                outcomes: run.outcomes,
+                label: this.resolveRunLabel(run.timestamp),
+                slowest: durations.length > 0 ? Math.max(...durations) : 0,
+                fastest: durations.length > 0 ? Math.min(...durations) : 0,
+                average: durations.length > 0 ? Math.round(durations.reduce((a, b) => a + b, 0) / durations.length) : 0,
+                ...(ci?.commit ? { commit: ci.commit } : {}),
+                ...(ci?.branch ? { branch: ci.branch } : {}),
+                ...(ci?.jobUrl ? { ciJobUrl: ci.jobUrl } : {}),
+                ...(ci?.repositoryUrl ? { repositoryUrl: ci.repositoryUrl } : {}),
+            };
+        });
+    }
+
+    private buildSystemContext(latestRun: RunData): unknown {
+        if (!latestRun.systemContext) {
+            return undefined;
+        }
+        return {
+            nodeVersion: latestRun.systemContext.nodeVersion,
+            os: latestRun.systemContext.os,
+            serenityVersion: latestRun.systemContext.serenityVersion,
+            testRunner: { name: latestRun.testRunner, version: latestRun.testRunnerVersion },
+            browsers: this.extractBrowsers(latestRun),
+            ci: latestRun.systemContext.runtime,
+            projectName: latestRun.systemContext.projectName,
+            packageManager: latestRun.systemContext.packageManager,
+            environmentUnderTest: latestRun.systemContext.environmentUnderTest,
+        };
     }
 
     private extractBrowsers(run: RunData): Array<{ name: string; version: string }> {
