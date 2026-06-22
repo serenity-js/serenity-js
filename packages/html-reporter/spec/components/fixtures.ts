@@ -60,7 +60,10 @@ export const test = base.extend<{ mount: (options: MountOptions) => Promise<void
 </body>
 </html>`;
 
-            await page.setContent(html, { waitUntil: 'domcontentloaded' });
+            await page.route('**/test-harness.html', route => {
+                route.fulfill({ contentType: 'text/html', body: html });
+            });
+            await page.goto('http://localhost/test-harness.html', { waitUntil: 'load' });
         };
 
         await use(mount);
