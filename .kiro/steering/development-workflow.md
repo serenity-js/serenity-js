@@ -31,6 +31,7 @@ Examples of anti-patterns to avoid:
 - Copying files around instead of reading them in place
 - Using symlinks as a "performance optimisation" that creates complexity
 - Using sed/awk to modify structured files (JSON, TypeScript, YAML) — write a Node.js script instead
+- Partial builds or made-up compile commands — always use the module's dedicated `npm run compile` command to produce a complete, consistent build
 
 # Serenity/JS Development Workflow
 
