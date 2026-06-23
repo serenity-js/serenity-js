@@ -20,53 +20,6 @@ function ProgressBar({ percent }) {
     `;
 }
 
-function TreeNode({ node, onNavigate, onSelect, selectedPath, depth, autoExpanded, path, searchTerm }) {
-    const [expanded, setExpanded] = useState(depth < 1 || autoExpanded);
-    const total = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
-    const passRate = total > 0 ? Math.round((node.outcomes.passed / total) * 100) : 0;
-    const hasChildren = node.type === 'directory' && node.children && node.children.length > 0;
-    const hasSingleChild = hasChildren && node.children.length === 1 && node.children[0].type === 'directory';
-    const segmentPath = path ? path + '/' + node.name : node.name;
-    const displayName = node.displayName || node.name;
-    const isSelected = selectedPath === segmentPath;
-
-    const matchesSearch = !searchTerm || displayName.toLowerCase().includes(searchTerm.toLowerCase());
-    const childrenMatch = hasChildren && node.children.some(c => nodeMatches(c, searchTerm));
-
-    if (searchTerm && !matchesSearch && !childrenMatch) return null;
-
-    const shouldExpand = searchTerm ? (matchesSearch || childrenMatch) : expanded;
-
-    return html`
-        <div style="margin-left:${depth * 16}px">
-            <div class="req-tree-node ${isSelected ? 'req-tree-node--active' : ''}"
-                 onClick=${() => {
-                        if (hasChildren) {
-                            setExpanded(!expanded);
-                            onSelect(segmentPath, node);
-                        } else {
-                            onSelect(segmentPath, node);
-                        }
-                    }}>
-                ${hasChildren
-                    ? html`<span class="req-tree-toggle">${shouldExpand ? '▾' : '▸'}</span>`
-                    : html`<span class="req-tree-toggle" />`}
-                <span class="req-tree-label" style="font-weight:${node.type === 'directory' ? '600' : '400'}">${displayName}</span>
-                ${total > 0 ? html`
-                    <span class="req-tree-bar"><${ProgressBar} percent=${passRate} /></span>
-                ` : null}
-            </div>
-            ${hasChildren && shouldExpand ? html`
-                ${node.children.map(child => html`
-                    <${TreeNode} node=${child} onNavigate=${onNavigate} onSelect=${onSelect}
-                        selectedPath=${selectedPath} depth=${depth + 1}
-                        autoExpanded=${hasSingleChild} path=${segmentPath} searchTerm=${searchTerm} />
-                `)}
-            ` : null}
-        </div>
-    `;
-}
-
 function nodeMatches(node, term) {
     if (!term) return true;
     const name = (node.displayName || node.name).toLowerCase();
@@ -75,14 +28,66 @@ function nodeMatches(node, term) {
     return false;
 }
 
-function DetailPanel({ node, segmentPath, onNavigate, requirements }) {
+function TreeNode({ node, onNavigate, onSelect, selectedPath, depth, path, searchTerm }) {
+    const [expanded, setExpanded] = useState(depth < 1);
+    const total = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
+    const passRate = total > 0 ? Math.round((node.outcomes.passed / total) * 100) : 0;
+    const isDirectory = node.type === 'directory' && node.children && node.children.length > 0;
+    const segmentPath = path ? path + '/' + node.name : node.name;
+    const displayName = node.displayName || node.name;
+    const isSelected = selectedPath === segmentPath;
+    const hasReadme = !!node.readme;
+
+    const matchesSearch = !searchTerm || displayName.toLowerCase().includes(searchTerm.toLowerCase());
+    const childrenMatch = isDirectory && node.children.some(c => nodeMatches(c, searchTerm));
+    if (searchTerm && !matchesSearch && !childrenMatch) return null;
+
+    const shouldExpand = searchTerm ? (matchesSearch || childrenMatch) : expanded;
+
+    const handleToggle = (e) => {
+        e.stopPropagation();
+        setExpanded(!expanded);
+    };
+
+    const handleClick = () => {
+        if (isDirectory) {
+            onSelect(segmentPath, node);
+        } else {
+            onNavigate('/tests?search=' + encodeURIComponent('"' + segmentPath + '"'));
+        }
+    };
+
+    return html`
+        <div style="margin-left:${depth * 16}px">
+            <div class="req-tree-node ${isSelected ? 'req-tree-node--active' : ''} ${!isDirectory ? 'req-tree-node--leaf' : ''}">
+                ${isDirectory
+                    ? html`<span class="req-tree-caret" onClick=${handleToggle}>${shouldExpand ? '▾' : '▸'}</span>`
+                    : html`<span class="req-tree-caret req-tree-caret--hidden"></span>`}
+                <span class="req-tree-label ${!isDirectory ? 'req-tree-label--link' : ''}" onClick=${handleClick}>
+                    ${displayName}
+                </span>
+                ${hasReadme ? html`<span class="req-tree-readme-badge" title="Has documentation">📄</span>` : null}
+                ${total > 0 ? html`<span class="req-tree-bar"><${ProgressBar} percent=${passRate} /></span>` : null}
+                ${!isDirectory ? html`<span class="req-tree-nav-arrow">→</span>` : null}
+            </div>
+            ${isDirectory && shouldExpand ? html`
+                ${node.children.map(child => html`
+                    <${TreeNode} node=${child} onNavigate=${onNavigate} onSelect=${onSelect}
+                        selectedPath=${selectedPath} depth=${depth + 1}
+                        path=${segmentPath} searchTerm=${searchTerm} />
+                `)}
+            ` : null}
+        </div>
+    `;
+}
+
+function DetailPanel({ node, requirements }) {
     if (!node) {
-        // Default: overall summary
         const total = Object.values(requirements.outcomes).reduce((a, b) => a + b, 0);
         const passRate = total > 0 ? Math.round((requirements.outcomes.passed / total) * 100) : 0;
         return html`
             <div class="req-detail-panel">
-                <h3 style="margin:0 0 var(--space-md)">Overall Coverage</h3>
+                <h3 class="req-detail-title">Overall Coverage</h3>
                 <div class="req-detail-stat">
                     <span class="req-detail-stat-label">Pass Rate</span>
                     <span class="req-detail-stat-value" style="color:${passRateColor(passRate)}">${passRate}%</span>
@@ -92,51 +97,81 @@ function DetailPanel({ node, segmentPath, onNavigate, requirements }) {
                     <span class="req-detail-stat-label">Total Scenarios</span>
                     <span class="req-detail-stat-value">${total}</span>
                 </div>
-                ${requirements.readme ? html`
-                    <${RawHtml} content=${requirements.readme} class="req-detail-readme" />
-                ` : null}
+                ${requirements.readme ? html`<div class="req-detail-readme"><${RawHtml} content=${requirements.readme} /></div>` : null}
             </div>
         `;
     }
 
-    if (node.type === 'file') {
-        onNavigate('/tests?search=' + encodeURIComponent('"' + segmentPath + '"'));
-        return null;
-    }
-
-    // Directory node
     const total = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
     const passRate = total > 0 ? Math.round((node.outcomes.passed / total) * 100) : 0;
-    const scenarioCount = node.scenarioCount || total;
+    const failed = (node.outcomes.failed || 0) + (node.outcomes.error || 0) + (node.outcomes.compromised || 0);
+    const skipped = (node.outcomes.skipped || 0) + (node.outcomes.pending || 0);
+
+    // Count descendant leaf requirements
+    let reqCount = 0;
+    let coveredCount = 0;
+    function countReqs(n) {
+        if (n.type === 'file') {
+            reqCount++;
+            const t = Object.values(n.outcomes).reduce((a, b) => a + b, 0);
+            if (t > 0 && !(n.outcomes.pending || 0) && !(n.outcomes.skipped || 0)) coveredCount++;
+        }
+        if (n.children) n.children.forEach(countReqs);
+    }
+    if (node.children) node.children.forEach(countReqs);
+    const coveragePercent = reqCount > 0 ? Math.round((coveredCount / reqCount) * 100) : 0;
 
     return html`
         <div class="req-detail-panel">
-            <h3 style="margin:0 0 var(--space-md)">${node.displayName || node.name}</h3>
-            <div class="req-detail-stat">
-                <span class="req-detail-stat-label">Pass Rate</span>
-                <span class="req-detail-stat-value" style="color:${passRateColor(passRate)}">${passRate}%</span>
+            <h3 class="req-detail-title">${node.displayName || node.name}</h3>
+
+            ${node.readme ? html`<div class="req-detail-readme"><${RawHtml} content=${node.readme} /></div>` : null}
+
+            <div class="req-detail-stats-grid">
+                <div class="req-detail-stat-card">
+                    <span class="req-detail-stat-label">Coverage</span>
+                    <span class="req-detail-stat-value" style="color:${passRateColor(coveragePercent)}">${coveragePercent}%</span>
+                    <${ProgressBar} percent=${coveragePercent} />
+                </div>
+                <div class="req-detail-stat-card">
+                    <span class="req-detail-stat-label">Pass Rate</span>
+                    <span class="req-detail-stat-value" style="color:${passRateColor(passRate)}">${passRate}%</span>
+                    <${ProgressBar} percent=${passRate} />
+                </div>
+                <div class="req-detail-stat-card">
+                    <span class="req-detail-stat-label">Requirements</span>
+                    <span class="req-detail-stat-value">${coveredCount} / ${reqCount}</span>
+                </div>
+                <div class="req-detail-stat-card">
+                    <span class="req-detail-stat-label">Scenarios</span>
+                    <span class="req-detail-stat-value">${total}</span>
+                </div>
+                ${failed > 0 ? html`<div class="req-detail-stat-card">
+                    <span class="req-detail-stat-label">Failed</span>
+                    <span class="req-detail-stat-value" style="color:var(--color-failed)">${failed}</span>
+                </div>` : null}
+                ${skipped > 0 ? html`<div class="req-detail-stat-card">
+                    <span class="req-detail-stat-label">Skipped</span>
+                    <span class="req-detail-stat-value" style="color:var(--text-secondary)">${skipped}</span>
+                </div>` : null}
             </div>
-            <${ProgressBar} percent=${passRate} />
-            <div class="req-detail-stat" style="margin-top:var(--space-md)">
-                <span class="req-detail-stat-label">Scenarios</span>
-                <span class="req-detail-stat-value">${scenarioCount}</span>
-            </div>
+
             ${node.children && node.children.length > 0 ? html`
                 <div style="margin-top:var(--space-lg)">
-                    <h4 style="margin:0 0 var(--space-sm);font-size:var(--font-sm);color:var(--text-secondary)">Children</h4>
+                    <h4 class="req-detail-section-title">Contents</h4>
                     ${node.children.map(child => {
                         const ct = Object.values(child.outcomes).reduce((a, b) => a + b, 0);
                         const cr = ct > 0 ? Math.round((child.outcomes.passed / ct) * 100) : 0;
                         return html`
                             <div class="req-detail-child">
-                                <span>${child.displayName || child.name}</span>
-                                <span style="color:${passRateColor(cr)};font-size:var(--font-sm)">${ct > 0 ? cr + '%' : '—'}</span>
+                                <span class="req-detail-child-icon">${child.type === 'directory' ? '📁' : '📄'}</span>
+                                <span class="req-detail-child-name">${child.displayName || child.name}</span>
+                                <span class="req-detail-child-rate" style="color:${ct > 0 ? passRateColor(cr) : 'var(--text-disabled)'}">${ct > 0 ? cr + '%' : '—'}</span>
                             </div>
                         `;
                     })}
                 </div>
             ` : null}
-            ${node.readme ? html`<${RawHtml} content=${node.readme} class="req-detail-readme" />` : null}
         </div>
     `;
 }
@@ -146,10 +181,10 @@ export function RequirementsView({ onNavigate }) {
 
     if (!requirements) {
         return html`
-            <div class="placeholder-view">
-                ${icons.coverage}
-                <h2>Requirements</h2>
-                <p>Configure a <code>specDirectory</code> to derive the requirements hierarchy.</p>
+            <div class="empty-state">
+                <div class="empty-state-icon">${icons.coverage}</div>
+                <div class="empty-state-title">Requirements</div>
+                <div class="empty-state-description">Configure a <code>specDirectory</code> to derive the requirements hierarchy.</div>
             </div>
         `;
     }
@@ -169,8 +204,8 @@ export function RequirementsView({ onNavigate }) {
         let count = 0;
         function walk(n) {
             if (n.type === 'file') {
-                const total = Object.values(n.outcomes).reduce((a, b) => a + b, 0);
-                if (total === 0 || (n.outcomes.pending || 0) + (n.outcomes.skipped || 0) > 0) count++;
+                const t = Object.values(n.outcomes).reduce((a, b) => a + b, 0);
+                if (t === 0 || (n.outcomes.pending || 0) + (n.outcomes.skipped || 0) > 0) count++;
             }
             if (n.children) n.children.forEach(walk);
         }
@@ -184,12 +219,8 @@ export function RequirementsView({ onNavigate }) {
     const passRate = totalScenarios > 0 ? Math.round((requirements.outcomes.passed / totalScenarios) * 100) : 0;
 
     const handleSelect = (path, node) => {
-        if (node.type === 'file') {
-            onNavigate('/tests?search=' + encodeURIComponent('"' + path + '"'));
-        } else {
-            setSelectedPath(path);
-            setSelectedNode(node);
-        }
+        setSelectedPath(path);
+        setSelectedNode(node);
     };
 
     return html`
@@ -234,22 +265,21 @@ export function RequirementsView({ onNavigate }) {
             </div>
 
             <div class="requirements-split">
-                <div class="req-tree-panel">
+                <div class="card req-tree-panel">
                     <div class="req-search-wrap">
-                        <input type="text" class="req-search-input" placeholder="Search requirements..."
+                        <input type="text" class="search-input" placeholder="Search requirements..."
                             value=${searchTerm} onInput=${(e) => setSearchTerm(e.target.value)} />
                     </div>
                     <div class="req-tree-list">
                         ${requirements.children.map(node => html`
                             <${TreeNode} node=${node} onNavigate=${onNavigate} onSelect=${handleSelect}
-                                selectedPath=${selectedPath} depth=${0} autoExpanded=${false}
+                                selectedPath=${selectedPath} depth=${0}
                                 path=${''} searchTerm=${searchTerm} />
                         `)}
                     </div>
                 </div>
-                <div class="req-detail-wrap">
-                    <${DetailPanel} node=${selectedNode} segmentPath=${selectedPath}
-                        onNavigate=${onNavigate} requirements=${requirements} />
+                <div class="card req-detail-wrap">
+                    <${DetailPanel} node=${selectedNode} requirements=${requirements} />
                 </div>
             </div>
         </div>
