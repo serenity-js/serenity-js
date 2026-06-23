@@ -482,12 +482,12 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({});
 
             // Write two db.json files simulating different modules with same testRunId
-            const tmpDir1 = '/tmp/serenity-test-merge/module-a/test-runs/42';
-            const tmpDir2 = '/tmp/serenity-test-merge/module-b/test-runs/42';
-            mkdirSync(tmpDir1, { recursive: true });
-            mkdirSync(tmpDir2, { recursive: true });
+            const testRunDirectory1 = '/tmp/serenity-test-merge/module-a/test-runs/42';
+            const testRunDirectory2 = '/tmp/serenity-test-merge/module-b/test-runs/42';
+            mkdirSync(testRunDirectory1, { recursive: true });
+            mkdirSync(testRunDirectory2, { recursive: true });
 
-            writeFileSync(tmpDir1 + '/db.json', JSON.stringify({
+            writeFileSync(testRunDirectory1 + '/db.json', JSON.stringify({
                 startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
                 outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                 scenes: [
@@ -497,7 +497,7 @@ test.describe('DataSnapshotAggregator', () => {
                 tags: [{ type: 'tag', name: 'mocha' }], testRunner: { name: 'Mocha', version: '11.0.0' },
             }));
 
-            writeFileSync(tmpDir2 + '/db.json', JSON.stringify({
+            writeFileSync(testRunDirectory2 + '/db.json', JSON.stringify({
                 startedAt: '2024-06-15T14:30:01.000Z', finishedAt: '2024-06-15T14:30:01.400Z',
                 outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                 scenes: [
@@ -507,7 +507,7 @@ test.describe('DataSnapshotAggregator', () => {
                 tags: [{ type: 'tag', name: 'jasmine' }], testRunner: { name: 'Jasmine', version: '5.0.0' },
             }));
 
-            aggregator.aggregate([tmpDir1 + '/db.json', tmpDir2 + '/db.json']);
+            aggregator.aggregate([testRunDirectory1 + '/db.json', testRunDirectory2 + '/db.json']);
 
             expect(filesystem.existsSync('/reports/serenity-js/data.js')).toBe(true);
             const data = readDataJs(filesystem);
