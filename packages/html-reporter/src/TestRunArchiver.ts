@@ -77,7 +77,7 @@ export class TestRunArchiver implements StageCrewMember {
 
         if (event instanceof TestRunStarts) {
             this.testRunTimestamp = event.timestamp.toISOString();
-            this.resolvedTestRunId = this.testRunId || detectTestRunId() || this.testRunTimestamp;
+            this.resolvedTestRunId = this.testRunId || this.testRunTimestamp;
             this.artifactWriter.createRunDirectory(this.resolvedTestRunId);
         }
 
@@ -175,6 +175,6 @@ class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> 
         const runDataWriter = new RunDataWriter(outputFileSystem);
         const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()), { projectName: this.config.projectName, runtime: this.config.ci });
 
-        return new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, this.config.testRunId, stage);
+        return new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, this.config.testRunId || detectTestRunId(), stage);
     }
 }
