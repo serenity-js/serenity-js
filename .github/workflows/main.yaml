@@ -396,7 +396,7 @@ jobs:
           merge-multiple: true
       - name: Generate report
         run: |
-          node packages/html-reporter/bin/html-reporter.mjs \
+          npx @serenity-js/html-reporter \
             --input "target/html-report-data/**/test-runs/*" \
             --output ./target/html-report \
             --title "Serenity/JS Integration Tests" \
