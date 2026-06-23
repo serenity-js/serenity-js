@@ -4,8 +4,12 @@ import { defineConfig, devices } from '@playwright/test';
 import type { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test';
 
 /**
- * Playwright config that includes the HtmlReporter in the crew.
- * Used by the html_reporter.spec.ts integration test.
+ * Playwright config used by html_reporter.spec.ts to verify that HtmlReporter
+ * works correctly when configured as a crew member in a Playwright Test project.
+ *
+ * This differs from playwright.config.ts, which is used by the other integration
+ * specs to test Serenity/JS Playwright Test adapter features (fixtures, events, etc.)
+ * without the HtmlReporter in the crew.
  */
 export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
     testDir: './examples',
