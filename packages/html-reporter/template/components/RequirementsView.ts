@@ -28,7 +28,17 @@ function nodeMatches(node, term) {
     return false;
 }
 
-function TreeNode({ node, onNavigate, onSelect, selectedPath, depth, path, searchTerm }) {
+function nodeMatchesFilter(node, filter) {
+    if (node.type === 'file') {
+        const total = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
+        const hasGap = total === 0 || (node.outcomes.pending || 0) + (node.outcomes.skipped || 0) > 0;
+        return filter === 'covered' ? !hasGap : hasGap;
+    }
+    if (node.children) return node.children.some(c => nodeMatchesFilter(c, filter));
+    return false;
+}
+
+function TreeNode({ node, onNavigate, onSelect, selectedPath, depth, path, searchTerm, treeFilter }) {
     const [expanded, setExpanded] = useState(depth < 1);
     const total = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
     const passRate = total > 0 ? Math.round((node.outcomes.passed / total) * 100) : 0;
@@ -38,9 +48,17 @@ function TreeNode({ node, onNavigate, onSelect, selectedPath, depth, path, searc
     const isSelected = selectedPath === segmentPath;
     const hasReadme = !!node.readme;
 
+    // Only show directory nodes in the tree; leaves appear in the detail panel
+    if (!isDirectory) return null;
+
     const matchesSearch = !searchTerm || displayName.toLowerCase().includes(searchTerm.toLowerCase());
-    const childrenMatch = isDirectory && node.children.some(c => nodeMatches(c, searchTerm));
+    const childrenMatch = node.children.some(c => nodeMatches(c, searchTerm));
     if (searchTerm && !matchesSearch && !childrenMatch) return null;
+
+    // For directories, check if any descendant leaves pass the filter
+    if (treeFilter !== 'all') {
+        if (!nodeMatchesFilter(node, treeFilter)) return null;
+    }
 
     const shouldExpand = searchTerm ? (matchesSearch || childrenMatch) : expanded;
 
@@ -50,38 +68,31 @@ function TreeNode({ node, onNavigate, onSelect, selectedPath, depth, path, searc
     };
 
     const handleClick = () => {
-        if (isDirectory) {
-            onSelect(segmentPath, node);
-        } else {
-            onNavigate('/tests?search=' + encodeURIComponent('"' + segmentPath + '"'));
-        }
+        onSelect(segmentPath, node);
     };
 
     return html`
         <div style="margin-left:${depth * 16}px">
-            <div class="req-tree-node ${isSelected ? 'req-tree-node--active' : ''} ${!isDirectory ? 'req-tree-node--leaf' : ''}">
-                ${isDirectory
-                    ? html`<span class="req-tree-caret" onClick=${handleToggle}>${shouldExpand ? '▾' : '▸'}</span>`
-                    : html`<span class="req-tree-caret req-tree-caret--hidden"></span>`}
-                <span class="req-tree-label ${!isDirectory ? 'req-tree-label--link' : ''}" onClick=${handleClick}>
+            <div class="req-tree-node ${isSelected ? 'req-tree-node--active' : ''}">
+                <span class="req-tree-caret" onClick=${handleToggle}>${shouldExpand ? '▾' : '▸'}</span>
+                <span class="req-tree-label" onClick=${handleClick}>
                     ${displayName}
                 </span>
                 ${hasReadme ? html`<span class="req-tree-readme-badge" title="Has documentation">📄</span>` : null}
                 ${total > 0 ? html`<span class="req-tree-bar"><${ProgressBar} percent=${passRate} /></span>` : null}
-                ${!isDirectory ? html`<span class="req-tree-nav-arrow">→</span>` : null}
             </div>
-            ${isDirectory && shouldExpand ? html`
+            ${shouldExpand ? html`
                 ${node.children.map(child => html`
                     <${TreeNode} node=${child} onNavigate=${onNavigate} onSelect=${onSelect}
                         selectedPath=${selectedPath} depth=${depth + 1}
-                        path=${segmentPath} searchTerm=${searchTerm} />
+                        path=${segmentPath} searchTerm=${searchTerm} treeFilter=${treeFilter} />
                 `)}
             ` : null}
         </div>
     `;
 }
 
-function DetailPanel({ node, requirements }) {
+function DetailPanel({ node, requirements, onNavigate, treeFilter }) {
     if (!node) {
         const total = Object.values(requirements.outcomes).reduce((a, b) => a + b, 0);
         const passRate = total > 0 ? Math.round((requirements.outcomes.passed / total) * 100) : 0;
@@ -156,22 +167,51 @@ function DetailPanel({ node, requirements }) {
                 </div>` : null}
             </div>
 
-            ${node.children && node.children.length > 0 ? html`
-                <div style="margin-top:var(--space-lg)">
-                    <h4 class="req-detail-section-title">Contents</h4>
-                    ${node.children.map(child => {
-                        const ct = Object.values(child.outcomes).reduce((a, b) => a + b, 0);
-                        const cr = ct > 0 ? Math.round((child.outcomes.passed / ct) * 100) : 0;
-                        return html`
-                            <div class="req-detail-child">
-                                <span class="req-detail-child-icon">${child.type === 'directory' ? '📁' : '📄'}</span>
-                                <span class="req-detail-child-name">${child.displayName || child.name}</span>
-                                <span class="req-detail-child-rate" style="color:${ct > 0 ? passRateColor(cr) : 'var(--text-disabled)'}">${ct > 0 ? cr + '%' : '—'}</span>
-                            </div>
-                        `;
-                    })}
-                </div>
-            ` : null}
+            ${node.children && node.children.length > 0 ? (() => {
+                const dirs = node.children.filter(c => c.type === 'directory');
+                const files = node.children.filter(c => c.type === 'file').filter(c => {
+                    if (treeFilter === 'all') return true;
+                    const ct = Object.values(c.outcomes).reduce((a, b) => a + b, 0);
+                    const hasGap = ct === 0 || (c.outcomes.pending || 0) + (c.outcomes.skipped || 0) > 0;
+                    return treeFilter === 'covered' ? !hasGap : hasGap;
+                });
+                return html`
+                    ${dirs.length > 0 ? html`
+                        <div style="margin-top:var(--space-lg)">
+                            <h4 class="req-detail-section-title">Subdirectories</h4>
+                            ${dirs.map(child => {
+                                const ct = Object.values(child.outcomes).reduce((a, b) => a + b, 0);
+                                const cr = ct > 0 ? Math.round((child.outcomes.passed / ct) * 100) : 0;
+                                return html`
+                                    <div class="req-detail-child">
+                                        <span class="req-detail-child-icon">📁</span>
+                                        <span class="req-detail-child-name">${child.displayName || child.name}</span>
+                                        <span class="req-detail-child-rate" style="color:${ct > 0 ? passRateColor(cr) : 'var(--text-disabled)'}">${ct > 0 ? cr + '%' : '—'}</span>
+                                    </div>
+                                `;
+                            })}
+                        </div>
+                    ` : null}
+                    ${files.length > 0 ? html`
+                        <div style="margin-top:var(--space-lg)">
+                            <h4 class="req-detail-section-title">Test Files</h4>
+                            ${files.map(child => {
+                                const ct = Object.values(child.outcomes).reduce((a, b) => a + b, 0);
+                                const cr = ct > 0 ? Math.round((child.outcomes.passed / ct) * 100) : 0;
+                                const childPath = (node.name ? node.name + '/' : '') + child.name;
+                                return html`
+                                    <div class="req-detail-child req-detail-child--link clickable" onClick=${() => onNavigate('/tests?search=' + encodeURIComponent('"' + child.name + '"'))}>
+                                        <span class="req-detail-child-icon">📄</span>
+                                        <span class="req-detail-child-name">${child.displayName || child.name}</span>
+                                        <span class="req-detail-child-rate" style="color:${ct > 0 ? passRateColor(cr) : 'var(--text-disabled)'}">${ct > 0 ? cr + '%' : '—'}</span>
+                                        <span class="req-tree-nav-arrow">→</span>
+                                    </div>
+                                `;
+                            })}
+                        </div>
+                    ` : null}
+                `;
+            })() : null}
         </div>
     `;
 }
@@ -192,6 +232,7 @@ export function RequirementsView({ onNavigate }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedPath, setSelectedPath] = useState(null);
     const [selectedNode, setSelectedNode] = useState(null);
+    const [treeFilter, setTreeFilter] = useState('all');
 
     const totalFiles = useMemo(() => {
         let count = 0;
@@ -226,25 +267,25 @@ export function RequirementsView({ onNavigate }) {
     return html`
         <div>
             <div class="kpi-row" style="margin-bottom:var(--space-lg)">
-                <div class="kpi-card">
+                <div class="kpi-card ${treeFilter === 'all' ? 'kpi-card--active' : ''}" onClick=${() => setTreeFilter('all')}>
                     <div class="kpi-icon-wrap kpi-icon--coverage">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        ${icons.coverage}
+                    </div>
+                    <div class="kpi-content">
+                        <span class="kpi-value">${totalFiles}</span>
+                        <span class="kpi-label">Total Requirements</span>
+                    </div>
+                </div>
+                <div class="kpi-card ${treeFilter === 'covered' ? 'kpi-card--active' : ''}" onClick=${() => setTreeFilter('covered')}>
+                    <div class="kpi-icon-wrap kpi-icon--pass-rate">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
                     <div class="kpi-content">
                         <span class="kpi-value" style="color:${passRateColor(coveragePercent)}">${coveragePercent}%</span>
                         <span class="kpi-label">Coverage</span>
                     </div>
                 </div>
-                <div class="kpi-card">
-                    <div class="kpi-icon-wrap kpi-icon--pass-rate">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    </div>
-                    <div class="kpi-content">
-                        <span class="kpi-value" style="color:${passRateColor(passRate)}">${passRate}%</span>
-                        <span class="kpi-label">Pass Rate</span>
-                    </div>
-                </div>
-                <div class="kpi-card">
+                <div class="kpi-card ${treeFilter === 'gaps' ? 'kpi-card--active' : ''}" onClick=${() => setTreeFilter('gaps')}>
                     <div class="kpi-icon-wrap kpi-icon--failed">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
                     </div>
@@ -253,13 +294,13 @@ export function RequirementsView({ onNavigate }) {
                         <span class="kpi-label">Requirement Gaps</span>
                     </div>
                 </div>
-                <div class="kpi-card">
+                <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=non-passing')}>
                     <div class="kpi-icon-wrap kpi-icon--coverage">
-                        ${icons.coverage}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                     </div>
                     <div class="kpi-content">
-                        <span class="kpi-value">${totalFiles}</span>
-                        <span class="kpi-label">Total Requirements</span>
+                        <span class="kpi-value" style="color:${passRateColor(passRate)}">${passRate}%</span>
+                        <span class="kpi-label">Pass Rate</span>
                     </div>
                 </div>
             </div>
@@ -274,12 +315,13 @@ export function RequirementsView({ onNavigate }) {
                         ${requirements.children.map(node => html`
                             <${TreeNode} node=${node} onNavigate=${onNavigate} onSelect=${handleSelect}
                                 selectedPath=${selectedPath} depth=${0}
-                                path=${''} searchTerm=${searchTerm} />
+                                path=${''} searchTerm=${searchTerm} treeFilter=${treeFilter} />
                         `)}
                     </div>
                 </div>
                 <div class="card req-detail-wrap">
-                    <${DetailPanel} node=${selectedNode} requirements=${requirements} />
+                    <${DetailPanel} node=${selectedNode} requirements=${requirements}
+                        onNavigate=${onNavigate} treeFilter=${treeFilter} />
                 </div>
             </div>
         </div>

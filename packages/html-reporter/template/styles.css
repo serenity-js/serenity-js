@@ -975,6 +975,14 @@
       transform: translateY(-1px);
     }
 
+    .kpi-card--active {
+      box-shadow: 0 0 0 2px var(--accent), var(--shadow-sm);
+    }
+
+    .kpi-card--active:hover {
+      box-shadow: 0 0 0 2px var(--accent), var(--shadow-md);
+    }
+
     .kpi-icon-wrap {
       width: 56px;
       height: 56px;
@@ -1632,6 +1640,17 @@
     .req-detail-child-rate {
       font-weight: 600;
       flex-shrink: 0;
+    }
+
+    .req-detail-child--link:hover {
+      background: var(--bg-hover);
+      border-radius: var(--radius-sm);
+      margin: 0 calc(-1 * var(--space-sm));
+      padding: var(--space-xs) var(--space-sm);
+    }
+
+    .req-detail-child--link:hover .req-detail-child-name {
+      color: var(--accent);
     }
 
     .req-detail-readme {
