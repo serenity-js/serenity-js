@@ -1,89 +1,148 @@
-# Session Summary — 2026-06-22
+# Session Summary — 2026-06-22/23
 
 ## Branch: `feat/html-reporter`
 
 ## Current Status
 
-~130 commits ahead of `main`.
+~140 commits ahead of `main`.
 - **Unit/component tests**: 95 passing (Playwright Test)
 - **Integration tests**: 37 passing (@playwright/test)
-- **ESLint**: Clean
+- **Core ScenarioTagger tests**: 5 passing (Mocha)
 - **Bundle size**: 372KB (minified, esbuild)
-- **Demo report**: 41 scenarios aggregated from mocha + jasmine integration modules
+- **Demo report**: 68 + mocha + jasmine scenarios aggregated (3 modules with testRunId=42)
 
-## Completed Work (this session)
+## Architecture
 
-### Test Framework Migration: Mocha → Playwright Test
-- Migrated all unit tests from Mocha+Chai+Sinon to Playwright Test
-- Created component harness with esbuild-based `mount()` fixture
-- Added component tests: FilterBar, TagsView, SystemContextView, TimelineView, DashboardView, DarkMode, ScenariosView deep linking
-- Removed Mocha devDependencies, added c8 coverage
+### Public API (`@serenity-js/html-reporter`)
 
-### Architecture: TestRunArchiver + HtmlReportGenerator + CLI
-- Split `HtmlReporter` into composable parts:
-  - `TestRunArchiver` — lightweight crew member, writes db.json + artifacts per run
-  - `HtmlReportGenerator` — aggregates runs, writes data.js + index.html
-  - `HtmlReporter` — composite of both (default, zero-config)
-- CLI: `npx @serenity-js/html-reporter --input <glob> --output <dir> --title <title> --specRoot <dir>`
-- `testRunId` auto-detected from CI env (GITHUB_RUN_NUMBER, CI_PIPELINE_IID, BUILD_NUMBER, CIRCLE_BUILD_NUM) or user-configurable
-- `testRunId` stored in db.json
+| Export | Purpose |
+|--------|---------|
+| `HtmlReporter` | Composite crew member (default). Delegates to TestRunArchiver + HtmlReportGenerator |
+| `TestRunArchiver` | Lightweight crew member — writes db.json + artifacts per run |
+| `HtmlReportGenerator` | Aggregates runs → data.js + index.html. Usable as crew member or standalone |
 
-### db.json Schema Simplification
-- Removed `timestamp` and `duration` top-level fields
-- Added `startedAt` (earliest scenario start) and `finishedAt` (latest scenario end)
-- Replaced `testRunner`/`testRunnerVersion` with `testRunner: { name, version }`
-- Duration derived from `finishedAt - startedAt`
-- Merging: `min(startedAt)` and `max(finishedAt)` across parallel runs sharing same testRunId
+### CLI
 
-### ScenarioTagger (new in @serenity-js/core)
-- `new ScenarioTagger(['@mocha', '@integration'])` — tags all scenarios in a run
-- Listens for SceneStarts, emits SceneTagged
-- Test-driven with 4 unit tests
+```bash
+./packages/html-reporter/bin/html-reporter.mjs \
+  --input "integration/*/target/html-report/test-runs/*" \
+  --output ./target/html-report \
+  --title "Serenity/JS Integration Tests" \
+  --specRoot integration
+```
 
-### Integration Test Reporting
-- Added `TestRunArchiver` + `ScenarioTagger` to integration/mocha and integration/jasmine
-- Added `@serenity-js/mocha` as reporter on parent mocha process
-- Added `--no-config` to child spawners to prevent children reading parent mocharc
-- Renamed describe blocks from `@serenity-js/mocha` to `Serenity/JS` (avoids tag stripping)
-- Top-level `pnpm report:html` script for local aggregation
+### db.json Schema
 
-### Template Fixes
-- esbuild produces complete HTML (no fragile string replacement in shell.html)
-- Chart.js bundled via ESM import (tree-shaken, minified)
-- Category prefix in scenario names (`Serenity/JS › test name`)
-- Handle missing line numbers (no more `:undefined`)
-- `formatTimestamp()` utility — all timestamps in user local time
-- `{testRunId} — {local time}` format in trend chart, test runs view, run selector
-- ISO timestamp on hover via title attribute
-- Floating point precision fix in formatDuration
-- Requirements hierarchy rolls up scenario counts to all ancestor directories
+```json
+{
+  "testRunId": "42",
+  "startedAt": "2024-06-15T14:30:00.000Z",
+  "finishedAt": "2024-06-15T14:30:11.375Z",
+  "outcomes": { "passed": 40, "failed": 1, ... },
+  "scenes": [ ... ],
+  "tags": [ ... ],
+  "testRunner": { "name": "Mocha", "version": "11.7.6" },
+  "systemContext": { ... }
+}
+```
 
-### CI Pipeline
-- Each integration test job uploads `html-report-data-{module}` artifact
-- New `html-report` aggregation job: downloads all data → `npx @serenity-js/html-reporter` → uploads combined report (14-day retention)
-- Removed redundant `pnpm dlx playwright install` from integration jobs
+### testRunId Resolution
 
-### Steering Docs Updates
-- Never pretend to verify what you can't access
-- Prefer proper solutions over hacks
-- Don't use sed on structured files — write Node.js scripts
-- Always use dedicated compile commands, no partial builds
-- Verification checklist before presenting results
+1. User-configured `testRunId` in config (explicit override)
+2. Auto-detected from CI env (only in `fromJSON()` builder):
+   - `GITHUB_RUN_NUMBER` → GitHub Actions
+   - `CI_PIPELINE_IID` → GitLab CI
+   - `BUILD_NUMBER` → Jenkins
+   - `CIRCLE_BUILD_NUM` → CircleCI
+3. ISO timestamp fallback (when constructed directly or no CI detected)
 
-## Tomorrow
+### Aggregation (CLI)
 
-- Add `TestRunArchiver` + `ScenarioTagger` to remaining integration test modules (cucumber, playwright-test, webdriverio, protractor)
-- Publish the aggregated HTML report to serenity-js GitHub Pages
-- Address any rendering issues discovered with additional integration data
+- Reads db.json files in-place from `--input` glob (no file copying)
+- Merges runs sharing the same directory name (testRunId):
+  - Combines scenes and outcomes
+  - `startedAt = min(all startedAt)`, `finishedAt = max(all finishedAt)`
+  - Duration derived from `finishedAt - startedAt`
+
+### ScenarioTagger (`@serenity-js/core`)
+
+```ts
+new ScenarioTagger(['@playwright/test'])
+```
+
+Tags all scenarios in a run. Emits `SceneTagged` on `SceneStarts`.
+Forward slashes in tag names (e.g. `playwright/test`) are preserved as-is — no splitting occurs.
+
+## CI Pipeline
+
+- Each integration job uploads `html-report-data-{module}` artifact
+- `html-report` job: downloads all → runs `./packages/html-reporter/bin/html-reporter.mjs` directly (not via npx, since package isn't published yet) → uploads as `html-report` artifact (14-day retention)
+
+## CI Fixes Applied (2026-06-23)
+
+- **html-report job**: `npx @serenity-js/html-reporter` failed with 404 (not published). Fixed by calling `./packages/html-reporter/bin/html-reporter.mjs` directly from compiled libs artifact. Intermediate attempt to `pnpm install` for relinking didn't resolve it either.
+- **integration/playwright-test**: Now produces html-report data via TestRunArchiver + ScenarioTagger(['@playwright/test']).
+
+## Integration Modules with HTML Reporter
+
+| Module | Tag | Status |
+|--------|-----|--------|
+| mocha | `@mocha` | ✅ |
+| jasmine | `@jasmine` | ✅ |
+| playwright-test | `@playwright/test` | ✅ |
+| cucumber-12 | `@cucumber` | ✅ (pre-existing) |
+| playwright-web | — | TODO |
+| webdriverio-* | — | TODO |
+| protractor-* | — | TODO |
+
+## Next Steps
+
+1. **Add TestRunArchiver + ScenarioTagger to remaining integration modules**: playwright-web, webdriverio-*, protractor-*
+2. **Publish to GitHub Pages**: add deployment step to `html-report` CI job
+3. **Consider**: whether the "accumulates history" test needs fixing for CI (both runs get same testRunId since `HtmlReporter.fromJSON()` calls `detectTestRunId()` in the builder)
+
+## Design Notes
+
+### Adding TestRunArchiver to remaining integration modules
+
+Pattern (same as mocha/jasmine/playwright-test):
+1. Update `integration/{module}/.mocharc.yml` to use `reporter: '@serenity-js/mocha'` and `require: ./setup.ts`
+2. Create `integration/{module}/setup.ts`:
+   ```ts
+   import { ScenarioTagger, serenity } from '@serenity-js/core';
+   import { TestRunArchiver } from '@serenity-js/html-reporter';
+   serenity.configure({
+       crew: [
+           new ScenarioTagger(['@{module-name}']),
+           TestRunArchiver.fromJSON({ outputDirectory: './target/html-report' }),
+       ],
+   });
+   ```
+3. Add `@serenity-js/html-reporter` and `@serenity-js/mocha` to devDependencies
+4. Add `--no-config` to child process spawners (if applicable) to prevent children reading parent mocharc
+
+### GitHub Pages Deployment
+
+Add to the `html-report` job after artifact upload:
+```yaml
+- name: Deploy to GitHub Pages
+  if: github.ref == 'refs/heads/main'
+  uses: peaceiris/actions-gh-pages@v4
+  with:
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+    publish_dir: ./target/html-report
+```
 
 ## Useful Commands
+
 ```bash
 cd packages/html-reporter && npm run compile         # Full compile (ESM + CJS + template)
-cd packages/html-reporter && pnpm test               # All tests: 95 (62 unit + 33 component)
+cd packages/html-reporter && pnpm test               # All tests: 95
+cd packages/core && pnpm test                        # Core tests (includes ScenarioTagger)
 cd integration/html-reporter && npm test             # Integration tests: 37
-cd integration/mocha && pnpm test                    # Run mocha integration (produces html-report data)
-cd integration/jasmine && pnpm test                  # Run jasmine integration (produces html-report data)
+cd integration/mocha && pnpm test                    # Mocha integration (produces html-report)
+cd integration/jasmine && pnpm test                  # Jasmine integration (produces html-report)
+cd integration/playwright-test && pnpm test          # Playwright-test integration (produces html-report)
 pnpm report:html                                     # Aggregate all integration reports
 GITHUB_RUN_NUMBER=42 pnpm report:html                # Simulate CI run ID
-npx @serenity-js/html-reporter --input <glob> --output <dir> --title <title> --specRoot <dir>
 ```
