@@ -394,6 +394,8 @@ jobs:
           pattern: 'html-report-data-*'
           path: target/html-report-data
           merge-multiple: true
+      - name: Link workspace binaries
+        run: pnpm install
       - name: Generate report
         run: |
           npx @serenity-js/html-reporter \
