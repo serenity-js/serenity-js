@@ -61,8 +61,8 @@ test.describe('DashboardView', () => {
 
         });
 
-        await expect(page.locator('body')).toContainText('Total Failed');
-        await expect(page.locator('.card-value').locator('text=1')).toBeVisible();
+        await expect(page.locator('body')).toContainText('Failed Scenarios');
+        await expect(page.locator('.kpi-card', { hasText: 'Failed Scenarios' }).locator('.kpi-value')).toHaveText('1');
     });
 
     test('shows "No degraded tests" when none degraded', async ({ mount, page }) => {

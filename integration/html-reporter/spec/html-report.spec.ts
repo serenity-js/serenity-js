@@ -6,7 +6,7 @@ test.describe('HTML Reporter', () => {
 
         test.beforeEach(async ({ page }) => {
             await page.goto('/index.html#/');
-            await page.waitForSelector('.donut-chart, .card-value');
+            await page.waitForSelector('.kpi-card, .kpi-value');
         });
 
         test('displays the pass rate', async ({ page }) => {
@@ -149,7 +149,7 @@ test.describe('HTML Reporter', () => {
 
         test.beforeEach(async ({ page }) => {
             await page.goto('/index.html#/');
-            await page.waitForSelector('.donut-chart, .card-value');
+            await page.waitForSelector('.kpi-card, .kpi-value');
         });
 
         test('renders charts', async ({ page }) => {
@@ -290,7 +290,7 @@ test.describe('HTML Reporter', () => {
 
         test('includes project title', async ({ page }) => {
             await page.goto('/index.html#/');
-            await page.waitForSelector('.donut-chart');
+            await page.waitForSelector('.kpi-card');
             const title = await page.title();
             expect(title).toContain('Serenity/JS');
             expect(title).toContain('Test Project');

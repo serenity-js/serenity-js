@@ -32,29 +32,12 @@ function DonutChart({ outcomes, total }) {
             options: {
                 responsive: true,
                 maintainAspectRatio: true,
-                cutout: '65%',
+                cutout: '70%',
                 plugins: {
                     legend: { display: false },
-                    tooltip: { enabled: true },
+                    tooltip: { enabled: false },
                 },
             },
-            plugins: [{
-                id: 'centerText',
-                afterDraw: (chart) => {
-                    const dark = document.documentElement.getAttribute('data-theme') === 'dark';
-                    const context = chart.ctx;
-                    const centerX = (chart.chartArea.left + chart.chartArea.right) / 2;
-                    const centerY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
-                    context.save();
-                    context.font = 'bold 24px -apple-system, BlinkMacSystemFont, sans-serif';
-                    context.fillStyle = dark ? '#ffffff' : '#3a3541de';
-                    context.textAlign = 'center';
-                    context.textBaseline = 'middle';
-                    if (dark) { context.shadowColor = 'rgba(0,0,0,0.5)'; context.shadowBlur = 4; }
-                    context.fillText(String(total), centerX, centerY);
-                    context.restore();
-                },
-            }],
         });
 
         return () => { if (chartRef.current) chartRef.current.destroy(); };
@@ -67,7 +50,7 @@ function DonutChart({ outcomes, total }) {
     }, []);
 
     return html`
-    <div style="width:120px;height:120px;flex-shrink:0">
+    <div style="width:56px;height:56px;flex-shrink:0">
       <canvas ref=${canvasRef}></canvas>
     </div>
   `;
@@ -260,7 +243,7 @@ export function TrendChart({ history, onNavigate }) {
     if (history.length === 0) return null;
 
     return html`
-    <div style="position:relative;width:100%;height:400px;overflow:hidden">
+    <div style="position:relative;width:100%;height:280px;overflow:hidden">
       <canvas ref=${canvasRef}></canvas>
     </div>
   `;
@@ -269,139 +252,195 @@ export function TrendChart({ history, onNavigate }) {
 // ===== Dashboard View =====
 export function DashboardView({ onNavigate }) {
     const { summary, history, scenarios } = DATA;
-    const passRate = ((summary.outcomes.passed / summary.totalScenarios) * 100).toFixed(1);
+    const totalFailed = (summary.outcomes.failed || 0) + (summary.outcomes.error || 0) + (summary.outcomes.compromised || 0);
+    const totalSkipped = (summary.outcomes.skipped || 0) + (summary.outcomes.pending || 0);
+    const denominator = summary.totalScenarios - totalSkipped;
+    const passRate = denominator > 0 ? ((summary.outcomes.passed / denominator) * 100).toFixed(1) : '0.0';
+
+    const coverage = useMemo(() => {
+        const req = DATA.requirements;
+        if (!req) return null;
+        let total = 0, covered = 0;
+        function walk(node) {
+            if (node.type === 'file') {
+                total++;
+                const t = Object.values(node.outcomes).reduce((a: number, b: number) => a + b, 0);
+                if (t > 0 && !(node.outcomes.pending || 0) && !(node.outcomes.skipped || 0)) covered++;
+            }
+            if (node.children) node.children.forEach(walk);
+        }
+        if (req.children) req.children.forEach(walk);
+        return { total, covered, percent: total > 0 ? Math.round((covered / total) * 100) : 100 };
+    }, []);
+
     const sorted = [...scenarios].sort((a, b) => b.duration - a.duration);
     const slowest = sorted.slice(0, 5);
-    const newFailures = useMemo(() => {
-        return (DATA.newFailures || []).slice(0, 5);
-    }, []);
-    const newPasses = useMemo(() => {
-        return (DATA.newPasses || []).slice(0, 5);
-    }, []);
+    const newFailures = useMemo(() => (DATA.newFailures || []).slice(0, 5), []);
+    const newPasses = useMemo(() => (DATA.newPasses || []).slice(0, 5), []);
     const flakyTests = (DATA.unstableTests || []).slice(0, 5);
 
+    // Look up execution history for a test by source identity
+    const getHistory = (t) => {
+        const key = t.source.path + ':' + t.source.line;
+        const match = scenarios.find(s => s.source.path + ':' + s.source.line === key);
+        return match && match.executionHistory ? match.executionHistory.slice(-5) : [];
+    };
+
+    // Trend summary stats
+    const totalPassed = history.reduce((sum, h) => sum + h.outcomes.passed, 0);
+    const totalHistoryFailed = history.reduce((sum, h) => sum + (h.outcomes.failed || 0) + (h.outcomes.error || 0) + (h.outcomes.compromised || 0), 0);
+
     return html`
-    <div style="display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:var(--space-md);overflow:hidden" class="dashboard-trend-grid">
-      <!-- Left column -->
-      <div style="display:flex;flex-direction:column;gap:var(--space-md);min-width:0">
-        <!-- Row 1: Test Results + Pass Rate / Failed -->
-        <div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:var(--space-md)" class="dashboard-stats-grid">
-          <div class="flex-col gap-md">
-            <div class="card" style="display:flex;flex-direction:column;flex:1">
-              <div class="card-title">Test Results</div>
-              <div class="donut-chart">
-                <${DonutChart} outcomes=${summary.outcomes} total=${summary.totalScenarios} />
-                <div class="donut-legend">
-                  <div class="legend-item clickable" onClick=${() => onNavigate('/tests?filter=passed')}><span class="legend-dot" style="background:var(--color-passed)"></span> Passed (${summary.outcomes.passed})</div>
-                  <div class="legend-item clickable" onClick=${() => onNavigate('/tests?filter=failed')}><span class="legend-dot" style="background:var(--color-failed)"></span> Failed (${(summary.outcomes.failed || 0) + (summary.outcomes.error || 0) + (summary.outcomes.compromised || 0)})</div>
-                  <div class="legend-item clickable" onClick=${() => onNavigate('/tests?filter=skipped')}><span class="legend-dot" style="background:var(--color-skipped)"></span> Skipped (${(summary.outcomes.skipped || 0) + (summary.outcomes.pending || 0)})</div>
-                </div>
-              </div>
-              <div style="margin-top:var(--space-md);font-size:var(--font-sm);color:var(--text-secondary)">${summary.totalScenarios} scenarios • ${summary.testRunner}</div>
-            </div>
-            ${DATA.systemContext && DATA.systemContext.ci ? html`
-              <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;gap:var(--space-md);flex-wrap:wrap">
-                ${(() => { const ci = DATA.systemContext.ci; const repoUrl = ci.repositoryUrl ? ci.repositoryUrl.replace(/\.git$/, '').replace(/^git@([^:]+):/, 'https://$1/') : ''; return html`
-                  ${ci.branch ? html`<div class="flex-row gap-xs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm" style="flex-shrink:0"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>${repoUrl ? html`<a href="${repoUrl}/tree/${ci.branch}" target="_blank" style="font-size:var(--font-sm);font-weight:500;color:inherit;text-decoration:none" onMouseOver=${(e) => e.target.style.textDecoration='underline'} onMouseOut=${(e) => e.target.style.textDecoration='none'}>${ci.branch}</a>` : html`<span style="font-size:var(--font-sm);font-weight:500">${ci.branch}</span>`}</div>` : null}
-                  ${ci.commit ? html`<div class="flex-row gap-xs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm" style="flex-shrink:0"><circle cx="12" cy="12" r="4"/><line x1="1" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="23" y2="12"/></svg>${repoUrl ? html`<a href="${repoUrl}/commit/${ci.commit}" target="_blank" style="font-size:var(--font-sm);font-family:var(--font-mono);color:inherit;text-decoration:none" onMouseOver=${(e) => e.target.style.textDecoration='underline'} onMouseOut=${(e) => e.target.style.textDecoration='none'}>${ci.commit}</a>` : html`<span style="font-size:var(--font-sm);font-family:var(--font-mono)">${ci.commit}</span>`}</div>` : null}
-                  ${ci.pullRequestUrl ? html`<div class="flex-row gap-xs"><a href="${ci.pullRequestUrl}" target="_blank" style="font-size:var(--font-sm);color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:3px" onMouseOver=${(e) => e.target.style.textDecoration='underline'} onMouseOut=${(e) => e.target.style.textDecoration='none'}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm" style="flex-shrink:0"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 9v12"/><path d="M18 9a9 9 0 0 0-9 9"/></svg>PR #${ci.pullRequestNumber || ''}</a></div>` : null}
-                  ${ci.provider ? html`<div style="font-size:var(--font-xs);color:var(--text-secondary);margin-left:auto">${ci.jobUrl ? html`<a href="${ci.jobUrl}" target="_blank" style="color:inherit;text-decoration:none" onMouseOver=${(e) => e.target.style.textDecoration='underline'} onMouseOut=${(e) => e.target.style.textDecoration='none'}>${ci.provider}</a>` : ci.provider}</div>` : null}
-                `; })()}
-              </div>
-            ` : null}
+    <div class="dashboard">
+      <!-- KPI Row -->
+      <div class="kpi-row">
+        <div class="kpi-card" onClick=${() => onNavigate('/tests')}>
+          <div class="kpi-icon-wrap kpi-icon--total">
+            <${DonutChart} outcomes=${summary.outcomes} total=${summary.totalScenarios} />
           </div>
-          <div class="flex-col gap-md">
-            <div class="card" style="flex:1;cursor:pointer" onClick=${() => onNavigate('/tests?filter=non-passing')}>
-              <div class="card-title">Pass Rate</div>
-              <div class="card-value" style="color:var(--color-passed)">${passRate}%</div>
-              <div class="card-subtitle">${summary.outcomes.passed} of ${summary.totalScenarios} passed</div>
-              <a class="view-all-link" style="margin-top:var(--space-sm);display:inline-block" onClick=${(e) => { e.stopPropagation(); onNavigate('/requirements'); }}>Requirements</a>
-            </div>
-            <div class="card" style="flex:1;cursor:pointer" onClick=${() => onNavigate('/tests?filter=failed')}>
-              <div class="card-title">Total Failed</div>
-              <div class="card-value" style="color:var(--color-failed)">${summary.outcomes.failed + (summary.outcomes.error || 0) + (summary.outcomes.compromised || 0)}</div>
-              <div class="card-subtitle">${[summary.outcomes.failed ? summary.outcomes.failed + ' assertion' + (summary.outcomes.failed > 1 ? ' failures' : ' failure') : '', summary.outcomes.error ? summary.outcomes.error + ' error' + (summary.outcomes.error > 1 ? 's' : '') : '', summary.outcomes.compromised ? summary.outcomes.compromised + ' compromised' : ''].filter(Boolean).join(', ') || 'No failures'}</div>
-            </div>
+          <div class="kpi-content">
+            <span class="kpi-value">${summary.totalScenarios}</span>
+            <span class="kpi-label">Total Scenarios</span>
           </div>
         </div>
-        <!-- Row 2: Trend chart -->
-        <div class="card" style="overflow:hidden">
-          <div class="card-title">Trend (Last ${history.length} runs)</div>
-          <${TrendChart} history=${history} onNavigate=${onNavigate} />
+        <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=non-passing')} title="${summary.outcomes.passed} scenarios passing, ${totalFailed} failing">
+          <div class="kpi-icon-wrap kpi-icon--pass-rate">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-value" style="color:var(--color-passed)">${passRate}%</span>
+            <span class="kpi-label">Pass Rate</span>
+          </div>
+        </div>
+        ${coverage ? html`
+          <div class="kpi-card" onClick=${() => onNavigate('/requirements')} title="${coverage.covered} of ${coverage.total} areas fully covered">
+            <div class="kpi-icon-wrap kpi-icon--coverage">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-value" style="color:${coverage.percent >= 80 ? 'var(--color-passed)' : coverage.percent >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'}">${coverage.percent}%</span>
+              <span class="kpi-label">Coverage</span>
+            </div>
+          </div>
+        ` : null}
+        <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=failed')} title="${totalFailed} failed, compromised, or broken scenarios">
+          <div class="kpi-icon-wrap kpi-icon--failed">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-value" style="color:var(--color-failed)">${totalFailed}</span>
+            <span class="kpi-label">Failed Scenarios</span>
+          </div>
+        </div>
+        <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=skipped')} title="${totalSkipped} skipped or pending tests">
+          <div class="kpi-icon-wrap kpi-icon--skipped">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-value" style="color:var(--text-secondary)">${totalSkipped}</span>
+            <span class="kpi-label">Skipped</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap kpi-icon--duration">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-value">${formatDuration(summary.duration)}</span>
+            <span class="kpi-label">Total Duration</span>
+          </div>
         </div>
       </div>
 
-      <!-- Right column: Degraded / Recovered / Most Unstable / Slowest Tests -->
-      <div style="display:flex;flex-direction:column;gap:var(--space-md);min-width:0;overflow:hidden">
-        <div class="card">
+      <!-- Context metadata -->
+      <div class="dashboard-meta">
+        <span>${summary.totalScenarios} scenarios • ${summary.testRunner}</span>
+        ${DATA.systemContext && DATA.systemContext.ci ? (() => { const ci = DATA.systemContext.ci; const repoUrl = ci.repositoryUrl ? ci.repositoryUrl.replace(/\.git$/, '').replace(/^git@([^:]+):/, 'https://$1/') : ''; return html`
+          ${ci.branch ? html`<span class="dashboard-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>${repoUrl ? html`<a href="${repoUrl}/tree/${ci.branch}" target="_blank" class="meta-link">${ci.branch}</a>` : html`<span>${ci.branch}</span>`}</span>` : null}
+          ${ci.commit ? html`<span class="dashboard-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><circle cx="12" cy="12" r="4"/><line x1="1" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="23" y2="12"/></svg>${repoUrl ? html`<a href="${repoUrl}/commit/${ci.commit}" target="_blank" class="meta-link mono">${ci.commit}</a>` : html`<span class="mono">${ci.commit}</span>`}</span>` : null}
+        `; })() : null}
+      </div>
+
+      <!-- Main grid: Trend (8col) + Health Summary (4col) -->
+      <div class="dashboard-main-grid">
+        <div class="card dashboard-trend-card">
           <div class="card-header">
-            <div class="card-title" style="margin-bottom:0;color:var(--color-failed)">Degraded</div>
-            ${newFailures.length > 0 ? html`
-              <a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>
-            ` : null}
+            <div class="card-title mb-0">Trend</div>
+            <span class="trend-summary">${totalPassed} Passed | ${totalHistoryFailed} Failed | Avg ${formatDuration(summary.duration)}</span>
           </div>
-          ${newFailures.length > 0 ? html`
-            ${newFailures.map(t => html`
-              <div class="slowest-item clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
-                <span style="font-size:var(--font-sm);color:var(--color-failed)">✗</span>
-                <span class="slowest-name">${t.name}</span>
-              </div>
-            `)}
-            <div style="font-size:var(--font-xs);color:var(--text-secondary);margin-top:var(--space-sm)">Was passing, now failing</div>
-          ` : html`
-            <div style="padding:var(--space-md) 0;text-align:center;color:var(--color-passed)">
-              <div style="font-size:var(--font-lg);margin-bottom:var(--space-xs)">✓</div>
-              <div style="font-size:var(--font-md)">Well done! No degraded tests</div>
-            </div>
-          `}
+          <${TrendChart} history=${history} onNavigate=${onNavigate} />
         </div>
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title" style="margin-bottom:0;color:var(--color-passed)">Recovered</div>
-            ${newPasses.length > 0 ? html`
-              <a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>
-            ` : null}
-          </div>
-          ${newPasses.length > 0 ? html`
-            ${newPasses.map(t => html`
-              <div class="slowest-item clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
-                <span style="font-size:var(--font-sm);color:var(--color-passed)">✓</span>
-                <span class="slowest-name">${t.name}</span>
-              </div>
-            `)}
-            <div style="font-size:var(--font-xs);color:var(--text-secondary);margin-top:var(--space-sm)">Was failing, now passing</div>
-          ` : html`
-            <div style="padding:var(--space-md) 0;text-align:center;color:var(--text-secondary)">
-              <div style="font-size:var(--font-md)">No newly recovered tests</div>
-            </div>
-          `}
-        </div>
-        ${flakyTests.length > 0 ? html`
-          <div class="card">
+
+        <div class="dashboard-health-col">
+          <!-- Degraded -->
+          <div class="card dashboard-status-card">
             <div class="card-header">
-              <div class="card-title mb-0">Most Unstable</div>
-              <a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>
+              <span class="status-card-title" style="color:var(--color-failed)">Degraded</span>
+              ${newFailures.length > 0 ? html`<a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>` : null}
             </div>
-            ${flakyTests.map(t => html`
-              <div class="slowest-item clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
-                <span style="font-size:var(--font-sm);font-weight:600;color:var(--color-pending);width:36px" title="Failure ratio: ${Math.round(t.flakinessRate * 100)}%">${Math.round(t.flakinessRate * 100)}%</span>
-                <span class="slowest-name">${t.name}</span>
+            ${newFailures.length > 0 ? html`
+              ${newFailures.map(t => html`
+                <div class="status-item status-item--rich clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
+                  <div class="status-item-main">
+                    <span class="status-icon status-icon--fail">✗</span>
+                    <span class="status-item-name">${t.name}</span>
+                  </div>
+                  <div class="status-item-history">${getHistory(t).map(h => html`<span class="history-dot history-dot--${h.outcome}" title=${h.outcome + ' (' + h.run + ')'}></span>`)}</div>
+                </div>
+              `)}
+            ` : html`
+              <div class="status-empty status-empty--ok"><span class="status-chip">✓</span> No degraded tests</div>
+            `}
+          </div>
+          <!-- Recovered -->
+          <div class="card dashboard-status-card">
+            <div class="card-header">
+              <span class="status-card-title" style="color:var(--color-passed)">Recovered</span>
+              ${newPasses.length > 0 ? html`<a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>` : null}
+            </div>
+            ${newPasses.length > 0 ? html`
+              ${newPasses.map(t => html`
+                <div class="status-item status-item--rich clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
+                  <div class="status-item-main">
+                    <span class="status-icon status-icon--pass">✓</span>
+                    <span class="status-item-name">${t.name}</span>
+                  </div>
+                  <div class="status-item-history">${getHistory(t).map(h => html`<span class="history-dot history-dot--${h.outcome}" title=${h.outcome + ' (' + h.run + ')'}></span>`)}</div>
+                </div>
+              `)}
+            ` : html`
+              <div class="status-empty"><span class="status-chip">✓</span> No newly recovered tests</div>
+            `}
+          </div>
+          <!-- Slowest Tests -->
+          <div class="card dashboard-status-card">
+            <div class="card-header">
+              <span class="status-card-title" style="color:var(--color-pending)">Slowest Tests</span>
+              <a class="view-all-link" onClick=${() => onNavigate('/tests?sort=duration')}>View all →</a>
+            </div>
+            ${slowest.map(s => html`
+              <div class="status-item clickable" onClick=${() => onNavigate(scenarioUrl(s))}>
+                <span class="status-icon" style="color:var(--color-pending)">⏱</span>
+                <span class="status-item-name">${s.name}</span>
+                <span class="status-item-meta">${formatDuration(s.duration)}</span>
               </div>
             `)}
           </div>
-        ` : null}
-        <div class="card" style="flex:1">
-          <div class="card-header">
-            <div class="card-title mb-0">Slowest Tests</div>
-            <a class="view-all-link" onClick=${() => onNavigate('/tests?sort=duration')}>View all →</a>
-          </div>
-          ${slowest.map((s, i) => html`
-            <div class="slowest-item clickable" onClick=${() => onNavigate(scenarioUrl(s))}>
-              <span class="slowest-rank">#${i + 1}</span>
-              <span class="slowest-name">${s.name}</span>
-              <span class="slowest-dur">${formatDuration(s.duration)}</span>
+          <!-- Unstable -->
+          ${flakyTests.length > 0 ? html`
+            <div class="card dashboard-status-card">
+              <div class="card-header">
+                <span class="status-card-title" style="color:var(--color-pending)">Unstable</span>
+                <a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>
+              </div>
+              ${flakyTests.map(t => html`
+                <div class="status-item clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
+                  <span class="status-icon status-icon--warn">⚠</span>
+                  <span class="status-item-name">${t.name}</span>
+                </div>
+              `)}
             </div>
-          `)}
+          ` : null}
         </div>
       </div>
     </div>
