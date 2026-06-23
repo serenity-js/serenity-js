@@ -16,7 +16,7 @@
 import { resolve } from 'node:path';
 
 import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
-import { glob } from 'glob';
+import fg from 'fast-glob';
 
 import { DataSnapshotAggregator } from '../esm/DataSnapshotAggregator.js';
 import { ReportTemplateWriter } from '../esm/ReportTemplateWriter.js';
@@ -48,7 +48,7 @@ const dbJsonPaths = [];
 
 for (const pattern of inputPatterns) {
     const dbPattern = pattern.endsWith('db.json') ? pattern : pattern + '/db.json';
-    const matches = glob.sync(dbPattern, { absolute: true });
+    const matches = fg.sync(dbPattern, { absolute: true });
     dbJsonPaths.push(...matches);
 }
 
