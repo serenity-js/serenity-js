@@ -46,6 +46,23 @@ Examples of anti-patterns to avoid:
 - Using sed/awk to modify structured files (JSON, TypeScript, YAML) — write a Node.js script instead
 - Partial builds or made-up compile commands — always use the module's dedicated `npm run compile` command to produce a complete, consistent build
 
+## Fix Root Causes, Not Symptoms
+
+**When a problem is identified, always trace it to its root cause and fix it there.**
+
+- Never offer or implement surface-level patches (e.g. skipping invalid data, adding guards, ignoring errors) as a first response. These mask real issues.
+- When you discover invalid state, ask: "Why is this state being produced in the first place?" Fix the producer, not the consumer.
+- When multiple approaches exist, present them with trade-offs and recommend the one with the cleanest architecture — even if it requires more effort.
+- Defensive coding (null checks, guards) is appropriate for public API boundaries. It is NOT appropriate as a substitute for fixing the code that produces the invalid input.
+
+Decision process when encountering a problem:
+1. **Diagnose** — Trace the issue to its origin. Use instrumentation/logging if needed.
+2. **Identify options** — List architecturally distinct approaches, not variations of the same workaround.
+3. **Recommend** — Prefer the option that eliminates the problem at source over one that tolerates it downstream.
+4. **Confirm** — If the cleanest fix is expensive, explain why and ask before proceeding. Never silently choose the path of least resistance.
+
+Example: if a component receives invalid data, don't add a "skip if invalid" guard. Instead, find out why invalid data is being produced and stop it at the source.
+
 # Serenity/JS Development Workflow
 
 ## Mandatory Testing Rule
