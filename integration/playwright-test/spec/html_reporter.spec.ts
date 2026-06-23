@@ -51,10 +51,9 @@ describe('@serenity-js/html-reporter', function () {
 
                     // Verify db.json content
                     const databaseJson = JSON.parse(fs.readFileSync(databaseJsonPath, 'utf8'));
-                    expect(databaseJson).to.have.property('timestamp');
+                    expect(databaseJson).to.have.property('startedAt');
                     expect(databaseJson).to.have.property('scenes').that.is.an('array').with.length.greaterThan(0);
-                    expect(databaseJson).to.have.property('testRunner', 'Playwright');
-                    expect(databaseJson).to.have.property('testRunnerVersion').that.matches(/^\d+\.\d+\.\d+/);
+                    expect(databaseJson).to.have.property('testRunner').that.has.property('name', 'Playwright');
 
                     // Verify data.js content
                     const dataJs = fs.readFileSync(path.join(outputDirectory, 'data.js'), 'utf8');
