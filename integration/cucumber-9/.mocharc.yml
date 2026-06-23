@@ -2,11 +2,11 @@ check-leaks: false
 color: true
 diff: true
 full-trace: true
-reporter: mocha-multi
-reporter-options: 'mocha-multi=.mocha-reporters.json'
+reporter: '@serenity-js/mocha'
 require:
   - 'tsx'
   - 'src/register-cucumber.ts'
+  - './setup.ts'
 spec: './node_modules/@integration/cucumber-specs/spec/**/*.spec.ts'
 timeout: 30000
 v8-stack-trace-limit: 100
