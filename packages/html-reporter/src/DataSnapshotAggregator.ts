@@ -88,12 +88,12 @@ export class DataSnapshotAggregator {
     private loadExternalRuns(paths: string[]): RunData[] {
         const runsById = new Map<string, RunData>();
 
-        for (const dbJsonPath of paths) {
-            const content = readFileSync(dbJsonPath, 'utf8');
+        for (const databaseJsonPath of paths) {
+            const content = readFileSync(databaseJsonPath, 'utf8');
             const run = JSON.parse(content) as RunData;
-            const dirName = dbJsonPath.replace(/\/db\.json$/, '').replace(/.*\//, '');
+            const directoryName = databaseJsonPath.replace(/\/db\.json$/, '').replace(/.*\//, '');
 
-            const existing = runsById.get(dirName);
+            const existing = runsById.get(directoryName);
             if (existing) {
                 // Merge scenes and outcomes
                 existing.scenes.push(...run.scenes);
@@ -113,7 +113,7 @@ export class DataSnapshotAggregator {
                     }
                 }
             } else {
-                runsById.set(dirName, run);
+                runsById.set(directoryName, run);
             }
         }
 
@@ -285,10 +285,10 @@ export class DataSnapshotAggregator {
             root.scenarioCount++;
             root.outcomes[outcomeKey]++;
             for (let i = 0; i < directories.length; i++) {
-                const dirNode = nodeMap.get(directories.slice(0, i + 1).join('/'));
-                if (dirNode && dirNode !== root) {
-                    dirNode.scenarioCount++;
-                    dirNode.outcomes[outcomeKey]++;
+                const directoryNode = nodeMap.get(directories.slice(0, i + 1).join('/'));
+                if (directoryNode && directoryNode !== root) {
+                    directoryNode.scenarioCount++;
+                    directoryNode.outcomes[outcomeKey]++;
                 }
             }
         }

@@ -191,7 +191,7 @@ export function StabilityView({ onNavigate }) {
                   <div class="scenario-info flex-1">
                     <div class="scenario-name">${t.name}</div>
                     <div class="scenario-meta">
-                      <span class="scenario-source">${t.source.line ? t.source.path + ":" + t.source.line : t.source.path}</span>
+                      <span class="scenario-source">${t.source.line ? t.source.path + ':' + t.source.line : t.source.path}</span>
                       ${kindLabel(t.kind) ? html`<span style="color:var(--text-disabled)">•</span><span>${kindLabel(t.kind)}</span>` : null}
                     </div>
                   </div>

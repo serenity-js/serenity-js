@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Chart } from 'chart.js/auto';
 import 'chartjs-plugin-zoom';
+
+import { Chart } from 'chart.js/auto';
 import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
