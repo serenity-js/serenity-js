@@ -95,7 +95,7 @@ function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, se
               <div style="position:absolute;top:0;left:0;width:100%;height:${GROUP_HEADER_CONTENT_HEIGHT}px;transform:translateY(${virtualRow.start + topOffset}px);background:var(--bg-surface);z-index:1"
                    class="scenario-group-header">
                 ${segments.map((segment, index) => html`
-                  <span class="clickable" onClick=${() => setSearch('"' + segment + '"')}>${segment}</span>${index < segments.length - 1 ? html`<span style="margin:0 4px;text-decoration:none;cursor:default"> › </span>` : null}
+                  <span class="clickable" onClick=${() => setSearch('"' + segment + '"')}>${segment}</span>${index < segments.length - 1 ? html`<span class="breadcrumb-sep"> › </span>` : null}
                 `)}
               </div>
             `;
@@ -113,12 +113,12 @@ function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, se
               <div class="scenario-info">
                 <div class="scenario-name">${scenario.category ? scenario.category + ' › ' : ''}${scenario.name}</div>
                 <div class="scenario-tags">
-                  ${getBrowserTag(scenario) ? html`<a href=${'#/tests?search=' + encodeURIComponent('"' + getBrowserTag(scenario) + '"')} class="badge badge-${getBrowserTag(scenario)}" style="text-decoration:none;cursor:pointer" onClick=${stopProp}>${getBrowserTag(scenario)}</a>` : null}
+                  ${getBrowserTag(scenario) ? html`<a href=${'#/tests?search=' + encodeURIComponent('"' + getBrowserTag(scenario) + '"')} class="badge badge-${getBrowserTag(scenario)} badge-link" onClick=${stopProp}>${getBrowserTag(scenario)}</a>` : null}
                   ${scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
-                  ${[...new Map((scenario.tags || []).filter(t => t.type !== 'feature' && t.type !== 'browser').map(t => [t.type + ':' + t.name, t])).values()].map(t => html`<a href=${'#/tests?search=' + encodeURIComponent('"' + t.name + '"')} class="tag-chip" style="font-size:var(--font-2xs);padding:1px 6px;text-decoration:none" onClick=${stopProp}>${t.name}</a>`)}
+                  ${[...new Map((scenario.tags || []).filter(t => t.type !== 'feature' && t.type !== 'browser').map(t => [t.type + ':' + t.name, t])).values()].map(t => html`<a href=${'#/tests?search=' + encodeURIComponent('"' + t.name + '"')} class="tag-chip tag-chip-sm" onClick=${stopProp}>${t.name}</a>`)}
                 </div>
                 <div class="scenario-meta">
-                  <span class="scenario-source" style="direction:rtl;text-align:left;unicode-bidi:plaintext">${relativeSourcePath(scenario)}</span>
+                  <span class="scenario-source">${relativeSourcePath(scenario)}</span>
                 </div>
               </div>
               <span class="scenario-duration">${formatDuration(scenario.duration)}</span>
