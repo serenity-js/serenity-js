@@ -45,23 +45,23 @@ export function TimelineView({ onNavigate }) {
 
     return html`
     <div>
-      <div class="grid-stats mb-md">
-        <div class="card stat-card">
-          <div class="card-title mb-0">Slowest</div>
-          <div class="card-value" style="color:var(--color-failed);font-size:var(--font-lg)">${formatDuration(slowest)}</div>
-        </div>
-        <div class="card stat-card">
-          <div class="card-title mb-0">Fastest</div>
-          <div class="card-value" style="color:var(--color-passed);font-size:var(--font-lg)">${formatDuration(fastest)}</div>
-        </div>
-        <div class="card stat-card">
-          <div class="card-title mb-0">Average</div>
-          <div class="card-value" style="font-size:var(--font-lg)">${formatDuration(avg)}</div>
-        </div>
-        <div class="card stat-card">
-          <div class="card-title mb-0">Total Run</div>
-          <div class="card-value" style="font-size:var(--font-lg)">${formatDuration(DATA.summary.duration)}</div>
-        </div>
+      <div style="display:flex;gap:var(--space-lg);flex-wrap:wrap;margin-bottom:var(--space-md)">
+        <span style="display:inline-flex;align-items:center;gap:var(--space-xs);font-size:var(--font-sm)">
+          <span style="color:var(--text-secondary)">Slowest:</span>
+          <span style="font-weight:700;color:var(--color-failed)">${formatDuration(slowest)}</span>
+        </span>
+        <span style="display:inline-flex;align-items:center;gap:var(--space-xs);font-size:var(--font-sm)">
+          <span style="color:var(--text-secondary)">Fastest:</span>
+          <span style="font-weight:700;color:var(--color-passed)">${formatDuration(fastest)}</span>
+        </span>
+        <span style="display:inline-flex;align-items:center;gap:var(--space-xs);font-size:var(--font-sm)">
+          <span style="color:var(--text-secondary)">Average:</span>
+          <span style="font-weight:700">${formatDuration(avg)}</span>
+        </span>
+        <span style="display:inline-flex;align-items:center;gap:var(--space-xs);font-size:var(--font-sm)">
+          <span style="color:var(--text-secondary)">Total:</span>
+          <span style="font-weight:700">${formatDuration(DATA.summary.duration)}</span>
+        </span>
       </div>
 
       <${FilterBar} outcomes=${DATA.summary.outcomes} total=${allScenarios.length}

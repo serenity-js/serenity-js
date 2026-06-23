@@ -143,16 +143,16 @@ export function StabilityView({ onNavigate }) {
           aria-label="Clear search">✕</button>` : null}
       </div>
 
-      <div style="display:flex;gap:var(--space-sm);margin-bottom:var(--space-md);flex-wrap:wrap;align-items:center">
-        <span class="label-upper">State:</span>
+      <div class="filter-bar" role="group" aria-label="Filter tests by stability" style="align-items:center">
+        <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;align-self:center">Status:</span>
         <button class="filter-chip ${filter === 'unstable' ? 'active' : ''}" onClick=${() => setFilter('unstable')}>
-          Unstable <span class="count">${flaky.length}</span>
+          <span>Unstable</span> <span class="count">${flaky.length}</span>
         </button>
         <button class="filter-chip failed ${filter === 'degraded' ? 'active' : ''}" onClick=${() => setFilter('degraded')}>
-          Degraded <span class="count">${degradedCount}</span>
+          <span>Degraded</span> <span class="count">${degradedCount}</span>
         </button>
         <button class="filter-chip passed ${filter === 'recovered' ? 'active' : ''}" onClick=${() => setFilter('recovered')}>
-          Recovered <span class="count">${recoveredCount}</span>
+          <span>Recovered</span> <span class="count">${recoveredCount}</span>
         </button>
         <div class="sort-group">
           <label class="label-upper" for="stability-sort-select">Sort:</label>

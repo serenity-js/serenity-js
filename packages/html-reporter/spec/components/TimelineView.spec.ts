@@ -31,7 +31,7 @@ test.describe('TimelineView', () => {
         await expect(page.locator('body')).toContainText('Slowest');
         await expect(page.locator('body')).toContainText('Fastest');
         await expect(page.locator('body')).toContainText('Average');
-        await expect(page.locator('body')).toContainText('Total Run');
+        await expect(page.locator('body')).toContainText('Total:');
     });
 
     test('renders timeline rows for each scenario', async ({ mount, page }) => {
