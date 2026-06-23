@@ -69,6 +69,21 @@ describe('ScenarioTagger', () => {
         expect(tagEvent.tag).to.deep.equal(new ArbitraryTag('slow'));
     });
 
+    it('preserves forward slashes in tag values', () => {
+        const tagger = new ScenarioTagger(['@playwright/test']);
+        tagger.assignedTo(stage);
+
+        const sceneId = CorrelationId.create();
+        const details = new ScenarioDetails(new Name('test'), new Category('Suite'), new FileSystemLocation(Path.from('a.ts'), 1));
+
+        const announce = sinon.spy(stage, 'announce');
+
+        tagger.notifyOf(new SceneStarts(sceneId, details, new Timestamp(new Date())));
+
+        const tagEvent = announce.getCalls().map(c => c.args[0]).find(e => e instanceof SceneTagged);
+        expect(tagEvent.tag).to.deep.equal(new ArbitraryTag('playwright/test'));
+    });
+
     it('implements the StageCrewMember interface', () => {
         const tagger = new ScenarioTagger(['@tag']);
 
