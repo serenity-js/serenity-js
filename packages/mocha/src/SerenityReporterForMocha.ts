@@ -21,6 +21,7 @@ import {
     ExecutionRetriedTag,
     ExecutionSuccessful,
     Name,
+    type Outcome,
     TestSuiteDetails
 } from '@serenity-js/core/model';
 import type { MochaOptions, Runnable, Suite, Test } from 'mocha';
@@ -69,6 +70,34 @@ export class SerenityReporterForMocha extends reporters.Base {
                 );
             },
         );
+
+        if (this.isParallel) {
+            runner.on(Runner.constants.EVENT_TEST_BEGIN,
+                (test: Test) => {
+                    this.announceSceneStartsFor(test);
+                },
+            );
+
+            runner.on(Runner.constants.EVENT_TEST_PASS,
+                (test: Test) => {
+                    this.announceSceneFinishedForParallel(test, this.outcomeMapper.outcomeOf(test));
+                },
+            );
+
+            runner.on(Runner.constants.EVENT_TEST_FAIL,
+                (test: Test, error: Error) => {
+                    this.announceSceneFinishedForParallel(test, this.outcomeMapper.outcomeOf(test, error));
+                },
+            );
+
+            runner.on(Runner.constants.EVENT_TEST_PENDING,
+                (test: Test) => {
+                    if (!test.fn) {
+                        this.announceSceneSkippedFor(test);
+                    }
+                },
+            );
+        }
 
         if (!this.isParallel) {
             runner.on(Runner.constants.EVENT_SUITE_BEGIN,
@@ -270,6 +299,15 @@ export class SerenityReporterForMocha extends reporters.Base {
                 // https://github.com/mochajs/mocha/issues/1635
                 (runnable as any).error(error);
             });
+    }
+
+    private announceSceneFinishedForParallel(test: Test, outcome: Outcome): void {
+        const { scenarioDetails } = this.testMapper.detailsOf(test);
+
+        this.emit(
+            new SceneFinishes(this.currentSceneId, outcome, this.serenity.currentTime()),
+            new SceneFinished(this.currentSceneId, scenarioDetails, outcome, this.serenity.currentTime()),
+        );
     }
 
     private announceSceneSkippedFor(test: Test): void {
