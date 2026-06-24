@@ -6,6 +6,7 @@ reporter: '@serenity-js/mocha'
 require:
   - 'tsx'
   - 'src/register-cucumber.ts'
+  - '@serenity-js/mocha'
   - './setup.ts'
 spec: './node_modules/@integration/cucumber-specs/spec/**/*.spec.ts'
 timeout: 30000
