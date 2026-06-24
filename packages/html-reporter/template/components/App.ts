@@ -87,8 +87,8 @@ export function App() {
     } else if (route === '/stability') {
         view = html`<${StabilityView} onNavigate=${navigate} />`;
         pageTitle = 'Stability';
-    } else if (route === '/requirements') {
-        view = html`<${RequirementsView} onNavigate=${navigate} />`;
+    } else if (route === '/requirements' || route.startsWith('/requirements?')) {
+        view = html`<${RequirementsView} onNavigate=${navigate} route=${route} />`;
         pageTitle = 'Requirements';
     } else if (route === '/timeline') {
         view = html`<${TimelineView} onNavigate=${navigate} />`;

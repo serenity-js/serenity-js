@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import htm from 'htm';
 import { h } from 'preact';
-import { useMemo, useState } from 'preact/hooks';
+import { useEffect, useMemo, useState } from 'preact/hooks';
 
 import { DATA, RawHtml } from '../utils';
 import { icons } from './icons';
@@ -28,6 +28,18 @@ function nodeMatches(node, term) {
     return false;
 }
 
+function findNodeByPath(root, targetPath) {
+    if (!targetPath || !root.children) return null;
+    const parts = targetPath.split('/');
+    let current = root;
+    for (const part of parts) {
+        if (!current.children) return null;
+        current = current.children.find(c => c.name === part);
+        if (!current) return null;
+    }
+    return current;
+}
+
 function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm }) {
     const total = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
     const passRate = total > 0 ? Math.round((node.outcomes.passed / total) * 100) : 0;
@@ -37,16 +49,25 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm }) {
     const isSelected = selectedPath === segmentPath;
     const hasReadme = !!node.readme;
 
-    // Only show directory nodes in the tree
     if (!isDirectory) return null;
 
     const matchesSearch = !searchTerm || displayName.toLowerCase().includes(searchTerm.toLowerCase());
     const childrenMatch = node.children.some(c => nodeMatches(c, searchTerm));
     if (searchTerm && !matchesSearch && !childrenMatch) return null;
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onSelect(segmentPath, node);
+        }
+    };
+
     return html`
-        <div style="margin-left:${depth * 16}px">
-            <div class="req-tree-node ${isSelected ? 'req-tree-node--active' : ''}" onClick=${() => onSelect(segmentPath, node)}>
+        <div style="margin-left:${depth * 12}px">
+            <div class="req-tree-node ${isSelected ? 'req-tree-node--active' : ''}"
+                 tabindex="0" role="treeitem" aria-selected=${isSelected}
+                 onClick=${() => onSelect(segmentPath, node)}
+                 onKeyDown=${handleKeyDown}>
                 <span class="req-tree-label">${displayName}</span>
                 ${hasReadme ? html`<span class="req-tree-readme-badge" title="Has documentation">📄</span>` : null}
                 ${total > 0 ? html`<span class="req-tree-bar"><${ProgressBar} percent=${passRate} /></span>` : null}
@@ -66,7 +87,7 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate }) {
         const passRate = total > 0 ? Math.round((requirements.outcomes.passed / total) * 100) : 0;
         return html`
             <div class="req-detail-panel">
-                <h3 class="req-detail-title">Overall Coverage</h3>
+                <h3 class="req-detail-title">Overall</h3>
                 <div class="req-detail-stat">
                     <span class="req-detail-stat-label">Pass Rate</span>
                     <span class="req-detail-stat-value" style="color:${passRateColor(passRate)}">${passRate}%</span>
@@ -109,7 +130,7 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate }) {
 
             <div class="req-detail-stats-grid">
                 <div class="req-detail-stat-card">
-                    <span class="req-detail-stat-label">Coverage</span>
+                    <span class="req-detail-stat-label">Requirement Coverage</span>
                     <span class="req-detail-stat-value" style="color:${passRateColor(coveragePercent)}">${coveragePercent}%</span>
                     <${ProgressBar} percent=${coveragePercent} />
                 </div>
@@ -170,7 +191,7 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate }) {
     `;
 }
 
-export function RequirementsView({ onNavigate }) {
+export function RequirementsView({ onNavigate, route }) {
     const requirements = DATA.requirements;
 
     if (!requirements) {
@@ -186,6 +207,19 @@ export function RequirementsView({ onNavigate }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedPath, setSelectedPath] = useState(null);
     const [selectedNode, setSelectedNode] = useState(null);
+
+    // Restore selection from URL on mount / route change
+    useEffect(() => {
+        const params = route && route.includes('?') ? new URLSearchParams(route.split('?')[1]) : null;
+        const reqPath = params?.get('path') || null;
+        if (reqPath && requirements) {
+            const node = findNodeByPath(requirements, reqPath);
+            if (node) {
+                setSelectedPath(reqPath);
+                setSelectedNode(node);
+            }
+        }
+    }, [route]);
 
     const totalFiles = useMemo(() => {
         let count = 0;
@@ -215,6 +249,11 @@ export function RequirementsView({ onNavigate }) {
     const handleSelect = (path, node) => {
         setSelectedPath(path);
         setSelectedNode(node);
+        // Update URL for deep linking
+        const newHash = '#/requirements?path=' + encodeURIComponent(path);
+        if (window.location.hash !== newHash) {
+            window.history.replaceState(null, '', newHash);
+        }
     };
 
     return html`
@@ -235,7 +274,7 @@ export function RequirementsView({ onNavigate }) {
                     </div>
                     <div class="kpi-content">
                         <span class="kpi-value" style="color:${passRateColor(coveragePercent)}">${coveragePercent}%</span>
-                        <span class="kpi-label">Coverage</span>
+                        <span class="kpi-label">Requirement Coverage</span>
                     </div>
                 </div>
                 <div class="kpi-card">
@@ -264,7 +303,7 @@ export function RequirementsView({ onNavigate }) {
                         <input type="text" class="search-input" placeholder="Search requirements..."
                             value=${searchTerm} onInput=${(e) => setSearchTerm(e.target.value)} />
                     </div>
-                    <div class="req-tree-list">
+                    <div class="req-tree-list" role="tree">
                         ${requirements.children.map(node => html`
                             <${TreeNode} node=${node} onSelect=${handleSelect}
                                 selectedPath=${selectedPath} depth=${0}

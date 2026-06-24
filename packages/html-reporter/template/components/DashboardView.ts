@@ -254,8 +254,7 @@ export function DashboardView({ onNavigate }) {
     const { summary, history, scenarios } = DATA;
     const totalFailed = (summary.outcomes.failed || 0) + (summary.outcomes.error || 0) + (summary.outcomes.compromised || 0);
     const totalSkipped = (summary.outcomes.skipped || 0) + (summary.outcomes.pending || 0);
-    const denominator = summary.totalScenarios - totalSkipped;
-    const passRate = denominator > 0 ? ((summary.outcomes.passed / denominator) * 100).toFixed(1) : '0.0';
+    const passRate = summary.totalScenarios > 0 ? ((summary.outcomes.passed / summary.totalScenarios) * 100).toFixed(1) : '0.0';
 
     const coverage = useMemo(() => {
         const req = DATA.requirements;
@@ -303,7 +302,7 @@ export function DashboardView({ onNavigate }) {
             <span class="kpi-label">Total Scenarios</span>
           </div>
         </div>
-        <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=failed,skipped')} title="${summary.outcomes.passed} scenarios passing, ${totalFailed} failing">
+        <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=failed,skipped')} title="${summary.outcomes.passed} of ${summary.totalScenarios} scenarios passing">
           <div class="kpi-icon-wrap kpi-icon--pass-rate">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
@@ -319,7 +318,7 @@ export function DashboardView({ onNavigate }) {
             </div>
             <div class="kpi-content">
               <span class="kpi-value" style="color:${coverage.percent >= 80 ? 'var(--color-passed)' : coverage.percent >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'}">${coverage.percent}%</span>
-              <span class="kpi-label">Coverage</span>
+              <span class="kpi-label">Requirement Coverage</span>
             </div>
           </div>
         ` : null}
