@@ -160,12 +160,11 @@ export function ScenariosView({ onNavigate, route }) {
 
     const filtered = useMemo(() => {
         let result = DATA.scenarios;
-        if (filter === 'non-passing') {
-            result = result.filter(s => s.outcome !== 'SUCCESS');
-        } else if (filter !== 'all') {
+        if (filter && filter !== 'all') {
             const filterMatch = { passed: ['SUCCESS'], failed: ['FAILURE', 'ERROR', 'COMPROMISED'], skipped: ['SKIPPED', 'PENDING'] };
-            const allowed = filterMatch[filter];
-            if (allowed) result = result.filter(s => allowed.includes(s.outcome));
+            const keys = filter.split(',');
+            const allowed = keys.flatMap(k => filterMatch[k] || []);
+            if (allowed.length > 0) result = result.filter(s => allowed.includes(s.outcome));
         }
         if (search) {
             result = result.filter(s => matchesSearch(s, search));

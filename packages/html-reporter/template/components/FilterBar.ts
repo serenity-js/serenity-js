@@ -12,17 +12,42 @@ export function FilterBar({ outcomes, total, activeFilter, onFilter, sortOptions
         { key: 'skipped', label: 'Skipped', count: (outcomes.skipped || 0) + (outcomes.pending || 0) },
     ];
 
+    // Parse active filters as a Set (supports comma-separated multi-select)
+    const activeSet = (!activeFilter || activeFilter === 'all') ? new Set() : new Set(activeFilter.split(','));
+
+    const handleClick = (key) => {
+        if (key === 'all') {
+            onFilter && onFilter('all');
+            return;
+        }
+        const next = new Set(activeSet);
+        if (next.has(key)) {
+            next.delete(key);
+        } else {
+            next.add(key);
+        }
+        // If all are selected or none remain, reset to 'all'
+        if (next.size === 0 || next.size === 3) {
+            onFilter && onFilter('all');
+        } else {
+            onFilter && onFilter([...next].join(','));
+        }
+    };
+
     return html`
     <div class="filter-bar" role="group" aria-label="Filter tests by outcome" style="align-items:center">
       <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;align-self:center">Status:</span>
-      ${filters.map(f => html`
-        <button class="filter-chip ${f.key} ${(activeFilter || 'all') === f.key ? 'active' : ''}"
-                onClick=${() => onFilter && onFilter(f.key)}
-                aria-pressed=${(activeFilter || 'all') === f.key}>
-          <span>${f.label}</span>
-          <span class="count">${f.count}</span>
-        </button>
-      `)}
+      ${filters.map(f => {
+          const isActive = f.key === 'all' ? activeSet.size === 0 : activeSet.has(f.key);
+          return html`
+            <button class="filter-chip ${f.key} ${isActive ? 'active' : ''}"
+                    onClick=${() => handleClick(f.key)}
+                    aria-pressed=${isActive}>
+              <span>${f.label}</span>
+              <span class="count">${f.count}</span>
+            </button>
+          `;
+      })}
       ${sortOptions ? html`
         <div class="sort-group">
           <label class="label-upper" for="sort-select">Sort:</label>

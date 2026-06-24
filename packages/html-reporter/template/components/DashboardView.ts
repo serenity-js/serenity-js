@@ -303,7 +303,7 @@ export function DashboardView({ onNavigate }) {
             <span class="kpi-label">Total Scenarios</span>
           </div>
         </div>
-        <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=non-passing')} title="${summary.outcomes.passed} scenarios passing, ${totalFailed} failing">
+        <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=failed,skipped')} title="${summary.outcomes.passed} scenarios passing, ${totalFailed} failing">
           <div class="kpi-icon-wrap kpi-icon--pass-rate">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
           </div>

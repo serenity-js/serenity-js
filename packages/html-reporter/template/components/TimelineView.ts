@@ -19,10 +19,11 @@ export function TimelineView({ onNavigate }) {
 
     const scenarios = useMemo(() => {
         let result = allScenarios;
-        if (filter !== 'all') {
+        if (filter && filter !== 'all') {
             const filterMatch = { passed: ['SUCCESS'], failed: ['FAILURE', 'ERROR', 'COMPROMISED'], skipped: ['SKIPPED', 'PENDING'] };
-            const allowed = filterMatch[filter];
-            if (allowed) result = result.filter(s => allowed.includes(s.outcome));
+            const keys = filter.split(',');
+            const allowed = keys.flatMap(k => filterMatch[k] || []);
+            if (allowed.length > 0) result = result.filter(s => allowed.includes(s.outcome));
         }
         if (sortBy === 'duration') return [...result].sort((a, b) => b.duration - a.duration);
         return result;
