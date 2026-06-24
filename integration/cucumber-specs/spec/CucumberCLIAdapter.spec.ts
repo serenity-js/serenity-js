@@ -17,7 +17,7 @@ import {
 import type { CorrelationId } from '@serenity-js/core/model';
 import { ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/model';
 
-import { cucumber, cucumberVersion } from '../src';
+import { cucumber } from '../src';
 
 describe('CucumberCLIAdapter', function () {
 

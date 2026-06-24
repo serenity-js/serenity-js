@@ -38,16 +38,16 @@ export function FilterBar({ outcomes, total, activeFilter, onFilter, sortOptions
     <div class="filter-bar" role="group" aria-label="Filter tests by outcome" style="align-items:center">
       <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;align-self:center">Status:</span>
       ${filters.map(f => {
-          const isActive = f.key === 'all' ? activeSet.size === 0 : activeSet.has(f.key);
-          return html`
+            const isActive = f.key === 'all' ? activeSet.size === 0 : activeSet.has(f.key);
+            return html`
             <button class="filter-chip ${f.key} ${isActive ? 'active' : ''}"
                     onClick=${() => handleClick(f.key)}
                     aria-pressed=${isActive}>
-              <span>${f.label}</span>
-              <span class="count">${f.count}</span>
+                <span>${f.label}</span>
+                <span class="count">${f.count}</span>
             </button>
           `;
-      })}
+        })}
       ${sortOptions ? html`
         <div class="sort-group">
           <label class="label-upper" for="sort-select">Sort:</label>
