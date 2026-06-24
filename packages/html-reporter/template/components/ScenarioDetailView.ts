@@ -3,7 +3,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
-import { DATA, formatDuration, getBrowserTag, outcomeClass, outcomeIcon, relativeSourcePath, scenarioUrl, showToast } from '../utils';
+import { DATA, formatDuration, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast } from '../utils';
 import { ActivityNode } from './ActivityNode';
 
 const html = htm.bind(h);
@@ -55,7 +55,7 @@ function ParameterSetGroup({ group, index }) {
         </span>
       </div>
       ${group.description ? html`
-        <div style="padding:var(--space-xs) var(--space-md) ${expanded ? '0' : 'var(--space-xs)'};font-size:var(--font-sm);color:var(--text-secondary);font-style:italic;border-top:1px solid var(--divider)">${group.description}</div>
+        <div class="req-detail-readme readme-content" style="margin:0;border:none;border-top:1px solid var(--divider);border-radius:0;padding:var(--space-sm) var(--space-md)"><${RawHtml} content=${group.description} /></div>
       ` : null}
       ${expanded ? html`
         <div style="padding:var(--space-sm) var(--space-md)">
@@ -228,11 +228,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
         ` : null}
 
         ${scenario.narrative ? html`
-          <div style="margin-bottom:var(--space-md);padding:var(--space-md);background:var(--bg-primary);border-radius:var(--radius-sm);border-left:3px solid var(--accent);font-size:var(--font-md);color:var(--text-secondary);white-space:pre-line;line-height:1.6;font-style:italic">${scenario.narrative}</div>
-        ` : null}
-
-        ${scenario.description ? html`
-          <div style="margin-bottom:var(--space-md);padding:var(--space-md);background:var(--bg-primary);border-radius:var(--radius-sm);border-left:3px solid var(--border-color);font-size:var(--font-md);color:var(--text-primary);white-space:pre-line;line-height:1.6">${scenario.description}</div>
+          <div class="req-detail-readme readme-content" style="margin-bottom:var(--space-md)"><${RawHtml} content=${scenario.narrative} /></div>
         ` : null}
 
         ${hasCast ? html`
@@ -273,10 +269,15 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
 
       ${currentActivities.length > 0 || scenario.scenarioOutline ? html`
         <div class="card mb-md">
+          ${scenario.description ? html`
+            <div class="req-detail-readme readme-content" style="margin-bottom:var(--space-md)"><${RawHtml} content=${scenario.description} /></div>
+          ` : null}
           <div style="display:flex;align-items:center;gap:var(--space-sm);margin-bottom:var(--space-sm)">
             <div class="card-title mb-0">Activity Tree</div>
-            <button onClick=${() => { setTreeExpanded(true); setTreeKey(k => k + 1); }} title="Expand all" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px 4px;font-size:var(--font-sm);opacity:0.7" aria-label="Expand all">▼</button>
-            <button onClick=${() => { setTreeExpanded(false); setTreeKey(k => k + 1); }} title="Collapse all" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px 4px;font-size:var(--font-sm);opacity:0.7" aria-label="Collapse all">▶</button>
+            ${!scenario.scenarioOutline && currentActivities.some(a => a.children && a.children.length > 0) ? html`
+              <button onClick=${() => { setTreeExpanded(true); setTreeKey(k => k + 1); }} title="Expand all" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px 4px;font-size:var(--font-sm);opacity:0.7" aria-label="Expand all">▼</button>
+              <button onClick=${() => { setTreeExpanded(false); setTreeKey(k => k + 1); }} title="Collapse all" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px 4px;font-size:var(--font-sm);opacity:0.7" aria-label="Collapse all">▶</button>
+            ` : null}
           </div>
           ${scenario.scenarioOutline ? html`
             <div style="margin-bottom:var(--space-md);padding:var(--space-sm) var(--space-md);background:var(--bg-primary);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:var(--font-sm);white-space:pre-line;color:var(--text-secondary)">${scenario.scenarioOutline.template}</div>

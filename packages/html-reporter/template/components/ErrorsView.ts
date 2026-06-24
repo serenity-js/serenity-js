@@ -5,7 +5,7 @@ import { h } from 'preact';
 import { useCallback, useMemo, useRef } from 'preact/hooks';
 
 import { useStickyHeader, useVirtualizer } from '../hooks';
-import { DATA, formatDuration, formatTimestamp, outcomeClass, outcomeIcon, relativeSourcePath, scenarioUrl } from '../utils';
+import { DATA, formatDuration, formatRunLabel, outcomeClass, outcomeIcon, relativeSourcePath, scenarioUrl } from '../utils';
 import { icons } from './icons';
 import { RunSelector } from './RunSelector';
 
@@ -157,7 +157,7 @@ export function ErrorsView({ onNavigate, route }) {
     <div>
       ${errorHistoricalRun ? html`
         <div class="historical-banner">
-          <span>Viewing errors from: <strong>${errorHistoricalRun.label}</strong> (${formatTimestamp(errorHistoricalRun.timestamp)})</span>
+          <span>Viewing errors from: <strong>${formatRunLabel(errorHistoricalRun.label, errorHistoricalRun.timestamp)}</strong></span>
           <a onClick=${errorShowLatest} style="cursor:pointer;color:var(--accent);font-weight:500;text-decoration:underline">show latest</a>
         </div>
       ` : null}

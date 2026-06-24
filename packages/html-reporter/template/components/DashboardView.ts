@@ -6,7 +6,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
-import { DATA, formatDuration, formatTimestamp, scenarioUrl } from '../utils';
+import { DATA, formatDuration, formatRunLabel, scenarioUrl } from '../utils';
 
 const html = htm.bind(h);
 
@@ -100,7 +100,7 @@ export function TrendChart({ history, onNavigate }) {
         chartRef.current = new Chart(canvasRef.current, {
             type: 'bar',
             data: {
-                labels: history.map(h => h.label + ' — ' + formatTimestamp(h.timestamp)),
+                labels: history.map(h => formatRunLabel(h.label, h.timestamp)),
                 datasets: [
                     {
                         type: 'bar',
@@ -198,7 +198,7 @@ export function TrendChart({ history, onNavigate }) {
                             title: (items) => {
                                 const index = items[0].dataIndex;
                                 const run = history[index];
-                                return run.label + ' — ' + formatTimestamp(run.timestamp);
+                                return formatRunLabel(run.label, run.timestamp);
                             },
                             label: (context) => {
                                 const label = context.dataset.label || '';
@@ -257,8 +257,8 @@ export function DashboardView({ onNavigate }) {
     const passRate = summary.totalScenarios > 0 ? ((summary.outcomes.passed / summary.totalScenarios) * 100).toFixed(1) : '0.0';
 
     const coverage = useMemo(() => {
-        const req = DATA.requirements;
-        if (!req) return null;
+        const requirements = DATA.requirements;
+        if (!requirements) return null;
         let total = 0, covered = 0;
         function walk(node) {
             if (node.type === 'file') {
@@ -268,7 +268,7 @@ export function DashboardView({ onNavigate }) {
             }
             if (node.children) node.children.forEach(walk);
         }
-        if (req.children) req.children.forEach(walk);
+        if (requirements.children) requirements.children.forEach(walk);
         return { total, covered, percent: total > 0 ? Math.round((covered / total) * 100) : 100 };
     }, []);
 
@@ -299,7 +299,7 @@ export function DashboardView({ onNavigate }) {
           </div>
           <div class="kpi-content">
             <span class="kpi-value">${summary.totalScenarios}</span>
-            <span class="kpi-label">Total Scenarios</span>
+            <span class="kpi-label">Scenarios</span>
           </div>
         </div>
         <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=failed,skipped')} title="${summary.outcomes.passed} of ${summary.totalScenarios} scenarios passing">
@@ -312,13 +312,13 @@ export function DashboardView({ onNavigate }) {
           </div>
         </div>
         ${coverage ? html`
-          <div class="kpi-card" onClick=${() => onNavigate('/requirements')} title="${coverage.covered} of ${coverage.total} areas fully covered">
+          <div class="kpi-card" onClick=${() => onNavigate('/requirements')} title="Requirement Coverage — ${coverage.covered} of ${coverage.total} areas fully covered">
             <div class="kpi-icon-wrap kpi-icon--coverage">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
             <div class="kpi-content">
               <span class="kpi-value" style="color:${coverage.percent >= 80 ? 'var(--color-passed)' : coverage.percent >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'}">${coverage.percent}%</span>
-              <span class="kpi-label">Requirement Coverage</span>
+              <span class="kpi-label">Coverage</span>
             </div>
           </div>
         ` : null}
@@ -328,7 +328,7 @@ export function DashboardView({ onNavigate }) {
           </div>
           <div class="kpi-content">
             <span class="kpi-value" style="color:var(--color-failed)">${totalFailed}</span>
-            <span class="kpi-label">Failed Scenarios</span>
+            <span class="kpi-label">Failed</span>
           </div>
         </div>
         <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=skipped')} title="${totalSkipped} skipped or pending tests">

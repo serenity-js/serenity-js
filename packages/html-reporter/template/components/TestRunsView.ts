@@ -2,7 +2,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import { DATA, formatDuration, formatTimestamp } from '../utils';
+import { DATA, formatDuration, formatRunLabel, formatTimestamp } from '../utils';
 import { TrendChart } from './DashboardView';
 
 const html = htm.bind(h);
@@ -24,7 +24,7 @@ export function TestRunsView({ onNavigate }) {
               #
             </div>
             <div class="scenario-info">
-              <div class="scenario-name">${run.label} — ${formatTimestamp(run.timestamp)}</div>
+              <div class="scenario-name">${formatRunLabel(run.label, run.timestamp)}</div>
               <div class="scenario-meta">
                 <span>${formatTimestamp(run.timestamp)}</span>
                 <span>•</span>

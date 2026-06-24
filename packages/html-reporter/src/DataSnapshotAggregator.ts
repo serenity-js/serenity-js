@@ -178,11 +178,14 @@ export class DataSnapshotAggregator {
                 outcome: outcomeCodeToDisplayString(scene.outcome.code),
                 activities: scene.activities.map(activity => this.mapActivityOutcome(activity)),
                 executionHistory,
+                ...(scene.narrative ? { narrative: marked.parse(scene.narrative, { async: false }) as string } : {}),
+                ...(scene.description ? { description: marked.parse(scene.description, { async: false }) as string } : {}),
                 ...(scene.scenarioOutline ? {
                     scenarioOutline: {
                         template: scene.scenarioOutline.template,
                         parameters: scene.scenarioOutline.parameters.map(ps => ({
                             ...ps,
+                            ...(ps.description ? { description: marked.parse(ps.description, { async: false }) as string } : {}),
                             outcome: outcomeCodeToDisplayString(ps.outcome.code),
                             activities: ps.activities.map(activity => this.mapActivityOutcome(activity)),
                         })),
@@ -281,6 +284,9 @@ export class DataSnapshotAggregator {
             fileNode.scenarioCount++;
             fileNode.outcomes[outcomeKey]++;
             fileNode.scenarios.push({ name: scene.name, outcome: outcomeCodeToDisplayString(scene.outcome.code) });
+            if (scene.narrative && !fileNode.narrative) {
+                fileNode.narrative = scene.narrative;
+            }
 
             root.scenarioCount++;
             root.outcomes[outcomeKey]++;

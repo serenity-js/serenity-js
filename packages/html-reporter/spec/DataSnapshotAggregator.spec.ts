@@ -522,4 +522,125 @@ test.describe('DataSnapshotAggregator', () => {
             expect(data.history).toHaveLength(1);
         });
     });
+
+    test.describe('markdown rendering', () => {
+
+        test('parses scenario narrative as markdown', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    'run1': {
+                        'db.json': JSON.stringify({
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:01.000Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [{
+                                name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100,
+                                startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                                tags: [], activities: [],
+                                narrative: 'As a **user**\nI want to test',
+                            }],
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                        }),
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+            const data = readDataJs(filesystem);
+
+            expect(data.scenarios[0].narrative).toContain('<strong>user</strong>');
+        });
+
+        test('parses scenario description as markdown with links', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    'run1': {
+                        'db.json': JSON.stringify({
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:01.000Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [{
+                                name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100,
+                                startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                                tags: [], activities: [],
+                                description: 'See [docs](https://example.com) for details',
+                            }],
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                        }),
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+            const data = readDataJs(filesystem);
+
+            expect(data.scenarios[0].description).toContain('<a href="https://example.com">docs</a>');
+        });
+
+        test('parses scenario outline parameter set description as markdown', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    'run1': {
+                        'db.json': JSON.stringify({
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:01.000Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [{
+                                name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100,
+                                startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                                tags: [], activities: [],
+                                scenarioOutline: {
+                                    template: 'Given <x>',
+                                    parameters: [{
+                                        name: 'Examples', description: 'Uses a [data table](https://example.com)',
+                                        values: { x: '1' }, outcome: { code: 64 }, duration: 50, activities: [],
+                                    }],
+                                },
+                            }],
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                        }),
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+            const data = readDataJs(filesystem);
+
+            expect(data.scenarios[0].scenarioOutline.parameters[0].description).toContain('<a href="https://example.com">data table</a>');
+        });
+
+        test('includes feature narrative on requirement file nodes', () => {
+            const vol = Volume.fromNestedJSON({
+                '/project/spec': {
+                    'example': {
+                        'test.feature': 'Feature: Test',
+                    },
+                },
+                [outputDirectory.value]: {
+                    'test-runs': {
+                        'run1': {
+                            'db.json': JSON.stringify({
+                                startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:01.000Z',
+                                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                                scenes: [{
+                                    name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100,
+                                    startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/spec/example/test.feature', line: 1 },
+                                    tags: [], activities: [],
+                                    narrative: 'As a user\nI want something',
+                                }],
+                                tags: [], testRunner: { name: 'Cucumber', version: '12.0.0' },
+                            }),
+                        },
+                    },
+                },
+            }, '/');
+            const filesystem = createFsFromVolume(vol) as unknown as typeof fs;
+            const fileSystem = new FileSystem(outputDirectory, filesystem);
+            const projectFs = new FileSystem(Path.from('/project'), filesystem);
+            const hierarchy = new RequirementsHierarchy(projectFs, Path.from('/project/spec'));
+            const aggregator = new DataSnapshotAggregator(fileSystem, { stabilityWindow: 5 }, hierarchy);
+
+            aggregator.aggregate();
+            const data = readDataJs(filesystem);
+
+            expect(data.requirements.children[0].children[0].narrative).toBe('As a user\nI want something');
+        });
+    });
 });

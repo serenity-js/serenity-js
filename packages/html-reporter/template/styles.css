@@ -595,9 +595,12 @@
     .scenario-source {
       font-family: var(--font-mono);
       font-size: var(--font-xs);
-      direction: rtl;
-      text-align: left;
-      unicode-bidi: plaintext;
+      direction: ltr;
+      unicode-bidi: normal;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 100%;
     }
 
     .scenario-duration {
@@ -1294,6 +1297,7 @@
     /* ===== Progress Bar ===== */
     .progress-bar-wrap {
       height: 6px;
+      min-height: 6px;
       background: var(--divider);
       border-radius: 3px;
       overflow: hidden;
@@ -1541,8 +1545,50 @@
       flex-shrink: 0;
     }
 
+    .req-tree-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      width: 48px;
+      flex-shrink: 0;
+    }
+
+    .req-tree-bars-item {
+      height: 6px;
+      min-height: 6px;
+      border-radius: 3px;
+      background: var(--divider);
+      overflow: hidden;
+    }
+
+    .req-icon {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      color: var(--text-secondary);
+    }
+
+    .req-tree-icon {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .req-file-narrative {
+      margin: 2px 0 var(--space-sm) 30px;
+      font-size: var(--font-xs);
+      color: var(--text-secondary);
+      line-height: 1.4;
+      white-space: pre-line;
+    }
+
+    .req-detail-file-card {
+      margin-bottom: 2px;
+    }
+
     .progress-bar-wrap {
       height: 6px;
+      min-height: 6px;
       border-radius: 3px;
       background: var(--divider);
       overflow: hidden;
@@ -1626,8 +1672,10 @@
     }
 
     .req-detail-child-icon {
-      font-size: var(--font-xs);
+      display: flex;
+      align-items: center;
       flex-shrink: 0;
+      color: var(--text-secondary);
     }
 
     .req-detail-child-name {
@@ -1655,12 +1703,14 @@
 
     .req-detail-readme {
       margin-top: var(--space-lg);
-      padding: var(--space-md);
-      background: var(--bg-primary);
-      border-radius: var(--radius-sm);
-      border-left: 3px solid var(--accent);
-      font-size: var(--font-sm);
-      line-height: 1.7;
+      padding: var(--space-lg);
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      font-size: var(--font-base);
+      line-height: 1.6;
+      font-family: var(--font-family);
+      color: var(--text-primary);
     }
 
     @media (max-width: 768px) {
@@ -1708,30 +1758,122 @@
       font-weight: 500;
     }
 
-    /* ===== Readme Content ===== */
+    /* ===== Readme Content (GitHub-style markdown) ===== */
     .readme-content ul,
     .readme-content ol {
-      padding-left: var(--space-lg);
-      margin: var(--space-sm) 0;
+      padding-left: 2em;
+      margin: 0 0 16px;
     }
 
     .readme-content li {
-      margin-bottom: var(--space-xs);
+      margin-bottom: 4px;
+    }
+
+    .readme-content li + li {
+      margin-top: 4px;
     }
 
     .readme-content p {
-      margin-bottom: var(--space-sm);
+      margin: 0 0 16px;
     }
 
     .readme-content h1, .readme-content h2, .readme-content h3,
     .readme-content h4, .readme-content h5, .readme-content h6 {
-      margin-top: var(--space-md);
-      margin-bottom: var(--space-sm);
+      margin-top: 24px;
+      margin-bottom: 16px;
+      font-weight: 600;
+      line-height: 1.25;
+      font-family: var(--font-family);
+    }
+
+    .readme-content h1 { font-size: 1.5rem; padding-bottom: 0.3em; border-bottom: 1px solid var(--border-color); }
+    .readme-content h2 { font-size: 1.25rem; padding-bottom: 0.3em; border-bottom: 1px solid var(--border-color); }
+    .readme-content h3 { font-size: 1.1rem; }
+    .readme-content h4 { font-size: 1rem; }
+    .readme-content h5 { font-size: var(--font-sm); }
+    .readme-content h6 { font-size: var(--font-sm); color: var(--text-secondary); }
+
+    .readme-content :first-child { margin-top: 0; }
+    .readme-content :last-child { margin-bottom: 0; }
+
+    .readme-content code {
+      padding: 0.2em 0.4em;
+      margin: 0;
+      font-size: 85%;
+      font-family: var(--font-mono);
+      background: var(--bg-primary);
+      border-radius: 4px;
+    }
+
+    .readme-content pre {
+      padding: 16px;
+      overflow: auto;
+      font-size: 85%;
+      line-height: 1.45;
+      font-family: var(--font-mono);
+      background: var(--bg-primary);
+      border-radius: var(--radius-sm);
+      margin: 0 0 16px;
+    }
+
+    .readme-content pre code {
+      padding: 0;
+      background: transparent;
+      font-size: inherit;
+    }
+
+    .readme-content blockquote {
+      margin: 0 0 16px;
+      padding: 0 1em;
+      color: var(--text-secondary);
+      border-left: 3px solid var(--border-color);
+    }
+
+    .readme-content table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0 0 16px;
+      font-size: var(--font-sm);
+    }
+
+    .readme-content table th,
+    .readme-content table td {
+      padding: 6px 13px;
+      border: 1px solid var(--border-color);
+    }
+
+    .readme-content table th {
+      font-weight: 600;
+      background: var(--bg-primary);
+    }
+
+    .readme-content table tr:nth-child(2n) {
+      background: var(--bg-primary);
+    }
+
+    .readme-content hr {
+      height: 1px;
+      margin: 24px 0;
+      padding: 0;
+      background: var(--border-color);
+      border: 0;
+    }
+
+    .readme-content img {
+      max-width: 100%;
+      border-radius: var(--radius-sm);
+    }
+
+    .readme-content strong, .readme-content b {
       font-weight: 600;
     }
 
     .readme-content a {
       color: var(--accent);
+      text-decoration: none;
+    }
+
+    .readme-content a:hover {
       text-decoration: underline;
     }
 

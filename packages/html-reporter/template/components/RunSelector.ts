@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import { DATA, formatTimestamp } from '../utils';
+import { DATA, formatRunLabel } from '../utils';
 
 const html = htm.bind(h);
 
@@ -12,7 +12,7 @@ export function RunSelector({ activeTimestamp, onRunChange }: { activeTimestamp:
         <select class="sort-select" value=${activeTimestamp} onChange=${onRunChange} aria-label="Select test run" style="min-width:200px">
             ${[...DATA.history].reverse().map((run: { timestamp: string; label: string; outcomes: Record<string, number> }) => {
                 const passRate = Math.round((run.outcomes.passed / Object.values(run.outcomes).reduce((a, b) => a + b, 0)) * 100);
-                const label = run.label + ' — ' + formatTimestamp(run.timestamp) + ' — ' + passRate + '% pass rate';
+                const label = formatRunLabel(run.label, run.timestamp) + ' — ' + passRate + '% pass rate';
                 return html`<option value=${run.timestamp} selected=${run.timestamp === activeTimestamp}>${label}</option>`;
             })}
         </select>

@@ -26,3 +26,7 @@ export function formatTimestamp(iso: string): string {
     return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
         + ' ' + d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
 }
+
+export function formatRunLabel(label: string, timestamp: string): string {
+    return /^\d{4}-\d{2}-\d{2}T/.test(label) ? formatTimestamp(timestamp) : label + ' — ' + formatTimestamp(timestamp);
+}
