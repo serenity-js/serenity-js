@@ -38,6 +38,10 @@ describe('Serenity/JS with Playwright Test and Electron', () => {
                     ),
                 },
             });
+
+            // Create the actor in the before() hook so it's placed in the
+            // 'background' focus area and persists across test scenes
+            actorCalled('ExternalTester');
         });
 
         after(async function () {
