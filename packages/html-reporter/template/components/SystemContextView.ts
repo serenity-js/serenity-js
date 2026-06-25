@@ -83,24 +83,40 @@ export function SystemContextView() {
               <div class="context-icon">#</div>
               <div>
                 <div class="context-label">Build</div>
-                <div class="context-value">#${ci.buildNumber}</div>
+                <div class="context-value">${ci.jobUrl
+                        ? html`<a href=${ci.jobUrl} class="context-link" target="_blank" rel="noopener">#${ci.buildNumber}</a>`
+                        : html`#${ci.buildNumber}`
+                }</div>
               </div>
             </div>
             <div class="context-item">
               <div class="context-icon">🌿</div>
               <div>
                 <div class="context-label">Branch</div>
-                <div class="context-value">${ci.branch}</div>
+                <div class="context-value">${ci.repositoryUrl && ci.branch
+                        ? html`<a href="${ci.repositoryUrl}/tree/${ci.branch}" class="context-link" target="_blank" rel="noopener">${ci.branch}</a>`
+                        : ci.branch
+                }</div>
               </div>
             </div>
-            <div class="context-item">
+            <div class="context-item context-item--wide">
               <div class="context-icon">📝</div>
-              <div>
+              <div style="min-width:0">
                 <div class="context-label">Commit</div>
-                <div class="context-value" style="font-family:var(--font-mono);font-size:var(--font-sm)">${ci.commit} — ${ci.commitMessage}</div>
+                <div class="context-value context-value--commit">${ci.repositoryUrl && ci.commit
+                        ? html`<a href="${ci.repositoryUrl}/commit/${ci.commit}" class="context-link context-link--mono" target="_blank" rel="noopener">${ci.commit}</a>`
+                        : html`<span class="context-link--mono">${ci.commit}</span>`
+                }${ci.commitMessage ? html`<span class="context-commit-msg"> — ${ci.commitMessage}</span>` : null}</div>
               </div>
             </div>
           </div>
+          ${ci.pullRequestUrl ? html`
+            <div style="margin-top:var(--space-md)">
+              <a href=${ci.pullRequestUrl} class="context-link" target="_blank" rel="noopener">
+                View Pull Request #${ci.pullRequestNumber}
+              </a>
+            </div>
+          ` : null}
         </div>
       ` : null}
     </div>

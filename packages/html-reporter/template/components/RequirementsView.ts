@@ -72,43 +72,62 @@ function findNodeByPath(root, targetPath) {
 function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoot }) {
     const isDirectory = node.type === 'directory' && node.children && node.children.length > 0;
     const segmentPath = isRoot ? '' : (path ? path + '/' + node.name : node.name);
-    const displayName = node.displayName || node.name;
-    const isSelected = selectedPath === segmentPath;
 
     if (!isDirectory) return null;
 
-    const matchesSearch = !searchTerm || displayName.toLowerCase().includes(searchTerm.toLowerCase());
-    const childrenMatch = node.children.some(c => nodeMatches(c, searchTerm));
+    // Collapse single-child directory chains into one label (GitHub-style)
+    let displayNode = node;
+    let collapsedPath = segmentPath;
+    let collapsedLabel = node.displayName || node.name;
+    if (!isRoot) {
+        while (displayNode.children) {
+            const directoryChildren = displayNode.children.filter(c => c.type === 'directory' && c.children && c.children.length > 0);
+            const fileChildren = displayNode.children.filter(c => c.type === 'file');
+            if (directoryChildren.length === 1 && fileChildren.length === 0) {
+                const only = directoryChildren[0];
+                collapsedPath = collapsedPath ? collapsedPath + '/' + only.name : only.name;
+                collapsedLabel += '/' + (only.displayName || only.name);
+                displayNode = only;
+            } else {
+                break;
+            }
+        }
+    }
+
+    const isSelected = selectedPath === collapsedPath;
+
+    const matchesSearch = !searchTerm || collapsedLabel.toLowerCase().includes(searchTerm.toLowerCase());
+    const childrenMatch = displayNode.children ? displayNode.children.some(c => nodeMatches(c, searchTerm)) : false;
     if (searchTerm && !matchesSearch && !childrenMatch) return null;
 
-    const { total, passRate, fileCount, coveredCount, coverage } = nodeMetrics(node);
+    const { total, passRate, fileCount, coveredCount, coverage } = nodeMetrics(displayNode);
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            onSelect(segmentPath, node);
+            onSelect(collapsedPath, displayNode);
         }
     };
 
     return html`
-        <div style="margin-left:${depth * 12}px">
+        <div style="margin-left:${depth * 8}px">
             <div class="req-tree-node ${isSelected ? 'req-tree-node--active' : ''}"
                  tabindex="0" role="treeitem" aria-selected=${isSelected}
-                 onClick=${() => onSelect(segmentPath, node)}
+                 onClick=${() => onSelect(collapsedPath, displayNode)}
                  onKeyDown=${handleKeyDown}>
                 <span class="req-tree-icon">${folderIcon}</span>
-                <span class="req-tree-label">${displayName}</span>
+                <span class="req-tree-label">${isRoot ? '' : collapsedLabel}</span>
                 ${total > 0 ? html`
                     <span class="req-tree-bars">
                         <${TreeBar} percent=${coverage} tooltip="${coverage}% Coverage — ${coveredCount} of ${fileCount} requirements covered" />
-                        <${TreeBar} percent=${passRate} tooltip="${passRate}% Pass Rate — ${node.outcomes.passed} of ${total} scenarios passing" />
+                        <${TreeBar} percent=${passRate} tooltip="${passRate}% Pass Rate — ${displayNode.outcomes.passed} of ${total} scenarios passing" />
                     </span>
                 ` : null}
             </div>
-            ${node.children.map(child => html`
+            ${displayNode.children.map(child => html`
                 <${TreeNode} node=${child} onSelect=${onSelect}
                     selectedPath=${selectedPath} depth=${depth + 1}
-                    path=${segmentPath} searchTerm=${searchTerm} />
+                    path=${collapsedPath} searchTerm=${searchTerm} />
             `)}
         </div>
     `;

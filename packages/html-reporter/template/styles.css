@@ -1759,6 +1759,41 @@
       font-weight: 500;
     }
 
+    .context-item--wide {
+      grid-column: 1 / -1;
+    }
+
+    .context-link {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .context-link:hover {
+      text-decoration: underline;
+    }
+
+    .context-link--mono {
+      font-family: var(--font-mono);
+      font-size: var(--font-sm);
+    }
+
+    .context-value--commit {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-xs);
+      flex-wrap: wrap;
+    }
+
+    .context-commit-msg {
+      color: var(--text-secondary);
+      font-weight: 400;
+      font-size: var(--font-sm);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      min-width: 0;
+    }
+
     /* ===== Readme Content (GitHub-style markdown) ===== */
     .readme-content ul,
     .readme-content ol {
