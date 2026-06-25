@@ -6,7 +6,7 @@ import { describe, it } from 'mocha';
 
 import { jasmine } from '../src/jasmine';
 
-describe('Serenity/JS', function () {
+describe('Serenity/JS with Jasmine', function () {
 
     describe('when no describe blocks are used', () => {
 

@@ -6,7 +6,7 @@ import { CapabilityTag, FeatureTag, ThemeTag } from '@serenity-js/core/model';
 
 import { cucumber, cucumberVersion } from '../src';
 
-describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function () {
+describe(`Serenity/JS with Cucumber ${ cucumberVersion() }`, function () {
 
     it('recognises directories that group capabilities as themes', () =>
         cucumber('features/example_theme/example_capability/example.feature', 'common.steps.ts')

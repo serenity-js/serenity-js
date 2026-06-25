@@ -23,7 +23,7 @@ import { describe, it } from 'mocha';
 
 import { protractor } from '../src/protractor';
 
-describe('@serenity-js/mocha', function () {
+describe('Serenity/JS with Protractor and Mocha', function () {
 
     this.timeout(30000);
 

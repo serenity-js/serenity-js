@@ -6,7 +6,7 @@ import { describe, it } from 'mocha';
 
 import { wdio } from '../src';
 
-describe('@serenity-js/webdriverio-8 with @serenity-js/cucumber', function () {
+describe('Serenity/JS with WebdriverIO 8 and Cucumber', function () {
 
     this.timeout(3_000_000);
 

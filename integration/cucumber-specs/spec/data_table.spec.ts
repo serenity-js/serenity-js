@@ -5,7 +5,7 @@ import { ActivityStarts } from '@serenity-js/core/events';
 
 import { cucumber, cucumberVersion } from '../src';
 
-describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function () {
+describe(`Serenity/JS with Cucumber ${ cucumberVersion() }`, function () {
 
     it('recognises a scenario with a Data Table step', () =>
         cucumber('features/data_table.feature', 'common.steps.ts')

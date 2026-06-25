@@ -6,7 +6,7 @@ import { CorrelationId, ExecutionSuccessful, FeatureTag, Name } from '@serenity-
 
 import { cucumber, cucumberVersion } from '../src';
 
-describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function () {
+describe(`Serenity/JS with Cucumber ${ cucumberVersion() }`, function () {
 
     when(cucumberVersion().major() <= 6)
         .it('recognises Screenplay activities in any part of the Cucumber scenario (cucumber <= 6)', () =>

@@ -7,7 +7,7 @@ import { CorrelationId, ExecutionFailedWithAssertionError, FeatureTag, Name } fr
 
 import { cucumber, cucumberVersion } from '../src';
 
-describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function () {
+describe(`Serenity/JS with Cucumber ${ cucumberVersion() }`, function () {
 
     it('recognises a scenario failing due to an assertion failure', () =>
         cucumber('features/assertion_failure_scenario.feature', 'common.steps.ts')

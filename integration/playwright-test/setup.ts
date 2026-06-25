@@ -3,7 +3,7 @@ import { TestRunArchiver } from '@serenity-js/html-reporter';
 
 serenity.configure({
     crew: [
-        new ScenarioTagger(['@playwright/test']),
+        new ScenarioTagger(['@integration/playwright-test']),
         TestRunArchiver.fromJSON({ outputDirectory: './target/html-report' }),
     ],
 });

@@ -1,6 +1,6 @@
 import { expect, test } from './fixtures';
 
-test.describe('HTML Reporter', () => {
+test.describe('Serenity/JS HTML Reporter', () => {
 
     test.describe('Dashboard', () => {
 

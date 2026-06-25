@@ -13,7 +13,7 @@ import { describe, it } from 'mocha';
 
 import { mocha } from '../src/mocha';
 
-describe('Serenity/JS', function () {
+describe('Serenity/JS with Mocha', function () {
 
     describe('when no describe blocks are used', () => {
 

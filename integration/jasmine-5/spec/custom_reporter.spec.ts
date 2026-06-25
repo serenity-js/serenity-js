@@ -5,7 +5,7 @@ import { describe, it } from 'mocha';
 
 import { jasmine } from '../src/jasmine';
 
-describe('@serenity-js/jasmine', function () {
+describe('Serenity/JS with Jasmine 5', function () {
 
     /**
      * @see https://jasmine.github.io/tutorials/custom_reporter

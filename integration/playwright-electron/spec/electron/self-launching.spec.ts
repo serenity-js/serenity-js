@@ -6,38 +6,41 @@ import * as path from 'path';
 
 import { describeElectronBehavior } from './shared-electron-tests';
 
-describe('Self-launching Electron session', () => {
+describe('Serenity/JS with Playwright Test and Electron', () => {
 
-    before(async function () {
-        this.timeout(30_000);
+    describe('Self-launching Electron session', () => {
 
-        const electronAppPath = path.resolve(__dirname, '../../../electron-app');
+        before(async function () {
+            this.timeout(30_000);
 
-        const electronOptions: ElectronLaunchOptions = {
-            args: [ path.join(electronAppPath, 'lib', 'main.js') ],
-            cwd: electronAppPath,
-        };
+            const electronAppPath = path.resolve(__dirname, '../../../electron-app');
 
-        configure({
-            diffFormatter: new NoOpDiffFormatter(),
-            crew: [],
-            actors: {
-                prepare: (actor) => actor.whoCan(
-                    BrowseTheWebWithPlaywright.launchingElectronApp(electronOptions, {
-                        defaultNavigationTimeout: Duration.ofSeconds(5).inMilliseconds(),
-                        defaultTimeout: Duration.ofSeconds(3).inMilliseconds(),
-                    })
-                ),
-            },
+            const electronOptions: ElectronLaunchOptions = {
+                args: [ path.join(electronAppPath, 'lib', 'main.js') ],
+                cwd: electronAppPath,
+            };
+
+            configure({
+                diffFormatter: new NoOpDiffFormatter(),
+                crew: [],
+                actors: {
+                    prepare: (actor) => actor.whoCan(
+                        BrowseTheWebWithPlaywright.launchingElectronApp(electronOptions, {
+                            defaultNavigationTimeout: Duration.ofSeconds(5).inMilliseconds(),
+                            defaultTimeout: Duration.ofSeconds(3).inMilliseconds(),
+                        })
+                    ),
+                },
+            });
         });
+
+        after(async function () {
+            this.timeout(10_000);
+
+            await actorCalled('SelfLaunchTester').dismiss();
+        });
+
+        // Run the shared test suite
+        describeElectronBehavior('self-launching', 'SelfLaunchTester');
     });
-
-    after(async function () {
-        this.timeout(10_000);
-
-        await actorCalled('SelfLaunchTester').dismiss();
-    });
-
-    // Run the shared test suite
-    describeElectronBehavior('self-launching', 'SelfLaunchTester');
 });

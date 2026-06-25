@@ -6,7 +6,7 @@ import { CorrelationId, ExecutionSkipped, FeatureTag, ImplementationPending, Nam
 
 import { cucumber, cucumberVersion } from '../src';
 
-describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function () {
+describe(`Serenity/JS with Cucumber ${ cucumberVersion() }`, function () {
 
     it(`recognises a pending scenario where some steps are marked as 'pending'`, () =>
         cucumber('features/pending_scenarios.feature', 'common.steps.ts', [ '--name', 'A scenario with steps marked as pending', '--no-strict' ])

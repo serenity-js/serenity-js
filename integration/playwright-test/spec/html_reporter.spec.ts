@@ -8,7 +8,7 @@ import { beforeEach, describe, it } from 'mocha';
 
 import { playwrightTestWithHtmlReporter } from '../src/playwright-test-with-html-reporter';
 
-describe('@serenity-js/html-reporter', function () {
+describe('Serenity/JS with Playwright Test and HTML Reporter', function () {
 
     this.timeout(60_000);
 

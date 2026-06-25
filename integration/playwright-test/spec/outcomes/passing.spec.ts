@@ -18,7 +18,7 @@ import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../../src/playwright-test';
 
-describe('Passing', () => {
+describe('Serenity/JS with Playwright Test', () => {
 
     describe('Test scenario', () => {
 

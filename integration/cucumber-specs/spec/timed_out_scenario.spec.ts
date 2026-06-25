@@ -6,7 +6,7 @@ import { CorrelationId, ExecutionFailedWithError, FeatureTag, Name } from '@sere
 
 import { cucumber, cucumberVersion } from '../src';
 
-describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function () {
+describe(`Serenity/JS with Cucumber ${ cucumberVersion() }`, function () {
 
     it('recognises a timed out scenario',  () =>
         cucumber('features/timed_out_scenario.feature', 'common.steps.ts')

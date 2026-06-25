@@ -11,7 +11,7 @@ const { it, describe } = useBase(componentTest).useFixtures<{ emailAddress: stri
     }
 })
 
-describe('Serenity/JS', () => {
+describe('Serenity/JS with Playwright Test CT', () => {
 
     it('works with native Playwright component tests', async ({ mount }) => {
         const nativeComponent = await mount(<UppercaseInput/>);

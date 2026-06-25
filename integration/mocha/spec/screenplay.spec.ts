@@ -14,7 +14,7 @@ import { describe, it } from 'mocha';
 
 import { mocha } from '../src/mocha';
 
-describe('Serenity/JS', function () {
+describe('Serenity/JS with Mocha', function () {
 
     this.timeout(60 * 1000);
 

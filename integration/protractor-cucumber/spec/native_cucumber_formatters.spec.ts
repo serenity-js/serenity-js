@@ -6,7 +6,7 @@ import { describe, it } from 'mocha';
 
 import { protractor } from '../src/protractor';
 
-describe('@serenity-js/protractor with @serenity-js/cucumber', function () {
+describe('Serenity/JS with Protractor and Cucumber', function () {
 
     this.timeout(30000);
 

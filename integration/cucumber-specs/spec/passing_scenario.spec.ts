@@ -18,7 +18,7 @@ import { CorrelationId, ExecutionSuccessful, FeatureTag, Name } from '@serenity-
 
 import { cucumber, cucumberVersion } from '../src';
 
-describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function () {
+describe(`Serenity/JS with Cucumber ${ cucumberVersion() }`, function () {
 
     it('recognises a passing scenario', () =>
         cucumber('features/passing_scenario.feature', 'common.steps.ts')

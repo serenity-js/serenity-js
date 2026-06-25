@@ -6,7 +6,7 @@ import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../src/playwright-test';
 
-describe('@serenity-js/playwright-test', function () {
+describe('Serenity/JS with Playwright Test', function () {
 
     it('emits requirement tags so that Serenity BDD can aggregate them correctly', () => playwrightTest('--project=default', 'my_super_theme/my_theme/my_capability/my_feature.spec.ts')
         .then(ifExitCodeIsOtherThan(0, logOutput))

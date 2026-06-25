@@ -5,7 +5,7 @@ import { describe, it } from 'mocha';
 
 import { jasmine } from '../src/jasmine';
 
-describe('Serenity/JS', function () {
+describe('Serenity/JS with Jasmine', function () {
 
     it('detects the filesystem location of a test suite and individual specs', () => jasmine('examples/location.spec.js')
         .then(ifExitCodeIsOtherThan(0, logOutput))

@@ -6,7 +6,7 @@ import { CorrelationId, ExecutionFailedWithError, FeatureTag, Name } from '@sere
 
 import { cucumber, cucumberVersion } from '../src';
 
-describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function () {
+describe(`Serenity/JS with Cucumber ${ cucumberVersion() }`, function () {
 
     it('recognises scenarios with ambiguous steps', () =>
         cucumber('features/passing_scenario.feature', 'ambiguous.steps.ts')
