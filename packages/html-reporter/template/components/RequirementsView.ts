@@ -44,8 +44,8 @@ function nodeMetrics(node) {
         if (n.children) n.children.forEach(countReqs);
     }
     if (node.children) node.children.forEach(countReqs);
-    const coverage = fileCount > 0 ? Math.round((coveredCount / fileCount) * 100) : 0;
-    return { total, passRate, fileCount, coveredCount, coverage };
+    const completeness = fileCount > 0 ? Math.round((coveredCount / fileCount) * 100) : 0;
+    return { total, passRate, fileCount, coveredCount, completeness };
 }
 
 function nodeMatches(node, term) {
@@ -78,13 +78,13 @@ function nodeHasGap(node) {
     return false;
 }
 
-function nodeHasIncompleteCoverage(node) {
+function nodeIsIncomplete(node) {
     if (node.type === 'file') {
         const total = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
         const passed = node.outcomes.passed || 0;
         return total === 0 || passed < total;
     }
-    if (node.children) return node.children.some(nodeHasIncompleteCoverage);
+    if (node.children) return node.children.some(nodeIsIncomplete);
     return false;
 }
 
@@ -122,7 +122,7 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoo
     const childrenMatch = displayNode.children ? displayNode.children.some(c => nodeMatches(c, searchTerm)) : false;
     if (searchTerm && !matchesSearch && !childrenMatch) return null;
 
-    const { total, passRate, fileCount, coveredCount, coverage } = nodeMetrics(displayNode);
+    const { total, passRate, fileCount, coveredCount, completeness } = nodeMetrics(displayNode);
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -141,7 +141,7 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoo
                 <span class="req-tree-label">${isRoot ? '' : collapsedLabel}</span>
                 ${total > 0 ? html`
                     <span class="req-tree-bars">
-                        <${TreeBar} percent=${coverage} tooltip="${coverage}% Coverage — ${coveredCount} of ${fileCount} requirements covered" />
+                        <${TreeBar} percent=${completeness} tooltip="${completeness}% Completeness — ${coveredCount} of ${fileCount} requirements fully implemented" />
                         <${TreeBar} percent=${passRate} tooltip="${passRate}% Pass Rate — ${displayNode.outcomes.passed} of ${total} scenarios passing" />
                     </span>
                 ` : null}
@@ -176,7 +176,7 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
         `;
     }
 
-    const { total, passRate, fileCount, coveredCount, coverage: coveragePercent } = nodeMetrics(node);
+    const { total, passRate, fileCount, coveredCount, completeness: completenessPercent } = nodeMetrics(node);
     const failed = (node.outcomes.failed || 0) + (node.outcomes.error || 0) + (node.outcomes.compromised || 0);
     const skipped = (node.outcomes.skipped || 0) + (node.outcomes.pending || 0);
 
@@ -190,10 +190,10 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
             ${node.readme ? html`<div class="req-detail-readme readme-content"><${RawHtml} content=${node.readme} /></div>` : null}
 
             <div class="req-detail-stats-grid">
-                <div class="req-detail-stat-card" title="Requirement Coverage — ${coveredCount} of ${fileCount} areas fully covered">
-                    <span class="req-detail-stat-label">Coverage</span>
-                    <span class="req-detail-stat-value" style="color:${passRateColor(coveragePercent)}">${coveragePercent}%</span>
-                    <${ProgressBar} percent=${coveragePercent} />
+                <div class="req-detail-stat-card" title="Completeness — ${coveredCount} of ${fileCount} requirements fully implemented">
+                    <span class="req-detail-stat-label">Completeness</span>
+                    <span class="req-detail-stat-value" style="color:${passRateColor(completenessPercent)}">${completenessPercent}%</span>
+                    <${ProgressBar} percent=${completenessPercent} />
                 </div>
                 <div class="req-detail-stat-card" title="${passRate}% Pass Rate — ${node.outcomes.passed} of ${total} scenarios passing">
                     <span class="req-detail-stat-label">Pass Rate</span>
@@ -221,7 +221,7 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
                         const m = nodeMetrics(child);
                         const childPath = segmentPath ? segmentPath + '/' + child.name : child.name;
                         return html`
-                            <div class="req-detail-child req-detail-child--link clickable" title="${m.coverage}% Coverage, ${m.passRate}% Pass Rate" onClick=${() => onSelect(childPath, child)}>
+                            <div class="req-detail-child req-detail-child--link clickable" title="${m.completeness}% Completeness, ${m.passRate}% Pass Rate" onClick=${() => onSelect(childPath, child)}>
                                 <span class="req-detail-child-icon">${folderIcon}</span>
                                 <span class="req-detail-child-name">${child.displayName || child.name}</span>
                                 <span class="req-detail-child-rate" style="color:${m.total > 0 ? passRateColor(m.passRate) : 'var(--text-disabled)'}">${m.total > 0 ? m.passRate + '%' : '—'}</span>
@@ -304,13 +304,13 @@ export function RequirementsView({ onNavigate, route }) {
         return count;
     }, []);
 
-    const coveredFiles = totalFiles - gapCount;
-    const coveragePercent = totalFiles > 0 ? Math.round((coveredFiles / totalFiles) * 100) : 100;
+    const completeFiles = totalFiles - gapCount;
+    const completenessPercent = totalFiles > 0 ? Math.round((completeFiles / totalFiles) * 100) : 100;
     const totalScenarios = Object.values(requirements.outcomes).reduce((a, b) => a + b, 0);
     const passRate = totalScenarios > 0 ? Math.round((requirements.outcomes.passed / totalScenarios) * 100) : 0;
 
     const nodeFilter = useMemo(() => {
-        if (kpiFilter === 'coverage') return nodeHasIncompleteCoverage;
+        if (kpiFilter === 'completeness') return nodeIsIncomplete;
         if (kpiFilter === 'gaps') return nodeHasGap;
         return null;
     }, [kpiFilter]);
@@ -336,16 +336,16 @@ export function RequirementsView({ onNavigate, route }) {
                         <span class="kpi-label">Total Requirements</span>
                     </div>
                 </div>
-                <div class="kpi-card ${kpiFilter === 'coverage' ? 'kpi-card--active' : ''}" onClick=${() => setKpiFilter('coverage')} title="Requirement Coverage — ${coveredFiles} of ${totalFiles} areas fully covered">
+                <div class="kpi-card ${kpiFilter === 'completeness' ? 'kpi-card--active' : ''}" onClick=${() => setKpiFilter('completeness')} title="Completeness — ${completeFiles} of ${totalFiles} requirements fully implemented">
                     <div class="kpi-icon-wrap kpi-icon--pass-rate">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
                     <div class="kpi-content">
-                        <span class="kpi-value" style="color:${passRateColor(coveragePercent)}">${coveragePercent}%</span>
-                        <span class="kpi-label">Coverage</span>
+                        <span class="kpi-value" style="color:${passRateColor(completenessPercent)}">${completenessPercent}%</span>
+                        <span class="kpi-label">Completeness</span>
                     </div>
                 </div>
-                <div class="kpi-card ${kpiFilter === 'gaps' ? 'kpi-card--active' : ''}" onClick=${() => setKpiFilter('gaps')} title="${gapCount} requirements with no passing scenarios or incomplete coverage">
+                <div class="kpi-card ${kpiFilter === 'gaps' ? 'kpi-card--active' : ''}" onClick=${() => setKpiFilter('gaps')} title="${gapCount} requirements with no passing scenarios or incomplete implementation">
                     <div class="kpi-icon-wrap kpi-icon--failed">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
                     </div>

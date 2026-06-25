@@ -62,7 +62,7 @@ test.describe('RequirementsView', () => {
         await expect(page.locator('.req-tree-label')).toContainText(['passing-feature', 'failing-feature', 'pending-feature']);
     });
 
-    test('clicking Coverage filters tree to nodes with incomplete coverage', async ({ mount, page }) => {
+    test('clicking Completeness filters tree to nodes with incomplete requirements', async ({ mount, page }) => {
         await mount({
             component: 'RequirementsView',
             importPath: './components/RequirementsView',
@@ -70,9 +70,9 @@ test.describe('RequirementsView', () => {
             props: { onNavigate: () => undefined, route: '#/requirements' },
         });
 
-        await page.locator('.kpi-card', { hasText: 'Coverage' }).click();
+        await page.locator('.kpi-card', { hasText: 'Completeness' }).click();
 
-        await expect(page.locator('.kpi-card--active')).toContainText('Coverage');
+        await expect(page.locator('.kpi-card--active')).toContainText('Completeness');
         const tree = page.locator('.req-tree-panel');
         await expect(tree).toContainText('failing-feature');
         await expect(tree).toContainText('pending-feature');
@@ -103,7 +103,7 @@ test.describe('RequirementsView', () => {
         });
 
         const tree = page.locator('.req-tree-panel');
-        await page.locator('.kpi-card', { hasText: 'Coverage' }).click();
+        await page.locator('.kpi-card', { hasText: 'Completeness' }).click();
         await expect(tree).not.toContainText('passing-feature');
 
         await page.locator('.kpi-card', { hasText: 'Total Requirements' }).click();
