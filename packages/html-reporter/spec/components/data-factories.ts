@@ -4,8 +4,9 @@
  * Modelled after the real data.js produced by DataSnapshotAggregator.
  */
 
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export function minimalData(overrides: any = {}) {
+import type { ReportData } from '../../src/ReportData';
+
+export function minimalData(overrides: Partial<ReportData> & Record<string, unknown> = {}): ReportData {
     return {
         summary: {
             title: 'Test Project',

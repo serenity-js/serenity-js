@@ -1,7 +1,9 @@
+import type { ReportData } from '../../src/ReportData';
+
 declare global {
     interface Window {
-        __SERENITY_REPORT_DATA__: any;
+        __SERENITY_REPORT_DATA__: ReportData;
     }
 }
 
-export const DATA: any = window.__SERENITY_REPORT_DATA__;
+export const DATA: ReportData = window.__SERENITY_REPORT_DATA__;
