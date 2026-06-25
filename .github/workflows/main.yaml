@@ -373,6 +373,8 @@ jobs:
   html-report:
     name: 'HTML Report: aggregate'
     if: always()
+    permissions:
+      contents: write
     needs:
       - test-integration
       - test-integration-playwright
@@ -407,6 +409,13 @@ jobs:
           name: 'html-report'
           path: target/html-report/
           retention-days: 14
+      - name: Deploy to GitHub Pages
+        if: always() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/feat/html-reporter')
+        uses: JamesIves/github-pages-deploy-action@v4.8.0
+        with:
+          branch: gh-pages
+          folder: target/html-report
+          clean: true
 
   artifacts-publish:
     name: 'NPM: publish artifacts'
