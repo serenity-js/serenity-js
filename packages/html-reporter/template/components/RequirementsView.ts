@@ -69,11 +69,33 @@ function findNodeByPath(root, targetPath) {
     return current;
 }
 
-function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoot }) {
+function nodeHasGap(node) {
+    if (node.type === 'file') {
+        const total = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
+        return total === 0 || (node.outcomes.pending || 0) + (node.outcomes.skipped || 0) > 0;
+    }
+    if (node.children) return node.children.some(nodeHasGap);
+    return false;
+}
+
+function nodeHasIncompleteCoverage(node) {
+    if (node.type === 'file') {
+        const total = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
+        const passed = node.outcomes.passed || 0;
+        return total === 0 || passed < total;
+    }
+    if (node.children) return node.children.some(nodeHasIncompleteCoverage);
+    return false;
+}
+
+function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoot, nodeFilter }) {
     const isDirectory = node.type === 'directory' && node.children && node.children.length > 0;
     const segmentPath = isRoot ? '' : (path ? path + '/' + node.name : node.name);
 
     if (!isDirectory) return null;
+
+    // Apply KPI filter — hide nodes that don't match
+    if (!isRoot && nodeFilter && !nodeFilter(node)) return null;
 
     // Collapse single-child directory chains into one label (GitHub-style)
     let displayNode = node;
@@ -127,7 +149,7 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoo
             ${displayNode.children.map(child => html`
                 <${TreeNode} node=${child} onSelect=${onSelect}
                     selectedPath=${selectedPath} depth=${depth + 1}
-                    path=${collapsedPath} searchTerm=${searchTerm} />
+                    path=${collapsedPath} searchTerm=${searchTerm} nodeFilter=${nodeFilter} />
             `)}
         </div>
     `;
@@ -249,6 +271,7 @@ export function RequirementsView({ onNavigate, route }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedPath, setSelectedPath] = useState('');
     const [selectedNode, setSelectedNode] = useState(requirements);
+    const [kpiFilter, setKpiFilter] = useState('all');
 
     // Restore selection from URL on mount / route change
     useEffect(() => {
@@ -286,6 +309,12 @@ export function RequirementsView({ onNavigate, route }) {
     const totalScenarios = Object.values(requirements.outcomes).reduce((a, b) => a + b, 0);
     const passRate = totalScenarios > 0 ? Math.round((requirements.outcomes.passed / totalScenarios) * 100) : 0;
 
+    const nodeFilter = useMemo(() => {
+        if (kpiFilter === 'coverage') return nodeHasIncompleteCoverage;
+        if (kpiFilter === 'gaps') return nodeHasGap;
+        return null;
+    }, [kpiFilter]);
+
     const handleSelect = (path, node) => {
         setSelectedPath(path);
         setSelectedNode(node);
@@ -298,7 +327,7 @@ export function RequirementsView({ onNavigate, route }) {
     return html`
         <div>
             <div class="kpi-row" style="margin-bottom:var(--space-lg)">
-                <div class="kpi-card" title="${totalFiles} test files discovered in the spec directory">
+                <div class="kpi-card ${kpiFilter === 'all' ? 'kpi-card--active' : ''}" onClick=${() => setKpiFilter('all')} title="${totalFiles} test files discovered in the spec directory">
                     <div class="kpi-icon-wrap kpi-icon--coverage">
                         ${icons.coverage}
                     </div>
@@ -307,7 +336,7 @@ export function RequirementsView({ onNavigate, route }) {
                         <span class="kpi-label">Total Requirements</span>
                     </div>
                 </div>
-                <div class="kpi-card" title="Requirement Coverage — ${coveredFiles} of ${totalFiles} areas fully covered">
+                <div class="kpi-card ${kpiFilter === 'coverage' ? 'kpi-card--active' : ''}" onClick=${() => setKpiFilter('coverage')} title="Requirement Coverage — ${coveredFiles} of ${totalFiles} areas fully covered">
                     <div class="kpi-icon-wrap kpi-icon--pass-rate">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
@@ -316,7 +345,7 @@ export function RequirementsView({ onNavigate, route }) {
                         <span class="kpi-label">Coverage</span>
                     </div>
                 </div>
-                <div class="kpi-card" title="${gapCount} requirements with no passing scenarios or incomplete coverage">
+                <div class="kpi-card ${kpiFilter === 'gaps' ? 'kpi-card--active' : ''}" onClick=${() => setKpiFilter('gaps')} title="${gapCount} requirements with no passing scenarios or incomplete coverage">
                     <div class="kpi-icon-wrap kpi-icon--failed">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
                     </div>
@@ -345,7 +374,7 @@ export function RequirementsView({ onNavigate, route }) {
                     <div class="req-tree-list" role="tree">
                         <${TreeNode} node=${requirements} onSelect=${handleSelect}
                             selectedPath=${selectedPath} depth=${0}
-                            path=${''} searchTerm=${searchTerm} isRoot=${true} />
+                            path=${''} searchTerm=${searchTerm} isRoot=${true} nodeFilter=${nodeFilter} />
                     </div>
                 </div>
                 <div class="card req-detail-wrap">
