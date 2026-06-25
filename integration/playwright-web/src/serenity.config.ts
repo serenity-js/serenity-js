@@ -1,5 +1,6 @@
 import { TestRunnerTagger } from '@integration/testing-tools';
 import { ArtifactArchiver, configure, Duration, NoOpDiffFormatter } from '@serenity-js/core';
+import { TestRunArchiver } from '@serenity-js/html-reporter';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import * as playwright from 'playwright';
 
@@ -30,6 +31,7 @@ export const mochaHooks = {
                 SerenityBDDReporter.fromJSON({
                     specDirectory: './node_modules/@integration/web-specs/spec'
                 }),
+                TestRunArchiver.fromJSON({ outputDirectory: './target/html-report' }),
                 // ConsoleReporter.forDarkTerminals(),
                 // new StreamReporter(fs.createWriteStream('./events.ndjson'))
             ]

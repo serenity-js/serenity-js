@@ -26,6 +26,7 @@ exports.config = {
             [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: `${ process.cwd() }/target/site/serenity` } ],
             [ '@serenity-js/web:Photographer', { strategy: 'TakePhotosOfFailures' } ],
             [ '@serenity-js/serenity-bdd', { specDirectory: '.' } ],
+            [ '@serenity-js/html-reporter:TestRunArchiver', { outputDirectory: './target/html-report' } ],
         ]
         .concat(process.env.CI && [ [ '@serenity-js/console-reporter', { theme: 'dark' } ] ])
         .filter(Boolean)
