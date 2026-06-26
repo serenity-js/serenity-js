@@ -261,7 +261,7 @@ export function RequirementsView({ onNavigate, route }) {
     if (!requirements) {
         return html`
             <div class="empty-state">
-                <div class="empty-state-icon">${icons.coverage}</div>
+                <div class="empty-state-icon">${icons.completeness}</div>
                 <div class="empty-state-title">Requirements</div>
                 <div class="empty-state-description">Configure a <code>specDirectory</code> to derive the requirements hierarchy.</div>
             </div>
@@ -328,8 +328,8 @@ export function RequirementsView({ onNavigate, route }) {
         <div>
             <div class="kpi-row" style="margin-bottom:var(--space-lg)">
                 <div class="kpi-card ${kpiFilter === 'all' ? 'kpi-card--active' : ''}" onClick=${() => setKpiFilter('all')} title="${totalFiles} test files discovered in the spec directory">
-                    <div class="kpi-icon-wrap kpi-icon--coverage">
-                        ${icons.coverage}
+                    <div class="kpi-icon-wrap kpi-icon--completeness">
+                        ${icons.completeness}
                     </div>
                     <div class="kpi-content">
                         <span class="kpi-value">${totalFiles}</span>
@@ -355,7 +355,7 @@ export function RequirementsView({ onNavigate, route }) {
                     </div>
                 </div>
                 <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=failed,skipped')} title="${passRate}% Pass Rate — ${requirements.outcomes.passed} of ${totalScenarios} scenarios passing">
-                    <div class="kpi-icon-wrap kpi-icon--coverage">
+                    <div class="kpi-icon-wrap kpi-icon--pass-rate">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                     </div>
                     <div class="kpi-content">

@@ -11,7 +11,7 @@ export function Sidebar({ route, sidebarOpen, collapsed, onNavigate, onClose, on
     const navItems = [
         { path: '/', label: 'Dashboard', icon: 'dashboard' },
         { path: '/tests', label: 'Test Scenarios', icon: 'testScenarios', badge: DATA.summary.outcomes.failed + (DATA.summary.outcomes.error || 0) + (DATA.summary.outcomes.compromised || 0) },
-        { path: '/requirements', label: 'Requirements', icon: 'coverage' },
+        { path: '/requirements', label: 'Requirements', icon: 'completeness' },
         { path: '/errors', label: 'Errors', icon: 'errors' },
         { path: '/stability', label: 'Stability', icon: 'flaky' },
         { path: '/timeline', label: 'Timeline', icon: 'timeline' },
