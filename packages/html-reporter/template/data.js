@@ -984,11 +984,11 @@ window.__SERENITY_REPORT_DATA__ = {
   ],
 
   history: [
-    { timestamp: "2024-06-11T10:00:00.000Z", outcomes: { passed: 40, failed: 8, pending: 2, skipped: 0, compromised: 2, error: 1 }, duration: 5800, label: "build #85", ciJobUrl: "https://github.com/serenity-js/serenity-js/actions/runs/9485242001" },
-    { timestamp: "2024-06-12T14:30:00.000Z", outcomes: { passed: 43, failed: 6, pending: 1, skipped: 0, compromised: 2, error: 1 }, duration: 5100, label: "build #86", ciJobUrl: "https://github.com/serenity-js/serenity-js/actions/runs/9485242002" },
-    { timestamp: "2024-06-13T09:15:00.000Z", outcomes: { passed: 45, failed: 5, pending: 1, skipped: 0, compromised: 1, error: 1 }, duration: 4600, label: "build #87", ciJobUrl: "https://github.com/serenity-js/serenity-js/actions/runs/9485242003" },
-    { timestamp: "2024-06-14T16:45:00.000Z", outcomes: { passed: 45, failed: 5, pending: 1, skipped: 0, compromised: 1, error: 1 }, duration: 4400, label: "build #88", ciJobUrl: "https://github.com/serenity-js/serenity-js/actions/runs/9485242004" },
-    { timestamp: "2024-06-15T14:30:00.000Z", outcomes: { passed: 46, failed: 4, pending: 1, skipped: 0, compromised: 1, error: 1 }, duration: 4200, label: "build #89", ciJobUrl: "https://github.com/serenity-js/serenity-js/actions/runs/9485242005" },
+    { timestamp: "2024-06-11T10:00:00.000Z", outcomes: { passed: 40, failed: 8, pending: 2, skipped: 0, compromised: 2, error: 1 }, duration: 5800, label: "build #85", ciJobUrl: "https://github.com/serenity-js/serenity-js/actions/runs/9485242001", score: { confidence: 58, passRate: 75, stability: 70, completeness: 60 } },
+    { timestamp: "2024-06-12T14:30:00.000Z", outcomes: { passed: 43, failed: 6, pending: 1, skipped: 0, compromised: 2, error: 1 }, duration: 5100, label: "build #86", ciJobUrl: "https://github.com/serenity-js/serenity-js/actions/runs/9485242002", score: { confidence: 64, passRate: 81, stability: 72, completeness: 65 } },
+    { timestamp: "2024-06-13T09:15:00.000Z", outcomes: { passed: 45, failed: 5, pending: 1, skipped: 0, compromised: 1, error: 1 }, duration: 4600, label: "build #87", ciJobUrl: "https://github.com/serenity-js/serenity-js/actions/runs/9485242003", score: { confidence: 70, passRate: 85, stability: 78, completeness: 70 } },
+    { timestamp: "2024-06-14T16:45:00.000Z", outcomes: { passed: 45, failed: 5, pending: 1, skipped: 0, compromised: 1, error: 1 }, duration: 4400, label: "build #88", ciJobUrl: "https://github.com/serenity-js/serenity-js/actions/runs/9485242004", score: { confidence: 72, passRate: 85, stability: 80, completeness: 72 } },
+    { timestamp: "2024-06-15T14:30:00.000Z", outcomes: { passed: 46, failed: 4, pending: 1, skipped: 0, compromised: 1, error: 1 }, duration: 4200, label: "build #89", ciJobUrl: "https://github.com/serenity-js/serenity-js/actions/runs/9485242005", score: { confidence: 76, passRate: 87, stability: 82, completeness: 75 } },
   ],
 
   // Requirements hierarchy with coverage information

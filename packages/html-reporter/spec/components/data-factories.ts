@@ -77,6 +77,7 @@ export function minimalData(overrides: Partial<ReportData> & Record<string, unkn
                 commit: 'abc1233',
                 branch: 'main',
                 repositoryUrl: 'git@github.com:serenity-js/serenity-js.git',
+                score: { confidence: 70, passRate: 80, stability: 75, completeness: 65 },
             },
             {
                 timestamp: '2024-06-15T14:30:00.000Z',
@@ -89,6 +90,7 @@ export function minimalData(overrides: Partial<ReportData> & Record<string, unkn
                 commit: 'abc1234',
                 branch: 'main',
                 repositoryUrl: 'git@github.com:serenity-js/serenity-js.git',
+                score: { confidence: 75, passRate: 75, stability: 80, completeness: 70 },
             },
         ],
         tags: overrides.tags || [

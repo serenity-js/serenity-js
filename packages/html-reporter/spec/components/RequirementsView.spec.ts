@@ -87,9 +87,9 @@ test.describe('RequirementsView', () => {
             props: { onNavigate: () => undefined, route: '#/requirements' },
         });
 
-        await page.locator('.kpi-card', { hasText: 'Requirement Gaps' }).click();
+        await page.locator('.kpi-card', { hasText: 'Gaps' }).click();
 
-        await expect(page.locator('.kpi-card--active')).toContainText('Requirement Gaps');
+        await expect(page.locator('.kpi-card--active')).toContainText('Gaps');
         // pending-feature has a gap (pending scenario)
         await expect(page.locator('body')).toContainText('pending-feature');
     });

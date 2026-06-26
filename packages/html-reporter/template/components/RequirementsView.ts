@@ -9,7 +9,7 @@ import { icons } from './icons';
 const html = htm.bind(h);
 
 function passRateColor(rate) {
-    return rate >= 80 ? 'var(--color-passed)' : rate >= 50 ? 'var(--color-pending)' : 'var(--color-failed)';
+    return rate >= 90 ? 'var(--color-passed)' : rate < 50 ? 'var(--color-failed)' : rate < 70 ? 'var(--color-pending)' : 'var(--color-passed)';
 }
 
 function ProgressBar({ percent, tooltip }) {
@@ -139,7 +139,7 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoo
                  onClick=${() => onSelect(collapsedPath, displayNode)}
                  onKeyDown=${handleKeyDown}>
                 <span class="req-tree-icon">${folderIcon}</span>
-                <span class="req-tree-label">${isRoot ? '' : collapsedLabel}</span>
+                <span class="req-tree-label">${isRoot ? (node.displayName || node.name) : collapsedLabel}</span>
                 ${total > 0 ? html`
                     <span class="req-tree-bars">
                         <${TreeBar} percent=${completeness} tooltip="${completeness}% Completeness — ${coveredCount} of ${fileCount} requirements fully implemented" />
@@ -226,7 +226,7 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
                             <div class="req-detail-child req-detail-child--link clickable" title="${m.completeness}% Completeness, ${m.passRate}% Pass Rate" onClick=${() => onSelect(childPath, child)}>
                                 <span class="req-detail-child-icon">${folderIcon}</span>
                                 <span class="req-detail-child-name">${child.displayName || child.name}</span>
-                                <span class="req-detail-child-rate" style="color:${m.total > 0 ? passRateColor(m.passRate) : 'var(--text-disabled)'}">${m.total > 0 ? m.passRate + '%' : '—'}</span>
+                                <span class="req-detail-child-rate" style="color:${m.total > 0 ? passRateColor(m.passRate) : 'var(--text-disabled)'}">${m.total > 0 ? m.passRate + '% (' + m.executed + '/' + m.total + ')' : '—'}</span>
                             </div>
                         `;
                     })}
@@ -329,42 +329,26 @@ export function RequirementsView({ onNavigate, route }) {
 
     return html`
         <div>
-            <div class="kpi-row" style="margin-bottom:var(--space-lg)">
-                <div class="kpi-card ${kpiFilter === 'all' ? 'kpi-card--active' : ''}" onClick=${() => setKpiFilter('all')} title="${totalFiles} test files discovered in the spec directory">
-                    <div class="kpi-icon-wrap kpi-icon--completeness">
-                        ${icons.completeness}
-                    </div>
-                    <div class="kpi-content">
-                        <span class="kpi-value">${totalFiles}</span>
-                        <span class="kpi-label">Total Requirements</span>
-                    </div>
+            <div class="kpi-row" style="margin-bottom:var(--space-lg);grid-template-columns:repeat(4, 1fr);grid-template-rows:auto">
+                <div class="kpi-card ${kpiFilter === 'all' ? 'kpi-card--active' : ''}" onClick=${() => setKpiFilter('all')} tabindex="0" role="button" aria-pressed=${kpiFilter === 'all'} aria-label="Total Requirements: ${totalFiles}. Show all.">
+                    <span class="kpi-label">Total Requirements</span>
+                    <span class="kpi-value">${totalFiles}</span>
+                    <span class="kpi-subtitle">${totalScenarios} scenarios</span>
                 </div>
-                <div class="kpi-card ${kpiFilter === 'completeness' ? 'kpi-card--active' : ''}" onClick=${() => setKpiFilter('completeness')} title="Completeness — ${completeFiles} of ${totalFiles} requirements fully implemented">
-                    <div class="kpi-icon-wrap kpi-icon--pass-rate">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    </div>
-                    <div class="kpi-content">
-                        <span class="kpi-value" style="color:${passRateColor(completenessPercent)}">${completenessPercent}%</span>
-                        <span class="kpi-label">Completeness</span>
-                    </div>
+                <div class="kpi-card ${kpiFilter === 'completeness' ? 'kpi-card--active' : ''}" onClick=${() => setKpiFilter('completeness')} tabindex="0" role="button" aria-pressed=${kpiFilter === 'completeness'} aria-label="Completeness: ${completenessPercent} percent. Filter to incomplete.">
+                    <span class="kpi-label">Completeness</span>
+                    <span class="kpi-value" style=${completenessPercent >= 90 ? 'color:var(--color-passed)' : completenessPercent < 50 ? 'color:var(--color-failed)' : completenessPercent < 70 ? 'color:var(--color-pending)' : ''}>${completenessPercent}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
+                    <span class="kpi-subtitle">${completeFiles} of ${totalFiles} implemented</span>
                 </div>
-                <div class="kpi-card ${kpiFilter === 'gaps' ? 'kpi-card--active' : ''}" onClick=${() => setKpiFilter('gaps')} title="${gapCount} requirements with no passing scenarios or incomplete implementation">
-                    <div class="kpi-icon-wrap kpi-icon--failed">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-                    </div>
-                    <div class="kpi-content">
-                        <span class="kpi-value" style="color:${gapCount === 0 ? 'var(--color-passed)' : 'var(--color-failed)'}">${gapCount}</span>
-                        <span class="kpi-label">Requirement Gaps</span>
-                    </div>
+                <div class="kpi-card ${kpiFilter === 'gaps' ? 'kpi-card--active' : ''}" onClick=${() => setKpiFilter('gaps')} tabindex="0" role="button" aria-pressed=${kpiFilter === 'gaps'} aria-label="Requirement Gaps: ${gapCount}. Filter to gaps.">
+                    <span class="kpi-label">Gaps</span>
+                    <span class="kpi-value" style="color:${gapCount === 0 ? 'var(--color-passed)' : gapCount > 3 ? 'var(--color-failed)' : 'var(--color-pending)'}">${gapCount}</span>
+                    <span class="kpi-subtitle">${gapCount === 0 ? 'All requirements covered' : gapCount === 1 ? '1 requirement missing tests' : gapCount + ' requirements missing tests'}</span>
                 </div>
-                <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=failed,skipped')} title="${passRate}% Pass Rate — ${requirements.outcomes.passed} of ${executedScenarios} executed scenarios passing">
-                    <div class="kpi-icon-wrap kpi-icon--pass-rate">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    </div>
-                    <div class="kpi-content">
-                        <span class="kpi-value" style="color:${passRateColor(passRate)}">${passRate}%</span>
-                        <span class="kpi-label">Pass Rate</span>
-                    </div>
+                <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=failed,skipped')} tabindex="0" role="button" aria-label="Pass Rate: ${passRate} percent">
+                    <span class="kpi-label">Pass Rate</span>
+                    <span class="kpi-value" style=${passRate >= 90 ? 'color:var(--color-passed)' : passRate < 50 ? 'color:var(--color-failed)' : passRate < 70 ? 'color:var(--color-pending)' : ''}>${passRate}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
+                    <span class="kpi-subtitle">${requirements.outcomes.passed} of ${executedScenarios} passing</span>
                 </div>
             </div>
 

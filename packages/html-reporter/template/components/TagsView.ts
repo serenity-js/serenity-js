@@ -25,7 +25,7 @@ export function TagsView({ onNavigate }) {
         const tags = tagsByType[type];
         const items = tags.map(tag => {
             const passRate = tag.scenarioCount > 0 ? Math.round((tag.passed / tag.scenarioCount) * 100) : 0;
-            const passColor = passRate >= 80 ? 'var(--color-passed)' : passRate >= 50 ? 'var(--color-pending)' : 'var(--color-failed)';
+            const passColor = passRate === 0 && tag.scenarioCount > 0 ? 'var(--color-failed)' : passRate >= 90 ? 'var(--color-passed)' : passRate < 50 ? 'var(--color-failed)' : passRate < 70 ? 'var(--color-pending)' : 'var(--text-primary)';
             return { name: tag.name, scenarioCount: tag.scenarioCount, passRate, passColor, icon: typeIcons[type] || '#' };
         });
         return { type, label: type.charAt(0).toUpperCase() + type.slice(1), items };

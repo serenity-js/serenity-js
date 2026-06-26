@@ -10,50 +10,52 @@ import { DATA, formatDuration, formatRunLabel, scenarioUrl } from '../utils';
 
 const html = htm.bind(h);
 
-// ===== Donut Chart (Chart.js) =====
-function DonutChart({ outcomes, total }) {
-    const canvasRef = useRef(null);
-    const chartRef = useRef(null);
-
-    useEffect(() => {
-        if (!canvasRef.current) return;
-        if (chartRef.current) chartRef.current.destroy();
-
-        chartRef.current = new Chart(canvasRef.current, {
-            type: 'doughnut',
-            data: {
-                labels: ['Passed', 'Failed', 'Skipped'],
-                datasets: [{
-                    data: [outcomes.passed, (outcomes.failed || 0) + (outcomes.error || 0) + (outcomes.compromised || 0), (outcomes.skipped || 0) + (outcomes.pending || 0)],
-                    backgroundColor: ['#28c76f', '#ea5455', '#a8aaae'],
-                    borderWidth: 0,
-                }],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                cutout: '70%',
-                plugins: {
-                    legend: { display: false },
-                    tooltip: { enabled: false },
-                },
-            },
-        });
-
-        return () => { if (chartRef.current) chartRef.current.destroy(); };
-    }, [outcomes, total]);
-
-    useEffect(() => {
-        const observer = new MutationObserver(() => { if (chartRef.current) chartRef.current.update(); });
-        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-        return () => observer.disconnect();
-    }, []);
-
+// ===== Area Sparkline (filled, for hero card) =====
+function AreaSparkline({ values, color, width = 200, height = 48 }) {
+    if (!values || values.length < 2) return null;
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const range = max - min || 1;
+    const padY = 2;
+    const pts = values.map((v, i) => ({
+        x: (i / (values.length - 1)) * width,
+        y: padY + (1 - (v - min) / range) * (height - 2 * padY),
+    }));
+    const line = pts.map(p => `${p.x},${p.y}`).join(' ');
+    const area = `${pts.map(p => `${p.x},${p.y}`).join(' ')} ${width},${height} 0,${height}`;
     return html`
-    <div style="width:56px;height:56px;flex-shrink:0">
-      <canvas ref=${canvasRef}></canvas>
-    </div>
-  `;
+        <svg class="sparkline-area" width="100%" height=${height} viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">
+            <polygon fill=${color} points=${area} />
+            <polyline fill="none" stroke=${color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points=${line} opacity="0.6" />
+        </svg>
+    `;
+}
+
+// ===== Dot Trend (for operational cards) =====
+function DotTrend({ values, color, maxHeight = 20 }) {
+    if (!values || values.length < 2) return null;
+    const max = Math.max(...values);
+    const min = Math.min(...values);
+    const range = max - min || 1;
+    return html`
+        <div class="kpi-dots" aria-hidden="true">
+            ${values.slice(-7).map(v => {
+                const h = 4 + ((v - min) / range) * (maxHeight - 4);
+                return html`<span class="kpi-dot" style="height:${h}px;background:${color}"></span>`;
+            })}
+        </div>
+    `;
+}
+
+// ===== Delta indicator =====
+function Delta({ current, previous, invert = false, suffix = '' }) {
+    if (previous === undefined || previous === null) return null;
+    const diff = current - previous;
+    if (diff === 0) return html`<span class="kpi-delta kpi-delta--neutral">— no change</span>`;
+    const positive = invert ? diff < 0 : diff > 0;
+    const cls = positive ? 'kpi-delta--positive' : 'kpi-delta--negative';
+    const arrow = positive ? '↑' : '↓';
+    return html`<span class="kpi-delta ${cls}">${arrow} ${Math.abs(diff)}${suffix}</span>`;
 }
 
 // ===== Trend Chart (Chart.js) =====
@@ -193,7 +195,7 @@ export function TrendChart({ history, onNavigate }) {
                 plugins: {
                     legend: { display: true, position: 'bottom', labels: { color: textColor, usePointStyle: true, padding: 16 } },
                     tooltip: {
-                        usePointStyle: false,
+                        usePointStyle: true,
                         callbacks: {
                             title: (items) => {
                                 const index = items[0].dataIndex;
@@ -253,24 +255,42 @@ export function TrendChart({ history, onNavigate }) {
 export function DashboardView({ onNavigate }) {
     const { summary, history, scenarios } = DATA;
     const totalFailed = (summary.outcomes.failed || 0) + (summary.outcomes.error || 0) + (summary.outcomes.compromised || 0);
-    const totalSkipped = (summary.outcomes.skipped || 0) + (summary.outcomes.pending || 0);
-    const passRate = summary.totalScenarios > 0 ? ((summary.outcomes.passed / summary.totalScenarios) * 100).toFixed(1) : '0.0';
 
-    const completeness = useMemo(() => {
+    // Compute current scores from latest history entry or derive from summary
+    const latestScore = history.length > 0 && history[history.length - 1].score;
+    const previousScore = history.length > 1 && history[history.length - 2].score;
+    const passRate = latestScore ? latestScore.passRate : (summary.totalScenarios > 0 ? Math.round((summary.outcomes.passed / summary.totalScenarios) * 100) : 0);
+    const stability = latestScore ? latestScore.stability : 100;
+    const completenessScore = latestScore ? latestScore.completeness : (() => {
         const requirements = DATA.requirements;
-        if (!requirements) return null;
+        if (!requirements) return 100;
         let total = 0, complete = 0;
         function walk(node) {
-            if (node.type === 'file') {
-                total++;
-                const t = Object.values(node.outcomes).reduce((a: number, b: number) => a + b, 0);
-                if (t > 0 && !(node.outcomes.pending || 0) && !(node.outcomes.skipped || 0)) complete++;
-            }
+            if (node.type === 'file') { total++; const t = Object.values(node.outcomes).reduce((a: number, b: number) => a + b, 0); if (t > 0 && !(node.outcomes.pending || 0) && !(node.outcomes.skipped || 0)) complete++; }
             if (node.children) node.children.forEach(walk);
         }
         if (requirements.children) requirements.children.forEach(walk);
-        return { total, complete, percent: total > 0 ? Math.round((complete / total) * 100) : 100 };
-    }, []);
+        return total > 0 ? Math.round((complete / total) * 100) : 100;
+    })();
+    const confidence = latestScore ? latestScore.confidence : Math.round(completenessScore * 0.3 + passRate * 0.35 + stability * 0.35);
+
+    // Previous run values for deltas
+    const previousConfidence = previousScore ? previousScore.confidence : undefined;
+    const previousPassRate = previousScore ? previousScore.passRate : undefined;
+    const previousStability = previousScore ? previousScore.stability : undefined;
+    const previousCompleteness = previousScore ? previousScore.completeness : undefined;
+    const previousFailed = history.length > 1 ? ((h) => (h.outcomes.failed || 0) + (h.outcomes.error || 0) + (h.outcomes.compromised || 0))(history[history.length - 2]) : undefined;
+    const previousDuration = history.length > 1 ? history[history.length - 2].duration : undefined;
+
+    // Sparkline data from history
+    const scoreHistory = history.filter(h => h.score);
+    const confidenceTrend = scoreHistory.map(h => h.score.confidence);
+    const failedTrend = history.map(h => (h.outcomes.failed || 0) + (h.outcomes.error || 0) + (h.outcomes.compromised || 0));
+    const durationTrend = history.map(h => h.duration);
+
+    // Colour: only exceptional or warning states get colour; "normal good" uses default text
+    const heroColor = (v) => v >= 90 ? 'var(--color-passed)' : v < 50 ? 'var(--color-failed)' : v < 70 ? 'var(--color-pending)' : undefined;
+    const scoreColor = (v) => v >= 90 ? 'var(--color-passed)' : v < 50 ? 'var(--color-failed)' : v < 70 ? 'var(--color-pending)' : undefined;
 
     const sorted = [...scenarios].sort((a, b) => b.duration - a.duration);
     const slowest = sorted.slice(0, 5);
@@ -293,60 +313,39 @@ export function DashboardView({ onNavigate }) {
     <div class="dashboard">
       <!-- KPI Row -->
       <div class="kpi-row">
-        <div class="kpi-card" onClick=${() => onNavigate('/tests')}>
-          <div class="kpi-icon-wrap kpi-icon--total">
-            <${DonutChart} outcomes=${summary.outcomes} total=${summary.totalScenarios} />
-          </div>
-          <div class="kpi-content">
-            <span class="kpi-value">${summary.totalScenarios}</span>
-            <span class="kpi-label">Scenarios</span>
-          </div>
+        <div class="kpi-card kpi-card--hero" onClick=${() => onNavigate('/requirements')} title="Confidence Score — composite of Pass Rate, Stability, and Completeness" tabindex="0" role="button" aria-label="Confidence score: ${confidence} out of 100">
+          <span class="kpi-label">Confidence</span>
+          <span class="kpi-value" style=${heroColor(confidence) ? `color:${heroColor(confidence)}` : ''}>${confidence}<span style="font-size:var(--font-base);font-weight:400;color:var(--text-disabled);margin-left:2px">/ 100</span></span>
+          <${Delta} current=${confidence} previous=${previousConfidence} />
+          <${AreaSparkline} values=${confidenceTrend} color=${heroColor(confidence) || 'var(--accent)'} />
         </div>
-        <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=failed,skipped')} title="${summary.outcomes.passed} of ${summary.totalScenarios} scenarios passing">
-          <div class="kpi-icon-wrap kpi-icon--pass-rate">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <div class="kpi-content">
-            <span class="kpi-value" style="color:var(--color-passed)">${passRate}%</span>
-            <span class="kpi-label">Pass Rate</span>
-          </div>
+        <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=failed,skipped')} tabindex="0" role="button" aria-label="Pass rate: ${passRate} percent">
+          <span class="kpi-label">Pass Rate</span>
+          <span class="kpi-value" style=${scoreColor(passRate) ? `color:${scoreColor(passRate)}` : ''}>${passRate}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
+          <${Delta} current=${passRate} previous=${previousPassRate} suffix="%" />
         </div>
-        ${completeness ? html`
-          <div class="kpi-card" onClick=${() => onNavigate('/requirements')} title="Completeness — ${completeness.complete} of ${completeness.total} requirements fully implemented">
-            <div class="kpi-icon-wrap kpi-icon--completeness">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <div class="kpi-content">
-              <span class="kpi-value" style="color:${completeness.percent >= 80 ? 'var(--color-passed)' : completeness.percent >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'}">${completeness.percent}%</span>
-              <span class="kpi-label">Completeness</span>
-            </div>
-          </div>
-        ` : null}
-        <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=failed')} title="${totalFailed} failed, compromised, or broken scenarios">
-          <div class="kpi-icon-wrap kpi-icon--failed">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-          </div>
-          <div class="kpi-content">
-            <span class="kpi-value" style="color:var(--color-failed)">${totalFailed}</span>
+        <div class="kpi-card" onClick=${() => onNavigate('/stability')} tabindex="0" role="button" aria-label="Stability: ${stability} percent">
+          <span class="kpi-label">Stability</span>
+          <span class="kpi-value" style=${scoreColor(stability) ? `color:${scoreColor(stability)}` : ''}>${stability}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
+          <${Delta} current=${stability} previous=${previousStability} suffix="%" />
+        </div>
+        <div class="kpi-card" onClick=${() => onNavigate('/requirements')} tabindex="0" role="button" aria-label="Completeness: ${completenessScore} percent">
+          <span class="kpi-label">Completeness</span>
+          <span class="kpi-value" style=${scoreColor(completenessScore) ? `color:${scoreColor(completenessScore)}` : ''}>${completenessScore}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
+          <${Delta} current=${completenessScore} previous=${previousCompleteness} suffix="%" />
+        </div>
+        <div class="kpi-row-operational">
+          <div class="kpi-card kpi-card--operational" onClick=${() => onNavigate('/tests?filter=failed')} tabindex="0" role="button" aria-label="${totalFailed} failed scenarios">
             <span class="kpi-label">Failed</span>
+            <span class="kpi-value" style="color:${totalFailed > 0 ? 'var(--color-failed)' : 'var(--text-primary)'}">${totalFailed}</span>
+            <${Delta} current=${totalFailed} previous=${previousFailed} invert=${true} />
+            <${DotTrend} values=${failedTrend} color="var(--color-failed)" />
           </div>
-        </div>
-        <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=skipped')} title="${totalSkipped} skipped or pending tests">
-          <div class="kpi-icon-wrap kpi-icon--skipped">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
-          </div>
-          <div class="kpi-content">
-            <span class="kpi-value" style="color:var(--text-secondary)">${totalSkipped}</span>
-            <span class="kpi-label">Skipped</span>
-          </div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-icon-wrap kpi-icon--duration">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <div class="kpi-content">
+          <div class="kpi-card kpi-card--operational" onClick=${() => onNavigate('/tests?sort=duration')} tabindex="0" role="button" aria-label="Total duration: ${formatDuration(summary.duration)}">
+            <span class="kpi-label">Duration</span>
             <span class="kpi-value">${formatDuration(summary.duration)}</span>
-            <span class="kpi-label">Total Duration</span>
+            ${previousDuration !== undefined ? html`<span class="kpi-delta ${summary.duration < previousDuration ? 'kpi-delta--positive' : summary.duration > previousDuration ? 'kpi-delta--negative' : 'kpi-delta--neutral'}">${summary.duration < previousDuration ? '↑' : summary.duration > previousDuration ? '↓' : '—'} ${formatDuration(Math.abs(summary.duration - previousDuration))} ${summary.duration < previousDuration ? 'faster' : summary.duration > previousDuration ? 'slower' : ''}</span>` : null}
+            <${DotTrend} values=${durationTrend} color="var(--accent)" />
           </div>
         </div>
       </div>

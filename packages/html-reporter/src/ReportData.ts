@@ -106,6 +106,14 @@ export interface ReportHistoryEntry {
     branch?: string;
     ciJobUrl?: string;
     repositoryUrl?: string;
+    score?: ReportHistoryScore;
+}
+
+export interface ReportHistoryScore {
+    confidence: number;   // 0–100
+    passRate: number;     // 0–100
+    stability: number;    // 0–100
+    completeness: number; // 0–100
 }
 
 export interface ReportTag {

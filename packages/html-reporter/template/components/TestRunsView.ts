@@ -35,7 +35,7 @@ export function TestRunsView({ onNavigate }) {
               </div>
             </div>
             <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
-              <span style="font-size:var(--font-md);font-weight:600;color:var(--color-passed)">${Math.round((run.outcomes.passed / Object.values(run.outcomes).reduce((a, b) => a + b, 0)) * 100)}%</span>
+              <span style="font-size:var(--font-md);font-weight:600;color:${(() => { const r = Math.round((run.outcomes.passed / Object.values(run.outcomes).reduce((a, b) => a + b, 0)) * 100); return r >= 90 ? 'var(--color-passed)' : r < 50 ? 'var(--color-failed)' : r < 70 ? 'var(--color-pending)' : 'var(--text-primary)'; })()}">${Math.round((run.outcomes.passed / Object.values(run.outcomes).reduce((a, b) => a + b, 0)) * 100)}%</span>
               <span class="text-xs-muted">${Object.values(run.outcomes).reduce((a, b) => a + b, 0)} scenarios</span>
             </div>
           </div>

@@ -46,23 +46,24 @@ export function TimelineView({ onNavigate }) {
 
     return html`
     <div>
-      <div style="display:flex;gap:var(--space-lg);flex-wrap:wrap;margin-bottom:var(--space-md)">
-        <span style="display:inline-flex;align-items:center;gap:var(--space-xs);font-size:var(--font-sm)">
-          <span style="color:var(--text-secondary)">Slowest:</span>
-          <span style="font-weight:700;color:var(--color-failed)">${formatDuration(slowest)}</span>
-        </span>
-        <span style="display:inline-flex;align-items:center;gap:var(--space-xs);font-size:var(--font-sm)">
-          <span style="color:var(--text-secondary)">Fastest:</span>
-          <span style="font-weight:700;color:var(--color-passed)">${formatDuration(fastest)}</span>
-        </span>
-        <span style="display:inline-flex;align-items:center;gap:var(--space-xs);font-size:var(--font-sm)">
-          <span style="color:var(--text-secondary)">Average:</span>
-          <span style="font-weight:700">${formatDuration(avg)}</span>
-        </span>
-        <span style="display:inline-flex;align-items:center;gap:var(--space-xs);font-size:var(--font-sm)">
-          <span style="color:var(--text-secondary)">Total:</span>
-          <span style="font-weight:700">${formatDuration(DATA.summary.duration)}</span>
-        </span>
+      <div class="kpi-row" style="margin-bottom:var(--space-md);grid-template-columns:repeat(4, 1fr);grid-template-rows:auto">
+        <div class="kpi-card" tabindex="0" aria-label="Slowest test: ${formatDuration(slowest)}">
+          <span class="kpi-label">Slowest</span>
+          <span class="kpi-value" style="color:${slowest > avg * 3 ? 'var(--color-failed)' : slowest > avg * 2 ? 'var(--color-pending)' : ''}">${formatDuration(slowest)}</span>
+        </div>
+        <div class="kpi-card" tabindex="0" aria-label="Fastest test: ${formatDuration(fastest)}">
+          <span class="kpi-label">Fastest</span>
+          <span class="kpi-value">${formatDuration(fastest)}</span>
+        </div>
+        <div class="kpi-card" tabindex="0" aria-label="Average duration: ${formatDuration(avg)}">
+          <span class="kpi-label">Average</span>
+          <span class="kpi-value">${formatDuration(avg)}</span>
+        </div>
+        <div class="kpi-card" tabindex="0" aria-label="Total duration: ${formatDuration(DATA.summary.duration)}">
+          <span class="kpi-label">Total</span>
+          <span class="kpi-value">${formatDuration(DATA.summary.duration)}</span>
+          <span class="kpi-subtitle">${allScenarios.length} scenarios</span>
+        </div>
       </div>
 
       <${FilterBar} outcomes=${DATA.summary.outcomes} total=${allScenarios.length}

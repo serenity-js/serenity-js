@@ -164,12 +164,13 @@ export function ErrorsView({ onNavigate, route }) {
 
       <${RunSelector} activeTimestamp=${errorActiveRunTs} onRunChange=${onErrorRunChange} />
 
-      <div style="display:flex;gap:var(--space-lg);flex-wrap:wrap;margin-bottom:var(--space-md)">
+      <div class="kpi-row" style="margin-bottom:var(--space-md);grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));grid-template-rows:auto">
         ${summaryCards.map(card => html`
-          <span style="display:inline-flex;align-items:center;gap:var(--space-xs);font-size:var(--font-sm)">
-            <span style="color:var(--text-secondary)">${card.title}:</span>
-            <span style="font-weight:700;color:${card.color}">${card.value}</span>
-          </span>
+          <div class="kpi-card" tabindex="0" aria-label="${card.title}: ${card.value}">
+            <span class="kpi-label">${card.title}</span>
+            <span class="kpi-value" style="color:${card.color}">${card.value}</span>
+            <span class="kpi-subtitle">${card.subtitle}</span>
+          </div>
         `)}
       </div>
       <div class="card pb-0">
