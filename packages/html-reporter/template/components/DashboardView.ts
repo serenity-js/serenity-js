@@ -256,20 +256,20 @@ export function DashboardView({ onNavigate }) {
     const totalSkipped = (summary.outcomes.skipped || 0) + (summary.outcomes.pending || 0);
     const passRate = summary.totalScenarios > 0 ? ((summary.outcomes.passed / summary.totalScenarios) * 100).toFixed(1) : '0.0';
 
-    const coverage = useMemo(() => {
+    const completeness = useMemo(() => {
         const requirements = DATA.requirements;
         if (!requirements) return null;
-        let total = 0, covered = 0;
+        let total = 0, complete = 0;
         function walk(node) {
             if (node.type === 'file') {
                 total++;
                 const t = Object.values(node.outcomes).reduce((a: number, b: number) => a + b, 0);
-                if (t > 0 && !(node.outcomes.pending || 0) && !(node.outcomes.skipped || 0)) covered++;
+                if (t > 0 && !(node.outcomes.pending || 0) && !(node.outcomes.skipped || 0)) complete++;
             }
             if (node.children) node.children.forEach(walk);
         }
         if (requirements.children) requirements.children.forEach(walk);
-        return { total, covered, percent: total > 0 ? Math.round((covered / total) * 100) : 100 };
+        return { total, complete, percent: total > 0 ? Math.round((complete / total) * 100) : 100 };
     }, []);
 
     const sorted = [...scenarios].sort((a, b) => b.duration - a.duration);
@@ -311,14 +311,14 @@ export function DashboardView({ onNavigate }) {
             <span class="kpi-label">Pass Rate</span>
           </div>
         </div>
-        ${coverage ? html`
-          <div class="kpi-card" onClick=${() => onNavigate('/requirements')} title="Requirement Coverage — ${coverage.covered} of ${coverage.total} areas fully covered">
+        ${completeness ? html`
+          <div class="kpi-card" onClick=${() => onNavigate('/requirements')} title="Completeness — ${completeness.complete} of ${completeness.total} requirements fully implemented">
             <div class="kpi-icon-wrap kpi-icon--coverage">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
             <div class="kpi-content">
-              <span class="kpi-value" style="color:${coverage.percent >= 80 ? 'var(--color-passed)' : coverage.percent >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'}">${coverage.percent}%</span>
-              <span class="kpi-label">Coverage</span>
+              <span class="kpi-value" style="color:${completeness.percent >= 80 ? 'var(--color-passed)' : completeness.percent >= 50 ? 'var(--color-pending)' : 'var(--color-failed)'}">${completeness.percent}%</span>
+              <span class="kpi-label">Completeness</span>
             </div>
           </div>
         ` : null}
