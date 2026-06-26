@@ -33,7 +33,8 @@ function TreeBar({ percent, tooltip }) {
 
 function nodeMetrics(node) {
     const total = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
-    const passRate = total > 0 ? Math.round((node.outcomes.passed / total) * 100) : 0;
+    const executed = total - (node.outcomes.skipped || 0) - (node.outcomes.pending || 0);
+    const passRate = executed > 0 ? Math.round((node.outcomes.passed / executed) * 100) : 0;
     let fileCount = 0, coveredCount = 0;
     function countReqs(n) {
         if (n.type === 'file') {
@@ -45,7 +46,7 @@ function nodeMetrics(node) {
     }
     if (node.children) node.children.forEach(countReqs);
     const completeness = fileCount > 0 ? Math.round((coveredCount / fileCount) * 100) : 0;
-    return { total, passRate, fileCount, coveredCount, completeness };
+    return { total, executed, passRate, fileCount, coveredCount, completeness };
 }
 
 function nodeMatches(node, term) {
@@ -122,7 +123,7 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoo
     const childrenMatch = displayNode.children ? displayNode.children.some(c => nodeMatches(c, searchTerm)) : false;
     if (searchTerm && !matchesSearch && !childrenMatch) return null;
 
-    const { total, passRate, fileCount, coveredCount, completeness } = nodeMetrics(displayNode);
+    const { total, executed, passRate, fileCount, coveredCount, completeness } = nodeMetrics(displayNode);
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -142,7 +143,7 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoo
                 ${total > 0 ? html`
                     <span class="req-tree-bars">
                         <${TreeBar} percent=${completeness} tooltip="${completeness}% Completeness — ${coveredCount} of ${fileCount} requirements fully implemented" />
-                        <${TreeBar} percent=${passRate} tooltip="${passRate}% Pass Rate — ${displayNode.outcomes.passed} of ${total} scenarios passing" />
+                        <${TreeBar} percent=${passRate} tooltip="${passRate}% Pass Rate — ${displayNode.outcomes.passed} of ${executed} executed scenarios passing" />
                     </span>
                 ` : null}
             </div>
@@ -158,7 +159,8 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoo
 function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) {
     if (!node) {
         const total = Object.values(requirements.outcomes).reduce((a, b) => a + b, 0);
-        const passRate = total > 0 ? Math.round((requirements.outcomes.passed / total) * 100) : 0;
+        const executed = total - (requirements.outcomes.skipped || 0) - (requirements.outcomes.pending || 0);
+        const passRate = executed > 0 ? Math.round((requirements.outcomes.passed / executed) * 100) : 0;
         return html`
             <div class="req-detail-panel">
                 <h3 class="req-detail-title">Overall</h3>
@@ -166,7 +168,7 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
                     <span class="req-detail-stat-label">Pass Rate</span>
                     <span class="req-detail-stat-value" style="color:${passRateColor(passRate)}">${passRate}%</span>
                 </div>
-                <${ProgressBar} percent=${passRate} tooltip="${passRate}% Pass Rate — ${requirements.outcomes.passed} of ${total} scenarios passing" />
+                <${ProgressBar} percent=${passRate} tooltip="${passRate}% Pass Rate — ${requirements.outcomes.passed} of ${executed} executed scenarios passing" />
                 <div class="req-detail-stat" style="margin-top:var(--space-md)">
                     <span class="req-detail-stat-label">Scenarios</span>
                     <span class="req-detail-stat-value">${total}</span>
@@ -176,7 +178,7 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
         `;
     }
 
-    const { total, passRate, fileCount, coveredCount, completeness: completenessPercent } = nodeMetrics(node);
+    const { total, executed, passRate, fileCount, coveredCount, completeness: completenessPercent } = nodeMetrics(node);
     const failed = (node.outcomes.failed || 0) + (node.outcomes.error || 0) + (node.outcomes.compromised || 0);
     const skipped = (node.outcomes.skipped || 0) + (node.outcomes.pending || 0);
 
@@ -195,7 +197,7 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
                     <span class="req-detail-stat-value" style="color:${passRateColor(completenessPercent)}">${completenessPercent}%</span>
                     <${ProgressBar} percent=${completenessPercent} />
                 </div>
-                <div class="req-detail-stat-card" title="${passRate}% Pass Rate — ${node.outcomes.passed} of ${total} scenarios passing">
+                <div class="req-detail-stat-card" title="${passRate}% Pass Rate — ${node.outcomes.passed} of ${executed} executed scenarios passing">
                     <span class="req-detail-stat-label">Pass Rate</span>
                     <span class="req-detail-stat-value" style="color:${passRateColor(passRate)}">${passRate}%</span>
                     <${ProgressBar} percent=${passRate} />
@@ -307,7 +309,8 @@ export function RequirementsView({ onNavigate, route }) {
     const completeFiles = totalFiles - gapCount;
     const completenessPercent = totalFiles > 0 ? Math.round((completeFiles / totalFiles) * 100) : 100;
     const totalScenarios = Object.values(requirements.outcomes).reduce((a, b) => a + b, 0);
-    const passRate = totalScenarios > 0 ? Math.round((requirements.outcomes.passed / totalScenarios) * 100) : 0;
+    const executedScenarios = totalScenarios - (requirements.outcomes.skipped || 0) - (requirements.outcomes.pending || 0);
+    const passRate = executedScenarios > 0 ? Math.round((requirements.outcomes.passed / executedScenarios) * 100) : 0;
 
     const nodeFilter = useMemo(() => {
         if (kpiFilter === 'completeness') return nodeIsIncomplete;
@@ -354,7 +357,7 @@ export function RequirementsView({ onNavigate, route }) {
                         <span class="kpi-label">Requirement Gaps</span>
                     </div>
                 </div>
-                <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=failed,skipped')} title="${passRate}% Pass Rate — ${requirements.outcomes.passed} of ${totalScenarios} scenarios passing">
+                <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=failed,skipped')} title="${passRate}% Pass Rate — ${requirements.outcomes.passed} of ${executedScenarios} executed scenarios passing">
                     <div class="kpi-icon-wrap kpi-icon--pass-rate">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                     </div>
