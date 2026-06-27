@@ -300,14 +300,11 @@ export function DashboardView({ onNavigate }) {
 
     // Look up execution history for a test by source identity
     const getHistory = (t) => {
-        const key = t.source.path + ':' + t.source.line;
-        const match = scenarios.find(s => s.source.path + ':' + s.source.line === key);
+        const key = t.source.path + ':' + (t.source.line || '');
+        const match = scenarios.find(s => s.source.path + ':' + (s.source.line || '') === key)
+            || scenarios.find(s => s.name === t.name && s.source.path === t.source.path);
         return match && match.executionHistory ? match.executionHistory.slice(-5) : [];
     };
-
-    // Trend summary stats
-    const totalPassed = history.reduce((sum, h) => sum + h.outcomes.passed, 0);
-    const totalHistoryFailed = history.reduce((sum, h) => sum + (h.outcomes.failed || 0) + (h.outcomes.error || 0) + (h.outcomes.compromised || 0), 0);
 
     return html`
     <div class="dashboard">
@@ -380,56 +377,40 @@ export function DashboardView({ onNavigate }) {
         <div class="card dashboard-trend-card">
           <div class="card-header">
             <div class="card-title mb-0">Trend</div>
-            <span class="trend-summary">${totalPassed} Passed | ${totalHistoryFailed} Failed | Avg ${formatDuration(summary.duration)}</span>
           </div>
           <${TrendChart} history=${history} onNavigate=${onNavigate} />
         </div>
 
         <div class="dashboard-health-col">
-          <!-- Degraded -->
+          <!-- Stability -->
           <div class="card dashboard-status-card">
             <div class="card-header">
-              <span class="status-card-title" style="color:var(--color-failed)">Degraded</span>
-              ${newFailures.length > 0 ? html`<a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>` : null}
+              <span class="status-card-title">Stability</span>
+              ${(newFailures.length > 0 || newPasses.length > 0 || unstable.length > 0) ? html`<a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>` : null}
             </div>
-            ${newFailures.length > 0 ? html`
-              ${newFailures.map(t => html`
-                <div class="status-item status-item--rich clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
-                  <div class="status-item-main">
-                    <span class="status-icon status-icon--fail">✗</span>
-                    <span class="status-item-name">${t.name}</span>
-                  </div>
-                  <div class="status-item-history">${getHistory(t).map(h => html`<span class="history-dot history-dot--${h.outcome}" title=${h.outcome + ' (' + h.run + ')'}></span>`)}</div>
-                </div>
-              `)}
-            ` : html`
-              <div class="status-empty status-empty--ok"><span class="status-chip">✓</span> No degraded tests</div>
-            `}
-          </div>
-          <!-- Recovered -->
-          <div class="card dashboard-status-card">
-            <div class="card-header">
-              <span class="status-card-title" style="color:var(--color-passed)">Recovered</span>
-              ${newPasses.length > 0 ? html`<a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>` : null}
-            </div>
-            ${newPasses.length > 0 ? html`
-              ${newPasses.map(t => html`
-                <div class="status-item status-item--rich clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
-                  <div class="status-item-main">
-                    <span class="status-icon status-icon--pass">✓</span>
-                    <span class="status-item-name">${t.name}</span>
-                  </div>
-                  <div class="status-item-history">${getHistory(t).map(h => html`<span class="history-dot history-dot--${h.outcome}" title=${h.outcome + ' (' + h.run + ')'}></span>`)}</div>
-                </div>
-              `)}
-            ` : html`
-              <div class="status-empty"><span class="status-chip">✓</span> No newly recovered tests</div>
-            `}
+            ${(() => {
+                const items = [
+                    ...newFailures.map(t => ({ ...t, kind: 'degraded' })),
+                    ...newPasses.map(t => ({ ...t, kind: 'recovered' })),
+                    ...unstable.filter(t => !newFailures.some(f => f.source.path === t.source.path) && !newPasses.some(p => p.source.path === t.source.path)).map(t => ({ ...t, kind: 'unstable' })),
+                ].slice(0, 5);
+                if (items.length === 0) return html`<div class="status-empty status-empty--ok"><span class="status-chip">✓</span> All tests stable</div>`;
+                return items.map(t => html`
+                    <div class="status-item status-item--rich clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
+                      <div class="status-item-main">
+                        <span class="status-icon ${t.kind === 'degraded' ? 'status-icon--fail' : t.kind === 'recovered' ? 'status-icon--pass' : 'status-icon--warn'}">${t.kind === 'degraded' ? '✗' : t.kind === 'recovered' ? '✓' : '⚠'}</span>
+                        <span class="status-item-name">${t.name}</span>
+                        <span class="status-item-kind" style="color:${t.kind === 'degraded' ? 'var(--color-failed)' : t.kind === 'recovered' ? 'var(--color-passed)' : 'var(--color-pending)'}">${t.kind}</span>
+                      </div>
+                      <div class="status-item-history">${getHistory(t).map(h => html`<span class="history-dot history-dot--${h.outcome}" title=${h.outcome + ' (' + h.run + ')'}></span>`)}</div>
+                    </div>
+                `);
+            })()}
           </div>
           <!-- Slowest Tests -->
           <div class="card dashboard-status-card">
             <div class="card-header">
-              <span class="status-card-title" style="color:var(--color-pending)">Slowest Tests</span>
+              <span class="status-card-title">Slowest Tests</span>
               <a class="view-all-link" onClick=${() => onNavigate('/tests?sort=duration')}>View all →</a>
             </div>
             ${slowest.map(s => html`
@@ -440,21 +421,6 @@ export function DashboardView({ onNavigate }) {
               </div>
             `)}
           </div>
-          <!-- Unstable -->
-          ${unstable.length > 0 ? html`
-            <div class="card dashboard-status-card">
-              <div class="card-header">
-                <span class="status-card-title" style="color:var(--color-pending)">Unstable</span>
-                <a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>
-              </div>
-              ${unstable.map(t => html`
-                <div class="status-item clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
-                  <span class="status-icon status-icon--warn">⚠</span>
-                  <span class="status-item-name">${t.name}</span>
-                </div>
-              `)}
-            </div>
-          ` : null}
         </div>
       </div>
     </div>

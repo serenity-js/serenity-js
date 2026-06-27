@@ -1,12 +1,12 @@
 # Design Review — Serenity/JS HTML Report
 
-Date: 2026-06-26  
+Date: 2026-06-27  
 Branch: `feat/html-reporter`  
-Commit: `bbc39bc531`
+Last commit: `7c58cbdc94`
 
 ## Current Status
 
-### Completed (this session)
+### Completed
 
 **KPI Redesign (all views):**
 - Dashboard: hero Confidence card with area sparkline + deltas, quality sub-scores, operational cards with dot trends
@@ -25,13 +25,43 @@ Commit: `bbc39bc531`
 - ✅ Requirements: capitalize detail panel title
 - ✅ Requirements: root directory name shown in tree
 - ✅ Dashboard: tooltip colour boxes filled (usePointStyle)
+- ✅ Dashboard: trend chart kept at 280px (Y axis needs space)
 - ✅ Lint: all errors resolved, `make lint` clean
+
+**Phase 2 — Test Scenarios Enrichment (done):**
+- ✅ Inline error messages for failed scenarios (truncated, red)
+- ✅ Execution history dots (last 5 runs) in scenario meta row
+- ❌ "New" / "Unstable" badges — removed (redundant with Stability view's degraded/recovered filters)
+
+**Terminology Cleanup (done):**
+- ✅ All user-facing labels: "flaky" → "unstable"
+- ✅ Internal variables: `flaky` → `unstableTests`/`unstable`
+- ✅ CSS classes: `badge--flaky` → removed (badges removed)
+- ✅ Icons: `icons.flaky` → `icons.unstable`
+- ✅ Data schema: `flakinessRate` → `instabilityRate` (interface, aggregator, template, mock)
+- ✅ Test data: "Flaky Test" → "Unstable Test"
+
+### Design Decisions
+
+- **No "New"/"Unstable" badges on scenario rows** — the Stability view with degraded/recovered filters already surfaces this. Avoid duplicating signals.
+- **Trend chart stays at 280px** — the Y axis labels need vertical space; 200px was too cramped.
+- **Tooltip uses `usePointStyle: true`** — renders filled colour indicators instead of hollow bordered boxes.
+
+### Open Design Question
+
+**Dashboard: Combine Degraded + Recovered + Unstable cards into a single "Stability" card?**
+
+Currently the right column shows 3 separate status cards (Degraded, Recovered, Unstable). A single combined card showing top 5 unstable tests with degraded/recovered indicators would:
+- Reduce vertical space
+- Provide a single "stability at a glance" section
+- Use history dots to show degraded (red) vs recovered (green) state
+
+Pending decision on whether to implement.
 
 ### Not Changed (intentionally)
 - StabilityView: uses filter chips (different pattern, already consistent)
 - TestRunsView: list layout with trend chart (well-structured)
 - SystemContextView: context grid with emoji icons (solid)
-- ScenariosView: virtualized list (working, but needs Phase 2 enrichment)
 
 ---
 
@@ -274,42 +304,58 @@ No changes required.
 5. ~~Dashboard: reduce trend chart to 200px~~ → reverted to 280px (Y axis labels need space)
 6. ~~Requirements: capitalize detail panel title~~ ✅
 
-### Phase 2: High Impact / Medium Effort — NEXT
+### Phase 2: High Impact / Medium Effort
 
-7. **Scenarios: inline error message for failed rows** — show `error.message` truncated to 1 line below scenario name for failed/error/compromised outcomes
-8. **Scenarios: execution history dots (last 5 runs)** — show outcome dots from `executionHistory` array, same pattern as Dashboard status cards
-9. **Scenarios: "New failure" / "Unstable" badges** — cross-reference `newFailures` and `unstableTests` arrays to add status pills
+7. ~~Scenarios: inline error message for failed rows~~ ✅
+8. ~~Scenarios: execution history dots (last 5 runs)~~ ✅
+9. ~~Scenarios: "New" / "Unstable" badges~~ ❌ Removed — redundant with Stability view
 10. **Requirements: segmented outcome bar** — replace dual progress bars with single bar showing green/red/orange/grey segments proportional to outcomes
 11. **Errors: group identical error messages** — deduplicate by `error.message`, show "(×3)" count
 12. **Errors: "New" badge** — cross-reference `newFailures` to mark first-time errors
-13. **Test Runs: delta indicator** — show "↑ 2%" / "↓ 4%" comparing each run to its predecessor
+13. ~~Test Runs: delta indicator~~ ✅ Shows "↑ 2%" / "↓ 4%" comparing each run to predecessor
+14. ~~Dashboard: combine Degraded + Recovered + Unstable into single "Stability" card~~ ✅
 
 ### Phase 3: High Impact / High Effort — PLANNED
 
-14. **Requirements: risk score** (pass rate + flakiness + recency) per node
-15. **Scenarios: expandable inline diagnostics** (stack trace preview, screenshots)
-16. **Scenarios: smart grouping** (by error type, directory, requirement, severity)
-17. **Global search** across all views (scenarios, errors, tags, requirements)
-18. **Requirements: historical trend** per requirement node
+15. **Requirements: risk score** (pass rate + instability + recency) per node
+16. **Scenarios: expandable inline diagnostics** (stack trace preview, screenshots)
+17. **Scenarios: smart grouping** (by error type, directory, requirement, severity)
+18. **Global search** across all views (scenarios, errors, tags, requirements)
+19. **Requirements: historical trend** per requirement node
 
 ### Remaining Polish (Low Effort)
 
 - [ ] Timeline: dim passing rows (opacity 0.7) to elevate failures
 - [ ] Timeline: minimum duration bar width 8px
 - [ ] Tags: sort by pass rate (worst first) within groups
-- [ ] Dashboard: remove "219 Passed | 40 Failed | Avg 4.2s" redundant text from trend card header
-- [ ] Dashboard: status card headers (DEGRADED/RECOVERED) use `--text-secondary` instead of semantic colour
+- [x] Dashboard: remove "219 Passed | 40 Failed | Avg 4.2s" redundant text from trend card header ✅
+- [x] Dashboard: status card headers use `--text-secondary` instead of semantic colour ✅ (combined into single card)
 
 ---
 
 ## Recommendations for Next Session
 
-**Start with items 7–9** (Test Scenarios enrichment). These have the highest user impact — they directly answer "what broke and why?" during a failing CI build without requiring clicks into detail views.
+**Next priorities (remaining Phase 2):**
 
-Implementation approach:
-- Item 7 (inline errors): Add conditional line below `.scenario-name` showing `scenario.error.message` with `text-overflow: ellipsis` for non-SUCCESS outcomes. ~20 lines of template change.
-- Item 8 (history dots): Render `scenario.executionHistory.slice(-5)` as coloured dots (same `.history-dot` pattern from Dashboard status cards). ~15 lines.
-- Item 9 (badges): Check if scenario source matches any entry in `DATA.newFailures` or `DATA.unstableTests` and render a small pill. ~25 lines.
+1. **Dashboard: combine 3 stability cards into 1** (item 14) — merge Degraded, Recovered, Unstable into a single "Stability" status card showing top 5 unstable tests with a degraded/recovered indicator (✗/✓) per item and history dots. Frees vertical space.
+
+2. **Requirements: segmented outcome bar** (item 10) — single stacked bar replacing dual progress bars. Green (passed) + red (failed) + orange (pending) + grey (skipped) proportional to outcome counts.
+
+3. **Test Runs: delta indicator** (item 13) — "↑ 2%" between consecutive runs.
+
+4. **Errors: deduplicate identical messages** (item 11) — group by `error.message`, show count.
+
+---
+
+## Design Rules
+
+- **DDD terminology**: use a term consistently throughout. "Unstable" not "flaky". Same term in code, UI, docs.
+- **Semantic colour**: only for exceptional states. Normal/good = default text. Excellent = green. Warning = orange. Critical = red.
+- **No redundant signals**: if information is available via a dedicated view (e.g. Stability view), don't duplicate it as badges elsewhere.
+- **Labels**: uppercase, `font-xs`, `letter-spacing: 0.4px`, `font-weight: 500`.
+- **Values**: large, bold, with units separated in lighter weight.
+- **Context**: subtitles > tooltips. Inline "N of M" > percentage alone.
+- **Deltas**: show comparison to previous run wherever history exists.
 
 ---
 

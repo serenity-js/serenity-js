@@ -17,7 +17,12 @@ export function TestRunsView({ onNavigate }) {
     <div class="card">
       <div class="card-title">Test Run History</div>
       <div class="scenario-list">
-        ${runs.map((run) => {
+        ${runs.map((run, index) => {
+            const total = Object.values(run.outcomes).reduce((a, b) => a + b, 0);
+            const rate = Math.round((run.outcomes.passed / total) * 100);
+            const previousRun = runs[index + 1];
+            const previousRate = previousRun ? Math.round((previousRun.outcomes.passed / Object.values(previousRun.outcomes).reduce((a, b) => a + b, 0)) * 100) : undefined;
+            const delta = previousRate !== undefined ? rate - previousRate : undefined;
             return html`
           <div class="scenario-item" onClick=${() => onNavigate('/tests?run=' + run.timestamp)}>
             <div class="scenario-outcome-icon passed" style="background:var(--accent-light);color:var(--text-primary)">
@@ -35,8 +40,8 @@ export function TestRunsView({ onNavigate }) {
               </div>
             </div>
             <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
-              <span style="font-size:var(--font-md);font-weight:600;color:${(() => { const r = Math.round((run.outcomes.passed / Object.values(run.outcomes).reduce((a, b) => a + b, 0)) * 100); return r >= 90 ? 'var(--color-passed)' : r < 50 ? 'var(--color-failed)' : r < 70 ? 'var(--color-pending)' : 'var(--text-primary)'; })()}">${Math.round((run.outcomes.passed / Object.values(run.outcomes).reduce((a, b) => a + b, 0)) * 100)}%</span>
-              <span class="text-xs-muted">${Object.values(run.outcomes).reduce((a, b) => a + b, 0)} scenarios</span>
+              <span style="font-size:var(--font-md);font-weight:600;color:${rate >= 90 ? 'var(--color-passed)' : rate < 50 ? 'var(--color-failed)' : rate < 70 ? 'var(--color-pending)' : 'var(--text-primary)'}">${rate}%</span>
+              ${delta !== undefined && delta !== 0 ? html`<span style="font-size:var(--font-xs);font-weight:500;color:${delta > 0 ? 'var(--color-passed)' : 'var(--color-failed)'}">${delta > 0 ? '↑' : '↓'} ${Math.abs(delta)}%</span>` : html`<span class="text-xs-muted">${total} scenarios</span>`}
             </div>
           </div>
         `;

@@ -110,7 +110,7 @@ test.describe('DashboardView', () => {
             data: minimalData(),
         });
 
-        await expect(page.locator('body')).toContainText('No degraded tests');
+        await expect(page.locator('body')).toContainText('All tests stable');
     });
 
     test('hero card has area sparkline when history available', async ({ mount, page }) => {
