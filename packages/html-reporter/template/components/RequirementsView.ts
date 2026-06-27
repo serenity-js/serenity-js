@@ -146,6 +146,11 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoo
 
     const { total, passRate } = nodeMetrics(displayNode);
 
+    // Compute node confidence: completeness × 0.3 + passRate × 0.35 + stability × 0.35
+    const pending = (displayNode.outcomes.pending || 0) + (displayNode.outcomes.skipped || 0);
+    const nodeCompleteness = total > 0 ? Math.round(((total - pending) / total) * 100) : 0;
+    const nodeConfidence = total > 0 ? Math.round(nodeCompleteness * 0.3 + passRate * 0.35 + 100 * 0.35) : 0;
+
     const handleKeyDown = (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -165,6 +170,7 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoo
                     <span class="req-tree-bars">
                         <${SegmentedBar} outcomes=${displayNode.outcomes} tooltip="${passRate}% passing (${displayNode.outcomes.passed}/${total})" />
                     </span>
+                    <span class="req-tree-score" style="color:${nodeConfidence >= 90 ? 'var(--color-passed)' : nodeConfidence < 50 ? 'var(--color-failed)' : nodeConfidence < 70 ? 'var(--color-pending)' : 'var(--text-secondary)'}" title="Confidence: ${nodeConfidence}">${nodeConfidence}</span>
                 ` : null}
             </div>
             ${displayNode.children.map(child => html`
