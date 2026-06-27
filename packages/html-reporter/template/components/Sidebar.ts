@@ -13,7 +13,7 @@ export function Sidebar({ route, sidebarOpen, collapsed, onNavigate, onClose, on
         { path: '/tests', label: 'Test Scenarios', icon: 'testScenarios', badge: DATA.summary.outcomes.failed + (DATA.summary.outcomes.error || 0) + (DATA.summary.outcomes.compromised || 0) },
         { path: '/requirements', label: 'Requirements', icon: 'completeness' },
         { path: '/errors', label: 'Errors', icon: 'errors' },
-        { path: '/stability', label: 'Stability', icon: 'flaky' },
+        { path: '/stability', label: 'Stability', icon: 'unstable' },
         { path: '/timeline', label: 'Timeline', icon: 'timeline' },
         { path: '/tags', label: 'Tags', icon: 'tags' },
         { path: '/test-runs', label: 'Test Runs', icon: 'testRuns' },

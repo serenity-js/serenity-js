@@ -28,7 +28,7 @@ test.describe('SystemContextView', () => {
         await expect(page.locator('body')).toContainText('#42');
         await expect(page.locator('body')).toContainText('main');
         await expect(page.locator('body')).toContainText('abc1234');
-        await expect(page.locator('body')).toContainText('fix: resolve flaky test');
+        await expect(page.locator('body')).toContainText('fix: resolve unstable test');
     });
 
     test('renders browser information', async ({ mount, page }) => {

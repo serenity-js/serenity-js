@@ -111,7 +111,7 @@ export function minimalData(overrides: Partial<ReportData> & Record<string, unkn
                 buildNumber: '42',
                 branch: 'main',
                 commit: 'abc1234',
-                commitMessage: 'fix: resolve flaky test',
+                commitMessage: 'fix: resolve unstable test',
                 repositoryUrl: 'git@github.com:serenity-js/serenity-js.git',
             },
             projectName: '@serenity-js/test-project',

@@ -11,23 +11,23 @@ import { icons } from './icons';
 const html = htm.bind(h);
 
 export function StabilityView({ onNavigate }) {
-    const flaky = DATA.unstableTests || [];
+    const unstableTests = DATA.unstableTests || [];
 
     const [filter, setFilter] = useState('unstable');
     const [search, setSearch] = useState('');
     const [sort, setSort] = useState('category');
 
-    if (flaky.length === 0) {
+    if (unstableTests.length === 0) {
         return html`
       <div class="placeholder-view">
-        ${icons.flaky}
+        ${icons.unstable}
         <h2>All Tests Stable</h2>
         <p>No unstable results detected.<br/>Run your test suite several times to populate history.</p>
       </div>
     `;
     }
 
-    const allUnstable = useMemo(() => flaky.map(t => {
+    const allUnstable = useMemo(() => unstableTests.map(t => {
         const lastOutcome = t.history && t.history.length > 0 ? t.history[t.history.length - 1] : null;
         const kind = lastOutcome === 'SUCCESS' ? 'recovered' : 'degraded';
         return { ...t, kind };
@@ -146,7 +146,7 @@ export function StabilityView({ onNavigate }) {
       <div class="filter-bar" role="group" aria-label="Filter tests by stability" style="align-items:center">
         <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;align-self:center">Status:</span>
         <button class="filter-chip ${filter === 'unstable' ? 'active' : ''}" onClick=${() => setFilter('unstable')}>
-          <span>Unstable</span> <span class="count">${flaky.length}</span>
+          <span>Unstable</span> <span class="count">${unstableTests.length}</span>
         </button>
         <button class="filter-chip failed ${filter === 'degraded' ? 'active' : ''}" onClick=${() => setFilter('degraded')}>
           <span>Degraded</span> <span class="count">${degradedCount}</span>
@@ -204,9 +204,9 @@ export function StabilityView({ onNavigate }) {
                         })}
                       </div>
                     ` : null}
-                    ${t.flakinessRate !== undefined ? html`
-                      <div style="text-align:right;min-width:44px" title="Failure ratio: ${Math.round(t.flakinessRate * 100)}%">
-                        <div style="font-size:var(--font-md);font-weight:700;color:var(--color-pending)">${Math.round(t.flakinessRate * 100)}%</div>
+                    ${t.instabilityRate !== undefined ? html`
+                      <div style="text-align:right;min-width:44px" title="Failure ratio: ${Math.round(t.instabilityRate * 100)}%">
+                        <div style="font-size:var(--font-md);font-weight:700;color:var(--color-pending)">${Math.round(t.instabilityRate * 100)}%</div>
                       </div>
                     ` : null}
                   </div>

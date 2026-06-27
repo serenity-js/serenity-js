@@ -19,14 +19,6 @@ function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, se
     const GROUP_HEADER_HEIGHT_REST = 78;
     const GROUP_HEADER_CONTENT_HEIGHT = 46;
 
-    // Build lookup sets for badges
-    const newFailureKeys = useMemo(() => new Set(
-        (DATA.newFailures || []).map(f => f.source.path + ':' + (f.source.line || ''))
-    ), []);
-    const unstableKeys = useMemo(() => new Set(
-        (DATA.unstableTests || []).map(f => f.source.path + ':' + (f.source.line || ''))
-    ), []);
-
     const flatItems = useMemo(() => {
         if (sort === 'category') {
             const items = [];
@@ -122,8 +114,6 @@ function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, se
                 <div class="scenario-name">${sort !== 'category' && scenario.category ? scenario.category + ' › ' : ''}${scenario.name}</div>
                 ${scenario.error ? html`<div class="scenario-error-preview">${scenario.error.message}</div>` : null}
                 <div class="scenario-tags">
-                  ${newFailureKeys.has(scenario.source.path + ':' + (scenario.source.line || '')) ? html`<span class="badge badge--new">New</span>` : null}
-                  ${unstableKeys.has(scenario.source.path + ':' + (scenario.source.line || '')) ? html`<span class="badge badge--flaky">Flaky</span>` : null}
                   ${getBrowserTag(scenario) ? html`<a href=${'#/tests?search=' + encodeURIComponent('"' + getBrowserTag(scenario) + '"')} class="badge badge-${getBrowserTag(scenario)} badge-link" onClick=${stopProp}>${getBrowserTag(scenario)}</a>` : null}
                   ${scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
                   ${[...new Map((scenario.tags || []).filter(t => t.type !== 'feature' && t.type !== 'browser').map(t => [t.type + ':' + t.name, t])).values()].map(t => html`<a href=${'#/tests?search=' + encodeURIComponent('"' + t.name + '"')} class="tag-chip tag-chip-sm" onClick=${stopProp}>${t.name}</a>`)}

@@ -127,7 +127,7 @@ export interface ReportUnstableTest {
     name: string;
     category: string;
     source: ReportSource;
-    flakinessRate: number;
+    instabilityRate: number;
 }
 
 export interface ReportScenarioRef {

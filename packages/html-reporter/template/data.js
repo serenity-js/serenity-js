@@ -1066,13 +1066,13 @@ window.__SERENITY_REPORT_DATA__ = {
     ],
   },
 
-  flakyTests: [
+  unstableTests: [
     {
       id: "scenario-12",
       name: "A timed out scenario",
       category: "Reporting Results › Reports Timed Out Scenarios",
       source: { path: "reporting_results/reports_timed_out_scenarios.feature", line: 8 },
-      flakinessRate: 0.6,
+      instabilityRate: 0.6,
       history: ["FAILURE", "SUCCESS", "FAILURE", "SUCCESS", "FAILURE"],
       labels: ["#85", "#86", "#87", "#88", "#89"],
     },
@@ -1081,7 +1081,7 @@ window.__SERENITY_REPORT_DATA__ = {
       name: "A scenario failing with a Serenity/JS Screenplay AssertionError",
       category: "Reporting Results › Reports Failing Scenarios",
       source: { path: "reporting_results/reports_failing_scenarios.feature", line: 24 },
-      flakinessRate: 0.4,
+      instabilityRate: 0.4,
       history: ["SUCCESS", "FAILURE", "SUCCESS", "SUCCESS", "FAILURE"],
       labels: ["#85", "#86", "#87", "#88", "#89"],
     },
@@ -1090,7 +1090,7 @@ window.__SERENITY_REPORT_DATA__ = {
       name: "A compromised scenario",
       category: "Reporting Results › Reports Compromised Scenarios",
       source: { path: "reporting_results/reports_compromised_scenarios.feature", line: 8 },
-      flakinessRate: 0.4,
+      instabilityRate: 0.4,
       history: ["SUCCESS", "SUCCESS", "COMPROMISED", "SUCCESS", "COMPROMISED"],
       labels: ["#85", "#86", "#87", "#88", "#89"],
     },
@@ -1099,7 +1099,7 @@ window.__SERENITY_REPORT_DATA__ = {
       name: "Transfer points between existing members",
       category: "Frequent Flyers › Transferring Points Between Members",
       source: { path: "frequent_flyers/transferring_points_between_members.feature", line: 22 },
-      flakinessRate: 0.2,
+      instabilityRate: 0.2,
       history: ["SUCCESS", "FAILURE", "SUCCESS", "FAILURE", "SUCCESS"],
       labels: ["#85", "#86", "#87", "#88", "#89"],
     },

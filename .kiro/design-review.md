@@ -1,6 +1,39 @@
 # Design Review — Serenity/JS HTML Report
 
-Date: 2026-06-26
+Date: 2026-06-26  
+Branch: `feat/html-reporter`  
+Commit: `bbc39bc531`
+
+## Current Status
+
+### Completed (this session)
+
+**KPI Redesign (all views):**
+- Dashboard: hero Confidence card with area sparkline + deltas, quality sub-scores, operational cards with dot trends
+- Requirements: KPI filter tabs with subtitles, root node visible, subdirectory counts (pass/total)
+- Timeline: KPI cards replacing inline stats
+- Errors: category KPI cards with subtitles
+- All views: consistent uppercase labels, semantic colour (≥90 green, 70–89 default, <70 orange, <50 red)
+- Accessibility: tabindex, role, aria-label on interactive cards
+- `ReportHistoryScore` interface added to `ReportData.ts`
+
+**Phase 1 Quick Wins (all done):**
+- ✅ Tags: force red for 0% with scenarios
+- ✅ Test Runs: threshold colours on pass rates
+- ✅ Scenarios: strip category prefix when grouped
+- ✅ Requirements: "88% (44/50)" counts in subdirectory list
+- ✅ Requirements: capitalize detail panel title
+- ✅ Requirements: root directory name shown in tree
+- ✅ Dashboard: tooltip colour boxes filled (usePointStyle)
+- ✅ Lint: all errors resolved, `make lint` clean
+
+### Not Changed (intentionally)
+- StabilityView: uses filter chips (different pattern, already consistent)
+- TestRunsView: list layout with trend chart (well-structured)
+- SystemContextView: context grid with emoji icons (solid)
+- ScenariosView: virtualized list (working, but needs Phase 2 enrichment)
+
+---
 
 ## Executive Assessment
 
@@ -48,7 +81,7 @@ The report has evolved significantly from a generic template. The KPI redesign e
 
 2. **No failure context in the list** — engineers must click each failed scenario to understand what broke.
 
-3. **No flakiness/history indicator** — no signal whether a failure is new, recurring, or flaky.
+3. **No instability/history indicator** — no signal whether a failure is new, recurring, or unstable.
 
 4. **Duration values have no visual weight hierarchy** — 85ms and 310ms look equally important.
 
@@ -61,10 +94,10 @@ The report has evolved significantly from a generic template. The KPI redesign e
 | Strip category prefix from scenario names when grouped by category | High | Low |
 | Show inline error message (1 line, truncated) for failed scenarios | High | Medium |
 | Add execution history dots (last 5 runs) to each row | High | Medium |
-| Add "New failure" / "Flaky" badges for regressions | High | Medium |
+| Add "New failure" / "Unstable" badges for regressions | High | Medium |
 | Reduce row height to ~80px (name + meta on 2 lines) | Medium | Low |
 | Highlight duration only when >2× average (orange) or >5× (red) | Medium | Low |
-| Add "Failed" / "New failures" / "Flaky" / "Slow" quick-filter buttons | High | Medium |
+| Add "Failed" / "New failures" / "Unstable" / "Slow" quick-filter buttons | High | Medium |
 
 ---
 
@@ -232,32 +265,51 @@ No changes required.
 
 ## Prioritised Implementation Roadmap
 
-### Phase 1: High Impact / Low Effort
+### Phase 1: High Impact / Low Effort ✅ COMPLETE
 
-1. **Tags: force red for 0% with scenarios** — TagsView colour logic
-2. **Test Runs: apply threshold colours to pass rates** — TestRunsView
-3. **Scenarios: strip category prefix when grouped** — ScenariosView name rendering
-4. **Requirements: add "N/M" counts to subdirectory list** — RequirementsView detail panel
-5. **Dashboard: reduce trend chart to 200px** — DashboardView/TrendChart
-6. **Requirements: capitalize detail panel title** — RequirementsView
+1. ~~Tags: force red for 0% with scenarios~~ ✅
+2. ~~Test Runs: apply threshold colours to pass rates~~ ✅
+3. ~~Scenarios: strip category prefix when grouped~~ ✅
+4. ~~Requirements: add "N/M" counts to subdirectory list~~ ✅
+5. ~~Dashboard: reduce trend chart to 200px~~ → reverted to 280px (Y axis labels need space)
+6. ~~Requirements: capitalize detail panel title~~ ✅
 
-### Phase 2: High Impact / Medium Effort
+### Phase 2: High Impact / Medium Effort — NEXT
 
-7. **Scenarios: inline error message for failed rows** — ScenariosView row template
-8. **Scenarios: execution history dots (last 5 runs)** — ScenariosView row template
-9. **Scenarios: "New failure" / "Flaky" badges** — ScenariosView + data enrichment
-10. **Requirements: segmented outcome bar replacing dual progress bars** — RequirementsView tree
-11. **Errors: group identical error messages** — ErrorsView deduplication
-12. **Errors: "New" badge for new errors** — ErrorsView + history comparison
-13. **Test Runs: delta indicator between consecutive runs** — TestRunsView
+7. **Scenarios: inline error message for failed rows** — show `error.message` truncated to 1 line below scenario name for failed/error/compromised outcomes
+8. **Scenarios: execution history dots (last 5 runs)** — show outcome dots from `executionHistory` array, same pattern as Dashboard status cards
+9. **Scenarios: "New failure" / "Unstable" badges** — cross-reference `newFailures` and `unstableTests` arrays to add status pills
+10. **Requirements: segmented outcome bar** — replace dual progress bars with single bar showing green/red/orange/grey segments proportional to outcomes
+11. **Errors: group identical error messages** — deduplicate by `error.message`, show "(×3)" count
+12. **Errors: "New" badge** — cross-reference `newFailures` to mark first-time errors
+13. **Test Runs: delta indicator** — show "↑ 2%" / "↓ 4%" comparing each run to its predecessor
 
-### Phase 3: High Impact / High Effort
+### Phase 3: High Impact / High Effort — PLANNED
 
 14. **Requirements: risk score** (pass rate + flakiness + recency) per node
 15. **Scenarios: expandable inline diagnostics** (stack trace preview, screenshots)
 16. **Scenarios: smart grouping** (by error type, directory, requirement, severity)
 17. **Global search** across all views (scenarios, errors, tags, requirements)
 18. **Requirements: historical trend** per requirement node
+
+### Remaining Polish (Low Effort)
+
+- [ ] Timeline: dim passing rows (opacity 0.7) to elevate failures
+- [ ] Timeline: minimum duration bar width 8px
+- [ ] Tags: sort by pass rate (worst first) within groups
+- [ ] Dashboard: remove "219 Passed | 40 Failed | Avg 4.2s" redundant text from trend card header
+- [ ] Dashboard: status card headers (DEGRADED/RECOVERED) use `--text-secondary` instead of semantic colour
+
+---
+
+## Recommendations for Next Session
+
+**Start with items 7–9** (Test Scenarios enrichment). These have the highest user impact — they directly answer "what broke and why?" during a failing CI build without requiring clicks into detail views.
+
+Implementation approach:
+- Item 7 (inline errors): Add conditional line below `.scenario-name` showing `scenario.error.message` with `text-overflow: ellipsis` for non-SUCCESS outcomes. ~20 lines of template change.
+- Item 8 (history dots): Render `scenario.executionHistory.slice(-5)` as coloured dots (same `.history-dot` pattern from Dashboard status cards). ~15 lines.
+- Item 9 (badges): Check if scenario source matches any entry in `DATA.newFailures` or `DATA.unstableTests` and render a small pill. ~25 lines.
 
 ---
 

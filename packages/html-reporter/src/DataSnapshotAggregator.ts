@@ -364,7 +364,7 @@ export class DataSnapshotAggregator {
             .map(entry => testRunsDirectory.join(Path.from(entry)));
     }
 
-    private identifyUnstableTests(allRuns: RunData[]): Array<{ name: string; category: string; source: { path: string; line: number }; flakinessRate: number }> {
+    private identifyUnstableTests(allRuns: RunData[]): Array<{ name: string; category: string; source: { path: string; line: number }; instabilityRate: number }> {
         const recentRuns = allRuns.slice(-this.config.stabilityWindow);
 
         // Collect outcomes per test identity (name@path)
@@ -381,7 +381,7 @@ export class DataSnapshotAggregator {
         }
 
         // Find tests with mixed outcomes
-        const unstable: Array<{ name: string; category: string; source: { path: string; line: number }; flakinessRate: number }> = [];
+        const unstable: Array<{ name: string; category: string; source: { path: string; line: number }; instabilityRate: number }> = [];
 
         for (const [, test] of testOutcomes) {
             const uniqueOutcomes = new Set(test.outcomes);
@@ -391,12 +391,12 @@ export class DataSnapshotAggregator {
                     name: test.name,
                     category: test.category,
                     source: test.source,
-                    flakinessRate: failures / test.outcomes.length,
+                    instabilityRate: failures / test.outcomes.length,
                 });
             }
         }
 
-        return unstable.sort((a, b) => b.flakinessRate - a.flakinessRate);
+        return unstable.sort((a, b) => b.instabilityRate - a.instabilityRate);
     }
 
     private mapActivityOutcome(activity: { outcome: SerialisedOutcome; children: any[]; [key: string]: any }): any {

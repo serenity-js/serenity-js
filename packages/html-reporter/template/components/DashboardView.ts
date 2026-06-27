@@ -296,7 +296,7 @@ export function DashboardView({ onNavigate }) {
     const slowest = sorted.slice(0, 5);
     const newFailures = useMemo(() => (DATA.newFailures || []).slice(0, 5), []);
     const newPasses = useMemo(() => (DATA.newPasses || []).slice(0, 5), []);
-    const flakyTests = (DATA.unstableTests || []).slice(0, 5);
+    const unstable = (DATA.unstableTests || []).slice(0, 5);
 
     // Look up execution history for a test by source identity
     const getHistory = (t) => {
@@ -425,13 +425,13 @@ export function DashboardView({ onNavigate }) {
             `)}
           </div>
           <!-- Unstable -->
-          ${flakyTests.length > 0 ? html`
+          ${unstable.length > 0 ? html`
             <div class="card dashboard-status-card">
               <div class="card-header">
                 <span class="status-card-title" style="color:var(--color-pending)">Unstable</span>
                 <a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>
               </div>
-              ${flakyTests.map(t => html`
+              ${unstable.map(t => html`
                 <div class="status-item clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
                   <span class="status-icon status-icon--warn">⚠</span>
                   <span class="status-item-name">${t.name}</span>
