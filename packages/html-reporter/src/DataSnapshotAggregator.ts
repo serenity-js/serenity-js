@@ -196,9 +196,22 @@ export class DataSnapshotAggregator {
     }
 
     private buildHistory(allRuns: RunData[]): unknown[] {
-        return allRuns.map(run => {
+        return allRuns.map((run, index) => {
             const durations = run.scenes.map(s => s.duration).filter(d => d > 0);
             const ci = run.systemContext?.runtime;
+
+            // Compute score for this run
+            const total = Object.values(run.outcomes).reduce((a: number, b: number) => a + b, 0);
+            const passed = run.outcomes.passed || 0;
+            const pending = (run.outcomes.pending || 0) + (run.outcomes.skipped || 0);
+            const passRate = total > 0 ? Math.round((passed / total) * 100) : 0;
+            const completeness = total > 0 ? Math.round(((total - pending) / total) * 100) : 0;
+
+            // Stability: proportion of tests with consistent outcomes up to this run
+            const runsUpToHere = allRuns.slice(0, index + 1);
+            const stability = this.computeStabilityAtRun(runsUpToHere);
+            const confidence = Math.round(completeness * 0.3 + passRate * 0.35 + stability * 0.35);
+
             return {
                 timestamp: run.startedAt,
                 duration: new Date(run.finishedAt).getTime() - new Date(run.startedAt).getTime(),
@@ -211,8 +224,30 @@ export class DataSnapshotAggregator {
                 ...(ci?.branch ? { branch: ci.branch } : {}),
                 ...(ci?.jobUrl ? { ciJobUrl: ci.jobUrl } : {}),
                 ...(ci?.repositoryUrl ? { repositoryUrl: ci.repositoryUrl } : {}),
+                score: { confidence, passRate, stability, completeness },
             };
         });
+    }
+
+    private computeStabilityAtRun(runs: RunData[]): number {
+        if (runs.length < 2) return 100;
+        const testOutcomes = new Map<string, string[]>();
+        for (const run of runs) {
+            for (const scene of run.scenes) {
+                const identity = `${ scene.name }@${ scene.source.path }`;
+                if (!testOutcomes.has(identity)) testOutcomes.set(identity, []);
+                testOutcomes.get(identity).push(outcomeCodeToDisplayString(scene.outcome.code));
+            }
+        }
+        let totalTests = 0;
+        let stableTests = 0;
+        for (const [, outcomes] of testOutcomes) {
+            if (outcomes.length >= 2) {
+                totalTests++;
+                if (new Set(outcomes).size === 1) stableTests++;
+            }
+        }
+        return totalTests > 0 ? Math.round((stableTests / totalTests) * 100) : 100;
     }
 
     private buildSystemContext(latestRun: RunData): unknown {
