@@ -309,7 +309,7 @@ No changes required.
 7. ~~Scenarios: inline error message for failed rows~~ ✅
 8. ~~Scenarios: execution history dots (last 5 runs)~~ ✅
 9. ~~Scenarios: "New" / "Unstable" badges~~ ❌ Removed — redundant with Stability view
-10. **Requirements: segmented outcome bar** — replace dual progress bars with single bar showing green/red/orange/grey segments proportional to outcomes
+10. ~~Requirements: segmented outcome bar~~ ✅ Single stacked bar (green/red/orange/grey)
 11. **Errors: group identical error messages** — deduplicate by `error.message`, show "(×3)" count
 12. **Errors: "New" badge** — cross-reference `newFailures` to mark first-time errors
 13. ~~Test Runs: delta indicator~~ ✅ Shows "↑ 2%" / "↓ 4%" comparing each run to predecessor
@@ -325,9 +325,9 @@ No changes required.
 
 ### Remaining Polish (Low Effort)
 
-- [ ] Timeline: dim passing rows (opacity 0.7) to elevate failures
-- [ ] Timeline: minimum duration bar width 8px
-- [ ] Tags: sort by pass rate (worst first) within groups
+- [x] Timeline: dim passing rows (opacity 0.7) to elevate failures ✅
+- [x] Timeline: minimum duration bar width 8px ✅
+- [x] Tags: sort by pass rate (worst first) within groups ✅
 - [x] Dashboard: remove "219 Passed | 40 Failed | Avg 4.2s" redundant text from trend card header ✅
 - [x] Dashboard: status card headers use `--text-secondary` instead of semantic colour ✅ (combined into single card)
 

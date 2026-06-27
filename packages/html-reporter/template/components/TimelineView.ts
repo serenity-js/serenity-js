@@ -88,8 +88,9 @@ export function TimelineView({ onNavigate }) {
                 const clickHandler = () => onNavigate(scenarioUrl(s));
                 const barWidth = sortBy === 'time' ? width : Math.max((s.duration / slowest) * 100, 3);
                 const nameColor = s.outcome !== 'SUCCESS' ? 'color:var(--color-' + outcomeClass(s.outcome) + ')' : '';
+                const rowOpacity = s.outcome === 'SUCCESS' ? 'opacity:0.7;' : '';
                 return html`
-                <div class="timeline-row" style="position:absolute;top:0;left:0;width:100%;height:${rowHeight}px;transform:translateY(${virtualRow.start}px);display:flex;flex-direction:column;justify-content:center;padding:4px var(--space-sm);border-bottom:1px solid var(--divider);cursor:pointer"
+                <div class="timeline-row" style="position:absolute;top:0;left:0;width:100%;height:${rowHeight}px;transform:translateY(${virtualRow.start}px);display:flex;flex-direction:column;justify-content:center;padding:4px var(--space-sm);border-bottom:1px solid var(--divider);cursor:pointer;${rowOpacity}"
                      onClick=${clickHandler}
                      title="Started: ${formatTimestamp(s.startedAt)} • Duration: ${formatDuration(s.duration)}">
                   <div style="display:flex;align-items:center;gap:6px;overflow:hidden">
@@ -98,7 +99,7 @@ export function TimelineView({ onNavigate }) {
                     <span style="font-size:var(--font-xs);${s.outcome !== 'SUCCESS' ? 'color:var(--color-' + outcomeClass(s.outcome) + ')' : 'color:var(--text-secondary)'};font-family:var(--font-mono);white-space:nowrap;flex-shrink:0">${formatDuration(s.duration)}</span>
                   </div>
                   <div style="height:10px;margin-left:24px;margin-top:2px;position:relative">
-                    <div style="position:absolute;left:${left}%;width:${barWidth}%;height:100%;border-radius:3px;background:var(--color-${outcomeClass(s.outcome)});opacity:0.85"></div>
+                    <div style="position:absolute;left:${left}%;width:${barWidth}%;min-width:8px;height:100%;border-radius:3px;background:var(--color-${outcomeClass(s.outcome)});opacity:0.85"></div>
                   </div>
                 </div>
               `;

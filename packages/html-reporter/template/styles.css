@@ -1666,9 +1666,8 @@
 
     .req-tree-bars {
       display: flex;
-      flex-direction: column;
-      gap: 2px;
-      width: 48px;
+      align-items: center;
+      width: 64px;
       flex-shrink: 0;
     }
 
@@ -1678,6 +1677,7 @@
       border-radius: 3px;
       background: var(--divider);
       overflow: hidden;
+      width: 100%;
     }
 
     .req-icon {

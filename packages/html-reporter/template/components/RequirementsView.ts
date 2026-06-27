@@ -37,10 +37,17 @@ function ProgressBar({ percent, tooltip }) {
 const folderIcon = html`<svg class="req-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>`;
 const fileIcon = html`<svg class="req-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`;
 
-function TreeBar({ percent, tooltip }) {
+function SegmentedBar({ outcomes, tooltip }) {
+    const total = Object.values(outcomes).reduce((a: number, b: number) => a + b, 0);
+    if (total === 0) return null;
+    const passed = (outcomes.passed || 0) / total * 100;
+    const failed = ((outcomes.failed || 0) + (outcomes.error || 0) + (outcomes.compromised || 0)) / total * 100;
+    const pending = (outcomes.pending || 0) / total * 100;
     return html`
-        <div class="req-tree-bars-item" title=${tooltip || ''}>
-            <div class="progress-bar-fill" style="width:${percent}%;background:${passRateColor(percent)}" />
+        <div class="req-tree-bars-item" title=${tooltip || ''} style="display:flex;overflow:hidden;border-radius:2px;background:var(--color-skipped-bg)">
+            ${passed > 0 ? html`<div style="width:${passed}%;height:100%;background:var(--color-passed)"></div>` : null}
+            ${failed > 0 ? html`<div style="width:${failed}%;height:100%;background:var(--color-failed)"></div>` : null}
+            ${pending > 0 ? html`<div style="width:${pending}%;height:100%;background:var(--color-pending)"></div>` : null}
         </div>
     `;
 }
@@ -137,7 +144,7 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoo
     const childrenMatch = displayNode.children ? displayNode.children.some(c => nodeMatches(c, searchTerm)) : false;
     if (searchTerm && !matchesSearch && !childrenMatch) return null;
 
-    const { total, executed, passRate, fileCount, coveredCount, completeness } = nodeMetrics(displayNode);
+    const { total, passRate } = nodeMetrics(displayNode);
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -156,8 +163,7 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoo
                 <span class="req-tree-label">${isRoot ? (node.displayName || node.name) : collapsedLabel}</span>
                 ${total > 0 ? html`
                     <span class="req-tree-bars">
-                        <${TreeBar} percent=${completeness} tooltip="${completeness}% Completeness — ${coveredCount} of ${fileCount} requirements fully implemented" />
-                        <${TreeBar} percent=${passRate} tooltip="${passRate}% Pass Rate — ${displayNode.outcomes.passed} of ${executed} executed scenarios passing" />
+                        <${SegmentedBar} outcomes=${displayNode.outcomes} tooltip="${passRate}% passing (${displayNode.outcomes.passed}/${total})" />
                     </span>
                 ` : null}
             </div>
