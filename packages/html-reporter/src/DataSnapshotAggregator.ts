@@ -399,24 +399,27 @@ export class DataSnapshotAggregator {
             .map(entry => testRunsDirectory.join(Path.from(entry)));
     }
 
-    private identifyUnstableTests(allRuns: RunData[]): Array<{ name: string; category: string; source: { path: string; line: number }; instabilityRate: number }> {
+    private identifyUnstableTests(allRuns: RunData[]): Array<{ name: string; category: string; source: { path: string; line: number }; instabilityRate: number; history: string[]; labels: string[] }> {
         const recentRuns = allRuns.slice(-this.config.stabilityWindow);
 
         // Collect outcomes per test identity (name@path)
-        const testOutcomes = new Map<string, { name: string; category: string; source: { path: string; line: number }; outcomes: string[] }>();
+        const testOutcomes = new Map<string, { name: string; category: string; source: { path: string; line: number }; outcomes: string[]; labels: string[] }>();
 
         for (const run of recentRuns) {
+            const runLabel = this.resolveRunLabel(run);
             for (const scene of run.scenes) {
                 const identity = `${ scene.name }@${ scene.source.path }`;
                 if (!testOutcomes.has(identity)) {
-                    testOutcomes.set(identity, { name: scene.name, category: scene.category, source: scene.source, outcomes: [] });
+                    testOutcomes.set(identity, { name: scene.name, category: scene.category, source: scene.source, outcomes: [], labels: [] });
                 }
-                testOutcomes.get(identity).outcomes.push(outcomeCodeToDisplayString(scene.outcome.code));
+                const entry = testOutcomes.get(identity);
+                entry.outcomes.push(outcomeCodeToDisplayString(scene.outcome.code));
+                entry.labels.push(runLabel);
             }
         }
 
         // Find tests with mixed outcomes
-        const unstable: Array<{ name: string; category: string; source: { path: string; line: number }; instabilityRate: number }> = [];
+        const unstable: Array<{ name: string; category: string; source: { path: string; line: number }; instabilityRate: number; history: string[]; labels: string[] }> = [];
 
         for (const [, test] of testOutcomes) {
             const uniqueOutcomes = new Set(test.outcomes);
@@ -427,6 +430,8 @@ export class DataSnapshotAggregator {
                     category: test.category,
                     source: test.source,
                     instabilityRate: failures / test.outcomes.length,
+                    history: test.outcomes,
+                    labels: test.labels,
                 });
             }
         }

@@ -6,7 +6,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
-import { DATA, formatDuration, formatRunLabel, scenarioUrl } from '../utils';
+import { DATA, formatDuration, formatRunLabel, outcomeClass, scenarioUrl } from '../utils';
 
 const html = htm.bind(h);
 
@@ -402,7 +402,11 @@ export function DashboardView({ onNavigate }) {
                         <span class="status-item-name">${t.name}</span>
                         <span class="status-item-kind" style="color:${t.kind === 'degraded' ? 'var(--color-failed)' : t.kind === 'recovered' ? 'var(--color-passed)' : 'var(--color-pending)'}">${t.kind}</span>
                       </div>
-                      <div class="status-item-history">${getHistory(t).map(h => html`<span class="history-dot history-dot--${h.outcome}" title=${h.outcome + ' (' + h.run + ')'}></span>`)}</div>
+                      <div class="status-item-history">${(t.history || getHistory(t)).map((h, i) => {
+                    const outcome = typeof h === 'string' ? h : h.outcome;
+                    const label = t.labels ? t.labels[i] : (typeof h === 'object' ? h.run : '');
+                    return html`<span class="history-dot history-dot--${outcomeClass(outcome)}" title=${outcome + (label ? ' (' + label + ')' : '')}></span>`;
+                })}</div>
                     </div>
                 `);
             })()}

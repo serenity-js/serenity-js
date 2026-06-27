@@ -128,6 +128,8 @@ export interface ReportUnstableTest {
     category: string;
     source: ReportSource;
     instabilityRate: number;
+    history: string[];
+    labels: string[];
 }
 
 export interface ReportScenarioRef {
