@@ -5,7 +5,7 @@ import { h } from 'preact';
 import { useCallback, useMemo, useRef, useState } from 'preact/hooks';
 
 import { useStickyHeader, useVirtualizer } from '../hooks';
-import { DATA, matchesSearch, outcomeClass, scenarioUrl } from '../utils';
+import { DATA, matchesSearch, outcomeClass, relativeSourcePath, scenarioUrl } from '../utils';
 import { icons } from './icons';
 
 const html = htm.bind(h);
@@ -52,7 +52,7 @@ export function StabilityView({ onNavigate }) {
         return [...searchedItems].sort((a, b) => (a.category || '').localeCompare(b.category || ''));
     }, [searchedItems, sort]);
 
-    const STABILITY_ROW_HEIGHT = 56;
+    const STABILITY_ROW_HEIGHT = 88;
     const STABILITY_HEADER_HEIGHT_FIRST = 62;
     const STABILITY_HEADER_HEIGHT_REST = 78;
     const STABILITY_HEADER_CONTENT_HEIGHT = 46;
@@ -123,13 +123,8 @@ export function StabilityView({ onNavigate }) {
 
     const kindIcon = (kind) => {
         if (kind === 'degraded') return html`<span class="scenario-outcome-icon failed">✗</span>`;
-        return html`<span class="scenario-outcome-icon pending">⚡</span>`;
-    };
-
-    const kindLabel = (kind) => {
-        if (kind === 'degraded') return 'currently failing';
-        if (kind === 'recovered') return 'currently passing';
-        return '';
+        if (kind === 'recovered') return html`<span class="scenario-outcome-icon passed">✓</span>`;
+        return html`<span class="scenario-outcome-icon pending">⚠</span>`;
     };
 
     return html`
@@ -186,30 +181,17 @@ export function StabilityView({ onNavigate }) {
                 const clickHandler = () => onNavigate(scenarioUrl(t));
                 return html`
                 <div style="position:absolute;top:0;left:0;width:100%;height:${STABILITY_ROW_HEIGHT}px;transform:translateY(${virtualRow.start}px);overflow:hidden"
-                     class="scenario-item" onClick=${clickHandler}>
+                     class="scenario-item" role="button" tabindex="0" onClick=${clickHandler}
+                     onKeyDown=${(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); clickHandler(); } }}>
                   ${kindIcon(t.kind)}
-                  <div class="scenario-info flex-1">
+                  <div class="scenario-info">
                     <div class="scenario-name">${t.name}</div>
                     <div class="scenario-meta">
-                      <span class="scenario-source">${t.source.line ? t.source.path + ':' + t.source.line : t.source.path}</span>
-                      ${kindLabel(t.kind) ? html`<span style="color:var(--text-disabled)">•</span><span>${kindLabel(t.kind)}</span>` : null}
+                      <span class="scenario-source">${relativeSourcePath(t)}</span>
+                      ${t.history && t.history.length > 1 ? html`<span class="scenario-history">${t.history.slice(-5).map((outcome, i) => html`<span class="history-dot history-dot--${outcomeClass(outcome)}" title=${outcome + (t.labels && t.labels[i] ? ' (' + t.labels[i] + ')' : '')}></span>`)}</span>` : null}
                     </div>
                   </div>
-                  <div style="display:flex;align-items:center;gap:var(--space-md);flex-shrink:0">
-                    ${t.history ? html`
-                      <div style="display:flex;gap:2px;align-items:center">
-                        ${t.history.map((outcome, index) => {
-                            const runClickHandler = (e) => { e.stopPropagation(); onNavigate(scenarioUrl(t) + '?run=' + index); };
-                            return html`<div style="width:12px;height:12px;border-radius:2px;background:var(--color-${outcomeClass(outcome)});opacity:0.85;cursor:pointer" title="${t.labels[index]}: ${outcome}" onClick=${runClickHandler}></div>`;
-                        })}
-                      </div>
-                    ` : null}
-                    ${t.instabilityRate !== undefined ? html`
-                      <div style="text-align:right;min-width:44px" title="Failure ratio: ${Math.round(t.instabilityRate * 100)}%">
-                        <div style="font-size:var(--font-md);font-weight:700;color:var(--color-pending)">${Math.round(t.instabilityRate * 100)}%</div>
-                      </div>
-                    ` : null}
-                  </div>
+                  <span class="scenario-duration" style="color:var(--color-pending)">${Math.round(t.instabilityRate * 100)}%</span>
                 </div>
               `;
             })}
