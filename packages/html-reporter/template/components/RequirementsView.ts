@@ -165,7 +165,7 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoo
                         <${SegmentedBar} outcomes=${displayNode.outcomes} tooltip="${passRate}% passing · ${nodeCompleteness}% complete · Confidence ${nodeConfidence}" />
                     </span>
                     <span class="req-tree-metric" style="color:${nodeCompleteness >= 90 ? 'var(--color-passed)' : nodeCompleteness < 50 ? 'var(--color-failed)' : nodeCompleteness < 70 ? 'var(--color-pending)' : 'var(--text-secondary)'}">${nodeCompleteness}%</span>
-                    <span class="req-tree-score" style="color:${nodeConfidence >= 90 ? 'var(--color-passed)' : nodeConfidence < 50 ? 'var(--color-failed)' : nodeConfidence < 70 ? 'var(--color-pending)' : 'var(--text-secondary)'}">${nodeConfidence}</span>
+                    <span class="req-tree-score" style="color:${nodeConfidence >= 90 ? 'var(--color-passed)' : nodeConfidence < 50 ? 'var(--color-failed)' : nodeConfidence < 70 ? 'var(--color-pending)' : 'var(--text-secondary)'}">${nodeConfidence}%</span>
                 ` : null}
             </div>
             ${displayNode.children.map(child => html`
@@ -189,7 +189,7 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
             <div class="req-detail-panel">
                 <h3 class="req-detail-title">Overall</h3>
                 <div class="req-detail-stats-grid">
-                    <div class="kpi-card" tabindex="0"><span class="kpi-label">Confidence</span><span class="kpi-value" style=${overallConfidence >= 90 ? 'color:var(--color-passed)' : overallConfidence < 50 ? 'color:var(--color-failed)' : overallConfidence < 70 ? 'color:var(--color-pending)' : ''}>${overallConfidence}</span><span class="kpi-subtitle">${total} scenarios</span></div>
+                    <div class="kpi-card" tabindex="0"><span class="kpi-label">Confidence</span><span class="kpi-value" style=${overallConfidence >= 90 ? 'color:var(--color-passed)' : overallConfidence < 50 ? 'color:var(--color-failed)' : overallConfidence < 70 ? 'color:var(--color-pending)' : ''}>${overallConfidence}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled)">%</span></span><span class="kpi-subtitle">${total} scenarios</span></div>
                     <div class="kpi-card" tabindex="0"><span class="kpi-label">Pass Rate</span><span class="kpi-value" style=${passRate >= 90 ? 'color:var(--color-passed)' : passRate < 50 ? 'color:var(--color-failed)' : passRate < 70 ? 'color:var(--color-pending)' : ''}>${passRate}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled)">%</span></span><span class="kpi-subtitle">${requirements.outcomes.passed} of ${executed} passing</span></div>
                     <div class="kpi-card" tabindex="0"><span class="kpi-label">Completeness</span><span class="kpi-value" style=${overallCompleteness >= 90 ? 'color:var(--color-passed)' : overallCompleteness < 50 ? 'color:var(--color-failed)' : overallCompleteness < 70 ? 'color:var(--color-pending)' : ''}>${overallCompleteness}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled)">%</span></span><span class="kpi-subtitle">${total - pending} of ${total} implemented</span></div>
                     <div class="kpi-card" tabindex="0"><span class="kpi-label">Stability</span><span class="kpi-value" style="color:var(--color-passed)">100<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled)">%</span></span><span class="kpi-subtitle">All tests consistent</span></div>
@@ -214,9 +214,9 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
             ${node.readme ? html`<div class="req-detail-readme readme-content"><${RawHtml} content=${node.readme} /></div>` : null}
 
             <div class="req-detail-stats-grid">
-                <div class="kpi-card" tabindex="0" aria-label="Confidence: ${detailConfidence}">
+                <div class="kpi-card" tabindex="0" aria-label="Confidence: ${detailConfidence} percent">
                     <span class="kpi-label">Confidence</span>
-                    <span class="kpi-value" style=${detailConfidence >= 90 ? 'color:var(--color-passed)' : detailConfidence < 50 ? 'color:var(--color-failed)' : detailConfidence < 70 ? 'color:var(--color-pending)' : ''}>${detailConfidence}</span>
+                    <span class="kpi-value" style=${detailConfidence >= 90 ? 'color:var(--color-passed)' : detailConfidence < 50 ? 'color:var(--color-failed)' : detailConfidence < 70 ? 'color:var(--color-pending)' : ''}>${detailConfidence}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled)">%</span></span>
                     <span class="kpi-subtitle">${total} scenarios</span>
                 </div>
                 <div class="kpi-card" tabindex="0" aria-label="Pass Rate: ${passRate} percent">

@@ -310,9 +310,9 @@ export function DashboardView({ onNavigate }) {
     <div class="dashboard">
       <!-- KPI Row -->
       <div class="kpi-row">
-        <div class="kpi-card kpi-card--hero" onClick=${() => onNavigate('/requirements')} tabindex="0" role="button" aria-label="Confidence score: ${confidence} out of 100">
+        <div class="kpi-card kpi-card--hero" onClick=${() => onNavigate('/requirements')} tabindex="0" role="button" aria-label="Confidence: ${confidence} percent">
           <span class="kpi-label">Confidence</span>
-          <span class="kpi-value" style=${heroColor(confidence) ? `color:${heroColor(confidence)}` : ''}>${confidence}<span style="font-size:var(--font-base);font-weight:400;color:var(--text-disabled);margin-left:2px">/ 100</span></span>
+          <span class="kpi-value" style=${heroColor(confidence) ? `color:${heroColor(confidence)}` : ''}>${confidence}<span style="font-size:var(--font-base);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
           <span class="kpi-subtitle">${(() => {
                 if (previousConfidence === undefined) return `${summary.totalScenarios} scenarios across ${history.length} run${history.length !== 1 ? 's' : ''}`;
                 const newFails = (DATA.newFailures || []).length;
