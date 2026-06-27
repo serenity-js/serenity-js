@@ -20,8 +20,8 @@ test.describe('DashboardView', () => {
         await expect(heroCard).toBeVisible();
         await expect(heroCard.locator('.kpi-label')).toHaveText('Confidence');
         await expect(heroCard.locator('.kpi-value')).toContainText('76');
-        // Delta: 76 - 70 = +6
-        await expect(heroCard.locator('.kpi-delta')).toContainText('↑ 6');
+        // Description shows state change
+        await expect(heroCard.locator('.kpi-subtitle')).toContainText('Improved since last run');
     });
 
     test('renders pass rate, stability, and completeness with deltas', async ({ mount, page }) => {
@@ -37,15 +37,15 @@ test.describe('DashboardView', () => {
             }),
         });
 
-        const passRateCard = page.locator('.kpi-card', { hasText: 'Pass Rate' });
+        const passRateCard = page.locator('.kpi-card[aria-label*="Pass rate"]');
         await expect(passRateCard.locator('.kpi-value')).toContainText('87');
         await expect(passRateCard.locator('.kpi-delta')).toContainText('↑ 7%');
 
-        const stabilityCard = page.locator('.kpi-card', { hasText: 'Stability' });
+        const stabilityCard = page.locator('.kpi-card[aria-label*="Stability"]');
         await expect(stabilityCard.locator('.kpi-value')).toContainText('82');
         await expect(stabilityCard.locator('.kpi-delta')).toContainText('↑ 7%');
 
-        const completenessCard = page.locator('.kpi-card', { hasText: 'Completeness' });
+        const completenessCard = page.locator('.kpi-card[aria-label*="Completeness"]');
         await expect(completenessCard.locator('.kpi-value')).toContainText('75');
         await expect(completenessCard.locator('.kpi-delta')).toContainText('↑ 10%');
     });

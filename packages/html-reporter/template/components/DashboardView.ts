@@ -313,26 +313,42 @@ export function DashboardView({ onNavigate }) {
     <div class="dashboard">
       <!-- KPI Row -->
       <div class="kpi-row">
-        <div class="kpi-card kpi-card--hero" onClick=${() => onNavigate('/requirements')} title="Confidence Score — composite of Pass Rate, Stability, and Completeness" tabindex="0" role="button" aria-label="Confidence score: ${confidence} out of 100">
+        <div class="kpi-card kpi-card--hero" onClick=${() => onNavigate('/requirements')} tabindex="0" role="button" aria-label="Confidence score: ${confidence} out of 100">
           <span class="kpi-label">Confidence</span>
           <span class="kpi-value" style=${heroColor(confidence) ? `color:${heroColor(confidence)}` : ''}>${confidence}<span style="font-size:var(--font-base);font-weight:400;color:var(--text-disabled);margin-left:2px">/ 100</span></span>
-          <${Delta} current=${confidence} previous=${previousConfidence} />
+          <span class="kpi-subtitle">${(() => {
+                if (previousConfidence === undefined) return `${summary.totalScenarios} scenarios across ${history.length} run${history.length !== 1 ? 's' : ''}`;
+                const newFails = (DATA.newFailures || []).length;
+                const recovered = (DATA.newPasses || []).length;
+                if (confidence > previousConfidence) {
+                    if (recovered > 0) return `Improved since last run — ${recovered} test${recovered > 1 ? 's' : ''} recovered`;
+                    return `Improved since last run — pass rate up`;
+                }
+                if (confidence < previousConfidence) {
+                    if (newFails > 0) return `Decreased since last run — ${newFails} new failure${newFails > 1 ? 's' : ''}`;
+                    return `Decreased since last run — stability dropped`;
+                }
+                return 'No change since last run';
+            })()}</span>
           <${AreaSparkline} values=${confidenceTrend} color=${heroColor(confidence) || 'var(--accent)'} />
         </div>
         <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=failed,skipped')} tabindex="0" role="button" aria-label="Pass rate: ${passRate} percent">
           <span class="kpi-label">Pass Rate</span>
           <span class="kpi-value" style=${scoreColor(passRate) ? `color:${scoreColor(passRate)}` : ''}>${passRate}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
           <${Delta} current=${passRate} previous=${previousPassRate} suffix="%" />
+          <span class="kpi-subtitle">${summary.outcomes.passed} of ${summary.totalScenarios} passing</span>
         </div>
         <div class="kpi-card" onClick=${() => onNavigate('/stability')} tabindex="0" role="button" aria-label="Stability: ${stability} percent">
           <span class="kpi-label">Stability</span>
           <span class="kpi-value" style=${scoreColor(stability) ? `color:${scoreColor(stability)}` : ''}>${stability}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
           <${Delta} current=${stability} previous=${previousStability} suffix="%" />
+          <span class="kpi-subtitle">${stability === 100 ? 'All tests consistent' : (DATA.unstableTests || []).length + ' unstable test' + ((DATA.unstableTests || []).length !== 1 ? 's' : '')}</span>
         </div>
         <div class="kpi-card" onClick=${() => onNavigate('/requirements')} tabindex="0" role="button" aria-label="Completeness: ${completenessScore} percent">
           <span class="kpi-label">Completeness</span>
           <span class="kpi-value" style=${scoreColor(completenessScore) ? `color:${scoreColor(completenessScore)}` : ''}>${completenessScore}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
           <${Delta} current=${completenessScore} previous=${previousCompleteness} suffix="%" />
+          <span class="kpi-subtitle">${summary.totalScenarios - (summary.outcomes.pending || 0) - (summary.outcomes.skipped || 0)} of ${summary.totalScenarios} implemented</span>
         </div>
         <div class="kpi-row-operational">
           <div class="kpi-card kpi-card--operational" onClick=${() => onNavigate('/tests?filter=failed')} tabindex="0" role="button" aria-label="${totalFailed} failed scenarios">

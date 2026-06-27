@@ -8,6 +8,20 @@ import { icons } from './icons';
 
 const html = htm.bind(h);
 
+// Mini sparkline for KPI cards
+function MiniSparkline({ values, color }) {
+    if (!values || values.length < 2) return null;
+    const width = 48;
+    const height = 16;
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const range = max - min || 1;
+    const points = values.map((v, i) =>
+        `${(i / (values.length - 1)) * width},${1 + (1 - (v - min) / range) * (height - 2)}`
+    ).join(' ');
+    return html`<svg style="flex-shrink:0;opacity:0.7" width=${width} height=${height} viewBox="0 0 ${width} ${height}" preserveAspectRatio="none"><polyline fill="none" stroke=${color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points=${points} /></svg>`;
+}
+
 function passRateColor(rate) {
     return rate >= 90 ? 'var(--color-passed)' : rate < 50 ? 'var(--color-failed)' : rate < 70 ? 'var(--color-pending)' : 'var(--color-passed)';
 }
@@ -312,6 +326,11 @@ export function RequirementsView({ onNavigate, route }) {
     const executedScenarios = totalScenarios - (requirements.outcomes.skipped || 0) - (requirements.outcomes.pending || 0);
     const passRate = executedScenarios > 0 ? Math.round((requirements.outcomes.passed / executedScenarios) * 100) : 0;
 
+    // Sparkline trends from history scores
+    const scoreHistory = (DATA.history || []).filter(h => h.score);
+    const completenessTrend = scoreHistory.map(h => h.score.completeness);
+    const passRateTrend = scoreHistory.map(h => h.score.passRate);
+
     const nodeFilter = useMemo(() => {
         if (kpiFilter === 'completeness') return nodeIsIncomplete;
         if (kpiFilter === 'gaps') return nodeHasGap;
@@ -337,7 +356,10 @@ export function RequirementsView({ onNavigate, route }) {
                 </div>
                 <div class="kpi-card ${kpiFilter === 'completeness' ? 'kpi-card--active' : ''}" onClick=${() => setKpiFilter('completeness')} tabindex="0" role="button" aria-pressed=${kpiFilter === 'completeness'} aria-label="Completeness: ${completenessPercent} percent. Filter to incomplete.">
                     <span class="kpi-label">Completeness</span>
-                    <span class="kpi-value" style=${completenessPercent >= 90 ? 'color:var(--color-passed)' : completenessPercent < 50 ? 'color:var(--color-failed)' : completenessPercent < 70 ? 'color:var(--color-pending)' : ''}>${completenessPercent}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
+                    <div style="display:flex;align-items:center;justify-content:space-between">
+                        <span class="kpi-value" style=${completenessPercent >= 90 ? 'color:var(--color-passed)' : completenessPercent < 50 ? 'color:var(--color-failed)' : completenessPercent < 70 ? 'color:var(--color-pending)' : ''}>${completenessPercent}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
+                        <${MiniSparkline} values=${completenessTrend} color=${completenessPercent >= 90 ? 'var(--color-passed)' : completenessPercent < 70 ? 'var(--color-pending)' : 'var(--accent)'} />
+                    </div>
                     <span class="kpi-subtitle">${completeFiles} of ${totalFiles} implemented</span>
                 </div>
                 <div class="kpi-card ${kpiFilter === 'gaps' ? 'kpi-card--active' : ''}" onClick=${() => setKpiFilter('gaps')} tabindex="0" role="button" aria-pressed=${kpiFilter === 'gaps'} aria-label="Requirement Gaps: ${gapCount}. Filter to gaps.">
@@ -347,7 +369,10 @@ export function RequirementsView({ onNavigate, route }) {
                 </div>
                 <div class="kpi-card" onClick=${() => onNavigate('/tests?filter=failed,skipped')} tabindex="0" role="button" aria-label="Pass Rate: ${passRate} percent">
                     <span class="kpi-label">Pass Rate</span>
-                    <span class="kpi-value" style=${passRate >= 90 ? 'color:var(--color-passed)' : passRate < 50 ? 'color:var(--color-failed)' : passRate < 70 ? 'color:var(--color-pending)' : ''}>${passRate}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
+                    <div style="display:flex;align-items:center;justify-content:space-between">
+                        <span class="kpi-value" style=${passRate >= 90 ? 'color:var(--color-passed)' : passRate < 50 ? 'color:var(--color-failed)' : passRate < 70 ? 'color:var(--color-pending)' : ''}>${passRate}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
+                        <${MiniSparkline} values=${passRateTrend} color=${passRate >= 90 ? 'var(--color-passed)' : passRate < 70 ? 'var(--color-pending)' : 'var(--accent)'} />
+                    </div>
                     <span class="kpi-subtitle">${requirements.outcomes.passed} of ${executedScenarios} passing</span>
                 </div>
             </div>
