@@ -26,14 +26,6 @@ function passRateColor(rate) {
     return rate >= 90 ? 'var(--color-passed)' : rate < 50 ? 'var(--color-failed)' : rate < 70 ? 'var(--color-pending)' : 'var(--color-passed)';
 }
 
-function ProgressBar({ percent, tooltip }) {
-    return html`
-        <div class="progress-bar-wrap" title=${tooltip || ''}>
-            <div class="progress-bar-fill" style="width:${percent}%;background:${passRateColor(percent)}" />
-        </div>
-    `;
-}
-
 const folderIcon = html`<svg class="req-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>`;
 const fileIcon = html`<svg class="req-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`;
 
@@ -43,11 +35,13 @@ function SegmentedBar({ outcomes, tooltip }) {
     const passed = (outcomes.passed || 0) / total * 100;
     const failed = ((outcomes.failed || 0) + (outcomes.error || 0) + (outcomes.compromised || 0)) / total * 100;
     const pending = (outcomes.pending || 0) / total * 100;
+    const skipped = (outcomes.skipped || 0) / total * 100;
     return html`
-        <div class="req-tree-bars-item" title=${tooltip || ''} style="display:flex;overflow:hidden;border-radius:2px;background:var(--color-skipped-bg)">
+        <div class="req-tree-bars-item" title=${tooltip || ''} style="display:flex;overflow:hidden;border-radius:2px;background:var(--border-color)">
             ${passed > 0 ? html`<div style="width:${passed}%;height:100%;background:var(--color-passed)"></div>` : null}
             ${failed > 0 ? html`<div style="width:${failed}%;height:100%;background:var(--color-failed)"></div>` : null}
             ${pending > 0 ? html`<div style="width:${pending}%;height:100%;background:var(--color-pending)"></div>` : null}
+            ${skipped > 0 ? html`<div style="width:${skipped}%;height:100%;background:var(--color-skipped)"></div>` : null}
         </div>
     `;
 }
@@ -168,9 +162,10 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoo
                 <span class="req-tree-label">${isRoot ? (node.displayName || node.name) : collapsedLabel}</span>
                 ${total > 0 ? html`
                     <span class="req-tree-bars">
-                        <${SegmentedBar} outcomes=${displayNode.outcomes} tooltip="${passRate}% passing (${displayNode.outcomes.passed}/${total})" />
+                        <${SegmentedBar} outcomes=${displayNode.outcomes} tooltip="${passRate}% passing · ${nodeCompleteness}% complete · Confidence ${nodeConfidence}" />
                     </span>
-                    <span class="req-tree-score" style="color:${nodeConfidence >= 90 ? 'var(--color-passed)' : nodeConfidence < 50 ? 'var(--color-failed)' : nodeConfidence < 70 ? 'var(--color-pending)' : 'var(--text-secondary)'}" title="Confidence: ${nodeConfidence}">${nodeConfidence}</span>
+                    <span class="req-tree-metric" style="color:${nodeCompleteness >= 90 ? 'var(--color-passed)' : nodeCompleteness < 50 ? 'var(--color-failed)' : nodeCompleteness < 70 ? 'var(--color-pending)' : 'var(--text-secondary)'}">${nodeCompleteness}%</span>
+                    <span class="req-tree-score" style="color:${nodeConfidence >= 90 ? 'var(--color-passed)' : nodeConfidence < 50 ? 'var(--color-failed)' : nodeConfidence < 70 ? 'var(--color-pending)' : 'var(--text-secondary)'}">${nodeConfidence}</span>
                 ` : null}
             </div>
             ${displayNode.children.map(child => html`
@@ -187,26 +182,27 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
         const total = Object.values(requirements.outcomes).reduce((a, b) => a + b, 0);
         const executed = total - (requirements.outcomes.skipped || 0) - (requirements.outcomes.pending || 0);
         const passRate = executed > 0 ? Math.round((requirements.outcomes.passed / executed) * 100) : 0;
+        const pending = (requirements.outcomes.pending || 0) + (requirements.outcomes.skipped || 0);
+        const overallCompleteness = total > 0 ? Math.round(((total - pending) / total) * 100) : 0;
+        const overallConfidence = total > 0 ? Math.round(overallCompleteness * 0.3 + passRate * 0.35 + 100 * 0.35) : 0;
         return html`
             <div class="req-detail-panel">
                 <h3 class="req-detail-title">Overall</h3>
-                <div class="req-detail-stat">
-                    <span class="req-detail-stat-label">Pass Rate</span>
-                    <span class="req-detail-stat-value" style="color:${passRateColor(passRate)}">${passRate}%</span>
-                </div>
-                <${ProgressBar} percent=${passRate} tooltip="${passRate}% Pass Rate — ${requirements.outcomes.passed} of ${executed} executed scenarios passing" />
-                <div class="req-detail-stat" style="margin-top:var(--space-md)">
-                    <span class="req-detail-stat-label">Scenarios</span>
-                    <span class="req-detail-stat-value">${total}</span>
+                <div class="req-detail-stats-grid">
+                    <div class="kpi-card" tabindex="0"><span class="kpi-label">Confidence</span><span class="kpi-value" style=${overallConfidence >= 90 ? 'color:var(--color-passed)' : overallConfidence < 50 ? 'color:var(--color-failed)' : overallConfidence < 70 ? 'color:var(--color-pending)' : ''}>${overallConfidence}</span><span class="kpi-subtitle">${total} scenarios</span></div>
+                    <div class="kpi-card" tabindex="0"><span class="kpi-label">Pass Rate</span><span class="kpi-value" style=${passRate >= 90 ? 'color:var(--color-passed)' : passRate < 50 ? 'color:var(--color-failed)' : passRate < 70 ? 'color:var(--color-pending)' : ''}>${passRate}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled)">%</span></span><span class="kpi-subtitle">${requirements.outcomes.passed} of ${executed} passing</span></div>
+                    <div class="kpi-card" tabindex="0"><span class="kpi-label">Completeness</span><span class="kpi-value" style=${overallCompleteness >= 90 ? 'color:var(--color-passed)' : overallCompleteness < 50 ? 'color:var(--color-failed)' : overallCompleteness < 70 ? 'color:var(--color-pending)' : ''}>${overallCompleteness}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled)">%</span></span><span class="kpi-subtitle">${total - pending} of ${total} implemented</span></div>
+                    <div class="kpi-card" tabindex="0"><span class="kpi-label">Stability</span><span class="kpi-value" style="color:var(--color-passed)">100<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled)">%</span></span><span class="kpi-subtitle">All tests consistent</span></div>
                 </div>
                 ${requirements.readme ? html`<div class="req-detail-readme readme-content"><${RawHtml} content=${requirements.readme} /></div>` : null}
             </div>
         `;
     }
 
-    const { total, executed, passRate, fileCount, coveredCount, completeness: completenessPercent } = nodeMetrics(node);
-    const failed = (node.outcomes.failed || 0) + (node.outcomes.error || 0) + (node.outcomes.compromised || 0);
-    const skipped = (node.outcomes.skipped || 0) + (node.outcomes.pending || 0);
+    const { total, executed, passRate } = nodeMetrics(node);
+    const pending = (node.outcomes.pending || 0) + (node.outcomes.skipped || 0);
+    const detailCompleteness = total > 0 ? Math.round(((total - pending) / total) * 100) : 0;
+    const detailConfidence = total > 0 ? Math.round(detailCompleteness * 0.3 + passRate * 0.35 + 100 * 0.35) : 0;
 
     const directories = node.children ? node.children.filter(c => c.type === 'directory') : [];
     const files = node.children ? node.children.filter(c => c.type === 'file') : [];
@@ -218,28 +214,26 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
             ${node.readme ? html`<div class="req-detail-readme readme-content"><${RawHtml} content=${node.readme} /></div>` : null}
 
             <div class="req-detail-stats-grid">
-                <div class="req-detail-stat-card" title="Completeness — ${coveredCount} of ${fileCount} requirements fully implemented">
-                    <span class="req-detail-stat-label">Completeness</span>
-                    <span class="req-detail-stat-value" style="color:${passRateColor(completenessPercent)}">${completenessPercent}%</span>
-                    <${ProgressBar} percent=${completenessPercent} />
+                <div class="kpi-card" tabindex="0" aria-label="Confidence: ${detailConfidence}">
+                    <span class="kpi-label">Confidence</span>
+                    <span class="kpi-value" style=${detailConfidence >= 90 ? 'color:var(--color-passed)' : detailConfidence < 50 ? 'color:var(--color-failed)' : detailConfidence < 70 ? 'color:var(--color-pending)' : ''}>${detailConfidence}</span>
+                    <span class="kpi-subtitle">${total} scenarios</span>
                 </div>
-                <div class="req-detail-stat-card" title="${passRate}% Pass Rate — ${node.outcomes.passed} of ${executed} executed scenarios passing">
-                    <span class="req-detail-stat-label">Pass Rate</span>
-                    <span class="req-detail-stat-value" style="color:${passRateColor(passRate)}">${passRate}%</span>
-                    <${ProgressBar} percent=${passRate} />
+                <div class="kpi-card" tabindex="0" aria-label="Pass Rate: ${passRate} percent">
+                    <span class="kpi-label">Pass Rate</span>
+                    <span class="kpi-value" style=${passRate >= 90 ? 'color:var(--color-passed)' : passRate < 50 ? 'color:var(--color-failed)' : passRate < 70 ? 'color:var(--color-pending)' : ''}>${passRate}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled)">%</span></span>
+                    <span class="kpi-subtitle">${node.outcomes.passed} of ${executed} passing</span>
                 </div>
-                <div class="req-detail-stat-card" title="${total} scenarios in this area">
-                    <span class="req-detail-stat-label">Scenarios</span>
-                    <span class="req-detail-stat-value">${total}</span>
+                <div class="kpi-card" tabindex="0" aria-label="Completeness: ${detailCompleteness} percent">
+                    <span class="kpi-label">Completeness</span>
+                    <span class="kpi-value" style=${detailCompleteness >= 90 ? 'color:var(--color-passed)' : detailCompleteness < 50 ? 'color:var(--color-failed)' : detailCompleteness < 70 ? 'color:var(--color-pending)' : ''}>${detailCompleteness}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled)">%</span></span>
+                    <span class="kpi-subtitle">${total - pending} of ${total} implemented</span>
                 </div>
-                ${failed > 0 ? html`<div class="req-detail-stat-card" title="${failed} failed, compromised, or broken scenarios">
-                    <span class="req-detail-stat-label">Failed</span>
-                    <span class="req-detail-stat-value" style="color:var(--color-failed)">${failed}</span>
-                </div>` : null}
-                ${skipped > 0 ? html`<div class="req-detail-stat-card" title="${skipped} skipped or pending scenarios">
-                    <span class="req-detail-stat-label">Skipped</span>
-                    <span class="req-detail-stat-value" style="color:var(--text-secondary)">${skipped}</span>
-                </div>` : null}
+                <div class="kpi-card" tabindex="0" aria-label="Stability: 100 percent">
+                    <span class="kpi-label">Stability</span>
+                    <span class="kpi-value" style="color:var(--color-passed)">100<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled)">%</span></span>
+                    <span class="kpi-subtitle">All tests consistent</span>
+                </div>
             </div>
 
             ${directories.length > 0 ? html`

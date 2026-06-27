@@ -70,7 +70,7 @@ test.describe('RequirementsView', () => {
             props: { onNavigate: () => undefined, route: '#/requirements' },
         });
 
-        await page.locator('.kpi-card', { hasText: 'Completeness' }).click();
+        await page.locator('.kpi-card[aria-pressed]', { hasText: 'Completeness' }).click();
 
         await expect(page.locator('.kpi-card--active')).toContainText('Completeness');
         const tree = page.locator('.req-tree-panel');
@@ -103,7 +103,7 @@ test.describe('RequirementsView', () => {
         });
 
         const tree = page.locator('.req-tree-panel');
-        await page.locator('.kpi-card', { hasText: 'Completeness' }).click();
+        await page.locator('.kpi-card[aria-pressed]', { hasText: 'Completeness' }).click();
         await expect(tree).not.toContainText('passing-feature');
 
         await page.locator('.kpi-card', { hasText: 'Total Requirements' }).click();
