@@ -27,7 +27,8 @@ export function scenarioUrl(scenario: Scenario, run?: number | string | null): s
 export function matchesSearch(scenario: Scenario, query: string): boolean {
     const tagNames = (scenario.tags || []).map((t: { name: string }) => t.name).join(' ');
     const sourcePath = scenario.source?.path || '';
-    const text = (scenario.name + ' ' + scenario.category + ' ' + tagNames + ' ' + sourcePath).toLowerCase();
+    const errorMessage = scenario.error?.message || '';
+    const text = (scenario.name + ' ' + scenario.category + ' ' + tagNames + ' ' + sourcePath + ' ' + errorMessage).toLowerCase();
     const tokens = parseSearchTokens(query.toLowerCase());
     return tokens.every((token: string) => text.includes(token));
 }

@@ -310,8 +310,8 @@ No changes required.
 8. ~~Scenarios: execution history dots (last 5 runs)~~ ✅
 9. ~~Scenarios: "New" / "Unstable" badges~~ ❌ Removed — redundant with Stability view
 10. ~~Requirements: segmented outcome bar~~ ✅ Single stacked bar (green/red/orange/grey)
-11. **Errors: group identical error messages** — deduplicate by `error.message`, show "(×3)" count
-12. **Errors: "New" badge** — cross-reference `newFailures` to mark first-time errors
+11. ~~Errors: group identical error messages~~ ✅ Deduplicated by message, shows "(×N)" count
+12. ~~Errors: "New" badge~~ ❌ Not needed — stability view covers this
 13. ~~Test Runs: delta indicator~~ ✅ Shows "↑ 2%" / "↓ 4%" comparing each run to predecessor
 14. ~~Dashboard: combine Degraded + Recovered + Unstable into single "Stability" card~~ ✅
 

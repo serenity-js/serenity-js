@@ -69,8 +69,15 @@ export function ErrorsView({ onNavigate, route }) {
         const items = [];
         for (const cat of categoryOrder) {
             items.push({ type: 'header', icon: categoryIcons[cat.name] || '✗', name: cat.name, count: cat.scenarios.length });
+            // Group by error message
+            const grouped = new Map();
             for (const s of cat.scenarios) {
-                items.push({ type: 'scenario', scenario: s });
+                const key = s.error ? s.error.message : s.outcome;
+                if (!grouped.has(key)) grouped.set(key, []);
+                grouped.get(key).push(s);
+            }
+            for (const [, scenarios] of grouped) {
+                items.push({ type: 'scenario', scenario: scenarios[0], duplicateCount: scenarios.length });
             }
         }
         return items;
@@ -193,13 +200,16 @@ export function ErrorsView({ onNavigate, route }) {
                 `;
                 }
                 const s = item.scenario;
+                const clickTarget = item.duplicateCount > 1
+                    ? '/tests?search=' + encodeURIComponent('"' + (s.error ? s.error.message : s.outcome) + '"')
+                    : scenarioUrl(s);
                 return html`
                 <div style="position:absolute;top:0;left:0;width:100%;height:${ERROR_ROW_HEIGHT}px;transform:translateY(${virtualRow.start}px);overflow:hidden;align-items:flex-start"
-                     class="scenario-item" onClick=${() => onNavigate(scenarioUrl(s))}>
+                     class="scenario-item" onClick=${() => onNavigate(clickTarget)}>
                   <div class="scenario-outcome-icon ${outcomeClass(s.outcome)}" style="width:20px;height:20px;font-size:var(--font-2xs);margin-top:2px;flex-shrink:0">${outcomeIcon(s.outcome)}</div>
                   <div class="scenario-info">
-                    <div class="scenario-name">${s.name}</div>
-                    <div style="font-size:var(--font-sm);color:var(--color-${outcomeClass(s.outcome)});margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.error ? s.error.message : s.outcome}</div>
+                    <div class="scenario-name">${s.name}${item.duplicateCount > 1 ? html` <span style="font-size:var(--font-xs);font-weight:400;color:var(--text-disabled)">and ${item.duplicateCount - 1} more</span>` : null}</div>
+                    <div style="font-size:var(--font-sm);color:var(--color-${outcomeClass(s.outcome)});margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.error ? s.error.message : s.outcome}${item.duplicateCount > 1 ? html` <span style="font-weight:600"> (×${item.duplicateCount})</span>` : null}</div>
                     <div class="scenario-meta">
                       <span class="scenario-source" style="direction:rtl;text-align:left;unicode-bidi:plaintext">${relativeSourcePath(s)}</span>
                     </div>
