@@ -1680,20 +1680,50 @@
       width: 100%;
     }
 
-    .req-tree-score {
+    .req-tree-metrics {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-shrink: 0;
+    }
+
+    .req-tree-col {
       font-size: var(--font-xs);
       font-weight: 600;
-      min-width: 20px;
+      min-width: 36px;
       text-align: right;
       flex-shrink: 0;
     }
 
-    .req-tree-metric {
-      font-size: var(--font-xs);
+    .req-tree-header {
+      display: flex;
+      align-items: center;
+      padding: var(--space-xs) var(--space-sm);
+      border-bottom: 1px solid var(--divider);
+    }
+
+    .req-tree-header-spacer {
+      flex: 1;
+    }
+
+    .req-tree-bars-header {
+      font-size: var(--font-2xs);
       font-weight: 500;
-      min-width: 28px;
+      color: var(--text-disabled);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      width: 64px;
+      text-align: center;
+    }
+
+    .req-tree-col-header {
+      font-size: var(--font-2xs);
+      font-weight: 500;
+      color: var(--text-disabled);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      min-width: 36px;
       text-align: right;
-      flex-shrink: 0;
     }
 
     .req-icon {

@@ -161,11 +161,12 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoo
                 <span class="req-tree-icon">${folderIcon}</span>
                 <span class="req-tree-label">${isRoot ? (node.displayName || node.name) : collapsedLabel}</span>
                 ${total > 0 ? html`
-                    <span class="req-tree-bars">
-                        <${SegmentedBar} outcomes=${displayNode.outcomes} tooltip="${passRate}% passing · ${nodeCompleteness}% complete · Confidence ${nodeConfidence}" />
+                    <span class="req-tree-metrics">
+                        <span class="req-tree-bars"><${SegmentedBar} outcomes=${displayNode.outcomes} tooltip="${passRate}% passing · ${nodeCompleteness}% complete · ${nodeConfidence}% confidence" /></span>
+                        <span class="req-tree-col" style="color:${nodeConfidence >= 90 ? 'var(--color-passed)' : nodeConfidence < 50 ? 'var(--color-failed)' : nodeConfidence < 70 ? 'var(--color-pending)' : 'var(--text-secondary)'}">${nodeConfidence}%</span>
+                        <span class="req-tree-col" style="color:var(--text-secondary)">100%</span>
+                        <span class="req-tree-col" style="color:${nodeCompleteness >= 90 ? 'var(--color-passed)' : nodeCompleteness < 50 ? 'var(--color-failed)' : nodeCompleteness < 70 ? 'var(--color-pending)' : 'var(--text-secondary)'}">${nodeCompleteness}%</span>
                     </span>
-                    <span class="req-tree-metric" style="color:${nodeCompleteness >= 90 ? 'var(--color-passed)' : nodeCompleteness < 50 ? 'var(--color-failed)' : nodeCompleteness < 70 ? 'var(--color-pending)' : 'var(--text-secondary)'}">${nodeCompleteness}%</span>
-                    <span class="req-tree-score" style="color:${nodeConfidence >= 90 ? 'var(--color-passed)' : nodeConfidence < 50 ? 'var(--color-failed)' : nodeConfidence < 70 ? 'var(--color-pending)' : 'var(--text-secondary)'}">${nodeConfidence}%</span>
                 ` : null}
             </div>
             ${displayNode.children.map(child => html`
@@ -239,14 +240,33 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
             ${directories.length > 0 ? html`
                 <div style="margin-top:var(--space-lg)">
                     <h4 class="req-detail-section-title">Subdirectories</h4>
+                    <div class="req-tree-header" style="padding-left:0">
+                        <span class="req-tree-header-spacer"></span>
+                        <span class="req-tree-metrics">
+                            <span class="req-tree-bars-header">Outcomes</span>
+                            <span class="req-tree-col-header">Conf.</span>
+                            <span class="req-tree-col-header">Stab.</span>
+                            <span class="req-tree-col-header">Compl.</span>
+                        </span>
+                    </div>
                     ${directories.map(child => {
                         const m = nodeMetrics(child);
                         const childPath = segmentPath ? segmentPath + '/' + child.name : child.name;
+                        const childPending = (child.outcomes.pending || 0) + (child.outcomes.skipped || 0);
+                        const childCompleteness = m.total > 0 ? Math.round(((m.total - childPending) / m.total) * 100) : 0;
+                        const childConfidence = m.total > 0 ? Math.round(childCompleteness * 0.3 + m.passRate * 0.35 + 100 * 0.35) : 0;
                         return html`
-                            <div class="req-detail-child req-detail-child--link clickable" title="${m.completeness}% Completeness, ${m.passRate}% Pass Rate" onClick=${() => onSelect(childPath, child)}>
+                            <div class="req-detail-child req-detail-child--link clickable" onClick=${() => onSelect(childPath, child)}>
                                 <span class="req-detail-child-icon">${folderIcon}</span>
                                 <span class="req-detail-child-name">${child.displayName || child.name}</span>
-                                <span class="req-detail-child-rate" style="color:${m.total > 0 ? passRateColor(m.passRate) : 'var(--text-disabled)'}">${m.total > 0 ? m.passRate + '% (' + m.executed + '/' + m.total + ')' : '—'}</span>
+                                ${m.total > 0 ? html`
+                                    <span class="req-tree-metrics">
+                                        <span class="req-tree-bars"><${SegmentedBar} outcomes=${child.outcomes} /></span>
+                                        <span class="req-tree-col" style="color:${childConfidence >= 90 ? 'var(--color-passed)' : childConfidence < 50 ? 'var(--color-failed)' : childConfidence < 70 ? 'var(--color-pending)' : 'var(--text-secondary)'}">${childConfidence}%</span>
+                                        <span class="req-tree-col" style="color:var(--text-secondary)">100%</span>
+                                        <span class="req-tree-col" style="color:${childCompleteness >= 90 ? 'var(--color-passed)' : childCompleteness < 50 ? 'var(--color-failed)' : childCompleteness < 70 ? 'var(--color-pending)' : 'var(--text-secondary)'}">${childCompleteness}%</span>
+                                    </span>
+                                ` : html`<span class="req-tree-metrics"><span class="req-tree-bars"></span><span class="req-tree-col">—</span><span class="req-tree-col">—</span><span class="req-tree-col">—</span></span>`}
                             </div>
                         `;
                     })}
@@ -388,6 +408,15 @@ export function RequirementsView({ onNavigate, route }) {
                     <div class="req-search-wrap">
                         <input type="text" class="search-input" placeholder="Search requirements..."
                             value=${searchTerm} onInput=${(e) => setSearchTerm(e.target.value)} />
+                    </div>
+                    <div class="req-tree-header">
+                        <span class="req-tree-header-spacer"></span>
+                        <span class="req-tree-metrics">
+                            <span class="req-tree-bars-header">Outcomes</span>
+                            <span class="req-tree-col-header">Conf.</span>
+                            <span class="req-tree-col-header">Stab.</span>
+                            <span class="req-tree-col-header">Compl.</span>
+                        </span>
                     </div>
                     <div class="req-tree-list" role="tree">
                         <${TreeNode} node=${requirements} onSelect=${handleSelect}
