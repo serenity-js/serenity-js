@@ -105,7 +105,7 @@ class HtmlReportGeneratorBuilder implements StageCrewMemberBuilder<HtmlReportGen
         const projectFileSystem = new FileSystem(Path.from(process.cwd()));
 
         const aggregator = new DataSnapshotAggregator(outputFileSystem, {
-            stabilityWindow: this.config.stabilityWindow ?? 5,
+            consistencyWindow: this.config.consistencyWindow ?? 5,
             maxHistory: this.config.maxHistory,
             title: this.config.title,
         }, this.config.specDirectory

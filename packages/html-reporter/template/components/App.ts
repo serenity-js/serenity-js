@@ -11,7 +11,7 @@ import { RequirementsView } from './RequirementsView';
 import { ScenarioDetailView } from './ScenarioDetailView';
 import { ScenariosView } from './ScenariosView';
 import { Sidebar } from './Sidebar';
-import { StabilityView } from './StabilityView';
+import { ConsistencyView } from './ConsistencyView';
 import { SystemContextView } from './SystemContextView';
 import { TagsView } from './TagsView';
 import { TestRunsView } from './TestRunsView';
@@ -84,9 +84,9 @@ export function App() {
     } else if (route === '/errors' || route.startsWith('/errors?')) {
         view = html`<${ErrorsView} onNavigate=${navigate} route=${route} />`;
         pageTitle = 'Errors';
-    } else if (route === '/stability') {
-        view = html`<${StabilityView} onNavigate=${navigate} />`;
-        pageTitle = 'Stability';
+    } else if (route === '/consistency') {
+        view = html`<${ConsistencyView} onNavigate=${navigate} />`;
+        pageTitle = 'Consistency';
     } else if (route === '/requirements' || route.startsWith('/requirements?')) {
         view = html`<${RequirementsView} onNavigate=${navigate} route=${route} />`;
         pageTitle = 'Requirements';

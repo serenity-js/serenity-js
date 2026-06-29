@@ -10,7 +10,7 @@ export interface ReportData {
     scenarios: ReportScenario[];
     history: ReportHistoryEntry[];
     tags: ReportTag[];
-    unstableTests: ReportUnstableTest[];
+    inconsistentTests: ReportInconsistentTest[];
     newFailures: ReportScenarioRef[];
     newPasses: ReportScenarioRef[];
     systemContext?: ReportSystemContext;
@@ -112,7 +112,7 @@ export interface ReportHistoryEntry {
 export interface ReportHistoryScore {
     confidence: number;   // 0–100
     passRate: number;     // 0–100
-    stability: number;    // 0–100
+    consistency: number;    // 0–100
     completeness: number; // 0–100
 }
 
@@ -123,11 +123,11 @@ export interface ReportTag {
     passed: number;
 }
 
-export interface ReportUnstableTest {
+export interface ReportInconsistentTest {
     name: string;
     category: string;
     source: ReportSource;
-    instabilityRate: number;
+    inconsistencyRate: number;
     history: string[];
     labels: string[];
 }
@@ -175,5 +175,14 @@ export interface ReportRequirementNode {
     children?: ReportRequirementNode[];
     readme?: string;
     narrative?: string;
-    scenarios?: Array<{ name: string; outcome: string }>;
+    scenarios?: Array<{ name: string; outcome: string; executionHistory?: string[] }>;
+    score?: RequirementScore;
+    delta?: number;
+}
+
+export interface RequirementScore {
+    confidence: number;   // 0–100 composite
+    passRate: number;     // 0–100
+    completeness: number; // 0–100
+    consistency: number;    // 0–100
 }

@@ -15,9 +15,10 @@ import {
 import { marked } from 'marked';
 
 import type { RunData } from './model/RunData.js';
+import { scoreDirectory, scoreRequirement } from './RequirementConfidenceScorer.js';
 
 interface AggregatorConfig {
-    stabilityWindow: number;
+    consistencyWindow: number;
     maxHistory?: number;
     title?: string;
 }
@@ -56,11 +57,11 @@ export class DataSnapshotAggregator {
             scenarios: this.enrichScenarios(latestRun, allRuns),
             history: this.buildHistory(allRuns),
             tags: this.computeTagStats(latestRun),
-            unstableTests: this.identifyUnstableTests(allRuns),
+            inconsistentTests: this.identifyUnstableTests(allRuns),
             newFailures,
             newPasses,
             systemContext: this.buildSystemContext(latestRun),
-            requirements: this.requirementsHierarchy ? this.buildRequirements(latestRun) : undefined,
+            requirements: this.requirementsHierarchy ? this.buildRequirements(latestRun, allRuns) : undefined,
         };
 
         const js = `window.__SERENITY_REPORT_DATA__ = ${ JSON.stringify(snapshot, undefined, 2) };\n`;
@@ -207,10 +208,10 @@ export class DataSnapshotAggregator {
             const passRate = total > 0 ? Math.round((passed / total) * 100) : 0;
             const completeness = total > 0 ? Math.round(((total - pending) / total) * 100) : 0;
 
-            // Stability: proportion of tests with consistent outcomes up to this run
+            // Consistency: proportion of tests with consistent outcomes up to this run
             const runsUpToHere = allRuns.slice(0, index + 1);
-            const stability = this.computeStabilityAtRun(runsUpToHere);
-            const confidence = Math.round(completeness * 0.3 + passRate * 0.35 + stability * 0.35);
+            const consistency = this.computeConsistencyAtRun(runsUpToHere);
+            const confidence = Math.round(completeness * 0.3 + passRate * 0.35 + consistency * 0.35);
 
             return {
                 timestamp: run.startedAt,
@@ -224,12 +225,12 @@ export class DataSnapshotAggregator {
                 ...(ci?.branch ? { branch: ci.branch } : {}),
                 ...(ci?.jobUrl ? { ciJobUrl: ci.jobUrl } : {}),
                 ...(ci?.repositoryUrl ? { repositoryUrl: ci.repositoryUrl } : {}),
-                score: { confidence, passRate, stability, completeness },
+                score: { confidence, passRate, consistency, completeness },
             };
         });
     }
 
-    private computeStabilityAtRun(runs: RunData[]): number {
+    private computeConsistencyAtRun(runs: RunData[]): number {
         if (runs.length < 2) return 100;
         const testOutcomes = new Map<string, string[]>();
         for (const run of runs) {
@@ -284,7 +285,7 @@ export class DataSnapshotAggregator {
         return [...browsers.entries()].map(([name, version]) => ({ name, version }));
     }
 
-    private buildRequirements(run: RunData): any {
+    private buildRequirements(run: RunData, allRuns: RunData[]): any {
         const rootName = this.requirementsHierarchy.rootDirectory().basename();
         const root: any = { type: 'directory', name: rootName, outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, children: [] };
         const nodeMap = new Map<string, any>();
@@ -318,7 +319,15 @@ export class DataSnapshotAggregator {
 
             fileNode.scenarioCount++;
             fileNode.outcomes[outcomeKey]++;
-            fileNode.scenarios.push({ name: scene.name, outcome: outcomeCodeToDisplayString(scene.outcome.code) });
+
+            // Build execution history for this scenario across all runs
+            const scenarioKey = scene.source.path + ':' + scene.source.line;
+            const executionHistory = allRuns.map(r => {
+                const match = r.scenes.find(s => s.source.path + ':' + s.source.line === scenarioKey);
+                return match ? outcomeCodeToDisplayString(match.outcome.code) : undefined;
+            }).filter(Boolean) as string[];
+
+            fileNode.scenarios.push({ name: scene.name, outcome: outcomeCodeToDisplayString(scene.outcome.code), executionHistory });
             if (scene.narrative && !fileNode.narrative) {
                 fileNode.narrative = scene.narrative;
             }
@@ -334,6 +343,16 @@ export class DataSnapshotAggregator {
             }
         }
 
+        // Compute scores for file nodes
+        for (const [, node] of nodeMap) {
+            if (node.type === 'file' && node.scenarios) {
+                node.score = scoreRequirement(node);
+            }
+        }
+
+        // Compute scores for directory nodes (bottom-up)
+        this.computeDirectoryScores(root);
+
         if (this.projectFileSystem) {
             const specRoot = this.requirementsHierarchy.rootDirectory();
             this.attachReadme(root, specRoot);
@@ -345,6 +364,33 @@ export class DataSnapshotAggregator {
         }
 
         return root;
+    }
+
+    private computeDirectoryScores(node: any): void {
+        if (!node.children) return;
+
+        for (const child of node.children) {
+            if (child.type === 'directory') {
+                this.computeDirectoryScores(child);
+            }
+        }
+
+        const scoredChildren = node.children
+            .filter((c: any) => c.score)
+            .map((c: any) => ({ confidence: c.score.confidence, scenarioCount: c.scenarioCount || 0 }));
+
+        if (scoredChildren.length > 0) {
+            const confidence = scoreDirectory(scoredChildren);
+            node.score = { confidence, passRate: 0, completeness: 0, consistency: 0 };
+
+            // Also compute pass rate/completeness/consistency for the directory directly
+            const total = Object.values(node.outcomes).reduce((a: number, b: number) => a + b, 0) as number;
+            const pending = ((node.outcomes.pending || 0) + (node.outcomes.skipped || 0)) as number;
+            const executed = total - pending;
+            node.score.passRate = executed > 0 ? Math.round((node.outcomes.passed / executed) * 100) : 0;
+            node.score.completeness = total > 0 ? Math.round(((total - pending) / total) * 100) : 0;
+            node.score.consistency = 100; // Would need aggregated history; use child-weighted confidence instead
+        }
     }
 
     private attachReadme(node: any, directoryPath: Path): void {
@@ -399,8 +445,8 @@ export class DataSnapshotAggregator {
             .map(entry => testRunsDirectory.join(Path.from(entry)));
     }
 
-    private identifyUnstableTests(allRuns: RunData[]): Array<{ name: string; category: string; source: { path: string; line: number }; instabilityRate: number; history: string[]; labels: string[] }> {
-        const recentRuns = allRuns.slice(-this.config.stabilityWindow);
+    private identifyUnstableTests(allRuns: RunData[]): Array<{ name: string; category: string; source: { path: string; line: number }; inconsistencyRate: number; history: string[]; labels: string[] }> {
+        const recentRuns = allRuns.slice(-this.config.consistencyWindow);
 
         // Collect outcomes per test identity (name@path)
         const testOutcomes = new Map<string, { name: string; category: string; source: { path: string; line: number }; outcomes: string[]; labels: string[] }>();
@@ -419,7 +465,7 @@ export class DataSnapshotAggregator {
         }
 
         // Find tests with mixed outcomes
-        const unstable: Array<{ name: string; category: string; source: { path: string; line: number }; instabilityRate: number; history: string[]; labels: string[] }> = [];
+        const unstable: Array<{ name: string; category: string; source: { path: string; line: number }; inconsistencyRate: number; history: string[]; labels: string[] }> = [];
 
         for (const [, test] of testOutcomes) {
             const uniqueOutcomes = new Set(test.outcomes);
@@ -429,14 +475,14 @@ export class DataSnapshotAggregator {
                     name: test.name,
                     category: test.category,
                     source: test.source,
-                    instabilityRate: failures / test.outcomes.length,
+                    inconsistencyRate: failures / test.outcomes.length,
                     history: test.outcomes,
                     labels: test.labels,
                 });
             }
         }
 
-        return unstable.sort((a, b) => b.instabilityRate - a.instabilityRate);
+        return unstable.sort((a, b) => b.inconsistencyRate - a.inconsistencyRate);
     }
 
     private mapActivityOutcome(activity: { outcome: SerialisedOutcome; children: any[]; [key: string]: any }): any {

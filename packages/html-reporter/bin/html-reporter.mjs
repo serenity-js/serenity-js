@@ -71,7 +71,7 @@ if (args.specRoot) {
 }
 
 const aggregator = new DataSnapshotAggregator(outputFileSystem, {
-    stabilityWindow: 5,
+    consistencyWindow: 5,
     title: args.title,
 }, requirementsHierarchy, projectFileSystem);
 

@@ -29,11 +29,11 @@ export interface HtmlReporterConfig {
     maxHistory?: number;
 
     /**
-     * Number of recent executions to consider for stability analysis.
+     * Number of recent executions to consider for consistency analysis.
      *
      * @default 5
      */
-    stabilityWindow?: number;
+    consistencyWindow?: number;
 
     /**
      * Custom project name displayed in the report.

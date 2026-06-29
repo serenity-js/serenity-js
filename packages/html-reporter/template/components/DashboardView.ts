@@ -260,7 +260,7 @@ export function DashboardView({ onNavigate }) {
     const latestScore = history.length > 0 && history[history.length - 1].score;
     const previousScore = history.length > 1 && history[history.length - 2].score;
     const passRate = latestScore ? latestScore.passRate : (summary.totalScenarios > 0 ? Math.round((summary.outcomes.passed / summary.totalScenarios) * 100) : 0);
-    const stability = latestScore ? latestScore.stability : 100;
+    const consistency = latestScore ? latestScore.consistency : 100;
     const completenessScore = latestScore ? latestScore.completeness : (() => {
         const requirements = DATA.requirements;
         if (!requirements) return 100;
@@ -272,12 +272,12 @@ export function DashboardView({ onNavigate }) {
         if (requirements.children) requirements.children.forEach(walk);
         return total > 0 ? Math.round((complete / total) * 100) : 100;
     })();
-    const confidence = latestScore ? latestScore.confidence : Math.round(completenessScore * 0.3 + passRate * 0.35 + stability * 0.35);
+    const confidence = latestScore ? latestScore.confidence : Math.round(completenessScore * 0.3 + passRate * 0.35 + consistency * 0.35);
 
     // Previous run values for deltas
     const previousConfidence = previousScore ? previousScore.confidence : undefined;
     const previousPassRate = previousScore ? previousScore.passRate : undefined;
-    const previousStability = previousScore ? previousScore.stability : undefined;
+    const previousConsistency = previousScore ? previousScore.consistency : undefined;
     const previousCompleteness = previousScore ? previousScore.completeness : undefined;
     const previousFailed = history.length > 1 ? ((h) => (h.outcomes.failed || 0) + (h.outcomes.error || 0) + (h.outcomes.compromised || 0))(history[history.length - 2]) : undefined;
     const previousDuration = history.length > 1 ? history[history.length - 2].duration : undefined;
@@ -296,7 +296,7 @@ export function DashboardView({ onNavigate }) {
     const slowest = sorted.slice(0, 5);
     const newFailures = useMemo(() => (DATA.newFailures || []).slice(0, 5), []);
     const newPasses = useMemo(() => (DATA.newPasses || []).slice(0, 5), []);
-    const unstable = (DATA.unstableTests || []).slice(0, 5);
+    const inconsistent = (DATA.inconsistentTests || []).slice(0, 5);
 
     // Look up execution history for a test by source identity
     const getHistory = (t) => {
@@ -323,7 +323,7 @@ export function DashboardView({ onNavigate }) {
                 }
                 if (confidence < previousConfidence) {
                     if (newFails > 0) return `Decreased since last run — ${newFails} new failure${newFails > 1 ? 's' : ''}`;
-                    return `Decreased since last run — stability dropped`;
+                    return `Decreased since last run — consistency dropped`;
                 }
                 return 'No change since last run';
             })()}</span>
@@ -335,11 +335,11 @@ export function DashboardView({ onNavigate }) {
           <${Delta} current=${passRate} previous=${previousPassRate} suffix="%" />
           <span class="kpi-subtitle">${summary.outcomes.passed} of ${summary.totalScenarios} passing</span>
         </div>
-        <div class="kpi-card" onClick=${() => onNavigate('/stability')} tabindex="0" role="button" aria-label="Stability: ${stability} percent">
-          <span class="kpi-label">Stability</span>
-          <span class="kpi-value" style=${scoreColor(stability) ? `color:${scoreColor(stability)}` : ''}>${stability}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
-          <${Delta} current=${stability} previous=${previousStability} suffix="%" />
-          <span class="kpi-subtitle">${stability === 100 ? 'All tests consistent' : (DATA.unstableTests || []).length + ' unstable test' + ((DATA.unstableTests || []).length !== 1 ? 's' : '')}</span>
+        <div class="kpi-card" onClick=${() => onNavigate('/consistency')} tabindex="0" role="button" aria-label="Consistency: ${consistency} percent">
+          <span class="kpi-label">Consistency</span>
+          <span class="kpi-value" style=${scoreColor(consistency) ? `color:${scoreColor(consistency)}` : ''}>${consistency}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
+          <${Delta} current=${consistency} previous=${previousConsistency} suffix="%" />
+          <span class="kpi-subtitle">${consistency === 100 ? 'All tests consistent' : (DATA.inconsistentTests || []).length + ' inconsistent test' + ((DATA.inconsistentTests || []).length !== 1 ? 's' : '')}</span>
         </div>
         <div class="kpi-card" onClick=${() => onNavigate('/requirements')} tabindex="0" role="button" aria-label="Completeness: ${completenessScore} percent">
           <span class="kpi-label">Completeness</span>
@@ -382,19 +382,19 @@ export function DashboardView({ onNavigate }) {
         </div>
 
         <div class="dashboard-health-col">
-          <!-- Stability -->
+          <!-- Consistency -->
           <div class="card dashboard-status-card">
             <div class="card-header">
-              <span class="status-card-title">Stability</span>
-              ${(newFailures.length > 0 || newPasses.length > 0 || unstable.length > 0) ? html`<a class="view-all-link" onClick=${() => onNavigate('/stability')}>View all →</a>` : null}
+              <span class="status-card-title">Consistency</span>
+              ${(newFailures.length > 0 || newPasses.length > 0 || inconsistent.length > 0) ? html`<a class="view-all-link" onClick=${() => onNavigate('/consistency')}>View all →</a>` : null}
             </div>
             ${(() => {
                 const items = [
                     ...newFailures.map(t => ({ ...t, kind: 'degraded' })),
                     ...newPasses.map(t => ({ ...t, kind: 'recovered' })),
-                    ...unstable.filter(t => !newFailures.some(f => f.source.path === t.source.path) && !newPasses.some(p => p.source.path === t.source.path)).map(t => ({ ...t, kind: 'unstable' })),
+                    ...inconsistent.filter(t => !newFailures.some(f => f.source.path === t.source.path) && !newPasses.some(p => p.source.path === t.source.path)).map(t => ({ ...t, kind: 'unstable' })),
                 ].slice(0, 5);
-                if (items.length === 0) return html`<div class="status-empty status-empty--ok"><span class="status-chip">✓</span> All tests stable</div>`;
+                if (items.length === 0) return html`<div class="status-empty status-empty--ok"><span class="status-chip">✓</span> All tests consistent</div>`;
                 return items.map(t => html`
                     <div class="status-item status-item--rich clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
                       <div class="status-item-main">

@@ -11,14 +11,14 @@ test.describe('DataSnapshotAggregator', () => {
 
     const outputDirectory = Path.from('/reports/serenity-js');
 
-    function createAggregator(tree: Record<string, any>, config: { maxHistory?: number; stabilityWindow?: number; title?: string } = {}, requirementsHierarchy?: RequirementsHierarchy, projectFileSystem?: FileSystem): { aggregator: DataSnapshotAggregator; filesystem: typeof fs } {
+    function createAggregator(tree: Record<string, any>, config: { maxHistory?: number; consistencyWindow?: number; title?: string } = {}, requirementsHierarchy?: RequirementsHierarchy, projectFileSystem?: FileSystem): { aggregator: DataSnapshotAggregator; filesystem: typeof fs } {
         const filesystem = createFsFromVolume(Volume.fromNestedJSON({
             [outputDirectory.value]: tree,
         }, '/')) as unknown as typeof fs;
 
         const fileSystem = new FileSystem(outputDirectory, filesystem);
         const aggregator = new DataSnapshotAggregator(fileSystem, {
-            stabilityWindow: config.stabilityWindow ?? 5,
+            consistencyWindow: config.consistencyWindow ?? 5,
             maxHistory: config.maxHistory,
             title: config.title,
         }, requirementsHierarchy, projectFileSystem);
@@ -270,6 +270,133 @@ test.describe('DataSnapshotAggregator', () => {
         });
     });
 
+    test.describe('requirement confidence scores', () => {
+
+        test('computes score for file nodes with passRate, completeness, and consistency', () => {
+            const projectFs = createFsFromVolume(Volume.fromNestedJSON({
+                '/project': { spec: { 'login.spec.ts': '' } }
+            }, '/')) as unknown as typeof fs;
+            const projectFileSystem = new FileSystem(Path.from('/project'), projectFs);
+            const hierarchy = new RequirementsHierarchy(projectFileSystem, Path.from('spec'));
+
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-15T14:30:00.000Z': {
+                        'db.json': JSON.stringify({
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
+                            outcomes: { passed: 3, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/spec/login.spec.ts', line: 1 }, tags: [], activities: [] },
+                                { name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/spec/login.spec.ts', line: 5 }, tags: [], activities: [] },
+                                { name: 'Test C', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/spec/login.spec.ts', line: 9 }, tags: [], activities: [] },
+                                { name: 'Test D', category: 'Suite', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/spec/login.spec.ts', line: 13 }, tags: [], activities: [] },
+                            ],
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                        }),
+                    },
+                },
+            }, {}, hierarchy, projectFileSystem);
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            const fileNode = data.requirements.children[0];
+            expect(fileNode.score).toBeDefined();
+            expect(fileNode.score.passRate).toBe(75);       // 3/4
+            expect(fileNode.score.completeness).toBe(100);  // no pending/skipped
+            expect(fileNode.score.consistency).toBe(100);     // single run = benefit of the doubt
+            expect(fileNode.score.confidence).toBeGreaterThan(0);
+        });
+
+        test('includes executionHistory on file node scenarios for consistency computation', () => {
+            const projectFs = createFsFromVolume(Volume.fromNestedJSON({
+                '/project': { spec: { 'login.spec.ts': '' } }
+            }, '/')) as unknown as typeof fs;
+            const projectFileSystem = new FileSystem(Path.from('/project'), projectFs);
+            const hierarchy = new RequirementsHierarchy(projectFileSystem, Path.from('spec'));
+
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-14T10:00:00.000Z': {
+                        'db.json': JSON.stringify({
+                            startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.500Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: '/project/spec/login.spec.ts', line: 1 }, tags: [], activities: [] },
+                            ],
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                        }),
+                    },
+                    '2024-06-15T14:30:00.000Z': {
+                        'db.json': JSON.stringify({
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
+                            outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                { name: 'Test A', category: 'Suite', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/spec/login.spec.ts', line: 1 }, tags: [], activities: [] },
+                            ],
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                        }),
+                    },
+                },
+            }, {}, hierarchy, projectFileSystem);
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            const fileNode = data.requirements.children[0];
+            expect(fileNode.scenarios[0].executionHistory).toEqual(['SUCCESS', 'FAILURE']);
+            // Consistency should be 0% (1 flip out of 1 transition)
+            expect(fileNode.score.consistency).toBe(0);
+        });
+
+        test('aggregates directory scores from children weighted by scenario count', () => {
+            const projectFs = createFsFromVolume(Volume.fromNestedJSON({
+                '/project': { spec: { 'a.spec.ts': '', 'b.spec.ts': '' } }
+            }, '/')) as unknown as typeof fs;
+            const projectFileSystem = new FileSystem(Path.from('/project'), projectFs);
+            const hierarchy = new RequirementsHierarchy(projectFileSystem, Path.from('spec'));
+
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-15T14:30:00.000Z': {
+                        'db.json': JSON.stringify({
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
+                            outcomes: { passed: 5, failed: 5, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                // a.spec.ts: 5 scenarios all passing → confidence high
+                                { name: 'A1', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/spec/a.spec.ts', line: 1 }, tags: [], activities: [] },
+                                { name: 'A2', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/spec/a.spec.ts', line: 2 }, tags: [], activities: [] },
+                                { name: 'A3', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/spec/a.spec.ts', line: 3 }, tags: [], activities: [] },
+                                { name: 'A4', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/spec/a.spec.ts', line: 4 }, tags: [], activities: [] },
+                                { name: 'A5', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/spec/a.spec.ts', line: 5 }, tags: [], activities: [] },
+                                // b.spec.ts: 5 scenarios all failing → confidence low
+                                { name: 'B1', category: 'S', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/spec/b.spec.ts', line: 1 }, tags: [], activities: [] },
+                                { name: 'B2', category: 'S', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/spec/b.spec.ts', line: 2 }, tags: [], activities: [] },
+                                { name: 'B3', category: 'S', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/spec/b.spec.ts', line: 3 }, tags: [], activities: [] },
+                                { name: 'B4', category: 'S', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/spec/b.spec.ts', line: 4 }, tags: [], activities: [] },
+                                { name: 'B5', category: 'S', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/spec/b.spec.ts', line: 5 }, tags: [], activities: [] },
+                            ],
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                        }),
+                    },
+                },
+            }, {}, hierarchy, projectFileSystem);
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            // Root directory should have a score that's the weighted average
+            expect(data.requirements.score).toBeDefined();
+            expect(data.requirements.score.confidence).toBeGreaterThan(0);
+            // Both files have equal scenario counts, so root = average of the two
+            const aNode = data.requirements.children.find((c: any) => c.name === 'a');
+            const bNode = data.requirements.children.find((c: any) => c.name === 'b');
+            expect(data.requirements.score.confidence).toBe(
+                Math.round((aNode.score.confidence * 5 + bNode.score.confidence * 5) / 10)
+            );
+        });
+    });
+
     test.describe('maxHistory pruning', () => {
 
         test('retains only the most recent N test run directories when maxHistory is configured', () => {
@@ -294,39 +421,39 @@ test.describe('DataSnapshotAggregator', () => {
         });
     });
 
-    test.describe('unstable test identification', () => {
+    test.describe('inconsistent test identification', () => {
 
-        test('identifies tests with mixed outcomes within the stability window as unstable', () => {
+        test('identifies tests with mixed outcomes within the consistency window as inconsistent', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-13T10:00:00.000Z': { 'db.json': JSON.stringify({ startedAt: '2024-06-13T10:00:00.000Z', finishedAt: '2024-06-13T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Unstable Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
                     '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Unstable Test', category: 'Suite', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
                     '2024-06-15T10:00:00.000Z': { 'db.json': JSON.stringify({ startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Unstable Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
                 },
-            }, { stabilityWindow: 5 });
+            }, { consistencyWindow: 5 });
 
             aggregator.aggregate();
 
             const data = readDataJs(filesystem);
-            expect(data.unstableTests).toHaveLength(1);
-            expect(data.unstableTests[0].name).toBe('Unstable Test');
+            expect(data.inconsistentTests).toHaveLength(1);
+            expect(data.inconsistentTests[0].name).toBe('Unstable Test');
         });
 
-        test('does not flag a test as unstable if all outcomes within the stability window are the same', () => {
+        test('does not flag a test as inconsistent if all outcomes within the consistency window are the same', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-13T10:00:00.000Z': { 'db.json': JSON.stringify({ startedAt: '2024-06-13T10:00:00.000Z', finishedAt: '2024-06-13T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Stable Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
                     '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Stable Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
                 },
-            }, { stabilityWindow: 5 });
+            }, { consistencyWindow: 5 });
 
             aggregator.aggregate();
 
             const data = readDataJs(filesystem);
-            expect(data.unstableTests).toHaveLength(0);
+            expect(data.inconsistentTests).toHaveLength(0);
         });
 
-        test('considers only the last N runs when determining stability', () => {
+        test('considers only the last N runs when determining consistency', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     // Old failure (outside window of 2)
@@ -335,13 +462,13 @@ test.describe('DataSnapshotAggregator', () => {
                     '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Test', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
                     '2024-06-15T10:00:00.000Z': { 'db.json': JSON.stringify({ startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Test', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
                 },
-            }, { stabilityWindow: 2 });
+            }, { consistencyWindow: 2 });
 
             aggregator.aggregate();
 
             const data = readDataJs(filesystem);
             // Old failure is outside the window of 2, so test is stable
-            expect(data.unstableTests).toHaveLength(0);
+            expect(data.inconsistentTests).toHaveLength(0);
         });
     });
 
@@ -635,7 +762,7 @@ test.describe('DataSnapshotAggregator', () => {
             const fileSystem = new FileSystem(outputDirectory, filesystem);
             const projectFs = new FileSystem(Path.from('/project'), filesystem);
             const hierarchy = new RequirementsHierarchy(projectFs, Path.from('/project/spec'));
-            const aggregator = new DataSnapshotAggregator(fileSystem, { stabilityWindow: 5 }, hierarchy);
+            const aggregator = new DataSnapshotAggregator(fileSystem, { consistencyWindow: 5 }, hierarchy);
 
             aggregator.aggregate();
             const data = readDataJs(filesystem);

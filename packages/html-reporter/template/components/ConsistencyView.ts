@@ -10,37 +10,37 @@ import { icons } from './icons';
 
 const html = htm.bind(h);
 
-export function StabilityView({ onNavigate }) {
-    const unstableTests = DATA.unstableTests || [];
+export function ConsistencyView({ onNavigate }) {
+    const inconsistentTests = DATA.inconsistentTests || [];
 
-    const [filter, setFilter] = useState('unstable');
+    const [filter, setFilter] = useState('inconsistent');
     const [search, setSearch] = useState('');
     const [sort, setSort] = useState('category');
 
-    if (unstableTests.length === 0) {
+    if (inconsistentTests.length === 0) {
         return html`
       <div class="placeholder-view">
         ${icons.unstable}
-        <h2>All Tests Stable</h2>
-        <p>No unstable results detected.<br/>Run your test suite several times to populate history.</p>
+        <h2>All Tests Consistent</h2>
+        <p>No inconsistent results detected.<br/>Run your test suite several times to populate history.</p>
       </div>
     `;
     }
 
-    const allUnstable = useMemo(() => unstableTests.map(t => {
+    const allInconsistent = useMemo(() => inconsistentTests.map(t => {
         const lastOutcome = t.history && t.history.length > 0 ? t.history[t.history.length - 1] : null;
         const kind = lastOutcome === 'SUCCESS' ? 'recovered' : 'degraded';
         return { ...t, kind };
     }), []);
 
-    const degradedCount = allUnstable.filter(t => t.kind === 'degraded').length;
-    const recoveredCount = allUnstable.filter(t => t.kind === 'recovered').length;
+    const degradedCount = allInconsistent.filter(t => t.kind === 'degraded').length;
+    const recoveredCount = allInconsistent.filter(t => t.kind === 'recovered').length;
 
     const allItems = useMemo(() => {
-        if (filter === 'degraded') return allUnstable.filter(t => t.kind === 'degraded');
-        if (filter === 'recovered') return allUnstable.filter(t => t.kind === 'recovered');
-        return allUnstable;
-    }, [filter, allUnstable]);
+        if (filter === 'degraded') return allInconsistent.filter(t => t.kind === 'degraded');
+        if (filter === 'recovered') return allInconsistent.filter(t => t.kind === 'recovered');
+        return allInconsistent;
+    }, [filter, allInconsistent]);
 
     const searchedItems = useMemo(() => {
         if (!search) return allItems;
@@ -52,10 +52,10 @@ export function StabilityView({ onNavigate }) {
         return [...searchedItems].sort((a, b) => (a.category || '').localeCompare(b.category || ''));
     }, [searchedItems, sort]);
 
-    const STABILITY_ROW_HEIGHT = 88;
-    const STABILITY_HEADER_HEIGHT_FIRST = 62;
-    const STABILITY_HEADER_HEIGHT_REST = 78;
-    const STABILITY_HEADER_CONTENT_HEIGHT = 46;
+    const CONSISTENCY_ROW_HEIGHT = 88;
+    const CONSISTENCY_HEADER_HEIGHT_FIRST = 62;
+    const CONSISTENCY_HEADER_HEIGHT_REST = 78;
+    const CONSISTENCY_HEADER_CONTENT_HEIGHT = 46;
 
     const flatItems = useMemo(() => {
         if (sort !== 'category') return sortedItems.map(t => ({ type: 'scenario', item: t }));
@@ -101,8 +101,8 @@ export function StabilityView({ onNavigate }) {
         count: flatItems.length,
         getScrollElement: () => parentRef.current,
         estimateSize: (index) => {
-            if (flatItems[index].type !== 'header') return STABILITY_ROW_HEIGHT;
-            return index === 0 ? STABILITY_HEADER_HEIGHT_FIRST : STABILITY_HEADER_HEIGHT_REST;
+            if (flatItems[index].type !== 'header') return CONSISTENCY_ROW_HEIGHT;
+            return index === 0 ? CONSISTENCY_HEADER_HEIGHT_FIRST : CONSISTENCY_HEADER_HEIGHT_REST;
         },
         overscan: 15,
         rangeExtractor,
@@ -110,12 +110,12 @@ export function StabilityView({ onNavigate }) {
 
     const { parentRefCallback } = useStickyHeader({
         parentRef,
-        id: 'vs-stability-sticky',
+        id: 'vs-consistency-sticky',
         flatItems,
         enabled: sort === 'category',
-        headerHeight: STABILITY_HEADER_HEIGHT_REST,
-        firstHeaderHeight: STABILITY_HEADER_HEIGHT_FIRST,
-        rowHeight: STABILITY_ROW_HEIGHT,
+        headerHeight: CONSISTENCY_HEADER_HEIGHT_REST,
+        firstHeaderHeight: CONSISTENCY_HEADER_HEIGHT_FIRST,
+        rowHeight: CONSISTENCY_ROW_HEIGHT,
         renderContent: (element, item) => {
             element.textContent = item.category.replace(/ › /g, '  ›  ');
         },
@@ -138,10 +138,10 @@ export function StabilityView({ onNavigate }) {
           aria-label="Clear search">✕</button>` : null}
       </div>
 
-      <div class="filter-bar" role="group" aria-label="Filter tests by stability" style="align-items:center">
+      <div class="filter-bar" role="group" aria-label="Filter tests by consistency" style="align-items:center">
         <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;align-self:center">Status:</span>
-        <button class="filter-chip ${filter === 'unstable' ? 'active' : ''}" onClick=${() => setFilter('unstable')}>
-          <span>Unstable</span> <span class="count">${unstableTests.length}</span>
+        <button class="filter-chip ${filter === 'inconsistent' ? 'active' : ''}" onClick=${() => setFilter('inconsistent')}>
+          <span>Inconsistent</span> <span class="count">${inconsistentTests.length}</span>
         </button>
         <button class="filter-chip failed ${filter === 'degraded' ? 'active' : ''}" onClick=${() => setFilter('degraded')}>
           <span>Degraded</span> <span class="count">${degradedCount}</span>
@@ -150,8 +150,8 @@ export function StabilityView({ onNavigate }) {
           <span>Recovered</span> <span class="count">${recoveredCount}</span>
         </button>
         <div class="sort-group">
-          <label class="label-upper" for="stability-sort-select">Sort:</label>
-          <select id="stability-sort-select" class="sort-select" value=${sort} onChange=${(e) => setSort(e.target.value)} aria-label="Sort order">
+          <label class="label-upper" for="consistency-sort-select">Sort:</label>
+          <select id="consistency-sort-select" class="sort-select" value=${sort} onChange=${(e) => setSort(e.target.value)} aria-label="Sort order">
             <option value="category" selected=${sort === 'category'}>Category</option>
             <option value="name" selected=${sort === 'name'}>Name</option>
           </select>
@@ -169,7 +169,7 @@ export function StabilityView({ onNavigate }) {
                 if (flatItem.type === 'header') {
                     const topOffset = virtualRow.index === 0 ? 0 : 16;
                     return html`
-                  <div style="position:absolute;top:0;left:0;width:100%;height:${STABILITY_HEADER_CONTENT_HEIGHT}px;transform:translateY(${virtualRow.start + topOffset}px);background:var(--bg-surface);z-index:1"
+                  <div style="position:absolute;top:0;left:0;width:100%;height:${CONSISTENCY_HEADER_CONTENT_HEIGHT}px;transform:translateY(${virtualRow.start + topOffset}px);background:var(--bg-surface);z-index:1"
                        class="scenario-group-header">
                     ${flatItem.category.split(' › ').map((segment, index, array) => html`
                       <span class="clickable" onClick=${() => setSearch('"' + segment + '"')}>${segment}</span>${index < array.length - 1 ? html`<span style="margin:0 4px;text-decoration:none;cursor:default"> › </span>` : null}
@@ -180,7 +180,7 @@ export function StabilityView({ onNavigate }) {
                 const t = flatItem.item;
                 const clickHandler = () => onNavigate(scenarioUrl(t));
                 return html`
-                <div style="position:absolute;top:0;left:0;width:100%;height:${STABILITY_ROW_HEIGHT}px;transform:translateY(${virtualRow.start}px);overflow:hidden"
+                <div style="position:absolute;top:0;left:0;width:100%;height:${CONSISTENCY_ROW_HEIGHT}px;transform:translateY(${virtualRow.start}px);overflow:hidden"
                      class="scenario-item" role="button" tabindex="0" onClick=${clickHandler}
                      onKeyDown=${(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); clickHandler(); } }}>
                   ${kindIcon(t.kind)}
@@ -191,7 +191,7 @@ export function StabilityView({ onNavigate }) {
                       ${t.history && t.history.length > 1 ? html`<span class="scenario-history">${t.history.slice(-5).map((outcome, i) => html`<span class="history-dot history-dot--${outcomeClass(outcome)}" title=${outcome + (t.labels && t.labels[i] ? ' (' + t.labels[i] + ')' : '')}></span>`)}</span>` : null}
                     </div>
                   </div>
-                  <span class="scenario-duration" style="color:var(--color-pending)">${Math.round(t.instabilityRate * 100)}%</span>
+                  <span class="scenario-duration" style="color:var(--color-pending)">${Math.round(t.inconsistencyRate * 100)}%</span>
                 </div>
               `;
             })}

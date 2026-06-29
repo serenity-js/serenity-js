@@ -68,7 +68,7 @@ test.describe('HtmlReporter', () => {
         const artifactWriter = new ArtifactWriter(outputFileSystem);
         const sceneDataCollector = new SceneDataCollector();
         const runDataWriter = new RunDataWriter(outputFileSystem);
-        const aggregator = new DataSnapshotAggregator(outputFileSystem, { stabilityWindow: 5 });
+        const aggregator = new DataSnapshotAggregator(outputFileSystem, { consistencyWindow: 5 });
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
         const systemContextDetector = new SystemContextDetector(new CIDetector({}), { cwd: process.cwd(), versionOf: () => new Version('3.44.0') } as any);
 
@@ -217,7 +217,7 @@ test.describe('HtmlReporter', () => {
                 [outputDirectory.value]: {},
             }, '/')) as unknown as typeof fs;
             const outputFileSystem = new FileSystem(outputDirectory, reportFs);
-            const aggregator = new DataSnapshotAggregator(outputFileSystem, { stabilityWindow: 5 }, hierarchy, projectFileSystem);
+            const aggregator = new DataSnapshotAggregator(outputFileSystem, { consistencyWindow: 5 }, hierarchy, projectFileSystem);
             const artifactWriter = new ArtifactWriter(outputFileSystem);
             const sceneDataCollector = new SceneDataCollector();
             const runDataWriter = new RunDataWriter(outputFileSystem);

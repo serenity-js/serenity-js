@@ -10,8 +10,8 @@ test.describe('DashboardView', () => {
             props: { onNavigate: () => {} },
             data: minimalData({
                 history: [
-                    { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 4, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 800, slowest: 300, fastest: 100, average: 200, score: { confidence: 70, passRate: 80, stability: 75, completeness: 65 } },
-                    { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 3, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 1000, slowest: 400, fastest: 100, average: 250, score: { confidence: 76, passRate: 87, stability: 82, completeness: 75 } },
+                    { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 4, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 800, slowest: 300, fastest: 100, average: 200, score: { confidence: 70, passRate: 80, consistency: 75, completeness: 65 } },
+                    { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 3, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 1000, slowest: 400, fastest: 100, average: 250, score: { confidence: 76, passRate: 87, consistency: 82, completeness: 75 } },
                 ],
             }),
         });
@@ -24,15 +24,15 @@ test.describe('DashboardView', () => {
         await expect(heroCard.locator('.kpi-subtitle')).toContainText('Improved since last run');
     });
 
-    test('renders pass rate, stability, and completeness with deltas', async ({ mount, page }) => {
+    test('renders pass rate, consistency, and completeness with deltas', async ({ mount, page }) => {
         await mount({
             component: 'DashboardView',
             importPath: './components/DashboardView',
             props: { onNavigate: () => {} },
             data: minimalData({
                 history: [
-                    { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 4, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 800, slowest: 300, fastest: 100, average: 200, score: { confidence: 70, passRate: 80, stability: 75, completeness: 65 } },
-                    { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 3, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 1000, slowest: 400, fastest: 100, average: 250, score: { confidence: 76, passRate: 87, stability: 82, completeness: 75 } },
+                    { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 4, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 800, slowest: 300, fastest: 100, average: 200, score: { confidence: 70, passRate: 80, consistency: 75, completeness: 65 } },
+                    { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 3, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 1000, slowest: 400, fastest: 100, average: 250, score: { confidence: 76, passRate: 87, consistency: 82, completeness: 75 } },
                 ],
             }),
         });
@@ -41,9 +41,9 @@ test.describe('DashboardView', () => {
         await expect(passRateCard.locator('.kpi-value')).toContainText('87');
         await expect(passRateCard.locator('.kpi-delta')).toContainText('↑ 7%');
 
-        const stabilityCard = page.locator('.kpi-card[aria-label*="Stability"]');
-        await expect(stabilityCard.locator('.kpi-value')).toContainText('82');
-        await expect(stabilityCard.locator('.kpi-delta')).toContainText('↑ 7%');
+        const consistencyCard = page.locator('.kpi-card[aria-label*="Consistency"]');
+        await expect(consistencyCard.locator('.kpi-value')).toContainText('82');
+        await expect(consistencyCard.locator('.kpi-delta')).toContainText('↑ 7%');
 
         const completenessCard = page.locator('.kpi-card[aria-label*="Completeness"]');
         await expect(completenessCard.locator('.kpi-value')).toContainText('75');
@@ -110,7 +110,7 @@ test.describe('DashboardView', () => {
             data: minimalData(),
         });
 
-        await expect(page.locator('body')).toContainText('All tests stable');
+        await expect(page.locator('body')).toContainText('All tests consistent');
     });
 
     test('hero card has area sparkline when history available', async ({ mount, page }) => {
@@ -120,8 +120,8 @@ test.describe('DashboardView', () => {
             props: { onNavigate: () => {} },
             data: minimalData({
                 history: [
-                    { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 4, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 800, slowest: 300, fastest: 100, average: 200, score: { confidence: 70, passRate: 80, stability: 75, completeness: 65 } },
-                    { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 3, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 1000, slowest: 400, fastest: 100, average: 250, score: { confidence: 76, passRate: 87, stability: 82, completeness: 75 } },
+                    { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 4, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 800, slowest: 300, fastest: 100, average: 200, score: { confidence: 70, passRate: 80, consistency: 75, completeness: 65 } },
+                    { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 3, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 1000, slowest: 400, fastest: 100, average: 250, score: { confidence: 76, passRate: 87, consistency: 82, completeness: 75 } },
                 ],
             }),
         });
