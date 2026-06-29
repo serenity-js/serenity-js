@@ -2585,6 +2585,100 @@
       margin-top: 2px;
     }
 
+    /* ===== Execution History Strip ===== */
+    .exec-history-summary {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-size: var(--font-sm);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .exec-history-strip {
+      display: flex;
+      gap: var(--space-md);
+      align-items: flex-start;
+      overflow-x: auto;
+      padding-bottom: var(--space-xs);
+      scrollbar-width: thin;
+    }
+
+    .exec-history-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      flex-shrink: 0;
+      padding-left: var(--space-md);
+      border-left: 1px solid var(--divider);
+    }
+
+    .exec-history-group:first-child {
+      padding-left: 0;
+      border-left: none;
+    }
+
+    .exec-history-date {
+      font-size: var(--font-2xs);
+      font-weight: 600;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      padding-left: 2px;
+    }
+
+    .exec-history-group-items {
+      display: flex;
+      gap: 4px;
+    }
+
+    .exec-history-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+      flex-shrink: 0;
+      padding: 2px;
+      border-radius: var(--radius-sm);
+      transition: background 0.15s;
+    }
+
+    .exec-history-item:hover {
+      background: var(--bg-hover);
+    }
+
+    .exec-history-item--active {
+      background: var(--bg-hover);
+    }
+
+    .exec-history-item--active .exec-history-dot {
+      box-shadow: 0 0 0 2px var(--bg-surface), 0 0 0 4px var(--accent);
+    }
+
+    .exec-history-item--active .exec-history-label {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .exec-history-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--font-2xs);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .exec-history-label {
+      font-size: var(--font-2xs);
+      color: var(--text-disabled);
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
     /* ===== Photo Strip ===== */
     .photo-strip {
       display: flex;

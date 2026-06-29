@@ -3,7 +3,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
-import { DATA, formatDuration, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast } from '../utils';
+import { DATA, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast } from '../utils';
 import { ActivityNode } from './ActivityNode';
 
 const html = htm.bind(h);
@@ -153,12 +153,18 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
     const hasCast = scenario.cast.length > 0;
     const hasTags = scenario.tags.length > 0;
     const hasExecutionHistory = scenario.executionHistory.length > 0;
-    const currentActivities = hasRetries && activeAttempt < scenario.attempts.length
-        ? scenario.attempts[activeAttempt].activities
-        : scenario.activities;
-    const currentError = hasRetries && activeAttempt < scenario.attempts.length
-        ? scenario.attempts[activeAttempt].error
-        : scenario.error;
+    const historicalEntry = runIndex !== null && runIndex !== DATA.history.length - 1 && scenario.executionHistory[runIndex]
+        ? scenario.executionHistory[runIndex] : null;
+    const currentActivities = historicalEntry && historicalEntry.activities
+        ? historicalEntry.activities
+        : hasRetries && activeAttempt < scenario.attempts.length
+            ? scenario.attempts[activeAttempt].activities
+            : scenario.activities;
+    const currentError = historicalEntry
+        ? historicalEntry.error || null
+        : hasRetries && activeAttempt < scenario.attempts.length
+            ? scenario.attempts[activeAttempt].error
+            : scenario.error;
     const errorLocation = currentError ? (function findLoc(acts) { for (const a of acts) { if (a.outcome !== 'SUCCESS' && a.outcome !== 'SKIPPED' && a.location) return a.location; if (a.children) { const r = findLoc(a.children); if (r) return r; } } return null; })(currentActivities) : null;
 
     const copyTestPath = () => {
@@ -177,6 +183,13 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
         <span>›</span>
         <span>${scenario.name}</span>
       </div>
+
+      ${runIndex !== null && runIndex !== DATA.history.length - 1 && DATA.history[runIndex] ? html`
+        <div class="historical-banner">
+          <span>Viewing results from: <strong>${formatRunLabel(DATA.history[runIndex].label, DATA.history[runIndex].timestamp)}</strong></span>
+          <a onClick=${() => onNavigate(scenarioUrl(scenario))} style="cursor:pointer;color:var(--accent);font-weight:500;text-decoration:underline">show latest</a>
+        </div>
+      ` : null}
 
       <div class="card mb-md">
         <div class="scenario-detail-header">
@@ -208,21 +221,53 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
         ${hasExecutionHistory ? html`
           <div class="mb-md">
             <div class="card-title mb-sm">Execution History</div>
-            <div style="display:flex;gap:4px;align-items:center;flex-wrap:wrap">
-              ${scenario.executionHistory.map((entry, index) => {
-                    const isActive = runIndex === index;
-                    const blockStyle = 'width:20px;height:20px;border-radius:4px;background:var(--color-' + outcomeClass(entry.outcome) + ');opacity:' + (isActive ? '1' : '0.85') + ';display:flex;align-items:center;justify-content:center;font-size:var(--font-2xs);color:#fff;font-weight:600' + (isActive ? ';box-shadow:0 0 0 2px var(--bg-surface), 0 0 0 4px var(--accent)' : '');
-                    const labelStyle = 'font-size:var(--font-xs);color:' + (isActive ? 'var(--accent)' : 'var(--text-disabled)') + ';font-weight:' + (isActive ? '600' : '400');
-                    const handleRunClick = (e) => { e.stopPropagation(); onNavigate(scenarioUrl(scenario) + '?run=' + (DATA.history[index] ? DATA.history[index].timestamp : index)); };
-                    return html`
-                <div style="display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"
-                     title="${entry.run}: ${entry.outcome}"
-                     onClick=${handleRunClick}>
-                  <div style=${blockStyle}>${outcomeIcon(entry.outcome)}</div>
-                  <span style=${labelStyle}>${entry.run}</span>
-                </div>
-              `;
-                })}
+            <div class="exec-history-summary">
+              ${(() => {
+                    const activeIdx = runIndex !== null ? runIndex : scenario.executionHistory.length - 1;
+                    const historyUpToNow = scenario.executionHistory.slice(0, activeIdx + 1);
+                    const passed = historyUpToNow.filter(e => e.outcome === 'SUCCESS').length;
+                    const total = historyUpToNow.length;
+                    const flips = historyUpToNow.reduce((count, e, i) => i > 0 && e.outcome !== historyUpToNow[i - 1].outcome ? count + 1 : count, 0);
+                    const consistency = total > 1 ? Math.round((1 - flips / (total - 1)) * 100) : 100;
+                    return html`<span>${passed} of ${total} passing</span><span class="req-detail-metric-sep">·</span><span>${consistency}% consistent</span>`;
+                })()}
+            </div>
+            <div class="exec-history-strip">
+              ${(() => {
+                    const groups = [];
+                    let currentDate = '';
+                    for (let index = 0; index < scenario.executionHistory.length; index++) {
+                        const entry = scenario.executionHistory[index];
+                        const ts = entry.timestamp || (DATA.history[index] ? DATA.history[index].timestamp : '');
+                        const date = ts ? new Date(ts).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+                        if (date !== currentDate) {
+                            currentDate = date;
+                            groups.push({ date, items: [] });
+                        }
+                        groups[groups.length - 1].items.push({ entry, index, ts });
+                    }
+                    return groups.map(group => html`
+                      <div class="exec-history-group">
+                        <div class="exec-history-date">${group.date}</div>
+                        <div class="exec-history-group-items">
+                          ${group.items.map(({ entry, index, ts }) => {
+                            const isActive = runIndex === index || (runIndex === null && index === scenario.executionHistory.length - 1);
+                            const isIso = /^\d{4}-\d{2}-\d{2}T/.test(entry.run);
+                            const timeLabel = ts ? new Date(ts).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }) : entry.run;
+                            const shortLabel = isIso ? timeLabel : entry.run;
+                            const fullLabel = formatRunLabel(entry.run, ts);
+                            const handleRunClick = (e) => { e.stopPropagation(); onNavigate(scenarioUrl(scenario) + '?run=' + (DATA.history[index] ? DATA.history[index].timestamp : index)); };
+                            return html`
+                            <div class="exec-history-item ${isActive ? 'exec-history-item--active' : ''}" title="${entry.outcome} — ${fullLabel}" onClick=${handleRunClick}>
+                              <div class="exec-history-dot" style="background:var(--color-${outcomeClass(entry.outcome)})">${outcomeIcon(entry.outcome)}</div>
+                              <span class="exec-history-label">${shortLabel}</span>
+                            </div>
+                          `;
+                        })}
+                        </div>
+                      </div>
+                    `);
+                })()}
             </div>
           </div>
         ` : null}
