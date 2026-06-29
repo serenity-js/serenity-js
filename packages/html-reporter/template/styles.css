@@ -2004,6 +2004,20 @@
       opacity: 0.7;
     }
 
+    /* Confidence info icon */
+    .confidence-info-icon {
+      font-size: 0.85em;
+      opacity: 0.5;
+      cursor: help;
+      vertical-align: middle;
+      transition: opacity 0.15s;
+    }
+
+    .confidence-info-icon:hover,
+    .confidence-info-icon:focus {
+      opacity: 1;
+    }
+
     /* Child capability health (outcome bar + confidence) */
     .req-detail-child-health {
       display: flex;

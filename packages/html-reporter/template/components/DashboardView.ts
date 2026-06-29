@@ -311,7 +311,7 @@ export function DashboardView({ onNavigate }) {
       <!-- KPI Row -->
       <div class="kpi-row">
         <div class="kpi-card kpi-card--hero" onClick=${() => onNavigate('/capabilities')} tabindex="0" role="button" aria-label="Confidence: ${confidence} percent">
-          <span class="kpi-label">Confidence</span>
+          <span class="kpi-label">Confidence <span class="confidence-info-icon" tabindex="0" role="button" aria-label="How is confidence calculated?" title="Confidence = Pass Rate × 40% + Completeness × 25% + Consistency × 35%">ⓘ</span></span>
           <span class="kpi-value" style=${heroColor(confidence) ? `color:${heroColor(confidence)}` : ''}>${confidence}<span style="font-size:var(--font-base);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
           <span class="kpi-subtitle">${(() => {
                 if (previousConfidence === undefined) return `${summary.totalScenarios} scenarios across ${history.length} run${history.length !== 1 ? 's' : ''}`;
@@ -392,7 +392,7 @@ export function DashboardView({ onNavigate }) {
                 const items = [
                     ...newFailures.map(t => ({ ...t, kind: 'degraded' })),
                     ...newPasses.map(t => ({ ...t, kind: 'recovered' })),
-                    ...inconsistent.filter(t => !newFailures.some(f => f.source.path === t.source.path) && !newPasses.some(p => p.source.path === t.source.path)).map(t => ({ ...t, kind: 'unstable' })),
+                    ...inconsistent.filter(t => !newFailures.some(f => f.source.path === t.source.path) && !newPasses.some(p => p.source.path === t.source.path)).map(t => ({ ...t, kind: 'inconsistent' })),
                 ].slice(0, 5);
                 if (items.length === 0) return html`<div class="status-empty status-empty--ok"><span class="status-chip">✓</span> All tests consistent</div>`;
                 return items.map(t => html`

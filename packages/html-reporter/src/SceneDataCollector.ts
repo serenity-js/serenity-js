@@ -62,6 +62,10 @@ export class SceneDataCollector {
             const records: SceneRecord[] = [];
 
             for (const [, sceneEvents] of eventsBySceneId) {
+                // Skip groups without a SceneStarts (e.g. SceneSequenceDetected-only groups)
+                if (!sceneEvents.some(e => e instanceof SceneStarts)) {
+                    continue;
+                }
                 records.push(new SceneRecordBuilder(artifactPaths).build(sceneEvents));
             }
 
