@@ -205,6 +205,13 @@ export class DataSnapshotAggregator {
                         })),
                     },
                 } : {}),
+                ...(scene.attempts ? {
+                    attempts: scene.attempts.map(attempt => ({
+                        ...attempt,
+                        outcome: outcomeCodeToDisplayString(attempt.outcome.code),
+                        activities: attempt.activities.map(activity => this.mapActivityOutcome(activity)),
+                    })),
+                } : {}),
             };
         });
     }

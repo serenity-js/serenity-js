@@ -144,6 +144,11 @@ class SceneRecordBuilder {
     private currentParameterSet: { name: string; description?: string; values: Record<string, string> } | undefined;
     private currentExampleStartTimestamp: Timestamp | undefined;
 
+    // Retry support
+    private sceneFinishedCount = 0;
+    private currentAttemptStartTimestamp: Timestamp | undefined;
+    private readonly attempts: Array<{ attemptNumber: number; outcome: SerialisedOutcome; activities: ActivityRecord[]; error?: ErrorRecord; duration: number }> = [];
+
     constructor(private readonly artifactPaths: Map<string, Path[]>) {
     }
 
@@ -156,6 +161,8 @@ class SceneRecordBuilder {
             throw new LogicError('SceneRecordBuilder received an event queue without a SceneStarts event');
         }
 
+        const isRetried = this.attempts.length > 1;
+
         const record: SceneRecord = {
             name: this.name,
             category: this.category,
@@ -164,7 +171,9 @@ class SceneRecordBuilder {
             startedAt: this.startedAt,
             source: { path: this.sourcePath, line: this.sourceLine },
             tags: this.tags,
-            activities: this.isScenarioOutline ? [] : this.rootActivities,
+            activities: isRetried
+                ? this.attempts[this.attempts.length - 1].activities
+                : (this.isScenarioOutline ? [] : this.rootActivities),
         };
 
         if (this.narrative) {
@@ -188,6 +197,11 @@ class SceneRecordBuilder {
                 template: this.template,
                 parameters: this.parameterSets,
             };
+        }
+
+        if (isRetried) {
+            record.retries = this.attempts.length - 1;
+            record.attempts = this.attempts;
         }
 
         return record;
@@ -232,6 +246,12 @@ class SceneRecordBuilder {
             this.sourceLine = event.details.location.line;
             this.startedAt = event.timestamp.toISOString();
             this.sceneStartTimestamp = event.timestamp;
+            this.currentAttemptStartTimestamp = event.timestamp;
+        } else if (!this.isScenarioOutline && this.sceneFinishedCount > 0) {
+            // Subsequent SceneStarts after SceneFinished = retry attempt
+            this.rootActivities = [];
+            this.activityStack.length = 0;
+            this.currentAttemptStartTimestamp = event.timestamp;
         }
 
         if (this.isScenarioOutline && this.currentParameterSet) {
@@ -293,6 +313,8 @@ class SceneRecordBuilder {
     }
 
     private handleSceneFinished(event: SceneFinished): void {
+        this.sceneFinishedCount++;
+
         if (this.isScenarioOutline && this.currentParameterSet) {
             this.parameterSets.push({
                 name: this.currentParameterSet.name,
@@ -303,13 +325,28 @@ class SceneRecordBuilder {
                 activities: this.rootActivities,
             });
             this.currentParameterSet = undefined;
+        } else {
+            // Record this attempt (for both regular and retried scenarios)
+            const attemptError = event.outcome instanceof ProblemIndication ? errorFrom(event.outcome) : undefined;
+            this.attempts.push({
+                attemptNumber: this.sceneFinishedCount,
+                outcome: event.outcome.toJSON(),
+                activities: this.rootActivities,
+                duration: event.timestamp.diff(this.currentAttemptStartTimestamp).inMilliseconds(),
+                ...(attemptError ? { error: attemptError } : {}),
+            });
         }
 
         // Always update the overall scene outcome/duration to the last one
         this.outcome = event.outcome.toJSON();
         this.duration = event.timestamp.diff(this.sceneStartTimestamp).inMilliseconds();
+
+        // Only set scene-level error if final outcome is a failure
         if (event.outcome instanceof ProblemIndication) {
             this.sceneError = errorFrom(event.outcome);
+        } else {
+            // Clear any previous error if final attempt succeeded
+            this.sceneError = undefined;
         }
     }
 }

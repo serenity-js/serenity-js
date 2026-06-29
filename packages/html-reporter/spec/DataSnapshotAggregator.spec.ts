@@ -770,4 +770,77 @@ test.describe('DataSnapshotAggregator', () => {
             expect(data.capabilities.children[0].children[0].narrative).toBe('As a user\nI want something');
         });
     });
+
+    test.describe('retry support', () => {
+
+        test('passes through retries count and attempts array in enriched scenarios', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({
+                        startedAt: '2024-01-01T00:00:00.000Z',
+                        finishedAt: '2024-01-01T00:00:01.000Z',
+                        outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                        scenes: [{
+                            name: 'should allow me to retry',
+                            category: 'Retries',
+                            outcome: { code: 64 },
+                            duration: 500,
+                            startedAt: '2024-01-01T00:00:00.000Z',
+                            source: { path: 'spec/retries.spec.ts', line: 8 },
+                            tags: [{ type: 'tag', name: 'retried' }],
+                            activities: [{ type: 'Interaction', name: 'Tess ensures that 2 does equal 2', outcome: { code: 64 }, duration: 50, startedAt: '2024-01-01T00:00:00.000Z', children: [] }],
+                            retries: 1,
+                            attempts: [
+                                { attemptNumber: 1, outcome: { code: 4 }, duration: 200, activities: [{ type: 'Interaction', name: 'Tess ensures that 0 does equal 2', outcome: { code: 4 }, duration: 50, startedAt: '2024-01-01T00:00:00.000Z', children: [] }], error: { name: 'AssertionError', message: 'Expected 0 to equal 2', stack: '' } },
+                                { attemptNumber: 2, outcome: { code: 64 }, duration: 200, activities: [{ type: 'Interaction', name: 'Tess ensures that 2 does equal 2', outcome: { code: 64 }, duration: 50, startedAt: '2024-01-01T00:00:00.000Z', children: [] }] },
+                            ],
+                        }],
+                        tags: [],
+                        testRunner: { name: 'Playwright', version: '1.50.0' },
+                    }) },
+                },
+            });
+
+            aggregator.aggregate();
+            const data = readDataJs(filesystem);
+
+            expect(data.scenarios).toHaveLength(1);
+            const scenario = data.scenarios[0];
+
+            expect(scenario.outcome).toBe('SUCCESS');
+            expect(scenario.retries).toBe(1);
+            expect(scenario.attempts).toHaveLength(2);
+            expect(scenario.attempts[0].outcome).toBe('FAILURE');
+            expect(scenario.attempts[0].activities[0].name).toBe('Tess ensures that 0 does equal 2');
+            expect(scenario.attempts[0].error.message).toBe('Expected 0 to equal 2');
+            expect(scenario.attempts[1].outcome).toBe('SUCCESS');
+            expect(scenario.attempts[1].activities[0].name).toBe('Tess ensures that 2 does equal 2');
+        });
+
+        test('does not inflate scenario count for retried tests', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({
+                        startedAt: '2024-01-01T00:00:00.000Z',
+                        finishedAt: '2024-01-01T00:00:01.000Z',
+                        outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                        scenes: [
+                            { name: 'passes first time', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-01-01T00:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                            { name: 'retried test', category: 'Suite', outcome: { code: 64 }, duration: 300, startedAt: '2024-01-01T00:00:00.000Z', source: { path: 'a.spec.ts', line: 5 }, tags: [{ type: 'tag', name: 'retried' }], activities: [], retries: 1, attempts: [{ attemptNumber: 1, outcome: { code: 4 }, duration: 100, activities: [] }, { attemptNumber: 2, outcome: { code: 64 }, duration: 100, activities: [] }] },
+                        ],
+                        tags: [],
+                        testRunner: { name: 'Playwright', version: '1.50.0' },
+                    }) },
+                },
+            });
+
+            aggregator.aggregate();
+            const data = readDataJs(filesystem);
+
+            expect(data.scenarios).toHaveLength(2);
+            expect(data.summary.totalScenarios).toBe(2);
+            expect(data.summary.outcomes.passed).toBe(2);
+            expect(data.summary.outcomes.failed).toBe(0);
+        });
+    });
 });
