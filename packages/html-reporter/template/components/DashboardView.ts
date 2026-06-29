@@ -262,14 +262,14 @@ export function DashboardView({ onNavigate }) {
     const passRate = latestScore ? latestScore.passRate : (summary.totalScenarios > 0 ? Math.round((summary.outcomes.passed / summary.totalScenarios) * 100) : 0);
     const consistency = latestScore ? latestScore.consistency : 100;
     const completenessScore = latestScore ? latestScore.completeness : (() => {
-        const requirements = DATA.requirements;
-        if (!requirements) return 100;
+        const capabilities = DATA.capabilities;
+        if (!capabilities) return 100;
         let total = 0, complete = 0;
         function walk(node) {
             if (node.type === 'file') { total++; const t = Object.values(node.outcomes).reduce((a: number, b: number) => a + b, 0); if (t > 0 && !(node.outcomes.pending || 0) && !(node.outcomes.skipped || 0)) complete++; }
             if (node.children) node.children.forEach(walk);
         }
-        if (requirements.children) requirements.children.forEach(walk);
+        if (capabilities.children) capabilities.children.forEach(walk);
         return total > 0 ? Math.round((complete / total) * 100) : 100;
     })();
     const confidence = latestScore ? latestScore.confidence : Math.round(completenessScore * 0.3 + passRate * 0.35 + consistency * 0.35);

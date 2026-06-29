@@ -86,7 +86,7 @@ function nodeHasGap(node) {
     return false;
 }
 
-function CapabilitiesFilterBar({ activeFilter, onFilter, requirements }) {
+function CapabilitiesFilterBar({ activeFilter, onFilter, capabilities }) {
     let healthy = 0, atRisk = 0, critical = 0, gaps = 0;
     function walk(n) {
         if (n.type === 'directory' && n.children) {
@@ -98,7 +98,7 @@ function CapabilitiesFilterBar({ activeFilter, onFilter, requirements }) {
             n.children.forEach(walk);
         }
     }
-    if (requirements.children) requirements.children.forEach(walk);
+    if (capabilities.children) capabilities.children.forEach(walk);
     const total = healthy + atRisk + critical;
 
     const filters = [
@@ -176,8 +176,8 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoo
     `;
 }
 
-function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) {
-    const displayNode = node || requirements;
+function DetailPanel({ node, segmentPath, capabilities, onNavigate, onSelect }) {
+    const displayNode = node || capabilities;
     const score = computeNodeScore(displayNode);
     const total = Object.values(displayNode.outcomes).reduce((a: number, b: number) => a + b, 0);
     const failedCount = (displayNode.outcomes.failed || 0) + (displayNode.outcomes.error || 0) + (displayNode.outcomes.compromised || 0);
@@ -185,7 +185,7 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
     const directories = displayNode.children ? displayNode.children.filter(c => c.type === 'directory') : [];
     const files = displayNode.children ? displayNode.children.filter(c => c.type === 'file') : [];
 
-    const rootName = requirements.name || 'features';
+    const rootName = capabilities.name || 'features';
     const fullPath = segmentPath ? rootName + '/' + segmentPath : rootName;
 
     const copyPath = () => {
@@ -278,9 +278,9 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
 }
 
 export function CapabilitiesView({ onNavigate, route }) {
-    const requirements = DATA.requirements;
+    const capabilities = DATA.capabilities;
 
-    if (!requirements) {
+    if (!capabilities) {
         return html`
             <div class="empty-state">
                 <div class="empty-state-icon">${icons.completeness}</div>
@@ -298,7 +298,7 @@ export function CapabilitiesView({ onNavigate, route }) {
     useEffect(() => {
         const params = route && route.includes('?') ? new URLSearchParams(route.split('?')[1]) : null;
         const pathFromUrl = params?.get('path') ?? '';
-        const node = findNodeByPath(requirements, pathFromUrl);
+        const node = findNodeByPath(capabilities, pathFromUrl);
         if (node) {
             setSelectedPath(pathFromUrl);
             setSelectedNode(node);
@@ -329,16 +329,16 @@ export function CapabilitiesView({ onNavigate, route }) {
                     style="margin-bottom:var(--space-sm)"
                     value=${searchTerm} onInput=${(e) => setSearchTerm(e.target.value)} />
                 <${CapabilitiesFilterBar} activeFilter=${activeFilter} onFilter=${setActiveFilter}
-                    requirements=${requirements} />
+                    capabilities=${capabilities} />
                 <div class="req-tree-list" role="tree" style="margin-top:var(--space-sm)">
-                    <${TreeNode} node=${requirements} onSelect=${handleSelect}
+                    <${TreeNode} node=${capabilities} onSelect=${handleSelect}
                         selectedPath=${selectedPath} depth=${0}
                         path=${''} searchTerm=${searchTerm} isRoot=${true} nodeFilter=${nodeFilter} />
                 </div>
             </div>
             <div class="req-detail-wrap">
                 <${DetailPanel} node=${selectedNode} segmentPath=${selectedPath}
-                    requirements=${requirements} onNavigate=${onNavigate} onSelect=${handleSelect} />
+                    capabilities=${capabilities} onNavigate=${onNavigate} onSelect=${handleSelect} />
             </div>
         </div>
     `;

@@ -1,4 +1,4 @@
-import type { ReportOutcomes, RequirementScore } from './ReportData.js';
+import type { ReportOutcomes, CapabilityScore } from './ReportData.js';
 
 const WEIGHT_PASS_RATE = 0.40;
 const WEIGHT_COMPLETENESS = 0.25;
@@ -10,7 +10,7 @@ interface ScenarioInput {
     executionHistory?: string[];
 }
 
-interface RequirementInput {
+interface CapabilityInput {
     outcomes: ReportOutcomes;
     scenarios: ScenarioInput[];
 }
@@ -92,10 +92,10 @@ export function computeConfidence(scores: { passRate: number; completeness: numb
 }
 
 /**
- * Computes a full confidence score for a file-level requirement node.
+ * Computes a full confidence score for a file-level capability node.
  * Confidence is a deterministic weighted composite of pass rate, completeness, and consistency.
  */
-export function scoreRequirement(node: RequirementInput): RequirementScore {
+export function scoreCapability(node: CapabilityInput): CapabilityScore {
     const { outcomes, scenarios } = node;
     const total = outcomes.passed + outcomes.failed + outcomes.pending + outcomes.skipped + outcomes.compromised + outcomes.error;
 

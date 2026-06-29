@@ -9,7 +9,7 @@ export function getBrowserTag(scenario: Scenario): string | null {
 
 export function relativeSourcePath(scenario: Scenario): string {
     const p = scenario.source.path;
-    const specDirectory = DATA.requirements ? DATA.requirements.name : 'spec';
+    const specDirectory = DATA.capabilities ? DATA.capabilities.name : 'spec';
     const marker = '/' + specDirectory + '/';
     const index = p.indexOf(marker);
     const relativePath = index !== -1 ? p.slice(index + marker.length) : p;

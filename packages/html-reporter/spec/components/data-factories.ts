@@ -117,6 +117,6 @@ export function minimalData(overrides: Partial<ReportData> & Record<string, unkn
             projectName: '@serenity-js/test-project',
             packageManager: 'pnpm',
         },
-        requirements: overrides.requirements || null,
+        capabilities: overrides.capabilities || null,
     };
 }

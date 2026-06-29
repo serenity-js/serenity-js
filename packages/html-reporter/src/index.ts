@@ -9,7 +9,7 @@ export type {
     ReportExecutionHistoryEntry,
     ReportHistoryEntry,
     ReportOutcomes,
-    ReportRequirementNode,
+    ReportCapabilityNode,
     ReportScenario,
     ReportSummary,
     ReportSystemContext,

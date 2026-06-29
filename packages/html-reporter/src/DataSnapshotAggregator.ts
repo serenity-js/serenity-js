@@ -15,7 +15,7 @@ import {
 import { marked } from 'marked';
 
 import type { RunData } from './model/RunData.js';
-import { scoreDirectory, scoreRequirement } from './RequirementConfidenceScorer.js';
+import { scoreDirectory, scoreCapability } from './CapabilityConfidenceScorer.js';
 
 interface AggregatorConfig {
     consistencyWindow: number;
@@ -61,7 +61,7 @@ export class DataSnapshotAggregator {
             newFailures,
             newPasses,
             systemContext: this.buildSystemContext(latestRun),
-            requirements: this.requirementsHierarchy ? this.buildRequirements(latestRun, allRuns) : undefined,
+            capabilities: this.requirementsHierarchy ? this.buildCapabilities(latestRun, allRuns) : undefined,
         };
 
         const js = `window.__SERENITY_REPORT_DATA__ = ${ JSON.stringify(snapshot, undefined, 2) };\n`;
@@ -291,7 +291,7 @@ export class DataSnapshotAggregator {
         return [...browsers.entries()].map(([name, version]) => ({ name, version }));
     }
 
-    private buildRequirements(run: RunData, allRuns: RunData[]): any {
+    private buildCapabilities(run: RunData, allRuns: RunData[]): any {
         const rootName = this.requirementsHierarchy.rootDirectory().basename();
         const root: any = { type: 'directory', name: rootName, outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, children: [] };
         const nodeMap = new Map<string, any>();
@@ -352,7 +352,7 @@ export class DataSnapshotAggregator {
         // Compute scores for file nodes
         for (const [, node] of nodeMap) {
             if (node.type === 'file' && node.scenarios) {
-                node.score = scoreRequirement(node);
+                node.score = scoreCapability(node);
             }
         }
 

@@ -206,7 +206,7 @@ test.describe('HtmlReporter', () => {
             expect(content.systemContext.runtime).toHaveProperty('provider');
         });
 
-        test('includes requirements hierarchy in data.js when specDirectory is configured', () => {
+        test('includes capabilities hierarchy in data.js when specDirectory is configured', () => {
             const projectFs = createFsFromVolume(Volume.fromNestedJSON({
                 '/project': { spec: { 'readme.md': '**Project** narrative', 'example.spec.ts': '' } }
             }, '/')) as unknown as typeof fs;
@@ -240,13 +240,13 @@ test.describe('HtmlReporter', () => {
             const dataJs = reportFs.readFileSync('/reports/serenity-js/data.js', 'utf8') as string;
             const data = JSON.parse(dataJs.replace(/^window\.__SERENITY_REPORT_DATA__\s*=\s*/, '').replace(/;\s*$/, ''));
 
-            expect(data.requirements).toBeDefined();
-            expect(data.requirements.name).toBe('spec');
-            expect(data.requirements.readme).toContain('<strong>Project</strong>');
-            expect(data.requirements.scenarioCount).toBe(1);
-            expect(data.requirements.outcomes.passed).toBe(1);
-            expect(data.requirements.children).toHaveLength(1);
-            expect(data.requirements.children[0].name).toBe('example');
+            expect(data.capabilities).toBeDefined();
+            expect(data.capabilities.name).toBe('spec');
+            expect(data.capabilities.readme).toContain('<strong>Project</strong>');
+            expect(data.capabilities.scenarioCount).toBe(1);
+            expect(data.capabilities.outcomes.passed).toBe(1);
+            expect(data.capabilities.children).toHaveLength(1);
+            expect(data.capabilities.children[0].name).toBe('example');
         });
     });
 

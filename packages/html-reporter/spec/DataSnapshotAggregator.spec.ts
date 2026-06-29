@@ -209,9 +209,9 @@ test.describe('DataSnapshotAggregator', () => {
         });
     });
 
-    test.describe('requirements hierarchy', () => {
+    test.describe('capabilities hierarchy', () => {
 
-        test('builds a requirements tree from scenario source paths when specDirectory is configured', () => {
+        test('builds a capabilities tree from scenario source paths when specDirectory is configured', () => {
             const projectFs = createFsFromVolume(Volume.fromNestedJSON({
                 '/project': { spec: { 'readme.md': '**bold** text', login: { 'basic.spec.ts': '' }, 'checkout.spec.ts': '' } }
             }, '/')) as unknown as typeof fs;
@@ -238,18 +238,18 @@ test.describe('DataSnapshotAggregator', () => {
             aggregator.aggregate();
 
             const data = readDataJs(filesystem);
-            expect(data.requirements).toBeDefined();
-            expect(data.requirements.scenarioCount).toBe(3);
-            expect(data.requirements.outcomes.passed).toBe(2);
-            expect(data.requirements.outcomes.failed).toBe(1);
-            expect(data.requirements.children).toHaveLength(2);
+            expect(data.capabilities).toBeDefined();
+            expect(data.capabilities.scenarioCount).toBe(3);
+            expect(data.capabilities.outcomes.passed).toBe(2);
+            expect(data.capabilities.outcomes.failed).toBe(1);
+            expect(data.capabilities.children).toHaveLength(2);
 
-            const names = data.requirements.children.map((c: any) => c.name).sort();
+            const names = data.capabilities.children.map((c: any) => c.name).sort();
             expect(names).toEqual(['checkout', 'login']);
-            expect(data.requirements.readme).toContain('<strong>bold</strong>');
+            expect(data.capabilities.readme).toContain('<strong>bold</strong>');
         });
 
-        test('does not produce requirements when specDirectory is not configured', () => {
+        test('does not produce capabilities when specDirectory is not configured', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
@@ -266,11 +266,11 @@ test.describe('DataSnapshotAggregator', () => {
             aggregator.aggregate();
 
             const data = readDataJs(filesystem);
-            expect(data.requirements).toBeUndefined();
+            expect(data.capabilities).toBeUndefined();
         });
     });
 
-    test.describe('requirement confidence scores', () => {
+    test.describe('capability confidence scores', () => {
 
         test('computes score for file nodes with passRate, completeness, and consistency', () => {
             const projectFs = createFsFromVolume(Volume.fromNestedJSON({
@@ -300,7 +300,7 @@ test.describe('DataSnapshotAggregator', () => {
             aggregator.aggregate();
 
             const data = readDataJs(filesystem);
-            const fileNode = data.requirements.children[0];
+            const fileNode = data.capabilities.children[0];
             expect(fileNode.score).toBeDefined();
             expect(fileNode.score.passRate).toBe(75);       // 3/4
             expect(fileNode.score.completeness).toBe(100);  // no pending/skipped
@@ -343,7 +343,7 @@ test.describe('DataSnapshotAggregator', () => {
             aggregator.aggregate();
 
             const data = readDataJs(filesystem);
-            const fileNode = data.requirements.children[0];
+            const fileNode = data.capabilities.children[0];
             expect(fileNode.scenarios[0].executionHistory).toEqual(['SUCCESS', 'FAILURE']);
             // Consistency should be 0% (1 flip out of 1 transition)
             expect(fileNode.score.consistency).toBe(0);
@@ -386,12 +386,12 @@ test.describe('DataSnapshotAggregator', () => {
 
             const data = readDataJs(filesystem);
             // Root directory should have a score that's the weighted average
-            expect(data.requirements.score).toBeDefined();
-            expect(data.requirements.score.confidence).toBeGreaterThan(0);
+            expect(data.capabilities.score).toBeDefined();
+            expect(data.capabilities.score.confidence).toBeGreaterThan(0);
             // Both files have equal scenario counts, so root = average of the two
-            const aNode = data.requirements.children.find((c: any) => c.name === 'a');
-            const bNode = data.requirements.children.find((c: any) => c.name === 'b');
-            expect(data.requirements.score.confidence).toBe(
+            const aNode = data.capabilities.children.find((c: any) => c.name === 'a');
+            const bNode = data.capabilities.children.find((c: any) => c.name === 'b');
+            expect(data.capabilities.score.confidence).toBe(
                 Math.round((aNode.score.confidence * 5 + bNode.score.confidence * 5) / 10)
             );
         });
@@ -733,7 +733,7 @@ test.describe('DataSnapshotAggregator', () => {
             expect(data.scenarios[0].scenarioOutline.parameters[0].description).toContain('<a href="https://example.com">data table</a>');
         });
 
-        test('includes feature narrative on requirement file nodes', () => {
+        test('includes feature narrative on capability file nodes', () => {
             const vol = Volume.fromNestedJSON({
                 '/project/spec': {
                     'example': {
@@ -767,7 +767,7 @@ test.describe('DataSnapshotAggregator', () => {
             aggregator.aggregate();
             const data = readDataJs(filesystem);
 
-            expect(data.requirements.children[0].children[0].narrative).toBe('As a user\nI want something');
+            expect(data.capabilities.children[0].children[0].narrative).toBe('As a user\nI want something');
         });
     });
 });

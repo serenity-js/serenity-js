@@ -14,7 +14,7 @@ export interface ReportData {
     newFailures: ReportScenarioRef[];
     newPasses: ReportScenarioRef[];
     systemContext?: ReportSystemContext;
-    requirements?: ReportRequirementNode;
+    capabilities?: ReportCapabilityNode;
 }
 
 export interface ReportSummary {
@@ -166,21 +166,21 @@ export interface ReportCIContext {
     triggeredBy?: string;
 }
 
-export interface ReportRequirementNode {
+export interface ReportCapabilityNode {
     type: 'directory' | 'file';
     name: string;
     displayName?: string;
     outcomes: ReportOutcomes;
     scenarioCount?: number;
-    children?: ReportRequirementNode[];
+    children?: ReportCapabilityNode[];
     readme?: string;
     narrative?: string;
     scenarios?: Array<{ name: string; outcome: string; executionHistory?: string[] }>;
-    score?: RequirementScore;
+    score?: CapabilityScore;
     delta?: number;
 }
 
-export interface RequirementScore {
+export interface CapabilityScore {
     confidence: number;   // 0–100 composite
     passRate: number;     // 0–100
     completeness: number; // 0–100

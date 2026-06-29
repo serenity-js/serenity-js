@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test';
 
-import { computeCompleteness, computeConfidence, computeDelta, computePassRate, computeConsistency, scoreDirectory, scoreRequirement } from '../src/RequirementConfidenceScorer.js';
+import { computeCompleteness, computeConfidence, computeDelta, computePassRate, computeConsistency, scoreDirectory, scoreCapability } from '../src/CapabilityConfidenceScorer.js';
 
-test.describe('RequirementConfidenceScorer', () => {
+test.describe('CapabilityConfidenceScorer', () => {
 
     test.describe('computePassRate', () => {
 
@@ -206,7 +206,7 @@ test.describe('RequirementConfidenceScorer', () => {
         });
     });
 
-    test.describe('scoreRequirement (penalties)', () => {
+    test.describe('scoreCapability (penalties)', () => {
 
         test('returns confidence 0 when there are no scenarios', () => {
             const node = {
@@ -214,7 +214,7 @@ test.describe('RequirementConfidenceScorer', () => {
                 scenarios: [],
             };
 
-            const score = scoreRequirement(node);
+            const score = scoreCapability(node);
 
             expect(score.confidence).toBe(0);
         });
@@ -229,7 +229,7 @@ test.describe('RequirementConfidenceScorer', () => {
                 ],
             };
 
-            const score = scoreRequirement(node);
+            const score = scoreCapability(node);
 
             expect(score.confidence).toBe(0);
         });
@@ -247,7 +247,7 @@ test.describe('RequirementConfidenceScorer', () => {
                 ],
             };
 
-            const score = scoreRequirement(node);
+            const score = scoreCapability(node);
 
             // passRate=80, completeness=100
             // scenario E has history [S,S,F] → 1 flip/2 transitions = 0.5 flip rate
@@ -264,7 +264,7 @@ test.describe('RequirementConfidenceScorer', () => {
                 ],
             };
 
-            const score = scoreRequirement(node);
+            const score = scoreCapability(node);
 
             // passRate=100, completeness=100, consistency=100
             // confidence = 100 (no penalties)
@@ -279,7 +279,7 @@ test.describe('RequirementConfidenceScorer', () => {
                 ],
             };
 
-            const score = scoreRequirement(node);
+            const score = scoreCapability(node);
 
             // passRate=0, completeness=100, consistency=0 (1 flip / 1 transition)
             // confidence = 0.40×0 + 0.25×100 + 0.35×0 = 25
@@ -294,7 +294,7 @@ test.describe('RequirementConfidenceScorer', () => {
                 ],
             };
 
-            const score = scoreRequirement(node);
+            const score = scoreCapability(node);
 
             // passRate=0, completeness=100, consistency=100 (no flips)
             // confidence = 0.40×0 + 0.25×100 + 0.35×100 = 60
@@ -313,7 +313,7 @@ test.describe('RequirementConfidenceScorer', () => {
                 ],
             };
 
-            const score = scoreRequirement(node);
+            const score = scoreCapability(node);
 
             expect(score.passRate).toBe(75);        // 3 of 4 executed
             expect(score.completeness).toBe(80);    // 4 of 5 implemented

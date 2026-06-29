@@ -12,7 +12,7 @@ export interface HtmlReporterConfig {
     outputDirectory?: string;
 
     /**
-     * Root directory for deriving the requirements hierarchy.
+     * Root directory for deriving the capabilities hierarchy.
      */
     specDirectory?: string;
 

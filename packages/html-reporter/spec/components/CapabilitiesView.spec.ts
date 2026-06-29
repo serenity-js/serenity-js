@@ -1,9 +1,9 @@
 import { minimalData } from './data-factories';
 import { expect, test } from './fixtures';
 
-function requirementsData() {
+function capabilitiesData() {
     return minimalData({
-        requirements: {
+        capabilities: {
             name: 'spec',
             type: 'directory',
             outcomes: { passed: 5, failed: 1, pending: 1, skipped: 0, compromised: 0, error: 0 },
@@ -47,7 +47,7 @@ test.describe('CapabilitiesView', () => {
             await mount({
                 component: 'CapabilitiesView',
                 importPath: './components/CapabilitiesView',
-                data: requirementsData(),
+                data: capabilitiesData(),
                 props: { onNavigate: () => undefined, route: '#/capabilities' },
             });
 
@@ -63,7 +63,7 @@ test.describe('CapabilitiesView', () => {
             await mount({
                 component: 'CapabilitiesView',
                 importPath: './components/CapabilitiesView',
-                data: requirementsData(),
+                data: capabilitiesData(),
                 props: { onNavigate: () => undefined, route: '#/capabilities' },
             });
 
@@ -85,7 +85,7 @@ test.describe('CapabilitiesView', () => {
             await mount({
                 component: 'CapabilitiesView',
                 importPath: './components/CapabilitiesView',
-                data: requirementsData(),
+                data: capabilitiesData(),
                 props: { onNavigate: () => undefined, route: '#/capabilities' },
             });
 
@@ -97,7 +97,7 @@ test.describe('CapabilitiesView', () => {
             await mount({
                 component: 'CapabilitiesView',
                 importPath: './components/CapabilitiesView',
-                data: requirementsData(),
+                data: capabilitiesData(),
                 props: { onNavigate: () => undefined, route: '#/capabilities' },
             });
 
@@ -117,7 +117,7 @@ test.describe('CapabilitiesView', () => {
             await mount({
                 component: 'CapabilitiesView',
                 importPath: './components/CapabilitiesView',
-                data: requirementsData(),
+                data: capabilitiesData(),
                 props: { onNavigate: () => undefined, route: '#/capabilities' },
             });
 
@@ -128,11 +128,11 @@ test.describe('CapabilitiesView', () => {
         });
     });
 
-    test('shows empty state when requirements data is missing', async ({ mount, page }) => {
+    test('shows empty state when capabilities data is missing', async ({ mount, page }) => {
         await mount({
             component: 'CapabilitiesView',
             importPath: './components/CapabilitiesView',
-            data: minimalData({ requirements: null }),
+            data: minimalData({ capabilities: null }),
             props: { onNavigate: () => undefined, route: '#/capabilities' },
         });
 
