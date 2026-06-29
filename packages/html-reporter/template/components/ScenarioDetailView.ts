@@ -230,8 +230,8 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
             <div class="card-title mb-sm">Execution History</div>
             <div class="exec-history-summary">
               ${(() => {
-                    const activeIdx = runIndex !== null ? runIndex : scenario.executionHistory.length - 1;
-                    const historyUpToNow = scenario.executionHistory.slice(0, activeIdx + 1);
+                    const activeIndex = runIndex !== null ? runIndex : scenario.executionHistory.length - 1;
+                    const historyUpToNow = scenario.executionHistory.slice(0, activeIndex + 1);
                     const passed = historyUpToNow.filter(e => e.outcome === 'SUCCESS').length;
                     const total = historyUpToNow.length;
                     const flips = historyUpToNow.reduce((count, e, i) => i > 0 && e.outcome !== historyUpToNow[i - 1].outcome ? count + 1 : count, 0);
@@ -258,19 +258,19 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
                         <div class="exec-history-date">${group.date}</div>
                         <div class="exec-history-group-items">
                           ${group.items.map(({ entry, index, ts }) => {
-                            const isActive = runIndex === index || (runIndex === null && index === scenario.executionHistory.length - 1);
-                            const isIso = /^\d{4}-\d{2}-\d{2}T/.test(entry.run);
-                            const timeLabel = ts ? new Date(ts).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }) : entry.run;
-                            const shortLabel = isIso ? timeLabel : entry.run;
-                            const fullLabel = formatRunLabel(entry.run, ts);
-                            const handleRunClick = (e) => { e.stopPropagation(); onNavigate(scenarioUrl(scenario) + '?run=' + (DATA.history[index] ? DATA.history[index].timestamp : index)); };
-                            return html`
+                        const isActive = runIndex === index || (runIndex === null && index === scenario.executionHistory.length - 1);
+                        const isIso = /^\d{4}-\d{2}-\d{2}T/.test(entry.run);
+                        const timeLabel = ts ? new Date(ts).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }) : entry.run;
+                        const shortLabel = isIso ? timeLabel : entry.run;
+                        const fullLabel = formatRunLabel(entry.run, ts);
+                        const handleRunClick = (e) => { e.stopPropagation(); onNavigate(scenarioUrl(scenario) + '?run=' + (DATA.history[index] ? DATA.history[index].timestamp : index)); };
+                        return html`
                             <div class="exec-history-item ${isActive ? 'exec-history-item--active' : ''}" title="${entry.outcome} — ${fullLabel}" onClick=${handleRunClick}>
                               <div class="exec-history-dot" style="background:var(--color-${outcomeClass(entry.outcome)})">${outcomeIcon(entry.outcome)}</div>
                               <span class="exec-history-label">${shortLabel}</span>
                             </div>
                           `;
-                        })}
+                    })}
                         </div>
                       </div>
                     `);

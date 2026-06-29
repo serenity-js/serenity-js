@@ -4,14 +4,14 @@ import { h } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
 
 import { DATA, formatTimestamp } from '../utils';
+import { CapabilitiesView } from './CapabilitiesView';
+import { ConsistencyView } from './ConsistencyView';
 import { DashboardView } from './DashboardView';
 import { ErrorsView } from './ErrorsView';
 import { icons } from './icons';
-import { CapabilitiesView } from './CapabilitiesView';
 import { ScenarioDetailView } from './ScenarioDetailView';
 import { ScenariosView } from './ScenariosView';
 import { Sidebar } from './Sidebar';
-import { ConsistencyView } from './ConsistencyView';
 import { SystemContextView } from './SystemContextView';
 import { TagsView } from './TagsView';
 import { TestRunsView } from './TestRunsView';

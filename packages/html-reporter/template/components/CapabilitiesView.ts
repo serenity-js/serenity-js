@@ -190,8 +190,8 @@ function DetailPanel({ node, segmentPath, capabilities, onNavigate, onSelect }) 
 
     const copyPath = () => {
         navigator.clipboard.writeText(fullPath).then(() => {
-            const el = document.getElementById('req-path-copied');
-            if (el) { el.style.opacity = '1'; setTimeout(() => { el.style.opacity = '0'; }, 1500); }
+            const element = document.getElementById('req-path-copied');
+            if (element) { element.style.opacity = '1'; setTimeout(() => { element.style.opacity = '0'; }, 1500); }
         });
     };
 
