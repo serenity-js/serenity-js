@@ -52,7 +52,7 @@ test.describe('CIDetector', () => {
             expect(context.provider).toBe('GitHub Actions');
             expect(context.buildNumber).toBe('142');
             expect(context.branch).toBe('main');
-            expect(context.commit).toBe('abc123de');
+            expect(context.commit).toBe('abc123def456');
             expect(context.jobUrl).toBe('https://github.com/serenity-js/serenity-js/actions/runs/9876543210');
             expect(context.workflow).toBe('CI');
             expect(context.repositoryUrl).toBe('https://github.com/serenity-js/serenity-js');
@@ -105,7 +105,7 @@ test.describe('CIDetector', () => {
             expect(context.provider).toBe('Jenkins');
             expect(context.buildNumber).toBe('301');
             expect(context.branch).toBe('origin/main');
-            expect(context.commit).toBe('deadbeef');
+            expect(context.commit).toBe('deadbeef12345678');
             expect(context.jobUrl).toBe('http://jenkins.example.com/job/my-project/301/');
         });
 
@@ -123,7 +123,7 @@ test.describe('CIDetector', () => {
             expect(context.provider).toBe('CircleCI');
             expect(context.buildNumber).toBe('78');
             expect(context.branch).toBe('develop');
-            expect(context.commit).toBe('cafe1234');
+            expect(context.commit).toBe('cafe1234abcdef00');
             expect(context.jobUrl).toBe('https://circleci.com/gh/org/repo/78');
         });
 
@@ -146,6 +146,7 @@ test.describe('CIDetector', () => {
                 GITHUB_ACTIONS: 'true',
                 GITHUB_RUN_NUMBER: '142',
                 GITHUB_REF_NAME: '7/merge',
+                GITHUB_HEAD_REF: 'feat/my-feature',
                 GITHUB_SHA: 'abc123def456',
                 GITHUB_SERVER_URL: 'https://github.com',
                 GITHUB_REPOSITORY: 'serenity-js/serenity-js',
@@ -158,7 +159,9 @@ test.describe('CIDetector', () => {
 
             const context = detector.detect();
 
-            expect(context.pullRequestNumber).toBe('merge');
+            expect(context.branch).toBe('feat/my-feature');
+            expect(context.pullRequestNumber).toBe('7');
+            expect(context.pullRequestUrl).toBe('https://github.com/serenity-js/serenity-js/pull/7');
             expect(context.baseBranch).toBe('main');
         });
     });

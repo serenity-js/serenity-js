@@ -166,9 +166,16 @@ export class DataSnapshotAggregator {
 
     private enrichScenarios(latestRun: RunData, allRuns: RunData[]): unknown[] {
         return latestRun.scenes.map(scene => {
-            const key = scene.source.path + ':' + scene.source.line;
+            const key = scene.source.line
+                ? scene.source.path + ':' + scene.source.line
+                : scene.source.path + ':' + scene.name;
             const executionHistory = allRuns.map(run => {
-                const match = run.scenes.find(s => s.source.path + ':' + s.source.line === key);
+                const match = run.scenes.find(s => {
+                    const matchKey = s.source.line
+                        ? s.source.path + ':' + s.source.line
+                        : s.source.path + ':' + s.name;
+                    return matchKey === key;
+                });
                 return match
                     ? {
                         outcome: outcomeCodeToDisplayString(match.outcome.code),

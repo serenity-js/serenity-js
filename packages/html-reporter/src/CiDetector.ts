@@ -42,13 +42,14 @@ export class CIDetector {
 
     detect(): RuntimeContext {
         if (this.env.GITHUB_ACTIONS) {
-            const prNumber = this.env.GITHUB_EVENT_NAME === 'pull_request' ? this.env.GITHUB_REF_NAME?.replace(/.*\//, '') : undefined;
+            const prNumber = this.env.GITHUB_EVENT_NAME === 'pull_request' ? this.env.GITHUB_REF_NAME?.split('/')[0] : undefined;
             const repoUrl = `${ this.env.GITHUB_SERVER_URL }/${ this.env.GITHUB_REPOSITORY }`;
+            const branch = this.env.GITHUB_HEAD_REF || this.env.GITHUB_REF_NAME;
             return {
                 provider: 'GitHub Actions',
                 buildNumber: this.env.GITHUB_RUN_NUMBER,
-                branch: this.env.GITHUB_REF_NAME,
-                commit: this.env.GITHUB_SHA?.slice(0, 8),
+                branch,
+                commit: this.env.GITHUB_SHA,
                 commitMessage: this.git('log -1 --pretty=%s'),
                 commitAuthor: this.git('log -1 --pretty=%an'),
                 jobUrl: `${ repoUrl }/actions/runs/${ this.env.GITHUB_RUN_ID }`,
@@ -85,7 +86,7 @@ export class CIDetector {
                 provider: 'Jenkins',
                 buildNumber: this.env.BUILD_NUMBER,
                 branch: this.env.GIT_BRANCH,
-                commit: this.env.GIT_COMMIT?.slice(0, 8),
+                commit: this.env.GIT_COMMIT,
                 commitMessage: this.git('log -1 --pretty=%s'),
                 commitAuthor: this.git('log -1 --pretty=%an'),
                 jobUrl: this.env.BUILD_URL,
@@ -102,7 +103,7 @@ export class CIDetector {
                 provider: 'CircleCI',
                 buildNumber: this.env.CIRCLE_BUILD_NUM,
                 branch: this.env.CIRCLE_BRANCH,
-                commit: this.env.CIRCLE_SHA1?.slice(0, 8),
+                commit: this.env.CIRCLE_SHA1,
                 commitMessage: this.git('log -1 --pretty=%s'),
                 commitAuthor: this.git('log -1 --pretty=%an'),
                 jobUrl: this.env.CIRCLE_BUILD_URL,
