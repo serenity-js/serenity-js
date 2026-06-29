@@ -397,7 +397,19 @@ export class DataSnapshotAggregator {
         const readmePath = directoryPath.join(Path.from('readme.md'));
         if (this.projectFileSystem.exists(readmePath)) {
             const content = this.projectFileSystem.readFileSync(readmePath, { encoding: 'utf8' }) as string;
-            node.readme = marked.parse(content, { async: false }) as string;
+
+            // Extract first heading as displayName
+            const headingMatch = content.match(/^#{1,2}\s+(.+)$/m);
+            if (headingMatch) {
+                node.displayName = headingMatch[1].trim();
+            }
+
+            // Render markdown and strip the first heading to avoid duplication
+            let html = marked.parse(content, { async: false }) as string;
+            if (node.displayName) {
+                html = html.replace(/^\s*<h[12][^>]*>.*?<\/h[12]>\s*/i, '');
+            }
+            node.readme = html;
         }
     }
 

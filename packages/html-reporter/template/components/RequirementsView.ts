@@ -35,15 +35,19 @@ function computeNodeScore(node) {
 function SegmentedBar({ outcomes, className }) {
     const total = Object.values(outcomes).reduce((a: number, b: number) => a + b, 0);
     if (total === 0) return null;
-    const passed = (outcomes.passed || 0) / total * 100;
-    const failed = ((outcomes.failed || 0) + (outcomes.error || 0) + (outcomes.compromised || 0)) / total * 100;
-    const skipped = ((outcomes.pending || 0) + (outcomes.skipped || 0)) / total * 100;
+    const passedCount = outcomes.passed || 0;
+    const failedCount = (outcomes.failed || 0) + (outcomes.error || 0) + (outcomes.compromised || 0);
+    const skippedCount = (outcomes.pending || 0) + (outcomes.skipped || 0);
+    const passed = passedCount / total * 100;
+    const failed = failedCount / total * 100;
+    const skipped = skippedCount / total * 100;
     const height = className === 'req-detail-outcome-bar' ? '10px' : '6px';
+    const tooltip = `${passedCount} passed, ${failedCount} failed, ${skippedCount} skipped`;
     return html`
-        <div class=${className || 'req-tree-bars'} style="display:flex;overflow:hidden;border-radius:3px;background:var(--divider);height:${height};min-height:${height}">
-            ${passed > 0 ? html`<div style="width:${passed}%;height:100%;background:var(--color-passed)"></div>` : null}
-            ${failed > 0 ? html`<div style="width:${failed}%;height:100%;background:var(--color-failed)"></div>` : null}
-            ${skipped > 0 ? html`<div style="width:${skipped}%;height:100%;background:var(--color-skipped)"></div>` : null}
+        <div class=${className || 'req-tree-bars'} style="display:flex;overflow:hidden;border-radius:3px;background:var(--divider);height:${height};min-height:${height}" title=${tooltip}>
+            ${passed > 0 ? html`<div style="width:${passed}%;height:100%;background:var(--color-passed)" title="${passedCount} passed"></div>` : null}
+            ${failed > 0 ? html`<div style="width:${failed}%;height:100%;background:var(--color-failed)" title="${failedCount} failed"></div>` : null}
+            ${skipped > 0 ? html`<div style="width:${skipped}%;height:100%;background:var(--color-skipped)" title="${skippedCount} skipped"></div>` : null}
         </div>
     `;
 }
@@ -181,11 +185,28 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
     const directories = displayNode.children ? displayNode.children.filter(c => c.type === 'directory') : [];
     const files = displayNode.children ? displayNode.children.filter(c => c.type === 'file') : [];
 
+    const rootName = requirements.name || 'features';
+    const fullPath = segmentPath ? rootName + '/' + segmentPath : rootName;
+
+    const copyPath = () => {
+        navigator.clipboard.writeText(fullPath).then(() => {
+            const el = document.getElementById('req-path-copied');
+            if (el) { el.style.opacity = '1'; setTimeout(() => { el.style.opacity = '0'; }, 1500); }
+        });
+    };
+
     return html`
         <div class="req-detail-panel">
             <!-- Requirement header: single source of truth -->
             <div class="req-detail-header">
                 <h2 class="req-detail-title">${displayNode.displayName || displayNode.name}</h2>
+                <div class="req-detail-path-bar">
+                    <span class="req-detail-path">${fullPath}</span>
+                    <button class="req-detail-path-copy" onClick=${copyPath} title="Copy path" aria-label="Copy path to clipboard">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                    </button>
+                    <span id="req-path-copied" class="req-detail-path-toast">Copied!</span>
+                </div>
                 <div class="req-detail-summary">
                     <span class="req-detail-confidence" style="color:${confidenceColor(score.confidence)}">${score.confidence}%</span>
                     <span class="req-detail-confidence-label">confidence</span>

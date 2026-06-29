@@ -1903,9 +1903,49 @@
     }
 
     .req-detail-header .req-detail-title {
-      margin: 0 0 var(--space-md);
+      margin: 0 0 var(--space-xs);
       font-size: var(--font-2xl);
       font-weight: 700;
+    }
+
+    .req-detail-path-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-md);
+    }
+
+    .req-detail-path {
+      font-size: var(--font-sm);
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+    }
+
+    .req-detail-path-copy {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border: none;
+      background: none;
+      color: var(--text-disabled);
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      padding: 0;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .req-detail-path-copy:hover {
+      color: var(--text-primary);
+      background: var(--bg-hover);
+    }
+
+    .req-detail-path-toast {
+      font-size: var(--font-xs);
+      color: var(--color-passed);
+      opacity: 0;
+      transition: opacity 0.2s;
     }
 
     .req-detail-summary {
