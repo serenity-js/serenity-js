@@ -110,10 +110,11 @@ export function App() {
     }
 
     return html`
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="sidebar-overlay ${sidebarOpen ? 'visible' : ''}" onClick=${() => setSidebarOpen(false)}></div>
     <${Sidebar} route=${route} sidebarOpen=${sidebarOpen} collapsed=${sidebarCollapsed}
                 onNavigate=${navigate} onClose=${() => setSidebarOpen(false)} onToggleCollapse=${toggleSidebar} />
-    <main class="main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}"
+    <main id="main-content" class="main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}"
           style="margin-left:${sidebarCollapsed ? 'var(--sidebar-collapsed-width)' : 'var(--sidebar-width)'}">
       <div class="topbar">
         <div class="topbar-left">
@@ -121,7 +122,7 @@ export function App() {
             ${icons.menu}
           </button>
           <div>
-            <div class="topbar-title">${pageTitle}</div>
+            <h1 class="topbar-title">${pageTitle}</h1>
             <div class="topbar-subtitle" title="${DATA.summary.finishedAt}">${DATA.summary.testRunner} • ${formatTimestamp(DATA.summary.finishedAt)}</div>
           </div>
         </div>

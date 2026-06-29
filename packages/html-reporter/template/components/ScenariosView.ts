@@ -84,7 +84,7 @@ function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, se
     });
 
     return html`
-    <div ref=${parentRefCallback} class="scroll-container">
+    <div ref=${parentRefCallback} class="scroll-container" tabindex="0" role="list" aria-label="Test scenarios">
       <div style="height:${virtualizer.getTotalSize()}px;width:100%;position:relative">
         ${virtualizer.getVirtualItems().map(virtualRow => {
             const item = flatItems[virtualRow.index];

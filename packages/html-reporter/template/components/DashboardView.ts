@@ -207,7 +207,6 @@ export function TrendChart({ history, onNavigate }) {
                             usePointStyle: true,
                             padding: 20,
                             font: { size: 11 },
-                            pointStyleWidth: 8,
                         },
                     },
                     tooltip: {
@@ -293,7 +292,7 @@ export function TrendChart({ history, onNavigate }) {
 
     return html`
     <div style="position:relative;width:100%;height:300px;overflow:hidden">
-      <canvas ref=${canvasRef}></canvas>
+      <canvas ref=${canvasRef} role="img" aria-label="Trend chart showing test outcomes and duration across recent test runs"></canvas>
     </div>
   `;
 }
