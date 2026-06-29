@@ -49,7 +49,11 @@ export function App() {
     useEffect(() => {
         const onHash = () => setRoute(getRoute());
         window.addEventListener('hashchange', onHash);
-        return () => window.removeEventListener('hashchange', onHash);
+        window.addEventListener('popstate', onHash);
+        return () => {
+            window.removeEventListener('hashchange', onHash);
+            window.removeEventListener('popstate', onHash);
+        };
     }, []);
 
     const navigate = useCallback((path) => {

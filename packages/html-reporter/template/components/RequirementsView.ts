@@ -318,7 +318,7 @@ export function RequirementsView({ onNavigate, route }) {
         setSelectedNode(node);
         const newHash = path ? '#/requirements?path=' + encodeURIComponent(path) : '#/requirements';
         if (window.location.hash !== newHash) {
-            window.history.replaceState(null, '', newHash);
+            window.history.pushState(null, '', newHash);
         }
     };
 

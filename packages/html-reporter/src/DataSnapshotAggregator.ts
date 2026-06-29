@@ -170,7 +170,7 @@ export class DataSnapshotAggregator {
             const executionHistory = allRuns.map(run => {
                 const match = run.scenes.find(s => s.source.path + ':' + s.source.line === key);
                 return match
-                    ? { outcome: outcomeCodeToDisplayString(match.outcome.code), run: this.resolveRunLabel(run) }
+                    ? { outcome: outcomeCodeToDisplayString(match.outcome.code), run: this.resolveRunLabel(run), timestamp: run.startedAt }
                     : undefined;
             }).filter(Boolean);
             return {

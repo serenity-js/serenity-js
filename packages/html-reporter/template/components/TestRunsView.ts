@@ -19,10 +19,12 @@ export function TestRunsView({ onNavigate }) {
       <div class="scenario-list">
         ${runs.map((run, index) => {
             const total = Object.values(run.outcomes).reduce((a, b) => a + b, 0);
-            const rate = Math.round((run.outcomes.passed / total) * 100);
-            const previousRun = runs[index + 1];
-            const previousRate = previousRun ? Math.round((previousRun.outcomes.passed / Object.values(previousRun.outcomes).reduce((a, b) => a + b, 0)) * 100) : undefined;
-            const delta = previousRate !== undefined ? rate - previousRate : undefined;
+            const confidence = run.score ? run.score.confidence : (total > 0 ? Math.round((run.outcomes.passed / total) * 100) : 0);
+            const failedCount = (run.outcomes.failed || 0) + (run.outcomes.error || 0) + (run.outcomes.compromised || 0);
+            const skippedCount = (run.outcomes.pending || 0) + (run.outcomes.skipped || 0);
+            const passedPct = total > 0 ? (run.outcomes.passed / total) * 100 : 0;
+            const failedPct = total > 0 ? (failedCount / total) * 100 : 0;
+            const skippedPct = total > 0 ? (skippedCount / total) * 100 : 0;
             return html`
           <div class="scenario-item" onClick=${() => onNavigate('/tests?run=' + run.timestamp)}>
             <div class="scenario-outcome-icon passed" style="background:var(--accent-light);color:var(--text-primary)">
@@ -39,9 +41,13 @@ export function TestRunsView({ onNavigate }) {
                 ${run.ciJobUrl ? html`<span>•</span><a href=${run.ciJobUrl} target="_blank" rel="noopener" onClick=${(e) => e.stopPropagation()} style="color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:3px" class="ci-link" title="View CI job"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>CI</a>` : null}
               </div>
             </div>
-            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
-              <span style="font-size:var(--font-md);font-weight:600;color:${rate >= 90 ? 'var(--color-passed)' : rate < 50 ? 'var(--color-failed)' : rate < 70 ? 'var(--color-pending)' : 'var(--text-primary)'}">${rate}%</span>
-              ${delta !== undefined && delta !== 0 ? html`<span style="font-size:var(--font-xs);font-weight:500;color:${delta > 0 ? 'var(--color-passed)' : 'var(--color-failed)'}">${delta > 0 ? '↑' : '↓'} ${Math.abs(delta)}%</span>` : html`<span class="text-xs-muted">${total} scenarios</span>`}
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;min-width:120px">
+              <span style="font-size:var(--font-sm);font-weight:600;color:${confidence >= 90 ? 'var(--color-passed)' : confidence < 50 ? 'var(--color-failed)' : confidence < 70 ? 'var(--color-pending)' : 'var(--text-primary)'}" title="Confidence: ${confidence}%"><span style="font-size:0.7em;opacity:0.7;margin-right:2px">◐</span>${confidence}%</span>
+              <div style="display:flex;overflow:hidden;border-radius:3px;background:var(--divider);height:6px;width:100%" title="${run.outcomes.passed} passed, ${failedCount} failed, ${skippedCount} skipped">
+                ${passedPct > 0 ? html`<div style="width:${passedPct}%;height:100%;background:var(--color-passed)"></div>` : null}
+                ${failedPct > 0 ? html`<div style="width:${failedPct}%;height:100%;background:var(--color-failed)"></div>` : null}
+                ${skippedPct > 0 ? html`<div style="width:${skippedPct}%;height:100%;background:var(--color-skipped)"></div>` : null}
+              </div>
             </div>
           </div>
         `;

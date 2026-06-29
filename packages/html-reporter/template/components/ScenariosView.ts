@@ -120,7 +120,7 @@ function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, se
                 </div>
                 <div class="scenario-meta">
                   <span class="scenario-source">${relativeSourcePath(scenario)}</span>
-                  ${scenario.executionHistory && scenario.executionHistory.length > 1 ? html`<span class="scenario-history">${scenario.executionHistory.slice(-5).map(h => html`<span class="history-dot history-dot--${outcomeClass(h.outcome)}" title=${h.outcome + ' (' + h.run + ')'}></span>`)}</span>` : null}
+                  ${scenario.executionHistory && scenario.executionHistory.length > 1 ? html`<span class="scenario-history">${(runIndex !== null ? scenario.executionHistory.slice(0, runIndex + 1) : scenario.executionHistory).slice(-5).map(h => html`<span class="history-dot history-dot--${outcomeClass(h.outcome)}" title=${h.outcome + ' — ' + formatRunLabel(h.run, h.timestamp)}></span>`)}</span>` : null}
                 </div>
               </div>
               <span class="scenario-duration">${formatDuration(scenario.duration)}</span>
