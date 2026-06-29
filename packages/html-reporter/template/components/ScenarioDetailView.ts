@@ -128,14 +128,21 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
     const [treeKey, setTreeKey] = useState(0);
     const [treeExpanded, setTreeExpanded] = useState(true);
 
+    const openPhoto = (index) => {
+        setLightboxIndex(index);
+        const base = window.location.hash.replace(/&photo=\d+/, '');
+        window.history.replaceState(null, '', index >= 0 ? base + '&photo=' + index : base);
+    };
+
     useEffect(() => {
         const hash = window.location.hash;
         const photoMatch = hash.match(/&photo=(\d+)/);
         if (photoMatch) {
             const photoIndex = parseInt(photoMatch[1], 10);
             setTimeout(() => {
+                setLightboxIndex(photoIndex);
                 const element = document.getElementById('photo-' + photoIndex);
-                if (element) { element.scrollIntoView({ behavior: 'smooth', block: 'center' }); element.classList.add('photo-highlight'); setTimeout(() => element.classList.remove('photo-highlight'), 2000); }
+                if (element) { element.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
             }, 300);
         }
     }, []);
@@ -376,7 +383,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
             <div class="photo-strip" id="photo-strip">
               ${photos.map((photo, index) => html`
                 <div class="photo-strip-item" id=${'photo-' + index}>
-                  <img src=${photo.path} loading="lazy" alt=${photo.name} onClick=${() => setLightboxIndex(index)} />
+                  <img src=${photo.path} loading="lazy" alt=${photo.name} onClick=${() => openPhoto(index)} />
                   <div class="photo-strip-caption">${photo.name}</div>
                   <div class="photo-strip-time">${photo.wallClock ? new Date(photo.wallClock).toLocaleTimeString() : ''} · +${formatDuration(photo.offsetMs)}</div>
                 </div>
@@ -384,13 +391,13 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
             </div>
           </div>
           ${lightboxIndex >= 0 && lightboxIndex < photos.length ? html`
-            <div class="lightbox-overlay" onClick=${(e) => { if (e.target.classList.contains('lightbox-overlay')) setLightboxIndex(-1); }}
-                 onKeyDown=${(e) => { if (e.key === 'Escape') setLightboxIndex(-1); else if (e.key === 'ArrowRight' && lightboxIndex < photos.length - 1) setLightboxIndex(lightboxIndex + 1); else if (e.key === 'ArrowLeft' && lightboxIndex > 0) setLightboxIndex(lightboxIndex - 1); }}
+            <div class="lightbox-overlay" onClick=${(e) => { if (e.target.classList.contains('lightbox-overlay')) openPhoto(-1); }}
+                 onKeyDown=${(e) => { if (e.key === 'Escape') openPhoto(-1); else if (e.key === 'ArrowRight' && lightboxIndex < photos.length - 1) openPhoto(lightboxIndex + 1); else if (e.key === 'ArrowLeft' && lightboxIndex > 0) openPhoto(lightboxIndex - 1); }}
                  tabIndex="0" ref=${(element) => { if (element) element.focus(); }}>
               <div class="lightbox-content">
-                <button class="lightbox-close" onClick=${() => setLightboxIndex(-1)}>✕</button>
-                ${lightboxIndex > 0 ? html`<button class="lightbox-nav lightbox-prev" onClick=${() => setLightboxIndex(lightboxIndex - 1)}>‹</button>` : null}
-                ${lightboxIndex < photos.length - 1 ? html`<button class="lightbox-nav lightbox-next" onClick=${() => setLightboxIndex(lightboxIndex + 1)}>›</button>` : null}
+                <button class="lightbox-close" onClick=${() => openPhoto(-1)}>✕</button>
+                ${lightboxIndex > 0 ? html`<button class="lightbox-nav lightbox-prev" onClick=${() => openPhoto(lightboxIndex - 1)}>‹</button>` : null}
+                ${lightboxIndex < photos.length - 1 ? html`<button class="lightbox-nav lightbox-next" onClick=${() => openPhoto(lightboxIndex + 1)}>›</button>` : null}
                 <img src=${photos[lightboxIndex].path} alt=${photos[lightboxIndex].name} />
                 <div class="lightbox-caption">
                   <div>${photos[lightboxIndex].name}</div>
