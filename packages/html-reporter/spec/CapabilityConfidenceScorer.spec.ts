@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { computeCompleteness, computeConfidence, computeDelta, computePassRate, computeConsistency, scoreDirectory, scoreCapability } from '../src/CapabilityConfidenceScorer.js';
+import { computeCompleteness, computeConfidence, computeConsistency, computeDelta, computePassRate, scoreCapability,scoreDirectory } from '../src/CapabilityConfidenceScorer.js';
 
 test.describe('CapabilityConfidenceScorer', () => {
 

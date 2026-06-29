@@ -4,12 +4,12 @@ export { HtmlReportGenerator } from './HtmlReportGenerator.js';
 export type { ActivityRecord, OutcomeCounts, RunData, SceneRecord, TagRecord } from './model/RunData.js';
 export type {
     ReportActivity,
+    ReportCapabilityNode,
     ReportCIContext,
     ReportData,
     ReportExecutionHistoryEntry,
     ReportHistoryEntry,
     ReportOutcomes,
-    ReportCapabilityNode,
     ReportScenario,
     ReportSummary,
     ReportSystemContext,

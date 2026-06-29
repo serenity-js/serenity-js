@@ -14,8 +14,8 @@ import {
 } from '@serenity-js/core/model';
 import { marked } from 'marked';
 
+import { scoreCapability,scoreDirectory } from './CapabilityConfidenceScorer.js';
 import type { RunData } from './model/RunData.js';
-import { scoreDirectory, scoreCapability } from './CapabilityConfidenceScorer.js';
 
 interface AggregatorConfig {
     consistencyWindow: number;
