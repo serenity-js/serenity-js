@@ -54,18 +54,55 @@ export class SceneDataCollector {
 
         queues.forEach(queue => {
             const events = queue.drain();
-            const record = new SceneRecordBuilder(artifactPaths).build(events);
-            // Attach scene-level video if available
-            if (sceneArtifactPaths) {
-                const sceneId = events.find(e => 'sceneId' in e)?.sceneId?.value;
-                if (sceneId && sceneArtifactPaths.has(sceneId)) {
-                    const videoPaths = sceneArtifactPaths.get(sceneId).filter(p => p.value.endsWith('.webm'));
-                    if (videoPaths.length > 0) {
-                        record.video = videoPaths[0].value;
+
+            // A merged queue may contain events from multiple sceneIds
+            // (cross-browser runs and retries). Split by sceneId first,
+            // then group retries (same project) into a single scene with attempts.
+            const eventsBySceneId = this.groupEventsBySceneId(events);
+            const records: SceneRecord[] = [];
+
+            for (const [, sceneEvents] of eventsBySceneId) {
+                records.push(new SceneRecordBuilder(artifactPaths).build(sceneEvents));
+            }
+
+            // Group records by project tag to identify retries
+            const byProject = new Map<string, SceneRecord[]>();
+            for (const record of records) {
+                const project = record.tags.find(t => t.type === 'project')?.name || '__default__';
+                if (!byProject.has(project)) byProject.set(project, []);
+                byProject.get(project).push(record);
+            }
+
+            for (const [, projectRecords] of byProject) {
+                if (projectRecords.length === 1) {
+                    const record = projectRecords[0];
+                    if (sceneArtifactPaths) {
+                        this.attachVideo(record, events, sceneArtifactPaths);
                     }
+                    scenes.push(record);
+                } else {
+                    // Multiple records for the same project = retries
+                    const finalRecord = projectRecords[projectRecords.length - 1];
+                    finalRecord.retries = projectRecords.length - 1;
+                    finalRecord.attempts = projectRecords.map((r, i) => ({
+                        attemptNumber: i + 1,
+                        outcome: r.outcome,
+                        duration: r.duration,
+                        activities: r.activities,
+                        ...(r.error ? { error: r.error } : {}),
+                    }));
+                    // Final attempt's activities become the scene's activities
+                    finalRecord.activities = finalRecord.attempts[finalRecord.attempts.length - 1].activities;
+                    // Clear scene-level error if final attempt succeeded
+                    if (finalRecord.outcome.code === ExecutionSuccessful.Code) {
+                        delete finalRecord.error;
+                    }
+                    if (sceneArtifactPaths) {
+                        this.attachVideo(finalRecord, events, sceneArtifactPaths);
+                    }
+                    scenes.push(finalRecord);
                 }
             }
-            scenes.push(record);
         });
 
         const startedAt = scenes.length > 0
@@ -88,6 +125,36 @@ export class SceneDataCollector {
             testRunner: { name: testRunnerName, version: testRunnerVersion },
             systemContext,
         };
+    }
+
+    private attachVideo(record: SceneRecord, events: Array<DomainEvent & { sceneId: CorrelationId }>, sceneArtifactPaths: Map<string, Path[]>): void {
+        for (const event of events) {
+            const sceneIdValue = event.sceneId.value;
+            if (sceneArtifactPaths.has(sceneIdValue)) {
+                const videoPaths = sceneArtifactPaths.get(sceneIdValue).filter(p => p.value.endsWith('.webm'));
+                if (videoPaths.length > 0) {
+                    record.video = videoPaths[0].value;
+                    return;
+                }
+            }
+        }
+    }
+
+    private groupEventsBySceneId(events: Array<DomainEvent & { sceneId: CorrelationId }>): Map<string, Array<DomainEvent & { sceneId: CorrelationId }>> {
+        // Group events by sceneId. Events sharing the same sceneId form one execution.
+        // Multiple sceneIds in a merged queue represent different executions
+        // (e.g. cross-browser or cross-browser retries).
+        const groups = new Map<string, Array<DomainEvent & { sceneId: CorrelationId }>>();
+
+        for (const event of events) {
+            const id = event.sceneId.value;
+            if (!groups.has(id)) {
+                groups.set(id, []);
+            }
+            groups.get(id).push(event);
+        }
+
+        return groups;
     }
 
     private summariseOutcomes(scenes: SceneRecord[]): OutcomeCounts {
