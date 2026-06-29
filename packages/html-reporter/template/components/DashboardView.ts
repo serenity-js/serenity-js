@@ -310,7 +310,7 @@ export function DashboardView({ onNavigate }) {
     <div class="dashboard">
       <!-- KPI Row -->
       <div class="kpi-row">
-        <div class="kpi-card kpi-card--hero" onClick=${() => onNavigate('/requirements')} tabindex="0" role="button" aria-label="Confidence: ${confidence} percent">
+        <div class="kpi-card kpi-card--hero" onClick=${() => onNavigate('/capabilities')} tabindex="0" role="button" aria-label="Confidence: ${confidence} percent">
           <span class="kpi-label">Confidence</span>
           <span class="kpi-value" style=${heroColor(confidence) ? `color:${heroColor(confidence)}` : ''}>${confidence}<span style="font-size:var(--font-base);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
           <span class="kpi-subtitle">${(() => {
@@ -341,7 +341,7 @@ export function DashboardView({ onNavigate }) {
           <${Delta} current=${consistency} previous=${previousConsistency} suffix="%" />
           <span class="kpi-subtitle">${consistency === 100 ? 'All tests consistent' : (DATA.inconsistentTests || []).length + ' inconsistent test' + ((DATA.inconsistentTests || []).length !== 1 ? 's' : '')}</span>
         </div>
-        <div class="kpi-card" onClick=${() => onNavigate('/requirements')} tabindex="0" role="button" aria-label="Completeness: ${completenessScore} percent">
+        <div class="kpi-card" onClick=${() => onNavigate('/capabilities')} tabindex="0" role="button" aria-label="Completeness: ${completenessScore} percent">
           <span class="kpi-label">Completeness</span>
           <span class="kpi-value" style=${scoreColor(completenessScore) ? `color:${scoreColor(completenessScore)}` : ''}>${completenessScore}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
           <${Delta} current=${completenessScore} previous=${previousCompleteness} suffix="%" />

@@ -1389,7 +1389,7 @@
     }
 
     /* ===== Requirements View ===== */
-    .requirements-split {
+    .capabilities-split {
       display: grid;
       grid-template-columns: minmax(280px, 2fr) minmax(0, 3fr);
       gap: var(--space-lg);
@@ -1397,19 +1397,19 @@
     }
 
     @media (max-width: 1023px) {
-      .requirements-split {
+      .capabilities-split {
         grid-template-columns: 1fr;
       }
     }
 
-    .requirements-tree-panel {
+    .capabilities-tree-panel {
       position: sticky;
       top: var(--space-lg);
       max-height: calc(100vh - 120px);
       overflow-y: auto;
     }
 
-    .requirements-detail-panel {
+    .capabilities-detail-panel {
       min-height: 200px;
     }
 
@@ -1541,7 +1541,7 @@
     }
 
     /* ===== Requirements Split Layout ===== */
-    .requirements-split {
+    .capabilities-split {
       display: grid;
       grid-template-columns: 40% 60%;
       gap: var(--space-lg);
@@ -2324,7 +2324,7 @@
     }
 
     @media (max-width: 768px) {
-      .requirements-split {
+      .capabilities-split {
         grid-template-columns: 1fr;
       }
       .req-tree-panel {

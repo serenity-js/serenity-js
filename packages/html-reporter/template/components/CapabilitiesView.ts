@@ -86,7 +86,7 @@ function nodeHasGap(node) {
     return false;
 }
 
-function RequirementsFilterBar({ activeFilter, onFilter, requirements }) {
+function CapabilitiesFilterBar({ activeFilter, onFilter, requirements }) {
     let healthy = 0, atRisk = 0, critical = 0, gaps = 0;
     function walk(n) {
         if (n.type === 'directory' && n.children) {
@@ -110,7 +110,7 @@ function RequirementsFilterBar({ activeFilter, onFilter, requirements }) {
     ];
 
     return html`
-        <div class="filter-bar" role="group" aria-label="Filter requirements by health">
+        <div class="filter-bar" role="group" aria-label="Filter capabilities by health">
             ${filters.map(f => html`
                 <button class="filter-chip ${activeFilter === f.key ? 'active' : ''}"
                     onClick=${() => onFilter(f.key)} aria-pressed=${activeFilter === f.key}>
@@ -277,15 +277,15 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
     `;
 }
 
-export function RequirementsView({ onNavigate, route }) {
+export function CapabilitiesView({ onNavigate, route }) {
     const requirements = DATA.requirements;
 
     if (!requirements) {
         return html`
             <div class="empty-state">
                 <div class="empty-state-icon">${icons.completeness}</div>
-                <div class="empty-state-title">Requirements</div>
-                <div class="empty-state-description">Configure a <code>specDirectory</code> to derive the requirements hierarchy.</div>
+                <div class="empty-state-title">Capabilities</div>
+                <div class="empty-state-description">Configure a <code>specDirectory</code> to derive the capabilities hierarchy.</div>
             </div>
         `;
     }
@@ -316,19 +316,19 @@ export function RequirementsView({ onNavigate, route }) {
     const handleSelect = (path, node) => {
         setSelectedPath(path);
         setSelectedNode(node);
-        const newHash = path ? '#/requirements?path=' + encodeURIComponent(path) : '#/requirements';
+        const newHash = path ? '#/capabilities?path=' + encodeURIComponent(path) : '#/capabilities';
         if (window.location.hash !== newHash) {
             window.history.pushState(null, '', newHash);
         }
     };
 
     return html`
-        <div class="requirements-split">
+        <div class="capabilities-split">
             <div class="card req-tree-panel">
-                <input type="text" class="search-input" placeholder="Search requirements..."
+                <input type="text" class="search-input" placeholder="Search capabilities..."
                     style="margin-bottom:var(--space-sm)"
                     value=${searchTerm} onInput=${(e) => setSearchTerm(e.target.value)} />
-                <${RequirementsFilterBar} activeFilter=${activeFilter} onFilter=${setActiveFilter}
+                <${CapabilitiesFilterBar} activeFilter=${activeFilter} onFilter=${setActiveFilter}
                     requirements=${requirements} />
                 <div class="req-tree-list" role="tree" style="margin-top:var(--space-sm)">
                     <${TreeNode} node=${requirements} onSelect=${handleSelect}

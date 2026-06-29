@@ -39,16 +39,16 @@ function requirementsData() {
     });
 }
 
-test.describe('RequirementsView', () => {
+test.describe('CapabilitiesView', () => {
 
     test.describe('detail panel — documentation-first', () => {
 
         test('shows README prominently (not collapsible, not hidden)', async ({ mount, page }) => {
             await mount({
-                component: 'RequirementsView',
-                importPath: './components/RequirementsView',
+                component: 'CapabilitiesView',
+                importPath: './components/CapabilitiesView',
                 data: requirementsData(),
-                props: { onNavigate: () => undefined, route: '#/requirements' },
+                props: { onNavigate: () => undefined, route: '#/capabilities' },
             });
 
             // README should be visible without any interaction
@@ -61,10 +61,10 @@ test.describe('RequirementsView', () => {
 
         test('reading order: title, health header, outcome bar, README, test files', async ({ mount, page }) => {
             await mount({
-                component: 'RequirementsView',
-                importPath: './components/RequirementsView',
+                component: 'CapabilitiesView',
+                importPath: './components/CapabilitiesView',
                 data: requirementsData(),
-                props: { onNavigate: () => undefined, route: '#/requirements' },
+                props: { onNavigate: () => undefined, route: '#/capabilities' },
             });
 
             await page.locator('.req-tree-node', { hasText: 'passing-feature' }).click();
@@ -83,10 +83,10 @@ test.describe('RequirementsView', () => {
 
         test('search field is inside the left panel, above the tree', async ({ mount, page }) => {
             await mount({
-                component: 'RequirementsView',
-                importPath: './components/RequirementsView',
+                component: 'CapabilitiesView',
+                importPath: './components/CapabilitiesView',
                 data: requirementsData(),
-                props: { onNavigate: () => undefined, route: '#/requirements' },
+                props: { onNavigate: () => undefined, route: '#/capabilities' },
             });
 
             const leftPanel = page.locator('.req-tree-panel');
@@ -95,10 +95,10 @@ test.describe('RequirementsView', () => {
 
         test('filter bar uses the shared filter-bar styling with confidence categories', async ({ mount, page }) => {
             await mount({
-                component: 'RequirementsView',
-                importPath: './components/RequirementsView',
+                component: 'CapabilitiesView',
+                importPath: './components/CapabilitiesView',
                 data: requirementsData(),
-                props: { onNavigate: () => undefined, route: '#/requirements' },
+                props: { onNavigate: () => undefined, route: '#/capabilities' },
             });
 
             const leftPanel = page.locator('.req-tree-panel');
@@ -115,10 +115,10 @@ test.describe('RequirementsView', () => {
 
         test('shows confidence prominently in the detail panel header', async ({ mount, page }) => {
             await mount({
-                component: 'RequirementsView',
-                importPath: './components/RequirementsView',
+                component: 'CapabilitiesView',
+                importPath: './components/CapabilitiesView',
                 data: requirementsData(),
-                props: { onNavigate: () => undefined, route: '#/requirements' },
+                props: { onNavigate: () => undefined, route: '#/capabilities' },
             });
 
             const header = page.locator('.req-detail-header');
@@ -130,10 +130,10 @@ test.describe('RequirementsView', () => {
 
     test('shows empty state when requirements data is missing', async ({ mount, page }) => {
         await mount({
-            component: 'RequirementsView',
-            importPath: './components/RequirementsView',
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
             data: minimalData({ requirements: null }),
-            props: { onNavigate: () => undefined, route: '#/requirements' },
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
         });
 
         await expect(page.locator('.empty-state')).toBeVisible();

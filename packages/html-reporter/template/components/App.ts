@@ -7,7 +7,7 @@ import { DATA, formatTimestamp } from '../utils';
 import { DashboardView } from './DashboardView';
 import { ErrorsView } from './ErrorsView';
 import { icons } from './icons';
-import { RequirementsView } from './RequirementsView';
+import { CapabilitiesView } from './CapabilitiesView';
 import { ScenarioDetailView } from './ScenarioDetailView';
 import { ScenariosView } from './ScenariosView';
 import { Sidebar } from './Sidebar';
@@ -91,9 +91,9 @@ export function App() {
     } else if (route === '/consistency') {
         view = html`<${ConsistencyView} onNavigate=${navigate} />`;
         pageTitle = 'Consistency';
-    } else if (route === '/requirements' || route.startsWith('/requirements?')) {
-        view = html`<${RequirementsView} onNavigate=${navigate} route=${route} />`;
-        pageTitle = 'Requirements';
+    } else if (route === '/capabilities' || route.startsWith('/capabilities?')) {
+        view = html`<${CapabilitiesView} onNavigate=${navigate} route=${route} />`;
+        pageTitle = 'Capabilities';
     } else if (route === '/timeline') {
         view = html`<${TimelineView} onNavigate=${navigate} />`;
         pageTitle = 'Timeline';
