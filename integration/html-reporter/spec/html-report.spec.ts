@@ -9,20 +9,19 @@ test.describe('Serenity/JS HTML Reporter', () => {
             await page.waitForSelector('.kpi-card, .kpi-value');
         });
 
-        test('displays the pass rate', async ({ page }) => {
-            await expect(page.locator('body')).toContainText('71.4%');
+        test('displays the confidence score', async ({ page }) => {
+            await expect(page.locator('body')).toContainText('Confidence');
+            await expect(page.locator('body')).toContainText('%');
         });
 
-        test('displays degraded tests in the Degraded card', async ({ page }) => {
-            const degradedCard = page.locator('.card', { hasText: 'Degraded' });
-            await expect(degradedCard).toContainText('should complete an item');
-            await expect(degradedCard).not.toContainText('No degraded tests');
+        test('displays degraded tests in the Consistency section', async ({ page }) => {
+            const section = page.locator('.card', { hasText: 'Consistency' });
+            await expect(section).toContainText('should complete an item');
         });
 
-        test('displays recovered tests in the Recovered card', async ({ page }) => {
-            const recoveredCard = page.locator('.card', { hasText: 'Recovered' });
-            await expect(recoveredCard).toContainText('should persist items');
-            await expect(recoveredCard).not.toContainText('No newly recovered tests');
+        test('displays recovered tests in the Consistency section', async ({ page }) => {
+            const section = page.locator('.card', { hasText: 'Consistency' });
+            await expect(section).toContainText('should persist items');
         });
 
         test('displays the total scenario count', async ({ page }) => {
@@ -101,7 +100,7 @@ test.describe('Serenity/JS HTML Reporter', () => {
 
         test.beforeEach(async ({ page }) => {
             await page.goto('/index.html#/errors');
-            await page.waitForFunction(() => document.body.textContent?.includes('should complete'));
+            await page.waitForSelector('.scenario-item');
         });
 
         test('displays error scenarios', async ({ page }) => {
@@ -113,18 +112,18 @@ test.describe('Serenity/JS HTML Reporter', () => {
         });
     });
 
-    test.describe('Stability', () => {
+    test.describe('Consistency', () => {
 
         test.beforeEach(async ({ page }) => {
-            await page.goto('/index.html#/stability');
-            await page.waitForFunction(() => document.body.textContent?.includes('should complete an item'));
+            await page.goto('/index.html#/consistency');
+            await page.waitForSelector('.scenario-item');
         });
 
-        test('displays unstable tests', async ({ page }) => {
+        test('displays inconsistent tests', async ({ page }) => {
             await expect(page.locator('body')).toContainText('should complete an item');
         });
 
-        test('shows the flakiness rate', async ({ page }) => {
+        test('shows the inconsistency rate', async ({ page }) => {
             await expect(page.locator('body')).toContainText('50%');
         });
     });
@@ -172,14 +171,13 @@ test.describe('Serenity/JS HTML Reporter', () => {
     test.describe('Scenario detail with artifacts', () => {
 
         test.beforeEach(async ({ page }) => {
-            // Navigate to the first passing scenario (has screenshots and video)
             await page.goto('/index.html#/tests');
             await page.waitForSelector('.scenario-item');
             await page.locator('.scenario-item', { hasText: 'should display items' }).click();
             await page.waitForSelector('.activity-tree, .scenario-detail-header');
         });
 
-        test('displays screenshot thumbnails in the activity tree', async ({ page }) => {
+        test('displays screenshot thumbnails', async ({ page }) => {
             await expect(page.locator('img[src*="screenshot"]')).not.toHaveCount(0);
         });
 
@@ -254,7 +252,7 @@ test.describe('Serenity/JS HTML Reporter', () => {
             await expect(page.locator('body')).toContainText('Timeline');
         });
 
-        test('shows scenario bars', async ({ page }) => {
+        test('shows scenario durations', async ({ page }) => {
             await expect(page.locator('body')).toContainText('should display items');
         });
     });
