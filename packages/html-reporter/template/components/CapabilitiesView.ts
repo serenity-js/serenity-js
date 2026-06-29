@@ -209,7 +209,7 @@ function DetailPanel({ node, segmentPath, capabilities, onNavigate, onSelect }) 
                 </div>
                 <div class="req-detail-summary">
                     <span class="req-detail-confidence" style="color:${confidenceColor(score.confidence)}">${score.confidence}%</span>
-                    <span class="req-detail-confidence-label">confidence <span class="confidence-info-icon" tabindex="0" role="button" aria-label="How is confidence calculated?" title="Confidence = Pass Rate × 40% + Completeness × 25% + Consistency × 35%">ⓘ</span></span>
+                    <span class="req-detail-confidence-label">confidence</span>
                     <span class="req-detail-scenario-count">${total} scenario${total !== 1 ? 's' : ''}</span>
                 </div>
                 ${total > 0 ? html`

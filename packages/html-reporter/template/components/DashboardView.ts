@@ -311,7 +311,7 @@ export function DashboardView({ onNavigate }) {
       <!-- KPI Row -->
       <div class="kpi-row">
         <div class="kpi-card kpi-card--hero" onClick=${() => onNavigate('/capabilities')} tabindex="0" role="button" aria-label="Confidence: ${confidence} percent">
-          <span class="kpi-label">Confidence <span class="confidence-info-icon" tabindex="0" role="button" aria-label="How is confidence calculated?" title="Confidence = Pass Rate × 40% + Completeness × 25% + Consistency × 35%">ⓘ</span></span>
+          <span class="kpi-label">Confidence</span>
           <span class="kpi-value" style=${heroColor(confidence) ? `color:${heroColor(confidence)}` : ''}>${confidence}<span style="font-size:var(--font-base);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
           <span class="kpi-subtitle">${(() => {
                 if (previousConfidence === undefined) return `${summary.totalScenarios} scenarios across ${history.length} run${history.length !== 1 ? 's' : ''}`;

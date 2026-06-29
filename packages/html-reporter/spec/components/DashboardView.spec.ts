@@ -18,7 +18,7 @@ test.describe('DashboardView', () => {
 
         const heroCard = page.locator('.kpi-card--hero');
         await expect(heroCard).toBeVisible();
-        await expect(heroCard.locator('.kpi-label')).toContainText('Confidence');
+        await expect(heroCard.locator('.kpi-label')).toHaveText('Confidence');
         await expect(heroCard.locator('.kpi-value')).toContainText('76');
         // Description shows state change
         await expect(heroCard.locator('.kpi-subtitle')).toContainText('Improved since last run');

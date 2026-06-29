@@ -4,6 +4,7 @@ import { h } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
 
 import { DATA, formatTimestamp } from '../utils';
+import { AboutView } from './AboutView';
 import { CapabilitiesView } from './CapabilitiesView';
 import { ConsistencyView } from './ConsistencyView';
 import { DashboardView } from './DashboardView';
@@ -100,6 +101,9 @@ export function App() {
     } else if (route === '/system') {
         view = html`<${SystemContextView} />`;
         pageTitle = 'System Context';
+    } else if (route === '/about') {
+        view = html`<${AboutView} />`;
+        pageTitle = 'About this report';
     } else {
         view = html`<div class="card"><p>Page not found.</p></div>`;
         pageTitle = 'Not Found';
