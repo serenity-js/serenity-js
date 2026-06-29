@@ -234,7 +234,7 @@ test.describe('RequirementConfidenceScorer', () => {
             expect(score.confidence).toBe(0);
         });
 
-        test('applies -10 penalty for recent regression', () => {
+        test('computes confidence without penalty for recent regression (captured by consistency)', () => {
             const node = {
                 outcomes: { passed: 4, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                 scenarios: [
@@ -249,15 +249,14 @@ test.describe('RequirementConfidenceScorer', () => {
 
             const score = scoreRequirement(node);
 
-            // Without penalty: passRate=80, completeness=100, consistency=95 (1 flip in 1 scenario out of 5)
-            // Actually: scenario E has history [S,S,F] → 1 flip/2 transitions = 0.5 flip rate
+            // passRate=80, completeness=100
+            // scenario E has history [S,S,F] → 1 flip/2 transitions = 0.5 flip rate
             // All others have 0 flips. Average flip rate = 0.5/5 = 0.1 → consistency = 90
-            // confidence without penalty = 0.40×80 + 0.25×100 + 0.35×90 = 32 + 25 + 31.5 = 88.5 → 89
-            // With -10 penalty: 79
-            expect(score.confidence).toBe(79);
+            // confidence = 0.40×80 + 0.25×100 + 0.35×90 = 32 + 25 + 31.5 = 88.5 → 89
+            expect(score.confidence).toBe(89);
         });
 
-        test('applies -5 penalty for single scenario', () => {
+        test('single scenario with all passing gives 100% confidence', () => {
             const node = {
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                 scenarios: [
@@ -268,16 +267,14 @@ test.describe('RequirementConfidenceScorer', () => {
             const score = scoreRequirement(node);
 
             // passRate=100, completeness=100, consistency=100
-            // confidence without penalty = 100
-            // With -5 penalty: 95
-            expect(score.confidence).toBe(95);
+            // confidence = 100 (no penalties)
+            expect(score.confidence).toBe(100);
         });
 
-        test('clamps confidence to minimum of 0 after penalties', () => {
+        test('confidence cannot go below 0', () => {
             const node = {
                 outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                 scenarios: [
-                    // Single scenario that regressed → both penalties apply (-10 + -5 = -15)
                     { name: 'A', outcome: 'FAILURE', executionHistory: ['SUCCESS', 'FAILURE'] },
                 ],
             };
@@ -285,12 +282,11 @@ test.describe('RequirementConfidenceScorer', () => {
             const score = scoreRequirement(node);
 
             // passRate=0, completeness=100, consistency=0 (1 flip / 1 transition)
-            // confidence without penalty = 0.40×0 + 0.25×100 + 0.35×0 = 25
-            // With -15 penalties: 10
-            expect(score.confidence).toBe(10);
+            // confidence = 0.40×0 + 0.25×100 + 0.35×0 = 25
+            expect(score.confidence).toBe(25);
         });
 
-        test('does not apply regression penalty if scenario was already failing', () => {
+        test('consistently failing scenario gives low confidence from pass rate', () => {
             const node = {
                 outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                 scenarios: [
@@ -302,9 +298,7 @@ test.describe('RequirementConfidenceScorer', () => {
 
             // passRate=0, completeness=100, consistency=100 (no flips)
             // confidence = 0.40×0 + 0.25×100 + 0.35×100 = 60
-            // Single scenario penalty: -5 → 55
-            // No regression penalty (was already failing)
-            expect(score.confidence).toBe(55);
+            expect(score.confidence).toBe(60);
         });
 
         test('populates all sub-scores in the returned object', () => {

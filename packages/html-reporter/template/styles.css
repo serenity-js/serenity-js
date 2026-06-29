@@ -1898,12 +1898,12 @@
     /* --- Requirements Detail Header (single source of truth) --- */
     .req-detail-header {
       margin-bottom: var(--space-lg);
-      padding-bottom: var(--space-lg);
+      padding-bottom: var(--space-md);
       border-bottom: 1px solid var(--divider);
     }
 
     .req-detail-header .req-detail-title {
-      margin: 0 0 var(--space-sm);
+      margin: 0 0 var(--space-md);
       font-size: var(--font-2xl);
       font-weight: 700;
     }
@@ -1912,11 +1912,11 @@
       display: flex;
       align-items: baseline;
       gap: var(--space-sm);
-      margin-bottom: var(--space-md);
+      margin-bottom: var(--space-sm);
     }
 
     .req-detail-confidence {
-      font-size: var(--font-2xl);
+      font-size: var(--font-xl);
       font-weight: 700;
       line-height: 1;
     }
@@ -1936,11 +1936,14 @@
       font-variant-numeric: tabular-nums;
     }
 
+    .req-detail-outcome-bar {
+      margin-bottom: var(--space-xs);
+    }
+
     .req-detail-metrics {
       display: flex;
       align-items: center;
       gap: var(--space-xs);
-      margin-top: var(--space-sm);
       font-size: var(--font-sm);
       color: var(--text-secondary);
       font-variant-numeric: tabular-nums;
@@ -1952,6 +1955,34 @@
 
     .req-detail-metric-sep {
       color: var(--text-disabled);
+    }
+
+    /* Confidence icon in tree and child lists */
+    .req-tree-confidence-icon {
+      font-size: 0.7em;
+      margin-right: 2px;
+      opacity: 0.7;
+    }
+
+    /* Child requirement health (outcome bar + confidence) */
+    .req-detail-child-health {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-shrink: 0;
+      min-width: 100px;
+    }
+
+    .req-detail-child-health .req-tree-bars {
+      flex: 1;
+      min-width: 40px;
+    }
+
+    .req-detail-child-confidence {
+      font-size: var(--font-sm);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
     }
 
     /* --- GitHub-style README Rendering --- */
@@ -2164,25 +2195,7 @@
       font-variant-numeric: tabular-nums;
     }
 
-    /* --- Detail Panel: Confidence section --- */
-    .req-detail-confidence {
-      text-align: center;
-      padding: var(--space-lg) 0;
-      border-bottom: 1px solid var(--divider);
-      margin-bottom: var(--space-md);
-    }
 
-    .req-detail-confidence-score {
-      font-size: var(--font-3xl);
-      font-weight: 700;
-      line-height: 1;
-    }
-
-    .req-detail-confidence-unit {
-      font-size: var(--font-lg);
-      font-weight: 400;
-      opacity: 0.5;
-    }
 
     .req-detail-confidence-label {
       display: block;

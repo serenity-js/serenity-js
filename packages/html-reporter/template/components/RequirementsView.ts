@@ -37,14 +37,12 @@ function SegmentedBar({ outcomes, className }) {
     if (total === 0) return null;
     const passed = (outcomes.passed || 0) / total * 100;
     const failed = ((outcomes.failed || 0) + (outcomes.error || 0) + (outcomes.compromised || 0)) / total * 100;
-    const pending = (outcomes.pending || 0) / total * 100;
-    const skipped = (outcomes.skipped || 0) / total * 100;
+    const skipped = ((outcomes.pending || 0) + (outcomes.skipped || 0)) / total * 100;
     const height = className === 'req-detail-outcome-bar' ? '10px' : '6px';
     return html`
         <div class=${className || 'req-tree-bars'} style="display:flex;overflow:hidden;border-radius:3px;background:var(--divider);height:${height};min-height:${height}">
             ${passed > 0 ? html`<div style="width:${passed}%;height:100%;background:var(--color-passed)"></div>` : null}
             ${failed > 0 ? html`<div style="width:${failed}%;height:100%;background:var(--color-failed)"></div>` : null}
-            ${pending > 0 ? html`<div style="width:${pending}%;height:100%;background:var(--color-pending)"></div>` : null}
             ${skipped > 0 ? html`<div style="width:${skipped}%;height:100%;background:var(--color-skipped)"></div>` : null}
         </div>
     `;
@@ -161,8 +159,8 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoo
                 <span class="req-tree-icon">${folderIcon}</span>
                 <span class="req-tree-label">${isRoot ? (node.displayName || node.name) : collapsedLabel}</span>
                 <span class="req-tree-metrics">
+                    <span class="req-tree-confidence" style="color:${confidenceColor(score.confidence)}" title="Confidence: ${score.confidence}%"><span class="req-tree-confidence-icon">◐</span>${score.confidence}%</span>
                     <${SegmentedBar} outcomes=${displayNode.outcomes} />
-                    <span class="req-tree-confidence" style="color:${confidenceColor(score.confidence)}">${score.confidence}%</span>
                 </span>
             </div>
             ${displayNode.children.map(child => html`
@@ -217,16 +215,18 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
 
             ${files.length > 0 ? html`
                 <div class="req-detail-files">
-                    <h4 class="req-detail-section-title">Test Files</h4>
+                    <h4 class="req-detail-section-title">Specs</h4>
                     ${files.map(child => {
-                        const ct = Object.values(child.outcomes).reduce((a, b) => a + b, 0);
-                        const cr = ct > 0 ? Math.round((child.outcomes.passed / ct) * 100) : 0;
+                        const childScore = computeNodeScore(child);
                         const filePath = segmentPath + '/' + child.name;
                         return html`
                             <div class="req-detail-file-card clickable" onClick=${() => onNavigate('/tests?search=' + encodeURIComponent('"' + filePath + '"'))}>
                                 <span class="req-detail-child-icon">${fileIcon}</span>
                                 <span class="req-detail-child-name">${child.displayName || child.name}</span>
-                                <span class="req-detail-child-rate" style="color:${ct > 0 ? confidenceColor(cr) : 'var(--text-disabled)'}">${ct > 0 ? cr + '%' : '—'}</span>
+                                <span class="req-detail-child-health">
+                                    <span class="req-detail-child-confidence" style="color:${confidenceColor(childScore.confidence)}" title="Confidence: ${childScore.confidence}%"><span class="req-tree-confidence-icon">◐</span>${childScore.confidence}%</span>
+                                    <${SegmentedBar} outcomes=${child.outcomes} />
+                                </span>
                             </div>
                         `;
                     })}
@@ -235,7 +235,7 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
 
             ${directories.length > 0 ? html`
                 <div class="req-detail-files">
-                    <h4 class="req-detail-section-title">Subdirectories</h4>
+                    <h4 class="req-detail-section-title">Capabilities</h4>
                     ${directories.map(child => {
                         const childScore = computeNodeScore(child);
                         const childPath = segmentPath ? segmentPath + '/' + child.name : child.name;
@@ -243,7 +243,10 @@ function DetailPanel({ node, segmentPath, requirements, onNavigate, onSelect }) 
                             <div class="req-detail-file-card clickable" onClick=${() => onSelect(childPath, child)}>
                                 <span class="req-detail-child-icon">${folderIcon}</span>
                                 <span class="req-detail-child-name">${child.displayName || child.name}</span>
-                                <span class="req-detail-child-rate" style="color:${confidenceColor(childScore.confidence)}">${childScore.confidence}%</span>
+                                <span class="req-detail-child-health">
+                                    <span class="req-detail-child-confidence" style="color:${confidenceColor(childScore.confidence)}" title="Confidence: ${childScore.confidence}%"><span class="req-tree-confidence-icon">◐</span>${childScore.confidence}%</span>
+                                    <${SegmentedBar} outcomes=${child.outcomes} />
+                                </span>
                             </div>
                         `;
                     })}

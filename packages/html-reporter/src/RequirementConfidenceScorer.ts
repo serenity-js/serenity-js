@@ -4,9 +4,6 @@ const WEIGHT_PASS_RATE = 0.40;
 const WEIGHT_COMPLETENESS = 0.25;
 const WEIGHT_CONSISTENCY = 0.35;
 
-const PENALTY_SINGLE_SCENARIO = 5;
-const PENALTY_REGRESSION = 10;
-
 interface ScenarioInput {
     name: string;
     outcome: string;
@@ -95,8 +92,8 @@ export function computeConfidence(scores: { passRate: number; completeness: numb
 }
 
 /**
- * Computes a full confidence score for a file-level requirement node,
- * including penalty adjustments.
+ * Computes a full confidence score for a file-level requirement node.
+ * Confidence is a deterministic weighted composite of pass rate, completeness, and consistency.
  */
 export function scoreRequirement(node: RequirementInput): RequirementScore {
     const { outcomes, scenarios } = node;
@@ -109,17 +106,9 @@ export function scoreRequirement(node: RequirementInput): RequirementScore {
     const passRate = computePassRate(outcomes);
     const completeness = computeCompleteness(outcomes);
     const consistency = computeConsistency(scenarios);
-    let confidence = computeConfidence({ passRate, completeness, consistency });
+    const confidence = computeConfidence({ passRate, completeness, consistency });
 
-    if (scenarios.length === 1) {
-        confidence -= PENALTY_SINGLE_SCENARIO;
-    }
-
-    if (hasRegression(scenarios)) {
-        confidence -= PENALTY_REGRESSION;
-    }
-
-    return { confidence: Math.max(0, confidence), passRate, completeness, consistency };
+    return { confidence, passRate, completeness, consistency };
 }
 
 /**
@@ -149,21 +138,3 @@ export function computeDelta(current: number, previous: number | undefined): num
     return current - previous;
 }
 
-function hasRegression(scenarios: ScenarioInput[]): boolean {
-    for (const scenario of scenarios) {
-        const history = scenario.executionHistory;
-
-        if (!history || history.length < 2) {
-            continue;
-        }
-
-        const previousOutcome = history[history.length - 2];
-        const currentOutcome = history[history.length - 1];
-
-        if (previousOutcome === 'SUCCESS' && currentOutcome !== 'SUCCESS') {
-            return true;
-        }
-    }
-
-    return false;
-}
