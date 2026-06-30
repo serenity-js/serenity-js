@@ -1,8 +1,86 @@
 # Serenity/JS Coding Standards
 
+## Design Principles
+
+### Value Objects and Domain Modelling
+
+All domain concepts are modelled as immutable value objects using `tiny-types`. A value object:
+
+- Validates its invariants at construction time via `ensure(...)`
+- Never accepts `null` or `undefined`
+- Provides `fromJSON()` for deserialization
+- Is immutable (all fields `readonly`)
+
+```typescript
+import { ensure, isDefined, TinyType } from 'tiny-types';
+
+export class Name extends TinyType {
+    static fromJSON(v: string): Name {
+        return new Name(v);
+    }
+
+    constructor(public readonly value: string) {
+        super();
+        ensure(this.constructor.name, value, isDefined());
+    }
+}
+```
+
+When introducing a new domain concept, model it as a value object rather than a primitive. Prefer `Name` over `string`, `Duration` over `number`, `Path` over `string`.
+
+### The Good Citizen Rule
+
+Serenity/JS code follows strict null-safety principles:
+
+- **Never accept `undefined` or `null` as a parameter** — validate with `ensure(...)`
+- **Never return `undefined` or `null`** — use the Null Object pattern, throw descriptively, or provide a guard method
+- **Guard methods over optional returns** — prefer `has(id)` + `get(id)` over `find(id): T | undefined`
+- **No optional domain event properties** — all fields are required at construction time
+
+```typescript
+// Wrong: returns undefined
+function findUser(id: string): User | undefined { ... }
+
+// Right: guard method + guaranteed return
+function hasUser(id: string): boolean { ... }
+function getUser(id: string): User { ... }  // throws if not found
+
+// Wrong: optional parameter
+constructor(private readonly version?: Version) { }
+
+// Right: required parameter with validation
+constructor(private readonly version: Version) {
+    ensure('version', version, isDefined());
+}
+```
+
+### Composition Over Inheritance
+
+Favour delegation and composition:
+
+```typescript
+// Right: compose activities into a Task
+const SignIn = (username: string, password: string) =>
+    Task.where(the`#actor signs in as ${ username }`,
+        Enter.theValue(username).into(UsernameField),
+        Enter.theValue(password).into(PasswordField),
+        Click.on(SignInButton),
+    );
+
+// Right: compose expectations algebraically
+const isReady = and(isVisible(), isEnabled());
+
+// Right: compose elements via meta-questions
+const itemName = () => PageElement.located(By.css('.name')).describedAs('name');
+const item = () => PageElement.located(By.css('.item')).describedAs('item');
+const nameOfItem = itemName().of(item());
+```
+
+The only acceptable inheritance: abstract base classes defining contracts for dependency inversion (`BrowseTheWeb` → `BrowseTheWebWithPlaywright`).
+
 ## TypeScript Configuration
 
-Target ES2023 with CommonJS modules. Key compiler options:
+Target ES2023 with CommonJS modules:
 
 ```json
 {
@@ -20,16 +98,16 @@ Some packages (jasmine, webdriverio) also produce ESM builds with separate tscon
 
 ## Code Style
 
-### Indentation and Formatting
+### Formatting
 
 - 4-space indentation (enforced by ESLint)
-- Single quotes for strings (template literals allowed)
-- No trailing semicolons issues - semicolons are required
+- Single quotes (template literals allowed)
+- Semicolons required
 - Maximum one empty line between code blocks
 
 ### Import Organization
 
-Imports are auto-sorted by `eslint-plugin-simple-import-sort`:
+Auto-sorted by `eslint-plugin-simple-import-sort`:
 
 ```typescript
 // External dependencies first
@@ -48,134 +126,21 @@ import type { AnswersQuestions, UsesAbilities } from './abilities';
 import { Ability } from './abilities';
 ```
 
-### Naming Conventions
+### Naming
 
-- Files: kebab-case, PascalCase, or camelCase (all allowed)
-- Test files: `*.spec.ts`
-- Step definitions: `*.steps.ts`
 - Classes: PascalCase
 - Interfaces: PascalCase (no `I` prefix)
-- Type aliases: PascalCase with `_Type` suffix for generics (e.g., `Answer_Type`)
+- Type aliases: PascalCase; generics use `_Type` suffix (e.g., `Answer_Type`)
+- Files: kebab-case, PascalCase, or camelCase (all permitted)
+- Test files: `*.spec.ts`
+- Step definitions: `*.steps.ts`
 - Constants: camelCase or SCREAMING_SNAKE_CASE
 
-### Abbreviations Allowed
+### Allowed Abbreviations
 
-The ESLint unicorn plugin allows these abbreviations:
-
-```
-acc, arg, args, attrs, conf, doc, e, env, fn, i, params, pkg, 
-prop, props, ref, refs, temp, wdio
-```
-
-## Documentation
-
-### JSDoc Comments
-
-All public APIs must have JSDoc documentation with:
-- Description of purpose
-- `@param` tags for parameters
-- `@returns` description
-- `@throws` for errors
-- Links to related APIs using `{@link ClassName}` or full URLs
-
-Example from the codebase:
-
-```typescript
-/**
- * **Actors** represent **people** and **external systems** interacting with the system under test.
- * Their role is to perform [activities](https://serenity-js.org/api/core/class/Activity/) 
- * that demonstrate how to accomplish a given goal.
- *
- * Learn more about:
- * - [`Cast`](https://serenity-js.org/api/core/class/Cast/)
- * - [`Ability`](https://serenity-js.org/api/core/class/Ability/)
- *
- * @group Screenplay Pattern
- */
-export class Actor implements PerformsActivities { }
-```
-
-### Code Examples in Docs
-
-Include runnable examples in JSDoc:
-
-```typescript
-/**
- * ## Defining a task
- *
- * ```ts
- * import { Task, the } from '@serenity-js/core'
- * import { Click, Enter } from '@serenity-js/web'
- *
- * const SignIn = (username: string, password: string) =>
- *   Task.where(the`#actor signs in as ${ username }`,
- *     Enter.theValue(username).into(UsernameField),
- *     Enter.theValue(password).into(PasswordField),
- *     Click.on(SignInButton),
- *   );
- *
- */
-```
-
-## Good Citizen Rule
-
-Serenity/JS code follows the "Good Citizen" principle:
-
-- **Never accept `undefined` or `null` as a parameter** — use guard clauses (`ensure(...)`) to validate inputs
-- **Never return `undefined` or `null`** — use the Null Object pattern, throw an error, or use a guard method (`isX()` / `hasX()`) so callers check before calling
-- **Use guard methods over optional returns** — prefer `detector.isCI()` + `detector.detect()` over `detector.detect(): CIContext | undefined`
-- **Domain events have no optional properties** — all fields are required at construction time; deserialization may provide sensible defaults for backwards compatibility with older serialized data
-
-```typescript
-// Bad: returns undefined
-function findUser(id: string): User | undefined { ... }
-
-// Good: guard method + guaranteed return
-function hasUser(id: string): boolean { ... }
-function getUser(id: string): User { ... }  // throws if not found
-
-// Bad: optional parameter
-constructor(private readonly version?: Version) { }
-
-// Good: required parameter with validation
-constructor(private readonly version: Version) {
-    ensure('version', version, isDefined());
-}
-```
-
-## Error Handling
-
-### Custom Error Classes
-
-Extend from `RuntimeError` in `@serenity-js/core/errors`:
-
-```typescript
-import { RuntimeError } from '../errors';
-
-export class ConfigurationError extends RuntimeError {
-    constructor(message: string, cause?: Error) {
-        super(ConfigurationError, message, cause);
-    }
-}
-```
-
-### Error Messages
-
-- Be specific about what went wrong
-- Include context (actor name, ability type, etc.)
-- Suggest remediation when possible
-
-```typescript
-throw new ConfigurationError(
-    `${ this.name } can ${ availableAbilities.join(', ') }. ` +
-    `They can't, however, ${ abilityType.name } yet. ` +
-    `Did you give them the ability to do so?`
-);
-```
+ESLint unicorn permits: `acc`, `arg`, `args`, `attrs`, `conf`, `doc`, `e`, `env`, `fn`, `i`, `params`, `pkg`, `prop`, `props`, `ref`, `refs`, `temp`, `utils`, `wdio`
 
 ## Async Patterns
-
-### Promise-based APIs
 
 All async operations return Promises. Use async/await:
 
@@ -186,9 +151,7 @@ async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Answer_Type> 
 }
 ```
 
-### Sequential Activity Execution
-
-Activities execute sequentially using reduce:
+Activities execute sequentially:
 
 ```typescript
 attemptsTo(...activities: Activity[]): Promise<void> {
@@ -200,22 +163,55 @@ attemptsTo(...activities: Activity[]): Promise<void> {
 }
 ```
 
-## Exports
+## Error Handling
 
-### Public API
+### Custom Errors
 
-Only export from `src/index.ts`. Use barrel exports:
+Extend `RuntimeError` from `@serenity-js/core/errors`:
 
 ```typescript
-// src/index.ts
-export * from './errors';
-export * from './screenplay';
-export { d, f, format } from './io';  // Selective exports
+export class ConfigurationError extends RuntimeError {
+    constructor(message: string, cause?: Error) {
+        super(ConfigurationError, message, cause);
+    }
+}
+```
+
+### Error Messages
+
+Be specific, include context, and suggest remediation:
+
+```typescript
+throw new ConfigurationError(
+    `${ this.name } can ${ availableAbilities.join(', ') }. ` +
+    `They can't, however, ${ abilityType.name } yet. ` +
+    `Did you give them the ability to do so?`
+);
+```
+
+## Documentation
+
+### JSDoc
+
+All public APIs require JSDoc with:
+- Description of purpose and design intent
+- `@param`, `@returns`, `@throws` tags
+- Links to related APIs (`{@link ClassName}` or full URLs)
+- Runnable code examples where helpful
+- `@group` tag for Screenplay Pattern classification
+
+```typescript
+/**
+ * **Actors** represent **people** and **external systems** interacting with the system under test.
+ *
+ * @group Screenplay Pattern
+ */
+export class Actor implements PerformsActivities { }
 ```
 
 ### Internal Code
 
-Mark internal classes with `@package` JSDoc tag:
+Mark non-public classes with `@package`:
 
 ```typescript
 /**
@@ -224,53 +220,42 @@ Mark internal classes with `@package` JSDoc tag:
 class DynamicallyGeneratedTask extends Task { }
 ```
 
+## Exports and Package Boundaries
+
+Only export from `src/index.ts` using barrel exports:
+
+```typescript
+export * from './errors';
+export * from './screenplay';
+export { d, f, format } from './io';  // Selective exports
+```
+
+Each package boundary is explicit. Internal code must not leak across packages.
+
 ## Backwards Compatibility
 
-Serenity/JS prioritises non-breaking changes to make it easy for developers to keep up to date with the framework.
+Serenity/JS prioritises non-breaking changes so developers can upgrade painlessly.
 
-### Avoiding Breaking Changes
+### Rules
 
-When modifying public APIs:
-
-1. **Prefer additive changes** - Add new methods/properties rather than modifying existing ones
-2. **Use optional parameters** - New parameters should have defaults
-3. **Extend, don't modify** - Create new classes/functions rather than changing existing signatures
-
-### Deprecation Process
-
-If a breaking change is unavoidable:
-
-1. **Keep the existing API** - Don't remove or modify it
-2. **Mark as deprecated** - Use `@deprecated` JSDoc tag with migration guidance
-3. **Introduce new API in parallel** - Users can migrate at their own pace
-4. **Log deprecation warnings** - Help users discover deprecated usage
+- **Additive only** — new methods/properties, never removal or signature changes
+- **Defaults for new parameters** — new optional parameters must have sensible defaults
+- **Deprecate, don't delete** — mark with `@deprecated` JSDoc, log warnings, provide migration path in docs
 
 ```typescript
 /**
- * @deprecated Use {@link NewMethod} instead. Will be removed in v4.0.
- * 
+ * @deprecated Use {@link newMethod} instead. Will be removed in v4.0.
+ *
  * ## Migration
- * 
- * Before:
  * ```typescript
+ * // Before
  * actor.oldMethod(param);
- * ```
- * 
- * After:
- * ```typescript
+ * // After
  * actor.newMethod(param);
  * ```
  */
 oldMethod(param: string): void {
-    console.warn('oldMethod is deprecated, use newMethod instead');
     return this.newMethod(param);
-}
-
-/**
- * Improved version of oldMethod with better error handling.
- */
-newMethod(param: string): void {
-    // New implementation
 }
 ```
 
@@ -278,14 +263,12 @@ newMethod(param: string): void {
 
 - Removing a public class, method, or property
 - Changing method signatures (parameter types, return types)
-- Changing default behavior that users rely on
+- Changing default behaviour users rely on
 - Renaming exports
 
 ### What Is NOT a Breaking Change
 
 - Adding new optional parameters with defaults
-- Adding new methods or properties
-- Adding new classes or modules
-- Fixing bugs (even if someone depended on buggy behavior)
+- Adding new methods, properties, classes, or modules
+- Bug fixes (even if someone depended on buggy behaviour)
 - Performance improvements
-

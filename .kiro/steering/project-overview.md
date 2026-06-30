@@ -1,107 +1,137 @@
 # Serenity/JS Project Overview
 
-Serenity/JS is an innovative acceptance and regression testing framework implementing the Screenplay Pattern. This
-document provides essential context for working with the codebase.
+Serenity/JS is a TypeScript-native acceptance and regression testing framework built on the Screenplay Pattern. It gives
+test suites the architecture they need to scale — composable, maintainable, and expressive.
 
-## Architecture
+## Design Philosophy
 
-### Monorepo Structure
+### Screenplay Pattern as Architecture
 
-This is a pnpm + Lerna + Nx monorepo with three main directories:
+The Screenplay Pattern is not merely a design pattern — it is the architectural backbone of Serenity/JS. Every design
+decision flows from it:
 
-- `packages/` - Core Serenity/JS modules published to npm as `@serenity-js/*`
-- `integration/` - Integration tests for different test runner combinations
-- `examples/` - Example projects demonstrating Serenity/JS usage
-
-### Core Packages
-
-| Package                         | Purpose                                                                    |
-|---------------------------------|----------------------------------------------------------------------------|
-| `@serenity-js/core`             | Screenplay Pattern foundation: Actor, Task, Interaction, Question, Ability |
-| `@serenity-js/web`              | Web testing abstractions: PageElement, BrowseTheWeb, Click, Enter          |
-| `@serenity-js/assertions`       | Assertion library with Ensure and expectation functions                    |
-| `@serenity-js/rest`             | REST API testing with CallAnApi ability                                    |
-| `@serenity-js/playwright`       | Playwright integration                                                     |
-| `@serenity-js/playwright-test`  | Playwright Test runner adapter                                             |
-| `@serenity-js/webdriverio`      | WebdriverIO v9+ integration                                                |
-| `@serenity-js/webdriverio-8`    | WebdriverIO v8 integration (legacy)                                        |
-| `@serenity-js/protractor`       | Protractor integration (legacy)                                            |
-| `@serenity-js/cucumber`         | Cucumber.js adapter                                                        |
-| `@serenity-js/mocha`            | Mocha adapter                                                              |
-| `@serenity-js/jasmine`          | Jasmine adapter                                                            |
-| `@serenity-js/serenity-bdd`     | Serenity BDD reporting integration                                         |
-| `@serenity-js/console-reporter` | Console output reporter                                                    |
-| `@serenity-js/local-server`     | Local HTTP server for testing                                              |
-
-### The Screenplay Pattern
-
-The core abstraction follows this hierarchy:
+- **Actors** represent people and external systems interacting with the system under test
+- **Abilities** encapsulate the technical means to interact with system interfaces (dependency inversion)
+- **Interactions** are single, focused actions (Single Responsibility Principle)
+- **Tasks** compose interactions into business-meaningful workflows (Composite pattern)
+- **Questions** retrieve information without side effects (Query/Command separation)
 
 ```
 Actor
-  ├── has Abilities (e.g., BrowseTheWeb, CallAnApi)
+  ├── has Abilities (e.g., BrowseTheWeb, CallAnApi, TakeNotes)
   ├── performs Activities
-  │     ├── Tasks (high-level, composed of other activities)
-  │     └── Interactions (low-level, single actions)
-  └── answers Questions (retrieve information from the system)
+  │     ├── Tasks (business-level, composed of other activities)
+  │     └── Interactions (solution-level, single actions)
+  └── answers Questions (retrieve state from the system)
 ```
 
-Key classes in `@serenity-js/core`:
+### Domain-Driven Design
 
-- `Actor` - Represents a user or system interacting with the SUT
-- `Ability` - Enables actors to interact with interfaces (abstract base)
-- `Task` - Composed sequence of activities with business meaning
-- `Interaction` - Single low-level action
-- `Question` - Retrieves information, can be composed and mapped
+Serenity/JS applies DDD within its own codebase:
+
+- **Ubiquitous Language** — the Screenplay Pattern vocabulary (Actor, Ability, Task, Interaction, Question, Stage, Cast)
+  is used consistently across code, docs, tests, and conversations
+- **Value Objects** — all model types (`Name`, `Description`, `CorrelationId`, `Timestamp`, `Duration`, `Path`,
+  `Version`) are immutable, validated at construction via `tiny-types`, and never accept `null`/`undefined`
+- **Domain Events** — the entire reporting system is event-driven; adapters emit `DomainEvent` instances (`SceneStarts`,
+  `InteractionFinished`, `ArtifactGenerated`) that flow through the `StageManager`
+- **Aggregates** — `Stage` owns actor lifecycle and event distribution; `Actor` owns its abilities
+- **Bounded Contexts** — each `@serenity-js/*` package represents a bounded context with explicit public API boundaries
+
+### Composition Over Inheritance
+
+- Tasks compose Activities (not extend them)
+- PageElements compose via `.of()` (meta-questions, not deep class hierarchies)
+- Expectations compose via `and()`, `or()`, `not()` (algebraic composition)
+- Abilities are composed onto Actors via `.whoCan()` (delegation, not inheritance)
+- The only meaningful inheritance: abstract classes that define contracts (`BrowseTheWeb` →
+  `BrowseTheWebWithPlaywright`)
+
+### SOLID in Practice
+
+| Principle                     | How Serenity/JS applies it                                                                            |
+|-------------------------------|-------------------------------------------------------------------------------------------------------|
+| **S** — Single Responsibility | Each Interaction does one thing. Each Question retrieves one thing.                                   |
+| **O** — Open/Closed           | New behaviours are added by composing new Tasks from existing Interactions, not modifying them.       |
+| **L** — Liskov Substitution   | Any `BrowseTheWeb` implementation (Playwright, WebdriverIO) is substitutable without test changes.    |
+| **I** — Interface Segregation | Actors compose fine-grained capabilities (`AnswersQuestions`, `UsesAbilities`, `PerformsActivities`). |
+| **D** — Dependency Inversion  | Tests depend on abstractions (`@serenity-js/web`), not concretions (`@serenity-js/playwright`).       |
+
+## Monorepo Structure
+
+pnpm + Lerna + Nx monorepo:
+
+- `packages/` — Core modules published to npm as `@serenity-js/*`
+- `integration/` — Integration tests for test runner and browser combinations
+- `examples/` — Example projects demonstrating usage
+
+### Core Packages
+
+| Package                         | Bounded Context                                                      |
+|---------------------------------|----------------------------------------------------------------------|
+| `@serenity-js/core`             | Screenplay Pattern foundation: Actor, Stage, Domain Events, time, IO |
+| `@serenity-js/web`              | Abstract web testing: PageElement, PEQL, BrowseTheWeb contract       |
+| `@serenity-js/assertions`       | Expectation algebra: `Ensure`, `equals`, `includes`, `contain`       |
+| `@serenity-js/rest`             | HTTP API interactions: `CallAnApi`, `Send`, `LastResponse`           |
+| `@serenity-js/playwright`       | Playwright ability implementation                                    |
+| `@serenity-js/playwright-test`  | Playwright Test runner adapter                                       |
+| `@serenity-js/webdriverio`      | WebdriverIO v9+ ability implementation                               |
+| `@serenity-js/webdriverio-8`    | WebdriverIO v8 ability implementation (legacy)                       |
+| `@serenity-js/protractor`       | Protractor ability implementation (legacy)                           |
+| `@serenity-js/cucumber`         | Cucumber.js test runner adapter                                      |
+| `@serenity-js/mocha`            | Mocha test runner adapter                                            |
+| `@serenity-js/jasmine`          | Jasmine test runner adapter                                          |
+| `@serenity-js/serenity-bdd`     | Serenity BDD reporting integration                                   |
+| `@serenity-js/console-reporter` | Console output reporter                                              |
+| `@serenity-js/local-server`     | Local HTTP server ability for testing                                |
+
+### Package Boundaries
+
+Each package has a single `src/index.ts` that defines its public API. Internal code is marked `@package`. Cross-package
+dependencies follow the dependency rule: abstractions never depend on concretions.
+
+```
+@serenity-js/core           ← foundation, no Serenity/JS dependencies
+@serenity-js/web            ← depends on core only
+@serenity-js/assertions     ← depends on core only
+@serenity-js/playwright     ← depends on core + web
+@serenity-js/playwright-test ← depends on core + web + playwright
+```
 
 ## Technology Stack
 
-- **Language**: TypeScript (ES2023 target)
+- **Language**: TypeScript (ES2023 target, CommonJS modules)
 - **Package Manager**: pnpm (v10.26.0+)
-- **Monorepo Tools**: Lerna + Nx for task orchestration
-- **Test Framework**: Mocha with Chai assertions
+- **Monorepo Orchestration**: Lerna + Nx
+- **Unit Testing**: Mocha + Chai + Sinon
+- **Parameterised Tests**: mocha-testdata
 - **Coverage**: c8
-- **Linting**: ESLint with TypeScript, Unicorn, and Mocha plugins
+- **Linting**: ESLint with TypeScript, Unicorn, simple-import-sort, and Mocha plugins
+- **Value Objects**: tiny-types
 - **Node.js**: ^20 || ^22 || ^24
 
 ## Build Commands
 
 ```bash
-# Install dependencies
-make install
-
-# Compile all packages
-make compile
-
-# Compile only library packages (faster)
-make COMPILE_SCOPE=libs compile
-
-# Run unit tests
-make test
-
-# Run integration tests
-make INTEGRATION_SCOPE=playwright-test integration-test
-
-# Lint code
-make lint
-
-# Clean build artifacts
-make clean
-
-# Clear Nx cache
-make cc
+make install                                    # Install deps + browsers
+make compile                                    # Compile all packages
+make COMPILE_SCOPE=libs compile                 # Compile library packages only
+make test                                       # Unit tests with coverage
+make test-no-coverage                           # Unit tests without coverage
+make INTEGRATION_SCOPE=playwright-test integration-test  # Specific integration suite
+make lint                                       # ESLint
+make clean                                      # Remove build artifacts
+make cc                                         # Clear Nx cache
 ```
 
-## Package Structure
-
-Each package follows this structure:
+## Package Layout
 
 ```
 packages/<name>/
-├── src/           # Source code
-│   └── index.ts   # Public API exports
-├── spec/          # Unit tests (*.spec.ts)
-├── lib/           # Compiled output (gitignored)
+├── src/                # Source code
+│   └── index.ts        # Public API (barrel exports)
+├── spec/               # Unit tests (*.spec.ts)
+├── lib/                # Compiled output (gitignored)
 ├── package.json
 ├── tsconfig.json
 ├── tsconfig.build.json
@@ -111,6 +141,5 @@ packages/<name>/
 
 ## Versioning
 
-- All packages share the same version (currently 3.x)
-- Semantic versioning with conventional commits
-- Automated releases via Lerna on main branch
+All packages share the same version (currently 3.x). Semantic versioning is driven by conventional commits. Automated
+releases via Lerna on the `main` branch.

@@ -1,262 +1,148 @@
-
-## Honesty About Verification
-
-**Never pretend to have verified something you haven't actually verified.**
-
-If the user asks you to look at a report, inspect a file, check a URL, or review output:
-- If you CAN do it (e.g. read a file, run a command, check data), DO it.
-- If you CANNOT do it (e.g. file:// URLs in browser, visual inspection of rendered HTML), say so explicitly and offer an alternative (e.g. serve via http-server, inspect the data.js content programmatically, take a screenshot).
-- NEVER fabricate observations or claim to have seen something you inferred from other data.
-
-This applies especially to:
-- Reviewing generated reports or HTML output
-- Inspecting visual rendering
-- Confirming UI behaviour
-
-When you cannot directly verify, state clearly: "I cannot access this directly because [reason]. Here's what I can check instead: [alternative]."
-
-## Verification Before Presenting Results
-
-**Every change must be verified before being presented as complete.**
-
-Before saying "done" or committing:
-1. **Run ALL tests** — both unit tests (`pnpm test` in the package) AND integration tests (`npm test` in `integration/html-reporter`). Not just the subset you think is relevant.
-2. **Write tests for new code** — every new function, utility, or behaviour change MUST have a corresponding test. No exceptions.
-3. **Visually verify UI changes** — when modifying the report template, serve it and screenshot with Playwright to confirm the change renders correctly. Check multiple views, not just one.
-4. **Verify the full pipeline** — when changing how data flows (db.json schema, aggregation, template rendering), run the entire chain: compile → run integration module → aggregate → serve → screenshot.
-5. **Don't commit broken code** — if tests fail, fix them before committing. A "WIP" commit with known failures is acceptable only as a last resort with explicit acknowledgement.
-
-If you cannot verify something, say so explicitly rather than assuming it works.
-
-## Prefer Proper Solutions Over Hacks
-
-**Always research how to use tools and libraries correctly before implementing a solution.**
-
-- When facing a problem, first understand the tool's intended API and patterns.
-- If the straightforward approach doesn't work, investigate why — don't immediately reach for workarounds.
-- Never apply string escaping hacks, regex workarounds, or monkey-patches without first asking: "Is there a proper way to do this with the tool's API?"
-- If a hack seems necessary, explain the constraint and ask for confirmation before proceeding.
-- Prefer solutions that use the tool as designed (e.g. let esbuild produce output directly rather than post-processing its output with fragile string replacements).
-
-Examples of anti-patterns to avoid:
-- Regex-replacing content inside generated output
-- Adding guards/flags to work around architectural issues instead of fixing the root cause
-- Copying files around instead of reading them in place
-- Using symlinks as a "performance optimisation" that creates complexity
-- Using sed/awk to modify structured files (JSON, TypeScript, YAML) — write a Node.js script instead
-- Partial builds or made-up compile commands — always use the module's dedicated `npm run compile` command to produce a complete, consistent build
-
-## Fix Root Causes, Not Symptoms
-
-**When a problem is identified, always trace it to its root cause and fix it there.**
-
-- Never offer or implement surface-level patches (e.g. skipping invalid data, adding guards, ignoring errors) as a first response. These mask real issues.
-- When you discover invalid state, ask: "Why is this state being produced in the first place?" Fix the producer, not the consumer.
-- When multiple approaches exist, present them with trade-offs and recommend the one with the cleanest architecture — even if it requires more effort.
-- Defensive coding (null checks, guards) is appropriate for public API boundaries. It is NOT appropriate as a substitute for fixing the code that produces the invalid input.
-
-Decision process when encountering a problem:
-1. **Diagnose** — Trace the issue to its origin. Use instrumentation/logging if needed.
-2. **Identify options** — List architecturally distinct approaches, not variations of the same workaround.
-3. **Recommend** — Prefer the option that eliminates the problem at source over one that tolerates it downstream.
-4. **Confirm** — If the cleanest fix is expensive, explain why and ask before proceeding. Never silently choose the path of least resistance.
-
-Example: if a component receives invalid data, don't add a "skip if invalid" guard. Instead, find out why invalid data is being produced and stop it at the source.
-
 # Serenity/JS Development Workflow
 
-## Mandatory Testing Rule
+## Behaviour-Driven Development
 
-**When making ANY production code changes, you MUST ensure that you create new or update existing tests.**
+Serenity/JS development follows BDD principles: start with desired behaviour, express it as an executable specification, then implement the minimum to satisfy it.
 
-This is non-negotiable. Every change to source code under `packages/*/src/` must be accompanied by corresponding test changes under `packages/*/spec/` (or `integration/`) that verify the new or modified behaviour. No exceptions.
+### Think in Examples First
+
+Before writing code, articulate the desired behaviour as concrete examples:
+
+- What should happen when an actor performs this activity?
+- What should happen when the input is invalid?
+- What domain event should be emitted?
+- How should this compose with existing Screenplay abstractions?
+
+If the behaviour is unclear, ask for clarification rather than guessing.
 
 ### Required Sequence for Every Change
 
-1. **Write or update the test first** — Before touching any file under `src/`, write a test under `spec/` that describes the expected behaviour. Run it and confirm it fails (or would fail without your upcoming change).
-2. **Make the production code change** — Write the minimal implementation to make the test pass.
-3. **Run the tests** — Confirm all tests pass before considering the change complete.
-4. **Never skip steps** — If you find yourself editing `src/` without having first edited `spec/`, stop and write the test. If you refactor production code, update or add tests that prove the refactoring preserves behaviour.
+1. **Express the behaviour as a test** — write a spec in `packages/<module>/spec/` that describes what the system should do, not how it does it. Run it and confirm it fails.
+2. **Implement the minimum** — make the test pass with the simplest correct implementation.
+3. **Refactor** — improve the design while tests remain green.
+4. **Verify** — run the full test suite for the package (`pnpm test`).
 
-### What "justifies" a production code change
+Never write implementation code without a corresponding failing test.
 
-- A **new feature** requires a new test that fails without the feature.
-- A **bug fix** requires a test that reproduces the bug (fails before, passes after).
-- A **refactor** requires either existing tests that still pass, or new tests that verify the preserved behaviour at the new interface boundary.
-- A **change in wiring** (e.g., passing a new dependency to a constructor) requires an integration-level test proving the wiring works end-to-end.
+### What Justifies a Production Code Change
 
-## Test-Driven Development (TDD)
+- A **new feature** requires a test that fails without it
+- A **bug fix** requires a test that reproduces the bug (fails before, passes after)
+- A **refactor** requires existing tests to remain green, or new tests verifying preserved behaviour at the changed boundary
+- A **wiring change** (new dependency, constructor parameter) requires an integration test proving the wiring works
 
-All features in Serenity/JS follow a strict test-driven development approach:
+## Test-Driven Development Cycle
 
-1. **Write a failing test first** - The test documents the intent and expected behavior
-2. **Write the minimal implementation** - Make the test pass
-3. **Refactor** - Clean up while keeping tests green
-
-Never write implementation code without a corresponding test that fails first.
-
-## Unit Test Workflow (packages/*)
-
-For changes to any module under `packages/`:
-
-### Step 1: Write the Failing Test
-
-Create or update a test in `packages/<module>/spec/` that describes the expected behavior:
-
-```typescript
-// packages/core/spec/screenplay/NewFeature.spec.ts
-import { describe, it } from 'mocha';
-import { expect } from '../expect';
-
-describe('NewFeature', () => {
-
-    it('should behave in a specific way', () => {
-        // Arrange
-        const subject = new NewFeature();
-
-        // Act
-        const result = subject.doSomething();
-
-        // Assert
-        expect(result).to.equal(expectedValue);
-    });
-
-    it('should handle edge case', () => {
-        // Test documents the edge case behavior
-    });
-});
+```
+Red → Green → Refactor
+ │       │        │
+ │       │        └─ Clean up, extract, compose — tests stay green
+ │       └─ Minimal implementation to satisfy the spec
+ └─ Failing test expressing desired behaviour
 ```
 
-### Step 2: Run the Test (Verify it Fails)
+### Unit Test Workflow
 
 ```bash
+# 1. Write the failing test
 cd packages/core
 npx mocha --config ../../.mocharc.yml 'spec/screenplay/NewFeature.spec.ts'
-```
 
-The test should fail with a clear error indicating what's missing.
+# 2. Implement until it passes
+pnpm test
 
-### Step 3: Write the Implementation
-
-Add the minimal code in `packages/<module>/src/` to make the test pass.
-
-### Step 4: Run the Test (Verify it Passes)
-
-```bash
-cd packages/core
+# 3. Refactor, re-run
 pnpm test
 ```
 
-### Step 5: Refactor
+### Integration Test Workflow
 
-Clean up the implementation while ensuring all tests remain green.
-
-## Integration Test Workflow (integration/*)
-
-For features requiring integration testing (test runner adapters, browser interactions, etc.):
-
-**Important:** Integration tests run against the compiled output in `packages/*/lib/`. You must clean and recompile after making changes to any package:
+Integration tests run against compiled output. Always recompile first:
 
 ```bash
-# Clean build artifacts and recompile all library packages before running integration tests
+# Clean stale artifacts, compile, then test
 make clean
 make COMPILE_SCOPE=libs compile
-
-# Then run integration tests
 make INTEGRATION_SCOPE=playwright-test integration-test
 ```
-
-If integration tests don't reflect your latest changes, or if compilation fails with stale errors after fixing source files, run `make clean` first to remove old build artifacts, then recompile.
-
-### Step 1: Write the High-Level Integration Test
-
-Create a test scenario in the appropriate `integration/<module>/` directory:
-
-```typescript
-// integration/playwright-test/spec/new-feature.spec.ts
-import { describe, it } from 'mocha';
-import { expect } from '@integration/testing-tools';
-
-describe('NewFeature integration', () => {
-
-    it('works end-to-end with Playwright', async () => {
-        // Integration test that exercises the full stack
-    });
-});
-```
-
-### Step 2: Run the Integration Test (Verify it Fails)
-
-```bash
-# Always recompile first
-make COMPILE_SCOPE=libs compile
-
-# Then run the integration test
-make INTEGRATION_SCOPE=playwright-test integration-test
-```
-
-### Step 3: Follow TDD for Unit Tests
-
-Before implementing, write unit tests in the relevant `packages/*/spec/` directory.
-
-### Step 4: Implement and Iterate
-
-Write implementation code, running both unit and integration tests until all pass.
-
-Remember the compile-test cycle for integration tests:
-
-```bash
-# After each implementation change:
-make clean
-make COMPILE_SCOPE=libs compile
-make INTEGRATION_SCOPE=<module> integration-test
-```
-
-## When to Write Integration Tests
 
 Integration tests are required when:
+- Adding or modifying test runner adapter behaviour
+- Changing web interaction behaviour
+- Modifying browser automation integration
+- Adding reporter functionality
 
-- Adding or modifying test runner adapter behavior (cucumber, mocha, jasmine, playwright-test)
-- Changing web interaction behavior (click, enter, scroll, etc.)
-- Modifying how Serenity/JS integrates with browser automation tools
-- Adding new reporter functionality
+## Engineering Principles
+
+### Fix Root Causes, Not Symptoms
+
+When a problem is identified, trace it to its origin:
+
+1. **Diagnose** — find where the invalid state is produced
+2. **Identify options** — list architecturally distinct solutions
+3. **Recommend** — prefer the option that eliminates the problem at source
+4. **Confirm** — if expensive, explain trade-offs and ask before proceeding
+
+Defensive guards are appropriate at public API boundaries. They are not a substitute for fixing the code that produces invalid input.
+
+### Prefer Proper Solutions Over Hacks
+
+- Understand the tool's intended API before implementing
+- If the straightforward approach fails, investigate why before reaching for workarounds
+- Never apply regex hacks, monkey-patches, or string manipulation on structured output
+- Use the module's dedicated build commands — never partial builds or made-up compile commands
+
+Anti-patterns to avoid:
+- Regex-replacing content inside generated output
+- Adding guards/flags to work around architectural issues
+- Using sed/awk on structured files — write a TypeScript script instead
+- Post-processing tool output when the tool can produce it correctly
+
+### Preserve Existing Design
+
+When making changes:
+- Read surrounding code before writing new code
+- Match existing patterns, naming, and abstractions
+- Don't introduce new dependencies without justification
+- Don't refactor code unrelated to the current task
+- Keep diffs minimal and focused
+
+### Incremental Changes Over Big Rewrites
+
+- Make one logical change per commit
+- Each commit should leave the codebase in a working state
+- Prefer a series of small, reviewable changes over a single large one
+
+## Verification Standards
+
+### Before Presenting Results as Complete
+
+1. **All tests pass** — unit tests for the changed package (`pnpm test`), plus integration tests if applicable
+2. **New code has tests** — every new function, class, or behaviour change has a corresponding spec
+3. **ESLint passes** — `npx eslint <changed-files>` reports no errors
+4. **Build succeeds** — `make COMPILE_SCOPE=libs compile` completes without errors
+
+### Honesty About Verification
+
+- If you can verify something (read a file, run a command), do it
+- If you cannot (visual rendering, file:// URLs), say so explicitly and offer an alternative
+- Never fabricate observations or claim to have seen something you inferred
 
 ## Clarification Policy
 
-**Never make assumptions about requirements.**
-
-If the requirements are unclear:
-- Ask for clarification before writing tests
-- Document any assumptions in the test description
-- Prefer asking one clear question over guessing
+If requirements are unclear, ask before writing tests. One clear question is better than a wrong assumption.
 
 Examples of when to ask:
-- "Should this throw an error or return undefined when the element is not found?"
-- "What should happen if the timeout is exceeded?"
-- "Should this work with both single elements and collections?"
+- "Should this throw an error or return a default when the element is not found?"
+- "What domain event should this emit?"
+- "Should this compose with existing Tasks or be a standalone Interaction?"
 
-## TDD Checklist
-
-Before submitting changes:
+## Pre-Commit Checklist
 
 - [ ] Every new feature has a failing test written first
-- [ ] Tests clearly document the expected behavior
-- [ ] Edge cases are covered with explicit tests
-- [ ] All unit tests pass (`make test`)
-- [ ] Integration tests pass if applicable (`make integration-test`)
-- [ ] ESLint passes on all modified files with no errors (`npx eslint <files>`)
+- [ ] Tests describe behaviour, not implementation details
+- [ ] Edge cases are covered with explicit examples
+- [ ] All unit tests pass (`pnpm test` in the package)
+- [ ] Integration tests pass if applicable (`make INTEGRATION_SCOPE=<module> integration-test`)
+- [ ] ESLint passes on all modified files (`npx eslint <files>`)
 - [ ] No implementation code exists without corresponding tests
-
-## Pre-Commit Linting Rule
-
-**Before committing ANY changes, you MUST run ESLint on all modified files and fix any errors.**
-
-Run ESLint on the changed files:
-
-```bash
-npx eslint path/to/changed/file1.ts path/to/changed/file2.ts
-```
-
-- Fix all errors before committing. Do not commit code with lint errors.
-- Warnings should be reviewed and fixed where possible.
-- Use `npx eslint --fix` only for auto-fixable issues (formatting, import ordering). Review the result before committing.
