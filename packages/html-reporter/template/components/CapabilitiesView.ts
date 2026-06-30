@@ -44,10 +44,11 @@ function SegmentedBar({ outcomes, className }) {
     const height = className === 'req-detail-outcome-bar' ? '10px' : '6px';
     const tooltip = `${passedCount} passed, ${failedCount} failed, ${skippedCount} skipped`;
     return html`
-        <div class=${className || 'req-tree-bars'} style="display:flex;overflow:hidden;border-radius:3px;background:var(--divider);height:${height};min-height:${height}" title=${tooltip}>
-            ${passed > 0 ? html`<div style="width:${passed}%;height:100%;background:var(--color-passed)" title="${passedCount} passed"></div>` : null}
-            ${failed > 0 ? html`<div style="width:${failed}%;height:100%;background:var(--color-failed)" title="${failedCount} failed"></div>` : null}
-            ${skipped > 0 ? html`<div style="width:${skipped}%;height:100%;background:var(--color-skipped)" title="${skippedCount} skipped"></div>` : null}
+        <div class=${className || 'req-tree-bars'} role="img" aria-label=${tooltip} style="display:flex;overflow:hidden;border-radius:3px;background:var(--divider);height:${height};min-height:${height}" title=${tooltip}>
+            <span class="visually-hidden">${tooltip}</span>
+            ${passed > 0 ? html`<div aria-hidden="true" style="width:${passed}%;height:100%;background:var(--color-passed)"></div>` : null}
+            ${failed > 0 ? html`<div aria-hidden="true" style="width:${failed}%;height:100%;background:var(--color-failed)"></div>` : null}
+            ${skipped > 0 ? html`<div aria-hidden="true" style="width:${skipped}%;height:100%;background:var(--color-skipped)"></div>` : null}
         </div>
     `;
 }
@@ -122,7 +123,55 @@ function CapabilitiesFilterBar({ activeFilter, onFilter, capabilities }) {
     `;
 }
 
-function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoot, nodeFilter }) {
+function getVisiblePaths(root, searchTerm, nodeFilter) {
+    const paths: string[] = [];
+
+    function walk(node, parentPath, isRoot) {
+        const isDirectory = node.type === 'directory' && node.children && node.children.length > 0;
+        if (!isDirectory) return;
+
+        const segmentPath = isRoot ? '' : (parentPath ? parentPath + '/' + node.name : node.name);
+
+        if (!isRoot && nodeFilter && !nodeFilter(node)) return;
+
+        // Apply single-child collapse logic
+        let displayNode = node;
+        let collapsedPath = segmentPath;
+        let collapsedLabel = node.displayName || node.name;
+        if (!isRoot) {
+            while (displayNode.children) {
+                const directories = displayNode.children.filter(c => c.type === 'directory' && c.children && c.children.length > 0);
+                const files = displayNode.children.filter(c => c.type === 'file');
+                if (directories.length === 1 && files.length === 0) {
+                    const only = directories[0];
+                    collapsedPath = collapsedPath ? collapsedPath + '/' + only.name : only.name;
+                    collapsedLabel += '/' + (only.displayName || only.name);
+                    displayNode = only;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // Check search filtering
+        const matchesSearch = !searchTerm || collapsedLabel.toLowerCase().includes(searchTerm.toLowerCase());
+        const childrenMatch = displayNode.children ? displayNode.children.some(c => nodeMatches(c, searchTerm)) : false;
+        if (searchTerm && !matchesSearch && !childrenMatch) return;
+
+        paths.push(collapsedPath);
+
+        if (displayNode.children) {
+            for (const child of displayNode.children) {
+                walk(child, collapsedPath, false);
+            }
+        }
+    }
+
+    walk(root, '', true);
+    return paths;
+}
+
+function TreeNode({ node, onSelect, selectedPath, focusedPath, depth, path, searchTerm, isRoot, nodeFilter }) {
     const isDirectory = node.type === 'directory' && node.children && node.children.length > 0;
     const segmentPath = isRoot ? '' : (path ? path + '/' + node.name : node.name);
 
@@ -158,7 +207,9 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoo
     return html`
         <div style="margin-left:${depth * 8}px">
             <div class="req-tree-node ${isSelected ? 'req-tree-node--active' : ''}"
-                 tabindex="0" role="treeitem" aria-selected=${isSelected}
+                 tabindex=${collapsedPath === focusedPath ? '0' : '-1'}
+                 role="treeitem" aria-selected=${isSelected}
+                 data-tree-path=${collapsedPath}
                  onClick=${() => onSelect(collapsedPath, displayNode)}>
                 <span class="req-tree-icon">${folderIcon}</span>
                 <span class="req-tree-label">${isRoot ? (node.displayName || node.name) : collapsedLabel}</span>
@@ -169,7 +220,7 @@ function TreeNode({ node, onSelect, selectedPath, depth, path, searchTerm, isRoo
             </div>
             ${displayNode.children.map(child => html`
                 <${TreeNode} node=${child} onSelect=${onSelect}
-                    selectedPath=${selectedPath} depth=${depth + 1}
+                    selectedPath=${selectedPath} focusedPath=${focusedPath} depth=${depth + 1}
                     path=${collapsedPath} searchTerm=${searchTerm} nodeFilter=${nodeFilter} />
             `)}
         </div>
@@ -294,6 +345,7 @@ export function CapabilitiesView({ onNavigate, route }) {
     const [selectedPath, setSelectedPath] = useState('');
     const [selectedNode, setSelectedNode] = useState(null);
     const [activeFilter, setActiveFilter] = useState('all');
+    const [focusedPath, setFocusedPath] = useState('');
 
     useEffect(() => {
         const params = route && route.includes('?') ? new URLSearchParams(route.split('?')[1]) : null;
@@ -322,6 +374,78 @@ export function CapabilitiesView({ onNavigate, route }) {
         }
     };
 
+    const onTreeKeyDown = (e) => {
+        const visiblePaths = getVisiblePaths(capabilities, searchTerm, nodeFilter);
+        const currentIndex = visiblePaths.indexOf(focusedPath);
+        let nextIndex = currentIndex;
+
+        switch (e.key) {
+            case 'ArrowDown':
+                e.preventDefault();
+                nextIndex = Math.min(currentIndex + 1, visiblePaths.length - 1);
+                break;
+            case 'ArrowUp':
+                e.preventDefault();
+                nextIndex = Math.max(currentIndex - 1, 0);
+                break;
+            case 'ArrowRight': {
+                e.preventDefault();
+                // If focused node has children, move to first child
+                const childIndex = visiblePaths.findIndex(
+                    (p, i) => i > currentIndex && p.startsWith(visiblePaths[currentIndex] ? visiblePaths[currentIndex] + '/' : '')
+                );
+                if (childIndex !== -1) {
+                    nextIndex = childIndex;
+                }
+                break;
+            }
+            case 'ArrowLeft': {
+                e.preventDefault();
+                // Move to parent node
+                const currentPath = visiblePaths[currentIndex] || '';
+                const lastSlash = currentPath.lastIndexOf('/');
+                if (lastSlash !== -1) {
+                    const parentPath = currentPath.substring(0, lastSlash);
+                    const parentIndex = visiblePaths.indexOf(parentPath);
+                    if (parentIndex !== -1) {
+                        nextIndex = parentIndex;
+                    }
+                } else if (currentPath !== '') {
+                    // Move to root (empty path)
+                    const rootIndex = visiblePaths.indexOf('');
+                    if (rootIndex !== -1) {
+                        nextIndex = rootIndex;
+                    }
+                }
+                break;
+            }
+            case 'Home':
+                e.preventDefault();
+                nextIndex = 0;
+                break;
+            case 'End':
+                e.preventDefault();
+                nextIndex = visiblePaths.length - 1;
+                break;
+            case 'Enter':
+            case ' ':
+                e.preventDefault();
+                if (visiblePaths[currentIndex] !== undefined) {
+                    const node = findNodeByPath(capabilities, visiblePaths[currentIndex]);
+                    if (node) handleSelect(visiblePaths[currentIndex], node);
+                }
+                return;
+            default:
+                return;
+        }
+
+        if (nextIndex !== currentIndex && visiblePaths[nextIndex] !== undefined) {
+            setFocusedPath(visiblePaths[nextIndex]);
+            const element = document.querySelector(`[data-tree-path="${CSS.escape(visiblePaths[nextIndex])}"]`) as HTMLElement;
+            if (element) element.focus();
+        }
+    };
+
     return html`
         <div class="capabilities-split">
             <div class="card req-tree-panel">
@@ -330,9 +454,9 @@ export function CapabilitiesView({ onNavigate, route }) {
                     value=${searchTerm} onInput=${(e) => setSearchTerm(e.target.value)} />
                 <${CapabilitiesFilterBar} activeFilter=${activeFilter} onFilter=${setActiveFilter}
                     capabilities=${capabilities} />
-                <div class="req-tree-list" role="tree" style="margin-top:var(--space-sm)">
+                <div class="req-tree-list" role="tree" style="margin-top:var(--space-sm)" onKeyDown=${onTreeKeyDown}>
                     <${TreeNode} node=${capabilities} onSelect=${handleSelect}
-                        selectedPath=${selectedPath} depth=${0}
+                        selectedPath=${selectedPath} focusedPath=${focusedPath} depth=${0}
                         path=${''} searchTerm=${searchTerm} isRoot=${true} nodeFilter=${nodeFilter} />
                 </div>
             </div>

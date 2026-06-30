@@ -69,3 +69,22 @@ test.describe('ScenariosView deep linking', () => {
         await expect(page.locator('body')).toContainText('Test run');
     });
 });
+
+test.describe('ScenariosView accessibility', () => {
+
+    test('filter result count has aria-live polite region', async ({ mount, page }) => {
+        await mount({
+            component: 'ScenariosView',
+            importPath: './components/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests' },
+            data: minimalData(),
+        });
+
+        // The result count area should announce changes to screen readers
+        const liveRegion = page.locator('[aria-live="polite"]');
+        await expect(liveRegion).toBeVisible();
+        await expect(liveRegion).toHaveAttribute('aria-atomic', 'true');
+        // It should contain the result count text
+        await expect(liveRegion).toContainText('Showing');
+    });
+});

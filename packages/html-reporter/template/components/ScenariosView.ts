@@ -266,7 +266,7 @@ export function ScenariosView({ onNavigate, route }) {
                      activeSort=${sort} onSort=${setSort} />
 
       <div class="card">
-        <div class="text-muted mb-md">
+        <div class="text-muted mb-md" aria-live="polite" aria-atomic="true">
           Showing ${filtered.length} of ${DATA.scenarios.length} test scenarios
         </div>
         <${VirtualScenarioList} filtered=${filtered} grouped=${grouped} sort=${sort}

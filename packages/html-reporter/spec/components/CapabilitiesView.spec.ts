@@ -140,3 +140,89 @@ test.describe('CapabilitiesView', () => {
         await expect(page.locator('body')).toContainText('specDirectory');
     });
 });
+
+test.describe('CapabilitiesView accessibility', () => {
+
+    test('outcome bars have role="img" and aria-label for screen readers', async ({ mount, page }) => {
+        await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+        });
+
+        const outcomeBars = page.locator('.req-tree-bars[role="img"]');
+        const count = await outcomeBars.count();
+        expect(count).toBeGreaterThan(0);
+
+        for (let i = 0; i < count; i++) {
+            const ariaLabel = await outcomeBars.nth(i).getAttribute('aria-label');
+            expect(ariaLabel).toBeTruthy();
+            // aria-label should describe the outcomes (e.g. "5 passed, 1 failed, 1 pending")
+            expect(ariaLabel).toMatch(/passed/i);
+        }
+    });
+
+    test('outcome bars include visually-hidden text summary', async ({ mount, page }) => {
+        await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+        });
+
+        const hiddenSummaries = page.locator('.req-tree-bars .visually-hidden');
+        const count = await hiddenSummaries.count();
+        expect(count).toBeGreaterThan(0);
+
+        const text = await hiddenSummaries.first().textContent();
+        expect(text).toMatch(/passed/i);
+    });
+
+    test('tree nodes use roving tabindex pattern', async ({ mount, page }) => {
+        await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+        });
+
+        const treeNodes = page.locator('.req-tree-node[tabindex]');
+        const count = await treeNodes.count();
+        expect(count).toBeGreaterThan(1);
+
+        // Only one node should have tabindex="0" (the active/focusable one)
+        const focusableNodes = page.locator('.req-tree-node[tabindex="0"]');
+        await expect(focusableNodes).toHaveCount(1);
+
+        // All other nodes should have tabindex="-1"
+        const inertNodes = page.locator('.req-tree-node[tabindex="-1"]');
+        const inertCount = await inertNodes.count();
+        expect(inertCount).toBe(count - 1);
+    });
+
+    test('tree supports arrow key navigation', async ({ mount, page }) => {
+        await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+        });
+
+        // Focus the first tree node
+        const firstNode = page.locator('.req-tree-node[tabindex="0"]');
+        await firstNode.focus();
+        await expect(firstNode).toBeFocused();
+
+        const firstNodeText = await firstNode.textContent();
+
+        // Press ArrowDown to move focus to the next node
+        await page.keyboard.press('ArrowDown');
+
+        // Verify focus moved to a different node
+        const focusedElement = page.locator('.req-tree-node:focus');
+        await expect(focusedElement).toBeVisible();
+        const focusedText = await focusedElement.textContent();
+        expect(focusedText).not.toBe(firstNodeText);
+    });
+});

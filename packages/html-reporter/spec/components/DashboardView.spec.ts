@@ -141,3 +141,63 @@ test.describe('DashboardView', () => {
         await expect(page.locator('.kpi-card--operational', { hasText: 'Duration' }).locator('.kpi-dots')).toBeVisible();
     });
 });
+
+test.describe('DashboardView accessibility', () => {
+
+    test('KPI cards use native button elements', async ({ mount, page }) => {
+        await mount({
+            component: 'DashboardView',
+            importPath: './components/DashboardView',
+            props: { onNavigate: () => {} },
+            data: minimalData(),
+        });
+
+        const kpiCards = page.locator('.kpi-card');
+        const count = await kpiCards.count();
+        expect(count).toBeGreaterThan(0);
+
+        for (let i = 0; i < count; i++) {
+            const tagName = await kpiCards.nth(i).evaluate(element => element.tagName.toLowerCase());
+            expect(tagName).toBe('button');
+        }
+    });
+
+    test('KPI cards have type="button" attribute', async ({ mount, page }) => {
+        await mount({
+            component: 'DashboardView',
+            importPath: './components/DashboardView',
+            props: { onNavigate: () => {} },
+            data: minimalData(),
+        });
+
+        const kpiCards = page.locator('.kpi-card');
+        const count = await kpiCards.count();
+        expect(count).toBeGreaterThan(0);
+
+        for (let i = 0; i < count; i++) {
+            await expect(kpiCards.nth(i)).toHaveAttribute('type', 'button');
+        }
+    });
+
+    test('KPI cards are keyboard-accessible without onKeyDown handlers', async ({ mount, page }) => {
+        await mount({
+            component: 'DashboardView',
+            importPath: './components/DashboardView',
+            props: { onNavigate: () => {} },
+            data: minimalData(),
+        });
+
+        // Tab to the first KPI card
+        const firstCard = page.locator('.kpi-card').first();
+        await firstCard.focus();
+        await expect(firstCard).toBeFocused();
+
+        // Press Enter — native button elements activate on Enter without needing onKeyDown
+        await page.keyboard.press('Enter');
+
+        // Verify the card received focus and is interactive via keyboard
+        // (the button element handles Enter/Space natively)
+        const tagName = await firstCard.evaluate(element => element.tagName.toLowerCase());
+        expect(tagName).toBe('button');
+    });
+});

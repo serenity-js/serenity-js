@@ -113,6 +113,7 @@
 
     /* ===== Reset ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; text-align: inherit; }
 
     html, body {
       height: 100%;
@@ -2923,5 +2924,57 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@media (forced-colors: active) {
+  /* Ensure focus indicators use system colours */
+  :focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+
+  /* Cards and panels need visible borders */
+  .card,
+  .kpi-card,
+  .scenario-item,
+  .req-tree-node,
+  .req-detail-file-card,
+  .filter-chip,
+  .nav-item {
+    border: 1px solid ButtonText;
+  }
+
+  /* Active/selected states use system highlight */
+  .nav-item.active,
+  .filter-chip.active,
+  .req-tree-node--active {
+    border-color: Highlight;
+    outline: 2px solid Highlight;
+  }
+
+  /* Outcome bar segments need borders to be distinguishable */
+  .req-tree-bars > div,
+  .req-detail-outcome-bar > div {
+    border: 1px solid ButtonText;
+  }
+
+  /* History dots and status icons */
+  .history-dot,
+  .kpi-dot {
+    border: 1px solid ButtonText;
+  }
+
+  /* Badge visibility */
+  .nav-badge,
+  .badge,
+  .tag-chip {
+    border: 1px solid ButtonText;
+  }
+
+  /* Sparkline and chart elements */
+  .sparkline-area polygon,
+  .sparkline-area polyline {
+    forced-color-adjust: none;
   }
 }
