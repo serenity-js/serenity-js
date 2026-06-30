@@ -879,6 +879,7 @@ test.describe('DataSnapshotAggregator', () => {
             const outputRunDirectory = '/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z';
             expect(filesystem.existsSync(`${outputRunDirectory}/screenshot-test-a-001.png`)).toBe(true);
             expect(filesystem.existsSync(`${outputRunDirectory}/video-recording-abc123.webm`)).toBe(true);
+            expect(filesystem.existsSync(`${outputRunDirectory}/db.json`)).toBe(true);
             expect(filesystem.readFileSync(`${outputRunDirectory}/screenshot-test-a-001.png`, 'utf8')).toBe('PNG_DATA_HERE');
         });
 

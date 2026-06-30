@@ -141,9 +141,6 @@ export class DataSnapshotAggregator {
 
         const entries = sourceFs.readdirSync(sourceDirectory);
         for (const entry of entries) {
-            if (entry === 'db.json') {
-                continue;
-            }
             const targetPath = targetDirectory.join(Path.from(entry));
             if (this.fileSystem.exists(targetPath)) {
                 continue;
