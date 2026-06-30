@@ -636,15 +636,19 @@
       font-size: var(--font-xs);
       font-weight: 600;
       text-transform: lowercase;
+      background: var(--bg-primary);
+      color: var(--text-secondary);
     }
 
     .badge-chromium { background: #e8f5e9; color: #2e7d32; }
     .badge-firefox { background: #fff3e0; color: #e65100; }
     .badge-webkit { background: #e3f2fd; color: #1565c0; }
+    .badge-browser { background: #f3e5f5; color: #7b1fa2; }
 
     [data-theme="dark"] .badge-chromium { background: rgba(40, 199, 111, 0.15); color: #66bb6a; }
     [data-theme="dark"] .badge-firefox { background: rgba(255, 159, 67, 0.15); color: #ffa726; }
     [data-theme="dark"] .badge-webkit { background: rgba(66, 165, 245, 0.15); color: #42a5f5; }
+    [data-theme="dark"] .badge-browser { background: rgba(186, 104, 200, 0.15); color: #ba68c8; }
 
     .retries-badge {
       font-size: var(--font-xs);

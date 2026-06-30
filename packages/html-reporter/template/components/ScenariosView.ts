@@ -5,7 +5,7 @@ import { h } from 'preact';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
 import { useStickyHeader, useVirtualizer } from '../hooks';
-import { DATA, formatDuration, formatRunLabel, getBrowserTag, matchesSearch, outcomeClass, outcomeIcon, relativeSourcePath, scenarioUrl } from '../utils';
+import { browserBadgeClass, DATA, formatDuration, formatRunLabel, getBrowserTag, matchesSearch, outcomeClass, outcomeIcon, relativeSourcePath, scenarioUrl } from '../utils';
 import { FilterBar } from './FilterBar';
 import { RunSelector } from './RunSelector';
 
@@ -114,7 +114,7 @@ function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, se
                 <div class="scenario-name">${sort !== 'category' && scenario.category ? scenario.category + ' › ' : ''}${scenario.name}</div>
                 ${scenario.error ? html`<div class="scenario-error-preview">${scenario.error.message}</div>` : null}
                 <div class="scenario-tags">
-                  ${getBrowserTag(scenario) ? html`<a href=${'#/tests?search=' + encodeURIComponent('"' + getBrowserTag(scenario) + '"')} class="badge badge-${getBrowserTag(scenario)} badge-link" onClick=${stopProp}>${getBrowserTag(scenario)}</a>` : null}
+                  ${getBrowserTag(scenario) ? html`<a href=${'#/tests?search=' + encodeURIComponent('"' + getBrowserTag(scenario) + '"')} class="badge ${browserBadgeClass(getBrowserTag(scenario))} badge-link" onClick=${stopProp}>${getBrowserTag(scenario)}</a>` : null}
                   ${scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
                   ${[...new Map((scenario.tags || []).filter(t => t.type !== 'feature' && t.type !== 'browser').map(t => [t.type + ':' + t.name, t])).values()].map(t => html`<a href=${'#/tests?search=' + encodeURIComponent('"' + t.name + '"')} class="tag-chip tag-chip-sm" onClick=${stopProp}>${t.name}</a>`)}
                 </div>

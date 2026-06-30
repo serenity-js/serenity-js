@@ -7,6 +7,14 @@ export function getBrowserTag(scenario: Scenario): string | null {
     return tag ? tag.name : null;
 }
 
+export function browserBadgeClass(browserTag: string): string {
+    const name = browserTag.split(/[\s.]/)[0].toLowerCase();
+    if (name === 'chrome' || name === 'chromium') return 'badge-chromium';
+    if (name === 'firefox' || name === 'gecko') return 'badge-firefox';
+    if (name === 'webkit' || name === 'safari') return 'badge-webkit';
+    return 'badge-browser';
+}
+
 export function relativeSourcePath(scenario: Scenario): string {
     const p = scenario.source.path;
     const specDirectory = DATA.capabilities ? DATA.capabilities.name : 'spec';

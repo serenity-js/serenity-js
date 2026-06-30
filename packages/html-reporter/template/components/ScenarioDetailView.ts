@@ -3,7 +3,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
-import { DATA, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast } from '../utils';
+import { browserBadgeClass, DATA, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast } from '../utils';
 import { ActivityNode } from './ActivityNode';
 
 const html = htm.bind(h);
@@ -214,7 +214,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
               <span>${formatDuration(scenario.duration)}</span>
               <span>•</span>
               <span class="scenario-source">${relativeSourcePath(scenario)}</span>
-              ${getBrowserTag(scenario) ? html`<span class="badge badge-${getBrowserTag(scenario)}">${getBrowserTag(scenario)}</span>` : null}
+              ${getBrowserTag(scenario) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(scenario))}">${getBrowserTag(scenario)}</span>` : null}
             </div>
           </div>
         </div>
