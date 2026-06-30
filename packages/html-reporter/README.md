@@ -1,10 +1,12 @@
 # @serenity-js/html-reporter
 
-A self-contained static HTML reporter for [Serenity/JS](https://serenity-js.org) that produces rich, interactive test reports with trend analysis, confidence scoring, and living documentation — with zero external dependencies.
+A self-contained static HTML reporter for [Serenity/JS](https://serenity-js.org) that produces rich, interactive test
+reports with trend analysis, confidence scoring, and living documentation — with zero external dependencies.
 
 ## Features
 
-- **Self-contained** — all JavaScript, CSS, and libraries are inlined; works on `file://`, GitHub Pages, GitLab Pages, S3, or any static hosting
+- **Self-contained** — all JavaScript, CSS, and libraries are inlined; works on `file://`, GitHub Pages, GitLab Pages,
+  S3, or any static hosting
 - **Air-gapped environments** — no CDN links, no fetch calls, no external network requests
 - **Trend analysis** — historical test run data is preserved between runs, showing execution history and consistency
 - **Confidence scoring** — capabilities are scored based on pass rate, completeness, and stability
@@ -12,17 +14,20 @@ A self-contained static HTML reporter for [Serenity/JS](https://serenity-js.org)
 - **Activity trees** — shows every Task, Interaction, and assertion with timing, screenshots, and HTTP exchanges
 - **Dark and light mode** — detects OS preference, with manual toggle
 
+Learn more about [Serenity/JS reporting](https://serenity-js.org/handbook/reporting/).
+
 ## Installation
 
 ```bash
-npm install --save-dev @serenity-js/html-reporter
+npm install --save-dev @serenity-js/core @serenity-js/html-reporter
 ```
 
 ## Usage
 
 ### As a StageCrewMember (recommended)
 
-Configure the reporter in your test runner configuration. The reporter collects events during the test run, writes `db.json` and artifacts to the output directory, and generates the HTML report.
+Configure the reporter in your test runner configuration. The reporter collects events during the test run, writes
+`db.json` and artifacts to the output directory, and generates the HTML report.
 
 #### Playwright Test
 
@@ -32,18 +37,20 @@ import type { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/play
 
 export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
     reporter: [
-        ['@serenity-js/playwright-test', {
+        [ '@serenity-js/playwright-test', {
             crew: [
-                ['@serenity-js/html-reporter', {
+                [ '@serenity-js/html-reporter', {
                     outputDirectory: './reports/serenity',
                     specDirectory: './spec',
                     title: 'My Project',
-                }],
+                } ],
             ],
-        }],
+        } ],
     ],
 });
 ```
+
+Learn more about [using Playwright Test with Serenity/JS](https://serenity-js.org/handbook/test-runners/playwright-test/).
 
 #### WebdriverIO
 
@@ -53,15 +60,17 @@ export const config = {
     framework: '@serenity-js/webdriverio',
     serenity: {
         crew: [
-            ['@serenity-js/html-reporter', {
+            [ '@serenity-js/html-reporter', {
                 outputDirectory: './reports/serenity',
                 specDirectory: './spec',
                 title: 'My Project',
-            }],
+            } ],
         ],
     },
 };
 ```
+
+Learn more about [using WebdriverIO with Serenity/JS](https://serenity-js.org/handbook/test-runners/webdriverio/).
 
 #### Cucumber.js, Mocha, or Jasmine
 
@@ -70,24 +79,26 @@ import { configure } from '@serenity-js/core';
 
 configure({
     crew: [
-        ['@serenity-js/html-reporter', {
+        [ '@serenity-js/html-reporter', {
             outputDirectory: './reports/serenity',
             specDirectory: './features',
             title: 'My Project',
-        }],
+        } ],
     ],
 });
 ```
 
+Learn more about using Serenity/JS with [Cucumber.js](https://serenity-js.org/handbook/test-runners/cucumber/), [Mocha](https://serenity-js.org/handbook/test-runners/mocha/), or [Jasmine](https://serenity-js.org/handbook/test-runners/jasmine/).
+
 ### Configuration options
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `outputDirectory` | `string` | `./reports/serenity-js` | Directory for the generated report |
-| `specDirectory` | `string` | — | Root directory for deriving the capabilities hierarchy |
-| `title` | `string` | — | Custom title displayed in the report header |
-| `maxHistory` | `number` | — | Maximum test runs to retain (older runs are pruned) |
-| `consistencyWindow` | `number` | `5` | Number of recent runs considered for consistency analysis |
+| Option              | Type     | Default                 | Description                                               |
+|---------------------|----------|-------------------------|-----------------------------------------------------------|
+| `outputDirectory`   | `string` | `./reports/serenity-js` | Directory for the generated report                        |
+| `specDirectory`     | `string` | —                       | Root directory for deriving the capabilities hierarchy    |
+| `title`             | `string` | —                       | Custom title displayed in the report header               |
+| `maxHistory`        | `number` | —                       | Maximum test runs to retain (older runs are pruned)       |
+| `consistencyWindow` | `number` | `5`                     | Number of recent runs considered for consistency analysis |
 
 ### Output structure
 
@@ -107,7 +118,8 @@ reports/serenity/
 
 ## CLI: Aggregating reports from multiple sources
 
-For CI pipelines that run tests in parallel jobs, use the CLI to aggregate results from multiple sources into a single report:
+For CI pipelines that run tests in parallel jobs, use the CLI to aggregate results from multiple sources into a single
+report:
 
 ```bash
 npx @serenity-js/html-reporter \
@@ -118,17 +130,18 @@ npx @serenity-js/html-reporter \
   --maxHistory 20
 ```
 
-| Option | Description |
-|--------|-------------|
-| `--input` | Glob pattern(s) for directories containing `db.json` files (comma-separated) |
-| `--output` | Output directory for the generated report |
-| `--title` | Report title |
-| `--specRoot` | Root directory for the capabilities hierarchy |
-| `--maxHistory` | Maximum number of test runs to keep |
+| Option         | Description                                                                  |
+|----------------|------------------------------------------------------------------------------|
+| `--input`      | Glob pattern(s) for directories containing `db.json` files (comma-separated) |
+| `--output`     | Output directory for the generated report                                    |
+| `--title`      | Report title                                                                 |
+| `--specRoot`   | Root directory for the capabilities hierarchy                                |
+| `--maxHistory` | Maximum number of test runs to keep                                          |
 
 ## Preserving history across CI runs
 
-The report supports trend analysis by preserving `test-runs/*/db.json` files between runs. In CI, you need to restore the previous report output before running the aggregator so that historical data is included.
+The report supports trend analysis by preserving `test-runs/*/db.json` files between runs. In CI, you need to restore
+the previous report output before running the aggregator so that historical data is included.
 
 ### GitHub Actions
 
@@ -196,15 +209,15 @@ html-report:
       fi
     # Aggregate all results
     - npx @serenity-js/html-reporter
-        --input "reports/serenity/test-runs/*"
-        --output public
-        --title "My Project"
-        --maxHistory 20
+      --input "reports/serenity/test-runs/*"
+      --output public
+      --title "My Project"
+      --maxHistory 20
   artifacts:
     paths:
       - public
   pages:
-    # GitLab automatically deploys the 'public' artifact to Pages
+  # GitLab automatically deploys the 'public' artifact to Pages
 ```
 
 ### Jenkins
@@ -242,7 +255,8 @@ pipeline {
 }
 ```
 
-On Jenkins, the workspace is typically preserved between builds, so historical `test-runs/` directories accumulate naturally. Use `--maxHistory` to prevent unbounded growth.
+On Jenkins, the workspace is typically preserved between builds, so historical `test-runs/` directories accumulate
+naturally. Use `--maxHistory` to prevent unbounded growth.
 
 ### Any CI provider
 
@@ -253,16 +267,20 @@ The pattern is the same regardless of the CI tool:
 3. **Include both** the new test data and the restored historical data as `--input`
 4. **Deploy** the output directory to your hosting
 
-The aggregator deduplicates by test run timestamp — if the same `db.json` appears in both sources, it's merged (not doubled).
+The aggregator deduplicates by test run timestamp — if the same `db.json` appears in both sources, it's merged (not
+doubled).
 
 ## How it works
 
-1. During the test run, `HtmlReporter` (a `StageCrewMember`) collects domain events and writes artifacts (screenshots, videos) immediately to `test-runs/<timestamp>/`
+1. During the test run, `HtmlReporter` (a `StageCrewMember`) collects domain events and writes artifacts (screenshots,
+   videos) immediately to `test-runs/<timestamp>/`
 2. At test run completion, it writes `db.json` with the full test execution data
-3. It aggregates all `test-runs/*/db.json` files into `data.js` — computing trend data, consistency analysis, and confidence scores
+3. It aggregates all `test-runs/*/db.json` files into `data.js` — computing trend data, consistency analysis, and
+   confidence scores
 4. It writes `index.html` with all JavaScript and CSS inlined
 
-The `data.js` file is the single data source for the report template. It's assigned to `window.__SERENITY_REPORT_DATA__` and loaded via a `<script>` tag, enabling `file://` protocol support.
+The `data.js` file is the single data source for the report template. It's assigned to `window.__SERENITY_REPORT_DATA__`
+and loaded via a `<script>` tag, enabling `file://` protocol support.
 
 ## License
 
@@ -270,4 +288,5 @@ The `data.js` file is the single data source for the report template. It's assig
 
 ---
 
-_Part of [Serenity/JS](https://serenity-js.org). Copyright © 2016– [Jan Molak](https://janmolak.com) and the Serenity Team._
+_Part of [Serenity/JS](https://serenity-js.org). Copyright © 2016– [Jan Molak](https://janmolak.com) and the Serenity
+Team._
