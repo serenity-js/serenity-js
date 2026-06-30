@@ -25,7 +25,9 @@ export function relativeSourcePath(scenario: Scenario): string {
 }
 
 export function scenarioUrl(scenario: Scenario, run?: number | string | null): string {
-    const id = scenario.source.line ? scenario.source.path + ':' + scenario.source.line : scenario.source.path;
+    const id = scenario.source.line
+        ? scenario.source.path + ':' + scenario.source.line
+        : scenario.source.path + ':' + scenario.name;
     const base = '/tests/' + encodeURIComponent(id);
     if (run === undefined || run === null) return base;
     const ts = typeof run === 'number' && DATA.history[run] ? DATA.history[run].timestamp : run;

@@ -70,6 +70,63 @@ test.describe('ScenariosView deep linking', () => {
     });
 });
 
+test.describe('ScenariosView scenario navigation', () => {
+
+    test('scenarios in the same file without line numbers are both listed distinctly', async ({ mount, page }) => {
+        await mount({
+            component: 'ScenariosView',
+            importPath: './components/ScenariosView',
+            props: { onNavigate: () => undefined, route: '/tests' },
+            data: minimalData({
+                scenarios: [
+                    {
+                        name: 'first scenario', category: 'Suite', outcome: 'SUCCESS', duration: 100,
+                        startedAt: '2024-06-15T14:30:00.000Z',
+                        source: { path: 'spec/shared.spec.ts' },
+                        tags: [], activities: [], executionHistory: [],
+                    },
+                    {
+                        name: 'second scenario', category: 'Suite', outcome: 'FAILURE', duration: 200,
+                        startedAt: '2024-06-15T14:30:00.100Z',
+                        source: { path: 'spec/shared.spec.ts' },
+                        tags: [], activities: [], executionHistory: [],
+                        error: { name: 'AssertionError', message: 'Expected true to be false', stack: '' },
+                    },
+                ],
+            }),
+        });
+
+        // Both scenarios from the same file should be rendered as distinct items
+        const items = page.locator('.scenario-item');
+        await expect(items).toHaveCount(2);
+        await expect(items.first()).toContainText('first scenario');
+        await expect(items.last()).toContainText('second scenario');
+        // Both show the same source file
+        await expect(items.first()).toContainText('shared.spec.ts');
+        await expect(items.last()).toContainText('shared.spec.ts');
+    });
+
+    test('displays line number in source path when available', async ({ mount, page }) => {
+        await mount({
+            component: 'ScenariosView',
+            importPath: './components/ScenariosView',
+            props: { onNavigate: () => undefined, route: '/tests' },
+            data: minimalData({
+                scenarios: [
+                    {
+                        name: 'test with line', category: 'Suite', outcome: 'SUCCESS', duration: 100,
+                        startedAt: '2024-06-15T14:30:00.000Z',
+                        source: { path: 'spec/a.spec.ts', line: 42 },
+                        tags: [], activities: [], executionHistory: [],
+                    },
+                ],
+            }),
+        });
+
+        await expect(page.locator('.scenario-item')).toContainText('a.spec.ts:42');
+    });
+});
+
 test.describe('ScenariosView accessibility', () => {
 
     test('filter result count has aria-live polite region', async ({ mount, page }) => {

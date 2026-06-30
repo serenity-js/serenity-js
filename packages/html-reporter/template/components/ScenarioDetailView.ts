@@ -120,7 +120,9 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
     }, [runString]);
 
     const scenario = DATA.scenarios.find(s => {
-        const sourceKey = s.source.line ? s.source.path + ':' + s.source.line : s.source.path;
+        const sourceKey = s.source.line
+            ? s.source.path + ':' + s.source.line
+            : s.source.path + ':' + s.name;
         return sourceKey === decodeURIComponent(cleanId) || s.id === cleanId;
     });
     const [activeAttempt, setActiveAttempt] = useState(0);
