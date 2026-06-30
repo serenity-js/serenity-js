@@ -409,7 +409,7 @@ jobs:
             --output ./target/html-report \
             --title "Serenity/JS Integration Tests" \
             --specRoot integration \
-            --maxHistory 20
+            --maxHistory 5
       - name: Upload HTML report
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
