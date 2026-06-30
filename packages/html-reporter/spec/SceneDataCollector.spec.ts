@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { DomainEventQueues, Timestamp } from '@serenity-js/core';
 import {
+    ActivityRelatedArtifactGenerated,
     InteractionFinished,
     InteractionStarts,
     SceneFinished,
@@ -19,6 +20,7 @@ import {
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
     ExecutionSuccessful,
+    HTTPRequestResponse,
     Name,
     ScenarioDetails,
     ScenarioParameters,
@@ -258,6 +260,118 @@ test.describe('SceneDataCollector', () => {
 
             expect(runData.scenes).toHaveLength(1);
             expect(runData.scenes[0].scenarioOutline).toBeUndefined();
+        });
+    });
+
+    test.describe('HTTP request/response artifacts', () => {
+
+        test('captures HTTPRequestResponse artifact as restQuery on the activity', () => {
+            const collector = new SceneDataCollector();
+            const queues = new DomainEventQueues();
+
+            const details = new ScenarioDetails(
+                new Name('should verify API health'),
+                new Category('API Tests'),
+                new FileSystemLocation(Path.from('spec/api.spec.ts'), 5, 1),
+            );
+            const sceneId = CorrelationId.create();
+            const activityId = CorrelationId.create();
+            const activityDetails = new ActivityDetails(
+                new Name('Tess sends a HEAD request to "/"'),
+                new FileSystemLocation(Path.from('spec/api.spec.ts'), 7, 1),
+            );
+
+            const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+            const t1 = new Timestamp(new Date('2024-01-01T00:00:00.050Z'));
+            const t2 = new Timestamp(new Date('2024-01-01T00:00:00.100Z'));
+
+            queues.enqueue(new SceneStarts(sceneId, details, t0));
+            queues.enqueue(new InteractionStarts(sceneId, activityId, activityDetails, t0));
+            queues.enqueue(new InteractionFinished(sceneId, activityId, activityDetails, new ExecutionSuccessful(), t1));
+            queues.enqueue(new ActivityRelatedArtifactGenerated(
+                sceneId,
+                activityId,
+                new Name('HEAD /'),
+                HTTPRequestResponse.fromJSON({
+                    request: {
+                        method: 'head',
+                        url: 'https://api.example.com/',
+                        headers: { Accept: 'application/json', 'User-Agent': 'axios/1.17.0' },
+                    },
+                    response: {
+                        status: 200,
+                        headers: { 'content-type': 'text/html', server: 'nginx' },
+                        data: '',
+                    },
+                }),
+                t1,
+            ));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t2));
+
+            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+
+            expect(runData.scenes).toHaveLength(1);
+            const activity = runData.scenes[0].activities[0];
+            expect(activity.name).toBe('Tess sends a HEAD request to "/"');
+            expect(activity.restQuery).toBeDefined();
+            expect(activity.restQuery.method).toBe('HEAD');
+            expect(activity.restQuery.url).toBe('https://api.example.com/');
+            expect(activity.restQuery.statusCode).toBe(200);
+            expect(activity.restQuery.requestHeaders).toContain('Accept: application/json');
+            expect(activity.restQuery.responseHeaders).toContain('content-type: text/html');
+        });
+
+        test('captures request and response bodies when present', () => {
+            const collector = new SceneDataCollector();
+            const queues = new DomainEventQueues();
+
+            const details = new ScenarioDetails(
+                new Name('should create a todo'),
+                new Category('API Tests'),
+                new FileSystemLocation(Path.from('spec/api.spec.ts'), 20, 1),
+            );
+            const sceneId = CorrelationId.create();
+            const activityId = CorrelationId.create();
+            const activityDetails = new ActivityDetails(
+                new Name('Tess sends a POST request to "/todos"'),
+                new FileSystemLocation(Path.from('spec/api.spec.ts'), 22, 1),
+            );
+
+            const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+            const t1 = new Timestamp(new Date('2024-01-01T00:00:00.050Z'));
+            const t2 = new Timestamp(new Date('2024-01-01T00:00:00.100Z'));
+
+            queues.enqueue(new SceneStarts(sceneId, details, t0));
+            queues.enqueue(new InteractionStarts(sceneId, activityId, activityDetails, t0));
+            queues.enqueue(new InteractionFinished(sceneId, activityId, activityDetails, new ExecutionSuccessful(), t1));
+            queues.enqueue(new ActivityRelatedArtifactGenerated(
+                sceneId,
+                activityId,
+                new Name('POST /todos'),
+                HTTPRequestResponse.fromJSON({
+                    request: {
+                        method: 'post',
+                        url: 'https://api.example.com/todos',
+                        headers: { 'Content-Type': 'application/json' },
+                        data: { title: 'Buy milk' },
+                    },
+                    response: {
+                        status: 201,
+                        headers: { 'content-type': 'application/json' },
+                        data: { id: 1, title: 'Buy milk', completed: false },
+                    },
+                }),
+                t1,
+            ));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t2));
+
+            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+
+            const activity = runData.scenes[0].activities[0];
+            expect(activity.restQuery.method).toBe('POST');
+            expect(activity.restQuery.statusCode).toBe(201);
+            expect(activity.restQuery.requestBody).toContain('Buy milk');
+            expect(activity.restQuery.responseBody).toContain('Buy milk');
         });
     });
 });

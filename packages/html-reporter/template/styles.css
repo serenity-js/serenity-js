@@ -795,6 +795,23 @@
       white-space: nowrap;
     }
 
+    .rest-badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 3px;
+      background: rgba(105, 108, 255, 0.15);
+      color: var(--accent);
+      cursor: pointer;
+      user-select: none;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+
+    .rest-badge:hover {
+      background: rgba(105, 108, 255, 0.25);
+    }
+
     /* Error display */
     .error-block {
       background: var(--color-failed-bg);

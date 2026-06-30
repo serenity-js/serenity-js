@@ -69,6 +69,17 @@ export interface ActivityRecord {
     location?: { path: string; line: number; column: number };
     error?: ErrorRecord;
     artifacts?: ArtifactReference[];
+    restQuery?: RestQueryRecord;
+}
+
+export interface RestQueryRecord {
+    method: string;
+    url: string;
+    requestHeaders: string;
+    requestBody?: string;
+    statusCode: number;
+    responseHeaders: string;
+    responseBody?: string;
 }
 
 export interface ErrorRecord {

@@ -19,8 +19,9 @@ import {
 } from '@serenity-js/core/events';
 import type { Path } from '@serenity-js/core/io';
 import type { CorrelationId } from '@serenity-js/core/model';
-import type { SerialisedOutcome } from '@serenity-js/core/model';
+import type { RequestAndResponse, SerialisedOutcome } from '@serenity-js/core/model';
 import {
+    HTTPRequestResponse,
     ProblemIndication,
 } from '@serenity-js/core/model';
 import {
@@ -206,6 +207,7 @@ class SceneRecordBuilder {
     private readonly tags: TagRecord[] = [];
     private readonly activityStack: Array<{ record: ActivityRecord; startTimestamp: Timestamp }> = [];
     private rootActivities: ActivityRecord[] = [];
+    private readonly activityById = new Map<string, ActivityRecord>();
     private readonly artifacts: ArtifactReference[] = [];
     private sceneError: ErrorRecord | undefined;
 
@@ -371,6 +373,7 @@ class SceneRecordBuilder {
             this.rootActivities.push(activity);
         }
 
+        this.activityById.set(event.activityId.value, activity);
         this.activityStack.push({ record: activity, startTimestamp: event.timestamp });
     }
 
@@ -394,6 +397,23 @@ class SceneRecordBuilder {
     }
 
     private handleArtifact(event: ActivityRelatedArtifactGenerated): void {
+        // Attach HTTPRequestResponse data inline on the activity record
+        if (event.artifact instanceof HTTPRequestResponse) {
+            const activityRecord = this.activityById.get(event.activityId.value);
+            if (activityRecord) {
+                const data = event.artifact.map(value => value) as RequestAndResponse;
+                activityRecord.restQuery = {
+                    method: data.request.method.toUpperCase(),
+                    url: data.request.url,
+                    requestHeaders: mapToHeaderString(data.request.headers || {}),
+                    requestBody: bodyToString(data.request.data),
+                    statusCode: data.response.status,
+                    responseHeaders: mapToHeaderString(data.response.headers || {}),
+                    responseBody: bodyToString(data.response.data),
+                };
+            }
+        }
+
         const paths = this.artifactPaths.get(event.activityId.value);
         if (paths) {
             for (const p of paths) {
@@ -472,4 +492,21 @@ function errorFrom(outcome: ProblemIndication): ErrorRecord {
         message: outcome.error.message,
         stack: outcome.error.stack || '',
     };
+}
+
+function mapToHeaderString(headers: Record<string, string | number | boolean>): string {
+    return Object.entries(headers).map(([key, value]) => `${key}: ${value}`).join('\n');
+}
+
+function bodyToString(data: unknown): string | undefined {
+    if (data === null || data === undefined || data === '') {
+        return undefined;
+    }
+    if (typeof data === 'string') {
+        return data;
+    }
+    if (typeof data === 'object') {
+        return JSON.stringify(data, undefined, 4);
+    }
+    return String(data);
 }
