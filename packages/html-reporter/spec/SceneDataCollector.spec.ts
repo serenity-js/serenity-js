@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 import { DomainEventQueues, Timestamp } from '@serenity-js/core';
 import {
     ActivityRelatedArtifactGenerated,
+    ActorEntersStage,
     InteractionFinished,
     InteractionStarts,
     SceneFinished,
@@ -374,6 +375,55 @@ test.describe('SceneDataCollector', () => {
             expect(activity.restQuery.statusCode).toBe(201);
             expect(activity.restQuery.requestBody).toContain('Buy milk');
             expect(activity.restQuery.responseBody).toContain('Buy milk');
+        });
+    });
+
+    test.describe('cast collection', () => {
+
+        test('captures actors and their abilities from ActorEntersStage events', () => {
+            const collector = new SceneDataCollector();
+            const queues = new DomainEventQueues();
+
+            const details = new ScenarioDetails(
+                new Name('should place an order'),
+                new Category('Checkout'),
+                new FileSystemLocation(Path.from('spec/checkout.spec.ts'), 5, 1),
+            );
+            const sceneId = CorrelationId.create();
+
+            const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+            const t1 = new Timestamp(new Date('2024-01-01T00:00:00.100Z'));
+
+            queues.enqueue(new SceneStarts(sceneId, details, t0));
+            queues.enqueue(new ActorEntersStage(sceneId, {
+                name: 'Alice',
+                abilities: [
+                    { type: 'BrowseTheWeb', class: 'BrowseTheWebWithPlaywright' },
+                    { type: 'TakeNotes' },
+                ],
+            }, t0));
+            queues.enqueue(new ActorEntersStage(sceneId, {
+                name: 'Bob',
+                abilities: [
+                    { type: 'CallAnApi', options: { baseURL: 'https://api.example.com' } },
+                ],
+            }, t0));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t1));
+
+            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+
+            expect(runData.scenes).toHaveLength(1);
+            expect(runData.scenes[0].cast).toBeDefined();
+            expect(runData.scenes[0].cast).toHaveLength(2);
+
+            expect(runData.scenes[0].cast[0].name).toBe('Alice');
+            expect(runData.scenes[0].cast[0].abilities).toHaveLength(2);
+            expect(runData.scenes[0].cast[0].abilities[0].name).toBe('BrowseTheWebWithPlaywright');
+            expect(runData.scenes[0].cast[0].abilities[1].name).toBe('TakeNotes');
+
+            expect(runData.scenes[0].cast[1].name).toBe('Bob');
+            expect(runData.scenes[0].cast[1].abilities[0].name).toBe('CallAnApi');
+            expect(runData.scenes[0].cast[1].abilities[0].details).toContain('https://api.example.com');
         });
     });
 

@@ -3,6 +3,7 @@ import { LogicError } from '@serenity-js/core';
 import type { DomainEvent } from '@serenity-js/core/events';
 import {
     ActivityRelatedArtifactGenerated,
+    ActorEntersStage,
     FeatureNarrativeDetected,
     InteractionFinished,
     InteractionStarts,
@@ -36,7 +37,7 @@ import {
     ImplementationPending,
 } from '@serenity-js/core/model';
 
-import type { ActivityRecord, ArtifactReference, ErrorRecord, OutcomeCounts, RunData, ScenarioParameterSet, SceneRecord, TagRecord } from './model/RunData.js';
+import type { ActivityRecord, ActorRecord, ArtifactReference, ErrorRecord, OutcomeCounts, RunData, ScenarioParameterSet, SceneRecord, TagRecord } from './model/RunData.js';
 import type { SystemContext } from './SystemContextDetector.js';
 
 /**
@@ -212,6 +213,7 @@ class SceneRecordBuilder {
     private rootActivities: ActivityRecord[] = [];
     private readonly activityById = new Map<string, ActivityRecord>();
     private readonly artifacts: ArtifactReference[] = [];
+    private readonly cast: ActorRecord[] = [];
     private sceneError: ErrorRecord | undefined;
 
     // Scenario outline support
@@ -287,6 +289,10 @@ class SceneRecordBuilder {
             record.artifacts = this.artifacts;
         }
 
+        if (this.cast.length > 0) {
+            record.cast = this.cast;
+        }
+
         if (this.isScenarioOutline && this.template) {
             record.scenarioOutline = {
                 template: this.template,
@@ -323,6 +329,14 @@ class SceneRecordBuilder {
             this.narrative = event.description.value;
         } else if (event instanceof SceneDescriptionDetected) {
             this.description = event.description.value;
+        } else if (event instanceof ActorEntersStage) {
+            this.cast.push({
+                name: event.actor.name,
+                abilities: event.actor.abilities.map(a => ({
+                    name: a.class || a.type,
+                    ...(a.options ? { details: JSON.stringify(a.options) } : {}),
+                })),
+            });
         } else if (event instanceof TaskStarts || event instanceof InteractionStarts) {
             this.handleActivityStarts(event);
         } else if (event instanceof TaskFinished || event instanceof InteractionFinished) {
