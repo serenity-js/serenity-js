@@ -390,6 +390,12 @@ jobs:
         uses: ./.github/actions/download-compressed-artifact
         with:
           artifact-name: 'compiled-libs'
+      - name: Restore historical test runs from GitHub Pages
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          ref: gh-pages
+          path: target/html-report
+        continue-on-error: true
       - name: Download html-report data
         uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e # v4
         with:
@@ -399,10 +405,11 @@ jobs:
       - name: Generate report
         run: |
           ./packages/html-reporter/bin/html-reporter.mjs \
-            --input "target/html-report-data/**/test-runs/*" \
+            --input "target/html-report-data/**/test-runs/*,target/html-report/test-runs/*" \
             --output ./target/html-report \
             --title "Serenity/JS Integration Tests" \
-            --specRoot integration
+            --specRoot integration \
+            --maxHistory 20
       - name: Upload HTML report
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
