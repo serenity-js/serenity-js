@@ -87,6 +87,10 @@ function nodeHasGap(node) {
     return false;
 }
 
+function nodeHasFiles(node) {
+    return node.children && node.children.some(c => c.type === 'file');
+}
+
 function countTopLevelCapabilities(capabilities) {
     if (!capabilities || !capabilities.children) return 0;
     return capabilities.children.filter(c => c.type === 'directory' && c.children && c.children.length > 0).length;
@@ -172,12 +176,13 @@ function getVisiblePaths(root, searchTerm, nodeFilter) {
         let displayNode = node;
         let collapsedPath = segmentPath;
         let collapsedLabel = node.displayName || node.name;
-        if (!isRoot) {
+        if (!isRoot && !node.readme && !nodeHasFiles(node)) {
             while (displayNode.children) {
                 const directories = displayNode.children.filter(c => c.type === 'directory' && c.children && c.children.length > 0);
                 const files = displayNode.children.filter(c => c.type === 'file');
                 if (directories.length === 1 && files.length === 0) {
                     const only = directories[0];
+                    if (only.readme || nodeHasFiles(only)) break;
                     collapsedPath = collapsedPath ? collapsedPath + '/' + only.name : only.name;
                     collapsedLabel += '/' + (only.displayName || only.name);
                     displayNode = only;
@@ -237,12 +242,13 @@ function TreeNode({ node, onSelect, selectedPath, focusedPath, depth, path, sear
     let displayNode = node;
     let collapsedPath = segmentPath;
     let collapsedLabel = node.displayName || node.name;
-    if (!isRoot) {
+    if (!isRoot && !node.readme && !nodeHasFiles(node)) {
         while (displayNode.children) {
             const directories = displayNode.children.filter(c => c.type === 'directory' && c.children && c.children.length > 0);
             const files = displayNode.children.filter(c => c.type === 'file');
             if (directories.length === 1 && files.length === 0) {
                 const only = directories[0];
+                if (only.readme || nodeHasFiles(only)) break;  // Stop before a node that has documentation or spec files
                 collapsedPath = collapsedPath ? collapsedPath + '/' + only.name : only.name;
                 collapsedLabel += '/' + (only.displayName || only.name);
                 displayNode = only;
