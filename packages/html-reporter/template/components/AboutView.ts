@@ -13,8 +13,8 @@ export function AboutView() {
           combining executable specifications with quality analytics to help you make informed release decisions.
         </p>
 
-        <section style="margin-bottom:var(--space-xl)">
-          <h3 style="font-size:var(--font-lg);font-weight:600;margin:0 0 var(--space-md)">Confidence scoring</h3>
+        <section>
+          <h3 class="about-section-title">Confidence scoring</h3>
           <p>Confidence is the primary quality metric in this report. It answers the question:</p>
           <blockquote style="border-left:3px solid var(--accent);padding:var(--space-sm) var(--space-md);margin:var(--space-md) 0;color:var(--text-secondary);font-style:italic">
             "How much should I trust this capability?"
@@ -55,8 +55,8 @@ export function AboutView() {
           <p style="font-size:var(--font-sm);color:var(--text-secondary)">If all three metrics are 100%, confidence is 100%.</p>
         </section>
 
-        <section style="margin-bottom:var(--space-xl)">
-          <h3 style="font-size:var(--font-lg);font-weight:600;margin:0 0 var(--space-md)">Report sections</h3>
+        <section>
+          <h3 class="about-section-title">Report sections</h3>
 
           <div style="display:grid;gap:var(--space-md)">
             <div style="padding:var(--space-md);background:var(--bg-primary);border-radius:var(--radius-sm)">
@@ -90,8 +90,8 @@ export function AboutView() {
           </div>
         </section>
 
-        <section style="margin-bottom:var(--space-xl)">
-          <h3 style="font-size:var(--font-lg);font-weight:600;margin:0 0 var(--space-md)">Improving confidence</h3>
+        <section>
+          <h3 class="about-section-title">Improving confidence</h3>
           <p>To increase the confidence score for a capability:</p>
           <ul style="padding-left:var(--space-lg);margin:var(--space-sm) 0;font-size:var(--font-sm);color:var(--text-secondary);line-height:1.8">
             <li><strong>Fix failing tests</strong> — each failure directly reduces the pass rate component</li>
@@ -102,7 +102,115 @@ export function AboutView() {
         </section>
 
         <section>
-          <h3 style="font-size:var(--font-lg);font-weight:600;margin:0 0 var(--space-md)">Learn more</h3>
+          <h3 class="about-section-title">Glossary</h3>
+
+          <h4 class="glossary-group-title">Screenplay Pattern</h4>
+          <dl class="glossary">
+            <div class="glossary-entry">
+              <dt>Actor</dt>
+              <dd>A person or external system interacting with the system under test. Actors perform Tasks and Interactions using their Abilities (e.g. <em>BrowseTheWeb</em>, <em>CallAnApi</em>).</dd>
+            </div>
+            <div class="glossary-entry">
+              <dt>Ability</dt>
+              <dd>A thin wrapper around an interface to the system under test (e.g. a browser, an HTTP client, a database connection). Actors are given Abilities so they can perform Interactions.</dd>
+            </div>
+            <div class="glossary-entry">
+              <dt>Task</dt>
+              <dd>A business-meaningful workflow composed of other Tasks and Interactions. Shown as bold entries in the activity tree (e.g. "Alice places an order").</dd>
+            </div>
+            <div class="glossary-entry">
+              <dt>Interaction</dt>
+              <dd>A single, atomic action at the system interface level (e.g. "Alice clicks on submit button", "Alice sends a POST request"). The leaf nodes in the activity tree.</dd>
+            </div>
+            <div class="glossary-entry">
+              <dt>Question</dt>
+              <dd>A query that retrieves information from the system under test without side effects (e.g. "the text of the heading", "the status of the last response"). Used in assertions and as parameters to Interactions.</dd>
+            </div>
+          </dl>
+
+          <h4 class="glossary-group-title">Test scenario outcomes</h4>
+          <dl class="glossary">
+            <div class="glossary-entry">
+              <dt>Passed</dt>
+              <dd>A test scenario that completed successfully — all assertions were satisfied.</dd>
+            </div>
+            <div class="glossary-entry">
+              <dt>Failed</dt>
+              <dd>A test scenario where an assertion was not satisfied (e.g. expected value did not match actual).</dd>
+            </div>
+            <div class="glossary-entry">
+              <dt>Error</dt>
+              <dd>A test scenario that failed due to an unexpected error (e.g. an unhandled exception) rather than an assertion failure.</dd>
+            </div>
+            <div class="glossary-entry">
+              <dt>Compromised</dt>
+              <dd>A test that could not complete due to an infrastructure failure (e.g. database unavailable, network timeout) rather than a defect in the system under test.</dd>
+            </div>
+            <div class="glossary-entry">
+              <dt>Pending</dt>
+              <dd>A test scenario that has been specified but not yet implemented — a placeholder for future work.</dd>
+            </div>
+            <div class="glossary-entry">
+              <dt>Skipped</dt>
+              <dd>A test scenario that was intentionally excluded from execution (e.g. via a tag filter or conditional skip).</dd>
+            </div>
+          </dl>
+
+          <h4 class="glossary-group-title">Quality metrics</h4>
+          <dl class="glossary">
+            <div class="glossary-entry">
+              <dt>Confidence</dt>
+              <dd>A composite score (0–100%) indicating how trustworthy a capability's test coverage is. Combines pass rate, completeness, and consistency.</dd>
+            </div>
+            <div class="glossary-entry">
+              <dt>Pass Rate</dt>
+              <dd>The percentage of executed scenarios that are currently passing. Excludes pending and skipped scenarios from the calculation.</dd>
+            </div>
+            <div class="glossary-entry">
+              <dt>Completeness</dt>
+              <dd>The percentage of scenarios that are implemented and actively executed (not pending or skipped).</dd>
+            </div>
+            <div class="glossary-entry">
+              <dt>Consistency</dt>
+              <dd>How repeatable a test's outcome is across recent runs. A test that alternates between passing and failing has low consistency (sometimes called "flaky").</dd>
+            </div>
+            <div class="glossary-entry">
+              <dt>Consistency Window</dt>
+              <dd>The number of most recent test runs considered when evaluating consistency (default: 5). Only runs within this window affect the consistency score.</dd>
+            </div>
+          </dl>
+
+          <h4 class="glossary-group-title">Test history</h4>
+          <dl class="glossary">
+            <div class="glossary-entry">
+              <dt>Degraded</dt>
+              <dd>A test that passed in the previous run but fails in the current run — a new regression that needs attention.</dd>
+            </div>
+            <div class="glossary-entry">
+              <dt>Recovered</dt>
+              <dd>A test that failed in the previous run but passes in the current run — a fixed regression.</dd>
+            </div>
+            <div class="glossary-entry">
+              <dt>Inconsistent</dt>
+              <dd>A test whose outcome has changed between passing and failing within the consistency window, indicating non-deterministic behaviour.</dd>
+            </div>
+          </dl>
+
+          <h4 class="glossary-group-title">Living documentation</h4>
+          <dl class="glossary">
+            <div class="glossary-entry">
+              <dt>Capability</dt>
+              <dd>A grouping of test scenarios derived from your spec directory structure. Each directory becomes a capability node; README files provide documentation for each capability.</dd>
+            </div>
+            <div class="glossary-entry">
+              <dt>Activity Tree</dt>
+              <dd>The hierarchical breakdown of a scenario's execution — showing the Tasks and Interactions performed, their outcomes, durations, and any associated artifacts (screenshots, HTTP exchanges).</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section>
+          <h3 class="about-section-title">Learn more</h3>
           <p style="font-size:var(--font-sm);color:var(--text-secondary)">
             Visit <a href="https://serenity-js.org/handbook/reporting/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-weight:500">serenity-js.org/handbook/reporting</a> for
             comprehensive documentation on configuring reporters, customising reports, and integrating Serenity/JS into your CI/CD pipeline.

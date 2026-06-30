@@ -2995,3 +2995,49 @@
     forced-color-adjust: none;
   }
 }
+
+/* About view */
+
+.about-view .about-section-title {
+    font-size: var(--font-lg);
+    font-weight: 600;
+    margin: 0 0 var(--space-md);
+}
+
+.about-view section {
+    margin-bottom: var(--space-xl);
+}
+
+.glossary {
+    font-size: var(--font-sm);
+    margin: 0 0 var(--space-lg);
+    display: grid;
+    gap: var(--space-sm);
+}
+
+.glossary-group-title {
+    font-size: var(--font-md);
+    font-weight: 600;
+    margin: var(--space-lg) 0 var(--space-sm);
+    color: var(--text-primary);
+}
+
+.glossary-group-title:first-of-type {
+    margin-top: 0;
+}
+
+.glossary-entry {
+    padding: var(--space-sm) var(--space-md);
+    background: var(--bg-primary);
+    border-radius: var(--radius-sm);
+}
+
+.glossary-entry dt {
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.glossary-entry dd {
+    margin: 0;
+    color: var(--text-secondary);
+}
