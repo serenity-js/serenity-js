@@ -11,6 +11,7 @@
  *   --output     Output directory for the generated report (default: ./reports/serenity-js)
  *   --title      Report title
  *   --specRoot   Root directory for requirements hierarchy
+ *   --maxHistory Maximum number of test runs to keep (older runs are removed)
  */
 
 import { resolve } from 'node:path';
@@ -91,6 +92,7 @@ if (args.specRoot) {
 
 const aggregator = new DataSnapshotAggregator(outputFileSystem, {
     consistencyWindow: 5,
+    maxHistory: args.maxHistory ? parseInt(args.maxHistory, 10) : undefined,
     title: args.title,
 }, requirementsHierarchy, projectFileSystem, sourceFileSystem);
 
