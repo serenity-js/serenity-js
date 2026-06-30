@@ -182,7 +182,7 @@ function getVisiblePaths(root, searchTerm, nodeFilter) {
                 const files = displayNode.children.filter(c => c.type === 'file');
                 if (directories.length === 1 && files.length === 0) {
                     const only = directories[0];
-                    if (only.readme || nodeHasFiles(only)) break;
+                    if (only.readme) break;
                     collapsedPath = collapsedPath ? collapsedPath + '/' + only.name : only.name;
                     collapsedLabel += '/' + (only.displayName || only.name);
                     displayNode = only;
@@ -248,7 +248,7 @@ function TreeNode({ node, onSelect, selectedPath, focusedPath, depth, path, sear
             const files = displayNode.children.filter(c => c.type === 'file');
             if (directories.length === 1 && files.length === 0) {
                 const only = directories[0];
-                if (only.readme || nodeHasFiles(only)) break;  // Stop before a node that has documentation or spec files
+                if (only.readme) break;  // Stop before a node that has documentation
                 collapsedPath = collapsedPath ? collapsedPath + '/' + only.name : only.name;
                 collapsedLabel += '/' + (only.displayName || only.name);
                 displayNode = only;
