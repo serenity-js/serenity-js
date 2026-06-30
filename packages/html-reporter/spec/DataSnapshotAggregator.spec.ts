@@ -1,5 +1,4 @@
 import type * as fs from 'node:fs';
-import { mkdirSync, writeFileSync } from 'node:fs';
 
 import { expect, test } from '@playwright/test';
 import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
@@ -17,11 +16,12 @@ test.describe('DataSnapshotAggregator', () => {
         }, '/')) as unknown as typeof fs;
 
         const fileSystem = new FileSystem(outputDirectory, filesystem);
+        const sourceFileSystem = new FileSystem(Path.from('/'), filesystem);
         const aggregator = new DataSnapshotAggregator(fileSystem, {
             consistencyWindow: config.consistencyWindow ?? 5,
             maxHistory: config.maxHistory,
             title: config.title,
-        }, requirementsHierarchy, projectFileSystem);
+        }, requirementsHierarchy, projectFileSystem, sourceFileSystem);
 
         return { aggregator, filesystem };
     }
@@ -609,12 +609,12 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({});
 
             // Write two db.json files simulating different modules with same testRunId
-            const testRunDirectory1 = '/tmp/serenity-test-merge/module-a/test-runs/42';
-            const testRunDirectory2 = '/tmp/serenity-test-merge/module-b/test-runs/42';
-            mkdirSync(testRunDirectory1, { recursive: true });
-            mkdirSync(testRunDirectory2, { recursive: true });
+            const testRunDirectory1 = '/source/module-a/test-runs/42';
+            const testRunDirectory2 = '/source/module-b/test-runs/42';
+            filesystem.mkdirSync(testRunDirectory1, { recursive: true });
+            filesystem.mkdirSync(testRunDirectory2, { recursive: true });
 
-            writeFileSync(testRunDirectory1 + '/db.json', JSON.stringify({
+            filesystem.writeFileSync(testRunDirectory1 + '/db.json', JSON.stringify({
                 startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
                 outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                 scenes: [
@@ -624,7 +624,7 @@ test.describe('DataSnapshotAggregator', () => {
                 tags: [{ type: 'tag', name: 'mocha' }], testRunner: { name: 'Mocha', version: '11.0.0' },
             }));
 
-            writeFileSync(testRunDirectory2 + '/db.json', JSON.stringify({
+            filesystem.writeFileSync(testRunDirectory2 + '/db.json', JSON.stringify({
                 startedAt: '2024-06-15T14:30:01.000Z', finishedAt: '2024-06-15T14:30:01.400Z',
                 outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                 scenes: [
@@ -841,6 +841,121 @@ test.describe('DataSnapshotAggregator', () => {
             expect(data.summary.totalScenarios).toBe(2);
             expect(data.summary.outcomes.passed).toBe(2);
             expect(data.summary.outcomes.failed).toBe(0);
+        });
+    });
+
+    test.describe('external aggregation — artifact copying', () => {
+
+        test('copies artifact files from source test-run directories to the output test-runs directory', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {},
+            });
+
+            // Create source directories with db.json + artifacts using the memfs
+            const sourceDirectory = '/source/project-a/test-runs/2024-06-15T14:30:00.000Z';
+            filesystem.mkdirSync(sourceDirectory, { recursive: true });
+            filesystem.writeFileSync(`${sourceDirectory}/db.json`, JSON.stringify({
+                startedAt: '2024-06-15T14:30:00.000Z',
+                finishedAt: '2024-06-15T14:30:01.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    {
+                        name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100,
+                        startedAt: '2024-06-15T14:30:00.000Z',
+                        source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [],
+                        video: 'test-runs/2024-06-15T14:30:00.000Z/video-recording-abc123.webm',
+                        artifacts: [{ path: 'test-runs/2024-06-15T14:30:00.000Z/screenshot-test-a-001.png', type: 'screenshot' }],
+                    },
+                ],
+                tags: [],
+                testRunner: { name: 'Playwright', version: '1.50.0' },
+            }));
+            filesystem.writeFileSync(`${sourceDirectory}/screenshot-test-a-001.png`, 'PNG_DATA_HERE');
+            filesystem.writeFileSync(`${sourceDirectory}/video-recording-abc123.webm`, 'VIDEO_DATA_HERE');
+
+            aggregator.aggregate([`${sourceDirectory}/db.json`]);
+
+            // Artifacts should be copied to output/test-runs/<timestamp>/
+            const outputRunDirectory = '/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z';
+            expect(filesystem.existsSync(`${outputRunDirectory}/screenshot-test-a-001.png`)).toBe(true);
+            expect(filesystem.existsSync(`${outputRunDirectory}/video-recording-abc123.webm`)).toBe(true);
+            expect(filesystem.readFileSync(`${outputRunDirectory}/screenshot-test-a-001.png`, 'utf8')).toBe('PNG_DATA_HERE');
+        });
+
+        test('does not overwrite artifacts that already exist in the output directory', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-15T14:30:00.000Z': {
+                        'db.json': JSON.stringify({
+                            startedAt: '2024-06-15T14:30:00.000Z',
+                            finishedAt: '2024-06-15T14:30:01.000Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [{ name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
+                            tags: [],
+                            testRunner: { name: 'Playwright', version: '1.50.0' },
+                        }),
+                        'screenshot-existing.png': 'ORIGINAL_DATA',
+                    },
+                },
+            });
+
+            // Source has a file with the same name
+            const sourceDirectory = '/source/project-a/test-runs/2024-06-15T14:30:00.000Z';
+            filesystem.mkdirSync(sourceDirectory, { recursive: true });
+            filesystem.writeFileSync(`${sourceDirectory}/db.json`, JSON.stringify({
+                startedAt: '2024-06-15T14:30:00.000Z',
+                finishedAt: '2024-06-15T14:30:01.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
+                tags: [],
+                testRunner: { name: 'Playwright', version: '1.50.0' },
+            }));
+            filesystem.writeFileSync(`${sourceDirectory}/screenshot-existing.png`, 'NEW_DATA');
+            filesystem.writeFileSync(`${sourceDirectory}/screenshot-new.png`, 'BRAND_NEW');
+
+            aggregator.aggregate([`${sourceDirectory}/db.json`]);
+
+            // Existing file should NOT be overwritten
+            expect(filesystem.readFileSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/screenshot-existing.png', 'utf8')).toBe('ORIGINAL_DATA');
+            // New file should be copied
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/screenshot-new.png')).toBe(true);
+        });
+
+        test('copies artifacts from multiple source directories', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {},
+            });
+
+            // Source A
+            const sourceDirectoryA = '/source/project-a/test-runs/2024-06-15T14:30:00.000Z';
+            filesystem.mkdirSync(sourceDirectoryA, { recursive: true });
+            filesystem.writeFileSync(`${sourceDirectoryA}/db.json`, JSON.stringify({
+                startedAt: '2024-06-15T14:30:00.000Z',
+                finishedAt: '2024-06-15T14:30:01.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
+                tags: [],
+                testRunner: { name: 'Playwright', version: '1.50.0' },
+            }));
+            filesystem.writeFileSync(`${sourceDirectoryA}/screenshot-a.png`, 'A_DATA');
+
+            // Source B (different timestamp)
+            const sourceDirectoryB = '/source/project-b/test-runs/2024-06-16T10:00:00.000Z';
+            filesystem.mkdirSync(sourceDirectoryB, { recursive: true });
+            filesystem.writeFileSync(`${sourceDirectoryB}/db.json`, JSON.stringify({
+                startedAt: '2024-06-16T10:00:00.000Z',
+                finishedAt: '2024-06-16T10:00:02.000Z',
+                outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-16T10:00:00.000Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [] }],
+                tags: [],
+                testRunner: { name: 'Playwright', version: '1.50.0' },
+            }));
+            filesystem.writeFileSync(`${sourceDirectoryB}/screenshot-b.png`, 'B_DATA');
+
+            aggregator.aggregate([`${sourceDirectoryA}/db.json`, `${sourceDirectoryB}/db.json`]);
+
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/screenshot-a.png')).toBe(true);
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-16T10:00:00.000Z/screenshot-b.png')).toBe(true);
         });
     });
 });

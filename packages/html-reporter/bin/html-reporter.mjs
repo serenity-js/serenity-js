@@ -59,7 +59,26 @@ if (dbJsonPaths.length === 0) {
 
 console.log(`Found ${dbJsonPaths.length} test runs`);
 
-// Run aggregation — reads db.json files in-place, no copying
+// Compute common root of output directory and all input paths
+function commonRoot(paths) {
+    const allPaths = [outputDir, ...paths.map(p => p.replace(/\/db\.json$/, ''))];
+    const segments = allPaths.map(p => p.split('/'));
+    const common = [];
+    for (let i = 0; i < segments[0].length; i++) {
+        const segment = segments[0][i];
+        if (segments.every(s => s[i] === segment)) {
+            common.push(segment);
+        } else {
+            break;
+        }
+    }
+    return common.join('/') || '/';
+}
+
+const root = commonRoot(dbJsonPaths);
+const sourceFileSystem = new FileSystem(Path.from(root));
+
+// Run aggregation
 const outputFileSystem = new FileSystem(Path.from(outputDir));
 
 let requirementsHierarchy;
@@ -73,7 +92,7 @@ if (args.specRoot) {
 const aggregator = new DataSnapshotAggregator(outputFileSystem, {
     consistencyWindow: 5,
     title: args.title,
-}, requirementsHierarchy, projectFileSystem);
+}, requirementsHierarchy, projectFileSystem, sourceFileSystem);
 
 aggregator.aggregate(dbJsonPaths);
 

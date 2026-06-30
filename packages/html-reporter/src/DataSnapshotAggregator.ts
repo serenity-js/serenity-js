@@ -35,6 +35,7 @@ export class DataSnapshotAggregator {
         private readonly config: AggregatorConfig,
         private readonly requirementsHierarchy?: RequirementsHierarchy,
         private readonly projectFileSystem?: FileSystem,
+        private readonly sourceFileSystem?: FileSystem,
     ) {
     }
 
@@ -88,9 +89,12 @@ export class DataSnapshotAggregator {
 
     private loadExternalRuns(paths: string[]): RunData[] {
         const runsById = new Map<string, RunData>();
+        const sourceFs = this.sourceFileSystem;
 
         for (const databaseJsonPath of paths) {
-            const content = readFileSync(databaseJsonPath, 'utf8');
+            const content = sourceFs
+                ? sourceFs.readFileSync(Path.from(databaseJsonPath), { encoding: 'utf8' }) as string
+                : readFileSync(databaseJsonPath, 'utf8');
             const run = JSON.parse(content) as RunData;
             const directoryName = databaseJsonPath.replace(/\/db\.json$/, '').replace(/.*\//, '');
 
@@ -116,9 +120,38 @@ export class DataSnapshotAggregator {
             } else {
                 runsById.set(directoryName, run);
             }
+
+            // Copy sibling artifacts from the source directory to the output test-runs directory
+            this.copyArtifactsFromSource(databaseJsonPath, directoryName);
         }
 
         return [...runsById.values()].sort((a, b) => a.startedAt.localeCompare(b.startedAt));
+    }
+
+    private copyArtifactsFromSource(databaseJsonPath: string, directoryName: string): void {
+        const sourceFs = this.sourceFileSystem;
+        if (!sourceFs) {
+            return;
+        }
+
+        const sourceDirectory = Path.from(databaseJsonPath.replace(/\/db\.json$/, ''));
+        const targetDirectory = Path.from('test-runs').join(Path.from(directoryName));
+
+        this.fileSystem.ensureDirectoryExistsAtSync(targetDirectory);
+
+        const entries = sourceFs.readdirSync(sourceDirectory);
+        for (const entry of entries) {
+            if (entry === 'db.json') {
+                continue;
+            }
+            const targetPath = targetDirectory.join(Path.from(entry));
+            if (this.fileSystem.exists(targetPath)) {
+                continue;
+            }
+            const sourcePath = sourceDirectory.join(Path.from(entry));
+            const data = sourceFs.readFileSync(sourcePath);
+            this.fileSystem.storeSync(targetPath, data, undefined);
+        }
     }
 
     private computeDegradedRecovered(allRuns: RunData[]): { newFailures: Array<{ name: string; category: string; source: { path: string; line: number } }>; newPasses: Array<{ name: string; category: string; source: { path: string; line: number } }> } {
