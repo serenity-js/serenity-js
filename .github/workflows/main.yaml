@@ -410,12 +410,12 @@ jobs:
           path: target/html-report/
           retention-days: 14
       - name: Deploy to GitHub Pages
-        if: always() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/feat/html-reporter')
+#        if: always() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/feat/html-reporter')
         uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           branch: gh-pages
           folder: target/html-report
-          clean: true
+          clean: false
 
   artifacts-publish:
     name: 'NPM: publish artifacts'
