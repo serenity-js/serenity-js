@@ -1,4 +1,4 @@
-# Using WebdriverIO with Mocha and Serenity/JS
+# WebdriverIO Mocha
 
 This module demonstrates how Serenity/JS integrates with WebdriverIO v9+ using Mocha as the test runner.
 

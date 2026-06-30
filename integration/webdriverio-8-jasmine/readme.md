@@ -1,4 +1,4 @@
-# Using WebdriverIO 8 with Jasmine and Serenity/JS (Legacy)
+# WebdriverIO 8 Jasmine
 
 This module demonstrates how Serenity/JS integrates with the legacy WebdriverIO v8 using Jasmine as the test runner.
 

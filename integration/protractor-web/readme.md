@@ -1,4 +1,4 @@
-# Web Testing with Protractor (Legacy)
+# Protractor Web
 
 This module demonstrates Serenity/JS web testing capabilities using the legacy Protractor framework as the browser automation tool.
 

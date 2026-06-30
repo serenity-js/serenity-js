@@ -1,4 +1,4 @@
-# REST API Testing with Serenity/JS
+# REST API
 
 This module demonstrates how Serenity/JS enables expressive, maintainable REST API testing using the Screenplay Pattern.
 

@@ -1,4 +1,4 @@
-# Serenity/JS HTML Reporter
+# HTML Reporter
 
 This module tests the `@serenity-js/html-reporter` — a self-contained static HTML report that replaces the Java-based Serenity BDD CLI.
 

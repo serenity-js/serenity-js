@@ -1,4 +1,4 @@
-# Testing Electron Apps with Playwright and Serenity/JS
+# Playwright Electron
 
 This module demonstrates how Serenity/JS integrates with Playwright's Electron support to test desktop applications built with Electron.
 

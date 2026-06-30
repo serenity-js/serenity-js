@@ -1,4 +1,4 @@
-# Web Testing with WebdriverIO
+# WebdriverIO Web
 
 This module demonstrates Serenity/JS web testing capabilities using WebdriverIO v9+ as the browser automation tool.
 

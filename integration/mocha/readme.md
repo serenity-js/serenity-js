@@ -1,4 +1,4 @@
-# Using Mocha with Serenity/JS
+# Mocha
 
 This module demonstrates how Serenity/JS integrates with the Mocha test runner to provide structured reporting and the Screenplay Pattern for test automation.
 

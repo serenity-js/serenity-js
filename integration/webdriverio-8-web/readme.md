@@ -1,4 +1,4 @@
-# Web Testing with WebdriverIO 8 (Legacy)
+# WebdriverIO 8 Web
 
 This module demonstrates Serenity/JS web testing capabilities using the legacy WebdriverIO v8 as the browser automation tool.
 

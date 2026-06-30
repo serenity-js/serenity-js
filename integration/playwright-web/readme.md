@@ -1,4 +1,4 @@
-# Web Testing with Playwright
+# Playwright Web
 
 This module demonstrates Serenity/JS web testing capabilities using Playwright as the browser automation tool. It exercises the full Page Element Query Language (PEQL) and web interaction APIs.
 

@@ -1,4 +1,4 @@
-# Using WebdriverIO 8 with Cucumber.js and Serenity/JS (Legacy)
+# WebdriverIO 8 Cucumber
 
 This module demonstrates how Serenity/JS integrates with the legacy WebdriverIO v8 using Cucumber.js as the test runner.
 

@@ -1,4 +1,4 @@
-# Using WebdriverIO with Jasmine and Serenity/JS
+# WebdriverIO Jasmine
 
 This module demonstrates how Serenity/JS integrates with WebdriverIO v9+ using Jasmine as the test runner.
 

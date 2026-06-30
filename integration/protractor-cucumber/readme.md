@@ -1,4 +1,4 @@
-# Using Protractor with Cucumber.js and Serenity/JS (Legacy)
+# Protractor Cucumber
 
 This module demonstrates how Serenity/JS integrates with the legacy Protractor framework using Cucumber.js as the test runner.
 

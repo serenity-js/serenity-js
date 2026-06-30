@@ -1,4 +1,4 @@
-# Using Cucumber.js with Serenity/JS
+# Cucumber 5
 
 This module demonstrates how Serenity/JS integrates with Cucumber.js to create executable specifications that are easy to read, maintain, and extend.
 

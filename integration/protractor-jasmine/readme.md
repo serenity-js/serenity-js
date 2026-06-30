@@ -1,4 +1,4 @@
-# Using Protractor with Jasmine and Serenity/JS (Legacy)
+# Protractor Jasmine
 
 This module demonstrates how Serenity/JS integrates with the legacy Protractor framework using Jasmine as the test runner.
 

@@ -1,4 +1,4 @@
-# Using Protractor with Mocha and Serenity/JS (Legacy)
+# Protractor Mocha
 
 This module demonstrates how Serenity/JS integrates with the legacy Protractor framework using Mocha as the test runner.
 

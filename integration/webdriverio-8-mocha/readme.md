@@ -1,4 +1,4 @@
-# Using WebdriverIO 8 with Mocha and Serenity/JS (Legacy)
+# WebdriverIO 8 Mocha
 
 This module demonstrates how Serenity/JS integrates with the legacy WebdriverIO v8 using Mocha as the test runner.
 

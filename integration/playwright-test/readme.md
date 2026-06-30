@@ -1,4 +1,4 @@
-# Using Playwright Test with Serenity/JS
+# Playwright Test
 
 This module demonstrates how Serenity/JS integrates with Playwright Test to provide structured reporting, the Screenplay Pattern, and multi-actor test scenarios.
 

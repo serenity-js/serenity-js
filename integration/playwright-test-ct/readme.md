@@ -1,4 +1,4 @@
-# Component Testing with Playwright Test and Serenity/JS
+# Playwright Test Component Testing
 
 This module demonstrates how Serenity/JS integrates with Playwright Test's component testing mode to test individual UI components in isolation.
 

@@ -1,4 +1,4 @@
-# Using Jasmine with Serenity/JS
+# Jasmine 5
 
 This module demonstrates how Serenity/JS integrates with the Jasmine test framework to provide structured reporting and the Screenplay Pattern for test automation.
 
