@@ -22,7 +22,10 @@ import type { CorrelationId } from '@serenity-js/core/model';
 import type { RequestAndResponse, SerialisedOutcome } from '@serenity-js/core/model';
 import {
     HTTPRequestResponse,
+    JSONData,
+    LogEntry,
     ProblemIndication,
+    TextData,
 } from '@serenity-js/core/model';
 import {
     ExecutionCompromised,
@@ -411,6 +414,37 @@ class SceneRecordBuilder {
                     responseHeaders: mapToHeaderString(data.response.headers || {}),
                     responseBody: bodyToString(data.response.data),
                 };
+            }
+        } else if (event.artifact instanceof TextData) {
+            const activityRecord = this.activityById.get(event.activityId.value);
+            if (activityRecord) {
+                const data = event.artifact.map(value => value) as { contentType: string; data: string };
+                if (!activityRecord.reportData) activityRecord.reportData = [];
+                activityRecord.reportData.push({
+                    title: event.name.value,
+                    contents: data.data,
+                    contentType: data.contentType,
+                });
+            }
+        } else if (event.artifact instanceof LogEntry) {
+            const activityRecord = this.activityById.get(event.activityId.value);
+            if (activityRecord) {
+                const data = event.artifact.map(value => value) as { data: string };
+                if (!activityRecord.reportData) activityRecord.reportData = [];
+                activityRecord.reportData.push({
+                    title: event.name.value,
+                    contents: data.data,
+                });
+            }
+        } else if (event.artifact instanceof JSONData && !(event.artifact instanceof HTTPRequestResponse)) {
+            const activityRecord = this.activityById.get(event.activityId.value);
+            if (activityRecord) {
+                const data = event.artifact.map(value => value);
+                if (!activityRecord.reportData) activityRecord.reportData = [];
+                activityRecord.reportData.push({
+                    title: event.name.value,
+                    contents: JSON.stringify(data, undefined, 4),
+                });
             }
         }
 

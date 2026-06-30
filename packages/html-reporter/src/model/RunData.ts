@@ -70,6 +70,7 @@ export interface ActivityRecord {
     error?: ErrorRecord;
     artifacts?: ArtifactReference[];
     restQuery?: RestQueryRecord;
+    reportData?: ReportDataRecord[];
 }
 
 export interface RestQueryRecord {
@@ -80,6 +81,12 @@ export interface RestQueryRecord {
     statusCode: number;
     responseHeaders: string;
     responseBody?: string;
+}
+
+export interface ReportDataRecord {
+    title: string;
+    contents: string;
+    contentType?: string;
 }
 
 export interface ErrorRecord {

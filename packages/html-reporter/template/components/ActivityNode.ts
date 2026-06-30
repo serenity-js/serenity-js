@@ -107,6 +107,14 @@ export function ActivityNode({ activity, defaultExpanded }) {
           ` : null}
         </div>
       ` : null}
+      ${activity.reportData && activity.reportData.length > 0 ? html`
+        ${activity.reportData.map(entry => html`
+          <div class="report-data-block" style="margin-left:var(--space-lg);margin-top:var(--space-xs);margin-bottom:var(--space-sm)">
+            <div style="font-size:var(--font-sm);font-weight:500;margin-bottom:4px;color:var(--text-secondary)">${entry.title}</div>
+            <pre style="font-size:var(--font-xs);font-family:var(--font-mono);background:var(--bg-primary);padding:var(--space-sm) var(--space-md);border-radius:var(--radius-sm);border:1px solid var(--border-color);white-space:pre-wrap;margin:0;color:var(--text-primary)">${entry.contents}</pre>
+          </div>
+        `)}
+      ` : null}
       ${activity.children && activity.children.length > 0 && expanded ? html`
         <div style="margin-left:var(--space-sm)">
           ${activity.children.map(child => html`<${ActivityNode} activity=${child} defaultExpanded=${defaultExpanded} />`)}

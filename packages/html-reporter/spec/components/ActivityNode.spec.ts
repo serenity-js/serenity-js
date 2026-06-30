@@ -147,3 +147,76 @@ test.describe('ActivityNode — HTTP exchange (restQuery)', () => {
         await expect(page.locator('.rest-badge')).not.toBeVisible();
     });
 });
+
+test.describe('ActivityNode — report data attachments', () => {
+
+    test('renders a data attachment block for each reportData entry', async ({ mount, page }) => {
+        await mount({
+            component: 'ActivityNode',
+            importPath: './components/ActivityNode',
+            data: minimalData(),
+            props: {
+                activity: {
+                    type: 'Interaction',
+                    name: 'Tess logs the current items',
+                    outcome: 'SUCCESS',
+                    duration: 50,
+                    children: [],
+                    reportData: [
+                        { title: 'current items', contents: '["buy milk", "feed cat"]' },
+                    ],
+                },
+            },
+        });
+
+        const attachment = page.locator('.report-data-block');
+        await expect(attachment).toBeVisible();
+        await expect(attachment).toContainText('current items');
+        await expect(attachment).toContainText('buy milk');
+    });
+
+    test('renders multiple data attachments', async ({ mount, page }) => {
+        await mount({
+            component: 'ActivityNode',
+            importPath: './components/ActivityNode',
+            data: minimalData(),
+            props: {
+                activity: {
+                    type: 'Interaction',
+                    name: 'Tess debugs the state',
+                    outcome: 'SUCCESS',
+                    duration: 50,
+                    children: [],
+                    reportData: [
+                        { title: 'request', contents: 'GET /api/items' },
+                        { title: 'response', contents: '200 OK' },
+                    ],
+                },
+            },
+        });
+
+        const attachments = page.locator('.report-data-block');
+        await expect(attachments).toHaveCount(2);
+        await expect(attachments.first()).toContainText('request');
+        await expect(attachments.last()).toContainText('response');
+    });
+
+    test('does not render data blocks when reportData is absent', async ({ mount, page }) => {
+        await mount({
+            component: 'ActivityNode',
+            importPath: './components/ActivityNode',
+            data: minimalData(),
+            props: {
+                activity: {
+                    type: 'Interaction',
+                    name: 'Tess navigates to "/index.html"',
+                    outcome: 'SUCCESS',
+                    duration: 50,
+                    children: [],
+                },
+            },
+        });
+
+        await expect(page.locator('.report-data-block')).not.toBeVisible();
+    });
+});

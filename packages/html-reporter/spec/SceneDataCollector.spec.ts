@@ -21,10 +21,12 @@ import {
     ExecutionFailedWithError,
     ExecutionSuccessful,
     HTTPRequestResponse,
+    LogEntry,
     Name,
     ScenarioDetails,
     ScenarioParameters,
     Tag,
+    TextData,
 } from '@serenity-js/core/model';
 
 import { SceneDataCollector } from '../src/SceneDataCollector.js';
@@ -372,6 +374,133 @@ test.describe('SceneDataCollector', () => {
             expect(activity.restQuery.statusCode).toBe(201);
             expect(activity.restQuery.requestBody).toContain('Buy milk');
             expect(activity.restQuery.responseBody).toContain('Buy milk');
+        });
+    });
+
+    test.describe('text and log artifacts (reportData)', () => {
+
+        test('captures LogEntry artifact as reportData on the activity', () => {
+            const collector = new SceneDataCollector();
+            const queues = new DomainEventQueues();
+
+            const details = new ScenarioDetails(
+                new Name('should log debug info'),
+                new Category('Debug'),
+                new FileSystemLocation(Path.from('spec/debug.spec.ts'), 5, 1),
+            );
+            const sceneId = CorrelationId.create();
+            const activityId = CorrelationId.create();
+            const activityDetails = new ActivityDetails(
+                new Name('Tess logs the current items'),
+                new FileSystemLocation(Path.from('spec/debug.spec.ts'), 7, 1),
+            );
+
+            const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+            const t1 = new Timestamp(new Date('2024-01-01T00:00:00.050Z'));
+            const t2 = new Timestamp(new Date('2024-01-01T00:00:00.100Z'));
+
+            queues.enqueue(new SceneStarts(sceneId, details, t0));
+            queues.enqueue(new InteractionStarts(sceneId, activityId, activityDetails, t0));
+            queues.enqueue(new InteractionFinished(sceneId, activityId, activityDetails, new ExecutionSuccessful(), t1));
+            queues.enqueue(new ActivityRelatedArtifactGenerated(
+                sceneId,
+                activityId,
+                new Name('current items'),
+                LogEntry.fromJSON({ data: '["buy milk", "feed cat"]' }),
+                t1,
+            ));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t2));
+
+            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+
+            const activity = runData.scenes[0].activities[0];
+            expect(activity.reportData).toBeDefined();
+            expect(activity.reportData).toHaveLength(1);
+            expect(activity.reportData[0].title).toBe('current items');
+            expect(activity.reportData[0].contents).toContain('buy milk');
+        });
+
+        test('captures TextData artifact as reportData on the activity', () => {
+            const collector = new SceneDataCollector();
+            const queues = new DomainEventQueues();
+
+            const details = new ScenarioDetails(
+                new Name('should capture console output'),
+                new Category('Scripts'),
+                new FileSystemLocation(Path.from('spec/scripts.spec.ts'), 5, 1),
+            );
+            const sceneId = CorrelationId.create();
+            const activityId = CorrelationId.create();
+            const activityDetails = new ActivityDetails(
+                new Name('Tess executes a script'),
+                new FileSystemLocation(Path.from('spec/scripts.spec.ts'), 7, 1),
+            );
+
+            const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+            const t1 = new Timestamp(new Date('2024-01-01T00:00:00.050Z'));
+            const t2 = new Timestamp(new Date('2024-01-01T00:00:00.100Z'));
+
+            queues.enqueue(new SceneStarts(sceneId, details, t0));
+            queues.enqueue(new InteractionStarts(sceneId, activityId, activityDetails, t0));
+            queues.enqueue(new InteractionFinished(sceneId, activityId, activityDetails, new ExecutionSuccessful(), t1));
+            queues.enqueue(new ActivityRelatedArtifactGenerated(
+                sceneId,
+                activityId,
+                new Name('server log'),
+                TextData.fromJSON({ contentType: 'text/plain', data: 'received payment request' }),
+                t1,
+            ));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t2));
+
+            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+
+            const activity = runData.scenes[0].activities[0];
+            expect(activity.reportData).toBeDefined();
+            expect(activity.reportData).toHaveLength(1);
+            expect(activity.reportData[0].title).toBe('server log');
+            expect(activity.reportData[0].contents).toBe('received payment request');
+            expect(activity.reportData[0].contentType).toBe('text/plain');
+        });
+
+        test('collects multiple reportData entries on the same activity', () => {
+            const collector = new SceneDataCollector();
+            const queues = new DomainEventQueues();
+
+            const details = new ScenarioDetails(
+                new Name('should collect multiple attachments'),
+                new Category('Debug'),
+                new FileSystemLocation(Path.from('spec/debug.spec.ts'), 20, 1),
+            );
+            const sceneId = CorrelationId.create();
+            const activityId = CorrelationId.create();
+            const activityDetails = new ActivityDetails(
+                new Name('Tess debugs the state'),
+                new FileSystemLocation(Path.from('spec/debug.spec.ts'), 22, 1),
+            );
+
+            const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+            const t1 = new Timestamp(new Date('2024-01-01T00:00:00.050Z'));
+            const t2 = new Timestamp(new Date('2024-01-01T00:00:00.100Z'));
+
+            queues.enqueue(new SceneStarts(sceneId, details, t0));
+            queues.enqueue(new InteractionStarts(sceneId, activityId, activityDetails, t0));
+            queues.enqueue(new InteractionFinished(sceneId, activityId, activityDetails, new ExecutionSuccessful(), t1));
+            queues.enqueue(new ActivityRelatedArtifactGenerated(
+                sceneId, activityId, new Name('request'),
+                LogEntry.fromJSON({ data: 'GET /api/items' }), t1,
+            ));
+            queues.enqueue(new ActivityRelatedArtifactGenerated(
+                sceneId, activityId, new Name('response'),
+                LogEntry.fromJSON({ data: '200 OK' }), t1,
+            ));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t2));
+
+            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+
+            const activity = runData.scenes[0].activities[0];
+            expect(activity.reportData).toHaveLength(2);
+            expect(activity.reportData[0].title).toBe('request');
+            expect(activity.reportData[1].title).toBe('response');
         });
     });
 });
