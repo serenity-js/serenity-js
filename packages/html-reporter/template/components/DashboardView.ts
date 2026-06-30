@@ -204,6 +204,7 @@ export function TrendChart({ history, onNavigate }) {
                         labels: {
                             color: textColor,
                             usePointStyle: true,
+                            pointStyleWidth: 12,
                             padding: 20,
                             font: { size: 11 },
                         },

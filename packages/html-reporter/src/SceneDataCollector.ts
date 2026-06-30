@@ -6,6 +6,7 @@ import {
     FeatureNarrativeDetected,
     InteractionFinished,
     InteractionStarts,
+    RetryableSceneDetected,
     SceneDescriptionDetected,
     SceneFinished,
     SceneParametersDetected,
@@ -219,6 +220,7 @@ class SceneRecordBuilder {
     private sceneFinishedCount = 0;
     private currentAttemptStartTimestamp: Timestamp | undefined;
     private readonly attempts: Array<{ attemptNumber: number; outcome: SerialisedOutcome; activities: ActivityRecord[]; error?: ErrorRecord; duration: number }> = [];
+    private isRetrySequence = false;
 
     constructor(private readonly artifactPaths: Map<string, Path[]>) {
     }
@@ -230,6 +232,23 @@ class SceneRecordBuilder {
 
         if (!this.name) {
             throw new LogicError('SceneRecordBuilder received an event queue without a SceneStarts event');
+        }
+
+        // A retry sequence uses SceneSequenceDetected/SceneParametersDetected framing,
+        // but the parameterSets should be treated as retry attempts, not outline examples.
+        if (this.isRetrySequence && this.isScenarioOutline && this.parameterSets.length > 0) {
+            for (let i = 0; i < this.parameterSets.length; i++) {
+                const ps = this.parameterSets[i];
+                const attemptError = this.findErrorInActivities(ps.activities);
+                this.attempts.push({
+                    attemptNumber: i + 1,
+                    outcome: ps.outcome,
+                    duration: ps.duration,
+                    activities: ps.activities,
+                    ...(attemptError ? { error: attemptError } : {}),
+                });
+            }
+            this.isScenarioOutline = false;
         }
 
         const isRetried = this.attempts.length > 1;
@@ -281,6 +300,8 @@ class SceneRecordBuilder {
     private processEvent(event: DomainEvent & { sceneId: CorrelationId }): void {
         if (event instanceof SceneSequenceDetected) {
             this.isScenarioOutline = true;
+        } else if (event instanceof RetryableSceneDetected) {
+            this.isRetrySequence = true;
         } else if (event instanceof SceneTemplateDetected) {
             this.template = event.template.value;
         } else if (event instanceof SceneParametersDetected) {
@@ -419,6 +440,19 @@ class SceneRecordBuilder {
             // Clear any previous error if final attempt succeeded
             this.sceneError = undefined;
         }
+    }
+
+    private findErrorInActivities(activities: ActivityRecord[]): ErrorRecord | undefined {
+        for (const activity of activities) {
+            if (activity.error) {
+                return activity.error;
+            }
+            if (activity.children) {
+                const childError = this.findErrorInActivities(activity.children);
+                if (childError) return childError;
+            }
+        }
+        return undefined;
     }
 }
 

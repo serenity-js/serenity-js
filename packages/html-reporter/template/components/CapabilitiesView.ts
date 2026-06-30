@@ -87,7 +87,28 @@ function nodeHasGap(node) {
     return false;
 }
 
-function CapabilitiesFilterBar({ activeFilter, onFilter, capabilities }) {
+function countTopLevelCapabilities(capabilities) {
+    if (!capabilities || !capabilities.children) return 0;
+    return capabilities.children.filter(c => c.type === 'directory' && c.children && c.children.length > 0).length;
+}
+
+function countVisibleNodes(root, searchTerm, nodeFilter) {
+    let count = 0;
+    function walk(node, isRoot) {
+        if (!node.children) return;
+        for (const child of node.children) {
+            if (child.type !== 'directory' || !child.children || child.children.length === 0) continue;
+            if (nodeFilter && !nodeFilter(child)) continue;
+            if (searchTerm && !nodeMatches(child, searchTerm)) continue;
+            count++;
+            walk(child, false);
+        }
+    }
+    walk(root, true);
+    return count;
+}
+
+function CapabilitiesFilterBar({ activeFilter, onFilter, capabilities, searchTerm, onSearch, activeSort, onSort }) {
     let healthy = 0, atRisk = 0, critical = 0, gaps = 0;
     function walk(n) {
         if (n.type === 'directory' && n.children) {
@@ -110,15 +131,28 @@ function CapabilitiesFilterBar({ activeFilter, onFilter, capabilities }) {
         { key: 'gaps', label: 'Gaps', count: gaps },
     ];
 
+    const sortOptions = [
+        { key: 'name', label: 'Name' },
+        { key: 'confidence', label: 'Confidence' },
+        { key: 'scenarios', label: 'Scenarios' },
+    ];
+
     return html`
-        <div class="filter-bar" role="group" aria-label="Filter capabilities by health">
+        <div class="filter-bar" role="group" aria-label="Filter capabilities by health" style="align-items:center">
+            <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;align-self:center">Health:</span>
             ${filters.map(f => html`
-                <button class="filter-chip ${activeFilter === f.key ? 'active' : ''}"
+                <button class="filter-chip ${f.key} ${activeFilter === f.key ? 'active' : ''}"
                     onClick=${() => onFilter(f.key)} aria-pressed=${activeFilter === f.key}>
                     <span>${f.label}</span>
                     <span class="count">${f.count}</span>
                 </button>
             `)}
+            <div class="sort-group">
+                <label class="label-upper" for="cap-sort-select">Sort:</label>
+                <select id="cap-sort-select" class="sort-select" value=${activeSort} onChange=${(e) => onSort(e.target.value)} aria-label="Sort order">
+                    ${sortOptions.map(s => html`<option value=${s.key} selected=${activeSort === s.key}>${s.label}</option>`)}
+                </select>
+            </div>
         </div>
     `;
 }
@@ -171,7 +205,28 @@ function getVisiblePaths(root, searchTerm, nodeFilter) {
     return paths;
 }
 
-function TreeNode({ node, onSelect, selectedPath, focusedPath, depth, path, searchTerm, isRoot, nodeFilter }) {
+function sortChildren(children, sortMode) {
+    if (!children) return children;
+    const sorted = [...children];
+    switch (sortMode) {
+        case 'confidence':
+            sorted.sort((a, b) => nodeConfidence(a) - nodeConfidence(b));
+            break;
+        case 'scenarios':
+            sorted.sort((a, b) => {
+                const totalB = Object.values(b.outcomes).reduce((s: number, v: number) => s + v, 0);
+                const totalA = Object.values(a.outcomes).reduce((s: number, v: number) => s + v, 0);
+                return totalB - totalA;
+            });
+            break;
+        default: // 'name'
+            sorted.sort((a, b) => (a.displayName || a.name).localeCompare(b.displayName || b.name));
+            break;
+    }
+    return sorted;
+}
+
+function TreeNode({ node, onSelect, selectedPath, focusedPath, depth, path, searchTerm, isRoot, nodeFilter, sortMode }) {
     const isDirectory = node.type === 'directory' && node.children && node.children.length > 0;
     const segmentPath = isRoot ? '' : (path ? path + '/' + node.name : node.name);
 
@@ -218,10 +273,11 @@ function TreeNode({ node, onSelect, selectedPath, focusedPath, depth, path, sear
                     <${SegmentedBar} outcomes=${displayNode.outcomes} />
                 </span>
             </div>
-            ${displayNode.children.map(child => html`
+            ${sortChildren(displayNode.children, sortMode).map(child => html`
                 <${TreeNode} node=${child} onSelect=${onSelect}
                     selectedPath=${selectedPath} focusedPath=${focusedPath} depth=${depth + 1}
-                    path=${collapsedPath} searchTerm=${searchTerm} nodeFilter=${nodeFilter} />
+                    path=${collapsedPath} searchTerm=${searchTerm} nodeFilter=${nodeFilter}
+                    sortMode=${sortMode} />
             `)}
         </div>
     `;
@@ -345,6 +401,7 @@ export function CapabilitiesView({ onNavigate, route }) {
     const [selectedPath, setSelectedPath] = useState('');
     const [selectedNode, setSelectedNode] = useState(null);
     const [activeFilter, setActiveFilter] = useState('all');
+    const [activeSort, setActiveSort] = useState('name');
     const [focusedPath, setFocusedPath] = useState('');
 
     useEffect(() => {
@@ -446,18 +503,36 @@ export function CapabilitiesView({ onNavigate, route }) {
         }
     };
 
+    const totalCapabilities = countTopLevelCapabilities(capabilities);
+    const visibleCount = useMemo(() => countVisibleNodes(capabilities, searchTerm, nodeFilter), [capabilities, searchTerm, nodeFilter]);
+    const showFilterBar = totalCapabilities > 1;
+
     return html`
         <div class="capabilities-split">
             <div class="card req-tree-panel">
-                <input type="text" class="search-input" placeholder="Search capabilities..."
-                    style="margin-bottom:var(--space-sm)"
-                    value=${searchTerm} onInput=${(e) => setSearchTerm(e.target.value)} />
-                <${CapabilitiesFilterBar} activeFilter=${activeFilter} onFilter=${setActiveFilter}
-                    capabilities=${capabilities} />
-                <div class="req-tree-list" role="tree" style="margin-top:var(--space-sm)" onKeyDown=${onTreeKeyDown}>
+                ${showFilterBar ? html`
+                    <div style="position:relative;margin-bottom:var(--space-md)">
+                        <input class="search-input" type="text" placeholder="Find capabilities..."
+                            value=${searchTerm} onInput=${(e) => setSearchTerm(e.target.value)}
+                            aria-label="Find capabilities" style="margin-bottom:0;padding-right:36px" />
+                        ${searchTerm ? html`<button onClick=${() => setSearchTerm('')}
+                            class="btn-clear"
+                            aria-label="Clear search">✕</button>` : null}
+                    </div>
+                    <${CapabilitiesFilterBar} activeFilter=${activeFilter} onFilter=${setActiveFilter}
+                        capabilities=${capabilities} searchTerm=${searchTerm} onSearch=${setSearchTerm}
+                        activeSort=${activeSort} onSort=${setActiveSort} />
+                ` : null}
+                <div class="text-muted mb-md" style="margin-top:var(--space-sm)" aria-live="polite" aria-atomic="true">
+                    ${showFilterBar && (searchTerm || activeFilter !== 'all')
+                        ? `Showing ${visibleCount} of ${totalCapabilities} capabilities`
+                        : `${totalCapabilities} ${totalCapabilities !== 1 ? 'capabilities' : 'capability'}`}
+                </div>
+                <div class="req-tree-list" role="tree" onKeyDown=${onTreeKeyDown}>
                     <${TreeNode} node=${capabilities} onSelect=${handleSelect}
                         selectedPath=${selectedPath} focusedPath=${focusedPath} depth=${0}
-                        path=${''} searchTerm=${searchTerm} isRoot=${true} nodeFilter=${nodeFilter} />
+                        path=${''} searchTerm=${searchTerm} isRoot=${true} nodeFilter=${nodeFilter}
+                        sortMode=${activeSort} />
                 </div>
             </div>
             <div class="req-detail-wrap">

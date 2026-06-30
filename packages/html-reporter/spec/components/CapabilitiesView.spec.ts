@@ -81,7 +81,7 @@ test.describe('CapabilitiesView', () => {
 
     test.describe('left panel — navigation', () => {
 
-        test('search field is inside the left panel, above the tree', async ({ mount, page }) => {
+        test('search field uses "Find capabilities..." placeholder', async ({ mount, page }) => {
             await mount({
                 component: 'CapabilitiesView',
                 importPath: './components/CapabilitiesView',
@@ -90,7 +90,9 @@ test.describe('CapabilitiesView', () => {
             });
 
             const leftPanel = page.locator('.req-tree-panel');
-            await expect(leftPanel.locator('input[type="text"]')).toBeVisible();
+            const searchInput = leftPanel.locator('input.search-input');
+            await expect(searchInput).toBeVisible();
+            await expect(searchInput).toHaveAttribute('placeholder', 'Find capabilities...');
         });
 
         test('filter bar uses the shared filter-bar styling with confidence categories', async ({ mount, page }) => {
@@ -138,6 +140,169 @@ test.describe('CapabilitiesView', () => {
 
         await expect(page.locator('.empty-state')).toBeVisible();
         await expect(page.locator('body')).toContainText('specDirectory');
+    });
+});
+
+test.describe('CapabilitiesView sort control', () => {
+
+    test('displays a sort dropdown with options: Name, Confidence, Scenarios', async ({ mount, page }) => {
+        await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+        });
+
+        const sortSelect = page.locator('.req-tree-panel .sort-select');
+        await expect(sortSelect).toBeVisible();
+        await expect(sortSelect.locator('option')).toHaveCount(3);
+        await expect(sortSelect.locator('option[value="name"]')).toHaveText('Name');
+        await expect(sortSelect.locator('option[value="confidence"]')).toHaveText('Confidence');
+        await expect(sortSelect.locator('option[value="scenarios"]')).toHaveText('Scenarios');
+    });
+
+    test('defaults to sorting by name', async ({ mount, page }) => {
+        await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+        });
+
+        const sortSelect = page.locator('.req-tree-panel .sort-select');
+        await expect(sortSelect).toHaveValue('name');
+    });
+
+    test('sorts tree nodes by confidence ascending (worst first) when Confidence is selected', async ({ mount, page }) => {
+        await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+        });
+
+        await page.locator('.req-tree-panel .sort-select').selectOption('confidence');
+
+        const nodeLabels = await page.locator('.req-tree-node .req-tree-label').allTextContents();
+        // Remove the root node (first entry)
+        const childLabels = nodeLabels.slice(1);
+        // failing-feature (50%) should come before pending-feature (70%) which comes before passing-feature (100%)
+        expect(childLabels[0]).toContain('failing');
+        expect(childLabels[childLabels.length - 1]).toContain('passing');
+    });
+
+    test('sorts tree nodes by scenario count descending when Scenarios is selected', async ({ mount, page }) => {
+        await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+        });
+
+        await page.locator('.req-tree-panel .sort-select').selectOption('scenarios');
+
+        const nodeLabels = await page.locator('.req-tree-node .req-tree-label').allTextContents();
+        const childLabels = nodeLabels.slice(1);
+        // passing-feature (3 scenarios) should come first, others have 2 each
+        expect(childLabels[0]).toContain('passing');
+    });
+});
+
+test.describe('CapabilitiesView search and filter bar', () => {
+
+    test('search input uses "Find capabilities..." placeholder', async ({ mount, page }) => {
+        await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+        });
+
+        const searchInput = page.locator('.req-tree-panel input.search-input');
+        await expect(searchInput).toHaveAttribute('placeholder', 'Find capabilities...');
+    });
+
+    test('search input is above the filter bar (matching ScenariosView pattern)', async ({ mount, page }) => {
+        await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+        });
+
+        const leftPanel = page.locator('.req-tree-panel');
+        await expect(leftPanel.locator('input.search-input')).toBeVisible();
+        await expect(leftPanel.locator('.filter-bar')).toBeVisible();
+    });
+
+    test('filter bar has a "Health:" label prefix consistent with ScenariosView "Status:" pattern', async ({ mount, page }) => {
+        await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+        });
+
+        const filterBar = page.locator('.req-tree-panel .filter-bar');
+        await expect(filterBar).toContainText('Health:');
+    });
+
+    test('search filters the tree and shows result count', async ({ mount, page }) => {
+        await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+        });
+
+        const searchInput = page.locator('.req-tree-panel input.search-input');
+        await searchInput.fill('passing');
+
+        await expect(page.locator('.req-tree-node', { hasText: 'passing-feature' })).toBeVisible();
+        await expect(page.locator('.req-tree-node', { hasText: 'failing-feature' })).not.toBeVisible();
+        // Should show "Showing X of Y capabilities"
+        await expect(page.locator('[aria-live="polite"]')).toContainText('Showing 1 of 3 capabilities');
+    });
+
+    test('filter bar and search are hidden when there is only 1 capability', async ({ mount, page }) => {
+        await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: minimalData({
+                capabilities: {
+                    name: 'spec',
+                    type: 'directory',
+                    outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                    children: [
+                        {
+                            name: 'only-feature',
+                            type: 'directory',
+                            outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            children: [
+                                { name: 'test.spec.ts', type: 'file', outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 } },
+                            ],
+                        },
+                    ],
+                },
+            }),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+        });
+
+        await expect(page.locator('.filter-bar')).not.toBeVisible();
+        await expect(page.locator('input.search-input')).not.toBeVisible();
+    });
+
+    test('shows clear button when search has text', async ({ mount, page }) => {
+        await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+        });
+
+        const searchInput = page.locator('.req-tree-panel input.search-input');
+        await searchInput.fill('test');
+        await expect(page.locator('.btn-clear')).toBeVisible();
     });
 });
 
