@@ -1,10 +1,26 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import htm from 'htm';
 import { h } from 'preact';
 
+import type { ReportOutcomes } from '../../src/ReportData';
+
 const html = htm.bind(h);
 
-export function FilterBar({ outcomes, total, activeFilter, onFilter, sortOptions, activeSort, onSort }) {
+interface SortOption {
+    key: string;
+    label: string;
+}
+
+interface FilterBarProps {
+    outcomes: ReportOutcomes;
+    total: number;
+    activeFilter: string;
+    onFilter: (filter: string) => void;
+    sortOptions?: SortOption[];
+    activeSort?: string;
+    onSort?: (sort: string) => void;
+}
+
+export function FilterBar({ outcomes, total, activeFilter, onFilter, sortOptions, activeSort, onSort }: FilterBarProps) {
     const filters = [
         { key: 'all', label: 'All', count: total },
         { key: 'passed', label: 'Passed', count: outcomes.passed },
@@ -13,9 +29,9 @@ export function FilterBar({ outcomes, total, activeFilter, onFilter, sortOptions
     ];
 
     // Parse active filters as a Set (supports comma-separated multi-select)
-    const activeSet = (!activeFilter || activeFilter === 'all') ? new Set() : new Set(activeFilter.split(','));
+    const activeSet = (!activeFilter || activeFilter === 'all') ? new Set<string>() : new Set(activeFilter.split(','));
 
-    const handleClick = (key) => {
+    const handleClick = (key: string) => {
         if (key === 'all') {
             onFilter && onFilter('all');
             return;
@@ -51,7 +67,7 @@ export function FilterBar({ outcomes, total, activeFilter, onFilter, sortOptions
       ${sortOptions ? html`
         <div class="sort-group">
           <label class="label-upper" for="sort-select">Sort:</label>
-          <select id="sort-select" class="sort-select" value=${activeSort} onChange=${(e) => onSort(e.target.value)} aria-label="Sort order">
+          <select id="sort-select" class="sort-select" value=${activeSort} onChange=${(e: Event) => onSort && onSort((e.target as HTMLSelectElement).value)} aria-label="Sort order">
             ${sortOptions.map(s => html`<option value=${s.key} selected=${activeSort === s.key}>${s.label}</option>`)}
           </select>
         </div>

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import htm from 'htm';
 import { h } from 'preact';
 
@@ -6,8 +5,12 @@ import { DATA } from '../utils';
 
 const html = htm.bind(h);
 
-export function TagsView({ onNavigate }) {
-    const tagsByType = {};
+interface TagsViewProps {
+    onNavigate: (path: string) => void;
+}
+
+export function TagsView({ onNavigate }: TagsViewProps) {
+    const tagsByType: Record<string, Array<{ type: string; name: string; scenarioCount: number; passed: number }>> = {};
     for (const tag of DATA.tags) {
         const type = tag.type || 'other';
         if (!tagsByType[type]) tagsByType[type] = [];
@@ -20,7 +23,7 @@ export function TagsView({ onNavigate }) {
         return a.localeCompare(b);
     });
 
-    const typeIcons = { feature: '📋', tag: '#', issue: '🐛', browser: '🌐', capability: '🎯', theme: '📚' };
+    const typeIcons: Record<string, string> = { feature: '📋', tag: '#', issue: '🐛', browser: '🌐', capability: '🎯', theme: '📚' };
     const renderGroups = typeOrder.map(type => {
         const tags = tagsByType[type];
         const items = tags.map(tag => {
@@ -31,7 +34,7 @@ export function TagsView({ onNavigate }) {
         return { type, label: type.charAt(0).toUpperCase() + type.slice(1), items };
     });
 
-    const renderItems = [];
+    const renderItems: Array<{ kind: string; label?: string; count?: number; name?: string; scenarioCount?: number; passRate?: number; passColor?: string; icon?: string }> = [];
     for (const group of renderGroups) {
         renderItems.push({ kind: 'header', label: group.label, count: group.items.length });
         for (const item of group.items) {
@@ -62,7 +65,7 @@ export function TagsView({ onNavigate }) {
               <div style="height:4px;border-radius:2px;background:var(--border-color);overflow:hidden">
                 <div style="height:100%;width:${barWidth};background:${barColor};border-radius:2px;transition:width 0.3s"></div>
               </div>
-              <div class="tag-card-count" style="margin-top:4px">${item.scenarioCount} scenario${item.scenarioCount > 1 ? 's' : ''}</div>
+              <div class="tag-card-count" style="margin-top:4px">${item.scenarioCount} scenario${item.scenarioCount! > 1 ? 's' : ''}</div>
             </div>
           </div>
         `;

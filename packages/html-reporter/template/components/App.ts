@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
@@ -57,7 +56,7 @@ export function App() {
         };
     }, []);
 
-    const navigate = useCallback((path) => {
+    const navigate = useCallback((path: string) => {
         window.location.hash = '#' + path;
     }, []);
 

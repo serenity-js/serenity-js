@@ -1,17 +1,23 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { defaultRangeExtractor } from '@tanstack/virtual-core';
 import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useMemo, useRef } from 'preact/hooks';
 
+import type { ReportError, ReportScenario } from '../../src/ReportData';
 import { useStickyHeader, useVirtualizer } from '../hooks';
+import type { Range } from '../hooks/useVirtualizer';
 import { DATA, formatDuration, formatRunLabel, outcomeClass, outcomeIcon, relativeSourcePath, scenarioUrl } from '../utils';
 import { icons } from './icons';
 import { RunSelector } from './RunSelector';
 
 const html = htm.bind(h);
 
-export function ErrorsView({ onNavigate, route }) {
+interface ErrorsViewProps {
+    onNavigate: (path: string) => void;
+    route: string;
+}
+
+export function ErrorsView({ onNavigate, route }: ErrorsViewProps) {
     const errorRunParameters = (route && route.includes('?')) ? new URLSearchParams(route.split('?')[1]) : null;
     const errorRunString = errorRunParameters ? errorRunParameters.get('run') : null;
     const errorRunIndex = useMemo(() => {
@@ -24,9 +30,9 @@ export function ErrorsView({ onNavigate, route }) {
     const errorIsHistorical = errorRunIndex !== null && errorRunIndex !== DATA.history.length - 1;
     const errorHistoricalRun = errorIsHistorical ? DATA.history[errorRunIndex] : null;
 
-    const errorActiveRunTs = errorRunIndex !== null && DATA.history[errorRunIndex] ? DATA.history[errorRunIndex].timestamp : DATA.history[DATA.history.length - 1]?.timestamp;
-    const onErrorRunChange = (e) => {
-        const ts = e.target.value;
+    const errorActiveRunTs = errorRunIndex !== null && DATA.history[errorRunIndex] ? DATA.history[errorRunIndex].timestamp : DATA.history[DATA.history.length - 1]?.timestamp || null;
+    const onErrorRunChange = (e: Event) => {
+        const ts = (e.target as HTMLSelectElement).value;
         const index = DATA.history.findIndex(r => r.timestamp === ts);
         const isLatest = index === DATA.history.length - 1;
         onNavigate(isLatest ? '/errors' : '/errors?run=' + ts);
@@ -35,7 +41,7 @@ export function ErrorsView({ onNavigate, route }) {
 
     const errorScenarios = DATA.scenarios.filter(s => s.error || s.outcome === 'FAILURE' || s.outcome === 'ERROR' || s.outcome === 'COMPROMISED');
 
-    function classifyError(error) {
+    function classifyError(error: { name?: string; message?: string }): string {
         const name = (error.name || '').toLowerCase();
         const message = (error.message || '').toLowerCase();
         if (name.includes('compromised')) return 'Compromised Tests';
@@ -44,7 +50,7 @@ export function ErrorsView({ onNavigate, route }) {
         return 'Runtime Errors';
     }
 
-    const categories = {};
+    const categories: Record<string, ReportScenario[]> = {};
     for (const s of errorScenarios) {
         const cat = classifyError(s.error || { name: s.outcome, message: '' });
         if (!categories[cat]) categories[cat] = [];
@@ -52,11 +58,11 @@ export function ErrorsView({ onNavigate, route }) {
     }
 
     const categoryOrder = Object.entries(categories).map(([name, scenarios]) => {
-        return { name, scenarios };
+        return { name, scenarios: scenarios as ReportScenario[] };
     }).sort((a, b) => b.scenarios.length - a.scenarios.length);
 
-    const categoryColors = { 'Assertion Errors': 'var(--color-failed)', 'Compromised Tests': 'var(--color-compromised)', 'Timeout Errors': 'var(--color-pending)', 'Runtime Errors': 'var(--color-failed)' };
-    const categoryIcons = { 'Assertion Errors': '≠', 'Compromised Tests': '⚠', 'Timeout Errors': '⏱', 'Runtime Errors': '✗' };
+    const categoryColors: Record<string, string> = { 'Assertion Errors': 'var(--color-failed)', 'Compromised Tests': 'var(--color-compromised)', 'Timeout Errors': 'var(--color-pending)', 'Runtime Errors': 'var(--color-failed)' };
+    const categoryIcons: Record<string, string> = { 'Assertion Errors': '≠', 'Compromised Tests': '⚠', 'Timeout Errors': '⏱', 'Runtime Errors': '✗' };
 
     const summaryCards = categoryOrder.map(cat => ({
         title: cat.name,
@@ -65,8 +71,8 @@ export function ErrorsView({ onNavigate, route }) {
         subtitle: cat.scenarios.length === 1 ? '1 test' : cat.scenarios.length + ' tests',
     }));
 
-    const renderItems = useMemo(() => {
-        const items = [];
+    const renderItems: Array<{ type: 'header'; icon: string; name: string; count: number } | { type: 'scenario'; scenario: ReportScenario; duplicateCount: number }> = useMemo(() => {
+        const items: Array<{ type: 'header'; icon: string; name: string; count: number } | { type: 'scenario'; scenario: ReportScenario; duplicateCount: number }> = [];
         for (const cat of categoryOrder) {
             items.push({ type: 'header', icon: categoryIcons[cat.name] || '✗', name: cat.name, count: cat.scenarios.length });
             // Group by error message
@@ -89,15 +95,15 @@ export function ErrorsView({ onNavigate, route }) {
     const ERROR_HEADER_CONTENT_HEIGHT = 46;
 
     const headerIndices = useMemo(() => {
-        const indices = [];
+        const indices: number[] = [];
         renderItems.forEach((item, i) => { if (item.type === 'header') indices.push(i); });
         return indices;
     }, [renderItems]);
 
-    const errorParentRef = useRef(null);
+    const errorParentRef = useRef<HTMLElement | null>(null);
     const errorActiveStickyRef = useRef(-1);
 
-    const errorRangeExtractor = useCallback((range) => {
+    const errorRangeExtractor = useCallback((range: Range) => {
         if (headerIndices.length === 0) {
             errorActiveStickyRef.current = -1;
             return defaultRangeExtractor(range);
@@ -138,9 +144,9 @@ export function ErrorsView({ onNavigate, route }) {
             element.style.gap = 'var(--space-sm)';
             element.innerHTML = '';
             const iconSpan = document.createElement('span');
-            iconSpan.textContent = item.icon;
+            iconSpan.textContent = item.icon as string;
             const nameSpan = document.createElement('span');
-            nameSpan.textContent = item.name;
+            nameSpan.textContent = item.name as string;
             const countSpan = document.createElement('span');
             countSpan.textContent = '(' + item.count + ')';
             countSpan.style.cssText = 'font-size:var(--font-xs);color:var(--text-disabled);font-weight:400';

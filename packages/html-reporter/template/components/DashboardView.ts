@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import 'chartjs-plugin-zoom';
 
 import { Chart } from 'chart.js/auto';
@@ -6,12 +5,20 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
+import type { ReportCapabilityNode, ReportHistoryEntry, ReportScenarioRef, ReportSource } from '../../src/ReportData';
 import { DATA, formatDuration, formatRunLabel, outcomeClass, scenarioUrl } from '../utils';
 
 const html = htm.bind(h);
 
 // ===== Area Sparkline (filled, for hero card) =====
-function AreaSparkline({ values, color, width = 200, height = 48 }) {
+interface AreaSparklineProps {
+    values: number[];
+    color: string;
+    width?: number;
+    height?: number;
+}
+
+function AreaSparkline({ values, color, width = 200, height = 48 }: AreaSparklineProps) {
     if (!values || values.length < 2) return null;
     const min = Math.min(...values);
     const max = Math.max(...values);
@@ -32,7 +39,13 @@ function AreaSparkline({ values, color, width = 200, height = 48 }) {
 }
 
 // ===== Dot Trend (for operational cards) =====
-function DotTrend({ values, color, maxHeight = 20 }) {
+interface DotTrendProps {
+    values: number[];
+    color: string;
+    maxHeight?: number;
+}
+
+function DotTrend({ values, color, maxHeight = 20 }: DotTrendProps) {
     if (!values || values.length < 2) return null;
     const max = Math.max(...values);
     const min = Math.min(...values);
@@ -48,7 +61,14 @@ function DotTrend({ values, color, maxHeight = 20 }) {
 }
 
 // ===== Delta indicator =====
-function Delta({ current, previous, invert = false, suffix = '' }) {
+interface DeltaProps {
+    current: number;
+    previous: number | undefined;
+    invert?: boolean;
+    suffix?: string;
+}
+
+function Delta({ current, previous, invert = false, suffix = '' }: DeltaProps) {
     if (previous === undefined || previous === null) return null;
     const diff = current - previous;
     if (diff === 0) return html`<span class="kpi-delta kpi-delta--neutral">— no change</span>`;
@@ -59,9 +79,14 @@ function Delta({ current, previous, invert = false, suffix = '' }) {
 }
 
 // ===== Trend Chart (Chart.js) =====
-export function TrendChart({ history, onNavigate }) {
-    const canvasRef = useRef(null);
-    const chartRef = useRef(null);
+interface TrendChartProps {
+    history: ReportHistoryEntry[];
+    onNavigate: (path: string) => void;
+}
+
+export function TrendChart({ history, onNavigate }: TrendChartProps) {
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const chartRef = useRef<Chart | null>(null);
     const [chartTheme, setChartTheme] = useState(() => localStorage.getItem('serenity-theme') || 'light');
 
     useEffect(() => {
@@ -74,7 +99,7 @@ export function TrendChart({ history, onNavigate }) {
         const handleResize = () => {
             if (!chartRef.current) return;
             const isMobile = window.innerWidth <= 768;
-            const xScale = chartRef.current.options.scales.x;
+            const xScale = chartRef.current.options.scales!.x as { min?: number };
             if (isMobile && history.length > 3) {
                 xScale.min = history.length - 3;
             } else {
@@ -156,7 +181,7 @@ export function TrendChart({ history, onNavigate }) {
                     {
                         type: 'bar',
                         label: 'Duration Range',
-                        data: history.map(h => [h.fastest || 0, h.slowest || 0]),
+                        data: history.map(h => [h.fastest || 0, h.slowest || 0]) as unknown as number[],
                         backgroundColor: isDark ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.25)',
                         borderColor: 'transparent',
                         borderWidth: 0,
@@ -191,7 +216,7 @@ export function TrendChart({ history, onNavigate }) {
                 resizeDelay: 100,
                 layout: { padding: { top: 8, right: 4, bottom: 0, left: 0 } },
                 interaction: { intersect: false, mode: 'index' },
-                onClick: (event, elements) => {
+                onClick: (event: unknown, elements: Array<{ index: number }>) => {
                     if (elements.length > 0) {
                         const index = elements[0].index;
                         onNavigate && onNavigate('/tests?run=' + history[index].timestamp);
@@ -220,35 +245,35 @@ export function TrendChart({ history, onNavigate }) {
                         borderWidth: 1,
                         cornerRadius: 8,
                         padding: { top: 10, right: 14, bottom: 10, left: 14 },
-                        titleFont: { size: 12, weight: '600' },
+                        titleFont: { size: 12, weight: 600 },
                         bodyFont: { size: 11 },
                         titleMarginBottom: 8,
                         bodySpacing: 6,
                         boxPadding: 6,
                         callbacks: {
-                            title: (items) => {
+                            title: (items: Array<{ dataIndex: number }>) => {
                                 const index = items[0].dataIndex;
                                 const run = history[index];
                                 return formatRunLabel(run.label, run.timestamp);
                             },
-                            label: (context) => {
+                            label: (context: { dataset: { label?: string }; raw: unknown }) => {
                                 const label = context.dataset.label || '';
                                 if (label === 'Duration Range') {
-                                    const [low, high] = context.raw;
+                                    const [low, high] = context.raw as [number, number];
                                     return '  Fastest: ' + formatDuration(low) + '  ·  Slowest: ' + formatDuration(high);
                                 }
                                 if (label === 'Duration' || label === 'Total Duration' || label === 'Average Duration') {
-                                    return '  ' + label + ':  ' + formatDuration(context.raw);
+                                    return '  ' + label + ':  ' + formatDuration(context.raw as number);
                                 }
                                 return '  ' + label + ':  ' + context.raw;
                             },
-                            labelColor: (context) => {
-                                const bg = context.dataset.backgroundColor;
-                                const border = context.dataset.borderColor;
+                            labelColor: (context: { dataset: { backgroundColor?: unknown; borderColor?: unknown } }) => {
+                                const bg = context.dataset.backgroundColor as string | undefined;
+                                const border = context.dataset.borderColor as string | undefined;
                                 const color = (bg && bg !== 'transparent') ? bg : border;
                                 return { borderColor: color, backgroundColor: color };
                             },
-                        },
+                        } as Record<string, unknown>,
                     },
                     zoom: {
                         pan: { enabled: true, mode: 'x' },
@@ -279,7 +304,7 @@ export function TrendChart({ history, onNavigate }) {
                         min: minDuration ? minDuration * 0.8 : undefined,
                         max: maxDuration ? maxDuration * 1.2 : undefined,
                         border: { display: false },
-                        ticks: { color: textColor, font: { size: 10 }, callback: (v) => formatDuration(v), maxTicksLimit: 5, padding: 8 },
+                        ticks: { color: textColor, font: { size: 10 }, callback: (v: number | string) => formatDuration(Number(v)), maxTicksLimit: 5, padding: 8 },
                         grid: { drawOnChartArea: false },
                         title: { display: false },
                     },
@@ -300,7 +325,11 @@ export function TrendChart({ history, onNavigate }) {
 }
 
 // ===== Dashboard View =====
-export function DashboardView({ onNavigate }) {
+interface DashboardViewProps {
+    onNavigate: (path: string) => void;
+}
+
+export function DashboardView({ onNavigate }: DashboardViewProps) {
     const { summary, history, scenarios } = DATA;
     const totalFailed = (summary.outcomes.failed || 0) + (summary.outcomes.error || 0) + (summary.outcomes.compromised || 0);
 
@@ -313,8 +342,8 @@ export function DashboardView({ onNavigate }) {
         const capabilities = DATA.capabilities;
         if (!capabilities) return 100;
         let total = 0, complete = 0;
-        function walk(node) {
-            if (node.type === 'file') { total++; const t = Object.values(node.outcomes).reduce((a: number, b: number) => a + b, 0); if (t > 0 && !(node.outcomes.pending || 0) && !(node.outcomes.skipped || 0)) complete++; }
+        function walk(node: ReportCapabilityNode) {
+            if (node.type === 'file') { total++; const t = (node.outcomes.passed || 0) + (node.outcomes.failed || 0) + (node.outcomes.error || 0) + (node.outcomes.compromised || 0) + (node.outcomes.pending || 0) + (node.outcomes.skipped || 0); if (t > 0 && !(node.outcomes.pending || 0) && !(node.outcomes.skipped || 0)) complete++; }
             if (node.children) node.children.forEach(walk);
         }
         if (capabilities.children) capabilities.children.forEach(walk);
@@ -327,18 +356,18 @@ export function DashboardView({ onNavigate }) {
     const previousPassRate = previousScore ? previousScore.passRate : undefined;
     const previousConsistency = previousScore ? previousScore.consistency : undefined;
     const previousCompleteness = previousScore ? previousScore.completeness : undefined;
-    const previousFailed = history.length > 1 ? ((h) => (h.outcomes.failed || 0) + (h.outcomes.error || 0) + (h.outcomes.compromised || 0))(history[history.length - 2]) : undefined;
+    const previousFailed = history.length > 1 ? ((h: ReportHistoryEntry) => (h.outcomes.failed || 0) + (h.outcomes.error || 0) + (h.outcomes.compromised || 0))(history[history.length - 2]) : undefined;
     const previousDuration = history.length > 1 ? history[history.length - 2].duration : undefined;
 
     // Sparkline data from history
     const scoreHistory = history.filter(h => h.score);
-    const confidenceTrend = scoreHistory.map(h => h.score.confidence);
+    const confidenceTrend = scoreHistory.map(h => h.score!.confidence);
     const failedTrend = history.map(h => (h.outcomes.failed || 0) + (h.outcomes.error || 0) + (h.outcomes.compromised || 0));
     const durationTrend = history.map(h => h.duration);
 
     // Colour: only exceptional or warning states get colour; "normal good" uses default text
-    const heroColor = (v) => v >= 90 ? 'var(--color-passed)' : v < 50 ? 'var(--color-failed)' : v < 70 ? 'var(--color-pending)' : undefined;
-    const scoreColor = (v) => v >= 90 ? 'var(--color-passed)' : v < 50 ? 'var(--color-failed)' : v < 70 ? 'var(--color-pending)' : undefined;
+    const heroColor = (v: number) => v >= 90 ? 'var(--color-passed)' : v < 50 ? 'var(--color-failed)' : v < 70 ? 'var(--color-pending)' : undefined;
+    const scoreColor = (v: number) => v >= 90 ? 'var(--color-passed)' : v < 50 ? 'var(--color-failed)' : v < 70 ? 'var(--color-pending)' : undefined;
 
     const sorted = [...scenarios].sort((a, b) => b.duration - a.duration);
     const slowest = sorted.slice(0, 5);
@@ -347,7 +376,7 @@ export function DashboardView({ onNavigate }) {
     const inconsistent = (DATA.inconsistentTests || []).slice(0, 5);
 
     // Look up execution history for a test by source identity
-    const getHistory = (t) => {
+    const getHistory = (t: ReportScenarioRef) => {
         const key = t.source.path + ':' + (t.source.line || '');
         const match = scenarios.find(s => s.source.path + ':' + (s.source.line || '') === key)
             || scenarios.find(s => s.name === t.name && s.source.path === t.source.path);
@@ -450,9 +479,9 @@ export function DashboardView({ onNavigate }) {
                         <span class="status-item-name">${t.name}</span>
                         <span class="status-item-kind" style="color:${t.kind === 'degraded' ? 'var(--color-failed)' : t.kind === 'recovered' ? 'var(--color-passed)' : 'var(--color-pending)'}">${t.kind}</span>
                       </div>
-                      <div class="status-item-history">${(t.history || getHistory(t)).map((h, i) => {
+                      <div class="status-item-history">${((t as { history?: string[] }).history || getHistory(t)).map((h: string | { outcome: string; run: string }, i: number) => {
                     const outcome = typeof h === 'string' ? h : h.outcome;
-                    const label = t.labels ? t.labels[i] : (typeof h === 'object' ? h.run : '');
+                    const label = (t as { labels?: string[] }).labels ? (t as { labels?: string[] }).labels![i] : (typeof h === 'object' ? h.run : '');
                     return html`<span class="history-dot history-dot--${outcomeClass(outcome)}" title=${outcome + (label ? ' (' + label + ')' : '')}></span>`;
                 })}</div>
                     </div>

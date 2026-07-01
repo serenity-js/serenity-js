@@ -44,6 +44,7 @@ export interface ReportOutcomes {
 }
 
 export interface ReportScenario {
+    id?: string;
     name: string;
     category: string;
     outcome: string;
@@ -139,6 +140,7 @@ export interface ReportParameterSet {
     name?: string;
     description?: string;
     outcome: string;
+    duration?: number;
     activities: ReportActivity[];
     values: Record<string, string>;
 }

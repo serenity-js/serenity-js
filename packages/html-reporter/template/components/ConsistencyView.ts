@@ -1,16 +1,21 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { defaultRangeExtractor } from '@tanstack/virtual-core';
 import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useMemo, useRef, useState } from 'preact/hooks';
 
+import type { ReportInconsistentTest } from '../../src/ReportData';
 import { useStickyHeader, useVirtualizer } from '../hooks';
+import type { Range } from '../hooks/useVirtualizer';
 import { DATA, matchesSearch, outcomeClass, relativeSourcePath, scenarioUrl } from '../utils';
 import { icons } from './icons';
 
 const html = htm.bind(h);
 
-export function ConsistencyView({ onNavigate }) {
+interface ConsistencyViewProps {
+    onNavigate: (path: string) => void;
+}
+
+export function ConsistencyView({ onNavigate }: ConsistencyViewProps) {
     const inconsistentTests = DATA.inconsistentTests || [];
 
     const [filter, setFilter] = useState('inconsistent');
@@ -57,15 +62,15 @@ export function ConsistencyView({ onNavigate }) {
     const CONSISTENCY_HEADER_HEIGHT_REST = 78;
     const CONSISTENCY_HEADER_CONTENT_HEIGHT = 46;
 
-    const flatItems = useMemo(() => {
-        if (sort !== 'category') return sortedItems.map(t => ({ type: 'scenario', item: t }));
-        const groups = {};
+    const flatItems: Array<{ type: 'header'; category: string } | { type: 'scenario'; item: ReportInconsistentTest & { kind: string } }> = useMemo(() => {
+        if (sort !== 'category') return sortedItems.map(t => ({ type: 'scenario' as const, item: t }));
+        const groups: Record<string, Array<ReportInconsistentTest & { kind: string }>> = {};
         for (const t of sortedItems) {
             const cat = t.category || 'Uncategorised';
             if (!groups[cat]) groups[cat] = [];
             groups[cat].push(t);
         }
-        const result = [];
+        const result: Array<{ type: 'header'; category: string } | { type: 'scenario'; item: ReportInconsistentTest & { kind: string } }> = [];
         for (const [category, tests] of Object.entries(groups)) {
             result.push({ type: 'header', category });
             for (const t of tests) result.push({ type: 'scenario', item: t });
@@ -73,15 +78,15 @@ export function ConsistencyView({ onNavigate }) {
         return result;
     }, [sortedItems, sort]);
 
-    const parentRef = useRef(null);
+    const parentRef = useRef<HTMLElement | null>(null);
     const headerIndices = useMemo(() => {
-        const indices = [];
+        const indices: number[] = [];
         flatItems.forEach((item, i) => { if (item.type === 'header') indices.push(i); });
         return indices;
     }, [flatItems]);
 
     const activeStickyRef = useRef(-1);
-    const rangeExtractor = useCallback((range) => {
+    const rangeExtractor = useCallback((range: Range) => {
         if (sort !== 'category' || headerIndices.length === 0) {
             activeStickyRef.current = -1;
             return defaultRangeExtractor(range);
@@ -117,11 +122,11 @@ export function ConsistencyView({ onNavigate }) {
         firstHeaderHeight: CONSISTENCY_HEADER_HEIGHT_FIRST,
         rowHeight: CONSISTENCY_ROW_HEIGHT,
         renderContent: (element, item) => {
-            element.textContent = item.category.replace(/ › /g, '  ›  ');
+            element.textContent = (item.category as string).replace(/ › /g, '  ›  ');
         },
     });
 
-    const kindIcon = (kind) => {
+    const kindIcon = (kind: string) => {
         if (kind === 'degraded') return html`<span class="scenario-outcome-icon failed">✗</span>`;
         if (kind === 'recovered') return html`<span class="scenario-outcome-icon passed">✓</span>`;
         return html`<span class="scenario-outcome-icon pending">⚠</span>`;
@@ -131,7 +136,7 @@ export function ConsistencyView({ onNavigate }) {
     <div>
       <div style="position:relative;margin-bottom:var(--space-md)">
         <input class="search-input" type="text" placeholder="Find test scenarios..."
-               value=${search} onInput=${e => setSearch(e.target.value)}
+               value=${search} onInput=${(e: Event) => setSearch((e.target as HTMLInputElement).value)}
                aria-label="Find test scenarios" style="margin-bottom:0;padding-right:36px" />
         ${search ? html`<button onClick=${() => setSearch('')}
           class="btn-clear"
@@ -151,7 +156,7 @@ export function ConsistencyView({ onNavigate }) {
         </button>
         <div class="sort-group">
           <label class="label-upper" for="consistency-sort-select">Sort:</label>
-          <select id="consistency-sort-select" class="sort-select" value=${sort} onChange=${(e) => setSort(e.target.value)} aria-label="Sort order">
+          <select id="consistency-sort-select" class="sort-select" value=${sort} onChange=${(e: Event) => setSort((e.target as HTMLSelectElement).value)} aria-label="Sort order">
             <option value="category" selected=${sort === 'category'}>Category</option>
             <option value="name" selected=${sort === 'name'}>Name</option>
           </select>
@@ -168,10 +173,11 @@ export function ConsistencyView({ onNavigate }) {
                 const flatItem = flatItems[virtualRow.index];
                 if (flatItem.type === 'header') {
                     const topOffset = virtualRow.index === 0 ? 0 : 16;
+                    const headerItem = flatItem as { type: 'header'; category: string };
                     return html`
                   <div style="position:absolute;top:0;left:0;width:100%;height:${CONSISTENCY_HEADER_CONTENT_HEIGHT}px;transform:translateY(${virtualRow.start + topOffset}px);background:var(--bg-surface);z-index:1"
                        class="scenario-group-header">
-                    ${flatItem.category.split(' › ').map((segment, index, array) => html`
+                    ${headerItem.category.split(' › ').map((segment, index, array) => html`
                       <span class="clickable" onClick=${() => setSearch('"' + segment + '"')}>${segment}</span>${index < array.length - 1 ? html`<span style="margin:0 4px;text-decoration:none;cursor:default"> › </span>` : null}
                     `)}
                   </div>
@@ -182,7 +188,7 @@ export function ConsistencyView({ onNavigate }) {
                 return html`
                 <div style="position:absolute;top:0;left:0;width:100%;height:${CONSISTENCY_ROW_HEIGHT}px;transform:translateY(${virtualRow.start}px);overflow:hidden"
                      class="scenario-item" role="button" tabindex="0" onClick=${clickHandler}
-                     onKeyDown=${(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); clickHandler(); } }}>
+                     onKeyDown=${(e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); clickHandler(); } }}>
                   ${kindIcon(t.kind)}
                   <div class="scenario-info">
                     <div class="scenario-name">${t.name}</div>

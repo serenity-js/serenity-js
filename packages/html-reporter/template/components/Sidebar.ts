@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import htm from 'htm';
 import { h } from 'preact';
 
@@ -7,7 +6,16 @@ import { icons } from './icons';
 
 const html = htm.bind(h);
 
-export function Sidebar({ route, sidebarOpen, collapsed, onNavigate, onClose, onToggleCollapse }) {
+interface SidebarProps {
+    route: string;
+    sidebarOpen: boolean;
+    collapsed: boolean;
+    onNavigate: (path: string) => void;
+    onClose: () => void;
+    onToggleCollapse: () => void;
+}
+
+export function Sidebar({ route, sidebarOpen, collapsed, onNavigate, onClose, onToggleCollapse }: SidebarProps) {
     const navItems = [
         { path: '/', label: 'Dashboard', icon: 'dashboard' },
         { path: '/tests', label: 'Test Scenarios', icon: 'testScenarios', badge: DATA.summary.outcomes.failed + (DATA.summary.outcomes.error || 0) + (DATA.summary.outcomes.compromised || 0) },
@@ -20,7 +28,7 @@ export function Sidebar({ route, sidebarOpen, collapsed, onNavigate, onClose, on
         { path: '/system', label: 'System Context', icon: 'system' },
     ];
 
-    const isActive = (path) => {
+    const isActive = (path: string) => {
         if (path === '/') return route === '/' || route === '';
         return route.startsWith(path);
     };
@@ -41,9 +49,9 @@ export function Sidebar({ route, sidebarOpen, collapsed, onNavigate, onClose, on
                title=${item.label}
                aria-current=${isActive(item.path) ? 'page' : undefined}
                onClick=${() => { onNavigate(item.path); onClose(); }}>
-            ${icons[item.icon]}
+            ${icons[item.icon as keyof typeof icons]}
             <span>${item.label}</span>
-            ${item.badge > 0 ? html`<span class="nav-badge">${item.badge}</span>` : null}
+            ${item.badge && item.badge > 0 ? html`<span class="nav-badge">${item.badge}</span>` : null}
           </button>
         `)}
         <button type="button" class="nav-item ${isActive('/about') ? 'active' : ''}"

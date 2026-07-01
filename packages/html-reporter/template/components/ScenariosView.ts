@@ -1,10 +1,11 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { defaultRangeExtractor } from '@tanstack/virtual-core';
 import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
+import type { ReportOutcomes, ReportScenario } from '../../src/ReportData';
 import { useStickyHeader, useVirtualizer } from '../hooks';
+import type { Range } from '../hooks/useVirtualizer';
 import { browserBadgeClass, DATA, formatDuration, formatRunLabel, getBrowserTag, matchesSearch, outcomeClass, outcomeIcon, relativeSourcePath, scenarioUrl } from '../utils';
 import { FilterBar } from './FilterBar';
 import { RunSelector } from './RunSelector';
@@ -12,16 +13,25 @@ import { RunSelector } from './RunSelector';
 const html = htm.bind(h);
 
 // ===== Virtualized Scenario List Component =====
-function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, setSearch }) {
-    const parentRef = useRef(null);
+interface VirtualScenarioListProps {
+    filtered: ReportScenario[];
+    grouped: Record<string, ReportScenario[]>;
+    sort: string;
+    onNavigate: (path: string) => void;
+    runIndex: number | null;
+    setSearch: (search: string) => void;
+}
+
+function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, setSearch }: VirtualScenarioListProps) {
+    const parentRef = useRef<HTMLElement | null>(null);
     const SCENARIO_ROW_HEIGHT = 108;
     const GROUP_HEADER_HEIGHT_FIRST = 62;
     const GROUP_HEADER_HEIGHT_REST = 78;
     const GROUP_HEADER_CONTENT_HEIGHT = 46;
 
-    const flatItems = useMemo(() => {
+    const flatItems: Array<{ type: 'header'; category: string } | { type: 'scenario'; scenario: ReportScenario }> = useMemo(() => {
         if (sort === 'category') {
-            const items = [];
+            const items: Array<{ type: 'header'; category: string } | { type: 'scenario'; scenario: ReportScenario }> = [];
             for (const [category, scenarios] of Object.entries(grouped)) {
                 items.push({ type: 'header', category });
                 for (const scenario of scenarios) {
@@ -30,11 +40,11 @@ function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, se
             }
             return items;
         }
-        return filtered.map(scenario => ({ type: 'scenario', scenario }));
+        return filtered.map(scenario => ({ type: 'scenario' as const, scenario }));
     }, [sort, filtered, grouped]);
 
     const headerIndices = useMemo(() => {
-        const indices = [];
+        const indices: number[] = [];
         flatItems.forEach((item, i) => {
             if (item.type === 'header') indices.push(i);
         });
@@ -43,7 +53,7 @@ function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, se
 
     const activeStickyRef = useRef(-1);
 
-    const rangeExtractor = useCallback((range) => {
+    const rangeExtractor = useCallback((range: Range) => {
         if (sort !== 'category' || headerIndices.length === 0) {
             activeStickyRef.current = -1;
             return defaultRangeExtractor(range);
@@ -79,7 +89,7 @@ function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, se
         firstHeaderHeight: GROUP_HEADER_HEIGHT_FIRST,
         rowHeight: SCENARIO_ROW_HEIGHT,
         renderContent: (element, item) => {
-            element.textContent = item.category.replace(/ › /g, '  ›  ');
+            element.textContent = (item.category as string).replace(/ › /g, '  ›  ');
         },
     });
 
@@ -89,7 +99,7 @@ function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, se
         ${virtualizer.getVirtualItems().map(virtualRow => {
             const item = flatItems[virtualRow.index];
             if (item.type === 'header') {
-                const segments = item.category.split(' › ');
+                const segments = (item as { type: 'header'; category: string }).category.split(' › ');
                 const topOffset = virtualRow.index === 0 ? 0 : 16;
                 return html`
               <div style="position:absolute;top:0;left:0;width:100%;height:${GROUP_HEADER_CONTENT_HEIGHT}px;transform:translateY(${virtualRow.start + topOffset}px);background:var(--bg-surface);z-index:1"
@@ -102,11 +112,11 @@ function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, se
             }
             const scenario = item.scenario;
             const clickHandler = () => onNavigate(scenarioUrl(scenario, runIndex));
-            const stopProp = (e) => e.stopPropagation();
+            const stopProp = (e: Event) => e.stopPropagation();
             return html`
             <div style="position:absolute;top:0;left:0;width:100%;height:${SCENARIO_ROW_HEIGHT}px;transform:translateY(${virtualRow.start}px);overflow:hidden"
                  class="scenario-item" role="button" tabindex="0" onClick=${clickHandler}
-                 onKeyDown=${(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); clickHandler(); } }}>
+                 onKeyDown=${(e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); clickHandler(); } }}>
               <div class="scenario-outcome-icon ${outcomeClass(scenario.outcome)}">
                 ${outcomeIcon(scenario.outcome)}
               </div>
@@ -114,13 +124,13 @@ function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, se
                 <div class="scenario-name">${sort !== 'category' && scenario.category ? scenario.category + ' › ' : ''}${scenario.name}</div>
                 ${scenario.error ? html`<div class="scenario-error-preview">${scenario.error.message}</div>` : null}
                 <div class="scenario-tags">
-                  ${getBrowserTag(scenario) ? html`<a href=${'#/tests?search=' + encodeURIComponent('"' + getBrowserTag(scenario) + '"')} class="badge ${browserBadgeClass(getBrowserTag(scenario))} badge-link" onClick=${stopProp}>${getBrowserTag(scenario)}</a>` : null}
-                  ${scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
+                  ${getBrowserTag(scenario) ? html`<a href=${'#/tests?search=' + encodeURIComponent('"' + getBrowserTag(scenario)! + '"')} class="badge ${browserBadgeClass(getBrowserTag(scenario)!)} badge-link" onClick=${stopProp}>${getBrowserTag(scenario)}</a>` : null}
+                  ${scenario.retries && scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
                   ${[...new Map((scenario.tags || []).filter(t => t.type !== 'feature' && t.type !== 'browser').map(t => [t.type + ':' + t.name, t])).values()].map(t => html`<a href=${'#/tests?search=' + encodeURIComponent('"' + t.name + '"')} class="tag-chip tag-chip-sm" onClick=${stopProp}>${t.name}</a>`)}
                 </div>
                 <div class="scenario-meta">
                   <span class="scenario-source">${relativeSourcePath(scenario)}</span>
-                  ${scenario.executionHistory && scenario.executionHistory.length > 1 ? html`<span class="scenario-history">${(runIndex !== null ? scenario.executionHistory.slice(0, runIndex + 1) : scenario.executionHistory).slice(-5).map(h => html`<span class="history-dot history-dot--${outcomeClass(h.outcome)}" title=${h.outcome + ' — ' + formatRunLabel(h.run, h.timestamp)}></span>`)}</span>` : null}
+                  ${scenario.executionHistory && scenario.executionHistory.length > 1 ? html`<span class="scenario-history">${(runIndex !== null ? scenario.executionHistory.slice(0, runIndex + 1) : scenario.executionHistory).slice(-5).map(h => html`<span class="history-dot history-dot--${outcomeClass(h.outcome)}" title=${h.outcome + ' — ' + formatRunLabel(h.run, h.timestamp || '')}></span>`)}</span>` : null}
                 </div>
               </div>
               <span class="scenario-duration">${formatDuration(scenario.duration)}</span>
@@ -133,7 +143,12 @@ function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, se
 }
 
 // ===== Test Scenarios List View =====
-export function ScenariosView({ onNavigate, route }) {
+interface ScenariosViewProps {
+    onNavigate: (path: string) => void;
+    route: string;
+}
+
+export function ScenariosView({ onNavigate, route }: ScenariosViewProps) {
     const [search, setSearch] = useState(() => {
         const hash = window.location.hash;
         const params = hash.includes('?') ? new URLSearchParams(hash.split('?')[1]) : null;
@@ -163,7 +178,7 @@ export function ScenariosView({ onNavigate, route }) {
     const filtered = useMemo(() => {
         let result = DATA.scenarios;
         if (filter && filter !== 'all') {
-            const filterMatch = { passed: ['SUCCESS'], failed: ['FAILURE', 'ERROR', 'COMPROMISED'], skipped: ['SKIPPED', 'PENDING'] };
+            const filterMatch: Record<string, string[]> = { passed: ['SUCCESS'], failed: ['FAILURE', 'ERROR', 'COMPROMISED'], skipped: ['SKIPPED', 'PENDING'] };
             const keys = filter.split(',');
             const allowed = keys.flatMap(k => filterMatch[k] || []);
             if (allowed.length > 0) result = result.filter(s => allowed.includes(s.outcome));
@@ -176,7 +191,7 @@ export function ScenariosView({ onNavigate, route }) {
         } else if (sort === 'duration') {
             result = [...result].sort((a, b) => b.duration - a.duration);
         } else if (sort === 'status') {
-            const statusOrder = { FAILURE: 1, ERROR: 2, COMPROMISED: 3, PENDING: 4, SKIPPED: 5, SUCCESS: 6 };
+            const statusOrder: Record<string, number> = { FAILURE: 1, ERROR: 2, COMPROMISED: 3, PENDING: 4, SKIPPED: 5, SUCCESS: 6 };
             result = [...result].sort((a, b) => (statusOrder[a.outcome] || 6) - (statusOrder[b.outcome] || 6));
         }
         return result;
@@ -207,7 +222,7 @@ export function ScenariosView({ onNavigate, route }) {
     }, [search, filter, sort]);
 
     const grouped = useMemo(() => {
-        const groups = {};
+        const groups: Record<string, ReportScenario[]> = {};
         for (const s of filtered) {
             if (!groups[s.category]) groups[s.category] = [];
             groups[s.category].push(s);
@@ -218,21 +233,21 @@ export function ScenariosView({ onNavigate, route }) {
     const historicalRun = (runIndex !== null && runIndex !== DATA.history.length - 1) ? DATA.history[runIndex] : null;
 
     const activeRunTimestamp = runIndex !== null && DATA.history[runIndex] ? DATA.history[runIndex].timestamp : DATA.history[DATA.history.length - 1]?.timestamp;
-    const onRunChange = (e) => {
-        const ts = e.target.value;
+    const onRunChange = (e: Event) => {
+        const ts = (e.target as HTMLSelectElement).value;
         const index = DATA.history.findIndex(r => r.timestamp === ts);
         const isLatest = index === DATA.history.length - 1;
         onNavigate(isLatest ? '/tests' : '/tests?run=' + ts);
     };
 
-    const runOutcomes = useMemo(() => {
+    const runOutcomes: ReportOutcomes = useMemo(() => {
         if (runIndex !== null && DATA.history[runIndex]) {
             return DATA.history[runIndex].outcomes;
         }
         return DATA.summary.outcomes;
     }, [runIndex]);
     const runTotal = useMemo(() => {
-        return Object.values(runOutcomes).reduce((a, b) => a + b, 0);
+        return Object.values(runOutcomes).reduce((a: number, b: number) => a + b, 0);
     }, [runOutcomes]);
 
     return html`
@@ -248,7 +263,7 @@ export function ScenariosView({ onNavigate, route }) {
 
       <div style="position:relative;margin-bottom:var(--space-md)">
         <input class="search-input" type="text" placeholder="Find test scenarios..."
-               value=${search} onInput=${e => setSearch(e.target.value)}
+               value=${search} onInput=${(e: Event) => setSearch((e.target as HTMLInputElement).value)}
                aria-label="Find test scenarios" style="margin-bottom:0;padding-right:36px" />
         ${search ? html`<button onClick=${() => setSearch('')}
           class="btn-clear"

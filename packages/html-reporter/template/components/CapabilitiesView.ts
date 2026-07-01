@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 
+import type { ReportCapabilityNode, ReportOutcomes } from '../../src/ReportData';
 import { DATA, RawHtml } from '../utils';
 import { icons } from './icons';
 
@@ -11,14 +11,14 @@ const html = htm.bind(h);
 const folderIcon = html`<svg class="req-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>`;
 const fileIcon = html`<svg class="req-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`;
 
-function confidenceColor(score) {
+function confidenceColor(score: number): string {
     if (score >= 90) return 'var(--color-passed)';
     if (score < 50) return 'var(--color-failed)';
     if (score < 70) return 'var(--color-pending)';
     return 'inherit';
 }
 
-function computeNodeScore(node) {
+function computeNodeScore(node: ReportCapabilityNode) {
     if (node.score) return node.score;
     const total = Object.values(node.outcomes).reduce((a: number, b: number) => a + b, 0);
     if (total === 0) return { confidence: 0, passRate: 0, completeness: 0, consistency: 100 };
@@ -32,7 +32,12 @@ function computeNodeScore(node) {
     return { confidence, passRate, completeness, consistency };
 }
 
-function SegmentedBar({ outcomes, className }) {
+interface SegmentedBarProps {
+    outcomes: ReportOutcomes;
+    className?: string;
+}
+
+function SegmentedBar({ outcomes, className }: SegmentedBarProps) {
     const total = Object.values(outcomes).reduce((a: number, b: number) => a + b, 0);
     if (total === 0) return null;
     const passedCount = outcomes.passed || 0;
@@ -53,7 +58,7 @@ function SegmentedBar({ outcomes, className }) {
     `;
 }
 
-function nodeMatches(node, term) {
+function nodeMatches(node: ReportCapabilityNode, term: string): boolean {
     if (!term) return true;
     const name = (node.displayName || node.name).toLowerCase();
     if (name.includes(term.toLowerCase())) return true;
@@ -61,60 +66,71 @@ function nodeMatches(node, term) {
     return false;
 }
 
-function findNodeByPath(root, targetPath) {
+function findNodeByPath(root: ReportCapabilityNode, targetPath: string): ReportCapabilityNode | null {
     if (!targetPath) return root;
     if (!root.children) return null;
     const parts = targetPath.split('/');
-    let current = root;
+    let current: ReportCapabilityNode = root;
     for (const part of parts) {
         if (!current.children) return null;
-        current = current.children.find(c => c.name === part);
-        if (!current) return null;
+        const found = current.children.find(c => c.name === part);
+        if (!found) return null;
+        current = found;
     }
     return current;
 }
 
-function nodeConfidence(node) {
+function nodeConfidence(node: ReportCapabilityNode): number {
     return computeNodeScore(node).confidence;
 }
 
-function nodeHasGap(node) {
+function nodeHasGap(node: ReportCapabilityNode): boolean {
     if (node.type === 'file') {
-        const total = Object.values(node.outcomes).reduce((a, b) => a + b, 0);
+        const total = Object.values(node.outcomes).reduce((a: number, b: number) => a + b, 0);
         return total === 0 || (node.outcomes.pending || 0) + (node.outcomes.skipped || 0) > 0;
     }
     if (node.children) return node.children.some(nodeHasGap);
     return false;
 }
 
-function nodeHasFiles(node) {
-    return node.children && node.children.some(c => c.type === 'file');
+function nodeHasFiles(node: ReportCapabilityNode): boolean {
+    return !!(node.children && node.children.some(c => c.type === 'file'));
 }
 
-function countTopLevelCapabilities(capabilities) {
+function countTopLevelCapabilities(capabilities: ReportCapabilityNode): number {
     if (!capabilities || !capabilities.children) return 0;
     return capabilities.children.filter(c => c.type === 'directory' && c.children && c.children.length > 0).length;
 }
 
-function countVisibleNodes(root, searchTerm, nodeFilter) {
+function countVisibleNodes(root: ReportCapabilityNode, searchTerm: string, nodeFilter: ((node: ReportCapabilityNode) => boolean) | null): number {
     let count = 0;
-    function walk(node, isRoot) {
+    function walk(node: ReportCapabilityNode) {
         if (!node.children) return;
         for (const child of node.children) {
             if (child.type !== 'directory' || !child.children || child.children.length === 0) continue;
             if (nodeFilter && !nodeFilter(child)) continue;
             if (searchTerm && !nodeMatches(child, searchTerm)) continue;
             count++;
-            walk(child, false);
+            walk(child);
         }
     }
-    walk(root, true);
+    walk(root);
     return count;
 }
 
-function CapabilitiesFilterBar({ activeFilter, onFilter, capabilities, searchTerm, onSearch, activeSort, onSort }) {
+interface CapabilitiesFilterBarProps {
+    activeFilter: string;
+    onFilter: (filter: string) => void;
+    capabilities: ReportCapabilityNode;
+    searchTerm: string;
+    onSearch: (term: string) => void;
+    activeSort: string;
+    onSort: (sort: string) => void;
+}
+
+function CapabilitiesFilterBar({ activeFilter, onFilter, capabilities, searchTerm, onSearch, activeSort, onSort }: CapabilitiesFilterBarProps) {
     let healthy = 0, atRisk = 0, critical = 0, gaps = 0;
-    function walk(n) {
+    function walk(n: ReportCapabilityNode) {
         if (n.type === 'directory' && n.children) {
             const score = nodeConfidence(n);
             if (score < 50) critical++;
@@ -153,7 +169,7 @@ function CapabilitiesFilterBar({ activeFilter, onFilter, capabilities, searchTer
             `)}
             <div class="sort-group">
                 <label class="label-upper" for="cap-sort-select">Sort:</label>
-                <select id="cap-sort-select" class="sort-select" value=${activeSort} onChange=${(e) => onSort(e.target.value)} aria-label="Sort order">
+                <select id="cap-sort-select" class="sort-select" value=${activeSort} onChange=${(e: Event) => onSort((e.target as HTMLSelectElement).value)} aria-label="Sort order">
                     ${sortOptions.map(s => html`<option value=${s.key} selected=${activeSort === s.key}>${s.label}</option>`)}
                 </select>
             </div>
@@ -161,10 +177,10 @@ function CapabilitiesFilterBar({ activeFilter, onFilter, capabilities, searchTer
     `;
 }
 
-function getVisiblePaths(root, searchTerm, nodeFilter) {
+function getVisiblePaths(root: ReportCapabilityNode, searchTerm: string, nodeFilter: ((node: ReportCapabilityNode) => boolean) | null): string[] {
     const paths: string[] = [];
 
-    function walk(node, parentPath, isRoot) {
+    function walk(node: ReportCapabilityNode, parentPath: string, isRoot: boolean) {
         const isDirectory = node.type === 'directory' && node.children && node.children.length > 0;
         if (!isDirectory) return;
 
@@ -210,8 +226,8 @@ function getVisiblePaths(root, searchTerm, nodeFilter) {
     return paths;
 }
 
-function sortChildren(children, sortMode) {
-    if (!children) return children;
+function sortChildren(children: ReportCapabilityNode[] | undefined, sortMode: string): ReportCapabilityNode[] {
+    if (!children) return [];
     const sorted = [...children];
     switch (sortMode) {
         case 'confidence':
@@ -231,7 +247,20 @@ function sortChildren(children, sortMode) {
     return sorted;
 }
 
-function TreeNode({ node, onSelect, selectedPath, focusedPath, depth, path, searchTerm, isRoot, nodeFilter, sortMode }) {
+interface TreeNodeProps {
+    node: ReportCapabilityNode;
+    onSelect: (path: string, node: ReportCapabilityNode) => void;
+    selectedPath: string;
+    focusedPath: string;
+    depth: number;
+    path: string;
+    searchTerm: string;
+    isRoot?: boolean;
+    nodeFilter: ((node: ReportCapabilityNode) => boolean) | null;
+    sortMode: string;
+}
+
+function TreeNode({ node, onSelect, selectedPath, focusedPath, depth, path, searchTerm, isRoot, nodeFilter, sortMode }: TreeNodeProps) {
     const isDirectory = node.type === 'directory' && node.children && node.children.length > 0;
     const segmentPath = isRoot ? '' : (path ? path + '/' + node.name : node.name);
 
@@ -289,7 +318,15 @@ function TreeNode({ node, onSelect, selectedPath, focusedPath, depth, path, sear
     `;
 }
 
-function DetailPanel({ node, segmentPath, capabilities, onNavigate, onSelect }) {
+interface DetailPanelProps {
+    node: ReportCapabilityNode | null;
+    segmentPath: string;
+    capabilities: ReportCapabilityNode;
+    onNavigate: (path: string) => void;
+    onSelect: (path: string, node: ReportCapabilityNode) => void;
+}
+
+function DetailPanel({ node, segmentPath, capabilities, onNavigate, onSelect }: DetailPanelProps) {
     const displayNode = node || capabilities;
     const score = computeNodeScore(displayNode);
     const total = Object.values(displayNode.outcomes).reduce((a: number, b: number) => a + b, 0);
@@ -390,7 +427,12 @@ function DetailPanel({ node, segmentPath, capabilities, onNavigate, onSelect }) 
     `;
 }
 
-export function CapabilitiesView({ onNavigate, route }) {
+interface CapabilitiesViewProps {
+    onNavigate: (path: string) => void;
+    route: string;
+}
+
+export function CapabilitiesView({ onNavigate, route }: CapabilitiesViewProps) {
     const capabilities = DATA.capabilities;
 
     if (!capabilities) {
@@ -405,7 +447,7 @@ export function CapabilitiesView({ onNavigate, route }) {
 
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedPath, setSelectedPath] = useState('');
-    const [selectedNode, setSelectedNode] = useState(null);
+    const [selectedNode, setSelectedNode] = useState<ReportCapabilityNode | null>(null);
     const [activeFilter, setActiveFilter] = useState('all');
     const [activeSort, setActiveSort] = useState('name');
     const [focusedPath, setFocusedPath] = useState('');
@@ -420,15 +462,15 @@ export function CapabilitiesView({ onNavigate, route }) {
         }
     }, [route]);
 
-    const nodeFilter = useMemo(() => {
-        if (activeFilter === 'critical') return (n) => nodeConfidence(n) < 50;
-        if (activeFilter === 'at-risk') return (n) => { const s = nodeConfidence(n); return s >= 50 && s < 90; };
-        if (activeFilter === 'healthy') return (n) => nodeConfidence(n) >= 90;
+    const nodeFilter = useMemo((): ((node: ReportCapabilityNode) => boolean) | null => {
+        if (activeFilter === 'critical') return (n: ReportCapabilityNode) => nodeConfidence(n) < 50;
+        if (activeFilter === 'at-risk') return (n: ReportCapabilityNode) => { const s = nodeConfidence(n); return s >= 50 && s < 90; };
+        if (activeFilter === 'healthy') return (n: ReportCapabilityNode) => nodeConfidence(n) >= 90;
         if (activeFilter === 'gaps') return nodeHasGap;
         return null;
     }, [activeFilter]);
 
-    const handleSelect = (path, node) => {
+    const handleSelect = (path: string, node: ReportCapabilityNode) => {
         setSelectedPath(path);
         setSelectedNode(node);
         const newHash = path ? '#/capabilities?path=' + encodeURIComponent(path) : '#/capabilities';
@@ -437,7 +479,7 @@ export function CapabilitiesView({ onNavigate, route }) {
         }
     };
 
-    const onTreeKeyDown = (e) => {
+    const onTreeKeyDown = (e: KeyboardEvent) => {
         const visiblePaths = getVisiblePaths(capabilities, searchTerm, nodeFilter);
         const currentIndex = visiblePaths.indexOf(focusedPath);
         let nextIndex = currentIndex;
@@ -519,7 +561,7 @@ export function CapabilitiesView({ onNavigate, route }) {
                 ${showFilterBar ? html`
                     <div style="position:relative;margin-bottom:var(--space-md)">
                         <input class="search-input" type="text" placeholder="Find capabilities..."
-                            value=${searchTerm} onInput=${(e) => setSearchTerm(e.target.value)}
+                            value=${searchTerm} onInput=${(e: Event) => setSearchTerm((e.target as HTMLInputElement).value)}
                             aria-label="Find capabilities" style="margin-bottom:0;padding-right:36px" />
                         ${searchTerm ? html`<button onClick=${() => setSearchTerm('')}
                             class="btn-clear"

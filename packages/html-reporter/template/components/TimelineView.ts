@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import htm from 'htm';
 import { h } from 'preact';
 import { useMemo, useRef, useState } from 'preact/hooks';
@@ -9,7 +8,11 @@ import { FilterBar } from './FilterBar';
 
 const html = htm.bind(h);
 
-export function TimelineView({ onNavigate }) {
+interface TimelineViewProps {
+    onNavigate: (path: string) => void;
+}
+
+export function TimelineView({ onNavigate }: TimelineViewProps) {
     const [sortBy, setSortBy] = useState('time');
     const [filter, setFilter] = useState('all');
     const allScenarios = DATA.scenarios;
@@ -20,7 +23,7 @@ export function TimelineView({ onNavigate }) {
     const scenarios = useMemo(() => {
         let result = allScenarios;
         if (filter && filter !== 'all') {
-            const filterMatch = { passed: ['SUCCESS'], failed: ['FAILURE', 'ERROR', 'COMPROMISED'], skipped: ['SKIPPED', 'PENDING'] };
+            const filterMatch: Record<string, string[]> = { passed: ['SUCCESS'], failed: ['FAILURE', 'ERROR', 'COMPROMISED'], skipped: ['SKIPPED', 'PENDING'] };
             const keys = filter.split(',');
             const allowed = keys.flatMap(k => filterMatch[k] || []);
             if (allowed.length > 0) result = result.filter(s => allowed.includes(s.outcome));
@@ -35,7 +38,7 @@ export function TimelineView({ onNavigate }) {
     const fastest = Math.min(...durations.filter(d => d > 0));
 
     const rowHeight = 52;
-    const parentRef = useRef(null);
+    const parentRef = useRef<HTMLElement | null>(null);
 
     const virtualizer = useVirtualizer({
         count: scenarios.length,

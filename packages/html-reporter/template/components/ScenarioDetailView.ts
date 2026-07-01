@@ -1,18 +1,22 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
+import type { ReportActivity, ReportParameterSet } from '../../src/ReportData';
 import { browserBadgeClass, DATA, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast } from '../utils';
 import { ActivityNode } from './ActivityNode';
 
 const html = htm.bind(h);
 
 // ===== Parameter Set Groups =====
-function ParameterSetGroups({ parameters }) {
+interface ParameterSetGroupsProps {
+    parameters: ReportParameterSet[];
+}
+
+function ParameterSetGroups({ parameters }: ParameterSetGroupsProps) {
     const groups = useMemo(() => {
-        const result = [];
-        let current = null;
+        const result: Array<{ key: string; name: string | undefined; description: string | undefined; items: ReportParameterSet[] }> = [];
+        let current: { key: string; name: string | undefined; description: string | undefined; items: ReportParameterSet[] } | null = null;
         for (const ps of parameters) {
             const key = (ps.name || '') + '\0' + (ps.description || '');
             if (!current || current.key !== key) {
@@ -31,13 +35,18 @@ function ParameterSetGroups({ parameters }) {
     return html`${groups.map((group, index) => html`<${ParameterSetGroup} group=${group} index=${index} />`)}`;
 }
 
-function ParameterSetGroup({ group, index }) {
+interface ParameterSetGroupProps {
+    group: { key: string; name: string | undefined; description: string | undefined; items: ReportParameterSet[] };
+    index: number;
+}
+
+function ParameterSetGroup({ group, index }: ParameterSetGroupProps) {
     const [expanded, setExpanded] = useState(true);
-    const [forceExpanded, setForceExpanded] = useState(undefined);
-    const passCount = group.items.filter(ps => ps.outcome === 'SUCCESS' || (ps.outcome && ps.outcome.code === 64)).length;
+    const [forceExpanded, setForceExpanded] = useState<boolean | undefined>(undefined);
+    const passCount = group.items.filter(ps => ps.outcome === 'SUCCESS').length;
     const label = group.name || ('Examples' + (index !== undefined ? ' #' + (index + 1) : ''));
-    const collapseAll = (e) => { e.stopPropagation(); setForceExpanded(false); };
-    const expandAll = (e) => { e.stopPropagation(); setForceExpanded(true); };
+    const collapseAll = (e: Event) => { e.stopPropagation(); setForceExpanded(false); };
+    const expandAll = (e: Event) => { e.stopPropagation(); setForceExpanded(true); };
     return html`
     <div style="margin-bottom:var(--space-md);border:1px solid var(--border-color);border-radius:var(--radius-sm);overflow:hidden">
       <div style="display:flex;align-items:center;gap:var(--space-sm);padding:var(--space-sm) var(--space-md);background:var(--bg-primary);cursor:pointer;user-select:none"
@@ -67,7 +76,14 @@ function ParameterSetGroup({ group, index }) {
 }
 
 // ===== Parameter Set Node =====
-function ParameterSetNode({ ps, index, groupIndex, forceExpanded }) {
+interface ParameterSetNodeProps {
+    ps: ReportParameterSet;
+    index: number;
+    groupIndex: number;
+    forceExpanded: boolean | undefined;
+}
+
+function ParameterSetNode({ ps, index, groupIndex, forceExpanded }: ParameterSetNodeProps) {
     const exampleId = (groupIndex !== undefined ? groupIndex + '-' : '') + (index + 1);
     const isLinked = (() => {
         const hash = window.location.hash;
@@ -76,8 +92,8 @@ function ParameterSetNode({ ps, index, groupIndex, forceExpanded }) {
     })();
     const [expanded, setExpanded] = useState(true);
     useEffect(() => { if (forceExpanded !== undefined) setExpanded(forceExpanded); }, [forceExpanded]);
-    const nodeRef = useRef(null);
-    const copyLink = (e) => {
+    const nodeRef = useRef<HTMLElement | null>(null);
+    const copyLink = (e: Event) => {
         e.stopPropagation();
         const hash = window.location.hash.replace(/([&?])example=[^&]*/g, '');
         const url = window.location.origin + window.location.pathname + window.location.search + hash + (hash.includes('?') ? '&' : '?') + 'example=' + exampleId;
@@ -95,7 +111,7 @@ function ParameterSetNode({ ps, index, groupIndex, forceExpanded }) {
         <button onClick=${copyLink} title="Copy link to this example" style="margin-left:auto;background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px;line-height:1;opacity:0.6;display:flex;align-items:center">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
         </button>
-        <span class="text-xs-muted">${formatDuration(ps.duration)}</span>
+        <span class="text-xs-muted">${formatDuration(ps.duration || 0)}</span>
       </div>
       ${expanded && ps.activities.length > 0 ? html`
         <div class="activity-tree" style="padding:var(--space-sm) var(--space-md)">
@@ -107,7 +123,12 @@ function ParameterSetNode({ ps, index, groupIndex, forceExpanded }) {
 }
 
 // ===== Test Scenario Detail View =====
-export function ScenarioDetailView({ scenarioId, onNavigate }) {
+interface ScenarioDetailViewProps {
+    scenarioId: string;
+    onNavigate: (path: string) => void;
+}
+
+export function ScenarioDetailView({ scenarioId, onNavigate }: ScenarioDetailViewProps) {
     const cleanId = scenarioId.split('?')[0];
     const params = scenarioId.includes('?') ? new URLSearchParams(scenarioId.split('?')[1]) : null;
     const runString = params?.get('run');
@@ -133,7 +154,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
     // Reset attempt selection when switching between runs
     useEffect(() => { setActiveAttempt(0); }, [runIndex]);
 
-    const openPhoto = (index) => {
+    const openPhoto = (index: number) => {
         setLightboxIndex(index);
         const base = window.location.hash.replace(/&photo=\d+/, '');
         window.history.replaceState(null, '', index >= 0 ? base + '&photo=' + index : base);
@@ -189,7 +210,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
         : hasRetries && activeAttempt < activeAttempts.length
             ? activeAttempts[activeAttempt].error
             : scenario.error;
-    const errorLocation = currentError ? (function findLoc(acts) { for (const a of acts) { if (a.outcome !== 'SUCCESS' && a.outcome !== 'SKIPPED' && a.location) return a.location; if (a.children) { const r = findLoc(a.children); if (r) return r; } } return null; })(currentActivities) : null;
+    const errorLocation = currentError ? (function findLoc(acts: ReportActivity[]): { path: string; line: number; column: number } | null { for (const a of acts) { if (a.outcome !== 'SUCCESS' && a.outcome !== 'SKIPPED' && a.location) return a.location; if (a.children) { const r = findLoc(a.children); if (r) return r; } } return null; })(currentActivities) : null;
 
     const copyTestPath = () => {
         const text = scenario.source.line ? scenario.source.path + ':' + scenario.source.line : scenario.source.path;
@@ -231,7 +252,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
               <span>${formatDuration(activeDuration)}</span>
               <span>•</span>
               <span class="scenario-source">${relativeSourcePath(scenario)}</span>
-              ${getBrowserTag(scenario) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(scenario))}">${getBrowserTag(scenario)}</span>` : null}
+              ${getBrowserTag(scenario) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(scenario)!)}">${getBrowserTag(scenario)}</span>` : null}
             </div>
           </div>
         </div>
@@ -258,7 +279,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
             </div>
             <div class="exec-history-strip">
               ${(() => {
-                    const groups = [];
+                    const groups: Array<{ date: string; items: Array<{ entry: typeof scenario.executionHistory[0]; index: number; ts: string }> }> = [];
                     let currentDate = '';
                     for (let index = 0; index < scenario.executionHistory.length; index++) {
                         const entry = scenario.executionHistory[index];
@@ -280,7 +301,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
                         const timeLabel = ts ? new Date(ts).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }) : entry.run;
                         const shortLabel = isIso ? timeLabel : entry.run;
                         const fullLabel = formatRunLabel(entry.run, ts);
-                        const handleRunClick = (e) => { e.stopPropagation(); onNavigate(scenarioUrl(scenario) + '?run=' + (DATA.history[index] ? DATA.history[index].timestamp : index)); };
+                        const handleRunClick = (e: Event) => { e.stopPropagation(); onNavigate(scenarioUrl(scenario) + '?run=' + (DATA.history[index] ? DATA.history[index].timestamp : index)); };
                         return html`
                             <div class="exec-history-item ${isActive ? 'exec-history-item--active' : ''}" title="${entry.outcome} — ${fullLabel}" onClick=${handleRunClick}>
                               <div class="exec-history-dot" style="background:var(--color-${outcomeClass(entry.outcome)})">${outcomeIcon(entry.outcome)}</div>
@@ -361,7 +382,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
 
       ${currentError ? html`
         <div class="error-block">
-          <div class="error-name" style="display:flex;align-items:center;gap:var(--space-sm)">${currentError.name}${errorLocation ? html`<span style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-size:var(--font-xs);font-weight:400;font-family:var(--font-mono);color:var(--text-secondary)">${errorLocation.path.split('/').pop()}:${errorLocation.line}<span style="cursor:pointer;opacity:0.6;display:inline-flex;align-items:center" title="Copy location" onClick=${(e) => { e.stopPropagation(); navigator.clipboard.writeText(errorLocation.path + ':' + errorLocation.line).then(() => showToast('Location copied to clipboard')).catch(() => {}); }}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></span></span>` : null}</div>
+          <div class="error-name" style="display:flex;align-items:center;gap:var(--space-sm)">${currentError.name}${errorLocation ? html`<span style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-size:var(--font-xs);font-weight:400;font-family:var(--font-mono);color:var(--text-secondary)">${errorLocation.path.split('/').pop()}:${errorLocation.line}<span style="cursor:pointer;opacity:0.6;display:inline-flex;align-items:center" title="Copy location" onClick=${(e: Event) => { e.stopPropagation(); navigator.clipboard.writeText(errorLocation!.path + ':' + errorLocation!.line).then(() => showToast('Location copied to clipboard')).catch(() => {}); }}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></span></span>` : null}</div>
           <div class="error-message">${currentError.message}</div>
           <pre class="error-stack">${currentError.stack}</pre>
         </div>
@@ -377,9 +398,9 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
       ` : null}
 
       ${(() => {
-            const photos = [];
+            const photos: Array<{ path: string; name: string; wallClock: string | undefined; offsetMs: number }> = [];
             const scenarioStart = new Date(scenario.startedAt).getTime();
-            function collectPhotos(activities) {
+            function collectPhotos(activities: ReportActivity[]) {
                 for (const a of activities) {
                     if (a.artifacts) {
                         for (const art of a.artifacts) {
@@ -408,9 +429,9 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
             </div>
           </div>
           ${lightboxIndex >= 0 && lightboxIndex < photos.length ? html`
-            <div class="lightbox-overlay" onClick=${(e) => { if (e.target.classList.contains('lightbox-overlay')) openPhoto(-1); }}
-                 onKeyDown=${(e) => { if (e.key === 'Escape') openPhoto(-1); else if (e.key === 'ArrowRight' && lightboxIndex < photos.length - 1) openPhoto(lightboxIndex + 1); else if (e.key === 'ArrowLeft' && lightboxIndex > 0) openPhoto(lightboxIndex - 1); }}
-                 tabIndex="0" ref=${(element) => { if (element) element.focus(); }}>
+            <div class="lightbox-overlay" onClick=${(e: Event) => { if ((e.target as HTMLElement).classList.contains('lightbox-overlay')) openPhoto(-1); }}
+                 onKeyDown=${(e: KeyboardEvent) => { if (e.key === 'Escape') openPhoto(-1); else if (e.key === 'ArrowRight' && lightboxIndex < photos.length - 1) openPhoto(lightboxIndex + 1); else if (e.key === 'ArrowLeft' && lightboxIndex > 0) openPhoto(lightboxIndex - 1); }}
+                 tabIndex="0" ref=${(element: HTMLElement | null) => { if (element) element.focus(); }}>
               <div class="lightbox-content">
                 <button class="lightbox-close" onClick=${() => openPhoto(-1)}>✕</button>
                 ${lightboxIndex > 0 ? html`<button class="lightbox-nav lightbox-prev" onClick=${() => openPhoto(lightboxIndex - 1)}>‹</button>` : null}

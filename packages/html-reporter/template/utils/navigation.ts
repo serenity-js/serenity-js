@@ -1,9 +1,14 @@
-import { DATA } from './data';
- 
-type Scenario = any;
+import type { ReportScenarioRef, ReportScenarioTag, ReportSource } from '../../src/ReportData';
 
-export function getBrowserTag(scenario: Scenario): string | null {
-    const tag = scenario.tags.find((t: { type: string; name: string }) => t.type === 'browser');
+import { DATA } from './data';
+
+interface ScenarioLike extends ReportScenarioRef {
+    tags?: ReportScenarioTag[];
+    error?: { message?: string };
+}
+
+export function getBrowserTag(scenario: ScenarioLike): string | null {
+    const tag = (scenario.tags || []).find(t => t.type === 'browser');
     return tag ? tag.name : null;
 }
 
@@ -15,7 +20,7 @@ export function browserBadgeClass(browserTag: string): string {
     return 'badge-browser';
 }
 
-export function relativeSourcePath(scenario: Scenario): string {
+export function relativeSourcePath(scenario: { source: ReportSource; name: string }): string {
     const p = scenario.source.path;
     const specDirectory = DATA.capabilities ? DATA.capabilities.name : 'spec';
     const marker = '/' + specDirectory + '/';
@@ -24,7 +29,7 @@ export function relativeSourcePath(scenario: Scenario): string {
     return scenario.source.line ? relativePath + ':' + scenario.source.line : relativePath;
 }
 
-export function scenarioUrl(scenario: Scenario, run?: number | string | null): string {
+export function scenarioUrl(scenario: { source: ReportSource; name: string }, run?: number | string | null): string {
     const id = scenario.source.line
         ? scenario.source.path + ':' + scenario.source.line
         : scenario.source.path + ':' + scenario.name;
@@ -34,13 +39,13 @@ export function scenarioUrl(scenario: Scenario, run?: number | string | null): s
     return base + '?run=' + ts;
 }
 
-export function matchesSearch(scenario: Scenario, query: string): boolean {
-    const tagNames = (scenario.tags || []).map((t: { name: string }) => t.name).join(' ');
+export function matchesSearch(scenario: ScenarioLike, query: string): boolean {
+    const tagNames = (scenario.tags || []).map(t => t.name).join(' ');
     const sourcePath = scenario.source?.path || '';
     const errorMessage = scenario.error?.message || '';
     const text = (scenario.name + ' ' + scenario.category + ' ' + tagNames + ' ' + sourcePath + ' ' + errorMessage).toLowerCase();
     const tokens = parseSearchTokens(query.toLowerCase());
-    return tokens.every((token: string) => text.includes(token));
+    return tokens.every(token => text.includes(token));
 }
 
 function parseSearchTokens(query: string): string[] {
