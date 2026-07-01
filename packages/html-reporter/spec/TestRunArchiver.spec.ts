@@ -6,87 +6,92 @@ import { createFsFromVolume, Volume } from 'memfs';
 
 import { ArtifactWriter } from '../src/ArtifactWriter.js';
 
-test.describe('attempt detection', () => {
+test.describe('ArtifactWriter', () => {
 
-    test.describe('detectAttemptNumber()', () => {
+    function createWriter(outputDirectory = Path.from('/output')): { writer: ArtifactWriter; filesystem: typeof fs } {
+        const filesystem = createFsFromVolume(Volume.fromNestedJSON({ [outputDirectory.value]: {} }, '/')) as unknown as typeof fs;
+        const fileSystem = new FileSystem(outputDirectory, filesystem);
+        const writer = new ArtifactWriter(fileSystem);
+        return { writer, filesystem };
+    }
 
-        test('returns 1 when no CI environment variables are set', () => {
-            // detectAttemptNumber is exercised via ArtifactWriter directory naming
-            // We test this indirectly through the directory name produced
-            const outputDirectory = Path.from('/output');
-            const filesystem = createFsFromVolume(Volume.fromNestedJSON({ [outputDirectory.value]: {} }, '/')) as unknown as typeof fs;
-            const fileSystem = new FileSystem(outputDirectory, filesystem);
-            const writer = new ArtifactWriter(fileSystem);
+    test.describe('CI directory naming: test-runs/{buildId}/{moduleId}-{attempt}', () => {
 
-            writer.createRunDirectory('run-1', 1, undefined);
+        test('places the run directory under test-runs/{buildId}/ when testRunId and moduleId are provided', () => {
+            const { writer } = createWriter();
 
-            const directory = writer.getRunDirectory().value;
-            expect(directory).toContain('run-1');
-        });
-
-        test('uses GITHUB_RUN_ATTEMPT env var (already 1-based)', () => {
-            const outputDirectory = Path.from('/output');
-            const filesystem = createFsFromVolume(Volume.fromNestedJSON({ [outputDirectory.value]: {} }, '/')) as unknown as typeof fs;
-            const fileSystem = new FileSystem(outputDirectory, filesystem);
-            const writer = new ArtifactWriter(fileSystem);
-
-            writer.createRunDirectory('run-42', 3, 'module-a');
+            writer.createRunDirectory('42', 1, 'html-reporter');
 
             const directory = writer.getRunDirectory().value;
-            expect(directory).toContain('run-42');
-            expect(directory).toContain('module-a');
-            expect(directory).toContain('attempt-3');
+            expect(directory).toMatch(/test-runs\/42\/html-reporter-1$/);
         });
 
-        test('includes moduleId in the directory name when provided', () => {
-            const outputDirectory = Path.from('/output');
-            const filesystem = createFsFromVolume(Volume.fromNestedJSON({ [outputDirectory.value]: {} }, '/')) as unknown as typeof fs;
-            const fileSystem = new FileSystem(outputDirectory, filesystem);
-            const writer = new ArtifactWriter(fileSystem);
+        test('uses attempt number in the subdirectory name', () => {
+            const { writer } = createWriter();
 
-            writer.createRunDirectory('run-7', 2, 'playwright-test');
+            writer.createRunDirectory('42', 3, 'playwright-test');
 
             const directory = writer.getRunDirectory().value;
-            expect(directory).toContain('playwright-test');
+            expect(directory).toMatch(/test-runs\/42\/playwright-test-3$/);
         });
 
-        test('produces a unique directory without moduleId by using a timestamp suffix', () => {
-            const outputDirectory = Path.from('/output');
-            const filesystem = createFsFromVolume(Volume.fromNestedJSON({ [outputDirectory.value]: {} }, '/')) as unknown as typeof fs;
-            const fileSystem = new FileSystem(outputDirectory, filesystem);
-            const writer = new ArtifactWriter(fileSystem);
+        test('sanitises moduleId for use in a directory name', () => {
+            const { writer } = createWriter();
+
+            writer.createRunDirectory('100', 1, 'webdriverio-8-web');
+
+            const directory = writer.getRunDirectory().value;
+            expect(directory).toMatch(/test-runs\/100\/webdriverio-8-web-1$/);
+        });
+    });
+
+    test.describe('local directory naming: test-runs/{timestamp}', () => {
+
+        test('uses a timestamp-based top-level directory when no testRunId is provided', () => {
+            const { writer } = createWriter();
+
+            writer.createRunDirectory(undefined, 1, undefined);
+
+            const directory = writer.getRunDirectory().value;
+            // Must be directly under test-runs/ with an ISO timestamp
+            expect(directory).toMatch(/test-runs\/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
+            // Must NOT contain a second path segment after the timestamp
+            const segments = directory.replace(/.*test-runs\//, '').split('/');
+            expect(segments).toHaveLength(1);
+        });
+
+        test('uses a timestamp-based directory even when moduleId is provided but testRunId is absent', () => {
+            const { writer } = createWriter();
+
+            writer.createRunDirectory(undefined, 1, 'some-module');
+
+            const directory = writer.getRunDirectory().value;
+            expect(directory).toMatch(/test-runs\//);
+            const segments = directory.replace(/.*test-runs\//, '').split('/');
+            expect(segments).toHaveLength(1);
+        });
+
+        test('places run directory directly under test-runs/{buildId} when testRunId is provided without moduleId', () => {
+            const { writer } = createWriter();
 
             writer.createRunDirectory('run-5', 1, undefined);
 
             const directory = writer.getRunDirectory().value;
-            // Directory must still be rooted in test-runs
-            expect(directory).toMatch(/test-runs/);
-            // Must be non-empty and contain the testRunId
-            expect(directory).toContain('run-5');
+            expect(directory).toMatch(/test-runs\/run-5$/);
         });
     });
 
-    test.describe('attempt written to db.json via archiveTestRun', () => {
+    test.describe('attempt tracking', () => {
 
-        test('db.json includes attempt field equal to the value passed to createRunDirectory', () => {
-            const outputDirectory = Path.from('/output');
-            const filesystem = createFsFromVolume(Volume.fromNestedJSON({ [outputDirectory.value]: {} }, '/')) as unknown as typeof fs;
-            const fileSystem = new FileSystem(outputDirectory, filesystem);
-            const writer = new ArtifactWriter(fileSystem);
-
+        test('getAttempt() returns the attempt number passed to createRunDirectory', () => {
+            const { writer } = createWriter();
             writer.createRunDirectory('run-9', 2, 'mocha');
-
             expect(writer.getAttempt()).toBe(2);
         });
 
         test('getAttempt() returns 1 when attempt 1 was used', () => {
-            const outputDirectory = Path.from('/output');
-            const filesystem = createFsFromVolume(Volume.fromNestedJSON({ [outputDirectory.value]: {} }, '/')) as unknown as typeof fs;
-            const fileSystem = new FileSystem(outputDirectory, filesystem);
-            const writer = new ArtifactWriter(fileSystem);
-
+            const { writer } = createWriter();
             writer.createRunDirectory('run-10', 1, undefined);
-
             expect(writer.getAttempt()).toBe(1);
         });
     });

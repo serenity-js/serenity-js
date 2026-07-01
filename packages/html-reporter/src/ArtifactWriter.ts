@@ -20,13 +20,21 @@ export class ArtifactWriter {
     constructor(private readonly fileSystem: FileSystem) {
     }
 
-    createRunDirectory(testRunId: string, attempt: number = 1, moduleId?: string): void {
+    createRunDirectory(testRunId: string | undefined, attempt: number = 1, moduleId?: string): void {
         this.attempt = attempt;
-        const suffix = moduleId
-            ? `${ moduleId }-attempt-${ attempt }`
-            : `attempt-${ attempt }-${ Date.now() }`;
-        const directoryName = `${ testRunId }-${ suffix }`;
-        this.runDirectory = Path.from('test-runs', directoryName);
+
+        if (testRunId && moduleId) {
+            // CI multi-job mode: test-runs/{buildId}/{moduleId}-{attempt}
+            this.runDirectory = Path.from('test-runs', testRunId, `${ moduleId }-${ attempt }`);
+        } else if (testRunId) {
+            // CI single-job or local with explicit testRunId: test-runs/{buildId}/
+            // db.json lands at test-runs/{buildId}/db.json (directly findable)
+            this.runDirectory = Path.from('test-runs', testRunId);
+        } else {
+            // Local mode (no testRunId): test-runs/{ISO-timestamp}
+            const timestamp = new Date().toISOString();
+            this.runDirectory = Path.from('test-runs', timestamp);
+        }
 
         try {
             this.fileSystem.ensureDirectoryExistsAtSync(this.runDirectory);

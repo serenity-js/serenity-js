@@ -53,9 +53,11 @@ export class DataSnapshotAggregator {
         }
 
         // In external mode, enforce maxHistory by slicing the sorted runs array,
-        // then prune self-healed output dirs that fall outside the window.
-        if (externalRunPaths && this.config.maxHistory && allRuns.length > this.config.maxHistory) {
-            allRuns = allRuns.slice(allRuns.length - this.config.maxHistory);
+        // then prune output dirs that fall outside the window.
+        if (externalRunPaths && this.config.maxHistory) {
+            if (allRuns.length > this.config.maxHistory) {
+                allRuns = allRuns.slice(allRuns.length - this.config.maxHistory);
+            }
             this.pruneOldRuns(this.findRunDirectories());
         }
 
@@ -114,9 +116,25 @@ export class DataSnapshotAggregator {
             }
             groups.get(groupId).push(run);
 
-            // Copy sibling artifacts before any merging
-            const directoryName = databaseJsonPath.replace(/\/db\.json$/, '').replace(/.*\//, '');
-            this.copyArtifactsFromSource(databaseJsonPath, directoryName);
+            // Copy sibling artifacts before any merging.
+            // The source path structure is either:
+            //   .../test-runs/{buildId}/{jobName}-{attempt}/db.json  (CI nested)
+            //   .../test-runs/{timestamp}/db.json                    (local flat)
+            const pathWithoutDatabase = databaseJsonPath.replace(/\/db\.json$/, '');
+            const testRunsIndex = pathWithoutDatabase.lastIndexOf('/test-runs/');
+            if (testRunsIndex !== -1) {
+                const relative = pathWithoutDatabase.slice(testRunsIndex + '/test-runs/'.length); // e.g. "42/playwright-test-1" or "2024-06-15T14:30:00Z"
+                const slashIndex = relative.indexOf('/');
+                if (slashIndex !== -1) {
+                    // CI nested: test-runs/{buildId}/{subDirectory}
+                    const artifactRunId = relative.slice(0, slashIndex);
+                    const subDirectory = relative.slice(slashIndex + 1);
+                    this.copyArtifactsFromSource(databaseJsonPath, artifactRunId, subDirectory);
+                } else {
+                    // Local flat: test-runs/{timestamp} — copy directly into top-level dir
+                    this.copyArtifactsFromSource(databaseJsonPath, relative, '.');
+                }
+            }
         }
 
         // Step 2 & 3: within each group, sub-group by attempt → additive merge, then retry merge
@@ -241,19 +259,24 @@ export class DataSnapshotAggregator {
             : `${ scene.source.path }:${ scene.name }`;
     }
 
-    private copyArtifactsFromSource(databaseJsonPath: string, directoryName: string): void {
+    private copyArtifactsFromSource(databaseJsonPath: string, runId: string, subDirectory: string): void {
         const sourceFs = this.sourceFileSystem;
         if (!sourceFs) {
             return;
         }
 
         const sourceDirectory = Path.from(databaseJsonPath.replace(/\/db\.json$/, ''));
-        const targetDirectory = Path.from('test-runs').join(Path.from(directoryName));
+        const targetDirectory = subDirectory === '.'
+            ? Path.from('test-runs').join(Path.from(runId))
+            : Path.from('test-runs').join(Path.from(runId)).join(Path.from(subDirectory));
 
         this.fileSystem.ensureDirectoryExistsAtSync(targetDirectory);
 
         const entries = sourceFs.readdirSync(sourceDirectory);
         for (const entry of entries) {
+            if (entry === 'db.json') {
+                continue; // merged db.json is written separately at the build-level path
+            }
             const targetPath = targetDirectory.join(Path.from(entry));
             if (this.fileSystem.exists(targetPath)) {
                 continue;

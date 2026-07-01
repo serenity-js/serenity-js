@@ -1456,4 +1456,181 @@ test.describe('DataSnapshotAggregator', () => {
             expect(merged.scenes[0].attempts).toHaveLength(2);
         });
     });
+
+    test.describe('nested CI directory structure: test-runs/{buildId}/{jobName}-{attempt}', () => {
+
+        test('finds the merged db.json at test-runs/{buildId}/db.json, not in per-job subdirectories', () => {
+            // Simulates the output directory after aggregation wrote merged db.json to
+            // test-runs/{buildId}/db.json while per-job artifact dirs live at
+            // test-runs/{buildId}/{jobName}-{attempt}/
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '42': {
+                        'db.json': JSON.stringify({
+                            testRunId: '42',
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:05.000Z',
+                            outcomes: { passed: 3, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                { name: 'T1', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] },
+                                { name: 'T2', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:01.000Z', source: { path: 'b.ts', line: 1 }, tags: [], activities: [] },
+                                { name: 'T3', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:02.000Z', source: { path: 'c.ts', line: 1 }, tags: [], activities: [] },
+                            ],
+                            tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+                        }),
+                        // Per-job artifact directories — these must NOT be counted as run directories
+                        'playwright-test-1': {
+                            'screenshot-foo.png': 'PNG_DATA',
+                        },
+                        'html-reporter-1': {
+                            'screenshot-bar.png': 'PNG_DATA',
+                        },
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            // Only 1 history entry — the build-level directory, not the per-job subdirs
+            expect(data.history).toHaveLength(1);
+            expect(data.summary.totalScenarios).toBe(3);
+        });
+
+        test('prunes the oldest top-level build directories, preserving per-job artifact subdirectories of retained builds', () => {
+            // 3 build directories; maxHistory=2 must remove build "40" but keep "41" and "42"
+            // including their per-job artifact subdirectories
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '40': {
+                        'db.json': JSON.stringify({
+                            testRunId: '40',
+                            startedAt: '2024-06-13T10:00:00.000Z', finishedAt: '2024-06-13T10:00:05.000Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }],
+                            tags: [], testRunner: { name: 'M', version: '1.0.0' },
+                        }),
+                        'playwright-test-1': { 'screenshot.png': 'OLD' },
+                    },
+                    '41': {
+                        'db.json': JSON.stringify({
+                            testRunId: '41',
+                            startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:05.000Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }],
+                            tags: [], testRunner: { name: 'M', version: '1.0.0' },
+                        }),
+                        'playwright-test-1': { 'screenshot.png': 'MID' },
+                    },
+                    '42': {
+                        'db.json': JSON.stringify({
+                            testRunId: '42',
+                            startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }],
+                            tags: [], testRunner: { name: 'M', version: '1.0.0' },
+                        }),
+                        'playwright-test-1': { 'screenshot.png': 'NEW' },
+                    },
+                },
+            }, { maxHistory: 2 });
+
+            aggregator.aggregate();
+
+            // Oldest build directory and all its contents removed
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/40')).toBe(false);
+
+            // Retained build directories still have their per-job artifact subdirs
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/41')).toBe(true);
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/41/playwright-test-1/screenshot.png')).toBe(true);
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/42')).toBe(true);
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/42/playwright-test-1/screenshot.png')).toBe(true);
+
+            const data = readDataJs(filesystem);
+            expect(data.history).toHaveLength(2);
+        });
+
+        test('copies artifacts into test-runs/{buildId}/{jobName}-{attempt}/ without copying db.json', () => {
+            // Source uses the new nested naming: test-runs/{buildId}/{jobName}-{attempt}
+            const { aggregator, filesystem } = createAggregator({ 'test-runs': {} });
+
+            const sourceDirectory = '/source/integration/test-runs/42/playwright-test-1';
+            filesystem.mkdirSync(sourceDirectory, { recursive: true });
+            filesystem.writeFileSync(`${sourceDirectory}/db.json`, JSON.stringify({
+                testRunId: '42', attempt: 1,
+                startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:05.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }],
+                tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+            }));
+            filesystem.writeFileSync(`${sourceDirectory}/screenshot-foo.png`, 'PNG_DATA');
+
+            aggregator.aggregate([`${sourceDirectory}/db.json`]);
+
+            // Screenshot must be copied to the corresponding nested output path
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/42/playwright-test-1/screenshot-foo.png')).toBe(true);
+
+            // db.json must NOT be copied into the per-job artifact dir
+            // (the merged db.json lives at test-runs/42/db.json, not test-runs/42/playwright-test-1/db.json)
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/42/playwright-test-1/db.json')).toBe(false);
+
+            // The merged db.json must exist at the top-level build path
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/42/db.json')).toBe(true);
+        });
+
+        test('pruning in external mode does not treat per-job artifact subdirectories as run directories', () => {
+            // After aggregation, the output has:
+            //   test-runs/40/db.json          ← build directory (run dir)
+            //   test-runs/40/mocha-1/          ← artifact subdir (not a run dir)
+            //   test-runs/41/db.json           ← build directory (run dir)
+            //   test-runs/41/playwright-test-1/ ← artifact subdir (not a run dir)
+            // With maxHistory=1, only run 41 should survive; run 40 entirely deleted.
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '40': {
+                        'db.json': JSON.stringify({
+                            testRunId: '40',
+                            startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:05.000Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }],
+                            tags: [], testRunner: { name: 'M', version: '1.0.0' },
+                        }),
+                        'mocha-1': { 'screenshot.png': 'OLD_SCREENSHOT' },
+                    },
+                    '41': {
+                        'db.json': JSON.stringify({
+                            testRunId: '41',
+                            startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }],
+                            tags: [], testRunner: { name: 'M', version: '1.0.0' },
+                        }),
+                        'playwright-test-1': { 'screenshot.png': 'NEW_SCREENSHOT' },
+                    },
+                },
+            }, { maxHistory: 1 });
+
+            // External input: new data for run 41 (already in output) + run 41 has screenshots
+            const sourceDirectory = '/source/integration/test-runs/41/playwright-test-1';
+            filesystem.mkdirSync(sourceDirectory, { recursive: true });
+            filesystem.writeFileSync(`${sourceDirectory}/db.json`, JSON.stringify({
+                testRunId: '41', attempt: 1,
+                startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }],
+                tags: [], testRunner: { name: 'M', version: '1.0.0' },
+            }));
+
+            aggregator.aggregate([`${sourceDirectory}/db.json`]);
+
+            // Run 40 must be gone entirely (including its artifact subdir)
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/40')).toBe(false);
+
+            // Run 41 must survive with its screenshot
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/41')).toBe(true);
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/41/playwright-test-1/screenshot.png')).toBe(true);
+
+            const data = readDataJs(filesystem);
+            expect(data.history).toHaveLength(1);
+        });
+    });
 });
