@@ -1,3 +1,5 @@
+import * as path from 'node:path';
+
 import type { Stage, StageCrewMember, StageCrewMemberBuilder, StageCrewMemberBuilderDependencies } from '@serenity-js/core';
 import { DomainEventQueues } from '@serenity-js/core';
 import type { DomainEvent } from '@serenity-js/core/events';
@@ -162,6 +164,19 @@ function detectTestRunId(): string | undefined {
 /**
  * @package
  */
+function detectModuleId(): string | undefined {
+    // When a CI testRunId is detected, derive moduleId from the working
+    // directory basename. This ensures each parallel CI job writes to its
+    // own subdirectory under test-runs/{buildId}/{moduleId}-{attempt}/.
+    if (detectTestRunId()) {
+        return path.basename(process.cwd());
+    }
+    return undefined;
+}
+
+/**
+ * @package
+ */
 export function detectAttemptNumber(): number {
     if (process.env.GITHUB_RUN_ATTEMPT) {
         return parseInt(process.env.GITHUB_RUN_ATTEMPT, 10) || 1;
@@ -198,6 +213,6 @@ class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> 
 
         const attempt = detectAttemptNumber();
 
-        return new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, this.config.testRunId || detectTestRunId(), this.config.moduleId, attempt, stage);
+        return new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, this.config.testRunId || detectTestRunId(), this.config.moduleId || detectModuleId(), attempt, stage);
     }
 }
