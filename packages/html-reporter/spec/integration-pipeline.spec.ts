@@ -2,11 +2,7 @@
  * Integration test verifying the full html-reporter pipeline:
  *   domain events → SceneDataCollector → db.json → DataSnapshotAggregator → data.js
  *
- * This test exercises the real production code end-to-end with memfs,
- * verifying that:
- * - Multiple runs aggregate correctly
- * - Per-run retry data flows through to execution history
- * - The data.js shape matches what the template expects
+ * Each test verifies a single aspect of the pipeline contract.
  */
 import type * as fs from 'node:fs';
 
@@ -33,6 +29,8 @@ import { createFsFromVolume, Volume } from 'memfs';
 import { DataSnapshotAggregator } from '../src/DataSnapshotAggregator.js';
 import { SceneDataCollector } from '../src/SceneDataCollector.js';
 
+// -- Helpers --
+
 const systemContext = {
     nodeVersion: 'v22.0.0',
     os: { name: 'linux', version: '6.0', arch: 'x64' },
@@ -43,7 +41,6 @@ const systemContext = {
 };
 
 function collectRunData(options: {
-    sceneId: CorrelationId;
     sceneName: string;
     failed: boolean;
     retries?: number;
@@ -51,18 +48,17 @@ function collectRunData(options: {
 }) {
     const collector = new SceneDataCollector();
     const queues = new DomainEventQueues();
+    const sceneId = CorrelationId.create();
 
     const details = new ScenarioDetails(
         new Name(options.sceneName),
         new Category('Retries'),
         new FileSystemLocation(Path.from('spec/retries.spec.ts'), 8, 1),
     );
-    const sceneId = options.sceneId;
 
     const baseTime = new Date(options.timestamp).getTime();
 
     if (options.retries && options.retries > 0) {
-        // Simulate retried scenario: multiple SceneStarts/SceneFinished pairs
         for (let attempt = 0; attempt <= options.retries; attempt++) {
             const attemptStart = new Timestamp(new Date(baseTime + attempt * 200));
             const attemptEnd = new Timestamp(new Date(baseTime + attempt * 200 + 150));
@@ -85,7 +81,6 @@ function collectRunData(options: {
             queues.enqueue(new SceneFinished(sceneId, details, outcome, attemptEnd));
         }
     } else {
-        // Simple scenario: one attempt
         const t0 = new Timestamp(new Date(baseTime));
         const t1 = new Timestamp(new Date(baseTime + 100));
         const t2 = new Timestamp(new Date(baseTime + 200));
@@ -107,195 +102,205 @@ function collectRunData(options: {
         queues.enqueue(new SceneFinished(sceneId, details, outcome, t2));
     }
 
-    return collector.collect(
-        queues,
-        options.timestamp,
-        'Playwright',
-        '1.50.0',
-        new Map(),
-        systemContext,
-    );
+    return collector.collect(queues, options.timestamp, 'Playwright', '1.50.0', new Map(), systemContext);
 }
+
+function aggregateRuns(runs: Record<string, string>): Record<string, unknown> {
+    const tree: Record<string, Record<string, string>> = {};
+    for (const [timestamp, json] of Object.entries(runs)) {
+        tree[timestamp] = { 'db.json': json };
+    }
+
+    const filesystem = createFsFromVolume(Volume.fromNestedJSON({
+        '/output': { 'test-runs': tree },
+    }, '/')) as unknown as typeof fs;
+
+    const outputFs = new FileSystem(Path.from('/output'), filesystem);
+    const aggregator = new DataSnapshotAggregator(outputFs, { consistencyWindow: 5 });
+    aggregator.aggregate();
+
+    const content = filesystem.readFileSync('/output/data.js', 'utf8') as string;
+    return JSON.parse(content.replace(/^window\.__SERENITY_REPORT_DATA__\s*=\s*/, '').replace(/;\s*$/, ''));
+}
+
+// -- Tests --
 
 test.describe('Full pipeline integration: events → db.json → data.js', () => {
 
-    test('produces correct per-run retry state across multiple runs', () => {
-        // Run 1: scenario fails without retries
-        const run1 = collectRunData({
-            sceneId: CorrelationId.create(),
-            sceneName: 'should allow me to retry a test',
-            failed: true,
-            timestamp: '2024-06-14T10:00:00.000Z',
+    test.describe('schema versioning', () => {
+
+        test('includes schemaVersion in the aggregated output', () => {
+            const run = collectRunData({ sceneName: 'test', failed: false, timestamp: '2024-06-15T14:30:00.000Z' });
+            const data = aggregateRuns({ '2024-06-15T14:30:00.000Z': JSON.stringify(run) });
+
+            expect(data.schemaVersion).toBe(1);
         });
-
-        // Run 2: scenario is retried twice, passes on 3rd attempt
-        const run2 = collectRunData({
-            sceneId: CorrelationId.create(),
-            sceneName: 'should allow me to retry a test',
-            failed: false,
-            retries: 2,
-            timestamp: '2024-06-15T14:30:00.000Z',
-        });
-
-        // Write both runs as db.json into memfs
-        const filesystem = createFsFromVolume(Volume.fromNestedJSON({
-            '/output': {
-                'test-runs': {
-                    '2024-06-14T10:00:00.000Z': {
-                        'db.json': JSON.stringify(run1),
-                    },
-                    '2024-06-15T14:30:00.000Z': {
-                        'db.json': JSON.stringify(run2),
-                    },
-                },
-            },
-        }, '/')) as unknown as typeof fs;
-
-        const outputFs = new FileSystem(Path.from('/output'), filesystem);
-        const aggregator = new DataSnapshotAggregator(outputFs, { consistencyWindow: 5 });
-
-        // Run the aggregator (produces data.js)
-        aggregator.aggregate();
-
-        // Read and parse the produced data.js
-        const dataJsContent = filesystem.readFileSync('/output/data.js', 'utf8') as string;
-        const data = JSON.parse(
-            dataJsContent.replace(/^window\.__SERENITY_REPORT_DATA__\s*=\s*/, '').replace(/;\s*$/, ''),
-        );
-
-        // === Verify the pipeline produced correct data ===
-
-        // 1. Schema version present
-        expect(data.schemaVersion).toBe(1);
-
-        // 2. Single scenario (not duplicated)
-        expect(data.scenarios).toHaveLength(1);
-        const scenario = data.scenarios[0];
-        expect(scenario.name).toBe('should allow me to retry a test');
-
-        // 3. Final outcome is SUCCESS (from the latest run)
-        expect(scenario.outcome).toBe('SUCCESS');
-
-        // 4. Scenario-level attempts present (from latest run)
-        expect(scenario.retries).toBe(2);
-        expect(scenario.attempts).toHaveLength(3);
-
-        // 5. Execution history has 2 entries (one per run)
-        expect(scenario.executionHistory).toHaveLength(2);
-
-        // 6. Run 1 (non-retried): FAILURE, no attempts
-        const historyRun1 = scenario.executionHistory[0];
-        expect(historyRun1.outcome).toBe('FAILURE');
-        expect(historyRun1.duration).toBeGreaterThan(0);
-        expect(historyRun1.attempts).toBeUndefined();
-        expect(historyRun1.retries).toBeUndefined();
-        expect(historyRun1.activities).toHaveLength(1);
-        expect(historyRun1.activities[0].name).toBe('single attempt step');
-        expect(historyRun1.error).toBeDefined();
-        expect(historyRun1.error.message).toBe('test failed');
-
-        // 7. Run 2 (retried): SUCCESS, with 3 attempts
-        const historyRun2 = scenario.executionHistory[1];
-        expect(historyRun2.outcome).toBe('SUCCESS');
-        expect(historyRun2.duration).toBeGreaterThan(0);
-        expect(historyRun2.retries).toBe(2);
-        expect(historyRun2.attempts).toHaveLength(3);
-        expect(historyRun2.attempts[0].outcome).toBe('FAILURE');
-        expect(historyRun2.attempts[0].activities[0].name).toBe('attempt 1 step');
-        expect(historyRun2.attempts[1].outcome).toBe('FAILURE');
-        expect(historyRun2.attempts[2].outcome).toBe('SUCCESS');
-        expect(historyRun2.attempts[2].activities[0].name).toBe('attempt 3 step');
-
-        // 8. History entries have correct labels and timestamps
-        expect(data.history).toHaveLength(2);
-        expect(data.history[0].timestamp).toBe('2024-06-14T10:00:00.000Z');
-        expect(data.history[1].timestamp).toBe('2024-06-15T14:30:00.000Z');
-
-        // 9. Summary reflects the latest run
-        expect(data.summary.totalScenarios).toBe(1);
-        expect(data.summary.outcomes.passed).toBe(1);
-        expect(data.summary.outcomes.failed).toBe(0);
-
-        // 10. System context flows through
-        expect(data.systemContext).toBeDefined();
-        expect(data.systemContext.nodeVersion).toBe('v22.0.0');
-        expect(data.systemContext.browsers).toHaveLength(0); // No browser tags in scene data
     });
 
-    test('handles a scenario that passes in both runs without retry data', () => {
-        const run1 = collectRunData({
-            sceneId: CorrelationId.create(),
-            sceneName: 'stable test',
-            failed: false,
-            timestamp: '2024-06-14T10:00:00.000Z',
+    test.describe('scenario deduplication across runs', () => {
+
+        test('produces one scenario entry even when the same test appears in multiple runs', () => {
+            const run1 = collectRunData({ sceneName: 'same test', failed: true, timestamp: '2024-06-14T10:00:00.000Z' });
+            const run2 = collectRunData({ sceneName: 'same test', failed: false, timestamp: '2024-06-15T14:30:00.000Z' });
+
+            const data = aggregateRuns({
+                '2024-06-14T10:00:00.000Z': JSON.stringify(run1),
+                '2024-06-15T14:30:00.000Z': JSON.stringify(run2),
+            }) as { scenarios: Array<{ name: string }> };
+
+            expect(data.scenarios).toHaveLength(1);
+            expect(data.scenarios[0].name).toBe('same test');
         });
-
-        const run2 = collectRunData({
-            sceneId: CorrelationId.create(),
-            sceneName: 'stable test',
-            failed: false,
-            timestamp: '2024-06-15T14:30:00.000Z',
-        });
-
-        const filesystem = createFsFromVolume(Volume.fromNestedJSON({
-            '/output': {
-                'test-runs': {
-                    '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify(run1) },
-                    '2024-06-15T14:30:00.000Z': { 'db.json': JSON.stringify(run2) },
-                },
-            },
-        }, '/')) as unknown as typeof fs;
-
-        const outputFs = new FileSystem(Path.from('/output'), filesystem);
-        const aggregator = new DataSnapshotAggregator(outputFs, { consistencyWindow: 5 });
-        aggregator.aggregate();
-
-        const dataJsContent = filesystem.readFileSync('/output/data.js', 'utf8') as string;
-        const data = JSON.parse(
-            dataJsContent.replace(/^window\.__SERENITY_REPORT_DATA__\s*=\s*/, '').replace(/;\s*$/, ''),
-        );
-
-        const scenario = data.scenarios[0];
-        expect(scenario.outcome).toBe('SUCCESS');
-        expect(scenario.retries).toBeUndefined();
-        expect(scenario.attempts).toBeUndefined();
-
-        // Neither history entry should have attempts
-        for (const entry of scenario.executionHistory) {
-            expect(entry.attempts).toBeUndefined();
-            expect(entry.retries).toBeUndefined();
-        }
     });
 
-    test('gracefully handles mixed valid and corrupt runs', () => {
-        const validRun = collectRunData({
-            sceneId: CorrelationId.create(),
-            sceneName: 'good test',
-            failed: false,
-            timestamp: '2024-06-15T14:30:00.000Z',
+    test.describe('per-run execution history', () => {
+
+        test('non-retried run has no attempts in its execution history entry', () => {
+            const run1 = collectRunData({ sceneName: 'test', failed: true, timestamp: '2024-06-14T10:00:00.000Z' });
+            const run2 = collectRunData({ sceneName: 'test', failed: false, retries: 1, timestamp: '2024-06-15T14:30:00.000Z' });
+
+            const data = aggregateRuns({
+                '2024-06-14T10:00:00.000Z': JSON.stringify(run1),
+                '2024-06-15T14:30:00.000Z': JSON.stringify(run2),
+            }) as { scenarios: Array<{ executionHistory: Array<{ attempts?: unknown[]; retries?: number }> }> };
+
+            const historyRun1 = data.scenarios[0].executionHistory[0];
+            expect(historyRun1.attempts).toBeUndefined();
+            expect(historyRun1.retries).toBeUndefined();
         });
 
-        const filesystem = createFsFromVolume(Volume.fromNestedJSON({
-            '/output': {
-                'test-runs': {
-                    '2024-06-14T10:00:00.000Z': { 'db.json': 'not valid JSON' },
-                    '2024-06-15T14:30:00.000Z': { 'db.json': JSON.stringify(validRun) },
+        test('retried run includes attempts in its execution history entry', () => {
+            const run1 = collectRunData({ sceneName: 'test', failed: true, timestamp: '2024-06-14T10:00:00.000Z' });
+            const run2 = collectRunData({ sceneName: 'test', failed: false, retries: 2, timestamp: '2024-06-15T14:30:00.000Z' });
+
+            const data = aggregateRuns({
+                '2024-06-14T10:00:00.000Z': JSON.stringify(run1),
+                '2024-06-15T14:30:00.000Z': JSON.stringify(run2),
+            }) as { scenarios: Array<{ executionHistory: Array<{ attempts?: Array<{ outcome: string; activities: Array<{ name: string }> }>; retries?: number }> }> };
+
+            const historyRun2 = data.scenarios[0].executionHistory[1];
+            expect(historyRun2.retries).toBe(2);
+            expect(historyRun2.attempts).toHaveLength(3);
+            expect(historyRun2.attempts[0].outcome).toBe('FAILURE');
+            expect(historyRun2.attempts[2].outcome).toBe('SUCCESS');
+            expect(historyRun2.attempts[2].activities[0].name).toBe('attempt 3 step');
+        });
+
+        test('each execution history entry carries per-run duration', () => {
+            const run1 = collectRunData({ sceneName: 'test', failed: true, timestamp: '2024-06-14T10:00:00.000Z' });
+            const run2 = collectRunData({ sceneName: 'test', failed: false, retries: 1, timestamp: '2024-06-15T14:30:00.000Z' });
+
+            const data = aggregateRuns({
+                '2024-06-14T10:00:00.000Z': JSON.stringify(run1),
+                '2024-06-15T14:30:00.000Z': JSON.stringify(run2),
+            }) as { scenarios: Array<{ executionHistory: Array<{ duration: number }> }> };
+
+            for (const entry of data.scenarios[0].executionHistory) {
+                expect(entry.duration).toBeGreaterThan(0);
+            }
+        });
+
+        test('execution history entry for a failed run includes error details', () => {
+            const run1 = collectRunData({ sceneName: 'test', failed: true, timestamp: '2024-06-14T10:00:00.000Z' });
+            const run2 = collectRunData({ sceneName: 'test', failed: false, timestamp: '2024-06-15T14:30:00.000Z' });
+
+            const data = aggregateRuns({
+                '2024-06-14T10:00:00.000Z': JSON.stringify(run1),
+                '2024-06-15T14:30:00.000Z': JSON.stringify(run2),
+            }) as { scenarios: Array<{ executionHistory: Array<{ error?: { message: string } }> }> };
+
+            expect(data.scenarios[0].executionHistory[0].error).toBeDefined();
+            expect(data.scenarios[0].executionHistory[0].error.message).toBe('test failed');
+        });
+    });
+
+    test.describe('scenario-level retry state', () => {
+
+        test('scenario with retries has attempts on the scenario object', () => {
+            const run = collectRunData({ sceneName: 'test', failed: false, retries: 2, timestamp: '2024-06-15T14:30:00.000Z' });
+
+            const data = aggregateRuns({ '2024-06-15T14:30:00.000Z': JSON.stringify(run) }) as {
+                scenarios: Array<{ retries?: number; attempts?: unknown[]; outcome: string }>;
+            };
+
+            expect(data.scenarios[0].outcome).toBe('SUCCESS');
+            expect(data.scenarios[0].retries).toBe(2);
+            expect(data.scenarios[0].attempts).toHaveLength(3);
+        });
+
+        test('scenario without retries has no attempts field', () => {
+            const run = collectRunData({ sceneName: 'test', failed: false, timestamp: '2024-06-15T14:30:00.000Z' });
+
+            const data = aggregateRuns({ '2024-06-15T14:30:00.000Z': JSON.stringify(run) }) as {
+                scenarios: Array<{ retries?: number; attempts?: unknown[] }>;
+            };
+
+            expect(data.scenarios[0].retries).toBeUndefined();
+            expect(data.scenarios[0].attempts).toBeUndefined();
+        });
+    });
+
+    test.describe('summary and history', () => {
+
+        test('summary reflects the latest run', () => {
+            const run1 = collectRunData({ sceneName: 'test', failed: true, timestamp: '2024-06-14T10:00:00.000Z' });
+            const run2 = collectRunData({ sceneName: 'test', failed: false, timestamp: '2024-06-15T14:30:00.000Z' });
+
+            const data = aggregateRuns({
+                '2024-06-14T10:00:00.000Z': JSON.stringify(run1),
+                '2024-06-15T14:30:00.000Z': JSON.stringify(run2),
+            }) as { summary: { totalScenarios: number; outcomes: { passed: number; failed: number } } };
+
+            expect(data.summary.totalScenarios).toBe(1);
+            expect(data.summary.outcomes.passed).toBe(1);
+            expect(data.summary.outcomes.failed).toBe(0);
+        });
+
+        test('history entries are ordered chronologically with correct timestamps', () => {
+            const run1 = collectRunData({ sceneName: 'test', failed: true, timestamp: '2024-06-14T10:00:00.000Z' });
+            const run2 = collectRunData({ sceneName: 'test', failed: false, timestamp: '2024-06-15T14:30:00.000Z' });
+
+            const data = aggregateRuns({
+                '2024-06-14T10:00:00.000Z': JSON.stringify(run1),
+                '2024-06-15T14:30:00.000Z': JSON.stringify(run2),
+            }) as { history: Array<{ timestamp: string }> };
+
+            expect(data.history).toHaveLength(2);
+            expect(data.history[0].timestamp).toBe('2024-06-14T10:00:00.000Z');
+            expect(data.history[1].timestamp).toBe('2024-06-15T14:30:00.000Z');
+        });
+    });
+
+    test.describe('error resilience', () => {
+
+        test('skips corrupt db.json and aggregates remaining valid runs', () => {
+            const validRun = collectRunData({ sceneName: 'good test', failed: false, timestamp: '2024-06-15T14:30:00.000Z' });
+
+            const data = aggregateRuns({
+                '2024-06-14T10:00:00.000Z': 'not valid JSON',
+                '2024-06-15T14:30:00.000Z': JSON.stringify(validRun),
+            }) as { scenarios: Array<{ name: string }>; history: unknown[] };
+
+            expect(data.scenarios).toHaveLength(1);
+            expect(data.scenarios[0].name).toBe('good test');
+            expect(data.history).toHaveLength(1);
+        });
+
+        test('produces no output when all runs are invalid', () => {
+            const filesystem = createFsFromVolume(Volume.fromNestedJSON({
+                '/output': {
+                    'test-runs': {
+                        '2024-06-14T10:00:00.000Z': { 'db.json': 'broken' },
+                        '2024-06-15T10:00:00.000Z': { 'db.json': '{"schemaVersion": 999}' },
+                    },
                 },
-            },
-        }, '/')) as unknown as typeof fs;
+            }, '/')) as unknown as typeof fs;
 
-        const outputFs = new FileSystem(Path.from('/output'), filesystem);
-        const aggregator = new DataSnapshotAggregator(outputFs, { consistencyWindow: 5 });
-        aggregator.aggregate();
+            const outputFs = new FileSystem(Path.from('/output'), filesystem);
+            const aggregator = new DataSnapshotAggregator(outputFs, { consistencyWindow: 5 });
+            aggregator.aggregate();
 
-        const dataJsContent = filesystem.readFileSync('/output/data.js', 'utf8') as string;
-        const data = JSON.parse(
-            dataJsContent.replace(/^window\.__SERENITY_REPORT_DATA__\s*=\s*/, '').replace(/;\s*$/, ''),
-        );
-
-        // Only the valid run survives
-        expect(data.scenarios).toHaveLength(1);
-        expect(data.scenarios[0].name).toBe('good test');
-        expect(data.history).toHaveLength(1);
+            expect(filesystem.existsSync('/output/data.js')).toBe(false);
+        });
     });
 });

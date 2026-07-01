@@ -15,6 +15,7 @@ import {
 import { FileSystemLocation, Path } from '@serenity-js/core/io';
 import {
     ActivityDetails,
+    ArbitraryTag,
     Category,
     CorrelationId,
     Description,
@@ -25,9 +26,9 @@ import {
     JSONData,
     LogEntry,
     Name,
+    ProjectTag,
     ScenarioDetails,
     ScenarioParameters,
-    Tag,
     TextData,
 } from '@serenity-js/core/model';
 
@@ -59,7 +60,7 @@ test.describe('SceneDataCollector', () => {
 
             // Attempt 1: fails
             queues.enqueue(new SceneStarts(sceneId, details, t0));
-            queues.enqueue(new SceneTagged(sceneId, new Tag('retried', 'retried'), t0));
+            queues.enqueue(new SceneTagged(sceneId, new ArbitraryTag('retried'), t0));
             const act1 = CorrelationId.create();
             const actDetails1 = new ActivityDetails(new Name('Tess ensures that 0 does equal 2'), new FileSystemLocation(Path.from('spec/retries.spec.ts'), 10, 1));
             queues.enqueue(new InteractionStarts(sceneId, act1, actDetails1, t0));
@@ -68,7 +69,7 @@ test.describe('SceneDataCollector', () => {
 
             // Attempt 2: succeeds
             queues.enqueue(new SceneStarts(sceneId, details, t3));
-            queues.enqueue(new SceneTagged(sceneId, new Tag('retried', 'retried'), t3));
+            queues.enqueue(new SceneTagged(sceneId, new ArbitraryTag('retried'), t3));
             const act2 = CorrelationId.create();
             const actDetails2 = new ActivityDetails(new Name('Tess ensures that 2 does equal 2'), new FileSystemLocation(Path.from('spec/retries.spec.ts'), 10, 1));
             queues.enqueue(new InteractionStarts(sceneId, act2, actDetails2, t3));
@@ -657,6 +658,51 @@ test.describe('SceneDataCollector', () => {
             const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext, sceneArtifactPaths);
 
             expect(runData.scenes[0].video).toBe('test-runs/2024-01-01/video-abc123.webm');
+        });
+
+        test('attaches video to retried scene (merged from multiple sceneIds with same project tag)', () => {
+            const collector = new SceneDataCollector();
+            const queues = new DomainEventQueues();
+
+            const details = new ScenarioDetails(
+                new Name('retried scenario with video'),
+                new Category('Suite'),
+                new FileSystemLocation(Path.from('spec/video-retry.spec.ts'), 5, 1),
+            );
+
+            // Use SceneSequenceDetected framing to put all retry events
+            // in one queue under a shared sceneId (matching adapter behaviour)
+            const sceneId = CorrelationId.create();
+
+            const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+            const t1 = new Timestamp(new Date('2024-01-01T00:00:00.200Z'));
+            const t2 = new Timestamp(new Date('2024-01-01T00:00:00.500Z'));
+            const t3 = new Timestamp(new Date('2024-01-01T00:00:00.700Z'));
+
+            // Attempt 1: fails
+            queues.enqueue(new SceneStarts(sceneId, details, t0));
+            queues.enqueue(new SceneTagged(sceneId, new ProjectTag('my-project'), t0));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionFailedWithAssertionError(new Error('oops')), t1));
+
+            // Attempt 2: passes (same sceneId, same queue)
+            queues.enqueue(new SceneStarts(sceneId, details, t2));
+            queues.enqueue(new SceneTagged(sceneId, new ProjectTag('my-project'), t2));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t3));
+
+            // Video is associated with the sceneId
+            const sceneArtifactPaths = new Map<string, Path[]>();
+            sceneArtifactPaths.set(sceneId.value, [
+                Path.from('test-runs/2024-01-01/video-final.webm'),
+            ]);
+
+            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext, sceneArtifactPaths);
+
+            // The SceneRecordBuilder processes multiple SceneStarts/SceneFinished pairs
+            // as retry attempts within a single record. Since they share a project tag,
+            // the projectRecords.length > 1 branch is exercised.
+            expect(runData.scenes).toHaveLength(1);
+            expect(runData.scenes[0].retries).toBe(1);
+            expect(runData.scenes[0].video).toBe('test-runs/2024-01-01/video-final.webm');
         });
 
         test('does not attach video when no .webm file is present', () => {
