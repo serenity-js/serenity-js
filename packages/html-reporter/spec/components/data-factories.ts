@@ -5,9 +5,11 @@
  */
 
 import type { ReportData } from '../../src/ReportData';
+import { CURRENT_REPORT_DATA_SCHEMA_VERSION } from '../../src/ReportData';
 
 export function minimalData(overrides: Partial<ReportData> & Record<string, unknown> = {}): ReportData {
     return {
+        schemaVersion: overrides.schemaVersion ?? CURRENT_REPORT_DATA_SCHEMA_VERSION,
         summary: {
             title: 'Test Project',
             totalScenarios: 4,

@@ -130,6 +130,9 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
     const [treeKey, setTreeKey] = useState(0);
     const [treeExpanded, setTreeExpanded] = useState(true);
 
+    // Reset attempt selection when switching between runs
+    useEffect(() => { setActiveAttempt(0); }, [runIndex]);
+
     const openPhoto = (index) => {
         setLightboxIndex(index);
         const base = window.location.hash.replace(/&photo=\d+/, '');
@@ -158,21 +161,33 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
     if (!scenario.activities) scenario.activities = [];
     if (!scenario.executionHistory) scenario.executionHistory = [];
 
-    const hasRetries = scenario.attempts && scenario.attempts.length > 0;
+    const historicalEntry = runIndex !== null && runIndex !== DATA.history.length - 1 && scenario.executionHistory[runIndex]
+        ? scenario.executionHistory[runIndex] : null;
+
+    // Determine per-run retry state: when viewing a historical run, use its data
+    const activeAttempts = historicalEntry
+        ? (historicalEntry.attempts || null)
+        : (scenario.attempts || null);
+    const hasRetries = activeAttempts && activeAttempts.length > 0;
+    const activeDuration = historicalEntry && historicalEntry.duration != null
+        ? historicalEntry.duration
+        : scenario.duration;
     const hasCast = scenario.cast.length > 0;
     const hasTags = scenario.tags.length > 0;
     const hasExecutionHistory = scenario.executionHistory.length > 0;
-    const historicalEntry = runIndex !== null && runIndex !== DATA.history.length - 1 && scenario.executionHistory[runIndex]
-        ? scenario.executionHistory[runIndex] : null;
     const currentActivities = historicalEntry && historicalEntry.activities
-        ? historicalEntry.activities
-        : hasRetries && activeAttempt < scenario.attempts.length
-            ? scenario.attempts[activeAttempt].activities
+        ? (hasRetries && activeAttempt < activeAttempts.length
+            ? activeAttempts[activeAttempt].activities
+            : historicalEntry.activities)
+        : hasRetries && activeAttempt < activeAttempts.length
+            ? activeAttempts[activeAttempt].activities
             : scenario.activities;
     const currentError = historicalEntry
-        ? historicalEntry.error || null
-        : hasRetries && activeAttempt < scenario.attempts.length
-            ? scenario.attempts[activeAttempt].error
+        ? (hasRetries && activeAttempt < activeAttempts.length
+            ? activeAttempts[activeAttempt].error
+            : historicalEntry.error || null)
+        : hasRetries && activeAttempt < activeAttempts.length
+            ? activeAttempts[activeAttempt].error
             : scenario.error;
     const errorLocation = currentError ? (function findLoc(acts) { for (const a of acts) { if (a.outcome !== 'SUCCESS' && a.outcome !== 'SKIPPED' && a.location) return a.location; if (a.children) { const r = findLoc(a.children); if (r) return r; } } return null; })(currentActivities) : null;
 
@@ -213,7 +228,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
               </button>
             </div>
             <div class="scenario-detail-meta">
-              <span>${formatDuration(scenario.duration)}</span>
+              <span>${formatDuration(activeDuration)}</span>
               <span>•</span>
               <span class="scenario-source">${relativeSourcePath(scenario)}</span>
               ${getBrowserTag(scenario) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(scenario))}">${getBrowserTag(scenario)}</span>` : null}
@@ -312,7 +327,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }) {
 
       ${hasRetries ? html`
         <div class="retry-tabs">
-          ${scenario.attempts.map((attempt, i) => html`
+          ${activeAttempts.map((attempt, i) => html`
             <div class="retry-tab ${activeAttempt === i ? 'active' : ''} ${outcomeClass(attempt.outcome)}"
                  onClick=${() => setActiveAttempt(i)}>
               Attempt ${attempt.attemptNumber} (${attempt.outcome === 'SUCCESS' ? 'passed' : 'failed'})

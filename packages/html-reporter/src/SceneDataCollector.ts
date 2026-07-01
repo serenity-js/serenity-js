@@ -38,6 +38,7 @@ import {
 } from '@serenity-js/core/model';
 
 import type { ActivityRecord, ActorRecord, ArtifactReference, ErrorRecord, OutcomeCounts, RunData, ScenarioParameterSet, SceneRecord, TagRecord } from './model/RunData.js';
+import { CURRENT_RUN_DATA_SCHEMA_VERSION } from './model/RunData.js';
 import type { SystemContext } from './SystemContextDetector.js';
 
 /**
@@ -127,6 +128,7 @@ export class SceneDataCollector {
             : testRunStartedAt;
 
         return {
+            schemaVersion: CURRENT_RUN_DATA_SCHEMA_VERSION,
             startedAt,
             finishedAt,
             outcomes: this.summariseOutcomes(scenes),
@@ -260,7 +262,7 @@ class SceneRecordBuilder {
 
         const isRetried = this.attempts.length > 1;
 
-        const record: SceneRecord = {
+        const base = {
             name: this.name,
             category: this.category,
             outcome: this.outcome,
@@ -271,41 +273,22 @@ class SceneRecordBuilder {
             activities: isRetried
                 ? this.attempts[this.attempts.length - 1].activities
                 : (this.isScenarioOutline ? [] : this.rootActivities),
+            ...(this.narrative ? { narrative: this.narrative } : {}),
+            ...(this.description ? { description: this.description } : {}),
+            ...(this.sceneError ? { error: this.sceneError } : {}),
+            ...(this.artifacts.length > 0 ? { artifacts: this.artifacts } : {}),
+            ...(this.cast.length > 0 ? { cast: this.cast } : {}),
         };
 
-        if (this.narrative) {
-            record.narrative = this.narrative;
-        }
-
-        if (this.description) {
-            record.description = this.description;
-        }
-
-        if (this.sceneError) {
-            record.error = this.sceneError;
-        }
-
-        if (this.artifacts.length > 0) {
-            record.artifacts = this.artifacts;
-        }
-
-        if (this.cast.length > 0) {
-            record.cast = this.cast;
-        }
-
         if (this.isScenarioOutline && this.template) {
-            record.scenarioOutline = {
-                template: this.template,
-                parameters: this.parameterSets,
-            };
+            return { ...base, scenarioOutline: { template: this.template, parameters: this.parameterSets } } as SceneRecord;
         }
 
         if (isRetried) {
-            record.retries = this.attempts.length - 1;
-            record.attempts = this.attempts;
+            return { ...base, retries: this.attempts.length - 1, attempts: this.attempts } as SceneRecord;
         }
 
-        return record;
+        return base as SceneRecord;
     }
 
     private processEvent(event: DomainEvent & { sceneId: CorrelationId }): void {

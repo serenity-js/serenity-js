@@ -3,7 +3,6 @@ import { readFileSync } from 'node:fs';
 import type { FileSystem } from '@serenity-js/core/io';
 import type { RequirementsHierarchy } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
-import type { SerialisedOutcome } from '@serenity-js/core/model';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -15,7 +14,10 @@ import {
 import { marked } from 'marked';
 
 import { scoreCapability,scoreDirectory } from './CapabilityConfidenceScorer.js';
-import type { RunData } from './model/RunData.js';
+import type { ActivityRecord, RunData, SceneRecord } from './model/RunData.js';
+import { IncompatibleSchemaError, InvalidRunDataError, validateRunData } from './model/validation.js';
+import type { ReportActivity, ReportCapabilityNode, ReportData, ReportExecutionHistoryEntry, ReportHistoryEntry, ReportOutcomes, ReportScenario, ReportSystemContext } from './ReportData.js';
+import { CURRENT_REPORT_DATA_SCHEMA_VERSION } from './ReportData.js';
 
 interface AggregatorConfig {
     consistencyWindow: number;
@@ -64,7 +66,8 @@ export class DataSnapshotAggregator {
         const latestRun = allRuns[allRuns.length - 1];
         const { newFailures, newPasses } = this.computeDegradedRecovered(allRuns);
 
-        const snapshot = {
+        const snapshot: ReportData = {
+            schemaVersion: CURRENT_REPORT_DATA_SCHEMA_VERSION,
             summary: this.buildSummary(latestRun),
             scenarios: this.enrichScenarios(latestRun, allRuns),
             history: this.buildHistory(allRuns),
@@ -91,11 +94,26 @@ export class DataSnapshotAggregator {
     }
 
     private loadRuns(runDirectories: Path[]): RunData[] {
-        return runDirectories.map(directory => {
+        const runs: RunData[] = [];
+
+        for (const directory of runDirectories) {
             const databaseJsonPath = directory.join(Path.from('db.json'));
-            const content = this.fileSystem.readFileSync(databaseJsonPath, { encoding: 'utf8' }) as string;
-            return JSON.parse(content) as RunData;
-        });
+            try {
+                const content = this.fileSystem.readFileSync(databaseJsonPath, { encoding: 'utf8' }) as string;
+                const raw = JSON.parse(content);
+                runs.push(validateRunData(raw, databaseJsonPath.value));
+            } catch (error) {
+                if (error instanceof InvalidRunDataError || error instanceof IncompatibleSchemaError || error instanceof SyntaxError) {
+                    // Skip invalid files — log to stderr and continue
+                     
+                    console.warn(`[html-reporter] Skipping ${databaseJsonPath.value}: ${(error as Error).message}`);
+                    continue;
+                }
+                throw error;
+            }
+        }
+
+        return runs;
     }
 
     private loadExternalRuns(paths: string[]): RunData[] {
@@ -105,10 +123,22 @@ export class DataSnapshotAggregator {
         const groups = new Map<string, RunData[]>();
 
         for (const databaseJsonPath of paths) {
-            const content = sourceFs
-                ? sourceFs.readFileSync(Path.from(databaseJsonPath), { encoding: 'utf8' }) as string
-                : readFileSync(databaseJsonPath, 'utf8');
-            const run = JSON.parse(content) as RunData;
+            let content: string;
+            let run: RunData;
+            try {
+                content = sourceFs
+                    ? sourceFs.readFileSync(Path.from(databaseJsonPath), { encoding: 'utf8' }) as string
+                    : readFileSync(databaseJsonPath, 'utf8');
+                const raw = JSON.parse(content);
+                run = validateRunData(raw, databaseJsonPath);
+            } catch (error) {
+                if (error instanceof InvalidRunDataError || error instanceof IncompatibleSchemaError || error instanceof SyntaxError) {
+                     
+                    console.warn(`[html-reporter] Skipping ${databaseJsonPath}: ${(error as Error).message}`);
+                    continue;
+                }
+                throw error;
+            }
             const groupId = run.testRunId || run.startedAt;
 
             if (!groups.has(groupId)) {
@@ -227,10 +257,23 @@ export class DataSnapshotAggregator {
                 },
             ];
             return {
-                ...laterScene,
+                name: laterScene.name,
+                category: laterScene.category,
+                outcome: laterScene.outcome,
+                duration: laterScene.duration,
+                startedAt: laterScene.startedAt,
+                source: laterScene.source,
+                tags: laterScene.tags,
+                activities: laterScene.activities,
+                ...(laterScene.error ? { error: laterScene.error } : {}),
+                ...(laterScene.video ? { video: laterScene.video } : {}),
+                ...(laterScene.cast ? { cast: laterScene.cast } : {}),
+                ...(laterScene.narrative ? { narrative: laterScene.narrative } : {}),
+                ...(laterScene.description ? { description: laterScene.description } : {}),
+                ...(laterScene.artifacts ? { artifacts: laterScene.artifacts } : {}),
                 attempts: allAttempts,
                 retries: allAttempts.length - 1,
-            };
+            } as SceneRecord;
         });
 
         // Include scenes from earlier attempt that weren't retried
@@ -330,7 +373,7 @@ export class DataSnapshotAggregator {
         };
     }
 
-    private enrichScenarios(latestRun: RunData, allRuns: RunData[]): unknown[] {
+    private enrichScenarios(latestRun: RunData, allRuns: RunData[]): ReportScenario[] {
         return latestRun.scenes.map(scene => {
             const key = scene.source.line
                 ? scene.source.path + ':' + scene.source.line
@@ -342,47 +385,80 @@ export class DataSnapshotAggregator {
                         : s.source.path + ':' + s.name;
                     return matchKey === key;
                 });
-                return match
-                    ? {
-                        outcome: outcomeCodeToDisplayString(match.outcome.code),
-                        run: this.resolveRunLabel(run),
-                        timestamp: run.startedAt,
-                        activities: match.activities.map(activity => this.mapActivityOutcome(activity)),
-                        ...(match.error ? { error: match.error } : {}),
-                    }
-                    : undefined;
-            }).filter(Boolean);
-            return {
-                ...scene,
-                tags: [...new Map(scene.tags.map(t => [t.type + ':' + t.name, t])).values()],
-                outcome: outcomeCodeToDisplayString(scene.outcome.code),
-                activities: scene.activities.map(activity => this.mapActivityOutcome(activity)),
-                executionHistory,
-                ...(scene.narrative ? { narrative: marked.parse(scene.narrative, { async: false }) as string } : {}),
-                ...(scene.description ? { description: marked.parse(scene.description, { async: false }) as string } : {}),
-                ...(scene.scenarioOutline ? {
-                    scenarioOutline: {
-                        template: scene.scenarioOutline.template,
-                        parameters: scene.scenarioOutline.parameters.map(ps => ({
-                            ...ps,
-                            ...(ps.description ? { description: marked.parse(ps.description, { async: false }) as string } : {}),
-                            outcome: outcomeCodeToDisplayString(ps.outcome.code),
-                            activities: ps.activities.map(activity => this.mapActivityOutcome(activity)),
-                        })),
-                    },
-                } : {}),
-                ...(scene.attempts ? {
-                    attempts: scene.attempts.map(attempt => ({
+                if (!match) return undefined;
+                const entry: ReportExecutionHistoryEntry = {
+                    outcome: outcomeCodeToDisplayString(match.outcome.code),
+                    run: this.resolveRunLabel(run),
+                    timestamp: run.startedAt,
+                    duration: match.duration,
+                    activities: match.activities.map(activity => this.mapActivityOutcome(activity)),
+                };
+                if (match.error) {
+                    entry.error = match.error;
+                }
+                if (match.attempts && match.retries) {
+                    entry.retries = match.retries;
+                    entry.attempts = match.attempts.map(attempt => ({
                         ...attempt,
                         outcome: outcomeCodeToDisplayString(attempt.outcome.code),
                         activities: attempt.activities.map(activity => this.mapActivityOutcome(activity)),
-                    })),
-                } : {}),
+                    }));
+                }
+                return entry;
+            }).filter(Boolean) as ReportExecutionHistoryEntry[];
+
+            const enriched: ReportScenario = {
+                name: scene.name,
+                category: scene.category,
+                outcome: outcomeCodeToDisplayString(scene.outcome.code),
+                duration: scene.duration,
+                startedAt: scene.startedAt,
+                source: scene.source,
+                tags: [...new Map(scene.tags.map(t => [t.type + ':' + t.name, t])).values()],
+                activities: scene.activities.map(activity => this.mapActivityOutcome(activity)),
+                executionHistory,
             };
+
+            if (scene.narrative) {
+                enriched.narrative = marked.parse(scene.narrative, { async: false }) as string;
+            }
+            if (scene.description) {
+                enriched.description = marked.parse(scene.description, { async: false }) as string;
+            }
+            if (scene.error) {
+                enriched.error = scene.error;
+            }
+            if (scene.cast) {
+                enriched.cast = scene.cast;
+            }
+            if (scene.video) {
+                enriched.video = scene.video;
+            }
+            if (scene.scenarioOutline) {
+                enriched.scenarioOutline = {
+                    template: scene.scenarioOutline.template,
+                    parameters: scene.scenarioOutline.parameters.map(ps => ({
+                        ...ps,
+                        ...(ps.description ? { description: marked.parse(ps.description, { async: false }) as string } : {}),
+                        outcome: outcomeCodeToDisplayString(ps.outcome.code),
+                        activities: ps.activities.map(activity => this.mapActivityOutcome(activity)),
+                    })),
+                };
+            }
+            if (scene.attempts) {
+                enriched.retries = scene.retries;
+                enriched.attempts = scene.attempts.map(attempt => ({
+                    ...attempt,
+                    outcome: outcomeCodeToDisplayString(attempt.outcome.code),
+                    activities: attempt.activities.map(activity => this.mapActivityOutcome(activity)),
+                }));
+            }
+
+            return enriched;
         });
     }
 
-    private buildHistory(allRuns: RunData[]): unknown[] {
+    private buildHistory(allRuns: RunData[]): ReportHistoryEntry[] {
         return allRuns.map((run, index) => {
             const durations = run.scenes.map(s => s.duration).filter(d => d > 0);
             const ci = run.systemContext?.runtime;
@@ -437,14 +513,14 @@ export class DataSnapshotAggregator {
         return totalTests > 0 ? Math.round((stableTests / totalTests) * 100) : 100;
     }
 
-    private buildSystemContext(latestRun: RunData): unknown {
+    private buildSystemContext(latestRun: RunData): ReportSystemContext | undefined {
         if (!latestRun.systemContext) {
             return undefined;
         }
         return {
             nodeVersion: latestRun.systemContext.nodeVersion,
             os: latestRun.systemContext.os,
-            serenityVersion: latestRun.systemContext.serenityVersion,
+            serenityVersion: String(latestRun.systemContext.serenityVersion),
             testRunner: latestRun.testRunner,
             browsers: this.extractBrowsers(latestRun),
             ci: latestRun.systemContext.runtime,
@@ -471,10 +547,10 @@ export class DataSnapshotAggregator {
         return [...browsers.entries()].map(([name, version]) => ({ name, version }));
     }
 
-    private buildCapabilities(run: RunData, allRuns: RunData[]): any {
+    private buildCapabilities(run: RunData, allRuns: RunData[]): ReportCapabilityNode {
         const rootName = this.requirementsHierarchy.rootDirectory().basename();
-        const root: any = { type: 'directory', name: rootName, outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, children: [] };
-        const nodeMap = new Map<string, any>();
+        const root: ReportCapabilityNode = { type: 'directory', name: rootName, outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, children: [] };
+        const nodeMap = new Map<string, ReportCapabilityNode>();
         nodeMap.set('', root);
 
         for (const scene of run.scenes) {
@@ -486,7 +562,7 @@ export class DataSnapshotAggregator {
             for (let i = 0; i < directories.length; i++) {
                 const directoryKey = directories.slice(0, i + 1).join('/');
                 if (!nodeMap.has(directoryKey)) {
-                    const directory: any = { type: 'directory', name: directories[i], outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, children: [] };
+                    const directory: ReportCapabilityNode = { type: 'directory', name: directories[i], outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, children: [] };
                     currentDirectory.children.push(directory);
                     nodeMap.set(directoryKey, directory);
                 }
@@ -495,13 +571,13 @@ export class DataSnapshotAggregator {
 
             const fileKey = segments.join('/');
             if (!nodeMap.has(fileKey)) {
-                const file: any = { type: 'file', name: fileName, outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, scenarios: [] };
+                const file: ReportCapabilityNode = { type: 'file', name: fileName, outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, scenarios: [] };
                 currentDirectory.children.push(file);
                 nodeMap.set(fileKey, file);
             }
 
             const fileNode = nodeMap.get(fileKey);
-            const outcomeKey = this.mapOutcomeToKey(outcomeCodeToDisplayString(scene.outcome.code));
+            const outcomeKey = this.mapOutcomeToKey(outcomeCodeToDisplayString(scene.outcome.code)) as keyof ReportOutcomes;
 
             fileNode.scenarioCount++;
             fileNode.outcomes[outcomeKey]++;
@@ -532,7 +608,7 @@ export class DataSnapshotAggregator {
         // Compute scores for file nodes
         for (const [, node] of nodeMap) {
             if (node.type === 'file' && node.scenarios) {
-                node.score = scoreCapability(node);
+                node.score = scoreCapability(node as ReportCapabilityNode & { scenarios: NonNullable<ReportCapabilityNode['scenarios']> });
             }
         }
 
@@ -552,7 +628,7 @@ export class DataSnapshotAggregator {
         return root;
     }
 
-    private computeDirectoryScores(node: any): void {
+    private computeDirectoryScores(node: ReportCapabilityNode): void {
         if (!node.children) return;
 
         for (const child of node.children) {
@@ -562,8 +638,8 @@ export class DataSnapshotAggregator {
         }
 
         const scoredChildren = node.children
-            .filter((c: any) => c.score)
-            .map((c: any) => ({ confidence: c.score.confidence, scenarioCount: c.scenarioCount || 0 }));
+            .filter(c => c.score)
+            .map(c => ({ confidence: c.score.confidence, scenarioCount: c.scenarioCount || 0 }));
 
         if (scoredChildren.length > 0) {
             const confidence = scoreDirectory(scoredChildren);
@@ -579,7 +655,7 @@ export class DataSnapshotAggregator {
         }
     }
 
-    private attachReadme(node: any, directoryPath: Path): void {
+    private attachReadme(node: ReportCapabilityNode, directoryPath: Path): void {
         const readmePath = directoryPath.join(Path.from('readme.md'));
         if (this.projectFileSystem.exists(readmePath)) {
             const content = this.projectFileSystem.readFileSync(readmePath, { encoding: 'utf8' }) as string;
@@ -683,12 +759,23 @@ export class DataSnapshotAggregator {
         return unstable.sort((a, b) => b.inconsistencyRate - a.inconsistencyRate);
     }
 
-    private mapActivityOutcome(activity: { outcome: SerialisedOutcome; children: any[]; [key: string]: any }): any {
-        return {
-            ...activity,
+    private mapActivityOutcome(activity: ActivityRecord): ReportActivity {
+        const mapped: ReportActivity = {
+            name: activity.name,
             outcome: outcomeCodeToDisplayString(activity.outcome.code),
+            duration: activity.duration,
             children: activity.children.map(child => this.mapActivityOutcome(child)),
         };
+
+        if (activity.type) mapped.type = activity.type;
+        if (activity.startedAt) mapped.startedAt = activity.startedAt;
+        if (activity.location) mapped.location = activity.location;
+        if (activity.error) mapped.error = activity.error;
+        if (activity.artifacts) mapped.artifacts = activity.artifacts;
+        if (activity.restQuery) mapped.restQuery = activity.restQuery;
+        if (activity.reportData) mapped.reportData = activity.reportData;
+
+        return mapped;
     }
 
     private resolveRunLabel(run: RunData): string {

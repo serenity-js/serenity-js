@@ -1,4 +1,10 @@
 /**
+ * Current schema version of the ReportData model.
+ * Increment when making structural changes to the data.js format.
+ */
+export const CURRENT_REPORT_DATA_SCHEMA_VERSION = 1;
+
+/**
  * Shape of the aggregated report data embedded in data.js as
  * `window.__SERENITY_REPORT_DATA__`.
  *
@@ -6,6 +12,7 @@
  * to keep mocks in sync with the real data structure.
  */
 export interface ReportData {
+    schemaVersion: number;
     summary: ReportSummary;
     scenarios: ReportScenario[];
     history: ReportHistoryEntry[];
@@ -50,6 +57,10 @@ export interface ReportScenario {
     narrative?: string;
     description?: string;
     scenarioOutline?: ReportScenarioOutline;
+    retries?: number;
+    attempts?: ReportAttempt[];
+    cast?: Array<{ name: string; abilities: Array<{ name: string; details?: string }> }>;
+    video?: string;
 }
 
 export interface ReportSource {
@@ -63,22 +74,60 @@ export interface ReportScenarioTag {
 }
 
 export interface ReportActivity {
+    type?: string;
     name: string;
     outcome: string;
     duration?: number;
+    startedAt?: string;
     children: ReportActivity[];
-    artifact?: string;
+    location?: { path: string; line: number; column: number };
+    error?: ReportError;
+    artifacts?: Array<{ path: string; type: string; activityId?: string }>;
+    restQuery?: ReportRestQuery;
+    reportData?: ReportDataEntry[];
+    dataTable?: string[][];
+    docString?: string;
+}
+
+export interface ReportRestQuery {
+    method: string;
+    url: string;
+    requestHeaders: string;
+    requestBody?: string;
+    statusCode: number;
+    responseHeaders: string;
+    responseBody?: string;
+}
+
+export interface ReportDataEntry {
+    title: string;
+    contents: string;
+    contentType?: string;
 }
 
 export interface ReportExecutionHistoryEntry {
     outcome: string;
     run: string;
+    timestamp?: string;
+    duration?: number;
+    activities?: ReportActivity[];
+    error?: ReportError;
+    retries?: number;
+    attempts?: ReportAttempt[];
 }
 
 export interface ReportError {
     name: string;
     message: string;
     stack?: string;
+}
+
+export interface ReportAttempt {
+    attemptNumber: number;
+    outcome: string;
+    duration: number;
+    activities: ReportActivity[];
+    error?: ReportError;
 }
 
 export interface ReportScenarioOutline {

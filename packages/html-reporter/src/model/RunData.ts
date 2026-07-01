@@ -3,11 +3,38 @@ import type { SerialisedOutcome } from '@serenity-js/core/model';
 import type { SystemContext } from '../SystemContextDetector.js';
 
 /**
+ * Current schema version of the RunData model.
+ * Increment when making structural changes to the db.json format.
+ */
+export const CURRENT_RUN_DATA_SCHEMA_VERSION = 1;
+
+/**
+ * Branded type for ISO 8601 timestamp strings.
+ * Prevents accidentally passing arbitrary strings where timestamps are expected.
+ */
+export type ISOTimestamp = string & { readonly __brand: 'ISOTimestamp' };
+
+/**
+ * Creates a branded ISOTimestamp from a string value.
+ * Performs a basic format check to catch obviously invalid values.
+ *
+ * @param value - An ISO 8601 date-time string (e.g. `2024-06-15T14:30:00.000Z`)
+ * @throws Error if the value does not match the expected format
+ */
+export function isoTimestamp(value: string): ISOTimestamp {
+    if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(value)) {
+        throw new Error(`Invalid ISO timestamp: ${value}`);
+    }
+    return value as ISOTimestamp;
+}
+
+/**
  * The data model for a single test run, serialised as db.json.
  *
  * @package
  */
 export interface RunData {
+    schemaVersion: number;
     testRunId?: string;
     attempt?: number;      // 1-based CI job attempt number. Default: 1
     startedAt: string;
@@ -28,7 +55,7 @@ export interface OutcomeCounts {
     error: number;
 }
 
-export interface SceneRecord {
+interface BaseSceneRecord {
     name: string;
     category: string;
     outcome: SerialisedOutcome;
@@ -39,17 +66,34 @@ export interface SceneRecord {
     activities: ActivityRecord[];
     error?: ErrorRecord;
     video?: string;
-    retries?: number;
-    attempts?: AttemptRecord[];
     cast?: ActorRecord[];
     narrative?: string;
     description?: string;
     artifacts?: ArtifactReference[];
-    scenarioOutline?: {
+}
+
+interface SimpleSceneRecord extends BaseSceneRecord {
+    scenarioOutline?: never;
+    attempts?: never;
+    retries?: never;
+}
+
+interface RetriedSceneRecord extends BaseSceneRecord {
+    retries: number;
+    attempts: AttemptRecord[];
+    scenarioOutline?: never;
+}
+
+interface OutlineSceneRecord extends BaseSceneRecord {
+    scenarioOutline: {
         template: string;
         parameters: ScenarioParameterSet[];
     };
+    attempts?: never;
+    retries?: never;
 }
+
+export type SceneRecord = SimpleSceneRecord | RetriedSceneRecord | OutlineSceneRecord;
 
 export interface ScenarioParameterSet {
     name: string;
