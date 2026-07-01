@@ -27,6 +27,7 @@ import {
 import { createFsFromVolume, Volume } from 'memfs';
 
 import { DataSnapshotAggregator } from '../src/DataSnapshotAggregator.js';
+import type { ReportData } from '../src/ReportData.js';
 import { SceneDataCollector } from '../src/SceneDataCollector.js';
 
 // -- Helpers --
@@ -105,22 +106,25 @@ function collectRunData(options: {
     return collector.collect(queues, options.timestamp, 'Playwright', '1.50.0', new Map(), systemContext);
 }
 
-function aggregateRuns(runs: Record<string, string>): Record<string, unknown> {
+function createMemFs(tree: Record<string, unknown>, root = '/'): typeof fs {
+     
+    return createFsFromVolume(Volume.fromNestedJSON(tree as any, root)) as unknown as typeof fs;
+}
+
+function aggregateRuns(runs: Record<string, string>): ReportData {
     const tree: Record<string, Record<string, string>> = {};
     for (const [timestamp, json] of Object.entries(runs)) {
         tree[timestamp] = { 'db.json': json };
     }
 
-    const filesystem = createFsFromVolume(Volume.fromNestedJSON({
-        '/output': { 'test-runs': tree },
-    }, '/')) as unknown as typeof fs;
+    const filesystem = createMemFs({ '/output': { 'test-runs': tree } });
 
     const outputFs = new FileSystem(Path.from('/output'), filesystem);
     const aggregator = new DataSnapshotAggregator(outputFs, { consistencyWindow: 5 });
     aggregator.aggregate();
 
     const content = filesystem.readFileSync('/output/data.js', 'utf8') as string;
-    return JSON.parse(content.replace(/^window\.__SERENITY_REPORT_DATA__\s*=\s*/, '').replace(/;\s*$/, ''));
+    return JSON.parse(content.replace(/^window\.__SERENITY_REPORT_DATA__\s*=\s*/, '').replace(/;\s*$/, '')) as ReportData;
 }
 
 // -- Tests --
@@ -146,7 +150,7 @@ test.describe('Full pipeline integration: events → db.json → data.js', () =>
             const data = aggregateRuns({
                 '2024-06-14T10:00:00.000Z': JSON.stringify(run1),
                 '2024-06-15T14:30:00.000Z': JSON.stringify(run2),
-            }) as { scenarios: Array<{ name: string }> };
+            });
 
             expect(data.scenarios).toHaveLength(1);
             expect(data.scenarios[0].name).toBe('same test');
@@ -162,7 +166,7 @@ test.describe('Full pipeline integration: events → db.json → data.js', () =>
             const data = aggregateRuns({
                 '2024-06-14T10:00:00.000Z': JSON.stringify(run1),
                 '2024-06-15T14:30:00.000Z': JSON.stringify(run2),
-            }) as { scenarios: Array<{ executionHistory: Array<{ attempts?: unknown[]; retries?: number }> }> };
+            });
 
             const historyRun1 = data.scenarios[0].executionHistory[0];
             expect(historyRun1.attempts).toBeUndefined();
@@ -176,7 +180,7 @@ test.describe('Full pipeline integration: events → db.json → data.js', () =>
             const data = aggregateRuns({
                 '2024-06-14T10:00:00.000Z': JSON.stringify(run1),
                 '2024-06-15T14:30:00.000Z': JSON.stringify(run2),
-            }) as { scenarios: Array<{ executionHistory: Array<{ attempts?: Array<{ outcome: string; activities: Array<{ name: string }> }>; retries?: number }> }> };
+            });
 
             const historyRun2 = data.scenarios[0].executionHistory[1];
             expect(historyRun2.retries).toBe(2);
@@ -193,7 +197,7 @@ test.describe('Full pipeline integration: events → db.json → data.js', () =>
             const data = aggregateRuns({
                 '2024-06-14T10:00:00.000Z': JSON.stringify(run1),
                 '2024-06-15T14:30:00.000Z': JSON.stringify(run2),
-            }) as { scenarios: Array<{ executionHistory: Array<{ duration: number }> }> };
+            });
 
             for (const entry of data.scenarios[0].executionHistory) {
                 expect(entry.duration).toBeGreaterThan(0);
@@ -207,7 +211,7 @@ test.describe('Full pipeline integration: events → db.json → data.js', () =>
             const data = aggregateRuns({
                 '2024-06-14T10:00:00.000Z': JSON.stringify(run1),
                 '2024-06-15T14:30:00.000Z': JSON.stringify(run2),
-            }) as { scenarios: Array<{ executionHistory: Array<{ error?: { message: string } }> }> };
+            });
 
             expect(data.scenarios[0].executionHistory[0].error).toBeDefined();
             expect(data.scenarios[0].executionHistory[0].error.message).toBe('test failed');
@@ -219,9 +223,7 @@ test.describe('Full pipeline integration: events → db.json → data.js', () =>
         test('scenario with retries has attempts on the scenario object', () => {
             const run = collectRunData({ sceneName: 'test', failed: false, retries: 2, timestamp: '2024-06-15T14:30:00.000Z' });
 
-            const data = aggregateRuns({ '2024-06-15T14:30:00.000Z': JSON.stringify(run) }) as {
-                scenarios: Array<{ retries?: number; attempts?: unknown[]; outcome: string }>;
-            };
+            const data = aggregateRuns({ '2024-06-15T14:30:00.000Z': JSON.stringify(run) });
 
             expect(data.scenarios[0].outcome).toBe('SUCCESS');
             expect(data.scenarios[0].retries).toBe(2);
@@ -231,9 +233,7 @@ test.describe('Full pipeline integration: events → db.json → data.js', () =>
         test('scenario without retries has no attempts field', () => {
             const run = collectRunData({ sceneName: 'test', failed: false, timestamp: '2024-06-15T14:30:00.000Z' });
 
-            const data = aggregateRuns({ '2024-06-15T14:30:00.000Z': JSON.stringify(run) }) as {
-                scenarios: Array<{ retries?: number; attempts?: unknown[] }>;
-            };
+            const data = aggregateRuns({ '2024-06-15T14:30:00.000Z': JSON.stringify(run) });
 
             expect(data.scenarios[0].retries).toBeUndefined();
             expect(data.scenarios[0].attempts).toBeUndefined();
@@ -249,7 +249,7 @@ test.describe('Full pipeline integration: events → db.json → data.js', () =>
             const data = aggregateRuns({
                 '2024-06-14T10:00:00.000Z': JSON.stringify(run1),
                 '2024-06-15T14:30:00.000Z': JSON.stringify(run2),
-            }) as { summary: { totalScenarios: number; outcomes: { passed: number; failed: number } } };
+            });
 
             expect(data.summary.totalScenarios).toBe(1);
             expect(data.summary.outcomes.passed).toBe(1);
@@ -263,7 +263,7 @@ test.describe('Full pipeline integration: events → db.json → data.js', () =>
             const data = aggregateRuns({
                 '2024-06-14T10:00:00.000Z': JSON.stringify(run1),
                 '2024-06-15T14:30:00.000Z': JSON.stringify(run2),
-            }) as { history: Array<{ timestamp: string }> };
+            });
 
             expect(data.history).toHaveLength(2);
             expect(data.history[0].timestamp).toBe('2024-06-14T10:00:00.000Z');
@@ -279,7 +279,7 @@ test.describe('Full pipeline integration: events → db.json → data.js', () =>
             const data = aggregateRuns({
                 '2024-06-14T10:00:00.000Z': 'not valid JSON',
                 '2024-06-15T14:30:00.000Z': JSON.stringify(validRun),
-            }) as { scenarios: Array<{ name: string }>; history: unknown[] };
+            });
 
             expect(data.scenarios).toHaveLength(1);
             expect(data.scenarios[0].name).toBe('good test');
@@ -287,14 +287,14 @@ test.describe('Full pipeline integration: events → db.json → data.js', () =>
         });
 
         test('produces no output when all runs are invalid', () => {
-            const filesystem = createFsFromVolume(Volume.fromNestedJSON({
+            const filesystem = createMemFs({
                 '/output': {
                     'test-runs': {
                         '2024-06-14T10:00:00.000Z': { 'db.json': 'broken' },
                         '2024-06-15T10:00:00.000Z': { 'db.json': '{"schemaVersion": 999}' },
                     },
                 },
-            }, '/')) as unknown as typeof fs;
+            });
 
             const outputFs = new FileSystem(Path.from('/output'), filesystem);
             const aggregator = new DataSnapshotAggregator(outputFs, { consistencyWindow: 5 });

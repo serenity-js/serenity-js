@@ -5,15 +5,19 @@ import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import { createFsFromVolume, Volume } from 'memfs';
 
 import { DataSnapshotAggregator } from '../src/DataSnapshotAggregator.js';
+import type { ReportData } from '../src/ReportData.js';
 
 test.describe('DataSnapshotAggregator', () => {
 
     const outputDirectory = Path.from('/reports/serenity-js');
 
-    function createAggregator(tree: Record<string, any>, config: { maxHistory?: number; consistencyWindow?: number; title?: string } = {}, requirementsHierarchy?: RequirementsHierarchy, projectFileSystem?: FileSystem): { aggregator: DataSnapshotAggregator; filesystem: typeof fs } {
-        const filesystem = createFsFromVolume(Volume.fromNestedJSON({
-            [outputDirectory.value]: tree,
-        }, '/')) as unknown as typeof fs;
+    function createMemFs(tree: Record<string, unknown>, root = '/'): typeof fs {
+         
+        return createFsFromVolume(Volume.fromNestedJSON(tree as any, root)) as unknown as typeof fs;
+    }
+
+    function createAggregator(tree: Record<string, unknown>, config: { maxHistory?: number; consistencyWindow?: number; title?: string } = {}, requirementsHierarchy?: RequirementsHierarchy, projectFileSystem?: FileSystem): { aggregator: DataSnapshotAggregator; filesystem: typeof fs } {
+        const filesystem = createMemFs({ [outputDirectory.value]: tree });
 
         const fileSystem = new FileSystem(outputDirectory, filesystem);
         const sourceFileSystem = new FileSystem(Path.from('/'), filesystem);
@@ -26,11 +30,11 @@ test.describe('DataSnapshotAggregator', () => {
         return { aggregator, filesystem };
     }
 
-    function readDataJs(filesystem: typeof fs): any {
+    function readDataJs(filesystem: typeof fs): ReportData {
         const content = filesystem.readFileSync('/reports/serenity-js/data.js', 'utf8') as string;
         // Strip the "window.__SERENITY_REPORT_DATA__ = " prefix and trailing ";"
         const json = content.replace(/^window\.__SERENITY_REPORT_DATA__\s*=\s*/, '').replace(/;\s*$/, '');
-        return JSON.parse(json);
+        return JSON.parse(json) as ReportData;
     }
 
     test.describe('aggregation', () => {
@@ -244,7 +248,7 @@ test.describe('DataSnapshotAggregator', () => {
             expect(data.capabilities.outcomes.failed).toBe(1);
             expect(data.capabilities.children).toHaveLength(2);
 
-            const names = data.capabilities.children.map((c: any) => c.name).sort();
+            const names = data.capabilities.children.map(c => c.name).sort();
             expect(names).toEqual(['checkout', 'login']);
             expect(data.capabilities.readme).toContain('<strong>bold</strong>');
         });
@@ -389,8 +393,8 @@ test.describe('DataSnapshotAggregator', () => {
             expect(data.capabilities.score).toBeDefined();
             expect(data.capabilities.score.confidence).toBeGreaterThan(0);
             // Both files have equal scenario counts, so root = average of the two
-            const aNode = data.capabilities.children.find((c: any) => c.name === 'a');
-            const bNode = data.capabilities.children.find((c: any) => c.name === 'b');
+            const aNode = data.capabilities.children.find(c => c.name === 'a');
+            const bNode = data.capabilities.children.find(c => c.name === 'b');
             expect(data.capabilities.score.confidence).toBe(
                 Math.round((aNode.score.confidence * 5 + bNode.score.confidence * 5) / 10)
             );
@@ -525,10 +529,10 @@ test.describe('DataSnapshotAggregator', () => {
             aggregator.aggregate();
 
             const data = readDataJs(filesystem);
-            const chromeTag = data.tags.find((t: any) => t.name === 'chrome');
+            const chromeTag = data.tags.find(t => t.name === 'chrome');
             expect(chromeTag.scenarioCount).toBe(3);
             expect(chromeTag.passed).toBe(2);
-            const slowTag = data.tags.find((t: any) => t.name === 'slow');
+            const slowTag = data.tags.find(t => t.name === 'slow');
             expect(slowTag.scenarioCount).toBe(1);
             expect(slowTag.passed).toBe(0);
         });
@@ -1160,7 +1164,7 @@ test.describe('DataSnapshotAggregator', () => {
             aggregator.aggregate([`${directoryA}/db.json`, `${directoryB}/db.json`]);
 
             const data = readDataJs(filesystem);
-            const loginTags = data.tags.filter((t: any) => t.name === 'login');
+            const loginTags = data.tags.filter(t => t.name === 'login');
             expect(loginTags).toHaveLength(1);
         });
 
@@ -1281,7 +1285,7 @@ test.describe('DataSnapshotAggregator', () => {
 
             const data = readDataJs(filesystem);
             expect(data.scenarios).toHaveLength(2);
-            const stable = data.scenarios.find((s: any) => s.name === 'Stable test');
+            const stable = data.scenarios.find(s => s.name === 'Stable test');
             expect(stable.outcome).toBe('SUCCESS');
             expect(stable.attempts).toBeUndefined();
         });
@@ -1321,7 +1325,7 @@ test.describe('DataSnapshotAggregator', () => {
 
             const data = readDataJs(filesystem);
             expect(data.scenarios).toHaveLength(2);
-            const newTest = data.scenarios.find((s: any) => s.name === 'Brand new test');
+            const newTest = data.scenarios.find(s => s.name === 'Brand new test');
             expect(newTest).toBeDefined();
             expect(newTest.attempts).toBeUndefined();
         });
@@ -1500,7 +1504,7 @@ test.describe('DataSnapshotAggregator', () => {
             const data = readDataJs(filesystem);
             expect(data.scenarios).toHaveLength(2);
             // B was failing in attempt 1, passing in attempt 2 → should have attempts[]
-            const sceneB = data.scenarios.find((s: any) => s.name === 'B');
+            const sceneB = data.scenarios.find(s => s.name === 'B');
             expect(sceneB.outcome).toBe('SUCCESS');
             expect(sceneB.attempts).toHaveLength(2);
             expect(sceneB.attempts[0].outcome).toBe('FAILURE');

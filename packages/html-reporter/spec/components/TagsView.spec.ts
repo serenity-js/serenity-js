@@ -42,30 +42,20 @@ test.describe('TagsView', () => {
 
     test('navigates to filtered scenarios on tag click', async ({ mount, page }) => {
         let navigatedTo = '';
-        await page.exposeFunction('__testNavigate', (path: string) => { navigatedTo = path; });
+        await page.exposeFunction('__onNavigate__', (path: string) => { navigatedTo = path; });
 
         await mount({
             component: 'TagsView',
             importPath: './components/TagsView',
-            props: {},
+            props: { onNavigate: '__onNavigate__' },
             data: minimalData({
                 tags: [{ type: 'feature', name: 'Login', scenarioCount: 2, passed: 2 }],
             }),
         });
 
-        // Inject the navigate handler after mount
-        await page.evaluate(() => {
-            const app = document.getElementById('app');
-            // The TagsView onClick calls onNavigate which was empty - let's use event delegation
-            app?.addEventListener('click', (e) => {
-                const card = (e.target as HTMLElement).closest('.tag-card');
-                if (card) (window as any).__testNavigate('/tests?search=' + encodeURIComponent('"Login"'));
-            });
-        });
-
         await page.locator('.tag-card').first().click();
-        expect(navigatedTo).toContain('/tests?search=');
-        expect(navigatedTo).toContain('Login');
+
+        expect(navigatedTo).toBe('/tests?search=' + encodeURIComponent('"Login"'));
     });
 
     test('displays correct pass rate colors', async ({ mount, page }) => {

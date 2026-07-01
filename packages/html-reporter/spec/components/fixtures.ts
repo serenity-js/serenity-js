@@ -27,6 +27,8 @@ export const test = base.extend<{ mount: (options: MountOptions) => Promise<void
                 `import { ${component} } from '${importPath}';`,
                 `const html = htm.bind(h);`,
                 `const props = ${JSON.stringify(props)};`,
+                // Replace string-valued props starting with '__' with window function references
+                `for (const [k, v] of Object.entries(props)) { if (typeof v === 'string' && v.startsWith('__') && typeof window[v] === 'function') props[k] = window[v]; }`,
                 `render(html\`<\${${component}} ...\${props} />\`, document.getElementById('app'));`,
             ].join('\n');
 

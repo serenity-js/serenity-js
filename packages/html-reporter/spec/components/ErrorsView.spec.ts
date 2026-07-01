@@ -54,23 +54,41 @@ test.describe('ErrorsView', () => {
         await expect(page.locator('body')).toContainText('and 1 more');
     });
 
-    test('grouped error row navigates to filtered test scenarios view', async ({ mount, page }) => {
-        await page.evaluate(() => { (window as any).__lastNav__ = ''; });
+    test('navigates to filtered scenarios view when clicking a grouped error', async ({ mount, page }) => {
+        let navigatedTo = '';
+        await page.exposeFunction('__onNavigate__', (path: string) => { navigatedTo = path; });
+
         await mount({
             component: 'ErrorsView',
             importPath: './components/ErrorsView',
-            props: { onNavigate: '__NAV_FN__', route: '#/errors' },
+            props: { onNavigate: '__onNavigate__', route: '#/errors' },
             data: errorsData(),
         });
 
-        // Inject navigation tracker
-        await page.evaluate(() => {
-            document.querySelectorAll('.scenario-item')[0]?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+        // Click the first grouped error row (Login fails + Signup fails share the same error message)
+        await page.locator('.scenario-item').first().click();
+
+        // The component should navigate to a search URL containing the error message
+        expect(navigatedTo).toContain('/tests?search=');
+        expect(decodeURIComponent(navigatedTo)).toContain('expected true to equal false');
+    });
+
+    test('navigates to scenario detail when clicking a unique error', async ({ mount, page }) => {
+        let navigatedTo = '';
+        await page.exposeFunction('__onNavigate__', (path: string) => { navigatedTo = path; });
+
+        await mount({
+            component: 'ErrorsView',
+            importPath: './components/ErrorsView',
+            props: { onNavigate: '__onNavigate__', route: '#/errors' },
+            data: errorsData(),
         });
 
-        // Verify the grouped row exists and contains the search filter indication
-        const firstRow = page.locator('.scenario-item').first();
-        await expect(firstRow).toContainText('and 1 more');
+        // Click the unique "timed out" error row
+        await page.locator('.scenario-item', { hasText: 'timed out' }).click();
+
+        // Should navigate to the specific scenario (not a search)
+        expect(decodeURIComponent(navigatedTo)).toContain('spec/slow.spec.ts');
     });
 
     test('single error row does not show duplicate indicator', async ({ mount, page }) => {
