@@ -135,13 +135,13 @@ export class DataSnapshotAggregator {
 
             // Additive merge within each attempt
             const attemptNumbers = [...byAttempt.keys()].sort((a, b) => a - b);
-            const mergedByAttempt: RunData[] = attemptNumbers.map(attemptNum => {
-                const runsForAttempt = byAttempt.get(attemptNum);
+            const mergedByAttempt: RunData[] = attemptNumbers.map(attemptNumber => {
+                const runsForAttempt = byAttempt.get(attemptNumber);
                 return runsForAttempt.reduce((merged, run) => this.mergeAdditively(merged, run));
             });
 
             // Retry merge across attempts (in order)
-            const finalRun = mergedByAttempt.reduce((prev, curr) => this.mergeAsRetry(prev, curr));
+            const finalRun = mergedByAttempt.reduce((previous, current) => this.mergeAsRetry(previous, current));
 
             // Write merged result back for self-healing (test-runs/{runId}/db.json)
             const outputPath = Path.from('test-runs').join(Path.from(runId)).join(Path.from('db.json'));

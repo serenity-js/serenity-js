@@ -20,8 +20,8 @@ test.describe('attempt detection', () => {
 
             writer.createRunDirectory('run-1', 1, undefined);
 
-            const dir = writer.getRunDirectory().value;
-            expect(dir).toContain('run-1');
+            const directory = writer.getRunDirectory().value;
+            expect(directory).toContain('run-1');
         });
 
         test('uses GITHUB_RUN_ATTEMPT env var (already 1-based)', () => {
@@ -32,10 +32,10 @@ test.describe('attempt detection', () => {
 
             writer.createRunDirectory('run-42', 3, 'module-a');
 
-            const dir = writer.getRunDirectory().value;
-            expect(dir).toContain('run-42');
-            expect(dir).toContain('module-a');
-            expect(dir).toContain('attempt-3');
+            const directory = writer.getRunDirectory().value;
+            expect(directory).toContain('run-42');
+            expect(directory).toContain('module-a');
+            expect(directory).toContain('attempt-3');
         });
 
         test('includes moduleId in the directory name when provided', () => {
@@ -46,8 +46,8 @@ test.describe('attempt detection', () => {
 
             writer.createRunDirectory('run-7', 2, 'playwright-test');
 
-            const dir = writer.getRunDirectory().value;
-            expect(dir).toContain('playwright-test');
+            const directory = writer.getRunDirectory().value;
+            expect(directory).toContain('playwright-test');
         });
 
         test('produces a unique directory without moduleId by using a timestamp suffix', () => {
@@ -58,11 +58,11 @@ test.describe('attempt detection', () => {
 
             writer.createRunDirectory('run-5', 1, undefined);
 
-            const dir = writer.getRunDirectory().value;
+            const directory = writer.getRunDirectory().value;
             // Directory must still be rooted in test-runs
-            expect(dir).toMatch(/test-runs/);
+            expect(directory).toMatch(/test-runs/);
             // Must be non-empty and contain the testRunId
-            expect(dir).toContain('run-5');
+            expect(directory).toContain('run-5');
         });
     });
 

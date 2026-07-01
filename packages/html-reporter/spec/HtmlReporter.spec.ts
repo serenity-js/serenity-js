@@ -79,9 +79,9 @@ test.describe('HtmlReporter', () => {
         return { reporter, filesystem };
     }
 
-    function findRunDir(filesystem: typeof fs, startsWith: string): string {
-        const dirs = filesystem.readdirSync('/reports/serenity-js/test-runs') as string[];
-        const match = dirs.find(d => d.startsWith(startsWith));
+    function findRunDirectory(filesystem: typeof fs, startsWith: string): string {
+        const directories = filesystem.readdirSync('/reports/serenity-js/test-runs') as string[];
+        const match = directories.find(d => d.startsWith(startsWith));
         return match
             ? `/reports/serenity-js/test-runs/${ match }`
             : `/reports/serenity-js/test-runs/${ startsWith }`;
@@ -119,9 +119,9 @@ test.describe('HtmlReporter', () => {
 
             stage.announce(new TestRunStarts(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
 
-            const dirs = filesystem.readdirSync('/reports/serenity-js/test-runs') as string[];
-            const hasMatchingDir = dirs.some(d => d.startsWith('2024-06-15T14:30:00.000Z'));
-            expect(hasMatchingDir).toBe(true);
+            const directories = filesystem.readdirSync('/reports/serenity-js/test-runs') as string[];
+            const hasMatchingDirectory = directories.some(d => d.startsWith('2024-06-15T14:30:00.000Z'));
+            expect(hasMatchingDirectory).toBe(true);
         });
 
         test('emits AsyncOperationAttempted before report generation on TestRunFinishes', () => {
@@ -156,7 +156,7 @@ test.describe('HtmlReporter', () => {
             stage.announce(new TestRunStarts(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
             stage.announce(new TestRunFinishes(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
 
-            const databaseJsonPath = findRunDir(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json';
+            const databaseJsonPath = findRunDirectory(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json';
             expect(filesystem.existsSync(databaseJsonPath)).toBe(true);
 
             const content = JSON.parse(filesystem.readFileSync(databaseJsonPath, 'utf8') as string);
@@ -197,8 +197,8 @@ test.describe('HtmlReporter', () => {
             ).toBe('existing-data');
 
             // New directory created alongside
-            const newRunDir = findRunDir(filesystem, '2024-06-15T14:30:00.000Z');
-            expect(filesystem.existsSync(`${ newRunDir }/db.json`)).toBe(true);
+            const newRunDirectory = findRunDirectory(filesystem, '2024-06-15T14:30:00.000Z');
+            expect(filesystem.existsSync(`${ newRunDirectory }/db.json`)).toBe(true);
         });
 
         test('includes system context in db.json', () => {
@@ -209,7 +209,7 @@ test.describe('HtmlReporter', () => {
             stage.announce(new TestRunStarts(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
             stage.announce(new TestRunFinishes(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
 
-            const content = JSON.parse(filesystem.readFileSync(findRunDir(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json', 'utf8') as string);
+            const content = JSON.parse(filesystem.readFileSync(findRunDirectory(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json', 'utf8') as string);
             expect(content).toHaveProperty('systemContext');
             expect(content.systemContext).toHaveProperty('nodeVersion', process.version);
             expect(content.systemContext.os).toHaveProperty('arch');
@@ -278,7 +278,7 @@ test.describe('HtmlReporter', () => {
             stage.announce(new SceneFinished(sceneId, details, new ExecutionSuccessful(), time));
             stage.announce(new TestRunFinishes(time));
 
-            const content = JSON.parse(filesystem.readFileSync(findRunDir(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json', 'utf8') as string);
+            const content = JSON.parse(filesystem.readFileSync(findRunDirectory(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json', 'utf8') as string);
             expect(content.testRunner).toEqual({ name: 'Playwright', version: '1.45.0' });
         });
 
@@ -301,7 +301,7 @@ test.describe('HtmlReporter', () => {
             stage.announce(new SceneFinished(sceneId, details, new ExecutionSuccessful(), endTime));
             stage.announce(new TestRunFinishes(endTime));
 
-            const content = JSON.parse(filesystem.readFileSync(findRunDir(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json', 'utf8') as string);
+            const content = JSON.parse(filesystem.readFileSync(findRunDirectory(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json', 'utf8') as string);
             expect(content.scenes).toHaveLength(1);
 
             const scene = content.scenes[0];
@@ -328,7 +328,7 @@ test.describe('HtmlReporter', () => {
             stage.announce(new SceneFinished(sceneId, details, new ExecutionSuccessful(), time));
             stage.announce(new TestRunFinishes(time));
 
-            const content = JSON.parse(filesystem.readFileSync(findRunDir(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json', 'utf8') as string);
+            const content = JSON.parse(filesystem.readFileSync(findRunDirectory(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json', 'utf8') as string);
             expect(content.scenes[0].tags).toContainEqual({ type: 'tag', name: 'smoke' });
             expect(content.tags).toContainEqual({ type: 'tag', name: 'smoke' });
         });
@@ -352,7 +352,7 @@ test.describe('HtmlReporter', () => {
             stage.announce(new SceneFinished(sceneId, details, new ExecutionSuccessful(), endTime));
             stage.announce(new TestRunFinishes(endTime));
 
-            const content = JSON.parse(filesystem.readFileSync(findRunDir(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json', 'utf8') as string);
+            const content = JSON.parse(filesystem.readFileSync(findRunDirectory(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json', 'utf8') as string);
             const activities = content.scenes[0].activities;
 
             expect(activities).toHaveLength(1);
@@ -385,7 +385,7 @@ test.describe('HtmlReporter', () => {
             stage.announce(new SceneFinished(sceneId, details, new ExecutionFailedWithAssertionError(error as any), endTime));
             stage.announce(new TestRunFinishes(endTime));
 
-            const content = JSON.parse(filesystem.readFileSync(findRunDir(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json', 'utf8') as string);
+            const content = JSON.parse(filesystem.readFileSync(findRunDirectory(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json', 'utf8') as string);
             const activity = content.scenes[0].activities[0];
 
             expect(activity.outcome.code).toBe(4);
@@ -417,7 +417,7 @@ test.describe('HtmlReporter', () => {
 
             stage.announce(new TestRunFinishes(time));
 
-            const content = JSON.parse(filesystem.readFileSync(findRunDir(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json', 'utf8') as string);
+            const content = JSON.parse(filesystem.readFileSync(findRunDirectory(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json', 'utf8') as string);
             expect(content.outcomes.passed).toBe(2);
             expect(content.outcomes.failed).toBe(1);
             expect(content.outcomes.pending).toBe(0);
@@ -445,7 +445,7 @@ test.describe('HtmlReporter', () => {
             stage.announce(new SceneFinished(scene2Id, details2, new ExecutionSuccessful(), endTime));
             stage.announce(new TestRunFinishes(endTime));
 
-            const content = JSON.parse(filesystem.readFileSync(findRunDir(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json', 'utf8') as string);
+            const content = JSON.parse(filesystem.readFileSync(findRunDirectory(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json', 'utf8') as string);
             expect(content.scenes).toHaveLength(2);
             expect(content.scenes[0].name).toBe('Scene A');
             expect(content.scenes[0].tags).toContainEqual({ type: 'tag', name: 'tag-a' });
