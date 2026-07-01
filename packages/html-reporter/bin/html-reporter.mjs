@@ -48,7 +48,7 @@ const inputPatterns = args.input.split(',').map(p => p.trim());
 const dbJsonPaths = [];
 
 for (const pattern of inputPatterns) {
-    const dbPattern = pattern.endsWith('db.json') ? pattern : pattern + '/db.json';
+    const dbPattern = pattern.endsWith('db.json') ? pattern : pattern + '/**/db.json';
     const matches = fg.sync(dbPattern, { absolute: true });
     dbJsonPaths.push(...matches);
 }
