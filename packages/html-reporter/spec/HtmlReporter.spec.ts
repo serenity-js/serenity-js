@@ -3,6 +3,7 @@ import type * as fs from 'node:fs';
 import { expect, test } from '@playwright/test';
 import type { Cast, StageCrewMember } from '@serenity-js/core';
 import { Clock, Duration, ErrorFactory, Stage, StageManager, Timestamp } from '@serenity-js/core';
+import { AssertionError } from '@serenity-js/core';
 import type { DomainEvent } from '@serenity-js/core/events';
 import {
     AsyncOperationAttempted,
@@ -16,7 +17,7 @@ import {
     TestRunnerDetected,
     TestRunStarts,
 } from '@serenity-js/core/events';
-import { FileSystem, FileSystemLocation, Path, RequirementsHierarchy, Version } from '@serenity-js/core/io';
+import { FileSystem, FileSystemLocation, ModuleLoader, Path, RequirementsHierarchy, Version } from '@serenity-js/core/io';
 import {
     ActivityDetails,
     ArbitraryTag,
@@ -70,7 +71,7 @@ test.describe('HtmlReporter', () => {
         const runDataWriter = new RunDataWriter(outputFileSystem);
         const aggregator = new DataSnapshotAggregator(outputFileSystem, { consistencyWindow: 5 });
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
-        const systemContextDetector = new SystemContextDetector(new CIDetector({}), { cwd: process.cwd(), versionOf: () => new Version('3.44.0') } as any);
+        const systemContextDetector = new SystemContextDetector(new CIDetector({}), new ModuleLoader(process.cwd()));
 
         const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, undefined, undefined, 1, stage);
         const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
@@ -233,7 +234,7 @@ test.describe('HtmlReporter', () => {
             const sceneDataCollector = new SceneDataCollector();
             const runDataWriter = new RunDataWriter(outputFileSystem);
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
-            const systemContextDetector = new SystemContextDetector(new CIDetector({}), { cwd: process.cwd(), versionOf: () => new Version('3.44.0') } as any);
+            const systemContextDetector = new SystemContextDetector(new CIDetector({}), new ModuleLoader(process.cwd()));
             const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, undefined, undefined, 1, stage);
             const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
             const reporter = new HtmlReporter(archiver, generator);
@@ -374,15 +375,14 @@ test.describe('HtmlReporter', () => {
             const details = new ScenarioDetails(new Name('Failing test'), new Category('Suite'), new FileSystemLocation(Path.from('a.spec.ts'), 1));
             const activityDetails = new ActivityDetails(new Name('Verify'), new FileSystemLocation(Path.from('src/Verify.ts'), 10));
 
-            const error = new Error('Expected true to equal false');
-            error.name = 'AssertionError';
+            const error = new AssertionError('Expected true to equal false');
             error.stack = 'AssertionError: Expected true to equal false\n    at Verify (src/Verify.ts:10:5)';
 
             stage.announce(new TestRunStarts(startTime));
             stage.announce(new SceneStarts(sceneId, details, startTime));
             stage.announce(new InteractionStarts(sceneId, activityId, activityDetails, startTime));
-            stage.announce(new InteractionFinished(sceneId, activityId, activityDetails, new ExecutionFailedWithAssertionError(error as any), endTime));
-            stage.announce(new SceneFinished(sceneId, details, new ExecutionFailedWithAssertionError(error as any), endTime));
+            stage.announce(new InteractionFinished(sceneId, activityId, activityDetails, new ExecutionFailedWithAssertionError(error), endTime));
+            stage.announce(new SceneFinished(sceneId, details, new ExecutionFailedWithAssertionError(error), endTime));
             stage.announce(new TestRunFinishes(endTime));
 
             const content = JSON.parse(filesystem.readFileSync(findRunDirectory(filesystem, '2024-06-15T14:30:00.000Z') + '/db.json', 'utf8') as string);
@@ -407,7 +407,7 @@ test.describe('HtmlReporter', () => {
             for (const [name, outcome] of [
                 ['Pass 1', new ExecutionSuccessful()],
                 ['Pass 2', new ExecutionSuccessful()],
-                ['Fail 1', new ExecutionFailedWithAssertionError(new Error('fail') as any)],
+                ['Fail 1', new ExecutionFailedWithAssertionError(new AssertionError('fail'))],
             ] as const) {
                 const id = CorrelationId.create();
                 const d = new ScenarioDetails(new Name(name), new Category('Suite'), new FileSystemLocation(Path.from('a.spec.ts'), 1));
