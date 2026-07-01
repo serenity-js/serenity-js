@@ -22,7 +22,6 @@ describe('Serenity/JS with Playwright Test and Electron', () => {
 
             configure({
                 diffFormatter: new NoOpDiffFormatter(),
-                crew: [],
                 actors: {
                     prepare: (actor) => actor.whoCan(
                         BrowseTheWebWithPlaywright.launchingElectronApp(electronOptions, {
