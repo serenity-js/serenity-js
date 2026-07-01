@@ -92,29 +92,58 @@ Learn more about using Serenity/JS with [Cucumber.js](https://serenity-js.org/ha
 
 ### Configuration options
 
-| Option              | Type     | Default                 | Description                                               |
-|---------------------|----------|-------------------------|-----------------------------------------------------------|
-| `outputDirectory`   | `string` | `./reports/serenity-js` | Directory for the generated report                        |
-| `specDirectory`     | `string` | —                       | Root directory for deriving the capabilities hierarchy    |
-| `title`             | `string` | —                       | Custom title displayed in the report header               |
-| `maxHistory`        | `number` | —                       | Maximum test runs to retain (older runs are pruned)       |
-| `consistencyWindow` | `number` | `5`                     | Number of recent runs considered for consistency analysis |
+| Option              | Type     | Default                 | Description                                                                                     |
+|---------------------|----------|-------------------------|-------------------------------------------------------------------------------------------------|
+| `outputDirectory`   | `string` | `./reports/serenity-js` | Directory for the generated report                                                              |
+| `specDirectory`     | `string` | —                       | Root directory for deriving the capabilities hierarchy                                          |
+| `title`             | `string` | —                       | Custom title displayed in the report header                                                     |
+| `maxHistory`        | `number` | —                       | Maximum test runs to retain (older runs are pruned)                                             |
+| `consistencyWindow` | `number` | `5`                     | Number of recent runs considered for consistency analysis                                       |
+| `testRunId`         | `string` | auto-detected from CI   | Identifier for the test run. Auto-detected from `GITHUB_RUN_NUMBER`, `CI_PIPELINE_IID`, etc.   |
+| `moduleId`          | `string` | auto-detected from cwd  | Identifier for the parallel CI job. Auto-detected from the working directory name when on CI    |
+| `projectName`       | `string` | from `package.json`     | Custom project name displayed in the report                                                     |
 
 ### Output structure
 
+The directory layout depends on whether the reporter runs locally or on CI with parallel jobs.
+
+**Local runs** (no CI environment detected):
+
 ```
 reports/serenity/
-├── index.html              # Report (regenerated each run)
-├── data.js                 # Aggregated data snapshot (regenerated each run)
+├── index.html
+├── data.js
 └── test-runs/
-    ├── 2024-06-14T10:00:00.000Z/
-    │   ├── db.json         # Run data for this test run
-    │   ├── screenshot-*.png
-    │   └── video-*.webm
     └── 2024-06-15T14:30:00.000Z/
         ├── db.json
-        └── screenshot-*.png
+        ├── screenshot-*.png
+        └── video-*.webm
 ```
+
+**CI with parallel jobs** (testRunId + moduleId detected):
+
+```
+reports/serenity/
+├── index.html
+├── data.js
+└── test-runs/
+    └── 42/                          # buildId (from GITHUB_RUN_NUMBER etc.)
+        ├── db.json                  # merged data from all modules
+        ├── playwright-web-1/        # {moduleId}-{attempt} — screenshots from this job
+        │   ├── screenshot-*.png
+        │   └── video-*.webm
+        ├── webdriverio-web-1/
+        │   └── screenshot-*.png
+        └── protractor-web-1/
+            └── screenshot-*.png
+```
+
+On CI, `testRunId` is the build number (shared across all parallel jobs in the same pipeline run) and `moduleId` is
+derived from the working directory basename (e.g. `playwright-web` when running from `integration/playwright-web/`).
+This ensures each parallel job writes artifacts to its own subdirectory without collisions.
+
+When a CI job is retried, the attempt number increments (e.g. `playwright-web-2`), and the aggregator merges both
+attempts — recording the retry history on affected scenarios.
 
 ## CLI: Aggregating reports from multiple sources
 
@@ -123,12 +152,14 @@ report:
 
 ```bash
 npx @serenity-js/html-reporter \
-  --input "modules/*/reports/serenity/test-runs/*" \
+  --input "modules/*/reports/serenity/test-runs/**" \
   --output ./reports/serenity \
   --title "My Project" \
   --specRoot ./spec \
   --maxHistory 20
 ```
+
+The CLI searches recursively for `db.json` files within the specified input paths.
 
 | Option         | Description                                                                  |
 |----------------|------------------------------------------------------------------------------|
@@ -137,6 +168,18 @@ npx @serenity-js/html-reporter \
 | `--title`      | Report title                                                                 |
 | `--specRoot`   | Root directory for the capabilities hierarchy                                |
 | `--maxHistory` | Maximum number of test runs to keep                                          |
+
+### How aggregation works
+
+1. The CLI finds all `db.json` files matching the input patterns
+2. Files are grouped by `testRunId` (or `startedAt` timestamp as fallback for local runs)
+3. Within each group, files with the same `attempt` number are merged **additively** (scenes concatenated, outcomes
+   summed) — this handles multiple parallel jobs contributing to the same build
+4. Across different attempt numbers, files are merged as **retries** — earlier attempts are recorded in the scenario's
+   `attempts[]` array, with the latest attempt's result as the final outcome
+5. The merged result is written to `test-runs/{buildId}/db.json` in the output directory
+6. Artifacts (screenshots, videos) are copied into `test-runs/{buildId}/{moduleId}-{attempt}/`
+7. Historical runs beyond `--maxHistory` are pruned (entire build directories removed)
 
 ## Preserving history across CI runs
 
@@ -164,12 +207,11 @@ jobs:
         with:
           pattern: 'html-report-data-*'
           path: target/html-report-data
-          merge-multiple: true
 
       # Aggregate: include both historical and current run data
       - run: |
           npx @serenity-js/html-reporter \
-            --input "target/html-report-data/**/test-runs/*,target/html-report/test-runs/*" \
+            --input "target/html-report-data/**/test-runs/**,target/html-report/test-runs/*" \
             --output ./target/html-report \
             --title "My Project" \
             --maxHistory 20
@@ -180,6 +222,19 @@ jobs:
           branch: gh-pages
           folder: target/html-report
           clean: false  # Preserve test-runs/ from previous deployments
+```
+
+Each parallel test job should upload its test-run data as an artifact:
+
+```yaml
+  - name: Upload html-report data
+    if: always()
+    uses: actions/upload-artifact@v4
+    with:
+      name: 'html-report-data-${{ matrix.module }}-attempt-${{ github.run_attempt }}'
+      path: reports/serenity/test-runs/
+      retention-days: 3
+      if-no-files-found: ignore
 ```
 
 ### GitLab CI
@@ -209,7 +264,7 @@ html-report:
       fi
     # Aggregate all results
     - npx @serenity-js/html-reporter
-      --input "reports/serenity/test-runs/*"
+      --input "reports/serenity/test-runs/**"
       --output public
       --title "My Project"
       --maxHistory 20
@@ -235,7 +290,7 @@ pipeline {
                 // Historical runs persist on the Jenkins workspace
                 sh '''
                     npx @serenity-js/html-reporter \
-                        --input "reports/serenity/test-runs/*" \
+                        --input "reports/serenity/test-runs/**" \
                         --output reports/serenity \
                         --title "My Project" \
                         --maxHistory 20
@@ -267,20 +322,40 @@ The pattern is the same regardless of the CI tool:
 3. **Include both** the new test data and the restored historical data as `--input`
 4. **Deploy** the output directory to your hosting
 
-The aggregator deduplicates by test run timestamp — if the same `db.json` appears in both sources, it's merged (not
-doubled).
+The aggregator deduplicates by `testRunId` — if the same `db.json` appears in both sources, it's merged (not doubled).
 
 ## How it works
 
-1. During the test run, `HtmlReporter` (a `StageCrewMember`) collects domain events and writes artifacts (screenshots,
-   videos) immediately to `test-runs/<timestamp>/`
-2. At test run completion, it writes `db.json` with the full test execution data
+1. During the test run, the reporter collects domain events and writes artifacts (screenshots, videos) immediately
+2. At test run completion, it writes `db.json` with the full test execution data:
+   - **Locally:** to `test-runs/{ISO-timestamp}/`
+   - **On CI:** to `test-runs/{buildId}/{moduleId}-{attempt}/`
 3. It aggregates all `test-runs/*/db.json` files into `data.js` — computing trend data, consistency analysis, and
    confidence scores
 4. It writes `index.html` with all JavaScript and CSS inlined
 
 The `data.js` file is the single data source for the report template. It's assigned to `window.__SERENITY_REPORT_DATA__`
 and loaded via a `<script>` tag, enabling `file://` protocol support.
+
+## TestRunArchiver: archive-only mode
+
+For CI pipelines where report generation is deferred to a separate aggregation step, use `TestRunArchiver` instead of
+the full `HtmlReporter`. It writes `db.json` and artifacts without generating the HTML report:
+
+```typescript
+import { configure } from '@serenity-js/core';
+
+configure({
+    crew: [
+        [ '@serenity-js/html-reporter:TestRunArchiver', {
+            outputDirectory: './reports/serenity',
+        } ],
+    ],
+});
+```
+
+This is the recommended approach for parallel CI jobs — each job archives its data, then a final aggregation step
+combines everything into the report.
 
 ## License
 
