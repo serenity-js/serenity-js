@@ -40,14 +40,23 @@ export class DataSnapshotAggregator {
     }
 
     aggregate(externalRunPaths?: string[]): void {
-        const runDirectories = this.findRunDirectories();
-        this.pruneOldRuns(runDirectories);
-
-        const allRuns = externalRunPaths
+        let allRuns = externalRunPaths
             ? this.loadExternalRuns(externalRunPaths)
-            : this.loadRuns(runDirectories);
+            : (() => {
+                const runDirectories = this.findRunDirectories();
+                this.pruneOldRuns(runDirectories);
+                return this.loadRuns(runDirectories);
+            })();
+
         if (allRuns.length === 0) {
             return;
+        }
+
+        // In external mode, enforce maxHistory by slicing the sorted runs array,
+        // then prune self-healed output dirs that fall outside the window.
+        if (externalRunPaths && this.config.maxHistory && allRuns.length > this.config.maxHistory) {
+            allRuns = allRuns.slice(allRuns.length - this.config.maxHistory);
+            this.pruneOldRuns(this.findRunDirectories());
         }
 
         const latestRun = allRuns[allRuns.length - 1];
@@ -88,44 +97,148 @@ export class DataSnapshotAggregator {
     }
 
     private loadExternalRuns(paths: string[]): RunData[] {
-        const runsById = new Map<string, RunData>();
         const sourceFs = this.sourceFileSystem;
+
+        // Step 1: load all db.json files and group by testRunId (or startedAt as fallback)
+        const groups = new Map<string, RunData[]>();
 
         for (const databaseJsonPath of paths) {
             const content = sourceFs
                 ? sourceFs.readFileSync(Path.from(databaseJsonPath), { encoding: 'utf8' }) as string
                 : readFileSync(databaseJsonPath, 'utf8');
             const run = JSON.parse(content) as RunData;
-            const directoryName = databaseJsonPath.replace(/\/db\.json$/, '').replace(/.*\//, '');
+            const groupId = run.testRunId || run.startedAt;
 
-            const existing = runsById.get(directoryName);
-            if (existing) {
-                // Merge scenes and outcomes
-                existing.scenes.push(...run.scenes);
-                existing.outcomes.passed += run.outcomes.passed;
-                existing.outcomes.failed += run.outcomes.failed;
-                existing.outcomes.pending += run.outcomes.pending;
-                existing.outcomes.skipped += run.outcomes.skipped;
-                existing.outcomes.compromised += run.outcomes.compromised;
-                existing.outcomes.error += run.outcomes.error;
-                // Pick earliest startedAt and latest finishedAt
-                if (run.startedAt < existing.startedAt) existing.startedAt = run.startedAt;
-                if (run.finishedAt > existing.finishedAt) existing.finishedAt = run.finishedAt;
-                // Merge tags
-                for (const tag of (run.tags || [])) {
-                    if (!existing.tags.some(t => t.type === tag.type && t.name === tag.name)) {
-                        existing.tags.push(tag);
-                    }
-                }
-            } else {
-                runsById.set(directoryName, run);
+            if (!groups.has(groupId)) {
+                groups.set(groupId, []);
             }
+            groups.get(groupId).push(run);
 
-            // Copy sibling artifacts from the source directory to the output test-runs directory
+            // Copy sibling artifacts before any merging
+            const directoryName = databaseJsonPath.replace(/\/db\.json$/, '').replace(/.*\//, '');
             this.copyArtifactsFromSource(databaseJsonPath, directoryName);
         }
 
-        return [...runsById.values()].sort((a, b) => a.startedAt.localeCompare(b.startedAt));
+        // Step 2 & 3: within each group, sub-group by attempt → additive merge, then retry merge
+        const mergedRuns: RunData[] = [];
+
+        for (const [runId, runsInGroup] of groups) {
+            // Sub-group by attempt number (missing attempt defaults to 1)
+            const byAttempt = new Map<number, RunData[]>();
+            for (const run of runsInGroup) {
+                const attempt = run.attempt ?? 1;
+                if (!byAttempt.has(attempt)) {
+                    byAttempt.set(attempt, []);
+                }
+                byAttempt.get(attempt).push(run);
+            }
+
+            // Additive merge within each attempt
+            const attemptNumbers = [...byAttempt.keys()].sort((a, b) => a - b);
+            const mergedByAttempt: RunData[] = attemptNumbers.map(attemptNum => {
+                const runsForAttempt = byAttempt.get(attemptNum);
+                return runsForAttempt.reduce((merged, run) => this.mergeAdditively(merged, run));
+            });
+
+            // Retry merge across attempts (in order)
+            const finalRun = mergedByAttempt.reduce((prev, curr) => this.mergeAsRetry(prev, curr));
+
+            // Write merged result back for self-healing (test-runs/{runId}/db.json)
+            const outputPath = Path.from('test-runs').join(Path.from(runId)).join(Path.from('db.json'));
+            this.fileSystem.ensureDirectoryExistsAtSync(Path.from('test-runs').join(Path.from(runId)));
+            this.fileSystem.storeSync(outputPath, JSON.stringify(finalRun, undefined, 2), 'utf8');
+
+            mergedRuns.push(finalRun);
+        }
+
+        return mergedRuns.sort((a, b) => a.startedAt.localeCompare(b.startedAt));
+    }
+
+    private mergeAdditively(base: RunData, addition: RunData): RunData {
+        const merged: RunData = { ...base };
+        merged.scenes = [...base.scenes, ...addition.scenes];
+        merged.outcomes = {
+            passed: base.outcomes.passed + addition.outcomes.passed,
+            failed: base.outcomes.failed + addition.outcomes.failed,
+            pending: base.outcomes.pending + addition.outcomes.pending,
+            skipped: base.outcomes.skipped + addition.outcomes.skipped,
+            compromised: base.outcomes.compromised + addition.outcomes.compromised,
+            error: base.outcomes.error + addition.outcomes.error,
+        };
+        if (addition.startedAt < merged.startedAt) merged.startedAt = addition.startedAt;
+        if (addition.finishedAt > merged.finishedAt) merged.finishedAt = addition.finishedAt;
+        merged.tags = [...base.tags];
+        for (const tag of (addition.tags || [])) {
+            if (!merged.tags.some(t => t.type === tag.type && t.name === tag.name)) {
+                merged.tags.push(tag);
+            }
+        }
+        return merged;
+    }
+
+    private mergeAsRetry(earlier: RunData, later: RunData): RunData {
+        const merged: RunData = { ...later };
+        const earlierScenes = new Map<string, typeof earlier.scenes[0]>();
+        for (const scene of earlier.scenes) {
+            earlierScenes.set(this.sceneIdentity(scene), scene);
+        }
+
+        merged.scenes = later.scenes.map(laterScene => {
+            const key = this.sceneIdentity(laterScene);
+            const earlierScene = earlierScenes.get(key);
+            if (!earlierScene) {
+                return laterScene; // new in retry — keep as-is
+            }
+            // Promote earlier result into attempts[]
+            const existingAttempts = earlierScene.attempts || [];
+            const allAttempts = [
+                ...existingAttempts,
+                {
+                    attemptNumber: existingAttempts.length + 1,
+                    outcome: earlierScene.outcome,
+                    duration: earlierScene.duration,
+                    activities: earlierScene.activities,
+                    ...(earlierScene.error ? { error: earlierScene.error } : {}),
+                },
+                {
+                    attemptNumber: existingAttempts.length + 2,
+                    outcome: laterScene.outcome,
+                    duration: laterScene.duration,
+                    activities: laterScene.activities,
+                    ...(laterScene.error ? { error: laterScene.error } : {}),
+                },
+            ];
+            return {
+                ...laterScene,
+                attempts: allAttempts,
+                retries: allAttempts.length - 1,
+            };
+        });
+
+        // Include scenes from earlier attempt that weren't retried
+        const laterSceneKeys = new Set(later.scenes.map(s => this.sceneIdentity(s)));
+        for (const earlierScene of earlier.scenes) {
+            if (!laterSceneKeys.has(this.sceneIdentity(earlierScene))) {
+                merged.scenes.push(earlierScene);
+            }
+        }
+
+        // Recompute outcomes from the final merged scenes
+        merged.outcomes = { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 };
+        for (const scene of merged.scenes) {
+            const key = this.mapOutcomeToKey(outcomeCodeToDisplayString(scene.outcome.code));
+            merged.outcomes[key as keyof typeof merged.outcomes]++;
+        }
+
+        if (earlier.startedAt < merged.startedAt) merged.startedAt = earlier.startedAt;
+
+        return merged;
+    }
+
+    private sceneIdentity(scene: { source: { path: string; line: number }; name: string }): string {
+        return scene.source.line
+            ? `${ scene.source.path }:${ scene.source.line }`
+            : `${ scene.source.path }:${ scene.name }`;
     }
 
     private copyArtifactsFromSource(databaseJsonPath: string, directoryName: string): void {

@@ -13,14 +13,20 @@ import { Photo } from '@serenity-js/core/model';
  */
 export class ArtifactWriter {
     private runDirectory: Path;
+    private attempt: number;
     private readonly artifactPaths = new Map<string, Path[]>(); // activityId.value → artifact paths
     private readonly sceneArtifactPaths = new Map<string, Path[]>(); // sceneId.value → artifact paths
 
     constructor(private readonly fileSystem: FileSystem) {
     }
 
-    createRunDirectory(timestamp: string): void {
-        this.runDirectory = Path.from('test-runs', timestamp);
+    createRunDirectory(testRunId: string, attempt: number = 1, moduleId?: string): void {
+        this.attempt = attempt;
+        const suffix = moduleId
+            ? `${ moduleId }-attempt-${ attempt }`
+            : `attempt-${ attempt }-${ Date.now() }`;
+        const directoryName = `${ testRunId }-${ suffix }`;
+        this.runDirectory = Path.from('test-runs', directoryName);
 
         try {
             this.fileSystem.ensureDirectoryExistsAtSync(this.runDirectory);
@@ -79,6 +85,10 @@ export class ArtifactWriter {
 
     getRunDirectory(): Path {
         return this.runDirectory;
+    }
+
+    getAttempt(): number {
+        return this.attempt ?? 1;
     }
 
     private generateFilename(event: ActivityRelatedArtifactGenerated): Path {

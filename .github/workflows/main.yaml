@@ -152,7 +152,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
-          name: 'html-report-data-${{ matrix.module }}'
+          name: 'html-report-data-${{ matrix.module }}-attempt-${{ github.run_attempt }}'
           path: integration/*/target/html-report/test-runs/
           retention-days: 3
           if-no-files-found: ignore
@@ -205,7 +205,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
-          name: 'html-report-data-${{ matrix.module }}'
+          name: 'html-report-data-${{ matrix.module }}-attempt-${{ github.run_attempt }}'
           path: integration/*/target/html-report/test-runs/
           retention-days: 3
           if-no-files-found: ignore
@@ -261,7 +261,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
-          name: 'html-report-data-${{ matrix.module }}'
+          name: 'html-report-data-${{ matrix.module }}-attempt-${{ github.run_attempt }}'
           path: integration/*/target/html-report/test-runs/
           retention-days: 3
           if-no-files-found: ignore
@@ -327,7 +327,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
-          name: 'html-report-data-${{ matrix.module }}'
+          name: 'html-report-data-${{ matrix.module }}-attempt-${{ github.run_attempt }}'
           path: integration/*/target/html-report/test-runs/
           retention-days: 3
           if-no-files-found: ignore
@@ -401,7 +401,6 @@ jobs:
         with:
           pattern: 'html-report-data-*'
           path: target/html-report-data
-          merge-multiple: true
       - name: Generate report
         run: |
           ./packages/html-reporter/bin/html-reporter.mjs \

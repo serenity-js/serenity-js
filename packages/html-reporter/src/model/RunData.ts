@@ -9,6 +9,7 @@ import type { SystemContext } from '../SystemContextDetector.js';
  */
 export interface RunData {
     testRunId?: string;
+    attempt?: number;      // 1-based CI job attempt number. Default: 1
     startedAt: string;
     finishedAt: string;
     outcomes: OutcomeCounts;

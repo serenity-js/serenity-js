@@ -60,6 +60,8 @@ export class TestRunArchiver implements StageCrewMember {
         private readonly runDataWriter: RunDataWriter,
         private readonly systemContextDetector: SystemContextDetector,
         private readonly testRunId?: string,
+        private readonly moduleId?: string,
+        private readonly attempt: number = 1,
         private stage?: Stage,
     ) {
         ensure('artifactWriter', artifactWriter, isDefined());
@@ -78,7 +80,7 @@ export class TestRunArchiver implements StageCrewMember {
         if (event instanceof TestRunStarts) {
             this.testRunTimestamp = event.timestamp.toISOString();
             this.resolvedTestRunId = this.testRunId || this.testRunTimestamp;
-            this.artifactWriter.createRunDirectory(this.resolvedTestRunId);
+            this.artifactWriter.createRunDirectory(this.resolvedTestRunId, this.attempt, this.moduleId);
         }
 
         if (event instanceof TestRunnerDetected) {
@@ -125,6 +127,7 @@ export class TestRunArchiver implements StageCrewMember {
             );
 
             runData.testRunId = this.resolvedTestRunId;
+            runData.attempt = this.artifactWriter.getAttempt();
             this.runDataWriter.write(runData, this.artifactWriter.getRunDirectory());
 
             this.stage.announce(new AsyncOperationCompleted(
@@ -159,6 +162,24 @@ function detectTestRunId(): string | undefined {
 /**
  * @package
  */
+export function detectAttemptNumber(): number {
+    if (process.env.GITHUB_RUN_ATTEMPT) {
+        return parseInt(process.env.GITHUB_RUN_ATTEMPT, 10) || 1;
+    }
+    if (process.env.CI_JOB_RETRY) {
+        // GitLab: 0-based → convert to 1-based
+        return (parseInt(process.env.CI_JOB_RETRY, 10) || 0) + 1;
+    }
+    if (process.env.BUILD_RETRY_COUNT) {
+        // Jenkins: 0-based → convert to 1-based
+        return (parseInt(process.env.BUILD_RETRY_COUNT, 10) || 0) + 1;
+    }
+    return 1;
+}
+
+/**
+ * @package
+ */
 class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> {
 
     constructor(private readonly config: HtmlReporterConfig) {
@@ -175,6 +196,8 @@ class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> 
         const runDataWriter = new RunDataWriter(outputFileSystem);
         const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()), { projectName: this.config.projectName, runtime: this.config.ci });
 
-        return new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, this.config.testRunId || detectTestRunId(), stage);
+        const attempt = detectAttemptNumber();
+
+        return new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, this.config.testRunId || detectTestRunId(), this.config.moduleId, attempt, stage);
     }
 }

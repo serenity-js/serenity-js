@@ -419,6 +419,36 @@ test.describe('DataSnapshotAggregator', () => {
             const data = readDataJs(filesystem);
             expect(data.history).toHaveLength(2);
         });
+
+        test('does not prune historical runs from the output directory before reading them as external runs', () => {
+            // Regression test: when --input glob includes test-runs/* from the output directory
+            // (e.g. gh-pages historical data), maxHistory pruning must not delete those files
+            // before loadExternalRuns reads them.
+            const { aggregator, filesystem } = createAggregator({
+                // Simulate 4 historical runs already on gh-pages (output dir)
+                'test-runs': {
+                    'run-1': { 'db.json': JSON.stringify({ testRunId: 'run-1', startedAt: '2024-06-12T10:00:00.000Z', finishedAt: '2024-06-12T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-12T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    'run-2': { 'db.json': JSON.stringify({ testRunId: 'run-2', startedAt: '2024-06-13T10:00:00.000Z', finishedAt: '2024-06-13T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    'run-3': { 'db.json': JSON.stringify({ testRunId: 'run-3', startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    'run-4': { 'db.json': JSON.stringify({ testRunId: 'run-4', startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                },
+            }, { maxHistory: 3 });
+
+            // External input paths include the historical runs from the output dir (like --input "output/test-runs/*")
+            const paths = [
+                '/reports/serenity-js/test-runs/run-1/db.json',
+                '/reports/serenity-js/test-runs/run-2/db.json',
+                '/reports/serenity-js/test-runs/run-3/db.json',
+                '/reports/serenity-js/test-runs/run-4/db.json',
+            ];
+
+            // Should not throw ENOENT from pruning before reading
+            aggregator.aggregate(paths);
+
+            const data = readDataJs(filesystem);
+            // maxHistory=3 means the oldest (run-1) is pruned, keeping run-2, run-3, run-4
+            expect(data.history).toHaveLength(3);
+        });
     });
 
     test.describe('inconsistent test identification', () => {
@@ -615,6 +645,7 @@ test.describe('DataSnapshotAggregator', () => {
             filesystem.mkdirSync(testRunDirectory2, { recursive: true });
 
             filesystem.writeFileSync(testRunDirectory1 + '/db.json', JSON.stringify({
+                testRunId: '42',
                 startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
                 outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                 scenes: [
@@ -625,6 +656,7 @@ test.describe('DataSnapshotAggregator', () => {
             }));
 
             filesystem.writeFileSync(testRunDirectory2 + '/db.json', JSON.stringify({
+                testRunId: '42',
                 startedAt: '2024-06-15T14:30:01.000Z', finishedAt: '2024-06-15T14:30:01.400Z',
                 outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                 scenes: [
@@ -957,6 +989,471 @@ test.describe('DataSnapshotAggregator', () => {
 
             expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/screenshot-a.png')).toBe(true);
             expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-16T10:00:00.000Z/screenshot-b.png')).toBe(true);
+        });
+    });
+
+    test.describe('CI-level retry aggregation — additive merge (cross-module)', () => {
+
+        test('merges scenes additively when two db.json files share the same testRunId and attempt', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            const dirA = '/source/module-a/test-runs/run-42-module-a-attempt-1';
+            const dirB = '/source/module-b/test-runs/run-42-module-b-attempt-1';
+            filesystem.mkdirSync(dirA, { recursive: true });
+            filesystem.mkdirSync(dirB, { recursive: true });
+
+            filesystem.writeFileSync(`${dirA}/db.json`, JSON.stringify({
+                testRunId: 'run-42', attempt: 1,
+                startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:01.000Z',
+                outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                    { name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T14:30:00.100Z', source: { path: 'a.spec.ts', line: 5 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            filesystem.writeFileSync(`${dirB}/db.json`, JSON.stringify({
+                testRunId: 'run-42', attempt: 1,
+                startedAt: '2024-06-15T14:30:00.500Z', finishedAt: '2024-06-15T14:30:02.000Z',
+                outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test C', category: 'Suite', outcome: { code: 4 }, duration: 300, startedAt: '2024-06-15T14:30:00.500Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            aggregator.aggregate([`${dirA}/db.json`, `${dirB}/db.json`]);
+
+            const data = readDataJs(filesystem);
+            expect(data.scenarios).toHaveLength(3);
+            expect(data.summary.outcomes.passed).toBe(2);
+            expect(data.summary.outcomes.failed).toBe(1);
+        });
+
+        test('sums outcome counts when merging cross-module runs with the same testRunId and attempt', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            const dirA = '/source/module-a/test-runs/run-99-module-a-attempt-1';
+            const dirB = '/source/module-b/test-runs/run-99-module-b-attempt-1';
+            filesystem.mkdirSync(dirA, { recursive: true });
+            filesystem.mkdirSync(dirB, { recursive: true });
+
+            filesystem.writeFileSync(`${dirA}/db.json`, JSON.stringify({
+                testRunId: 'run-99', attempt: 1,
+                startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:01.000Z',
+                outcomes: { passed: 3, failed: 1, pending: 1, skipped: 0, compromised: 0, error: 0 },
+                scenes: [], tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            filesystem.writeFileSync(`${dirB}/db.json`, JSON.stringify({
+                testRunId: 'run-99', attempt: 1,
+                startedAt: '2024-06-15T10:00:00.200Z', finishedAt: '2024-06-15T10:00:02.000Z',
+                outcomes: { passed: 2, failed: 0, pending: 0, skipped: 1, compromised: 0, error: 0 },
+                scenes: [], tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            aggregator.aggregate([`${dirA}/db.json`, `${dirB}/db.json`]);
+
+            const data = readDataJs(filesystem);
+            expect(data.summary.outcomes.passed).toBe(5);
+            expect(data.summary.outcomes.failed).toBe(1);
+            expect(data.summary.outcomes.pending).toBe(1);
+            expect(data.summary.outcomes.skipped).toBe(1);
+        });
+
+        test('deduplicates tags when merging cross-module runs with the same testRunId and attempt', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            const dirA = '/source/module-a/test-runs/run-7-module-a-attempt-1';
+            const dirB = '/source/module-b/test-runs/run-7-module-b-attempt-1';
+            filesystem.mkdirSync(dirA, { recursive: true });
+            filesystem.mkdirSync(dirB, { recursive: true });
+
+            filesystem.writeFileSync(`${dirA}/db.json`, JSON.stringify({
+                testRunId: 'run-7', attempt: 1,
+                startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:01.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'A', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [{ type: 'feature', name: 'login' }], activities: [] }],
+                tags: [{ type: 'feature', name: 'login' }], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            filesystem.writeFileSync(`${dirB}/db.json`, JSON.stringify({
+                testRunId: 'run-7', attempt: 1,
+                startedAt: '2024-06-15T10:00:00.100Z', finishedAt: '2024-06-15T10:00:01.100Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'B', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.100Z', source: { path: 'b.ts', line: 1 }, tags: [{ type: 'feature', name: 'login' }, { type: 'feature', name: 'checkout' }], activities: [] }],
+                tags: [{ type: 'feature', name: 'login' }, { type: 'feature', name: 'checkout' }], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            aggregator.aggregate([`${dirA}/db.json`, `${dirB}/db.json`]);
+
+            const data = readDataJs(filesystem);
+            const loginTags = data.tags.filter((t: any) => t.name === 'login');
+            expect(loginTags).toHaveLength(1);
+        });
+
+        test('uses earliest startedAt and latest finishedAt when merging cross-module runs', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            const dirA = '/source/module-a/test-runs/run-5-module-a-attempt-1';
+            const dirB = '/source/module-b/test-runs/run-5-module-b-attempt-1';
+            filesystem.mkdirSync(dirA, { recursive: true });
+            filesystem.mkdirSync(dirB, { recursive: true });
+
+            filesystem.writeFileSync(`${dirA}/db.json`, JSON.stringify({
+                testRunId: 'run-5', attempt: 1,
+                startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [], tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            filesystem.writeFileSync(`${dirB}/db.json`, JSON.stringify({
+                testRunId: 'run-5', attempt: 1,
+                startedAt: '2024-06-15T10:00:02.000Z', finishedAt: '2024-06-15T10:00:08.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [], tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            aggregator.aggregate([`${dirA}/db.json`, `${dirB}/db.json`]);
+
+            const data = readDataJs(filesystem);
+            expect(data.summary.startedAt).toBe('2024-06-15T10:00:00.000Z');
+            expect(data.summary.finishedAt).toBe('2024-06-15T10:00:08.000Z');
+        });
+    });
+
+    test.describe('CI-level retry aggregation — retry merge (cross-attempt)', () => {
+
+        test('promotes attempt-1 scene to attempts[] and uses attempt-2 result as final outcome', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            const dir1 = '/source/module/test-runs/run-10-attempt-1';
+            const dir2 = '/source/module/test-runs/run-10-attempt-2';
+            filesystem.mkdirSync(dir1, { recursive: true });
+            filesystem.mkdirSync(dir2, { recursive: true });
+
+            filesystem.writeFileSync(`${dir1}/db.json`, JSON.stringify({
+                testRunId: 'run-10', attempt: 1,
+                startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
+                outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Flaky test', category: 'Suite', outcome: { code: 4 }, duration: 300,
+                      startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                      tags: [], activities: [{ type: 'Task', name: 'step', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', children: [] }],
+                      error: { name: 'Error', message: 'attempt 1 failed', stack: '' } },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            filesystem.writeFileSync(`${dir2}/db.json`, JSON.stringify({
+                testRunId: 'run-10', attempt: 2,
+                startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Flaky test', category: 'Suite', outcome: { code: 64 }, duration: 250,
+                      startedAt: '2024-06-15T10:01:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                      tags: [], activities: [{ type: 'Task', name: 'step', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:01:00.000Z', children: [] }] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            aggregator.aggregate([`${dir1}/db.json`, `${dir2}/db.json`]);
+
+            const data = readDataJs(filesystem);
+            expect(data.scenarios).toHaveLength(1);
+            const scene = data.scenarios[0];
+            expect(scene.outcome).toBe('SUCCESS');
+            expect(scene.attempts).toHaveLength(2);
+            expect(scene.attempts[0].outcome).toBe('FAILURE');
+            expect(scene.attempts[0].error.message).toBe('attempt 1 failed');
+            expect(scene.attempts[1].outcome).toBe('SUCCESS');
+            expect(scene.retries).toBe(1);
+        });
+
+        test('keeps scenes that only appear in attempt 1 (not retried) with their original outcome', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            const dir1 = '/source/module/test-runs/run-11-attempt-1';
+            const dir2 = '/source/module/test-runs/run-11-attempt-2';
+            filesystem.mkdirSync(dir1, { recursive: true });
+            filesystem.mkdirSync(dir2, { recursive: true });
+
+            filesystem.writeFileSync(`${dir1}/db.json`, JSON.stringify({
+                testRunId: 'run-11', attempt: 1,
+                startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
+                outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Stable test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                    { name: 'Failing test', category: 'Suite', outcome: { code: 4 }, duration: 200, startedAt: '2024-06-15T10:00:01.000Z', source: { path: 'a.spec.ts', line: 5 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            filesystem.writeFileSync(`${dir2}/db.json`, JSON.stringify({
+                testRunId: 'run-11', attempt: 2,
+                startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
+                outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Failing test', category: 'Suite', outcome: { code: 4 }, duration: 210, startedAt: '2024-06-15T10:01:00.000Z', source: { path: 'a.spec.ts', line: 5 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            aggregator.aggregate([`${dir1}/db.json`, `${dir2}/db.json`]);
+
+            const data = readDataJs(filesystem);
+            expect(data.scenarios).toHaveLength(2);
+            const stable = data.scenarios.find((s: any) => s.name === 'Stable test');
+            expect(stable.outcome).toBe('SUCCESS');
+            expect(stable.attempts).toBeUndefined();
+        });
+
+        test('keeps scenes that only appear in attempt 2 (new in retry) as-is', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            const dir1 = '/source/module/test-runs/run-12-attempt-1';
+            const dir2 = '/source/module/test-runs/run-12-attempt-2';
+            filesystem.mkdirSync(dir1, { recursive: true });
+            filesystem.mkdirSync(dir2, { recursive: true });
+
+            filesystem.writeFileSync(`${dir1}/db.json`, JSON.stringify({
+                testRunId: 'run-12', attempt: 1,
+                startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Existing test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            filesystem.writeFileSync(`${dir2}/db.json`, JSON.stringify({
+                testRunId: 'run-12', attempt: 2,
+                startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
+                outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Existing test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:01:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                    { name: 'Brand new test', category: 'Suite', outcome: { code: 64 }, duration: 150, startedAt: '2024-06-15T10:01:01.000Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            aggregator.aggregate([`${dir1}/db.json`, `${dir2}/db.json`]);
+
+            const data = readDataJs(filesystem);
+            expect(data.scenarios).toHaveLength(2);
+            const newTest = data.scenarios.find((s: any) => s.name === 'Brand new test');
+            expect(newTest).toBeDefined();
+            expect(newTest.attempts).toBeUndefined();
+        });
+
+        test('processes attempts in attempt-number order regardless of filesystem discovery order', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            // Supply attempt-2 before attempt-1 to verify ordering by attempt field
+            const dir2 = '/source/module/test-runs/run-13-attempt-2';
+            const dir1 = '/source/module/test-runs/run-13-attempt-1';
+            filesystem.mkdirSync(dir1, { recursive: true });
+            filesystem.mkdirSync(dir2, { recursive: true });
+
+            filesystem.writeFileSync(`${dir1}/db.json`, JSON.stringify({
+                testRunId: 'run-13', attempt: 1,
+                startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
+                outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test', category: 'Suite', outcome: { code: 4 }, duration: 300, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [],
+                      error: { name: 'Error', message: 'first attempt error', stack: '' } },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            filesystem.writeFileSync(`${dir2}/db.json`, JSON.stringify({
+                testRunId: 'run-13', attempt: 2,
+                startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T10:01:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            // Pass attempt-2 path first to verify ordering is by attempt field
+            aggregator.aggregate([`${dir2}/db.json`, `${dir1}/db.json`]);
+
+            const data = readDataJs(filesystem);
+            const scene = data.scenarios[0];
+            expect(scene.outcome).toBe('SUCCESS');
+            expect(scene.attempts[0].outcome).toBe('FAILURE');
+            expect(scene.attempts[0].error.message).toBe('first attempt error');
+        });
+    });
+
+    test.describe('CI-level retry aggregation — backwards compatibility', () => {
+
+        test('treats db.json without attempt field as attempt 1', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            const dir1 = '/source/module/test-runs/run-20-attempt-1';
+            const dir2 = '/source/module/test-runs/run-20-legacy';
+            filesystem.mkdirSync(dir1, { recursive: true });
+            filesystem.mkdirSync(dir2, { recursive: true });
+
+            // Legacy db.json: has testRunId but no attempt field
+            filesystem.writeFileSync(`${dir2}/db.json`, JSON.stringify({
+                testRunId: 'run-20',
+                startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Legacy test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            // Modern db.json: same testRunId, attempt 1
+            filesystem.writeFileSync(`${dir1}/db.json`, JSON.stringify({
+                testRunId: 'run-20', attempt: 1,
+                startedAt: '2024-06-15T10:00:01.000Z', finishedAt: '2024-06-15T10:00:06.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Modern test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:01.000Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            // Both have same testRunId and both default to attempt 1 → additive merge
+            aggregator.aggregate([`${dir1}/db.json`, `${dir2}/db.json`]);
+
+            const data = readDataJs(filesystem);
+            expect(data.scenarios).toHaveLength(2);
+        });
+
+        test('uses startedAt as grouping key when testRunId is absent', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            const dirA = '/source/module-a/test-runs/2024-06-15T10:00:00.000Z';
+            const dirB = '/source/module-b/test-runs/2024-06-15T10:00:00.000Z';
+            filesystem.mkdirSync(dirA, { recursive: true });
+            filesystem.mkdirSync(dirB, { recursive: true });
+
+            filesystem.writeFileSync(`${dirA}/db.json`, JSON.stringify({
+                startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'A', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            filesystem.writeFileSync(`${dirB}/db.json`, JSON.stringify({
+                startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:06.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'B', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'b.ts', line: 1 }, tags: [], activities: [] }],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            aggregator.aggregate([`${dirA}/db.json`, `${dirB}/db.json`]);
+
+            const data = readDataJs(filesystem);
+            expect(data.scenarios).toHaveLength(2);
+            expect(data.history).toHaveLength(1);
+        });
+    });
+
+    test.describe('CI-level retry aggregation — combined (multi-module × multi-attempt)', () => {
+
+        test('performs additive merge within attempt then retry merge across attempts', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            const dirs = {
+                a1: '/source/module-a/test-runs/run-30-module-a-attempt-1',
+                b1: '/source/module-b/test-runs/run-30-module-b-attempt-1',
+                a2: '/source/module-a/test-runs/run-30-module-a-attempt-2',
+                b2: '/source/module-b/test-runs/run-30-module-b-attempt-2',
+            };
+            for (const dir of Object.values(dirs)) {
+                filesystem.mkdirSync(dir, { recursive: true });
+            }
+
+            // Attempt 1: module-a passes, module-b fails
+            filesystem.writeFileSync(`${dirs.a1}/db.json`, JSON.stringify({
+                testRunId: 'run-30', attempt: 1,
+                startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'A', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            filesystem.writeFileSync(`${dirs.b1}/db.json`, JSON.stringify({
+                testRunId: 'run-30', attempt: 1,
+                startedAt: '2024-06-15T10:00:01.000Z', finishedAt: '2024-06-15T10:00:06.000Z',
+                outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'B', category: 'S', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T10:00:01.000Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [] }],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            // Attempt 2: both pass
+            filesystem.writeFileSync(`${dirs.a2}/db.json`, JSON.stringify({
+                testRunId: 'run-30', attempt: 2,
+                startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'A', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:01:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            filesystem.writeFileSync(`${dirs.b2}/db.json`, JSON.stringify({
+                testRunId: 'run-30', attempt: 2,
+                startedAt: '2024-06-15T10:01:01.000Z', finishedAt: '2024-06-15T10:01:06.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'B', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:01:01.000Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [] }],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            aggregator.aggregate(Object.values(dirs).map(d => `${d}/db.json`));
+
+            const data = readDataJs(filesystem);
+            expect(data.scenarios).toHaveLength(2);
+            // B was failing in attempt 1, passing in attempt 2 → should have attempts[]
+            const sceneB = data.scenarios.find((s: any) => s.name === 'B');
+            expect(sceneB.outcome).toBe('SUCCESS');
+            expect(sceneB.attempts).toHaveLength(2);
+            expect(sceneB.attempts[0].outcome).toBe('FAILURE');
+            // Only 1 history entry (all 4 db.json files belong to run-30)
+            expect(data.history).toHaveLength(1);
+        });
+    });
+
+    test.describe('CI-level retry aggregation — self-healing write-back', () => {
+
+        test('writes merged db.json to test-runs/{runId}/db.json in the output directory', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            const dir1 = '/source/module/test-runs/run-40-attempt-1';
+            const dir2 = '/source/module/test-runs/run-40-attempt-2';
+            filesystem.mkdirSync(dir1, { recursive: true });
+            filesystem.mkdirSync(dir2, { recursive: true });
+
+            filesystem.writeFileSync(`${dir1}/db.json`, JSON.stringify({
+                testRunId: 'run-40', attempt: 1,
+                startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
+                outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'T', category: 'S', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            filesystem.writeFileSync(`${dir2}/db.json`, JSON.stringify({
+                testRunId: 'run-40', attempt: 2,
+                startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:01:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            aggregator.aggregate([`${dir1}/db.json`, `${dir2}/db.json`]);
+
+            const mergedPath = '/reports/serenity-js/test-runs/run-40/db.json';
+            expect(filesystem.existsSync(mergedPath)).toBe(true);
+            const merged = JSON.parse(filesystem.readFileSync(mergedPath, 'utf8') as string);
+            expect(merged.scenes).toHaveLength(1);
+            expect(merged.scenes[0].outcome.code).toBe(64);
+            expect(merged.scenes[0].attempts).toHaveLength(2);
         });
     });
 });

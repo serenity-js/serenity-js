@@ -12,7 +12,7 @@ import { ReportTemplateWriter } from './ReportTemplateWriter.js';
 import { RunDataWriter } from './RunDataWriter.js';
 import { SceneDataCollector } from './SceneDataCollector.js';
 import { SystemContextDetector } from './SystemContextDetector.js';
-import { TestRunArchiver } from './TestRunArchiver.js';
+import { detectAttemptNumber, TestRunArchiver } from './TestRunArchiver.js';
 
 /**
  * A {@link StageCrewMember} that produces a self-contained static HTML report.
@@ -78,7 +78,7 @@ class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
         const runDataWriter = new RunDataWriter(outputFileSystem);
         const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()), { projectName: this.config.projectName, runtime: this.config.ci });
 
-        const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, this.config.testRunId, stage);
+        const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, this.config.testRunId, this.config.moduleId, detectAttemptNumber(), stage);
 
         // HtmlReportGenerator dependencies
         const projectFileSystem = new FileSystem(Path.from(process.cwd()));

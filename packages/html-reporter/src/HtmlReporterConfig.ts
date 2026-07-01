@@ -51,6 +51,14 @@ export interface HtmlReporterConfig {
     testRunId?: string;
 
     /**
+     * Identifier for the module (parallel CI job shard).
+     * Used in the run directory name to prevent filesystem collisions
+     * when multiple modules upload artifacts to the same CI artifact store.
+     * Defaults to a timestamp suffix when not specified.
+     */
+    moduleId?: string;
+
+    /**
      * Override CI/CD runtime context with explicit values.
      * When provided, auto-detection from environment variables is skipped.
      * Useful for testing or when the reporter runs outside of CI.
