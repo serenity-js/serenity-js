@@ -22,6 +22,7 @@ import {
     ExecutionFailedWithError,
     ExecutionSuccessful,
     HTTPRequestResponse,
+    JSONData,
     LogEntry,
     Name,
     ScenarioDetails,
@@ -551,6 +552,208 @@ test.describe('SceneDataCollector', () => {
             expect(activity.reportData).toHaveLength(2);
             expect(activity.reportData[0].title).toBe('request');
             expect(activity.reportData[1].title).toBe('response');
+        });
+    });
+
+    test.describe('JSONData artifacts (reportData)', () => {
+
+        test('captures JSONData artifact as reportData on the activity', () => {
+            const collector = new SceneDataCollector();
+            const queues = new DomainEventQueues();
+
+            const details = new ScenarioDetails(
+                new Name('scenario with JSON data'),
+                new Category('Suite'),
+                new FileSystemLocation(Path.from('spec/json.spec.ts'), 1, 1),
+            );
+            const sceneId = CorrelationId.create();
+            const activityId = CorrelationId.create();
+            const actDetails = new ActivityDetails(new Name('log JSON payload'), new FileSystemLocation(Path.from('spec/json.spec.ts'), 3, 1));
+
+            const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+            const t1 = new Timestamp(new Date('2024-01-01T00:00:00.050Z'));
+            const t2 = new Timestamp(new Date('2024-01-01T00:00:00.100Z'));
+
+            queues.enqueue(new SceneStarts(sceneId, details, t0));
+            queues.enqueue(new InteractionStarts(sceneId, activityId, actDetails, t0));
+            queues.enqueue(new ActivityRelatedArtifactGenerated(
+                sceneId, activityId, new Name('API response'),
+                JSONData.fromJSON({ status: 'ok', items: [1, 2, 3] }), t1,
+            ));
+            queues.enqueue(new InteractionFinished(sceneId, activityId, actDetails, new ExecutionSuccessful(), t1));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t2));
+
+            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+
+            const activity = runData.scenes[0].activities[0];
+            expect(activity.reportData).toHaveLength(1);
+            expect(activity.reportData[0].title).toBe('API response');
+            expect(JSON.parse(activity.reportData[0].contents)).toEqual({ status: 'ok', items: [1, 2, 3] });
+        });
+
+        test('does not treat HTTPRequestResponse as generic JSONData', () => {
+            const collector = new SceneDataCollector();
+            const queues = new DomainEventQueues();
+
+            const details = new ScenarioDetails(
+                new Name('scenario with HTTP exchange'),
+                new Category('Suite'),
+                new FileSystemLocation(Path.from('spec/http.spec.ts'), 1, 1),
+            );
+            const sceneId = CorrelationId.create();
+            const activityId = CorrelationId.create();
+            const actDetails = new ActivityDetails(new Name('send GET /api'), new FileSystemLocation(Path.from('spec/http.spec.ts'), 3, 1));
+
+            const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+            const t1 = new Timestamp(new Date('2024-01-01T00:00:00.050Z'));
+            const t2 = new Timestamp(new Date('2024-01-01T00:00:00.100Z'));
+
+            queues.enqueue(new SceneStarts(sceneId, details, t0));
+            queues.enqueue(new InteractionStarts(sceneId, activityId, actDetails, t0));
+            queues.enqueue(new ActivityRelatedArtifactGenerated(
+                sceneId, activityId, new Name('HTTP exchange'),
+                HTTPRequestResponse.fromJSON({
+                    request: { method: 'GET', url: 'http://localhost/api', headers: {} },
+                    response: { status: 200, headers: {}, data: { result: true } },
+                }), t1,
+            ));
+            queues.enqueue(new InteractionFinished(sceneId, activityId, actDetails, new ExecutionSuccessful(), t1));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t2));
+
+            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+
+            const activity = runData.scenes[0].activities[0];
+            // Should be captured as restQuery, NOT as reportData
+            expect(activity.restQuery).toBeDefined();
+            expect(activity.restQuery.method).toBe('GET');
+            expect(activity.reportData).toBeUndefined();
+        });
+    });
+
+    test.describe('video attachment', () => {
+
+        test('attaches video path from sceneArtifactPaths when available', () => {
+            const collector = new SceneDataCollector();
+            const queues = new DomainEventQueues();
+
+            const details = new ScenarioDetails(
+                new Name('scenario with video'),
+                new Category('Suite'),
+                new FileSystemLocation(Path.from('spec/video.spec.ts'), 1, 1),
+            );
+            const sceneId = CorrelationId.create();
+
+            const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+            const t1 = new Timestamp(new Date('2024-01-01T00:00:01.000Z'));
+
+            queues.enqueue(new SceneStarts(sceneId, details, t0));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t1));
+
+            const sceneArtifactPaths = new Map<string, Path[]>();
+            sceneArtifactPaths.set(sceneId.value, [
+                Path.from('test-runs/2024-01-01/video-abc123.webm'),
+            ]);
+
+            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext, sceneArtifactPaths);
+
+            expect(runData.scenes[0].video).toBe('test-runs/2024-01-01/video-abc123.webm');
+        });
+
+        test('does not attach video when no .webm file is present', () => {
+            const collector = new SceneDataCollector();
+            const queues = new DomainEventQueues();
+
+            const details = new ScenarioDetails(
+                new Name('scenario without video'),
+                new Category('Suite'),
+                new FileSystemLocation(Path.from('spec/novideo.spec.ts'), 1, 1),
+            );
+            const sceneId = CorrelationId.create();
+
+            const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+            const t1 = new Timestamp(new Date('2024-01-01T00:00:01.000Z'));
+
+            queues.enqueue(new SceneStarts(sceneId, details, t0));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t1));
+
+            const sceneArtifactPaths = new Map<string, Path[]>();
+            sceneArtifactPaths.set(sceneId.value, [
+                Path.from('test-runs/2024-01-01/screenshot-001.png'),
+            ]);
+
+            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext, sceneArtifactPaths);
+
+            expect(runData.scenes[0].video).toBeUndefined();
+        });
+
+        test('does not attach video when sceneArtifactPaths is not provided', () => {
+            const collector = new SceneDataCollector();
+            const queues = new DomainEventQueues();
+
+            const details = new ScenarioDetails(
+                new Name('scenario without artifact paths'),
+                new Category('Suite'),
+                new FileSystemLocation(Path.from('spec/noartifacts.spec.ts'), 1, 1),
+            );
+            const sceneId = CorrelationId.create();
+
+            const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+            const t1 = new Timestamp(new Date('2024-01-01T00:00:01.000Z'));
+
+            queues.enqueue(new SceneStarts(sceneId, details, t0));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t1));
+
+            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+
+            expect(runData.scenes[0].video).toBeUndefined();
+        });
+    });
+
+    test.describe('artifact path tracking', () => {
+
+        test('records artifact file paths from the artifactPaths map on the activity', () => {
+            const collector = new SceneDataCollector();
+            const queues = new DomainEventQueues();
+
+            const details = new ScenarioDetails(
+                new Name('scenario with screenshots'),
+                new Category('Suite'),
+                new FileSystemLocation(Path.from('spec/screenshots.spec.ts'), 1, 1),
+            );
+            const sceneId = CorrelationId.create();
+            const activityId = CorrelationId.create();
+            const actDetails = new ActivityDetails(new Name('take screenshot'), new FileSystemLocation(Path.from('spec/screenshots.spec.ts'), 3, 1));
+
+            const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+            const t1 = new Timestamp(new Date('2024-01-01T00:00:00.050Z'));
+            const t2 = new Timestamp(new Date('2024-01-01T00:00:00.100Z'));
+
+            queues.enqueue(new SceneStarts(sceneId, details, t0));
+            queues.enqueue(new InteractionStarts(sceneId, activityId, actDetails, t0));
+            queues.enqueue(new ActivityRelatedArtifactGenerated(
+                sceneId, activityId, new Name('screenshot'),
+                JSONData.fromJSON({ ignored: true }), t1,
+            ));
+            queues.enqueue(new InteractionFinished(sceneId, activityId, actDetails, new ExecutionSuccessful(), t1));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t2));
+
+            const artifactPaths = new Map<string, Path[]>();
+            artifactPaths.set(activityId.value, [
+                Path.from('test-runs/2024-01-01/screenshot-001.png'),
+                Path.from('test-runs/2024-01-01/screenshot-002.png'),
+            ]);
+
+            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', artifactPaths, systemContext);
+
+            // Artifacts on the activity record (from handleActivityFinished)
+            const activity = runData.scenes[0].activities[0];
+            expect(activity.artifacts).toHaveLength(2);
+            expect(activity.artifacts[0].path).toBe('test-runs/2024-01-01/screenshot-001.png');
+            expect(activity.artifacts[1].path).toBe('test-runs/2024-01-01/screenshot-002.png');
+
+            // Also tracked at scene level (from handleArtifact)
+            expect(runData.scenes[0].artifacts).toHaveLength(2);
+            expect(runData.scenes[0].artifacts[0].activityId).toBe(activityId.value);
         });
     });
 });
