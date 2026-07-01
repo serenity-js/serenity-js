@@ -47,3 +47,11 @@ The asymmetry is intentional: files are content that transfers to the parent whe
 | Video (.webm) | Yes | No (path reference) | Inline video player |
 
 Binary artifacts (photos, videos) are persisted as files and referenced by path. Structured data artifacts (HTTP exchanges, logs, text) are inlined directly in `db.json`/`data.js` for self-containment.
+
+## Kiro hooks do not fire automatically from the write tool
+
+`.kiro/hooks/` defines `PostFileSave` hooks (e.g. `lint-on-save`) that run when a file is saved in the IDE. The `write` tool does **not** trigger these hooks. To respect them:
+
+1. At the start of any task, read `.kiro/hooks/` to discover what hooks exist and what commands they run.
+2. After every batch of file writes, run the hook commands manually — e.g. `npx eslint <changed-files>` for `lint-on-save`.
+3. Treat hook commands as mandatory verification steps, not optional extras, before presenting work as complete.
