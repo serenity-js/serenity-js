@@ -82,6 +82,9 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
         : hasRetries && activeAttempt < activeAttempts.length
             ? activeAttempts[activeAttempt].error
             : scenario.error;
+    const currentVideo = hasRetries && activeAttempt < activeAttempts.length && activeAttempts[activeAttempt].video
+        ? activeAttempts[activeAttempt].video
+        : scenario.video;
     const errorLocation = currentError ? (function findLoc(acts: ReportActivity[]): { path: string; line: number; column: number } | null { for (const a of acts) { if (a.outcome !== 'SUCCESS' && a.outcome !== 'SKIPPED' && a.location) return a.location; if (a.children) { const r = findLoc(a.children); if (r) return r; } } return null; })(currentActivities) : null;
 
     const copyTestPath = () => {
@@ -210,11 +213,11 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
         </div>
       ` : null}
 
-      ${scenario.video ? html`
+      ${currentVideo ? html`
         <div class="card mt-md">
           <div class="card-title">Video Recording</div>
-          <video controls preload="metadata" style="width:100%;border-radius:var(--radius-sm);margin-top:var(--space-sm)">
-            <source src=${scenario.video} type="video/webm" />
+          <video controls preload="metadata" style="width:100%;border-radius:var(--radius-sm);margin-top:var(--space-sm)" key=${currentVideo}>
+            <source src=${currentVideo} type="video/webm" />
           </video>
         </div>
       ` : null}
