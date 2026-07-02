@@ -2,21 +2,22 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportHistoryEntry } from '../../src/ReportData';
-import { DATA, formatDuration, formatRunLabel, formatTimestamp } from '../utils';
+import { formatDuration, formatRunLabel, formatTimestamp } from '../utils';
 import { TrendChart } from './charts/TrendChart';
 
 const html = htm.bind(h);
 
 interface TestRunsViewProps {
+    history: ReportHistoryEntry[];
     onNavigate: (path: string) => void;
 }
 
-export function TestRunsView({ onNavigate }: TestRunsViewProps): ReturnType<typeof html> {
-    const runs: ReportHistoryEntry[] = [...DATA.history].reverse();
+export function TestRunsView({ history, onNavigate }: TestRunsViewProps): ReturnType<typeof html> {
+    const runs: ReportHistoryEntry[] = [...history].reverse();
     return html`
     <div class="card" style="margin-bottom:var(--space-md);overflow:hidden">
-      <div class="card-title">Trend (All ${DATA.history.length} runs)</div>
-      <${TrendChart} history=${DATA.history} onNavigate=${onNavigate} />
+      <div class="card-title">Trend (All ${history.length} runs)</div>
+      <${TrendChart} history=${history} onNavigate=${onNavigate} />
     </div>
     <div class="card">
       <div class="card-title">Test Run History</div>

@@ -65,40 +65,51 @@ export function App(): ReturnType<typeof html> {
 
     let view;
     let pageTitle = 'Dashboard';
+    const specDirectory = DATA.capabilities?.name;
 
     if (route === '/' || route === '') {
-        view = html`<${DashboardView} onNavigate=${navigate} />`;
+        view = html`<${DashboardView}
+            summary=${DATA.summary}
+            history=${DATA.history}
+            scenarios=${DATA.scenarios}
+            newFailures=${DATA.newFailures || []}
+            newPasses=${DATA.newPasses || []}
+            inconsistentTests=${DATA.inconsistentTests || []}
+            capabilities=${DATA.capabilities}
+            systemContext=${DATA.systemContext}
+            onNavigate=${navigate}
+        />`;
         pageTitle = DATA.summary.title;
     } else if (route === '/tests') {
-        view = html`<${ScenariosView} onNavigate=${navigate} route=${route} />`;
+        view = html`<${ScenariosView} scenarios=${DATA.scenarios} history=${DATA.history} summary=${DATA.summary} specDirectory=${specDirectory} onNavigate=${navigate} route=${route} />`;
         pageTitle = 'Test Scenarios';
     } else if (route.startsWith('/tests?')) {
-        view = html`<${ScenariosView} onNavigate=${navigate} route=${route} />`;
+        view = html`<${ScenariosView} scenarios=${DATA.scenarios} history=${DATA.history} summary=${DATA.summary} specDirectory=${specDirectory} onNavigate=${navigate} route=${route} />`;
         pageTitle = 'Test Scenarios';
     } else if (route.startsWith('/tests/')) {
         const id = route.split('/tests/')[1];
-        view = html`<${ScenarioDetailView} scenarioId=${id} onNavigate=${navigate} />`;
+        view = html`<${ScenarioDetailView} scenarios=${DATA.scenarios} history=${DATA.history} specDirectory=${specDirectory} scenarioId=${id} onNavigate=${navigate} />`;
         pageTitle = 'Test Scenario';
     } else if (route === '/tags') {
-        view = html`<${TagsView} onNavigate=${navigate} />`;
+        view = html`<${TagsView} tags=${DATA.tags} onNavigate=${navigate} />`;
         pageTitle = 'Tags';
     } else if (route === '/test-runs') {
-        view = html`<${TestRunsView} onNavigate=${navigate} />`;
+        view = html`<${TestRunsView} history=${DATA.history} onNavigate=${navigate} />`;
         pageTitle = 'Test Runs';
     } else if (route === '/errors' || route.startsWith('/errors?')) {
-        view = html`<${ErrorsView} onNavigate=${navigate} route=${route} />`;
+        view = html`<${ErrorsView} scenarios=${DATA.scenarios} history=${DATA.history} specDirectory=${specDirectory} onNavigate=${navigate} route=${route} />`;
         pageTitle = 'Errors';
     } else if (route === '/consistency') {
-        view = html`<${ConsistencyView} onNavigate=${navigate} />`;
+        view = html`<${ConsistencyView} inconsistentTests=${DATA.inconsistentTests || []} specDirectory=${specDirectory} onNavigate=${navigate} />`;
         pageTitle = 'Consistency';
     } else if (route === '/capabilities' || route.startsWith('/capabilities?')) {
-        view = html`<${CapabilitiesView} onNavigate=${navigate} route=${route} />`;
+        view = html`<${CapabilitiesView} capabilities=${DATA.capabilities} onNavigate=${navigate} route=${route} />`;
         pageTitle = 'Capabilities';
     } else if (route === '/timeline') {
-        view = html`<${TimelineView} onNavigate=${navigate} />`;
+        view = html`<${TimelineView} scenarios=${DATA.scenarios} summary=${DATA.summary} onNavigate=${navigate} />`;
         pageTitle = 'Timeline';
     } else if (route === '/system') {
-        view = html`<${SystemContextView} />`;
+        view = html`<${SystemContextView} systemContext=${DATA.systemContext} />`;
         pageTitle = 'System Context';
     } else if (route === '/about') {
         view = html`<${AboutView} />`;

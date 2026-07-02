@@ -3,43 +3,46 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useMemo, useRef } from 'preact/hooks';
 
-import type { ReportScenario } from '../../src/ReportData';
+import type { ReportHistoryEntry, ReportScenario } from '../../src/ReportData';
 import { useStickyHeader, useVirtualizer } from '../hooks';
 import type { Range } from '../hooks/useVirtualizer';
-import { DATA, formatDuration, formatRunLabel, outcomeClass, outcomeIcon, relativeSourcePath, scenarioUrl } from '../utils';
+import { formatDuration, formatRunLabel, outcomeClass, outcomeIcon, relativeSourcePath, scenarioUrl } from '../utils';
 import { icons } from './icons';
 import { RunSelector } from './RunSelector';
 
 const html = htm.bind(h);
 
 interface ErrorsViewProps {
+    scenarios: ReportScenario[];
+    history: ReportHistoryEntry[];
+    specDirectory?: string;
     onNavigate: (path: string) => void;
     route: string;
 }
 
-export function ErrorsView({ onNavigate, route }: ErrorsViewProps): ReturnType<typeof html> {
+export function ErrorsView({ scenarios: allScenarios, history, specDirectory, onNavigate, route }: ErrorsViewProps): ReturnType<typeof html> {
     const errorRunParameters = (route && route.includes('?')) ? new URLSearchParams(route.split('?')[1]) : null;
     const errorRunString = errorRunParameters ? errorRunParameters.get('run') : null;
     const errorRunIndex = useMemo(() => {
         if (errorRunString === null) return null;
-        const byTs = DATA.history.findIndex(r => r.timestamp === errorRunString);
+        const byTs = history.findIndex(r => r.timestamp === errorRunString);
         if (byTs >= 0) return byTs;
         const parsed = parseInt(errorRunString, 10);
         return isNaN(parsed) ? null : parsed;
     }, [errorRunString]);
-    const errorIsHistorical = errorRunIndex !== null && errorRunIndex !== DATA.history.length - 1;
-    const errorHistoricalRun = errorIsHistorical ? DATA.history[errorRunIndex] : null;
+    const errorIsHistorical = errorRunIndex !== null && errorRunIndex !== history.length - 1;
+    const errorHistoricalRun = errorIsHistorical ? history[errorRunIndex] : null;
 
-    const errorActiveRunTs = errorRunIndex !== null && DATA.history[errorRunIndex] ? DATA.history[errorRunIndex].timestamp : DATA.history[DATA.history.length - 1]?.timestamp || null;
+    const errorActiveRunTs = errorRunIndex !== null && history[errorRunIndex] ? history[errorRunIndex].timestamp : history[history.length - 1]?.timestamp || null;
     const onErrorRunChange = (e: Event) => {
         const ts = (e.target as HTMLSelectElement).value;
-        const index = DATA.history.findIndex(r => r.timestamp === ts);
-        const isLatest = index === DATA.history.length - 1;
+        const index = history.findIndex(r => r.timestamp === ts);
+        const isLatest = index === history.length - 1;
         onNavigate(isLatest ? '/errors' : '/errors?run=' + ts);
     };
     const errorShowLatest = () => onNavigate('/errors');
 
-    const errorScenarios = DATA.scenarios.filter(s => s.error || s.outcome === 'FAILURE' || s.outcome === 'ERROR' || s.outcome === 'COMPROMISED');
+    const errorScenarios = allScenarios.filter(s => s.error || s.outcome === 'FAILURE' || s.outcome === 'ERROR' || s.outcome === 'COMPROMISED');
 
     function classifyError(error: { name?: string; message?: string }): string {
         const name = (error.name || '').toLowerCase();
@@ -175,7 +178,7 @@ export function ErrorsView({ onNavigate, route }: ErrorsViewProps): ReturnType<t
         </div>
       ` : null}
 
-      <${RunSelector} activeTimestamp=${errorActiveRunTs} history=${DATA.history} onRunChange=${onErrorRunChange} />
+      <${RunSelector} activeTimestamp=${errorActiveRunTs} history=${history} onRunChange=${onErrorRunChange} />
 
       <div class="kpi-row" style="margin-bottom:var(--space-md);grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));grid-template-rows:auto">
         ${summaryCards.map(card => html`
@@ -217,7 +220,7 @@ export function ErrorsView({ onNavigate, route }: ErrorsViewProps): ReturnType<t
                     <div class="scenario-name">${s.name}${item.duplicateCount > 1 ? html` <span style="font-size:var(--font-xs);font-weight:400;color:var(--text-disabled)">and ${item.duplicateCount - 1} more</span>` : null}</div>
                     <div style="font-size:var(--font-sm);color:var(--color-${outcomeClass(s.outcome)});margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.error ? s.error.message : s.outcome}${item.duplicateCount > 1 ? html` <span style="font-weight:600"> (×${item.duplicateCount})</span>` : null}</div>
                     <div class="scenario-meta">
-                      <span class="scenario-source" style="direction:rtl;text-align:left;unicode-bidi:plaintext">${relativeSourcePath(s, DATA.capabilities ? DATA.capabilities.name : undefined)}</span>
+                      <span class="scenario-source" style="direction:rtl;text-align:left;unicode-bidi:plaintext">${relativeSourcePath(s, specDirectory)}</span>
                     </div>
                   </div>
                   <span class="scenario-duration">${formatDuration(s.duration)}</span>

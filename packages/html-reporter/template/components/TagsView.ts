@@ -1,17 +1,18 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import { DATA } from '../utils';
+import type { ReportTag } from '../../src/ReportData';
 
 const html = htm.bind(h);
 
 interface TagsViewProps {
+    tags: ReportTag[];
     onNavigate: (path: string) => void;
 }
 
-export function TagsView({ onNavigate }: TagsViewProps): ReturnType<typeof html> {
+export function TagsView({ tags, onNavigate }: TagsViewProps): ReturnType<typeof html> {
     const tagsByType: Record<string, Array<{ type: string; name: string; scenarioCount: number; passed: number }>> = {};
-    for (const tag of DATA.tags) {
+    for (const tag of tags) {
         const type = tag.type || 'other';
         if (!tagsByType[type]) tagsByType[type] = [];
         tagsByType[type].push(tag);

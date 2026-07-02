@@ -2,8 +2,8 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useMemo } from 'preact/hooks';
 
-import type { ReportCapabilityNode, ReportHistoryEntry, ReportScenarioRef } from '../../src/ReportData';
-import { DATA, formatDuration, outcomeClass, scenarioUrl } from '../utils';
+import type { ReportCapabilityNode, ReportHistoryEntry, ReportInconsistentTest, ReportScenario, ReportScenarioRef, ReportSummary, ReportSystemContext } from '../../src/ReportData';
+import { formatDuration, outcomeClass, scenarioUrl } from '../utils';
 import { AreaSparkline } from './charts/AreaSparkline';
 import { Delta } from './charts/Delta';
 import { DotTrend } from './charts/DotTrend';
@@ -13,11 +13,18 @@ const html = htm.bind(h);
 
 // ===== Dashboard View =====
 interface DashboardViewProps {
+    summary: ReportSummary;
+    history: ReportHistoryEntry[];
+    scenarios: ReportScenario[];
+    newFailures: ReportScenarioRef[];
+    newPasses: ReportScenarioRef[];
+    inconsistentTests: ReportInconsistentTest[];
+    capabilities?: ReportCapabilityNode;
+    systemContext?: ReportSystemContext;
     onNavigate: (path: string) => void;
 }
 
-export function DashboardView({ onNavigate }: DashboardViewProps): ReturnType<typeof html> {
-    const { summary, history, scenarios } = DATA;
+export function DashboardView({ summary, history, scenarios, newFailures: allNewFailures, newPasses: allNewPasses, inconsistentTests: allInconsistentTests, capabilities, systemContext, onNavigate }: DashboardViewProps): ReturnType<typeof html> {
     const totalFailed = (summary.outcomes.failed || 0) + (summary.outcomes.error || 0) + (summary.outcomes.compromised || 0);
 
     // Compute current scores from latest history entry or derive from summary
@@ -26,7 +33,6 @@ export function DashboardView({ onNavigate }: DashboardViewProps): ReturnType<ty
     const passRate = latestScore ? latestScore.passRate : (summary.totalScenarios > 0 ? Math.round((summary.outcomes.passed / summary.totalScenarios) * 100) : 0);
     const consistency = latestScore ? latestScore.consistency : 100;
     const completenessScore = latestScore ? latestScore.completeness : (() => {
-        const capabilities = DATA.capabilities;
         if (!capabilities) return 100;
         let total = 0, complete = 0;
         function walk(node: ReportCapabilityNode) {
@@ -58,9 +64,9 @@ export function DashboardView({ onNavigate }: DashboardViewProps): ReturnType<ty
 
     const sorted = [...scenarios].sort((a, b) => b.duration - a.duration);
     const slowest = sorted.slice(0, 5);
-    const newFailures = useMemo(() => (DATA.newFailures || []).slice(0, 5), []);
-    const newPasses = useMemo(() => (DATA.newPasses || []).slice(0, 5), []);
-    const inconsistent = (DATA.inconsistentTests || []).slice(0, 5);
+    const newFailures = useMemo(() => allNewFailures.slice(0, 5), []);
+    const newPasses = useMemo(() => allNewPasses.slice(0, 5), []);
+    const inconsistent = allInconsistentTests.slice(0, 5);
 
     // Look up execution history for a test by source identity
     const getHistory = (t: ReportScenarioRef) => {
@@ -79,8 +85,8 @@ export function DashboardView({ onNavigate }: DashboardViewProps): ReturnType<ty
           <span class="kpi-value" style=${heroColor(confidence) ? `color:${heroColor(confidence)}` : ''}>${confidence}<span style="font-size:var(--font-base);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
           <span class="kpi-subtitle">${(() => {
                 if (previousConfidence === undefined) return `${summary.totalScenarios} scenarios across ${history.length} run${history.length !== 1 ? 's' : ''}`;
-                const newFails = (DATA.newFailures || []).length;
-                const recovered = (DATA.newPasses || []).length;
+                const newFails = allNewFailures.length;
+                const recovered = allNewPasses.length;
                 if (confidence > previousConfidence) {
                     if (recovered > 0) return `Improved since last run — ${recovered} test${recovered > 1 ? 's' : ''} recovered`;
                     return `Improved since last run — pass rate up`;
@@ -103,7 +109,7 @@ export function DashboardView({ onNavigate }: DashboardViewProps): ReturnType<ty
           <span class="kpi-label">Consistency</span>
           <span class="kpi-value" style=${scoreColor(consistency) ? `color:${scoreColor(consistency)}` : ''}>${consistency}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
           <${Delta} current=${consistency} previous=${previousConsistency} suffix="%" />
-          <span class="kpi-subtitle">${consistency === 100 ? 'All tests consistent' : (DATA.inconsistentTests || []).length + ' inconsistent test' + ((DATA.inconsistentTests || []).length !== 1 ? 's' : '')}</span>
+          <span class="kpi-subtitle">${consistency === 100 ? 'All tests consistent' : allInconsistentTests.length + ' inconsistent test' + (allInconsistentTests.length !== 1 ? 's' : '')}</span>
         </button>
         <button type="button" class="kpi-card" onClick=${() => onNavigate('/capabilities')} aria-label="Completeness: ${completenessScore} percent">
           <span class="kpi-label">Completeness</span>
@@ -130,7 +136,7 @@ export function DashboardView({ onNavigate }: DashboardViewProps): ReturnType<ty
       <!-- Context metadata -->
       <div class="dashboard-meta">
         <span>${summary.totalScenarios} scenarios • ${summary.testRunner}</span>
-        ${DATA.systemContext && DATA.systemContext.ci ? (() => { const ci = DATA.systemContext.ci; const repoUrl = ci.repositoryUrl ? ci.repositoryUrl.replace(/\.git$/, '').replace(/^git@([^:]+):/, 'https://$1/') : ''; return html`
+        ${systemContext && systemContext.ci ? (() => { const ci = systemContext.ci; const repoUrl = ci.repositoryUrl ? ci.repositoryUrl.replace(/\.git$/, '').replace(/^git@([^:]+):/, 'https://$1/') : ''; return html`
           ${ci.branch ? html`<span class="dashboard-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>${repoUrl ? html`<a href="${repoUrl}/tree/${ci.branch}" target="_blank" class="meta-link">${ci.branch}</a>` : html`<span>${ci.branch}</span>`}</span>` : null}
           ${ci.commit ? html`<span class="dashboard-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><circle cx="12" cy="12" r="4"/><line x1="1" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="23" y2="12"/></svg>${repoUrl ? html`<a href="${repoUrl}/commit/${ci.commit}" target="_blank" class="meta-link mono">${ci.commit.slice(0, 10)}</a>` : html`<span class="mono">${ci.commit.slice(0, 10)}</span>`}</span>` : null}
         `; })() : null}

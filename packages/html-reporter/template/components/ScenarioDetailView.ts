@@ -2,8 +2,8 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 
-import type { ReportActivity } from '../../src/ReportData';
-import { ansiToHtml, browserBadgeClass, DATA, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast } from '../utils';
+import type { ReportActivity, ReportHistoryEntry, ReportScenario } from '../../src/ReportData';
+import { ansiToHtml, browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast } from '../utils';
 import { ActivityNode } from './ActivityNode';
 import { ExecutionHistory } from './scenario/ExecutionHistory';
 import { ParameterSetGroups } from './scenario/ParameterSetGroups';
@@ -13,23 +13,26 @@ const html = htm.bind(h);
 
 // ===== Test Scenario Detail View =====
 interface ScenarioDetailViewProps {
+    scenarios: ReportScenario[];
+    history: ReportHistoryEntry[];
+    specDirectory?: string;
     scenarioId: string;
     onNavigate: (path: string) => void;
 }
 
-export function ScenarioDetailView({ scenarioId, onNavigate }: ScenarioDetailViewProps): ReturnType<typeof html> {
+export function ScenarioDetailView({ scenarios, history, specDirectory, scenarioId, onNavigate }: ScenarioDetailViewProps): ReturnType<typeof html> {
     const cleanId = scenarioId.split('?')[0];
     const params = scenarioId.includes('?') ? new URLSearchParams(scenarioId.split('?')[1]) : null;
     const runString = params?.get('run');
     const runIndex = useMemo(() => {
         if (runString === null || runString === undefined) return null;
-        const byTs = DATA.history.findIndex(r => r.timestamp === runString);
+        const byTs = history.findIndex(r => r.timestamp === runString);
         if (byTs >= 0) return byTs;
         const parsed = parseInt(runString, 10);
         return isNaN(parsed) ? null : parsed;
     }, [runString]);
 
-    const scenario = DATA.scenarios.find(s => {
+    const scenario = scenarios.find(s => {
         const sourceKey = s.source.line
             ? s.source.path + ':' + s.source.line
             : s.source.path + ':' + s.name;
@@ -51,7 +54,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }: ScenarioDetailVie
     if (!scenario.activities) scenario.activities = [];
     if (!scenario.executionHistory) scenario.executionHistory = [];
 
-    const historicalEntry = runIndex !== null && runIndex !== DATA.history.length - 1 && scenario.executionHistory[runIndex]
+    const historicalEntry = runIndex !== null && runIndex !== history.length - 1 && scenario.executionHistory[runIndex]
         ? scenario.executionHistory[runIndex] : null;
 
     // Determine per-run retry state: when viewing a historical run, use its data
@@ -89,7 +92,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }: ScenarioDetailVie
     return html`
     <div>
       <div class="breadcrumb">
-        <a onClick=${() => onNavigate('/tests' + (runIndex !== null && DATA.history[runIndex] ? '?run=' + DATA.history[runIndex].timestamp : ''))}>Test Scenarios</a>
+        <a onClick=${() => onNavigate('/tests' + (runIndex !== null && history[runIndex] ? '?run=' + history[runIndex].timestamp : ''))}>Test Scenarios</a>
         ${scenario.category.split(' › ').map((segment) => html`
           <span>›</span>
           <a onClick=${() => onNavigate('/tests?search=' + encodeURIComponent('"' + segment + '"'))}>${segment}</a>
@@ -98,9 +101,9 @@ export function ScenarioDetailView({ scenarioId, onNavigate }: ScenarioDetailVie
         <span>${scenario.name}</span>
       </div>
 
-      ${runIndex !== null && runIndex !== DATA.history.length - 1 && DATA.history[runIndex] ? html`
+      ${runIndex !== null && runIndex !== history.length - 1 && history[runIndex] ? html`
         <div class="historical-banner">
-          <span>Viewing results from: <strong>${formatRunLabel(DATA.history[runIndex].label, DATA.history[runIndex].timestamp)}</strong></span>
+          <span>Viewing results from: <strong>${formatRunLabel(history[runIndex].label, history[runIndex].timestamp)}</strong></span>
           <a onClick=${() => onNavigate(scenarioUrl(scenario))} style="cursor:pointer;color:var(--accent);font-weight:500;text-decoration:underline">show latest</a>
         </div>
       ` : null}
@@ -120,7 +123,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }: ScenarioDetailVie
             <div class="scenario-detail-meta">
               <span>${formatDuration(activeDuration)}</span>
               <span>•</span>
-              <span class="scenario-source">${relativeSourcePath(scenario, DATA.capabilities ? DATA.capabilities.name : undefined)}</span>
+              <span class="scenario-source">${relativeSourcePath(scenario, specDirectory)}</span>
               ${getBrowserTag(scenario) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(scenario)!)}">${getBrowserTag(scenario)}</span>` : null}
             </div>
           </div>
@@ -133,7 +136,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }: ScenarioDetailVie
         ` : null}
 
         ${hasExecutionHistory ? html`
-          <${ExecutionHistory} scenario=${scenario} runIndex=${runIndex} history=${DATA.history} onNavigate=${onNavigate} />
+          <${ExecutionHistory} scenario=${scenario} runIndex=${runIndex} history=${history} onNavigate=${onNavigate} />
         ` : null}
 
         ${scenario.narrative ? html`

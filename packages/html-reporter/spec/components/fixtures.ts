@@ -15,18 +15,24 @@ export interface MountOptions {
     importPath: string;      // Import path relative to template/, e.g. './components/FilterBar'
     props?: Record<string, unknown>;
     data?: unknown;          // Injected as window.__SERENITY_REPORT_DATA__
+    dataAsProps?: boolean;   // When true, spread data fields into props (default: true for view-level components)
     chartJs?: boolean;       // Whether to load Chart.js (default: false)
 }
 
 export const test = base.extend<{ mount: (options: MountOptions) => Promise<void> }>({
     mount: async ({ page }, use) => {
-        const mount = async ({ component, importPath, props = {}, data = {}, chartJs = false }: MountOptions) => {
+        const mount = async ({ component, importPath, props = {}, data = {}, dataAsProps, chartJs = false }: MountOptions) => {
+            // View-level components receive data as props. Merge data fields into props unless explicitly disabled.
+            const viewComponents = ['DashboardView', 'ScenariosView', 'ScenarioDetailView', 'CapabilitiesView', 'ConsistencyView', 'ErrorsView', 'TagsView', 'TestRunsView', 'TimelineView', 'SystemContextView'];
+            const shouldMergeData = dataAsProps !== undefined ? dataAsProps : viewComponents.includes(component);
+            const mergedProps = shouldMergeData ? { ...(data as Record<string, unknown>), ...props } : props;
+
             const entryCode = [
                 `import htm from 'htm';`,
                 `import { h, render } from 'preact';`,
                 `import { ${component} } from '${importPath}';`,
                 `const html = htm.bind(h);`,
-                `const props = ${JSON.stringify(props)};`,
+                `const props = ${JSON.stringify(mergedProps)};`,
                 // Replace string-valued props starting with '__' with window function references
                 `for (const [k, v] of Object.entries(props)) { if (typeof v === 'string' && v.startsWith('__') && typeof window[v] === 'function') props[k] = window[v]; }`,
                 `render(html\`<\${${component}} ...\${props} />\`, document.getElementById('app'));`,

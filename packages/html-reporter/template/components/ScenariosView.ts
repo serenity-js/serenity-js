@@ -2,8 +2,8 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 
-import type { ReportOutcomes } from '../../src/ReportData';
-import { DATA, formatDuration, formatRunLabel, matchesSearch } from '../utils';
+import type { ReportHistoryEntry, ReportOutcomes, ReportScenario, ReportSummary } from '../../src/ReportData';
+import { formatDuration, formatRunLabel, matchesSearch } from '../utils';
 import { FilterBar } from './FilterBar';
 import { RunSelector } from './RunSelector';
 import { VirtualScenarioList } from './VirtualScenarioList';
@@ -12,11 +12,15 @@ const html = htm.bind(h);
 
 // ===== Test Scenarios List View =====
 interface ScenariosViewProps {
+    scenarios: ReportScenario[];
+    history: ReportHistoryEntry[];
+    summary: ReportSummary;
+    specDirectory?: string;
     onNavigate: (path: string) => void;
     route: string;
 }
 
-export function ScenariosView({ onNavigate, route }: ScenariosViewProps): ReturnType<typeof html> {
+export function ScenariosView({ scenarios: allScenarios, history, summary, specDirectory, onNavigate, route }: ScenariosViewProps): ReturnType<typeof html> {
     const [search, setSearch] = useState(() => {
         const hash = window.location.hash;
         const params = hash.includes('?') ? new URLSearchParams(hash.split('?')[1]) : null;
@@ -44,7 +48,7 @@ export function ScenariosView({ onNavigate, route }: ScenariosViewProps): Return
     }, [route]);
 
     const filtered = useMemo(() => {
-        let result = DATA.scenarios;
+        let result = allScenarios;
         if (filter && filter !== 'all') {
             const filterMatch: Record<string, string[]> = { passed: ['SUCCESS'], failed: ['FAILURE', 'ERROR', 'COMPROMISED'], skipped: ['SKIPPED', 'PENDING'] };
             const keys = filter.split(',');
@@ -70,7 +74,7 @@ export function ScenariosView({ onNavigate, route }: ScenariosViewProps): Return
     const runString = runParameters ? runParameters.get('run') : null;
     const runIndex = useMemo(() => {
         if (runString === null) return null;
-        const byTs = DATA.history.findIndex(r => r.timestamp === runString);
+        const byTs = history.findIndex(r => r.timestamp === runString);
         if (byTs >= 0) return byTs;
         const parsed = parseInt(runString, 10);
         return isNaN(parsed) ? null : parsed;
@@ -81,7 +85,7 @@ export function ScenariosView({ onNavigate, route }: ScenariosViewProps): Return
         if (search) params.set('search', search);
         if (filter && filter !== 'all') params.set('filter', filter);
         if (sort && sort !== 'category') params.set('sort', sort);
-        if (runIndex !== null && DATA.history[runIndex]) params.set('run', DATA.history[runIndex].timestamp);
+        if (runIndex !== null && history[runIndex]) params.set('run', history[runIndex].timestamp);
         const parameterString = params.toString();
         const newHash = parameterString ? '#/tests?' + parameterString : '#/tests';
         if (window.location.hash !== newHash) {
@@ -98,21 +102,21 @@ export function ScenariosView({ onNavigate, route }: ScenariosViewProps): Return
         return groups;
     }, [filtered]);
 
-    const historicalRun = (runIndex !== null && runIndex !== DATA.history.length - 1) ? DATA.history[runIndex] : null;
+    const historicalRun = (runIndex !== null && runIndex !== history.length - 1) ? history[runIndex] : null;
 
-    const activeRunTimestamp = runIndex !== null && DATA.history[runIndex] ? DATA.history[runIndex].timestamp : DATA.history[DATA.history.length - 1]?.timestamp;
+    const activeRunTimestamp = runIndex !== null && history[runIndex] ? history[runIndex].timestamp : history[history.length - 1]?.timestamp;
     const onRunChange = (e: Event) => {
         const ts = (e.target as HTMLSelectElement).value;
-        const index = DATA.history.findIndex(r => r.timestamp === ts);
-        const isLatest = index === DATA.history.length - 1;
+        const index = history.findIndex(r => r.timestamp === ts);
+        const isLatest = index === history.length - 1;
         onNavigate(isLatest ? '/tests' : '/tests?run=' + ts);
     };
 
     const runOutcomes: ReportOutcomes = useMemo(() => {
-        if (runIndex !== null && DATA.history[runIndex]) {
-            return DATA.history[runIndex].outcomes;
+        if (runIndex !== null && history[runIndex]) {
+            return history[runIndex].outcomes;
         }
-        return DATA.summary.outcomes;
+        return summary.outcomes;
     }, [runIndex]);
     const runTotal = useMemo(() => {
         return Object.values(runOutcomes).reduce((a: number, b: number) => a + b, 0);
@@ -127,7 +131,7 @@ export function ScenariosView({ onNavigate, route }: ScenariosViewProps): Return
         </div>
       ` : null}
 
-      <${RunSelector} activeTimestamp=${activeRunTimestamp} history=${DATA.history} onRunChange=${onRunChange} />
+      <${RunSelector} activeTimestamp=${activeRunTimestamp} history=${history} onRunChange=${onRunChange} />
 
       <div style="position:relative;margin-bottom:var(--space-md)">
         <input class="search-input" type="text" placeholder="Find test scenarios..."
@@ -150,12 +154,12 @@ export function ScenariosView({ onNavigate, route }: ScenariosViewProps): Return
 
       <div class="card">
         <div class="text-muted mb-md" aria-live="polite" aria-atomic="true">
-          Showing ${filtered.length} of ${DATA.scenarios.length} test scenarios
+          Showing ${filtered.length} of ${allScenarios.length} test scenarios
         </div>
         <${VirtualScenarioList} filtered=${filtered} grouped=${grouped} sort=${sort}
           onNavigate=${onNavigate} runIndex=${runIndex} setSearch=${setSearch}
-          specDirectory=${DATA.capabilities ? DATA.capabilities.name : undefined}
-          history=${DATA.history} />
+          specDirectory=${specDirectory}
+          history=${history} />
       </div>
     </div>
   `;

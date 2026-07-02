@@ -6,17 +6,18 @@ import { useCallback, useMemo, useRef, useState } from 'preact/hooks';
 import type { ReportInconsistentTest } from '../../src/ReportData';
 import { useStickyHeader, useVirtualizer } from '../hooks';
 import type { Range } from '../hooks/useVirtualizer';
-import { DATA, matchesSearch, outcomeClass, relativeSourcePath, scenarioUrl } from '../utils';
+import { matchesSearch, outcomeClass, relativeSourcePath, scenarioUrl } from '../utils';
 import { icons } from './icons';
 
 const html = htm.bind(h);
 
 interface ConsistencyViewProps {
+    inconsistentTests: ReportInconsistentTest[];
+    specDirectory?: string;
     onNavigate: (path: string) => void;
 }
 
-export function ConsistencyView({ onNavigate }: ConsistencyViewProps): ReturnType<typeof html> {
-    const inconsistentTests = DATA.inconsistentTests || [];
+export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }: ConsistencyViewProps): ReturnType<typeof html> {
 
     const [filter, setFilter] = useState('inconsistent');
     const [search, setSearch] = useState('');
@@ -193,7 +194,7 @@ export function ConsistencyView({ onNavigate }: ConsistencyViewProps): ReturnTyp
                   <div class="scenario-info">
                     <div class="scenario-name">${t.name}</div>
                     <div class="scenario-meta">
-                      <span class="scenario-source">${relativeSourcePath(t, DATA.capabilities ? DATA.capabilities.name : undefined)}</span>
+                      <span class="scenario-source">${relativeSourcePath(t, specDirectory)}</span>
                       ${t.history && t.history.length > 1 ? html`<span class="scenario-history">${t.history.slice(-5).map((outcome, i) => html`<span class="history-dot history-dot--${outcomeClass(outcome)}" title=${outcome + (t.labels && t.labels[i] ? ' (' + t.labels[i] + ')' : '')}></span>`)}</span>` : null}
                     </div>
                   </div>

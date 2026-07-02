@@ -3,7 +3,6 @@ import { h } from 'preact';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 
 import type { ReportCapabilityNode } from '../../src/ReportData';
-import { DATA } from '../utils';
 import { DetailPanel } from './capabilities/CapabilityDetail';
 import { countTopLevelCapabilities, countVisibleNodes, findNodeByPath, getVisiblePaths, nodeConfidence, nodeHasGap, TreeNode } from './capabilities/CapabilityTree';
 import { icons } from './icons';
@@ -70,12 +69,12 @@ function CapabilitiesFilterBar({ activeFilter, onFilter, capabilities, searchTer
 }
 
 interface CapabilitiesViewProps {
+    capabilities?: ReportCapabilityNode;
     onNavigate: (path: string) => void;
     route: string;
 }
 
-export function CapabilitiesView({ onNavigate, route }: CapabilitiesViewProps): ReturnType<typeof html> {
-    const capabilities = DATA.capabilities;
+export function CapabilitiesView({ capabilities, onNavigate, route }: CapabilitiesViewProps): ReturnType<typeof html> {
 
     if (!capabilities) {
         return html`

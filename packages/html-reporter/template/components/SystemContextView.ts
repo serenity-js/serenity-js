@@ -1,13 +1,17 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import { DATA } from '../utils';
+import type { ReportSystemContext } from '../../src/ReportData';
 import { icons } from './icons';
 
 const html = htm.bind(h);
 
-export function SystemContextView(): ReturnType<typeof html> {
-    const context = DATA.systemContext;
+interface SystemContextViewProps {
+    systemContext?: ReportSystemContext;
+}
+
+export function SystemContextView({ systemContext }: SystemContextViewProps): ReturnType<typeof html> {
+    const context = systemContext;
 
     if (!context) {
         return html`

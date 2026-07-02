@@ -2,22 +2,24 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useMemo, useRef, useState } from 'preact/hooks';
 
+import type { ReportScenario, ReportSummary } from '../../src/ReportData';
 import { useVirtualizer } from '../hooks';
-import { DATA, formatDuration, formatTimestamp, outcomeClass, outcomeIcon, scenarioUrl } from '../utils';
+import { formatDuration, formatTimestamp, outcomeClass, outcomeIcon, scenarioUrl } from '../utils';
 import { FilterBar } from './FilterBar';
 
 const html = htm.bind(h);
 
 interface TimelineViewProps {
+    scenarios: ReportScenario[];
+    summary: ReportSummary;
     onNavigate: (path: string) => void;
 }
 
-export function TimelineView({ onNavigate }: TimelineViewProps): ReturnType<typeof html> {
+export function TimelineView({ scenarios: allScenarios, summary, onNavigate }: TimelineViewProps): ReturnType<typeof html> {
     const [sortBy, setSortBy] = useState('time');
     const [filter, setFilter] = useState('all');
-    const allScenarios = DATA.scenarios;
-    const start = new Date(DATA.summary.startedAt).getTime();
-    const end = new Date(DATA.summary.finishedAt).getTime();
+    const start = new Date(summary.startedAt).getTime();
+    const end = new Date(summary.finishedAt).getTime();
     const totalDur = end - start;
 
     const scenarios = useMemo(() => {
@@ -62,14 +64,14 @@ export function TimelineView({ onNavigate }: TimelineViewProps): ReturnType<type
           <span class="kpi-label">Average</span>
           <span class="kpi-value">${formatDuration(avg)}</span>
         </div>
-        <div class="kpi-card" tabindex="0" aria-label="Total duration: ${formatDuration(DATA.summary.duration)}">
+        <div class="kpi-card" tabindex="0" aria-label="Total duration: ${formatDuration(summary.duration)}">
           <span class="kpi-label">Total</span>
-          <span class="kpi-value">${formatDuration(DATA.summary.duration)}</span>
+          <span class="kpi-value">${formatDuration(summary.duration)}</span>
           <span class="kpi-subtitle">${allScenarios.length} scenarios</span>
         </div>
       </div>
 
-      <${FilterBar} outcomes=${DATA.summary.outcomes} total=${allScenarios.length}
+      <${FilterBar} outcomes=${summary.outcomes} total=${allScenarios.length}
                    activeFilter=${filter} onFilter=${setFilter}
                    sortOptions=${[
                         { key: 'time', label: 'Execution order' },
