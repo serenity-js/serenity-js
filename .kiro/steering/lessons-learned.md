@@ -55,3 +55,37 @@ Binary artifacts (photos, videos) are persisted as files and referenced by path.
 1. At the start of any task, read `.kiro/hooks/` to discover what hooks exist and what commands they run.
 2. After every batch of file writes, run the hook commands manually — e.g. `npx eslint <changed-files>` for `lint-on-save`.
 3. Treat hook commands as mandatory verification steps, not optional extras, before presenting work as complete.
+
+## htm tagged template return type in Preact components
+
+`htm.bind(h)` returns a function typed as `(strings, ...values) => HResult | HResult[]` where `HResult` is `VNode<Attributes>`. This means `html\`...\`` can return either a VNode or an array of VNodes at the type level, even though a single root element always produces a single VNode at runtime.
+
+For ESLint's `@typescript-eslint/explicit-module-boundary-types` rule, use `ReturnType<typeof html>` as the return type for exported component functions. Do NOT use `VNode` or `VNode<any>` — these don't match the union type that htm declares and cause TS2322 errors.
+
+The existing `RunSelector.ts` established this pattern first.
+
+## PhotoStrip collectPhotos traversal order
+
+The `collectPhotos` function in `PhotoStrip` processes each activity's own `artifacts` array **before** recursing into `children`. This means a parent activity's screenshots appear before its children's screenshots in the gallery, even though the child activity executes during the parent.
+
+## ANSI escape sequences in error messages
+
+Test runners like Playwright embed ANSI SGR colour codes in error messages (e.g., `\u001b[32m` for green "Expected" values, `\u001b[31m` for red "Received" values). The `ansiToHtml` utility in `template/utils/` converts these to `<span class="ansi-{colour}">` elements. Error rendering uses `dangerouslySetInnerHTML` to output the converted HTML.
+
+When adding new error display locations, remember to use `ansiToHtml()` — raw interpolation (`${error.message}`) will show escape characters to the user.
+
+## Component extraction is import-path-stable
+
+The html-reporter's component tests reference components via `importPath: './components/ComponentName'` in the esbuild-based test fixture. When extracting sub-components from a view file, as long as the parent file still exports the same function at the same path, all existing tests continue to pass without modification. The extracted children are internal implementation details that don't need their own import paths in existing tests.
+
+## Always use `npm run compile` when building a package
+
+Each package produces both CJS (`lib/`) and ESM (`esm/`) output. Running `npx tsc --build tsconfig.build.json` only builds one of them. Other packages that depend on it (via `workspace:*` links) may resolve to either output depending on their `moduleResolution` setting (e.g., `Node16` uses the `exports` field which distinguishes `import` vs `require` conditions).
+
+Always use `npm run compile` in the package directory — this runs both `tsconfig-cjs.build.json` and `tsconfig-esm.build.json` builds. Failing to build both will cause type errors in downstream packages that happen to resolve via the stale output.
+
+## Test-scoped crew members must be unassigned after each test
+
+In `packages/playwright-test/src/api/test-api.ts`, the `configureScenarioInternal` fixture calls `serenity.configure({ crew: [...] })` for each test. Because `configure()` appends crew to the `StageManager.subscribers` array (via `stage.assign()`), crew members accumulate across tests running in the same worker. This causes duplicate screenshots (N Photographers = N screenshots per interaction).
+
+The fix: `configure()` returns the instantiated crew array. The fixture stores it and calls `serenity.unassign(...sceneCrew)` in the `finally` block after `persist()`. This ensures each test starts with a clean crew.

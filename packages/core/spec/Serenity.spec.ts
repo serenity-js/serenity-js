@@ -218,4 +218,81 @@ describe('Serenity', () => {
             this.events.push(event);
         }
     }
+
+    describe('when unassigning listeners', () => {
+
+        it('returns the instantiated crew members from configure()', () => {
+            const frozenClock = new Clock(() => new Date('1983-07-03'));
+            const serenity = new Serenity(frozenClock);
+            const listener = new Listener();
+
+            const registeredCrew = serenity.configure({
+                crew: [ listener ],
+            });
+
+            expect(registeredCrew).to.have.lengthOf(1);
+            expect(registeredCrew[0]).to.equal(listener);
+        });
+
+        it('returns an empty array when no crew is configured', () => {
+            const frozenClock = new Clock(() => new Date('1983-07-03'));
+            const serenity = new Serenity(frozenClock);
+
+            const registeredCrew = serenity.configure({});
+
+            expect(registeredCrew).to.deep.equal([]);
+        });
+
+        it('stops notifying an unassigned listener of domain events', async () => {
+            const frozenClock = new Clock(() => new Date('1983-07-03'));
+            const serenity = new Serenity(frozenClock);
+            const listener = new Listener();
+
+            serenity.configure({
+                crew: [ listener ],
+            });
+
+            serenity.theActorCalled('Alice');
+            expect(listener.events.length).to.be.greaterThan(0);
+
+            const eventCountBefore = listener.events.length;
+
+            serenity.unassign(listener);
+
+            serenity.theActorCalled('Bob');
+
+            expect(listener.events).to.have.lengthOf(eventCountBefore);
+
+            await serenity.theActorCalled('Alice').dismiss();
+            await serenity.theActorCalled('Bob').dismiss();
+        });
+
+        it('unassigns multiple listeners at once', async () => {
+            const frozenClock = new Clock(() => new Date('1983-07-03'));
+            const serenity = new Serenity(frozenClock);
+            const listener1 = new Listener();
+            const listener2 = new Listener();
+
+            serenity.configure({
+                crew: [ listener1, listener2 ],
+            });
+
+            serenity.theActorCalled('Alice');
+            expect(listener1.events.length).to.be.greaterThan(0);
+            expect(listener2.events.length).to.be.greaterThan(0);
+
+            const countBefore1 = listener1.events.length;
+            const countBefore2 = listener2.events.length;
+
+            serenity.unassign(listener1, listener2);
+
+            serenity.theActorCalled('Bob');
+
+            expect(listener1.events).to.have.lengthOf(countBefore1);
+            expect(listener2.events).to.have.lengthOf(countBefore2);
+
+            await serenity.theActorCalled('Alice').dismiss();
+            await serenity.theActorCalled('Bob').dismiss();
+        });
+    });
 });
