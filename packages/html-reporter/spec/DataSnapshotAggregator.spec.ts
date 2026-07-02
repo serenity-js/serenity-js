@@ -504,6 +504,42 @@ test.describe('DataSnapshotAggregator', () => {
             // Old failure is outside the window of 2, so test is stable
             expect(data.inconsistentTests).toHaveLength(0);
         });
+
+        test('does not classify tests as degraded when consistently pending across runs and source.line is undefined', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                        startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.500Z',
+                        outcomes: { passed: 2, failed: 0, pending: 2, skipped: 0, compromised: 0, error: 0 },
+                        scenes: [
+                            { name: 'passing test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'pending.spec.ts' }, tags: [], activities: [] },
+                            { name: 'passing test B', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.100Z', source: { path: 'pending.spec.ts' }, tags: [], activities: [] },
+                            { name: 'pending test A', category: 'Suite', outcome: { code: 8 }, duration: 3, startedAt: '2024-06-14T10:00:00.200Z', source: { path: 'pending.spec.ts' }, tags: [], activities: [] },
+                            { name: 'pending test B', category: 'Suite', outcome: { code: 8 }, duration: 2, startedAt: '2024-06-14T10:00:00.300Z', source: { path: 'pending.spec.ts' }, tags: [], activities: [] },
+                        ],
+                        tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                    }) },
+                    '2024-06-15T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                        startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.500Z',
+                        outcomes: { passed: 2, failed: 0, pending: 2, skipped: 0, compromised: 0, error: 0 },
+                        scenes: [
+                            { name: 'passing test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'pending.spec.ts' }, tags: [], activities: [] },
+                            { name: 'passing test B', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.100Z', source: { path: 'pending.spec.ts' }, tags: [], activities: [] },
+                            { name: 'pending test A', category: 'Suite', outcome: { code: 8 }, duration: 3, startedAt: '2024-06-15T10:00:00.200Z', source: { path: 'pending.spec.ts' }, tags: [], activities: [] },
+                            { name: 'pending test B', category: 'Suite', outcome: { code: 8 }, duration: 2, startedAt: '2024-06-15T10:00:00.300Z', source: { path: 'pending.spec.ts' }, tags: [], activities: [] },
+                        ],
+                        tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                    }) },
+                },
+            }, { consistencyWindow: 5 });
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            // Outcomes haven't changed between runs — no new failures or passes
+            expect(data.newFailures).toHaveLength(0);
+            expect(data.newPasses).toHaveLength(0);
+        });
     });
 
     test.describe('tag statistics', () => {

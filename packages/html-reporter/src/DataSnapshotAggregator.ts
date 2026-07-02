@@ -340,10 +340,10 @@ export class DataSnapshotAggregator {
 
         const latestRun = allRuns[allRuns.length - 1];
         const previousRun = allRuns[allRuns.length - 2];
-        const previousOutcomes = new Map(previousRun.scenes.map(s => [s.source.path + ':' + s.source.line, s.outcome.code]));
+        const previousOutcomes = new Map(previousRun.scenes.map(s => [this.sceneIdentity(s), s.outcome.code]));
 
         for (const scene of latestRun.scenes) {
-            const key = scene.source.path + ':' + scene.source.line;
+            const key = this.sceneIdentity(scene);
             const previousCode = previousOutcomes.get(key);
             if (previousCode !== undefined) {
                 const previousSuccess = previousCode === ExecutionSuccessful.Code;
