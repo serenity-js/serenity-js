@@ -540,6 +540,31 @@ test.describe('DataSnapshotAggregator', () => {
             expect(data.newFailures).toHaveLength(0);
             expect(data.newPasses).toHaveLength(0);
         });
+
+        test('separates inconsistent tests by project/browser tag', () => {
+            // Same test in chromium (flaky) and firefox (stable) — should produce
+            // one inconsistent entry for chromium only, not a merged entry.
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1, startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [
+                        { name: 'Login test', category: 'Auth', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'login.spec.ts', line: 5 }, tags: [{ type: 'project', name: 'chromium' }], activities: [] },
+                        { name: 'Login test', category: 'Auth', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'login.spec.ts', line: 5 }, tags: [{ type: 'project', name: 'firefox' }], activities: [] },
+                    ], tags: [], testRunner: { name: 'PW', version: '1.0.0' } }) },
+                    '2024-06-15T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1, startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z', outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [
+                        { name: 'Login test', category: 'Auth', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'login.spec.ts', line: 5 }, tags: [{ type: 'project', name: 'chromium' }], activities: [] },
+                        { name: 'Login test', category: 'Auth', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'login.spec.ts', line: 5 }, tags: [{ type: 'project', name: 'firefox' }], activities: [] },
+                    ], tags: [], testRunner: { name: 'PW', version: '1.0.0' } }) },
+                },
+            }, { consistencyWindow: 5 });
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            // Only chromium is inconsistent (passed then failed). Firefox is stable (always passed).
+            expect(data.inconsistentTests).toHaveLength(1);
+            expect(data.inconsistentTests[0].name).toBe('Login test');
+            expect(data.inconsistentTests[0].tags).toContainEqual({ type: 'project', name: 'chromium' });
+        });
     });
 
     test.describe('tag statistics', () => {

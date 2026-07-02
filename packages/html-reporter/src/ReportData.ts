@@ -179,6 +179,7 @@ export interface ReportInconsistentTest {
     name: string;
     category: string;
     source: ReportSource;
+    tags: ReportScenarioTag[];
     inconsistencyRate: number;
     history: string[];
     labels: string[];

@@ -6,7 +6,7 @@ import { useCallback, useMemo, useRef, useState } from 'preact/hooks';
 import type { ReportInconsistentTest } from '../../src/ReportData';
 import { useStickyHeader, useVirtualizer } from '../hooks';
 import type { Range } from '../hooks/useVirtualizer';
-import { matchesSearch, outcomeClass, relativeSourcePath, scenarioUrl } from '../utils';
+import { browserBadgeClass, getBrowserTag, matchesSearch, outcomeClass, relativeSourcePath, scenarioUrl } from '../utils';
 import { icons } from './icons';
 
 const html = htm.bind(h);
@@ -194,6 +194,8 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
                   <div class="scenario-info">
                     <div class="scenario-name">${t.name}</div>
                     <div class="scenario-meta">
+                      ${getBrowserTag(t) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(t)!)}">${getBrowserTag(t)}</span>` : null}
+                      ${(t.tags || []).filter(tag => tag.type === 'project').map(tag => html`<span class="badge">${tag.name}</span>`)}
                       <span class="scenario-source">${relativeSourcePath(t, specDirectory)}</span>
                       ${t.history && t.history.length > 1 ? html`<span class="scenario-history">${t.history.slice(-5).map((outcome, i) => html`<span class="history-dot history-dot--${outcomeClass(outcome)}" title=${outcome + (t.labels && t.labels[i] ? ' (' + t.labels[i] + ')' : '')}></span>`)}</span>` : null}
                     </div>

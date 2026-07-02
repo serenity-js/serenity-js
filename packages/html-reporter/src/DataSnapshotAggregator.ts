@@ -14,7 +14,7 @@ import {
 import { marked } from 'marked';
 
 import { scoreCapability,scoreDirectory } from './CapabilityConfidenceScorer.js';
-import type { ActivityRecord, RunData, SceneRecord } from './model/RunData.js';
+import type { ActivityRecord, RunData, SceneRecord, TagRecord } from './model/RunData.js';
 import { IncompatibleSchemaError, InvalidRunDataError, validateRunData } from './model/validation.js';
 import type { ReportActivity, ReportCapabilityNode, ReportData, ReportExecutionHistoryEntry, ReportHistoryEntry, ReportOutcomes, ReportScenario, ReportSystemContext } from './ReportData.js';
 import { CURRENT_REPORT_DATA_SCHEMA_VERSION } from './ReportData.js';
@@ -719,18 +719,20 @@ export class DataSnapshotAggregator {
             .map(entry => testRunsDirectory.join(Path.from(entry)));
     }
 
-    private identifyUnstableTests(allRuns: RunData[]): Array<{ name: string; category: string; source: { path: string; line: number }; inconsistencyRate: number; history: string[]; labels: string[] }> {
+    private identifyUnstableTests(allRuns: RunData[]): Array<{ name: string; category: string; source: { path: string; line: number }; tags: TagRecord[]; inconsistencyRate: number; history: string[]; labels: string[] }> {
         const recentRuns = allRuns.slice(-this.config.consistencyWindow);
 
-        // Collect outcomes per test identity (name@path)
-        const testOutcomes = new Map<string, { name: string; category: string; source: { path: string; line: number }; outcomes: string[]; labels: string[] }>();
+        // Collect outcomes per test identity (name@path@project)
+        // Including the project tag ensures different browser/OS variations are tracked separately
+        const testOutcomes = new Map<string, { name: string; category: string; source: { path: string; line: number }; tags: TagRecord[]; outcomes: string[]; labels: string[] }>();
 
         for (const run of recentRuns) {
             const runLabel = this.resolveRunLabel(run);
             for (const scene of run.scenes) {
-                const identity = `${ scene.name }@${ scene.source.path }`;
+                const projectTag = scene.tags.find(t => t.type === 'project')?.name || '';
+                const identity = `${ scene.name }@${ scene.source.path }@${ projectTag }`;
                 if (!testOutcomes.has(identity)) {
-                    testOutcomes.set(identity, { name: scene.name, category: scene.category, source: scene.source, outcomes: [], labels: [] });
+                    testOutcomes.set(identity, { name: scene.name, category: scene.category, source: scene.source, tags: scene.tags, outcomes: [], labels: [] });
                 }
                 const entry = testOutcomes.get(identity);
                 entry.outcomes.push(outcomeCodeToDisplayString(scene.outcome.code));
@@ -739,7 +741,7 @@ export class DataSnapshotAggregator {
         }
 
         // Find tests with mixed outcomes
-        const unstable: Array<{ name: string; category: string; source: { path: string; line: number }; inconsistencyRate: number; history: string[]; labels: string[] }> = [];
+        const unstable: Array<{ name: string; category: string; source: { path: string; line: number }; tags: TagRecord[]; inconsistencyRate: number; history: string[]; labels: string[] }> = [];
 
         for (const [, test] of testOutcomes) {
             const uniqueOutcomes = new Set(test.outcomes);
@@ -749,6 +751,7 @@ export class DataSnapshotAggregator {
                     name: test.name,
                     category: test.category,
                     source: test.source,
+                    tags: test.tags,
                     inconsistencyRate: failures / test.outcomes.length,
                     history: test.outcomes,
                     labels: test.labels,
