@@ -96,6 +96,45 @@ test.describe('Deep linking — ScenarioDetailView attempts', () => {
         const videoSource = page.locator('video source');
         await expect(videoSource).toHaveAttribute('src', 'test-runs/run-1/video-2.webm');
     });
+
+    test('hides video section for attempts that have no recording', async ({ mount, page }) => {
+        // Simulate video: 'on-first-retry' — only attempt 2 has a video
+        const attemptsWithPartialVideo = [
+            { attemptNumber: 1, outcome: 'FAILURE', duration: 200, activities: [{ name: 'step 1', outcome: 'FAILURE', duration: 200, children: [] }], error: { name: 'Error', message: 'attempt 1 failed' } },
+            { attemptNumber: 2, outcome: 'FAILURE', duration: 180, activities: [{ name: 'step 2', outcome: 'FAILURE', duration: 180, children: [] }], error: { name: 'Error', message: 'attempt 2 failed' }, video: 'test-runs/run-1/video-retry.webm' },
+            { attemptNumber: 3, outcome: 'SUCCESS', duration: 150, activities: [{ name: 'step 3', outcome: 'SUCCESS', duration: 150, children: [] }] },
+        ];
+
+        const data = minimalData({
+            scenarios: [{
+                name: 'retried test', category: 'Suite', outcome: 'SUCCESS', duration: 150,
+                startedAt: '2024-06-15T14:30:00.000Z',
+                source: { path: 'spec/retry.spec.ts', line: 10 },
+                tags: [],
+                activities: attemptsWithPartialVideo[2].activities,
+                executionHistory: [],
+                retries: 2,
+                attempts: attemptsWithPartialVideo,
+                video: 'test-runs/run-1/video-retry.webm',
+            }],
+            history: [{
+                timestamp: '2024-06-15T14:30:00.000Z', label: '#1',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                duration: 500, slowest: 150, fastest: 150, average: 150,
+            }],
+        });
+
+        // Select attempt 1, which has no video
+        await mount({
+            component: 'ScenarioDetailView',
+            importPath: './components/ScenarioDetailView',
+            props: { scenarioId: `${SCENARIO_ID}?attempt=1`, onNavigate: '__noop' },
+            data,
+        });
+
+        const video = page.locator('video');
+        await expect(video).toHaveCount(0);
+    });
 });
 
 test.describe('Deep linking — PhotoStrip', () => {
