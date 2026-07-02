@@ -654,6 +654,9 @@
       font-size: var(--font-xs);
       color: var(--color-pending);
       font-weight: 500;
+      background: color-mix(in srgb, var(--color-pending) 15%, transparent);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
     }
 
     /* ===== Search ===== */
