@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 
 import type { ReportParameterSet } from '../../../src/ReportData';
-import { formatDuration, hashHistory, outcomeClass, outcomeIcon, showToast } from '../../utils';
+import { formatDuration, outcomeClass, outcomeIcon, showToast, useHashHistory } from '../../utils';
 import { ActivityNode } from '../ActivityNode';
 import { icons } from '../icons';
 
@@ -17,16 +17,17 @@ export interface ParameterSetNodeProps {
 }
 
 export function ParameterSetNode({ ps, index, groupIndex, forceExpanded }: ParameterSetNodeProps): ReturnType<typeof html> {
+    const hashNav = useHashHistory();
     const exampleId = (groupIndex !== undefined ? groupIndex + '-' : '') + (index + 1);
     const isLinked = (() => {
-        return hashHistory.getParam('example') === exampleId;
+        return hashNav.getParam('example') === exampleId;
     })();
     const [expanded, setExpanded] = useState(true);
     useEffect(() => { if (forceExpanded !== undefined) setExpanded(forceExpanded); }, [forceExpanded]);
     const nodeRef = useRef<HTMLElement | null>(null);
     const copyLink = (e: Event) => {
         e.stopPropagation();
-        hashHistory.setParam('example', exampleId);
+        hashNav.setParam('example', exampleId);
         const url = window.location.href;
         navigator.clipboard.writeText(url).then(() => showToast('Link copied to clipboard')).catch(() => {});
     };

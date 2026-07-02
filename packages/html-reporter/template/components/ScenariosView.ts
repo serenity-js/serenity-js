@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 
 import type { ReportHistoryEntry, ReportOutcomes, ReportScenario, ReportSummary } from '../../src/ReportData';
-import { formatDuration, formatRunLabel, hashHistory, matchesSearch } from '../utils';
+import { formatDuration, formatRunLabel, matchesSearch, useHashHistory } from '../utils';
 import { FilterBar } from './FilterBar';
 import { RunSelector } from './RunSelector';
 import { VirtualScenarioList } from './VirtualScenarioList';
@@ -21,14 +21,15 @@ interface ScenariosViewProps {
 }
 
 export function ScenariosView({ scenarios: allScenarios, history, summary, specDirectory, onNavigate, route }: ScenariosViewProps): ReturnType<typeof html> {
+    const hashNav = useHashHistory();
     const [search, setSearch] = useState(() => {
-        return hashHistory.getParam('search') || '';
+        return hashNav.getParam('search') || '';
     });
     const [filter, setFilter] = useState(() => {
-        return hashHistory.getParam('filter') || 'all';
+        return hashNav.getParam('filter') || 'all';
     });
     const [sort, setSort] = useState(() => {
-        return hashHistory.getParam('sort') || 'category';
+        return hashNav.getParam('sort') || 'category';
     });
 
     useEffect(() => {
@@ -82,7 +83,7 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
         if (runIndex !== null && history[runIndex]) params.set('run', history[runIndex].timestamp);
         const parameterString = params.toString();
         const newHash = parameterString ? '/tests?' + parameterString : '/tests';
-        hashHistory.replace(newHash);
+        hashNav.replace(newHash);
     }, [search, filter, sort]);
 
     const grouped = useMemo(() => {

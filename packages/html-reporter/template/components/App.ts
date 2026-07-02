@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
 
-import { DATA, formatTimestamp, hashHistory, totalFailedCount } from '../utils';
+import { DATA, formatTimestamp, totalFailedCount, useHashHistory } from '../utils';
 import { AboutView } from './AboutView';
 import { CapabilitiesView } from './CapabilitiesView';
 import { ConsistencyView } from './ConsistencyView';
@@ -26,8 +26,9 @@ function initTheme() {
 }
 
 export function App(): ReturnType<typeof html> {
+    const hashNav = useHashHistory();
     const [theme, setTheme] = useState(initTheme);
-    const [route, setRoute] = useState(hashHistory.getRoute);
+    const [route, setRoute] = useState(() => hashNav.getRoute());
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [sidebarCollapsed, setSidebarCollapsed] = useState(() => localStorage.getItem('serenity-sidebar-collapsed') === 'true');
 
@@ -42,7 +43,7 @@ export function App(): ReturnType<typeof html> {
     }, []);
 
     useEffect(() => {
-        const onHash = () => setRoute(hashHistory.getRoute());
+        const onHash = () => setRoute(hashNav.getRoute());
         window.addEventListener('hashchange', onHash);
         window.addEventListener('popstate', onHash);
         return () => {

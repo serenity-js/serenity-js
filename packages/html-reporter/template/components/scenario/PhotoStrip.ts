@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 
 import type { ReportActivity } from '../../../src/ReportData';
-import { formatDuration, hashHistory } from '../../utils';
+import { formatDuration, useHashHistory } from '../../utils';
 
 const html = htm.bind(h);
 
@@ -13,19 +13,20 @@ export interface PhotoStripProps {
 }
 
 export function PhotoStrip({ activities, scenarioStartedAt }: PhotoStripProps): ReturnType<typeof html> | null {
+    const hashNav = useHashHistory();
     const [lightboxIndex, setLightboxIndex] = useState(-1);
 
     const openPhoto = (index: number) => {
         setLightboxIndex(index);
         if (index >= 0) {
-            hashHistory.setParam('photo', String(index));
+            hashNav.setParam('photo', String(index));
         } else {
-            hashHistory.deleteParam('photo');
+            hashNav.deleteParam('photo');
         }
     };
 
     useEffect(() => {
-        const photoParameter = hashHistory.getParam('photo');
+        const photoParameter = hashNav.getParam('photo');
         if (photoParameter) {
             const photoIndex = parseInt(photoParameter, 10);
             setTimeout(() => {

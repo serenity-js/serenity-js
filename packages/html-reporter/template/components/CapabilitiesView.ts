@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 
 import type { ReportCapabilityNode } from '../../src/ReportData';
-import { hashHistory } from '../utils';
+import { useHashHistory } from '../utils';
 import { DetailPanel } from './capabilities/CapabilityDetail';
 import { countTopLevelCapabilities, countVisibleNodes, findNodeByPath, getVisiblePaths, nodeConfidence, nodeHasGap, TreeNode } from './capabilities/CapabilityTree';
 import { icons } from './icons';
@@ -76,6 +76,7 @@ interface CapabilitiesViewProps {
 }
 
 export function CapabilitiesView({ capabilities, onNavigate, route }: CapabilitiesViewProps): ReturnType<typeof html> {
+    const hashNav = useHashHistory();
 
     if (!capabilities) {
         return html`
@@ -116,7 +117,7 @@ export function CapabilitiesView({ capabilities, onNavigate, route }: Capabiliti
         setSelectedPath(path);
         setSelectedNode(node);
         const newHash = path ? '/capabilities?path=' + encodeURIComponent(path) : '/capabilities';
-        hashHistory.push(newHash);
+        hashNav.push(newHash);
     };
 
     const onTreeKeyDown = (e: KeyboardEvent) => {
