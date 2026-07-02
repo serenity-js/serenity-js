@@ -8,6 +8,7 @@ import { AreaSparkline } from './charts/AreaSparkline';
 import { Delta } from './charts/Delta';
 import { DotTrend } from './charts/DotTrend';
 import { TrendChart } from './charts/TrendChart';
+import { icons } from './icons';
 
 const html = htm.bind(h);
 
@@ -137,8 +138,8 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
       <div class="dashboard-meta">
         <span>${summary.totalScenarios} scenarios • ${summary.testRunner}</span>
         ${systemContext && systemContext.ci ? (() => { const ci = systemContext.ci; const repoUrl = ci.repositoryUrl ? ci.repositoryUrl.replace(/\.git$/, '').replace(/^git@([^:]+):/, 'https://$1/') : ''; return html`
-          ${ci.branch ? html`<span class="dashboard-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>${repoUrl ? html`<a href="${repoUrl}/tree/${ci.branch}" target="_blank" class="meta-link">${ci.branch}</a>` : html`<span>${ci.branch}</span>`}</span>` : null}
-          ${ci.commit ? html`<span class="dashboard-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><circle cx="12" cy="12" r="4"/><line x1="1" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="23" y2="12"/></svg>${repoUrl ? html`<a href="${repoUrl}/commit/${ci.commit}" target="_blank" class="meta-link mono">${ci.commit.slice(0, 10)}</a>` : html`<span class="mono">${ci.commit.slice(0, 10)}</span>`}</span>` : null}
+          ${ci.branch ? html`<span class="dashboard-meta-item">${icons.branchSm}${repoUrl ? html`<a href="${repoUrl}/tree/${ci.branch}" target="_blank" class="meta-link">${ci.branch}</a>` : html`<span>${ci.branch}</span>`}</span>` : null}
+          ${ci.commit ? html`<span class="dashboard-meta-item">${icons.commitSm}${repoUrl ? html`<a href="${repoUrl}/commit/${ci.commit}" target="_blank" class="meta-link mono">${ci.commit.slice(0, 10)}</a>` : html`<span class="mono">${ci.commit.slice(0, 10)}</span>`}</span>` : null}
         `; })() : null}
       </div>
 

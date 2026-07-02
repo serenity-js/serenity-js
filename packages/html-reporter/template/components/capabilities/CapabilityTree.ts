@@ -3,10 +3,9 @@ import { h } from 'preact';
 
 import type { ReportCapabilityNode } from '../../../src/ReportData';
 import { SegmentedBar } from '../charts/SegmentedBar';
+import { icons } from '../icons';
 
 const html = htm.bind(h);
-
-const folderIcon = html`<svg class="req-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>`;
 
 export function confidenceColor(score: number): string {
     if (score >= 90) return 'var(--color-passed)';
@@ -213,7 +212,7 @@ export function TreeNode({ node, onSelect, selectedPath, focusedPath, depth, pat
                  role="treeitem" aria-selected=${isSelected}
                  data-tree-path=${collapsedPath}
                  onClick=${() => onSelect(collapsedPath, displayNode)}>
-                <span class="req-tree-icon">${folderIcon}</span>
+                <span class="req-tree-icon">${icons.folder}</span>
                 <span class="req-tree-label">${isRoot ? (node.displayName || node.name) : collapsedLabel}</span>
                 <span class="req-tree-metrics">
                     <span class="req-tree-confidence" style="color:${confidenceColor(score.confidence)}" title="Confidence: ${score.confidence}%"><span class="req-tree-confidence-icon">◐</span>${score.confidence}%</span>

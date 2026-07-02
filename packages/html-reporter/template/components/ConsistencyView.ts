@@ -135,7 +135,7 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
 
     return html`
     <div>
-      <div style="position:relative;margin-bottom:var(--space-md)">
+      <div style="position:relative" class="mb-md">
         <input class="search-input" type="text" placeholder="Find test scenarios..."
                value=${search} onInput=${(e: Event) => setSearch((e.target as HTMLInputElement).value)}
                aria-label="Find test scenarios" style="margin-bottom:0;padding-right:36px" />
@@ -145,7 +145,7 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
       </div>
 
       <div class="filter-bar" role="group" aria-label="Filter tests by consistency" style="align-items:center">
-        <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;align-self:center">Status:</span>
+        <span class="label-upper" style="align-self:center">Status:</span>
         <button class="filter-chip ${filter === 'inconsistent' ? 'active' : ''}" onClick=${() => setFilter('inconsistent')}>
           <span>Inconsistent</span> <span class="count">${inconsistentTests.length}</span>
         </button>

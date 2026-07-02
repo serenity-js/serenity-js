@@ -174,13 +174,13 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
       ${errorHistoricalRun ? html`
         <div class="historical-banner">
           <span>Viewing errors from: <strong>${formatRunLabel(errorHistoricalRun.label, errorHistoricalRun.timestamp)}</strong></span>
-          <a onClick=${errorShowLatest} style="cursor:pointer;color:var(--accent);font-weight:500;text-decoration:underline">show latest</a>
+          <a onClick=${errorShowLatest} class="link-underline">show latest</a>
         </div>
       ` : null}
 
       <${RunSelector} activeTimestamp=${errorActiveRunTs} history=${history} onRunChange=${onErrorRunChange} />
 
-      <div class="kpi-row" style="margin-bottom:var(--space-md);grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));grid-template-rows:auto">
+      <div class="kpi-row mb-md" style="grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));grid-template-rows:auto">
         ${summaryCards.map(card => html`
           <div class="kpi-card" tabindex="0" aria-label="${card.title}: ${card.value}">
             <span class="kpi-label">${card.title}</span>

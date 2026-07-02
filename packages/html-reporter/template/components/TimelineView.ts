@@ -51,7 +51,7 @@ export function TimelineView({ scenarios: allScenarios, summary, onNavigate }: T
 
     return html`
     <div>
-      <div class="kpi-row" style="margin-bottom:var(--space-md);grid-template-columns:repeat(4, 1fr);grid-template-rows:auto">
+      <div class="kpi-row mb-md" style="grid-template-columns:repeat(4, 1fr);grid-template-rows:auto">
         <div class="kpi-card" tabindex="0" aria-label="Slowest test: ${formatDuration(slowest)}">
           <span class="kpi-label">Slowest</span>
           <span class="kpi-value" style="color:${slowest > avg * 3 ? 'var(--color-failed)' : slowest > avg * 2 ? 'var(--color-pending)' : ''}">${formatDuration(slowest)}</span>

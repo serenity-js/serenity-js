@@ -4,12 +4,10 @@ import { h } from 'preact';
 import type { ReportCapabilityNode } from '../../../src/ReportData';
 import { RawHtml } from '../../utils';
 import { SegmentedBar } from '../charts/SegmentedBar';
+import { icons } from '../icons';
 import { computeNodeScore, confidenceColor } from './CapabilityTree';
 
 const html = htm.bind(h);
-
-const folderIcon = html`<svg class="req-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>`;
-const fileIcon = html`<svg class="req-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`;
 
 export interface DetailPanelProps {
     node: ReportCapabilityNode | null;
@@ -46,7 +44,7 @@ export function DetailPanel({ node, segmentPath, capabilities, onNavigate, onSel
                 <div class="req-detail-path-bar">
                     <span class="req-detail-path">${fullPath}</span>
                     <button class="req-detail-path-copy" onClick=${copyPath} title="Copy path" aria-label="Copy path to clipboard">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                        ${icons.copy}
                     </button>
                     <span id="req-path-copied" class="req-detail-path-toast">Copied!</span>
                 </div>
@@ -85,7 +83,7 @@ export function DetailPanel({ node, segmentPath, capabilities, onNavigate, onSel
                         const filePath = segmentPath + '/' + child.name;
                         return html`
                             <div class="req-detail-file-card clickable" onClick=${() => onNavigate('/tests?search=' + encodeURIComponent('"' + filePath + '"'))}>
-                                <span class="req-detail-child-icon">${fileIcon}</span>
+                                <span class="req-detail-child-icon">${icons.file}</span>
                                 <span class="req-detail-child-name">${child.displayName || child.name}</span>
                                 <span class="req-detail-child-health">
                                     <span class="req-detail-child-confidence" style="color:${confidenceColor(childScore.confidence)}" title="Confidence: ${childScore.confidence}%"><span class="req-tree-confidence-icon">◐</span>${childScore.confidence}%</span>
@@ -105,7 +103,7 @@ export function DetailPanel({ node, segmentPath, capabilities, onNavigate, onSel
                         const childPath = segmentPath ? segmentPath + '/' + child.name : child.name;
                         return html`
                             <div class="req-detail-file-card clickable" onClick=${() => onSelect(childPath, child)}>
-                                <span class="req-detail-child-icon">${folderIcon}</span>
+                                <span class="req-detail-child-icon">${icons.folder}</span>
                                 <span class="req-detail-child-name">${child.displayName || child.name}</span>
                                 <span class="req-detail-child-health">
                                     <span class="req-detail-child-confidence" style="color:${confidenceColor(childScore.confidence)}" title="Confidence: ${childScore.confidence}%"><span class="req-tree-confidence-icon">◐</span>${childScore.confidence}%</span>
