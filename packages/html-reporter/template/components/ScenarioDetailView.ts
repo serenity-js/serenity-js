@@ -109,8 +109,8 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
         : hasRetries && activeAttempt < activeAttempts.length
             ? activeAttempts[activeAttempt].error
             : scenario.error;
-    const currentVideo = hasRetries && activeAttempt < activeAttempts.length && activeAttempts[activeAttempt].video
-        ? activeAttempts[activeAttempt].video
+    const currentVideo = hasRetries && activeAttempt < activeAttempts.length
+        ? activeAttempts[activeAttempt].video || undefined
         : scenario.video;
     const errorLocation = currentError ? (function findLoc(acts: ReportActivity[]): { path: string; line: number; column: number } | null { for (const a of acts) { if (a.outcome !== 'SUCCESS' && a.outcome !== 'SKIPPED' && a.location) return a.location; if (a.children) { const r = findLoc(a.children); if (r) return r; } } return null; })(currentActivities) : null;
 
