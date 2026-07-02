@@ -127,7 +127,7 @@ export function ScenariosView({ onNavigate, route }: ScenariosViewProps): Return
         </div>
       ` : null}
 
-      <${RunSelector} activeTimestamp=${activeRunTimestamp} onRunChange=${onRunChange} />
+      <${RunSelector} activeTimestamp=${activeRunTimestamp} history=${DATA.history} onRunChange=${onRunChange} />
 
       <div style="position:relative;margin-bottom:var(--space-md)">
         <input class="search-input" type="text" placeholder="Find test scenarios..."
@@ -153,7 +153,9 @@ export function ScenariosView({ onNavigate, route }: ScenariosViewProps): Return
           Showing ${filtered.length} of ${DATA.scenarios.length} test scenarios
         </div>
         <${VirtualScenarioList} filtered=${filtered} grouped=${grouped} sort=${sort}
-          onNavigate=${onNavigate} runIndex=${runIndex} setSearch=${setSearch} />
+          onNavigate=${onNavigate} runIndex=${runIndex} setSearch=${setSearch}
+          specDirectory=${DATA.capabilities ? DATA.capabilities.name : undefined}
+          history=${DATA.history} />
       </div>
     </div>
   `;

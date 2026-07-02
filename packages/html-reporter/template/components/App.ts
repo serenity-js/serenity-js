@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
 
-import { DATA, formatTimestamp } from '../utils';
+import { DATA, formatTimestamp, totalFailedCount } from '../utils';
 import { AboutView } from './AboutView';
 import { CapabilitiesView } from './CapabilitiesView';
 import { ConsistencyView } from './ConsistencyView';
@@ -42,7 +42,7 @@ export function App(): ReturnType<typeof html> {
     }, [theme]);
 
     useEffect(() => {
-        const failures = (DATA.summary.outcomes.failed || 0) + (DATA.summary.outcomes.error || 0) + (DATA.summary.outcomes.compromised || 0);
+        const failures = totalFailedCount(DATA.summary.outcomes);
         document.title = `${ DATA.summary.title } | Serenity/JS (${ failures === 0 ? '✓' : failures })`;
     }, []);
 
@@ -112,6 +112,7 @@ export function App(): ReturnType<typeof html> {
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="sidebar-overlay ${sidebarOpen ? 'visible' : ''}" onClick=${() => setSidebarOpen(false)}></div>
     <${Sidebar} route=${route} sidebarOpen=${sidebarOpen} collapsed=${sidebarCollapsed}
+                failedBadgeCount=${totalFailedCount(DATA.summary.outcomes)}
                 onNavigate=${navigate} onClose=${() => setSidebarOpen(false)} onToggleCollapse=${toggleSidebar} />
     <main id="main-content" class="main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}"
           style="margin-left:${sidebarCollapsed ? 'var(--sidebar-collapsed-width)' : 'var(--sidebar-width)'}">

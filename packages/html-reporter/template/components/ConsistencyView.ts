@@ -193,7 +193,7 @@ export function ConsistencyView({ onNavigate }: ConsistencyViewProps): ReturnTyp
                   <div class="scenario-info">
                     <div class="scenario-name">${t.name}</div>
                     <div class="scenario-meta">
-                      <span class="scenario-source">${relativeSourcePath(t)}</span>
+                      <span class="scenario-source">${relativeSourcePath(t, DATA.capabilities ? DATA.capabilities.name : undefined)}</span>
                       ${t.history && t.history.length > 1 ? html`<span class="scenario-history">${t.history.slice(-5).map((outcome, i) => html`<span class="history-dot history-dot--${outcomeClass(outcome)}" title=${outcome + (t.labels && t.labels[i] ? ' (' + t.labels[i] + ')' : '')}></span>`)}</span>` : null}
                     </div>
                   </div>

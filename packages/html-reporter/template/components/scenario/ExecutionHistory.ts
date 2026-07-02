@@ -1,18 +1,19 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportScenario } from '../../../src/ReportData';
-import { DATA, formatRunLabel, outcomeClass, outcomeIcon, scenarioUrl } from '../../utils';
+import type { ReportHistoryEntry, ReportScenario } from '../../../src/ReportData';
+import { formatRunLabel, outcomeClass, outcomeIcon, scenarioUrl } from '../../utils';
 
 const html = htm.bind(h);
 
 export interface ExecutionHistoryProps {
     scenario: ReportScenario;
     runIndex: number | null;
+    history: ReportHistoryEntry[];
     onNavigate: (path: string) => void;
 }
 
-export function ExecutionHistory({ scenario, runIndex, onNavigate }: ExecutionHistoryProps): ReturnType<typeof html> | null {
+export function ExecutionHistory({ scenario, runIndex, history, onNavigate }: ExecutionHistoryProps): ReturnType<typeof html> | null {
     if (!scenario.executionHistory || scenario.executionHistory.length === 0) return null;
 
     const activeIndex = runIndex !== null ? runIndex : scenario.executionHistory.length - 1;
@@ -26,7 +27,7 @@ export function ExecutionHistory({ scenario, runIndex, onNavigate }: ExecutionHi
     let currentDate = '';
     for (let index = 0; index < scenario.executionHistory.length; index++) {
         const entry = scenario.executionHistory[index];
-        const ts = entry.timestamp || (DATA.history[index] ? DATA.history[index].timestamp : '');
+        const ts = entry.timestamp || (history[index] ? history[index].timestamp : '');
         const date = ts ? new Date(ts).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : '';
         if (date !== currentDate) {
             currentDate = date;
@@ -52,7 +53,7 @@ export function ExecutionHistory({ scenario, runIndex, onNavigate }: ExecutionHi
                     const timeLabel = ts ? new Date(ts).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }) : entry.run;
                     const shortLabel = isIso ? timeLabel : entry.run;
                     const fullLabel = formatRunLabel(entry.run, ts);
-                    const handleRunClick = (e: Event) => { e.stopPropagation(); onNavigate(scenarioUrl(scenario) + '?run=' + (DATA.history[index] ? DATA.history[index].timestamp : index)); };
+                    const handleRunClick = (e: Event) => { e.stopPropagation(); onNavigate(scenarioUrl(scenario) + '?run=' + (history[index] ? history[index].timestamp : index)); };
                     return html`
                       <div class="exec-history-item ${isActive ? 'exec-history-item--active' : ''}" title="${entry.outcome} — ${fullLabel}" onClick=${handleRunClick}>
                         <div class="exec-history-dot" style="background:var(--color-${outcomeClass(entry.outcome)})">${outcomeIcon(entry.outcome)}</div>

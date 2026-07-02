@@ -1,5 +1,4 @@
 import type { ReportScenarioRef, ReportScenarioTag, ReportSource } from '../../src/ReportData';
-import { DATA } from './data';
 
 interface ScenarioLike extends ReportScenarioRef {
     tags?: ReportScenarioTag[];
@@ -19,22 +18,23 @@ export function browserBadgeClass(browserTag: string): string {
     return 'badge-browser';
 }
 
-export function relativeSourcePath(scenario: { source: ReportSource; name: string }): string {
+export function relativeSourcePath(scenario: { source: ReportSource; name: string }, specDirectory?: string): string {
     const p = scenario.source.path;
-    const specDirectory = DATA.capabilities ? DATA.capabilities.name : 'spec';
-    const marker = '/' + specDirectory + '/';
+    const directory = specDirectory || 'spec';
+    const marker = '/' + directory + '/';
     const index = p.indexOf(marker);
     const relativePath = index !== -1 ? p.slice(index + marker.length) : p;
     return scenario.source.line ? relativePath + ':' + scenario.source.line : relativePath;
 }
 
-export function scenarioUrl(scenario: { source: ReportSource; name: string }, run?: number | string | null): string {
+export function scenarioUrl(scenario: { source: ReportSource; name: string }, run?: number | string | null, history?: Array<{ timestamp: string }>): string {
     const id = scenario.source.line
         ? scenario.source.path + ':' + scenario.source.line
         : scenario.source.path + ':' + scenario.name;
     const base = '/tests/' + encodeURIComponent(id);
     if (run === undefined || run === null) return base;
-    const ts = typeof run === 'number' && DATA.history[run] ? DATA.history[run].timestamp : run;
+    const historyArray = history || [];
+    const ts = typeof run === 'number' && historyArray[run] ? historyArray[run].timestamp : run;
     return base + '?run=' + ts;
 }
 

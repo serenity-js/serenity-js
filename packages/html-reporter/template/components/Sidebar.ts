@@ -1,7 +1,6 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import { DATA } from '../utils';
 import { icons } from './icons';
 
 const html = htm.bind(h);
@@ -10,15 +9,16 @@ interface SidebarProps {
     route: string;
     sidebarOpen: boolean;
     collapsed: boolean;
+    failedBadgeCount: number;
     onNavigate: (path: string) => void;
     onClose: () => void;
     onToggleCollapse: () => void;
 }
 
-export function Sidebar({ route, sidebarOpen, collapsed, onNavigate, onClose, onToggleCollapse }: SidebarProps): ReturnType<typeof html> {
+export function Sidebar({ route, sidebarOpen, collapsed, failedBadgeCount, onNavigate, onClose, onToggleCollapse }: SidebarProps): ReturnType<typeof html> {
     const navItems = [
         { path: '/', label: 'Dashboard', icon: 'dashboard' },
-        { path: '/tests', label: 'Test Scenarios', icon: 'testScenarios', badge: DATA.summary.outcomes.failed + (DATA.summary.outcomes.error || 0) + (DATA.summary.outcomes.compromised || 0) },
+        { path: '/tests', label: 'Test Scenarios', icon: 'testScenarios', badge: failedBadgeCount },
         { path: '/capabilities', label: 'Capabilities', icon: 'completeness' },
         { path: '/errors', label: 'Errors', icon: 'errors' },
         { path: '/consistency', label: 'Consistency', icon: 'unstable' },

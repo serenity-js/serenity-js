@@ -175,7 +175,7 @@ export function ErrorsView({ onNavigate, route }: ErrorsViewProps): ReturnType<t
         </div>
       ` : null}
 
-      <${RunSelector} activeTimestamp=${errorActiveRunTs} onRunChange=${onErrorRunChange} />
+      <${RunSelector} activeTimestamp=${errorActiveRunTs} history=${DATA.history} onRunChange=${onErrorRunChange} />
 
       <div class="kpi-row" style="margin-bottom:var(--space-md);grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));grid-template-rows:auto">
         ${summaryCards.map(card => html`
@@ -217,7 +217,7 @@ export function ErrorsView({ onNavigate, route }: ErrorsViewProps): ReturnType<t
                     <div class="scenario-name">${s.name}${item.duplicateCount > 1 ? html` <span style="font-size:var(--font-xs);font-weight:400;color:var(--text-disabled)">and ${item.duplicateCount - 1} more</span>` : null}</div>
                     <div style="font-size:var(--font-sm);color:var(--color-${outcomeClass(s.outcome)});margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.error ? s.error.message : s.outcome}${item.duplicateCount > 1 ? html` <span style="font-weight:600"> (×${item.duplicateCount})</span>` : null}</div>
                     <div class="scenario-meta">
-                      <span class="scenario-source" style="direction:rtl;text-align:left;unicode-bidi:plaintext">${relativeSourcePath(s)}</span>
+                      <span class="scenario-source" style="direction:rtl;text-align:left;unicode-bidi:plaintext">${relativeSourcePath(s, DATA.capabilities ? DATA.capabilities.name : undefined)}</span>
                     </div>
                   </div>
                   <span class="scenario-duration">${formatDuration(s.duration)}</span>

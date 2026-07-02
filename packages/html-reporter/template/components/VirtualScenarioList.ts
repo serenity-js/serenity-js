@@ -3,7 +3,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useMemo, useRef } from 'preact/hooks';
 
-import type { ReportScenario } from '../../src/ReportData';
+import type { ReportHistoryEntry, ReportScenario } from '../../src/ReportData';
 import { useStickyHeader, useVirtualizer } from '../hooks';
 import type { Range } from '../hooks/useVirtualizer';
 import { browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, relativeSourcePath, scenarioUrl } from '../utils';
@@ -17,9 +17,11 @@ export interface VirtualScenarioListProps {
     onNavigate: (path: string) => void;
     runIndex: number | null;
     setSearch: (search: string) => void;
+    specDirectory?: string;
+    history?: ReportHistoryEntry[];
 }
 
-export function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, setSearch }: VirtualScenarioListProps): ReturnType<typeof html> {
+export function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, setSearch, specDirectory, history }: VirtualScenarioListProps): ReturnType<typeof html> {
     const parentRef = useRef<HTMLElement | null>(null);
     const SCENARIO_ROW_HEIGHT = 108;
     const GROUP_HEADER_HEIGHT_FIRST = 62;
@@ -108,7 +110,7 @@ export function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIn
             `;
             }
             const scenario = item.scenario;
-            const clickHandler = () => onNavigate(scenarioUrl(scenario, runIndex));
+            const clickHandler = () => onNavigate(scenarioUrl(scenario, runIndex, history));
             const stopProp = (e: Event) => e.stopPropagation();
             return html`
             <div style="position:absolute;top:0;left:0;width:100%;height:${SCENARIO_ROW_HEIGHT}px;transform:translateY(${virtualRow.start}px);overflow:hidden"
@@ -126,7 +128,7 @@ export function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIn
                   ${[...new Map((scenario.tags || []).filter(t => t.type !== 'feature' && t.type !== 'browser').map(t => [t.type + ':' + t.name, t])).values()].map(t => html`<a href=${'#/tests?search=' + encodeURIComponent('"' + t.name + '"')} class="tag-chip tag-chip-sm" onClick=${stopProp}>${t.name}</a>`)}
                 </div>
                 <div class="scenario-meta">
-                  <span class="scenario-source">${relativeSourcePath(scenario)}</span>
+                  <span class="scenario-source">${relativeSourcePath(scenario, specDirectory)}</span>
                   ${scenario.executionHistory && scenario.executionHistory.length > 1 ? html`<span class="scenario-history">${(runIndex !== null ? scenario.executionHistory.slice(0, runIndex + 1) : scenario.executionHistory).slice(-5).map(h => html`<span class="history-dot history-dot--${outcomeClass(h.outcome)}" title=${h.outcome + ' — ' + formatRunLabel(h.run, h.timestamp || '')}></span>`)}</span>` : null}
                 </div>
               </div>

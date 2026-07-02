@@ -120,7 +120,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }: ScenarioDetailVie
             <div class="scenario-detail-meta">
               <span>${formatDuration(activeDuration)}</span>
               <span>•</span>
-              <span class="scenario-source">${relativeSourcePath(scenario)}</span>
+              <span class="scenario-source">${relativeSourcePath(scenario, DATA.capabilities ? DATA.capabilities.name : undefined)}</span>
               ${getBrowserTag(scenario) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(scenario)!)}">${getBrowserTag(scenario)}</span>` : null}
             </div>
           </div>
@@ -133,7 +133,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }: ScenarioDetailVie
         ` : null}
 
         ${hasExecutionHistory ? html`
-          <${ExecutionHistory} scenario=${scenario} runIndex=${runIndex} onNavigate=${onNavigate} />
+          <${ExecutionHistory} scenario=${scenario} runIndex=${runIndex} history=${DATA.history} onNavigate=${onNavigate} />
         ` : null}
 
         ${scenario.narrative ? html`
