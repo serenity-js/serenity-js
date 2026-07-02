@@ -89,3 +89,9 @@ Always use `npm run compile` in the package directory — this runs both `tsconf
 In `packages/playwright-test/src/api/test-api.ts`, the `configureScenarioInternal` fixture calls `serenity.configure({ crew: [...] })` for each test. Because `configure()` appends crew to the `StageManager.subscribers` array (via `stage.assign()`), crew members accumulate across tests running in the same worker. This causes duplicate screenshots (N Photographers = N screenshots per interaction).
 
 The fix: `configure()` returns the instantiated crew array. The fixture stores it and calls `serenity.unassign(...sceneCrew)` in the `finally` block after `persist()`. This ensures each test starts with a clean crew.
+
+## `history` prop shadows `window.history` in html-reporter components
+
+The `ScenarioDetailView` component receives a `history: ReportHistoryEntry[]` prop. Inside the component, bare `history.replaceState(...)` calls resolve to the **prop** (an array), not `window.history`. After bundling/minification this becomes `t.replaceState(...)` which silently fails.
+
+Always use `window.history.replaceState(...)` explicitly in components that have a `history` prop.
