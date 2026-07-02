@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
 
-import { DATA, formatTimestamp, totalFailedCount } from '../utils';
+import { DATA, formatTimestamp, hashHistory, totalFailedCount } from '../utils';
 import { AboutView } from './AboutView';
 import { CapabilitiesView } from './CapabilitiesView';
 import { ConsistencyView } from './ConsistencyView';
@@ -25,14 +25,9 @@ function initTheme() {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
-function getRoute() {
-    const hash = window.location.hash || '#/';
-    return hash.slice(1);
-}
-
 export function App(): ReturnType<typeof html> {
     const [theme, setTheme] = useState(initTheme);
-    const [route, setRoute] = useState(getRoute);
+    const [route, setRoute] = useState(hashHistory.getRoute);
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [sidebarCollapsed, setSidebarCollapsed] = useState(() => localStorage.getItem('serenity-sidebar-collapsed') === 'true');
 
@@ -47,7 +42,7 @@ export function App(): ReturnType<typeof html> {
     }, []);
 
     useEffect(() => {
-        const onHash = () => setRoute(getRoute());
+        const onHash = () => setRoute(hashHistory.getRoute());
         window.addEventListener('hashchange', onHash);
         window.addEventListener('popstate', onHash);
         return () => {

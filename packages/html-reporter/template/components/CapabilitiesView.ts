@@ -3,6 +3,7 @@ import { h } from 'preact';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 
 import type { ReportCapabilityNode } from '../../src/ReportData';
+import { hashHistory } from '../utils';
 import { DetailPanel } from './capabilities/CapabilityDetail';
 import { countTopLevelCapabilities, countVisibleNodes, findNodeByPath, getVisiblePaths, nodeConfidence, nodeHasGap, TreeNode } from './capabilities/CapabilityTree';
 import { icons } from './icons';
@@ -114,10 +115,8 @@ export function CapabilitiesView({ capabilities, onNavigate, route }: Capabiliti
     const handleSelect = (path: string, node: ReportCapabilityNode) => {
         setSelectedPath(path);
         setSelectedNode(node);
-        const newHash = path ? '#/capabilities?path=' + encodeURIComponent(path) : '#/capabilities';
-        if (window.location.hash !== newHash) {
-            window.history.pushState(null, '', newHash);
-        }
+        const newHash = path ? '/capabilities?path=' + encodeURIComponent(path) : '/capabilities';
+        hashHistory.push(newHash);
     };
 
     const onTreeKeyDown = (e: KeyboardEvent) => {

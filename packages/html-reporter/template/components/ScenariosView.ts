@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 
 import type { ReportHistoryEntry, ReportOutcomes, ReportScenario, ReportSummary } from '../../src/ReportData';
-import { formatDuration, formatRunLabel, matchesSearch } from '../utils';
+import { formatDuration, formatRunLabel, hashHistory, matchesSearch } from '../utils';
 import { FilterBar } from './FilterBar';
 import { RunSelector } from './RunSelector';
 import { VirtualScenarioList } from './VirtualScenarioList';
@@ -22,19 +22,13 @@ interface ScenariosViewProps {
 
 export function ScenariosView({ scenarios: allScenarios, history, summary, specDirectory, onNavigate, route }: ScenariosViewProps): ReturnType<typeof html> {
     const [search, setSearch] = useState(() => {
-        const hash = window.location.hash;
-        const params = hash.includes('?') ? new URLSearchParams(hash.split('?')[1]) : null;
-        return params?.get('search') || '';
+        return hashHistory.getParam('search') || '';
     });
     const [filter, setFilter] = useState(() => {
-        const hash = window.location.hash;
-        const params = hash.includes('?') ? new URLSearchParams(hash.split('?')[1]) : null;
-        return params?.get('filter') || 'all';
+        return hashHistory.getParam('filter') || 'all';
     });
     const [sort, setSort] = useState(() => {
-        const hash = window.location.hash;
-        const params = hash.includes('?') ? new URLSearchParams(hash.split('?')[1]) : null;
-        return params?.get('sort') || 'category';
+        return hashHistory.getParam('sort') || 'category';
     });
 
     useEffect(() => {
@@ -87,10 +81,8 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
         if (sort && sort !== 'category') params.set('sort', sort);
         if (runIndex !== null && history[runIndex]) params.set('run', history[runIndex].timestamp);
         const parameterString = params.toString();
-        const newHash = parameterString ? '#/tests?' + parameterString : '#/tests';
-        if (window.location.hash !== newHash) {
-            window.history.replaceState(null, '', newHash);
-        }
+        const newHash = parameterString ? '/tests?' + parameterString : '/tests';
+        hashHistory.replace(newHash);
     }, [search, filter, sort]);
 
     const grouped = useMemo(() => {

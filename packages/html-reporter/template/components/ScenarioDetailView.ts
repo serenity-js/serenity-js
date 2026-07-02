@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 
 import type { ReportActivity, ReportHistoryEntry, ReportScenario } from '../../src/ReportData';
-import { ansiToHtml, browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast } from '../utils';
+import { ansiToHtml, browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, hashHistory, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast } from '../utils';
 import { ActivityNode } from './ActivityNode';
 import { icons } from './icons';
 import { ExecutionHistory } from './scenario/ExecutionHistory';
@@ -53,10 +53,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
     // Reset attempt selection when switching between runs
     useEffect(() => {
         setActiveAttempt(0);
-        const hash = location.hash.slice(1);
-        const [path, qs] = hash.includes('?') ? [hash.split('?')[0], hash.split('?')[1]] : [hash, ''];
-        const p = new URLSearchParams(qs);
-        if (p.has('attempt')) { p.delete('attempt'); window.history.replaceState(null, '', '#' + path + (p.toString() ? '?' + p.toString() : '')); }
+        hashHistory.deleteParam('attempt');
     }, [runIndex]);
 
     // Sync attempt selection from URL (for deep linking)
@@ -199,7 +196,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
         <div class="retry-tabs">
           ${activeAttempts.map((attempt, i) => html`
             <div class="retry-tab ${activeAttempt === i ? 'active' : ''} ${outcomeClass(attempt.outcome)}"
-                 onClick=${() => { setActiveAttempt(i); const hash = location.hash.slice(1); const [path, qs] = hash.includes('?') ? [hash.split('?')[0], hash.split('?')[1]] : [hash, '']; const p = new URLSearchParams(qs); p.set('attempt', String(i + 1)); window.history.replaceState(null, '', '#' + path + '?' + p.toString()); }}>
+                 onClick=${() => { setActiveAttempt(i); hashHistory.setParam('attempt', String(i + 1)); }}>
               Attempt ${attempt.attemptNumber} (${attempt.outcome === 'SUCCESS' ? 'passed' : 'failed'})
             </div>
           `)}

@@ -3,7 +3,8 @@ import { h } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 
 import type { ReportActivity } from '../../src/ReportData';
-import { formatDuration, outcomeClass, outcomeIcon, showToast } from '../utils';
+import { formatDuration, hashHistory, outcomeClass, outcomeIcon, showToast } from '../utils';
+import { icons } from './icons';
 
 const html = htm.bind(h);
 
@@ -50,18 +51,18 @@ export function ActivityNode({ activity, defaultExpanded }: ActivityNodeProps): 
     return html`
     <div class="activity-node">
       <div class="activity-row" style=${hasChildren ? 'cursor:pointer' : ''} onClick=${hasChildren ? () => setExpanded(!expanded) : undefined}>
-        ${hasChildren ? html`<span style="font-size:var(--font-xs);width:12px;flex-shrink:0;text-align:center;transform:${expanded ? 'rotate(90deg)' : 'none'};transition:transform 0.15s">▸</span>` : html`<span style="width:12px;flex-shrink:0"></span>`}
+        ${hasChildren ? html`<span class="expand-chevron-xs ${expanded ? 'open' : ''}">▸</span>` : html`<span style="width:12px;flex-shrink:0"></span>`}
         <div class="activity-icon ${outcomeClass(activity.outcome)}">
           ${outcomeIcon(activity.outcome)}
         </div>
         <span class="activity-name ${activity.type === 'Task' ? 'task' : ''}">${displayName}</span>
-        ${hasPhoto ? html`<span style="cursor:pointer;opacity:0.7;font-size:var(--font-sm)" title="View screenshot" onClick=${(e: Event) => { e.stopPropagation(); const photos = document.querySelectorAll('.photo-strip-item'); for (const p of photos) { p.classList.remove('photo-highlight'); } const index = [...photos].findIndex(p => p.querySelector('.photo-strip-caption')?.textContent === activity.name); if (index >= 0) { const hash = window.location.hash.split('&photo=')[0]; window.history.replaceState(null, '', hash + '&photo=' + index); const element = document.getElementById('photo-' + index); if (element) { element.scrollIntoView({ behavior: 'smooth', block: 'center' }); element.classList.add('photo-highlight'); setTimeout(() => element.classList.remove('photo-highlight'), 2000); } } }}>📷</span>` : null}
+        ${hasPhoto ? html`<span style="cursor:pointer;opacity:0.7;font-size:var(--font-sm)" title="View screenshot" onClick=${(e: Event) => { e.stopPropagation(); const photos = document.querySelectorAll('.photo-strip-item'); for (const p of photos) { p.classList.remove('photo-highlight'); } const index = [...photos].findIndex(p => p.querySelector('.photo-strip-caption')?.textContent === activity.name); if (index >= 0) { hashHistory.setParam('photo', String(index)); const element = document.getElementById('photo-' + index); if (element) { element.scrollIntoView({ behavior: 'smooth', block: 'center' }); element.classList.add('photo-highlight'); setTimeout(() => element.classList.remove('photo-highlight'), 2000); } } }}>📷</span>` : null}
         ${hasRestQuery ? html`<span class="rest-badge" title="View HTTP exchange" onClick=${(e: Event) => { e.stopPropagation(); setRestExpanded(!restExpanded); }}>REST</span>` : null}
-        ${activity.location ? html`<span style="cursor:pointer;opacity:0.6;display:inline-flex;align-items:center" title="Copy invocation location: ${activity.location.path}:${activity.location.line}" onClick=${(e: Event) => { e.stopPropagation(); navigator.clipboard.writeText(activity.location!.path + ':' + activity.location!.line).then(() => showToast('Location copied to clipboard')).catch(() => {}); }}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></span>` : null}
+        ${activity.location ? html`<span class="copy-location" title="Copy invocation location: ${activity.location.path}:${activity.location.line}" onClick=${(e: Event) => { e.stopPropagation(); navigator.clipboard.writeText(activity.location!.path + ':' + activity.location!.line).then(() => showToast('Location copied to clipboard')).catch(() => {}); }}>${icons.copy}</span>` : null}
         <span class="activity-duration">${formatDuration(activity.duration || 0)}</span>
       </div>
       ${effectiveDataTable ? html`
-        <div style="margin-left:var(--space-lg);margin-top:var(--space-xs);margin-bottom:var(--space-sm);overflow-x:auto">
+        <div class="ml-lg mt-xs mb-sm overflow-x">
           <table style="border-collapse:collapse;font-size:var(--font-sm);font-family:var(--font-mono);width:auto">
             <thead>
               <tr>${effectiveDataTable.headers.map(header => html`<th style="padding:4px 10px;border:1px solid var(--border-color);background:var(--bg-primary);font-weight:600;white-space:nowrap">${header}</th>`)}</tr>
@@ -75,53 +76,53 @@ export function ActivityNode({ activity, defaultExpanded }: ActivityNodeProps): 
         </div>
       ` : null}
       ${effectiveDocString ? html`
-        <div style="margin-left:var(--space-lg);margin-top:var(--space-xs);margin-bottom:var(--space-sm)">
-          <pre style="font-size:var(--font-sm);font-family:var(--font-mono);background:var(--bg-primary);padding:var(--space-sm) var(--space-md);border-radius:var(--radius-sm);border:1px solid var(--border-color);white-space:pre-wrap;margin:0">${effectiveDocString}</pre>
+        <div class="ml-lg mt-xs mb-sm">
+          <pre class="pre-block">${effectiveDocString}</pre>
         </div>
       ` : null}
       ${hasRestQuery && restExpanded ? html`
-        <div class="rest-query-panel" style="margin-left:var(--space-lg);margin-top:var(--space-xs);margin-bottom:var(--space-sm);border:1px solid var(--border-color);border-radius:var(--radius-sm);overflow:hidden;font-size:var(--font-sm)">
-          <div style="padding:var(--space-sm) var(--space-md);background:var(--bg-primary);border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:var(--space-sm)">
-            <span style="font-weight:600;font-family:var(--font-mono)">${activity.restQuery!.method}</span>
-            <span style="font-family:var(--font-mono);color:var(--text-secondary);word-break:break-all">${activity.restQuery!.url}</span>
-            <span style="margin-left:auto;font-weight:600;color:${activity.restQuery!.statusCode < 400 ? 'var(--color-passed)' : 'var(--color-failed)'}">${activity.restQuery!.statusCode}</span>
+        <div class="rest-query-panel ml-lg mt-xs mb-sm bordered text-sm">
+          <div class="panel-section-border flex-row gap-sm" style="background:var(--bg-primary)">
+            <span class="font-semibold font-mono">${activity.restQuery!.method}</span>
+            <span class="font-mono text-secondary" style="word-break:break-all">${activity.restQuery!.url}</span>
+            <span class="ml-auto font-semibold" style="color:${activity.restQuery!.statusCode < 400 ? 'var(--color-passed)' : 'var(--color-failed)'}">${activity.restQuery!.statusCode}</span>
           </div>
           ${activity.restQuery!.requestHeaders ? html`
-            <div style="padding:var(--space-sm) var(--space-md);border-bottom:1px solid var(--border-color)">
-              <div style="font-weight:500;margin-bottom:4px">Request Headers</div>
-              <pre style="font-family:var(--font-mono);font-size:var(--font-xs);white-space:pre-wrap;margin:0;color:var(--text-secondary)">${activity.restQuery!.requestHeaders}</pre>
+            <div class="panel-section-border">
+              <div class="section-label">Request Headers</div>
+              <pre class="code-block">${activity.restQuery!.requestHeaders}</pre>
             </div>
           ` : null}
           ${activity.restQuery!.requestBody ? html`
-            <div style="padding:var(--space-sm) var(--space-md);border-bottom:1px solid var(--border-color)">
-              <div style="font-weight:500;margin-bottom:4px">Request Body</div>
-              <pre style="font-family:var(--font-mono);font-size:var(--font-xs);white-space:pre-wrap;margin:0;color:var(--text-secondary)">${activity.restQuery!.requestBody}</pre>
+            <div class="panel-section-border">
+              <div class="section-label">Request Body</div>
+              <pre class="code-block">${activity.restQuery!.requestBody}</pre>
             </div>
           ` : null}
           ${activity.restQuery!.responseHeaders ? html`
-            <div style="padding:var(--space-sm) var(--space-md);border-bottom:1px solid var(--border-color)">
-              <div style="font-weight:500;margin-bottom:4px">Response Headers</div>
-              <pre style="font-family:var(--font-mono);font-size:var(--font-xs);white-space:pre-wrap;margin:0;color:var(--text-secondary)">${activity.restQuery!.responseHeaders}</pre>
+            <div class="panel-section-border">
+              <div class="section-label">Response Headers</div>
+              <pre class="code-block">${activity.restQuery!.responseHeaders}</pre>
             </div>
           ` : null}
           ${activity.restQuery!.responseBody ? html`
-            <div style="padding:var(--space-sm) var(--space-md)">
-              <div style="font-weight:500;margin-bottom:4px">Response Body</div>
-              <pre style="font-family:var(--font-mono);font-size:var(--font-xs);white-space:pre-wrap;margin:0;color:var(--text-secondary)">${activity.restQuery!.responseBody}</pre>
+            <div class="panel-section">
+              <div class="section-label">Response Body</div>
+              <pre class="code-block">${activity.restQuery!.responseBody}</pre>
             </div>
           ` : null}
         </div>
       ` : null}
       ${activity.reportData && activity.reportData.length > 0 ? html`
         ${activity.reportData.map(entry => html`
-          <div class="report-data-block" style="margin-left:var(--space-lg);margin-top:var(--space-xs);margin-bottom:var(--space-sm)">
-            <div style="font-size:var(--font-sm);font-weight:500;margin-bottom:4px;color:var(--text-secondary)">${entry.title}</div>
-            <pre style="font-size:var(--font-xs);font-family:var(--font-mono);background:var(--bg-primary);padding:var(--space-sm) var(--space-md);border-radius:var(--radius-sm);border:1px solid var(--border-color);white-space:pre-wrap;margin:0;color:var(--text-primary)">${entry.contents}</pre>
+          <div class="report-data-block ml-lg mt-xs mb-sm">
+            <div class="text-sm section-label text-secondary">${entry.title}</div>
+            <pre class="pre-block" style="color:var(--text-primary)">${entry.contents}</pre>
           </div>
         `)}
       ` : null}
       ${activity.children && activity.children.length > 0 && expanded ? html`
-        <div style="margin-left:var(--space-sm)">
+        <div class="ml-sm">
           ${activity.children.map(child => html`<${ActivityNode} activity=${child} defaultExpanded=${defaultExpanded} />`)}
         </div>
       ` : null}
