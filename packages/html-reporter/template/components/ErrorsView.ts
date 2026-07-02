@@ -180,7 +180,7 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
 
       <${RunSelector} activeTimestamp=${errorActiveRunTs} history=${history} onRunChange=${onErrorRunChange} />
 
-      <div class="kpi-row mb-md" style="grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));grid-template-rows:auto">
+      <div class="kpi-row mb-md stat-grid">
         ${summaryCards.map(card => html`
           <div class="kpi-card" tabindex="0" aria-label="${card.title}: ${card.value}">
             <span class="kpi-label">${card.title}</span>

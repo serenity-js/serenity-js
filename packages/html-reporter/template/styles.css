@@ -660,6 +660,7 @@
     .search-input {
       width: 100%;
       padding: 10px var(--space-md);
+      padding-right: 36px;
       border: 1px solid var(--border-color);
       border-radius: var(--radius-sm);
       background: var(--bg-surface);
@@ -667,7 +668,7 @@
       font-size: var(--font-md);
       outline: none;
       transition: border-color var(--transition);
-      margin-bottom: var(--space-md);
+      margin-bottom: 0;
     }
 
     .search-input:focus {
@@ -2977,6 +2978,38 @@
     .inline-flex-center { display: inline-flex; align-items: center; gap: 3px; }
 
     .icon-nav { width: 20px; height: 20px; flex-shrink: 0; }
+
+    /* --- Additional Utilities (Phase 4.1) --- */
+    .text-left { text-align: left; }
+    .font-medium { font-weight: 500; }
+
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-sm); }
+    .stat-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); grid-template-rows: auto; }
+    .grid-4col { grid-template-columns: repeat(4, 1fr); grid-template-rows: auto; }
+    .stack-md { display: grid; gap: var(--space-md); }
+
+    .grid-section-header {
+        grid-column: 1 / -1;
+        padding: var(--space-md) 0 var(--space-sm);
+        font-size: var(--font-sm);
+        font-weight: 600;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid var(--divider);
+        margin-top: var(--space-md);
+    }
+
+    .data-table { border-collapse: collapse; font-size: var(--font-sm); font-family: var(--font-mono); width: auto; }
+    .data-table th,
+    .data-table td { padding: 4px 10px; border: 1px solid var(--border-color); white-space: nowrap; }
+    .data-table th { background: var(--bg-primary); font-weight: 600; }
+
+    .content-table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0; font-size: var(--font-sm); }
+
+    .bar-track { border-radius: 2px; background: var(--border-color); overflow: hidden; position: relative; }
+    .bar-track-sm { height: 4px; }
+    .bar-track-md { height: 10px; }
 
 /* ===== Accessibility ===== */
 .visually-hidden {

@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 
 import type { ReportActivity } from '../../src/ReportData';
-import { formatDuration, hashHistory, outcomeClass, outcomeIcon, showToast } from '../utils';
+import { formatDuration, outcomeClass, outcomeIcon, showToast, useHashHistory } from '../utils';
 import { icons } from './icons';
 
 const html = htm.bind(h);
@@ -14,6 +14,7 @@ interface ActivityNodeProps {
 }
 
 export function ActivityNode({ activity, defaultExpanded }: ActivityNodeProps): ReturnType<typeof html> {
+    const hashNav = useHashHistory();
     const hasChildren = activity.children && activity.children.length > 0;
     const [expanded, setExpanded] = useState(defaultExpanded !== undefined ? defaultExpanded : true);
     const [restExpanded, setRestExpanded] = useState(false);
@@ -56,20 +57,20 @@ export function ActivityNode({ activity, defaultExpanded }: ActivityNodeProps): 
           ${outcomeIcon(activity.outcome)}
         </div>
         <span class="activity-name ${activity.type === 'Task' ? 'task' : ''}">${displayName}</span>
-        ${hasPhoto ? html`<span style="cursor:pointer;opacity:0.7;font-size:var(--font-sm)" title="View screenshot" onClick=${(e: Event) => { e.stopPropagation(); const photos = document.querySelectorAll('.photo-strip-item'); for (const p of photos) { p.classList.remove('photo-highlight'); } const index = [...photos].findIndex(p => p.querySelector('.photo-strip-caption')?.textContent === activity.name); if (index >= 0) { hashHistory.setParam('photo', String(index)); const element = document.getElementById('photo-' + index); if (element) { element.scrollIntoView({ behavior: 'smooth', block: 'center' }); element.classList.add('photo-highlight'); setTimeout(() => element.classList.remove('photo-highlight'), 2000); } } }}>📷</span>` : null}
+        ${hasPhoto ? html`<span style="cursor:pointer;opacity:0.7;font-size:var(--font-sm)" title="View screenshot" onClick=${(e: Event) => { e.stopPropagation(); const photos = document.querySelectorAll('.photo-strip-item'); for (const p of photos) { p.classList.remove('photo-highlight'); } const index = [...photos].findIndex(p => p.querySelector('.photo-strip-caption')?.textContent === activity.name); if (index >= 0) { hashNav.setParam('photo', String(index)); const element = document.getElementById('photo-' + index); if (element) { element.scrollIntoView({ behavior: 'smooth', block: 'center' }); element.classList.add('photo-highlight'); setTimeout(() => element.classList.remove('photo-highlight'), 2000); } } }}>📷</span>` : null}
         ${hasRestQuery ? html`<span class="rest-badge" title="View HTTP exchange" onClick=${(e: Event) => { e.stopPropagation(); setRestExpanded(!restExpanded); }}>REST</span>` : null}
         ${activity.location ? html`<span class="copy-location" title="Copy invocation location: ${activity.location.path}:${activity.location.line}" onClick=${(e: Event) => { e.stopPropagation(); navigator.clipboard.writeText(activity.location!.path + ':' + activity.location!.line).then(() => showToast('Location copied to clipboard')).catch(() => {}); }}>${icons.copy}</span>` : null}
         <span class="activity-duration">${formatDuration(activity.duration || 0)}</span>
       </div>
       ${effectiveDataTable ? html`
         <div class="ml-lg mt-xs mb-sm overflow-x">
-          <table style="border-collapse:collapse;font-size:var(--font-sm);font-family:var(--font-mono);width:auto">
+          <table class="data-table">
             <thead>
-              <tr>${effectiveDataTable.headers.map(header => html`<th style="padding:4px 10px;border:1px solid var(--border-color);background:var(--bg-primary);font-weight:600;white-space:nowrap">${header}</th>`)}</tr>
+              <tr>${effectiveDataTable.headers.map(header => html`<th>${header}</th>`)}</tr>
             </thead>
             <tbody>
               ${effectiveDataTable.rows.map(row => html`
-                <tr>${row.map(cell => html`<td style="padding:4px 10px;border:1px solid var(--border-color);white-space:nowrap">${cell}</td>`)}</tr>
+                <tr>${row.map(cell => html`<td>${cell}</td>`)}</tr>
               `)}
             </tbody>
           </table>

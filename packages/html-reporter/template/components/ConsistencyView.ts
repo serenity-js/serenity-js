@@ -138,7 +138,7 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
       <div style="position:relative" class="mb-md">
         <input class="search-input" type="text" placeholder="Find test scenarios..."
                value=${search} onInput=${(e: Event) => setSearch((e.target as HTMLInputElement).value)}
-               aria-label="Find test scenarios" style="margin-bottom:0;padding-right:36px" />
+               aria-label="Find test scenarios" />
         ${search ? html`<button onClick=${() => setSearch('')}
           class="btn-clear"
           aria-label="Clear search">✕</button>` : null}

@@ -44,11 +44,11 @@ export function TagsView({ tags, onNavigate }: TagsViewProps): ReturnType<typeof
     }
 
     return html`
-    <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));gap:var(--space-sm)">
+    <div class="card-grid">
       ${renderItems.map(item => {
             if (item.kind === 'header') {
                 return html`
-            <div style="grid-column:1/-1;padding:var(--space-md) 0 var(--space-sm);font-size:var(--font-sm);font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--divider);margin-top:var(--space-md)">
+            <div class="grid-section-header">
               ${item.label} <span style="font-weight:400;color:var(--text-disabled)">(${item.count})</span>
             </div>
           `;
@@ -63,7 +63,7 @@ export function TagsView({ tags, onNavigate }: TagsViewProps): ReturnType<typeof
                 <div class="tag-card-name">${item.name}</div>
                 <span style="font-size:var(--font-sm);font-weight:600;color:${barColor};flex-shrink:0;min-width:36px;text-align:right" title="Pass rate: ${item.passRate}%">${item.passRate}%</span>
               </div>
-              <div style="height:4px;border-radius:2px;background:var(--border-color);overflow:hidden">
+              <div class="bar-track bar-track-sm">
                 <div style="height:100%;width:${barWidth};background:${barColor};border-radius:2px;transition:width 0.3s"></div>
               </div>
               <div class="tag-card-count" style="margin-top:4px">${item.scenarioCount} scenario${item.scenarioCount! > 1 ? 's' : ''}</div>

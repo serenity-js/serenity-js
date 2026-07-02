@@ -119,7 +119,7 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
       ${historicalRun ? html`
         <div class="historical-banner">
           <span>Viewing results from: <strong>${formatRunLabel(historicalRun.label, historicalRun.timestamp)}</strong> — ${formatDuration(historicalRun.duration)}</span>
-          <a href="#/tests" style="cursor:pointer;color:var(--accent);font-weight:500;text-decoration:underline">show latest</a>
+          <a href="#/tests" class="link-underline">show latest</a>
         </div>
       ` : null}
 
@@ -128,7 +128,7 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
       <div style="position:relative;margin-bottom:var(--space-md)">
         <input class="search-input" type="text" placeholder="Find test scenarios..."
                value=${search} onInput=${(e: Event) => setSearch((e.target as HTMLInputElement).value)}
-               aria-label="Find test scenarios" style="margin-bottom:0;padding-right:36px" />
+               aria-label="Find test scenarios" />
         ${search ? html`<button onClick=${() => setSearch('')}
           class="btn-clear"
           aria-label="Clear search">✕</button>` : null}

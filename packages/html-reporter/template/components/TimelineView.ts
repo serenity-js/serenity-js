@@ -51,7 +51,7 @@ export function TimelineView({ scenarios: allScenarios, summary, onNavigate }: T
 
     return html`
     <div>
-      <div class="kpi-row mb-md" style="grid-template-columns:repeat(4, 1fr);grid-template-rows:auto">
+      <div class="kpi-row mb-md grid-4col">
         <div class="kpi-card" tabindex="0" aria-label="Slowest test: ${formatDuration(slowest)}">
           <span class="kpi-label">Slowest</span>
           <span class="kpi-value" style="color:${slowest > avg * 3 ? 'var(--color-failed)' : slowest > avg * 2 ? 'var(--color-pending)' : ''}">${formatDuration(slowest)}</span>
@@ -103,7 +103,7 @@ export function TimelineView({ scenarios: allScenarios, summary, onNavigate }: T
                     <span style="font-size:var(--font-sm);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;${nameColor}">${s.category} › ${s.name}</span>
                     <span style="font-size:var(--font-xs);${s.outcome !== 'SUCCESS' ? 'color:var(--color-' + outcomeClass(s.outcome) + ')' : 'color:var(--text-secondary)'};font-family:var(--font-mono);white-space:nowrap;flex-shrink:0">${formatDuration(s.duration)}</span>
                   </div>
-                  <div style="height:10px;margin-left:24px;margin-top:2px;position:relative">
+                  <div class="bar-track bar-track-md" style="margin-left:24px;margin-top:2px">
                     <div style="position:absolute;left:${left}%;width:${barWidth}%;min-width:8px;height:100%;border-radius:3px;background:var(--color-${outcomeClass(s.outcome)});opacity:0.85"></div>
                   </div>
                 </div>

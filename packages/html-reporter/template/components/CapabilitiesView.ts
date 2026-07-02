@@ -51,7 +51,7 @@ function CapabilitiesFilterBar({ activeFilter, onFilter, capabilities, searchTer
 
     return html`
         <div class="filter-bar" role="group" aria-label="Filter capabilities by health" style="align-items:center">
-            <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;align-self:center">Health:</span>
+            <span class="label-upper" style="align-self:center">Health:</span>
             ${filters.map(f => html`
                 <button class="filter-chip ${f.key} ${activeFilter === f.key ? 'active' : ''}"
                     onClick=${() => onFilter(f.key)} aria-pressed=${activeFilter === f.key}>
@@ -202,7 +202,7 @@ export function CapabilitiesView({ capabilities, onNavigate, route }: Capabiliti
                     <div style="position:relative;margin-bottom:var(--space-md)">
                         <input class="search-input" type="text" placeholder="Find capabilities..."
                             value=${searchTerm} onInput=${(e: Event) => setSearchTerm((e.target as HTMLInputElement).value)}
-                            aria-label="Find capabilities" style="margin-bottom:0;padding-right:36px" />
+                            aria-label="Find capabilities" />
                         ${searchTerm ? html`<button onClick=${() => setSearchTerm('')}
                             class="btn-clear"
                             aria-label="Clear search">✕</button>` : null}

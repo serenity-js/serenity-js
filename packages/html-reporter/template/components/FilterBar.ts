@@ -52,7 +52,7 @@ export function FilterBar({ outcomes, total, activeFilter, onFilter, sortOptions
 
     return html`
     <div class="filter-bar" role="group" aria-label="Filter tests by outcome" style="align-items:center">
-      <span style="font-size:var(--font-xs);font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;align-self:center">Status:</span>
+      <span class="label-upper" style="align-self:center">Status:</span>
       ${filters.map(f => {
             const isActive = f.key === 'all' ? activeSet.size === 0 : activeSet.has(f.key);
             return html`

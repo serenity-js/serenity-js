@@ -19,27 +19,27 @@ export function AboutView(): ReturnType<typeof html> {
             "How much should I trust this capability?"
           </blockquote>
           <p>Confidence is a weighted composite of three signals:</p>
-          <table style="width:100%;border-collapse:collapse;margin:var(--space-md) 0;font-size:var(--font-sm)">
+          <table class="content-table">
             <thead>
               <tr style="border-bottom:2px solid var(--divider)">
-                <th class="panel-section font-semibold" style="text-align:left">Signal</th>
-                <th class="panel-section font-semibold" style="text-align:left">Weight</th>
-                <th class="panel-section font-semibold" style="text-align:left">Measures</th>
+                <th class="panel-section font-semibold text-left">Signal</th>
+                <th class="panel-section font-semibold text-left">Weight</th>
+                <th class="panel-section font-semibold text-left">Measures</th>
               </tr>
             </thead>
             <tbody>
               <tr class="border-b">
-                <td class="panel-section" style="font-weight:500">Pass Rate</td>
+                <td class="panel-section font-medium">Pass Rate</td>
                 <td class="panel-section">40%</td>
                 <td class="panel-section text-secondary">Percentage of scenarios passing among those executed (excludes skipped/pending)</td>
               </tr>
               <tr class="border-b">
-                <td class="panel-section" style="font-weight:500">Consistency</td>
+                <td class="panel-section font-medium">Consistency</td>
                 <td class="panel-section">35%</td>
                 <td class="panel-section text-secondary">Repeatability across recent executions — how often outcomes change between runs</td>
               </tr>
               <tr class="border-b">
-                <td class="panel-section" style="font-weight:500">Completeness</td>
+                <td class="panel-section font-medium">Completeness</td>
                 <td class="panel-section">25%</td>
                 <td class="panel-section text-secondary">Percentage of scenarios that are implemented (not pending or skipped)</td>
               </tr>
@@ -57,7 +57,7 @@ export function AboutView(): ReturnType<typeof html> {
         <section>
           <h3 class="about-section-title">Report sections</h3>
 
-          <div style="display:grid;gap:var(--space-md)">
+          <div class="stack-md">
             <div class="panel-bg">
               <h4 class="section-title-sm">Dashboard</h4>
               <p class="section-text">Overview of the latest test run — confidence, pass rate, consistency, completeness, duration, and trend across recent executions.</p>

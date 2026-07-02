@@ -61,3 +61,6 @@ export const hashHistory = {
         }
     },
 };
+
+/** Alias for hashHistory — provides the same API as a hook for consistency with component conventions. */
+export const useHashHistory = () => hashHistory;
