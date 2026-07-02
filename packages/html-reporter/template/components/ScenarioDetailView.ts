@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
 import type { ReportActivity, ReportHistoryEntry, ReportScenario } from '../../src/ReportData';
-import { ansiToHtml, browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, hashHistory, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast } from '../utils';
+import { ansiToHtml, browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast, useHashHistory } from '../utils';
 import { ActivityNode } from './ActivityNode';
 import { icons } from './icons';
 import { ExecutionHistory } from './scenario/ExecutionHistory';
@@ -22,6 +22,7 @@ interface ScenarioDetailViewProps {
 }
 
 export function ScenarioDetailView({ scenarios, history, specDirectory, scenarioId, onNavigate }: ScenarioDetailViewProps): ReturnType<typeof html> {
+    const hashNav = useHashHistory();
     const cleanId = scenarioId.split('?')[0];
     const params = scenarioId.includes('?') ? new URLSearchParams(scenarioId.split('?')[1]) : null;
     const runString = params?.get('run');
@@ -201,7 +202,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
         <div class="retry-tabs">
           ${activeAttempts.map((attempt, i) => html`
             <div class="retry-tab ${activeAttempt === i ? 'active' : ''} ${outcomeClass(attempt.outcome)}"
-                 onClick=${() => { setActiveAttempt(i); hashHistory.setParam('attempt', String(i + 1)); }}>
+                 onClick=${() => { setActiveAttempt(i); hashNav.setParam('attempt', String(i + 1)); }}>
               Attempt ${attempt.attemptNumber} (${attempt.outcome === 'SUCCESS' ? 'passed' : 'failed'})
             </div>
           `)}
