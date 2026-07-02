@@ -302,6 +302,14 @@ export class DataSnapshotAggregator {
             : `${ scene.source.path }:${ scene.name }`;
     }
 
+    private sceneIdentityWithBrowser(scene: { source: { path: string; line: number }; name: string; tags: TagRecord[] }): string {
+        const base = this.sceneIdentity(scene);
+        const browserTag = scene.tags.find(t => t.type === 'browser')?.name || '';
+        const projectTag = scene.tags.find(t => t.type === 'project')?.name || '';
+        const discriminator = browserTag || projectTag;
+        return discriminator ? `${ base }@${ discriminator }` : base;
+    }
+
     private copyArtifactsFromSource(databaseJsonPath: string, runId: string, subDirectory: string): void {
         const sourceFs = this.sourceFileSystem;
         if (!sourceFs) {
@@ -330,9 +338,9 @@ export class DataSnapshotAggregator {
         }
     }
 
-    private computeDegradedRecovered(allRuns: RunData[]): { newFailures: Array<{ name: string; category: string; source: { path: string; line: number } }>; newPasses: Array<{ name: string; category: string; source: { path: string; line: number } }> } {
-        const newFailures: Array<{ name: string; category: string; source: { path: string; line: number } }> = [];
-        const newPasses: Array<{ name: string; category: string; source: { path: string; line: number } }> = [];
+    private computeDegradedRecovered(allRuns: RunData[]): { newFailures: Array<{ name: string; category: string; source: { path: string; line: number }; tags?: TagRecord[] }>; newPasses: Array<{ name: string; category: string; source: { path: string; line: number }; tags?: TagRecord[] }> } {
+        const newFailures: Array<{ name: string; category: string; source: { path: string; line: number }; tags?: TagRecord[] }> = [];
+        const newPasses: Array<{ name: string; category: string; source: { path: string; line: number }; tags?: TagRecord[] }> = [];
 
         if (allRuns.length < 2) {
             return { newFailures, newPasses };
@@ -340,18 +348,18 @@ export class DataSnapshotAggregator {
 
         const latestRun = allRuns[allRuns.length - 1];
         const previousRun = allRuns[allRuns.length - 2];
-        const previousOutcomes = new Map(previousRun.scenes.map(s => [this.sceneIdentity(s), s.outcome.code]));
+        const previousOutcomes = new Map(previousRun.scenes.map(s => [this.sceneIdentityWithBrowser(s), s.outcome.code]));
 
         for (const scene of latestRun.scenes) {
-            const key = this.sceneIdentity(scene);
+            const key = this.sceneIdentityWithBrowser(scene);
             const previousCode = previousOutcomes.get(key);
             if (previousCode !== undefined) {
                 const previousSuccess = previousCode === ExecutionSuccessful.Code;
                 const currentSuccess = scene.outcome.code === ExecutionSuccessful.Code;
                 if (previousSuccess && !currentSuccess) {
-                    newFailures.push({ name: scene.name, category: scene.category, source: scene.source });
+                    newFailures.push({ name: scene.name, category: scene.category, source: scene.source, tags: scene.tags });
                 } else if (!previousSuccess && currentSuccess) {
-                    newPasses.push({ name: scene.name, category: scene.category, source: scene.source });
+                    newPasses.push({ name: scene.name, category: scene.category, source: scene.source, tags: scene.tags });
                 }
             }
         }

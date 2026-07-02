@@ -189,6 +189,7 @@ export interface ReportScenarioRef {
     name: string;
     category: string;
     source: ReportSource;
+    tags?: ReportScenarioTag[];
 }
 
 export interface ReportSystemContext {

@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { useMemo } from 'preact/hooks';
 
 import type { ReportCapabilityNode, ReportHistoryEntry, ReportInconsistentTest, ReportScenario, ReportScenarioRef, ReportSummary, ReportSystemContext } from '../../src/ReportData';
-import { formatDuration, outcomeClass, scenarioUrl } from '../utils';
+import { browserBadgeClass, formatDuration, getBrowserTag, outcomeClass, scenarioUrl } from '../utils';
 import { AreaSparkline } from './charts/AreaSparkline';
 import { Delta } from './charts/Delta';
 import { DotTrend } from './charts/DotTrend';
@@ -171,6 +171,7 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
                       <div class="status-item-main">
                         <span class="status-icon ${t.kind === 'degraded' ? 'status-icon--fail' : t.kind === 'recovered' ? 'status-icon--pass' : 'status-icon--warn'}">${t.kind === 'degraded' ? '✗' : t.kind === 'recovered' ? '✓' : '⚠'}</span>
                         <span class="status-item-name">${t.name}</span>
+                        ${getBrowserTag(t) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(t)!)}" style="font-size:10px;padding:1px 6px">${getBrowserTag(t)}</span>` : null}
                         <span class="status-item-kind" style="color:${t.kind === 'degraded' ? 'var(--color-failed)' : t.kind === 'recovered' ? 'var(--color-passed)' : 'var(--color-pending)'}">${t.kind}</span>
                       </div>
                       <div class="status-item-history">${((t as { history?: string[] }).history || getHistory(t)).map((h: string | { outcome: string; run: string }, i: number) => {
