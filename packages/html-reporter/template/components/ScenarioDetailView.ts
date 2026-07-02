@@ -1,6 +1,6 @@
 import htm from 'htm';
 import { h } from 'preact';
-import { useEffect, useMemo, useState } from 'preact/hooks';
+import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
 import type { ReportActivity, ReportHistoryEntry, ReportScenario } from '../../src/ReportData';
 import { ansiToHtml, browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, hashHistory, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast } from '../utils';
@@ -50,10 +50,15 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
     const [treeKey, setTreeKey] = useState(0);
     const [treeExpanded, setTreeExpanded] = useState(true);
 
-    // Reset attempt selection when switching between runs
+    // Reset attempt selection when switching between runs (skip initial mount)
+    const isInitialMount = useRef(true);
     useEffect(() => {
+        if (isInitialMount.current) {
+            isInitialMount.current = false;
+            return;
+        }
         setActiveAttempt(0);
-        hashHistory.deleteParam('attempt');
+        hashNav.deleteParam('attempt');
     }, [runIndex]);
 
     // Sync attempt selection from URL (for deep linking)
