@@ -7,14 +7,14 @@
 import type * as fs from 'node:fs';
 
 import { expect, test } from '@playwright/test';
-import { DomainEventQueues, Timestamp } from '@serenity-js/core';
+import { AssertionError, DomainEventQueues, Timestamp } from '@serenity-js/core';
 import {
     InteractionFinished,
     InteractionStarts,
     SceneFinished,
     SceneStarts,
 } from '@serenity-js/core/events';
-import { FileSystem, FileSystemLocation, Path } from '@serenity-js/core/io';
+import { FileSystem, FileSystemLocation, Path, Version } from '@serenity-js/core/io';
 import {
     ActivityDetails,
     Category,
@@ -29,17 +29,16 @@ import { createFsFromVolume, Volume } from 'memfs';
 import { DataSnapshotAggregator } from '../src/DataSnapshotAggregator.js';
 import type { ReportData } from '../src/ReportData.js';
 import { SceneDataCollector } from '../src/SceneDataCollector.js';
+import type { SystemContext } from '../src/SystemContextDetector.js';
 
 // -- Helpers --
-
-const systemContext = {
+const systemContext: SystemContext = {
     nodeVersion: 'v22.0.0',
     os: { name: 'linux', version: '6.0', arch: 'x64' },
-    serenityVersion: '3.44.0',
-    testRunner: { name: 'Playwright', version: '1.50.0' },
-    browsers: [{ name: 'chromium', version: '126.0.0' }],
-    runtime: { provider: 'GitHub Actions', version: '1', buildNumber: '42', branch: 'main', commit: 'abc123' },
+    serenityVersion: new Version('3.44.0'),
+    runtime: { provider: 'GitHub Actions', buildNumber: '42', branch: 'main', commit: 'abc123' },
 };
+
 
 function collectRunData(options: {
     sceneName: string;
@@ -76,7 +75,7 @@ function collectRunData(options: {
             const isLastAttempt = attempt === options.retries;
             const outcome = isLastAttempt && !options.failed
                 ? new ExecutionSuccessful()
-                : new ExecutionFailedWithAssertionError(new Error(`attempt ${attempt + 1} failed`));
+                : new ExecutionFailedWithAssertionError(new AssertionError(`attempt ${attempt + 1} failed`));
 
             queues.enqueue(new InteractionFinished(sceneId, actId, actDetails, outcome, attemptEnd));
             queues.enqueue(new SceneFinished(sceneId, details, outcome, attemptEnd));
@@ -96,7 +95,7 @@ function collectRunData(options: {
         queues.enqueue(new InteractionStarts(sceneId, actId, actDetails, t0));
 
         const outcome = options.failed
-            ? new ExecutionFailedWithAssertionError(new Error('test failed'))
+            ? new ExecutionFailedWithAssertionError(new AssertionError('test failed'))
             : new ExecutionSuccessful();
 
         queues.enqueue(new InteractionFinished(sceneId, actId, actDetails, outcome, t1));

@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { DomainEventQueues, Timestamp } from '@serenity-js/core';
+import { AssertionError, DomainEventQueues, Timestamp } from '@serenity-js/core';
 import {
     ActivityRelatedArtifactGenerated,
     ActorEntersStage,
@@ -65,8 +65,8 @@ test.describe('SceneDataCollector', () => {
             const act1 = CorrelationId.create();
             const actDetails1 = new ActivityDetails(new Name('Tess ensures that 0 does equal 2'), new FileSystemLocation(Path.from('spec/retries.spec.ts'), 10, 1));
             queues.enqueue(new InteractionStarts(sceneId, act1, actDetails1, t0));
-            queues.enqueue(new InteractionFinished(sceneId, act1, actDetails1, new ExecutionFailedWithAssertionError(new Error('Expected 0 to equal 2')), t1));
-            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionFailedWithAssertionError(new Error('Expected 0 to equal 2')), t2));
+            queues.enqueue(new InteractionFinished(sceneId, act1, actDetails1, new ExecutionFailedWithAssertionError(new AssertionError('Expected 0 to equal 2')), t1));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionFailedWithAssertionError(new AssertionError('Expected 0 to equal 2')), t2));
 
             // Attempt 2: succeeds
             queues.enqueue(new SceneStarts(sceneId, details, t3));
@@ -153,7 +153,7 @@ test.describe('SceneDataCollector', () => {
 
             // Attempt 1: fails
             queues.enqueue(new SceneStarts(sceneId, details, t0));
-            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionFailedWithAssertionError(new Error('fail')), t1));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionFailedWithAssertionError(new AssertionError('fail')), t1));
 
             // Attempt 2: passes
             queues.enqueue(new SceneStarts(sceneId, details, t2));
@@ -683,7 +683,7 @@ test.describe('SceneDataCollector', () => {
             // Attempt 1: fails
             queues.enqueue(new SceneStarts(sceneId, details, t0));
             queues.enqueue(new SceneTagged(sceneId, new ProjectTag('my-project'), t0));
-            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionFailedWithAssertionError(new Error('oops')), t1));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionFailedWithAssertionError(new AssertionError('oops')), t1));
 
             // Attempt 2: passes (same sceneId, same queue)
             queues.enqueue(new SceneStarts(sceneId, details, t2));
@@ -780,7 +780,7 @@ test.describe('SceneDataCollector', () => {
             queues.enqueue(new SceneParametersDetected(sceneId1, details, new ScenarioParameters(new Name(''), new Description(''), { Retries: 'Attempt #1' }), t0));
             queues.enqueue(new SceneStarts(sceneId1, details, t0));
             queues.enqueue(new SceneTagged(sceneId1, new ProjectTag('chromium'), t0));
-            queues.enqueue(new SceneFinished(sceneId1, details, new ExecutionFailedWithAssertionError(new Error('oops')), t1));
+            queues.enqueue(new SceneFinished(sceneId1, details, new ExecutionFailedWithAssertionError(new AssertionError('oops')), t1));
 
             // Attempt 2 (passes) — sceneId2
             queues.enqueue(new SceneSequenceDetected(sceneId2, details, t2));
