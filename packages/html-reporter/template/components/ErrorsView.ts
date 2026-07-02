@@ -3,7 +3,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useMemo, useRef } from 'preact/hooks';
 
-import type { ReportError, ReportScenario } from '../../src/ReportData';
+import type { ReportScenario } from '../../src/ReportData';
 import { useStickyHeader, useVirtualizer } from '../hooks';
 import type { Range } from '../hooks/useVirtualizer';
 import { DATA, formatDuration, formatRunLabel, outcomeClass, outcomeIcon, relativeSourcePath, scenarioUrl } from '../utils';
@@ -17,7 +17,7 @@ interface ErrorsViewProps {
     route: string;
 }
 
-export function ErrorsView({ onNavigate, route }: ErrorsViewProps) {
+export function ErrorsView({ onNavigate, route }: ErrorsViewProps): ReturnType<typeof html> {
     const errorRunParameters = (route && route.includes('?')) ? new URLSearchParams(route.split('?')[1]) : null;
     const errorRunString = errorRunParameters ? errorRunParameters.get('run') : null;
     const errorRunIndex = useMemo(() => {

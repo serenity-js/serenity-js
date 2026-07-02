@@ -6,7 +6,7 @@ import { icons } from './icons';
 
 const html = htm.bind(h);
 
-export function SystemContextView() {
+export function SystemContextView(): ReturnType<typeof html> {
     const context = DATA.systemContext;
 
     if (!context) {

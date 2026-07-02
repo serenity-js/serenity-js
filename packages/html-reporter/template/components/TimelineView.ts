@@ -12,7 +12,7 @@ interface TimelineViewProps {
     onNavigate: (path: string) => void;
 }
 
-export function TimelineView({ onNavigate }: TimelineViewProps) {
+export function TimelineView({ onNavigate }: TimelineViewProps): ReturnType<typeof html> {
     const [sortBy, setSortBy] = useState('time');
     const [filter, setFilter] = useState('all');
     const allScenarios = DATA.scenarios;

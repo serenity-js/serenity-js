@@ -3,7 +3,7 @@ import { h } from 'preact';
 
 const html = htm.bind(h);
 
-export function AboutView() {
+export function AboutView(): ReturnType<typeof html> {
     return html`
     <div class="about-view">
       <div class="card">

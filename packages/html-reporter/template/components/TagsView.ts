@@ -9,7 +9,7 @@ interface TagsViewProps {
     onNavigate: (path: string) => void;
 }
 
-export function TagsView({ onNavigate }: TagsViewProps) {
+export function TagsView({ onNavigate }: TagsViewProps): ReturnType<typeof html> {
     const tagsByType: Record<string, Array<{ type: string; name: string; scenarioCount: number; passed: number }>> = {};
     for (const tag of DATA.tags) {
         const type = tag.type || 'other';

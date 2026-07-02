@@ -15,7 +15,7 @@ interface SidebarProps {
     onToggleCollapse: () => void;
 }
 
-export function Sidebar({ route, sidebarOpen, collapsed, onNavigate, onClose, onToggleCollapse }: SidebarProps) {
+export function Sidebar({ route, sidebarOpen, collapsed, onNavigate, onClose, onToggleCollapse }: SidebarProps): ReturnType<typeof html> {
     const navItems = [
         { path: '/', label: 'Dashboard', icon: 'dashboard' },
         { path: '/tests', label: 'Test Scenarios', icon: 'testScenarios', badge: DATA.summary.outcomes.failed + (DATA.summary.outcomes.error || 0) + (DATA.summary.outcomes.compromised || 0) },

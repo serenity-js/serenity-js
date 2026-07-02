@@ -20,7 +20,7 @@ interface FilterBarProps {
     onSort?: (sort: string) => void;
 }
 
-export function FilterBar({ outcomes, total, activeFilter, onFilter, sortOptions, activeSort, onSort }: FilterBarProps) {
+export function FilterBar({ outcomes, total, activeFilter, onFilter, sortOptions, activeSort, onSort }: FilterBarProps): ReturnType<typeof html> {
     const filters = [
         { key: 'all', label: 'All', count: total },
         { key: 'passed', label: 'Passed', count: outcomes.passed },

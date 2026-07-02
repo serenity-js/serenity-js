@@ -15,7 +15,7 @@ interface ConsistencyViewProps {
     onNavigate: (path: string) => void;
 }
 
-export function ConsistencyView({ onNavigate }: ConsistencyViewProps) {
+export function ConsistencyView({ onNavigate }: ConsistencyViewProps): ReturnType<typeof html> {
     const inconsistentTests = DATA.inconsistentTests || [];
 
     const [filter, setFilter] = useState('inconsistent');

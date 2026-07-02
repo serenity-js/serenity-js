@@ -12,7 +12,7 @@ interface ActivityNodeProps {
     defaultExpanded?: boolean;
 }
 
-export function ActivityNode({ activity, defaultExpanded }: ActivityNodeProps) {
+export function ActivityNode({ activity, defaultExpanded }: ActivityNodeProps): ReturnType<typeof html> {
     const hasChildren = activity.children && activity.children.length > 0;
     const [expanded, setExpanded] = useState(defaultExpanded !== undefined ? defaultExpanded : true);
     const [restExpanded, setRestExpanded] = useState(false);

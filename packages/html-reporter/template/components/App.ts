@@ -30,7 +30,7 @@ function getRoute() {
     return hash.slice(1);
 }
 
-export function App() {
+export function App(): ReturnType<typeof html> {
     const [theme, setTheme] = useState(initTheme);
     const [route, setRoute] = useState(getRoute);
     const [sidebarOpen, setSidebarOpen] = useState(false);

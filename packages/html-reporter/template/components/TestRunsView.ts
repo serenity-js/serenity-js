@@ -3,7 +3,7 @@ import { h } from 'preact';
 
 import type { ReportHistoryEntry } from '../../src/ReportData';
 import { DATA, formatDuration, formatRunLabel, formatTimestamp } from '../utils';
-import { TrendChart } from './DashboardView';
+import { TrendChart } from './charts/TrendChart';
 
 const html = htm.bind(h);
 
@@ -11,7 +11,7 @@ interface TestRunsViewProps {
     onNavigate: (path: string) => void;
 }
 
-export function TestRunsView({ onNavigate }: TestRunsViewProps) {
+export function TestRunsView({ onNavigate }: TestRunsViewProps): ReturnType<typeof html> {
     const runs: ReportHistoryEntry[] = [...DATA.history].reverse();
     return html`
     <div class="card" style="margin-bottom:var(--space-md);overflow:hidden">

@@ -1,126 +1,15 @@
 import htm from 'htm';
 import { h } from 'preact';
-import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import { useEffect, useMemo, useState } from 'preact/hooks';
 
-import type { ReportActivity, ReportParameterSet } from '../../src/ReportData';
+import type { ReportActivity } from '../../src/ReportData';
 import { browserBadgeClass, DATA, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast } from '../utils';
 import { ActivityNode } from './ActivityNode';
+import { ExecutionHistory } from './scenario/ExecutionHistory';
+import { ParameterSetGroups } from './scenario/ParameterSetGroups';
+import { PhotoStrip } from './scenario/PhotoStrip';
 
 const html = htm.bind(h);
-
-// ===== Parameter Set Groups =====
-interface ParameterSetGroupsProps {
-    parameters: ReportParameterSet[];
-}
-
-function ParameterSetGroups({ parameters }: ParameterSetGroupsProps) {
-    const groups = useMemo(() => {
-        const result: Array<{ key: string; name: string | undefined; description: string | undefined; items: ReportParameterSet[] }> = [];
-        let current: { key: string; name: string | undefined; description: string | undefined; items: ReportParameterSet[] } | null = null;
-        for (const ps of parameters) {
-            const key = (ps.name || '') + '\0' + (ps.description || '');
-            if (!current || current.key !== key) {
-                current = { key, name: ps.name, description: ps.description, items: [] };
-                result.push(current);
-            }
-            current.items.push(ps);
-        }
-        return result;
-    }, [parameters]);
-
-    if (groups.length === 1 && !groups[0].name && !groups[0].description) {
-        return html`${groups[0].items.map((ps, index) => html`<${ParameterSetNode} ps=${ps} index=${index} groupIndex=${0} forceExpanded=${undefined} />`)}`;
-    }
-
-    return html`${groups.map((group, index) => html`<${ParameterSetGroup} group=${group} index=${index} />`)}`;
-}
-
-interface ParameterSetGroupProps {
-    group: { key: string; name: string | undefined; description: string | undefined; items: ReportParameterSet[] };
-    index: number;
-}
-
-function ParameterSetGroup({ group, index }: ParameterSetGroupProps) {
-    const [expanded, setExpanded] = useState(true);
-    const [forceExpanded, setForceExpanded] = useState<boolean | undefined>(undefined);
-    const passCount = group.items.filter(ps => ps.outcome === 'SUCCESS').length;
-    const label = group.name || ('Examples' + (index !== undefined ? ' #' + (index + 1) : ''));
-    const collapseAll = (e: Event) => { e.stopPropagation(); setForceExpanded(false); };
-    const expandAll = (e: Event) => { e.stopPropagation(); setForceExpanded(true); };
-    return html`
-    <div style="margin-bottom:var(--space-md);border:1px solid var(--border-color);border-radius:var(--radius-sm);overflow:hidden">
-      <div style="display:flex;align-items:center;gap:var(--space-sm);padding:var(--space-sm) var(--space-md);background:var(--bg-primary);cursor:pointer;user-select:none"
-           onClick=${() => setExpanded(!expanded)}>
-        <span style="font-size:var(--font-sm);transform:${expanded ? 'rotate(90deg)' : 'none'};transition:transform 0.2s">▸</span>
-        <span style="font-size:var(--font-md);font-weight:600">${label}</span>
-        <span style="margin-left:auto;display:flex;align-items:center;gap:var(--space-sm)">
-          <button onClick=${expandAll} title="Expand all examples" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px;display:flex;opacity:0.6">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><path d="M7 9l5 5 5-5"/><path d="M7 15l5 5 5-5"/></svg>
-          </button>
-          <button onClick=${collapseAll} title="Collapse all examples" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px;display:flex;opacity:0.6">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><path d="M17 15l-5-5-5 5"/><path d="M17 9l-5-5-5 5"/></svg>
-          </button>
-          <span class="text-xs-muted">${passCount}/${group.items.length} passed</span>
-        </span>
-      </div>
-      ${group.description ? html`
-        <div class="req-detail-readme readme-content" style="margin:0;border:none;border-top:1px solid var(--divider);border-radius:0;padding:var(--space-sm) var(--space-md)"><${RawHtml} content=${group.description} /></div>
-      ` : null}
-      ${expanded ? html`
-        <div style="padding:var(--space-sm) var(--space-md)">
-          ${group.items.map((ps, index_) => html`<${ParameterSetNode} ps=${ps} index=${index_} groupIndex=${index} forceExpanded=${forceExpanded} />`)}
-        </div>
-      ` : null}
-    </div>
-  `;
-}
-
-// ===== Parameter Set Node =====
-interface ParameterSetNodeProps {
-    ps: ReportParameterSet;
-    index: number;
-    groupIndex: number;
-    forceExpanded: boolean | undefined;
-}
-
-function ParameterSetNode({ ps, index, groupIndex, forceExpanded }: ParameterSetNodeProps) {
-    const exampleId = (groupIndex !== undefined ? groupIndex + '-' : '') + (index + 1);
-    const isLinked = (() => {
-        const hash = window.location.hash;
-        const m = hash.match(/[&?]example=([^&]*)/);
-        return m && m[1] === exampleId;
-    })();
-    const [expanded, setExpanded] = useState(true);
-    useEffect(() => { if (forceExpanded !== undefined) setExpanded(forceExpanded); }, [forceExpanded]);
-    const nodeRef = useRef<HTMLElement | null>(null);
-    const copyLink = (e: Event) => {
-        e.stopPropagation();
-        const hash = window.location.hash.replace(/([&?])example=[^&]*/g, '');
-        const url = window.location.origin + window.location.pathname + window.location.search + hash + (hash.includes('?') ? '&' : '?') + 'example=' + exampleId;
-        navigator.clipboard.writeText(url).then(() => showToast('Link copied to clipboard')).catch(() => {});
-    };
-    useEffect(() => { if (isLinked && nodeRef.current) nodeRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, []);
-    const parameterSummary = Object.entries(ps.values).map(([k, v]) => k + ': ' + v).join(', ');
-    return html`
-    <div ref=${nodeRef} style="margin-bottom:var(--space-sm);border:1px solid ${isLinked ? 'var(--accent)' : 'var(--border-color)'};border-radius:var(--radius-sm);overflow:hidden">
-      <div style="display:flex;align-items:center;gap:var(--space-sm);padding:var(--space-sm) var(--space-md);background:var(--bg-primary);cursor:pointer;user-select:none"
-           onClick=${() => setExpanded(!expanded)}>
-        <span style="font-size:var(--font-sm);transform:${expanded ? 'rotate(90deg)' : 'none'};transition:transform 0.2s">▸</span>
-        <span class="scenario-outcome-icon ${outcomeClass(ps.outcome)}" style="width:18px;height:18px;font-size:var(--font-2xs);flex-shrink:0">${outcomeIcon(ps.outcome)}</span>
-        <span style="font-size:var(--font-sm);font-weight:500">#${index + 1} — ${parameterSummary}</span>
-        <button onClick=${copyLink} title="Copy link to this example" style="margin-left:auto;background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px;line-height:1;opacity:0.6;display:flex;align-items:center">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
-        </button>
-        <span class="text-xs-muted">${formatDuration(ps.duration || 0)}</span>
-      </div>
-      ${expanded && ps.activities.length > 0 ? html`
-        <div class="activity-tree" style="padding:var(--space-sm) var(--space-md)">
-          ${ps.activities.map(activity => html`<${ActivityNode} activity=${activity} />`)}
-        </div>
-      ` : null}
-    </div>
-  `;
-}
 
 // ===== Test Scenario Detail View =====
 interface ScenarioDetailViewProps {
@@ -128,7 +17,7 @@ interface ScenarioDetailViewProps {
     onNavigate: (path: string) => void;
 }
 
-export function ScenarioDetailView({ scenarioId, onNavigate }: ScenarioDetailViewProps) {
+export function ScenarioDetailView({ scenarioId, onNavigate }: ScenarioDetailViewProps): ReturnType<typeof html> {
     const cleanId = scenarioId.split('?')[0];
     const params = scenarioId.includes('?') ? new URLSearchParams(scenarioId.split('?')[1]) : null;
     const runString = params?.get('run');
@@ -147,31 +36,11 @@ export function ScenarioDetailView({ scenarioId, onNavigate }: ScenarioDetailVie
         return sourceKey === decodeURIComponent(cleanId) || s.id === cleanId;
     });
     const [activeAttempt, setActiveAttempt] = useState(0);
-    const [lightboxIndex, setLightboxIndex] = useState(-1);
     const [treeKey, setTreeKey] = useState(0);
     const [treeExpanded, setTreeExpanded] = useState(true);
 
     // Reset attempt selection when switching between runs
     useEffect(() => { setActiveAttempt(0); }, [runIndex]);
-
-    const openPhoto = (index: number) => {
-        setLightboxIndex(index);
-        const base = window.location.hash.replace(/&photo=\d+/, '');
-        window.history.replaceState(null, '', index >= 0 ? base + '&photo=' + index : base);
-    };
-
-    useEffect(() => {
-        const hash = window.location.hash;
-        const photoMatch = hash.match(/&photo=(\d+)/);
-        if (photoMatch) {
-            const photoIndex = parseInt(photoMatch[1], 10);
-            setTimeout(() => {
-                setLightboxIndex(photoIndex);
-                const element = document.getElementById('photo-' + photoIndex);
-                if (element) { element.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-            }, 300);
-        }
-    }, []);
 
     if (!scenario) {
         return html`<div class="card"><p>Test scenario not found.</p></div>`;
@@ -264,57 +133,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }: ScenarioDetailVie
         ` : null}
 
         ${hasExecutionHistory ? html`
-          <div class="mb-md">
-            <div class="card-title mb-sm">Execution History</div>
-            <div class="exec-history-summary">
-              ${(() => {
-                    const activeIndex = runIndex !== null ? runIndex : scenario.executionHistory.length - 1;
-                    const historyUpToNow = scenario.executionHistory.slice(0, activeIndex + 1);
-                    const passed = historyUpToNow.filter(e => e.outcome === 'SUCCESS').length;
-                    const total = historyUpToNow.length;
-                    const flips = historyUpToNow.reduce((count, e, i) => i > 0 && e.outcome !== historyUpToNow[i - 1].outcome ? count + 1 : count, 0);
-                    const consistency = total > 1 ? Math.round((1 - flips / (total - 1)) * 100) : 100;
-                    return html`<span>${passed} of ${total} passing</span><span class="req-detail-metric-sep">·</span><span>${consistency}% consistent</span>`;
-                })()}
-            </div>
-            <div class="exec-history-strip">
-              ${(() => {
-                    const groups: Array<{ date: string; items: Array<{ entry: typeof scenario.executionHistory[0]; index: number; ts: string }> }> = [];
-                    let currentDate = '';
-                    for (let index = 0; index < scenario.executionHistory.length; index++) {
-                        const entry = scenario.executionHistory[index];
-                        const ts = entry.timestamp || (DATA.history[index] ? DATA.history[index].timestamp : '');
-                        const date = ts ? new Date(ts).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : '';
-                        if (date !== currentDate) {
-                            currentDate = date;
-                            groups.push({ date, items: [] });
-                        }
-                        groups[groups.length - 1].items.push({ entry, index, ts });
-                    }
-                    return groups.map(group => html`
-                      <div class="exec-history-group">
-                        <div class="exec-history-date">${group.date}</div>
-                        <div class="exec-history-group-items">
-                          ${group.items.map(({ entry, index, ts }) => {
-                        const isActive = runIndex === index || (runIndex === null && index === scenario.executionHistory.length - 1);
-                        const isIso = /^\d{4}-\d{2}-\d{2}T/.test(entry.run);
-                        const timeLabel = ts ? new Date(ts).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }) : entry.run;
-                        const shortLabel = isIso ? timeLabel : entry.run;
-                        const fullLabel = formatRunLabel(entry.run, ts);
-                        const handleRunClick = (e: Event) => { e.stopPropagation(); onNavigate(scenarioUrl(scenario) + '?run=' + (DATA.history[index] ? DATA.history[index].timestamp : index)); };
-                        return html`
-                            <div class="exec-history-item ${isActive ? 'exec-history-item--active' : ''}" title="${entry.outcome} — ${fullLabel}" onClick=${handleRunClick}>
-                              <div class="exec-history-dot" style="background:var(--color-${outcomeClass(entry.outcome)})">${outcomeIcon(entry.outcome)}</div>
-                              <span class="exec-history-label">${shortLabel}</span>
-                            </div>
-                          `;
-                    })}
-                        </div>
-                      </div>
-                    `);
-                })()}
-            </div>
-          </div>
+          <${ExecutionHistory} scenario=${scenario} runIndex=${runIndex} onNavigate=${onNavigate} />
         ` : null}
 
         ${scenario.narrative ? html`
@@ -397,55 +216,7 @@ export function ScenarioDetailView({ scenarioId, onNavigate }: ScenarioDetailVie
         </div>
       ` : null}
 
-      ${(() => {
-            const photos: Array<{ path: string; name: string; wallClock: string | undefined; offsetMs: number }> = [];
-            const scenarioStart = new Date(scenario.startedAt).getTime();
-            function collectPhotos(activities: ReportActivity[]) {
-                for (const a of activities) {
-                    if (a.artifacts) {
-                        for (const art of a.artifacts) {
-                            if (art.path && art.path.endsWith('.png')) {
-                                const actStart = a.startedAt ? new Date(a.startedAt).getTime() : scenarioStart;
-                                photos.push({ path: art.path, name: a.name, wallClock: a.startedAt, offsetMs: actStart - scenarioStart });
-                            }
-                        }
-                    }
-                    if (a.children) collectPhotos(a.children);
-                }
-            }
-            collectPhotos(currentActivities);
-            if (photos.length === 0) return null;
-            return html`
-          <div class="card mt-md">
-            <div class="card-title">Screenshots (${photos.length})</div>
-            <div class="photo-strip" id="photo-strip">
-              ${photos.map((photo, index) => html`
-                <div class="photo-strip-item" id=${'photo-' + index}>
-                  <img src=${photo.path} loading="lazy" alt=${photo.name} onClick=${() => openPhoto(index)} />
-                  <div class="photo-strip-caption">${photo.name}</div>
-                  <div class="photo-strip-time">${photo.wallClock ? new Date(photo.wallClock).toLocaleTimeString() : ''} · +${formatDuration(photo.offsetMs)}</div>
-                </div>
-              `)}
-            </div>
-          </div>
-          ${lightboxIndex >= 0 && lightboxIndex < photos.length ? html`
-            <div class="lightbox-overlay" onClick=${(e: Event) => { if ((e.target as HTMLElement).classList.contains('lightbox-overlay')) openPhoto(-1); }}
-                 onKeyDown=${(e: KeyboardEvent) => { if (e.key === 'Escape') openPhoto(-1); else if (e.key === 'ArrowRight' && lightboxIndex < photos.length - 1) openPhoto(lightboxIndex + 1); else if (e.key === 'ArrowLeft' && lightboxIndex > 0) openPhoto(lightboxIndex - 1); }}
-                 tabIndex="0" ref=${(element: HTMLElement | null) => { if (element) element.focus(); }}>
-              <div class="lightbox-content">
-                <button class="lightbox-close" onClick=${() => openPhoto(-1)}>✕</button>
-                ${lightboxIndex > 0 ? html`<button class="lightbox-nav lightbox-prev" onClick=${() => openPhoto(lightboxIndex - 1)}>‹</button>` : null}
-                ${lightboxIndex < photos.length - 1 ? html`<button class="lightbox-nav lightbox-next" onClick=${() => openPhoto(lightboxIndex + 1)}>›</button>` : null}
-                <img src=${photos[lightboxIndex].path} alt=${photos[lightboxIndex].name} />
-                <div class="lightbox-caption">
-                  <div>${photos[lightboxIndex].name}</div>
-                  <div style="font-size:var(--font-xs);color:var(--text-secondary);font-family:var(--font-mono)">${photos[lightboxIndex].wallClock ? new Date(photos[lightboxIndex].wallClock).toLocaleTimeString() : ''} · +${formatDuration(photos[lightboxIndex].offsetMs)} · ${lightboxIndex + 1}/${photos.length}</div>
-                </div>
-              </div>
-            </div>
-          ` : null}
-        `;
-        })()}
+      <${PhotoStrip} activities=${currentActivities} scenarioStartedAt=${scenario.startedAt} />
     </div>
   `;
 }

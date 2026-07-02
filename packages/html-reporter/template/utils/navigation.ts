@@ -1,5 +1,4 @@
 import type { ReportScenarioRef, ReportScenarioTag, ReportSource } from '../../src/ReportData';
-
 import { DATA } from './data';
 
 interface ScenarioLike extends ReportScenarioRef {
