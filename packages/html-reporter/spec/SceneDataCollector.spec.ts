@@ -12,7 +12,7 @@ import {
     SceneTagged,
     SceneTemplateDetected,
 } from '@serenity-js/core/events';
-import { FileSystemLocation, Path } from '@serenity-js/core/io';
+import { FileSystemLocation, Path, Version } from '@serenity-js/core/io';
 import {
     ActivityDetails,
     ArbitraryTag,
@@ -33,8 +33,9 @@ import {
 } from '@serenity-js/core/model';
 
 import { SceneDataCollector } from '../src/SceneDataCollector.js';
+import type { SystemContext } from '../src/SystemContextDetector.js';
 
-const systemContext = { nodeVersion: 'v22', os: { name: 'linux', version: '6', arch: 'x64' }, serenityVersion: '3.44.0', testRunner: { name: 'Playwright', version: '1.50.0' }, browsers: [], runtime: { provider: 'node', version: 'v22' } };
+const systemContext: SystemContext = { nodeVersion: 'v22', os: { name: 'linux', version: '6', arch: 'x64' }, serenityVersion: new Version('3.44.0'), runtime: { provider: 'localhost', buildNumber: '1', branch: 'main', commit: 'abc123' } };
 
 test.describe('SceneDataCollector', () => {
 
@@ -218,7 +219,7 @@ test.describe('SceneDataCollector', () => {
                 'Cucumber',
                 '12.0.0',
                 new Map(),
-                { nodeVersion: 'v22', os: { name: 'linux', version: '6', arch: 'x64' }, serenityVersion: '3.44.0', testRunner: { name: 'Cucumber', version: '12.0.0' }, browsers: [], runtime: { provider: 'node', version: 'v22' } },
+                systemContext,
             );
 
             expect(runData.scenes).toHaveLength(1);
@@ -261,7 +262,7 @@ test.describe('SceneDataCollector', () => {
             queues.enqueue(new SceneStarts(sceneId, details, t0));
             queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t1));
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Mocha', '11.0.0', new Map(), { nodeVersion: 'v22', os: { name: 'linux', version: '6', arch: 'x64' }, serenityVersion: '3.44.0', testRunner: { name: 'Mocha', version: '11.0.0' }, browsers: [], runtime: { provider: 'node', version: 'v22' } });
+            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Mocha', '11.0.0', new Map(), systemContext);
 
             expect(runData.scenes).toHaveLength(1);
             expect(runData.scenes[0].scenarioOutline).toBeUndefined();
