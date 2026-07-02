@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from 'preact/hooks';
 import type { ReportActivity, ReportHistoryEntry, ReportScenario } from '../../src/ReportData';
 import { ansiToHtml, browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast } from '../utils';
 import { ActivityNode } from './ActivityNode';
+import { icons } from './icons';
 import { ExecutionHistory } from './scenario/ExecutionHistory';
 import { ParameterSetGroups } from './scenario/ParameterSetGroups';
 import { PhotoStrip } from './scenario/PhotoStrip';
@@ -24,6 +25,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
     const cleanId = scenarioId.split('?')[0];
     const params = scenarioId.includes('?') ? new URLSearchParams(scenarioId.split('?')[1]) : null;
     const runString = params?.get('run');
+    const attemptString = params?.get('attempt');
     const runIndex = useMemo(() => {
         if (runString === null || runString === undefined) return null;
         const byTs = history.findIndex(r => r.timestamp === runString);
@@ -38,12 +40,34 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
             : s.source.path + ':' + s.name;
         return sourceKey === decodeURIComponent(cleanId) || s.id === cleanId;
     });
-    const [activeAttempt, setActiveAttempt] = useState(0);
+    const [activeAttempt, setActiveAttempt] = useState(() => {
+        if (attemptString) {
+            const parsed = parseInt(attemptString, 10);
+            return isNaN(parsed) ? 0 : parsed - 1; // URL uses 1-based, state is 0-based
+        }
+        return 0;
+    });
     const [treeKey, setTreeKey] = useState(0);
     const [treeExpanded, setTreeExpanded] = useState(true);
 
     // Reset attempt selection when switching between runs
-    useEffect(() => { setActiveAttempt(0); }, [runIndex]);
+    useEffect(() => {
+        setActiveAttempt(0);
+        const hash = location.hash.slice(1);
+        const [path, qs] = hash.includes('?') ? [hash.split('?')[0], hash.split('?')[1]] : [hash, ''];
+        const p = new URLSearchParams(qs);
+        if (p.has('attempt')) { p.delete('attempt'); window.history.replaceState(null, '', '#' + path + (p.toString() ? '?' + p.toString() : '')); }
+    }, [runIndex]);
+
+    // Sync attempt selection from URL (for deep linking)
+    useEffect(() => {
+        if (attemptString) {
+            const parsed = parseInt(attemptString, 10);
+            if (!isNaN(parsed) && parsed - 1 !== activeAttempt) {
+                setActiveAttempt(parsed - 1);
+            }
+        }
+    }, [attemptString]);
 
     if (!scenario) {
         return html`<div class="card"><p>Test scenario not found.</p></div>`;
@@ -107,7 +131,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
       ${runIndex !== null && runIndex !== history.length - 1 && history[runIndex] ? html`
         <div class="historical-banner">
           <span>Viewing results from: <strong>${formatRunLabel(history[runIndex].label, history[runIndex].timestamp)}</strong></span>
-          <a onClick=${() => onNavigate(scenarioUrl(scenario))} style="cursor:pointer;color:var(--accent);font-weight:500;text-decoration:underline">show latest</a>
+          <a onClick=${() => onNavigate(scenarioUrl(scenario))} class="link-underline">show latest</a>
         </div>
       ` : null}
 
@@ -119,8 +143,8 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
           <div class="flex-1">
             <div class="flex-row gap-sm">
               <div class="scenario-detail-title flex-1">${scenario.name}</div>
-              <button onClick=${copyTestPath} title="Copy test path to clipboard" style="flex-shrink:0;width:28px;height:28px;border-radius:var(--radius-sm);border:none;background:var(--bg-hover);color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              <button onClick=${copyTestPath} title="Copy test path to clipboard" class="copy-btn">
+                ${icons.copy}
               </button>
             </div>
             <div class="scenario-detail-meta">
@@ -133,7 +157,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
         </div>
 
         ${hasTags ? html`
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:var(--space-md)">
+          <div class="flex-row flex-wrap gap-sm mb-md" style="gap:6px">
             ${[...new Map(scenario.tags.map(t => [t.type + ':' + t.name, t])).values()].map(t => html`<span class="tag-chip">${t.type}:${t.name}</span>`)}
           </div>
         ` : null}
@@ -143,7 +167,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
         ` : null}
 
         ${scenario.narrative ? html`
-          <div class="req-detail-readme readme-content" style="margin-bottom:var(--space-md)"><${RawHtml} content=${scenario.narrative} /></div>
+          <div class="req-detail-readme readme-content mb-md"><${RawHtml} content=${scenario.narrative} /></div>
         ` : null}
 
         ${hasCast ? html`
@@ -175,7 +199,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
         <div class="retry-tabs">
           ${activeAttempts.map((attempt, i) => html`
             <div class="retry-tab ${activeAttempt === i ? 'active' : ''} ${outcomeClass(attempt.outcome)}"
-                 onClick=${() => setActiveAttempt(i)}>
+                 onClick=${() => { setActiveAttempt(i); const hash = location.hash.slice(1); const [path, qs] = hash.includes('?') ? [hash.split('?')[0], hash.split('?')[1]] : [hash, '']; const p = new URLSearchParams(qs); p.set('attempt', String(i + 1)); window.history.replaceState(null, '', '#' + path + '?' + p.toString()); }}>
               Attempt ${attempt.attemptNumber} (${attempt.outcome === 'SUCCESS' ? 'passed' : 'failed'})
             </div>
           `)}
@@ -185,17 +209,17 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
       ${currentActivities.length > 0 || scenario.scenarioOutline ? html`
         <div class="card mb-md">
           ${scenario.description ? html`
-            <div class="req-detail-readme readme-content" style="margin-bottom:var(--space-md)"><${RawHtml} content=${scenario.description} /></div>
+            <div class="req-detail-readme readme-content mb-md"><${RawHtml} content=${scenario.description} /></div>
           ` : null}
-          <div style="display:flex;align-items:center;gap:var(--space-sm);margin-bottom:var(--space-sm)">
+          <div class="flex-row gap-sm mb-sm">
             <div class="card-title mb-0">Activity Tree</div>
             ${!scenario.scenarioOutline && currentActivities.some(a => a.children && a.children.length > 0) ? html`
-              <button onClick=${() => { setTreeExpanded(true); setTreeKey(k => k + 1); }} title="Expand all" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px 4px;font-size:var(--font-sm);opacity:0.7" aria-label="Expand all">▼</button>
-              <button onClick=${() => { setTreeExpanded(false); setTreeKey(k => k + 1); }} title="Collapse all" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);padding:2px 4px;font-size:var(--font-sm);opacity:0.7" aria-label="Collapse all">▶</button>
+              <button onClick=${() => { setTreeExpanded(true); setTreeKey(k => k + 1); }} title="Expand all" class="icon-btn-sm" aria-label="Expand all">▼</button>
+              <button onClick=${() => { setTreeExpanded(false); setTreeKey(k => k + 1); }} title="Collapse all" class="icon-btn-sm" aria-label="Collapse all">▶</button>
             ` : null}
           </div>
           ${scenario.scenarioOutline ? html`
-            <div style="margin-bottom:var(--space-md);padding:var(--space-sm) var(--space-md);background:var(--bg-primary);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:var(--font-sm);white-space:pre-line;color:var(--text-secondary)">${scenario.scenarioOutline.template}</div>
+            <div class="mb-md panel-section font-mono text-sm" style="background:var(--bg-primary);border-radius:var(--radius-sm);white-space:pre-line;color:var(--text-secondary)">${scenario.scenarioOutline.template}</div>
             <${ParameterSetGroups} parameters=${scenario.scenarioOutline.parameters} />
           ` : html`
             <div class="activity-tree" key=${treeKey}>
@@ -207,7 +231,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
 
       ${currentError ? html`
         <div class="error-block">
-          <div class="error-name" style="display:flex;align-items:center;gap:var(--space-sm)">${currentError.name}${errorLocation ? html`<span style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-size:var(--font-xs);font-weight:400;font-family:var(--font-mono);color:var(--text-secondary)">${errorLocation.path.split('/').pop()}:${errorLocation.line}<span style="cursor:pointer;opacity:0.6;display:inline-flex;align-items:center" title="Copy location" onClick=${(e: Event) => { e.stopPropagation(); navigator.clipboard.writeText(errorLocation!.path + ':' + errorLocation!.line).then(() => showToast('Location copied to clipboard')).catch(() => {}); }}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></span></span>` : null}</div>
+          <div class="error-name flex-row gap-sm">${currentError.name}${errorLocation ? html`<span class="ml-auto inline-flex-center text-xs font-mono text-secondary" style="font-weight:400">${errorLocation.path.split('/').pop()}:${errorLocation.line}<span class="copy-location" title="Copy location" onClick=${(e: Event) => { e.stopPropagation(); navigator.clipboard.writeText(errorLocation!.path + ':' + errorLocation!.line).then(() => showToast('Location copied to clipboard')).catch(() => {}); }}>${icons.copy}</span></span>` : null}</div>
           <div class="error-message" dangerouslySetInnerHTML=${{ __html: ansiToHtml(currentError.message) }}></div>
           <pre class="error-stack" dangerouslySetInnerHTML=${{ __html: ansiToHtml(currentError.stack || '') }}></pre>
         </div>
