@@ -17,11 +17,12 @@ export interface MountOptions {
     data?: unknown;          // Injected as window.__SERENITY_REPORT_DATA__
     dataAsProps?: boolean;   // When true, spread data fields into props (default: true for view-level components)
     chartJs?: boolean;       // Whether to load Chart.js (default: false)
+    hash?: string;           // Initial URL hash (without leading #), e.g. '/tests?search=foo'
 }
 
 export const test = base.extend<{ mount: (options: MountOptions) => Promise<void> }>({
     mount: async ({ page }, use) => {
-        const mount = async ({ component, importPath, props = {}, data = {}, dataAsProps, chartJs = false }: MountOptions) => {
+        const mount = async ({ component, importPath, props = {}, data = {}, dataAsProps, chartJs = false, hash }: MountOptions) => {
             // View-level components receive data as props. Merge data fields into props unless explicitly disabled.
             const viewComponents = ['DashboardView', 'ScenariosView', 'ScenarioDetailView', 'CapabilitiesView', 'ConsistencyView', 'ErrorsView', 'TagsView', 'TestRunsView', 'TimelineView', 'SystemContextView'];
             const shouldMergeData = dataAsProps !== undefined ? dataAsProps : viewComponents.includes(component);
@@ -71,7 +72,7 @@ export const test = base.extend<{ mount: (options: MountOptions) => Promise<void
             await page.route('**/test-harness.html', route => {
                 route.fulfill({ contentType: 'text/html', body: html });
             });
-            await page.goto('http://localhost/test-harness.html', { waitUntil: 'load' });
+            await page.goto('http://localhost/test-harness.html' + (hash ? '#' + hash : ''), { waitUntil: 'load' });
         };
 
         await use(mount);
