@@ -753,6 +753,63 @@ test.describe('SceneDataCollector', () => {
 
             expect(runData.scenes[0].video).toBeUndefined();
         });
+
+        test('attaches video to each retry attempt when retries use separate sceneIds', () => {
+            const collector = new SceneDataCollector();
+            const queues = new DomainEventQueues();
+
+            const details = new ScenarioDetails(
+                new Name('retried scenario with video per attempt'),
+                new Category('Suite'),
+                new FileSystemLocation(Path.from('spec/video-retry-separate.spec.ts'), 5, 1),
+            );
+
+            // Playwright adapter pattern: each retry has its own sceneId
+            // but they share a queue via SceneSequenceDetected framing
+            const sceneId1 = CorrelationId.create();
+            const sceneId2 = CorrelationId.create();
+
+            const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+            const t1 = new Timestamp(new Date('2024-01-01T00:00:00.200Z'));
+            const t2 = new Timestamp(new Date('2024-01-01T00:00:00.500Z'));
+            const t3 = new Timestamp(new Date('2024-01-01T00:00:00.700Z'));
+
+            // Attempt 1 (fails) — sceneId1
+            queues.enqueue(new SceneSequenceDetected(sceneId1, details, t0));
+            queues.enqueue(new SceneParametersDetected(sceneId1, details, new ScenarioParameters(new Name(''), new Description(''), { Retries: 'Attempt #1' }), t0));
+            queues.enqueue(new SceneStarts(sceneId1, details, t0));
+            queues.enqueue(new SceneTagged(sceneId1, new ProjectTag('chromium'), t0));
+            queues.enqueue(new SceneFinished(sceneId1, details, new ExecutionFailedWithAssertionError(new Error('oops')), t1));
+
+            // Attempt 2 (passes) — sceneId2
+            queues.enqueue(new SceneSequenceDetected(sceneId2, details, t2));
+            queues.enqueue(new SceneParametersDetected(sceneId2, details, new ScenarioParameters(new Name(''), new Description(''), { Retries: 'Attempt #2' }), t2));
+            queues.enqueue(new SceneStarts(sceneId2, details, t2));
+            queues.enqueue(new SceneTagged(sceneId2, new ProjectTag('chromium'), t2));
+            queues.enqueue(new SceneFinished(sceneId2, details, new ExecutionSuccessful(), t3));
+
+            // Each attempt has its own video keyed by sceneId
+            const sceneArtifactPaths = new Map<string, Path[]>();
+            sceneArtifactPaths.set(sceneId1.value, [
+                Path.from('test-runs/2024-01-01/video-attempt-1.webm'),
+            ]);
+            sceneArtifactPaths.set(sceneId2.value, [
+                Path.from('test-runs/2024-01-01/video-attempt-2.webm'),
+            ]);
+
+            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext, sceneArtifactPaths);
+
+            expect(runData.scenes).toHaveLength(1);
+            expect(runData.scenes[0].retries).toBe(1);
+
+            // Scene-level video should be from the first video found
+            expect(runData.scenes[0].video).toBe('test-runs/2024-01-01/video-attempt-1.webm');
+
+            // Each attempt should have its own video
+            expect(runData.scenes[0].attempts).toHaveLength(2);
+            expect(runData.scenes[0].attempts[0].video).toBe('test-runs/2024-01-01/video-attempt-1.webm');
+            expect(runData.scenes[0].attempts[1].video).toBe('test-runs/2024-01-01/video-attempt-2.webm');
+        });
     });
 
     test.describe('artifact path tracking', () => {

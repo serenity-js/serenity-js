@@ -129,6 +129,7 @@ export interface ReportAttempt {
     duration: number;
     activities: ReportActivity[];
     error?: ReportError;
+    video?: string;
 }
 
 export interface ReportScenarioOutline {

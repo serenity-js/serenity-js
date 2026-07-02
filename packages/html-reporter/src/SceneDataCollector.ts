@@ -66,41 +66,43 @@ export class SceneDataCollector {
             // (cross-browser runs and retries). Split by sceneId first,
             // then group retries (same project) into a single scene with attempts.
             const eventsBySceneId = this.groupEventsBySceneId(events);
-            const records: SceneRecord[] = [];
+            const records: Array<{ record: SceneRecord; sceneId: string }> = [];
 
-            for (const [, sceneEvents] of eventsBySceneId) {
+            for (const [sceneId, sceneEvents] of eventsBySceneId) {
                 // Skip groups without a SceneStarts (e.g. SceneSequenceDetected-only groups)
                 if (!sceneEvents.some(e => e instanceof SceneStarts)) {
                     continue;
                 }
-                records.push(new SceneRecordBuilder(artifactPaths).build(sceneEvents));
+                records.push({ record: new SceneRecordBuilder(artifactPaths).build(sceneEvents), sceneId });
             }
 
             // Group records by project tag to identify retries
-            const byProject = new Map<string, SceneRecord[]>();
-            for (const record of records) {
-                const project = record.tags.find(t => t.type === 'project')?.name || '__default__';
+            const byProject = new Map<string, Array<{ record: SceneRecord; sceneId: string }>>();
+            for (const entry of records) {
+                const project = entry.record.tags.find(t => t.type === 'project')?.name || '__default__';
                 if (!byProject.has(project)) byProject.set(project, []);
-                byProject.get(project).push(record);
+                byProject.get(project).push(entry);
             }
 
-            for (const [, projectRecords] of byProject) {
-                if (projectRecords.length === 1) {
-                    const record = projectRecords[0];
+            for (const [, projectEntries] of byProject) {
+                if (projectEntries.length === 1) {
+                    const { record } = projectEntries[0];
                     if (sceneArtifactPaths) {
                         this.attachVideo(record, events, sceneArtifactPaths);
                     }
                     scenes.push(record);
                 } else {
                     // Multiple records for the same project = retries
-                    const finalRecord = projectRecords[projectRecords.length - 1];
-                    finalRecord.retries = projectRecords.length - 1;
-                    finalRecord.attempts = projectRecords.map((r, i) => ({
+                    const finalEntry = projectEntries[projectEntries.length - 1];
+                    const finalRecord = finalEntry.record;
+                    finalRecord.retries = projectEntries.length - 1;
+                    finalRecord.attempts = projectEntries.map(({ record: r, sceneId: sid }, i) => ({
                         attemptNumber: i + 1,
                         outcome: r.outcome,
                         duration: r.duration,
                         activities: r.activities,
                         ...(r.error ? { error: r.error } : {}),
+                        ...(sceneArtifactPaths ? this.findVideo(sid, sceneArtifactPaths) : {}),
                     }));
                     // Final attempt's activities become the scene's activities
                     finalRecord.activities = finalRecord.attempts[finalRecord.attempts.length - 1].activities;
@@ -150,6 +152,16 @@ export class SceneDataCollector {
                 }
             }
         }
+    }
+
+    private findVideo(sceneId: string, sceneArtifactPaths: Map<string, Path[]>): { video?: string } {
+        if (sceneArtifactPaths.has(sceneId)) {
+            const videoPaths = sceneArtifactPaths.get(sceneId).filter(p => p.value.endsWith('.webm'));
+            if (videoPaths.length > 0) {
+                return { video: videoPaths[0].value };
+            }
+        }
+        return {};
     }
 
     private groupEventsBySceneId(events: Array<DomainEvent & { sceneId: CorrelationId }>): Map<string, Array<DomainEvent & { sceneId: CorrelationId }>> {

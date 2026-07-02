@@ -151,6 +151,7 @@ export interface AttemptRecord {
     duration: number;
     activities: ActivityRecord[];
     error?: ErrorRecord;
+    video?: string;
 }
 
 export interface ActorRecord {
