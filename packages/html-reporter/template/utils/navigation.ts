@@ -27,15 +27,28 @@ export function relativeSourcePath(scenario: { source: ReportSource; name: strin
     return scenario.source.line ? relativePath + ':' + scenario.source.line : relativePath;
 }
 
-export function scenarioUrl(scenario: { source: ReportSource; name: string }, run?: number | string | null, history?: Array<{ timestamp: string }>): string {
+export function scenarioUrl(scenario: { source: ReportSource; name: string; tags?: ReportScenarioTag[] }, run?: number | string | null, history?: Array<{ timestamp: string }>): string {
     const id = scenario.source.line
         ? scenario.source.path + ':' + scenario.source.line
         : scenario.source.path + ':' + scenario.name;
     const base = '/tests/' + encodeURIComponent(id);
-    if (run === undefined || run === null) return base;
-    const historyArray = history || [];
-    const ts = typeof run === 'number' && historyArray[run] ? historyArray[run].timestamp : run;
-    return base + '?run=' + ts;
+    const params = new URLSearchParams();
+    if (run !== undefined && run !== null) {
+        const historyArray = history || [];
+        const ts = typeof run === 'number' && historyArray[run] ? historyArray[run].timestamp : String(run);
+        params.set('run', ts);
+    }
+    // Use browser or project tag to differentiate cross-browser/cross-project variations
+    const tags = scenario.tags || [];
+    const browserTag = tags.find(t => t.type === 'browser');
+    const projectTag = tags.find(t => t.type === 'project');
+    if (browserTag) {
+        params.set('browser', browserTag.name);
+    } else if (projectTag) {
+        params.set('project', projectTag.name);
+    }
+    const qs = params.toString();
+    return qs ? base + '?' + qs : base;
 }
 
 export function matchesSearch(scenario: ScenarioLike, query: string): boolean {

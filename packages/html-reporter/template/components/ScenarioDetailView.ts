@@ -35,11 +35,22 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
         return isNaN(parsed) ? null : parsed;
     }, [runString]);
 
+    const projectString = params?.get('project');
+    const browserString = params?.get('browser');
+
     const scenario = scenarios.find(s => {
         const sourceKey = s.source.line
             ? s.source.path + ':' + s.source.line
             : s.source.path + ':' + s.name;
-        return sourceKey === decodeURIComponent(cleanId) || s.id === cleanId;
+        const idMatch = sourceKey === decodeURIComponent(cleanId) || s.id === cleanId;
+        if (!idMatch) return false;
+        if (browserString) {
+            return (s.tags || []).some(t => t.type === 'browser' && t.name === browserString);
+        }
+        if (projectString) {
+            return (s.tags || []).some(t => t.type === 'project' && t.name === projectString);
+        }
+        return true;
     });
     const [activeAttempt, setActiveAttempt] = useState(() => {
         if (attemptString) {
