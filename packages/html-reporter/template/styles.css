@@ -850,6 +850,35 @@
       border-radius: var(--radius-sm);
     }
 
+    /* ANSI colour classes for error messages */
+    .ansi-bold { font-weight: 700; }
+    .ansi-dim { opacity: 0.7; }
+    .ansi-black { color: #545454; }
+    .ansi-red { color: #e05561; }
+    .ansi-green { color: #3db86e; }
+    .ansi-yellow { color: #d89614; }
+    .ansi-blue { color: #4c9eff; }
+    .ansi-magenta { color: #c75af3; }
+    .ansi-cyan { color: #00b7c3; }
+    .ansi-white { color: #b0b0b0; }
+    .ansi-bright-black { color: #808080; }
+    .ansi-bright-red { color: #ff6b6b; }
+    .ansi-bright-green { color: #5af78e; }
+    .ansi-bright-yellow { color: #f3f99d; }
+    .ansi-bright-blue { color: #57c7ff; }
+    .ansi-bright-magenta { color: #ff6ac1; }
+    .ansi-bright-cyan { color: #9aedfe; }
+    .ansi-bright-white { color: #f1f1f0; }
+
+    [data-theme="dark"] .ansi-black { color: #808080; }
+    [data-theme="dark"] .ansi-red { color: #ff6b6b; }
+    [data-theme="dark"] .ansi-green { color: #5af78e; }
+    [data-theme="dark"] .ansi-yellow { color: #f3f99d; }
+    [data-theme="dark"] .ansi-blue { color: #57c7ff; }
+    [data-theme="dark"] .ansi-magenta { color: #ff6ac1; }
+    [data-theme="dark"] .ansi-cyan { color: #9aedfe; }
+    [data-theme="dark"] .ansi-white { color: #f1f1f0; }
+
     /* Tags */
     .tag-chip {
       display: inline-flex;

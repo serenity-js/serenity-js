@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 
 import type { ReportActivity } from '../../src/ReportData';
-import { browserBadgeClass, DATA, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast } from '../utils';
+import { ansiToHtml, browserBadgeClass, DATA, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast } from '../utils';
 import { ActivityNode } from './ActivityNode';
 import { ExecutionHistory } from './scenario/ExecutionHistory';
 import { ParameterSetGroups } from './scenario/ParameterSetGroups';
@@ -202,8 +202,8 @@ export function ScenarioDetailView({ scenarioId, onNavigate }: ScenarioDetailVie
       ${currentError ? html`
         <div class="error-block">
           <div class="error-name" style="display:flex;align-items:center;gap:var(--space-sm)">${currentError.name}${errorLocation ? html`<span style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-size:var(--font-xs);font-weight:400;font-family:var(--font-mono);color:var(--text-secondary)">${errorLocation.path.split('/').pop()}:${errorLocation.line}<span style="cursor:pointer;opacity:0.6;display:inline-flex;align-items:center" title="Copy location" onClick=${(e: Event) => { e.stopPropagation(); navigator.clipboard.writeText(errorLocation!.path + ':' + errorLocation!.line).then(() => showToast('Location copied to clipboard')).catch(() => {}); }}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></span></span>` : null}</div>
-          <div class="error-message">${currentError.message}</div>
-          <pre class="error-stack">${currentError.stack}</pre>
+          <div class="error-message" dangerouslySetInnerHTML=${{ __html: ansiToHtml(currentError.message) }}></div>
+          <pre class="error-stack" dangerouslySetInnerHTML=${{ __html: ansiToHtml(currentError.stack || '') }}></pre>
         </div>
       ` : null}
 
