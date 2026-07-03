@@ -145,13 +145,20 @@ This ensures each parallel job writes artifacts to its own subdirectory without 
 When a CI job is retried, the attempt number increments (e.g. `playwright-web-2`), and the aggregator merges both
 attempts — recording the retry history on affected scenarios.
 
-## CLI: Aggregating reports from multiple sources
+## CLI
 
-For CI pipelines that run tests in parallel jobs, use the CLI to aggregate results from multiple sources into a single
-report:
+The `@serenity-js/html-reporter` package includes a CLI for aggregating test run data and serving reports locally.
 
 ```bash
-npx @serenity-js/html-reporter \
+npx @serenity-js/html-reporter <command> [options]
+```
+
+### `aggregate` — Generate a report from test run data
+
+Aggregate `db.json` files from one or more sources into a single HTML report with trend analysis:
+
+```bash
+npx @serenity-js/html-reporter aggregate \
   --input "modules/*/reports/serenity/test-runs/**" \
   --output ./reports/serenity \
   --title "My Project" \
@@ -159,15 +166,46 @@ npx @serenity-js/html-reporter \
   --maxHistory 20
 ```
 
-The CLI searches recursively for `db.json` files within the specified input paths.
-
 | Option         | Description                                                                  |
 |----------------|------------------------------------------------------------------------------|
 | `--input`      | Glob pattern(s) for directories containing `db.json` files (comma-separated) |
-| `--output`     | Output directory for the generated report                                    |
+| `--output`     | Output directory for the generated report (default: `./reports/serenity-js`) |
 | `--title`      | Report title                                                                 |
 | `--specRoot`   | Root directory for the capabilities hierarchy                                |
 | `--maxHistory` | Maximum number of test runs to keep                                          |
+
+### `serve` — Serve the report locally
+
+Start a local HTTP server to view the generated report in your browser:
+
+```bash
+npx @serenity-js/html-reporter serve \
+  --dir ./reports/serenity \
+  --port 8080 \
+  --open
+```
+
+| Option   | Description                                           |
+|----------|-------------------------------------------------------|
+| `--dir`  | Directory containing the report (default: `./reports/serenity-js`) |
+| `--port` | Port to listen on (default: `8080`)                   |
+| `--host` | Host to bind to (default: `localhost`)                |
+| `--open` | Open the report in the default browser               |
+
+### Typical local workflow
+
+```bash
+# Run tests (produces test-run data)
+npm test
+
+# Generate report
+npx @serenity-js/html-reporter aggregate \
+  --input "reports/serenity/test-runs/*" \
+  --output ./reports/serenity
+
+# View in browser
+npx @serenity-js/html-reporter serve --dir ./reports/serenity --open
+```
 
 ### How aggregation works
 
@@ -210,7 +248,7 @@ jobs:
 
       # Aggregate: include both historical and current run data
       - run: |
-          npx @serenity-js/html-reporter \
+          npx @serenity-js/html-reporter aggregate \
             --input "target/html-report-data/**/test-runs/**,target/html-report/test-runs/*" \
             --output ./target/html-report \
             --title "My Project" \
@@ -263,7 +301,7 @@ html-report:
         cp -r /tmp/pages/test-runs reports/serenity/ 2>/dev/null || true
       fi
     # Aggregate all results
-    - npx @serenity-js/html-reporter
+    - npx @serenity-js/html-reporter aggregate
       --input "reports/serenity/test-runs/**"
       --output public
       --title "My Project"
@@ -289,7 +327,7 @@ pipeline {
             steps {
                 // Historical runs persist on the Jenkins workspace
                 sh '''
-                    npx @serenity-js/html-reporter \
+                    npx @serenity-js/html-reporter aggregate \
                         --input "reports/serenity/test-runs/**" \
                         --output reports/serenity \
                         --title "My Project" \

@@ -5,20 +5,17 @@
  *
  * Commands:
  *   aggregate   Aggregate test run data into an HTML report
- *   serve       (coming soon) Serve the generated report locally
+ *   serve       Serve the generated report locally
  *
  * Usage:
  *   html-reporter aggregate --input "path/to/test-runs/*" --output ./reports --title "My Report"
- *
- * Aggregate options:
- *   --input      Glob pattern(s) for directories containing db.json files (required)
- *   --output     Output directory for the generated report (default: ./reports/serenity-js)
- *   --title      Report title
- *   --specRoot   Root directory for requirements hierarchy
- *   --maxHistory Maximum number of test runs to keep (older runs are removed)
+ *   html-reporter serve --dir ./reports/serenity-js --port 8080
  */
 
-import { resolve } from 'node:path';
+import { createServer } from 'node:http';
+import { exec } from 'node:child_process';
+import { existsSync, readFileSync, statSync } from 'node:fs';
+import { extname, join, resolve } from 'node:path';
 
 import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import fg from 'fast-glob';
@@ -33,19 +30,24 @@ function parseArgs(argv, startIndex) {
     for (let i = startIndex; i < argv.length; i++) {
         if (argv[i].startsWith('--')) {
             const key = argv[i].slice(2);
-            args[key] = argv[i + 1] || '';
-            i++;
+            const next = argv[i + 1];
+            if (next && !next.startsWith('--')) {
+                args[key] = next;
+                i++;
+            } else {
+                args[key] = '';
+            }
         }
     }
     return args;
 }
 
 function printUsage() {
-    console.error(`Usage: html-reporter <command> [options]
+    console.log(`Usage: html-reporter <command> [options]
 
 Commands:
   aggregate   Aggregate test run data into an HTML report
-  serve       (coming soon) Serve the generated report locally
+  serve       Serve the generated report locally
 
 Run 'html-reporter <command> --help' for command-specific options.`);
 }
@@ -58,12 +60,18 @@ function aggregate(argv, startIndex) {
     if (args.help !== undefined) {
         console.log(`Usage: html-reporter aggregate [options]
 
+Aggregate test run data from multiple sources into a single HTML report.
+
 Options:
-  --input      Glob pattern(s) for directories containing db.json files (required)
+  --input      Glob pattern(s) for directories containing db.json files (required, comma-separated)
   --output     Output directory for the generated report (default: ./reports/serenity-js)
   --title      Report title
-  --specRoot   Root directory for requirements hierarchy
-  --maxHistory Maximum number of test runs to keep (older runs are removed)`);
+  --specRoot   Root directory for requirements hierarchy (enables capabilities view)
+  --maxHistory Maximum number of test runs to keep (older runs are pruned)
+
+Examples:
+  html-reporter aggregate --input "reports/*/test-runs/*" --output ./reports --title "My Project"
+  html-reporter aggregate --input "ci-data/**/test-runs/*,local/test-runs/*" --output ./out --maxHistory 20`);
         process.exit(0);
     }
 
@@ -136,9 +144,122 @@ Options:
     console.log(`Report generated at ${outputDir}/index.html`);
 }
 
-function serve() {
-    console.error('Error: the "serve" command is not yet implemented.');
-    process.exit(1);
+function serve(argv, startIndex) {
+    const args = parseArgs(argv, startIndex);
+
+    if (args.help !== undefined) {
+        console.log(`Usage: html-reporter serve [options]
+
+Serve the generated HTML report on a local HTTP server.
+
+Options:
+  --dir        Directory containing the report (default: ./reports/serenity-js)
+  --port       Port to listen on (default: 8080)
+  --host       Host to bind to (default: localhost)
+  --open       Open the report in the default browser
+
+Examples:
+  html-reporter serve
+  html-reporter serve --dir ./target/html-report --port 3000
+  html-reporter serve --dir ./reports/serenity-js --open`);
+        process.exit(0);
+    }
+
+    const dir = resolve(args.dir || './reports/serenity-js');
+    const port = parseInt(args.port || '8080', 10);
+    const host = args.host || 'localhost';
+    const shouldOpen = args.open !== undefined;
+
+    if (!existsSync(dir)) {
+        console.error(`Error: directory not found: ${dir}`);
+        console.error('Run "html-reporter aggregate" first to generate the report.');
+        process.exit(1);
+    }
+
+    if (!existsSync(join(dir, 'index.html'))) {
+        console.error(`Error: no index.html found in ${dir}`);
+        console.error('Run "html-reporter aggregate" first to generate the report.');
+        process.exit(1);
+    }
+
+    const mimeTypes = {
+        '.html': 'text/html',
+        '.js': 'application/javascript',
+        '.css': 'text/css',
+        '.json': 'application/json',
+        '.png': 'image/png',
+        '.jpg': 'image/jpeg',
+        '.gif': 'image/gif',
+        '.svg': 'image/svg+xml',
+        '.webm': 'video/webm',
+        '.mp4': 'video/mp4',
+        '.woff': 'font/woff',
+        '.woff2': 'font/woff2',
+        '.ico': 'image/x-icon',
+    };
+
+    const server = createServer((req, res) => {
+        const url = new URL(req.url, `http://${host}:${port}`);
+        let pathname = decodeURIComponent(url.pathname);
+
+        // Default to index.html
+        if (pathname === '/') {
+            pathname = '/index.html';
+        }
+
+        const filePath = join(dir, pathname);
+
+        // Security: prevent directory traversal
+        if (!filePath.startsWith(dir)) {
+            res.writeHead(403);
+            res.end('Forbidden');
+            return;
+        }
+
+        try {
+            if (!existsSync(filePath) || !statSync(filePath).isFile()) {
+                // SPA fallback: serve index.html for non-file paths
+                const indexPath = join(dir, 'index.html');
+                const content = readFileSync(indexPath);
+                res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+                res.end(content);
+                return;
+            }
+
+            const content = readFileSync(filePath);
+            const ext = extname(filePath).toLowerCase();
+            const contentType = mimeTypes[ext] || 'application/octet-stream';
+
+            res.writeHead(200, {
+                'Content-Type': contentType,
+                'Cache-Control': 'no-cache',
+            });
+            res.end(content);
+        } catch (error) {
+            res.writeHead(500);
+            res.end('Internal Server Error');
+        }
+    });
+
+    server.listen(port, host, () => {
+        const url = `http://${host}:${port}`;
+        console.log(`Serenity/JS report server running at ${url}`);
+        console.log(`Serving from: ${dir}`);
+        console.log('Press Ctrl+C to stop.\n');
+
+        if (shouldOpen) {
+            const openCmd = process.platform === 'darwin' ? 'open'
+                : process.platform === 'win32' ? 'start'
+                : 'xdg-open';
+            exec(`${openCmd} ${url}`);
+        }
+    });
+
+    process.on('SIGINT', () => {
+        console.log('\nShutting down...');
+        server.close();
+        process.exit(0);
+    });
 }
 
 // --- Main ---
@@ -152,7 +273,7 @@ switch (command) {
         aggregate(process.argv, commandArgStart);
         break;
     case 'serve':
-        serve();
+        serve(process.argv, commandArgStart);
         break;
     case '--help':
     case '-h':
