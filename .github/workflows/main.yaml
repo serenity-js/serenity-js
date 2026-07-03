@@ -403,7 +403,7 @@ jobs:
           path: target/html-report-data
       - name: Generate report
         run: |
-          ./packages/html-reporter/bin/html-reporter.mjs \
+          pnpm run report:html -- aggregate \
             --input "target/html-report-data/**/test-runs/*,target/html-report/test-runs/*" \
             --output ./target/html-report \
             --title "Serenity/JS Integration Tests" \
