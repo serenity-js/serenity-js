@@ -2,7 +2,14 @@
   "name": "tdd-developer",
   "description": "Behaviour-Driven TDD implementer for Serenity/JS. Writes failing specs first, then implements the minimum to pass them. Use PROACTIVELY when writing new features, fixing bugs, or refactoring code. Operates under src/ and spec/ in packages/* and integration/*.",
   "model": "claude-opus-4.6",
-  "mcpServers": {},
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ]
+    }
+  },
   "tools": [
     "@builtin"
   ],
