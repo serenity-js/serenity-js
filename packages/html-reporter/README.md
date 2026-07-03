@@ -166,13 +166,14 @@ npx @serenity-js/html-reporter aggregate \
   --maxHistory 20
 ```
 
-| Option         | Description                                                                  |
-|----------------|------------------------------------------------------------------------------|
-| `--input`      | Glob pattern(s) for directories containing `db.json` files (comma-separated) |
-| `--output`     | Output directory for the generated report (default: `./reports/serenity-js`) |
-| `--title`      | Report title                                                                 |
-| `--specRoot`   | Root directory for the capabilities hierarchy                                |
-| `--maxHistory` | Maximum number of test runs to keep                                          |
+| Option                | Description                                                                  |
+|-----------------------|------------------------------------------------------------------------------|
+| `--input`             | Glob pattern(s) for directories containing `db.json` files (comma-separated) |
+| `--output`            | Output directory for the generated report (default: `./reports/serenity-js`) |
+| `--title`             | Report title                                                                 |
+| `--specRoot`          | Root directory for the capabilities hierarchy                                |
+| `--maxHistory`        | Maximum number of test runs to keep                                          |
+| `--consistencyWindow` | Number of recent runs used to identify flaky tests (default: `5`)            |
 
 ### `serve` — Serve the report locally
 

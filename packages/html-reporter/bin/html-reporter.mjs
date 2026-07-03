@@ -63,11 +63,12 @@ function aggregate(argv, startIndex) {
 Aggregate test run data from multiple sources into a single HTML report.
 
 Options:
-  --input      Glob pattern(s) for directories containing db.json files (required, comma-separated)
-  --output     Output directory for the generated report (default: ./reports/serenity-js)
-  --title      Report title
-  --specRoot   Root directory for requirements hierarchy (enables capabilities view)
-  --maxHistory Maximum number of test runs to keep (older runs are pruned)
+  --input              Glob pattern(s) for directories containing db.json files (required, comma-separated)
+  --output             Output directory for the generated report (default: ./reports/serenity-js)
+  --title              Report title
+  --specRoot           Root directory for requirements hierarchy (enables capabilities view)
+  --maxHistory         Maximum number of test runs to keep (older runs are pruned)
+  --consistencyWindow  Number of recent runs used to identify flaky tests (default: 5)
 
 Examples:
   html-reporter aggregate --input "reports/*/test-runs/*" --output ./reports --title "My Project"
@@ -131,7 +132,7 @@ Examples:
     }
 
     const aggregator = new DataSnapshotAggregator(outputFileSystem, {
-        consistencyWindow: 5,
+        consistencyWindow: args.consistencyWindow ? parseInt(args.consistencyWindow, 10) : 5,
         maxHistory: args.maxHistory ? parseInt(args.maxHistory, 10) : undefined,
         title: args.title,
     }, requirementsHierarchy, projectFileSystem, sourceFileSystem);
