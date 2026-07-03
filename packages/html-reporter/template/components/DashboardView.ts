@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { useMemo } from 'preact/hooks';
 
 import type { ReportCapabilityNode, ReportHistoryEntry, ReportInconsistentTest, ReportScenario, ReportScenarioRef, ReportSummary, ReportSystemContext } from '../../src/ReportData';
-import { browserBadgeClass, formatDuration, getBrowserTag, outcomeClass, scenarioUrl } from '../utils';
+import { browserBadgeClass, computeCompletenessFromTree, formatDuration, getBrowserTag, outcomeClass, runConfidence, scenarioUrl } from '../utils';
 import { AreaSparkline } from './charts/AreaSparkline';
 import { Delta } from './charts/Delta';
 import { DotTrend } from './charts/DotTrend';
@@ -33,17 +33,8 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
     const previousScore = history.length > 1 && history[history.length - 2].score;
     const passRate = latestScore ? latestScore.passRate : (summary.totalScenarios > 0 ? Math.round((summary.outcomes.passed / summary.totalScenarios) * 100) : 0);
     const consistency = latestScore ? latestScore.consistency : 100;
-    const completenessScore = latestScore ? latestScore.completeness : (() => {
-        if (!capabilities) return 100;
-        let total = 0, complete = 0;
-        function walk(node: ReportCapabilityNode) {
-            if (node.type === 'file') { total++; const t = (node.outcomes.passed || 0) + (node.outcomes.failed || 0) + (node.outcomes.error || 0) + (node.outcomes.compromised || 0) + (node.outcomes.pending || 0) + (node.outcomes.skipped || 0); if (t > 0 && !(node.outcomes.pending || 0) && !(node.outcomes.skipped || 0)) complete++; }
-            if (node.children) node.children.forEach(walk);
-        }
-        if (capabilities.children) capabilities.children.forEach(walk);
-        return total > 0 ? Math.round((complete / total) * 100) : 100;
-    })();
-    const confidence = latestScore ? latestScore.confidence : Math.round(completenessScore * 0.3 + passRate * 0.35 + consistency * 0.35);
+    const completenessScore = latestScore ? latestScore.completeness : computeCompletenessFromTree(capabilities);
+    const confidence = latestScore ? latestScore.confidence : runConfidence(passRate, completenessScore, consistency);
 
     // Previous run values for deltas
     const previousConfidence = previousScore ? previousScore.confidence : undefined;
@@ -70,6 +61,14 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
     const inconsistent = allInconsistentTests.slice(0, 5);
 
     // Look up execution history for a test by source identity
+    const consistencyItems = useMemo(() => [
+        ...newFailures.map(t => ({ ...t, kind: 'degraded' as const })),
+        ...newPasses.map(t => ({ ...t, kind: 'recovered' as const })),
+        ...inconsistent
+            .filter(t => !newFailures.some(f => f.source.path === t.source.path) && !newPasses.some(p => p.source.path === t.source.path))
+            .map(t => ({ ...t, kind: 'inconsistent' as const })),
+    ].slice(0, 5), [newFailures, newPasses, inconsistent]);
+
     const getHistory = (t: ReportScenarioRef) => {
         const key = t.source.path + ':' + (t.source.line || '');
         const match = scenarios.find(s => s.source.path + ':' + (s.source.line || '') === key)
@@ -160,13 +159,8 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
               ${(newFailures.length > 0 || newPasses.length > 0 || inconsistent.length > 0) ? html`<a class="view-all-link" onClick=${() => onNavigate('/consistency')}>View all →</a>` : null}
             </div>
             ${(() => {
-                const items = [
-                    ...newFailures.map(t => ({ ...t, kind: 'degraded' })),
-                    ...newPasses.map(t => ({ ...t, kind: 'recovered' })),
-                    ...inconsistent.filter(t => !newFailures.some(f => f.source.path === t.source.path) && !newPasses.some(p => p.source.path === t.source.path)).map(t => ({ ...t, kind: 'inconsistent' })),
-                ].slice(0, 5);
-                if (items.length === 0) return html`<div class="status-empty status-empty--ok"><span class="status-chip">✓</span> All tests consistent</div>`;
-                return items.map(t => html`
+                if (consistencyItems.length === 0) return html`<div class="status-empty status-empty--ok"><span class="status-chip">✓</span> All tests consistent</div>`;
+                return consistencyItems.map(t => html`
                     <div class="status-item status-item--rich clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
                       <div class="status-item-main">
                         <span class="status-icon ${t.kind === 'degraded' ? 'status-icon--fail' : t.kind === 'recovered' ? 'status-icon--pass' : 'status-icon--warn'}">${t.kind === 'degraded' ? '✗' : t.kind === 'recovered' ? '✓' : '⚠'}</span>

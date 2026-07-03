@@ -4,7 +4,7 @@ import { useCallback, useMemo } from 'preact/hooks';
 
 import type { ReportHistoryEntry, ReportScenario } from '../../src/ReportData';
 import { ROW_HEIGHTS } from '../config/layout';
-import { formatRunLabel } from '../utils';
+import { formatRunLabel, resolveRunIndex } from '../utils';
 import { icons } from './icons';
 import { GroupedVirtualList } from './layout/GroupedVirtualList';
 import { ErrorRow } from './rows/ErrorRow';
@@ -33,13 +33,7 @@ interface ErrorRenderItem {
 export function ErrorsView({ scenarios: allScenarios, history, specDirectory, onNavigate, route }: ErrorsViewProps): ReturnType<typeof html> {
     const errorRunParameters = (route && route.includes('?')) ? new URLSearchParams(route.split('?')[1]) : null;
     const errorRunString = errorRunParameters ? errorRunParameters.get('run') : null;
-    const errorRunIndex = useMemo(() => {
-        if (errorRunString === null) return null;
-        const byTs = history.findIndex(r => r.timestamp === errorRunString);
-        if (byTs >= 0) return byTs;
-        const parsed = parseInt(errorRunString, 10);
-        return isNaN(parsed) ? null : parsed;
-    }, [errorRunString]);
+    const errorRunIndex = useMemo(() => resolveRunIndex(errorRunString, history), [errorRunString]);
     const errorIsHistorical = errorRunIndex !== null && errorRunIndex !== history.length - 1;
     const errorHistoricalRun = errorIsHistorical ? history[errorRunIndex] : null;
 

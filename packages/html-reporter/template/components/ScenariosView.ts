@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 
 import type { ReportHistoryEntry, ReportOutcomes, ReportScenario, ReportSummary } from '../../src/ReportData';
-import { formatDuration, formatRunLabel, matchesSearch, useHashHistory } from '../utils';
+import { formatDuration, formatRunLabel, matchesOutcomeFilter, matchesSearch, resolveRunIndex, useHashHistory } from '../utils';
 import { FilterBar } from './FilterBar';
 import { RunSelector } from './RunSelector';
 import { VirtualScenarioList } from './VirtualScenarioList';
@@ -45,10 +45,7 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
     const filtered = useMemo(() => {
         let result = allScenarios;
         if (filter && filter !== 'all') {
-            const filterMatch: Record<string, string[]> = { passed: ['SUCCESS'], failed: ['FAILURE', 'ERROR', 'COMPROMISED'], skipped: ['SKIPPED', 'PENDING'] };
-            const keys = filter.split(',');
-            const allowed = keys.flatMap(k => filterMatch[k] || []);
-            if (allowed.length > 0) result = result.filter(s => allowed.includes(s.outcome));
+            result = result.filter(s => matchesOutcomeFilter(s.outcome, filter));
         }
         if (search) {
             result = result.filter(s => matchesSearch(s, search));
@@ -67,13 +64,7 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
     // Detect run index from route
     const runParameters = route.includes('?') ? new URLSearchParams(route.split('?')[1]) : null;
     const runString = runParameters ? runParameters.get('run') : null;
-    const runIndex = useMemo(() => {
-        if (runString === null) return null;
-        const byTs = history.findIndex(r => r.timestamp === runString);
-        if (byTs >= 0) return byTs;
-        const parsed = parseInt(runString, 10);
-        return isNaN(parsed) ? null : parsed;
-    }, [runString]);
+    const runIndex = useMemo(() => resolveRunIndex(runString, history), [runString]);
 
     useEffect(() => {
         const params = new URLSearchParams();

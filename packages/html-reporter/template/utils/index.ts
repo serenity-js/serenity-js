@@ -4,5 +4,5 @@ export { formatDuration, formatRunLabel, formatTimestamp, outcomeClass, outcomeI
 export { hashHistory, useHashHistory } from './hashHistory';
 export { browserBadgeClass, getBrowserTag, matchesSearch, relativeSourcePath, scenarioUrl } from './navigation';
 export { RawHtml } from './raw-html';
-export { topSlowestScenarios,totalFailedCount } from './selectors';
+export { capabilityConfidence, computeCompletenessFromTree, matchesOutcomeFilter, resolveRunIndex, runConfidence, topSlowestScenarios, totalFailedCount } from './selectors';
 export { showToast } from './toast';

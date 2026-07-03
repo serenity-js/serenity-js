@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
 import type { ReportActivity, ReportHistoryEntry, ReportScenario } from '../../src/ReportData';
-import { ansiToHtml, browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast, useHashHistory } from '../utils';
+import { ansiToHtml, browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, resolveRunIndex, scenarioUrl, showToast, useHashHistory } from '../utils';
 import { ActivityNode } from './ActivityNode';
 import { icons } from './icons';
 import { ExecutionHistory } from './scenario/ExecutionHistory';
@@ -27,13 +27,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
     const params = scenarioId.includes('?') ? new URLSearchParams(scenarioId.split('?')[1]) : null;
     const runString = params?.get('run');
     const attemptString = params?.get('attempt');
-    const runIndex = useMemo(() => {
-        if (runString === null || runString === undefined) return null;
-        const byTs = history.findIndex(r => r.timestamp === runString);
-        if (byTs >= 0) return byTs;
-        const parsed = parseInt(runString, 10);
-        return isNaN(parsed) ? null : parsed;
-    }, [runString]);
+    const runIndex = useMemo(() => resolveRunIndex(runString ?? null, history), [runString]);
 
     const projectString = params?.get('project');
     const browserString = params?.get('browser');
@@ -87,13 +81,13 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
         return html`<div class="card"><p>Test scenario not found.</p></div>`;
     }
 
-    if (!scenario.tags) scenario.tags = [];
-    if (!scenario.cast) scenario.cast = [];
-    if (!scenario.activities) scenario.activities = [];
-    if (!scenario.executionHistory) scenario.executionHistory = [];
+    const tags = scenario.tags || [];
+    const cast = scenario.cast || [];
+    const activities = scenario.activities || [];
+    const executionHistory = scenario.executionHistory || [];
 
-    const historicalEntry = runIndex !== null && runIndex !== history.length - 1 && scenario.executionHistory[runIndex]
-        ? scenario.executionHistory[runIndex] : null;
+    const historicalEntry = runIndex !== null && runIndex !== history.length - 1 && executionHistory[runIndex]
+        ? executionHistory[runIndex] : null;
 
     // Determine per-run retry state: when viewing a historical run, use its data
     const activeAttempts = historicalEntry
@@ -103,26 +97,31 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
     const activeDuration = historicalEntry && historicalEntry.duration != null
         ? historicalEntry.duration
         : scenario.duration;
-    const hasCast = scenario.cast.length > 0;
-    const hasTags = scenario.tags.length > 0;
-    const hasExecutionHistory = scenario.executionHistory.length > 0;
-    const currentActivities = historicalEntry && historicalEntry.activities
-        ? (hasRetries && activeAttempt < activeAttempts.length
-            ? activeAttempts[activeAttempt].activities
-            : historicalEntry.activities)
-        : hasRetries && activeAttempt < activeAttempts.length
-            ? activeAttempts[activeAttempt].activities
-            : scenario.activities;
-    const currentError = historicalEntry
-        ? (hasRetries && activeAttempt < activeAttempts.length
-            ? activeAttempts[activeAttempt].error
-            : historicalEntry.error || null)
-        : hasRetries && activeAttempt < activeAttempts.length
-            ? activeAttempts[activeAttempt].error
-            : scenario.error;
-    const currentVideo = hasRetries && activeAttempt < activeAttempts.length
-        ? activeAttempts[activeAttempt].video || undefined
+    const hasCast = cast.length > 0;
+    const hasTags = tags.length > 0;
+    const hasExecutionHistory = executionHistory.length > 0;
+
+    // Resolve which activities/error/video to display based on historical entry and retry state
+    const activeAttemptData = hasRetries && activeAttempt < activeAttempts.length
+        ? activeAttempts[activeAttempt]
+        : null;
+
+    const currentActivities = activeAttemptData
+        ? activeAttemptData.activities
+        : historicalEntry && historicalEntry.activities
+            ? historicalEntry.activities
+            : activities;
+
+    const currentError = activeAttemptData
+        ? (activeAttemptData.error || null)
+        : historicalEntry
+            ? (historicalEntry.error || null)
+            : (scenario.error || null);
+
+    const currentVideo = activeAttemptData
+        ? (activeAttemptData.video || undefined)
         : scenario.video;
+
     const errorLocation = currentError ? (function findLoc(acts: ReportActivity[]): { path: string; line: number; column: number } | null { for (const a of acts) { if (a.outcome !== 'SUCCESS' && a.outcome !== 'SKIPPED' && a.location) return a.location; if (a.children) { const r = findLoc(a.children); if (r) return r; } } return null; })(currentActivities) : null;
 
     const copyTestPath = () => {
@@ -172,7 +171,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
 
         ${hasTags ? html`
           <div class="flex-row flex-wrap gap-sm mb-md" style="gap:6px">
-            ${[...new Map(scenario.tags.map(t => [t.type + ':' + t.name, t])).values()].map(t => html`<span class="tag-chip">${t.type}:${t.name}</span>`)}
+            ${[...new Map(tags.map(t => [t.type + ':' + t.name, t])).values()].map(t => html`<span class="tag-chip">${t.type}:${t.name}</span>`)}
           </div>
         ` : null}
 
@@ -187,7 +186,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
         ${hasCast ? html`
           <div class="cast-section">
             <div class="card-title mb-sm">Cast</div>
-            ${scenario.cast.map(actor => html`
+            ${cast.map(actor => html`
               <div class="mb-md">
                 <div class="cast-item">
                   <div class="cast-avatar">${actor.name[0]}</div>

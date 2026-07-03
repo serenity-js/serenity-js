@@ -4,7 +4,7 @@ import { useMemo, useRef, useState } from 'preact/hooks';
 
 import type { ReportScenario, ReportSummary } from '../../src/ReportData';
 import { useVirtualizer } from '../hooks';
-import { formatDuration, formatTimestamp, outcomeClass, outcomeIcon, scenarioUrl } from '../utils';
+import { formatDuration, formatTimestamp, matchesOutcomeFilter, outcomeClass, outcomeIcon, scenarioUrl } from '../utils';
 import { FilterBar } from './FilterBar';
 
 const html = htm.bind(h);
@@ -25,10 +25,7 @@ export function TimelineView({ scenarios: allScenarios, summary, onNavigate }: T
     const scenarios = useMemo(() => {
         let result = allScenarios;
         if (filter && filter !== 'all') {
-            const filterMatch: Record<string, string[]> = { passed: ['SUCCESS'], failed: ['FAILURE', 'ERROR', 'COMPROMISED'], skipped: ['SKIPPED', 'PENDING'] };
-            const keys = filter.split(',');
-            const allowed = keys.flatMap(k => filterMatch[k] || []);
-            if (allowed.length > 0) result = result.filter(s => allowed.includes(s.outcome));
+            result = result.filter(s => matchesOutcomeFilter(s.outcome, filter));
         }
         if (sortBy === 'duration') return [...result].sort((a, b) => b.duration - a.duration);
         return result;

@@ -77,6 +77,23 @@ interface CapabilitiesViewProps {
 
 export function CapabilitiesView({ capabilities, onNavigate, route }: CapabilitiesViewProps): ReturnType<typeof html> {
     const hashNav = useHashHistory();
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedPath, setSelectedPath] = useState('');
+    const [selectedNode, setSelectedNode] = useState<ReportCapabilityNode | null>(null);
+    const [activeFilter, setActiveFilter] = useState('all');
+    const [activeSort, setActiveSort] = useState('name');
+    const [focusedPath, setFocusedPath] = useState('');
+
+    useEffect(() => {
+        if (!capabilities) return;
+        const params = route && route.includes('?') ? new URLSearchParams(route.split('?')[1]) : null;
+        const pathFromUrl = params?.get('path') ?? '';
+        const node = findNodeByPath(capabilities, pathFromUrl);
+        if (node) {
+            setSelectedPath(pathFromUrl);
+            setSelectedNode(node);
+        }
+    }, [route, capabilities]);
 
     if (!capabilities) {
         return html`
@@ -87,23 +104,6 @@ export function CapabilitiesView({ capabilities, onNavigate, route }: Capabiliti
             </div>
         `;
     }
-
-    const [searchTerm, setSearchTerm] = useState('');
-    const [selectedPath, setSelectedPath] = useState('');
-    const [selectedNode, setSelectedNode] = useState<ReportCapabilityNode | null>(null);
-    const [activeFilter, setActiveFilter] = useState('all');
-    const [activeSort, setActiveSort] = useState('name');
-    const [focusedPath, setFocusedPath] = useState('');
-
-    useEffect(() => {
-        const params = route && route.includes('?') ? new URLSearchParams(route.split('?')[1]) : null;
-        const pathFromUrl = params?.get('path') ?? '';
-        const node = findNodeByPath(capabilities, pathFromUrl);
-        if (node) {
-            setSelectedPath(pathFromUrl);
-            setSelectedNode(node);
-        }
-    }, [route]);
 
     const nodeFilter = useMemo((): ((node: ReportCapabilityNode) => boolean) | null => {
         if (activeFilter === 'critical') return (n: ReportCapabilityNode) => nodeConfidence(n) < 50;
