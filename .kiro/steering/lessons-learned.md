@@ -95,3 +95,17 @@ The fix: `configure()` returns the instantiated crew array. The fixture stores i
 The `ScenarioDetailView` component receives a `history: ReportHistoryEntry[]` prop. Inside the component, bare `history.replaceState(...)` calls resolve to the **prop** (an array), not `window.history`. After bundling/minification this becomes `t.replaceState(...)` which silently fails.
 
 Always use `window.history.replaceState(...)` explicitly in components that have a `history` prop.
+
+## Report terminology: "inconsistent" not "flaky", "retried success" not "flaky pass"
+
+In user-facing report text, never use "flaky". Use "inconsistent" to describe tests that sometimes pass, sometimes fail. The internal outcome string `RETRIED_SUCCESS` represents a test that passed only after retrying — in tooltips and labels visible to users, call it "Retried success" (i.e. "Passed on retry" in tooltips). The consistency view filter chip should say "Unstable" for tests whose last outcome was a retried success.
+
+## Consistency view icon must use the same outcomeClass/outcomeIcon as scenario detail
+
+The ConsistencyRow previously had its own `kindIcon()` function that mapped a "kind" string to an icon+colour independently of the `outcomeClass`/`outcomeIcon` utilities used everywhere else. This caused the consistency view to show a red cross (✗) for a test whose scenario detail showed a green tick (✓) — because one used `kind === 'degraded'` logic while the other used `outcomeClass(scenario.outcome)`.
+
+Fix: ConsistencyRow and DashboardView consistency card now derive icons from `outcomeClass(lastOutcome)` / `outcomeIcon(lastOutcome)`, using the same `lastOutcome` string that drives all other outcome rendering. No component should independently map outcomes to icons — always go through `outcomeClass`/`outcomeIcon`.
+
+## html-reporter is in UI stabilisation — no new UI elements without approval
+
+The html-reporter module is being stabilised for release. Do not introduce new UI elements (filter chips, views, buttons, panels, sections) without explicitly asking the user first. Implementation changes to existing elements (refactoring, fixing divergent behaviour, renaming) are fine — adding new visible surface area is not.

@@ -357,9 +357,11 @@ export class DataSnapshotAggregator {
             if (previousCode !== undefined) {
                 const previousSuccess = previousCode === ExecutionSuccessful.Code;
                 const currentSuccess = scene.outcome.code === ExecutionSuccessful.Code;
+                const currentRetried = scene.retries > 0 && currentSuccess;
                 if (previousSuccess && !currentSuccess) {
                     newFailures.push({ name: scene.name, category: scene.category, source: scene.source, tags: scene.tags });
-                } else if (!previousSuccess && currentSuccess) {
+                } else if (!previousSuccess && currentSuccess && !currentRetried) {
+                    // Only count as "recovered" if it passed without retrying
                     newPasses.push({ name: scene.name, category: scene.category, source: scene.source, tags: scene.tags });
                 }
             }
@@ -390,9 +392,9 @@ export class DataSnapshotAggregator {
     }
 
     private buildExecutionHistory(scene: SceneRecord, allRuns: RunData[]): ReportExecutionHistoryEntry[] {
-        const key = this.sceneIdentity(scene);
+        const key = this.sceneIdentityWithBrowser(scene);
         return allRuns.map(run => {
-            const match = run.scenes.find(s => this.sceneIdentity(s) === key);
+            const match = run.scenes.find(s => this.sceneIdentityWithBrowser(s) === key);
             if (!match) return undefined;
             const entry: ReportExecutionHistoryEntry = {
                 outcome: outcomeCodeToDisplayString(match.outcome.code),
@@ -411,6 +413,9 @@ export class DataSnapshotAggregator {
                     outcome: outcomeCodeToDisplayString(attempt.outcome.code),
                     activities: attempt.activities.map(activity => this.mapActivityOutcome(activity)),
                 }));
+            }
+            if (match.retries > 0 && match.outcome.code === ExecutionSuccessful.Code) {
+                entry.retriedAndPassed = true;
             }
             return entry;
         }).filter(Boolean) as ReportExecutionHistoryEntry[];
@@ -506,9 +511,14 @@ export class DataSnapshotAggregator {
         const testOutcomes = new Map<string, string[]>();
         for (const run of runs) {
             for (const scene of run.scenes) {
-                const identity = `${ scene.name }@${ scene.source.path }`;
+                const projectTag = scene.tags.find(t => t.type === 'project')?.name || '';
+                const identity = `${ scene.name }@${ scene.source.path }@${ projectTag }`;
                 if (!testOutcomes.has(identity)) testOutcomes.set(identity, []);
-                testOutcomes.get(identity).push(outcomeCodeToDisplayString(scene.outcome.code));
+
+                const effectiveOutcome = (scene.retries > 0 && scene.outcome.code === ExecutionSuccessful.Code)
+                    ? 'RETRIED_SUCCESS'
+                    : outcomeCodeToDisplayString(scene.outcome.code);
+                testOutcomes.get(identity).push(effectiveOutcome);
             }
         }
         let totalTests = 0;
@@ -516,7 +526,8 @@ export class DataSnapshotAggregator {
         for (const [, outcomes] of testOutcomes) {
             if (outcomes.length >= 2) {
                 totalTests++;
-                if (new Set(outcomes).size === 1) stableTests++;
+                const uniqueOutcomes = new Set(outcomes);
+                if (uniqueOutcomes.size === 1 && !outcomes.includes('RETRIED_SUCCESS')) stableTests++;
             }
         }
         return totalTests > 0 ? Math.round((stableTests / totalTests) * 100) : 100;
@@ -592,9 +603,9 @@ export class DataSnapshotAggregator {
             fileNode.outcomes[outcomeKey]++;
 
             // Build execution history for this scenario across all runs
-            const scenarioKey = this.sceneIdentity(scene);
+            const scenarioKey = this.sceneIdentityWithBrowser(scene);
             const executionHistory = allRuns.map(r => {
-                const match = r.scenes.find(s => this.sceneIdentity(s) === scenarioKey);
+                const match = r.scenes.find(s => this.sceneIdentityWithBrowser(s) === scenarioKey);
                 return match ? outcomeCodeToDisplayString(match.outcome.code) : undefined;
             }).filter(Boolean) as string[];
 
@@ -703,15 +714,8 @@ export class DataSnapshotAggregator {
     }
 
     private mapOutcomeToKey(outcome: string): string {
-        switch (outcome) {
-            case 'SUCCESS': return 'passed';
-            case 'FAILURE': return 'failed';
-            case 'ERROR': return 'error';
-            case 'COMPROMISED': return 'compromised';
-            case 'PENDING': return 'pending';
-            case 'SKIPPED': return 'skipped';
-            default: return 'error';
-        }
+        const map: Record<string, string> = { SUCCESS: 'passed', FAILURE: 'failed', ERROR: 'error', COMPROMISED: 'compromised', PENDING: 'pending', SKIPPED: 'skipped' };
+        return map[outcome] || 'error';
     }
 
     private findRunDirectories(): Path[] {
@@ -744,17 +748,22 @@ export class DataSnapshotAggregator {
                     testOutcomes.set(identity, { name: scene.name, category: scene.category, source: scene.source, tags: scene.tags, outcomes: [], labels: [] });
                 }
                 const entry = testOutcomes.get(identity);
-                entry.outcomes.push(outcomeCodeToDisplayString(scene.outcome.code));
+
+                // A retried pass counts as a distinct outcome signal
+                const effectiveOutcome = (scene.retries > 0 && scene.outcome.code === ExecutionSuccessful.Code)
+                    ? 'RETRIED_SUCCESS'
+                    : outcomeCodeToDisplayString(scene.outcome.code);
+                entry.outcomes.push(effectiveOutcome);
                 entry.labels.push(runLabel);
             }
         }
 
-        // Find tests with mixed outcomes
+        // Find tests with mixed outcomes or any retried success
         const unstable: Array<{ name: string; category: string; source: { path: string; line: number }; tags: TagRecord[]; inconsistencyRate: number; history: string[]; labels: string[] }> = [];
 
         for (const [, test] of testOutcomes) {
             const uniqueOutcomes = new Set(test.outcomes);
-            if (uniqueOutcomes.size > 1) {
+            if (uniqueOutcomes.size > 1 || test.outcomes.includes('RETRIED_SUCCESS')) {
                 const failures = test.outcomes.filter(o => o !== 'SUCCESS').length;
                 unstable.push({
                     name: test.name,
@@ -795,12 +804,15 @@ export class DataSnapshotAggregator {
     }
 }
 
+const OUTCOME_CODE_DISPLAY_STRINGS: Record<number, string> = {
+    [ExecutionSuccessful.Code]: 'SUCCESS',
+    [ExecutionFailedWithAssertionError.Code]: 'FAILURE',
+    [ExecutionFailedWithError.Code]: 'ERROR',
+    [ExecutionCompromised.Code]: 'COMPROMISED',
+    [ImplementationPending.Code]: 'PENDING',
+    [ExecutionSkipped.Code]: 'SKIPPED',
+};
+
 function outcomeCodeToDisplayString(code: number): string {
-    if (code === ExecutionSuccessful.Code) return 'SUCCESS';
-    if (code === ExecutionFailedWithAssertionError.Code) return 'FAILURE';
-    if (code === ExecutionFailedWithError.Code) return 'ERROR';
-    if (code === ExecutionCompromised.Code) return 'COMPROMISED';
-    if (code === ImplementationPending.Code) return 'PENDING';
-    if (code === ExecutionSkipped.Code) return 'SKIPPED';
-    return 'ERROR';
+    return OUTCOME_CODE_DISPLAY_STRINGS[code] || 'ERROR';
 }

@@ -60,9 +60,14 @@ export function ExecutionHistory({ scenario, runIndex, history, onNavigate }: Ex
                     const shortLabel = isIso ? timeLabel : entry.run;
                     const fullLabel = formatRunLabel(entry.run, ts);
                     const handleRunClick = (e: Event) => { e.stopPropagation(); onNavigate(scenarioUrl(scenario, entry.timestamp || ts)); };
+                    const dotOutcome = entry.retriedAndPassed ? 'retried-success' : outcomeClass(entry.outcome);
+                    const dotIcon = entry.retriedAndPassed ? outcomeIcon('RETRIED_SUCCESS') : outcomeIcon(entry.outcome);
+                    const tooltipText = entry.retriedAndPassed
+                        ? `Passed on retry (attempt ${(entry.retries || 1) + 1} of ${(entry.retries || 1) + 1}) — ${fullLabel}`
+                        : `${entry.outcome} — ${fullLabel}`;
                     return html`
-                      <div class="exec-history-item ${isActive ? 'exec-history-item--active' : ''}" title="${entry.outcome} — ${fullLabel}" onClick=${handleRunClick}>
-                        <div class="exec-history-dot" style="background:var(--color-${outcomeClass(entry.outcome)})">${outcomeIcon(entry.outcome)}</div>
+                      <div class="exec-history-item ${isActive ? 'exec-history-item--active' : ''}" title="${tooltipText}" onClick=${handleRunClick}>
+                        <div class="exec-history-dot exec-history-dot--${dotOutcome}" style="background:var(--color-${dotOutcome})">${dotIcon}</div>
                         <span class="exec-history-label">${shortLabel}</span>
                       </div>
                     `;

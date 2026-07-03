@@ -115,6 +115,7 @@ export interface ReportExecutionHistoryEntry {
     error?: ReportError;
     retries?: number;
     attempts?: ReportAttempt[];
+    retriedAndPassed?: boolean;
 }
 
 export interface ReportError {

@@ -542,7 +542,7 @@ test.describe('DataSnapshotAggregator', () => {
         });
 
         test('separates inconsistent tests by project/browser tag', () => {
-            // Same test in chromium (flaky) and firefox (stable) — should produce
+            // Same test in chromium (inconsistent) and firefox (stable) — should produce
             // one inconsistent entry for chromium only, not a merged entry.
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
@@ -924,7 +924,7 @@ test.describe('DataSnapshotAggregator', () => {
                         finishedAt: '2024-01-01T00:00:01.000Z',
                         outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                         scenes: [{
-                            name: 'flaky test', category: 'Suite', outcome: { code: 4 }, duration: 200,
+                            name: 'retried test', category: 'Suite', outcome: { code: 4 }, duration: 200,
                             startedAt: '2024-01-01T00:00:00.000Z', source: { path: 'a.spec.ts', line: 1 },
                             tags: [], activities: [{ type: 'Interaction', name: 'step A', outcome: { code: 4 }, duration: 200, children: [] }],
                             error: { name: 'Error', message: 'oops', stack: '' },
@@ -936,7 +936,7 @@ test.describe('DataSnapshotAggregator', () => {
                         finishedAt: '2024-01-02T00:00:01.000Z',
                         outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                         scenes: [{
-                            name: 'flaky test', category: 'Suite', outcome: { code: 64 }, duration: 500,
+                            name: 'retried test', category: 'Suite', outcome: { code: 64 }, duration: 500,
                             startedAt: '2024-01-02T00:00:00.000Z', source: { path: 'a.spec.ts', line: 1 },
                             tags: [], activities: [{ type: 'Interaction', name: 'step B', outcome: { code: 64 }, duration: 150, children: [] }],
                             retries: 1, attempts: [
@@ -999,6 +999,245 @@ test.describe('DataSnapshotAggregator', () => {
             expect(data.summary.totalScenarios).toBe(2);
             expect(data.summary.outcomes.passed).toBe(2);
             expect(data.summary.outcomes.failed).toBe(0);
+        });
+    });
+
+    test.describe('retried success classification', () => {
+
+        test('sets retriedAndPassed on execution history entries where outcome is SUCCESS but required retry', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                        startedAt: '2024-01-01T00:00:00.000Z', finishedAt: '2024-01-01T00:00:01.000Z',
+                        outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                        scenes: [{
+                            name: 'retried test', category: 'Suite', outcome: { code: 64 }, duration: 500,
+                            startedAt: '2024-01-01T00:00:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                            tags: [], activities: [],
+                            retries: 1, attempts: [
+                                { attemptNumber: 1, outcome: { code: 4 }, duration: 250, activities: [] },
+                                { attemptNumber: 2, outcome: { code: 64 }, duration: 250, activities: [] },
+                            ],
+                        }],
+                        tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+                    }) },
+                },
+            });
+
+            aggregator.aggregate();
+            const data = readDataJs(filesystem);
+
+            expect(data.scenarios[0].executionHistory[0].retriedAndPassed).toBe(true);
+        });
+
+        test('does not set retriedAndPassed when test passed without retry', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                        startedAt: '2024-01-01T00:00:00.000Z', finishedAt: '2024-01-01T00:00:01.000Z',
+                        outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                        scenes: [{
+                            name: 'stable test', category: 'Suite', outcome: { code: 64 }, duration: 100,
+                            startedAt: '2024-01-01T00:00:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                            tags: [], activities: [],
+                        }],
+                        tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+                    }) },
+                },
+            });
+
+            aggregator.aggregate();
+            const data = readDataJs(filesystem);
+
+            expect(data.scenarios[0].executionHistory[0].retriedAndPassed).toBeUndefined();
+        });
+
+        test('does not set retriedAndPassed when test was retried but ultimately failed', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                        startedAt: '2024-01-01T00:00:00.000Z', finishedAt: '2024-01-01T00:00:01.000Z',
+                        outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                        scenes: [{
+                            name: 'broken test', category: 'Suite', outcome: { code: 4 }, duration: 500,
+                            startedAt: '2024-01-01T00:00:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                            tags: [], activities: [],
+                            retries: 1, attempts: [
+                                { attemptNumber: 1, outcome: { code: 4 }, duration: 250, activities: [] },
+                                { attemptNumber: 2, outcome: { code: 4 }, duration: 250, activities: [] },
+                            ],
+                        }],
+                        tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+                    }) },
+                },
+            });
+
+            aggregator.aggregate();
+            const data = readDataJs(filesystem);
+
+            expect(data.scenarios[0].executionHistory[0].retriedAndPassed).toBeUndefined();
+        });
+
+        test('identifies a test that passed via retry as inconsistent (RETRIED_SUCCESS)', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                        startedAt: '2024-01-01T00:00:00.000Z', finishedAt: '2024-01-01T00:00:01.000Z',
+                        outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                        scenes: [{
+                            name: 'retried test', category: 'Suite', outcome: { code: 64 }, duration: 500,
+                            startedAt: '2024-01-01T00:00:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                            tags: [], activities: [],
+                            retries: 1, attempts: [
+                                { attemptNumber: 1, outcome: { code: 4 }, duration: 250, activities: [] },
+                                { attemptNumber: 2, outcome: { code: 64 }, duration: 250, activities: [] },
+                            ],
+                        }],
+                        tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+                    }) },
+                    '2024-01-02T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                        startedAt: '2024-01-02T00:00:00.000Z', finishedAt: '2024-01-02T00:00:01.000Z',
+                        outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                        scenes: [{
+                            name: 'retried test', category: 'Suite', outcome: { code: 64 }, duration: 100,
+                            startedAt: '2024-01-02T00:00:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                            tags: [], activities: [],
+                        }],
+                        tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+                    }) },
+                },
+            }, { consistencyWindow: 5 });
+
+            aggregator.aggregate();
+            const data = readDataJs(filesystem);
+
+            // RETRIED_SUCCESS + SUCCESS = mixed outcomes → flagged as inconsistent
+            expect(data.inconsistentTests).toHaveLength(1);
+            expect(data.inconsistentTests[0].name).toBe('retried test');
+            expect(data.inconsistentTests[0].history).toContain('RETRIED_SUCCESS');
+        });
+
+        test('identifies a test that always passes via retry as inconsistent', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                        startedAt: '2024-01-01T00:00:00.000Z', finishedAt: '2024-01-01T00:00:01.000Z',
+                        outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                        scenes: [{
+                            name: 'always-retried test', category: 'Suite', outcome: { code: 64 }, duration: 500,
+                            startedAt: '2024-01-01T00:00:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                            tags: [], activities: [],
+                            retries: 1, attempts: [
+                                { attemptNumber: 1, outcome: { code: 4 }, duration: 250, activities: [] },
+                                { attemptNumber: 2, outcome: { code: 64 }, duration: 250, activities: [] },
+                            ],
+                        }],
+                        tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+                    }) },
+                    '2024-01-02T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                        startedAt: '2024-01-02T00:00:00.000Z', finishedAt: '2024-01-02T00:00:01.000Z',
+                        outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                        scenes: [{
+                            name: 'always-retried test', category: 'Suite', outcome: { code: 64 }, duration: 500,
+                            startedAt: '2024-01-02T00:00:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                            tags: [], activities: [],
+                            retries: 1, attempts: [
+                                { attemptNumber: 1, outcome: { code: 4 }, duration: 250, activities: [] },
+                                { attemptNumber: 2, outcome: { code: 64 }, duration: 250, activities: [] },
+                            ],
+                        }],
+                        tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+                    }) },
+                },
+            }, { consistencyWindow: 5 });
+
+            aggregator.aggregate();
+            const data = readDataJs(filesystem);
+
+            // Both runs are RETRIED_SUCCESS → consistently retried = still flagged as inconsistent
+            expect(data.inconsistentTests).toHaveLength(1);
+            expect(data.inconsistentTests[0].name).toBe('always-retried test');
+            expect(data.inconsistentTests[0].history).toEqual(['RETRIED_SUCCESS', 'RETRIED_SUCCESS']);
+        });
+
+        test('does not count a retried pass as recovered in computeDegradedRecovered', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                        startedAt: '2024-01-01T00:00:00.000Z', finishedAt: '2024-01-01T00:00:01.000Z',
+                        outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                        scenes: [{
+                            name: 'retried test', category: 'Suite', outcome: { code: 4 }, duration: 200,
+                            startedAt: '2024-01-01T00:00:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                            tags: [], activities: [],
+                        }],
+                        tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+                    }) },
+                    '2024-01-02T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                        startedAt: '2024-01-02T00:00:00.000Z', finishedAt: '2024-01-02T00:00:01.000Z',
+                        outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                        scenes: [{
+                            name: 'retried test', category: 'Suite', outcome: { code: 64 }, duration: 500,
+                            startedAt: '2024-01-02T00:00:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                            tags: [], activities: [],
+                            retries: 1, attempts: [
+                                { attemptNumber: 1, outcome: { code: 4 }, duration: 250, activities: [] },
+                                { attemptNumber: 2, outcome: { code: 64 }, duration: 250, activities: [] },
+                            ],
+                        }],
+                        tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+                    }) },
+                },
+            });
+
+            aggregator.aggregate();
+            const data = readDataJs(filesystem);
+
+            // A retried pass should NOT appear in newPasses (it's not a genuine recovery)
+            expect(data.newPasses).toHaveLength(0);
+        });
+
+        test('penalises retried passes in consistency score', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                        startedAt: '2024-01-01T00:00:00.000Z', finishedAt: '2024-01-01T00:00:01.000Z',
+                        outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                        scenes: [
+                            { name: 'stable test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-01-01T00:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                            { name: 'retried test', category: 'Suite', outcome: { code: 64 }, duration: 500, startedAt: '2024-01-01T00:00:00.000Z', source: { path: 'a.spec.ts', line: 5 }, tags: [], activities: [],
+                                retries: 1, attempts: [
+                                    { attemptNumber: 1, outcome: { code: 4 }, duration: 250, activities: [] },
+                                    { attemptNumber: 2, outcome: { code: 64 }, duration: 250, activities: [] },
+                                ],
+                            },
+                        ],
+                        tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+                    }) },
+                    '2024-01-02T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                        startedAt: '2024-01-02T00:00:00.000Z', finishedAt: '2024-01-02T00:00:01.000Z',
+                        outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                        scenes: [
+                            { name: 'stable test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-01-02T00:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                            { name: 'retried test', category: 'Suite', outcome: { code: 64 }, duration: 500, startedAt: '2024-01-02T00:00:00.000Z', source: { path: 'a.spec.ts', line: 5 }, tags: [], activities: [],
+                                retries: 1, attempts: [
+                                    { attemptNumber: 1, outcome: { code: 4 }, duration: 250, activities: [] },
+                                    { attemptNumber: 2, outcome: { code: 64 }, duration: 250, activities: [] },
+                                ],
+                            },
+                        ],
+                        tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+                    }) },
+                },
+            });
+
+            aggregator.aggregate();
+            const data = readDataJs(filesystem);
+
+            // 2 tests over 2 runs. 'stable test' is consistent (SUCCESS, SUCCESS).
+            // 'retried test' is RETRIED_SUCCESS in both runs — NOT stable.
+            // Consistency = 1 stable / 2 total = 50%
+            expect(data.history[1].score.consistency).toBe(50);
         });
     });
 
@@ -1277,7 +1516,7 @@ test.describe('DataSnapshotAggregator', () => {
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
                 outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                 scenes: [
-                    { name: 'Flaky test', category: 'Suite', outcome: { code: 4 }, duration: 300,
+                    { name: 'Retried test', category: 'Suite', outcome: { code: 4 }, duration: 300,
                         startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 },
                         tags: [], activities: [{ type: 'Task', name: 'step', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', children: [] }],
                         error: { name: 'Error', message: 'attempt 1 failed', stack: '' } },
@@ -1291,7 +1530,7 @@ test.describe('DataSnapshotAggregator', () => {
                 startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                 scenes: [
-                    { name: 'Flaky test', category: 'Suite', outcome: { code: 64 }, duration: 250,
+                    { name: 'Retried test', category: 'Suite', outcome: { code: 64 }, duration: 250,
                         startedAt: '2024-06-15T10:01:00.000Z', source: { path: 'a.spec.ts', line: 1 },
                         tags: [], activities: [{ type: 'Task', name: 'step', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:01:00.000Z', children: [] }] },
                 ],

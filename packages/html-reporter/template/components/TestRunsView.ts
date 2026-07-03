@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportHistoryEntry } from '../../src/ReportData';
-import { formatDuration, formatRunLabel, formatTimestamp } from '../utils';
+import { formatDuration, formatRunLabel, formatTimestamp, scoreColor } from '../utils';
 import { TrendChart } from './charts/TrendChart';
 import { icons } from './icons';
 
@@ -48,7 +48,7 @@ export function TestRunsView({ history, onNavigate }: TestRunsViewProps): Return
               </div>
             </div>
             <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;min-width:120px">
-              <span style="font-size:var(--font-sm);font-weight:600;color:${confidence >= 90 ? 'var(--color-passed)' : confidence < 50 ? 'var(--color-failed)' : confidence < 70 ? 'var(--color-pending)' : 'var(--text-primary)'}" title="Confidence: ${confidence}%"><span style="font-size:0.7em;opacity:0.7;margin-right:2px">◐</span>${confidence}%</span>
+              <span style="font-size:var(--font-sm);font-weight:600;color:${scoreColor(confidence) || 'var(--text-primary)'}" title="Confidence: ${confidence}%"><span style="font-size:0.7em;opacity:0.7;margin-right:2px">◐</span>${confidence}%</span>
               <div style="display:flex;overflow:hidden;border-radius:3px;background:var(--divider);height:6px;width:100%" title="${run.outcomes.passed} passed, ${failedCount} failed, ${skippedCount} skipped">
                 ${passedPct > 0 ? html`<div style="width:${passedPct}%;height:100%;background:var(--color-passed)"></div>` : null}
                 ${failedPct > 0 ? html`<div style="width:${failedPct}%;height:100%;background:var(--color-failed)"></div>` : null}

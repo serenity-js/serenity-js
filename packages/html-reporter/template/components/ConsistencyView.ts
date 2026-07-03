@@ -35,8 +35,12 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
 
     const allInconsistent = useMemo(() => inconsistentTests.map(t => {
         const lastOutcome = t.history && t.history.length > 0 ? t.history[t.history.length - 1] : null;
-        const kind = lastOutcome === 'SUCCESS' ? 'recovered' : 'degraded';
-        return { ...t, kind };
+        const kind = lastOutcome === 'SUCCESS'
+            ? 'recovered'
+            : (lastOutcome === 'RETRIED_SUCCESS' || lastOutcome === 'PENDING' || lastOutcome === 'SKIPPED')
+                ? 'inconsistent'
+                : 'degraded';
+        return { ...t, kind, lastOutcome: lastOutcome || 'SKIPPED' };
     }), []);
 
     const degradedCount = allInconsistent.filter(t => t.kind === 'degraded').length;
