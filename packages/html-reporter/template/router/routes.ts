@@ -39,7 +39,7 @@ export const routes: RouteDefinition[] = [
             scenarios: data.scenarios,
             history: data.history,
             specDirectory: data.capabilities?.name,
-            scenarioId: params.segment,
+            scenarioId: params.segment + (params.query.toString() ? '?' + params.query.toString() : ''),
         }),
     },
     {
