@@ -3867,21 +3867,21 @@
         </div>
       `:null}
     </div>
-  `}var yr=W.bind(B);function sd({scenario:n,runIndex:t,history:e,onNavigate:s}){if(!n.executionHistory||n.executionHistory.length===0)return null;let i=t!==null?t:n.executionHistory.length-1,o=n.executionHistory.slice(0,i+1),r=o.filter(u=>u.outcome==="SUCCESS").length,a=o.length,l=o.reduce((u,f,p)=>p>0&&f.outcome!==o[p-1].outcome?u+1:u,0),c=a>1?Math.round((1-l/(a-1))*100):100,d=[],h="";for(let u=0;u<n.executionHistory.length;u++){let f=n.executionHistory[u],p=f.timestamp||(e[u]?e[u].timestamp:""),m=p?new Date(p).toLocaleDateString(void 0,{day:"numeric",month:"short",year:"numeric"}):"";m!==h&&(h=m,d.push({date:m,items:[]})),d[d.length-1].items.push({entry:f,index:u,ts:p})}return yr`
+  `}var yr=W.bind(B);function sd({scenario:n,runIndex:t,history:e,onNavigate:s}){if(!n.executionHistory||n.executionHistory.length===0)return null;let i=t!==null&&e[t]?e[t].timestamp:null,o=i!==null?n.executionHistory.findIndex(p=>p.timestamp===i):-1,r=o>=0?o:n.executionHistory.length-1,a=n.executionHistory.slice(0,r+1),l=a.filter(p=>p.outcome==="SUCCESS").length,c=a.length,d=a.reduce((p,m,v)=>v>0&&m.outcome!==a[v-1].outcome?p+1:p,0),h=c>1?Math.round((1-d/(c-1))*100):100,u=[],f="";for(let p=0;p<n.executionHistory.length;p++){let m=n.executionHistory[p],v=m.timestamp||(e[p]?e[p].timestamp:""),y=v?new Date(v).toLocaleDateString(void 0,{day:"numeric",month:"short",year:"numeric"}):"";(y!==f||u.length===0)&&(f=y,u.push({date:y,items:[]})),u[u.length-1].items.push({entry:m,index:p,ts:v})}return yr`
       <div class="mb-md">
         <div class="card-title mb-sm">Execution History</div>
         <div class="exec-history-summary">
-          <span>${r} of ${a} passing</span><span class="req-detail-metric-sep">·</span><span>${c}% consistent</span>
+          <span>${l} of ${c} passing</span><span class="req-detail-metric-sep">·</span><span>${h}% consistent</span>
         </div>
         <div class="exec-history-strip">
-          ${d.map(u=>yr`
+          ${u.map(p=>yr`
             <div class="exec-history-group">
-              <div class="exec-history-date">${u.date}</div>
+              <div class="exec-history-date">${p.date}</div>
               <div class="exec-history-group-items">
-                ${u.items.map(({entry:f,index:p,ts:m})=>{let v=t===p||t===null&&p===n.executionHistory.length-1,y=/^\d{4}-\d{2}-\d{2}T/.test(f.run),x=m?new Date(m).toLocaleTimeString(void 0,{hour:"2-digit",minute:"2-digit"}):f.run,S=y?x:f.run,k=St(f.run,m),w=T=>{T.stopPropagation(),s(Rt(n)+"?run="+(e[p]?e[p].timestamp:p))};return yr`
-                      <div class="exec-history-item ${v?"exec-history-item--active":""}" title="${f.outcome} — ${k}" onClick=${w}>
-                        <div class="exec-history-dot" style="background:var(--color-${dt(f.outcome)})">${Dt(f.outcome)}</div>
-                        <span class="exec-history-label">${S}</span>
+                ${p.items.map(({entry:m,index:v,ts:y})=>{let x=v===r,S=/^\d{4}-\d{2}-\d{2}T/.test(m.run),k=y?new Date(y).toLocaleTimeString(void 0,{hour:"2-digit",minute:"2-digit"}):m.run,w=S?k:m.run,T=St(m.run,y),M=C=>{C.stopPropagation(),s(Rt(n,m.timestamp||y))};return yr`
+                      <div class="exec-history-item ${x?"exec-history-item--active":""}" title="${m.outcome} — ${T}" onClick=${M}>
+                        <div class="exec-history-dot" style="background:var(--color-${dt(m.outcome)})">${Dt(m.outcome)}</div>
+                        <span class="exec-history-label">${w}</span>
                       </div>
                     `})}
               </div>
