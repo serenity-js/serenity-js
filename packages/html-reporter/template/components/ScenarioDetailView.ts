@@ -1,9 +1,9 @@
 import htm from 'htm';
 import { h } from 'preact';
-import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
-import type { ReportActivity, ReportHistoryEntry, ReportScenario } from '../../src/ReportData';
-import { ansiToHtml, browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, resolveRunIndex, scenarioUrl, showToast, useHashHistory } from '../utils';
+import type { ReportHistoryEntry, ReportScenario } from '../../src/ReportData';
+import { useScenarioDetail } from '../hooks/useScenarioDetail';
+import { ansiToHtml, browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast, useHashHistory } from '../utils';
 import { ActivityNode } from './ActivityNode';
 import { icons } from './icons';
 import { ExecutionHistory } from './scenario/ExecutionHistory';
@@ -23,106 +23,16 @@ interface ScenarioDetailViewProps {
 
 export function ScenarioDetailView({ scenarios, history, specDirectory, scenarioId, onNavigate }: ScenarioDetailViewProps): ReturnType<typeof html> {
     const hashNav = useHashHistory();
-    const cleanId = scenarioId.split('?')[0];
-    const params = scenarioId.includes('?') ? new URLSearchParams(scenarioId.split('?')[1]) : null;
-    const runString = params?.get('run');
-    const attemptString = params?.get('attempt');
-    const runIndex = useMemo(() => resolveRunIndex(runString ?? null, history), [runString]);
+    const detail = useScenarioDetail(scenarioId, scenarios, history);
 
-    const projectString = params?.get('project');
-    const browserString = params?.get('browser');
-
-    const scenario = scenarios.find(s => {
-        const sourceKey = s.source.line
-            ? s.source.path + ':' + s.source.line
-            : s.source.path + ':' + s.name;
-        const idMatch = sourceKey === decodeURIComponent(cleanId) || s.id === cleanId;
-        if (!idMatch) return false;
-        if (browserString) {
-            return (s.tags || []).some(t => t.type === 'browser' && t.name === browserString);
-        }
-        if (projectString) {
-            return (s.tags || []).some(t => t.type === 'project' && t.name === projectString);
-        }
-        return true;
-    });
-    const [activeAttempt, setActiveAttempt] = useState(() => {
-        if (attemptString) {
-            const parsed = parseInt(attemptString, 10);
-            return isNaN(parsed) ? 0 : parsed - 1; // URL uses 1-based, state is 0-based
-        }
-        return 0;
-    });
-    const [treeKey, setTreeKey] = useState(0);
-    const [treeExpanded, setTreeExpanded] = useState(true);
-
-    // Reset attempt selection when switching between runs (skip initial mount)
-    const isInitialMount = useRef(true);
-    useEffect(() => {
-        if (isInitialMount.current) {
-            isInitialMount.current = false;
-            return;
-        }
-        setActiveAttempt(0);
-        hashNav.deleteParam('attempt');
-    }, [runIndex]);
-
-    // Sync attempt selection from URL (for deep linking)
-    useEffect(() => {
-        if (attemptString) {
-            const parsed = parseInt(attemptString, 10);
-            if (!isNaN(parsed) && parsed - 1 !== activeAttempt) {
-                setActiveAttempt(parsed - 1);
-            }
-        }
-    }, [attemptString]);
-
-    if (!scenario) {
+    if (!detail.scenario) {
         return html`<div class="card"><p>Test scenario not found.</p></div>`;
     }
 
-    const tags = scenario.tags || [];
-    const cast = scenario.cast || [];
-    const activities = scenario.activities || [];
-    const executionHistory = scenario.executionHistory || [];
-
-    const historicalEntry = runIndex !== null && runIndex !== history.length - 1 && executionHistory[runIndex]
-        ? executionHistory[runIndex] : null;
-
-    // Determine per-run retry state: when viewing a historical run, use its data
-    const activeAttempts = historicalEntry
-        ? (historicalEntry.attempts || null)
-        : (scenario.attempts || null);
-    const hasRetries = activeAttempts && activeAttempts.length > 0;
-    const activeDuration = historicalEntry && historicalEntry.duration != null
-        ? historicalEntry.duration
-        : scenario.duration;
-    const hasCast = cast.length > 0;
-    const hasTags = tags.length > 0;
-    const hasExecutionHistory = executionHistory.length > 0;
-
-    // Resolve which activities/error/video to display based on historical entry and retry state
-    const activeAttemptData = hasRetries && activeAttempt < activeAttempts.length
-        ? activeAttempts[activeAttempt]
-        : null;
-
-    const currentActivities = activeAttemptData
-        ? activeAttemptData.activities
-        : historicalEntry && historicalEntry.activities
-            ? historicalEntry.activities
-            : activities;
-
-    const currentError = activeAttemptData
-        ? (activeAttemptData.error || null)
-        : historicalEntry
-            ? (historicalEntry.error || null)
-            : (scenario.error || null);
-
-    const currentVideo = activeAttemptData
-        ? (activeAttemptData.video || undefined)
-        : scenario.video;
-
-    const errorLocation = currentError ? (function findLoc(acts: ReportActivity[]): { path: string; line: number; column: number } | null { for (const a of acts) { if (a.outcome !== 'SUCCESS' && a.outcome !== 'SKIPPED' && a.location) return a.location; if (a.children) { const r = findLoc(a.children); if (r) return r; } } return null; })(currentActivities) : null;
+    const { scenario, runIndex, activeAttempt, setActiveAttempt, currentActivities, currentError,
+        currentVideo, errorLocation, activeAttempts, hasRetries, activeDuration,
+        tags, cast, hasCast, hasTags, hasExecutionHistory,
+        treeKey, setTreeKey, treeExpanded, setTreeExpanded } = detail;
 
     const copyTestPath = () => {
         const text = scenario.source.line ? scenario.source.path + ':' + scenario.source.line : scenario.source.path;
@@ -210,7 +120,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
 
       ${hasRetries ? html`
         <div class="retry-tabs">
-          ${activeAttempts.map((attempt, i) => html`
+          ${activeAttempts!.map((attempt, i) => html`
             <div class="retry-tab ${activeAttempt === i ? 'active' : ''} ${outcomeClass(attempt.outcome)}"
                  onClick=${() => { setActiveAttempt(i); hashNav.setParam('attempt', String(i + 1)); }}>
               Attempt ${attempt.attemptNumber} (${attempt.outcome === 'SUCCESS' ? 'passed' : 'failed'})

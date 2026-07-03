@@ -61,63 +61,85 @@ export class SceneDataCollector {
 
         queues.forEach(queue => {
             const events = queue.drain();
-
-            // A merged queue may contain events from multiple sceneIds
-            // (cross-browser runs and retries). Split by sceneId first,
-            // then group retries (same project) into a single scene with attempts.
-            const eventsBySceneId = this.groupEventsBySceneId(events);
-            const records: Array<{ record: SceneRecord; sceneId: string }> = [];
-
-            for (const [sceneId, sceneEvents] of eventsBySceneId) {
-                // Skip groups without a SceneStarts (e.g. SceneSequenceDetected-only groups)
-                if (!sceneEvents.some(e => e instanceof SceneStarts)) {
-                    continue;
-                }
-                records.push({ record: new SceneRecordBuilder(artifactPaths).build(sceneEvents), sceneId });
-            }
-
-            // Group records by project tag to identify retries
-            const byProject = new Map<string, Array<{ record: SceneRecord; sceneId: string }>>();
-            for (const entry of records) {
-                const project = entry.record.tags.find(t => t.type === 'project')?.name || '__default__';
-                if (!byProject.has(project)) byProject.set(project, []);
-                byProject.get(project).push(entry);
-            }
-
-            for (const [, projectEntries] of byProject) {
-                if (projectEntries.length === 1) {
-                    const { record } = projectEntries[0];
-                    if (sceneArtifactPaths) {
-                        this.attachVideo(record, events, sceneArtifactPaths);
-                    }
-                    scenes.push(record);
-                } else {
-                    // Multiple records for the same project = retries
-                    const finalEntry = projectEntries[projectEntries.length - 1];
-                    const finalRecord = finalEntry.record;
-                    finalRecord.retries = projectEntries.length - 1;
-                    finalRecord.attempts = projectEntries.map(({ record: r, sceneId: sid }, i) => ({
-                        attemptNumber: i + 1,
-                        outcome: r.outcome,
-                        duration: r.duration,
-                        activities: r.activities,
-                        ...(r.error ? { error: r.error } : {}),
-                        ...(sceneArtifactPaths ? this.findVideo(sid, sceneArtifactPaths) : {}),
-                    }));
-                    // Final attempt's activities become the scene's activities
-                    finalRecord.activities = finalRecord.attempts[finalRecord.attempts.length - 1].activities;
-                    // Clear scene-level error if final attempt succeeded
-                    if (finalRecord.outcome.code === ExecutionSuccessful.Code) {
-                        delete finalRecord.error;
-                    }
-                    if (sceneArtifactPaths) {
-                        this.attachVideo(finalRecord, events, sceneArtifactPaths);
-                    }
-                    scenes.push(finalRecord);
-                }
-            }
+            const queueScenes = this.processQueue(events, artifactPaths, sceneArtifactPaths);
+            scenes.push(...queueScenes);
         });
 
+        return this.assembleRunData(scenes, testRunStartedAt, testRunnerName, testRunnerVersion, systemContext);
+    }
+
+    private processQueue(
+        events: Array<DomainEvent & { sceneId: CorrelationId }>,
+        artifactPaths: Map<string, Path[]>,
+        sceneArtifactPaths?: Map<string, Path[]>,
+    ): SceneRecord[] {
+        const eventsBySceneId = this.groupEventsBySceneId(events);
+        const records: Array<{ record: SceneRecord; sceneId: string }> = [];
+
+        for (const [sceneId, sceneEvents] of eventsBySceneId) {
+            if (!sceneEvents.some(e => e instanceof SceneStarts)) {
+                continue;
+            }
+            records.push({ record: new SceneRecordBuilder(artifactPaths).build(sceneEvents), sceneId });
+        }
+
+        return this.resolveRetries(records, events, sceneArtifactPaths);
+    }
+
+    private resolveRetries(
+        records: Array<{ record: SceneRecord; sceneId: string }>,
+        events: Array<DomainEvent & { sceneId: CorrelationId }>,
+        sceneArtifactPaths?: Map<string, Path[]>,
+    ): SceneRecord[] {
+        const scenes: SceneRecord[] = [];
+        const byProject = new Map<string, Array<{ record: SceneRecord; sceneId: string }>>();
+
+        for (const entry of records) {
+            const project = entry.record.tags.find(t => t.type === 'project')?.name || '__default__';
+            if (!byProject.has(project)) byProject.set(project, []);
+            byProject.get(project)!.push(entry);
+        }
+
+        for (const [, projectEntries] of byProject) {
+            if (projectEntries.length === 1) {
+                const { record } = projectEntries[0];
+                if (sceneArtifactPaths) {
+                    this.attachVideo(record, events, sceneArtifactPaths);
+                }
+                scenes.push(record);
+            } else {
+                const finalEntry = projectEntries[projectEntries.length - 1];
+                const finalRecord = finalEntry.record;
+                finalRecord.retries = projectEntries.length - 1;
+                finalRecord.attempts = projectEntries.map(({ record: r, sceneId: sid }, i) => ({
+                    attemptNumber: i + 1,
+                    outcome: r.outcome,
+                    duration: r.duration,
+                    activities: r.activities,
+                    ...(r.error ? { error: r.error } : {}),
+                    ...(sceneArtifactPaths ? this.findVideo(sid, sceneArtifactPaths) : {}),
+                }));
+                finalRecord.activities = finalRecord.attempts[finalRecord.attempts.length - 1].activities;
+                if (finalRecord.outcome.code === ExecutionSuccessful.Code) {
+                    delete finalRecord.error;
+                }
+                if (sceneArtifactPaths) {
+                    this.attachVideo(finalRecord, events, sceneArtifactPaths);
+                }
+                scenes.push(finalRecord);
+            }
+        }
+
+        return scenes;
+    }
+
+    private assembleRunData(
+        scenes: SceneRecord[],
+        testRunStartedAt: string,
+        testRunnerName: string,
+        testRunnerVersion: string,
+        systemContext: SystemContext,
+    ): RunData {
         const startedAt = scenes.length > 0
             ? scenes.reduce((earliest, s) => s.startedAt < earliest ? s.startedAt : earliest, scenes[0].startedAt)
             : testRunStartedAt;

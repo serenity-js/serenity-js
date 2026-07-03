@@ -93,23 +93,28 @@ export class DataSnapshotAggregator {
         }
     }
 
+    private safeParseRunData(content: string, path: string): RunData | null {
+        try {
+            const raw = JSON.parse(content);
+            return validateRunData(raw, path);
+        } catch (error) {
+            if (error instanceof InvalidRunDataError || error instanceof IncompatibleSchemaError || error instanceof SyntaxError) {
+                console.warn(`[html-reporter] Skipping ${ path }: ${ (error as Error).message }`);
+                return null;
+            }
+            throw error;
+        }
+    }
+
     private loadRuns(runDirectories: Path[]): RunData[] {
         const runs: RunData[] = [];
 
         for (const directory of runDirectories) {
             const databaseJsonPath = directory.join(Path.from('db.json'));
-            try {
-                const content = this.fileSystem.readFileSync(databaseJsonPath, { encoding: 'utf8' }) as string;
-                const raw = JSON.parse(content);
-                runs.push(validateRunData(raw, databaseJsonPath.value));
-            } catch (error) {
-                if (error instanceof InvalidRunDataError || error instanceof IncompatibleSchemaError || error instanceof SyntaxError) {
-                    // Skip invalid files — log to stderr and continue
-                     
-                    console.warn(`[html-reporter] Skipping ${databaseJsonPath.value}: ${(error as Error).message}`);
-                    continue;
-                }
-                throw error;
+            const content = this.fileSystem.readFileSync(databaseJsonPath, { encoding: 'utf8' }) as string;
+            const run = this.safeParseRunData(content, databaseJsonPath.value);
+            if (run) {
+                runs.push(run);
             }
         }
 
@@ -117,89 +122,85 @@ export class DataSnapshotAggregator {
     }
 
     private loadExternalRuns(paths: string[]): RunData[] {
-        const sourceFs = this.sourceFileSystem;
+        const validRuns = this.loadAndValidateRuns(paths);
+        const groups = this.groupByTestRunId(validRuns);
+        const merged = this.mergeRunGroups(groups);
+        this.persistMergedRuns(merged);
+        return [...merged.values()].sort((a, b) => a.startedAt.localeCompare(b.startedAt));
+    }
 
-        // Step 1: load all db.json files and group by testRunId (or startedAt as fallback)
-        const groups = new Map<string, RunData[]>();
+    private loadAndValidateRuns(paths: string[]): Array<{ run: RunData; path: string }> {
+        const sourceFs = this.sourceFileSystem;
+        const results: Array<{ run: RunData; path: string }> = [];
 
         for (const databaseJsonPath of paths) {
-            let content: string;
-            let run: RunData;
-            try {
-                content = sourceFs
-                    ? sourceFs.readFileSync(Path.from(databaseJsonPath), { encoding: 'utf8' }) as string
-                    : readFileSync(databaseJsonPath, 'utf8');
-                const raw = JSON.parse(content);
-                run = validateRunData(raw, databaseJsonPath);
-            } catch (error) {
-                if (error instanceof InvalidRunDataError || error instanceof IncompatibleSchemaError || error instanceof SyntaxError) {
-                     
-                    console.warn(`[html-reporter] Skipping ${databaseJsonPath}: ${(error as Error).message}`);
-                    continue;
-                }
-                throw error;
-            }
-            const groupId = run.testRunId || run.startedAt;
+            const content = sourceFs
+                ? sourceFs.readFileSync(Path.from(databaseJsonPath), { encoding: 'utf8' }) as string
+                : readFileSync(databaseJsonPath, 'utf8');
+            const run = this.safeParseRunData(content, databaseJsonPath);
+            if (!run) continue;
+            results.push({ run, path: databaseJsonPath });
 
-            if (!groups.has(groupId)) {
-                groups.set(groupId, []);
-            }
-            groups.get(groupId).push(run);
-
-            // Copy sibling artifacts before any merging.
-            // The source path structure is either:
-            //   .../test-runs/{buildId}/{jobName}-{attempt}/db.json  (CI nested)
-            //   .../test-runs/{timestamp}/db.json                    (local flat)
+            // Copy sibling artifacts before any merging
             const pathWithoutDatabase = databaseJsonPath.replace(/\/db\.json$/, '');
             const testRunsIndex = pathWithoutDatabase.lastIndexOf('/test-runs/');
             if (testRunsIndex !== -1) {
-                const relative = pathWithoutDatabase.slice(testRunsIndex + '/test-runs/'.length); // e.g. "42/playwright-test-1" or "2024-06-15T14:30:00Z"
+                const relative = pathWithoutDatabase.slice(testRunsIndex + '/test-runs/'.length);
                 const slashIndex = relative.indexOf('/');
                 if (slashIndex !== -1) {
-                    // CI nested: test-runs/{buildId}/{subDirectory}
-                    const artifactRunId = relative.slice(0, slashIndex);
-                    const subDirectory = relative.slice(slashIndex + 1);
-                    this.copyArtifactsFromSource(databaseJsonPath, artifactRunId, subDirectory);
+                    this.copyArtifactsFromSource(databaseJsonPath, relative.slice(0, slashIndex), relative.slice(slashIndex + 1));
                 } else {
-                    // Local flat: test-runs/{timestamp} — copy directly into top-level dir
                     this.copyArtifactsFromSource(databaseJsonPath, relative, '.');
                 }
             }
         }
 
-        // Step 2 & 3: within each group, sub-group by attempt → additive merge, then retry merge
-        const mergedRuns: RunData[] = [];
+        return results;
+    }
+
+    private groupByTestRunId(runs: Array<{ run: RunData; path: string }>): Map<string, RunData[]> {
+        const groups = new Map<string, RunData[]>();
+        for (const { run } of runs) {
+            const groupId = run.testRunId || run.startedAt;
+            if (!groups.has(groupId)) groups.set(groupId, []);
+            groups.get(groupId)!.push(run);
+        }
+        return groups;
+    }
+
+    private mergeRunGroups(groups: Map<string, RunData[]>): Map<string, RunData> {
+        const merged = new Map<string, RunData>();
 
         for (const [runId, runsInGroup] of groups) {
             // Sub-group by attempt number (missing attempt defaults to 1)
             const byAttempt = new Map<number, RunData[]>();
             for (const run of runsInGroup) {
                 const attempt = run.attempt ?? 1;
-                if (!byAttempt.has(attempt)) {
-                    byAttempt.set(attempt, []);
-                }
-                byAttempt.get(attempt).push(run);
+                if (!byAttempt.has(attempt)) byAttempt.set(attempt, []);
+                byAttempt.get(attempt)!.push(run);
             }
 
             // Additive merge within each attempt
             const attemptNumbers = [...byAttempt.keys()].sort((a, b) => a - b);
             const mergedByAttempt: RunData[] = attemptNumbers.map(attemptNumber => {
-                const runsForAttempt = byAttempt.get(attemptNumber);
-                return runsForAttempt.reduce((merged, run) => this.mergeAdditively(merged, run));
+                const runsForAttempt = byAttempt.get(attemptNumber)!;
+                return runsForAttempt.reduce((base, run) => this.mergeAdditively(base, run));
             });
 
             // Retry merge across attempts (in order)
             const finalRun = mergedByAttempt.reduce((previous, current) => this.mergeAsRetry(previous, current));
+            merged.set(runId, finalRun);
+        }
 
-            // Write merged result back for self-healing (test-runs/{runId}/db.json)
+        return merged;
+    }
+
+    private persistMergedRuns(merged: Map<string, RunData>): void {
+        for (const [runId, finalRun] of merged) {
             const outputPath = Path.from('test-runs').join(Path.from(runId)).join(Path.from('db.json'));
             this.fileSystem.ensureDirectoryExistsAtSync(Path.from('test-runs').join(Path.from(runId)));
             this.fileSystem.storeSync(outputPath, JSON.stringify(finalRun, undefined, 2), 'utf8');
-
-            mergedRuns.push(finalRun);
         }
-
-        return mergedRuns.sort((a, b) => a.startedAt.localeCompare(b.startedAt));
     }
 
     private mergeAdditively(base: RunData, addition: RunData): RunData {
@@ -383,87 +384,87 @@ export class DataSnapshotAggregator {
 
     private enrichScenarios(latestRun: RunData, allRuns: RunData[]): ReportScenario[] {
         return latestRun.scenes.map(scene => {
-            const key = scene.source.line
-                ? scene.source.path + ':' + scene.source.line
-                : scene.source.path + ':' + scene.name;
-            const executionHistory = allRuns.map(run => {
-                const match = run.scenes.find(s => {
-                    const matchKey = s.source.line
-                        ? s.source.path + ':' + s.source.line
-                        : s.source.path + ':' + s.name;
-                    return matchKey === key;
-                });
-                if (!match) return undefined;
-                const entry: ReportExecutionHistoryEntry = {
-                    outcome: outcomeCodeToDisplayString(match.outcome.code),
-                    run: this.resolveRunLabel(run),
-                    timestamp: run.startedAt,
-                    duration: match.duration,
-                    activities: match.activities.map(activity => this.mapActivityOutcome(activity)),
-                };
-                if (match.error) {
-                    entry.error = match.error;
-                }
-                if (match.attempts && match.retries) {
-                    entry.retries = match.retries;
-                    entry.attempts = match.attempts.map(attempt => ({
-                        ...attempt,
-                        outcome: outcomeCodeToDisplayString(attempt.outcome.code),
-                        activities: attempt.activities.map(activity => this.mapActivityOutcome(activity)),
-                    }));
-                }
-                return entry;
-            }).filter(Boolean) as ReportExecutionHistoryEntry[];
+            const executionHistory = this.buildExecutionHistory(scene, allRuns);
+            return this.enrichSingleScenario(scene, executionHistory);
+        });
+    }
 
-            const enriched: ReportScenario = {
-                name: scene.name,
-                category: scene.category,
-                outcome: outcomeCodeToDisplayString(scene.outcome.code),
-                duration: scene.duration,
-                startedAt: scene.startedAt,
-                source: scene.source,
-                tags: [...new Map(scene.tags.map(t => [t.type + ':' + t.name, t])).values()],
-                activities: scene.activities.map(activity => this.mapActivityOutcome(activity)),
-                executionHistory,
+    private buildExecutionHistory(scene: SceneRecord, allRuns: RunData[]): ReportExecutionHistoryEntry[] {
+        const key = this.sceneIdentity(scene);
+        return allRuns.map(run => {
+            const match = run.scenes.find(s => this.sceneIdentity(s) === key);
+            if (!match) return undefined;
+            const entry: ReportExecutionHistoryEntry = {
+                outcome: outcomeCodeToDisplayString(match.outcome.code),
+                run: this.resolveRunLabel(run),
+                timestamp: run.startedAt,
+                duration: match.duration,
+                activities: match.activities.map(activity => this.mapActivityOutcome(activity)),
             };
-
-            if (scene.narrative) {
-                enriched.narrative = marked.parse(scene.narrative, { async: false }) as string;
+            if (match.error) {
+                entry.error = match.error;
             }
-            if (scene.description) {
-                enriched.description = marked.parse(scene.description, { async: false }) as string;
-            }
-            if (scene.error) {
-                enriched.error = scene.error;
-            }
-            if (scene.cast) {
-                enriched.cast = scene.cast;
-            }
-            if (scene.video) {
-                enriched.video = scene.video;
-            }
-            if (scene.scenarioOutline) {
-                enriched.scenarioOutline = {
-                    template: scene.scenarioOutline.template,
-                    parameters: scene.scenarioOutline.parameters.map(ps => ({
-                        ...ps,
-                        ...(ps.description ? { description: marked.parse(ps.description, { async: false }) as string } : {}),
-                        outcome: outcomeCodeToDisplayString(ps.outcome.code),
-                        activities: ps.activities.map(activity => this.mapActivityOutcome(activity)),
-                    })),
-                };
-            }
-            if (scene.attempts) {
-                enriched.retries = scene.retries;
-                enriched.attempts = scene.attempts.map(attempt => ({
+            if (match.attempts && match.retries) {
+                entry.retries = match.retries;
+                entry.attempts = match.attempts.map(attempt => ({
                     ...attempt,
                     outcome: outcomeCodeToDisplayString(attempt.outcome.code),
                     activities: attempt.activities.map(activity => this.mapActivityOutcome(activity)),
                 }));
             }
+            return entry;
+        }).filter(Boolean) as ReportExecutionHistoryEntry[];
+    }
 
-            return enriched;
-        });
+    private enrichSingleScenario(scene: SceneRecord, executionHistory: ReportExecutionHistoryEntry[]): ReportScenario {
+        const enriched: ReportScenario = {
+            name: scene.name,
+            category: scene.category,
+            outcome: outcomeCodeToDisplayString(scene.outcome.code),
+            duration: scene.duration,
+            startedAt: scene.startedAt,
+            source: scene.source,
+            tags: [...new Map(scene.tags.map(t => [t.type + ':' + t.name, t])).values()],
+            activities: scene.activities.map(activity => this.mapActivityOutcome(activity)),
+            executionHistory,
+        };
+
+        if (scene.narrative) {
+            enriched.narrative = marked.parse(scene.narrative, { async: false }) as string;
+        }
+        if (scene.description) {
+            enriched.description = marked.parse(scene.description, { async: false }) as string;
+        }
+        if (scene.error) {
+            enriched.error = scene.error;
+        }
+        if (scene.cast) {
+            enriched.cast = scene.cast;
+        }
+        if (scene.video) {
+            enriched.video = scene.video;
+        }
+        if (scene.scenarioOutline) {
+            enriched.scenarioOutline = {
+                template: scene.scenarioOutline.template,
+                parameters: scene.scenarioOutline.parameters.map(ps => ({
+                    ...ps,
+                    ...(ps.description ? { description: marked.parse(ps.description, { async: false }) as string } : {}),
+                    outcome: outcomeCodeToDisplayString(ps.outcome.code),
+                    activities: ps.activities.map(activity => this.mapActivityOutcome(activity)),
+                })),
+            };
+        }
+        if (scene.attempts) {
+            enriched.retries = scene.retries;
+            enriched.attempts = scene.attempts.map(attempt => ({
+                ...attempt,
+                outcome: outcomeCodeToDisplayString(attempt.outcome.code),
+                activities: attempt.activities.map(activity => this.mapActivityOutcome(activity)),
+            }));
+        }
+
+        return enriched;
     }
 
     private buildHistory(allRuns: RunData[]): ReportHistoryEntry[] {
@@ -591,9 +592,9 @@ export class DataSnapshotAggregator {
             fileNode.outcomes[outcomeKey]++;
 
             // Build execution history for this scenario across all runs
-            const scenarioKey = scene.source.path + ':' + scene.source.line;
+            const scenarioKey = this.sceneIdentity(scene);
             const executionHistory = allRuns.map(r => {
-                const match = r.scenes.find(s => s.source.path + ':' + s.source.line === scenarioKey);
+                const match = r.scenes.find(s => this.sceneIdentity(s) === scenarioKey);
                 return match ? outcomeCodeToDisplayString(match.outcome.code) : undefined;
             }).filter(Boolean) as string[];
 

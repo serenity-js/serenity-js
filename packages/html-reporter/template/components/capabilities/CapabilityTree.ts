@@ -2,6 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportCapabilityNode } from '../../../src/ReportData';
+import { capabilityConfidence } from '../../utils';
 import { SegmentedBar } from '../charts/SegmentedBar';
 import { icons } from '../icons';
 
@@ -24,7 +25,7 @@ export function computeNodeScore(node: ReportCapabilityNode): { confidence: numb
     const passRate = executed > 0 ? Math.round((node.outcomes.passed / executed) * 100) : 0;
     const completeness = Math.round(((total - pending) / total) * 100);
     const consistency = 100;
-    const confidence = Math.round(passRate * 0.40 + completeness * 0.25 + consistency * 0.35);
+    const confidence = capabilityConfidence(passRate, completeness, consistency);
     return { confidence, passRate, completeness, consistency };
 }
 
@@ -51,6 +52,38 @@ export function nodeMatches(node: ReportCapabilityNode, term: string): boolean {
     if (name.includes(term.toLowerCase())) return true;
     if (node.children) return node.children.some(c => nodeMatches(c, term));
     return false;
+}
+
+export interface CollapsedNode {
+    displayNode: ReportCapabilityNode;
+    collapsedPath: string;
+    collapsedLabel: string;
+}
+
+/**
+ * Collapses single-directory children (GitHub-style path collapsing).
+ * Stops at nodes with a readme (documentation targets) or multiple children.
+ */
+export function collapseNode(node: ReportCapabilityNode, segmentPath: string): CollapsedNode {
+    let displayNode = node;
+    let collapsedPath = segmentPath;
+    let collapsedLabel = node.displayName || node.name;
+    if (!node.readme && !nodeHasFiles(node)) {
+        while (displayNode.children) {
+            const directories = displayNode.children.filter(c => c.type === 'directory' && c.children && c.children.length > 0);
+            const files = displayNode.children.filter(c => c.type === 'file');
+            if (directories.length === 1 && files.length === 0) {
+                const only = directories[0];
+                if (only.readme) break;
+                collapsedPath = collapsedPath ? collapsedPath + '/' + only.name : only.name;
+                collapsedLabel += '/' + (only.displayName || only.name);
+                displayNode = only;
+            } else {
+                break;
+            }
+        }
+    }
+    return { displayNode, collapsedPath, collapsedLabel };
 }
 
 export function findNodeByPath(root: ReportCapabilityNode, targetPath: string): ReportCapabilityNode | null {
@@ -100,24 +133,9 @@ export function getVisiblePaths(root: ReportCapabilityNode, searchTerm: string, 
         if (!isRoot && nodeFilter && !nodeFilter(node)) return;
 
         // Apply single-child collapse logic
-        let displayNode = node;
-        let collapsedPath = segmentPath;
-        let collapsedLabel = node.displayName || node.name;
-        if (!isRoot && !node.readme && !nodeHasFiles(node)) {
-            while (displayNode.children) {
-                const directories = displayNode.children.filter(c => c.type === 'directory' && c.children && c.children.length > 0);
-                const files = displayNode.children.filter(c => c.type === 'file');
-                if (directories.length === 1 && files.length === 0) {
-                    const only = directories[0];
-                    if (only.readme) break;
-                    collapsedPath = collapsedPath ? collapsedPath + '/' + only.name : only.name;
-                    collapsedLabel += '/' + (only.displayName || only.name);
-                    displayNode = only;
-                } else {
-                    break;
-                }
-            }
-        }
+        const { displayNode, collapsedPath, collapsedLabel } = isRoot
+            ? { displayNode: node, collapsedPath: segmentPath, collapsedLabel: node.displayName || node.name }
+            : collapseNode(node, segmentPath);
 
         // Check search filtering
         const matchesSearch = !searchTerm || collapsedLabel.toLowerCase().includes(searchTerm.toLowerCase());
@@ -179,24 +197,9 @@ export function TreeNode({ node, onSelect, selectedPath, focusedPath, depth, pat
     if (!isRoot && nodeFilter && !nodeFilter(node)) return null;
 
     // GitHub-style single-child collapse
-    let displayNode = node;
-    let collapsedPath = segmentPath;
-    let collapsedLabel = node.displayName || node.name;
-    if (!isRoot && !node.readme && !nodeHasFiles(node)) {
-        while (displayNode.children) {
-            const directories = displayNode.children.filter(c => c.type === 'directory' && c.children && c.children.length > 0);
-            const files = displayNode.children.filter(c => c.type === 'file');
-            if (directories.length === 1 && files.length === 0) {
-                const only = directories[0];
-                if (only.readme) break;  // Stop before a node that has documentation
-                collapsedPath = collapsedPath ? collapsedPath + '/' + only.name : only.name;
-                collapsedLabel += '/' + (only.displayName || only.name);
-                displayNode = only;
-            } else {
-                break;
-            }
-        }
-    }
+    const { displayNode, collapsedPath, collapsedLabel } = isRoot
+        ? { displayNode: node, collapsedPath: segmentPath, collapsedLabel: node.displayName || node.name }
+        : collapseNode(node, segmentPath);
 
     const isSelected = selectedPath === collapsedPath;
     const matchesSearch = !searchTerm || collapsedLabel.toLowerCase().includes(searchTerm.toLowerCase());
