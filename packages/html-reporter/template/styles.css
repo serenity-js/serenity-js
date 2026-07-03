@@ -1284,6 +1284,13 @@
     .status-icon--fail { color: var(--color-failed); }
     .status-icon--pass { color: var(--color-passed); }
     .status-icon--warn { color: var(--color-pending); }
+    .status-icon--passed { color: var(--color-passed); }
+    .status-icon--failed { color: var(--color-failed); }
+    .status-icon--error { color: var(--color-error); }
+    .status-icon--pending { color: var(--color-pending); }
+    .status-icon--skipped { color: var(--color-skipped); }
+    .status-icon--compromised { color: var(--color-compromised); }
+    .status-icon--retried-success { color: var(--color-pending); }
 
     .status-item-name {
       font-size: var(--font-sm);
@@ -1356,6 +1363,9 @@
     .history-dot--skipped, .history-dot--Skipped { background: var(--color-skipped); }
     .history-dot--compromised, .history-dot--Compromised { background: var(--color-compromised); }
     .history-dot--error, .history-dot--Error { background: var(--color-error); }
+    .history-dot--retried-success {
+      background: linear-gradient(135deg, var(--color-failed) 0%, var(--color-failed) 50%, var(--color-passed) 50%, var(--color-passed) 100%);
+    }
 
     .status-empty--ok {
       color: var(--color-passed);
@@ -2728,6 +2738,12 @@
       font-weight: 600;
     }
 
+    .exec-history-dot--retried-success {
+      background: linear-gradient(135deg, var(--color-failed) 0%, var(--color-failed) 50%, var(--color-passed) 50%, var(--color-passed) 100%) !important;
+      font-size: 16px;
+      line-height: 1;
+    }
+
     .exec-history-label {
       font-size: var(--font-2xs);
       color: var(--text-disabled);
@@ -3088,6 +3104,25 @@
   .history-dot,
   .kpi-dot {
     border: 1px solid ButtonText;
+  }
+
+  .history-dot--retried-success,
+  .exec-history-dot--retried-success {
+    background: ButtonFace !important;
+    border: 1px solid ButtonText;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .history-dot--retried-success::after,
+  .exec-history-dot--retried-success::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: ButtonText;
   }
 
   /* Badge visibility */

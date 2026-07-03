@@ -2,6 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportTag } from '../../src/ReportData';
+import { scoreColor } from '../utils';
 
 const html = htm.bind(h);
 
@@ -29,7 +30,7 @@ export function TagsView({ tags, onNavigate }: TagsViewProps): ReturnType<typeof
         const tags = tagsByType[type];
         const items = tags.map(tag => {
             const passRate = tag.scenarioCount > 0 ? Math.round((tag.passed / tag.scenarioCount) * 100) : 0;
-            const passColor = passRate === 0 && tag.scenarioCount > 0 ? 'var(--color-failed)' : passRate >= 90 ? 'var(--color-passed)' : passRate < 50 ? 'var(--color-failed)' : passRate < 70 ? 'var(--color-pending)' : 'var(--text-primary)';
+            const passColor = scoreColor(passRate) || 'var(--text-primary)';
             return { name: tag.name, scenarioCount: tag.scenarioCount, passRate, passColor, icon: typeIcons[type] || '#' };
         }).sort((a, b) => a.passRate - b.passRate);
         return { type, label: type.charAt(0).toUpperCase() + type.slice(1), items };

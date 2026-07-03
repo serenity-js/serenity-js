@@ -2,17 +2,14 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportCapabilityNode } from '../../../src/ReportData';
-import { capabilityConfidence } from '../../utils';
+import { capabilityConfidence, scoreColor } from '../../utils';
 import { SegmentedBar } from '../charts/SegmentedBar';
 import { icons } from '../icons';
 
 const html = htm.bind(h);
 
 export function confidenceColor(score: number): string {
-    if (score >= 90) return 'var(--color-passed)';
-    if (score < 50) return 'var(--color-failed)';
-    if (score < 70) return 'var(--color-pending)';
-    return 'inherit';
+    return scoreColor(score) || 'inherit';
 }
 
 export function computeNodeScore(node: ReportCapabilityNode): { confidence: number; passRate: number; completeness: number; consistency: number } {

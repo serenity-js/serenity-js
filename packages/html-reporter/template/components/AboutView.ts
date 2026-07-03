@@ -76,7 +76,7 @@ export function AboutView(): ReturnType<typeof html> {
             </div>
             <div class="panel-bg">
               <h4 class="section-title-sm">Consistency</h4>
-              <p class="section-text">Tests with inconsistent outcomes across recent runs. Identifies flaky tests that pass and fail unpredictably, undermining confidence in your test suite.</p>
+              <p class="section-text">Tests with inconsistent outcomes across recent runs. Identifies inconsistent tests that pass and fail unpredictably, undermining confidence in your test suite.</p>
             </div>
             <div class="panel-bg">
               <h4 class="section-title-sm">Timeline</h4>
@@ -95,7 +95,7 @@ export function AboutView(): ReturnType<typeof html> {
           <ul style="padding-left:var(--space-lg);margin:var(--space-sm) 0;font-size:var(--font-sm);color:var(--text-secondary);line-height:1.8">
             <li><strong>Fix failing tests</strong> — each failure directly reduces the pass rate component</li>
             <li><strong>Implement pending scenarios</strong> — unimplemented tests reduce completeness</li>
-            <li><strong>Stabilise flaky tests</strong> — inconsistent outcomes reduce the consistency component</li>
+            <li><strong>Stabilise inconsistent tests</strong> — inconsistent outcomes reduce the consistency component</li>
             <li><strong>Run tests regularly</strong> — more execution history gives consistency a stronger signal</li>
           </ul>
         </section>
@@ -171,7 +171,7 @@ export function AboutView(): ReturnType<typeof html> {
             </div>
             <div class="glossary-entry">
               <dt>Consistency</dt>
-              <dd>How repeatable a test's outcome is across recent runs. A test that alternates between passing and failing has low consistency (sometimes called "flaky").</dd>
+              <dd>How repeatable a test's outcome is across recent runs. A test that alternates between passing and failing has low consistency (colloquially known as "flaky").</dd>
             </div>
             <div class="glossary-entry">
               <dt>Consistency Window</dt>

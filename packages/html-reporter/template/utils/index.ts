@@ -1,6 +1,6 @@
 export { ansiToHtml } from './ansi-to-html';
 export { DATA } from './data';
-export { formatDuration, formatRunLabel, formatTimestamp, outcomeClass, outcomeIcon } from './format';
+export { formatDuration, formatRunLabel, formatTimestamp, outcomeClass, outcomeDisplayName, outcomeIcon, scoreColor } from './format';
 export { hashHistory, useHashHistory } from './hashHistory';
 export { browserBadgeClass, getBrowserTag, matchesSearch, relativeSourcePath, scenarioUrl } from './navigation';
 export { RawHtml } from './raw-html';

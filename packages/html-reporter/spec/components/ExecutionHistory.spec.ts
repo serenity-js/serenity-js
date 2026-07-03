@@ -392,4 +392,112 @@ test.describe('ExecutionHistory', () => {
         // Only runs up to index 1: 2 of 2 passing
         await expect(summary).toContainText('2 of 2 passing');
     });
+
+    test('renders a retried-success dot with the correct CSS class when retriedAndPassed is true', async ({ mount, page }) => {
+        await mount({
+            component: 'ExecutionHistory',
+            importPath: './components/scenario/ExecutionHistory',
+            props: {
+                scenario: {
+                    name: 'Retried Test',
+                    category: 'Suite',
+                    outcome: 'SUCCESS',
+                    duration: 500,
+                    startedAt: '2024-06-15T14:30:00.000Z',
+                    source: { path: 'spec/test.spec.ts', line: 10 },
+                    tags: [],
+                    activities: [],
+                    executionHistory: [
+                        { outcome: 'FAILURE', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
+                        { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T14:30:00.000Z', retriedAndPassed: true, retries: 1 },
+                    ],
+                },
+                runIndex: null,
+                onNavigate: () => {},
+            },
+            data: minimalData({
+                history: [
+                    { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
+                    { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
+                ],
+            }),
+        });
+
+        const dots = page.locator('.exec-history-dot');
+        await expect(dots).toHaveCount(2);
+
+        // First dot should be a regular failed dot
+        const firstDot = dots.first();
+        await expect(firstDot).not.toHaveClass(/exec-history-dot--retried-success/);
+
+        // Second dot should have the retried-success class
+        const secondDot = dots.last();
+        await expect(secondDot).toHaveClass(/exec-history-dot--retried-success/);
+    });
+
+    test('shows "Passed on retry" tooltip for retried-success dots', async ({ mount, page }) => {
+        await mount({
+            component: 'ExecutionHistory',
+            importPath: './components/scenario/ExecutionHistory',
+            props: {
+                scenario: {
+                    name: 'Retried Test',
+                    category: 'Suite',
+                    outcome: 'SUCCESS',
+                    duration: 500,
+                    startedAt: '2024-06-15T14:30:00.000Z',
+                    source: { path: 'spec/test.spec.ts', line: 10 },
+                    tags: [],
+                    activities: [],
+                    executionHistory: [
+                        { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T14:30:00.000Z', retriedAndPassed: true, retries: 1 },
+                    ],
+                },
+                runIndex: null,
+                onNavigate: () => {},
+            },
+            data: minimalData({
+                history: [
+                    { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
+                ],
+            }),
+        });
+
+        const item = page.locator('.exec-history-item');
+        const title = await item.getAttribute('title');
+        expect(title).toContain('Passed on retry (attempt 2 of 2)');
+    });
+
+    test('renders retry icon in retried-success dots', async ({ mount, page }) => {
+        await mount({
+            component: 'ExecutionHistory',
+            importPath: './components/scenario/ExecutionHistory',
+            props: {
+                scenario: {
+                    name: 'Retried Test',
+                    category: 'Suite',
+                    outcome: 'SUCCESS',
+                    duration: 500,
+                    startedAt: '2024-06-15T14:30:00.000Z',
+                    source: { path: 'spec/test.spec.ts', line: 10 },
+                    tags: [],
+                    activities: [],
+                    executionHistory: [
+                        { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T14:30:00.000Z', retriedAndPassed: true, retries: 1 },
+                    ],
+                },
+                runIndex: null,
+                onNavigate: () => {},
+            },
+            data: minimalData({
+                history: [
+                    { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
+                ],
+            }),
+        });
+
+        const dot = page.locator('.exec-history-dot');
+        // Should show the retry icon (↻)
+        await expect(dot).toHaveText('↻');
+    });
 });

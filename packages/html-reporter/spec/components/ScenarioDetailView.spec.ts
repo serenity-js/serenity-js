@@ -39,9 +39,9 @@ function scenarioWithMixedRetryHistory() {
     return minimalData({
         scenarios: [
             {
-                name: 'flaky test', category: 'Suite', outcome: 'SUCCESS', duration: 150,
+                name: 'retried test', category: 'Suite', outcome: 'SUCCESS', duration: 150,
                 startedAt: '2024-06-15T14:30:00.000Z',
-                source: { path: 'spec/flaky.spec.ts', line: 8 },
+                source: { path: 'spec/retried.spec.ts', line: 8 },
                 tags: [],
                 activities: run2Attempts[run2Attempts.length - 1].activities,
                 executionHistory: [run1Entry, run2Entry],
@@ -64,7 +64,7 @@ function scenarioWithMixedRetryHistory() {
     });
 }
 
-const SCENARIO_ID = 'spec/flaky.spec.ts:8';
+const SCENARIO_ID = 'spec/retried.spec.ts:8';
 const RUN_1_TIMESTAMP = '2024-06-14T10:00:00.000Z';
 
 test.describe('ScenarioDetailView — per-run retry tabs', () => {

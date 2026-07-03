@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { useMemo } from 'preact/hooks';
 
 import type { ReportCapabilityNode, ReportHistoryEntry, ReportInconsistentTest, ReportScenario, ReportScenarioRef, ReportSummary, ReportSystemContext } from '../../src/ReportData';
-import { browserBadgeClass, computeCompletenessFromTree, formatDuration, getBrowserTag, outcomeClass, runConfidence, scenarioUrl } from '../utils';
+import { browserBadgeClass, computeCompletenessFromTree, formatDuration, getBrowserTag, outcomeClass, outcomeDisplayName, outcomeIcon, runConfidence, scenarioUrl, scoreColor } from '../utils';
 import { AreaSparkline } from './charts/AreaSparkline';
 import { Delta } from './charts/Delta';
 import { DotTrend } from './charts/DotTrend';
@@ -50,10 +50,6 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
     const failedTrend = history.map(h => (h.outcomes.failed || 0) + (h.outcomes.error || 0) + (h.outcomes.compromised || 0));
     const durationTrend = history.map(h => h.duration);
 
-    // Colour: only exceptional or warning states get colour; "normal good" uses default text
-    const heroColor = (v: number) => v >= 90 ? 'var(--color-passed)' : v < 50 ? 'var(--color-failed)' : v < 70 ? 'var(--color-pending)' : undefined;
-    const scoreColor = (v: number) => v >= 90 ? 'var(--color-passed)' : v < 50 ? 'var(--color-failed)' : v < 70 ? 'var(--color-pending)' : undefined;
-
     const sorted = [...scenarios].sort((a, b) => b.duration - a.duration);
     const slowest = sorted.slice(0, 5);
     const newFailures = useMemo(() => allNewFailures.slice(0, 5), []);
@@ -62,11 +58,11 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
 
     // Look up execution history for a test by source identity
     const consistencyItems = useMemo(() => [
-        ...newFailures.map(t => ({ ...t, kind: 'degraded' as const })),
-        ...newPasses.map(t => ({ ...t, kind: 'recovered' as const })),
+        ...newFailures.map(t => ({ ...t, kind: 'degraded' as const, lastOutcome: 'FAILURE' })),
+        ...newPasses.map(t => ({ ...t, kind: 'recovered' as const, lastOutcome: 'SUCCESS' })),
         ...inconsistent
             .filter(t => !newFailures.some(f => f.source.path === t.source.path) && !newPasses.some(p => p.source.path === t.source.path))
-            .map(t => ({ ...t, kind: 'inconsistent' as const })),
+            .map(t => ({ ...t, kind: 'inconsistent' as const, lastOutcome: t.history && t.history.length > 0 ? t.history[t.history.length - 1] : 'SKIPPED' })),
     ].slice(0, 5), [newFailures, newPasses, inconsistent]);
 
     const getHistory = (t: ReportScenarioRef) => {
@@ -82,7 +78,7 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
       <div class="kpi-row">
         <button type="button" class="kpi-card kpi-card--hero" onClick=${() => onNavigate('/capabilities')} aria-label="Confidence: ${confidence} percent">
           <span class="kpi-label">Confidence</span>
-          <span class="kpi-value" style=${heroColor(confidence) ? `color:${heroColor(confidence)}` : ''}>${confidence}<span style="font-size:var(--font-base);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
+          <span class="kpi-value" style=${scoreColor(confidence) ? `color:${scoreColor(confidence)}` : ''}>${confidence}<span style="font-size:var(--font-base);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
           <span class="kpi-subtitle">${(() => {
                 if (previousConfidence === undefined) return `${summary.totalScenarios} scenarios across ${history.length} run${history.length !== 1 ? 's' : ''}`;
                 const newFails = allNewFailures.length;
@@ -97,7 +93,7 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
                 }
                 return 'No change since last run';
             })()}</span>
-          <${AreaSparkline} values=${confidenceTrend} color=${heroColor(confidence) || 'var(--accent)'} />
+          <${AreaSparkline} values=${confidenceTrend} color=${scoreColor(confidence) || 'var(--accent)'} />
         </button>
         <button type="button" class="kpi-card" onClick=${() => onNavigate('/tests?filter=failed,skipped')} aria-label="Pass rate: ${passRate} percent">
           <span class="kpi-label">Pass Rate</span>
@@ -163,15 +159,15 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
                 return consistencyItems.map(t => html`
                     <div class="status-item status-item--rich clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
                       <div class="status-item-main">
-                        <span class="status-icon ${t.kind === 'degraded' ? 'status-icon--fail' : t.kind === 'recovered' ? 'status-icon--pass' : 'status-icon--warn'}">${t.kind === 'degraded' ? '✗' : t.kind === 'recovered' ? '✓' : '⚠'}</span>
+                        <span class="status-icon status-icon--${outcomeClass(t.lastOutcome)}">${outcomeIcon(t.lastOutcome)}</span>
                         <span class="status-item-name">${t.name}</span>
                         ${getBrowserTag(t) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(t)!)}" style="font-size:10px;padding:1px 6px">${getBrowserTag(t)}</span>` : null}
                         <span class="status-item-kind" style="color:${t.kind === 'degraded' ? 'var(--color-failed)' : t.kind === 'recovered' ? 'var(--color-passed)' : 'var(--color-pending)'}">${t.kind}</span>
                       </div>
-                      <div class="status-item-history">${((t as { history?: string[] }).history || getHistory(t)).map((h: string | { outcome: string; run: string }, i: number) => {
-                    const outcome = typeof h === 'string' ? h : h.outcome;
+                      <div class="status-item-history">${((t as { history?: string[] }).history || getHistory(t)).map((h: string | { outcome: string; run: string; retriedAndPassed?: boolean }, i: number) => {
+                    const outcome = typeof h === 'string' ? h : (h.retriedAndPassed ? 'RETRIED_SUCCESS' : h.outcome);
                     const label = (t as { labels?: string[] }).labels ? (t as { labels?: string[] }).labels![i] : (typeof h === 'object' ? h.run : '');
-                    return html`<span class="history-dot history-dot--${outcomeClass(outcome)}" title=${outcome + (label ? ' (' + label + ')' : '')}></span>`;
+                    return html`<span class="history-dot history-dot--${outcomeClass(outcome)}" title=${outcomeDisplayName(outcome) + (label ? ' (' + label + ')' : '')}></span>`;
                 })}</div>
                     </div>
                 `);

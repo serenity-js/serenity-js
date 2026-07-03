@@ -12,13 +12,29 @@ export function formatDuration(ms: number): string {
 }
 
 export function outcomeClass(outcome: string): string {
-    const map: Record<string, string> = { SUCCESS: 'passed', FAILURE: 'failed', PENDING: 'pending', SKIPPED: 'skipped', COMPROMISED: 'compromised', ERROR: 'error' };
+    const map: Record<string, string> = { SUCCESS: 'passed', FAILURE: 'failed', PENDING: 'pending', SKIPPED: 'skipped', COMPROMISED: 'compromised', ERROR: 'error', RETRIED_SUCCESS: 'retried-success' };
     return map[outcome] || 'skipped';
 }
 
 export function outcomeIcon(outcome: string): string {
-    const map: Record<string, string> = { SUCCESS: '✓', FAILURE: '✗', PENDING: '–', SKIPPED: '⊘', COMPROMISED: '⚠', ERROR: '!' };
+    const map: Record<string, string> = { SUCCESS: '✓', FAILURE: '✗', PENDING: '–', SKIPPED: '⊘', COMPROMISED: '⚠', ERROR: '!', RETRIED_SUCCESS: '↻' };
     return map[outcome] || '?';
+}
+
+export function outcomeDisplayName(outcome: string): string {
+    const map: Record<string, string> = { SUCCESS: 'Passed', FAILURE: 'Failed', PENDING: 'Pending', SKIPPED: 'Skipped', COMPROMISED: 'Compromised', ERROR: 'Error', RETRIED_SUCCESS: 'Retried success' };
+    return map[outcome] || outcome;
+}
+
+/**
+ * Maps a percentage score (0–100) to a semantic colour variable.
+ * Used for confidence, pass rate, consistency, and completeness displays.
+ */
+export function scoreColor(value: number): string | undefined {
+    if (value >= 90) return 'var(--color-passed)';
+    if (value < 50) return 'var(--color-failed)';
+    if (value < 70) return 'var(--color-pending)';
+    return undefined;
 }
 
 export function formatTimestamp(iso: string): string {
