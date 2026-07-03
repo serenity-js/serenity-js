@@ -52,7 +52,31 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
     };
     const errorShowLatest = () => onNavigate('/errors');
 
-    const errorScenarios = allScenarios.filter(s => s.error || s.outcome === 'FAILURE' || s.outcome === 'ERROR' || s.outcome === 'COMPROMISED');
+    const errorScenarios = useMemo(() => {
+        if (errorRunIndex === null || errorRunIndex === history.length - 1) {
+            // Latest run: filter by current outcome/error
+            return allScenarios.filter(s => s.error || s.outcome === 'FAILURE' || s.outcome === 'ERROR' || s.outcome === 'COMPROMISED');
+        }
+        // Historical run: find scenarios that failed in that specific run via executionHistory
+        const runTimestamp = history[errorRunIndex]?.timestamp;
+        if (!runTimestamp) return [];
+        const result: ReportScenario[] = [];
+        for (const s of allScenarios) {
+            if (!s.executionHistory) continue;
+            const entry = s.executionHistory.find(e => e.timestamp === runTimestamp);
+            if (!entry) continue;
+            if (entry.outcome === 'FAILURE' || entry.outcome === 'ERROR' || entry.outcome === 'COMPROMISED' || entry.error) {
+                // Create a view of the scenario with the historical run's outcome/error/duration
+                result.push({
+                    ...s,
+                    outcome: entry.outcome,
+                    duration: entry.duration ?? s.duration,
+                    error: entry.error || undefined,
+                } as ReportScenario);
+            }
+        }
+        return result;
+    }, [allScenarios, errorRunIndex, history]);
 
     function classifyError(error: { name?: string; message?: string }): string {
         const name = (error.name || '').toLowerCase();

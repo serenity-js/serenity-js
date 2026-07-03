@@ -39,7 +39,6 @@ const systemContext: SystemContext = {
     runtime: { provider: 'GitHub Actions', buildNumber: '42', branch: 'main', commit: 'abc123' },
 };
 
-
 function collectRunData(options: {
     sceneName: string;
     failed: boolean;
