@@ -16,7 +16,13 @@ export interface ExecutionHistoryProps {
 export function ExecutionHistory({ scenario, runIndex, history, onNavigate }: ExecutionHistoryProps): ReturnType<typeof html> | null {
     if (!scenario.executionHistory || scenario.executionHistory.length === 0) return null;
 
-    const activeIndex = runIndex !== null ? runIndex : scenario.executionHistory.length - 1;
+    // Map runIndex (global history index) to local executionHistory index by matching timestamps
+    const activeTimestamp = runIndex !== null && history[runIndex] ? history[runIndex].timestamp : null;
+    const localActiveIndex = activeTimestamp !== null
+        ? scenario.executionHistory.findIndex(e => e.timestamp === activeTimestamp)
+        : -1;
+    const activeIndex = localActiveIndex >= 0 ? localActiveIndex : scenario.executionHistory.length - 1;
+
     const historyUpToNow = scenario.executionHistory.slice(0, activeIndex + 1);
     const passed = historyUpToNow.filter(e => e.outcome === 'SUCCESS').length;
     const total = historyUpToNow.length;
@@ -29,7 +35,7 @@ export function ExecutionHistory({ scenario, runIndex, history, onNavigate }: Ex
         const entry = scenario.executionHistory[index];
         const ts = entry.timestamp || (history[index] ? history[index].timestamp : '');
         const date = ts ? new Date(ts).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : '';
-        if (date !== currentDate) {
+        if (date !== currentDate || groups.length === 0) {
             currentDate = date;
             groups.push({ date, items: [] });
         }
@@ -48,12 +54,12 @@ export function ExecutionHistory({ scenario, runIndex, history, onNavigate }: Ex
               <div class="exec-history-date">${group.date}</div>
               <div class="exec-history-group-items">
                 ${group.items.map(({ entry, index, ts }) => {
-                    const isActive = runIndex === index || (runIndex === null && index === scenario.executionHistory.length - 1);
+                    const isActive = index === activeIndex;
                     const isIso = /^\d{4}-\d{2}-\d{2}T/.test(entry.run);
                     const timeLabel = ts ? new Date(ts).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }) : entry.run;
                     const shortLabel = isIso ? timeLabel : entry.run;
                     const fullLabel = formatRunLabel(entry.run, ts);
-                    const handleRunClick = (e: Event) => { e.stopPropagation(); onNavigate(scenarioUrl(scenario) + '?run=' + (history[index] ? history[index].timestamp : index)); };
+                    const handleRunClick = (e: Event) => { e.stopPropagation(); onNavigate(scenarioUrl(scenario, entry.timestamp || ts)); };
                     return html`
                       <div class="exec-history-item ${isActive ? 'exec-history-item--active' : ''}" title="${entry.outcome} — ${fullLabel}" onClick=${handleRunClick}>
                         <div class="exec-history-dot" style="background:var(--color-${outcomeClass(entry.outcome)})">${outcomeIcon(entry.outcome)}</div>

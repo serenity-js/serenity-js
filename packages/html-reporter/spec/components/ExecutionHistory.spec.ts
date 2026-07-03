@@ -208,6 +208,10 @@ test.describe('ExecutionHistory', () => {
                     { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T14:30:00.000Z' },
                 ]),
                 runIndex: 0,
+                history: [
+                    { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
+                    { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
+                ],
                 onNavigate: () => {},
             },
             data: minimalData(),
@@ -270,7 +274,104 @@ test.describe('ExecutionHistory', () => {
         await expect(label).toHaveText('build-41');
     });
 
+    test('navigates to the correct URL when clicking a historical run for a scenario with a browser tag', async ({ mount, page }) => {
+        let navigatedTo = '';
+        await page.exposeFunction('__onNavigate__', (path: string) => { navigatedTo = path; });
+
+        await mount({
+            component: 'ExecutionHistory',
+            importPath: './components/scenario/ExecutionHistory',
+            props: {
+                scenario: {
+                    name: 'Test Scenario',
+                    category: 'Suite',
+                    outcome: 'SUCCESS',
+                    duration: 200,
+                    startedAt: '2024-06-15T14:30:00.000Z',
+                    source: { path: 'spec/test.spec.ts', line: 10 },
+                    tags: [{ type: 'browser', name: 'chrome 129.0.6668.100' }],
+                    activities: [],
+                    executionHistory: [
+                        { outcome: 'SUCCESS', run: '#8213', timestamp: '2024-06-14T08:00:00.000Z' },
+                        { outcome: 'SUCCESS', run: '#8214', timestamp: '2024-06-14T10:00:00.000Z' },
+                        { outcome: 'SUCCESS', run: '#8219', timestamp: '2024-06-15T14:30:00.000Z' },
+                    ],
+                },
+                runIndex: null,
+                history: [
+                    { timestamp: '2024-06-14T08:00:00.000Z', label: '#8213', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
+                    { timestamp: '2024-06-14T10:00:00.000Z', label: '#8214', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
+                    { timestamp: '2024-06-15T14:30:00.000Z', label: '#8219', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
+                ],
+                onNavigate: '__onNavigate__',
+            },
+            data: minimalData(),
+        });
+
+        // Click the first run (a historical, non-active run)
+        await page.locator('.exec-history-item').first().click();
+
+        // The URL should be properly formed with both browser and run parameters
+        const decoded = decodeURIComponent(navigatedTo);
+        expect(decoded).toContain('browser=');
+        expect(decoded).toContain('run=2024-06-14T08:00:00.000Z');
+        // There should be only ONE '?' in the URL (proper query string)
+        const questionMarkCount = (navigatedTo.match(/\?/g) || []).length;
+        expect(questionMarkCount).toBe(1);
+    });
+
+    test('navigates using the entry timestamp even when the scenario does not appear in every global run', async ({ mount, page }) => {
+        let navigatedTo = '';
+        await page.exposeFunction('__onNavigate__', (path: string) => { navigatedTo = path; });
+
+        // Scenario only appears in runs #8214 and #8219 (not #8213)
+        // Global history has 3 entries, but executionHistory has only 2
+        await mount({
+            component: 'ExecutionHistory',
+            importPath: './components/scenario/ExecutionHistory',
+            props: {
+                scenario: {
+                    name: 'Test Scenario',
+                    category: 'Suite',
+                    outcome: 'SUCCESS',
+                    duration: 200,
+                    startedAt: '2024-06-15T14:30:00.000Z',
+                    source: { path: 'spec/test.spec.ts', line: 10 },
+                    tags: [{ type: 'browser', name: 'chrome 129.0.6668.100' }],
+                    activities: [],
+                    executionHistory: [
+                        { outcome: 'SUCCESS', run: '#8214', timestamp: '2024-06-14T10:00:00.000Z' },
+                        { outcome: 'SUCCESS', run: '#8219', timestamp: '2024-06-15T14:30:00.000Z' },
+                    ],
+                },
+                runIndex: null,
+                history: [
+                    { timestamp: '2024-06-14T08:00:00.000Z', label: '#8213', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
+                    { timestamp: '2024-06-14T10:00:00.000Z', label: '#8214', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
+                    { timestamp: '2024-06-15T14:30:00.000Z', label: '#8219', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
+                ],
+                onNavigate: '__onNavigate__',
+            },
+            data: minimalData(),
+        });
+
+        // Click the first run (#8214, which is index 0 in executionHistory but index 1 in global history)
+        await page.locator('.exec-history-item').first().click();
+
+        // Should navigate with the correct timestamp from the entry itself
+        const decoded = decodeURIComponent(navigatedTo);
+        expect(decoded).toContain('run=2024-06-14T10:00:00.000Z');
+        // Should NOT contain the timestamp from global history[0] which is #8213
+        expect(decoded).not.toContain('run=2024-06-14T08:00:00.000Z');
+    });
+
     test('only considers runs up to the active runIndex for the summary', async ({ mount, page }) => {
+        const history = [
+            { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
+            { timestamp: '2024-06-15T10:00:00.000Z', label: '#42', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
+            { timestamp: '2024-06-16T10:00:00.000Z', label: '#43', outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
+        ];
+
         await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenario/ExecutionHistory',
@@ -281,15 +382,10 @@ test.describe('ExecutionHistory', () => {
                     { outcome: 'FAILURE', run: '#43', timestamp: '2024-06-16T10:00:00.000Z' },
                 ]),
                 runIndex: 1, // Viewing run #42 — should only count first 2 runs
+                history,
                 onNavigate: () => {},
             },
-            data: minimalData({
-                history: [
-                    { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
-                    { timestamp: '2024-06-15T10:00:00.000Z', label: '#42', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
-                    { timestamp: '2024-06-16T10:00:00.000Z', label: '#43', outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
-                ],
-            }),
+            data: minimalData({ history }),
         });
 
         const summary = page.locator('.exec-history-summary');
