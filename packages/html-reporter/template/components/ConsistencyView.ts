@@ -1,13 +1,13 @@
-import { defaultRangeExtractor } from '@tanstack/virtual-core';
 import htm from 'htm';
 import { h } from 'preact';
-import { useCallback, useMemo, useRef, useState } from 'preact/hooks';
+import { useCallback, useMemo, useState } from 'preact/hooks';
 
 import type { ReportInconsistentTest } from '../../src/ReportData';
-import { useStickyHeader, useVirtualizer } from '../hooks';
-import type { Range } from '../hooks/useVirtualizer';
-import { browserBadgeClass, getBrowserTag, matchesSearch, outcomeClass, relativeSourcePath, scenarioUrl } from '../utils';
+import { ROW_HEIGHTS } from '../config/layout';
+import { matchesSearch } from '../utils';
 import { icons } from './icons';
+import { GroupedVirtualList } from './layout/GroupedVirtualList';
+import { ConsistencyRow } from './rows/ConsistencyRow';
 
 const html = htm.bind(h);
 
@@ -58,80 +58,17 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
         return [...searchedItems].sort((a, b) => (a.category || '').localeCompare(b.category || ''));
     }, [searchedItems, sort]);
 
-    const CONSISTENCY_ROW_HEIGHT = 88;
-    const CONSISTENCY_HEADER_HEIGHT_FIRST = 62;
-    const CONSISTENCY_HEADER_HEIGHT_REST = 78;
-    const CONSISTENCY_HEADER_CONTENT_HEIGHT = 46;
+    const groupByFunction = sort === 'category' ? (t: ReportInconsistentTest & { kind: string }) => t.category || 'Uncategorised' : undefined;
 
-    const flatItems: Array<{ type: 'header'; category: string } | { type: 'scenario'; item: ReportInconsistentTest & { kind: string } }> = useMemo(() => {
-        if (sort !== 'category') return sortedItems.map(t => ({ type: 'scenario' as const, item: t }));
-        const groups: Record<string, Array<ReportInconsistentTest & { kind: string }>> = {};
-        for (const t of sortedItems) {
-            const cat = t.category || 'Uncategorised';
-            if (!groups[cat]) groups[cat] = [];
-            groups[cat].push(t);
-        }
-        const result: Array<{ type: 'header'; category: string } | { type: 'scenario'; item: ReportInconsistentTest & { kind: string } }> = [];
-        for (const [category, tests] of Object.entries(groups)) {
-            result.push({ type: 'header', category });
-            for (const t of tests) result.push({ type: 'scenario', item: t });
-        }
-        return result;
-    }, [sortedItems, sort]);
+    const renderItem = useCallback((item: ReportInconsistentTest & { kind: string }) => {
+        return html`<${ConsistencyRow} item=${item} specDirectory=${specDirectory} onNavigate=${onNavigate} />`;
+    }, [specDirectory, onNavigate]);
 
-    const parentRef = useRef<HTMLElement | null>(null);
-    const headerIndices = useMemo(() => {
-        const indices: number[] = [];
-        flatItems.forEach((item, i) => { if (item.type === 'header') indices.push(i); });
-        return indices;
-    }, [flatItems]);
-
-    const activeStickyRef = useRef(-1);
-    const rangeExtractor = useCallback((range: Range) => {
-        if (sort !== 'category' || headerIndices.length === 0) {
-            activeStickyRef.current = -1;
-            return defaultRangeExtractor(range);
-        }
-        let activeStickyIndex = headerIndices[0];
-        for (const index of headerIndices) {
-            if (index > range.startIndex) break;
-            activeStickyIndex = index;
-        }
-        activeStickyRef.current = activeStickyIndex;
-        const defaultRange = defaultRangeExtractor(range);
-        if (!defaultRange.includes(activeStickyIndex)) return [activeStickyIndex, ...defaultRange];
-        return defaultRange;
-    }, [sort, headerIndices]);
-
-    const virtualizer = useVirtualizer({
-        count: flatItems.length,
-        getScrollElement: () => parentRef.current,
-        estimateSize: (index) => {
-            if (flatItems[index].type !== 'header') return CONSISTENCY_ROW_HEIGHT;
-            return index === 0 ? CONSISTENCY_HEADER_HEIGHT_FIRST : CONSISTENCY_HEADER_HEIGHT_REST;
-        },
-        overscan: 15,
-        rangeExtractor,
-    });
-
-    const { parentRefCallback } = useStickyHeader({
-        parentRef,
-        id: 'vs-consistency-sticky',
-        flatItems,
-        enabled: sort === 'category',
-        headerHeight: CONSISTENCY_HEADER_HEIGHT_REST,
-        firstHeaderHeight: CONSISTENCY_HEADER_HEIGHT_FIRST,
-        rowHeight: CONSISTENCY_ROW_HEIGHT,
-        renderContent: (element, item) => {
-            element.textContent = (item.category as string).replace(/ › /g, '  ›  ');
-        },
-    });
-
-    const kindIcon = (kind: string) => {
-        if (kind === 'degraded') return html`<span class="scenario-outcome-icon failed">✗</span>`;
-        if (kind === 'recovered') return html`<span class="scenario-outcome-icon passed">✓</span>`;
-        return html`<span class="scenario-outcome-icon pending">⚠</span>`;
-    };
+    const renderGroupHeader = useCallback((category: string) => {
+        return html`${category.split(' › ').map((segment, index, array) => html`
+          <span class="clickable" onClick=${() => setSearch('"' + segment + '"')}>${segment}</span>${index < array.length - 1 ? html`<span style="margin:0 4px;text-decoration:none;cursor:default"> › </span>` : null}
+        `)}`;
+    }, [setSearch]);
 
     return html`
     <div>
@@ -168,44 +105,14 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
         <div class="text-muted mb-md">
           Showing ${sortedItems.length} ${sortedItems.length === 1 ? 'test' : 'tests'}
         </div>
-        <div ref=${parentRefCallback} class="scroll-container">
-          <div style="height:${virtualizer.getTotalSize()}px;width:100%;position:relative">
-            ${virtualizer.getVirtualItems().map(virtualRow => {
-                const flatItem = flatItems[virtualRow.index];
-                if (flatItem.type === 'header') {
-                    const topOffset = virtualRow.index === 0 ? 0 : 16;
-                    const headerItem = flatItem as { type: 'header'; category: string };
-                    return html`
-                  <div style="position:absolute;top:0;left:0;width:100%;height:${CONSISTENCY_HEADER_CONTENT_HEIGHT}px;transform:translateY(${virtualRow.start + topOffset}px);background:var(--bg-surface);z-index:1"
-                       class="scenario-group-header">
-                    ${headerItem.category.split(' › ').map((segment, index, array) => html`
-                      <span class="clickable" onClick=${() => setSearch('"' + segment + '"')}>${segment}</span>${index < array.length - 1 ? html`<span style="margin:0 4px;text-decoration:none;cursor:default"> › </span>` : null}
-                    `)}
-                  </div>
-                `;
-                }
-                const t = flatItem.item;
-                const clickHandler = () => onNavigate(scenarioUrl(t));
-                return html`
-                <div style="position:absolute;top:0;left:0;width:100%;height:${CONSISTENCY_ROW_HEIGHT}px;transform:translateY(${virtualRow.start}px);overflow:hidden"
-                     class="scenario-item" role="button" tabindex="0" onClick=${clickHandler}
-                     onKeyDown=${(e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); clickHandler(); } }}>
-                  ${kindIcon(t.kind)}
-                  <div class="scenario-info">
-                    <div class="scenario-name">${t.name}</div>
-                    <div class="scenario-meta">
-                      ${getBrowserTag(t) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(t)!)}">${getBrowserTag(t)}</span>` : null}
-                      ${(t.tags || []).filter(tag => tag.type === 'project').map(tag => html`<span class="badge">${tag.name}</span>`)}
-                      <span class="scenario-source">${relativeSourcePath(t, specDirectory)}</span>
-                      ${t.history && t.history.length > 1 ? html`<span class="scenario-history">${t.history.slice(-5).map((outcome, i) => html`<span class="history-dot history-dot--${outcomeClass(outcome)}" title=${outcome + (t.labels && t.labels[i] ? ' (' + t.labels[i] + ')' : '')}></span>`)}</span>` : null}
-                    </div>
-                  </div>
-                  <span class="scenario-duration" style="color:var(--color-pending)">${Math.round(t.inconsistencyRate * 100)}%</span>
-                </div>
-              `;
-            })}
-          </div>
-        </div>
+        <${GroupedVirtualList}
+            items=${sortedItems}
+            groupBy=${groupByFunction}
+            rowHeight=${ROW_HEIGHTS.consistency}
+            renderItem=${renderItem}
+            renderGroupHeader=${renderGroupHeader}
+            id="vs-consistency-sticky"
+        />
       </div>
     </div>
   `;

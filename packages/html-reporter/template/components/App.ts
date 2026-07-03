@@ -2,20 +2,10 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
 
+import { resolveRoute, routes } from '../router';
 import { DATA, formatTimestamp, totalFailedCount, useHashHistory } from '../utils';
-import { AboutView } from './AboutView';
-import { CapabilitiesView } from './CapabilitiesView';
-import { ConsistencyView } from './ConsistencyView';
-import { DashboardView } from './DashboardView';
-import { ErrorsView } from './ErrorsView';
 import { icons } from './icons';
-import { ScenarioDetailView } from './ScenarioDetailView';
-import { ScenariosView } from './ScenariosView';
 import { Sidebar } from './Sidebar';
-import { SystemContextView } from './SystemContextView';
-import { TagsView } from './TagsView';
-import { TestRunsView } from './TestRunsView';
-import { TimelineView } from './TimelineView';
 
 const html = htm.bind(h);
 
@@ -59,57 +49,20 @@ export function App(): ReturnType<typeof html> {
     const toggleTheme = () => setTheme(t => t === 'light' ? 'dark' : 'light');
     const toggleSidebar = () => setSidebarCollapsed(c => { const next = !c; localStorage.setItem('serenity-sidebar-collapsed', String(next)); return next; });
 
-    let view;
-    let pageTitle = 'Dashboard';
-    const specDirectory = DATA.capabilities?.name;
+    // Route resolution: match route string to a route definition
+    const effectiveRoute = route === '' ? '/' : route;
+    const match = resolveRoute(effectiveRoute, routes);
 
-    if (route === '/' || route === '') {
-        view = html`<${DashboardView}
-            summary=${DATA.summary}
-            history=${DATA.history}
-            scenarios=${DATA.scenarios}
-            newFailures=${DATA.newFailures || []}
-            newPasses=${DATA.newPasses || []}
-            inconsistentTests=${DATA.inconsistentTests || []}
-            capabilities=${DATA.capabilities}
-            systemContext=${DATA.systemContext}
-            onNavigate=${navigate}
-        />`;
-        pageTitle = DATA.summary.title;
-    } else if (route === '/tests') {
-        view = html`<${ScenariosView} scenarios=${DATA.scenarios} history=${DATA.history} summary=${DATA.summary} specDirectory=${specDirectory} onNavigate=${navigate} route=${route} />`;
-        pageTitle = 'Test Scenarios';
-    } else if (route.startsWith('/tests?')) {
-        view = html`<${ScenariosView} scenarios=${DATA.scenarios} history=${DATA.history} summary=${DATA.summary} specDirectory=${specDirectory} onNavigate=${navigate} route=${route} />`;
-        pageTitle = 'Test Scenarios';
-    } else if (route.startsWith('/tests/')) {
-        const id = route.split('/tests/')[1];
-        view = html`<${ScenarioDetailView} scenarios=${DATA.scenarios} history=${DATA.history} specDirectory=${specDirectory} scenarioId=${id} onNavigate=${navigate} />`;
-        pageTitle = 'Test Scenario';
-    } else if (route === '/tags') {
-        view = html`<${TagsView} tags=${DATA.tags} onNavigate=${navigate} />`;
-        pageTitle = 'Tags';
-    } else if (route === '/test-runs') {
-        view = html`<${TestRunsView} history=${DATA.history} onNavigate=${navigate} />`;
-        pageTitle = 'Test Runs';
-    } else if (route === '/errors' || route.startsWith('/errors?')) {
-        view = html`<${ErrorsView} scenarios=${DATA.scenarios} history=${DATA.history} specDirectory=${specDirectory} onNavigate=${navigate} route=${route} />`;
-        pageTitle = 'Errors';
-    } else if (route === '/consistency') {
-        view = html`<${ConsistencyView} inconsistentTests=${DATA.inconsistentTests || []} specDirectory=${specDirectory} onNavigate=${navigate} />`;
-        pageTitle = 'Consistency';
-    } else if (route === '/capabilities' || route.startsWith('/capabilities?')) {
-        view = html`<${CapabilitiesView} capabilities=${DATA.capabilities} onNavigate=${navigate} route=${route} />`;
-        pageTitle = 'Capabilities';
-    } else if (route === '/timeline') {
-        view = html`<${TimelineView} scenarios=${DATA.scenarios} summary=${DATA.summary} onNavigate=${navigate} />`;
-        pageTitle = 'Timeline';
-    } else if (route === '/system') {
-        view = html`<${SystemContextView} systemContext=${DATA.systemContext} />`;
-        pageTitle = 'System Context';
-    } else if (route === '/about') {
-        view = html`<${AboutView} />`;
-        pageTitle = 'About this report';
+    let view;
+    let pageTitle: string;
+
+    if (match) {
+        const viewData = match.definition.data(DATA, match.params);
+        const ViewComponent = match.definition.view;
+        view = html`<${ViewComponent} ...${viewData} onNavigate=${navigate} />`;
+        pageTitle = typeof match.definition.title === 'function'
+            ? match.definition.title(DATA)
+            : match.definition.title;
     } else {
         view = html`<div class="card"><p>Page not found.</p></div>`;
         pageTitle = 'Not Found';
@@ -118,7 +71,8 @@ export function App(): ReturnType<typeof html> {
     return html`
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="sidebar-overlay ${sidebarOpen ? 'visible' : ''}" onClick=${() => setSidebarOpen(false)}></div>
-    <${Sidebar} route=${route} sidebarOpen=${sidebarOpen} collapsed=${sidebarCollapsed}
+    <${Sidebar} route=${effectiveRoute} sidebarOpen=${sidebarOpen} collapsed=${sidebarCollapsed}
+                routes=${routes}
                 failedBadgeCount=${totalFailedCount(DATA.summary.outcomes)}
                 onNavigate=${navigate} onClose=${() => setSidebarOpen(false)} onToggleCollapse=${toggleSidebar} />
     <main id="main-content" class="main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}"
