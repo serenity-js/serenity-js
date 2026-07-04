@@ -41,6 +41,16 @@ import type { ActivityRecord, ActorRecord, ArtifactReference, ErrorRecord, Outco
 import { CURRENT_RUN_DATA_SCHEMA_VERSION } from './model/RunData.js';
 import type { SystemContext } from './SystemContextDetector.js';
 
+export interface CollectOptions {
+    queues: DomainEventQueues;
+    testRunStartedAt: string;
+    testRunnerName: string;
+    testRunnerVersion: string;
+    artifactPaths: Map<string, Path[]>;
+    systemContext: SystemContext;
+    sceneArtifactPaths?: Map<string, Path[]>;
+}
+
 /**
  * Transforms DomainEventQueues into the RunData model.
  *
@@ -48,15 +58,8 @@ import type { SystemContext } from './SystemContextDetector.js';
  */
 export class SceneDataCollector {
 
-    collect(
-        queues: DomainEventQueues,
-        testRunStartedAt: string,
-        testRunnerName: string,
-        testRunnerVersion: string,
-        artifactPaths: Map<string, Path[]>,
-        systemContext: SystemContext,
-        sceneArtifactPaths?: Map<string, Path[]>,
-    ): RunData {
+    collect(options: CollectOptions): RunData {
+        const { queues, testRunStartedAt, testRunnerName, testRunnerVersion, artifactPaths, systemContext, sceneArtifactPaths } = options;
         const scenes: SceneRecord[] = [];
 
         queues.forEach(queue => {
@@ -108,29 +111,38 @@ export class SceneDataCollector {
                 }
                 scenes.push(record);
             } else {
-                const finalEntry = projectEntries[projectEntries.length - 1];
-                const finalRecord = finalEntry.record;
-                finalRecord.retries = projectEntries.length - 1;
-                finalRecord.attempts = projectEntries.map(({ record: r, sceneId: sid }, i) => ({
-                    attemptNumber: i + 1,
-                    outcome: r.outcome,
-                    duration: r.duration,
-                    activities: r.activities,
-                    ...(r.error ? { error: r.error } : {}),
-                    ...(sceneArtifactPaths ? this.findVideo(sid, sceneArtifactPaths) : {}),
-                }));
-                finalRecord.activities = finalRecord.attempts[finalRecord.attempts.length - 1].activities;
-                if (finalRecord.outcome.code === ExecutionSuccessful.Code) {
-                    delete finalRecord.error;
-                }
-                if (sceneArtifactPaths) {
-                    this.attachVideo(finalRecord, events, sceneArtifactPaths);
-                }
+                const finalRecord = this.buildRetryRecord(projectEntries, events, sceneArtifactPaths);
                 scenes.push(finalRecord);
             }
         }
 
         return scenes;
+    }
+
+    private buildRetryRecord(
+        projectEntries: Array<{ record: SceneRecord; sceneId: string }>,
+        events: Array<DomainEvent & { sceneId: CorrelationId }>,
+        sceneArtifactPaths?: Map<string, Path[]>,
+    ): SceneRecord {
+        const finalEntry = projectEntries[projectEntries.length - 1];
+        const finalRecord = finalEntry.record;
+        finalRecord.retries = projectEntries.length - 1;
+        finalRecord.attempts = projectEntries.map(({ record: r, sceneId: sid }, i) => ({
+            attemptNumber: i + 1,
+            outcome: r.outcome,
+            duration: r.duration,
+            activities: r.activities,
+            ...(r.error ? { error: r.error } : {}),
+            ...(sceneArtifactPaths ? this.findVideo(sid, sceneArtifactPaths) : {}),
+        }));
+        finalRecord.activities = finalRecord.attempts[finalRecord.attempts.length - 1].activities;
+        if (finalRecord.outcome.code === ExecutionSuccessful.Code) {
+            delete finalRecord.error;
+        }
+        if (sceneArtifactPaths) {
+            this.attachVideo(finalRecord, events, sceneArtifactPaths);
+        }
+        return finalRecord;
     }
 
     private assembleRunData(
@@ -279,7 +291,8 @@ class SceneRecordBuilder {
 
         // A retry sequence uses SceneSequenceDetected/SceneParametersDetected framing,
         // but the parameterSets should be treated as retry attempts, not outline examples.
-        if (this.isRetrySequence && this.isScenarioOutline && this.parameterSets.length > 0) {
+        const isRetryMaskedAsOutline = this.isRetrySequence && this.isScenarioOutline && this.parameterSets.length > 0;
+        if (isRetryMaskedAsOutline) {
             for (let i = 0; i < this.parameterSets.length; i++) {
                 const ps = this.parameterSets[i];
                 const attemptError = this.findErrorInActivities(ps.activities);
@@ -541,14 +554,17 @@ class SceneRecordBuilder {
     }
 }
 
+const OUTCOME_CODE_LABELS: Record<number, keyof OutcomeCounts> = {
+    [ExecutionSuccessful.Code]: 'passed',
+    [ExecutionFailedWithAssertionError.Code]: 'failed',
+    [ExecutionFailedWithError.Code]: 'error',
+    [ExecutionCompromised.Code]: 'compromised',
+    [ImplementationPending.Code]: 'pending',
+    [ExecutionSkipped.Code]: 'skipped',
+};
+
 function outcomeCodeToLabel(code: number): keyof OutcomeCounts {
-    if (code === ExecutionSuccessful.Code) return 'passed';
-    if (code === ExecutionFailedWithAssertionError.Code) return 'failed';
-    if (code === ExecutionFailedWithError.Code) return 'error';
-    if (code === ExecutionCompromised.Code) return 'compromised';
-    if (code === ImplementationPending.Code) return 'pending';
-    if (code === ExecutionSkipped.Code) return 'skipped';
-    return 'error';
+    return OUTCOME_CODE_LABELS[code] || 'error';
 }
 
 function errorFrom(outcome: ProblemIndication): ErrorRecord {

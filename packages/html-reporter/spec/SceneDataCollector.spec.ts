@@ -77,7 +77,7 @@ test.describe('SceneDataCollector', () => {
             queues.enqueue(new InteractionFinished(sceneId, act2, actDetails2, new ExecutionSuccessful(), t4));
             queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t5));
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Playwright', testRunnerVersion: '1.50.0', artifactPaths: new Map(), systemContext });
 
             expect(runData.scenes).toHaveLength(1);
             const scene = runData.scenes[0];
@@ -127,7 +127,7 @@ test.describe('SceneDataCollector', () => {
             queues.enqueue(new InteractionFinished(sceneId, act, actDetails, new ExecutionSuccessful(), t1));
             queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t1));
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Mocha', '11.0.0', new Map(), systemContext);
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Mocha', testRunnerVersion: '11.0.0', artifactPaths: new Map(), systemContext });
 
             expect(runData.scenes).toHaveLength(1);
             const scene = runData.scenes[0];
@@ -159,7 +159,7 @@ test.describe('SceneDataCollector', () => {
             queues.enqueue(new SceneStarts(sceneId, details, t2));
             queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t3));
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Playwright', testRunnerVersion: '1.50.0', artifactPaths: new Map(), systemContext });
 
             // Should count as 1 passed scenario (not 1 failed + 1 passed)
             expect(runData.outcomes.passed).toBe(1);
@@ -213,14 +213,14 @@ test.describe('SceneDataCollector', () => {
             queues.enqueue(new InteractionFinished(sceneId1, activityId2, activityDetails2, new ExecutionFailedWithError(new Error('oops')), t4));
             queues.enqueue(new SceneFinished(sceneId1, outlineDetails, new ExecutionFailedWithError(new Error('oops')), t4));
 
-            const runData = collector.collect(
+            const runData = collector.collect({
                 queues,
-                '2024-01-01T00:00:00.000Z',
-                'Cucumber',
-                '12.0.0',
-                new Map(),
+                testRunStartedAt: '2024-01-01T00:00:00.000Z',
+                testRunnerName: 'Cucumber',
+                testRunnerVersion: '12.0.0',
+                artifactPaths: new Map(),
                 systemContext,
-            );
+            });
 
             expect(runData.scenes).toHaveLength(1);
             const scene = runData.scenes[0];
@@ -262,7 +262,7 @@ test.describe('SceneDataCollector', () => {
             queues.enqueue(new SceneStarts(sceneId, details, t0));
             queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t1));
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Mocha', '11.0.0', new Map(), systemContext);
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Mocha', testRunnerVersion: '11.0.0', artifactPaths: new Map(), systemContext });
 
             expect(runData.scenes).toHaveLength(1);
             expect(runData.scenes[0].scenarioOutline).toBeUndefined();
@@ -314,7 +314,7 @@ test.describe('SceneDataCollector', () => {
             ));
             queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t2));
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Playwright', testRunnerVersion: '1.50.0', artifactPaths: new Map(), systemContext });
 
             expect(runData.scenes).toHaveLength(1);
             const activity = runData.scenes[0].activities[0];
@@ -371,7 +371,7 @@ test.describe('SceneDataCollector', () => {
             ));
             queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t2));
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Playwright', testRunnerVersion: '1.50.0', artifactPaths: new Map(), systemContext });
 
             const activity = runData.scenes[0].activities[0];
             expect(activity.restQuery.method).toBe('POST');
@@ -413,7 +413,7 @@ test.describe('SceneDataCollector', () => {
             }, t0));
             queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t1));
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Playwright', testRunnerVersion: '1.50.0', artifactPaths: new Map(), systemContext });
 
             expect(runData.scenes).toHaveLength(1);
             expect(runData.scenes[0].cast).toBeDefined();
@@ -464,7 +464,7 @@ test.describe('SceneDataCollector', () => {
             ));
             queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t2));
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Playwright', testRunnerVersion: '1.50.0', artifactPaths: new Map(), systemContext });
 
             const activity = runData.scenes[0].activities[0];
             expect(activity.reportData).toBeDefined();
@@ -505,7 +505,7 @@ test.describe('SceneDataCollector', () => {
             ));
             queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t2));
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Playwright', testRunnerVersion: '1.50.0', artifactPaths: new Map(), systemContext });
 
             const activity = runData.scenes[0].activities[0];
             expect(activity.reportData).toBeDefined();
@@ -548,7 +548,7 @@ test.describe('SceneDataCollector', () => {
             ));
             queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t2));
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Playwright', testRunnerVersion: '1.50.0', artifactPaths: new Map(), systemContext });
 
             const activity = runData.scenes[0].activities[0];
             expect(activity.reportData).toHaveLength(2);
@@ -585,7 +585,7 @@ test.describe('SceneDataCollector', () => {
             queues.enqueue(new InteractionFinished(sceneId, activityId, actDetails, new ExecutionSuccessful(), t1));
             queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t2));
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Playwright', testRunnerVersion: '1.50.0', artifactPaths: new Map(), systemContext });
 
             const activity = runData.scenes[0].activities[0];
             expect(activity.reportData).toHaveLength(1);
@@ -622,7 +622,7 @@ test.describe('SceneDataCollector', () => {
             queues.enqueue(new InteractionFinished(sceneId, activityId, actDetails, new ExecutionSuccessful(), t1));
             queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t2));
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Playwright', testRunnerVersion: '1.50.0', artifactPaths: new Map(), systemContext });
 
             const activity = runData.scenes[0].activities[0];
             // Should be captured as restQuery, NOT as reportData
@@ -656,7 +656,7 @@ test.describe('SceneDataCollector', () => {
                 Path.from('test-runs/2024-01-01/video-abc123.webm'),
             ]);
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext, sceneArtifactPaths);
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Playwright', testRunnerVersion: '1.50.0', artifactPaths: new Map(), systemContext, sceneArtifactPaths });
 
             expect(runData.scenes[0].video).toBe('test-runs/2024-01-01/video-abc123.webm');
         });
@@ -696,7 +696,7 @@ test.describe('SceneDataCollector', () => {
                 Path.from('test-runs/2024-01-01/video-final.webm'),
             ]);
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext, sceneArtifactPaths);
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Playwright', testRunnerVersion: '1.50.0', artifactPaths: new Map(), systemContext, sceneArtifactPaths });
 
             // The SceneRecordBuilder processes multiple SceneStarts/SceneFinished pairs
             // as retry attempts within a single record. Since they share a project tag,
@@ -728,7 +728,7 @@ test.describe('SceneDataCollector', () => {
                 Path.from('test-runs/2024-01-01/screenshot-001.png'),
             ]);
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext, sceneArtifactPaths);
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Playwright', testRunnerVersion: '1.50.0', artifactPaths: new Map(), systemContext, sceneArtifactPaths });
 
             expect(runData.scenes[0].video).toBeUndefined();
         });
@@ -750,7 +750,7 @@ test.describe('SceneDataCollector', () => {
             queues.enqueue(new SceneStarts(sceneId, details, t0));
             queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t1));
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext);
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Playwright', testRunnerVersion: '1.50.0', artifactPaths: new Map(), systemContext });
 
             expect(runData.scenes[0].video).toBeUndefined();
         });
@@ -798,7 +798,7 @@ test.describe('SceneDataCollector', () => {
                 Path.from('test-runs/2024-01-01/video-attempt-2.webm'),
             ]);
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', new Map(), systemContext, sceneArtifactPaths);
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Playwright', testRunnerVersion: '1.50.0', artifactPaths: new Map(), systemContext, sceneArtifactPaths });
 
             expect(runData.scenes).toHaveLength(1);
             expect(runData.scenes[0].retries).toBe(1);
@@ -847,7 +847,7 @@ test.describe('SceneDataCollector', () => {
                 Path.from('test-runs/2024-01-01/screenshot-002.png'),
             ]);
 
-            const runData = collector.collect(queues, '2024-01-01T00:00:00.000Z', 'Playwright', '1.50.0', artifactPaths, systemContext);
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Playwright', testRunnerVersion: '1.50.0', artifactPaths, systemContext });
 
             // Artifacts on the activity record (from handleActivityFinished)
             const activity = runData.scenes[0].activities[0];

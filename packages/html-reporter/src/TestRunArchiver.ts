@@ -118,15 +118,15 @@ export class TestRunArchiver implements StageCrewMember {
         ));
 
         try {
-            const runData = this.sceneDataCollector.collect(
-                this.eventQueues,
-                this.testRunTimestamp,
-                this.testRunnerName,
-                this.testRunnerVersion,
-                this.artifactWriter.getArtifactPaths(),
-                this.systemContextDetector.detect(),
-                this.artifactWriter.getSceneArtifactPaths(),
-            );
+            const runData = this.sceneDataCollector.collect({
+                queues: this.eventQueues,
+                testRunStartedAt: this.testRunTimestamp,
+                testRunnerName: this.testRunnerName,
+                testRunnerVersion: this.testRunnerVersion,
+                artifactPaths: this.artifactWriter.getArtifactPaths(),
+                systemContext: this.systemContextDetector.detect(),
+                sceneArtifactPaths: this.artifactWriter.getSceneArtifactPaths(),
+            });
 
             runData.testRunId = this.resolvedTestRunId;
             runData.attempt = this.artifactWriter.getAttempt();

@@ -13,10 +13,11 @@ import {
 } from '@serenity-js/core/model';
 import { marked } from 'marked';
 
-import { scoreCapability,scoreDirectory } from './CapabilityConfidenceScorer.js';
-import type { ActivityRecord, RunData, SceneRecord, TagRecord } from './model/RunData.js';
+import { buildCapabilities } from './capabilities/buildCapabilities.js';
+import { buildHistory } from './history/buildHistory.js';
+import type { ActivityRecord, AttemptRecord, OutcomeCounts, RunData, SceneRecord, TagRecord } from './model/RunData.js';
 import { IncompatibleSchemaError, InvalidRunDataError, validateRunData } from './model/validation.js';
-import type { ReportActivity, ReportCapabilityNode, ReportData, ReportExecutionHistoryEntry, ReportHistoryEntry, ReportOutcomes, ReportScenario, ReportSystemContext } from './ReportData.js';
+import type { ReportActivity, ReportData, ReportExecutionHistoryEntry, ReportScenario, ReportSystemContext } from './ReportData.js';
 import { CURRENT_REPORT_DATA_SCHEMA_VERSION } from './ReportData.js';
 
 interface AggregatorConfig {
@@ -70,13 +71,13 @@ export class DataSnapshotAggregator {
             schemaVersion: CURRENT_REPORT_DATA_SCHEMA_VERSION,
             summary: this.buildSummary(latestRun),
             scenarios: this.enrichScenarios(latestRun, allRuns),
-            history: this.buildHistory(allRuns),
+            history: buildHistory(allRuns),
             tags: this.computeTagStats(latestRun),
             inconsistentTests: this.identifyUnstableTests(allRuns),
             newFailures,
             newPasses,
             systemContext: this.buildSystemContext(latestRun),
-            capabilities: this.requirementsHierarchy ? this.buildCapabilities(latestRun, allRuns) : undefined,
+            capabilities: this.requirementsHierarchy ? buildCapabilities(latestRun, allRuns, this.requirementsHierarchy, this.projectFileSystem) : undefined,
         };
 
         const js = `window.__SERENITY_REPORT_DATA__ = ${ JSON.stringify(snapshot, undefined, 2) };\n`;
@@ -236,45 +237,9 @@ export class DataSnapshotAggregator {
             const key = this.sceneIdentity(laterScene);
             const earlierScene = earlierScenes.get(key);
             if (!earlierScene) {
-                return laterScene; // new in retry — keep as-is
+                return laterScene;
             }
-            // Promote earlier result into attempts[]
-            const existingAttempts = earlierScene.attempts || [];
-            const allAttempts = [
-                ...existingAttempts,
-                {
-                    attemptNumber: existingAttempts.length + 1,
-                    outcome: earlierScene.outcome,
-                    duration: earlierScene.duration,
-                    activities: earlierScene.activities,
-                    ...(earlierScene.error ? { error: earlierScene.error } : {}),
-                },
-                {
-                    attemptNumber: existingAttempts.length + 2,
-                    outcome: laterScene.outcome,
-                    duration: laterScene.duration,
-                    activities: laterScene.activities,
-                    ...(laterScene.error ? { error: laterScene.error } : {}),
-                },
-            ];
-            return {
-                name: laterScene.name,
-                category: laterScene.category,
-                outcome: laterScene.outcome,
-                duration: laterScene.duration,
-                startedAt: laterScene.startedAt,
-                source: laterScene.source,
-                tags: laterScene.tags,
-                activities: laterScene.activities,
-                ...(laterScene.error ? { error: laterScene.error } : {}),
-                ...(laterScene.video ? { video: laterScene.video } : {}),
-                ...(laterScene.cast ? { cast: laterScene.cast } : {}),
-                ...(laterScene.narrative ? { narrative: laterScene.narrative } : {}),
-                ...(laterScene.description ? { description: laterScene.description } : {}),
-                ...(laterScene.artifacts ? { artifacts: laterScene.artifacts } : {}),
-                attempts: allAttempts,
-                retries: allAttempts.length - 1,
-            } as SceneRecord;
+            return this.mergeSceneWithRetry(earlierScene, laterScene);
         });
 
         // Include scenes from earlier attempt that weren't retried
@@ -286,15 +251,44 @@ export class DataSnapshotAggregator {
         }
 
         // Recompute outcomes from the final merged scenes
-        merged.outcomes = { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 };
-        for (const scene of merged.scenes) {
-            const key = this.mapOutcomeToKey(outcomeCodeToDisplayString(scene.outcome.code));
-            merged.outcomes[key as keyof typeof merged.outcomes]++;
-        }
-
+        merged.outcomes = this.computeMergedOutcomes(merged.scenes);
         if (earlier.startedAt < merged.startedAt) merged.startedAt = earlier.startedAt;
 
         return merged;
+    }
+
+    private mergeSceneWithRetry(earlierScene: SceneRecord, laterScene: SceneRecord): SceneRecord {
+        const existingAttempts = earlierScene.attempts || [];
+        const allAttempts = [
+            ...existingAttempts,
+            this.sceneToAttempt(earlierScene, existingAttempts.length + 1),
+            this.sceneToAttempt(laterScene, existingAttempts.length + 2),
+        ];
+        return {
+            ...laterScene,
+            attempts: allAttempts,
+            retries: allAttempts.length - 1,
+        } as SceneRecord;
+    }
+
+    private sceneToAttempt(scene: SceneRecord, attemptNumber: number): AttemptRecord {
+        return {
+            attemptNumber,
+            outcome: scene.outcome,
+            duration: scene.duration,
+            activities: scene.activities,
+            ...(scene.error ? { error: scene.error } : {}),
+            ...(scene.video ? { video: scene.video } : {}),
+        };
+    }
+
+    private computeMergedOutcomes(scenes: SceneRecord[]): OutcomeCounts {
+        const outcomes: OutcomeCounts = { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 };
+        for (const scene of scenes) {
+            const key = this.mapOutcomeToKey(outcomeCodeToDisplayString(scene.outcome.code));
+            outcomes[key as keyof OutcomeCounts]++;
+        }
+        return outcomes;
     }
 
     private sceneIdentity(scene: { source: { path: string; line: number }; name: string }): string {
@@ -472,67 +466,6 @@ export class DataSnapshotAggregator {
         return enriched;
     }
 
-    private buildHistory(allRuns: RunData[]): ReportHistoryEntry[] {
-        return allRuns.map((run, index) => {
-            const durations = run.scenes.map(s => s.duration).filter(d => d > 0);
-            const ci = run.systemContext?.runtime;
-
-            // Compute score for this run
-            const total = Object.values(run.outcomes).reduce((a: number, b: number) => a + b, 0);
-            const passed = run.outcomes.passed || 0;
-            const pending = (run.outcomes.pending || 0) + (run.outcomes.skipped || 0);
-            const passRate = total > 0 ? Math.round((passed / total) * 100) : 0;
-            const completeness = total > 0 ? Math.round(((total - pending) / total) * 100) : 0;
-
-            // Consistency: proportion of tests with consistent outcomes up to this run
-            const runsUpToHere = allRuns.slice(0, index + 1);
-            const consistency = this.computeConsistencyAtRun(runsUpToHere);
-            const confidence = Math.round(completeness * 0.3 + passRate * 0.35 + consistency * 0.35);
-
-            return {
-                timestamp: run.startedAt,
-                duration: new Date(run.finishedAt).getTime() - new Date(run.startedAt).getTime(),
-                outcomes: run.outcomes,
-                label: this.resolveRunLabel(run),
-                slowest: durations.length > 0 ? Math.max(...durations) : 0,
-                fastest: durations.length > 0 ? Math.min(...durations) : 0,
-                average: durations.length > 0 ? Math.round(durations.reduce((a, b) => a + b, 0) / durations.length) : 0,
-                ...(ci?.commit ? { commit: ci.commit } : {}),
-                ...(ci?.branch ? { branch: ci.branch } : {}),
-                ...(ci?.jobUrl ? { ciJobUrl: ci.jobUrl } : {}),
-                ...(ci?.repositoryUrl ? { repositoryUrl: ci.repositoryUrl } : {}),
-                score: { confidence, passRate, consistency, completeness },
-            };
-        });
-    }
-
-    private computeConsistencyAtRun(runs: RunData[]): number {
-        if (runs.length < 2) return 100;
-        const testOutcomes = new Map<string, string[]>();
-        for (const run of runs) {
-            for (const scene of run.scenes) {
-                const projectTag = scene.tags.find(t => t.type === 'project')?.name || '';
-                const identity = `${ scene.name }@${ scene.source.path }@${ projectTag }`;
-                if (!testOutcomes.has(identity)) testOutcomes.set(identity, []);
-
-                const effectiveOutcome = (scene.retries > 0 && scene.outcome.code === ExecutionSuccessful.Code)
-                    ? 'RETRIED_SUCCESS'
-                    : outcomeCodeToDisplayString(scene.outcome.code);
-                testOutcomes.get(identity).push(effectiveOutcome);
-            }
-        }
-        let totalTests = 0;
-        let stableTests = 0;
-        for (const [, outcomes] of testOutcomes) {
-            if (outcomes.length >= 2) {
-                totalTests++;
-                const uniqueOutcomes = new Set(outcomes);
-                if (uniqueOutcomes.size === 1 && !outcomes.includes('RETRIED_SUCCESS')) stableTests++;
-            }
-        }
-        return totalTests > 0 ? Math.round((stableTests / totalTests) * 100) : 100;
-    }
-
     private buildSystemContext(latestRun: RunData): ReportSystemContext | undefined {
         if (!latestRun.systemContext) {
             return undefined;
@@ -554,145 +487,17 @@ export class DataSnapshotAggregator {
         const browsers = new Map<string, string>();
         for (const scene of run.scenes) {
             for (const tag of scene.tags) {
-                if (tag.type === 'browser') {
-                    const parts = tag.name.split(' ');
-                    const name = parts[0] || tag.name;
-                    const version = parts.slice(1).join(' ') || '';
-                    if (!browsers.has(name)) {
-                        browsers.set(name, version);
-                    }
+                if (tag.type !== 'browser') continue;
+
+                const parts = tag.name.split(' ');
+                const name = parts[0] || tag.name;
+                const version = parts.slice(1).join(' ') || '';
+                if (!browsers.has(name)) {
+                    browsers.set(name, version);
                 }
             }
         }
         return [...browsers.entries()].map(([name, version]) => ({ name, version }));
-    }
-
-    private buildCapabilities(run: RunData, allRuns: RunData[]): ReportCapabilityNode {
-        const rootName = this.requirementsHierarchy.rootDirectory().basename();
-        const root: ReportCapabilityNode = { type: 'directory', name: rootName, outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, children: [] };
-        const nodeMap = new Map<string, ReportCapabilityNode>();
-        nodeMap.set('', root);
-
-        for (const scene of run.scenes) {
-            const segments = this.requirementsHierarchy.hierarchyFor(Path.from(scene.source.path));
-            const fileName = segments[segments.length - 1];
-            const directories = segments.slice(0, -1);
-
-            let currentDirectory = root;
-            for (let i = 0; i < directories.length; i++) {
-                const directoryKey = directories.slice(0, i + 1).join('/');
-                if (!nodeMap.has(directoryKey)) {
-                    const directory: ReportCapabilityNode = { type: 'directory', name: directories[i], outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, children: [] };
-                    currentDirectory.children.push(directory);
-                    nodeMap.set(directoryKey, directory);
-                }
-                currentDirectory = nodeMap.get(directoryKey);
-            }
-
-            const fileKey = segments.join('/');
-            if (!nodeMap.has(fileKey)) {
-                const file: ReportCapabilityNode = { type: 'file', name: fileName, outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, scenarios: [] };
-                currentDirectory.children.push(file);
-                nodeMap.set(fileKey, file);
-            }
-
-            const fileNode = nodeMap.get(fileKey);
-            const outcomeKey = this.mapOutcomeToKey(outcomeCodeToDisplayString(scene.outcome.code)) as keyof ReportOutcomes;
-
-            fileNode.scenarioCount++;
-            fileNode.outcomes[outcomeKey]++;
-
-            // Build execution history for this scenario across all runs
-            const scenarioKey = this.sceneIdentityWithBrowser(scene);
-            const executionHistory = allRuns.map(r => {
-                const match = r.scenes.find(s => this.sceneIdentityWithBrowser(s) === scenarioKey);
-                return match ? outcomeCodeToDisplayString(match.outcome.code) : undefined;
-            }).filter(Boolean) as string[];
-
-            fileNode.scenarios.push({ name: scene.name, outcome: outcomeCodeToDisplayString(scene.outcome.code), executionHistory });
-            if (scene.narrative && !fileNode.narrative) {
-                fileNode.narrative = scene.narrative;
-            }
-
-            root.scenarioCount++;
-            root.outcomes[outcomeKey]++;
-            for (let i = 0; i < directories.length; i++) {
-                const directoryNode = nodeMap.get(directories.slice(0, i + 1).join('/'));
-                if (directoryNode && directoryNode !== root) {
-                    directoryNode.scenarioCount++;
-                    directoryNode.outcomes[outcomeKey]++;
-                }
-            }
-        }
-
-        // Compute scores for file nodes
-        for (const [, node] of nodeMap) {
-            if (node.type === 'file' && node.scenarios) {
-                node.score = scoreCapability(node as ReportCapabilityNode & { scenarios: NonNullable<ReportCapabilityNode['scenarios']> });
-            }
-        }
-
-        // Compute scores for directory nodes (bottom-up)
-        this.computeDirectoryScores(root);
-
-        if (this.projectFileSystem) {
-            const specRoot = this.requirementsHierarchy.rootDirectory();
-            this.attachReadme(root, specRoot);
-            for (const [key, node] of nodeMap) {
-                if (key && node.type === 'directory') {
-                    this.attachReadme(node, specRoot.join(Path.from(key)));
-                }
-            }
-        }
-
-        return root;
-    }
-
-    private computeDirectoryScores(node: ReportCapabilityNode): void {
-        if (!node.children) return;
-
-        for (const child of node.children) {
-            if (child.type === 'directory') {
-                this.computeDirectoryScores(child);
-            }
-        }
-
-        const scoredChildren = node.children
-            .filter(c => c.score)
-            .map(c => ({ confidence: c.score.confidence, scenarioCount: c.scenarioCount || 0 }));
-
-        if (scoredChildren.length > 0) {
-            const confidence = scoreDirectory(scoredChildren);
-            node.score = { confidence, passRate: 0, completeness: 0, consistency: 0 };
-
-            // Also compute pass rate/completeness/consistency for the directory directly
-            const total = Object.values(node.outcomes).reduce((a: number, b: number) => a + b, 0) as number;
-            const pending = ((node.outcomes.pending || 0) + (node.outcomes.skipped || 0)) as number;
-            const executed = total - pending;
-            node.score.passRate = executed > 0 ? Math.round((node.outcomes.passed / executed) * 100) : 0;
-            node.score.completeness = total > 0 ? Math.round(((total - pending) / total) * 100) : 0;
-            node.score.consistency = 100; // Would need aggregated history; use child-weighted confidence instead
-        }
-    }
-
-    private attachReadme(node: ReportCapabilityNode, directoryPath: Path): void {
-        const readmePath = directoryPath.join(Path.from('readme.md'));
-        if (this.projectFileSystem.exists(readmePath)) {
-            const content = this.projectFileSystem.readFileSync(readmePath, { encoding: 'utf8' }) as string;
-
-            // Extract first heading as displayName
-            const headingMatch = content.match(/^#{1,2}\s+(.+)$/m);
-            if (headingMatch) {
-                node.displayName = headingMatch[1].trim();
-            }
-
-            // Render markdown and strip the first heading to avoid duplication
-            let html = marked.parse(content, { async: false }) as string;
-            if (node.displayName) {
-                html = html.replace(/^\s*<h[12][^>]*>.*?<\/h[12]>\s*/i, '');
-            }
-            node.readme = html;
-        }
     }
 
     private computeTagStats(run: RunData): Array<{ type: string; name: string; scenarioCount: number; passed: number }> {

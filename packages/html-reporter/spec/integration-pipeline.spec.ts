@@ -101,7 +101,7 @@ function collectRunData(options: {
         queues.enqueue(new SceneFinished(sceneId, details, outcome, t2));
     }
 
-    return collector.collect(queues, options.timestamp, 'Playwright', '1.50.0', new Map(), systemContext);
+    return collector.collect({ queues, testRunStartedAt: options.timestamp, testRunnerName: 'Playwright', testRunnerVersion: '1.50.0', artifactPaths: new Map(), systemContext });
 }
 
 function createMemFs(tree: Record<string, unknown>, root = '/'): typeof fs {
