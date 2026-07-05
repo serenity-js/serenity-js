@@ -5,6 +5,7 @@ import { useCallback, useMemo, useState } from 'preact/hooks';
 import type { ReportInconsistentTest } from '../../src/ReportData';
 import { ROW_HEIGHTS } from '../config/layout';
 import { matchesSearch } from '../utils';
+import { classifyConsistencyKind } from '../utils/selectors';
 import { icons } from './icons';
 import { GroupedVirtualList } from './layout/GroupedVirtualList';
 import { ConsistencyRow } from './rows/ConsistencyRow';
@@ -19,7 +20,7 @@ interface ConsistencyViewProps {
 
 export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }: ConsistencyViewProps): ReturnType<typeof html> {
 
-    const [filter, setFilter] = useState('inconsistent');
+    const [filter, setFilter] = useState('all');
     const [search, setSearch] = useState('');
     const [sort, setSort] = useState('category');
 
@@ -35,18 +36,18 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
 
     const allInconsistent = useMemo(() => inconsistentTests.map(t => {
         const lastOutcome = t.history && t.history.length > 0 ? t.history[t.history.length - 1] : null;
-        const kind = lastOutcome === 'SUCCESS'
-            ? 'recovered'
-            : (lastOutcome === 'RETRIED_SUCCESS' || lastOutcome === 'PENDING' || lastOutcome === 'SKIPPED')
-                ? 'inconsistent'
-                : 'degraded';
+        const kind = classifyConsistencyKind(t.history || []);
         return { ...t, kind, lastOutcome: lastOutcome || 'SKIPPED' };
     }), []);
 
+    const flakyCount = allInconsistent.filter(t => t.kind === 'flaky').length;
+    const inconsistentCount = allInconsistent.filter(t => t.kind === 'inconsistent').length;
     const degradedCount = allInconsistent.filter(t => t.kind === 'degraded').length;
     const recoveredCount = allInconsistent.filter(t => t.kind === 'recovered').length;
 
     const allItems = useMemo(() => {
+        if (filter === 'flaky') return allInconsistent.filter(t => t.kind === 'flaky');
+        if (filter === 'inconsistent') return allInconsistent.filter(t => t.kind === 'inconsistent');
         if (filter === 'degraded') return allInconsistent.filter(t => t.kind === 'degraded');
         if (filter === 'recovered') return allInconsistent.filter(t => t.kind === 'recovered');
         return allInconsistent;
@@ -87,13 +88,24 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
 
       <div class="filter-bar" role="group" aria-label="Filter tests by consistency" style="align-items:center">
         <span class="label-upper" style="align-self:center">Status:</span>
-        <button class="filter-chip ${filter === 'inconsistent' ? 'active' : ''}" onClick=${() => setFilter('inconsistent')}>
-          <span>Inconsistent</span> <span class="count">${inconsistentTests.length}</span>
+        <button class="filter-chip ${filter === 'all' ? 'active' : ''}" onClick=${() => setFilter('all')}
+                aria-pressed=${filter === 'all'}>
+          <span>All</span> <span class="count">${inconsistentTests.length}</span>
         </button>
-        <button class="filter-chip failed ${filter === 'degraded' ? 'active' : ''}" onClick=${() => setFilter('degraded')}>
+        <button class="filter-chip ${filter === 'flaky' ? 'active' : ''}" onClick=${() => setFilter('flaky')}
+                aria-pressed=${filter === 'flaky'}>
+          <span>Flaky</span> <span class="count">${flakyCount}</span>
+        </button>
+        <button class="filter-chip ${filter === 'inconsistent' ? 'active' : ''}" onClick=${() => setFilter('inconsistent')}
+                aria-pressed=${filter === 'inconsistent'}>
+          <span>Inconsistent</span> <span class="count">${inconsistentCount}</span>
+        </button>
+        <button class="filter-chip failed ${filter === 'degraded' ? 'active' : ''}" onClick=${() => setFilter('degraded')}
+                aria-pressed=${filter === 'degraded'}>
           <span>Degraded</span> <span class="count">${degradedCount}</span>
         </button>
-        <button class="filter-chip passed ${filter === 'recovered' ? 'active' : ''}" onClick=${() => setFilter('recovered')}>
+        <button class="filter-chip passed ${filter === 'recovered' ? 'active' : ''}" onClick=${() => setFilter('recovered')}
+                aria-pressed=${filter === 'recovered'}>
           <span>Recovered</span> <span class="count">${recoveredCount}</span>
         </button>
         <div class="sort-group">

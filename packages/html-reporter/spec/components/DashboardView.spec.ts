@@ -201,3 +201,101 @@ test.describe('DashboardView accessibility', () => {
         expect(tagName).toBe('button');
     });
 });
+
+test.describe('DashboardView consistency card', () => {
+
+    test('labels flaky test as "flaky" (not "inconsistent")', async ({ mount, page }) => {
+        await mount({
+            component: 'DashboardView',
+            importPath: './components/DashboardView',
+            props: { onNavigate: () => {} },
+            data: minimalData({
+                inconsistentTests: [
+                    {
+                        name: 'Flaky checkout',
+                        category: 'Suite',
+                        source: { path: 'spec/flaky.spec.ts', line: 10 },
+                        tags: [],
+                        inconsistencyRate: 0.5,
+                        history: ['RETRIED_SUCCESS', 'RETRIED_SUCCESS'],
+                        labels: ['#1', '#2'],
+                    },
+                ],
+            }),
+        });
+
+        const consistencyCard = page.locator('.dashboard-status-card', { hasText: 'Consistency' });
+        await expect(consistencyCard.locator('.status-item-kind')).toHaveText('flaky');
+        await expect(consistencyCard.locator('.status-item-kind')).not.toHaveText('inconsistent');
+    });
+
+    test('labels test with failure history and RETRIED_SUCCESS last as "inconsistent"', async ({ mount, page }) => {
+        await mount({
+            component: 'DashboardView',
+            importPath: './components/DashboardView',
+            props: { onNavigate: () => {} },
+            data: minimalData({
+                inconsistentTests: [
+                    {
+                        name: 'Unstable login',
+                        category: 'Suite',
+                        source: { path: 'spec/unstable.spec.ts', line: 5 },
+                        tags: [],
+                        inconsistencyRate: 0.6,
+                        history: ['FAILURE', 'RETRIED_SUCCESS'],
+                        labels: ['#1', '#2'],
+                    },
+                ],
+            }),
+        });
+
+        const consistencyCard = page.locator('.dashboard-status-card', { hasText: 'Consistency' });
+        await expect(consistencyCard.locator('.status-item-kind')).toHaveText('inconsistent');
+    });
+
+    test('renders all four kind categories with correct labels', async ({ mount, page }) => {
+        await mount({
+            component: 'DashboardView',
+            importPath: './components/DashboardView',
+            props: { onNavigate: () => {} },
+            data: minimalData({
+                newFailures: [
+                    { name: 'Degraded test', category: 'Suite', source: { path: 'spec/a.spec.ts', line: 1 }, tags: [] },
+                ],
+                newPasses: [
+                    { name: 'Recovered test', category: 'Suite', source: { path: 'spec/b.spec.ts', line: 1 }, tags: [] },
+                ],
+                inconsistentTests: [
+                    {
+                        name: 'Flaky test',
+                        category: 'Suite',
+                        source: { path: 'spec/c.spec.ts', line: 1 },
+                        tags: [],
+                        inconsistencyRate: 0.5,
+                        history: ['RETRIED_SUCCESS', 'SUCCESS'],
+                        labels: ['#1', '#2'],
+                    },
+                    {
+                        name: 'Inconsistent test',
+                        category: 'Suite',
+                        source: { path: 'spec/d.spec.ts', line: 1 },
+                        tags: [],
+                        inconsistencyRate: 0.7,
+                        history: ['FAILURE', 'RETRIED_SUCCESS'],
+                        labels: ['#1', '#2'],
+                    },
+                ],
+            }),
+        });
+
+        const consistencyCard = page.locator('.dashboard-status-card', { hasText: 'Consistency' });
+        const kinds = consistencyCard.locator('.status-item-kind');
+        await expect(kinds).toHaveCount(4);
+
+        const texts = await kinds.allTextContents();
+        expect(texts).toContain('degraded');
+        expect(texts).toContain('recovered');
+        expect(texts).toContain('flaky');
+        expect(texts).toContain('inconsistent');
+    });
+});

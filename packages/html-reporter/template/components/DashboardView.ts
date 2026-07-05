@@ -4,6 +4,7 @@ import { useMemo } from 'preact/hooks';
 
 import type { ReportCapabilityNode, ReportHistoryEntry, ReportInconsistentTest, ReportScenario, ReportScenarioRef, ReportSummary, ReportSystemContext } from '../../src/ReportData';
 import { browserBadgeClass, computeCompletenessFromTree, formatDuration, getBrowserTag, outcomeClass, outcomeDisplayName, outcomeIcon, runConfidence, scenarioUrl, scoreColor } from '../utils';
+import { classifyConsistencyKind } from '../utils/selectors';
 import { AreaSparkline } from './charts/AreaSparkline';
 import { Delta } from './charts/Delta';
 import { DotTrend } from './charts/DotTrend';
@@ -62,7 +63,10 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
         ...newPasses.map(t => ({ ...t, kind: 'recovered' as const, lastOutcome: 'SUCCESS' })),
         ...inconsistent
             .filter(t => !newFailures.some(f => f.source.path === t.source.path) && !newPasses.some(p => p.source.path === t.source.path))
-            .map(t => ({ ...t, kind: 'inconsistent' as const, lastOutcome: t.history && t.history.length > 0 ? t.history[t.history.length - 1] : 'SKIPPED' })),
+            .map(t => {
+                const kind = classifyConsistencyKind(t.history || []);
+                return { ...t, kind, lastOutcome: t.history && t.history.length > 0 ? t.history[t.history.length - 1] : 'SKIPPED' };
+            }),
     ].slice(0, 5), [newFailures, newPasses, inconsistent]);
 
     const getHistory = (t: ReportScenarioRef) => {

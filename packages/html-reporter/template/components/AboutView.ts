@@ -76,7 +76,13 @@ export function AboutView(): ReturnType<typeof html> {
             </div>
             <div class="panel-bg">
               <h4 class="section-title-sm">Consistency</h4>
-              <p class="section-text">Tests with inconsistent outcomes across recent runs. Identifies inconsistent tests that pass and fail unpredictably, undermining confidence in your test suite.</p>
+              <p class="section-text">Tests with reliability issues across recent runs. Classifies tests based on their execution pattern:</p>
+              <ul style="padding-left:var(--space-lg);margin:var(--space-sm) 0;font-size:var(--font-sm);color:var(--text-secondary);line-height:1.8">
+                <li><strong>Flaky</strong> — passes if retried within a single run, but needed multiple attempts. The build goes green, but the test is unreliable.</li>
+                <li><strong>Inconsistent</strong> — final outcome differs across runs even after retries. The build fails unpredictably.</li>
+                <li><strong>Degraded</strong> — was passing in the previous run, now failing.</li>
+                <li><strong>Recovered</strong> — was failing in the previous run, now passes cleanly without needing retry.</li>
+              </ul>
             </div>
             <div class="panel-bg">
               <h4 class="section-title-sm">Timeline</h4>
@@ -182,16 +188,20 @@ export function AboutView(): ReturnType<typeof html> {
           <h4 class="glossary-group-title">Test history</h4>
           <dl class="glossary">
             <div class="glossary-entry">
-              <dt>Degraded</dt>
-              <dd>A test that passed in the previous run but fails in the current run — a new regression that needs attention.</dd>
-            </div>
-            <div class="glossary-entry">
-              <dt>Recovered</dt>
-              <dd>A test that failed in the previous run but passes in the current run — a fixed regression.</dd>
+              <dt>Flaky</dt>
+              <dd>A test that fails on an earlier attempt but passes on a subsequent retry within a single test run. The build succeeds, but the test needed multiple tries to get there.</dd>
             </div>
             <div class="glossary-entry">
               <dt>Inconsistent</dt>
-              <dd>A test whose outcome has changed between passing and failing within the consistency window, indicating non-deterministic behaviour.</dd>
+              <dd>A test whose final outcome (after all retries are exhausted) differs across test runs. The build fails unpredictably.</dd>
+            </div>
+            <div class="glossary-entry">
+              <dt>Degraded</dt>
+              <dd>A test that was passing in the previous run but is now failing — a new regression that needs attention.</dd>
+            </div>
+            <div class="glossary-entry">
+              <dt>Recovered</dt>
+              <dd>A test that was failing in the previous run but now passes cleanly on the first attempt. A test that now passes only via retry is "flaky", not "recovered".</dd>
             </div>
           </dl>
 
