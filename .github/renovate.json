@@ -8,13 +8,40 @@
     "group:recommended",
     "workarounds:typesNodeVersioning",
     "helpers:disableTypesNodeMajor",
-    "helpers:pinGitHubActionDigests"
+    "helpers:pinGitHubActionDigests",
+    "security:minimumReleaseAgeNpm"
   ],
+  "minimumReleaseAge": "1 day",
+  "internalChecksFilter": "strict",
+  "osvVulnerabilityAlerts": true,
   "rangeStrategy": "bump",
   "ignorePaths": [
     "**/node_modules/**"
   ],
   "packageRules": [
+    {
+      "description": "Do not require Minimum Release Age for lock file maintenance",
+      "matchUpdateTypes": ["lockFileMaintenance"],
+      "minimumReleaseAge": null
+    },
+    {
+      "description": "Do not require Minimum Release Age for core tooling",
+      "matchPackageNames": [
+        "@cucumber/*",
+        "playwright",
+        "@playwright/test",
+        "typescript",
+        "eslint",
+        "@typescript-eslint/parser",
+        "@typescript-eslint/eslint-plugin"
+      ],
+      "minimumReleaseAge": "0 days"
+    },
+    {
+      "description": "Only apply minimumReleaseAge for non-major updates",
+      "matchUpdateTypes": ["major"],
+      "minimumReleaseAge": null
+    },
     {
       "groupName": "Core dependencies",
       "labels": [
