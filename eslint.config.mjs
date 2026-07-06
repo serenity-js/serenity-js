@@ -107,9 +107,9 @@ export default tseslint.config(
                 ],
             }],
             'unicorn/import-style': ['error', {
+                extendDefaultStyles: false,
                 styles: {
-                    path: false,
-                    'node:path': { named: true, default: true, namespace: true },
+                    path: { named: true, default: true, namespace: true },
                     util: { named: true, default: true, namespace: true },
                 },
             }],
