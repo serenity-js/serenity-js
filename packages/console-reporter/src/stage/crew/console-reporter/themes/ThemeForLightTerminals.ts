@@ -1,4 +1,4 @@
-import type { Chalk } from 'chalk'; // eslint-disable-line unicorn/import-style
+import type { Chalk } from 'chalk';  
 
 import { ThemeForColourTerminals } from './ThemeForColourTerminals.js';
 

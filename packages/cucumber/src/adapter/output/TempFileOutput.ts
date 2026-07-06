@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/prevent-abbreviations */
+ 
 import type { FileSystem } from '@serenity-js/core/io';
 
 import type { OutputDescriptor } from './OutputDescriptor.js';
