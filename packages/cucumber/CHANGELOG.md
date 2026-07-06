@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.44.1](https://github.com/serenity-js/serenity-js/compare/v3.44.0...v3.44.1) (2026-07-06)
+
+
+### Bug Fixes
+
+* **deps:** update cucumber ([80512d2](https://github.com/serenity-js/serenity-js/commit/80512d2a408fc1b73e19ab75c482ffd145390be6))
+* **eslint:** adapt config to eslint-plugin-unicorn v71 ([eec6f0a](https://github.com/serenity-js/serenity-js/commit/eec6f0affa2acd313b955bb0ce444fb06ecf5b21))
+
+
+
+
+
 # [3.44.0](https://github.com/serenity-js/serenity-js/compare/v3.43.4...v3.44.0) (2026-06-13)
 
 

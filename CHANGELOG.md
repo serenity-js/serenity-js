@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.44.1](https://github.com/serenity-js/serenity-js/compare/v3.44.0...v3.44.1) (2026-07-06)
+
+
+### Bug Fixes
+
+* **deps:** update cucumber ([80512d2](https://github.com/serenity-js/serenity-js/commit/80512d2a408fc1b73e19ab75c482ffd145390be6))
+* **deps:** update dependency semver to v7.8.5 ([2ba50f3](https://github.com/serenity-js/serenity-js/commit/2ba50f302181f5e901664fafd35bc2aba238827c))
+* **deps:** update playwright dependencies to v1.61.1 ([38d14bc](https://github.com/serenity-js/serenity-js/commit/38d14bcce4323241ff6022d85868c93d12f32118))
+* **deps:** update protractor dependencies to v2.3.0 ([94a1e5f](https://github.com/serenity-js/serenity-js/commit/94a1e5fbb3b19c2efbc5d81d297449793d7881aa))
+* **deps:** update rest dependencies ([0a7322a](https://github.com/serenity-js/serenity-js/commit/0a7322a3662cac4db535049647042ff96e5c775b))
+* **deps:** update serenity bdd dependencies to v17.7.3 ([3f61bfd](https://github.com/serenity-js/serenity-js/commit/3f61bfd14eabf93159dd2d87a74ec11428481ab2))
+* **deps:** update webdriverio dependencies to ^9.29.1 ([d2de7ad](https://github.com/serenity-js/serenity-js/commit/d2de7adace6d2ecceaaf8bbe452b18524efc36e3))
+* **eslint:** adapt config to eslint-plugin-unicorn v71 ([eec6f0a](https://github.com/serenity-js/serenity-js/commit/eec6f0affa2acd313b955bb0ce444fb06ecf5b21))
+
+
+
+
+
 # [3.44.0](https://github.com/serenity-js/serenity-js/compare/v3.43.4...v3.44.0) (2026-06-13)
 
 
