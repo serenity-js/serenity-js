@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/prevent-abbreviations */
+ 
 import type { Answerable, QuestionAdapter } from '@serenity-js/core';
 import { Question, the } from '@serenity-js/core';
 
