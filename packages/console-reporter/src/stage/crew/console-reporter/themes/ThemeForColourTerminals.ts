@@ -1,5 +1,5 @@
 import { ExecutionCompromised, ExecutionFailedWithAssertionError, ExecutionFailedWithError, ExecutionIgnored, ExecutionSkipped, ImplementationPending, Outcome } from '@serenity-js/core/model';
-import type { Chalk } from 'chalk'; // eslint-disable-line unicorn/import-style
+import type { Chalk } from 'chalk';  
 
 import { TerminalTheme } from './TerminalTheme.js';
 
