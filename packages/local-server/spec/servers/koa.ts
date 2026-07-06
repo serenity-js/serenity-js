@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types, unicorn/prevent-abbreviations
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types
  */
 
 // https://github.com/koajs/koa
