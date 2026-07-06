@@ -1429,8 +1429,8 @@ importers:
         specifier: 24.13.2
         version: 24.13.2
       electron:
-        specifier: 42.4.0
-        version: 42.4.0(supports-color@8.1.1)
+        specifier: 42.6.0
+        version: 42.6.0
       rimraf:
         specifier: 6.1.3
         version: 6.1.3
@@ -1603,8 +1603,8 @@ importers:
         specifier: 10.1.0
         version: 10.1.0
       electron:
-        specifier: 42.4.0
-        version: 42.4.0
+        specifier: 42.6.0
+        version: 42.6.0
       mocha:
         specifier: 11.7.6
         version: 11.7.6
@@ -7170,8 +7170,8 @@ packages:
   electron-to-chromium@1.5.387:
     resolution: {integrity: sha512-TaxwufTFDufvPEoXdhwVrA3UdFWBeWGkYoJ1K8ldF1xe6gKfth6iRNS5lTQ5JPNOHdGQm8PT1QYKUqFLCiUefQ==}
 
-  electron@42.4.0:
-    resolution: {integrity: sha512-OXXqh9LD9KxXPv2Fe25EfU9N9AvWTuV6V81sfhQaNvTAXCd9ONA+Q4OWvMe+CmYD6xIwjFxGGtG/ZphDYYC5OQ==}
+  electron@42.6.0:
+    resolution: {integrity: sha512-axGNgd+yCTg+vi1VEGrQqAj9WVWkePKwbICSAvMiT2eTaxhij9a/xhBHD6rXV8wrlW9ZfJzE5+xg752ImxrmTw==}
     engines: {node: '>= 22.12.0'}
     hasBin: true
 
@@ -12783,19 +12783,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@electron/get@5.0.0(supports-color@8.1.1)':
-    dependencies:
-      debug: 4.4.3(supports-color@8.1.1)
-      env-paths: 3.0.0
-      graceful-fs: 4.2.11
-      progress: 2.0.3
-      semver: 7.8.4
-      sumchecker: 3.0.1(supports-color@8.1.1)
-    optionalDependencies:
-      undici: 7.27.2
-    transitivePeerDependencies:
-      - supports-color
-
   '@emnapi/core@1.4.5':
     dependencies:
       '@emnapi/wasi-threads': 1.0.4
@@ -16618,18 +16605,10 @@ snapshots:
 
   electron-to-chromium@1.5.387: {}
 
-  electron@42.4.0:
+  electron@42.6.0:
     dependencies:
       '@electron-internal/extract-zip': 1.0.3
       '@electron/get': 5.0.0
-      '@types/node': 24.13.2
-    transitivePeerDependencies:
-      - supports-color
-
-  electron@42.4.0(supports-color@8.1.1):
-    dependencies:
-      '@electron-internal/extract-zip': 1.0.3
-      '@electron/get': 5.0.0(supports-color@8.1.1)
       '@types/node': 24.13.2
     transitivePeerDependencies:
       - supports-color
@@ -21207,12 +21186,6 @@ snapshots:
   sumchecker@3.0.1:
     dependencies:
       debug: 4.4.3
-    transitivePeerDependencies:
-      - supports-color
-
-  sumchecker@3.0.1(supports-color@8.1.1):
-    dependencies:
-      debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
