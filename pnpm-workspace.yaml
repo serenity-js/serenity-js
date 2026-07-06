@@ -32,5 +32,18 @@ allowBuilds:
   es5-ext: false
   esbuild: false
   geckodriver: false
+minimumReleaseAge: 1440       # 1 day, in minutes
 minimumReleaseAgeExclude:
   - eslint@10.5.0
+  - "@serenity-js/*"
+  - "playwright"
+  - "@playwright/*"
+  - "typescript"
+  - "eslint"
+  - "@typescript-eslint/*"
+trustPolicy: no-downgrade
+trustPolicyIgnoreAfter: 525600 # 1 year, in minutes
+trustPolicyExclude:
+  - "@wdio/logger@9.18.0" # dep of edgedriver
+  - "ua-parser-js@1.0.41" # dep of wdio8
+blockExoticSubdeps: true

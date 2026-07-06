@@ -37,7 +37,7 @@ all: install clean compile
 
 install:
 	corepack enable
-	pnpm install
+	pnpm install --frozen-lockfile
 
 update-pnpm:
 	corepack use pnpm@latest
