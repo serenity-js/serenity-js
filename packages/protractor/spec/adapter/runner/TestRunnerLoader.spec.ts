@@ -28,7 +28,7 @@ describe('TestRunnerLoader', () => {
 
             it('passes the configuration to the adapter', () => {
 
-                const jasmineNodeOpts = {   // eslint-disable-line unicorn/prevent-abbreviations
+                const jasmineNodeOpts = {    
                     requires: [
                         'ts-node/register',
                     ],
@@ -52,7 +52,7 @@ describe('TestRunnerLoader', () => {
 
             it('passes the configuration to the adapter', () => {
 
-                const mochaOpts = {   // eslint-disable-line unicorn/prevent-abbreviations
+                const mochaOpts = {    
                     require: [
                         'ts-node/register',
                     ],
