@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/prevent-abbreviations */
+ 
 import * as chaiModule from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import sinonChai from 'sinon-chai';
