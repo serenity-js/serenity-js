@@ -37,7 +37,7 @@ export class DownloadArtifact extends Task {
     performAs(actor: PerformsActivities & UsesAbilities & AnswersQuestions): Promise<void> | Promise<any> {
         const
             tempFileName        = new Path(`${ this.gav.toPath().value }.download`),
-            pathToTempFile      = this.destinationDirectory.join(tempFileName),         // eslint-disable-line unicorn/prevent-abbreviations
+            pathToTempFile      = this.destinationDirectory.join(tempFileName),          
             pathToFinishedFile  = this.destinationDirectory.join(this.gav.toPath());
 
         return actor.attemptsTo(
