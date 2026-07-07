@@ -1,4 +1,4 @@
-import { expect, test } from './fixtures';
+import { expect, test } from './test-api';
 
 test.describe('Serenity/JS HTML Reporter', () => {
 
@@ -25,7 +25,7 @@ test.describe('Serenity/JS HTML Reporter', () => {
         });
 
         test('displays the total scenario count', async ({ page }) => {
-            await expect(page.locator('body')).toContainText('7 scenarios');
+            await expect(page.locator('body')).toContainText('20 scenarios');
         });
     });
 
@@ -39,7 +39,7 @@ test.describe('Serenity/JS HTML Reporter', () => {
             });
 
             test('displays all scenarios', async ({ page }) => {
-                await expect(page.locator('body')).toContainText('Showing 7 of 7 test scenarios');
+                await expect(page.locator('body')).toContainText('Showing 20 of 20 test scenarios');
             });
 
             test('shows scenario names', async ({ page }) => {
@@ -56,15 +56,15 @@ test.describe('Serenity/JS HTML Reporter', () => {
 
             test('filters scenarios by name', async ({ page }) => {
                 await page.goto('/index.html#/tests?search=%22complete%22');
-                await page.waitForFunction(() => document.body.textContent?.includes('Showing 1 of 7'));
-                await expect(page.locator('body')).toContainText('Showing 1 of 7 test scenarios');
+                await page.waitForFunction(() => document.body.textContent?.includes('Showing 1 of 20'));
+                await expect(page.locator('body')).toContainText('Showing 1 of 20 test scenarios');
                 await expect(page.locator('body')).toContainText('should complete an item');
             });
 
             test('filters scenarios by category', async ({ page }) => {
                 await page.goto('/index.html#/tests?search=%22Persistence%22');
-                await page.waitForFunction(() => document.body.textContent?.includes('Showing 2 of 7'));
-                await expect(page.locator('body')).toContainText('Showing 2 of 7 test scenarios');
+                await page.waitForFunction(() => document.body.textContent?.includes('Showing 2 of 20'));
+                await expect(page.locator('body')).toContainText('Showing 2 of 20 test scenarios');
             });
         });
     });
@@ -198,8 +198,8 @@ test.describe('Serenity/JS HTML Reporter', () => {
             await page.goto('/index.html#/tests');
             await page.waitForSelector('.scenario-item');
             await page.click('button:has-text("Passed")');
-            await page.waitForFunction(() => document.body.textContent?.includes('Showing 5 of 7'));
-            await expect(page.locator('body')).toContainText('Showing 5 of 7');
+            await page.waitForFunction(() => document.body.textContent?.includes('Showing 15 of 20'));
+            await expect(page.locator('body')).toContainText('Showing 15 of 20');
         });
 
         test('shows retried scenario as passed', async ({ page }) => {

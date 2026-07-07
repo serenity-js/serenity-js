@@ -3,7 +3,9 @@ import { resolve } from 'node:path';
 import { defineConfig } from '@playwright/test';
 import type { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test';
 
-const reportOutput = resolve(__dirname, '..', 'report');
+const examplesDirectory = __dirname;
+const appDirectory = resolve(examplesDirectory, 'app');
+const reportOutput = resolve(examplesDirectory, 'reports', 'serenity');
 
 export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
     testDir: './specs',
@@ -42,7 +44,7 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
         ],
     },
     webServer: {
-        command: 'npx http-server stubs/app -p 8090 -c-1 --silent',
+        command: `npx http-server ${appDirectory} -p 8090 -c-1 --silent`,
         url: 'http://127.0.0.1:8090/index.html',
         reuseExistingServer: !process.env.CI,
         cwd: resolve(__dirname, '..'),

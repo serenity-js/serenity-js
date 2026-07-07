@@ -30,6 +30,7 @@ import {
 } from '@serenity-js/core/model';
 import { createFsFromVolume, Volume } from 'memfs';
 
+import pkg from '../package.json' with { type: 'json' };
 import { ArtifactWriter } from '../src/ArtifactWriter.js';
 import { CIDetector } from '../src/CiDetector.js';
 import { DataSnapshotAggregator } from '../src/DataSnapshotAggregator.js';
@@ -214,7 +215,7 @@ test.describe('HtmlReporter', () => {
             expect(content).toHaveProperty('systemContext');
             expect(content.systemContext).toHaveProperty('nodeVersion', process.version);
             expect(content.systemContext.os).toHaveProperty('arch');
-            expect(content.systemContext).toHaveProperty('serenityVersion', '3.44.0');
+            expect(content.systemContext).toHaveProperty('serenityVersion', pkg.version);
             expect(content.systemContext.runtime).toHaveProperty('provider');
         });
 
