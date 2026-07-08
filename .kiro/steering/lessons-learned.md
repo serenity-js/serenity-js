@@ -157,3 +157,18 @@ This gives deterministic, collision-free selectors without coupling tests to CSS
 Always type interaction object constructor parameters as `Answerable<PageElement<NET>>` — this accepts all forms: raw `PageElement`, `Question<PageElement>`, `Question<Promise<PageElement>>`, and `Promise<PageElement>`.
 
 The `MountOptions.interactionObject` type in `fixtures.ts` uses `Answerable<PageElement>` for the same reason.
+
+
+## Interaction object APIs should describe user-observable behaviour, not implementation
+
+When designing an interaction object's public API:
+- **DO** expose Questions that describe what the user sees: `text()`, `outcomeType()`, `outcomes()`
+- **DON'T** expose implementation details like `ariaLive()`, `cssClass()`, or raw attribute accessors
+- **DO** return cohesive data structures when multiple attributes belong together — e.g. `outcomes()` returns `Array<{type, title}>` instead of separate `outcomeClasses()` + `titles()` arrays that must be correlated by index
+- **DO** name methods after what they represent in the domain — `outcomeType()` not `outcomeClass()`
+
+If accessibility behaviour needs testing (e.g. verifying `aria-live="polite"` is present), test it at the component level via the component test — not by exposing it as an interaction object method that leaks into integration tests.
+
+## Component extraction is import-path-stable
+
+The html-reporter's component tests reference components via `importPath: './components/ComponentName'` in the esbuild-based test fixture. When extracting sub-components from a view file, as long as the parent file still exports the same function at the same path, all existing tests continue to pass without modification. The extracted children are internal implementation details that don't need their own import paths in existing tests.

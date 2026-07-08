@@ -1,3 +1,19 @@
+
+## Progress
+
+| # | Component | Status | Commit |
+|---|-----------|--------|--------|
+| 8.1 | HistoryDots | ✅ Done | `315ca863d1` |
+| 8.2 | OutcomeBadge | ✅ Done | `eeca2ed2df` |
+| 8.3 | ResultCount | ✅ Done | `6713f459fc` |
+| 8.4 | KpiCard | ⬜ Not started | — |
+| 8.5 | FilterBar generalisation | ⬜ Not started | — |
+| 8.6 | SortDropdown | ⬜ Not started | — |
+
+API refinement applied in `82f77b6956`:
+- OutcomeBadge: `outcomeClass()` → `outcomeType()`
+- ResultCount: removed `ariaLive()` (implementation detail)
+- HistoryDots: `outcomeClasses()` + `titles()` → `outcomes()` returning `Array<{type, title}>`
 # Phase 8: Component Extraction & Interaction Object Coverage
 
 ## Goal
@@ -81,10 +97,10 @@ All four must pass before committing and moving to the next component.
 Interaction objects serve **both** component tests and integration tests. The same class
 is used in two contexts:
 
-| Context | Root element source | Scope |
-|---------|-------------------|-------|
-| Component test | `mount` fixture provides `#app > *` | Isolated single component |
-| Integration test | View interaction object locates `[data-testid="<name>"]` within its root | Full report page |
+| Context          | Root element source                                                      | Scope                     |
+|------------------|--------------------------------------------------------------------------|---------------------------|
+| Component test   | `mount` fixture provides `#app > *`                                      | Isolated single component |
+| Integration test | View interaction object locates `[data-testid="<name>"]` within its root | Full report page          |
 
 This dual-use is what makes the pattern valuable: one interaction object definition,
 two levels of testing confidence.
@@ -93,7 +109,8 @@ two levels of testing confidence.
 
 ```typescript
 export class MyWidget<NET> {
-    constructor(private readonly rootElement: Answerable<PageElement<NET>>) { }
+    constructor(private readonly rootElement: Answerable<PageElement<NET>>) {
+    }
 }
 ```
 
@@ -103,7 +120,8 @@ Always `Answerable<PageElement<NET>>` — this accepts `PageElement.located(...)
 ### Scoping convention
 
 ```typescript
-private someChild = () =>
+private
+someChild = () =>
     PageElement.located(By.css('.child-class'))
         .of(this.rootElement)
         .describedAs('child element');
@@ -128,68 +146,69 @@ Ordered by: self-containedness → duplication count → testability → risk.
 
 ### 8.1 — HistoryDots
 
-| Aspect | Detail |
-|--------|--------|
-| Duplicated in | `ScenarioRow.ts`, `ConsistencyRow.ts`, `DashboardView.ts` |
-| Props | `entries: Array<{outcome: string, label?: string}>`, `max?: number` |
-| data-testid | `history-dots` |
+| Aspect            | Detail                                                                |
+|-------------------|-----------------------------------------------------------------------|
+| Duplicated in     | `ScenarioRow.ts`, `ConsistencyRow.ts`, `DashboardView.ts`             |
+| Props             | `entries: Array<{outcome: string, label?: string}>`, `max?: number`   |
+| data-testid       | `history-dots`                                                        |
 | Behaviour to test | Renders correct number of dots, correct outcome classes, respects max |
 
 **Why first:** Smallest extraction, zero interactivity, pure rendering. Proves the pattern end-to-end with minimal risk.
 
 ### 8.2 — OutcomeBadge
 
-| Aspect | Detail |
-|--------|--------|
-| Duplicated in | `ScenarioRow`, `ErrorRow`, `ConsistencyRow`, `TimelineView`, `ScenarioDetailView`, `DashboardView`, `TestRunsView` |
-| Props | `outcome: string`, `size?: 'sm' | 'md' | 'lg'` |
-| data-testid | `outcome-badge` |
-| Behaviour to test | Correct icon text, correct CSS class for outcome, size variant |
+| Aspect            | Detail                                                                                                             |
+|-------------------|--------------------------------------------------------------------------------------------------------------------|
+| Duplicated in     | `ScenarioRow`, `ErrorRow`, `ConsistencyRow`, `TimelineView`, `ScenarioDetailView`, `DashboardView`, `TestRunsView` |
+| Props             | `outcome: string`, `size?: 'sm'                                                                                    | 'md' | 'lg'` |
+| data-testid       | `outcome-badge`                                                                                                    |
+| Behaviour to test | Correct icon text, correct CSS class for outcome, size variant                                                     |
 
 **Why second:** Trivial widget, 7+ duplications, no interactivity. High confidence from extraction.
 
 ### 8.3 — ResultCount
 
-| Aspect | Detail |
-|--------|--------|
-| Duplicated in | `ScenariosView`, `ConsistencyView`, `ErrorsView`, `CapabilitiesView` |
-| Props | `showing: number`, `total: number`, `label: string` |
-| data-testid | `result-count` |
-| Behaviour to test | Displays "Showing X of Y <label>", has `aria-live="polite"` |
+| Aspect            | Detail                                                               |
+|-------------------|----------------------------------------------------------------------|
+| Duplicated in     | `ScenariosView`, `ConsistencyView`, `ErrorsView`, `CapabilitiesView` |
+| Props             | `showing: number`, `total: number`, `label: string`                  |
+| data-testid       | `result-count`                                                       |
+| Behaviour to test | Displays "Showing X of Y <label>", has `aria-live="polite"`          |
 
 **Why third:** Small, accessibility-important (standardises inconsistent ARIA usage), 4 duplications.
 
 ### 8.4 — KpiCard
 
-| Aspect | Detail |
-|--------|--------|
-| Duplicated in | `DashboardView` (6+), `TimelineView` (4), `ErrorsView` (summary cards) |
-| Props | `label`, `value`, `subtitle?`, `color?`, `onClick?`, `ariaLabel?`, `children?` |
-| data-testid | `kpi-card` (or `kpi-card-<label-slug>` if multiple per view) |
-| Behaviour to test | Renders label/value, click navigates (when onClick provided), accessible |
+| Aspect            | Detail                                                                         |
+|-------------------|--------------------------------------------------------------------------------|
+| Duplicated in     | `DashboardView` (6+), `TimelineView` (4), `ErrorsView` (summary cards)         |
+| Props             | `label`, `value`, `subtitle?`, `color?`, `onClick?`, `ariaLabel?`, `children?` |
+| data-testid       | `kpi-card` (or `kpi-card-<label-slug>` if multiple per view)                   |
+| Behaviour to test | Renders label/value, click navigates (when onClick provided), accessible       |
 
 **Why fourth:** Higher duplication count (10+), slightly more complex due to optional slots and click behaviour.
 
 ### 8.5 — FilterBar generalisation
 
-| Aspect | Detail |
-|--------|--------|
-| Currently | `FilterBar.ts` exists but hardcodes outcome semantics |
-| Duplicated in | `ConsistencyView` (inline), `CapabilitiesView` (local function) |
-| Props | `filters: Array<{key, label, count, active}>`, `onToggle`, sort options |
-| data-testid | `filter-bar` (already exists on current FilterBar) |
-| Behaviour to test | Chip toggling, active state, sort selection, counts display |
+| Aspect            | Detail                                                                  |
+|-------------------|-------------------------------------------------------------------------|
+| Currently         | `FilterBar.ts` exists but hardcodes outcome semantics                   |
+| Duplicated in     | `ConsistencyView` (inline), `CapabilitiesView` (local function)         |
+| Props             | `filters: Array<{key, label, count, active}>`, `onToggle`, sort options |
+| data-testid       | `filter-bar` (already exists on current FilterBar)                      |
+| Behaviour to test | Chip toggling, active state, sort selection, counts display             |
 
-**Why fifth:** Larger refactoring — requires generalising an existing component, updating its call sites, and ensuring three views still work. Higher risk, higher reward.
+**Why fifth:** Larger refactoring — requires generalising an existing component, updating its call sites, and ensuring
+three views still work. Higher risk, higher reward.
 
 ### 8.6 — SortDropdown (extracted from FilterBar generalisation)
 
-| Aspect | Detail |
-|--------|--------|
-| Currently | Inline in ConsistencyView, CapabilitiesView, and part of FilterBar |
-| Props | `options: Array<{key, label}>`, `value`, `onChange`, `id?`, `label?` |
-| data-testid | `sort-dropdown` |
-| Behaviour to test | Displays options, triggers onChange on selection |
+| Aspect            | Detail                                                               |
+|-------------------|----------------------------------------------------------------------|
+| Currently         | Inline in ConsistencyView, CapabilitiesView, and part of FilterBar   |
+| Props             | `options: Array<{key, label}>`, `value`, `onChange`, `id?`, `label?` |
+| data-testid       | `sort-dropdown`                                                      |
+| Behaviour to test | Displays options, triggers onChange on selection                     |
 
 **Why sixth:** Natural sub-extraction that falls out of the FilterBar generalisation. May be done as part of 8.5.
 
@@ -211,14 +230,14 @@ test(html-reporter): wire <ComponentName> interaction object into integration te
 
 The `SearchInput` extraction is the reference for this entire phase:
 
-| Artefact | File |
-|----------|------|
-| Preact component | `template/components/SearchInput.ts` |
-| Interaction object | `src/SearchInput.serenity.ts` |
-| Export barrel | `src/serenity.ts` |
-| Component test | `spec/components/SearchInput.spec.ts` |
-| Integration wiring | `integration/html-reporter/src/consistency/ConsistencyView.ts` |
-| Test fixtures | `spec/components/fixtures.ts` (mount + interactionObject) |
-| Pattern documentation | `spec/components/README.md` |
+| Artefact              | File                                                           |
+|-----------------------|----------------------------------------------------------------|
+| Preact component      | `template/components/SearchInput.ts`                           |
+| Interaction object    | `src/SearchInput.serenity.ts`                                  |
+| Export barrel         | `src/serenity.ts`                                              |
+| Component test        | `spec/components/SearchInput.spec.ts`                          |
+| Integration wiring    | `integration/html-reporter/src/consistency/ConsistencyView.ts` |
+| Test fixtures         | `spec/components/fixtures.ts` (mount + interactionObject)      |
+| Pattern documentation | `spec/components/README.md`                                    |
 
 Follow this implementation exactly for each subsequent extraction.
