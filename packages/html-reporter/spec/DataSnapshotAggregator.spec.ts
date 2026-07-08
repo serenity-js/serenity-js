@@ -1813,6 +1813,236 @@ test.describe('DataSnapshotAggregator', () => {
         });
     });
 
+    test.describe('CI-level retry aggregation — passing tests should not be marked as retried', () => {
+
+        test('does not create retry attempts for scenes that passed in both CI attempts', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            const directory1 = '/source/module/test-runs/run-50-attempt-1';
+            const directory2 = '/source/module/test-runs/run-50-attempt-2';
+            filesystem.mkdirSync(directory1, { recursive: true });
+            filesystem.mkdirSync(directory2, { recursive: true });
+
+            // Attempt 1: Test A passes, Test B fails
+            filesystem.writeFileSync(`${directory1}/db.json`, JSON.stringify({
+                schemaVersion: 1,
+                testRunId: 'run-50', attempt: 1,
+                startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
+                outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Always-passing test', category: 'Suite', outcome: { code: 64 }, duration: 100,
+                        startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                        tags: [], activities: [{ type: 'Task', name: 'stable step', outcome: { code: 64 }, duration: 100, children: [] }] },
+                    { name: 'Flaky test', category: 'Suite', outcome: { code: 4 }, duration: 200,
+                        startedAt: '2024-06-15T10:00:01.000Z', source: { path: 'b.spec.ts', line: 1 },
+                        tags: [], activities: [{ type: 'Task', name: 'unstable step', outcome: { code: 4 }, duration: 200, children: [] }],
+                        error: { name: 'Error', message: 'flaky failure', stack: '' } },
+                ],
+                tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+            }));
+
+            // Attempt 2: both pass (CI job was retried)
+            filesystem.writeFileSync(`${directory2}/db.json`, JSON.stringify({
+                schemaVersion: 1,
+                testRunId: 'run-50', attempt: 2,
+                startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
+                outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Always-passing test', category: 'Suite', outcome: { code: 64 }, duration: 110,
+                        startedAt: '2024-06-15T10:01:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                        tags: [], activities: [{ type: 'Task', name: 'stable step', outcome: { code: 64 }, duration: 110, children: [] }] },
+                    { name: 'Flaky test', category: 'Suite', outcome: { code: 64 }, duration: 180,
+                        startedAt: '2024-06-15T10:01:01.000Z', source: { path: 'b.spec.ts', line: 1 },
+                        tags: [], activities: [{ type: 'Task', name: 'unstable step', outcome: { code: 64 }, duration: 180, children: [] }] },
+                ],
+                tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+            }));
+
+            aggregator.aggregate([`${directory1}/db.json`, `${directory2}/db.json`]);
+
+            const data = readDataJs(filesystem);
+            expect(data.scenarios).toHaveLength(2);
+
+            // Always-passing test: should NOT have retry attempts (it passed both times)
+            const stableTest = data.scenarios.find(s => s.name === 'Always-passing test');
+            expect(stableTest.outcome).toBe('SUCCESS');
+            expect(stableTest.attempts).toBeUndefined();
+            expect(stableTest.retries).toBeUndefined();
+
+            // Flaky test: SHOULD have retry attempts (failed then passed)
+            const flakyTest = data.scenarios.find(s => s.name === 'Flaky test');
+            expect(flakyTest.outcome).toBe('SUCCESS');
+            expect(flakyTest.attempts).toHaveLength(2);
+            expect(flakyTest.attempts[0].outcome).toBe('FAILURE');
+            expect(flakyTest.attempts[0].error.message).toBe('flaky failure');
+            expect(flakyTest.attempts[1].outcome).toBe('SUCCESS');
+            expect(flakyTest.retries).toBe(1);
+        });
+
+        test('does not set retriedAndPassed in execution history for tests that passed in both CI attempts', () => {
+            const { aggregator, filesystem } = createAggregator({
+                // Historical run where the test passes cleanly
+                'test-runs': {
+                    'run-49': {
+                        'db.json': JSON.stringify({ schemaVersion: 1,
+                            testRunId: 'run-49',
+                            startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:05.000Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                { name: 'Always-passing test', category: 'Suite', outcome: { code: 64 }, duration: 100,
+                                    startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                                    tags: [], activities: [] },
+                            ],
+                            tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+                        }),
+                    },
+                },
+            });
+
+            const directory1 = '/source/module/test-runs/run-50-attempt-1';
+            const directory2 = '/source/module/test-runs/run-50-attempt-2';
+            filesystem.mkdirSync(directory1, { recursive: true });
+            filesystem.mkdirSync(directory2, { recursive: true });
+
+            // Both attempts pass
+            filesystem.writeFileSync(`${directory1}/db.json`, JSON.stringify({
+                schemaVersion: 1,
+                testRunId: 'run-50', attempt: 1,
+                startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Always-passing test', category: 'Suite', outcome: { code: 64 }, duration: 100,
+                        startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                        tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+            }));
+
+            filesystem.writeFileSync(`${directory2}/db.json`, JSON.stringify({
+                schemaVersion: 1,
+                testRunId: 'run-50', attempt: 2,
+                startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Always-passing test', category: 'Suite', outcome: { code: 64 }, duration: 110,
+                        startedAt: '2024-06-15T10:01:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                        tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+            }));
+
+            aggregator.aggregate([`${directory1}/db.json`, `${directory2}/db.json`]);
+
+            const data = readDataJs(filesystem);
+            const scenario = data.scenarios[0];
+
+            // Execution history for run-50 should NOT have retriedAndPassed
+            const run50 = scenario.executionHistory.find(h => h.run === 'run-50');
+            expect(run50.outcome).toBe('SUCCESS');
+            expect(run50.retriedAndPassed).toBeUndefined();
+            expect(run50.attempts).toBeUndefined();
+            expect(run50.retries).toBeUndefined();
+        });
+
+        test('preserves retry attempts when the earlier scene had Playwright Test retries (passed via retry)', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            const directory1 = '/source/module/test-runs/run-51-attempt-1';
+            const directory2 = '/source/module/test-runs/run-51-attempt-2';
+            filesystem.mkdirSync(directory1, { recursive: true });
+            filesystem.mkdirSync(directory2, { recursive: true });
+
+            // Attempt 1: test passed via Playwright Test retry (failed first, passed second)
+            filesystem.writeFileSync(`${directory1}/db.json`, JSON.stringify({
+                schemaVersion: 1,
+                testRunId: 'run-51', attempt: 1,
+                startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Flaky test', category: 'Suite', outcome: { code: 64 }, duration: 500,
+                        startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                        tags: [], activities: [{ type: 'Task', name: 'step pass', outcome: { code: 64 }, duration: 200, children: [] }],
+                        retries: 1, attempts: [
+                            { attemptNumber: 1, outcome: { code: 4 }, duration: 200, activities: [{ type: 'Task', name: 'step fail', outcome: { code: 4 }, duration: 200, children: [] }], error: { name: 'Error', message: 'PWT retry fail', stack: '' } },
+                            { attemptNumber: 2, outcome: { code: 64 }, duration: 200, activities: [{ type: 'Task', name: 'step pass', outcome: { code: 64 }, duration: 200, children: [] }] },
+                        ] },
+                ],
+                tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+            }));
+
+            // Attempt 2: test passes cleanly (CI retry re-ran the job)
+            filesystem.writeFileSync(`${directory2}/db.json`, JSON.stringify({
+                schemaVersion: 1,
+                testRunId: 'run-51', attempt: 2,
+                startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Flaky test', category: 'Suite', outcome: { code: 64 }, duration: 180,
+                        startedAt: '2024-06-15T10:01:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                        tags: [], activities: [{ type: 'Task', name: 'step pass clean', outcome: { code: 64 }, duration: 180, children: [] }] },
+                ],
+                tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+            }));
+
+            aggregator.aggregate([`${directory1}/db.json`, `${directory2}/db.json`]);
+
+            const data = readDataJs(filesystem);
+            expect(data.scenarios).toHaveLength(1);
+            const scene = data.scenarios[0];
+
+            // The earlier scene had retries (PWT retries), so the merge should still happen
+            expect(scene.outcome).toBe('SUCCESS');
+            expect(scene.attempts).toBeDefined();
+            expect(scene.attempts.length).toBeGreaterThanOrEqual(2);
+            // The PWT retry failure should be preserved somewhere in the attempts
+            expect(scene.attempts[0].outcome).toBe('FAILURE');
+        });
+
+        test('uses later duration and activities for superseded passing scene', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            const directory1 = '/source/module/test-runs/run-52-attempt-1';
+            const directory2 = '/source/module/test-runs/run-52-attempt-2';
+            filesystem.mkdirSync(directory1, { recursive: true });
+            filesystem.mkdirSync(directory2, { recursive: true });
+
+            filesystem.writeFileSync(`${directory1}/db.json`, JSON.stringify({
+                schemaVersion: 1,
+                testRunId: 'run-52', attempt: 1,
+                startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 100,
+                        startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                        tags: [], activities: [{ type: 'Task', name: 'step v1', outcome: { code: 64 }, duration: 100, children: [] }] },
+                ],
+                tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+            }));
+
+            filesystem.writeFileSync(`${directory2}/db.json`, JSON.stringify({
+                schemaVersion: 1,
+                testRunId: 'run-52', attempt: 2,
+                startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 200,
+                        startedAt: '2024-06-15T10:01:00.000Z', source: { path: 'a.spec.ts', line: 1 },
+                        tags: [], activities: [{ type: 'Task', name: 'step v2', outcome: { code: 64 }, duration: 200, children: [] }] },
+                ],
+                tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+            }));
+
+            aggregator.aggregate([`${directory1}/db.json`, `${directory2}/db.json`]);
+
+            const data = readDataJs(filesystem);
+            const scene = data.scenarios[0];
+
+            // Should use the later attempt's data (no retry merging, just supersede)
+            expect(scene.duration).toBe(200);
+            expect(scene.activities[0].name).toBe('step v2');
+        });
+    });
+
     test.describe('CI-level retry aggregation — self-healing write-back', () => {
 
         test('writes merged db.json to test-runs/{runId}/db.json in the output directory', () => {

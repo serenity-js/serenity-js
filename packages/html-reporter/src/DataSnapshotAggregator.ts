@@ -239,6 +239,16 @@ export class DataSnapshotAggregator {
             if (!earlierScene) {
                 return laterScene;
             }
+
+            // Only create retry attempts when the earlier scene actually failed.
+            // If the earlier scene already passed, the CI retry didn't change anything
+            // for this test — it's not a genuine retry, just a re-execution.
+            const earlierFailed = earlierScene.outcome.code !== ExecutionSuccessful.Code;
+            const earlierHadRetries = earlierScene.retries > 0;
+            if (!earlierFailed && !earlierHadRetries) {
+                return laterScene;
+            }
+
             return this.mergeSceneWithRetry(earlierScene, laterScene);
         });
 
