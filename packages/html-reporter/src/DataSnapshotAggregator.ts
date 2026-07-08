@@ -206,15 +206,46 @@ export class DataSnapshotAggregator {
 
     private mergeAdditively(base: RunData, addition: RunData): RunData {
         const merged: RunData = { ...base };
-        merged.scenes = [...base.scenes, ...addition.scenes];
-        merged.outcomes = {
-            passed: base.outcomes.passed + addition.outcomes.passed,
-            failed: base.outcomes.failed + addition.outcomes.failed,
-            pending: base.outcomes.pending + addition.outcomes.pending,
-            skipped: base.outcomes.skipped + addition.outcomes.skipped,
-            compromised: base.outcomes.compromised + addition.outcomes.compromised,
-            error: base.outcomes.error + addition.outcomes.error,
-        };
+
+        // Build a map of base scenes by identity to detect overlaps
+        const baseScenesByIdentity = new Map<string, SceneRecord>();
+        for (const scene of base.scenes) {
+            baseScenesByIdentity.set(this.sceneIdentity(scene), scene);
+        }
+
+        // Merge scenes: new scenes are added, overlapping scenes are recorded as attempts
+        merged.scenes = [...base.scenes];
+        let hasOverlap = false;
+        for (const additionScene of addition.scenes) {
+            const key = this.sceneIdentity(additionScene);
+            const existingScene = baseScenesByIdentity.get(key);
+
+            if (!existingScene) {
+                // No overlap — different module, just add it
+                merged.scenes.push(additionScene);
+            } else {
+                // Same scene appeared in both sources — record as a retry attempt
+                const index = merged.scenes.indexOf(existingScene);
+                merged.scenes[index] = this.mergeSceneWithRetry(existingScene, additionScene);
+                hasOverlap = true;
+            }
+        }
+
+        // Recompute outcomes from merged scenes when overlaps were detected;
+        // otherwise sum the declared outcome counts (supports modules with scenes: [])
+        if (hasOverlap) {
+            merged.outcomes = this.computeMergedOutcomes(merged.scenes);
+        } else {
+            merged.outcomes = {
+                passed: base.outcomes.passed + addition.outcomes.passed,
+                failed: base.outcomes.failed + addition.outcomes.failed,
+                pending: base.outcomes.pending + addition.outcomes.pending,
+                skipped: base.outcomes.skipped + addition.outcomes.skipped,
+                compromised: base.outcomes.compromised + addition.outcomes.compromised,
+                error: base.outcomes.error + addition.outcomes.error,
+            };
+        }
+
         if (addition.startedAt < merged.startedAt) merged.startedAt = addition.startedAt;
         if (addition.finishedAt > merged.finishedAt) merged.finishedAt = addition.finishedAt;
         merged.tags = [...base.tags];

@@ -747,6 +747,128 @@ test.describe('DataSnapshotAggregator', () => {
             // Only 1 history entry (merged into one run)
             expect(data.history).toHaveLength(1);
         });
+
+        test('records differing outcomes as retry attempts when the same scene appears in both a pre-merged run and raw module artifacts', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            // Simulate gh-pages pre-merged run (from a prior aggregate of attempt 1)
+            // where Test A failed
+            const ghPagesRunDirectory = '/source/gh-pages/test-runs/42';
+            filesystem.mkdirSync(ghPagesRunDirectory, { recursive: true });
+            filesystem.writeFileSync(ghPagesRunDirectory + '/db.json', JSON.stringify({
+                schemaVersion: 1,
+                testRunId: '42',
+                attempt: 1,
+                startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
+                outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test A', category: 'Suite', outcome: { code: 4 }, duration: 200, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [{ type: 'Interaction', name: 'step 1', outcome: { code: 4 }, duration: 200, children: [] }], error: { name: 'AssertionError', message: 'Expected true to be false', stack: '' } },
+                    { name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 300, startedAt: '2024-06-15T14:30:00.200Z', source: { path: 'a.spec.ts', line: 5 }, tags: [], activities: [{ type: 'Interaction', name: 'step 2', outcome: { code: 64 }, duration: 300, children: [] }] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            // Simulate fresh module artifacts from attempt 3 (re-run) where Test A now passes
+            const freshArtifactDirectory = '/source/module-a/test-runs/42';
+            filesystem.mkdirSync(freshArtifactDirectory, { recursive: true });
+            filesystem.writeFileSync(freshArtifactDirectory + '/db.json', JSON.stringify({
+                schemaVersion: 1,
+                testRunId: '42',
+                attempt: 1,
+                startedAt: '2024-06-15T14:31:00.000Z', finishedAt: '2024-06-15T14:31:00.500Z',
+                outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 150, startedAt: '2024-06-15T14:31:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [{ type: 'Interaction', name: 'step 1 retry', outcome: { code: 64 }, duration: 150, children: [] }] },
+                    { name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 280, startedAt: '2024-06-15T14:31:00.150Z', source: { path: 'a.spec.ts', line: 5 }, tags: [], activities: [{ type: 'Interaction', name: 'step 2', outcome: { code: 64 }, duration: 280, children: [] }] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            aggregator.aggregate([ghPagesRunDirectory + '/db.json', freshArtifactDirectory + '/db.json']);
+
+            const data = readDataJs(filesystem);
+
+            // Should have 2 scenarios (not 4 from naive concatenation)
+            expect(data.scenarios).toHaveLength(2);
+            expect(data.summary.totalScenarios).toBe(2);
+
+            // Test A should show as passed (final outcome) with 1 retry attempt
+            const testA = data.scenarios.find(s => s.name === 'Test A');
+            expect(testA.outcome).toBe('SUCCESS');
+            expect(testA.retries).toBe(1);
+            expect(testA.attempts).toHaveLength(2);
+            expect(testA.attempts[0].outcome).toBe('FAILURE');
+            expect(testA.attempts[0].activities[0].name).toBe('step 1');
+            expect(testA.attempts[1].outcome).toBe('SUCCESS');
+            expect(testA.attempts[1].activities[0].name).toBe('step 1 retry');
+
+            // Test B should show as passed with retry attempts (re-executed, same outcome both times)
+            const testB = data.scenarios.find(s => s.name === 'Test B');
+            expect(testB.outcome).toBe('SUCCESS');
+            expect(testB.retries).toBe(1);
+            expect(testB.attempts).toHaveLength(2);
+            expect(testB.attempts[0].outcome).toBe('SUCCESS');
+            expect(testB.attempts[1].outcome).toBe('SUCCESS');
+
+            // Total duration spans from earliest startedAt to latest finishedAt across all attempts
+            expect(data.summary.startedAt).toBe('2024-06-15T14:30:00.000Z');
+            expect(data.summary.finishedAt).toBe('2024-06-15T14:31:00.500Z');
+            expect(data.summary.duration).toBe(60_500);
+        });
+
+        test('records overlapping scenes with identical outcomes as retry attempts', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            // Same test appears in both gh-pages pre-merged and raw artifacts, both passing
+            const ghPagesRunDirectory = '/source/gh-pages/test-runs/42';
+            filesystem.mkdirSync(ghPagesRunDirectory, { recursive: true });
+            filesystem.writeFileSync(ghPagesRunDirectory + '/db.json', JSON.stringify({
+                schemaVersion: 1,
+                testRunId: '42',
+                attempt: 1,
+                startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
+                outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [{ type: 'Interaction', name: 'step A v1', outcome: { code: 64 }, duration: 200, children: [] }] },
+                    { name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 300, startedAt: '2024-06-15T14:30:00.200Z', source: { path: 'a.spec.ts', line: 5 }, tags: [], activities: [{ type: 'Interaction', name: 'step B v1', outcome: { code: 64 }, duration: 300, children: [] }] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            const freshArtifactDirectory = '/source/module-a/test-runs/42';
+            filesystem.mkdirSync(freshArtifactDirectory, { recursive: true });
+            filesystem.writeFileSync(freshArtifactDirectory + '/db.json', JSON.stringify({
+                schemaVersion: 1,
+                testRunId: '42',
+                attempt: 1,
+                startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
+                outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 180, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [{ type: 'Interaction', name: 'step A v2', outcome: { code: 64 }, duration: 180, children: [] }] },
+                    { name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 290, startedAt: '2024-06-15T14:30:00.200Z', source: { path: 'a.spec.ts', line: 5 }, tags: [], activities: [{ type: 'Interaction', name: 'step B v2', outcome: { code: 64 }, duration: 290, children: [] }] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            aggregator.aggregate([ghPagesRunDirectory + '/db.json', freshArtifactDirectory + '/db.json']);
+
+            const data = readDataJs(filesystem);
+
+            // Should have 2 scenarios (not 4)
+            expect(data.scenarios).toHaveLength(2);
+            expect(data.summary.totalScenarios).toBe(2);
+            expect(data.summary.outcomes.passed).toBe(2);
+
+            // Both should have retry attempts recording both executions
+            const testA = data.scenarios.find(s => s.name === 'Test A');
+            expect(testA.outcome).toBe('SUCCESS');
+            expect(testA.retries).toBe(1);
+            expect(testA.attempts).toHaveLength(2);
+            expect(testA.attempts[0].outcome).toBe('SUCCESS');
+            expect(testA.attempts[0].activities[0].name).toBe('step A v1');
+            expect(testA.attempts[1].outcome).toBe('SUCCESS');
+            expect(testA.attempts[1].activities[0].name).toBe('step A v2');
+        });
     });
 
     test.describe('markdown rendering', () => {
