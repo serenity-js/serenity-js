@@ -8,7 +8,9 @@ import { matchesSearch } from '../utils';
 import { classifyConsistencyKind } from '../utils/selectors';
 import { icons } from './icons';
 import { GroupedVirtualList } from './layout/GroupedVirtualList';
+import { ResultCount } from './ResultCount';
 import { ConsistencyRow } from './rows/ConsistencyRow';
+import { SearchInput } from './SearchInput';
 
 const html = htm.bind(h);
 
@@ -77,14 +79,7 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
 
     return html`
     <div>
-      <div style="position:relative" class="mb-md">
-        <input class="search-input" type="text" placeholder="Find test scenarios..."
-               value=${search} onInput=${(e: Event) => setSearch((e.target as HTMLInputElement).value)}
-               aria-label="Find test scenarios" />
-        ${search ? html`<button onClick=${() => setSearch('')}
-          class="btn-clear"
-          aria-label="Clear search">✕</button>` : null}
-      </div>
+      <${SearchInput} value=${search} onInput=${setSearch} />
 
       <div class="filter-bar" role="group" aria-label="Filter tests by consistency" style="align-items:center">
         <span class="label-upper" style="align-self:center">Status:</span>
@@ -118,9 +113,7 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
       </div>
 
       <div class="card pb-0">
-        <div class="text-muted mb-md">
-          Showing ${sortedItems.length} ${sortedItems.length === 1 ? 'test' : 'tests'}
-        </div>
+        <${ResultCount} showing=${sortedItems.length} label=${sortedItems.length === 1 ? 'test' : 'tests'} />
         <${GroupedVirtualList}
             items=${sortedItems}
             groupBy=${groupByFunction}

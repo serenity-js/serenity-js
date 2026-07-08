@@ -5,8 +5,10 @@ import { useCallback, useMemo } from 'preact/hooks';
 import type { ReportHistoryEntry, ReportScenario } from '../../src/ReportData';
 import { ROW_HEIGHTS } from '../config/layout';
 import { formatRunLabel, resolveRunIndex } from '../utils';
+import { HistoricalBanner } from './HistoricalBanner';
 import { icons } from './icons';
 import { GroupedVirtualList } from './layout/GroupedVirtualList';
+import { ResultCount } from './ResultCount';
 import { ErrorRow } from './rows/ErrorRow';
 import { RunSelector } from './RunSelector';
 
@@ -173,10 +175,7 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
     return html`
     <div>
       ${errorHistoricalRun ? html`
-        <div class="historical-banner">
-          <span>Viewing errors from: <strong>${formatRunLabel(errorHistoricalRun.label, errorHistoricalRun.timestamp)}</strong></span>
-          <a onClick=${errorShowLatest} class="link-underline">show latest</a>
-        </div>
+        <${HistoricalBanner} label="Viewing errors from:" runLabel=${formatRunLabel(errorHistoricalRun.label, errorHistoricalRun.timestamp)} onShowLatest=${errorShowLatest} />
       ` : null}
 
       <${RunSelector} activeTimestamp=${errorActiveRunTs} history=${history} onRunChange=${onErrorRunChange} />
@@ -191,9 +190,7 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
         `)}
       </div>
       <div class="card pb-0">
-        <div class="text-muted mb-md">
-          Showing ${errorScenarios.length} ${errorScenarios.length === 1 ? 'error' : 'errors'}
-        </div>
+        <${ResultCount} showing=${errorScenarios.length} label=${errorScenarios.length === 1 ? 'error' : 'errors'} />
         <${GroupedVirtualList}
             items=${scenarioItems}
             groupBy=${groupByFunction}

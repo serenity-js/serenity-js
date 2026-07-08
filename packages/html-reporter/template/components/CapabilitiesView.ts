@@ -7,6 +7,8 @@ import { useHashHistory } from '../utils';
 import { DetailPanel } from './capabilities/CapabilityDetail';
 import { countTopLevelCapabilities, countVisibleNodes, findNodeByPath, getVisiblePaths, nodeConfidence, nodeHasGap, TreeNode } from './capabilities/CapabilityTree';
 import { icons } from './icons';
+import { ResultCount } from './ResultCount';
+import { SearchInput } from './SearchInput';
 
 const html = htm.bind(h);
 
@@ -200,22 +202,13 @@ export function CapabilitiesView({ capabilities, onNavigate, route }: Capabiliti
         <div class="capabilities-split">
             <div class="card req-tree-panel">
                 ${showFilterBar ? html`
-                    <div style="position:relative;margin-bottom:var(--space-md)">
-                        <input class="search-input" type="text" placeholder="Find capabilities..."
-                            value=${searchTerm} onInput=${(e: Event) => setSearchTerm((e.target as HTMLInputElement).value)}
-                            aria-label="Find capabilities" />
-                        ${searchTerm ? html`<button onClick=${() => setSearchTerm('')}
-                            class="btn-clear"
-                            aria-label="Clear search">✕</button>` : null}
-                    </div>
+                    <${SearchInput} value=${searchTerm} onInput=${setSearchTerm} placeholder="Find capabilities..." />
                     <${CapabilitiesFilterBar} activeFilter=${activeFilter} onFilter=${setActiveFilter}
                         capabilities=${capabilities} searchTerm=${searchTerm} onSearch=${setSearchTerm}
                         activeSort=${activeSort} onSort=${setActiveSort} />
                 ` : null}
-                <div class="text-muted mb-md" style="margin-top:var(--space-sm)" aria-live="polite" aria-atomic="true">
-                    ${showFilterBar && (searchTerm || activeFilter !== 'all')
-                        ? `Showing ${visibleCount} of ${totalCapabilities} capabilities`
-                        : `${totalCapabilities} ${totalCapabilities !== 1 ? 'capabilities' : 'capability'}`}
+                <div style="margin-top:var(--space-sm)">
+                    <${ResultCount} showing=${showFilterBar && (searchTerm || activeFilter !== 'all') ? visibleCount : totalCapabilities} total=${totalCapabilities} label=${totalCapabilities !== 1 ? 'capabilities' : 'capability'} />
                 </div>
                 <div class="req-tree-list" role="tree" onKeyDown=${onTreeKeyDown}>
                     <${TreeNode} node=${capabilities} onSelect=${handleSelect}

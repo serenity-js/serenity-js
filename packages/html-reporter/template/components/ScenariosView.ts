@@ -5,7 +5,10 @@ import { useEffect, useMemo, useState } from 'preact/hooks';
 import type { ReportHistoryEntry, ReportOutcomes, ReportScenario, ReportSummary } from '../../src/ReportData';
 import { formatDuration, formatRunLabel, matchesOutcomeFilter, matchesSearch, resolveRunIndex, useHashHistory } from '../utils';
 import { FilterBar } from './FilterBar';
+import { HistoricalBanner } from './HistoricalBanner';
+import { ResultCount } from './ResultCount';
 import { RunSelector } from './RunSelector';
+import { SearchInput } from './SearchInput';
 import { VirtualScenarioList } from './VirtualScenarioList';
 
 const html = htm.bind(h);
@@ -109,22 +112,12 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
     return html`
     <div>
       ${historicalRun ? html`
-        <div class="historical-banner">
-          <span>Viewing results from: <strong>${formatRunLabel(historicalRun.label, historicalRun.timestamp)}</strong> — ${formatDuration(historicalRun.duration)}</span>
-          <a href="#/tests" class="link-underline">show latest</a>
-        </div>
+        <${HistoricalBanner} label="Viewing results from:" runLabel=${formatRunLabel(historicalRun.label, historicalRun.timestamp)} subtitle=${'— ' + formatDuration(historicalRun.duration)} showLatestHref="#/tests" onShowLatest=${() => {}} />
       ` : null}
 
       <${RunSelector} activeTimestamp=${activeRunTimestamp} history=${history} onRunChange=${onRunChange} />
 
-      <div style="position:relative;margin-bottom:var(--space-md)">
-        <input class="search-input" type="text" placeholder="Find test scenarios..."
-               value=${search} onInput=${(e: Event) => setSearch((e.target as HTMLInputElement).value)}
-               aria-label="Find test scenarios" />
-        ${search ? html`<button onClick=${() => setSearch('')}
-          class="btn-clear"
-          aria-label="Clear search">✕</button>` : null}
-      </div>
+      <${SearchInput} value=${search} onInput=${setSearch} />
 
       <${FilterBar} outcomes=${runOutcomes} total=${runTotal}
                      activeFilter=${filter} onFilter=${setFilter}
@@ -137,9 +130,7 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
                      activeSort=${sort} onSort=${setSort} />
 
       <div class="card">
-        <div class="text-muted mb-md" aria-live="polite" aria-atomic="true">
-          Showing ${filtered.length} of ${allScenarios.length} test scenarios
-        </div>
+        <${ResultCount} showing=${filtered.length} total=${allScenarios.length} label="test scenarios" />
         <${VirtualScenarioList} filtered=${filtered} grouped=${grouped} sort=${sort}
           onNavigate=${onNavigate} runIndex=${runIndex} setSearch=${setSearch}
           specDirectory=${specDirectory}
