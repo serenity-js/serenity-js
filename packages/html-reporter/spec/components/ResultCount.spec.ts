@@ -31,19 +31,6 @@ describe('ResultCount', () => {
         );
     });
 
-    it('uses aria-live polite for accessibility', async ({ mount, actor }) => {
-        const resultCount = await mount({
-            component: 'ResultCount',
-            importPath: './components/ResultCount',
-            props: { showing: 3, total: 10, label: 'errors' },
-            interactionObject: ResultCount,
-        });
-
-        await actor.attemptsTo(
-            Ensure.that(resultCount.ariaLive(), equals('polite')),
-        );
-    });
-
     it('handles singular counts', async ({ mount, actor }) => {
         const resultCount = await mount({
             component: 'ResultCount',

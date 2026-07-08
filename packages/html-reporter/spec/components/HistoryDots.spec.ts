@@ -24,26 +24,7 @@ describe('HistoryDots', () => {
         );
     });
 
-    it('applies the correct outcome class to each dot', async ({ mount, actor }) => {
-        const historyDots = await mount({
-            component: 'HistoryDots',
-            importPath: './components/HistoryDots',
-            props: {
-                entries: [
-                    { outcome: 'SUCCESS' },
-                    { outcome: 'FAILURE' },
-                    { outcome: 'PENDING' },
-                ],
-            },
-            interactionObject: HistoryDots,
-        });
-
-        await actor.attemptsTo(
-            Ensure.that(historyDots.outcomeClasses(), equals(['passed', 'failed', 'pending'])),
-        );
-    });
-
-    it('displays labels as title attributes', async ({ mount, actor }) => {
+    it('reports the outcome type and title of each dot', async ({ mount, actor }) => {
         const historyDots = await mount({
             component: 'HistoryDots',
             importPath: './components/HistoryDots',
@@ -51,13 +32,18 @@ describe('HistoryDots', () => {
                 entries: [
                     { outcome: 'SUCCESS', label: 'Run 1' },
                     { outcome: 'FAILURE', label: 'Run 2' },
+                    { outcome: 'PENDING', label: 'Run 3' },
                 ],
             },
             interactionObject: HistoryDots,
         });
 
         await actor.attemptsTo(
-            Ensure.that(historyDots.titles(), equals(['Run 1', 'Run 2'])),
+            Ensure.that(historyDots.outcomes(), equals([
+                { type: 'passed', title: 'Run 1' },
+                { type: 'failed', title: 'Run 2' },
+                { type: 'pending', title: 'Run 3' },
+            ])),
         );
     });
 
@@ -80,7 +66,11 @@ describe('HistoryDots', () => {
 
         await actor.attemptsTo(
             Ensure.that(historyDots.count(), equals(3)),
-            Ensure.that(historyDots.outcomeClasses(), equals(['pending', 'passed', 'failed'])),
+            Ensure.that(historyDots.outcomes(), equals([
+                { type: 'pending', title: 'Run 3' },
+                { type: 'passed', title: 'Run 4' },
+                { type: 'failed', title: 'Run 5' },
+            ])),
         );
     });
 
@@ -107,7 +97,7 @@ describe('HistoryDots', () => {
         );
     });
 
-    it('renders empty labels as empty title attributes', async ({ mount, actor }) => {
+    it('uses empty titles when labels are not provided', async ({ mount, actor }) => {
         const historyDots = await mount({
             component: 'HistoryDots',
             importPath: './components/HistoryDots',
@@ -121,7 +111,10 @@ describe('HistoryDots', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(historyDots.titles(), equals(['', ''])),
+            Ensure.that(historyDots.outcomes(), equals([
+                { type: 'passed', title: '' },
+                { type: 'failed', title: '' },
+            ])),
         );
     });
 });

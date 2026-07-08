@@ -66,7 +66,7 @@ describe('OutcomeBadge', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(badge.outcomeClass(), equals('passed')),
+            Ensure.that(badge.outcomeType(), equals('passed')),
         );
     });
 
@@ -79,7 +79,7 @@ describe('OutcomeBadge', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(badge.outcomeClass(), equals('failed')),
+            Ensure.that(badge.outcomeType(), equals('failed')),
         );
     });
 
@@ -92,7 +92,7 @@ describe('OutcomeBadge', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(badge.outcomeClass(), equals('compromised')),
+            Ensure.that(badge.outcomeType(), equals('compromised')),
         );
     });
 
@@ -106,7 +106,7 @@ describe('OutcomeBadge', () => {
 
         await actor.attemptsTo(
             Ensure.that(badge.iconText(), equals('⊘')),
-            Ensure.that(badge.outcomeClass(), equals('skipped')),
+            Ensure.that(badge.outcomeType(), equals('skipped')),
         );
     });
 });
