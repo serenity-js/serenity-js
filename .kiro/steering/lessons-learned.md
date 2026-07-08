@@ -130,3 +130,30 @@ Key points:
 - `data` and `dataAsProps` mount options are only needed for view-level components listed in the `viewComponents` array
 
 When writing new component tests, read that README first and follow the established `SearchInput.spec.ts` as a reference implementation.
+
+
+## data-testid on views enables scoped interaction object hierarchies
+
+The `App.ts` component sets `data-testid` on the `<main>` element based on the active route pattern:
+- `/` → `data-testid="dashboard"`
+- `/tests` → `data-testid="tests"`
+- `/consistency` → `data-testid="consistency"`
+- `/tests/:id` → `data-testid="tests"` (dynamic segments are stripped)
+
+Widget components (e.g. `SearchInput`) also carry `data-testid` on their root element (`data-testid="search-input"`).
+
+Integration test interaction objects use this hierarchy for scoping:
+1. Fixture locates the view root: `PageElement.located(By.css('[data-testid="consistency"]'))`
+2. View interaction object receives it as constructor arg
+3. View locates child widgets: `PageElement.located(By.css('[data-testid="search-input"]')).of(this.rootElement)`
+4. Widget interaction object receives the child element and scopes its own locators within it
+
+This gives deterministic, collision-free selectors without coupling tests to CSS class names.
+
+## Interaction object constructors accept Answerable<PageElement<NET>>
+
+`PageElement.located(...)` returns `MetaQuestionAdapter<PageElement<NET>, PageElement<NET>>`, which is a `Question<Promise<PageElement<NET>>>`. This does NOT satisfy `Question<PageElement<NET>> | PageElement<NET>`.
+
+Always type interaction object constructor parameters as `Answerable<PageElement<NET>>` — this accepts all forms: raw `PageElement`, `Question<PageElement>`, `Question<Promise<PageElement>>`, and `Promise<PageElement>`.
+
+The `MountOptions.interactionObject` type in `fixtures.ts` uses `Answerable<PageElement>` for the same reason.
