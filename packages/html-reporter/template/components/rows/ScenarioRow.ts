@@ -2,8 +2,9 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportHistoryEntry, ReportScenario } from '../../../src/ReportData';
-import { browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, relativeSourcePath, scenarioUrl } from '../../utils';
+import { browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, relativeSourcePath, scenarioUrl } from '../../utils';
 import { HistoryDots } from '../HistoryDots';
+import { OutcomeBadge } from '../OutcomeBadge';
 
 const html = htm.bind(h);
 
@@ -25,9 +26,7 @@ export function ScenarioRow({ scenario, sort, onNavigate, runIndex, setSearch, s
     <div class="scenario-item" role="button" tabindex="0" onClick=${clickHandler}
          onKeyDown=${(e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); clickHandler(); } }}
          style="height:100%;display:flex;align-items:center">
-      <div class="scenario-outcome-icon ${outcomeClass(scenario.outcome)}">
-        ${outcomeIcon(scenario.outcome)}
-      </div>
+      <${OutcomeBadge} outcome=${scenario.outcome} />
       <div class="scenario-info">
         <div class="scenario-name">${sort !== 'category' && scenario.category ? scenario.category + ' › ' : ''}${scenario.name}</div>
         ${scenario.error ? html`<div class="scenario-error-preview">${scenario.error.message}</div>` : null}

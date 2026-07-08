@@ -1,6 +1,6 @@
 import { Answerable, Task, the } from '@serenity-js/core';
-import { HistoryDots, SearchInput } from '@serenity-js/html-reporter/serenity';
-import { By, PageElement } from '@serenity-js/web';
+import { HistoryDots, OutcomeBadge, SearchInput } from '@serenity-js/html-reporter/serenity';
+import { By, PageElement, PageElements } from '@serenity-js/web';
 
 import { Navigation } from '../app';
 
@@ -24,6 +24,13 @@ export class ConsistencyView<NET> {
             .of(this.rootElement);
 
         this.historyDots = new HistoryDots(historyDotsRoot);
+    }
+
+    outcomeBadgeFor = (scenarioItem: Answerable<PageElement<NET>>) => {
+        const badgeRoot = PageElement
+            .located(By.css('[data-testid="outcome-badge"]'))
+            .of(scenarioItem);
+        return new OutcomeBadge(badgeRoot);
     }
 
     open = () =>

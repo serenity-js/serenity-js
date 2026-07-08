@@ -2,8 +2,9 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportInconsistentTest } from '../../../src/ReportData';
-import { browserBadgeClass, getBrowserTag, outcomeClass, outcomeDisplayName, outcomeIcon, relativeSourcePath, scenarioUrl } from '../../utils';
+import { browserBadgeClass, getBrowserTag, outcomeDisplayName, relativeSourcePath, scenarioUrl } from '../../utils';
 import { HistoryDots } from '../HistoryDots';
+import { OutcomeBadge } from '../OutcomeBadge';
 
 const html = htm.bind(h);
 
@@ -25,7 +26,7 @@ export function ConsistencyRow({ item: t, specDirectory, onNavigate }: Consisten
     <div class="scenario-item" role="button" tabindex="0" onClick=${clickHandler}
          onKeyDown=${(e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); clickHandler(); } }}
          style="height:100%;display:flex;align-items:center">
-      <span class="scenario-outcome-icon ${outcomeClass(t.lastOutcome)}">${outcomeIcon(t.lastOutcome)}</span>
+      <${OutcomeBadge} outcome=${t.lastOutcome} />
       <div class="scenario-info">
         <div class="scenario-name">${t.name}</div>
         <div class="scenario-meta">
