@@ -3,6 +3,7 @@ import { h } from 'preact';
 
 import type { ReportHistoryEntry, ReportScenario } from '../../../src/ReportData';
 import { browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, relativeSourcePath, scenarioUrl } from '../../utils';
+import { HistoryDots } from '../HistoryDots';
 
 const html = htm.bind(h);
 
@@ -37,7 +38,7 @@ export function ScenarioRow({ scenario, sort, onNavigate, runIndex, setSearch, s
         </div>
         <div class="scenario-meta">
           <span class="scenario-source">${relativeSourcePath(scenario, specDirectory)}</span>
-          ${scenario.executionHistory && scenario.executionHistory.length > 1 ? html`<span class="scenario-history">${(runIndex !== null ? scenario.executionHistory.slice(0, runIndex + 1) : scenario.executionHistory).slice(-5).map(entry => html`<span class="history-dot history-dot--${outcomeClass(entry.outcome)}" title=${entry.outcome + ' — ' + formatRunLabel(entry.run, entry.timestamp || '')}></span>`)}</span>` : null}
+          ${scenario.executionHistory && scenario.executionHistory.length > 1 ? html`<${HistoryDots} entries=${(runIndex !== null ? scenario.executionHistory.slice(0, runIndex + 1) : scenario.executionHistory).slice(-5).map(entry => ({ outcome: entry.outcome, label: entry.outcome + ' — ' + formatRunLabel(entry.run, entry.timestamp || '') }))} max=${5} />` : null}
         </div>
       </div>
       <span class="scenario-duration">${formatDuration(scenario.duration)}</span>

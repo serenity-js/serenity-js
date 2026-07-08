@@ -3,6 +3,7 @@ import { h } from 'preact';
 
 import type { ReportInconsistentTest } from '../../../src/ReportData';
 import { browserBadgeClass, getBrowserTag, outcomeClass, outcomeDisplayName, outcomeIcon, relativeSourcePath, scenarioUrl } from '../../utils';
+import { HistoryDots } from '../HistoryDots';
 
 const html = htm.bind(h);
 
@@ -14,6 +15,11 @@ export interface ConsistencyRowProps {
 
 export function ConsistencyRow({ item: t, specDirectory, onNavigate }: ConsistencyRowProps): ReturnType<typeof html> {
     const clickHandler = () => onNavigate(scenarioUrl(t));
+
+    const historyEntries = (t.history || []).map((outcome, i) => ({
+        outcome,
+        label: outcomeDisplayName(outcome) + (t.labels && t.labels[i] ? ' (' + t.labels[i] + ')' : ''),
+    }));
 
     return html`
     <div class="scenario-item" role="button" tabindex="0" onClick=${clickHandler}
@@ -27,7 +33,7 @@ export function ConsistencyRow({ item: t, specDirectory, onNavigate }: Consisten
           ${(t.tags || []).filter(tag => tag.type === 'project').map(tag => html`<span class="badge">${tag.name}</span>`)}
           <span class="status-item-kind" style="color:${t.kind === 'degraded' ? 'var(--color-failed)' : t.kind === 'recovered' ? 'var(--color-passed)' : 'var(--color-pending)'}">${t.kind}</span>
           <span class="scenario-source">${relativeSourcePath(t, specDirectory)}</span>
-          ${t.history && t.history.length > 1 ? html`<span class="scenario-history">${t.history.slice(-5).map((outcome, i) => html`<span class="history-dot history-dot--${outcomeClass(outcome)}" title=${outcomeDisplayName(outcome) + (t.labels && t.labels[i] ? ' (' + t.labels[i] + ')' : '')}></span>`)}</span>` : null}
+          ${t.history && t.history.length > 1 ? html`<${HistoryDots} entries=${historyEntries} max=${5} />` : null}
         </div>
       </div>
       <span class="scenario-duration" style="color:var(--color-pending)">${Math.round(t.inconsistencyRate * 100)}%</span>
