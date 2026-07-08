@@ -86,7 +86,7 @@ Always use `npm run compile` in the package directory — this runs both `tsconf
 
 ## Test-scoped crew members must be unassigned after each test
 
-In `packages/playwright-test/src/api/test-api.ts`, the `configureScenarioInternal` fixture calls `serenity.configure({ crew: [...] })` for each test. Because `configure()` appends crew to the `StageManager.subscribers` array (via `stage.assign()`), crew members accumulate across tests running in the same worker. This causes duplicate screenshots (N Photographers = N screenshots per interaction).
+In `packages/playwright-test/src/api/index.ts`, the `configureScenarioInternal` fixture calls `serenity.configure({ crew: [...] })` for each test. Because `configure()` appends crew to the `StageManager.subscribers` array (via `stage.assign()`), crew members accumulate across tests running in the same worker. This causes duplicate screenshots (N Photographers = N screenshots per interaction).
 
 The fix: `configure()` returns the instantiated crew array. The fixture stores it and calls `serenity.unassign(...sceneCrew)` in the `finally` block after `persist()`. This ensures each test starts with a clean crew.
 
@@ -96,9 +96,16 @@ The `ScenarioDetailView` component receives a `history: ReportHistoryEntry[]` pr
 
 Always use `window.history.replaceState(...)` explicitly in components that have a `history` prop.
 
-## Report terminology: "inconsistent" not "flaky", "retried success" not "flaky pass"
+## Report terminology: "flaky" vs "inconsistent"
 
-In user-facing report text, never use "flaky". Use "inconsistent" to describe tests that sometimes pass, sometimes fail. The internal outcome string `RETRIED_SUCCESS` represents a test that passed only after retrying — in tooltips and labels visible to users, call it "Retried success" (i.e. "Passed on retry" in tooltips). The consistency view filter chip should say "Unstable" for tests whose last outcome was a retried success.
+These terms have precise, distinct meanings in the report:
+
+- **Flaky** — a test that fails on an earlier attempt but passes on a subsequent retry *within a single test run*. The build goes green, but the test needed multiple tries.
+- **Inconsistent** — a test whose *final outcome* (after all retries are exhausted) differs across test runs. The build goes red unpredictably.
+
+Other classification labels: **degraded** (was passing, now failing), **recovered** (was failing, now passes *cleanly* without retry).
+
+"Recovered" requires a clean pass — if the test now passes only via retry, it's "flaky" not "recovered."
 
 ## Consistency view icon must use the same outcomeClass/outcomeIcon as scenario detail
 
@@ -109,3 +116,17 @@ Fix: ConsistencyRow and DashboardView consistency card now derive icons from `ou
 ## html-reporter is in UI stabilisation — no new UI elements without approval
 
 The html-reporter module is being stabilised for release. Do not introduce new UI elements (filter chips, views, buttons, panels, sections) without explicitly asking the user first. Implementation changes to existing elements (refactoring, fixing divergent behaviour, renaming) are fine — adding new visible surface area is not.
+
+
+## html-reporter component tests use the Interaction Object pattern
+
+Component tests in `packages/html-reporter/spec/components/` use Screenplay-native **Interaction Objects** (the equivalent of Page Objects, scoped to a single component). The full pattern is documented in `packages/html-reporter/spec/components/README.md`.
+
+Key points:
+- Interaction objects live in `src/*.serenity.ts` and encapsulate locators, Questions, and Tasks for a component
+- The `mount` fixture accepts an `interactionObject` class, instantiates it with the mounted component's root element, and returns the typed instance
+- Tests call instance methods (`searchInput.placeholder()`) — never static methods on the class
+- All assertions use `Ensure.that(...)` within `actor.attemptsTo(...)` — avoid `expect().to*()` style
+- `data` and `dataAsProps` mount options are only needed for view-level components listed in the `viewComponents` array
+
+When writing new component tests, read that README first and follow the established `SearchInput.spec.ts` as a reference implementation.

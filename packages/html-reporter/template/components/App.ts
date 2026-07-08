@@ -55,6 +55,7 @@ export function App(): ReturnType<typeof html> {
 
     let view;
     let pageTitle: string;
+    let viewTestId: string;
 
     if (match) {
         const viewData = match.definition.data(DATA, match.params);
@@ -63,9 +64,13 @@ export function App(): ReturnType<typeof html> {
         pageTitle = typeof match.definition.title === 'function'
             ? match.definition.title(DATA)
             : match.definition.title;
+        // Derive testid from route pattern: '/' → 'dashboard', '/tests/:id' → 'tests', '/test-runs' → 'test-runs'
+        const patternPath = match.definition.pattern.replace(/\/:.+$/, '');
+        viewTestId = patternPath === '/' ? 'dashboard' : patternPath.slice(1);
     } else {
         view = html`<div class="card"><p>Page not found.</p></div>`;
         pageTitle = 'Not Found';
+        viewTestId = 'not-found';
     }
 
     return html`
@@ -76,6 +81,7 @@ export function App(): ReturnType<typeof html> {
                 failedBadgeCount=${totalFailedCount(DATA.summary.outcomes)}
                 onNavigate=${navigate} onClose=${() => setSidebarOpen(false)} onToggleCollapse=${toggleSidebar} />
     <main id="main-content" class="main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}"
+          data-testid="${viewTestId}"
           style="margin-left:${sidebarCollapsed ? 'var(--sidebar-collapsed-width)' : 'var(--sidebar-width)'}">
       <div class="topbar">
         <div class="topbar-left">
