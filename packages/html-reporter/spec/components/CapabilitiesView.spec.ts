@@ -1,5 +1,5 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { minimalData } from './data-factories.js';
+import { describe, expect, it } from './fixtures.js';
 
 function capabilitiesData() {
     return minimalData({
@@ -39,11 +39,11 @@ function capabilitiesData() {
     });
 }
 
-test.describe('CapabilitiesView', () => {
+describe('CapabilitiesView', () => {
 
-    test.describe('detail panel — documentation-first', () => {
+    describe('detail panel — documentation-first', () => {
 
-        test('shows README prominently (not collapsible, not hidden)', async ({ mount, page }) => {
+        it('shows README prominently (not collapsible, not hidden)', async ({ mount, page }) => {
             await mount({
                 component: 'CapabilitiesView',
                 importPath: './components/CapabilitiesView',
@@ -59,7 +59,7 @@ test.describe('CapabilitiesView', () => {
             await expect(detail.locator('details .readme-content')).toHaveCount(0);
         });
 
-        test('reading order: title, health header, outcome bar, README, test files', async ({ mount, page }) => {
+        it('reading order: title, health header, outcome bar, README, test files', async ({ mount, page }) => {
             await mount({
                 component: 'CapabilitiesView',
                 importPath: './components/CapabilitiesView',
@@ -79,9 +79,9 @@ test.describe('CapabilitiesView', () => {
         });
     });
 
-    test.describe('left panel — navigation', () => {
+    describe('left panel — navigation', () => {
 
-        test('search field uses "Find capabilities..." placeholder', async ({ mount, page }) => {
+        it('search field uses "Find capabilities..." placeholder', async ({ mount, page }) => {
             await mount({
                 component: 'CapabilitiesView',
                 importPath: './components/CapabilitiesView',
@@ -95,7 +95,7 @@ test.describe('CapabilitiesView', () => {
             await expect(searchInput).toHaveAttribute('placeholder', 'Find capabilities...');
         });
 
-        test('filter bar uses the shared filter-bar styling with confidence categories', async ({ mount, page }) => {
+        it('filter bar uses the shared filter-bar styling with confidence categories', async ({ mount, page }) => {
             await mount({
                 component: 'CapabilitiesView',
                 importPath: './components/CapabilitiesView',
@@ -113,9 +113,9 @@ test.describe('CapabilitiesView', () => {
         });
     });
 
-    test.describe('detail header — single source of truth', () => {
+    describe('detail header — single source of truth', () => {
 
-        test('shows confidence prominently in the detail panel header', async ({ mount, page }) => {
+        it('shows confidence prominently in the detail panel header', async ({ mount, page }) => {
             await mount({
                 component: 'CapabilitiesView',
                 importPath: './components/CapabilitiesView',
@@ -130,7 +130,7 @@ test.describe('CapabilitiesView', () => {
         });
     });
 
-    test('shows empty state when capabilities data is missing', async ({ mount, page }) => {
+    it('shows empty state when capabilities data is missing', async ({ mount, page }) => {
         await mount({
             component: 'CapabilitiesView',
             importPath: './components/CapabilitiesView',
@@ -143,9 +143,9 @@ test.describe('CapabilitiesView', () => {
     });
 });
 
-test.describe('CapabilitiesView sort control', () => {
+describe('CapabilitiesView sort control', () => {
 
-    test('displays a sort dropdown with options: Name, Confidence, Scenarios', async ({ mount, page }) => {
+    it('displays a sort dropdown with options: Name, Confidence, Scenarios', async ({ mount, page }) => {
         await mount({
             component: 'CapabilitiesView',
             importPath: './components/CapabilitiesView',
@@ -161,7 +161,7 @@ test.describe('CapabilitiesView sort control', () => {
         await expect(sortSelect.locator('option[value="scenarios"]')).toHaveText('Scenarios');
     });
 
-    test('defaults to sorting by name', async ({ mount, page }) => {
+    it('defaults to sorting by name', async ({ mount, page }) => {
         await mount({
             component: 'CapabilitiesView',
             importPath: './components/CapabilitiesView',
@@ -173,7 +173,7 @@ test.describe('CapabilitiesView sort control', () => {
         await expect(sortSelect).toHaveValue('name');
     });
 
-    test('sorts tree nodes by confidence ascending (worst first) when Confidence is selected', async ({ mount, page }) => {
+    it('sorts tree nodes by confidence ascending (worst first) when Confidence is selected', async ({ mount, page }) => {
         await mount({
             component: 'CapabilitiesView',
             importPath: './components/CapabilitiesView',
@@ -191,7 +191,7 @@ test.describe('CapabilitiesView sort control', () => {
         expect(childLabels[childLabels.length - 1]).toContain('passing');
     });
 
-    test('sorts tree nodes by scenario count descending when Scenarios is selected', async ({ mount, page }) => {
+    it('sorts tree nodes by scenario count descending when Scenarios is selected', async ({ mount, page }) => {
         await mount({
             component: 'CapabilitiesView',
             importPath: './components/CapabilitiesView',
@@ -208,9 +208,9 @@ test.describe('CapabilitiesView sort control', () => {
     });
 });
 
-test.describe('CapabilitiesView search and filter bar', () => {
+describe('CapabilitiesView search and filter bar', () => {
 
-    test('search input uses "Find capabilities..." placeholder', async ({ mount, page }) => {
+    it('search input uses "Find capabilities..." placeholder', async ({ mount, page }) => {
         await mount({
             component: 'CapabilitiesView',
             importPath: './components/CapabilitiesView',
@@ -222,7 +222,7 @@ test.describe('CapabilitiesView search and filter bar', () => {
         await expect(searchInput).toHaveAttribute('placeholder', 'Find capabilities...');
     });
 
-    test('search input is above the filter bar (matching ScenariosView pattern)', async ({ mount, page }) => {
+    it('search input is above the filter bar (matching ScenariosView pattern)', async ({ mount, page }) => {
         await mount({
             component: 'CapabilitiesView',
             importPath: './components/CapabilitiesView',
@@ -235,7 +235,7 @@ test.describe('CapabilitiesView search and filter bar', () => {
         await expect(leftPanel.locator('.filter-bar')).toBeVisible();
     });
 
-    test('filter bar has a "Health:" label prefix consistent with ScenariosView "Status:" pattern', async ({ mount, page }) => {
+    it('filter bar has a "Health:" label prefix consistent with ScenariosView "Status:" pattern', async ({ mount, page }) => {
         await mount({
             component: 'CapabilitiesView',
             importPath: './components/CapabilitiesView',
@@ -247,7 +247,7 @@ test.describe('CapabilitiesView search and filter bar', () => {
         await expect(filterBar).toContainText('Health:');
     });
 
-    test('search filters the tree and shows result count', async ({ mount, page }) => {
+    it('search filters the tree and shows result count', async ({ mount, page }) => {
         await mount({
             component: 'CapabilitiesView',
             importPath: './components/CapabilitiesView',
@@ -264,7 +264,7 @@ test.describe('CapabilitiesView search and filter bar', () => {
         await expect(page.locator('[aria-live="polite"]')).toContainText('Showing 1 of 3 capabilities');
     });
 
-    test('filter bar and search are hidden when there is only 1 capability', async ({ mount, page }) => {
+    it('filter bar and search are hidden when there is only 1 capability', async ({ mount, page }) => {
         await mount({
             component: 'CapabilitiesView',
             importPath: './components/CapabilitiesView',
@@ -292,7 +292,7 @@ test.describe('CapabilitiesView search and filter bar', () => {
         await expect(page.locator('input.search-input')).not.toBeVisible();
     });
 
-    test('shows clear button when search has text', async ({ mount, page }) => {
+    it('shows clear button when search has text', async ({ mount, page }) => {
         await mount({
             component: 'CapabilitiesView',
             importPath: './components/CapabilitiesView',
@@ -306,9 +306,9 @@ test.describe('CapabilitiesView search and filter bar', () => {
     });
 });
 
-test.describe('CapabilitiesView accessibility', () => {
+describe('CapabilitiesView accessibility', () => {
 
-    test('outcome bars have role="img" and aria-label for screen readers', async ({ mount, page }) => {
+    it('outcome bars have role="img" and aria-label for screen readers', async ({ mount, page }) => {
         await mount({
             component: 'CapabilitiesView',
             importPath: './components/CapabilitiesView',
@@ -328,7 +328,7 @@ test.describe('CapabilitiesView accessibility', () => {
         }
     });
 
-    test('outcome bars include visually-hidden text summary', async ({ mount, page }) => {
+    it('outcome bars include visually-hidden text summary', async ({ mount, page }) => {
         await mount({
             component: 'CapabilitiesView',
             importPath: './components/CapabilitiesView',
@@ -344,7 +344,7 @@ test.describe('CapabilitiesView accessibility', () => {
         expect(text).toMatch(/passed/i);
     });
 
-    test('tree nodes use roving tabindex pattern', async ({ mount, page }) => {
+    it('tree nodes use roving tabindex pattern', async ({ mount, page }) => {
         await mount({
             component: 'CapabilitiesView',
             importPath: './components/CapabilitiesView',
@@ -366,7 +366,7 @@ test.describe('CapabilitiesView accessibility', () => {
         expect(inertCount).toBe(count - 1);
     });
 
-    test('tree supports arrow key navigation', async ({ mount, page }) => {
+    it('tree supports arrow key navigation', async ({ mount, page }) => {
         await mount({
             component: 'CapabilitiesView',
             importPath: './components/CapabilitiesView',

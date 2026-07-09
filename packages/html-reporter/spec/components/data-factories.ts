@@ -4,8 +4,7 @@
  * Modelled after the real data.js produced by DataSnapshotAggregator.
  */
 
-import type { ReportData } from '../../src/ReportData';
-import { CURRENT_REPORT_DATA_SCHEMA_VERSION } from '../../src/ReportData';
+import { CURRENT_REPORT_DATA_SCHEMA_VERSION, type ReportData } from '../../src/ReportData.js';
 
 export function minimalData(overrides: Partial<ReportData> & Record<string, unknown> = {}): ReportData {
     return {

@@ -1,5 +1,5 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { minimalData } from './data-factories.js';
+import { describe, expect, it } from './fixtures.js';
 
 function errorsData() {
     return minimalData({
@@ -38,9 +38,9 @@ function errorsData() {
     });
 }
 
-test.describe('ErrorsView', () => {
+describe('ErrorsView', () => {
 
-    test('groups scenarios with identical error messages', async ({ mount, page }) => {
+    it('groups scenarios with identical error messages', async ({ mount, page }) => {
         await mount({
             component: 'ErrorsView',
             importPath: './components/ErrorsView',
@@ -54,7 +54,7 @@ test.describe('ErrorsView', () => {
         await expect(page.locator('body')).toContainText('and 1 more');
     });
 
-    test('navigates to filtered scenarios view when clicking a grouped error', async ({ mount, page }) => {
+    it('navigates to filtered scenarios view when clicking a grouped error', async ({ mount, page }) => {
         let navigatedTo = '';
         await page.exposeFunction('__onNavigate__', (path: string) => { navigatedTo = path; });
 
@@ -73,7 +73,7 @@ test.describe('ErrorsView', () => {
         expect(decodeURIComponent(navigatedTo)).toContain('expected true to equal false');
     });
 
-    test('navigates to scenario detail when clicking a unique error', async ({ mount, page }) => {
+    it('navigates to scenario detail when clicking a unique error', async ({ mount, page }) => {
         let navigatedTo = '';
         await page.exposeFunction('__onNavigate__', (path: string) => { navigatedTo = path; });
 
@@ -91,7 +91,7 @@ test.describe('ErrorsView', () => {
         expect(decodeURIComponent(navigatedTo)).toContain('spec/slow.spec.ts');
     });
 
-    test('single error row does not show duplicate indicator', async ({ mount, page }) => {
+    it('single error row does not show duplicate indicator', async ({ mount, page }) => {
         await mount({
             component: 'ErrorsView',
             importPath: './components/ErrorsView',
@@ -103,7 +103,7 @@ test.describe('ErrorsView', () => {
         await expect(page.locator('.scenario-item', { hasText: 'timed out' })).not.toContainText('×');
     });
 
-    test('shows errors from a historical run when ?run= parameter is set', async ({ mount, page }) => {
+    it('shows errors from a historical run when ?run= parameter is set', async ({ mount, page }) => {
         // Scenario A: passed in latest run (#42), failed in historical run (#41)
         // Scenario B: failed in latest run (#42), passed in historical run (#41)
         const data = minimalData({
@@ -150,7 +150,7 @@ test.describe('ErrorsView', () => {
         await expect(page.locator('body')).not.toContainText('latest failure in run 42');
     });
 
-    test('shows "No Errors" when the selected historical run had no failures', async ({ mount, page }) => {
+    it('shows "No Errors" when the selected historical run had no failures', async ({ mount, page }) => {
         const data = minimalData({
             scenarios: [
                 {

@@ -1,7 +1,7 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { minimalData } from './data-factories.js';
+import { describe, expect, it } from './fixtures.js';
 
-test.describe('TimelineView', () => {
+describe('TimelineView', () => {
 
     const data = minimalData({
         scenarios: [
@@ -20,7 +20,7 @@ test.describe('TimelineView', () => {
         },
     });
 
-    test('displays duration stats cards', async ({ mount, page }) => {
+    it('displays duration stats cards', async ({ mount, page }) => {
         await mount({
             component: 'TimelineView',
             importPath: './components/TimelineView',
@@ -34,7 +34,7 @@ test.describe('TimelineView', () => {
         await expect(page.locator('body')).toContainText('Total');
     });
 
-    test('renders timeline rows for each scenario', async ({ mount, page }) => {
+    it('renders timeline rows for each scenario', async ({ mount, page }) => {
         await mount({
             component: 'TimelineView',
             importPath: './components/TimelineView',
@@ -47,7 +47,7 @@ test.describe('TimelineView', () => {
         await expect(page.locator('body')).toContainText('Slow failing test');
     });
 
-    test('renders filter bar with outcome chips', async ({ mount, page }) => {
+    it('renders filter bar with outcome chips', async ({ mount, page }) => {
         await mount({
             component: 'TimelineView',
             importPath: './components/TimelineView',
@@ -60,7 +60,7 @@ test.describe('TimelineView', () => {
         await expect(page.locator('.filter-chip', { hasText: 'Passed' })).toBeVisible();
     });
 
-    test('filters by outcome when chip clicked', async ({ mount, page }) => {
+    it('filters by outcome when chip clicked', async ({ mount, page }) => {
         await mount({
             component: 'TimelineView',
             importPath: './components/TimelineView',
@@ -75,7 +75,7 @@ test.describe('TimelineView', () => {
         await expect(page.locator('body')).not.toContainText('Fast test');
     });
 
-    test('sorts by duration when sort option changed', async ({ mount, page }) => {
+    it('sorts by duration when sort option changed', async ({ mount, page }) => {
         await mount({
             component: 'TimelineView',
             importPath: './components/TimelineView',

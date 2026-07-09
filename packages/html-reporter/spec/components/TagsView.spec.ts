@@ -1,9 +1,9 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { minimalData } from './data-factories.js';
+import { describe, expect, it } from './fixtures.js';
 
-test.describe('TagsView', () => {
+describe('TagsView', () => {
 
-    test('renders tag cards grouped by type', async ({ mount, page }) => {
+    it('renders tag cards grouped by type', async ({ mount, page }) => {
         await mount({
             component: 'TagsView',
             importPath: './components/TagsView',
@@ -24,7 +24,7 @@ test.describe('TagsView', () => {
         await expect(page.locator('body')).toContainText('smoke');
     });
 
-    test('displays pass rate percentage for each tag', async ({ mount, page }) => {
+    it('displays pass rate percentage for each tag', async ({ mount, page }) => {
         await mount({
             component: 'TagsView',
             importPath: './components/TagsView',
@@ -40,7 +40,7 @@ test.describe('TagsView', () => {
         await expect(page.locator('.tag-card')).toContainText('4 scenarios');
     });
 
-    test('navigates to filtered scenarios on tag click', async ({ mount, page }) => {
+    it('navigates to filtered scenarios on tag click', async ({ mount, page }) => {
         let navigatedTo = '';
         await page.exposeFunction('__onNavigate__', (path: string) => { navigatedTo = path; });
 
@@ -58,7 +58,7 @@ test.describe('TagsView', () => {
         expect(navigatedTo).toBe('/tests?search=' + encodeURIComponent('"Login"'));
     });
 
-    test('displays correct pass rate colors', async ({ mount, page }) => {
+    it('displays correct pass rate colors', async ({ mount, page }) => {
         await mount({
             component: 'TagsView',
             importPath: './components/TagsView',

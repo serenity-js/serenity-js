@@ -1,9 +1,9 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { minimalData } from './data-factories.js';
+import { describe, expect, it } from './fixtures.js';
 
-test.describe('HistoricalBanner', () => {
+describe('HistoricalBanner', () => {
 
-    test('renders the banner with label and runLabel', async ({ mount, page }) => {
+    it('renders the banner with label and runLabel', async ({ mount, page }) => {
         await mount({
             component: 'HistoricalBanner',
             importPath: './components/HistoricalBanner',
@@ -20,7 +20,7 @@ test.describe('HistoricalBanner', () => {
         await expect(page.locator('.historical-banner')).toContainText('Run #42 — 15 Jun 2024');
     });
 
-    test('renders the runLabel in a strong element', async ({ mount, page }) => {
+    it('renders the runLabel in a strong element', async ({ mount, page }) => {
         await mount({
             component: 'HistoricalBanner',
             importPath: './components/HistoricalBanner',
@@ -37,7 +37,7 @@ test.describe('HistoricalBanner', () => {
         await expect(strong).toHaveText('Run #42 — 15 Jun 2024');
     });
 
-    test('renders subtitle when provided', async ({ mount, page }) => {
+    it('renders subtitle when provided', async ({ mount, page }) => {
         await mount({
             component: 'HistoricalBanner',
             importPath: './components/HistoricalBanner',
@@ -54,7 +54,7 @@ test.describe('HistoricalBanner', () => {
         await expect(page.locator('.historical-banner')).toContainText('— 2m 30s');
     });
 
-    test('does not render subtitle when not provided', async ({ mount, page }) => {
+    it('does not render subtitle when not provided', async ({ mount, page }) => {
         await mount({
             component: 'HistoricalBanner',
             importPath: './components/HistoricalBanner',
@@ -71,7 +71,7 @@ test.describe('HistoricalBanner', () => {
         expect(text).not.toContain('—');
     });
 
-    test('renders "show latest" link with onClick when no href provided', async ({ mount, page }) => {
+    it('renders "show latest" link with onClick when no href provided', async ({ mount, page }) => {
         let clicked = false;
         await page.exposeFunction('__onShowLatest__', () => { clicked = true; });
 
@@ -94,7 +94,7 @@ test.describe('HistoricalBanner', () => {
         expect(clicked).toBe(true);
     });
 
-    test('renders "show latest" link with href when showLatestHref provided', async ({ mount, page }) => {
+    it('renders "show latest" link with href when showLatestHref provided', async ({ mount, page }) => {
         await mount({
             component: 'HistoricalBanner',
             importPath: './components/HistoricalBanner',
@@ -113,7 +113,7 @@ test.describe('HistoricalBanner', () => {
         await expect(link).toHaveAttribute('href', '#/tests');
     });
 
-    test('has the correct CSS class for styling', async ({ mount, page }) => {
+    it('has the correct CSS class for styling', async ({ mount, page }) => {
         await mount({
             component: 'HistoricalBanner',
             importPath: './components/HistoricalBanner',

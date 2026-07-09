@@ -1,5 +1,5 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { minimalData } from './data-factories.js';
+import { describe, expect, it } from './fixtures.js';
 
 function activitiesWithPhotos() {
     return [
@@ -47,9 +47,9 @@ function activitiesWithPhotos() {
     ];
 }
 
-test.describe('PhotoStrip', () => {
+describe('PhotoStrip', () => {
 
-    test('renders nothing when no .png artifacts exist', async ({ mount, page }) => {
+    it('renders nothing when no .png artifacts exist', async ({ mount, page }) => {
         await mount({
             component: 'PhotoStrip',
             importPath: './components/scenario/PhotoStrip',
@@ -66,7 +66,7 @@ test.describe('PhotoStrip', () => {
         await expect(page.locator('.card-title')).toHaveCount(0);
     });
 
-    test('renders nothing when activities have no artifacts at all', async ({ mount, page }) => {
+    it('renders nothing when activities have no artifacts at all', async ({ mount, page }) => {
         await mount({
             component: 'PhotoStrip',
             importPath: './components/scenario/PhotoStrip',
@@ -82,7 +82,7 @@ test.describe('PhotoStrip', () => {
         await expect(page.locator('.photo-strip')).toHaveCount(0);
     });
 
-    test('displays the correct photo count in the title', async ({ mount, page }) => {
+    it('displays the correct photo count in the title', async ({ mount, page }) => {
         await mount({
             component: 'PhotoStrip',
             importPath: './components/scenario/PhotoStrip',
@@ -97,7 +97,7 @@ test.describe('PhotoStrip', () => {
         await expect(page.locator('.card-title')).toContainText('Screenshots (3)');
     });
 
-    test('renders a thumbnail for each screenshot', async ({ mount, page }) => {
+    it('renders a thumbnail for each screenshot', async ({ mount, page }) => {
         await mount({
             component: 'PhotoStrip',
             importPath: './components/scenario/PhotoStrip',
@@ -112,7 +112,7 @@ test.describe('PhotoStrip', () => {
         await expect(items).toHaveCount(3);
     });
 
-    test('displays the activity name as caption for each photo', async ({ mount, page }) => {
+    it('displays the activity name as caption for each photo', async ({ mount, page }) => {
         await mount({
             component: 'PhotoStrip',
             importPath: './components/scenario/PhotoStrip',
@@ -127,7 +127,7 @@ test.describe('PhotoStrip', () => {
         await expect(captions.first()).toHaveText('Navigate to login page');
     });
 
-    test('collects photos from nested child activities', async ({ mount, page }) => {
+    it('collects photos from nested child activities', async ({ mount, page }) => {
         await mount({
             component: 'PhotoStrip',
             importPath: './components/scenario/PhotoStrip',
@@ -143,7 +143,7 @@ test.describe('PhotoStrip', () => {
         expect(captions).toContain('Enter username');
     });
 
-    test('excludes non-.png artifacts', async ({ mount, page }) => {
+    it('excludes non-.png artifacts', async ({ mount, page }) => {
         await mount({
             component: 'PhotoStrip',
             importPath: './components/scenario/PhotoStrip',
@@ -159,7 +159,7 @@ test.describe('PhotoStrip', () => {
         expect(captions).not.toContain('Click submit');
     });
 
-    test('opens lightbox when clicking a thumbnail', async ({ mount, page }) => {
+    it('opens lightbox when clicking a thumbnail', async ({ mount, page }) => {
         await mount({
             component: 'PhotoStrip',
             importPath: './components/scenario/PhotoStrip',
@@ -178,7 +178,7 @@ test.describe('PhotoStrip', () => {
         await expect(page.locator('.lightbox-caption')).toContainText('Navigate to login page');
     });
 
-    test('lightbox navigates forward with ArrowRight', async ({ mount, page }) => {
+    it('lightbox navigates forward with ArrowRight', async ({ mount, page }) => {
         await mount({
             component: 'PhotoStrip',
             importPath: './components/scenario/PhotoStrip',
@@ -198,7 +198,7 @@ test.describe('PhotoStrip', () => {
         await expect(page.locator('.lightbox-caption')).toContainText('Fill in credentials');
     });
 
-    test('lightbox navigates backward with ArrowLeft', async ({ mount, page }) => {
+    it('lightbox navigates backward with ArrowLeft', async ({ mount, page }) => {
         await mount({
             component: 'PhotoStrip',
             importPath: './components/scenario/PhotoStrip',
@@ -218,7 +218,7 @@ test.describe('PhotoStrip', () => {
         await expect(page.locator('.lightbox-caption')).toContainText('Navigate to login page');
     });
 
-    test('lightbox closes on Escape', async ({ mount, page }) => {
+    it('lightbox closes on Escape', async ({ mount, page }) => {
         await mount({
             component: 'PhotoStrip',
             importPath: './components/scenario/PhotoStrip',
@@ -236,7 +236,7 @@ test.describe('PhotoStrip', () => {
         await expect(page.locator('.lightbox-overlay')).toHaveCount(0);
     });
 
-    test('lightbox closes when clicking the overlay background', async ({ mount, page }) => {
+    it('lightbox closes when clicking the overlay background', async ({ mount, page }) => {
         await mount({
             component: 'PhotoStrip',
             importPath: './components/scenario/PhotoStrip',
@@ -255,7 +255,7 @@ test.describe('PhotoStrip', () => {
         await expect(page.locator('.lightbox-overlay')).toHaveCount(0);
     });
 
-    test('lightbox shows counter indicating position (e.g., 1/3)', async ({ mount, page }) => {
+    it('lightbox shows counter indicating position (e.g., 1/3)', async ({ mount, page }) => {
         await mount({
             component: 'PhotoStrip',
             importPath: './components/scenario/PhotoStrip',
@@ -270,7 +270,7 @@ test.describe('PhotoStrip', () => {
         await expect(page.locator('.lightbox-caption')).toContainText('1/3');
     });
 
-    test('lightbox hides previous nav button on first photo', async ({ mount, page }) => {
+    it('lightbox hides previous nav button on first photo', async ({ mount, page }) => {
         await mount({
             component: 'PhotoStrip',
             importPath: './components/scenario/PhotoStrip',
@@ -286,7 +286,7 @@ test.describe('PhotoStrip', () => {
         await expect(page.locator('.lightbox-next')).toBeVisible();
     });
 
-    test('lightbox hides next nav button on last photo', async ({ mount, page }) => {
+    it('lightbox hides next nav button on last photo', async ({ mount, page }) => {
         await mount({
             component: 'PhotoStrip',
             importPath: './components/scenario/PhotoStrip',

@@ -1,5 +1,5 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { minimalData } from './data-factories.js';
+import { describe, expect, it } from './fixtures.js';
 
 function scenarioWithAnsiError() {
     return minimalData({
@@ -26,9 +26,9 @@ function scenarioWithAnsiError() {
     });
 }
 
-test.describe('ANSI colour rendering in error messages', () => {
+describe('ANSI colour rendering in error messages', () => {
 
-    test('renders ANSI green text with a green colour class', async ({ mount, page }) => {
+    it('renders ANSI green text with a green colour class', async ({ mount, page }) => {
         await mount({
             component: 'ScenarioDetailView',
             importPath: './components/ScenarioDetailView',
@@ -41,7 +41,7 @@ test.describe('ANSI colour rendering in error messages', () => {
         await expect(greenSpan).toHaveText('Expected number: 2');
     });
 
-    test('renders ANSI red text with a red colour class', async ({ mount, page }) => {
+    it('renders ANSI red text with a red colour class', async ({ mount, page }) => {
         await mount({
             component: 'ScenarioDetailView',
             importPath: './components/ScenarioDetailView',
@@ -54,7 +54,7 @@ test.describe('ANSI colour rendering in error messages', () => {
         await expect(redSpan).toHaveText('Received number: 0');
     });
 
-    test('strips ANSI escape sequences from plain text portions', async ({ mount, page }) => {
+    it('strips ANSI escape sequences from plain text portions', async ({ mount, page }) => {
         await mount({
             component: 'ScenarioDetailView',
             importPath: './components/ScenarioDetailView',
@@ -69,7 +69,7 @@ test.describe('ANSI colour rendering in error messages', () => {
         expect(messageText).not.toContain('[31m');
     });
 
-    test('renders ANSI colours in the error stack trace', async ({ mount, page }) => {
+    it('renders ANSI colours in the error stack trace', async ({ mount, page }) => {
         await mount({
             component: 'ScenarioDetailView',
             importPath: './components/ScenarioDetailView',
@@ -101,7 +101,7 @@ test.describe('ANSI colour rendering in error messages', () => {
         await expect(dimSpan).toContainText('at Object.<anonymous>');
     });
 
-    test('handles bold ANSI codes', async ({ mount, page }) => {
+    it('handles bold ANSI codes', async ({ mount, page }) => {
         await mount({
             component: 'ScenarioDetailView',
             importPath: './components/ScenarioDetailView',
@@ -133,7 +133,7 @@ test.describe('ANSI colour rendering in error messages', () => {
         await expect(boldSpan).toHaveText('Bold text');
     });
 
-    test('passes through text without ANSI codes unchanged', async ({ mount, page }) => {
+    it('passes through text without ANSI codes unchanged', async ({ mount, page }) => {
         await mount({
             component: 'ScenarioDetailView',
             importPath: './components/ScenarioDetailView',

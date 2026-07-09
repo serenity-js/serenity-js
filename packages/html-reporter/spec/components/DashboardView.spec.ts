@@ -1,9 +1,9 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { minimalData } from './data-factories.js';
+import { describe, expect, it } from './fixtures.js';
 
-test.describe('DashboardView', () => {
+describe('DashboardView', () => {
 
-    test('renders confidence hero card with score and delta', async ({ mount, page }) => {
+    it('renders confidence hero card with score and delta', async ({ mount, page }) => {
         await mount({
             component: 'DashboardView',
             importPath: './components/DashboardView',
@@ -24,7 +24,7 @@ test.describe('DashboardView', () => {
         await expect(heroCard.locator('.kpi-subtitle')).toContainText('Improved since last run');
     });
 
-    test('renders pass rate, consistency, and completeness with deltas', async ({ mount, page }) => {
+    it('renders pass rate, consistency, and completeness with deltas', async ({ mount, page }) => {
         await mount({
             component: 'DashboardView',
             importPath: './components/DashboardView',
@@ -50,7 +50,7 @@ test.describe('DashboardView', () => {
         await expect(completenessCard.locator('.kpi-delta')).toContainText('↑ 10%');
     });
 
-    test('displays CI branch and commit info', async ({ mount, page }) => {
+    it('displays CI branch and commit info', async ({ mount, page }) => {
         await mount({
             component: 'DashboardView',
             importPath: './components/DashboardView',
@@ -62,7 +62,7 @@ test.describe('DashboardView', () => {
         await expect(page.locator('body')).toContainText('abc1234');
     });
 
-    test('displays slowest tests', async ({ mount, page }) => {
+    it('displays slowest tests', async ({ mount, page }) => {
         await mount({
             component: 'DashboardView',
             importPath: './components/DashboardView',
@@ -74,7 +74,7 @@ test.describe('DashboardView', () => {
         await expect(page.locator('body')).toContainText('Test D');
     });
 
-    test('displays failed count with inverted delta', async ({ mount, page }) => {
+    it('displays failed count with inverted delta', async ({ mount, page }) => {
         await mount({
             component: 'DashboardView',
             importPath: './components/DashboardView',
@@ -88,7 +88,7 @@ test.describe('DashboardView', () => {
         await expect(failedCard.locator('.kpi-delta')).toContainText('↓ 1');
     });
 
-    test('displays duration with comparison', async ({ mount, page }) => {
+    it('displays duration with comparison', async ({ mount, page }) => {
         await mount({
             component: 'DashboardView',
             importPath: './components/DashboardView',
@@ -102,7 +102,7 @@ test.describe('DashboardView', () => {
         await expect(durationCard.locator('.kpi-delta')).toContainText('200ms');
     });
 
-    test('shows "No degraded tests" when none degraded', async ({ mount, page }) => {
+    it('shows "No degraded tests" when none degraded', async ({ mount, page }) => {
         await mount({
             component: 'DashboardView',
             importPath: './components/DashboardView',
@@ -113,7 +113,7 @@ test.describe('DashboardView', () => {
         await expect(page.locator('body')).toContainText('All tests consistent');
     });
 
-    test('hero card has area sparkline when history available', async ({ mount, page }) => {
+    it('hero card has area sparkline when history available', async ({ mount, page }) => {
         await mount({
             component: 'DashboardView',
             importPath: './components/DashboardView',
@@ -129,7 +129,7 @@ test.describe('DashboardView', () => {
         await expect(page.locator('.kpi-card--hero .sparkline-area')).toBeVisible();
     });
 
-    test('operational cards have dot trend indicators', async ({ mount, page }) => {
+    it('operational cards have dot trend indicators', async ({ mount, page }) => {
         await mount({
             component: 'DashboardView',
             importPath: './components/DashboardView',
@@ -142,9 +142,9 @@ test.describe('DashboardView', () => {
     });
 });
 
-test.describe('DashboardView accessibility', () => {
+describe('DashboardView accessibility', () => {
 
-    test('KPI cards use native button elements', async ({ mount, page }) => {
+    it('KPI cards use native button elements', async ({ mount, page }) => {
         await mount({
             component: 'DashboardView',
             importPath: './components/DashboardView',
@@ -162,7 +162,7 @@ test.describe('DashboardView accessibility', () => {
         }
     });
 
-    test('KPI cards have type="button" attribute', async ({ mount, page }) => {
+    it('KPI cards have type="button" attribute', async ({ mount, page }) => {
         await mount({
             component: 'DashboardView',
             importPath: './components/DashboardView',
@@ -179,7 +179,7 @@ test.describe('DashboardView accessibility', () => {
         }
     });
 
-    test('KPI cards are keyboard-accessible without onKeyDown handlers', async ({ mount, page }) => {
+    it('KPI cards are keyboard-accessible without onKeyDown handlers', async ({ mount, page }) => {
         await mount({
             component: 'DashboardView',
             importPath: './components/DashboardView',
@@ -202,9 +202,9 @@ test.describe('DashboardView accessibility', () => {
     });
 });
 
-test.describe('DashboardView consistency card', () => {
+describe('DashboardView consistency card', () => {
 
-    test('labels flaky test as "flaky" (not "inconsistent")', async ({ mount, page }) => {
+    it('labels flaky test as "flaky" (not "inconsistent")', async ({ mount, page }) => {
         await mount({
             component: 'DashboardView',
             importPath: './components/DashboardView',
@@ -229,7 +229,7 @@ test.describe('DashboardView consistency card', () => {
         await expect(consistencyCard.locator('.status-item-kind')).not.toHaveText('inconsistent');
     });
 
-    test('labels test with failure history and RETRIED_SUCCESS last as "inconsistent"', async ({ mount, page }) => {
+    it('labels test with failure history and RETRIED_SUCCESS last as "inconsistent"', async ({ mount, page }) => {
         await mount({
             component: 'DashboardView',
             importPath: './components/DashboardView',
@@ -253,7 +253,7 @@ test.describe('DashboardView consistency card', () => {
         await expect(consistencyCard.locator('.status-item-kind')).toHaveText('inconsistent');
     });
 
-    test('renders all four kind categories with correct labels', async ({ mount, page }) => {
+    it('renders all four kind categories with correct labels', async ({ mount, page }) => {
         await mount({
             component: 'DashboardView',
             importPath: './components/DashboardView',

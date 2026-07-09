@@ -1,9 +1,9 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { minimalData } from './data-factories.js';
+import { describe, expect, it } from './fixtures.js';
 
-test.describe('SegmentedBar', () => {
+describe('SegmentedBar', () => {
 
-    test('renders nothing when all outcomes are zero', async ({ mount, page }) => {
+    it('renders nothing when all outcomes are zero', async ({ mount, page }) => {
         await mount({
             component: 'SegmentedBar',
             importPath: './components/charts/SegmentedBar',
@@ -14,7 +14,7 @@ test.describe('SegmentedBar', () => {
         await expect(page.locator('[role="img"]')).toHaveCount(0);
     });
 
-    test('renders a bar with correct aria-label describing the outcome counts', async ({ mount, page }) => {
+    it('renders a bar with correct aria-label describing the outcome counts', async ({ mount, page }) => {
         await mount({
             component: 'SegmentedBar',
             importPath: './components/charts/SegmentedBar',
@@ -27,7 +27,7 @@ test.describe('SegmentedBar', () => {
         await expect(bar).toHaveAttribute('aria-label', '5 passed, 2 failed, 1 skipped');
     });
 
-    test('combines failed, error, and compromised into one failure segment', async ({ mount, page }) => {
+    it('combines failed, error, and compromised into one failure segment', async ({ mount, page }) => {
         await mount({
             component: 'SegmentedBar',
             importPath: './components/charts/SegmentedBar',
@@ -40,7 +40,7 @@ test.describe('SegmentedBar', () => {
         await expect(bar).toHaveAttribute('aria-label', '4 passed, 3 failed, 0 skipped');
     });
 
-    test('combines pending and skipped into one skipped segment', async ({ mount, page }) => {
+    it('combines pending and skipped into one skipped segment', async ({ mount, page }) => {
         await mount({
             component: 'SegmentedBar',
             importPath: './components/charts/SegmentedBar',
@@ -52,7 +52,7 @@ test.describe('SegmentedBar', () => {
         await expect(bar).toHaveAttribute('aria-label', '2 passed, 0 failed, 4 skipped');
     });
 
-    test('shows only a passed segment when there are no failures or skips', async ({ mount, page }) => {
+    it('shows only a passed segment when there are no failures or skips', async ({ mount, page }) => {
         await mount({
             component: 'SegmentedBar',
             importPath: './components/charts/SegmentedBar',
@@ -68,7 +68,7 @@ test.describe('SegmentedBar', () => {
         await expect(segments.first()).toHaveCSS('background-color', 'rgb(40, 199, 111)'); // --color-passed
     });
 
-    test('uses default 6px height without a className', async ({ mount, page }) => {
+    it('uses default 6px height without a className', async ({ mount, page }) => {
         await mount({
             component: 'SegmentedBar',
             importPath: './components/charts/SegmentedBar',
@@ -80,7 +80,7 @@ test.describe('SegmentedBar', () => {
         await expect(bar).toHaveCSS('height', '6px');
     });
 
-    test('uses 10px height when className is req-detail-outcome-bar', async ({ mount, page }) => {
+    it('uses 10px height when className is req-detail-outcome-bar', async ({ mount, page }) => {
         await mount({
             component: 'SegmentedBar',
             importPath: './components/charts/SegmentedBar',
@@ -92,7 +92,7 @@ test.describe('SegmentedBar', () => {
         await expect(bar).toHaveCSS('height', '10px');
     });
 
-    test('renders proportional segment widths', async ({ mount, page }) => {
+    it('renders proportional segment widths', async ({ mount, page }) => {
         await mount({
             component: 'SegmentedBar',
             importPath: './components/charts/SegmentedBar',
@@ -109,7 +109,7 @@ test.describe('SegmentedBar', () => {
         await expect(segments.nth(1)).toHaveAttribute('style', /width:\s*25%/);
     });
 
-    test('includes a visually-hidden text summary for screen readers', async ({ mount, page }) => {
+    it('includes a visually-hidden text summary for screen readers', async ({ mount, page }) => {
         await mount({
             component: 'SegmentedBar',
             importPath: './components/charts/SegmentedBar',

@@ -1,5 +1,5 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { minimalData } from './data-factories.js';
+import { describe, expect, it } from './fixtures.js';
 
 function scenarioWithHistory(executionHistory: Array<{ outcome: string; run: string; timestamp?: string }>) {
     return {
@@ -15,9 +15,9 @@ function scenarioWithHistory(executionHistory: Array<{ outcome: string; run: str
     };
 }
 
-test.describe('ExecutionHistory', () => {
+describe('ExecutionHistory', () => {
 
-    test('renders nothing when executionHistory is empty', async ({ mount, page }) => {
+    it('renders nothing when executionHistory is empty', async ({ mount, page }) => {
         await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenario/ExecutionHistory',
@@ -33,7 +33,7 @@ test.describe('ExecutionHistory', () => {
         await expect(page.locator('.card-title')).toHaveCount(0);
     });
 
-    test('displays the section title "Execution History"', async ({ mount, page }) => {
+    it('displays the section title "Execution History"', async ({ mount, page }) => {
         await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenario/ExecutionHistory',
@@ -51,7 +51,7 @@ test.describe('ExecutionHistory', () => {
         await expect(page.locator('.card-title')).toHaveText('Execution History');
     });
 
-    test('shows "X of Y passing" summary', async ({ mount, page }) => {
+    it('shows "X of Y passing" summary', async ({ mount, page }) => {
         await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenario/ExecutionHistory',
@@ -77,7 +77,7 @@ test.describe('ExecutionHistory', () => {
         await expect(summary).toContainText('2 of 3 passing');
     });
 
-    test('computes consistency as percentage of non-flipping transitions', async ({ mount, page }) => {
+    it('computes consistency as percentage of non-flipping transitions', async ({ mount, page }) => {
         await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenario/ExecutionHistory',
@@ -108,7 +108,7 @@ test.describe('ExecutionHistory', () => {
         await expect(summary).toContainText('33% consistent');
     });
 
-    test('shows 100% consistency when there is only one run', async ({ mount, page }) => {
+    it('shows 100% consistency when there is only one run', async ({ mount, page }) => {
         await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenario/ExecutionHistory',
@@ -130,7 +130,7 @@ test.describe('ExecutionHistory', () => {
         await expect(summary).toContainText('100% consistent');
     });
 
-    test('shows 100% consistency when all runs have the same outcome', async ({ mount, page }) => {
+    it('shows 100% consistency when all runs have the same outcome', async ({ mount, page }) => {
         await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenario/ExecutionHistory',
@@ -156,7 +156,7 @@ test.describe('ExecutionHistory', () => {
         await expect(summary).toContainText('100% consistent');
     });
 
-    test('renders a dot for each run in the execution history', async ({ mount, page }) => {
+    it('renders a dot for each run in the execution history', async ({ mount, page }) => {
         await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenario/ExecutionHistory',
@@ -175,7 +175,7 @@ test.describe('ExecutionHistory', () => {
         await expect(dots).toHaveCount(2);
     });
 
-    test('highlights the latest run as active when runIndex is null', async ({ mount, page }) => {
+    it('highlights the latest run as active when runIndex is null', async ({ mount, page }) => {
         await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenario/ExecutionHistory',
@@ -198,7 +198,7 @@ test.describe('ExecutionHistory', () => {
         await expect(lastItem).toHaveClass(/exec-history-item--active/);
     });
 
-    test('highlights the specified runIndex as active', async ({ mount, page }) => {
+    it('highlights the specified runIndex as active', async ({ mount, page }) => {
         await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenario/ExecutionHistory',
@@ -225,7 +225,7 @@ test.describe('ExecutionHistory', () => {
         await expect(firstItem).toHaveClass(/exec-history-item--active/);
     });
 
-    test('groups runs by date', async ({ mount, page }) => {
+    it('groups runs by date', async ({ mount, page }) => {
         await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenario/ExecutionHistory',
@@ -252,7 +252,7 @@ test.describe('ExecutionHistory', () => {
         await expect(dateHeaders).toHaveCount(2);
     });
 
-    test('uses run labels for non-ISO run identifiers', async ({ mount, page }) => {
+    it('uses run labels for non-ISO run identifiers', async ({ mount, page }) => {
         await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenario/ExecutionHistory',
@@ -274,7 +274,7 @@ test.describe('ExecutionHistory', () => {
         await expect(label).toHaveText('build-41');
     });
 
-    test('navigates to the correct URL when clicking a historical run for a scenario with a browser tag', async ({ mount, page }) => {
+    it('navigates to the correct URL when clicking a historical run for a scenario with a browser tag', async ({ mount, page }) => {
         let navigatedTo = '';
         await page.exposeFunction('__onNavigate__', (path: string) => { navigatedTo = path; });
 
@@ -320,7 +320,7 @@ test.describe('ExecutionHistory', () => {
         expect(questionMarkCount).toBe(1);
     });
 
-    test('navigates using the entry timestamp even when the scenario does not appear in every global run', async ({ mount, page }) => {
+    it('navigates using the entry timestamp even when the scenario does not appear in every global run', async ({ mount, page }) => {
         let navigatedTo = '';
         await page.exposeFunction('__onNavigate__', (path: string) => { navigatedTo = path; });
 
@@ -365,7 +365,7 @@ test.describe('ExecutionHistory', () => {
         expect(decoded).not.toContain('run=2024-06-14T08:00:00.000Z');
     });
 
-    test('only considers runs up to the active runIndex for the summary', async ({ mount, page }) => {
+    it('only considers runs up to the active runIndex for the summary', async ({ mount, page }) => {
         const history = [
             { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
             { timestamp: '2024-06-15T10:00:00.000Z', label: '#42', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
@@ -393,7 +393,7 @@ test.describe('ExecutionHistory', () => {
         await expect(summary).toContainText('2 of 2 passing');
     });
 
-    test('renders a retried-success dot with the correct CSS class when retriedAndPassed is true', async ({ mount, page }) => {
+    it('renders a retried-success dot with the correct CSS class when retriedAndPassed is true', async ({ mount, page }) => {
         await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenario/ExecutionHistory',
@@ -435,7 +435,7 @@ test.describe('ExecutionHistory', () => {
         await expect(secondDot).toHaveClass(/exec-history-dot--retried-success/);
     });
 
-    test('shows "Passed on retry" tooltip for retried-success dots', async ({ mount, page }) => {
+    it('shows "Passed on retry" tooltip for retried-success dots', async ({ mount, page }) => {
         await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenario/ExecutionHistory',
@@ -468,7 +468,7 @@ test.describe('ExecutionHistory', () => {
         expect(title).toContain('Passed on retry (attempt 2 of 2)');
     });
 
-    test('renders retry icon in retried-success dots', async ({ mount, page }) => {
+    it('renders retry icon in retried-success dots', async ({ mount, page }) => {
         await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenario/ExecutionHistory',

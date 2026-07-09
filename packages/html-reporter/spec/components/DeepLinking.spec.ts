@@ -1,5 +1,5 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { minimalData } from './data-factories.js';
+import { describe, expect, it } from './fixtures.js';
 
 /**
  * Builds fixture data for a retried scenario with videos per attempt.
@@ -42,9 +42,9 @@ function retriedScenarioData() {
 
 const SCENARIO_ID = 'spec/retry.spec.ts:10';
 
-test.describe('Deep linking — ScenarioDetailView attempts', () => {
+describe('Deep linking — ScenarioDetailView attempts', () => {
 
-    test('pre-selects attempt from ?attempt= URL parameter', async ({ mount, page }) => {
+    it('pre-selects attempt from ?attempt= URL parameter', async ({ mount, page }) => {
         await mount({
             component: 'ScenarioDetailView',
             importPath: './components/ScenarioDetailView',
@@ -57,7 +57,7 @@ test.describe('Deep linking — ScenarioDetailView attempts', () => {
         await expect(tabs.nth(1)).toHaveClass(/active/);
     });
 
-    test('defaults to first attempt when no ?attempt= parameter', async ({ mount, page }) => {
+    it('defaults to first attempt when no ?attempt= parameter', async ({ mount, page }) => {
         await mount({
             component: 'ScenarioDetailView',
             importPath: './components/ScenarioDetailView',
@@ -70,7 +70,7 @@ test.describe('Deep linking — ScenarioDetailView attempts', () => {
         await expect(tabs.nth(0)).toHaveClass(/active/);
     });
 
-    test('updates URL hash with ?attempt= when clicking an attempt tab', async ({ mount, page }) => {
+    it('updates URL hash with ?attempt= when clicking an attempt tab', async ({ mount, page }) => {
         await mount({
             component: 'ScenarioDetailView',
             importPath: './components/ScenarioDetailView',
@@ -85,7 +85,7 @@ test.describe('Deep linking — ScenarioDetailView attempts', () => {
         expect(hash).toContain('attempt=3');
     });
 
-    test('shows the correct video for the selected attempt', async ({ mount, page }) => {
+    it('shows the correct video for the selected attempt', async ({ mount, page }) => {
         await mount({
             component: 'ScenarioDetailView',
             importPath: './components/ScenarioDetailView',
@@ -97,7 +97,7 @@ test.describe('Deep linking — ScenarioDetailView attempts', () => {
         await expect(videoSource).toHaveAttribute('src', 'test-runs/run-1/video-2.webm');
     });
 
-    test('hides video section for attempts that have no recording', async ({ mount, page }) => {
+    it('hides video section for attempts that have no recording', async ({ mount, page }) => {
         // Simulate video: 'on-first-retry' — only attempt 2 has a video
         const attemptsWithPartialVideo = [
             { attemptNumber: 1, outcome: 'FAILURE', duration: 200, activities: [{ name: 'step 1', outcome: 'FAILURE', duration: 200, children: [] }], error: { name: 'Error', message: 'attempt 1 failed' } },
@@ -137,7 +137,7 @@ test.describe('Deep linking — ScenarioDetailView attempts', () => {
     });
 });
 
-test.describe('Deep linking — PhotoStrip', () => {
+describe('Deep linking — PhotoStrip', () => {
 
     const photoData = minimalData({
         scenarios: [{
@@ -153,7 +153,7 @@ test.describe('Deep linking — PhotoStrip', () => {
         }],
     });
 
-    test('updates URL hash with ?photo= when clicking a photo thumbnail', async ({ mount, page }) => {
+    it('updates URL hash with ?photo= when clicking a photo thumbnail', async ({ mount, page }) => {
         await mount({
             component: 'ScenarioDetailView',
             importPath: './components/ScenarioDetailView',

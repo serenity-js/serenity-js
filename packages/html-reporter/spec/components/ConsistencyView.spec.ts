@@ -1,7 +1,7 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { minimalData } from './data-factories.js';
+import { describe, expect, it } from './fixtures.js';
 
-test.describe('ConsistencyView', () => {
+describe('ConsistencyView', () => {
 
     const inconsistentTestData = minimalData({
         inconsistentTests: [
@@ -44,7 +44,7 @@ test.describe('ConsistencyView', () => {
         ],
     });
 
-    test('default filter is "all" showing all tests', async ({ mount, page }) => {
+    it('default filter is "all" showing all tests', async ({ mount, page }) => {
         await mount({
             component: 'ConsistencyView',
             importPath: './components/ConsistencyView',
@@ -57,7 +57,7 @@ test.describe('ConsistencyView', () => {
         await expect(page.locator('body')).toContainText('Showing 4 tests');
     });
 
-    test('displays four filter chips with correct counts', async ({ mount, page }) => {
+    it('displays four filter chips with correct counts', async ({ mount, page }) => {
         await mount({
             component: 'ConsistencyView',
             importPath: './components/ConsistencyView',
@@ -72,7 +72,7 @@ test.describe('ConsistencyView', () => {
         await expect(page.locator('.filter-chip', { hasText: 'Recovered' }).locator('.count')).toHaveText('1');
     });
 
-    test('flaky filter shows only tests that never genuinely failed', async ({ mount, page }) => {
+    it('flaky filter shows only tests that never genuinely failed', async ({ mount, page }) => {
         await mount({
             component: 'ConsistencyView',
             importPath: './components/ConsistencyView',
@@ -86,7 +86,7 @@ test.describe('ConsistencyView', () => {
         await expect(page.locator('body')).not.toContainText('Degraded test');
     });
 
-    test('inconsistent filter excludes flaky-only tests', async ({ mount, page }) => {
+    it('inconsistent filter excludes flaky-only tests', async ({ mount, page }) => {
         await mount({
             component: 'ConsistencyView',
             importPath: './components/ConsistencyView',
@@ -100,7 +100,7 @@ test.describe('ConsistencyView', () => {
         await expect(page.locator('body')).not.toContainText('Flaky test');
     });
 
-    test('classifies [SUCCESS, FAILURE] as degraded', async ({ mount, page }) => {
+    it('classifies [SUCCESS, FAILURE] as degraded', async ({ mount, page }) => {
         await mount({
             component: 'ConsistencyView',
             importPath: './components/ConsistencyView',
@@ -112,7 +112,7 @@ test.describe('ConsistencyView', () => {
         await expect(page.locator('body')).toContainText('Degraded test (was passing, now failing)');
     });
 
-    test('classifies [FAILURE, SUCCESS] as recovered (clean pass)', async ({ mount, page }) => {
+    it('classifies [FAILURE, SUCCESS] as recovered (clean pass)', async ({ mount, page }) => {
         await mount({
             component: 'ConsistencyView',
             importPath: './components/ConsistencyView',
@@ -124,7 +124,7 @@ test.describe('ConsistencyView', () => {
         await expect(page.locator('body')).toContainText('Recovered test (was failing, now passes cleanly)');
     });
 
-    test('classifies [FAILURE, RETRIED_SUCCESS] as inconsistent, not flaky', async ({ mount, page }) => {
+    it('classifies [FAILURE, RETRIED_SUCCESS] as inconsistent, not flaky', async ({ mount, page }) => {
         await mount({
             component: 'ConsistencyView',
             importPath: './components/ConsistencyView',
@@ -149,7 +149,7 @@ test.describe('ConsistencyView', () => {
         await expect(page.locator('.filter-chip', { hasText: /^Inconsistent/ }).locator('.count')).toHaveText('1');
     });
 
-    test('shows kind label on each row', async ({ mount, page }) => {
+    it('shows kind label on each row', async ({ mount, page }) => {
         await mount({
             component: 'ConsistencyView',
             importPath: './components/ConsistencyView',
@@ -161,7 +161,7 @@ test.describe('ConsistencyView', () => {
         await expect(kindLabels).toHaveCount(4);
     });
 
-    test('shows placeholder when no inconsistent tests', async ({ mount, page }) => {
+    it('shows placeholder when no inconsistent tests', async ({ mount, page }) => {
         await mount({
             component: 'ConsistencyView',
             importPath: './components/ConsistencyView',

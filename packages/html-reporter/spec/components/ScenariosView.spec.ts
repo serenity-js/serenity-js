@@ -1,11 +1,11 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { minimalData } from './data-factories.js';
+import { describe, expect, it } from './fixtures.js';
 
-test.describe('ScenariosView deep linking', () => {
+describe('ScenariosView deep linking', () => {
 
     const data = minimalData();
 
-    test('filters by search param in route', async ({ mount, page }) => {
+    it('filters by search param in route', async ({ mount, page }) => {
         await mount({
             component: 'ScenariosView',
             importPath: './components/ScenariosView',
@@ -17,7 +17,7 @@ test.describe('ScenariosView deep linking', () => {
         await expect(page.locator('body')).toContainText('Showing 1 of 4');
     });
 
-    test('filters by outcome filter param in route', async ({ mount, page }) => {
+    it('filters by outcome filter param in route', async ({ mount, page }) => {
         await mount({
             component: 'ScenariosView',
             importPath: './components/ScenariosView',
@@ -29,7 +29,7 @@ test.describe('ScenariosView deep linking', () => {
         await expect(page.locator('body')).toContainText('Test D');
     });
 
-    test('applies both search and filter params', async ({ mount, page }) => {
+    it('applies both search and filter params', async ({ mount, page }) => {
         await mount({
             component: 'ScenariosView',
             importPath: './components/ScenariosView',
@@ -41,7 +41,7 @@ test.describe('ScenariosView deep linking', () => {
         await expect(page.locator('body')).toContainText('Showing 2 of 4');
     });
 
-    test('shows all scenarios with no params', async ({ mount, page }) => {
+    it('shows all scenarios with no params', async ({ mount, page }) => {
         await mount({
             component: 'ScenariosView',
             importPath: './components/ScenariosView',
@@ -52,7 +52,7 @@ test.describe('ScenariosView deep linking', () => {
         await expect(page.locator('body')).toContainText('Showing 4 of 4');
     });
 
-    test('filters by run param showing only matching run', async ({ mount, page }) => {
+    it('filters by run param showing only matching run', async ({ mount, page }) => {
         await mount({
             component: 'ScenariosView',
             importPath: './components/ScenariosView',
@@ -70,9 +70,9 @@ test.describe('ScenariosView deep linking', () => {
     });
 });
 
-test.describe('ScenariosView scenario navigation', () => {
+describe('ScenariosView scenario navigation', () => {
 
-    test('scenarios in the same file without line numbers are both listed distinctly', async ({ mount, page }) => {
+    it('scenarios in the same file without line numbers are both listed distinctly', async ({ mount, page }) => {
         await mount({
             component: 'ScenariosView',
             importPath: './components/ScenariosView',
@@ -106,7 +106,7 @@ test.describe('ScenariosView scenario navigation', () => {
         await expect(items.last()).toContainText('shared.spec.ts');
     });
 
-    test('displays line number in source path when available', async ({ mount, page }) => {
+    it('displays line number in source path when available', async ({ mount, page }) => {
         await mount({
             component: 'ScenariosView',
             importPath: './components/ScenariosView',
@@ -127,9 +127,9 @@ test.describe('ScenariosView scenario navigation', () => {
     });
 });
 
-test.describe('ScenariosView accessibility', () => {
+describe('ScenariosView accessibility', () => {
 
-    test('filter result count has aria-live polite region', async ({ mount, page }) => {
+    it('filter result count has aria-live polite region', async ({ mount, page }) => {
         await mount({
             component: 'ScenariosView',
             importPath: './components/ScenariosView',

@@ -1,9 +1,9 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { minimalData } from './data-factories.js';
+import { describe, expect, it } from './fixtures.js';
 
-test.describe('SystemContextView', () => {
+describe('SystemContextView', () => {
 
-    test('renders environment info', async ({ mount, page }) => {
+    it('renders environment info', async ({ mount, page }) => {
         await mount({
             component: 'SystemContextView',
             importPath: './components/SystemContextView',
@@ -17,7 +17,7 @@ test.describe('SystemContextView', () => {
         await expect(page.locator('body')).toContainText('v3.44.0');
     });
 
-    test('renders CI/CD information when present', async ({ mount, page }) => {
+    it('renders CI/CD information when present', async ({ mount, page }) => {
         await mount({
             component: 'SystemContextView',
             importPath: './components/SystemContextView',
@@ -31,7 +31,7 @@ test.describe('SystemContextView', () => {
         await expect(page.locator('body')).toContainText('fix: resolve unstable test');
     });
 
-    test('renders browser information', async ({ mount, page }) => {
+    it('renders browser information', async ({ mount, page }) => {
         await mount({
             component: 'SystemContextView',
             importPath: './components/SystemContextView',
@@ -56,7 +56,7 @@ test.describe('SystemContextView', () => {
         await expect(page.locator('body')).toContainText('115.0');
     });
 
-    test('shows placeholder when systemContext is missing', async ({ mount, page }) => {
+    it('shows placeholder when systemContext is missing', async ({ mount, page }) => {
         await mount({
             component: 'SystemContextView',
             importPath: './components/SystemContextView',
@@ -67,7 +67,7 @@ test.describe('SystemContextView', () => {
         await expect(page.locator('body')).toContainText('not yet available');
     });
 
-    test('does not render CI section when ci is null', async ({ mount, page }) => {
+    it('does not render CI section when ci is null', async ({ mount, page }) => {
         await mount({
             component: 'SystemContextView',
             importPath: './components/SystemContextView',

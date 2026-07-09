@@ -1,9 +1,9 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { minimalData } from './data-factories.js';
+import { describe, expect, it } from './fixtures.js';
 
-test.describe('ActivityNode — HTTP exchange (restQuery)', () => {
+describe('ActivityNode — HTTP exchange (restQuery)', () => {
 
-    test('renders a REST badge when restQuery is present', async ({ mount, page }) => {
+    it('renders a REST badge when restQuery is present', async ({ mount, page }) => {
         await mount({
             component: 'ActivityNode',
             importPath: './components/ActivityNode',
@@ -30,7 +30,7 @@ test.describe('ActivityNode — HTTP exchange (restQuery)', () => {
         await expect(page.locator('.rest-badge')).toContainText('REST');
     });
 
-    test('displays method, URL, and status code', async ({ mount, page }) => {
+    it('displays method, URL, and status code', async ({ mount, page }) => {
         await mount({
             component: 'ActivityNode',
             importPath: './components/ActivityNode',
@@ -63,7 +63,7 @@ test.describe('ActivityNode — HTTP exchange (restQuery)', () => {
         await expect(panel).toContainText('200');
     });
 
-    test('displays request and response headers', async ({ mount, page }) => {
+    it('displays request and response headers', async ({ mount, page }) => {
         await mount({
             component: 'ActivityNode',
             importPath: './components/ActivityNode',
@@ -96,7 +96,7 @@ test.describe('ActivityNode — HTTP exchange (restQuery)', () => {
         await expect(panel).toContainText('content-type: application/json');
     });
 
-    test('displays request and response bodies', async ({ mount, page }) => {
+    it('displays request and response bodies', async ({ mount, page }) => {
         await mount({
             component: 'ActivityNode',
             importPath: './components/ActivityNode',
@@ -128,7 +128,7 @@ test.describe('ActivityNode — HTTP exchange (restQuery)', () => {
         await expect(panel).toContainText('"id": 1');
     });
 
-    test('does not render REST badge when restQuery is absent', async ({ mount, page }) => {
+    it('does not render REST badge when restQuery is absent', async ({ mount, page }) => {
         await mount({
             component: 'ActivityNode',
             importPath: './components/ActivityNode',
@@ -148,9 +148,9 @@ test.describe('ActivityNode — HTTP exchange (restQuery)', () => {
     });
 });
 
-test.describe('ActivityNode — report data attachments', () => {
+describe('ActivityNode — report data attachments', () => {
 
-    test('renders a data attachment block for each reportData entry', async ({ mount, page }) => {
+    it('renders a data attachment block for each reportData entry', async ({ mount, page }) => {
         await mount({
             component: 'ActivityNode',
             importPath: './components/ActivityNode',
@@ -175,7 +175,7 @@ test.describe('ActivityNode — report data attachments', () => {
         await expect(attachment).toContainText('buy milk');
     });
 
-    test('renders multiple data attachments', async ({ mount, page }) => {
+    it('renders multiple data attachments', async ({ mount, page }) => {
         await mount({
             component: 'ActivityNode',
             importPath: './components/ActivityNode',
@@ -201,7 +201,7 @@ test.describe('ActivityNode — report data attachments', () => {
         await expect(attachments.last()).toContainText('response');
     });
 
-    test('does not render data blocks when reportData is absent', async ({ mount, page }) => {
+    it('does not render data blocks when reportData is absent', async ({ mount, page }) => {
         await mount({
             component: 'ActivityNode',
             importPath: './components/ActivityNode',

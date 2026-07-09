@@ -1,5 +1,5 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { minimalData } from './data-factories.js';
+import { describe, expect, it } from './fixtures.js';
 
 /**
  * Builds a ReportData fixture for a scenario with mixed retry history.
@@ -67,11 +67,11 @@ function scenarioWithMixedRetryHistory() {
 const SCENARIO_ID = 'spec/retried.spec.ts:8';
 const RUN_1_TIMESTAMP = '2024-06-14T10:00:00.000Z';
 
-test.describe('ScenarioDetailView — per-run retry tabs', () => {
+describe('ScenarioDetailView — per-run retry tabs', () => {
 
-    test.describe('when viewing the latest run (retried)', () => {
+    describe('when viewing the latest run (retried)', () => {
 
-        test('shows attempt tabs', async ({ mount, page }) => {
+        it('shows attempt tabs', async ({ mount, page }) => {
             await mount({
                 component: 'ScenarioDetailView',
                 importPath: './components/ScenarioDetailView',
@@ -84,7 +84,7 @@ test.describe('ScenarioDetailView — per-run retry tabs', () => {
             await expect(page.locator('.retry-tab').last()).toContainText('Attempt 3');
         });
 
-        test('displays the scenario duration', async ({ mount, page }) => {
+        it('displays the scenario duration', async ({ mount, page }) => {
             await mount({
                 component: 'ScenarioDetailView',
                 importPath: './components/ScenarioDetailView',
@@ -95,7 +95,7 @@ test.describe('ScenarioDetailView — per-run retry tabs', () => {
             await expect(page.locator('.scenario-detail-meta')).toContainText('150ms');
         });
 
-        test('switches activity tree when clicking attempt tabs', async ({ mount, page }) => {
+        it('switches activity tree when clicking attempt tabs', async ({ mount, page }) => {
             await mount({
                 component: 'ScenarioDetailView',
                 importPath: './components/ScenarioDetailView',
@@ -112,9 +112,9 @@ test.describe('ScenarioDetailView — per-run retry tabs', () => {
         });
     });
 
-    test.describe('when viewing a historical run that was not retried', () => {
+    describe('when viewing a historical run that was not retried', () => {
 
-        test('hides attempt tabs', async ({ mount, page }) => {
+        it('hides attempt tabs', async ({ mount, page }) => {
             await mount({
                 component: 'ScenarioDetailView',
                 importPath: './components/ScenarioDetailView',
@@ -125,7 +125,7 @@ test.describe('ScenarioDetailView — per-run retry tabs', () => {
             await expect(page.locator('.retry-tab')).toHaveCount(0);
         });
 
-        test('displays the historical run duration', async ({ mount, page }) => {
+        it('displays the historical run duration', async ({ mount, page }) => {
             await mount({
                 component: 'ScenarioDetailView',
                 importPath: './components/ScenarioDetailView',
@@ -136,7 +136,7 @@ test.describe('ScenarioDetailView — per-run retry tabs', () => {
             await expect(page.locator('.scenario-detail-meta')).toContainText('200ms');
         });
 
-        test('shows activities from the historical run', async ({ mount, page }) => {
+        it('shows activities from the historical run', async ({ mount, page }) => {
             await mount({
                 component: 'ScenarioDetailView',
                 importPath: './components/ScenarioDetailView',
@@ -147,7 +147,7 @@ test.describe('ScenarioDetailView — per-run retry tabs', () => {
             await expect(page.locator('.activity-tree')).toContainText('step from run 1');
         });
 
-        test('shows error block from the historical run', async ({ mount, page }) => {
+        it('shows error block from the historical run', async ({ mount, page }) => {
             await mount({
                 component: 'ScenarioDetailView',
                 importPath: './components/ScenarioDetailView',

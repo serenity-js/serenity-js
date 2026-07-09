@@ -1,9 +1,9 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { minimalData } from './data-factories.js';
+import { describe, expect, it } from './fixtures.js';
 
-test.describe('Dark mode', () => {
+describe('Dark mode', () => {
 
-    test('FilterBar renders with dark theme', async ({ mount, page }) => {
+    it('FilterBar renders with dark theme', async ({ mount, page }) => {
         await mount({
             component: 'FilterBar',
             importPath: './components/FilterBar',
@@ -26,7 +26,7 @@ test.describe('Dark mode', () => {
         expect(bg).toBeTruthy();
     });
 
-    test('TagsView renders with dark theme', async ({ mount, page }) => {
+    it('TagsView renders with dark theme', async ({ mount, page }) => {
         await mount({
             component: 'TagsView',
             importPath: './components/TagsView',
@@ -39,7 +39,7 @@ test.describe('Dark mode', () => {
         await expect(page.locator('body')).toContainText('Login');
     });
 
-    test('SystemContextView renders with dark theme', async ({ mount, page }) => {
+    it('SystemContextView renders with dark theme', async ({ mount, page }) => {
         await mount({
             component: 'SystemContextView',
             importPath: './components/SystemContextView',
@@ -51,7 +51,7 @@ test.describe('Dark mode', () => {
         await expect(page.locator('body')).toContainText('v22.0.0');
     });
 
-    test('TimelineView renders with dark theme', async ({ mount, page }) => {
+    it('TimelineView renders with dark theme', async ({ mount, page }) => {
         await mount({
             component: 'TimelineView',
             importPath: './components/TimelineView',

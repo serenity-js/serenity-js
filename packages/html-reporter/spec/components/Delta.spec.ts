@@ -1,9 +1,9 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { minimalData } from './data-factories.js';
+import { describe, expect, it } from './fixtures.js';
 
-test.describe('Delta', () => {
+describe('Delta', () => {
 
-    test('renders nothing when previous is undefined', async ({ mount, page }) => {
+    it('renders nothing when previous is undefined', async ({ mount, page }) => {
         await mount({
             component: 'Delta',
             importPath: './components/charts/Delta',
@@ -14,7 +14,7 @@ test.describe('Delta', () => {
         await expect(page.locator('.kpi-delta')).toHaveCount(0);
     });
 
-    test('shows "no change" when current equals previous', async ({ mount, page }) => {
+    it('shows "no change" when current equals previous', async ({ mount, page }) => {
         await mount({
             component: 'Delta',
             importPath: './components/charts/Delta',
@@ -27,7 +27,7 @@ test.describe('Delta', () => {
         await expect(delta).toHaveClass(/kpi-delta--neutral/);
     });
 
-    test('shows upward arrow with positive class when value increases', async ({ mount, page }) => {
+    it('shows upward arrow with positive class when value increases', async ({ mount, page }) => {
         await mount({
             component: 'Delta',
             importPath: './components/charts/Delta',
@@ -40,7 +40,7 @@ test.describe('Delta', () => {
         await expect(delta).toHaveClass(/kpi-delta--positive/);
     });
 
-    test('shows downward arrow with negative class when value decreases', async ({ mount, page }) => {
+    it('shows downward arrow with negative class when value decreases', async ({ mount, page }) => {
         await mount({
             component: 'Delta',
             importPath: './components/charts/Delta',
@@ -53,7 +53,7 @@ test.describe('Delta', () => {
         await expect(delta).toHaveClass(/kpi-delta--negative/);
     });
 
-    test('inverts polarity when invert is true (increase = negative)', async ({ mount, page }) => {
+    it('inverts polarity when invert is true (increase = negative)', async ({ mount, page }) => {
         await mount({
             component: 'Delta',
             importPath: './components/charts/Delta',
@@ -67,7 +67,7 @@ test.describe('Delta', () => {
         await expect(delta).toHaveClass(/kpi-delta--negative/);
     });
 
-    test('inverts polarity when invert is true (decrease = positive)', async ({ mount, page }) => {
+    it('inverts polarity when invert is true (decrease = positive)', async ({ mount, page }) => {
         await mount({
             component: 'Delta',
             importPath: './components/charts/Delta',
@@ -81,7 +81,7 @@ test.describe('Delta', () => {
         await expect(delta).toHaveClass(/kpi-delta--positive/);
     });
 
-    test('appends suffix to the displayed value', async ({ mount, page }) => {
+    it('appends suffix to the displayed value', async ({ mount, page }) => {
         await mount({
             component: 'Delta',
             importPath: './components/charts/Delta',
@@ -93,7 +93,7 @@ test.describe('Delta', () => {
         await expect(delta).toContainText('↑ 5%');
     });
 
-    test('displays absolute difference regardless of direction', async ({ mount, page }) => {
+    it('displays absolute difference regardless of direction', async ({ mount, page }) => {
         await mount({
             component: 'Delta',
             importPath: './components/charts/Delta',
