@@ -58,7 +58,7 @@ describe('Dark mode', () => {
             props: { onNavigate: () => {} },
             data: minimalData({
                 scenarios: [
-                    { name: 'Test A', category: 'Suite', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                    { name: 'Test A', category: 'Suite', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [], executionHistory: [] },
                 ],
             }),
         });

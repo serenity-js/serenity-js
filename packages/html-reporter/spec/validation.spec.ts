@@ -344,7 +344,7 @@ test.describe('validateRunData', () => {
         test('InvalidRunDataError exposes path and reason', () => {
             try {
                 validateRunData(null, '/my/path.json');
-                expect.fail('should have thrown');
+                test.fail(true, 'should have thrown');
             } catch (error) {
                 expect(error).toBeInstanceOf(InvalidRunDataError);
                 expect((error as InvalidRunDataError).path).toBe('/my/path.json');
@@ -357,7 +357,7 @@ test.describe('validateRunData', () => {
 
             try {
                 validateRunData(futureData, '/my/path.json');
-                expect.fail('should have thrown');
+                test.fail(true, 'should have thrown');
             } catch (error) {
                 expect(error).toBeInstanceOf(IncompatibleSchemaError);
                 expect((error as IncompatibleSchemaError).path).toBe('/my/path.json');

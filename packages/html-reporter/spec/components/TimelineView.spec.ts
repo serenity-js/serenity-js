@@ -5,9 +5,9 @@ describe('TimelineView', () => {
 
     const data = minimalData({
         scenarios: [
-            { name: 'Fast test', category: 'Suite', outcome: 'SUCCESS', duration: 50, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
-            { name: 'Medium test', category: 'Suite', outcome: 'SUCCESS', duration: 300, startedAt: '2024-06-15T14:30:00.050Z', source: { path: 'a.spec.ts', line: 5 }, tags: [], activities: [] },
-            { name: 'Slow failing test', category: 'Other', outcome: 'FAILURE', duration: 800, startedAt: '2024-06-15T14:30:00.350Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [], error: { name: 'Error', message: 'fail', stack: '' } },
+            { name: 'Fast test', category: 'Suite', outcome: 'SUCCESS', duration: 50, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [], executionHistory: [] },
+            { name: 'Medium test', category: 'Suite', outcome: 'SUCCESS', duration: 300, startedAt: '2024-06-15T14:30:00.050Z', source: { path: 'a.spec.ts', line: 5 }, tags: [], activities: [], executionHistory: [] },
+            { name: 'Slow failing test', category: 'Other', outcome: 'FAILURE', duration: 800, startedAt: '2024-06-15T14:30:00.350Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [], executionHistory: [], error: { name: 'Error', message: 'fail', stack: '' } },
         ],
         summary: {
             title: 'Test Project',
