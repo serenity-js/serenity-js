@@ -1,6 +1,6 @@
 import type { Answerable } from '@serenity-js/core';
 import { Question } from '@serenity-js/core';
-import { PageElement } from '@serenity-js/web';
+import type { PageElement } from '@serenity-js/web';
 
 export class ResultCount<NET> {
 
