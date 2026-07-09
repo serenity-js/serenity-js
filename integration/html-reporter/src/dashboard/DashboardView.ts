@@ -1,11 +1,11 @@
 import type { Answerable } from '@serenity-js/core';
 import { Task } from '@serenity-js/core';
-import { DashboardKpiCard } from '@serenity-js/html-reporter/serenity';
-import { By, PageElement } from '@serenity-js/web';
+import { DashboardView as DashboardViewBase } from '@serenity-js/html-reporter/serenity';
+import { PageElement } from '@serenity-js/web';
 
-import { Navigation, View } from '../app';
+import { Navigation } from '../app';
 
-export class DashboardView<NET> extends View<NET> {
+export class DashboardView<NET> extends DashboardViewBase<NET> {
 
     constructor(
         rootElement: Answerable<PageElement<NET>>,
@@ -13,9 +13,6 @@ export class DashboardView<NET> extends View<NET> {
     ) {
         super(rootElement);
     }
-
-    kpiCardAt = (index: number) =>
-        new DashboardKpiCard(this.children(By.css('[data-testid="dashboard-kpi-card"]')).nth(index))
 
     open = () =>
         Task.where(`#actor opens the Dashboard`,

@@ -1,11 +1,11 @@
 import type { Answerable } from '@serenity-js/core';
 import { Task } from '@serenity-js/core';
-import { KpiCard } from '@serenity-js/html-reporter/serenity';
-import { By, PageElement } from '@serenity-js/web';
+import { ErrorsView as ErrorsViewBase } from '@serenity-js/html-reporter/serenity';
+import { PageElement } from '@serenity-js/web';
 
-import { Navigation, View } from '../app';
+import { Navigation } from '../app';
 
-export class ErrorsView<NET> extends View<NET> {
+export class ErrorsView<NET> extends ErrorsViewBase<NET> {
 
     constructor(
         rootElement: Answerable<PageElement<NET>>,
@@ -13,9 +13,6 @@ export class ErrorsView<NET> extends View<NET> {
     ) {
         super(rootElement);
     }
-
-    kpiCardAt = (index: number) =>
-        new KpiCard(this.children(By.css('[data-testid="kpi-card"]')).nth(index))
 
     open = () =>
         Task.where(`#actor opens the Errors view`,
