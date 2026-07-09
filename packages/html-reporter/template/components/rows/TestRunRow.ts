@@ -3,6 +3,8 @@ import { h } from 'preact';
 
 import type { ReportHistoryEntry } from '../../../src/ReportData';
 import { formatDuration, formatRunLabel, formatTimestamp, scoreColor } from '../../utils';
+import { computeRunMetrics, normaliseRepoUrl } from '../../utils/computeRunMetrics';
+import { GitLink } from '../GitLink';
 import { icons } from '../icons';
 
 const html = htm.bind(h);
@@ -13,15 +15,8 @@ interface TestRunRowProps {
 }
 
 export function TestRunRow({ run, onNavigate }: TestRunRowProps): ReturnType<typeof html> {
-    const total = Object.values(run.outcomes).reduce((a: number, b: number) => a + b, 0);
-    const confidence = run.score ? run.score.confidence : (total > 0 ? Math.round((run.outcomes.passed / total) * 100) : 0);
-    const failedCount = (run.outcomes.failed || 0) + (run.outcomes.error || 0) + (run.outcomes.compromised || 0);
-    const skippedCount = (run.outcomes.pending || 0) + (run.outcomes.skipped || 0);
-    const passedPct = total > 0 ? (run.outcomes.passed / total) * 100 : 0;
-    const failedPct = total > 0 ? (failedCount / total) * 100 : 0;
-    const skippedPct = total > 0 ? (skippedCount / total) * 100 : 0;
-
-    const repoUrl = run.repositoryUrl ? run.repositoryUrl.replace(/\.git$/, '').replace(/^git@([^:]+):/, 'https://$1/') : '';
+    const { confidence, failedCount, skippedCount, passedPct, failedPct, skippedPct } = computeRunMetrics(run);
+    const repoUrl = normaliseRepoUrl(run.repositoryUrl);
 
     return html`
       <div class="scenario-item" onClick=${() => onNavigate('/tests?run=' + run.timestamp)}>
@@ -34,8 +29,8 @@ export function TestRunRow({ run, onNavigate }: TestRunRowProps): ReturnType<typ
             <span>${formatTimestamp(run.timestamp)}</span>
             <span>•</span>
             <span>${formatDuration(run.duration)}</span>
-            ${run.branch ? html`<span>•</span><span class="inline-flex-center">${icons.branch}${repoUrl ? html`<a href="${repoUrl}/tree/${run.branch}" target="_blank" rel="noopener" onClick=${(e: Event) => e.stopPropagation()} class="text-xs" style="color:inherit;text-decoration:none" onMouseOver=${(e: Event) => (e.target as HTMLElement).style.textDecoration='underline'} onMouseOut=${(e: Event) => (e.target as HTMLElement).style.textDecoration='none'}>${run.branch}</a>` : html`<span class="text-xs">${run.branch}</span>`}</span>` : null}
-            ${run.commit ? html`<span>•</span><span class="inline-flex-center">${icons.commit}${repoUrl ? html`<a href="${repoUrl}/commit/${run.commit}" target="_blank" rel="noopener" onClick=${(e: Event) => e.stopPropagation()} class="font-mono text-xs" style="color:inherit;text-decoration:none" onMouseOver=${(e: Event) => (e.target as HTMLElement).style.textDecoration='underline'} onMouseOut=${(e: Event) => (e.target as HTMLElement).style.textDecoration='none'}>${run.commit}</a>` : html`<span class="font-mono text-xs">${run.commit}</span>`}</span>` : null}
+            ${run.branch ? html`<${GitLink} icon=${icons.branch} label=${run.branch} href=${repoUrl ? repoUrl + '/tree/' + run.branch : ''} />` : null}
+            ${run.commit ? html`<${GitLink} icon=${icons.commit} label=${run.commit} href=${repoUrl ? repoUrl + '/commit/' + run.commit : ''} mono=${true} />` : null}
             ${run.ciJobUrl ? html`<span>•</span><a href=${run.ciJobUrl} target="_blank" rel="noopener" onClick=${(e: Event) => e.stopPropagation()} class="ci-link inline-flex-center" style="color:var(--accent);text-decoration:none" title="View CI job">${icons.externalLink}CI</a>` : null}
           </div>
         </div>

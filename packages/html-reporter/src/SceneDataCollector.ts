@@ -289,27 +289,45 @@ class SceneRecordBuilder {
             throw new LogicError('SceneRecordBuilder received an event queue without a SceneStarts event');
         }
 
-        // A retry sequence uses SceneSequenceDetected/SceneParametersDetected framing,
-        // but the parameterSets should be treated as retry attempts, not outline examples.
-        const isRetryMaskedAsOutline = this.isRetrySequence && this.isScenarioOutline && this.parameterSets.length > 0;
-        if (isRetryMaskedAsOutline) {
-            for (let i = 0; i < this.parameterSets.length; i++) {
-                const ps = this.parameterSets[i];
-                const attemptError = this.findErrorInActivities(ps.activities);
-                this.attempts.push({
-                    attemptNumber: i + 1,
-                    outcome: ps.outcome,
-                    duration: ps.duration,
-                    activities: ps.activities,
-                    ...(attemptError ? { error: attemptError } : {}),
-                });
-            }
-            this.isScenarioOutline = false;
-        }
+        this.normaliseRetrySequence();
 
         const isRetried = this.attempts.length > 1;
+        const base = this.buildBaseRecord(isRetried);
 
-        const base = {
+        if (this.isScenarioOutline && this.template) {
+            return { ...base, scenarioOutline: { template: this.template, parameters: this.parameterSets } } as SceneRecord;
+        }
+
+        if (isRetried) {
+            return { ...base, retries: this.attempts.length - 1, attempts: this.attempts } as SceneRecord;
+        }
+
+        return base as SceneRecord;
+    }
+
+    private normaliseRetrySequence(): void {
+        // A retry sequence uses SceneSequenceDetected/SceneParametersDetected framing,
+        // but the parameterSets should be treated as retry attempts, not outline examples.
+        if (!(this.isRetrySequence && this.isScenarioOutline && this.parameterSets.length > 0)) {
+            return;
+        }
+
+        for (let i = 0; i < this.parameterSets.length; i++) {
+            const ps = this.parameterSets[i];
+            const attemptError = this.findErrorInActivities(ps.activities);
+            this.attempts.push({
+                attemptNumber: i + 1,
+                outcome: ps.outcome,
+                duration: ps.duration,
+                activities: ps.activities,
+                ...(attemptError ? { error: attemptError } : {}),
+            });
+        }
+        this.isScenarioOutline = false;
+    }
+
+    private buildBaseRecord(isRetried: boolean) {
+        return {
             name: this.name,
             category: this.category,
             outcome: this.outcome,
@@ -326,16 +344,6 @@ class SceneRecordBuilder {
             ...(this.artifacts.length > 0 ? { artifacts: this.artifacts } : {}),
             ...(this.cast.length > 0 ? { cast: this.cast } : {}),
         };
-
-        if (this.isScenarioOutline && this.template) {
-            return { ...base, scenarioOutline: { template: this.template, parameters: this.parameterSets } } as SceneRecord;
-        }
-
-        if (isRetried) {
-            return { ...base, retries: this.attempts.length - 1, attempts: this.attempts } as SceneRecord;
-        }
-
-        return base as SceneRecord;
     }
 
     private processEvent(event: DomainEvent & { sceneId: CorrelationId }): void {

@@ -134,11 +134,9 @@ function findMatchingScenario(
 function resolveScenarioViewData(scenario: ReportScenario, runIndex: number | null, activeAttempt: number, history: ReportHistoryEntry[]) {
     const tags = scenario.tags || [];
     const cast = scenario.cast || [];
-    const activities = scenario.activities || [];
     const executionHistory = scenario.executionHistory || [];
 
-    const historicalEntry = runIndex !== null && runIndex !== history.length - 1 && executionHistory[runIndex]
-        ? executionHistory[runIndex] : null;
+    const historicalEntry = resolveHistoricalEntry(runIndex, history, executionHistory);
 
     const activeAttempts = historicalEntry
         ? (historicalEntry.attempts || null)
@@ -148,25 +146,9 @@ function resolveScenarioViewData(scenario: ReportScenario, runIndex: number | nu
         ? historicalEntry.duration
         : scenario.duration;
 
-    const activeAttemptData = hasRetries && activeAttempt < activeAttempts!.length
-        ? activeAttempts![activeAttempt]
-        : null;
-
-    const currentActivities = activeAttemptData
-        ? activeAttemptData.activities
-        : historicalEntry && historicalEntry.activities
-            ? historicalEntry.activities
-            : activities;
-
-    const currentError = activeAttemptData
-        ? (activeAttemptData.error || null)
-        : historicalEntry
-            ? (historicalEntry.error || null)
-            : (scenario.error || null);
-
-    const currentVideo = activeAttemptData
-        ? (activeAttemptData.video || undefined)
-        : scenario.video;
+    const { currentActivities, currentError, currentVideo } = resolveActiveContent(
+        scenario, historicalEntry, activeAttempts, activeAttempt, hasRetries,
+    );
 
     const errorLocation = currentError ? findErrorLocation(currentActivities) : null;
 
@@ -177,5 +159,46 @@ function resolveScenarioViewData(scenario: ReportScenario, runIndex: number | nu
         hasCast: cast.length > 0,
         hasTags: tags.length > 0,
         hasExecutionHistory: executionHistory.length > 0,
+    };
+}
+
+function resolveHistoricalEntry(
+    runIndex: number | null, history: ReportHistoryEntry[], executionHistory: ReportExecutionHistoryEntry[],
+): ReportExecutionHistoryEntry | null {
+    if (runIndex === null || runIndex === history.length - 1) return null;
+    return executionHistory[runIndex] || null;
+}
+
+function resolveActiveContent(
+    scenario: ReportScenario,
+    historicalEntry: ReportExecutionHistoryEntry | null,
+    activeAttempts: ReportAttempt[] | null,
+    activeAttempt: number,
+    hasRetries: boolean,
+) {
+    const activeAttemptData = hasRetries && activeAttempts && activeAttempt < activeAttempts.length
+        ? activeAttempts[activeAttempt]
+        : null;
+
+    if (activeAttemptData) {
+        return {
+            currentActivities: activeAttemptData.activities,
+            currentError: activeAttemptData.error || null,
+            currentVideo: activeAttemptData.video || undefined,
+        };
+    }
+
+    if (historicalEntry) {
+        return {
+            currentActivities: historicalEntry.activities || scenario.activities || [],
+            currentError: historicalEntry.error || null,
+            currentVideo: scenario.video,
+        };
+    }
+
+    return {
+        currentActivities: scenario.activities || [],
+        currentError: scenario.error || null,
+        currentVideo: scenario.video,
     };
 }
