@@ -14,6 +14,19 @@ import { icons } from './icons';
 
 const html = htm.bind(h);
 
+function confidenceSubtitle(confidence: number, previousConfidence: number | undefined, totalScenarios: number, runCount: number, newFailCount: number, recoveredCount: number): string {
+    if (previousConfidence === undefined) return `${totalScenarios} scenarios across ${runCount} run${runCount !== 1 ? 's' : ''}`;
+    if (confidence > previousConfidence) {
+        if (recoveredCount > 0) return `Improved since last run — ${recoveredCount} test${recoveredCount > 1 ? 's' : ''} recovered`;
+        return `Improved since last run — pass rate up`;
+    }
+    if (confidence < previousConfidence) {
+        if (newFailCount > 0) return `Decreased since last run — ${newFailCount} new failure${newFailCount > 1 ? 's' : ''}`;
+        return `Decreased since last run — consistency dropped`;
+    }
+    return 'No change since last run';
+}
+
 // ===== Dashboard View =====
 interface DashboardViewProps {
     summary: ReportSummary;
@@ -82,20 +95,7 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
       <!-- KPI Row -->
       <div class="kpi-row">
         <${DashboardKpiCard} label="Confidence" value=${html`${confidence}<span style="font-size:var(--font-base);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span>`} ariaLabel="Confidence: ${confidence} percent" onClick=${() => onNavigate('/capabilities')} valueColor=${scoreColor(confidence) || ''} variant="hero">
-          <span class="kpi-subtitle">${(() => {
-                if (previousConfidence === undefined) return `${summary.totalScenarios} scenarios across ${history.length} run${history.length !== 1 ? 's' : ''}`;
-                const newFails = allNewFailures.length;
-                const recovered = allNewPasses.length;
-                if (confidence > previousConfidence) {
-                    if (recovered > 0) return `Improved since last run — ${recovered} test${recovered > 1 ? 's' : ''} recovered`;
-                    return `Improved since last run — pass rate up`;
-                }
-                if (confidence < previousConfidence) {
-                    if (newFails > 0) return `Decreased since last run — ${newFails} new failure${newFails > 1 ? 's' : ''}`;
-                    return `Decreased since last run — consistency dropped`;
-                }
-                return 'No change since last run';
-            })()}</span>
+          <span class="kpi-subtitle">${confidenceSubtitle(confidence, previousConfidence, summary.totalScenarios, history.length, allNewFailures.length, allNewPasses.length)}</span>
           <${AreaSparkline} values=${confidenceTrend} color=${scoreColor(confidence) || 'var(--accent)'} />
         </${DashboardKpiCard}>
         <${DashboardKpiCard} label="Pass Rate" value=${html`${passRate}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span>`} ariaLabel="Pass rate: ${passRate} percent" onClick=${() => onNavigate('/tests?filter=failed,skipped')} valueColor=${scoreColor(passRate) || ''}>

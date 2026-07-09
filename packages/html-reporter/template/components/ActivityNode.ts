@@ -4,6 +4,7 @@ import { useMemo, useState } from 'preact/hooks';
 
 import type { ReportActivity } from '../../src/ReportData';
 import { formatDuration, outcomeClass, outcomeIcon, showToast, useHashHistory } from '../utils';
+import { parseActivityContent } from '../utils/parseActivityContent';
 import { icons } from './icons';
 
 const html = htm.bind(h);
@@ -20,33 +21,7 @@ export function ActivityNode({ activity, defaultExpanded }: ActivityNodeProps): 
     const [restExpanded, setRestExpanded] = useState(false);
     const hasPhoto = activity.artifacts && activity.artifacts.some(a => a.path && a.path.endsWith('.png'));
     const hasRestQuery = !!activity.restQuery;
-    const { displayName, parsedDataTable, parsedDocString } = useMemo(() => {
-        const name = activity.name;
-        const lines = name.split('\n');
-        const firstTableIndex = lines.findIndex(l => l.trim().startsWith('|'));
-        if (firstTableIndex > 0 || (firstTableIndex === 0 && lines.length > 1)) {
-            const textLines: string[] = [];
-            const tableLines: string[] = [];
-            let inTable = false;
-            for (const line of lines) {
-                if (line.trim().startsWith('|')) { inTable = true; tableLines.push(line); }
-                else if (!inTable) textLines.push(line);
-                else { textLines.push(line); inTable = false; }
-            }
-            if (tableLines.length > 0) {
-                const headers = tableLines[0].split('|').filter(c => c.trim()).map(c => c.trim());
-                const rows = tableLines.slice(1).map(row => row.split('|').filter(c => c.trim()).map(c => c.trim()));
-                return { displayName: textLines.join('\n').replace(/:\s*$/, ':'), parsedDataTable: { headers, rows }, parsedDocString: null as string | null };
-            }
-        }
-        const colonIndex = name.indexOf(':\n');
-        if (colonIndex > 0 && !name.substring(colonIndex + 2).trim().startsWith('|')) {
-            const prefix = name.substring(0, colonIndex + 1);
-            const docContent = name.substring(colonIndex + 2);
-            return { displayName: prefix, parsedDataTable: null as { headers: string[]; rows: string[][] } | null, parsedDocString: docContent };
-        }
-        return { displayName: name, parsedDataTable: null as { headers: string[]; rows: string[][] } | null, parsedDocString: null as string | null };
-    }, [activity.name]);
+    const { displayName, parsedDataTable, parsedDocString } = useMemo(() => parseActivityContent(activity.name), [activity.name]);
     const effectiveDataTable = activity.dataTable ? { headers: activity.dataTable[0], rows: activity.dataTable.slice(1) } : parsedDataTable;
     const effectiveDocString = activity.docString || parsedDocString;
     return html`

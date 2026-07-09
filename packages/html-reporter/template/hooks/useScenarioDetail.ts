@@ -41,29 +41,13 @@ function findErrorLocation(activities: ReportActivity[]): { path: string; line: 
 
 export function useScenarioDetail(scenarioId: string, scenarios: ReportScenario[], history: ReportHistoryEntry[]): ScenarioDetailState {
     const hashNav = useHashHistory();
-    const cleanId = scenarioId.split('?')[0];
-    const params = scenarioId.includes('?') ? new URLSearchParams(scenarioId.split('?')[1]) : null;
-    const runString = params?.get('run');
-    const attemptString = params?.get('attempt');
-    const runIndex = useMemo(() => resolveRunIndex(runString ?? null, history), [runString]);
+    const { cleanId, runString, attemptString, projectString, browserString } = parseScenarioParameters(scenarioId);
+    const runIndex = useMemo(() => resolveRunIndex(runString, history), [runString]);
 
-    const projectString = params?.get('project');
-    const browserString = params?.get('browser');
-
-    const scenario = scenarios.find(s => {
-        const sourceKey = s.source.line
-            ? s.source.path + ':' + s.source.line
-            : s.source.path + ':' + s.name;
-        const idMatch = sourceKey === decodeURIComponent(cleanId) || s.id === cleanId;
-        if (!idMatch) return false;
-        if (browserString) {
-            return (s.tags || []).some(t => t.type === 'browser' && t.name === browserString);
-        }
-        if (projectString) {
-            return (s.tags || []).some(t => t.type === 'project' && t.name === projectString);
-        }
-        return true;
-    }) || null;
+    const scenario = useMemo(
+        () => findMatchingScenario(scenarios, cleanId, projectString, browserString),
+        [scenarios, cleanId, projectString, browserString],
+    );
 
     const [activeAttempt, setActiveAttempt] = useState(() => {
         if (attemptString) {
@@ -107,6 +91,47 @@ export function useScenarioDetail(scenarioId: string, scenarios: ReportScenario[
         };
     }
 
+    const viewData = resolveScenarioViewData(scenario, runIndex, activeAttempt, history);
+
+    return {
+        scenario, runIndex, activeAttempt, setActiveAttempt,
+        ...viewData,
+        treeKey, setTreeKey, treeExpanded, setTreeExpanded,
+    };
+}
+
+function parseScenarioParameters(scenarioId: string) {
+    const cleanId = scenarioId.split('?')[0];
+    const params = scenarioId.includes('?') ? new URLSearchParams(scenarioId.split('?')[1]) : null;
+    return {
+        cleanId,
+        runString: params?.get('run') ?? null,
+        attemptString: params?.get('attempt') ?? null,
+        projectString: params?.get('project') ?? null,
+        browserString: params?.get('browser') ?? null,
+    };
+}
+
+function findMatchingScenario(
+    scenarios: ReportScenario[], cleanId: string, projectString: string | null, browserString: string | null,
+): ReportScenario | null {
+    return scenarios.find(s => {
+        const sourceKey = s.source.line
+            ? s.source.path + ':' + s.source.line
+            : s.source.path + ':' + s.name;
+        const idMatch = sourceKey === decodeURIComponent(cleanId) || s.id === cleanId;
+        if (!idMatch) return false;
+        if (browserString) {
+            return (s.tags || []).some(t => t.type === 'browser' && t.name === browserString);
+        }
+        if (projectString) {
+            return (s.tags || []).some(t => t.type === 'project' && t.name === projectString);
+        }
+        return true;
+    }) || null;
+}
+
+function resolveScenarioViewData(scenario: ReportScenario, runIndex: number | null, activeAttempt: number, history: ReportHistoryEntry[]) {
     const tags = scenario.tags || [];
     const cast = scenario.cast || [];
     const activities = scenario.activities || [];
@@ -146,13 +171,11 @@ export function useScenarioDetail(scenarioId: string, scenarios: ReportScenario[
     const errorLocation = currentError ? findErrorLocation(currentActivities) : null;
 
     return {
-        scenario, runIndex, activeAttempt, setActiveAttempt,
         currentActivities, currentError, currentVideo,
         historicalEntry, errorLocation, activeAttempts,
         hasRetries, activeDuration, tags, cast, executionHistory,
         hasCast: cast.length > 0,
         hasTags: tags.length > 0,
         hasExecutionHistory: executionHistory.length > 0,
-        treeKey, setTreeKey, treeExpanded, setTreeExpanded,
     };
 }

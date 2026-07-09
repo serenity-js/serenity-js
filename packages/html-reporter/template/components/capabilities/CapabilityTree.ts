@@ -186,24 +186,45 @@ export interface TreeNodeProps {
     sortMode: string;
 }
 
-export function TreeNode({ node, onSelect, selectedPath, focusedPath, depth, path, searchTerm, isRoot, nodeFilter, sortMode }: TreeNodeProps): ReturnType<typeof html> | null {
-    const isDirectory = node.type === 'directory' && node.children && node.children.length > 0;
-    const segmentPath = isRoot ? '' : (path ? path + '/' + node.name : node.name);
+interface ResolvedTreeDisplay {
+    displayNode: ReportCapabilityNode;
+    collapsedPath: string;
+    collapsedLabel: string;
+    isSelected: boolean;
+    score: { confidence: number; passRate: number; completeness: number; consistency: number };
+}
 
+function resolveTreeDisplay(
+    node: ReportCapabilityNode, path: string, selectedPath: string, searchTerm: string, isRoot: boolean | undefined, nodeFilter: ((node: ReportCapabilityNode) => boolean) | null,
+): ResolvedTreeDisplay | null {
+    const isDirectory = node.type === 'directory' && node.children && node.children.length > 0;
     if (!isDirectory) return null;
     if (!isRoot && nodeFilter && !nodeFilter(node)) return null;
 
-    // GitHub-style single-child collapse
+    const segmentPath = isRoot ? '' : (path ? path + '/' + node.name : node.name);
+
     const { displayNode, collapsedPath, collapsedLabel } = isRoot
         ? { displayNode: node, collapsedPath: segmentPath, collapsedLabel: node.displayName || node.name }
         : collapseNode(node, segmentPath);
 
-    const isSelected = selectedPath === collapsedPath;
     const matchesSearch = !searchTerm || collapsedLabel.toLowerCase().includes(searchTerm.toLowerCase());
     const childrenMatch = displayNode.children ? displayNode.children.some(c => nodeMatches(c, searchTerm)) : false;
     if (searchTerm && !matchesSearch && !childrenMatch) return null;
 
-    const score = computeNodeScore(displayNode);
+    return {
+        displayNode,
+        collapsedPath,
+        collapsedLabel,
+        isSelected: selectedPath === collapsedPath,
+        score: computeNodeScore(displayNode),
+    };
+}
+
+export function TreeNode({ node, onSelect, selectedPath, focusedPath, depth, path, searchTerm, isRoot, nodeFilter, sortMode }: TreeNodeProps): ReturnType<typeof html> | null {
+    const resolved = resolveTreeDisplay(node, path, selectedPath, searchTerm, isRoot, nodeFilter);
+    if (!resolved) return null;
+
+    const { displayNode, collapsedPath, collapsedLabel, isSelected, score } = resolved;
 
     return html`
         <div style="margin-left:${depth * 8}px">
