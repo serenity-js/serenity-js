@@ -32,90 +32,97 @@ export class CIDetector {
     }
 
     isCI(): boolean {
-        return Boolean(
-            this.env.GITHUB_ACTIONS
-            || this.env.GITLAB_CI
-            || this.env.JENKINS_URL
-            || this.env.CIRCLECI,
-        );
+        return this.providers.some(([envKey]) => Boolean(this.env[envKey]));
     }
 
     detect(): RuntimeContext {
-        if (this.env.GITHUB_ACTIONS) {
-            const prNumber = this.env.GITHUB_EVENT_NAME === 'pull_request' ? this.env.GITHUB_REF_NAME?.split('/')[0] : undefined;
-            const repoUrl = `${ this.env.GITHUB_SERVER_URL }/${ this.env.GITHUB_REPOSITORY }`;
-            const branch = this.env.GITHUB_HEAD_REF || this.env.GITHUB_REF_NAME;
-            return {
-                provider: 'GitHub Actions',
-                buildNumber: this.env.GITHUB_RUN_NUMBER,
-                branch,
-                commit: this.env.GITHUB_SHA,
-                commitMessage: this.git('log -1 --pretty=%s'),
-                commitAuthor: this.git('log -1 --pretty=%an'),
-                jobUrl: `${ repoUrl }/actions/runs/${ this.env.GITHUB_RUN_ID }`,
-                workflow: this.env.GITHUB_WORKFLOW,
-                repositoryUrl: repoUrl,
-                baseBranch: this.env.GITHUB_BASE_REF || undefined,
-                pullRequestNumber: prNumber,
-                pullRequestUrl: prNumber ? `${ repoUrl }/pull/${ prNumber }` : undefined,
-                triggeredBy: this.env.GITHUB_ACTOR,
-            };
+        for (const [envKey, detector] of this.providers) {
+            if (this.env[envKey]) {
+                return detector();
+            }
         }
-
-        if (this.env.GITLAB_CI) {
-            const mrIid = this.env.CI_MERGE_REQUEST_IID || undefined;
-            return {
-                provider: 'GitLab CI',
-                buildNumber: this.env.CI_PIPELINE_IID,
-                branch: this.env.CI_COMMIT_REF_NAME,
-                commit: this.env.CI_COMMIT_SHORT_SHA,
-                commitMessage: this.env.CI_COMMIT_MESSAGE,
-                commitAuthor: this.env.CI_COMMIT_AUTHOR,
-                jobUrl: this.env.CI_JOB_URL,
-                workflow: this.env.CI_PIPELINE_NAME,
-                repositoryUrl: this.env.CI_PROJECT_URL,
-                baseBranch: this.env.CI_MERGE_REQUEST_TARGET_BRANCH_NAME || undefined,
-                pullRequestNumber: mrIid,
-                pullRequestUrl: mrIid && this.env.CI_PROJECT_URL ? `${ this.env.CI_PROJECT_URL }/-/merge_requests/${ mrIid }` : undefined,
-                triggeredBy: this.env.GITLAB_USER_LOGIN,
-            };
-        }
-
-        if (this.env.JENKINS_URL) {
-            return {
-                provider: 'Jenkins',
-                buildNumber: this.env.BUILD_NUMBER,
-                branch: this.env.GIT_BRANCH,
-                commit: this.env.GIT_COMMIT,
-                commitMessage: this.git('log -1 --pretty=%s'),
-                commitAuthor: this.git('log -1 --pretty=%an'),
-                jobUrl: this.env.BUILD_URL,
-                workflow: this.env.JOB_NAME,
-                repositoryUrl: this.env.GIT_URL,
-                pullRequestNumber: this.env.CHANGE_ID || undefined,
-                pullRequestUrl: this.env.CHANGE_URL || undefined,
-                triggeredBy: this.env.BUILD_USER || undefined,
-            };
-        }
-
-        if (this.env.CIRCLECI) {
-            return {
-                provider: 'CircleCI',
-                buildNumber: this.env.CIRCLE_BUILD_NUM,
-                branch: this.env.CIRCLE_BRANCH,
-                commit: this.env.CIRCLE_SHA1,
-                commitMessage: this.git('log -1 --pretty=%s'),
-                commitAuthor: this.git('log -1 --pretty=%an'),
-                jobUrl: this.env.CIRCLE_BUILD_URL,
-                workflow: this.env.CIRCLE_WORKFLOW_ID,
-                repositoryUrl: this.env.CIRCLE_REPOSITORY_URL,
-                pullRequestNumber: this.env.CIRCLE_PR_NUMBER || undefined,
-                pullRequestUrl: this.env.CIRCLE_PULL_REQUEST || undefined,
-                triggeredBy: this.env.CIRCLE_USERNAME,
-            };
-        }
-
         return this.detectLocal();
+    }
+
+    private readonly providers: Array<[string, () => RuntimeContext]> = [
+        ['GITHUB_ACTIONS', () => this.detectGitHub()],
+        ['GITLAB_CI', () => this.detectGitLab()],
+        ['JENKINS_URL', () => this.detectJenkins()],
+        ['CIRCLECI', () => this.detectCircleCI()],
+    ];
+
+    private detectGitHub(): RuntimeContext {
+        const prNumber = this.env.GITHUB_EVENT_NAME === 'pull_request' ? this.env.GITHUB_REF_NAME?.split('/')[0] : undefined;
+        const repoUrl = `${ this.env.GITHUB_SERVER_URL }/${ this.env.GITHUB_REPOSITORY }`;
+        const branch = this.env.GITHUB_HEAD_REF || this.env.GITHUB_REF_NAME;
+        return {
+            provider: 'GitHub Actions',
+            buildNumber: this.env.GITHUB_RUN_NUMBER,
+            branch,
+            commit: this.env.GITHUB_SHA,
+            commitMessage: this.git('log -1 --pretty=%s'),
+            commitAuthor: this.git('log -1 --pretty=%an'),
+            jobUrl: `${ repoUrl }/actions/runs/${ this.env.GITHUB_RUN_ID }`,
+            workflow: this.env.GITHUB_WORKFLOW,
+            repositoryUrl: repoUrl,
+            baseBranch: this.env.GITHUB_BASE_REF || undefined,
+            pullRequestNumber: prNumber,
+            pullRequestUrl: prNumber ? `${ repoUrl }/pull/${ prNumber }` : undefined,
+            triggeredBy: this.env.GITHUB_ACTOR,
+        };
+    }
+
+    private detectGitLab(): RuntimeContext {
+        const mrIid = this.env.CI_MERGE_REQUEST_IID || undefined;
+        return {
+            provider: 'GitLab CI',
+            buildNumber: this.env.CI_PIPELINE_IID,
+            branch: this.env.CI_COMMIT_REF_NAME,
+            commit: this.env.CI_COMMIT_SHORT_SHA,
+            commitMessage: this.env.CI_COMMIT_MESSAGE,
+            commitAuthor: this.env.CI_COMMIT_AUTHOR,
+            jobUrl: this.env.CI_JOB_URL,
+            workflow: this.env.CI_PIPELINE_NAME,
+            repositoryUrl: this.env.CI_PROJECT_URL,
+            baseBranch: this.env.CI_MERGE_REQUEST_TARGET_BRANCH_NAME || undefined,
+            pullRequestNumber: mrIid,
+            pullRequestUrl: mrIid && this.env.CI_PROJECT_URL ? `${ this.env.CI_PROJECT_URL }/-/merge_requests/${ mrIid }` : undefined,
+            triggeredBy: this.env.GITLAB_USER_LOGIN,
+        };
+    }
+
+    private detectJenkins(): RuntimeContext {
+        return {
+            provider: 'Jenkins',
+            buildNumber: this.env.BUILD_NUMBER,
+            branch: this.env.GIT_BRANCH,
+            commit: this.env.GIT_COMMIT,
+            commitMessage: this.git('log -1 --pretty=%s'),
+            commitAuthor: this.git('log -1 --pretty=%an'),
+            jobUrl: this.env.BUILD_URL,
+            workflow: this.env.JOB_NAME,
+            repositoryUrl: this.env.GIT_URL,
+            pullRequestNumber: this.env.CHANGE_ID || undefined,
+            pullRequestUrl: this.env.CHANGE_URL || undefined,
+            triggeredBy: this.env.BUILD_USER || undefined,
+        };
+    }
+
+    private detectCircleCI(): RuntimeContext {
+        return {
+            provider: 'CircleCI',
+            buildNumber: this.env.CIRCLE_BUILD_NUM,
+            branch: this.env.CIRCLE_BRANCH,
+            commit: this.env.CIRCLE_SHA1,
+            commitMessage: this.git('log -1 --pretty=%s'),
+            commitAuthor: this.git('log -1 --pretty=%an'),
+            jobUrl: this.env.CIRCLE_BUILD_URL,
+            workflow: this.env.CIRCLE_WORKFLOW_ID,
+            repositoryUrl: this.env.CIRCLE_REPOSITORY_URL,
+            pullRequestNumber: this.env.CIRCLE_PR_NUMBER || undefined,
+            pullRequestUrl: this.env.CIRCLE_PULL_REQUEST || undefined,
+            triggeredBy: this.env.CIRCLE_USERNAME,
+        };
     }
 
     private detectLocal(): RuntimeContext {

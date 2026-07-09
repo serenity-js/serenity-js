@@ -339,27 +339,30 @@ class SceneRecordBuilder {
     }
 
     private processEvent(event: DomainEvent & { sceneId: CorrelationId }): void {
-        if (event instanceof SceneSequenceDetected) {
-            this.isScenarioOutline = true;
-        } else if (event instanceof RetryableSceneDetected) {
-            this.isRetrySequence = true;
-        } else if (event instanceof SceneTemplateDetected) {
-            this.template = event.template.value;
-        } else if (event instanceof SceneParametersDetected) {
+        for (const [EventType, handler] of this.eventHandlers) {
+            if (event instanceof EventType) {
+                handler(event as never);
+                return;
+            }
+        }
+    }
+
+    private readonly eventHandlers: Array<[new (...args: any[]) => DomainEvent, (event: any) => void]> = [
+        [SceneSequenceDetected, () => { this.isScenarioOutline = true; }],
+        [RetryableSceneDetected, () => { this.isRetrySequence = true; }],
+        [SceneTemplateDetected, (event: SceneTemplateDetected) => { this.template = event.template.value; }],
+        [SceneParametersDetected, (event: SceneParametersDetected) => {
             this.currentParameterSet = {
                 name: event.parameters.name.value,
                 description: event.parameters.description.value || undefined,
                 values: event.parameters.values,
             };
-        } else if (event instanceof SceneStarts) {
-            this.handleSceneStarts(event);
-        } else if (event instanceof SceneTagged) {
-            this.tags.push({ type: event.tag.type, name: event.tag.name });
-        } else if (event instanceof FeatureNarrativeDetected) {
-            this.narrative = event.description.value;
-        } else if (event instanceof SceneDescriptionDetected) {
-            this.description = event.description.value;
-        } else if (event instanceof ActorEntersStage) {
+        }],
+        [SceneStarts, (event: SceneStarts) => { this.handleSceneStarts(event); }],
+        [SceneTagged, (event: SceneTagged) => { this.tags.push({ type: event.tag.type, name: event.tag.name }); }],
+        [FeatureNarrativeDetected, (event: FeatureNarrativeDetected) => { this.narrative = event.description.value; }],
+        [SceneDescriptionDetected, (event: SceneDescriptionDetected) => { this.description = event.description.value; }],
+        [ActorEntersStage, (event: ActorEntersStage) => {
             this.cast.push({
                 name: event.actor.name,
                 abilities: event.actor.abilities.map(a => ({
@@ -367,16 +370,14 @@ class SceneRecordBuilder {
                     ...(a.options ? { details: JSON.stringify(a.options) } : {}),
                 })),
             });
-        } else if (event instanceof TaskStarts || event instanceof InteractionStarts) {
-            this.handleActivityStarts(event);
-        } else if (event instanceof TaskFinished || event instanceof InteractionFinished) {
-            this.handleActivityFinished(event);
-        } else if (event instanceof ActivityRelatedArtifactGenerated) {
-            this.handleArtifact(event);
-        } else if (event instanceof SceneFinished) {
-            this.handleSceneFinished(event);
-        }
-    }
+        }],
+        [TaskStarts, (event: TaskStarts) => { this.handleActivityStarts(event); }],
+        [InteractionStarts, (event: InteractionStarts) => { this.handleActivityStarts(event); }],
+        [TaskFinished, (event: TaskFinished) => { this.handleActivityFinished(event); }],
+        [InteractionFinished, (event: InteractionFinished) => { this.handleActivityFinished(event); }],
+        [ActivityRelatedArtifactGenerated, (event: ActivityRelatedArtifactGenerated) => { this.handleArtifact(event); }],
+        [SceneFinished, (event: SceneFinished) => { this.handleSceneFinished(event); }],
+    ];
 
     private handleSceneStarts(event: SceneStarts): void {
         if (!this.name) {
@@ -444,10 +445,10 @@ class SceneRecordBuilder {
     }
 
     private handleArtifact(event: ActivityRelatedArtifactGenerated): void {
-        // Attach HTTPRequestResponse data inline on the activity record
-        if (event.artifact instanceof HTTPRequestResponse) {
-            const activityRecord = this.activityById.get(event.activityId.value);
-            if (activityRecord) {
+        const activityRecord = this.activityById.get(event.activityId.value);
+
+        if (activityRecord) {
+            if (event.artifact instanceof HTTPRequestResponse) {
                 const data = event.artifact.map(value => value) as RequestAndResponse;
                 activityRecord.restQuery = {
                     method: data.request.method.toUpperCase(),
@@ -458,37 +459,16 @@ class SceneRecordBuilder {
                     responseHeaders: mapToHeaderString(data.response.headers || {}),
                     responseBody: bodyToString(data.response.data),
                 };
-            }
-        } else if (event.artifact instanceof TextData) {
-            const activityRecord = this.activityById.get(event.activityId.value);
-            if (activityRecord) {
-                const data = event.artifact.map(value => value) as { contentType: string; data: string };
-                if (!activityRecord.reportData) activityRecord.reportData = [];
-                activityRecord.reportData.push({
-                    title: event.name.value,
-                    contents: data.data,
-                    contentType: data.contentType,
-                });
-            }
-        } else if (event.artifact instanceof LogEntry) {
-            const activityRecord = this.activityById.get(event.activityId.value);
-            if (activityRecord) {
+            } else if (event.artifact instanceof TextData) {
+                this.appendReportData(activityRecord, event.name.value, event.artifact.map(value => value) as { contentType: string; data: string });
+            } else if (event.artifact instanceof LogEntry) {
                 const data = event.artifact.map(value => value) as { data: string };
                 if (!activityRecord.reportData) activityRecord.reportData = [];
-                activityRecord.reportData.push({
-                    title: event.name.value,
-                    contents: data.data,
-                });
-            }
-        } else if (event.artifact instanceof JSONData && !(event.artifact instanceof HTTPRequestResponse)) {
-            const activityRecord = this.activityById.get(event.activityId.value);
-            if (activityRecord) {
+                activityRecord.reportData.push({ title: event.name.value, contents: data.data });
+            } else if (event.artifact instanceof JSONData) {
                 const data = event.artifact.map(value => value);
                 if (!activityRecord.reportData) activityRecord.reportData = [];
-                activityRecord.reportData.push({
-                    title: event.name.value,
-                    contents: JSON.stringify(data, undefined, 4),
-                });
+                activityRecord.reportData.push({ title: event.name.value, contents: JSON.stringify(data, undefined, 4) });
             }
         }
 
@@ -500,6 +480,15 @@ class SceneRecordBuilder {
                 }
             }
         }
+    }
+
+    private appendReportData(activityRecord: ActivityRecord, title: string, data: { contentType?: string; data: string }): void {
+        if (!activityRecord.reportData) activityRecord.reportData = [];
+        activityRecord.reportData.push({
+            title,
+            contents: data.data,
+            ...(data.contentType ? { contentType: data.contentType } : {}),
+        });
     }
 
     private handleSceneFinished(event: SceneFinished): void {
