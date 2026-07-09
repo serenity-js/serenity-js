@@ -1,6 +1,7 @@
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
+    tsconfig: './tsconfig.spec.json',
     testDir: './spec',
     timeout: 30_000,
     retries: 0,
