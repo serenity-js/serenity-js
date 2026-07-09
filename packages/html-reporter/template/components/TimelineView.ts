@@ -6,6 +6,7 @@ import type { ReportScenario, ReportSummary } from '../../src/ReportData';
 import { useVirtualizer } from '../hooks';
 import { formatDuration, formatTimestamp, matchesOutcomeFilter, outcomeClass, outcomeIcon, scenarioUrl } from '../utils';
 import { FilterBar } from './FilterBar';
+import { KpiCard } from './KpiCard';
 
 const html = htm.bind(h);
 
@@ -49,32 +50,25 @@ export function TimelineView({ scenarios: allScenarios, summary, onNavigate }: T
     return html`
     <div>
       <div class="kpi-row mb-md grid-4col">
-        <div class="kpi-card" tabindex="0" aria-label="Slowest test: ${formatDuration(slowest)}">
-          <span class="kpi-label">Slowest</span>
-          <span class="kpi-value" style="color:${slowest > avg * 3 ? 'var(--color-failed)' : slowest > avg * 2 ? 'var(--color-pending)' : ''}">${formatDuration(slowest)}</span>
-        </div>
-        <div class="kpi-card" tabindex="0" aria-label="Fastest test: ${formatDuration(fastest)}">
-          <span class="kpi-label">Fastest</span>
-          <span class="kpi-value">${formatDuration(fastest)}</span>
-        </div>
-        <div class="kpi-card" tabindex="0" aria-label="Average duration: ${formatDuration(avg)}">
-          <span class="kpi-label">Average</span>
-          <span class="kpi-value">${formatDuration(avg)}</span>
-        </div>
-        <div class="kpi-card" tabindex="0" aria-label="Total duration: ${formatDuration(summary.duration)}">
-          <span class="kpi-label">Total</span>
-          <span class="kpi-value">${formatDuration(summary.duration)}</span>
-          <span class="kpi-subtitle">${allScenarios.length} scenarios</span>
-        </div>
+        <${KpiCard} label="Slowest" value=${formatDuration(slowest)} ariaLabel="Slowest test: ${formatDuration(slowest)}" valueColor=${slowest > avg * 3 ? 'var(--color-failed)' : slowest > avg * 2 ? 'var(--color-pending)' : ''} />
+        <${KpiCard} label="Fastest" value=${formatDuration(fastest)} ariaLabel="Fastest test: ${formatDuration(fastest)}" />
+        <${KpiCard} label="Average" value=${formatDuration(avg)} ariaLabel="Average duration: ${formatDuration(avg)}" />
+        <${KpiCard} label="Total" value=${formatDuration(summary.duration)} ariaLabel="Total duration: ${formatDuration(summary.duration)}" subtitle="${allScenarios.length} scenarios" />
       </div>
 
-      <${FilterBar} outcomes=${summary.outcomes} total=${allScenarios.length}
-                   activeFilter=${filter} onFilter=${setFilter}
-                   sortOptions=${[
-                        { key: 'time', label: 'Execution order' },
-                        { key: 'duration', label: 'Slowest first' },
-                    ]}
-                   activeSort=${sortBy} onSort=${setSortBy} />
+      <${FilterBar} filters=${[
+            { key: 'all', label: 'All', count: allScenarios.length },
+            { key: 'passed', label: 'Passed', count: summary.outcomes.passed },
+            { key: 'failed', label: 'Failed', count: (summary.outcomes.failed || 0) + (summary.outcomes.error || 0) + (summary.outcomes.compromised || 0) },
+            { key: 'skipped', label: 'Skipped', count: (summary.outcomes.skipped || 0) + (summary.outcomes.pending || 0) },
+        ]}
+        activeFilter=${filter} onFilter=${setFilter}
+        ariaLabel="Filter tests by outcome" label="Status"
+        sortOptions=${[
+            { key: 'time', label: 'Execution order' },
+            { key: 'duration', label: 'Slowest first' },
+        ]}
+        activeSort=${sortBy} onSort=${setSortBy} />
 
       <div class="card pb-0">
         <div ref=${parentRef} style="border-top:1px solid var(--border-color);max-height:calc(100vh - 320px);overflow-y:auto">

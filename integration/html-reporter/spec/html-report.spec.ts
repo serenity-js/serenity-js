@@ -1,4 +1,6 @@
-import { expect, test } from './test-api';
+import { Ensure, includes } from '@serenity-js/assertions';
+
+import { expect, test } from '../src';
 
 test.describe('Serenity/JS HTML Reporter', () => {
 
@@ -26,6 +28,14 @@ test.describe('Serenity/JS HTML Reporter', () => {
 
         test('displays the total scenario count', async ({ page }) => {
             await expect(page.locator('body')).toContainText('20 scenarios');
+        });
+
+        test('exposes KPI cards via interaction object', async ({ actor, dashboardView, page }) => {
+            await page.waitForSelector('[data-testid="dashboard-kpi-card"]');
+            await actor.attemptsTo(
+                Ensure.that(dashboardView.kpiCardAt(0).accessibleLabel(), includes('Confidence')),
+                Ensure.that(dashboardView.kpiCardAt(1).accessibleLabel(), includes('Pass rate')),
+            );
         });
     });
 
@@ -109,6 +119,14 @@ test.describe('Serenity/JS HTML Reporter', () => {
 
         test('shows error messages', async ({ page }) => {
             await expect(page.locator('body')).toContainText('Expected');
+        });
+
+        test('displays error category summary cards', async ({ actor, errorsView, page }) => {
+            await page.waitForSelector('[data-testid="kpi-card"]');
+            await actor.attemptsTo(
+                Ensure.that(errorsView.kpiCardAt(0).accessibleLabel(), includes('Errors')),
+                Ensure.that(errorsView.kpiCardAt(0).subtitle(), includes('test')),
+            );
         });
     });
 
@@ -254,6 +272,16 @@ test.describe('Serenity/JS HTML Reporter', () => {
 
         test('shows scenario durations', async ({ page }) => {
             await expect(page.locator('body')).toContainText('should display items');
+        });
+
+        test('displays duration statistics as KPI cards', async ({ actor, timelineView, page }) => {
+            await page.waitForSelector('[data-testid="kpi-card"]');
+            await actor.attemptsTo(
+                Ensure.that(timelineView.kpiCardAt(0).accessibleLabel(), includes('Slowest')),
+                Ensure.that(timelineView.kpiCardAt(1).accessibleLabel(), includes('Fastest')),
+                Ensure.that(timelineView.kpiCardAt(2).accessibleLabel(), includes('Average')),
+                Ensure.that(timelineView.kpiCardAt(3).accessibleLabel(), includes('Total')),
+            );
         });
     });
 

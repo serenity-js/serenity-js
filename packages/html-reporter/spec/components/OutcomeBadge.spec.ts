@@ -1,6 +1,6 @@
 import { Ensure, equals } from '@serenity-js/assertions';
 
-import { OutcomeBadge } from '../../src/OutcomeBadge.serenity.js';
+import { OutcomeBadge } from '../../src/serenity/OutcomeBadge.serenity.js';
 import { describe, it } from './fixtures.js';
 
 describe('OutcomeBadge', () => {

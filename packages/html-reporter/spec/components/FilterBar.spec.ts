@@ -1,72 +1,120 @@
-import { minimalData } from './data-factories';
-import { expect, test } from './fixtures';
+import { contain, Ensure, equals } from '@serenity-js/assertions';
 
-test.describe('FilterBar', () => {
+import { FilterBar } from '../../src/serenity/FilterBar.serenity.js';
+import { describe, it } from './fixtures.js';
 
-    test('renders filter chips with correct counts', async ({ mount, page }) => {
-        await mount({
+describe('FilterBar', () => {
+
+    it('displays all filter chip labels', async ({ mount, actor }) => {
+        const filterBar = await mount({
             component: 'FilterBar',
             importPath: './components/FilterBar',
             props: {
-                outcomes: { passed: 3, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
-                total: 4,
+                filters: [
+                    { key: 'all', label: 'All', count: 10 },
+                    { key: 'passed', label: 'Passed', count: 7 },
+                    { key: 'failed', label: 'Failed', count: 2 },
+                    { key: 'skipped', label: 'Skipped', count: 1 },
+                ],
                 activeFilter: 'all',
+                onFilter: '__noop',
             },
-            data: minimalData(),
+            interactionObject: FilterBar,
         });
 
-        await expect(page.locator('.filter-chip', { hasText: 'All' })).toContainText('4');
-        await expect(page.locator('.filter-chip', { hasText: 'Passed' })).toContainText('3');
-        await expect(page.locator('.filter-chip', { hasText: 'Failed' })).toContainText('1');
-        await expect(page.locator('.filter-chip', { hasText: 'Skipped' })).toContainText('0');
+        await actor.attemptsTo(
+            Ensure.that(filterBar.filterLabels(), equals(['All', 'Passed', 'Failed', 'Skipped'])),
+        );
     });
 
-    test('marks the active filter chip', async ({ mount, page }) => {
-        await mount({
+    it('reports active filter via aria-pressed', async ({ mount, actor }) => {
+        const filterBar = await mount({
             component: 'FilterBar',
             importPath: './components/FilterBar',
             props: {
-                outcomes: { passed: 2, failed: 1, pending: 1, skipped: 0, compromised: 0, error: 0 },
-                total: 4,
+                filters: [
+                    { key: 'all', label: 'All', count: 10 },
+                    { key: 'passed', label: 'Passed', count: 7 },
+                    { key: 'failed', label: 'Failed', count: 2 },
+                    { key: 'skipped', label: 'Skipped', count: 1 },
+                ],
                 activeFilter: 'failed',
+                onFilter: '__noop',
             },
-            data: minimalData(),
+            interactionObject: FilterBar,
         });
 
-        await expect(page.locator('.filter-chip.failed.active')).toBeVisible();
-        await expect(page.locator('.filter-chip.all.active')).not.toBeVisible();
+        await actor.attemptsTo(
+            Ensure.that(filterBar.activeFilters(), equals(['Failed'])),
+        );
     });
 
-    test('renders sort dropdown when sortOptions provided', async ({ mount, page }) => {
-        await mount({
+    it('reports multiple active filters when multi-selected', async ({ mount, actor }) => {
+        const filterBar = await mount({
             component: 'FilterBar',
             importPath: './components/FilterBar',
             props: {
-                outcomes: { passed: 3, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
-                total: 3,
-                activeFilter: 'all',
-                sortOptions: [{ key: 'name', label: 'Name' }, { key: 'duration', label: 'Duration' }],
-                activeSort: 'name',
+                filters: [
+                    { key: 'all', label: 'All', count: 10 },
+                    { key: 'passed', label: 'Passed', count: 7 },
+                    { key: 'failed', label: 'Failed', count: 2 },
+                    { key: 'skipped', label: 'Skipped', count: 1 },
+                ],
+                activeFilter: 'failed,skipped',
+                onFilter: '__noop',
             },
-            data: minimalData(),
+            interactionObject: FilterBar,
         });
 
-        await expect(page.locator('.sort-select')).toBeVisible();
-        await expect(page.locator('.sort-select')).toHaveValue('name');
+        await actor.attemptsTo(
+            Ensure.that(filterBar.activeFilters(), contain('Failed')),
+            Ensure.that(filterBar.activeFilters(), contain('Skipped')),
+        );
     });
 
-    test('does not render sort dropdown when no sortOptions', async ({ mount, page }) => {
-        await mount({
+    it('reports selected sort option', async ({ mount, actor }) => {
+        const filterBar = await mount({
             component: 'FilterBar',
             importPath: './components/FilterBar',
             props: {
-                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
-                total: 1,
+                filters: [
+                    { key: 'all', label: 'All', count: 5 },
+                    { key: 'passed', label: 'Passed', count: 5 },
+                ],
                 activeFilter: 'all',
+                onFilter: '__noop',
+                sortOptions: [
+                    { key: 'name', label: 'Name' },
+                    { key: 'duration', label: 'Duration' },
+                ],
+                activeSort: 'duration',
             },
-            data: minimalData(),
+            interactionObject: FilterBar,
         });
 
-        await expect(page.locator('.sort-select')).not.toBeVisible();
+        await actor.attemptsTo(
+            Ensure.that(filterBar.selectedSort(), equals('duration')),
+        );
+    });
+
+    it('shows "All" as active when no specific filter is selected', async ({ mount, actor }) => {
+        const filterBar = await mount({
+            component: 'FilterBar',
+            importPath: './components/FilterBar',
+            props: {
+                filters: [
+                    { key: 'all', label: 'All', count: 5 },
+                    { key: 'passed', label: 'Passed', count: 3 },
+                    { key: 'failed', label: 'Failed', count: 2 },
+                ],
+                activeFilter: 'all',
+                onFilter: '__noop',
+            },
+            interactionObject: FilterBar,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(filterBar.activeFilters(), equals(['All'])),
+        );
     });
 });

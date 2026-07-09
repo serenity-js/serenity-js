@@ -6,9 +6,10 @@
 | 8.1 | HistoryDots | ✅ Done | `315ca863d1` |
 | 8.2 | OutcomeBadge | ✅ Done | `eeca2ed2df` |
 | 8.3 | ResultCount | ✅ Done | `6713f459fc` |
-| 8.4 | KpiCard | ⬜ Not started | — |
-| 8.5 | FilterBar generalisation | ⬜ Not started | — |
-| 8.6 | SortDropdown | ⬜ Not started | — |
+| 8.4 | KpiCard (regular) | ✅ Done | — |
+| 8.5 | FilterBar generalisation | ✅ Done | — |
+| 8.6 | SortDropdown | ✅ Done (folded into 8.5) | — |
+| 8.7 | DashboardKpiCard | ✅ Done | — |
 
 API refinement applied in `82f77b6956`:
 - OutcomeBadge: `outcomeClass()` → `outcomeType()`
@@ -120,8 +121,7 @@ Always `Answerable<PageElement<NET>>` — this accepts `PageElement.located(...)
 ### Scoping convention
 
 ```typescript
-private
-someChild = () =>
+private someChild = () =>
     PageElement.located(By.css('.child-class'))
         .of(this.rootElement)
         .describedAs('child element');
@@ -177,16 +177,20 @@ Ordered by: self-containedness → duplication count → testability → risk.
 
 **Why third:** Small, accessibility-important (standardises inconsistent ARIA usage), 4 duplications.
 
-### 8.4 — KpiCard
+### 8.4 — KpiCard (regular)
 
 | Aspect            | Detail                                                                         |
 |-------------------|--------------------------------------------------------------------------------|
-| Duplicated in     | `DashboardView` (6+), `TimelineView` (4), `ErrorsView` (summary cards)         |
-| Props             | `label`, `value`, `subtitle?`, `color?`, `onClick?`, `ariaLabel?`, `children?` |
-| data-testid       | `kpi-card` (or `kpi-card-<label-slug>` if multiple per view)                   |
-| Behaviour to test | Renders label/value, click navigates (when onClick provided), accessible       |
+| Duplicated in     | `TimelineView` (4 cards), `ErrorsView` (dynamic summary cards)                 |
+| Props             | `label`, `value`, `subtitle?`, `valueColor?`, `ariaLabel`                      |
+| data-testid       | `kpi-card`                                                                     |
+| Behaviour to test | Renders label/value/subtitle, correct aria-label, optional value colour        |
 
-**Why fourth:** Higher duplication count (10+), slightly more complex due to optional slots and click behaviour.
+**Why fourth:** 8+ instances of simple informational cards with identical structure. Clean extraction —
+no children slots, no click behaviour, no variant classes.
+
+**Scope:** Only the simple display cards in TimelineView and ErrorsView. The Dashboard cards are a
+separate composite widget (see 8.7) with embedded sparklines, deltas, navigation, and variant classes.
 
 ### 8.5 — FilterBar generalisation
 
@@ -211,6 +215,23 @@ three views still work. Higher risk, higher reward.
 | Behaviour to test | Displays options, triggers onChange on selection                     |
 
 **Why sixth:** Natural sub-extraction that falls out of the FilterBar generalisation. May be done as part of 8.5.
+
+### 8.7 — DashboardKpiCard
+
+| Aspect            | Detail                                                                                        |
+|-------------------|-----------------------------------------------------------------------------------------------|
+| Duplicated in     | `DashboardView` only (6 cards: hero, pass rate, consistency, completeness, failed, duration)  |
+| Props             | `label`, `value`, `ariaLabel`, `onClick`, `valueColor?`, `variant?`, `children`               |
+| data-testid       | `dashboard-kpi-card`                                                                          |
+| Behaviour to test | Renders label/value, click triggers navigation, variant classes, children slot (Delta, etc.)   |
+
+**Why last:** Single call site (DashboardView), high complexity — cards embed sparklines, Delta components,
+DotTrend charts, and computed subtitles. The primary value here is the **interaction object**, which
+enables structured integration testing of the Dashboard KPI row without brittle CSS selectors.
+
+The component itself is a thin wrapper: `<button>` with `kpi-card` class, `aria-label`, a label/value
+pair, and a `children` slot for the embedded charts and deltas. The variant prop controls `--hero` / `--operational`
+class modifiers.
 
 ## Commit Convention
 

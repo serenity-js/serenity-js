@@ -1,36 +1,24 @@
 import { Answerable, Task, the } from '@serenity-js/core';
 import { HistoryDots, OutcomeBadge, ResultCount, SearchInput } from '@serenity-js/html-reporter/serenity';
-import { By, PageElement, PageElements } from '@serenity-js/web';
+import { By, PageElement } from '@serenity-js/web';
 
-import { Navigation } from '../app';
+import { Navigation, View } from '../app';
 
-export class ConsistencyView<NET> {
+export class ConsistencyView<NET> extends View<NET> {
 
     private readonly searchInput: SearchInput<NET>;
     readonly historyDots: HistoryDots<NET>;
     readonly resultCount: ResultCount<NET>;
 
     constructor(
-        private readonly rootElement: Answerable<PageElement<NET>>,
+        rootElement: Answerable<PageElement<NET>>,
         private readonly navigation: Navigation,
     ) {
-        const searchInputRoot = PageElement
-            .located(By.css('[data-testid="search-input"]'))
-            .of(this.rootElement);
+        super(rootElement);
 
-        this.searchInput = new SearchInput(searchInputRoot);
-
-        const historyDotsRoot = PageElement
-            .located(By.css('[data-testid="history-dots"]'))
-            .of(this.rootElement);
-
-        this.historyDots = new HistoryDots(historyDotsRoot);
-
-        const resultCountRoot = PageElement
-            .located(By.css('[data-testid="result-count"]'))
-            .of(this.rootElement);
-
-        this.resultCount = new ResultCount(resultCountRoot);
+        this.searchInput = new SearchInput(this.child(By.css('[data-testid="search-input"]')));
+        this.historyDots = new HistoryDots(this.child(By.css('[data-testid="history-dots"]')));
+        this.resultCount = new ResultCount(this.child(By.css('[data-testid="result-count"]')));
     }
 
     outcomeBadgeFor = (scenarioItem: Answerable<PageElement<NET>>) => {

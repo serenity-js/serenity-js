@@ -9,6 +9,7 @@ import { AreaSparkline } from './charts/AreaSparkline';
 import { Delta } from './charts/Delta';
 import { DotTrend } from './charts/DotTrend';
 import { TrendChart } from './charts/TrendChart';
+import { DashboardKpiCard } from './DashboardKpiCard';
 import { icons } from './icons';
 
 const html = htm.bind(h);
@@ -80,9 +81,7 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
     <div class="dashboard">
       <!-- KPI Row -->
       <div class="kpi-row">
-        <button type="button" class="kpi-card kpi-card--hero" onClick=${() => onNavigate('/capabilities')} aria-label="Confidence: ${confidence} percent">
-          <span class="kpi-label">Confidence</span>
-          <span class="kpi-value" style=${scoreColor(confidence) ? `color:${scoreColor(confidence)}` : ''}>${confidence}<span style="font-size:var(--font-base);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
+        <${DashboardKpiCard} label="Confidence" value=${html`${confidence}<span style="font-size:var(--font-base);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span>`} ariaLabel="Confidence: ${confidence} percent" onClick=${() => onNavigate('/capabilities')} valueColor=${scoreColor(confidence) || ''} variant="hero">
           <span class="kpi-subtitle">${(() => {
                 if (previousConfidence === undefined) return `${summary.totalScenarios} scenarios across ${history.length} run${history.length !== 1 ? 's' : ''}`;
                 const newFails = allNewFailures.length;
@@ -98,38 +97,28 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
                 return 'No change since last run';
             })()}</span>
           <${AreaSparkline} values=${confidenceTrend} color=${scoreColor(confidence) || 'var(--accent)'} />
-        </button>
-        <button type="button" class="kpi-card" onClick=${() => onNavigate('/tests?filter=failed,skipped')} aria-label="Pass rate: ${passRate} percent">
-          <span class="kpi-label">Pass Rate</span>
-          <span class="kpi-value" style=${scoreColor(passRate) ? `color:${scoreColor(passRate)}` : ''}>${passRate}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
+        </${DashboardKpiCard}>
+        <${DashboardKpiCard} label="Pass Rate" value=${html`${passRate}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span>`} ariaLabel="Pass rate: ${passRate} percent" onClick=${() => onNavigate('/tests?filter=failed,skipped')} valueColor=${scoreColor(passRate) || ''}>
           <${Delta} current=${passRate} previous=${previousPassRate} suffix="%" />
           <span class="kpi-subtitle">${summary.outcomes.passed} of ${summary.totalScenarios} passing</span>
-        </button>
-        <button type="button" class="kpi-card" onClick=${() => onNavigate('/consistency')} aria-label="Consistency: ${consistency} percent">
-          <span class="kpi-label">Consistency</span>
-          <span class="kpi-value" style=${scoreColor(consistency) ? `color:${scoreColor(consistency)}` : ''}>${consistency}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
+        </${DashboardKpiCard}>
+        <${DashboardKpiCard} label="Consistency" value=${html`${consistency}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span>`} ariaLabel="Consistency: ${consistency} percent" onClick=${() => onNavigate('/consistency')} valueColor=${scoreColor(consistency) || ''}>
           <${Delta} current=${consistency} previous=${previousConsistency} suffix="%" />
           <span class="kpi-subtitle">${consistency === 100 ? 'All tests consistent' : allInconsistentTests.length + ' inconsistent test' + (allInconsistentTests.length !== 1 ? 's' : '')}</span>
-        </button>
-        <button type="button" class="kpi-card" onClick=${() => onNavigate('/capabilities')} aria-label="Completeness: ${completenessScore} percent">
-          <span class="kpi-label">Completeness</span>
-          <span class="kpi-value" style=${scoreColor(completenessScore) ? `color:${scoreColor(completenessScore)}` : ''}>${completenessScore}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span></span>
+        </${DashboardKpiCard}>
+        <${DashboardKpiCard} label="Completeness" value=${html`${completenessScore}<span style="font-size:var(--font-sm);font-weight:400;color:var(--text-disabled);margin-left:1px">%</span>`} ariaLabel="Completeness: ${completenessScore} percent" onClick=${() => onNavigate('/capabilities')} valueColor=${scoreColor(completenessScore) || ''}>
           <${Delta} current=${completenessScore} previous=${previousCompleteness} suffix="%" />
           <span class="kpi-subtitle">${summary.totalScenarios - (summary.outcomes.pending || 0) - (summary.outcomes.skipped || 0)} of ${summary.totalScenarios} implemented</span>
-        </button>
+        </${DashboardKpiCard}>
         <div class="kpi-row-operational">
-          <button type="button" class="kpi-card kpi-card--operational" onClick=${() => onNavigate('/tests?filter=failed')} aria-label="${totalFailed} failed scenarios">
-            <span class="kpi-label">Failed</span>
-            <span class="kpi-value" style="color:${totalFailed > 0 ? 'var(--color-failed)' : 'var(--text-primary)'}">${totalFailed}</span>
+          <${DashboardKpiCard} label="Failed" value=${totalFailed} ariaLabel="${totalFailed} failed scenarios" onClick=${() => onNavigate('/tests?filter=failed')} valueColor=${totalFailed > 0 ? 'var(--color-failed)' : 'var(--text-primary)'} variant="operational">
             <${Delta} current=${totalFailed} previous=${previousFailed} invert=${true} />
             <${DotTrend} values=${failedTrend} color="var(--color-failed)" />
-          </button>
-          <button type="button" class="kpi-card kpi-card--operational" onClick=${() => onNavigate('/tests?sort=duration')} aria-label="Total duration: ${formatDuration(summary.duration)}">
-            <span class="kpi-label">Total Duration</span>
-            <span class="kpi-value">${formatDuration(summary.duration)}</span>
+          </${DashboardKpiCard}>
+          <${DashboardKpiCard} label="Total Duration" value=${formatDuration(summary.duration)} ariaLabel="Total duration: ${formatDuration(summary.duration)}" onClick=${() => onNavigate('/tests?sort=duration')} variant="operational">
             ${previousDuration !== undefined ? html`<span class="kpi-delta ${summary.duration < previousDuration ? 'kpi-delta--positive' : summary.duration > previousDuration ? 'kpi-delta--negative' : 'kpi-delta--neutral'}">${summary.duration < previousDuration ? '↑' : summary.duration > previousDuration ? '↓' : '—'} ${formatDuration(Math.abs(summary.duration - previousDuration))} ${summary.duration < previousDuration ? 'faster' : summary.duration > previousDuration ? 'slower' : ''}</span>` : null}
             <${DotTrend} values=${durationTrend} color="var(--accent)" />
-          </button>
+          </${DashboardKpiCard}>
         </div>
       </div>
 

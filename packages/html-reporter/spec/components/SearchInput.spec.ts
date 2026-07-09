@@ -1,6 +1,6 @@
 import { contain, Ensure, equals, isFalse, isTrue } from '@serenity-js/assertions';
 
-import { SearchInput } from '../../src/SearchInput.serenity.js';
+import { SearchInput } from '../../src/serenity/SearchInput.serenity.js';
 import { beforeEach, describe, it } from './fixtures.js';
 
 describe('SearchInput', () => {

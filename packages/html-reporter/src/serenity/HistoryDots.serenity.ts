@@ -1,6 +1,7 @@
 import type { Answerable, QuestionAdapter } from '@serenity-js/core';
 import { Question } from '@serenity-js/core';
-import { By, PageElement, PageElements } from '@serenity-js/web';
+import type { PageElement } from '@serenity-js/web';
+import { By, PageElements } from '@serenity-js/web';
 
 export interface HistoryDotEntry {
     type: string;

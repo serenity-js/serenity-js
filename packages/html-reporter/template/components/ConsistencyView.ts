@@ -6,6 +6,7 @@ import type { ReportInconsistentTest } from '../../src/ReportData';
 import { ROW_HEIGHTS } from '../config/layout';
 import { matchesSearch } from '../utils';
 import { classifyConsistencyKind } from '../utils/selectors';
+import { FilterBar } from './FilterBar';
 import { icons } from './icons';
 import { GroupedVirtualList } from './layout/GroupedVirtualList';
 import { ResultCount } from './ResultCount';
@@ -81,36 +82,22 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
     <div>
       <${SearchInput} value=${search} onInput=${setSearch} />
 
-      <div class="filter-bar" role="group" aria-label="Filter tests by consistency" style="align-items:center">
-        <span class="label-upper" style="align-self:center">Status:</span>
-        <button class="filter-chip ${filter === 'all' ? 'active' : ''}" onClick=${() => setFilter('all')}
-                aria-pressed=${filter === 'all'}>
-          <span>All</span> <span class="count">${inconsistentTests.length}</span>
-        </button>
-        <button class="filter-chip ${filter === 'flaky' ? 'active' : ''}" onClick=${() => setFilter('flaky')}
-                aria-pressed=${filter === 'flaky'}>
-          <span>Flaky</span> <span class="count">${flakyCount}</span>
-        </button>
-        <button class="filter-chip ${filter === 'inconsistent' ? 'active' : ''}" onClick=${() => setFilter('inconsistent')}
-                aria-pressed=${filter === 'inconsistent'}>
-          <span>Inconsistent</span> <span class="count">${inconsistentCount}</span>
-        </button>
-        <button class="filter-chip failed ${filter === 'degraded' ? 'active' : ''}" onClick=${() => setFilter('degraded')}
-                aria-pressed=${filter === 'degraded'}>
-          <span>Degraded</span> <span class="count">${degradedCount}</span>
-        </button>
-        <button class="filter-chip passed ${filter === 'recovered' ? 'active' : ''}" onClick=${() => setFilter('recovered')}
-                aria-pressed=${filter === 'recovered'}>
-          <span>Recovered</span> <span class="count">${recoveredCount}</span>
-        </button>
-        <div class="sort-group">
-          <label class="label-upper" for="consistency-sort-select">Sort:</label>
-          <select id="consistency-sort-select" class="sort-select" value=${sort} onChange=${(e: Event) => setSort((e.target as HTMLSelectElement).value)} aria-label="Sort order">
-            <option value="category" selected=${sort === 'category'}>Category</option>
-            <option value="name" selected=${sort === 'name'}>Name</option>
-          </select>
-        </div>
-      </div>
+      <${FilterBar} filters=${[
+            { key: 'all', label: 'All', count: inconsistentTests.length },
+            { key: 'flaky', label: 'Flaky', count: flakyCount },
+            { key: 'inconsistent', label: 'Inconsistent', count: inconsistentCount },
+            { key: 'degraded', label: 'Degraded', count: degradedCount, className: 'failed' },
+            { key: 'recovered', label: 'Recovered', count: recoveredCount, className: 'passed' },
+        ]}
+        activeFilter=${filter} onFilter=${setFilter}
+        ariaLabel="Filter tests by consistency" label="Status"
+        multiSelect=${false}
+        sortOptions=${[
+            { key: 'category', label: 'Category' },
+            { key: 'name', label: 'Name' },
+        ]}
+        activeSort=${sort} onSort=${setSort}
+        sortId="consistency-sort-select" />
 
       <div class="card pb-0">
         <${ResultCount} showing=${sortedItems.length} label=${sortedItems.length === 1 ? 'test' : 'tests'} />

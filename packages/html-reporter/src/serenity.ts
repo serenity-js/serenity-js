@@ -1,4 +1,7 @@
-export { HistoryDots } from './HistoryDots.serenity.js';
-export { OutcomeBadge } from './OutcomeBadge.serenity.js';
-export { ResultCount } from './ResultCount.serenity.js';
-export { SearchInput } from './SearchInput.serenity.js';
+export { DashboardKpiCard } from './serenity/DashboardKpiCard.serenity.js';
+export { FilterBar } from './serenity/FilterBar.serenity.js';
+export { HistoryDots } from './serenity/HistoryDots.serenity.js';
+export { KpiCard } from './serenity/KpiCard.serenity.js';
+export { OutcomeBadge } from './serenity/OutcomeBadge.serenity.js';
+export { ResultCount } from './serenity/ResultCount.serenity.js';
+export { SearchInput } from './serenity/SearchInput.serenity.js';

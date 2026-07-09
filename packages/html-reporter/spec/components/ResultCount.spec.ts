@@ -1,6 +1,6 @@
 import { Ensure, equals } from '@serenity-js/assertions';
 
-import { ResultCount } from '../../src/ResultCount.serenity.js';
+import { ResultCount } from '../../src/serenity/ResultCount.serenity.js';
 import { describe, it } from './fixtures.js';
 
 describe('ResultCount', () => {

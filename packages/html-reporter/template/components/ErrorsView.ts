@@ -8,6 +8,7 @@ import { formatRunLabel, resolveRunIndex } from '../utils';
 import { HistoricalBanner } from './HistoricalBanner';
 import { icons } from './icons';
 import { GroupedVirtualList } from './layout/GroupedVirtualList';
+import { KpiCard } from './KpiCard';
 import { ResultCount } from './ResultCount';
 import { ErrorRow } from './rows/ErrorRow';
 import { RunSelector } from './RunSelector';
@@ -182,11 +183,7 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
 
       <div class="kpi-row mb-md stat-grid">
         ${summaryCards.map(card => html`
-          <div class="kpi-card" tabindex="0" aria-label="${card.title}: ${card.value}">
-            <span class="kpi-label">${card.title}</span>
-            <span class="kpi-value" style="color:${card.color}">${card.value}</span>
-            <span class="kpi-subtitle">${card.subtitle}</span>
-          </div>
+          <${KpiCard} label=${card.title} value=${card.value} ariaLabel="${card.title}: ${card.value}" valueColor=${card.color} subtitle=${card.subtitle} />
         `)}
       </div>
       <div class="card pb-0">

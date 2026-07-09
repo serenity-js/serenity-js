@@ -5,6 +5,7 @@ import type { ReportHistoryEntry, ReportScenario } from '../../src/ReportData';
 import { useScenarioDetail } from '../hooks/useScenarioDetail';
 import { ansiToHtml, browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast, useHashHistory } from '../utils';
 import { ActivityNode } from './ActivityNode';
+import { HistoricalBanner } from './HistoricalBanner';
 import { icons } from './icons';
 import { ExecutionHistory } from './scenario/ExecutionHistory';
 import { ParameterSetGroups } from './scenario/ParameterSetGroups';
@@ -52,10 +53,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
       </div>
 
       ${runIndex !== null && runIndex !== history.length - 1 && history[runIndex] ? html`
-        <div class="historical-banner">
-          <span>Viewing results from: <strong>${formatRunLabel(history[runIndex].label, history[runIndex].timestamp)}</strong></span>
-          <a onClick=${() => onNavigate(scenarioUrl(scenario))} class="link-underline">show latest</a>
-        </div>
+        <${HistoricalBanner} label="Viewing results from:" runLabel=${formatRunLabel(history[runIndex].label, history[runIndex].timestamp)} onShowLatest=${() => onNavigate(scenarioUrl(scenario))} />
       ` : null}
 
       <div class="card mb-md">

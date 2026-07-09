@@ -119,15 +119,21 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
 
       <${SearchInput} value=${search} onInput=${setSearch} />
 
-      <${FilterBar} outcomes=${runOutcomes} total=${runTotal}
-                     activeFilter=${filter} onFilter=${setFilter}
-                     sortOptions=${[
-                            { key: 'category', label: 'Category' },
-                            { key: 'name', label: 'Name' },
-                            { key: 'duration', label: 'Slowest' },
-                            { key: 'status', label: 'Status' },
-                        ]}
-                     activeSort=${sort} onSort=${setSort} />
+      <${FilterBar} filters=${[
+            { key: 'all', label: 'All', count: runTotal },
+            { key: 'passed', label: 'Passed', count: runOutcomes.passed },
+            { key: 'failed', label: 'Failed', count: (runOutcomes.failed || 0) + (runOutcomes.error || 0) + (runOutcomes.compromised || 0) },
+            { key: 'skipped', label: 'Skipped', count: (runOutcomes.skipped || 0) + (runOutcomes.pending || 0) },
+        ]}
+        activeFilter=${filter} onFilter=${setFilter}
+        ariaLabel="Filter tests by outcome" label="Status"
+        sortOptions=${[
+            { key: 'category', label: 'Category' },
+            { key: 'name', label: 'Name' },
+            { key: 'duration', label: 'Slowest' },
+            { key: 'status', label: 'Status' },
+        ]}
+        activeSort=${sort} onSort=${setSort} />
 
       <div class="card">
         <${ResultCount} showing=${filtered.length} total=${allScenarios.length} label="test scenarios" />

@@ -7,7 +7,15 @@ test.describe('Dark mode', () => {
         await mount({
             component: 'FilterBar',
             importPath: './components/FilterBar',
-            props: { outcomes: { passed: 2, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, total: 3, activeFilter: 'all' },
+            props: {
+                filters: [
+                    { key: 'all', label: 'All', count: 3 },
+                    { key: 'passed', label: 'Passed', count: 2 },
+                    { key: 'failed', label: 'Failed', count: 1 },
+                ],
+                activeFilter: 'all',
+                onFilter: '__noop',
+            },
             data: minimalData(),
         });
 

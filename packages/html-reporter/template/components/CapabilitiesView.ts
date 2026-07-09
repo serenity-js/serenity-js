@@ -6,70 +6,12 @@ import type { ReportCapabilityNode } from '../../src/ReportData';
 import { useHashHistory } from '../utils';
 import { DetailPanel } from './capabilities/CapabilityDetail';
 import { countTopLevelCapabilities, countVisibleNodes, findNodeByPath, getVisiblePaths, nodeConfidence, nodeHasGap, TreeNode } from './capabilities/CapabilityTree';
+import { FilterBar } from './FilterBar';
 import { icons } from './icons';
 import { ResultCount } from './ResultCount';
 import { SearchInput } from './SearchInput';
 
 const html = htm.bind(h);
-
-interface CapabilitiesFilterBarProps {
-    activeFilter: string;
-    onFilter: (filter: string) => void;
-    capabilities: ReportCapabilityNode;
-    searchTerm: string;
-    onSearch: (term: string) => void;
-    activeSort: string;
-    onSort: (sort: string) => void;
-}
-
-function CapabilitiesFilterBar({ activeFilter, onFilter, capabilities, searchTerm, onSearch, activeSort, onSort }: CapabilitiesFilterBarProps) {
-    let healthy = 0, atRisk = 0, critical = 0, gaps = 0;
-    function walk(n: ReportCapabilityNode) {
-        if (n.type === 'directory' && n.children) {
-            const score = nodeConfidence(n);
-            if (score < 50) critical++;
-            else if (score < 90) atRisk++;
-            else healthy++;
-            if (nodeHasGap(n)) gaps++;
-            n.children.forEach(walk);
-        }
-    }
-    if (capabilities.children) capabilities.children.forEach(walk);
-    const total = healthy + atRisk + critical;
-
-    const filters = [
-        { key: 'all', label: 'All', count: total },
-        { key: 'healthy', label: 'Healthy', count: healthy },
-        { key: 'at-risk', label: 'At Risk', count: atRisk },
-        { key: 'critical', label: 'Critical', count: critical },
-        { key: 'gaps', label: 'Gaps', count: gaps },
-    ];
-
-    const sortOptions = [
-        { key: 'name', label: 'Name' },
-        { key: 'confidence', label: 'Confidence' },
-        { key: 'scenarios', label: 'Scenarios' },
-    ];
-
-    return html`
-        <div class="filter-bar" role="group" aria-label="Filter capabilities by health" style="align-items:center">
-            <span class="label-upper" style="align-self:center">Health:</span>
-            ${filters.map(f => html`
-                <button class="filter-chip ${f.key} ${activeFilter === f.key ? 'active' : ''}"
-                    onClick=${() => onFilter(f.key)} aria-pressed=${activeFilter === f.key}>
-                    <span>${f.label}</span>
-                    <span class="count">${f.count}</span>
-                </button>
-            `)}
-            <div class="sort-group">
-                <label class="label-upper" for="cap-sort-select">Sort:</label>
-                <select id="cap-sort-select" class="sort-select" value=${activeSort} onChange=${(e: Event) => onSort((e.target as HTMLSelectElement).value)} aria-label="Sort order">
-                    ${sortOptions.map(s => html`<option value=${s.key} selected=${activeSort === s.key}>${s.label}</option>`)}
-                </select>
-            </div>
-        </div>
-    `;
-}
 
 interface CapabilitiesViewProps {
     capabilities?: ReportCapabilityNode;
@@ -114,6 +56,22 @@ export function CapabilitiesView({ capabilities, onNavigate, route }: Capabiliti
         if (activeFilter === 'gaps') return nodeHasGap;
         return null;
     }, [activeFilter]);
+
+    const healthCounts = useMemo(() => {
+        let healthy = 0, atRisk = 0, critical = 0, gaps = 0;
+        function walk(n: ReportCapabilityNode) {
+            if (n.type === 'directory' && n.children) {
+                const score = nodeConfidence(n);
+                if (score < 50) critical++;
+                else if (score < 90) atRisk++;
+                else healthy++;
+                if (nodeHasGap(n)) gaps++;
+                n.children.forEach(walk);
+            }
+        }
+        if (capabilities.children) capabilities.children.forEach(walk);
+        return { healthy, atRisk, critical, gaps, total: healthy + atRisk + critical };
+    }, [capabilities]);
 
     const handleSelect = (path: string, node: ReportCapabilityNode) => {
         setSelectedPath(path);
@@ -203,9 +161,23 @@ export function CapabilitiesView({ capabilities, onNavigate, route }: Capabiliti
             <div class="card req-tree-panel">
                 ${showFilterBar ? html`
                     <${SearchInput} value=${searchTerm} onInput=${setSearchTerm} placeholder="Find capabilities..." />
-                    <${CapabilitiesFilterBar} activeFilter=${activeFilter} onFilter=${setActiveFilter}
-                        capabilities=${capabilities} searchTerm=${searchTerm} onSearch=${setSearchTerm}
-                        activeSort=${activeSort} onSort=${setActiveSort} />
+                    <${FilterBar} filters=${[
+                        { key: 'all', label: 'All', count: healthCounts.total },
+                        { key: 'healthy', label: 'Healthy', count: healthCounts.healthy },
+                        { key: 'at-risk', label: 'At Risk', count: healthCounts.atRisk },
+                        { key: 'critical', label: 'Critical', count: healthCounts.critical },
+                        { key: 'gaps', label: 'Gaps', count: healthCounts.gaps },
+                    ]}
+                    activeFilter=${activeFilter} onFilter=${setActiveFilter}
+                    ariaLabel="Filter capabilities by health" label="Health"
+                    multiSelect=${false}
+                    sortOptions=${[
+                        { key: 'name', label: 'Name' },
+                        { key: 'confidence', label: 'Confidence' },
+                        { key: 'scenarios', label: 'Scenarios' },
+                    ]}
+                    activeSort=${activeSort} onSort=${setActiveSort}
+                    sortId="cap-sort-select" />
                 ` : null}
                 <div style="margin-top:var(--space-sm)">
                     <${ResultCount} showing=${showFilterBar && (searchTerm || activeFilter !== 'all') ? visibleCount : totalCapabilities} total=${totalCapabilities} label=${totalCapabilities !== 1 ? 'capabilities' : 'capability'} />
