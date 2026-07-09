@@ -1,5 +1,38 @@
+import { Ensure, equals, includes } from '@serenity-js/assertions';
+
+import { SystemContextView } from '../../src/serenity/SystemContextView.serenity.js';
 import { minimalData } from './data-factories.js';
 import { describe, expect, it } from './fixtures.js';
+
+describe('SystemContextView interaction object', () => {
+
+    it('exposes the Node.js version', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'SystemContextView',
+            importPath: './components/SystemContextView',
+            data: minimalData(),
+            interactionObject: SystemContextView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.nodeVersion(), equals('v22.0.0')),
+        );
+    });
+
+    it('exposes the test runner name and version', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'SystemContextView',
+            importPath: './components/SystemContextView',
+            data: minimalData(),
+            interactionObject: SystemContextView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.testRunner(), includes('Playwright')),
+            Ensure.that(view.testRunner(), includes('1.45.0')),
+        );
+    });
+});
 
 describe('SystemContextView', () => {
 

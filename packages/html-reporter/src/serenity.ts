@@ -1,3 +1,5 @@
+export { AboutView } from './serenity/AboutView.serenity.js';
+export { CapabilitiesView } from './serenity/CapabilitiesView.serenity.js';
 export { ConsistencyView } from './serenity/ConsistencyView.serenity.js';
 export { DashboardKpiCard } from './serenity/DashboardKpiCard.serenity.js';
 export { DashboardView } from './serenity/DashboardView.serenity.js';
@@ -10,6 +12,11 @@ export { Navigation } from './serenity/Navigation.serenity.js';
 export { OutcomeBadge } from './serenity/OutcomeBadge.serenity.js';
 export { RestQueryPanel } from './serenity/RestQueryPanel.serenity.js';
 export { ResultCount } from './serenity/ResultCount.serenity.js';
+export { ScenarioDetailView } from './serenity/ScenarioDetailView.serenity.js';
+export { ScenariosView } from './serenity/ScenariosView.serenity.js';
 export { SearchInput } from './serenity/SearchInput.serenity.js';
+export { SystemContextView } from './serenity/SystemContextView.serenity.js';
+export { TagsView } from './serenity/TagsView.serenity.js';
+export { TestRunsView } from './serenity/TestRunsView.serenity.js';
 export { TimelineView } from './serenity/TimelineView.serenity.js';
 export { View } from './serenity/View.serenity.js';

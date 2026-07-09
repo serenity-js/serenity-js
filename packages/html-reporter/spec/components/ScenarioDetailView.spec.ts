@@ -1,5 +1,83 @@
+import { Ensure, equals } from '@serenity-js/assertions';
+
+import { ScenarioDetailView } from '../../src/serenity/ScenarioDetailView.serenity.js';
 import { minimalData } from './data-factories.js';
 import { describe, expect, it } from './fixtures.js';
+
+describe('ScenarioDetailView interaction object', () => {
+
+    it('displays the scenario name', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenarioDetailView',
+            importPath: './components/ScenarioDetailView',
+            props: { scenarioId: 'spec/a.spec.ts:Checkout flow', onNavigate: () => {} },
+            data: minimalData({
+                scenarios: [
+                    {
+                        name: 'Checkout flow', category: 'E2E', outcome: 'SUCCESS', duration: 500,
+                        startedAt: '2024-06-15T14:30:00.000Z',
+                        source: { path: 'spec/a.spec.ts' },
+                        tags: [], activities: [], executionHistory: [],
+                    },
+                ],
+            }),
+            interactionObject: ScenarioDetailView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioName(), equals('Checkout flow')),
+        );
+    });
+
+    it('shows error block when the scenario has an error', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenarioDetailView',
+            importPath: './components/ScenarioDetailView',
+            props: { scenarioId: 'spec/b.spec.ts:5', onNavigate: () => {} },
+            data: minimalData({
+                scenarios: [
+                    {
+                        name: 'Failing test', category: 'Suite', outcome: 'FAILURE', duration: 200,
+                        startedAt: '2024-06-15T14:30:00.000Z',
+                        source: { path: 'spec/b.spec.ts', line: 5 },
+                        tags: [], activities: [], executionHistory: [],
+                        error: { name: 'AssertionError', message: 'Expected 1 to equal 2', stack: 'at line 5' },
+                    },
+                ],
+            }),
+            interactionObject: ScenarioDetailView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.hasError(), equals(true)),
+            Ensure.that(view.errorBlock().name(), equals('AssertionError')),
+            Ensure.that(view.errorBlock().message(), equals('Expected 1 to equal 2')),
+        );
+    });
+
+    it('hides error block when the scenario has no error', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenarioDetailView',
+            importPath: './components/ScenarioDetailView',
+            props: { scenarioId: 'spec/a.spec.ts:Passing test', onNavigate: () => {} },
+            data: minimalData({
+                scenarios: [
+                    {
+                        name: 'Passing test', category: 'Suite', outcome: 'SUCCESS', duration: 100,
+                        startedAt: '2024-06-15T14:30:00.000Z',
+                        source: { path: 'spec/a.spec.ts' },
+                        tags: [], activities: [], executionHistory: [],
+                    },
+                ],
+            }),
+            interactionObject: ScenarioDetailView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.hasError(), equals(false)),
+        );
+    });
+});
 
 /**
  * Builds a ReportData fixture for a scenario with mixed retry history.

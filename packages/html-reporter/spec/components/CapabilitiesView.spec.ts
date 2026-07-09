@@ -1,3 +1,6 @@
+import { contain, Ensure } from '@serenity-js/assertions';
+
+import { CapabilitiesView } from '../../src/serenity/CapabilitiesView.serenity.js';
 import { minimalData } from './data-factories.js';
 import { describe, expect, it } from './fixtures.js';
 
@@ -38,6 +41,40 @@ function capabilitiesData() {
         },
     });
 }
+
+describe('CapabilitiesView interaction object', () => {
+
+    it('displays filter chips with health category labels', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+            interactionObject: CapabilitiesView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.filterBar.filterLabels(), contain('All')),
+            Ensure.that(view.filterBar.filterLabels(), contain('Healthy')),
+            Ensure.that(view.filterBar.filterLabels(), contain('At Risk')),
+            Ensure.that(view.filterBar.filterLabels(), contain('Critical')),
+        );
+    });
+
+    it('shows "All" filter as active by default', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+            interactionObject: CapabilitiesView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.filterBar.activeFilters(), contain('All')),
+        );
+    });
+});
 
 describe('CapabilitiesView', () => {
 

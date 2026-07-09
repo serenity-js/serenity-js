@@ -1,5 +1,31 @@
+import { Ensure, equals } from '@serenity-js/assertions';
+
+import { TagsView } from '../../src/serenity/TagsView.serenity.js';
 import { minimalData } from './data-factories.js';
 import { describe, expect, it } from './fixtures.js';
+
+describe('TagsView interaction object', () => {
+
+    it('reports the number of tag cards', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'TagsView',
+            importPath: './components/TagsView',
+            props: { onNavigate: () => {} },
+            data: minimalData({
+                tags: [
+                    { type: 'feature', name: 'Login', scenarioCount: 3, passed: 3 },
+                    { type: 'feature', name: 'Checkout', scenarioCount: 2, passed: 1 },
+                    { type: 'tag', name: 'smoke', scenarioCount: 4, passed: 4 },
+                ],
+            }),
+            interactionObject: TagsView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.tagCount(), equals(3)),
+        );
+    });
+});
 
 describe('TagsView', () => {
 

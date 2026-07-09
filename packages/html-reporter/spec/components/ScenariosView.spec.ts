@@ -1,5 +1,85 @@
+import { contain, Ensure, equals, includes } from '@serenity-js/assertions';
+
+import { ScenariosView } from '../../src/serenity/ScenariosView.serenity.js';
 import { minimalData } from './data-factories.js';
 import { describe, expect, it } from './fixtures.js';
+
+describe('ScenariosView interaction object', () => {
+
+    const data = minimalData();
+
+    it('displays filter chips with outcome labels', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests' },
+            data,
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.filterBar.filterLabels(), equals(['All', 'Passed', 'Failed', 'Skipped'])),
+        );
+    });
+
+    it('shows all scenarios initially', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests' },
+            data,
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.resultCount.text(), includes('4')),
+        );
+    });
+
+    it('narrows results when searching', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests' },
+            data,
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            view.find('Test D'),
+            Ensure.that(view.resultCount.text(), includes('1')),
+        );
+    });
+
+    it('filters by selecting a filter chip', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests' },
+            data,
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            view.filterBar.selectFilter('Failed'),
+            Ensure.that(view.resultCount.text(), includes('1')),
+        );
+    });
+
+    it('shows "All" filter as active by default', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests' },
+            data,
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.filterBar.activeFilters(), contain('All')),
+        );
+    });
+});
 
 describe('ScenariosView deep linking', () => {
 
