@@ -3,7 +3,7 @@ import { h } from 'preact';
 import { useMemo } from 'preact/hooks';
 
 import type { ReportCapabilityNode, ReportHistoryEntry, ReportInconsistentTest, ReportScenario, ReportScenarioRef, ReportSummary, ReportSystemContext } from '../../src/ReportData';
-import { computeCompletenessFromTree, formatDuration, runConfidence, scenarioUrl, scoreColor } from '../utils';
+import { computeCompletenessFromTree, formatDuration, runConfidence, scoreColor } from '../utils';
 import { classifyConsistencyKind } from '../utils/selectors';
 import { AreaSparkline } from './charts/AreaSparkline';
 import { Delta } from './charts/Delta';
@@ -11,6 +11,7 @@ import { DotTrend } from './charts/DotTrend';
 import { TrendChart } from './charts/TrendChart';
 import { DashboardConsistencyCard } from './DashboardConsistencyCard';
 import { DashboardKpiCard } from './DashboardKpiCard';
+import { DashboardSlowestCard } from './DashboardSlowestCard';
 import { icons } from './icons';
 
 const html = htm.bind(h);
@@ -150,19 +151,7 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
             getHistory=${getHistory}
           />
           <!-- Slowest Tests -->
-          <div class="card dashboard-status-card">
-            <div class="card-header">
-              <span class="status-card-title">Slowest Tests</span>
-              <a class="view-all-link" onClick=${() => onNavigate('/tests?sort=duration')}>View all →</a>
-            </div>
-            ${slowest.map(s => html`
-              <div class="status-item clickable" onClick=${() => onNavigate(scenarioUrl(s))}>
-                <span class="status-icon" style="color:var(--color-pending)">⏱</span>
-                <span class="status-item-name">${s.name}</span>
-                <span class="status-item-meta">${formatDuration(s.duration)}</span>
-              </div>
-            `)}
-          </div>
+          <${DashboardSlowestCard} scenarios=${slowest} onNavigate=${onNavigate} />
         </div>
       </div>
     </div>
