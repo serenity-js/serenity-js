@@ -11,7 +11,7 @@ export class View<NET> {
             .of(this.rootElement);
     }
 
-    protected children(selector: Answerable<Selector>): ReturnType<PageElements['of']> {
+    protected children(selector: Answerable<Selector>): ReturnType<typeof PageElements.located> {
         return PageElements
             .located(selector)
             .of(this.rootElement);

@@ -1,9 +1,10 @@
 import type { Answerable } from '@serenity-js/core';
-import { Question, Task,the } from '@serenity-js/core';
+import { Question, Task, the } from '@serenity-js/core';
 import { By, PageElement, PageElements } from '@serenity-js/web';
 
 import { FilterBar } from './FilterBar.serenity.js';
 import { HistoryDots } from './HistoryDots.serenity.js';
+import { Navigation } from './Navigation.serenity.js';
 import { OutcomeBadge } from './OutcomeBadge.serenity.js';
 import { ResultCount } from './ResultCount.serenity.js';
 import { SearchInput } from './SearchInput.serenity.js';
@@ -15,7 +16,7 @@ export class ConsistencyView<NET> {
     readonly resultCount: ResultCount<NET>;
     readonly historyDots: HistoryDots<NET>;
 
-    constructor(private readonly rootElement: Answerable<PageElement<NET>>) {
+    constructor(private readonly rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
         const child = (selector: string) => PageElement.located(By.css(selector)).of(this.rootElement);
 
         this.searchInput = new SearchInput(child('[data-testid="search-input"]') as unknown as Answerable<PageElement<NET>>);
@@ -41,5 +42,10 @@ export class ConsistencyView<NET> {
     find = (searchTerm: Answerable<string>): Task =>
         Task.where(the`#actor searches for ${searchTerm}`,
             this.searchInput.enter(searchTerm),
+        );
+
+    open = (): Task =>
+        Task.where('#actor opens the Consistency view',
+            this.navigation.openView('Consistency'),
         );
 }

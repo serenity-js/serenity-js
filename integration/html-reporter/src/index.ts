@@ -1,11 +1,6 @@
+import { ConsistencyView, DashboardView, ErrorsView, Navigation, TimelineView } from '@serenity-js/html-reporter/serenity';
 import { useFixtures } from '@serenity-js/playwright-test';
 import { By, PageElement } from '@serenity-js/web';
-
-import { Navigation } from './app';
-import { ConsistencyView } from './consistency';
-import { DashboardView } from './dashboard';
-import { ErrorsView } from './errors';
-import { TimelineView } from './timeline';
 
 interface TestFixtures {
     navigation: Navigation;
@@ -33,31 +28,26 @@ export const {
     },
 
     navigation: async ({ }, use) => {
-        const navigation = new Navigation();
-        await use(navigation);
+        await use(new Navigation());
     },
 
     consistencyView: async ({ navigation }, use) => {
         const rootElement = PageElement.located(By.css('[data-testid="consistency"]')).describedAs('consistency view');
-        const consistencyView = new ConsistencyView(rootElement, navigation);
-        await use(consistencyView);
+        await use(new ConsistencyView(rootElement, navigation));
     },
 
     dashboardView: async ({ navigation }, use) => {
         const rootElement = PageElement.located(By.css('[data-testid="dashboard"]')).describedAs('dashboard view');
-        const dashboardView = new DashboardView(rootElement, navigation);
-        await use(dashboardView);
+        await use(new DashboardView(rootElement, navigation));
     },
 
     timelineView: async ({ navigation }, use) => {
         const rootElement = PageElement.located(By.css('[data-testid="timeline"]')).describedAs('timeline view');
-        const timelineView = new TimelineView(rootElement, navigation);
-        await use(timelineView);
+        await use(new TimelineView(rootElement, navigation));
     },
 
     errorsView: async ({ navigation }, use) => {
         const rootElement = PageElement.located(By.css('[data-testid="errors"]')).describedAs('errors view');
-        const errorsView = new ErrorsView(rootElement, navigation);
-        await use(errorsView);
+        await use(new ErrorsView(rootElement, navigation));
     },
 });
