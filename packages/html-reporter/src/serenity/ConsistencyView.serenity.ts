@@ -1,5 +1,5 @@
-import type { Answerable } from '@serenity-js/core';
-import { Question, Task, the } from '@serenity-js/core';
+import type { Answerable, Question } from '@serenity-js/core';
+import { Task, the } from '@serenity-js/core';
 import { By, PageElement, PageElements } from '@serenity-js/web';
 
 import { FilterBar } from './FilterBar.serenity.js';
@@ -34,10 +34,7 @@ export class ConsistencyView<NET> {
         new OutcomeBadge(PageElement.located(By.css('[data-testid="outcome-badge"]')).of(scenarioItem) as unknown as Answerable<PageElement<NET>>);
 
     scenarioCount = (): Question<Promise<number>> =>
-        Question.about('number of consistency scenarios', async actor => {
-            const elements = await actor.answer(this.scenarioItems());
-            return elements.length;
-        });
+        this.scenarioItems().count().describedAs('number of consistency scenarios');
 
     find = (searchTerm: Answerable<string>): Task =>
         Task.where(the`#actor searches for ${searchTerm}`,

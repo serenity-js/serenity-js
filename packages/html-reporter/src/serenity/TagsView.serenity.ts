@@ -1,5 +1,5 @@
-import type { Answerable } from '@serenity-js/core';
-import { Question, Task } from '@serenity-js/core';
+import type { Answerable, Question } from '@serenity-js/core';
+import { Task } from '@serenity-js/core';
 import type { PageElement } from '@serenity-js/web';
 import { By, PageElements } from '@serenity-js/web';
 
@@ -16,10 +16,7 @@ export class TagsView<NET> {
             .describedAs('tag cards');
 
     tagCount = (): Question<Promise<number>> =>
-        Question.about('number of tag cards', async actor => {
-            const elements = await actor.answer(this.tagCards());
-            return elements.length;
-        });
+        this.tagCards().count().describedAs('number of tag cards');
 
     open = (): Task =>
         Task.where('#actor opens the Tags view',

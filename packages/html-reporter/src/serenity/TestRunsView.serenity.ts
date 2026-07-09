@@ -1,5 +1,5 @@
-import type { Answerable } from '@serenity-js/core';
-import { Question, Task } from '@serenity-js/core';
+import type { Answerable, Question } from '@serenity-js/core';
+import { Task } from '@serenity-js/core';
 import type { PageElement } from '@serenity-js/web';
 import { By, PageElements } from '@serenity-js/web';
 
@@ -16,10 +16,7 @@ export class TestRunsView<NET> {
             .describedAs('test run rows');
 
     runCount = (): Question<Promise<number>> =>
-        Question.about('number of test run rows', async actor => {
-            const elements = await actor.answer(this.runRows());
-            return elements.length;
-        });
+        this.runRows().count().describedAs('number of test run rows');
 
     open = (): Task =>
         Task.where('#actor opens the Test Runs view',

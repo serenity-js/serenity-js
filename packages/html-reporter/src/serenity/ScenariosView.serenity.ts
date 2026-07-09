@@ -1,5 +1,5 @@
-import type { Answerable } from '@serenity-js/core';
-import { Question, Task, the } from '@serenity-js/core';
+import type { Answerable, Question } from '@serenity-js/core';
+import { Task, the } from '@serenity-js/core';
 import { By, PageElement, PageElements } from '@serenity-js/web';
 
 import { FilterBar } from './FilterBar.serenity.js';
@@ -27,10 +27,7 @@ export class ScenariosView<NET> {
             .describedAs('scenario items');
 
     scenarioCount = (): Question<Promise<number>> =>
-        Question.about('number of scenarios', async actor => {
-            const elements = await actor.answer(this.scenarioItems());
-            return elements.length;
-        });
+        this.scenarioItems().count().describedAs('number of scenarios');
 
     find = (searchTerm: Answerable<string>): Task =>
         Task.where(the`#actor searches for ${searchTerm}`,
