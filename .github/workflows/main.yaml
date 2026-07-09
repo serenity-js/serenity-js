@@ -421,7 +421,7 @@ jobs:
         with:
           branch: gh-pages
           folder: target/html-report
-          clean: false
+          clean: true
 
   artifacts-publish:
     name: 'NPM: publish artifacts'
