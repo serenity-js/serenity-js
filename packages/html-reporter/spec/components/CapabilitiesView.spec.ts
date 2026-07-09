@@ -1,4 +1,4 @@
-import { contain, Ensure } from '@serenity-js/assertions';
+import { contain, Ensure, equals, includes } from '@serenity-js/assertions';
 
 import { CapabilitiesView } from '../../src/serenity/CapabilitiesView.serenity.js';
 import { minimalData } from './data-factories.js';
@@ -74,6 +74,53 @@ describe('CapabilitiesView interaction object', () => {
             Ensure.that(view.filterBar.activeFilters(), contain('All')),
         );
     });
+
+    it('search input uses "Find capabilities..." placeholder', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+            interactionObject: CapabilitiesView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.searchInput.placeholder(), equals('Find capabilities...')),
+        );
+    });
+
+    it('search filters the tree and shows result count', async ({ mount, actor, page }) => {
+        const view = await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+            interactionObject: CapabilitiesView,
+        });
+
+        await actor.attemptsTo(
+            view.searchInput.enter('passing'),
+            Ensure.that(view.resultCount.text(), includes('Showing 1 of 3 capabilities')),
+        );
+
+        await expect(page.locator('.req-tree-node', { hasText: 'passing-feature' })).toBeVisible();
+        await expect(page.locator('.req-tree-node', { hasText: 'failing-feature' })).not.toBeVisible();
+    });
+
+    it('shows clear button when search has text', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+            interactionObject: CapabilitiesView,
+        });
+
+        await actor.attemptsTo(
+            view.searchInput.enter('test'),
+            Ensure.that(view.searchInput.isClearable(), equals(true)),
+        );
+    });
 });
 
 describe('CapabilitiesView', () => {
@@ -117,20 +164,6 @@ describe('CapabilitiesView', () => {
     });
 
     describe('left panel — navigation', () => {
-
-        it('search field uses "Find capabilities..." placeholder', async ({ mount, page }) => {
-            await mount({
-                component: 'CapabilitiesView',
-                importPath: './components/CapabilitiesView',
-                data: capabilitiesData(),
-                props: { onNavigate: () => undefined, route: '#/capabilities' },
-            });
-
-            const leftPanel = page.locator('.req-tree-panel');
-            const searchInput = leftPanel.locator('input.search-input');
-            await expect(searchInput).toBeVisible();
-            await expect(searchInput).toHaveAttribute('placeholder', 'Find capabilities...');
-        });
 
         it('filter bar uses the shared filter-bar styling with confidence categories', async ({ mount, page }) => {
             await mount({
@@ -177,6 +210,34 @@ describe('CapabilitiesView', () => {
 
         await expect(page.locator('.empty-state')).toBeVisible();
         await expect(page.locator('body')).toContainText('specDirectory');
+    });
+
+    it('filter bar and search are hidden when there is only 1 capability', async ({ mount, page }) => {
+        await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/CapabilitiesView',
+            data: minimalData({
+                capabilities: {
+                    name: 'spec',
+                    type: 'directory',
+                    outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                    children: [
+                        {
+                            name: 'only-feature',
+                            type: 'directory',
+                            outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            children: [
+                                { name: 'test.spec.ts', type: 'file', outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 } },
+                            ],
+                        },
+                    ],
+                },
+            }),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+        });
+
+        await expect(page.locator('.filter-bar')).not.toBeVisible();
+        await expect(page.locator('input.search-input')).not.toBeVisible();
     });
 });
 
@@ -247,18 +308,6 @@ describe('CapabilitiesView sort control', () => {
 
 describe('CapabilitiesView search and filter bar', () => {
 
-    it('search input uses "Find capabilities..." placeholder', async ({ mount, page }) => {
-        await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/CapabilitiesView',
-            data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
-        });
-
-        const searchInput = page.locator('.req-tree-panel input.search-input');
-        await expect(searchInput).toHaveAttribute('placeholder', 'Find capabilities...');
-    });
-
     it('search input is above the filter bar (matching ScenariosView pattern)', async ({ mount, page }) => {
         await mount({
             component: 'CapabilitiesView',
@@ -282,64 +331,6 @@ describe('CapabilitiesView search and filter bar', () => {
 
         const filterBar = page.locator('.req-tree-panel .filter-bar');
         await expect(filterBar).toContainText('Health:');
-    });
-
-    it('search filters the tree and shows result count', async ({ mount, page }) => {
-        await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/CapabilitiesView',
-            data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
-        });
-
-        const searchInput = page.locator('.req-tree-panel input.search-input');
-        await searchInput.fill('passing');
-
-        await expect(page.locator('.req-tree-node', { hasText: 'passing-feature' })).toBeVisible();
-        await expect(page.locator('.req-tree-node', { hasText: 'failing-feature' })).not.toBeVisible();
-        // Should show "Showing X of Y capabilities"
-        await expect(page.locator('[aria-live="polite"]')).toContainText('Showing 1 of 3 capabilities');
-    });
-
-    it('filter bar and search are hidden when there is only 1 capability', async ({ mount, page }) => {
-        await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/CapabilitiesView',
-            data: minimalData({
-                capabilities: {
-                    name: 'spec',
-                    type: 'directory',
-                    outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
-                    children: [
-                        {
-                            name: 'only-feature',
-                            type: 'directory',
-                            outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
-                            children: [
-                                { name: 'test.spec.ts', type: 'file', outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 } },
-                            ],
-                        },
-                    ],
-                },
-            }),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
-        });
-
-        await expect(page.locator('.filter-bar')).not.toBeVisible();
-        await expect(page.locator('input.search-input')).not.toBeVisible();
-    });
-
-    it('shows clear button when search has text', async ({ mount, page }) => {
-        await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/CapabilitiesView',
-            data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
-        });
-
-        const searchInput = page.locator('.req-tree-panel input.search-input');
-        await searchInput.fill('test');
-        await expect(page.locator('.btn-clear')).toBeVisible();
     });
 });
 

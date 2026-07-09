@@ -33,6 +33,7 @@ describe('ScenariosView interaction object', () => {
 
         await actor.attemptsTo(
             Ensure.that(view.resultCount.text(), includes('4')),
+            Ensure.that(view.scenarioCount(), equals(4)),
         );
     });
 
@@ -48,6 +49,7 @@ describe('ScenariosView interaction object', () => {
         await actor.attemptsTo(
             view.find('Test D'),
             Ensure.that(view.resultCount.text(), includes('1')),
+            Ensure.that(view.scenarioCount(), equals(1)),
         );
     });
 
@@ -63,6 +65,7 @@ describe('ScenariosView interaction object', () => {
         await actor.attemptsTo(
             view.filterBar.selectFilter('Failed'),
             Ensure.that(view.resultCount.text(), includes('1')),
+            Ensure.that(view.scenarioCount(), equals(1)),
         );
     });
 
@@ -85,51 +88,65 @@ describe('ScenariosView deep linking', () => {
 
     const data = minimalData();
 
-    it('filters by search param in route', async ({ mount, page }) => {
-        await mount({
+    it('filters by search param in route', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ScenariosView',
             importPath: './components/ScenariosView',
             props: { onNavigate: () => {}, route: '/tests?search=%22Test+D%22' },
             data,
+            interactionObject: ScenariosView,
         });
 
-        await expect(page.locator('body')).toContainText('Test D');
-        await expect(page.locator('body')).toContainText('Showing 1 of 4');
+        await actor.attemptsTo(
+            Ensure.that(view.resultCount.text(), includes('Showing 1 of 4')),
+            Ensure.that(view.scenarioCount(), equals(1)),
+        );
     });
 
-    it('filters by outcome filter param in route', async ({ mount, page }) => {
-        await mount({
+    it('filters by outcome filter param in route', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ScenariosView',
             importPath: './components/ScenariosView',
             props: { onNavigate: () => {}, route: '/tests?filter=failed' },
             data,
+            interactionObject: ScenariosView,
         });
 
-        await expect(page.locator('body')).toContainText('Showing 1 of 4');
-        await expect(page.locator('body')).toContainText('Test D');
+        await actor.attemptsTo(
+            Ensure.that(view.resultCount.text(), includes('Showing 1 of 4')),
+            Ensure.that(view.scenarioCount(), equals(1)),
+        );
     });
 
-    it('applies both search and filter params', async ({ mount, page }) => {
-        await mount({
+    it('applies both search and filter params', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ScenariosView',
             importPath: './components/ScenariosView',
             props: { onNavigate: () => {}, route: '/tests?search=Suite&filter=passed' },
             data,
+            interactionObject: ScenariosView,
         });
 
-        // Only passed tests in category "Suite" (Test A and Test B)
-        await expect(page.locator('body')).toContainText('Showing 2 of 4');
+        await actor.attemptsTo(
+            // Only passed tests in category "Suite" (Test A and Test B)
+            Ensure.that(view.resultCount.text(), includes('Showing 2 of 4')),
+            Ensure.that(view.scenarioCount(), equals(2)),
+        );
     });
 
-    it('shows all scenarios with no params', async ({ mount, page }) => {
-        await mount({
+    it('shows all scenarios with no params', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ScenariosView',
             importPath: './components/ScenariosView',
             props: { onNavigate: () => {}, route: '/tests' },
             data,
+            interactionObject: ScenariosView,
         });
 
-        await expect(page.locator('body')).toContainText('Showing 4 of 4');
+        await actor.attemptsTo(
+            Ensure.that(view.resultCount.text(), includes('Showing 4 of 4')),
+            Ensure.that(view.scenarioCount(), equals(4)),
+        );
     });
 
     it('filters by run param showing only matching run', async ({ mount, page }) => {
@@ -152,8 +169,8 @@ describe('ScenariosView deep linking', () => {
 
 describe('ScenariosView scenario navigation', () => {
 
-    it('scenarios in the same file without line numbers are both listed distinctly', async ({ mount, page }) => {
-        await mount({
+    it('scenarios in the same file without line numbers are both listed distinctly', async ({ mount, actor, page }) => {
+        const view = await mount({
             component: 'ScenariosView',
             importPath: './components/ScenariosView',
             props: { onNavigate: () => undefined, route: '/tests' },
@@ -174,11 +191,15 @@ describe('ScenariosView scenario navigation', () => {
                     },
                 ],
             }),
+            interactionObject: ScenariosView,
         });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCount(), equals(2)),
+        );
 
         // Both scenarios from the same file should be rendered as distinct items
         const items = page.locator('.scenario-item');
-        await expect(items).toHaveCount(2);
         await expect(items.first()).toContainText('first scenario');
         await expect(items.last()).toContainText('second scenario');
         // Both show the same source file

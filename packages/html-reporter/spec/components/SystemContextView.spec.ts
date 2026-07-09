@@ -32,23 +32,35 @@ describe('SystemContextView interaction object', () => {
             Ensure.that(view.testRunner(), includes('1.45.0')),
         );
     });
-});
 
-describe('SystemContextView', () => {
-
-    it('renders environment info', async ({ mount, page }) => {
-        await mount({
+    it('exposes the operating system', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'SystemContextView',
             importPath: './components/SystemContextView',
             data: minimalData(),
+            interactionObject: SystemContextView,
         });
 
-        await expect(page.locator('.context-grid').first()).toBeVisible();
-        await expect(page.locator('body')).toContainText('v22.0.0');
-        await expect(page.locator('body')).toContainText('Playwright');
-        await expect(page.locator('body')).toContainText('darwin');
-        await expect(page.locator('body')).toContainText('v3.44.0');
+        await actor.attemptsTo(
+            Ensure.that(view.operatingSystem(), includes('darwin')),
+        );
     });
+
+    it('exposes the Serenity/JS version', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'SystemContextView',
+            importPath: './components/SystemContextView',
+            data: minimalData(),
+            interactionObject: SystemContextView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.serenityVersion(), equals('v3.44.0')),
+        );
+    });
+});
+
+describe('SystemContextView', () => {
 
     it('renders CI/CD information when present', async ({ mount, page }) => {
         await mount({

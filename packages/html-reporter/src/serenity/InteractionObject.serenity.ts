@@ -1,7 +1,7 @@
 import type { Answerable, QuestionAdapter } from '@serenity-js/core';
 import { PageElement, PageElements, type Selector } from '@serenity-js/web';
 
-export class View<NET> {
+export class Component<NET> {
     constructor(private readonly rootElement: Answerable<PageElement<NET>>) {
     }
 
