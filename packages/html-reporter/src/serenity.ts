@@ -1,3 +1,4 @@
+export { ConsistencyView } from './serenity/ConsistencyView.serenity.js';
 export { DashboardKpiCard } from './serenity/DashboardKpiCard.serenity.js';
 export { ErrorBlock } from './serenity/ErrorBlock.serenity.js';
 export { FilterBar } from './serenity/FilterBar.serenity.js';

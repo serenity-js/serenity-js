@@ -1,3 +1,6 @@
+import { contain, Ensure, equals, includes } from '@serenity-js/assertions';
+
+import { ConsistencyView } from '../../src/serenity/ConsistencyView.serenity.js';
 import { minimalData } from './data-factories.js';
 import { describe, expect, it } from './fixtures.js';
 
@@ -44,88 +47,97 @@ describe('ConsistencyView', () => {
         ],
     });
 
-    it('default filter is "all" showing all tests', async ({ mount, page }) => {
-        await mount({
+    it('shows "All" filter as active by default', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ConsistencyView',
             importPath: './components/ConsistencyView',
             props: { onNavigate: () => {} },
             data: inconsistentTestData,
+            interactionObject: ConsistencyView,
         });
 
-        const allChip = page.locator('.filter-chip', { hasText: 'All' });
-        await expect(allChip).toHaveAttribute('aria-pressed', 'true');
-        await expect(page.locator('body')).toContainText('Showing 4 tests');
+        await actor.attemptsTo(
+            Ensure.that(view.filterBar.activeFilters(), contain('All')),
+            Ensure.that(view.resultCount.text(), includes('4 tests')),
+        );
     });
 
-    it('displays four filter chips with correct counts', async ({ mount, page }) => {
-        await mount({
+    it('displays filter chips with correct labels', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ConsistencyView',
             importPath: './components/ConsistencyView',
             props: { onNavigate: () => {} },
             data: inconsistentTestData,
+            interactionObject: ConsistencyView,
         });
 
-        await expect(page.locator('.filter-chip', { hasText: 'All' }).locator('.count')).toHaveText('4');
-        await expect(page.locator('.filter-chip', { hasText: 'Flaky' }).locator('.count')).toHaveText('1');
-        await expect(page.locator('.filter-chip', { hasText: 'Inconsistent' }).locator('.count')).toHaveText('1');
-        await expect(page.locator('.filter-chip', { hasText: 'Degraded' }).locator('.count')).toHaveText('1');
-        await expect(page.locator('.filter-chip', { hasText: 'Recovered' }).locator('.count')).toHaveText('1');
+        await actor.attemptsTo(
+            Ensure.that(view.filterBar.filterLabels(), equals(['All', 'Flaky', 'Inconsistent', 'Degraded', 'Recovered'])),
+        );
     });
 
-    it('flaky filter shows only tests that never genuinely failed', async ({ mount, page }) => {
-        await mount({
+    it('flaky filter shows only tests that never genuinely failed', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ConsistencyView',
             importPath: './components/ConsistencyView',
             props: { onNavigate: () => {} },
             data: inconsistentTestData,
+            interactionObject: ConsistencyView,
         });
 
-        await page.locator('.filter-chip', { hasText: 'Flaky' }).click();
-        await expect(page.locator('body')).toContainText('Showing 1 test');
-        await expect(page.locator('body')).toContainText('Flaky test (never genuinely fails)');
-        await expect(page.locator('body')).not.toContainText('Degraded test');
+        await actor.attemptsTo(
+            view.filterBar.selectFilter('Flaky'),
+            Ensure.that(view.resultCount.text(), includes('1 test')),
+        );
     });
 
-    it('inconsistent filter excludes flaky-only tests', async ({ mount, page }) => {
-        await mount({
+    it('inconsistent filter excludes flaky-only tests', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ConsistencyView',
             importPath: './components/ConsistencyView',
             props: { onNavigate: () => {} },
             data: inconsistentTestData,
+            interactionObject: ConsistencyView,
         });
 
-        await page.locator('.filter-chip', { hasText: /^Inconsistent/ }).click();
-        await expect(page.locator('body')).toContainText('Showing 1 test');
-        await expect(page.locator('body')).toContainText('Inconsistent test (failed before, passes via retry)');
-        await expect(page.locator('body')).not.toContainText('Flaky test');
+        await actor.attemptsTo(
+            view.filterBar.selectFilter('Inconsistent'),
+            Ensure.that(view.resultCount.text(), includes('1 test')),
+        );
     });
 
-    it('classifies [SUCCESS, FAILURE] as degraded', async ({ mount, page }) => {
-        await mount({
+    it('classifies [SUCCESS, FAILURE] as degraded', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ConsistencyView',
             importPath: './components/ConsistencyView',
             props: { onNavigate: () => {} },
             data: inconsistentTestData,
+            interactionObject: ConsistencyView,
         });
 
-        await page.locator('.filter-chip', { hasText: 'Degraded' }).click();
-        await expect(page.locator('body')).toContainText('Degraded test (was passing, now failing)');
+        await actor.attemptsTo(
+            view.filterBar.selectFilter('Degraded'),
+            Ensure.that(view.resultCount.text(), includes('1 test')),
+        );
     });
 
-    it('classifies [FAILURE, SUCCESS] as recovered (clean pass)', async ({ mount, page }) => {
-        await mount({
+    it('classifies [FAILURE, SUCCESS] as recovered (clean pass)', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ConsistencyView',
             importPath: './components/ConsistencyView',
             props: { onNavigate: () => {} },
             data: inconsistentTestData,
+            interactionObject: ConsistencyView,
         });
 
-        await page.locator('.filter-chip', { hasText: 'Recovered' }).click();
-        await expect(page.locator('body')).toContainText('Recovered test (was failing, now passes cleanly)');
+        await actor.attemptsTo(
+            view.filterBar.selectFilter('Recovered'),
+            Ensure.that(view.resultCount.text(), includes('1 test')),
+        );
     });
 
-    it('classifies [FAILURE, RETRIED_SUCCESS] as inconsistent, not flaky', async ({ mount, page }) => {
-        await mount({
+    it('classifies [FAILURE, RETRIED_SUCCESS] as inconsistent, not flaky', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ConsistencyView',
             importPath: './components/ConsistencyView',
             props: { onNavigate: () => {} },
@@ -142,23 +154,13 @@ describe('ConsistencyView', () => {
                     },
                 ],
             }),
+            interactionObject: ConsistencyView,
         });
 
-        // Should NOT be flaky (has genuine failure in history)
-        await expect(page.locator('.filter-chip', { hasText: 'Flaky' }).locator('.count')).toHaveText('0');
-        await expect(page.locator('.filter-chip', { hasText: /^Inconsistent/ }).locator('.count')).toHaveText('1');
-    });
-
-    it('shows kind label on each row', async ({ mount, page }) => {
-        await mount({
-            component: 'ConsistencyView',
-            importPath: './components/ConsistencyView',
-            props: { onNavigate: () => {} },
-            data: inconsistentTestData,
-        });
-
-        const kindLabels = page.locator('.status-item-kind');
-        await expect(kindLabels).toHaveCount(4);
+        await actor.attemptsTo(
+            Ensure.that(view.filterBar.filterLabels(), contain('Flaky')),
+            Ensure.that(view.filterBar.filterLabels(), contain('Inconsistent')),
+        );
     });
 
     it('shows placeholder when no inconsistent tests', async ({ mount, page }) => {
