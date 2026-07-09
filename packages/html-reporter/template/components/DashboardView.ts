@@ -3,12 +3,13 @@ import { h } from 'preact';
 import { useMemo } from 'preact/hooks';
 
 import type { ReportCapabilityNode, ReportHistoryEntry, ReportInconsistentTest, ReportScenario, ReportScenarioRef, ReportSummary, ReportSystemContext } from '../../src/ReportData';
-import { browserBadgeClass, computeCompletenessFromTree, formatDuration, getBrowserTag, outcomeClass, outcomeDisplayName, outcomeIcon, runConfidence, scenarioUrl, scoreColor } from '../utils';
+import { computeCompletenessFromTree, formatDuration, runConfidence, scenarioUrl, scoreColor } from '../utils';
 import { classifyConsistencyKind } from '../utils/selectors';
 import { AreaSparkline } from './charts/AreaSparkline';
 import { Delta } from './charts/Delta';
 import { DotTrend } from './charts/DotTrend';
 import { TrendChart } from './charts/TrendChart';
+import { DashboardConsistencyCard } from './DashboardConsistencyCard';
 import { DashboardKpiCard } from './DashboardKpiCard';
 import { icons } from './icons';
 
@@ -142,30 +143,12 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
 
         <div class="dashboard-health-col">
           <!-- Consistency -->
-          <div class="card dashboard-status-card">
-            <div class="card-header">
-              <span class="status-card-title">Consistency</span>
-              ${(newFailures.length > 0 || newPasses.length > 0 || inconsistent.length > 0) ? html`<a class="view-all-link" onClick=${() => onNavigate('/consistency')}>View all →</a>` : null}
-            </div>
-            ${(() => {
-                if (consistencyItems.length === 0) return html`<div class="status-empty status-empty--ok"><span class="status-chip">✓</span> All tests consistent</div>`;
-                return consistencyItems.map(t => html`
-                    <div class="status-item status-item--rich clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
-                      <div class="status-item-main">
-                        <span class="status-icon status-icon--${outcomeClass(t.lastOutcome)}">${outcomeIcon(t.lastOutcome)}</span>
-                        <span class="status-item-name">${t.name}</span>
-                        ${getBrowserTag(t) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(t)!)}" style="font-size:10px;padding:1px 6px">${getBrowserTag(t)}</span>` : null}
-                        <span class="status-item-kind" style="color:${t.kind === 'degraded' ? 'var(--color-failed)' : t.kind === 'recovered' ? 'var(--color-passed)' : 'var(--color-pending)'}">${t.kind}</span>
-                      </div>
-                      <div class="status-item-history">${((t as { history?: string[] }).history || getHistory(t)).map((h: string | { outcome: string; run: string; retriedAndPassed?: boolean }, i: number) => {
-                    const outcome = typeof h === 'string' ? h : (h.retriedAndPassed ? 'RETRIED_SUCCESS' : h.outcome);
-                    const label = (t as { labels?: string[] }).labels ? (t as { labels?: string[] }).labels![i] : (typeof h === 'object' ? h.run : '');
-                    return html`<span class="history-dot history-dot--${outcomeClass(outcome)}" title=${outcomeDisplayName(outcome) + (label ? ' (' + label + ')' : '')}></span>`;
-                })}</div>
-                    </div>
-                `);
-            })()}
-          </div>
+          <${DashboardConsistencyCard}
+            items=${consistencyItems}
+            hasItems=${newFailures.length > 0 || newPasses.length > 0 || inconsistent.length > 0}
+            onNavigate=${onNavigate}
+            getHistory=${getHistory}
+          />
           <!-- Slowest Tests -->
           <div class="card dashboard-status-card">
             <div class="card-header">

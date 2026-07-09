@@ -1,7 +1,9 @@
 export { DashboardKpiCard } from './serenity/DashboardKpiCard.serenity.js';
+export { ErrorBlock } from './serenity/ErrorBlock.serenity.js';
 export { FilterBar } from './serenity/FilterBar.serenity.js';
 export { HistoryDots } from './serenity/HistoryDots.serenity.js';
 export { KpiCard } from './serenity/KpiCard.serenity.js';
 export { OutcomeBadge } from './serenity/OutcomeBadge.serenity.js';
+export { RestQueryPanel } from './serenity/RestQueryPanel.serenity.js';
 export { ResultCount } from './serenity/ResultCount.serenity.js';
 export { SearchInput } from './serenity/SearchInput.serenity.js';

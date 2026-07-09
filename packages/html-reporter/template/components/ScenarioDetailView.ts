@@ -3,8 +3,9 @@ import { h } from 'preact';
 
 import type { ReportHistoryEntry, ReportScenario } from '../../src/ReportData';
 import { useScenarioDetail } from '../hooks/useScenarioDetail';
-import { ansiToHtml, browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast, useHashHistory } from '../utils';
+import { browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, scenarioUrl, showToast, useHashHistory } from '../utils';
 import { ActivityNode } from './ActivityNode';
+import { ErrorBlock } from './ErrorBlock';
 import { HistoricalBanner } from './HistoricalBanner';
 import { icons } from './icons';
 import { ExecutionHistory } from './scenario/ExecutionHistory';
@@ -151,11 +152,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
       ` : null}
 
       ${currentError ? html`
-        <div class="error-block">
-          <div class="error-name flex-row gap-sm">${currentError.name}${errorLocation ? html`<span class="ml-auto inline-flex-center text-xs font-mono text-secondary" style="font-weight:400">${errorLocation.path.split('/').pop()}:${errorLocation.line}<span class="copy-location" title="Copy location" onClick=${(e: Event) => { e.stopPropagation(); navigator.clipboard.writeText(errorLocation!.path + ':' + errorLocation!.line).then(() => showToast('Location copied to clipboard')).catch(() => {}); }}>${icons.copy}</span></span>` : null}</div>
-          <div class="error-message" dangerouslySetInnerHTML=${{ __html: ansiToHtml(currentError.message) }}></div>
-          <pre class="error-stack" dangerouslySetInnerHTML=${{ __html: ansiToHtml(currentError.stack || '') }}></pre>
-        </div>
+        <${ErrorBlock} error=${currentError} errorLocation=${errorLocation} />
       ` : null}
 
       ${currentVideo ? html`

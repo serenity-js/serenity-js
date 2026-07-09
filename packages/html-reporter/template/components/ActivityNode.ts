@@ -6,6 +6,7 @@ import type { ReportActivity } from '../../src/ReportData';
 import { formatDuration, outcomeClass, outcomeIcon, showToast, useHashHistory } from '../utils';
 import { parseActivityContent } from '../utils/parseActivityContent';
 import { icons } from './icons';
+import { RestQueryPanel } from './RestQueryPanel';
 
 const html = htm.bind(h);
 
@@ -57,37 +58,7 @@ export function ActivityNode({ activity, defaultExpanded }: ActivityNodeProps): 
         </div>
       ` : null}
       ${hasRestQuery && restExpanded ? html`
-        <div class="rest-query-panel ml-lg mt-xs mb-sm bordered text-sm">
-          <div class="panel-section-border flex-row gap-sm" style="background:var(--bg-primary)">
-            <span class="font-semibold font-mono">${activity.restQuery!.method}</span>
-            <span class="font-mono text-secondary" style="word-break:break-all">${activity.restQuery!.url}</span>
-            <span class="ml-auto font-semibold" style="color:${activity.restQuery!.statusCode < 400 ? 'var(--color-passed)' : 'var(--color-failed)'}">${activity.restQuery!.statusCode}</span>
-          </div>
-          ${activity.restQuery!.requestHeaders ? html`
-            <div class="panel-section-border">
-              <div class="section-label">Request Headers</div>
-              <pre class="code-block">${activity.restQuery!.requestHeaders}</pre>
-            </div>
-          ` : null}
-          ${activity.restQuery!.requestBody ? html`
-            <div class="panel-section-border">
-              <div class="section-label">Request Body</div>
-              <pre class="code-block">${activity.restQuery!.requestBody}</pre>
-            </div>
-          ` : null}
-          ${activity.restQuery!.responseHeaders ? html`
-            <div class="panel-section-border">
-              <div class="section-label">Response Headers</div>
-              <pre class="code-block">${activity.restQuery!.responseHeaders}</pre>
-            </div>
-          ` : null}
-          ${activity.restQuery!.responseBody ? html`
-            <div class="panel-section">
-              <div class="section-label">Response Body</div>
-              <pre class="code-block">${activity.restQuery!.responseBody}</pre>
-            </div>
-          ` : null}
-        </div>
+        <${RestQueryPanel} restQuery=${activity.restQuery} />
       ` : null}
       ${activity.reportData && activity.reportData.length > 0 ? html`
         ${activity.reportData.map(entry => html`
