@@ -24,7 +24,7 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
     ],
     use: {
         headless: true,
-        baseURL: 'http://127.0.0.1:8080',
+        baseURL: 'http://127.0.0.1:8080/index.html',
         defaultActorName: 'Serena',
     },
     webServer: {
