@@ -3,7 +3,8 @@ import { h } from 'preact';
 import { useMemo } from 'preact/hooks';
 
 import type { ReportCapabilityNode, ReportHistoryEntry, ReportInconsistentTest, ReportScenario, ReportScenarioRef, ReportSummary, ReportSystemContext } from '../../src/ReportData';
-import { computeCompletenessFromTree, formatDuration, runConfidence, scoreColor } from '../utils';
+import { formatDuration, scoreColor } from '../utils';
+import { computeDashboardScores } from '../utils/computeDashboardScores';
 import { classifyConsistencyKind } from '../utils/selectors';
 import { AreaSparkline } from './charts/AreaSparkline';
 import { Delta } from './charts/Delta';
@@ -11,8 +12,8 @@ import { DotTrend } from './charts/DotTrend';
 import { TrendChart } from './charts/TrendChart';
 import { DashboardConsistencyCard } from './DashboardConsistencyCard';
 import { DashboardKpiCard } from './DashboardKpiCard';
+import { DashboardMeta } from './DashboardMeta';
 import { DashboardSlowestCard } from './DashboardSlowestCard';
-import { icons } from './icons';
 
 const html = htm.bind(h);
 
@@ -43,29 +44,11 @@ interface DashboardViewProps {
 }
 
 export function DashboardView({ summary, history, scenarios, newFailures: allNewFailures, newPasses: allNewPasses, inconsistentTests: allInconsistentTests, capabilities, systemContext, onNavigate }: DashboardViewProps): ReturnType<typeof html> {
-    const totalFailed = (summary.outcomes.failed || 0) + (summary.outcomes.error || 0) + (summary.outcomes.compromised || 0);
-
-    // Compute current scores from latest history entry or derive from summary
-    const latestScore = history.length > 0 && history[history.length - 1].score;
-    const previousScore = history.length > 1 && history[history.length - 2].score;
-    const passRate = latestScore ? latestScore.passRate : (summary.totalScenarios > 0 ? Math.round((summary.outcomes.passed / summary.totalScenarios) * 100) : 0);
-    const consistency = latestScore ? latestScore.consistency : 100;
-    const completenessScore = latestScore ? latestScore.completeness : computeCompletenessFromTree(capabilities);
-    const confidence = latestScore ? latestScore.confidence : runConfidence(passRate, completenessScore, consistency);
-
-    // Previous run values for deltas
-    const previousConfidence = previousScore ? previousScore.confidence : undefined;
-    const previousPassRate = previousScore ? previousScore.passRate : undefined;
-    const previousConsistency = previousScore ? previousScore.consistency : undefined;
-    const previousCompleteness = previousScore ? previousScore.completeness : undefined;
-    const previousFailed = history.length > 1 ? ((h: ReportHistoryEntry) => (h.outcomes.failed || 0) + (h.outcomes.error || 0) + (h.outcomes.compromised || 0))(history[history.length - 2]) : undefined;
-    const previousDuration = history.length > 1 ? history[history.length - 2].duration : undefined;
-
-    // Sparkline data from history
-    const scoreHistory = history.filter(h => h.score);
-    const confidenceTrend = scoreHistory.map(h => h.score!.confidence);
-    const failedTrend = history.map(h => (h.outcomes.failed || 0) + (h.outcomes.error || 0) + (h.outcomes.compromised || 0));
-    const durationTrend = history.map(h => h.duration);
+    const {
+        passRate, consistency, completenessScore, confidence, totalFailed,
+        previousConfidence, previousPassRate, previousConsistency, previousCompleteness,
+        previousFailed, previousDuration, confidenceTrend, failedTrend, durationTrend,
+    } = computeDashboardScores(summary, history, capabilities);
 
     const sorted = [...scenarios].sort((a, b) => b.duration - a.duration);
     const slowest = sorted.slice(0, 5);
@@ -125,13 +108,7 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
       </div>
 
       <!-- Context metadata -->
-      <div class="dashboard-meta">
-        <span>${summary.totalScenarios} scenarios • ${summary.testRunner}</span>
-        ${systemContext && systemContext.ci ? (() => { const ci = systemContext.ci; const repoUrl = ci.repositoryUrl ? ci.repositoryUrl.replace(/\.git$/, '').replace(/^git@([^:]+):/, 'https://$1/') : ''; return html`
-          ${ci.branch ? html`<span class="dashboard-meta-item">${icons.branchSm}${repoUrl ? html`<a href="${repoUrl}/tree/${ci.branch}" target="_blank" class="meta-link">${ci.branch}</a>` : html`<span>${ci.branch}</span>`}</span>` : null}
-          ${ci.commit ? html`<span class="dashboard-meta-item">${icons.commitSm}${repoUrl ? html`<a href="${repoUrl}/commit/${ci.commit}" target="_blank" class="meta-link mono">${ci.commit.slice(0, 10)}</a>` : html`<span class="mono">${ci.commit.slice(0, 10)}</span>`}</span>` : null}
-        `; })() : null}
-      </div>
+      <${DashboardMeta} totalScenarios=${summary.totalScenarios} testRunner=${summary.testRunner} systemContext=${systemContext} />
 
       <!-- Main grid: Trend (8col) + Health Summary (4col) -->
       <div class="dashboard-main-grid">
