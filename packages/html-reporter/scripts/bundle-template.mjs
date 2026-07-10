@@ -64,15 +64,15 @@ const escaped = html
     .replace(/\$\{/g, '\\${');
 
 const cjsContent = `"use strict";\nObject.defineProperty(exports, "__esModule", { value: true });\nexports.reportTemplate = \`${escaped}\`;\n`;
-mkdirSync(resolve(packageRoot, 'lib'), { recursive: true });
-writeFileSync(resolve(packageRoot, 'lib', 'template.js'), cjsContent, 'utf8');
+mkdirSync(resolve(packageRoot, 'lib', 'cli'), { recursive: true });
+writeFileSync(resolve(packageRoot, 'lib', 'cli', 'template.js'), cjsContent, 'utf8');
 
 const esmContent = `export const reportTemplate = \`${escaped}\`;\n`;
-mkdirSync(resolve(packageRoot, 'esm'), { recursive: true });
-writeFileSync(resolve(packageRoot, 'esm', 'template.js'), esmContent, 'utf8');
+mkdirSync(resolve(packageRoot, 'esm', 'cli'), { recursive: true });
+writeFileSync(resolve(packageRoot, 'esm', 'cli', 'template.js'), esmContent, 'utf8');
 
 const dtsContent = `export declare const reportTemplate: string;\n`;
-writeFileSync(resolve(packageRoot, 'lib', 'template.d.ts'), dtsContent, 'utf8');
-writeFileSync(resolve(packageRoot, 'esm', 'template.d.ts'), dtsContent, 'utf8');
+writeFileSync(resolve(packageRoot, 'lib', 'cli', 'template.d.ts'), dtsContent, 'utf8');
+writeFileSync(resolve(packageRoot, 'esm', 'cli', 'template.d.ts'), dtsContent, 'utf8');
 
-console.log(`Bundled template written to lib/template.js and esm/template.js (${Math.round(esmContent.length / 1024)}KB)`);
+console.log(`Bundled template written to lib/cli/template.js and esm/cli/template.js (${Math.round(esmContent.length / 1024)}KB)`);
