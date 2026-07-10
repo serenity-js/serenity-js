@@ -3,11 +3,11 @@ import { Task } from '@serenity-js/core';
 import type { PageElement } from '@serenity-js/web';
 import { By } from '@serenity-js/web';
 
+import { InteractionObject } from './InteractionObject.serenity.js';
 import { KpiCard } from './KpiCard.serenity.js';
 import { Navigation } from './Navigation.serenity.js';
-import { View } from './View.serenity.js';
 
-export class ErrorsView<NET> extends View<NET> {
+export class ErrorsView<NET> extends InteractionObject<NET> {
 
     constructor(rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
         super(rootElement);

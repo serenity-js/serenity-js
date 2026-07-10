@@ -4,10 +4,10 @@ import type { PageElement } from '@serenity-js/web';
 import { By } from '@serenity-js/web';
 
 import { ErrorBlock } from './ErrorBlock.serenity.js';
+import { InteractionObject } from './InteractionObject.serenity.js';
 import { Navigation } from './Navigation.serenity.js';
-import { View } from './View.serenity.js';
 
-export class ScenarioDetailView<NET> extends View<NET> {
+export class ScenarioDetailView<NET> extends InteractionObject<NET> {
 
     constructor(rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
         super(rootElement);
@@ -20,7 +20,7 @@ export class ScenarioDetailView<NET> extends View<NET> {
         });
 
     errorBlock = (): ErrorBlock<NET> =>
-        new ErrorBlock(this.child(By.css('[data-testid="error-block"]')) as unknown as Answerable<PageElement<NET>>);
+        new ErrorBlock(this.child(By.css('[data-testid="error-block"]')));
 
     hasError = (): Question<Promise<boolean>> =>
         this.child(By.css('[data-testid="error-block"]')).isPresent()

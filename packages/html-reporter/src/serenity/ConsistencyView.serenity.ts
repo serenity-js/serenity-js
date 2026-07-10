@@ -1,33 +1,33 @@
 import type { Answerable, Question } from '@serenity-js/core';
 import { Task, the } from '@serenity-js/core';
-import { By, PageElement, PageElements } from '@serenity-js/web';
+import { By, PageElement } from '@serenity-js/web';
 
 import { FilterBar } from './FilterBar.serenity.js';
 import { HistoryDots } from './HistoryDots.serenity.js';
+import { InteractionObject } from './InteractionObject.serenity.js';
 import { Navigation } from './Navigation.serenity.js';
 import { OutcomeBadge } from './OutcomeBadge.serenity.js';
 import { ResultCount } from './ResultCount.serenity.js';
 import { SearchInput } from './SearchInput.serenity.js';
 
-export class ConsistencyView<NET> {
+export class ConsistencyView<NET> extends InteractionObject<NET> {
 
     readonly searchInput: SearchInput<NET>;
     readonly filterBar: FilterBar<NET>;
     readonly resultCount: ResultCount<NET>;
     readonly historyDots: HistoryDots<NET>;
 
-    constructor(private readonly rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
-        const child = (selector: string) => PageElement.located(By.css(selector)).of(this.rootElement);
+    constructor(rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
+        super(rootElement);
 
-        this.searchInput = new SearchInput(child('[data-testid="search-input"]') as unknown as Answerable<PageElement<NET>>);
-        this.filterBar = new FilterBar(child('[data-testid="filter-bar"]') as unknown as Answerable<PageElement<NET>>);
-        this.resultCount = new ResultCount(child('[data-testid="result-count"]') as unknown as Answerable<PageElement<NET>>);
-        this.historyDots = new HistoryDots(child('[data-testid="history-dots"]') as unknown as Answerable<PageElement<NET>>);
+        this.searchInput = new SearchInput(this.child(By.css('[data-testid="search-input"]')));
+        this.filterBar = new FilterBar(this.child(By.css('[data-testid="filter-bar"]')));
+        this.resultCount = new ResultCount(this.child(By.css('[data-testid="result-count"]')));
+        this.historyDots = new HistoryDots(this.child(By.css('[data-testid="history-dots"]')));
     }
 
     private scenarioItems = () =>
-        PageElements.located(By.css('.scenario-item'))
-            .of(this.rootElement)
+        this.children(By.css('.scenario-item'))
             .describedAs('consistency scenario items');
 
     outcomeBadgeFor = (scenarioItem: Answerable<PageElement<NET>>): OutcomeBadge<NET> =>

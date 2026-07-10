@@ -4,17 +4,17 @@ import type { PageElement } from '@serenity-js/web';
 import { By } from '@serenity-js/web';
 
 import { FilterBar } from './FilterBar.serenity.js';
+import { InteractionObject } from './InteractionObject.serenity.js';
 import { KpiCard } from './KpiCard.serenity.js';
 import { Navigation } from './Navigation.serenity.js';
-import { View } from './View.serenity.js';
 
-export class TimelineView<NET> extends View<NET> {
+export class TimelineView<NET> extends InteractionObject<NET> {
 
     readonly filterBar: FilterBar<NET>;
 
     constructor(rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
         super(rootElement);
-        this.filterBar = new FilterBar(this.child(By.css('[data-testid="filter-bar"]')) as unknown as Answerable<PageElement<NET>>);
+        this.filterBar = new FilterBar(this.child(By.css('[data-testid="filter-bar"]')));
     }
 
     kpiCardAt = (index: number): KpiCard<NET> =>
