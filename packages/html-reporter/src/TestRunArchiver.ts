@@ -153,7 +153,7 @@ export class TestRunArchiver implements StageCrewMember {
 /**
  * @package
  */
-function detectTestRunId(): string | undefined {
+export function detectTestRunId(): string | undefined {
     return process.env.GITHUB_RUN_NUMBER
         || process.env.CI_PIPELINE_IID
         || process.env.BUILD_NUMBER       // Jenkins
@@ -164,7 +164,7 @@ function detectTestRunId(): string | undefined {
 /**
  * @package
  */
-function detectModuleId(): string | undefined {
+export function detectModuleId(): string | undefined {
     // When a CI testRunId is detected, derive moduleId from the working
     // directory basename. This ensures each parallel CI job writes to its
     // own subdirectory under test-runs/{buildId}/{moduleId}-{attempt}/.

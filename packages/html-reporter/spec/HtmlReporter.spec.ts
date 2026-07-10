@@ -40,7 +40,7 @@ import { ReportTemplateWriter } from '../src/ReportTemplateWriter.js';
 import { RunDataWriter } from '../src/RunDataWriter.js';
 import { SceneDataCollector } from '../src/SceneDataCollector.js';
 import { SystemContextDetector } from '../src/SystemContextDetector.js';
-import { TestRunArchiver } from '../src/TestRunArchiver.js';
+import { detectModuleId, detectTestRunId, TestRunArchiver } from '../src/TestRunArchiver.js';
 
 test.describe('HtmlReporter', () => {
 
@@ -452,6 +452,97 @@ test.describe('HtmlReporter', () => {
             expect(content.scenes[0].tags).toContainEqual({ type: 'tag', name: 'tag-a' });
             expect(content.scenes[1].name).toBe('Scene B');
             expect(content.scenes[1].tags).toContainEqual({ type: 'tag', name: 'tag-b' });
+        });
+    });
+
+    test.describe('CI environment detection', () => {
+
+        test('uses GITHUB_RUN_NUMBER as testRunId when not explicitly configured', () => {
+            const originalEnvironment = process.env.GITHUB_RUN_NUMBER;
+            process.env.GITHUB_RUN_NUMBER = '8265';
+
+            try {
+                const filesystem = createFsFromVolume(Volume.fromNestedJSON({
+                    [outputDirectory.value]: {},
+                }, '/')) as unknown as typeof fs;
+                const outputFileSystem = new FileSystem(outputDirectory, filesystem);
+                const artifactWriter = new ArtifactWriter(outputFileSystem);
+                const sceneDataCollector = new SceneDataCollector();
+                const runDataWriter = new RunDataWriter(outputFileSystem);
+                const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()));
+
+                // Mimics HtmlReporterBuilder with no explicit testRunId
+                const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, detectTestRunId(), detectModuleId(), 1, stage);
+                const aggregator = new DataSnapshotAggregator(outputFileSystem, { consistencyWindow: 5 });
+                const templateWriter = new ReportTemplateWriter(outputFileSystem);
+                const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
+                const reporter = new HtmlReporter(archiver, generator);
+
+                stage.assign(reporter);
+
+                const sceneId = CorrelationId.create();
+                const time = new Timestamp(new Date('2024-06-15T14:30:00.000Z'));
+                const details = new ScenarioDetails(new Name('Test'), new Category('Suite'), new FileSystemLocation(Path.from('a.spec.ts'), 1));
+
+                stage.announce(new TestRunStarts(time));
+                stage.announce(new SceneStarts(sceneId, details, time));
+                stage.announce(new SceneFinished(sceneId, details, new ExecutionSuccessful(), time));
+                stage.announce(new TestRunFinishes(time));
+
+                // Directory should be named with the build number, not a timestamp
+                const directories = filesystem.readdirSync('/reports/serenity-js/test-runs') as string[];
+                expect(directories.some(d => d === '8265')).toBe(true);
+            } finally {
+                if (originalEnvironment === undefined) {
+                    delete process.env.GITHUB_RUN_NUMBER;
+                } else {
+                    process.env.GITHUB_RUN_NUMBER = originalEnvironment;
+                }
+            }
+        });
+
+        test('falls back to ISO timestamp directory name when no CI env vars are set', () => {
+            const originalEnvironment = process.env.GITHUB_RUN_NUMBER;
+            delete process.env.GITHUB_RUN_NUMBER;
+
+            try {
+                const filesystem = createFsFromVolume(Volume.fromNestedJSON({
+                    [outputDirectory.value]: {},
+                }, '/')) as unknown as typeof fs;
+                const outputFileSystem = new FileSystem(outputDirectory, filesystem);
+                const artifactWriter = new ArtifactWriter(outputFileSystem);
+                const sceneDataCollector = new SceneDataCollector();
+                const runDataWriter = new RunDataWriter(outputFileSystem);
+                const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()));
+
+                // Mimics HtmlReporterBuilder with no explicit testRunId and no env vars
+                const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, detectTestRunId(), detectModuleId(), 1, stage);
+                const aggregator = new DataSnapshotAggregator(outputFileSystem, { consistencyWindow: 5 });
+                const templateWriter = new ReportTemplateWriter(outputFileSystem);
+                const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
+                const reporter = new HtmlReporter(archiver, generator);
+
+                stage.assign(reporter);
+
+                const time = new Timestamp(new Date('2024-06-15T14:30:00.000Z'));
+                const sceneId = CorrelationId.create();
+                const details = new ScenarioDetails(new Name('Test'), new Category('Suite'), new FileSystemLocation(Path.from('a.spec.ts'), 1));
+
+                stage.announce(new TestRunStarts(time));
+                stage.announce(new SceneStarts(sceneId, details, time));
+                stage.announce(new SceneFinished(sceneId, details, new ExecutionSuccessful(), time));
+                stage.announce(new TestRunFinishes(time));
+
+                // Directory should be named with a timestamp
+                const directories = filesystem.readdirSync('/reports/serenity-js/test-runs') as string[];
+                expect(directories.some(d => d.startsWith('2024-06-15'))).toBe(true);
+            } finally {
+                if (originalEnvironment === undefined) {
+                    delete process.env.GITHUB_RUN_NUMBER;
+                } else {
+                    process.env.GITHUB_RUN_NUMBER = originalEnvironment;
+                }
+            }
         });
     });
 });
