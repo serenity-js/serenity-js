@@ -212,7 +212,9 @@ class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> 
         const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()), { projectName: this.config.projectName, runtime: this.config.ci });
 
         const attempt = detectAttemptNumber();
+        const testRunId = this.config.testRunId || detectTestRunId();
+        const moduleId = this.config.moduleId || (this.config.testRunId ? undefined : detectModuleId());
 
-        return new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, this.config.testRunId || detectTestRunId(), this.config.moduleId || detectModuleId(), attempt, stage);
+        return new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, testRunId, moduleId, attempt, stage);
     }
 }

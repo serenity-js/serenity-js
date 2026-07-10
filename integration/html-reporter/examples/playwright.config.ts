@@ -19,6 +19,7 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
                     outputDirectory: reportOutput,
                     specDirectory: resolve(__dirname, 'specs'),
                     title: 'Test Project',
+                    testRunId: '42',
                     projectName: 'test-project',
                     ci: {
                         provider: 'GitHub Actions',
