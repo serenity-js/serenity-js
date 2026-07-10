@@ -3,6 +3,7 @@
  * variant with inverted outcomes for specific scenarios, and re-runs
  * the reporter's aggregation to produce data.js with trend history.
  */
+import { execSync } from 'node:child_process';
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
@@ -21,7 +22,7 @@ const latestDatabase = JSON.parse(readFileSync(resolve(latestRunDirectory, 'db.j
 // Create a historical run (1 day earlier) with inverted outcomes:
 // - "should complete an item" was PASSING (now it fails → degraded)
 // - "should persist items" was FAILING (now it passes → recovered)
-const previousTimestamp = new Date(new Date(latestDatabase.startedAt).getTime() - 86_400_000).toISOString();
+const previousTimestamp = new Date(new Date(latestDatabase.startedAt).getTime() - 86_400_000).toISOString().replaceAll(':', '-');
 
 const previousScenes = latestDatabase.scenes.map((scene: any) => {
     const clone = { ...scene, startedAt: previousTimestamp, activities: [...scene.activities] };
@@ -67,21 +68,17 @@ const previousRunDirectory = resolve(testRunsDirectory, previousTimestamp);
 mkdirSync(previousRunDirectory, { recursive: true });
 writeFileSync(resolve(previousRunDirectory, 'db.json'), JSON.stringify(previousDatabase, undefined, 2), 'utf8');
 
-// Re-run aggregation using the compiled reporter package
- 
-const { DataSnapshotAggregator } = require('@serenity-js/html-reporter/lib/DataSnapshotAggregator') as typeof import('@serenity-js/html-reporter/lib/DataSnapshotAggregator');
- 
-const { FileSystem, Path, RequirementsHierarchy } = require('@serenity-js/core/lib/io') as typeof import('@serenity-js/core/lib/io');
-
+// Re-run aggregation using the html-reporter CLI
+const cliPath = resolve(__dirname, '../../../packages/html-reporter/bin/html-reporter.mjs');
 const specDirectory = resolve(__dirname, 'specs');
-const outputFileSystem = new FileSystem(Path.from(reportDirectory));
-const projectFileSystem = new FileSystem(Path.from(resolve(__dirname, '..')));
-const aggregator = new DataSnapshotAggregator(outputFileSystem, {
-    stabilityWindow: 5,
-    title: 'Test Project',
-}, new RequirementsHierarchy(projectFileSystem, Path.from(specDirectory)), projectFileSystem);
 
-aggregator.aggregate();
+execSync([
+    'node', cliPath, 'aggregate',
+    '--input', `"${testRunsDirectory}/*"`,
+    '--output', reportDirectory,
+    '--title', '"Test Project"',
+    '--specRoot', specDirectory,
+].join(' '), { stdio: 'inherit' });
 
 console.log(`Generated historical run at ${previousTimestamp}`);
 console.log(`Re-aggregated data.js with ${runs.length + 1} runs`);
