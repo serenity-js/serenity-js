@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 import { defineConfig } from '@playwright/test';
 import type { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test';
 
-const reportOutput = resolve(__dirname, 'target', 'serenity');
+const reportOutput = resolve(__dirname, 'target', 'html-report');
 
 export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
     testDir: './spec',
