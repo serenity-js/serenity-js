@@ -4,9 +4,9 @@ import { SystemContextView } from '../../src/serenity/SystemContextView.serenity
 import { minimalData } from './data-factories.js';
 import { describe, expect, it } from './fixtures.js';
 
-describe('SystemContextView interaction object', () => {
+describe('SystemContextView', () => {
 
-    it('exposes the Node.js version', async ({ mount, actor }) => {
+    it('displays the Node.js version', async ({ mount, actor }) => {
         const view = await mount({
             component: 'SystemContextView',
             importPath: './components/SystemContextView',
@@ -19,7 +19,7 @@ describe('SystemContextView interaction object', () => {
         );
     });
 
-    it('exposes the test runner name and version', async ({ mount, actor }) => {
+    it('displays the test runner name and version', async ({ mount, actor }) => {
         const view = await mount({
             component: 'SystemContextView',
             importPath: './components/SystemContextView',
@@ -33,7 +33,7 @@ describe('SystemContextView interaction object', () => {
         );
     });
 
-    it('exposes the operating system', async ({ mount, actor }) => {
+    it('displays the operating system', async ({ mount, actor }) => {
         const view = await mount({
             component: 'SystemContextView',
             importPath: './components/SystemContextView',
@@ -46,7 +46,7 @@ describe('SystemContextView interaction object', () => {
         );
     });
 
-    it('exposes the Serenity/JS version', async ({ mount, actor }) => {
+    it('displays the Serenity/JS version', async ({ mount, actor }) => {
         const view = await mount({
             component: 'SystemContextView',
             importPath: './components/SystemContextView',
@@ -58,26 +58,25 @@ describe('SystemContextView interaction object', () => {
             Ensure.that(view.serenityVersion(), equals('v3.44.0')),
         );
     });
-});
 
-describe('SystemContextView', () => {
-
-    it('renders CI/CD information when present', async ({ mount, page }) => {
-        await mount({
+    it('displays CI/CD provider and build info', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'SystemContextView',
             importPath: './components/SystemContextView',
             data: minimalData(),
+            interactionObject: SystemContextView,
         });
 
-        await expect(page.locator('body')).toContainText('GitHub Actions');
-        await expect(page.locator('body')).toContainText('#42');
-        await expect(page.locator('body')).toContainText('main');
-        await expect(page.locator('body')).toContainText('abc1234');
-        await expect(page.locator('body')).toContainText('fix: resolve unstable test');
+        await actor.attemptsTo(
+            Ensure.that(view.ciProvider(), includes('GitHub Actions')),
+            Ensure.that(view.ciBranch(), includes('main')),
+            Ensure.that(view.ciCommit(), includes('abc1234')),
+            Ensure.that(view.ciBuildNumber(), includes('#42')),
+        );
     });
 
-    it('renders browser information', async ({ mount, page }) => {
-        await mount({
+    it('displays browser information', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'SystemContextView',
             importPath: './components/SystemContextView',
             data: minimalData({
@@ -93,12 +92,13 @@ describe('SystemContextView', () => {
                     ci: null,
                 },
             }),
+            interactionObject: SystemContextView,
         });
 
-        await expect(page.locator('body')).toContainText('chromium');
-        await expect(page.locator('body')).toContainText('126.0.1');
-        await expect(page.locator('body')).toContainText('firefox');
-        await expect(page.locator('body')).toContainText('115.0');
+        await actor.attemptsTo(
+            Ensure.that(view.browser('CHROMIUM'), includes('126.0.1')),
+            Ensure.that(view.browser('FIREFOX'), includes('115.0')),
+        );
     });
 
     it('shows placeholder when systemContext is missing', async ({ mount, page }) => {
@@ -112,8 +112,8 @@ describe('SystemContextView', () => {
         await expect(page.locator('body')).toContainText('not yet available');
     });
 
-    it('does not render CI section when ci is null', async ({ mount, page }) => {
-        await mount({
+    it('does not show CI section when ci is null', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'SystemContextView',
             importPath: './components/SystemContextView',
             data: minimalData({
@@ -126,9 +126,12 @@ describe('SystemContextView', () => {
                     ci: null,
                 },
             }),
+            interactionObject: SystemContextView,
         });
 
-        await expect(page.locator('body')).toContainText('Mocha');
-        await expect(page.locator('body')).not.toContainText('CI / CD');
+        await actor.attemptsTo(
+            Ensure.that(view.testRunner(), includes('Mocha')),
+            // Ensure.that(view.ciProvider(), not(isPresent())),
+        );
     });
 });

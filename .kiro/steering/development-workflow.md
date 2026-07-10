@@ -74,6 +74,28 @@ Integration tests are required when:
 
 ## Engineering Principles
 
+### No Guessing — Understand Before You Implement
+
+**You may only write code when you have full clarity on both the goal and the approach.**
+
+- If you don't understand how an API works, **read the source code**. Don't infer from type signatures alone.
+- If you haven't used a pattern before, **find an existing usage** in the codebase and study it before attempting your own.
+- If multiple approaches exist and you're unsure which is correct, **stop and ask**.
+- If requirements are ambiguous, **stop and ask**. One clarifying question saves hours of rework.
+- If your first attempt fails, **diagnose the root cause** before trying a second approach. Two failed attempts means you don't understand the problem yet.
+
+**Never:**
+- Assume an API works a certain way without reading its implementation or finding a working example
+- Hack around type errors or runtime failures with casts, try/catch wrappers, or fallback logic
+- Make multiple speculative attempts hoping one will stick
+- Present code that you haven't verified actually works
+
+**Always:**
+- Read the relevant source before using an unfamiliar API
+- Find at least one working example of the pattern in the codebase
+- Run the code and confirm it works before moving on
+- Ask when uncertain — silence is not a substitute for understanding
+
 ### Fix Root Causes, Not Symptoms
 
 When a problem is identified, trace it to its origin:
@@ -132,10 +154,24 @@ When making changes:
 
 If requirements are unclear, ask before writing tests. One clear question is better than a wrong assumption.
 
-Examples of when to ask:
+**Stop and ask when:**
+- You don't know which API or pattern to use
+- Multiple approaches seem viable and you can't determine which is correct
+- A previous attempt failed and you're not certain why
+- The user has shown a pattern and you're not sure you fully understand it
+- You're about to add workarounds (casts, try/catch, fallback logic) to make something compile
+
+**Do not proceed by:**
+- Trying variations until something compiles
+- Adding type assertions to silence errors you don't understand
+- Wrapping code in try/catch to handle failures you haven't diagnosed
+- Assuming an API works like a similar API you've seen elsewhere
+
+Examples of good clarifying questions:
 - "Should this throw an error or return a default when the element is not found?"
 - "What domain event should this emit?"
 - "Should this compose with existing Tasks or be a standalone Interaction?"
+- "I'm not sure how `eachMappedTo` works with a MetaQuestion — can you point me at a working example?"
 
 ## Pre-Commit Checklist
 

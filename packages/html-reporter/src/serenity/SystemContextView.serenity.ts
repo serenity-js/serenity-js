@@ -1,55 +1,66 @@
-import type { Answerable } from '@serenity-js/core';
+import { equals } from '@serenity-js/assertions';
+import type { Answerable, QuestionAdapter } from '@serenity-js/core';
 import { Question, Task } from '@serenity-js/core';
-import type { PageElement } from '@serenity-js/web';
-import { By, PageElements } from '@serenity-js/web';
+import { By, PageElement, Text } from '@serenity-js/web';
 
+import { InteractionObject } from './InteractionObject.serenity.js';
 import { Navigation } from './Navigation.serenity.js';
 
-export class SystemContextView<NET> {
+class ContextItem {
+    static label = () => Text.of(PageElement.located(By.css('.context-label')));
+    static value = () => Text.of(PageElement.located(By.css('.context-value')));
 
-    constructor(private readonly rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
+    static of = (rootElement: PageElement) =>
+        Question.fromObject({
+            label: ContextItem.label().of(rootElement),
+            value: ContextItem.value().of(rootElement),
+        }).describedAs('context item');
+}
+
+export class SystemContextView<NET> extends InteractionObject<NET> {
+
+    constructor(rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
+        super(rootElement);
     }
 
-    private allContextValues = () =>
-        PageElements.located(By.css('.context-value'))
-            .of(this.rootElement)
-            .describedAs('context values');
+    private contextItemElements = () =>
+        this.children(By.css('.context-item'))
+            .describedAs('context items');
 
-    nodeVersion = (): Question<Promise<string>> =>
-        Question.about('Node.js version', async actor => {
-            const values = await actor.answer(this.allContextValues());
-            if (values.length > 0) {
-                return (await values[0].text()).trim();
-            }
-            return '';
-        });
+    private itemCalled = (name: string) =>
+        this.contextItemElements()
+            .where(ContextItem.label(), equals(name))
+            .eachMappedTo(ContextItem)
+            .describedAs('context items')
+            .first()
+            .describedAs('context item');
 
-    testRunner = (): Question<Promise<string>> =>
-        Question.about('test runner', async actor => {
-            const values = await actor.answer(this.allContextValues());
-            if (values.length > 1) {
-                return (await values[1].text()).trim();
-            }
-            return '';
-        });
+    nodeVersion = (): QuestionAdapter<string> =>
+        this.itemCalled('NODE.JS').value;
 
-    operatingSystem = (): Question<Promise<string>> =>
-        Question.about('operating system', async actor => {
-            const values = await actor.answer(this.allContextValues());
-            if (values.length > 2) {
-                return (await values[2].text()).trim();
-            }
-            return '';
-        });
+    testRunner = (): QuestionAdapter<string> =>
+        this.itemCalled('TEST RUNNER').value;
 
-    serenityVersion = (): Question<Promise<string>> =>
-        Question.about('Serenity/JS version', async actor => {
-            const values = await actor.answer(this.allContextValues());
-            if (values.length > 3) {
-                return (await values[3].text()).trim();
-            }
-            return '';
-        });
+    operatingSystem = (): QuestionAdapter<string> =>
+        this.itemCalled('OPERATING SYSTEM').value;
+
+    serenityVersion = (): QuestionAdapter<string> =>
+        this.itemCalled('SERENITY/JS').value;
+
+    ciProvider = (): QuestionAdapter<string> =>
+        this.itemCalled('PROVIDER').value;
+
+    ciBuildNumber = (): QuestionAdapter<string> =>
+        this.itemCalled('BUILD').value;
+
+    ciBranch = (): QuestionAdapter<string> =>
+        this.itemCalled('BRANCH').value;
+
+    ciCommit = (): QuestionAdapter<string> =>
+        this.itemCalled('COMMIT').value;
+
+    browser = (name: string): QuestionAdapter<string> =>
+        this.itemCalled(name).value;
 
     open = (): Task =>
         Task.where('#actor opens the System Context view',
