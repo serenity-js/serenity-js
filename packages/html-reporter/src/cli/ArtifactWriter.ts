@@ -31,8 +31,8 @@ export class ArtifactWriter {
             // db.json lands at test-runs/{buildId}/db.json (directly findable)
             this.runDirectory = Path.from('test-runs', testRunId);
         } else {
-            // Local mode (no testRunId): test-runs/{ISO-timestamp}
-            const timestamp = new Date().toISOString();
+            // Local mode (no testRunId): test-runs/{filesystem-safe-timestamp}
+            const timestamp = new Date().toISOString().replaceAll(':', '-');
             this.runDirectory = Path.from('test-runs', timestamp);
         }
 

@@ -81,7 +81,7 @@ export class TestRunArchiver implements StageCrewMember {
 
         if (event instanceof TestRunStarts) {
             this.testRunTimestamp = event.timestamp.toISOString();
-            this.resolvedTestRunId = this.testRunId || this.testRunTimestamp;
+            this.resolvedTestRunId = this.testRunId || this.testRunTimestamp.replaceAll(':', '-');
             this.artifactWriter.createRunDirectory(this.resolvedTestRunId, this.attempt, this.moduleId);
         }
 

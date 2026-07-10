@@ -162,7 +162,7 @@ export class DataSnapshotAggregator {
     private groupByTestRunId(runs: Array<{ run: RunData; path: string }>): Map<string, RunData[]> {
         const groups = new Map<string, RunData[]>();
         for (const { run } of runs) {
-            const groupId = run.testRunId || run.startedAt;
+            const groupId = run.testRunId || run.startedAt.replaceAll(':', '-');
             if (!groups.has(groupId)) groups.set(groupId, []);
             groups.get(groupId)!.push(run);
         }
@@ -360,10 +360,11 @@ export class DataSnapshotAggregator {
             return;
         }
 
+        const safeRunId = runId.replaceAll(':', '-');
         const sourceDirectory = Path.from(databaseJsonPath.replace(/\/db\.json$/, ''));
         const targetDirectory = subDirectory === '.'
-            ? Path.from('test-runs').join(Path.from(runId))
-            : Path.from('test-runs').join(Path.from(runId)).join(Path.from(subDirectory));
+            ? Path.from('test-runs').join(Path.from(safeRunId))
+            : Path.from('test-runs').join(Path.from(safeRunId)).join(Path.from(subDirectory));
 
         this.fileSystem.ensureDirectoryExistsAtSync(targetDirectory);
 

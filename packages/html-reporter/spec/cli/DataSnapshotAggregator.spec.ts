@@ -1389,8 +1389,8 @@ test.describe('DataSnapshotAggregator', () => {
 
             aggregator.aggregate([`${sourceDirectory}/db.json`]);
 
-            // Artifacts should be copied to output/test-runs/<timestamp>/
-            const outputRunDirectory = '/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z';
+            // Artifacts should be copied to output/test-runs/<safe-timestamp>/
+            const outputRunDirectory = '/reports/serenity-js/test-runs/2024-06-15T14-30-00.000Z';
             expect(filesystem.existsSync(`${outputRunDirectory}/screenshot-test-a-001.png`)).toBe(true);
             expect(filesystem.existsSync(`${outputRunDirectory}/video-recording-abc123.webm`)).toBe(true);
             expect(filesystem.existsSync(`${outputRunDirectory}/db.json`)).toBe(true);
@@ -1400,7 +1400,7 @@ test.describe('DataSnapshotAggregator', () => {
         test('does not overwrite artifacts that already exist in the output directory', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-06-15T14:30:00.000Z': {
+                    '2024-06-15T14-30-00.000Z': {
                         'db.json': JSON.stringify({ schemaVersion: 1,
                             startedAt: '2024-06-15T14:30:00.000Z',
                             finishedAt: '2024-06-15T14:30:01.000Z',
@@ -1432,9 +1432,9 @@ test.describe('DataSnapshotAggregator', () => {
             aggregator.aggregate([`${sourceDirectory}/db.json`]);
 
             // Existing file should NOT be overwritten
-            expect(filesystem.readFileSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/screenshot-existing.png', 'utf8')).toBe('ORIGINAL_DATA');
+            expect(filesystem.readFileSync('/reports/serenity-js/test-runs/2024-06-15T14-30-00.000Z/screenshot-existing.png', 'utf8')).toBe('ORIGINAL_DATA');
             // New file should be copied
-            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/screenshot-new.png')).toBe(true);
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-15T14-30-00.000Z/screenshot-new.png')).toBe(true);
         });
 
         test('copies artifacts from multiple source directories', () => {
@@ -1472,8 +1472,8 @@ test.describe('DataSnapshotAggregator', () => {
 
             aggregator.aggregate([`${sourceDirectoryA}/db.json`, `${sourceDirectoryB}/db.json`]);
 
-            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-15T14:30:00.000Z/screenshot-a.png')).toBe(true);
-            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-16T10:00:00.000Z/screenshot-b.png')).toBe(true);
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-15T14-30-00.000Z/screenshot-a.png')).toBe(true);
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/2024-06-16T10-00-00.000Z/screenshot-b.png')).toBe(true);
         });
     });
 

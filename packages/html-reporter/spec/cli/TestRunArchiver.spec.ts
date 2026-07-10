@@ -53,8 +53,8 @@ test.describe('ArtifactWriter', () => {
             writer.createRunDirectory(undefined, 1, undefined);
 
             const directory = writer.getRunDirectory().value;
-            // Must be directly under test-runs/ with an ISO timestamp
-            expect(directory).toMatch(/test-runs\/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
+            // Must be directly under test-runs/ with a filesystem-safe timestamp
+            expect(directory).toMatch(/test-runs\/\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}/);
             // Must NOT contain a second path segment after the timestamp
             const segments = directory.replace(/.*test-runs\//, '').split('/');
             expect(segments).toHaveLength(1);
