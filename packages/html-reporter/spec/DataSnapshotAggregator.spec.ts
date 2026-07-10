@@ -802,13 +802,11 @@ test.describe('DataSnapshotAggregator', () => {
             expect(testA.attempts[1].outcome).toBe('SUCCESS');
             expect(testA.attempts[1].activities[0].name).toBe('step 1 retry');
 
-            // Test B should show as passed with retry attempts (re-executed, same outcome both times)
+            // Test B should show as passed with no retries (same outcome in both sources = duplicate data)
             const testB = data.scenarios.find(s => s.name === 'Test B');
             expect(testB.outcome).toBe('SUCCESS');
-            expect(testB.retries).toBe(1);
-            expect(testB.attempts).toHaveLength(2);
-            expect(testB.attempts[0].outcome).toBe('SUCCESS');
-            expect(testB.attempts[1].outcome).toBe('SUCCESS');
+            expect(testB.retries).toBeUndefined();
+            expect(testB.attempts).toBeUndefined();
 
             // Total duration spans from earliest startedAt to latest finishedAt across all attempts
             expect(data.summary.startedAt).toBe('2024-06-15T14:30:00.000Z');
@@ -816,7 +814,7 @@ test.describe('DataSnapshotAggregator', () => {
             expect(data.summary.duration).toBe(60_500);
         });
 
-        test('records overlapping scenes with identical outcomes as retry attempts', () => {
+        test('skips duplicate scenes with identical outcomes from overlapping data sources', () => {
             const { aggregator, filesystem } = createAggregator({});
 
             // Same test appears in both gh-pages pre-merged and raw artifacts, both passing
@@ -859,15 +857,11 @@ test.describe('DataSnapshotAggregator', () => {
             expect(data.summary.totalScenarios).toBe(2);
             expect(data.summary.outcomes.passed).toBe(2);
 
-            // Both should have retry attempts recording both executions
-            const testA = data.scenarios.find(s => s.name === 'Test A');
-            expect(testA.outcome).toBe('SUCCESS');
-            expect(testA.retries).toBe(1);
-            expect(testA.attempts).toHaveLength(2);
-            expect(testA.attempts[0].outcome).toBe('SUCCESS');
-            expect(testA.attempts[0].activities[0].name).toBe('step A v1');
-            expect(testA.attempts[1].outcome).toBe('SUCCESS');
-            expect(testA.attempts[1].activities[0].name).toBe('step A v2');
+            // Neither should have retry attempts — same outcome means duplicate data, not a retry
+            for (const scenario of data.scenarios) {
+                expect(scenario.retries).toBeUndefined();
+                expect(scenario.attempts).toBeUndefined();
+            }
         });
     });
 

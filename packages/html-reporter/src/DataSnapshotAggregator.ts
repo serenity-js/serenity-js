@@ -213,7 +213,7 @@ export class DataSnapshotAggregator {
             baseScenesByIdentity.set(this.sceneIdentity(scene), scene);
         }
 
-        // Merge scenes: new scenes are added, overlapping scenes are recorded as attempts
+        // Merge scenes: new scenes are added, overlapping scenes are handled
         merged.scenes = [...base.scenes];
         let hasOverlap = false;
         for (const additionScene of addition.scenes) {
@@ -223,10 +223,18 @@ export class DataSnapshotAggregator {
             if (!existingScene) {
                 // No overlap — different module, just add it
                 merged.scenes.push(additionScene);
-            } else {
-                // Same scene appeared in both sources — record as a retry attempt
+            } else if (existingScene.outcome.code !== additionScene.outcome.code) {
+                // Same scene, different outcome — the earlier source captured a failure
+                // that the later source shows as fixed. Record as retry attempt.
                 const index = merged.scenes.indexOf(existingScene);
                 merged.scenes[index] = this.mergeSceneWithRetry(existingScene, additionScene);
+                hasOverlap = true;
+            } else {
+                // Same scene, same outcome — duplicate data from two input sources
+                // (e.g., gh-pages pre-merged run + fresh module artifacts).
+                // Keep the later version (may have more complete data) and skip the duplicate.
+                const index = merged.scenes.indexOf(existingScene);
+                merged.scenes[index] = additionScene;
                 hasOverlap = true;
             }
         }
