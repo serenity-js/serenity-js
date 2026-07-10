@@ -1,16 +1,24 @@
-import type { Answerable, QuestionAdapter } from '@serenity-js/core';
+import type { QuestionAdapter } from '@serenity-js/core';
 import { Question } from '@serenity-js/core';
 import type { PageElement } from '@serenity-js/web';
-import { By, PageElements } from '@serenity-js/web';
+import { Attribute, By, PageElements } from '@serenity-js/web';
 
 export interface HistoryDotEntry {
     type: string;
     title: string;
 }
 
+class HistoryDotOutcome {
+    static of = <NET>(dot: PageElement<NET>) =>
+        Question.fromObject({
+            type: Attribute.called('data-outcome').of(dot),
+            title: Attribute.called('title').of(dot),
+        }).describedAs('history dot outcome');
+}
+
 export class HistoryDots<NET> {
 
-    constructor(private readonly rootElement: Answerable<PageElement<NET>>) {
+    constructor(private readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
     }
 
     private dots = () =>
@@ -23,16 +31,7 @@ export class HistoryDots<NET> {
             .describedAs('number of history dots');
 
     outcomes = (): Question<Promise<HistoryDotEntry[]>> =>
-        Question.about('outcomes of history dots', async actor => {
-            const dots = await actor.answer(this.dots());
-            const entries: HistoryDotEntry[] = [];
-            for (const dot of dots) {
-                const classList = await dot.attribute('class') || '';
-                const match = classList.match(/history-dot--(\S+)/);
-                const type = match ? match[1] : '';
-                const title = await dot.attribute('title') || '';
-                entries.push({ type, title });
-            }
-            return entries;
-        });
+        this.dots()
+            .eachMappedTo(HistoryDotOutcome)
+            .describedAs('outcomes of history dots');
 }

@@ -1,10 +1,10 @@
-import type { Answerable } from '@serenity-js/core';
-import { Interaction, Question, the } from '@serenity-js/core';
-import { By, PageElement } from '@serenity-js/web';
+import type { QuestionAdapter } from '@serenity-js/core';
+import { Task, the } from '@serenity-js/core';
+import { Attribute, By, Click, PageElement } from '@serenity-js/web';
 
 export class DashboardKpiCard<NET> {
 
-    constructor(private readonly rootElement: Answerable<PageElement<NET>>) {
+    constructor(private readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
     }
 
     private labelElement = () =>
@@ -17,27 +17,29 @@ export class DashboardKpiCard<NET> {
             .of(this.rootElement)
             .describedAs('dashboard KPI card value');
 
-    label = (): Question<Promise<string>> =>
-        Question.about('dashboard KPI card label', async actor => {
-            const element = await actor.answer(this.labelElement());
-            return (await element.text()).trim();
-        });
+    private subtitleElement = () =>
+        PageElement.located(By.css('.kpi-subtitle'))
+            .of(this.rootElement)
+            .describedAs('dashboard KPI card subtitle');
 
-    value = (): Question<Promise<string>> =>
-        Question.about('dashboard KPI card value', async actor => {
-            const element = await actor.answer(this.valueElement());
-            return (await element.text()).trim();
-        });
+    label = (): QuestionAdapter<string> =>
+        this.labelElement().text().trim()
+            .describedAs('dashboard KPI card label');
 
-    accessibleLabel = (): Question<Promise<string>> =>
-        Question.about('dashboard KPI card accessible label', async actor => {
-            const element = await actor.answer(this.rootElement);
-            return (await element.attribute('aria-label')) || '';
-        });
+    value = (): QuestionAdapter<string> =>
+        this.valueElement().text().trim()
+            .describedAs('dashboard KPI card value');
 
-    click = (): Interaction =>
-        Interaction.where(the`#actor clicks on the dashboard KPI card`, async actor => {
-            const element = await actor.answer(this.rootElement);
-            await element.click();
-        });
+    subtitle = (): QuestionAdapter<string> =>
+        this.subtitleElement().text().trim()
+            .describedAs('dashboard KPI card subtitle');
+
+    accessibleLabel = (): QuestionAdapter<string> =>
+        Attribute.called('aria-label').of(this.rootElement)
+            .describedAs('dashboard KPI card accessible label');
+
+    viewDetails = (): Task =>
+        Task.where(the`#actor views KPI card details`,
+            Click.on(this.rootElement),
+        );
 }

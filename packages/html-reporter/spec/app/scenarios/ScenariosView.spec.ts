@@ -4,6 +4,68 @@ import { ScenariosView } from '../../../src/serenity/scenarios/ScenariosView.ser
 import { minimalData } from '../data-factories.js';
 import { describe, expect, it } from '../fixtures.js';
 
+describe('ScenariosView scenario access', () => {
+
+    const data = minimalData();
+
+    it('can find a scenario by name and read its outcome', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/scenarios/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests' },
+            data,
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCalled('Test D').outcome(), equals('FAILURE')),
+        );
+    });
+
+    it('can find a scenario by name and read its source location', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/scenarios/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests' },
+            data,
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCalled('Test D').sourceLocation(), includes('b.spec.ts')),
+        );
+    });
+
+    it('lists all visible scenario names', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/scenarios/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests' },
+            data,
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioNames(), contain('Test D')),
+        );
+    });
+
+    it('can check if a scenario is present after filtering', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/scenarios/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests' },
+            data,
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            view.filterBar.selectFilter('Failed'),
+            Ensure.that(view.scenarioCalled('Test D').isPresent(), equals(true)),
+        );
+    });
+});
+
 describe('ScenariosView interaction object', () => {
 
     const data = minimalData();

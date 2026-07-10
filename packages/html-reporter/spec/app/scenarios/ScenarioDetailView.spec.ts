@@ -77,6 +77,73 @@ describe('ScenarioDetailView interaction object', () => {
             Ensure.that(view.hasError(), equals(false)),
         );
     });
+
+    it('can find an activity by name and read its outcome', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenarioDetailView',
+            importPath: './components/scenarios/ScenarioDetailView',
+            props: { scenarioId: 'spec/b.spec.ts:5', onNavigate: () => {} },
+            data: minimalData({
+                scenarios: [
+                    {
+                        name: 'Test D', category: 'Suite', outcome: 'FAILURE', duration: 400,
+                        startedAt: '2024-06-15T14:30:00.000Z',
+                        source: { path: 'spec/b.spec.ts', line: 5 },
+                        tags: [],
+                        activities: [
+                            { name: 'enters expired card details', outcome: 'SUCCESS', duration: 100, type: 'Interaction', children: [] },
+                            { name: 'submits the payment', outcome: 'FAILURE', duration: 200, type: 'Interaction', children: [] },
+                        ],
+                        executionHistory: [
+                            { outcome: 'SUCCESS', run: '#41' },
+                            { outcome: 'FAILURE', run: '#42' },
+                        ],
+                        error: { name: 'AssertionError', message: 'Payment rejected', stack: '' },
+                    },
+                ],
+            }),
+            interactionObject: ScenarioDetailView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.activityCalled('submits the payment').outcome(), equals('FAILURE')),
+        );
+    });
+
+    it('can count execution history dots', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenarioDetailView',
+            importPath: './components/scenarios/ScenarioDetailView',
+            props: { scenarioId: 'spec/b.spec.ts:5', onNavigate: () => {} },
+            data: minimalData({
+                scenarios: [
+                    {
+                        name: 'Test D', category: 'Suite', outcome: 'FAILURE', duration: 400,
+                        startedAt: '2024-06-15T14:30:00.000Z',
+                        source: { path: 'spec/b.spec.ts', line: 5 },
+                        tags: [],
+                        activities: [
+                            { name: 'submits the payment', outcome: 'FAILURE', duration: 200, type: 'Interaction', children: [] },
+                        ],
+                        executionHistory: [
+                            { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
+                            { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T14:30:00.000Z' },
+                        ],
+                        error: { name: 'AssertionError', message: 'Payment rejected', stack: '' },
+                    },
+                ],
+                history: [
+                    { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 100, slowest: 100, fastest: 100, average: 100 },
+                    { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 400, slowest: 400, fastest: 400, average: 400 },
+                ],
+            }),
+            interactionObject: ScenarioDetailView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.executionHistoryDotCount(), equals(2)),
+        );
+    });
 });
 
 /**

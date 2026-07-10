@@ -10,7 +10,7 @@ test.describe('bundle-template', () => {
     // These tests verify the output meets air-gap requirements.
 
     const thisDirectory = dirname(fileURLToPath(import.meta.url));
-    const templatePath = resolve(thisDirectory, '../..', 'esm', 'template.js');
+    const templatePath = resolve(thisDirectory, '../..', 'esm', 'cli', 'template.js');
 
     function readBundledTemplate(): string {
         return readFileSync(templatePath, 'utf8');

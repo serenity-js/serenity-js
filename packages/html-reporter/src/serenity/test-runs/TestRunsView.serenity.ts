@@ -1,4 +1,4 @@
-import type { Answerable, Question } from '@serenity-js/core';
+import type { Question, QuestionAdapter } from '@serenity-js/core';
 import { Task } from '@serenity-js/core';
 import type { PageElement } from '@serenity-js/web';
 import { By, PageElements } from '@serenity-js/web';
@@ -7,7 +7,7 @@ import { Navigation } from '../common/Navigation.serenity.js';
 
 export class TestRunsView<NET> {
 
-    constructor(private readonly rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
+    constructor(private readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
     }
 
     private runRows = () =>

@@ -48,7 +48,7 @@ export function ActivityRow({ activity, displayName, hasChildren, expanded, onTo
     return html`
       <div class="activity-row" style=${hasChildren ? 'cursor:pointer' : ''} onClick=${hasChildren ? onToggle : undefined}>
         ${hasChildren ? html`<span class="expand-chevron-xs ${expanded ? 'open' : ''}">▸</span>` : html`<span style="width:12px;flex-shrink:0"></span>`}
-        <div class="activity-icon ${outcomeClass(activity.outcome)}">
+        <div class="activity-icon ${outcomeClass(activity.outcome)}" data-outcome=${activity.outcome}>
           ${outcomeIcon(activity.outcome)}
         </div>
         <span class="activity-name ${activity.type === 'Task' ? 'task' : ''}">${displayName}</span>

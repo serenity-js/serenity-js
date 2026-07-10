@@ -1,3 +1,6 @@
+import { contain, Ensure, equals } from '@serenity-js/assertions';
+
+import { ErrorsView } from '../../../src/serenity/errors/ErrorsView.serenity.js';
 import { minimalData } from '../data-factories.js';
 import { describe, expect, it } from '../fixtures.js';
 
@@ -181,5 +184,63 @@ describe('ErrorsView', () => {
 
         // Should show the "No Errors" placeholder
         await expect(page.locator('body')).toContainText('No Errors');
+    });
+});
+
+describe('ErrorsView scenario access', () => {
+
+    const errorsViewData = minimalData({
+        scenarios: [
+            {
+                name: 'Login fails', category: 'Auth', outcome: 'FAILURE', duration: 50,
+                startedAt: '2024-06-15T14:30:00.000Z',
+                source: { path: 'spec/auth.spec.ts', line: 10 },
+                tags: [], activities: [],
+                executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
+                error: { name: 'AssertionError', message: 'expected true to equal false' },
+            },
+            {
+                name: 'Timeout test', category: 'Suite', outcome: 'FAILURE', duration: 5000,
+                startedAt: '2024-06-15T14:30:00.200Z',
+                source: { path: 'spec/slow.spec.ts', line: 5 },
+                tags: [], activities: [],
+                executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
+                error: { name: 'Error', message: 'timed out after 5000ms' },
+            },
+        ],
+        summary: {
+            title: 'Test', totalScenarios: 2,
+            outcomes: { passed: 0, failed: 2, pending: 0, skipped: 0, compromised: 0, error: 0 },
+            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:05.000Z',
+            duration: 5000, testRunner: 'Mocha',
+        },
+    });
+
+    it('can find a scenario by name', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ErrorsView',
+            importPath: './components/errors/ErrorsView',
+            props: { onNavigate: () => {}, route: '/errors' },
+            data: errorsViewData,
+            interactionObject: ErrorsView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCalled('Login fails').isPresent(), equals(true)),
+        );
+    });
+
+    it('lists visible scenario names in the errors view', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ErrorsView',
+            importPath: './components/errors/ErrorsView',
+            props: { onNavigate: () => {}, route: '/errors' },
+            data: errorsViewData,
+            interactionObject: ErrorsView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioNames(), contain('Login fails')),
+        );
     });
 });

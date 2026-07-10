@@ -57,7 +57,7 @@ describe('OutcomeBadge', () => {
         );
     });
 
-    it('applies the correct CSS class for the outcome', async ({ mount, actor }) => {
+    it('reports the outcome type for SUCCESS', async ({ mount, actor }) => {
         const badge = await mount({
             component: 'OutcomeBadge',
             importPath: './components/common/OutcomeBadge',
@@ -66,11 +66,11 @@ describe('OutcomeBadge', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(badge.outcomeType(), equals('passed')),
+            Ensure.that(badge.outcomeType(), equals('SUCCESS')),
         );
     });
 
-    it('applies the failed class for FAILURE outcome', async ({ mount, actor }) => {
+    it('reports the outcome type for FAILURE', async ({ mount, actor }) => {
         const badge = await mount({
             component: 'OutcomeBadge',
             importPath: './components/common/OutcomeBadge',
@@ -79,11 +79,11 @@ describe('OutcomeBadge', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(badge.outcomeType(), equals('failed')),
+            Ensure.that(badge.outcomeType(), equals('FAILURE')),
         );
     });
 
-    it('applies the compromised class for COMPROMISED outcome', async ({ mount, actor }) => {
+    it('reports the outcome type for COMPROMISED', async ({ mount, actor }) => {
         const badge = await mount({
             component: 'OutcomeBadge',
             importPath: './components/common/OutcomeBadge',
@@ -92,7 +92,7 @@ describe('OutcomeBadge', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(badge.outcomeType(), equals('compromised')),
+            Ensure.that(badge.outcomeType(), equals('COMPROMISED')),
         );
     });
 
@@ -106,7 +106,7 @@ describe('OutcomeBadge', () => {
 
         await actor.attemptsTo(
             Ensure.that(badge.iconText(), equals('⊘')),
-            Ensure.that(badge.outcomeType(), equals('skipped')),
+            Ensure.that(badge.outcomeType(), equals('SKIPPED')),
         );
     });
 });

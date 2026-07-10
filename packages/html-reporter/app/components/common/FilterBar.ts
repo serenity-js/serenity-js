@@ -71,7 +71,7 @@ export function FilterBar({ filters, activeFilter, onFilter, ariaLabel, label, m
             <button class="filter-chip ${f.className || f.key} ${isActive ? 'active' : ''}"
                     onClick=${() => handleClick(f.key)}
                     aria-pressed=${isActive}>
-                <span>${f.label}</span>
+                <span class="chip-label">${f.label}</span>
                 <span class="count">${f.count}</span>
             </button>
           `;

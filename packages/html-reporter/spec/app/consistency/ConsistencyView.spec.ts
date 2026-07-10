@@ -4,6 +4,60 @@ import { ConsistencyView } from '../../../src/serenity/consistency/ConsistencyVi
 import { minimalData } from '../data-factories.js';
 import { describe, expect, it } from '../fixtures.js';
 
+describe('ConsistencyView scenario access', () => {
+
+    const consistencyData = minimalData({
+        inconsistentTests: [
+            {
+                name: 'Flaky Test A',
+                category: 'Suite A',
+                source: { path: 'spec/flaky.spec.ts', line: 10 },
+                tags: [{ type: 'feature', name: 'Checkout' }],
+                inconsistencyRate: 0.5,
+                history: ['SUCCESS', 'RETRIED_SUCCESS', 'RETRIED_SUCCESS'],
+                labels: ['#1', '#2', '#3'],
+            },
+            {
+                name: 'Degraded Test B',
+                category: 'Suite B',
+                source: { path: 'spec/broken.spec.ts', line: 5 },
+                tags: [{ type: 'feature', name: 'Login' }],
+                inconsistencyRate: 0.8,
+                history: ['SUCCESS', 'FAILURE'],
+                labels: ['#1', '#2'],
+            },
+        ],
+    });
+
+    it('can find a scenario by name and check it is present', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ConsistencyView',
+            importPath: './components/consistency/ConsistencyView',
+            props: { onNavigate: () => {}, route: '/consistency' },
+            data: consistencyData,
+            interactionObject: ConsistencyView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCalled('Flaky Test A').isPresent(), equals(true)),
+        );
+    });
+
+    it('lists visible scenario names', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ConsistencyView',
+            importPath: './components/consistency/ConsistencyView',
+            props: { onNavigate: () => {}, route: '/consistency' },
+            data: consistencyData,
+            interactionObject: ConsistencyView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioNames(), contain('Flaky Test A')),
+        );
+    });
+});
+
 describe('ConsistencyView', () => {
 
     const inconsistentTestData = minimalData({

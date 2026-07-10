@@ -1,15 +1,13 @@
-import type { Answerable } from '@serenity-js/core';
-import { Question } from '@serenity-js/core';
+import type { QuestionAdapter } from '@serenity-js/core';
 import type { PageElement } from '@serenity-js/web';
+import { Text } from '@serenity-js/web';
 
 export class ResultCount<NET> {
 
-    constructor(private readonly rootElement: Answerable<PageElement<NET>>) {
+    constructor(private readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
     }
 
-    text = (): Question<Promise<string>> =>
-        Question.about('result count text', async actor => {
-            const element = await actor.answer(this.rootElement);
-            return (await element.text()).trim();
-        });
+    text = (): QuestionAdapter<string> =>
+        Text.of(this.rootElement).trim()
+            .describedAs('result count text');
 }

@@ -1,10 +1,12 @@
-import type { Answerable } from '@serenity-js/core';
-import { Interaction, Question, the } from '@serenity-js/core';
-import { By, PageElement, PageElements } from '@serenity-js/web';
+import { equals, includes } from '@serenity-js/assertions';
+import type { Answerable, Question } from '@serenity-js/core';
+import type { QuestionAdapter } from '@serenity-js/core';
+import { Task, the } from '@serenity-js/core';
+import { Attribute, By, Click, PageElement, PageElements, Text, Value } from '@serenity-js/web';
 
 export class FilterBar<NET> {
 
-    constructor(private readonly rootElement: Answerable<PageElement<NET>>) {
+    constructor(private readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
     }
 
     private chips = () =>
@@ -12,53 +14,35 @@ export class FilterBar<NET> {
             .of(this.rootElement)
             .describedAs('filter chips');
 
+    private chipLabel = () =>
+        PageElement.located(By.css('.chip-label'));
+
     private sortSelect = () =>
         PageElement.located(By.css('.sort-select'))
             .of(this.rootElement)
             .describedAs('sort dropdown');
 
     filterLabels = (): Question<Promise<string[]>> =>
-        Question.about('filter chip labels', async actor => {
-            const elements = await actor.answer(this.chips());
-            const labels: string[] = [];
-            for (const element of elements) {
-                const text = await element.text();
-                labels.push(text.replace(/\s*\d+\s*$/, '').trim());
-            }
-            return labels;
-        });
+        this.chips()
+            .eachMappedTo(Text.of(this.chipLabel()))
+            .describedAs('filter chip labels');
 
     activeFilters = (): Question<Promise<string[]>> =>
-        Question.about('active filter labels', async actor => {
-            const elements = await actor.answer(this.chips());
-            const active: string[] = [];
-            for (const element of elements) {
-                const pressed = await element.attribute('aria-pressed');
-                if (pressed === 'true') {
-                    const text = await element.text();
-                    active.push(text.replace(/\s*\d+\s*$/, '').trim());
-                }
-            }
-            return active;
-        });
+        this.chips()
+            .where(Attribute.called('aria-pressed'), equals('true'))
+            .eachMappedTo(Text.of(this.chipLabel()))
+            .describedAs('active filter labels');
 
-    selectFilter = (label: Answerable<string>): Interaction =>
-        Interaction.where(the`#actor selects the "${label}" filter`, async actor => {
-            const labelText = await actor.answer(label);
-            const elements = await actor.answer(this.chips());
-            for (const element of elements) {
-                const text = await element.text();
-                if (text.replace(/\s*\d+\s*$/, '').trim() === labelText) {
-                    await element.click();
-                    return;
-                }
-            }
-            throw new Error(`Filter chip "${labelText}" not found`);
-        });
+    selectFilter = (label: Answerable<string>): Task =>
+        Task.where(the`#actor selects the "${label}" filter`,
+            Click.on(this.chips()
+                .where(Text.of(this.chipLabel()), includes(label))
+                .first()
+                .describedAs(the`filter chip "${label}"`)
+            ),
+        );
 
-    selectedSort = (): Question<Promise<string>> =>
-        Question.about('selected sort option', async actor => {
-            const select = await actor.answer(this.sortSelect());
-            return (await select.value()) || '';
-        });
+    selectedSort = (): QuestionAdapter<string> =>
+        Value.of(this.sortSelect())
+            .describedAs('selected sort option');
 }

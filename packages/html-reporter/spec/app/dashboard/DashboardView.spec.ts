@@ -76,4 +76,32 @@ describe('DashboardView', () => {
             Ensure.that(view.kpiCardAt(3).accessibleLabel(), includes('percent')),
         );
     });
+
+    it('can find a KPI card by its label', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'DashboardView',
+            importPath: './components/dashboard/DashboardView',
+            props: { onNavigate: () => {} },
+            data: dashboardData,
+            interactionObject: DashboardView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.kpiCardCalled('Pass Rate').value(), includes('75')),
+        );
+    });
+
+    it('can read the subtitle of a KPI card found by label', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'DashboardView',
+            importPath: './components/dashboard/DashboardView',
+            props: { onNavigate: () => {} },
+            data: dashboardData,
+            interactionObject: DashboardView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.kpiCardCalled('Pass Rate').subtitle(), includes('passing')),
+        );
+    });
 });

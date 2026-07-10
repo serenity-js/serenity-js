@@ -1,4 +1,4 @@
-import type { Answerable } from '@serenity-js/core';
+import type { QuestionAdapter} from '@serenity-js/core';
 import { Task } from '@serenity-js/core';
 import type { PageElement } from '@serenity-js/web';
 import { By } from '@serenity-js/web';
@@ -15,7 +15,7 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
     readonly filterBar: FilterBar<NET>;
     readonly resultCount: ResultCount<NET>;
 
-    constructor(rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
+    constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
         super(rootElement);
 
         this.searchInput = new SearchInput(this.child(By.css('[data-testid="search-input"]')));

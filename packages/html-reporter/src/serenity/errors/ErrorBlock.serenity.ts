@@ -1,10 +1,10 @@
-import type { Answerable } from '@serenity-js/core';
+import type { QuestionAdapter } from '@serenity-js/core';
 import { Question } from '@serenity-js/core';
 import { By, PageElement } from '@serenity-js/web';
 
 export class ErrorBlock<NET> {
 
-    constructor(private readonly rootElement: Answerable<PageElement<NET>>) {
+    constructor(private readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
     }
 
     private errorName = () =>
@@ -22,23 +22,17 @@ export class ErrorBlock<NET> {
             .of(this.rootElement)
             .describedAs('error stack trace');
 
-    name = (): Question<Promise<string>> =>
-        Question.about('error name', async actor => {
-            const element = await actor.answer(this.errorName());
-            return (await element.text()).trim();
-        });
+    name = (): QuestionAdapter<string> =>
+        this.errorName().text().trim()
+            .describedAs('error name');
 
-    message = (): Question<Promise<string>> =>
-        Question.about('error message', async actor => {
-            const element = await actor.answer(this.errorMessage());
-            return (await element.text()).trim();
-        });
+    message = (): QuestionAdapter<string> =>
+        this.errorMessage().text().trim()
+            .describedAs('error message');
 
-    stackTrace = (): Question<Promise<string>> =>
-        Question.about('error stack trace', async actor => {
-            const element = await actor.answer(this.errorStack());
-            return (await element.text()).trim();
-        });
+    stackTrace = (): QuestionAdapter<string> =>
+        this.errorStack().text().trim()
+            .describedAs('error stack trace');
 
     hasLocation = (): Question<Promise<boolean>> =>
         Question.about('whether error block shows a source location', async actor => {

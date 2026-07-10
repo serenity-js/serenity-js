@@ -4,7 +4,7 @@ import { Attribute, By, Click, Enter, PageElement, Value } from '@serenity-js/we
 
 export class SearchInput<NET> {
 
-    constructor(private readonly rootElement: Answerable<PageElement<NET>>) {
+    constructor(private readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
     }
 
     private inputField = () =>

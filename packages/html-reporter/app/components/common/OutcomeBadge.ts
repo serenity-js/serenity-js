@@ -20,6 +20,6 @@ export function OutcomeBadge({ outcome, size = 'md' }: OutcomeBadgeProps): Retur
     const style = sizeStyles[size] || '';
 
     return html`
-        <span class="scenario-outcome-icon ${outcomeClass(outcome)}" style=${style} data-testid="outcome-badge">${outcomeIcon(outcome)}</span>
+        <span class="scenario-outcome-icon ${outcomeClass(outcome)}" style=${style} data-testid="outcome-badge" data-outcome=${outcome}>${outcomeIcon(outcome)}</span>
     `;
 }

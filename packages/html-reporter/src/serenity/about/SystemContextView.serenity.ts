@@ -19,7 +19,7 @@ class ContextItem {
 
 export class SystemContextView<NET> extends InteractionObject<NET> {
 
-    constructor(rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
+    constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
         super(rootElement);
     }
 

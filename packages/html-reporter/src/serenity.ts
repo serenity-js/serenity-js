@@ -15,7 +15,9 @@ export { DashboardKpiCard } from './serenity/dashboard/DashboardKpiCard.serenity
 export { DashboardView } from './serenity/dashboard/DashboardView.serenity.js';
 export { ErrorBlock } from './serenity/errors/ErrorBlock.serenity.js';
 export { ErrorsView } from './serenity/errors/ErrorsView.serenity.js';
+export { ActivityItem } from './serenity/scenarios/ActivityItem.serenity.js';
 export { ScenarioDetailView } from './serenity/scenarios/ScenarioDetailView.serenity.js';
+export { ScenarioItem } from './serenity/scenarios/ScenarioItem.serenity.js';
 export { ScenariosView } from './serenity/scenarios/ScenariosView.serenity.js';
 export { TagsView } from './serenity/tags/TagsView.serenity.js';
 export { TestRunsView } from './serenity/test-runs/TestRunsView.serenity.js';

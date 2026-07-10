@@ -40,9 +40,9 @@ describe('HistoryDots', () => {
 
         await actor.attemptsTo(
             Ensure.that(historyDots.outcomes(), equals([
-                { type: 'passed', title: 'Run 1' },
-                { type: 'failed', title: 'Run 2' },
-                { type: 'pending', title: 'Run 3' },
+                { type: 'SUCCESS', title: 'Run 1' },
+                { type: 'FAILURE', title: 'Run 2' },
+                { type: 'PENDING', title: 'Run 3' },
             ])),
         );
     });
@@ -67,9 +67,9 @@ describe('HistoryDots', () => {
         await actor.attemptsTo(
             Ensure.that(historyDots.count(), equals(3)),
             Ensure.that(historyDots.outcomes(), equals([
-                { type: 'pending', title: 'Run 3' },
-                { type: 'passed', title: 'Run 4' },
-                { type: 'failed', title: 'Run 5' },
+                { type: 'PENDING', title: 'Run 3' },
+                { type: 'SUCCESS', title: 'Run 4' },
+                { type: 'FAILURE', title: 'Run 5' },
             ])),
         );
     });
@@ -112,8 +112,8 @@ describe('HistoryDots', () => {
 
         await actor.attemptsTo(
             Ensure.that(historyDots.outcomes(), equals([
-                { type: 'passed', title: '' },
-                { type: 'failed', title: '' },
+                { type: 'SUCCESS', title: '' },
+                { type: 'FAILURE', title: '' },
             ])),
         );
     });
