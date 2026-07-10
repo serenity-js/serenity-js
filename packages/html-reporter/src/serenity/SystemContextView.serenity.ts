@@ -31,9 +31,8 @@ export class SystemContextView<NET> extends InteractionObject<NET> {
         this.contextItemElements()
             .where(ContextItem.label(), equals(name))
             .eachMappedTo(ContextItem)
-            .describedAs('context items')
             .first()
-            .describedAs('context item');
+            .describedAs(`context item called ${ name }`);
 
     nodeVersion = (): QuestionAdapter<string> =>
         this.itemCalled('NODE.JS').value;
