@@ -14,7 +14,7 @@ import { buildSync } from 'esbuild';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const packageRoot = resolve(__dirname, '..');
-const templateDir = resolve(packageRoot, 'template');
+const templateDir = resolve(packageRoot, 'app');
 
 // --- Step 1: Bundle the app JS ---
 

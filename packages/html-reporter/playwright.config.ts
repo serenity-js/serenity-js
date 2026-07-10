@@ -10,11 +10,11 @@ export default defineConfig({
         {
             name: 'unit',
             testMatch: ['**/*.spec.ts'],
-            testIgnore: ['**/components/**'],
+            testIgnore: ['**/app/**'],
         },
         {
             name: 'components',
-            testMatch: ['**/components/**/*.spec.ts'],
+            testMatch: ['**/app/**/*.spec.ts'],
             use: { browserName: 'chromium', headless: true },
         },
     ],

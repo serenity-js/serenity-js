@@ -1,0 +1,28 @@
+import htm from 'htm';
+import { h } from 'preact';
+
+import type { ReportAttempt } from '../../../src/cli/ReportData';
+import { outcomeClass, useHashHistory } from '../../utils';
+
+const html = htm.bind(h);
+
+interface RetryTabsProps {
+    attempts: ReportAttempt[];
+    activeAttempt: number;
+    onSelect: (index: number) => void;
+}
+
+export function RetryTabs({ attempts, activeAttempt, onSelect }: RetryTabsProps): ReturnType<typeof html> {
+    const hashNav = useHashHistory();
+
+    return html`
+        <div class="retry-tabs">
+          ${attempts.map((attempt, i) => html`
+            <div class="retry-tab ${activeAttempt === i ? 'active' : ''} ${outcomeClass(attempt.outcome)}"
+                 onClick=${() => { onSelect(i); hashNav.setParam('attempt', String(i + 1)); }}>
+              Attempt ${attempt.attemptNumber} (${attempt.outcome === 'SUCCESS' ? 'passed' : 'failed'})
+            </div>
+          `)}
+        </div>
+    `;
+}

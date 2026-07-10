@@ -62,4 +62,8 @@ better communicates that it's a standalone application, not just HTML templates.
 
 ## Status
 
-⬜ Not started — follow-up to Phase 8 component extraction.
+✅ Complete — restructured in two steps:
+1. Mechanical renames: `template/` → `app/`, `src/*.ts` → `src/cli/`, `spec/*.spec.ts` → `spec/cli/`, `spec/components/` → `spec/app/`
+2. Domain sub-grouping: 10 domain directories (dashboard, scenarios, consistency, errors, capabilities, timeline, tags, test-runs, about, common) in `app/components/`, mirrored in `src/serenity/` and `spec/app/`
+
+All 463 tests pass. Compiled output paths in `lib/` and `esm/` unchanged (`index.js`, `serenity.js`, `template.js` at top level).

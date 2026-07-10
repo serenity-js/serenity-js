@@ -20,8 +20,8 @@ import { extname, join, resolve } from 'node:path';
 import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import fg from 'fast-glob';
 
-import { DataSnapshotAggregator } from '../esm/DataSnapshotAggregator.js';
-import { ReportTemplateWriter } from '../esm/ReportTemplateWriter.js';
+import { DataSnapshotAggregator } from '../esm/cli/DataSnapshotAggregator.js';
+import { ReportTemplateWriter } from '../esm/cli/ReportTemplateWriter.js';
 
 // --- Arg parsing ---
 
