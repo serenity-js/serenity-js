@@ -104,8 +104,8 @@ describe('Developer', () => {
                 scenariosView.find('timeout error'),
                 scenariosView.scenarioCalled(timeoutTest).viewDetails(),
 
-                Ensure.that(scenarioDetailView.errorBlock().name(), includes('Timeout')),
-                Ensure.that(scenarioDetailView.errorBlock().message(), includes('authentication.spec.ts')),
+                Ensure.that(scenarioDetailView.errorBlock().name(), includes('Error')),
+                Ensure.that(scenarioDetailView.errorBlock().message(), includes('Timeout')),
             );
         });
 

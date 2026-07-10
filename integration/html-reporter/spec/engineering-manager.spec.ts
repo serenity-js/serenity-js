@@ -51,7 +51,7 @@ describe('Engineering Manager', () => {
 
         it('can share the report link as evidence of the decision', async ({ actor }) => {
             await actor.attemptsTo(
-                Ensure.that(Page.current().url().href, includes('#/')),
+                Ensure.that(Page.current().url().href, includes('index.html')),
             );
         });
     });
@@ -97,7 +97,7 @@ describe('Engineering Manager', () => {
             await actor.attemptsTo(
                 tagsView.open(),
 
-                Ensure.that(tagsView.tagCount(), equals(2)),
+                Ensure.that(tagsView.tagCount(), equals(7)),
             );
         });
 

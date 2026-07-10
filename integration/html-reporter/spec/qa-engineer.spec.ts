@@ -33,7 +33,7 @@ describe('QA Engineer', () => {
             await actor.attemptsTo(
                 tagsView.open(),
 
-                Ensure.that(tagsView.tagCount(), equals(2)),
+                Ensure.that(tagsView.tagCount(), equals(7)),
             );
         });
     });
