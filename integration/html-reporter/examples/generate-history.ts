@@ -23,7 +23,6 @@ const latestDatabase = JSON.parse(readFileSync(resolve(latestRunDirectory, 'db.j
 // - "should complete an item" was PASSING (now it fails → degraded)
 // - "should persist items" was FAILING (now it passes → recovered)
 const previousTimestamp = new Date(new Date(latestDatabase.startedAt).getTime() - 86_400_000).toISOString();
-const previousRunDirectoryName = previousTimestamp.replaceAll(':', '-');
 
 const previousScenes = latestDatabase.scenes.map((scene: any) => {
     const clone = { ...scene, startedAt: previousTimestamp, activities: [...scene.activities] };
@@ -59,13 +58,14 @@ for (const scene of previousScenes) {
 
 const previousDatabase = {
     ...latestDatabase,
+    testRunId: '41',
     startedAt: previousTimestamp, finishedAt: new Date(new Date(previousTimestamp).getTime() + 5000).toISOString(),
     outcomes: previousOutcomes,
     scenes: previousScenes,
 };
 
 // Write the historical run
-const previousRunDirectory = resolve(testRunsDirectory, previousRunDirectoryName);
+const previousRunDirectory = resolve(testRunsDirectory, '41');
 mkdirSync(previousRunDirectory, { recursive: true });
 writeFileSync(resolve(previousRunDirectory, 'db.json'), JSON.stringify(previousDatabase, undefined, 2), 'utf8');
 
