@@ -67,3 +67,38 @@ better communicates that it's a standalone application, not just HTML templates.
 2. Domain sub-grouping: 10 domain directories (dashboard, scenarios, consistency, errors, capabilities, timeline, tags, test-runs, about, common) in `app/components/`, mirrored in `src/serenity/` and `spec/app/`
 
 All 463 tests pass. Compiled output paths in `lib/` and `esm/` unchanged (`index.js`, `serenity.js`, `template.js` at top level).
+
+## Pending: Interaction Object APIs for Integration Tests
+
+12 integration tests have `Task.where(...)` placeholders that need real implementations.
+Each requires: component test first → interaction object method → integration test update.
+
+### Dashboard consistency card (2 tests)
+- `dashboardView.consistencyCard().scenarioNames()` — list degraded/recovered test names
+- Used by: product-owner "newly failing tests", engineering-manager "new failures"
+
+### Capabilities detail panel (4 tests)
+- `capabilitiesView.selectedCapability().confidence()` — confidence score of selected node
+- `capabilitiesView.selectedCapability().children()` — child capability names/scores
+- `capabilitiesView.selectCapability(name)` — click a capability node
+- Used by: product-owner "which features affected", "capability health review"
+- Used by: engineering-manager "assess failure impact"
+
+### Photo strip / lightbox (3 tests)
+- `scenarioDetailView.photoStrip().count()` — number of screenshots
+- `scenarioDetailView.photoStrip().openAt(index)` — open lightbox
+- Used by: developer "screenshot at point of failure"
+- Used by: qa-engineer "compare screenshots", "verify screenshots captured"
+
+### Copy-to-clipboard (1 test)
+- `scenarioDetailView.copySourceLocation()` — click copy button, verify toast
+- Used by: developer "copy source location"
+
+### Slowest tests (1 test)
+- `dashboardView.slowestTests()` — list of slowest test names on dashboard
+- Used by: qa-engineer "find the slowest tests"
+
+### Timeline analysis (1 test)
+- This is a placeholder for a user workflow that requires visual interpretation
+  of the timeline chart. May remain as a pending task or be replaced with a
+  simpler assertion (e.g., scenario count in timeline view).
