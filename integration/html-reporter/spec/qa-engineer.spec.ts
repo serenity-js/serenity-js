@@ -67,7 +67,7 @@ describe('QA Engineer', () => {
             await actor.attemptsTo(
                 timelineView.open(),
 
-                Ensure.that(timelineView.filterBar.activeFilters(), contain('All')),
+                Ensure.that(timelineView.activeFilters(), contain('All')),
 
                 Task.where('#actor identifies opportunities for parallel execution or blended testing'),
             );

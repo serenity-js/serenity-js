@@ -11,7 +11,7 @@ describe('Developer', () => {
         it('can locate a failing test by filtering and searching', async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
                 scenariosView.open(),
-                scenariosView.filterBar.selectFilter('Failed'),
+                scenariosView.selectFilter('Failed'),
                 scenariosView.find('expired card'),
 
                 Ensure.that(scenariosView.scenarioCalled(failingTest).isPresent(), equals(true)),
@@ -23,7 +23,7 @@ describe('Developer', () => {
         it('can identify the failing step and error message', async ({ actor, scenariosView, scenarioDetailView }) => {
             await actor.attemptsTo(
                 scenariosView.open(),
-                scenariosView.filterBar.selectFilter('Failed'),
+                scenariosView.selectFilter('Failed'),
                 scenariosView.find('expired card'),
                 scenariosView.scenarioCalled(failingTest).viewDetails(),
 
@@ -35,7 +35,7 @@ describe('Developer', () => {
         it('can see the error preview inline in the scenario list', async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
                 scenariosView.open(),
-                scenariosView.filterBar.selectFilter('Failed'),
+                scenariosView.selectFilter('Failed'),
                 scenariosView.find('expired card'),
 
                 Ensure.that(scenariosView.scenarioCalled(failingTest).errorPreview(), includes('Payment rejected')),
