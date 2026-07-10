@@ -172,3 +172,56 @@ If accessibility behaviour needs testing (e.g. verifying `aria-live="polite"` is
 ## Component extraction is import-path-stable
 
 The html-reporter's component tests reference components via `importPath: './components/ComponentName'` in the esbuild-based test fixture. When extracting sub-components from a view file, as long as the parent file still exports the same function at the same path, all existing tests continue to pass without modification. The extracted children are internal implementation details that don't need their own import paths in existing tests.
+
+## Decompose components by visual section, not just by complexity metric
+
+When a Preact component renders distinct visual sections (a row, a table, a doc string block, report data entries), each section is a natural sub-component — extract it even if the parent's cyclomatic complexity is only "slightly" above threshold.
+
+Don't stop at extracting utility functions (e.g., parsing logic) and call it done. The rendering itself should be decomposed along **visual boundaries**: if a user would describe a part of the UI as a distinct thing ("the activity row", "the data table", "the error block"), it should be its own component.
+
+Signs you should extract further:
+- The component has inline conditionals rendering 10+ lines of markup each
+- Distinct sections have their own state or event handlers (expand/collapse, click-to-copy)
+- You can name the section as a noun ("row", "panel", "card", "table")
+
+
+## CSS text-transform affects element.text() in interaction objects
+
+The `.context-label` and `.kpi-label` CSS classes apply `text-transform: uppercase`. When interaction objects read text via `element.text()` or `Text.of(element)`, they get the **rendered** (uppercase) text, not the source text.
+
+When using `.where(Text.of(...), equals(label))` to filter elements by label, the comparison value must be UPPERCASE to match. This applies to any CSS-styled text — always check the computed style when text matching fails unexpectedly.
+
+## Use ContextItem meta-question pattern for structured element data
+
+When a component renders repeated items with consistent internal structure (label + value pairs, name + price, etc.), model them as a **MetaQuestion class** with static meta-question methods:
+
+```typescript
+class ContextItem {
+    static label = () => Text.of(PageElement.located(By.css('.context-label')));
+    static value = () => Text.of(PageElement.located(By.css('.context-value')));
+
+    static of = (rootElement: PageElement) =>
+        Question.fromObject({
+            label: ContextItem.label().of(rootElement),
+            value: ContextItem.value().of(rootElement),
+        }).describedAs('context item');
+}
+```
+
+Then use PEQL to filter and map:
+```typescript
+this.contextItems()
+    .where(ContextItem.label(), equals('NODE.JS'))
+    .eachMappedTo(ContextItem)
+    .first()
+    .value
+```
+
+This is declarative, composable, and avoids brittle positional indexing (`.nth(0)`, `.nth(1)`).
+
+## ListItemNotFoundError and isPresent() — known limitation
+
+When `.first()` is called on an empty filtered list, it throws `ListItemNotFoundError`. The `isPresent()` expectation was updated to catch this during evaluation, but the error can also be thrown during **description resolution** (when `Ensure` builds the step name). This means `Ensure.that(question, not(isPresent()))` does not yet work when the question chain includes `.first()` on a potentially empty list.
+
+Workaround: skip the `not(isPresent())` assertion for now. Tracked in `.kiro/specs/list-item-not-found-error-handling.md`.
+
