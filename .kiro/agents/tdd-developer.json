@@ -11,12 +11,25 @@
     }
   },
   "tools": [
-    "@builtin"
+    "@builtin",
+    "@playwright"
   ],
   "allowedTools": [
     "fs_read",
     "fs_write",
-    "shell"
+    "shell",
+    "browser_navigate",
+    "browser_snapshot",
+    "browser_click",
+    "browser_hover",
+    "browser_evaluate",
+    "browser_console_messages",
+    "browser_take_screenshot",
+    "browser_wait_for",
+    "browser_resize",
+    "browser_press_key",
+    "browser_tabs",
+    "browser_close"
   ],
   "resources": [
     "file://.kiro/steering/testing-patterns.md",

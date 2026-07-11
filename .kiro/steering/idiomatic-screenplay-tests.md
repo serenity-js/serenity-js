@@ -16,7 +16,7 @@ Page Objects).
 // Good — describes what the user does
 await actor.attemptsTo(
     scenariosView.find('expired card'),
-    scenariosView.filterBar.selectFilter('Failed'),
+    scenariosView.selectFilter('Failed'),
     Ensure.that(scenariosView.scenarioCalled('Payment should reject an expired card').outcome(), equals('FAILURE')),
 );
 
@@ -38,6 +38,49 @@ Use it instead of imperative loops, manual element iteration, or procedural attr
 An interaction object's public API should mirror what a user can **see** and **do** — not what the DOM contains.
 Method names describe the user's perspective, not the technical implementation.
 
+### Tests interact with views, not with view internals
+
+Tests call view-level methods. Never reach into child interaction objects from a test:
+
+```typescript
+// ✓ Good — view-level action
+await actor.attemptsTo(
+    scenariosView.selectFilter('Failed'),
+);
+
+// ✗ Bad — reaches into internal composition
+await actor.attemptsTo(
+    scenariosView.filterBar.selectFilter('Failed'),
+);
+```
+
+The view exposes delegating methods for any child behaviour that tests need. Child interaction
+objects remain accessible for **component tests** that exercise the interaction object API directly,
+but integration tests never use them.
+
+### Name constants after their role, not their content
+
+When test data values are repeated, extract them into constants named after their **purpose in the
+test**, not the string they contain:
+
+```typescript
+// ✓ Good — describes why this scenario matters in the test
+const failingTest = 'Payment should reject an expired card';
+const degradedTest = 'Completion should complete an item';
+const timeoutTest = 'Login should display a timeout error when the server is slow';
+
+// ✗ Bad — restates the string content as a variable name
+const expiredCardScenario = 'Payment should reject an expired card';
+const completeItemScenario = 'Completion should complete an item';
+```
+
+When constants are shared across multiple spec files, extract them to a shared module:
+```typescript
+// src/scenarios.ts
+export const failingTest = 'Payment should reject an expired card';
+export const degradedTest = 'Completion should complete an item';
+```
+
 ## Interaction Object Design
 
 ### Structure
@@ -45,7 +88,7 @@ Method names describe the user's perspective, not the technical implementation.
 ```typescript
 export class ScenariosView<NET> extends InteractionObject<NET> {
 
-    // Composed child interaction objects — public, for direct access
+    // Composed child interaction objects — public, for direct access in component tests
     readonly searchInput: SearchInput<NET>;
     readonly filterBar: FilterBar<NET>;
 
@@ -73,6 +116,10 @@ export class ScenariosView<NET> extends InteractionObject<NET> {
         Task.where(the`#actor searches for ${ searchTerm }`,
             this.searchInput.enter(searchTerm),
         );
+
+    // Delegating methods — expose child behaviour at the view level for integration tests
+    selectFilter = (label: Answerable<string>): Task =>
+        this.filterBar.selectFilter(label);
 }
 ```
 
@@ -401,3 +448,5 @@ validates exactly the API that integration tests depend on.
 | Exposing raw locators in tests             | Couples tests to DOM structure     | Encapsulate in interaction object                  |
 | Using `expect()` alongside `Ensure.that()` | Inconsistent assertion style       | Always use `Ensure.that()`                         |
 | Positional access (`nth(0)`)               | Fragile, order-dependent           | `.where(criteria).first()`                         |
+| Accessing child objects in tests           | Leaks composition into tests       | Add delegating method on the view                  |
+| Naming constants after content             | Doesn't explain why it matters     | Name after role: `failingTest`, not `expiredCard`  |

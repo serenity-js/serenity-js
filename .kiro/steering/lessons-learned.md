@@ -225,3 +225,21 @@ When `.first()` is called on an empty filtered list, it throws `ListItemNotFound
 
 Workaround: skip the `not(isPresent())` assertion for now. Tracked in `.kiro/specs/list-item-not-found-error-handling.md`.
 
+
+## Two failed attempts means stop and ask
+
+When an operation doesn't produce the expected result:
+1. First attempt fails → try one alternative diagnostic
+2. Second attempt also doesn't explain it → **stop and ask the user**
+
+Do NOT:
+- Try a third, fourth, fifth approach hoping something sticks
+- Increase urgency and start shotgunning random diagnostics
+- Assume you understand the system when evidence contradicts your mental model
+
+DO:
+- State clearly what you expected, what happened, and what you don't understand
+- Ask a specific question that would unblock you
+- Accept that silence (not asking) wastes more time than one clarifying question
+
+This applies to build systems, test infrastructure, deployment pipelines, and any process you haven't personally verified end-to-end.

@@ -13,6 +13,7 @@ These steering docs encode Serenity/JS engineering conventions that are not obvi
 | `development-workflow.md` | BDD/TDD process, engineering principles | Always |
 | `testing-patterns.md` | Executable specifications, test frameworks, Screenplay testing | Always |
 | `screenplay-pattern.md` | Implementing Abilities, Interactions, Tasks, Questions | Always |
+| `html-reporter-ux.md` | UX principles, personas, navigation model, evidence presentation, accessibility | Conditional: html-reporter files |
 | `web-testing.md` | PEQL, dependency inversion, browser packages | Conditional: web/playwright/webdriverio files |
 | `test-runner-adapters.md` | Adapter pattern, domain events, creating adapters | Conditional: cucumber/mocha/jasmine/playwright-test files |
 | `debugging-ci.md` | Running tests, CI pipeline, troubleshooting | Always |

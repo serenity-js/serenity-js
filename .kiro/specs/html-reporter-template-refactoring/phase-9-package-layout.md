@@ -66,7 +66,14 @@ better communicates that it's a standalone application, not just HTML templates.
 1. Mechanical renames: `template/` → `app/`, `src/*.ts` → `src/cli/`, `spec/*.spec.ts` → `spec/cli/`, `spec/components/` → `spec/app/`
 2. Domain sub-grouping: 10 domain directories (dashboard, scenarios, consistency, errors, capabilities, timeline, tags, test-runs, about, common) in `app/components/`, mirrored in `src/serenity/` and `spec/app/`
 
-All 463 tests pass. Compiled output paths in `lib/` and `esm/` unchanged (`index.js`, `serenity.js`, `template.js` at top level).
+All 475 component tests pass. Compiled output paths in `lib/` and `esm/` unchanged (`index.js`, `serenity.js`, `template.js` at top level).
+
+Integration tests refactored to idiomatic Screenplay Pattern:
+- 4 persona specs (developer, product-owner, engineering-manager, qa-engineer) use interaction objects
+- 64 of 76 integration tests pass; 12 remain as `Task.where(...)` pending placeholders
+- 40/40 html-report.spec.ts baseline tests pass
+- Shared scenario constants in `integration/html-reporter/src/scenarios.ts`
+- Interaction objects extended: `kpiCardCalled()`, `scenarioCalled()`, `scenarioNames()`, `activityCalled()`, `selectFilter()`, `activeFilters()`
 
 ## Pending: Interaction Object APIs for Integration Tests
 
