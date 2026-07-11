@@ -1,5 +1,5 @@
 import { includes } from '@serenity-js/assertions';
-import type { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
+import type { Question, QuestionAdapter } from '@serenity-js/core';
 import { Task } from '@serenity-js/core';
 import { By, PageElement, Text } from '@serenity-js/web';
 
@@ -41,6 +41,10 @@ export class ScenarioDetailView<NET> extends InteractionObject<NET> {
         this.children(By.css('.exec-history-dot'))
             .count()
             .describedAs('execution history dot count');
+
+    photoStripCount = (): QuestionAdapter<number> =>
+        this.children(By.css('.photo-strip-item')).count()
+            .describedAs('photo strip count');
 
     open = (): Task =>
         Task.where('#actor opens the Scenario Detail view',

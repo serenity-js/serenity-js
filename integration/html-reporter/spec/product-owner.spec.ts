@@ -1,8 +1,8 @@
-import { Ensure, includes, isPresent } from '@serenity-js/assertions';
-import { Task } from '@serenity-js/core';
+import { contain, Ensure, includes, isPresent } from '@serenity-js/assertions';
 import { By, PageElement } from '@serenity-js/web';
 
 import { describe, it } from '../src';
+import { degradedTest, failingTest } from '../src/scenarios';
 
 describe('Product Owner', () => {
 
@@ -28,10 +28,10 @@ describe('Product Owner', () => {
             );
         });
 
-        it('can identify newly failing tests on the dashboard', async ({ actor }) => {
+        it('can identify newly failing tests on the dashboard', async ({ actor, dashboardView }) => {
             await actor.attemptsTo(
-                // TODO: implement dashboardView.consistencyCard().scenarioNames()
-                Task.where('#actor reviews the degraded tests section on the dashboard'),
+                Ensure.that(dashboardView.consistencyCardScenarioNames(), contain(failingTest)),
+                Ensure.that(dashboardView.consistencyCardScenarioNames(), contain(degradedTest)),
             );
         });
 
@@ -39,8 +39,10 @@ describe('Product Owner', () => {
             await actor.attemptsTo(
                 capabilitiesView.open(),
 
-                // TODO: implement capabilitiesView.selectedCapability().confidence()
-                Task.where('#actor reviews capability confidence scores to identify affected features'),
+                Ensure.that(capabilitiesView.confidence(), includes('%')),
+                Ensure.that(capabilitiesView.childCapabilityNames(), contain('authentication')),
+                Ensure.that(capabilitiesView.childCapabilityNames(), contain('checkout')),
+                Ensure.that(capabilitiesView.childCapabilityNames(), contain('todo')),
             );
         });
 
@@ -57,9 +59,9 @@ describe('Product Owner', () => {
             await actor.attemptsTo(
                 capabilitiesView.open(),
 
-                // TODO: implement capabilitiesView.selectedCapability().confidence()
-                // TODO: implement capabilitiesView.selectedCapability().children()
-                Task.where('#actor reviews capability tree for health indicators and confidence scores'),
+                Ensure.that(capabilitiesView.confidence(), includes('%')),
+                Ensure.that(capabilitiesView.scenarioCount(), includes('20')),
+                Ensure.that(capabilitiesView.childCapabilityNames(), contain('todo')),
             );
         });
 
@@ -67,8 +69,9 @@ describe('Product Owner', () => {
             await actor.attemptsTo(
                 capabilitiesView.open(),
 
-                // TODO: implement capabilitiesView.selectCapability('todo')
-                Task.where('#actor selects the weakest capability to see its failing scenarios'),
+                // The weakest capability (todo) is visible in the detail panel children
+                Ensure.that(capabilitiesView.childCapabilityNames(), contain('todo')),
+                Ensure.that(capabilitiesView.scenarioCount(), includes('scenario')),
             );
         });
     });

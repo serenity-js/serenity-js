@@ -1,4 +1,4 @@
-import { Ensure, equals, includes } from '@serenity-js/assertions';
+import { contain, Ensure, equals, includes } from '@serenity-js/assertions';
 
 import { DashboardView } from '../../../src/serenity/dashboard/DashboardView.serenity.js';
 import { minimalData } from '../data-factories.js';
@@ -102,6 +102,38 @@ describe('DashboardView', () => {
 
         await actor.attemptsTo(
             Ensure.that(view.kpiCardCalled('Pass Rate').subtitle(), includes('passing')),
+        );
+    });
+
+    it('lists scenario names in the consistency card', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'DashboardView',
+            importPath: './components/dashboard/DashboardView',
+            props: { onNavigate: () => {} },
+            data: minimalData({
+                newFailures: [
+                    { name: 'Failing Test', source: { path: 'spec/a.spec.ts', line: 10 } },
+                ],
+            }),
+            interactionObject: DashboardView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.consistencyCardScenarioNames(), contain('Failing Test')),
+        );
+    });
+
+    it('lists scenario names in the slowest tests card', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'DashboardView',
+            importPath: './components/dashboard/DashboardView',
+            props: { onNavigate: () => {} },
+            data: minimalData(),
+            interactionObject: DashboardView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.slowestTestNames(), contain('Test D')),
         );
     });
 });

@@ -1,5 +1,4 @@
-import { Ensure, equals, includes, isPresent } from '@serenity-js/assertions';
-import { Task } from '@serenity-js/core';
+import { contain, Ensure, equals, includes, isPresent } from '@serenity-js/assertions';
 import { By, Page, PageElement } from '@serenity-js/web';
 
 import { describe, it } from '../src';
@@ -16,10 +15,10 @@ describe('Engineering Manager', () => {
             );
         });
 
-        it('can identify new failures on the dashboard', async ({ actor }) => {
+        it('can identify new failures on the dashboard', async ({ actor, dashboardView }) => {
             await actor.attemptsTo(
-                // TODO: implement dashboardView.consistencyCard().scenarioNames()
-                Task.where('#actor checks whether failures are new or known'),
+                Ensure.that(dashboardView.consistencyCardScenarioNames(), contain(failingTest)),
+                Ensure.that(dashboardView.consistencyCardScenarioNames(), contain(degradedTest)),
             );
         });
 
@@ -27,8 +26,9 @@ describe('Engineering Manager', () => {
             await actor.attemptsTo(
                 capabilitiesView.open(),
 
-                // TODO: implement capabilitiesView.selectedCapability().children()
-                Task.where('#actor reviews capability cards to identify affected business areas'),
+                Ensure.that(capabilitiesView.confidence(), includes('%')),
+                Ensure.that(capabilitiesView.childCapabilityNames(), contain('authentication')),
+                Ensure.that(capabilitiesView.childCapabilityNames(), contain('checkout')),
             );
         });
 

@@ -1,5 +1,5 @@
 import { includes } from '@serenity-js/assertions';
-import type { QuestionAdapter } from '@serenity-js/core';
+import type { Question, QuestionAdapter } from '@serenity-js/core';
 import { Task } from '@serenity-js/core';
 import { By, PageElement, Text } from '@serenity-js/web';
 
@@ -23,6 +23,16 @@ export class DashboardView<NET> extends InteractionObject<NET> {
             .describedAs(`KPI card called "${label}"`);
         return new DashboardKpiCard(cardElement);
     };
+
+    consistencyCardScenarioNames = (): Question<Promise<string[]>> =>
+        this.children(By.css('[data-testid="dashboard-consistency-card"] .status-item-name'))
+            .eachMappedTo(Text)
+            .describedAs('dashboard consistency card scenario names');
+
+    slowestTestNames = (): Question<Promise<string[]>> =>
+        this.children(By.css('[data-testid="dashboard-slowest-card"] .status-item-name'))
+            .eachMappedTo(Text)
+            .describedAs('dashboard slowest test names');
 
     open = (): Task =>
         Task.where('#actor opens the Dashboard',

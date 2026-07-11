@@ -419,3 +419,97 @@ describe('CapabilitiesView accessibility', () => {
         expect(focusedText).not.toBe(firstNodeText);
     });
 });
+
+describe('CapabilitiesView detail panel interaction object', () => {
+
+    function detailPanelData() {
+        return minimalData({
+            capabilities: {
+                name: 'specs', type: 'directory', displayName: 'specs',
+                outcomes: { passed: 15, failed: 3, pending: 1, skipped: 1, compromised: 0, error: 0 },
+                children: [
+                    {
+                        name: 'authentication', type: 'directory', displayName: 'authentication',
+                        outcomes: { passed: 5, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                        children: [
+                            { name: 'login.spec.ts', type: 'file', outcomes: { passed: 5, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 } },
+                        ],
+                    },
+                    {
+                        name: 'checkout', type: 'directory', displayName: 'checkout',
+                        outcomes: { passed: 6, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                        children: [
+                            { name: 'cart.spec.ts', type: 'file', outcomes: { passed: 6, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 } },
+                        ],
+                    },
+                    {
+                        name: 'todo', type: 'directory', displayName: 'todo',
+                        outcomes: { passed: 4, failed: 1, pending: 1, skipped: 1, compromised: 0, error: 0 },
+                        children: [
+                            { name: 'items.spec.ts', type: 'file', outcomes: { passed: 4, failed: 1, pending: 1, skipped: 1, compromised: 0, error: 0 } },
+                        ],
+                    },
+                ],
+            },
+        });
+    }
+
+    it('shows the confidence score of the selected capability', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/capabilities/CapabilitiesView',
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+            data: detailPanelData(),
+            interactionObject: CapabilitiesView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.confidence(), includes('%')),
+        );
+    });
+
+    it('shows the scenario count of the selected capability', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/capabilities/CapabilitiesView',
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+            data: detailPanelData(),
+            interactionObject: CapabilitiesView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCount(), includes('20')),
+        );
+    });
+
+    it('lists child capability names', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/capabilities/CapabilitiesView',
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+            data: detailPanelData(),
+            interactionObject: CapabilitiesView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.childCapabilityNames(), contain('authentication')),
+            Ensure.that(view.childCapabilityNames(), contain('checkout')),
+            Ensure.that(view.childCapabilityNames(), contain('todo')),
+        );
+    });
+
+    it('allows selecting a capability from the tree', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/capabilities/CapabilitiesView',
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+            data: detailPanelData(),
+            interactionObject: CapabilitiesView,
+        });
+
+        await actor.attemptsTo(
+            view.selectCapability('authentication'),
+            Ensure.that(view.confidence(), includes('%')),
+        );
+    });
+});

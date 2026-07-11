@@ -13,7 +13,7 @@ interface DashboardSlowestCardProps {
 
 export function DashboardSlowestCard({ scenarios, onNavigate }: DashboardSlowestCardProps): ReturnType<typeof html> {
     return html`
-        <div class="card dashboard-status-card">
+        <div class="card dashboard-status-card" data-testid="dashboard-slowest-card">
           <div class="card-header">
             <span class="status-card-title">Slowest Tests</span>
             <a class="view-all-link" onClick=${() => onNavigate('/tests?sort=duration')}>View all →</a>

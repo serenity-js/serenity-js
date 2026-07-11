@@ -58,8 +58,8 @@ describe('Developer', () => {
                 scenariosView.find('expired card'),
                 scenariosView.scenarioCalled(failingTest).viewDetails(),
 
-                // TODO: implement photo strip / lightbox interaction object
-                Task.where('#actor reviews the screenshot at point of failure'),
+                // HTA 3.1: Screenshots are captured for the scenario
+                Ensure.that(scenarioDetailView.photoStripCount(), isGreaterThan(0)),
             );
         });
 

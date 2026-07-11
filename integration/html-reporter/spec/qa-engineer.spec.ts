@@ -1,8 +1,8 @@
-import { contain, Ensure, equals } from '@serenity-js/assertions';
+import { contain, Ensure, equals, isGreaterThan } from '@serenity-js/assertions';
 import { Task } from '@serenity-js/core';
 
 import { describe, it } from '../src';
-import { degradedTest, failingTest } from '../src/scenarios';
+import { degradedTest, failingTest, timeoutTest } from '../src/scenarios';
 
 describe('QA Engineer', () => {
 
@@ -48,18 +48,17 @@ describe('QA Engineer', () => {
 
                 Ensure.that(scenarioDetailView.activityCalled('navigates').outcome(), equals('SUCCESS')),
 
-                // TODO: implement photo strip count assertion
-                Task.where('#actor verifies that screenshots are captured at appropriate points'),
+                // Step 5: Verify evidence capture (screenshots)
+                Ensure.that(scenarioDetailView.photoStripCount(), isGreaterThan(0)),
             );
         });
     });
 
     describe('Journey 8: Investigate Slow Tests', () => {
 
-        it('can find the slowest tests from the dashboard', async ({ actor }) => {
+        it('can find the slowest tests from the dashboard', async ({ actor, dashboardView }) => {
             await actor.attemptsTo(
-                // TODO: implement dashboardView.slowestTests() or similar
-                Task.where('#actor identifies the slowest tests from the dashboard'),
+                Ensure.that(dashboardView.slowestTestNames(), contain('Login should log in with valid credentials')),
             );
         });
 

@@ -144,6 +144,45 @@ describe('ScenarioDetailView interaction object', () => {
             Ensure.that(view.executionHistoryDotCount(), equals(2)),
         );
     });
+
+    it('counts screenshots in the photo strip', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenarioDetailView',
+            importPath: './components/scenarios/ScenarioDetailView',
+            props: { scenarioId: 'test-photos', onNavigate: () => {}, specDirectory: '' },
+            data: {
+                scenarios: [{
+                    id: 'test-photos', name: 'Test with photos', category: 'Suite', outcome: 'FAILURE', duration: 400,
+                    startedAt: '2024-06-15T14:30:00.000Z',
+                    source: { path: 'spec/photos.spec.ts' },
+                    tags: [],
+                    activities: [
+                        {
+                            name: 'clicks the button', outcome: 'SUCCESS', duration: 100, type: 'Interaction', children: [],
+                            startedAt: '2024-06-15T14:30:00.100Z',
+                            artifacts: [{ path: 'screenshots/1.png' }],
+                        },
+                        {
+                            name: 'sees the result', outcome: 'FAILURE', duration: 200, type: 'Interaction', children: [],
+                            startedAt: '2024-06-15T14:30:00.200Z',
+                            artifacts: [{ path: 'screenshots/2.png' }],
+                        },
+                    ],
+                    executionHistory: [],
+                    error: { name: 'AssertionError', message: 'Expected result', stack: '' },
+                }],
+                history: [
+                    { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 400, slowest: 400, fastest: 400, average: 400 },
+                ],
+            },
+            dataAsProps: true,
+            interactionObject: ScenarioDetailView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.photoStripCount(), equals(2)),
+        );
+    });
 });
 
 /**
