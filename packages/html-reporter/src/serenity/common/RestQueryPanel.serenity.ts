@@ -1,20 +1,19 @@
 import type { QuestionAdapter } from '@serenity-js/core';
-import { By, PageElement } from '@serenity-js/web';
+import { By } from '@serenity-js/web';
 
-export class RestQueryPanel<NET> {
+import { InteractionObject } from './InteractionObject.serenity.js';
 
-    constructor(private readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
-    }
+export class RestQueryPanel<NET> extends InteractionObject<NET> {
 
     method = (): QuestionAdapter<string> =>
-        PageElement.located(By.css('[data-testid="rest-method"]')).of(this.rootElement).text().trim()
+        this.child(By.css('[data-testid="rest-method"]')).text().trim()
             .describedAs('REST query HTTP method');
 
     url = (): QuestionAdapter<string> =>
-        PageElement.located(By.css('[data-testid="rest-url"]')).of(this.rootElement).text().trim()
+        this.child(By.css('[data-testid="rest-url"]')).text().trim()
             .describedAs('REST query URL');
 
     statusCode = (): QuestionAdapter<string> =>
-        PageElement.located(By.css('[data-testid="rest-status"]')).of(this.rootElement).text().trim()
+        this.child(By.css('[data-testid="rest-status"]')).text().trim()
             .describedAs('REST query status code');
 }

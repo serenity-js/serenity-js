@@ -1,18 +1,16 @@
 import type { QuestionAdapter } from '@serenity-js/core';
-import { Attribute, By, PageElement } from '@serenity-js/web';
+import { Attribute, By } from '@serenity-js/web';
 
-export class ActivityItem<NET> {
+import { InteractionObject } from '../common/InteractionObject.serenity.js';
 
-    constructor(private readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
-    }
+export class ActivityItem<NET> extends InteractionObject<NET> {
 
     private activityIcon = () =>
-        PageElement.located(By.css('.activity-icon'))
-            .of(this.rootElement)
+        this.child(By.css('.activity-icon'))
             .describedAs('activity icon');
 
     name = (): QuestionAdapter<string> =>
-        PageElement.located(By.css('.activity-name')).of(this.rootElement).text().trim()
+        this.child(By.css('.activity-name')).text().trim()
             .describedAs('activity name');
 
     outcome = (): QuestionAdapter<string> =>

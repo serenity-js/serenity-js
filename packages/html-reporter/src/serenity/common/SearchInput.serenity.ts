@@ -1,20 +1,17 @@
 import type { Answerable, Question,QuestionAdapter } from '@serenity-js/core';
 import { Task, the } from '@serenity-js/core';
-import { Attribute, By, Click, Enter, PageElement, Value } from '@serenity-js/web';
+import { Attribute, By, Click, Enter, Value } from '@serenity-js/web';
 
-export class SearchInput<NET> {
+import { InteractionObject } from './InteractionObject.serenity.js';
 
-    constructor(private readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
-    }
+export class SearchInput<NET> extends InteractionObject<NET> {
 
     private inputField = () =>
-        PageElement.located(By.css('.search-input'))
-            .of(this.rootElement)
+        this.child(By.css('.search-input'))
             .describedAs('search input field');
 
     private clearButton = () =>
-        PageElement.located(By.css('.btn-clear'))
-            .of(this.rootElement)
+        this.child(By.css('.btn-clear'))
             .describedAs('clear search button');
 
     value = (): QuestionAdapter<string> =>

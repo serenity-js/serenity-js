@@ -1,7 +1,9 @@
 import type { QuestionAdapter } from '@serenity-js/core';
 import { Question } from '@serenity-js/core';
 import type { PageElement } from '@serenity-js/web';
-import { Attribute, By, PageElements } from '@serenity-js/web';
+import { Attribute, By } from '@serenity-js/web';
+
+import { InteractionObject } from './InteractionObject.serenity.js';
 
 export interface HistoryDotEntry {
     type: string;
@@ -16,14 +18,10 @@ class HistoryDotOutcome {
         }).describedAs('history dot outcome');
 }
 
-export class HistoryDots<NET> {
-
-    constructor(private readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
-    }
+export class HistoryDots<NET> extends InteractionObject<NET> {
 
     private dots = () =>
-        PageElements.located(By.css('.history-dot'))
-            .of(this.rootElement)
+        this.children(By.css('.history-dot'))
             .describedAs('history dots');
 
     count = (): QuestionAdapter<number> =>

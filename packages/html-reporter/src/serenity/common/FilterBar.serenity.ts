@@ -2,24 +2,21 @@ import { equals, includes } from '@serenity-js/assertions';
 import type { Answerable, Question } from '@serenity-js/core';
 import type { QuestionAdapter } from '@serenity-js/core';
 import { Task, the } from '@serenity-js/core';
-import { Attribute, By, Click, PageElement, PageElements, Text, Value } from '@serenity-js/web';
+import { Attribute, By, Click, PageElement, Text, Value } from '@serenity-js/web';
 
-export class FilterBar<NET> {
+import { InteractionObject } from './InteractionObject.serenity.js';
 
-    constructor(private readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
-    }
+export class FilterBar<NET> extends InteractionObject<NET> {
 
     private chips = () =>
-        PageElements.located(By.css('.filter-chip'))
-            .of(this.rootElement)
+        this.children(By.css('.filter-chip'))
             .describedAs('filter chips');
 
     private chipLabel = () =>
         PageElement.located(By.css('.chip-label'));
 
     private sortSelect = () =>
-        PageElement.located(By.css('.sort-select'))
-            .of(this.rootElement)
+        this.child(By.css('.sort-select'))
             .describedAs('sort dropdown');
 
     filterLabels = (): Question<Promise<string[]>> =>

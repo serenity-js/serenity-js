@@ -1,24 +1,20 @@
 import type { QuestionAdapter } from '@serenity-js/core';
-import { Attribute, By, PageElement } from '@serenity-js/web';
+import { Attribute, By } from '@serenity-js/web';
 
-export class KpiCard<NET> {
+import { InteractionObject } from './InteractionObject.serenity.js';
 
-    constructor(private readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
-    }
+export class KpiCard<NET> extends InteractionObject<NET> {
 
     private labelElement = () =>
-        PageElement.located(By.css('.kpi-label'))
-            .of(this.rootElement)
+        this.child(By.css('.kpi-label'))
             .describedAs('KPI card label');
 
     private valueElement = () =>
-        PageElement.located(By.css('.kpi-value'))
-            .of(this.rootElement)
+        this.child(By.css('.kpi-value'))
             .describedAs('KPI card value');
 
     private subtitleElement = () =>
-        PageElement.located(By.css('.kpi-subtitle'))
-            .of(this.rootElement)
+        this.child(By.css('.kpi-subtitle'))
             .describedAs('KPI card subtitle');
 
     label = (): QuestionAdapter<string> =>

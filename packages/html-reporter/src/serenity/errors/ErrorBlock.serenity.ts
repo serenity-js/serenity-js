@@ -1,24 +1,20 @@
 import type { Question, QuestionAdapter } from '@serenity-js/core';
-import { By, PageElement } from '@serenity-js/web';
+import { By } from '@serenity-js/web';
 
-export class ErrorBlock<NET> {
+import { InteractionObject } from '../common/InteractionObject.serenity.js';
 
-    constructor(private readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
-    }
+export class ErrorBlock<NET> extends InteractionObject<NET> {
 
     private errorName = () =>
-        PageElement.located(By.css('.error-name'))
-            .of(this.rootElement)
+        this.child(By.css('.error-name'))
             .describedAs('error name');
 
     private errorMessage = () =>
-        PageElement.located(By.css('.error-message'))
-            .of(this.rootElement)
+        this.child(By.css('.error-message'))
             .describedAs('error message');
 
     private errorStack = () =>
-        PageElement.located(By.css('.error-stack'))
-            .of(this.rootElement)
+        this.child(By.css('.error-stack'))
             .describedAs('error stack trace');
 
     name = (): QuestionAdapter<string> =>
@@ -34,8 +30,7 @@ export class ErrorBlock<NET> {
             .describedAs('error stack trace');
 
     hasLocation = (): Question<Promise<boolean>> =>
-        PageElement.located(By.css('.copy-location'))
-            .of(this.rootElement)
+        this.child(By.css('.copy-location'))
             .isPresent()
             .describedAs('whether error block shows a source location');
 }
