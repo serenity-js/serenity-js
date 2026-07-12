@@ -1,4 +1,4 @@
-import type { QuestionAdapter } from '@serenity-js/core';
+import type { Question, QuestionAdapter } from '@serenity-js/core';
 import { By, PageElement } from '@serenity-js/web';
 
 export class ErrorBlock<NET> {
@@ -33,7 +33,7 @@ export class ErrorBlock<NET> {
         this.errorStack().text().trim()
             .describedAs('error stack trace');
 
-    hasLocation = (): QuestionAdapter<boolean> =>
+    hasLocation = (): Question<Promise<boolean>> =>
         PageElement.located(By.css('.copy-location'))
             .of(this.rootElement)
             .isPresent()
