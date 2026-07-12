@@ -1,5 +1,4 @@
 import type { QuestionAdapter } from '@serenity-js/core';
-import { Question } from '@serenity-js/core';
 import { By, PageElement } from '@serenity-js/web';
 
 export class ErrorBlock<NET> {
@@ -34,15 +33,9 @@ export class ErrorBlock<NET> {
         this.errorStack().text().trim()
             .describedAs('error stack trace');
 
-    hasLocation = (): Question<Promise<boolean>> =>
-        Question.about('whether error block shows a source location', async actor => {
-            const element = await actor.answer(this.rootElement);
-            const locationElement = PageElement.located(By.css('.copy-location')).of(element);
-            try {
-                await actor.answer(locationElement);
-                return true;
-            } catch {
-                return false;
-            }
-        });
+    hasLocation = (): QuestionAdapter<boolean> =>
+        PageElement.located(By.css('.copy-location'))
+            .of(this.rootElement)
+            .isPresent()
+            .describedAs('whether error block shows a source location');
 }

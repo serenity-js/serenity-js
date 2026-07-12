@@ -13,9 +13,9 @@ export function RestQueryPanel({ restQuery }: RestQueryPanelProps): ReturnType<t
     return html`
         <div class="rest-query-panel ml-lg mt-xs mb-sm bordered text-sm" data-testid="rest-query-panel">
           <div class="panel-section-border flex-row gap-sm" style="background:var(--bg-primary)">
-            <span class="font-semibold font-mono">${restQuery.method}</span>
-            <span class="font-mono text-secondary" style="word-break:break-all">${restQuery.url}</span>
-            <span class="ml-auto font-semibold" style="color:${restQuery.statusCode < 400 ? 'var(--color-passed)' : 'var(--color-failed)'}">${restQuery.statusCode}</span>
+            <span class="font-semibold font-mono" data-testid="rest-method">${restQuery.method}</span>
+            <span class="font-mono text-secondary" style="word-break:break-all" data-testid="rest-url">${restQuery.url}</span>
+            <span class="ml-auto font-semibold" style="color:${restQuery.statusCode < 400 ? 'var(--color-passed)' : 'var(--color-failed)'}" data-testid="rest-status">${restQuery.statusCode}</span>
           </div>
           ${restQuery.requestHeaders ? html`
             <div class="panel-section-border">
