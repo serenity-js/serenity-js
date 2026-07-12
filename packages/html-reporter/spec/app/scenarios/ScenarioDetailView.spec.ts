@@ -185,6 +185,55 @@ describe('ScenarioDetailView interaction object', () => {
     });
 });
 
+describe('ScenarioDetailView — copy source location', () => {
+
+    it('has a copy source location button', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenarioDetailView',
+            importPath: './components/scenarios/ScenarioDetailView',
+            props: { scenarioId: 'spec/b.spec.ts:42', onNavigate: () => {} },
+            data: minimalData({
+                scenarios: [
+                    {
+                        name: 'Test D', category: 'Suite', outcome: 'FAILURE', duration: 400,
+                        startedAt: '2024-06-15T14:30:00.000Z',
+                        source: { path: 'spec/b.spec.ts', line: 42 },
+                        tags: [],
+                        activities: [
+                            { name: 'step one', outcome: 'FAILURE', duration: 200, type: 'Interaction', children: [] },
+                        ],
+                        executionHistory: [],
+                        error: { name: 'Error', message: 'something failed', stack: '' },
+                    },
+                ],
+            }),
+            interactionObject: ScenarioDetailView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.hasCopySourceButton(), equals(true)),
+        );
+    });
+});
+
+describe('ScenarioDetailView — retry attempt switching', () => {
+
+    it('can switch between retry attempts', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenarioDetailView',
+            importPath: './components/scenarios/ScenarioDetailView',
+            props: { scenarioId: 'spec/retried.spec.ts:8', onNavigate: () => {} },
+            data: scenarioWithMixedRetryHistory(),
+            interactionObject: ScenarioDetailView,
+        });
+
+        await actor.attemptsTo(
+            view.switchToAttempt(2),
+            Ensure.that(view.hasError(), equals(true)),
+        );
+    });
+});
+
 /**
  * Builds a ReportData fixture for a scenario with mixed retry history.
  *

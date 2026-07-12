@@ -23,6 +23,10 @@ export class TimelineView<NET> extends InteractionObject<NET> {
     activeFilters = (): Question<Promise<string[]>> =>
         this.filterBar.activeFilters();
 
+    scenarioCount = (): Question<Promise<number>> =>
+        this.children(By.css('.timeline-row')).count()
+            .describedAs('timeline scenario count');
+
     open = (): Task =>
         Task.where('#actor opens the Timeline view',
             this.navigation.openView('Timeline'),

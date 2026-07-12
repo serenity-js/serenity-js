@@ -1,7 +1,7 @@
 import { includes } from '@serenity-js/assertions';
 import type { Question, QuestionAdapter } from '@serenity-js/core';
 import { Task } from '@serenity-js/core';
-import { By, PageElement, Text } from '@serenity-js/web';
+import { By, Click, PageElement, Text } from '@serenity-js/web';
 
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
@@ -25,6 +25,10 @@ export class ScenarioDetailView<NET> extends InteractionObject<NET> {
         this.child(By.css('[data-testid="error-block"]')).isPresent()
             .describedAs('whether scenario detail shows an error block');
 
+    hasCopySourceButton = (): Question<Promise<boolean>> =>
+        this.child(By.css('.copy-btn')).isPresent()
+            .describedAs('whether copy source location button is present');
+
     breadcrumbText = (): QuestionAdapter<string> =>
         this.child(By.css('.breadcrumb')).text().trim()
             .describedAs('breadcrumb text');
@@ -45,6 +49,21 @@ export class ScenarioDetailView<NET> extends InteractionObject<NET> {
     photoStripCount = (): QuestionAdapter<number> =>
         this.children(By.css('.photo-strip-item')).count()
             .describedAs('photo strip count');
+
+    copySourceLocation = (): Task =>
+        Task.where('#actor copies the source location',
+            Click.on(this.child(By.css('.copy-btn')).describedAs('copy source location button')),
+        );
+
+    switchToAttempt = (attemptNumber: number): Task =>
+        Task.where(`#actor switches to attempt ${ attemptNumber }`,
+            Click.on(
+                this.children(By.css('.retry-tab'))
+                    .where(Text, includes(`Attempt ${ attemptNumber }`))
+                    .first()
+                    .describedAs(`retry tab for attempt ${ attemptNumber }`)
+            ),
+        );
 
     open = (): Task =>
         Task.where('#actor opens the Scenario Detail view',

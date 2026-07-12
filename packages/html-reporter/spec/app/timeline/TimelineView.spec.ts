@@ -103,4 +103,18 @@ describe('TimelineView', () => {
             Ensure.that(view.kpiCardAt(3).subtitle(), includes('3 scenarios')),
         );
     });
+
+    it('reports the number of scenarios in the timeline', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'TimelineView',
+            importPath: './components/timeline/TimelineView',
+            props: { onNavigate: () => {} },
+            data: timelineData,
+            interactionObject: TimelineView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCount(), equals(3)),
+        );
+    });
 });

@@ -1,5 +1,4 @@
 import { contain, Ensure, equals, includes, isGreaterThan } from '@serenity-js/assertions';
-import { Task } from '@serenity-js/core';
 
 import { describe, it } from '../src';
 import { degradedTest, failingTest, timeoutTest } from '../src/scenarios';
@@ -69,8 +68,7 @@ describe('Developer', () => {
                 scenariosView.find('expired card'),
                 scenariosView.scenarioCalled(failingTest).viewDetails(),
 
-                // TODO: implement copy-to-clipboard interaction
-                Task.where('#actor copies the source location to clipboard'),
+                scenarioDetailView.copySourceLocation(),
             );
         });
     });

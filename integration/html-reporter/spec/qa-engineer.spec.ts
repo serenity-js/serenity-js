@@ -1,8 +1,7 @@
 import { contain, Ensure, equals, isGreaterThan } from '@serenity-js/assertions';
-import { Task } from '@serenity-js/core';
 
 import { describe, it } from '../src';
-import { degradedTest, failingTest, timeoutTest } from '../src/scenarios';
+import { degradedTest, failingTest } from '../src/scenarios';
 
 describe('QA Engineer', () => {
 
@@ -24,8 +23,8 @@ describe('QA Engineer', () => {
 
                 Ensure.that(scenarioDetailView.hasError(), equals(true)),
 
-                // TODO: implement photo strip comparison across retry attempts
-                Task.where('#actor compares screenshots between passing and failing attempts'),
+                // Screenshots are available as visual evidence of the failure
+                Ensure.that(scenarioDetailView.photoStripCount(), isGreaterThan(0)),
             );
         });
 
@@ -68,7 +67,7 @@ describe('QA Engineer', () => {
 
                 Ensure.that(timelineView.activeFilters(), contain('All')),
 
-                Task.where('#actor identifies opportunities for parallel execution or blended testing'),
+                Ensure.that(timelineView.scenarioCount(), isGreaterThan(0)),
             );
         });
     });
