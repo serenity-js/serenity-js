@@ -3356,7 +3356,7 @@
             <button class="filter-chip ${f.className||f.key} ${p?"active":""}"
                     onClick=${()=>u(f.key)}
                     aria-pressed=${p}>
-                <span>${f.label}</span>
+                <span class="chip-label">${f.label}</span>
                 <span class="count">${f.count}</span>
             </button>
           `})}
@@ -3533,9 +3533,9 @@
       </div>
     </div>
   `}var kl=E.bind(P);function ms({entries:e,max:t=5}){let n=e.slice(-t);return kl`
-        <span class="scenario-history" data-testid="history-dots">${n.map(i=>kl`<span class="history-dot history-dot--${tt(i.outcome)}" title=${i.label||""}></span>`)}</span>
+        <span class="scenario-history" data-testid="history-dots">${n.map(i=>kl`<span class="history-dot history-dot--${tt(i.outcome)}" data-outcome=${i.outcome} title=${i.label||""}></span>`)}</span>
     `}var Xh=E.bind(P),Kh={sm:"width:18px;height:18px;font-size:var(--font-2xs);flex-shrink:0",md:"",lg:"width:28px;height:28px;font-size:var(--font-md)"};function gs({outcome:e,size:t="md"}){let n=Kh[t]||"";return Xh`
-        <span class="scenario-outcome-icon ${tt(e)}" style=${n} data-testid="outcome-badge">${vt(e)}</span>
+        <span class="scenario-outcome-icon ${tt(e)}" style=${n} data-testid="outcome-badge" data-outcome=${e}>${vt(e)}</span>
     `}var bs=E.bind(P);function Cl({item:e,specDirectory:t,onNavigate:n}){let i=()=>n(St(e)),s=(e.history||[]).map((o,r)=>({outcome:o,label:si(o)+(e.labels&&e.labels[r]?" ("+e.labels[r]+")":"")}));return bs`
     <div class="scenario-item" role="button" tabindex="0" onClick=${i}
          onKeyDown=${o=>{(o.key==="Enter"||o.key===" ")&&(o.preventDefault(),i())}}
@@ -3668,7 +3668,7 @@
           `:null}
         </div>
     `}var Jd=E.bind(P);function Qd({scenarios:e,onNavigate:t}){return Jd`
-        <div class="card dashboard-status-card">
+        <div class="card dashboard-status-card" data-testid="dashboard-slowest-card">
           <div class="card-header">
             <span class="status-card-title">Slowest Tests</span>
             <a class="view-all-link" onClick=${()=>t("/tests?sort=duration")}>View all →</a>
@@ -3800,9 +3800,9 @@
 `);if(t<=0)return null;let n=e.substring(t+2);return n.trim().startsWith("|")?null:{displayName:e.substring(0,t+1),parsedDataTable:null,parsedDocString:n}}var Hi=E.bind(P);function lu({restQuery:e}){return Hi`
         <div class="rest-query-panel ml-lg mt-xs mb-sm bordered text-sm" data-testid="rest-query-panel">
           <div class="panel-section-border flex-row gap-sm" style="background:var(--bg-primary)">
-            <span class="font-semibold font-mono">${e.method}</span>
-            <span class="font-mono text-secondary" style="word-break:break-all">${e.url}</span>
-            <span class="ml-auto font-semibold" style="color:${e.statusCode<400?"var(--color-passed)":"var(--color-failed)"}">${e.statusCode}</span>
+            <span class="font-semibold font-mono" data-testid="rest-method">${e.method}</span>
+            <span class="font-mono text-secondary" style="word-break:break-all" data-testid="rest-url">${e.url}</span>
+            <span class="ml-auto font-semibold" style="color:${e.statusCode<400?"var(--color-passed)":"var(--color-failed)"}" data-testid="rest-status">${e.statusCode}</span>
           </div>
           ${e.requestHeaders?Hi`
             <div class="panel-section-border">
@@ -3856,7 +3856,7 @@
     `}var qn=E.bind(P);function fu({activity:e,displayName:t,hasChildren:n,expanded:i,onToggle:s,hasRestQuery:o,restExpanded:r,onToggleRest:a}){let l=wt(),c=e.artifacts&&e.artifacts.some(h=>h.path&&h.path.endsWith(".png")),d=h=>{h.stopPropagation();let f=document.querySelectorAll(".photo-strip-item");for(let g of f)g.classList.remove("photo-highlight");let p=[...f].findIndex(g=>g.querySelector(".photo-strip-caption")?.textContent===e.name);if(p>=0){l.setParam("photo",String(p));let g=document.getElementById("photo-"+p);g&&(g.scrollIntoView({behavior:"smooth",block:"center"}),g.classList.add("photo-highlight"),setTimeout(()=>g.classList.remove("photo-highlight"),2e3))}},u=h=>{h.stopPropagation(),navigator.clipboard.writeText(e.location.path+":"+e.location.line).then(()=>pe("Location copied to clipboard")).catch(()=>{})};return qn`
       <div class="activity-row" style=${n?"cursor:pointer":""} onClick=${n?s:void 0}>
         ${n?qn`<span class="expand-chevron-xs ${i?"open":""}">▸</span>`:qn`<span style="width:12px;flex-shrink:0"></span>`}
-        <div class="activity-icon ${tt(e.outcome)}">
+        <div class="activity-icon ${tt(e.outcome)}" data-outcome=${e.outcome}>
           ${vt(e.outcome)}
         </div>
         <span class="activity-name ${e.type==="Task"?"task":""}">${t}</span>
