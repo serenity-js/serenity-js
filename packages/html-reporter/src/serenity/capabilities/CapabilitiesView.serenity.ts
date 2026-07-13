@@ -1,7 +1,7 @@
 import { includes } from '@serenity-js/assertions';
 import type { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
 import { Task, the } from '@serenity-js/core';
-import { By, Click, PageElement, Text } from '@serenity-js/web';
+import { Attribute, By, Click, PageElement, Text } from '@serenity-js/web';
 
 import { FilterBar } from '../common/FilterBar.serenity.js';
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
@@ -77,4 +77,12 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
                 .describedAs(the`README link "${linkText}"`)
             ),
         );
+
+    readmeLinkHref = (linkText: string): QuestionAdapter<string> =>
+        Attribute.called('href').of(
+            this.children(By.css('.readme-content a'))
+                .where(Text, includes(linkText))
+                .first()
+                .describedAs(`README link "${linkText}"`)
+        ).describedAs(`href of README link "${linkText}"`);
 }

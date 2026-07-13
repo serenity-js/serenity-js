@@ -75,6 +75,19 @@ describe('SystemContextView', () => {
         );
     });
 
+    it('displays the commit message', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'SystemContextView',
+            importPath: './components/about/SystemContextView',
+            data: minimalData(),
+            interactionObject: SystemContextView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.commitMessage(), includes('resolve unstable test')),
+        );
+    });
+
     it('displays browser information', async ({ mount, actor }) => {
         const view = await mount({
             component: 'SystemContextView',

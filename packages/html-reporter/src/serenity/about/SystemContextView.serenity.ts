@@ -1,5 +1,5 @@
 import { equals } from '@serenity-js/assertions';
-import type { Answerable, QuestionAdapter } from '@serenity-js/core';
+import type { QuestionAdapter } from '@serenity-js/core';
 import { Question, Task } from '@serenity-js/core';
 import { By, PageElement, Text } from '@serenity-js/web';
 
@@ -57,6 +57,12 @@ export class SystemContextView<NET> extends InteractionObject<NET> {
 
     ciCommit = (): QuestionAdapter<string> =>
         this.itemCalled('COMMIT').value;
+
+    commitMessage = (): QuestionAdapter<string> =>
+        this.child(By.css('.context-commit-msg'))
+            .text()
+            .trim()
+            .describedAs('commit message');
 
     browser = (name: string): QuestionAdapter<string> =>
         this.itemCalled(name).value;

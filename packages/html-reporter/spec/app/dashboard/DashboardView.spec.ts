@@ -136,4 +136,19 @@ describe('DashboardView', () => {
             Ensure.that(view.slowestTestNames(), contain('Test D')),
         );
     });
+
+    it('reports whether a trend chart is present', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'DashboardView',
+            importPath: './components/dashboard/DashboardView',
+            props: { onNavigate: () => {} },
+            data: dashboardData,
+            chartJs: true,
+            interactionObject: DashboardView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.hasTrendChart(), equals(true)),
+        );
+    });
 });

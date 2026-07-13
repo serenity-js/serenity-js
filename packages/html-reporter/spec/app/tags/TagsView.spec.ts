@@ -25,6 +25,27 @@ describe('TagsView interaction object', () => {
             Ensure.that(view.tagCount(), equals(3)),
         );
     });
+
+    it('allows selecting a tag by name', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'TagsView',
+            importPath: './components/tags/TagsView',
+            props: { onNavigate: () => {} },
+            data: minimalData({
+                tags: [
+                    { type: 'feature', name: 'Login', scenarioCount: 3, passed: 3 },
+                    { type: 'feature', name: 'Checkout', scenarioCount: 2, passed: 1 },
+                    { type: 'tag', name: 'smoke', scenarioCount: 4, passed: 4 },
+                ],
+            }),
+            interactionObject: TagsView,
+        });
+
+        await actor.attemptsTo(
+            view.selectTag('Login'),
+        );
+        // Test passes if the tag was found and clicked without throwing
+    });
 });
 
 describe('TagsView', () => {

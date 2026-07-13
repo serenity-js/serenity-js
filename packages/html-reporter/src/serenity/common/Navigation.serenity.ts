@@ -28,4 +28,9 @@ export class Navigation {
             Click.on(this.navItemCalled(viewName)),
             Wait.until(this.currentRouteName(), not(equals(notes().get('previousRouteName')))),
         );
+
+    toggleTheme = (): Task =>
+        Task.where('#actor toggles the theme',
+            Click.on(PageElement.located(By.css('button[aria-label="Toggle theme"]')).describedAs('theme toggle button')),
+        );
 }

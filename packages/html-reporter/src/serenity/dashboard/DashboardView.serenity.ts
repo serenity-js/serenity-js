@@ -34,6 +34,11 @@ export class DashboardView<NET> extends InteractionObject<NET> {
             .eachMappedTo(Text)
             .describedAs('dashboard slowest test names');
 
+    hasTrendChart = (): Question<Promise<boolean>> =>
+        this.child(By.css('.dashboard-trend-card canvas'))
+            .isPresent()
+            .describedAs('whether the dashboard has a trend chart');
+
     open = (): Task =>
         Task.where('#actor opens the Dashboard',
             this.navigation.openView('Dashboard'),

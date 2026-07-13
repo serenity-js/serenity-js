@@ -23,6 +23,37 @@ describe('TestRunsView interaction object', () => {
             Ensure.that(view.runCount(), equals(2)),
         );
     });
+
+    it('reports whether a trend chart is present', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'TestRunsView',
+            importPath: './components/test-runs/TestRunsView',
+            props: { onNavigate: () => {} },
+            data: minimalData(),
+            chartJs: true,
+            interactionObject: TestRunsView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.hasTrendChart(), equals(true)),
+        );
+    });
+
+    it('allows selecting a run entry', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'TestRunsView',
+            importPath: './components/test-runs/TestRunsView',
+            props: { onNavigate: () => {} },
+            data: minimalData(),
+            chartJs: true,
+            interactionObject: TestRunsView,
+        });
+
+        await actor.attemptsTo(
+            view.selectRun(0),
+        );
+        // Test passes if the run was found and clicked without throwing
+    });
 });
 
 describe('TestRunsView', () => {

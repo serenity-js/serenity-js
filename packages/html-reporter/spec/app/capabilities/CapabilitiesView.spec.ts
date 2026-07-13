@@ -512,4 +512,27 @@ describe('CapabilitiesView detail panel interaction object', () => {
             Ensure.that(view.confidence(), includes('%')),
         );
     });
+
+    it('can read the href of a link in the README', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/capabilities/CapabilitiesView',
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+            data: minimalData({
+                capabilities: {
+                    name: 'specs', type: 'directory', displayName: 'specs',
+                    outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                    readme: '<p>Visit <a href="https://serenity-js.org">Serenity/JS</a> for docs.</p>',
+                    children: [
+                        { name: 'example', type: 'file', displayName: 'example', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, children: [] },
+                    ],
+                },
+            }),
+            interactionObject: CapabilitiesView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.readmeLinkHref('Serenity/JS'), equals('https://serenity-js.org')),
+        );
+    });
 });
