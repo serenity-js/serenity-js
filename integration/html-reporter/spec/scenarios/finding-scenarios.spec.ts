@@ -10,7 +10,7 @@ describe('Test Scenarios', () => {
         it('shows all scenarios with their count', async ({ page }) => {
             await page.goto('/index.html#/tests');
             await page.waitForSelector('.scenario-item');
-            await page.locator('body').filter({ hasText: 'Showing 20 of 20 test scenarios' }).first().waitFor();
+            await page.locator('body').filter({ hasText: 'Showing 21 of 21 test scenarios' }).first().waitFor();
         });
 
         it('locates a failing test by filtering and searching', async ({ actor, scenariosView }) => {
@@ -39,7 +39,7 @@ describe('Test Scenarios', () => {
             await page.goto('/index.html#/tests');
             await page.waitForSelector('.scenario-item');
             await page.click('button:has-text("Passed")');
-            await page.waitForFunction(() => document.body.textContent?.includes('Showing 15 of 20'));
+            await page.waitForFunction(() => document.body.textContent?.includes('Showing 16 of 21'));
         });
 
         it('shows a retried scenario as passed', async ({ page }) => {

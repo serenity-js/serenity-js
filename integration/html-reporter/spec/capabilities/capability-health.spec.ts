@@ -18,7 +18,7 @@ describe('Capabilities', () => {
             await actor.attemptsTo(
                 capabilitiesView.open(),
 
-                Ensure.that(capabilitiesView.scenarioCount(), includes('20')),
+                Ensure.that(capabilitiesView.scenarioCount(), includes('21')),
                 Ensure.that(capabilitiesView.childCapabilityNames(), contain('authentication')),
                 Ensure.that(capabilitiesView.childCapabilityNames(), contain('checkout')),
                 Ensure.that(capabilitiesView.childCapabilityNames(), contain('todo')),

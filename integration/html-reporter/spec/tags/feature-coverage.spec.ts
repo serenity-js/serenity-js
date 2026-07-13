@@ -10,7 +10,7 @@ describe('Tags', () => {
             await actor.attemptsTo(
                 tagsView.open(),
 
-                Ensure.that(tagsView.tagCount(), equals(7)),
+                Ensure.that(tagsView.tagCount(), equals(9)),
             );
         });
 

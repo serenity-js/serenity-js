@@ -8,13 +8,13 @@ describe('Navigation', () => {
     describe('Deep Linking', () => {
 
         it('restores search state from a deep link', async ({ page }) => {
-            await page.goto('/index.html#/tests?search=%22complete%22');
-            await page.waitForFunction(() => document.body.textContent?.includes('Showing 1 of 20'));
+            await page.goto('/index.html#/tests?search=%22complete+an+item%22');
+            await page.waitForFunction(() => document.body.textContent?.includes('Showing 1 of 21'));
         });
 
         it('restores category filter from a deep link', async ({ page }) => {
             await page.goto('/index.html#/tests?search=%22Persistence%22');
-            await page.waitForFunction(() => document.body.textContent?.includes('Showing 2 of 20'));
+            await page.waitForFunction(() => document.body.textContent?.includes('Showing 2 of 21'));
         });
 
         it('navigates to the consistency view via URL', async ({ actor, consistencyView }) => {

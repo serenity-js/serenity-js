@@ -68,4 +68,13 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
                 .describedAs(the`tree node "${name}"`)
             ),
         );
+
+    followReadmeLink = (linkText: Answerable<string>): Task =>
+        Task.where(the`#actor follows the "${linkText}" link in the README`,
+            Click.on(this.children(By.css('.readme-content a'))
+                .where(Text, includes(linkText))
+                .first()
+                .describedAs(the`README link "${linkText}"`)
+            ),
+        );
 }
