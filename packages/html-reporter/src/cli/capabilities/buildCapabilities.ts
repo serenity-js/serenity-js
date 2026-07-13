@@ -1,3 +1,5 @@
+import { posix } from 'node:path';
+
 import type { FileSystem, RequirementsHierarchy } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
 import {
@@ -8,7 +10,7 @@ import {
     ExecutionSuccessful,
     ImplementationPending,
 } from '@serenity-js/core/model';
-import { marked } from 'marked';
+import { marked, Renderer } from 'marked';
 
 import { scoreCapability, scoreDirectory } from '../CapabilityConfidenceScorer.js';
 import type { RunData, SceneRecord, TagRecord } from '../model/RunData.js';
@@ -78,10 +80,10 @@ export function buildCapabilities(
 
     if (projectFileSystem) {
         const specRoot = requirementsHierarchy.rootDirectory();
-        attachReadme(root, specRoot, projectFileSystem);
+        attachReadme(root, specRoot, projectFileSystem, '', nodeMap);
         for (const [key, node] of nodeMap) {
             if (key && node.type === 'directory') {
-                attachReadme(node, specRoot.join(Path.from(key)), projectFileSystem);
+                attachReadme(node, specRoot.join(Path.from(key)), projectFileSystem, key, nodeMap);
             }
         }
     }
@@ -174,7 +176,13 @@ function computeDirectoryScores(node: ReportCapabilityNode): void {
     }
 }
 
-function attachReadme(node: ReportCapabilityNode, directoryPath: Path, projectFileSystem: FileSystem): void {
+function attachReadme(
+    node: ReportCapabilityNode,
+    directoryPath: Path,
+    projectFileSystem: FileSystem,
+    currentNodePath: string,
+    nodeMap: Map<string, ReportCapabilityNode>,
+): void {
     const readmePath = directoryPath.join(Path.from('readme.md'));
     if (projectFileSystem.exists(readmePath)) {
         const content = projectFileSystem.readFileSync(readmePath, { encoding: 'utf8' }) as string;
@@ -185,8 +193,67 @@ function attachReadme(node: ReportCapabilityNode, directoryPath: Path, projectFi
             node.displayName = headingMatch[1].trim();
         }
 
-        // Render markdown and strip the first heading to avoid duplication
-        let html = marked.parse(content, { async: false }) as string;
+        // Create a custom renderer that transforms relative links
+        const renderer = new Renderer();
+        renderer.link = function ({ href, title, tokens }) {
+            const text = this.parser.parseInline(tokens);
+            const titleAttribute = title ? ` title="${title}"` : '';
+
+            // Rule 1: Not local — don't transform
+            if (!href.startsWith('./') && !href.startsWith('../')) {
+                const targetAttribute = href.startsWith('http') ? ' target="_blank" rel="noopener"' : '';
+                return `<a href="${href}"${titleAttribute}${targetAttribute}>${text}</a>`;
+            }
+
+            // Resolve relative to current node path within spec directory
+            const basePath = currentNodePath || '.';
+            let resolved = posix.normalize(posix.join(basePath, href));
+
+            // Rule 3: Escapes specDirectory (goes above root)
+            if (resolved.startsWith('..')) {
+                return `<a href="${href}"${titleAttribute}>${text}</a>`;
+            }
+
+            // Clean up leading "./" if present after normalize
+            if (resolved === '.') {
+                resolved = '';
+            } else if (resolved.startsWith('./')) {
+                resolved = resolved.substring(2);
+            }
+
+            // Rule 4: Ends with /readme.md (case-insensitive) — strip and treat as directory
+            if (/\/readme\.md$/i.test(resolved)) {
+                resolved = resolved.replace(/\/readme\.md$/i, '');
+            } else if (/^readme\.md$/i.test(resolved)) {
+                resolved = '';
+            }
+
+            // Rule 5: Directory link (ends with / or original href points to readme.md or node exists)
+            const withoutTrailingSlash = resolved.replace(/\/$/, '');
+            if (href.endsWith('/') || /\/readme\.md$/i.test(href) || /^\.\/readme\.md$/i.test(href) || nodeMap.has(withoutTrailingSlash)) {
+                if (nodeMap.has(withoutTrailingSlash)) {
+                    if (withoutTrailingSlash === '') {
+                        return `<a href="#/capabilities"${titleAttribute}>${text}</a>`;
+                    }
+                    const encodedPath = encodeURIComponent(withoutTrailingSlash);
+                    return `<a href="#/capabilities?path=${encodedPath}"${titleAttribute}>${text}</a>`;
+                }
+                // Directory link but not in nodeMap — don't transform
+                return `<a href="${href}"${titleAttribute}>${text}</a>`;
+            }
+
+            // Rule 6: Spec file link
+            if (/\.(spec|test)\.(ts|js|mjs|cjs)$/.test(resolved)) {
+                const encodedSearch = encodeURIComponent('"' + withoutTrailingSlash + '"');
+                return `<a href="#/tests?search=${encodedSearch}"${titleAttribute}>${text}</a>`;
+            }
+
+            // Rule 7: Any other case — don't transform
+            return `<a href="${href}"${titleAttribute}>${text}</a>`;
+        };
+
+        // Render markdown with custom link renderer
+        let html = marked.parse(content, { async: false, renderer }) as string;
         if (node.displayName) {
             html = html.replace(/^\s*<h[12][^>]*>.*?<\/h[12]>\s*/i, '');
         }
