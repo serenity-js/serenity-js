@@ -1,4 +1,4 @@
-import { Ensure, equals, includes } from '@serenity-js/assertions';
+import { Ensure, includes } from '@serenity-js/assertions';
 
 import { describe, it } from '../../src';
 

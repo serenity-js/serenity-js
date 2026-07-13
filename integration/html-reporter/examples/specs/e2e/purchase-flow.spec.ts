@@ -1,4 +1,4 @@
-import { Ensure, not, equals } from '@serenity-js/assertions';
+import { Ensure, equals,not } from '@serenity-js/assertions';
 import { describe, it } from '@serenity-js/playwright-test';
 import { Navigate, Page } from '@serenity-js/web';
 

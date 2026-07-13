@@ -1,5 +1,3 @@
-import { Ensure, equals } from '@serenity-js/assertions';
-
 import { ScenariosView } from '../../../src/serenity/scenarios/ScenariosView.serenity.js';
 import { minimalData } from '../data-factories.js';
 import { describe, expect, it } from '../fixtures.js';
@@ -31,7 +29,7 @@ describe('ScenariosView mobile', () => {
     it('keeps tags on a single row without wrapping on mobile viewport', async ({ mount, page, actor }) => {
         await page.setViewportSize({ width: 390, height: 844 });
 
-        const view = await mount({
+        await mount({
             component: 'ScenariosView',
             importPath: './components/scenarios/ScenariosView',
             props: { onNavigate: () => {}, route: '/tests' },
