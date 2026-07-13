@@ -243,3 +243,27 @@ DO:
 - Accept that silence (not asking) wastes more time than one clarifying question
 
 This applies to build systems, test infrastructure, deployment pipelines, and any process you haven't personally verified end-to-end.
+
+
+## `isPresent()` vs `isVisible()` for conditional interactions
+
+When using `Check.whether()` to conditionally interact with an element that may be hidden via CSS (e.g., a hamburger menu button that's `display:none` on desktop), use `isVisible()` from `@serenity-js/web` — NOT `isPresent()` from `@serenity-js/assertions`.
+
+- `isPresent()` checks DOM existence — the element is in the DOM at all viewports, just hidden via CSS on larger ones
+- `isVisible()` checks computed visibility — correctly identifies whether the user can see and interact with it
+
+```typescript
+// ✓ Correct — only clicks if the user can actually see it
+Check.whether(hamburgerMenu, isVisible())
+    .andIfSo(Click.on(hamburgerMenu))
+
+// ✗ Wrong — clicks a hidden element, breaking the flow
+Check.whether(hamburgerMenu, isPresent())
+    .andIfSo(Click.on(hamburgerMenu))
+```
+
+## Always use `npm run compile` when building a package
+
+Each package produces both CJS (`lib/`) and ESM (`esm/`) output. Running `npx tsc --build tsconfig.build.json` only builds one of them. Other packages that depend on it (via `workspace:*` links) may resolve to either output depending on their `moduleResolution` setting (e.g., `Node16` uses the `exports` field which distinguishes `import` vs `require` conditions).
+
+Always use `npm run compile` in the package directory — this runs both `tsconfig-cjs.build.json` and `tsconfig-esm.build.json` builds. Failing to build both will cause type errors in downstream packages that happen to resolve via the stale output.

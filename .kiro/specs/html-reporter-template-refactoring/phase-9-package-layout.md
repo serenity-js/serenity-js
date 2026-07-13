@@ -109,3 +109,22 @@ Each requires: component test first → interaction object method → integratio
 - This is a placeholder for a user workflow that requires visual interpretation
   of the timeline chart. May remain as a pending task or be replaced with a
   simpler assertion (e.g., scenario count in timeline view).
+
+
+## Pending: Component test refactoring to interaction objects
+
+351 lines of raw Playwright `page`/`expect()` across 19 component test files should be
+converted to use interaction objects. Priority by impact:
+
+1. `CapabilitiesView.spec.ts` (64 usages) — tree filtering, README display, detail panel, sort options
+2. `ExecutionHistory.spec.ts` (44) — history dot rendering, run navigation
+3. `PhotoStrip.spec.ts` (40) — screenshot display, lightbox interaction
+4. `ActivityNode.spec.ts` (27) — REST panel, expand/collapse
+5. `SegmentedBar.spec.ts` (22) — outcome bar segments
+6. `Delta.spec.ts` (20) — trend delta indicators
+
+Each conversion requires: new IO methods (component test → implementation → integration reuse).
+The chicken-and-egg problem: these ARE the component tests for the IO, so the approach is:
+- Identify what user-observable behaviour the raw test exercises
+- Add the IO method with a NEW component test demonstrating it
+- Keep or remove the old raw test depending on whether it tests something the IO doesn't cover
