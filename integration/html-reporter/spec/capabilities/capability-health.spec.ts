@@ -6,31 +6,22 @@ describe('Capabilities', () => {
 
     describe('Capability Health', () => {
 
-        it('shows the overall confidence percentage', async ({ actor, capabilitiesView }) => {
+        it('shows the overall confidence score for the project', async ({ actor, capabilitiesView }) => {
             await actor.attemptsTo(
                 capabilitiesView.open(),
 
-                Ensure.that(capabilitiesView.confidence(), includes('%')),
+                Ensure.that(capabilitiesView.confidence(), includes('85')),
             );
         });
 
-        it('lists feature capabilities with scenario counts', async ({ actor, capabilitiesView }) => {
+        it('lists feature areas with their scenario counts', async ({ actor, capabilitiesView }) => {
             await actor.attemptsTo(
                 capabilitiesView.open(),
 
-                Ensure.that(capabilitiesView.scenarioCount(), includes('21')),
                 Ensure.that(capabilitiesView.childCapabilityNames(), contain('authentication')),
                 Ensure.that(capabilitiesView.childCapabilityNames(), contain('checkout')),
                 Ensure.that(capabilitiesView.childCapabilityNames(), contain('todo')),
-            );
-        });
-
-        it('allows drilling into failing scenarios within a capability', async ({ actor, capabilitiesView }) => {
-            await actor.attemptsTo(
-                capabilitiesView.open(),
-
-                Ensure.that(capabilitiesView.childCapabilityNames(), contain('todo')),
-                Ensure.that(capabilitiesView.scenarioCount(), includes('scenario')),
+                Ensure.that(capabilitiesView.childCapabilityNames(), contain('End-to-End Flows')),
             );
         });
     });

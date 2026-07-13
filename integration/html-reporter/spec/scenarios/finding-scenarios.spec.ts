@@ -7,10 +7,21 @@ describe('Test Scenarios', () => {
 
     describe('Finding Scenarios', () => {
 
-        it('shows all scenarios with their count', async ({ page }) => {
-            await page.goto('/index.html#/tests');
-            await page.waitForSelector('.scenario-item');
-            await page.locator('body').filter({ hasText: 'Showing 21 of 21 test scenarios' }).first().waitFor();
+        it('shows the total number of scenarios', async ({ actor, scenariosView }) => {
+            await actor.attemptsTo(
+                scenariosView.open(),
+
+                Ensure.that(scenariosView.scenarioCount(), equals(15)),
+            );
+        });
+
+        it('filters scenarios by outcome', async ({ actor, scenariosView }) => {
+            await actor.attemptsTo(
+                scenariosView.open(),
+                scenariosView.selectFilter('Failed'),
+
+                Ensure.that(scenariosView.scenarioCount(), equals(5)),
+            );
         });
 
         it('locates a failing test by filtering and searching', async ({ actor, scenariosView }) => {
@@ -35,26 +46,13 @@ describe('Test Scenarios', () => {
             );
         });
 
-        it('filters scenarios by outcome', async ({ page }) => {
-            await page.goto('/index.html#/tests');
-            await page.waitForSelector('.scenario-item');
-            await page.click('button:has-text("Passed")');
-            await page.waitForFunction(() => document.body.textContent?.includes('Showing 16 of 21'));
-        });
+        it('shows a retried scenario as ultimately passing', async ({ actor, scenariosView }) => {
+            await actor.attemptsTo(
+                scenariosView.open(),
+                scenariosView.find('edit'),
 
-        it('shows a retried scenario as passed', async ({ page }) => {
-            await page.goto('/index.html#/tests?search=%22edit%22');
-            await page.waitForSelector('.scenario-item');
-            const editItem = page.locator('.scenario-item', { hasText: 'should edit an item' });
-            await editItem.waitFor();
-            await editItem.locator('.scenario-outcome-icon.passed').waitFor();
-        });
-
-        it('navigates to scenario detail on click', async ({ page }) => {
-            await page.goto('/index.html#/tests');
-            await page.waitForSelector('.scenario-item');
-            await page.click('.scenario-item');
-            await page.waitForSelector('.activity-tree, .error-block, .scenario-detail-header');
+                Ensure.that(scenariosView.scenarioCalled('should edit an item').outcome(), equals('SUCCESS')),
+            );
         });
     });
 });

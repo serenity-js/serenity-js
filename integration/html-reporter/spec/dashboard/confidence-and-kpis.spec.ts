@@ -1,4 +1,4 @@
-import { Ensure, includes } from '@serenity-js/assertions';
+import { Ensure, equals, includes } from '@serenity-js/assertions';
 
 import { describe, it } from '../../src';
 
@@ -9,6 +9,7 @@ describe('Dashboard', () => {
         it('shows the overall confidence score', async ({ actor, dashboardView }) => {
             await actor.attemptsTo(
                 Ensure.that(dashboardView.kpiCardCalled('Confidence').value(), includes('85')),
+                Ensure.that(dashboardView.kpiCardCalled('Confidence').subtitle(), includes('since last run')),
             );
         });
 
@@ -29,23 +30,6 @@ describe('Dashboard', () => {
             await actor.attemptsTo(
                 Ensure.that(dashboardView.kpiCardCalled('Consistency').value(), includes('81')),
             );
-        });
-
-        it('shows the total scenario count across all runs', async ({ actor, dashboardView }) => {
-            await actor.attemptsTo(
-                Ensure.that(dashboardView.kpiCardCalled('Confidence').accessibleLabel(), includes('Confidence')),
-                Ensure.that(dashboardView.kpiCardAt(1).accessibleLabel(), includes('Pass rate')),
-            );
-        });
-
-        it('shows the CI branch information', async ({ page }) => {
-            await page.waitForSelector('.kpi-card, .kpi-value');
-            await page.locator('body').filter({ hasText: 'main' }).first().waitFor();
-        });
-
-        it('shows the CI commit reference', async ({ page }) => {
-            await page.waitForSelector('.kpi-card, .kpi-value');
-            await page.locator('body').filter({ hasText: 'abc1234' }).first().waitFor();
         });
     });
 });

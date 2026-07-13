@@ -6,23 +6,16 @@ describe('System Context', () => {
 
     describe('Environment Details', () => {
 
-        it('shows the test runner', async ({ actor, systemContextView }) => {
+        it('shows the test runner and Node.js version', async ({ actor, systemContextView }) => {
             await actor.attemptsTo(
                 systemContextView.open(),
 
                 Ensure.that(systemContextView.testRunner(), includes('Playwright')),
-            );
-        });
-
-        it('shows the Node.js version', async ({ actor, systemContextView }) => {
-            await actor.attemptsTo(
-                systemContextView.open(),
-
                 Ensure.that(systemContextView.nodeVersion(), includes(process.versions.node)),
             );
         });
 
-        it('shows the CI provider information', async ({ actor, systemContextView }) => {
+        it('shows the CI provider and build information', async ({ actor, systemContextView }) => {
             await actor.attemptsTo(
                 systemContextView.open(),
 
@@ -33,10 +26,12 @@ describe('System Context', () => {
             );
         });
 
-        it('shows the commit message', async ({ page }) => {
-            await page.goto('/index.html#/system');
-            await page.waitForSelector('.context-grid');
-            await page.locator('body').filter({ hasText: 'fix: resolve flaky test' }).first().waitFor();
+        it('shows the commit message from the CI build', async ({ actor, systemContextView }) => {
+            await actor.attemptsTo(
+                systemContextView.open(),
+
+                Ensure.that(systemContextView.commitMessage(), includes('resolve flaky test')),
+            );
         });
     });
 });

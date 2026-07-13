@@ -7,7 +7,7 @@ describe('Test Scenarios', () => {
 
     describe('Execution History', () => {
 
-        it('shows execution history dots to assess flakiness', async ({ actor, scenariosView, scenarioDetailView }) => {
+        it('shows execution history dots for cross-run comparison', async ({ actor, scenariosView, scenarioDetailView }) => {
             await actor.attemptsTo(
                 scenariosView.open(),
                 scenariosView.find('expired card'),
@@ -17,7 +17,7 @@ describe('Test Scenarios', () => {
             );
         });
 
-        it('allows switching between retry attempts', async ({ actor, consistencyView, scenarioDetailView }) => {
+        it('shows error details when navigating to a degraded scenario', async ({ actor, consistencyView, scenarioDetailView }) => {
             await actor.attemptsTo(
                 consistencyView.open(),
                 consistencyView.scenarioCalled(degradedTest).viewDetails(),

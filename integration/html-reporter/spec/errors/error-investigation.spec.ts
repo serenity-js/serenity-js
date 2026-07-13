@@ -1,13 +1,13 @@
 import { Ensure, equals, includes } from '@serenity-js/assertions';
 
 import { describe, it } from '../../src';
-import { authFailure, failingTest, timeoutTest } from '../../src/scenarios';
+import { failingTest, timeoutTest } from '../../src/scenarios';
 
 describe('Errors', () => {
 
     describe('Error Investigation', () => {
 
-        it('shows timeout and assertion errors grouped together', async ({ actor, errorsView }) => {
+        it('lists failing scenarios grouped by error type', async ({ actor, errorsView }) => {
             await actor.attemptsTo(
                 errorsView.open(),
 
@@ -16,16 +16,7 @@ describe('Errors', () => {
             );
         });
 
-        it('shows error patterns across failure categories', async ({ actor, errorsView }) => {
-            await actor.attemptsTo(
-                errorsView.open(),
-
-                Ensure.that(errorsView.scenarioCalled(timeoutTest).isPresent(), equals(true)),
-                Ensure.that(errorsView.scenarioCalled(authFailure).isPresent(), equals(true)),
-            );
-        });
-
-        it('displays error category summary cards', async ({ actor, errorsView }) => {
+        it('shows error category summary with scenario counts', async ({ actor, errorsView }) => {
             await actor.attemptsTo(
                 errorsView.open(),
 

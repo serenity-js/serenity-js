@@ -1,5 +1,4 @@
-import { Ensure, isPresent } from '@serenity-js/assertions';
-import { By, PageElement } from '@serenity-js/web';
+import { Ensure, equals } from '@serenity-js/assertions';
 
 import { describe, it } from '../../src';
 
@@ -7,9 +6,9 @@ describe('Dashboard', () => {
 
     describe('Quality Trends', () => {
 
-        it('renders a trend chart showing quality across runs', async ({ actor }) => {
+        it('renders a trend chart showing quality across runs', async ({ actor, dashboardView }) => {
             await actor.attemptsTo(
-                Ensure.that(PageElement.located(By.css('canvas')).describedAs('trend chart'), isPresent()),
+                Ensure.that(dashboardView.hasTrendChart(), equals(true)),
             );
         });
     });

@@ -7,20 +7,20 @@ describe('Dashboard', () => {
 
     describe('Consistency Summary', () => {
 
-        it('shows newly failing tests in the consistency card', async ({ actor, dashboardView }) => {
+        it('shows newly degraded tests that were previously passing', async ({ actor, dashboardView }) => {
             await actor.attemptsTo(
                 Ensure.that(dashboardView.consistencyCardScenarioNames(), contain(failingTest)),
                 Ensure.that(dashboardView.consistencyCardScenarioNames(), contain(degradedTest)),
             );
         });
 
-        it('shows recovered tests in the consistency card', async ({ page }) => {
-            await page.waitForSelector('.kpi-card, .kpi-value');
-            const section = page.locator('.card', { hasText: 'Consistency' });
-            await section.filter({ hasText: 'should persist items' }).waitFor();
+        it('shows recovered tests that are now passing', async ({ actor, dashboardView }) => {
+            await actor.attemptsTo(
+                Ensure.that(dashboardView.consistencyCardScenarioNames(), contain('Persistence should persist items')),
+            );
         });
 
-        it('shows the slowest tests', async ({ actor, dashboardView }) => {
+        it('shows the slowest tests by execution duration', async ({ actor, dashboardView }) => {
             await actor.attemptsTo(
                 Ensure.that(dashboardView.slowestTestNames(), contain('Login should log in with valid credentials')),
             );
