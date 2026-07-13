@@ -52,6 +52,9 @@ export class ScenariosView<NET> extends InteractionObject<NET> {
     selectFilter = (label: Answerable<string>): Task =>
         this.filterBar.selectFilter(label);
 
+    resultCountText = (): QuestionAdapter<string> =>
+        this.resultCount.text();
+
     open = (): Task =>
         Task.where('#actor opens the Scenarios view',
             this.navigation.openView('Test Scenarios'),

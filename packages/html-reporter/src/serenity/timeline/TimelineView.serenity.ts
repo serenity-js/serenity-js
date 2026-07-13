@@ -1,7 +1,7 @@
+import { includes } from '@serenity-js/assertions';
 import type { Question, QuestionAdapter } from '@serenity-js/core';
 import { Task } from '@serenity-js/core';
-import type { PageElement } from '@serenity-js/web';
-import { By } from '@serenity-js/web';
+import { By, PageElement, Text } from '@serenity-js/web';
 
 import { FilterBar } from '../common/FilterBar.serenity.js';
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
@@ -19,6 +19,14 @@ export class TimelineView<NET> extends InteractionObject<NET> {
 
     kpiCardAt = (index: number): KpiCard<NET> =>
         new KpiCard(this.children(By.css('[data-testid="kpi-card"]')).nth(index));
+
+    kpiCardCalled = (label: string): KpiCard<NET> => {
+        const cardElement = this.children(By.css('[data-testid="kpi-card"]'))
+            .where(Text.of(PageElement.located(By.css('.kpi-label'))), includes(label.toUpperCase()))
+            .first()
+            .describedAs(`KPI card called "${label}"`);
+        return new KpiCard(cardElement);
+    };
 
     activeFilters = (): Question<Promise<string[]>> =>
         this.filterBar.activeFilters();

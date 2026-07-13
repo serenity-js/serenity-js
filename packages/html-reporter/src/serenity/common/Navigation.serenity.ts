@@ -1,11 +1,12 @@
 import { equals, includes, not } from '@serenity-js/assertions';
-import type { Answerable} from '@serenity-js/core';
-import { notes, Task, the, Wait } from '@serenity-js/core';
-import { By, Click, Page, PageElement, PageElements, Text } from '@serenity-js/web';
+import type { Answerable } from '@serenity-js/core';
+import { Check, notes, Task, the, Wait } from '@serenity-js/core';
+import { By, Click, isVisible, Page, PageElement, PageElements, Text } from '@serenity-js/web';
 
 export class Navigation {
     private static routeRegex = /^#\/([^?]+)/;
 
+    private hamburgerMenu = PageElement.located(By.css('button[aria-label="Open menu"]')).describedAs('hamburger menu button');
     private sidebar = PageElement.located(By.css('aside.sidebar'));
     private navItems = PageElements.located(By.css('.nav-item')).of(this.sidebar).describedAs('navigation items');
 
@@ -24,6 +25,8 @@ export class Navigation {
 
     openView = (viewName: Answerable<string>): Task =>
         Task.where(the`#actor opens the ${viewName} view`,
+            Check.whether(this.hamburgerMenu, isVisible())
+                .andIfSo(Click.on(this.hamburgerMenu)),
             notes().set('previousRouteName', this.currentRouteName()),
             Click.on(this.navItemCalled(viewName)),
             Wait.until(this.currentRouteName(), not(equals(notes().get('previousRouteName')))),

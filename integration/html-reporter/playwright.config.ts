@@ -9,7 +9,7 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
     testDir: './spec',
     timeout: 30_000,
     retries: 0,
-    workers: 1,
+    workers: process.env.CI ? 1 : undefined,
     reporter: [
         [ 'line' ],
         [ '@serenity-js/playwright-test', {
@@ -33,6 +33,8 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
         reuseExistingServer: ! process.env.CI,
     },
     projects: [
-        { name: 'chromium', use: { browserName: 'chromium' } },
+        { name: 'desktop', use: { browserName: 'chromium', viewport: { width: 1920, height: 1080 } } },
+        { name: 'tablet', use: { browserName: 'chromium', viewport: { width: 1024, height: 768 } } },
+        { name: 'mobile', use: { browserName: 'chromium', viewport: { width: 390, height: 844 } } },
     ],
 });

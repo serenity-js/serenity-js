@@ -1,4 +1,4 @@
-import { contain, Ensure, equals } from '@serenity-js/assertions';
+import { contain, Ensure, equals, includes } from '@serenity-js/assertions';
 
 import { ErrorsView } from '../../../src/serenity/errors/ErrorsView.serenity.js';
 import { minimalData } from '../data-factories.js';
@@ -227,6 +227,20 @@ describe('ErrorsView scenario access', () => {
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioCalled('Login fails').isPresent(), equals(true)),
+        );
+    });
+
+    it('can find a KPI card by its label', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ErrorsView',
+            importPath: './components/errors/ErrorsView',
+            props: { onNavigate: () => {}, route: '/errors' },
+            data: errorsViewData,
+            interactionObject: ErrorsView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.kpiCardCalled('Errors').accessibleLabel(), includes('Errors')),
         );
     });
 

@@ -104,6 +104,20 @@ describe('TimelineView', () => {
         );
     });
 
+    it('can find a KPI card by its label', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'TimelineView',
+            importPath: './components/timeline/TimelineView',
+            props: { onNavigate: () => {} },
+            data: timelineData,
+            interactionObject: TimelineView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.kpiCardCalled('Slowest').accessibleLabel(), includes('Slowest')),
+        );
+    });
+
     it('reports the number of scenarios in the timeline', async ({ mount, actor }) => {
         const view = await mount({
             component: 'TimelineView',

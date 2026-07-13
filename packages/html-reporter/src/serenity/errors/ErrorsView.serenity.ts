@@ -17,6 +17,14 @@ export class ErrorsView<NET> extends InteractionObject<NET> {
     kpiCardAt = (index: number): KpiCard<NET> =>
         new KpiCard(this.children(By.css('[data-testid="kpi-card"]')).nth(index));
 
+    kpiCardCalled = (label: string): KpiCard<NET> => {
+        const cardElement = this.children(By.css('[data-testid="kpi-card"]'))
+            .where(Text.of(PageElement.located(By.css('.kpi-label'))), includes(label.toUpperCase()))
+            .first()
+            .describedAs(`KPI card called "${label}"`);
+        return new KpiCard(cardElement);
+    };
+
     scenarioCalled = (name: string): ScenarioItem<NET> => {
         const matchingItem = this.children(By.css('.scenario-item'))
             .where(Text.of(PageElement.located(By.css('.scenario-name'))), includes(name))
