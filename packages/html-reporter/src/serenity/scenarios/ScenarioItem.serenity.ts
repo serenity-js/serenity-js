@@ -33,6 +33,6 @@ export class ScenarioItem<NET> extends InteractionObject<NET> {
 
     viewDetails = (): Task =>
         Task.where('#actor views scenario details',
-            Click.on(this.rootElement),
+            Click.on(this.child(By.css('.scenario-name')).describedAs('scenario name')),
         );
 }
