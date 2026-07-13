@@ -531,6 +531,7 @@
       color: var(--text-secondary);
       padding: var(--space-md) var(--space-md) var(--space-sm);
       text-transform: uppercase;
+      pointer-events: none;
       letter-spacing: 0.5px;
       border-bottom: 1px solid var(--divider);
       margin-top: var(--space-md);
@@ -647,6 +648,7 @@
       font-size: var(--font-xs);
       font-weight: 600;
       text-transform: lowercase;
+      white-space: nowrap;
       background: var(--bg-primary);
       color: var(--text-secondary);
     }
@@ -903,6 +905,7 @@
       border-radius: 4px;
       font-size: var(--font-xs);
       font-weight: 500;
+      white-space: nowrap;
       background: var(--accent-light);
       color: var(--text-primary);
       cursor: pointer;
@@ -2487,9 +2490,16 @@
 
     .scenario-tags {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       gap: 4px;
       margin-top: 2px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;  /* Hide scrollbar on Firefox */
+    }
+
+    .scenario-tags::-webkit-scrollbar {
+      display: none;  /* Hide scrollbar on Chrome/Safari */
     }
 
     /* ===== Execution History Strip ===== */
