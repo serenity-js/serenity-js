@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData';
-import { browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, relativeSourcePath, scenarioUrl } from '../../utils';
+import { ansiToHtml, browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, relativeSourcePath, scenarioUrl } from '../../utils';
 import { HistoryDots } from '../common/HistoryDots';
 import { OutcomeBadge } from '../common/OutcomeBadge';
 
@@ -29,7 +29,7 @@ export function ScenarioRow({ scenario, sort, onNavigate, runIndex, setSearch, s
       <${OutcomeBadge} outcome=${scenario.outcome} />
       <div class="scenario-info">
         <div class="scenario-name">${sort !== 'category' && scenario.category ? scenario.category + ' › ' : ''}${scenario.name}</div>
-        ${scenario.error ? html`<div class="scenario-error-preview">${scenario.error.message}</div>` : null}
+        ${scenario.error ? html`<div class="scenario-error-preview" dangerouslySetInnerHTML=${{ __html: ansiToHtml(scenario.error.message) }}></div>` : null}
         <div class="scenario-tags">
           ${getBrowserTag(scenario) ? html`<a href=${'#/tests?search=' + encodeURIComponent('"' + getBrowserTag(scenario)! + '"')} class="badge ${browserBadgeClass(getBrowserTag(scenario)!)} badge-link" onClick=${stopProp}>${getBrowserTag(scenario)}</a>` : null}
           ${scenario.retries && scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
