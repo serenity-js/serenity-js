@@ -5,12 +5,12 @@
  * If you change row padding/font-size in styles.css, update these values.
  */
 export const ROW_HEIGHTS = {
-    /** Standard scenario row (name, tags, duration, source) */
-    scenario: 108,
-    /** Consistency view row (shorter — no source path) */
-    consistency: 88,
+    /** Standard scenario row (name, history dots, source, tags) */
+    scenario: 128,
+    /** Consistency view row (name, kind + history, source, tags) */
+    consistency: 128,
     /** Error view row (same as scenario) */
-    error: 108,
+    error: 128,
 } as const;
 
 /**
