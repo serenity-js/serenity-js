@@ -1439,10 +1439,43 @@
     @media (max-width: 768px) {
       .dashboard-main-grid {
         grid-template-columns: 1fr;
+        overflow: hidden;
+      }
+
+      .dashboard-main-grid > * {
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+      .dashboard-trend-card canvas {
+        max-width: 100% !important;
+      }
+
+      .dashboard-health-col {
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+      .dashboard-status-card {
+        max-width: 100%;
+        overflow: hidden;
       }
 
       .kpi-row {
         grid-template-columns: repeat(2, 1fr);
+      }
+
+      .kpi-card {
+        padding: var(--space-xs) var(--space-sm);
+      }
+
+      .kpi-label {
+        font-size: 9px;
+        letter-spacing: 0.3px;
+      }
+
+      .kpi-value {
+        font-size: var(--font-lg);
       }
 
       .slowest-row {
@@ -2484,6 +2517,36 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+      }
+
+      /* Trend chart canvas: force Chart.js to respect container width */
+      .dashboard-trend-card canvas,
+      .trend-chart-container canvas {
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100%;
+      }
+
+      /* Filter bar compact on mobile */
+      [data-testid="filter-bar"] .filter-chip {
+        padding: 4px 10px;
+        font-size: var(--font-xs);
+      }
+
+      /* Scenario list card: reduce bottom spacing */
+      .scenario-list-card {
+        margin-bottom: var(--space-sm);
+      }
+
+      /* Test run row: compact layout */
+      .test-run-row .scenario-info {
+        min-width: 0;
+      }
+
+      .test-run-row .scenario-meta {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
     }
