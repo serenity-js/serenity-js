@@ -29,12 +29,16 @@ export function ConsistencyRow({ item: t, specDirectory, onNavigate }: Consisten
       <${OutcomeBadge} outcome=${t.lastOutcome} />
       <div class="scenario-info">
         <div class="scenario-name">${t.name}</div>
+        <div class="scenario-history-line">
+          <span class="status-item-kind" style="color:${t.kind === 'degraded' ? 'var(--color-failed)' : t.kind === 'recovered' ? 'var(--color-passed)' : 'var(--color-pending)'}">${t.kind.toUpperCase()}</span>
+          ${t.history && t.history.length > 1 ? html`<${HistoryDots} entries=${historyEntries} max=${5} />` : null}
+        </div>
         <div class="scenario-meta">
+          <span class="scenario-source">${relativeSourcePath(t, specDirectory)}</span>
+        </div>
+        <div class="scenario-tags">
           ${getBrowserTag(t) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(t)!)}">${getBrowserTag(t)}</span>` : null}
           ${(t.tags || []).filter(tag => tag.type === 'project').map(tag => html`<span class="badge">${tag.name}</span>`)}
-          <span class="status-item-kind" style="color:${t.kind === 'degraded' ? 'var(--color-failed)' : t.kind === 'recovered' ? 'var(--color-passed)' : 'var(--color-pending)'}">${t.kind}</span>
-          <span class="scenario-source">${relativeSourcePath(t, specDirectory)}</span>
-          ${t.history && t.history.length > 1 ? html`<${HistoryDots} entries=${historyEntries} max=${5} />` : null}
         </div>
       </div>
       <span class="scenario-duration" style="color:var(--color-pending)">${Math.round(t.inconsistencyRate * 100)}%</span>

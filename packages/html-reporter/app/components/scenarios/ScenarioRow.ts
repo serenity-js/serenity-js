@@ -30,14 +30,18 @@ export function ScenarioRow({ scenario, sort, onNavigate, runIndex, setSearch, s
       <div class="scenario-info">
         <div class="scenario-name">${sort !== 'category' && scenario.category ? scenario.category + ' › ' : ''}${scenario.name}</div>
         ${scenario.error ? html`<div class="scenario-error-preview" dangerouslySetInnerHTML=${{ __html: ansiToHtml(scenario.error.message) }}></div>` : null}
+        ${scenario.executionHistory && scenario.executionHistory.length > 1 ? html`
+          <div class="scenario-history-line">
+            <${HistoryDots} entries=${(runIndex !== null ? scenario.executionHistory.slice(0, runIndex + 1) : scenario.executionHistory).slice(-5).map(entry => ({ outcome: entry.outcome, label: entry.outcome + ' — ' + formatRunLabel(entry.run, entry.timestamp || '') }))} max=${5} />
+          </div>
+        ` : null}
+        <div class="scenario-meta">
+          <span class="scenario-source">${relativeSourcePath(scenario, specDirectory)}</span>
+        </div>
         <div class="scenario-tags">
           ${getBrowserTag(scenario) ? html`<a href=${'#/tests?search=' + encodeURIComponent('"' + getBrowserTag(scenario)! + '"')} class="badge ${browserBadgeClass(getBrowserTag(scenario)!)} badge-link" onClick=${stopProp}>${getBrowserTag(scenario)}</a>` : null}
           ${scenario.retries && scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
           ${[...new Map((scenario.tags || []).filter(t => t.type !== 'feature' && t.type !== 'browser').map(t => [t.type + ':' + t.name, t])).values()].map(t => html`<a href=${'#/tests?search=' + encodeURIComponent('"' + t.name + '"')} class="tag-chip tag-chip-sm" onClick=${stopProp}>${t.name}</a>`)}
-        </div>
-        <div class="scenario-meta">
-          <span class="scenario-source">${relativeSourcePath(scenario, specDirectory)}</span>
-          ${scenario.executionHistory && scenario.executionHistory.length > 1 ? html`<${HistoryDots} entries=${(runIndex !== null ? scenario.executionHistory.slice(0, runIndex + 1) : scenario.executionHistory).slice(-5).map(entry => ({ outcome: entry.outcome, label: entry.outcome + ' — ' + formatRunLabel(entry.run, entry.timestamp || '') }))} max=${5} />` : null}
         </div>
       </div>
       <span class="scenario-duration">${formatDuration(scenario.duration)}</span>
