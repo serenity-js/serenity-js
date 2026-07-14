@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportScenarioRef } from '../../../src/cli/ReportData';
-import { browserBadgeClass, getBrowserTag, outcomeClass, outcomeDisplayName, outcomeIcon, scenarioUrl } from '../../utils';
+import { outcomeClass, outcomeDisplayName, outcomeIcon, scenarioUrl } from '../../utils';
 
 const html = htm.bind(h);
 
@@ -34,10 +34,11 @@ export function DashboardConsistencyCard({ items, hasItems, onNavigate, getHisto
                   <div class="status-item-main">
                     <span class="status-icon status-icon--${outcomeClass(t.lastOutcome)}">${outcomeIcon(t.lastOutcome)}</span>
                     <span class="status-item-name">${t.name}</span>
-                    ${getBrowserTag(t) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(t)!)}" style="font-size:10px;padding:1px 6px">${getBrowserTag(t)}</span>` : null}
-                    <span class="status-item-kind" style="color:${kindColor(t.kind)}">${t.kind}</span>
                   </div>
-                  <${HistoryDotStrip} history=${t.history || getHistory(t)} labels=${t.labels} />
+                  <div class="status-item-history-line">
+                    <span class="status-item-kind" style="color:${kindColor(t.kind)}">${t.kind.toUpperCase()}</span>
+                    <${HistoryDotStrip} history=${t.history || getHistory(t)} labels=${t.labels} />
+                  </div>
                 </div>
             `)
             }
