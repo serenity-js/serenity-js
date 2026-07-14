@@ -115,7 +115,7 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
         <${HistoricalBanner} label="Viewing results from:" runLabel=${formatRunLabel(historicalRun.label, historicalRun.timestamp)} subtitle=${'— ' + formatDuration(historicalRun.duration)} showLatestHref="#/tests" onShowLatest=${() => {}} />
       ` : null}
 
-      <${RunSelector} activeTimestamp=${activeRunTimestamp} history=${history} onRunChange=${onRunChange} />
+      ${history.length > 1 ? html`<${RunSelector} activeTimestamp=${activeRunTimestamp} history=${history} onRunChange=${onRunChange} />` : null}
 
       <${SearchInput} value=${search} onInput=${setSearch} />
 

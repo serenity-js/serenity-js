@@ -179,7 +179,7 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
         <${HistoricalBanner} label="Viewing errors from:" runLabel=${formatRunLabel(errorHistoricalRun.label, errorHistoricalRun.timestamp)} onShowLatest=${errorShowLatest} />
       ` : null}
 
-      <${RunSelector} activeTimestamp=${errorActiveRunTs} history=${history} onRunChange=${onErrorRunChange} />
+      ${history.length > 1 ? html`<${RunSelector} activeTimestamp=${errorActiveRunTs} history=${history} onRunChange=${onErrorRunChange} />` : null}
 
       <div class="kpi-row mb-md stat-grid">
         ${summaryCards.map(card => html`
