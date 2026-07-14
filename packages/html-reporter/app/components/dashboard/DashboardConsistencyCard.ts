@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportScenarioRef } from '../../../src/cli/ReportData';
-import { outcomeClass, outcomeDisplayName, outcomeIcon, scenarioUrl } from '../../utils';
+import { browserBadgeClass, getBrowserTag, outcomeClass, outcomeDisplayName, outcomeIcon, scenarioUrl } from '../../utils';
 
 const html = htm.bind(h);
 
@@ -39,6 +39,11 @@ export function DashboardConsistencyCard({ items, hasItems, onNavigate, getHisto
                     <span class="status-item-kind" style="color:${kindColor(t.kind)}">${t.kind.toUpperCase()}</span>
                     <${HistoryDotStrip} history=${t.history || getHistory(t)} labels=${t.labels} />
                   </div>
+                  ${getBrowserTag(t) ? html`
+                    <div class="status-item-tags">
+                      <span class="badge ${browserBadgeClass(getBrowserTag(t)!)}">${getBrowserTag(t)}</span>
+                    </div>
+                  ` : null}
                 </div>
             `)
             }

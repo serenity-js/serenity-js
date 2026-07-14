@@ -1371,6 +1371,20 @@
       margin-top: 2px;
     }
 
+    .status-item-tags {
+      display: flex;
+      gap: 4px;
+      margin-left: 24px;
+      margin-top: 2px;
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      scrollbar-width: none;
+    }
+
+    .status-item-tags::-webkit-scrollbar {
+      display: none;
+    }
+
     .history-dot {
       width: 8px;
       height: 8px;
