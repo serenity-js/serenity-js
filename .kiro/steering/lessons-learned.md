@@ -227,6 +227,26 @@ Workaround: skip the `not(isPresent())` assertion for now. Tracked in `.kiro/spe
 
 
 ## Work in small chunks with short feedback loops
+## Component tests: when to keep raw Playwright vs convert to IO
+
+**Convert to IO** when the test exercises user-observable behaviour:
+- Text content, counts, presence/absence
+- Navigation (clicking navigates somewhere)
+- Filtering/search (user action changes visible results)
+- Lightbox/modal interactions (open, close, navigate)
+
+**Keep as raw Playwright** when the test verifies implementation contracts:
+- ARIA attributes (role, tabindex values, aria-pressed)
+- CSS heights, colours, background-color, widths
+- CSS class names that encode state (unless mapped to a meaningful concept like `sentiment()`)
+- Visually-hidden element structure
+- Keyboard focus mechanics (tabindex roving pattern)
+- Theme/dark mode CSS custom property values
+- ANSI → HTML colour rendering
+
+When keeping tests raw, add an explanatory comment before the describe block explaining
+why these tests don't use interaction objects.
+
 
 Always prefer:
 - **Small batches** over large bulk changes — one domain area at a time, not all 12 placeholders at once

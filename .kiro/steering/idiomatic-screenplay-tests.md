@@ -340,6 +340,65 @@ selectedSort = (): Question<Promise<string>> =>
     });
 ```
 
+### 8. Indexed access into structured results — use `.as()`
+
+```typescript
+// ✓ Idiomatic — .as() gives direct access to array/object members
+Ensure.that(view.dotOutcomes().as(outcomes => outcomes[0].type), equals('retried-success')),
+Ensure.that(view.dotOutcomes().as(outcomes => outcomes[1].title), includes('Passed on retry')),
+
+// ✗ Avoid — nested property() is verbose and hard to read
+Ensure.that(view.dotOutcomes(), property(0, property('type', equals('retried-success')))),
+```
+
+### 9. Testing navigation callbacks — `addInitScript` + `ExecuteScript`
+
+When a component calls a navigation callback (e.g., `onNavigate(path)`), test it entirely
+within the Screenplay flow using a browser-side capture + `ExecuteScript`:
+
+```typescript
+it('navigates to the correct URL on click', async ({ mount, page, actor }) => {
+    // Set up a browser-side function that captures the callback argument
+    await page.addInitScript(() => {
+        (window as any).__onNavigate__ = (path: string) => {
+            (window as any).navigatedTo = path;
+        };
+    });
+
+    const view = await mount({
+        ...,
+        props: { onNavigate: '__onNavigate__' },
+        interactionObject: MyComponent,
+    });
+
+    await actor.attemptsTo(
+        view.clickItem(0),
+        ExecuteScript.sync('return decodeURIComponent(window.navigatedTo)'),
+        Ensure.that(LastScriptExecution.result<string>(), includes('expected-path')),
+    );
+});
+```
+
+Key points:
+- Use `page.addInitScript()` (not `page.evaluate()`) — it persists across page navigations
+- The fixture replaces string props starting with `__` with `window[propValue]`
+- `ExecuteScript.sync` + `LastScriptExecution.result<T>()` reads the captured value
+- Everything stays in one `attemptsTo()` flow — no Node-side variable capture needed
+
+### 10. Interaction object presence — `isPresent()` expectation
+
+Since `InteractionObject` implements `Optional`, test component presence/absence directly:
+
+```typescript
+// ✓ Idiomatic — IO implements Optional, isPresent() works directly
+Ensure.that(view.filterBar, isPresent()),
+Ensure.that(view.searchInput, not(isPresent())),
+
+// ✗ Avoid — boolean wrapper method
+Ensure.that(view.isFilterBarVisible(), equals(true)),
+Ensure.that(view.isSearchVisible(), equals(false)),
+```
+
 ## When `Question.about()` IS appropriate
 
 Use `Question.about()` when the extraction logic genuinely cannot be expressed with PEQL:
