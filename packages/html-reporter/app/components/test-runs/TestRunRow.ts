@@ -23,11 +23,12 @@ export function TestRunRow({ run, onNavigate }: TestRunRowProps): ReturnType<typ
           <div class="scenario-name">${formatRunLabel(run.label, run.timestamp)}</div>
           <div class="scenario-meta">
             <span>${formatTimestamp(run.timestamp)}</span>
+            <span>·</span>
+            <span>${formatDuration(run.duration)}</span>
           </div>
           <div class="scenario-meta">
-            <span>${formatDuration(run.duration)}</span>
-            ${run.branch ? html`<span>·</span><span class="run-meta-item">${icons.branch} ${run.branch}</span>` : null}
-            ${run.commit ? html`<span>·</span><span class="run-meta-item mono">${icons.commit} ${run.commit}</span>` : null}
+            ${run.branch ? html`<span class="run-meta-item">${icons.branch} ${run.branch}</span>` : null}
+            ${run.commit ? html`<span class="run-meta-item mono">${icons.commit} ${run.commit}</span>` : null}
           </div>
           <div class="run-outcomes-line">
             <span style="font-size:var(--font-sm);font-weight:600;color:${scoreColor(confidence) || 'var(--text-primary)'}" title="Confidence: ${confidence}%">◐${confidence}%</span>
