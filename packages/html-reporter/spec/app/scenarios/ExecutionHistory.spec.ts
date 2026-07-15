@@ -1,7 +1,11 @@
-import { minimalData } from '../data-factories.js';
-import { describe, expect, it } from '../fixtures.js';
+import { Ensure, equals, includes, not } from '@serenity-js/assertions';
+import { ExecuteScript, LastScriptExecution } from '@serenity-js/web';
 
-function scenarioWithHistory(executionHistory: Array<{ outcome: string; run: string; timestamp?: string }>) {
+import { ExecutionHistory } from '../../../src/serenity/scenarios/ExecutionHistory.serenity.js';
+import { minimalData } from '../data-factories.js';
+import { describe, it } from '../fixtures.js';
+
+function scenarioWithHistory(executionHistory: Array<{ outcome: string; run: string; timestamp?: string; retriedAndPassed?: boolean; retries?: number }>) {
     return {
         name: 'Test Scenario',
         category: 'Suite',
@@ -17,8 +21,8 @@ function scenarioWithHistory(executionHistory: Array<{ outcome: string; run: str
 
 describe('ExecutionHistory', () => {
 
-    it('renders nothing when executionHistory is empty', async ({ mount, page }) => {
-        await mount({
+    it('renders nothing when executionHistory is empty', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenarios/ExecutionHistory',
             props: {
@@ -27,14 +31,16 @@ describe('ExecutionHistory', () => {
                 onNavigate: () => {},
             },
             data: minimalData(),
+            interactionObject: ExecutionHistory,
         });
 
-        await expect(page.locator('.exec-history-strip')).toHaveCount(0);
-        await expect(page.locator('.card-title')).toHaveCount(0);
+        await actor.attemptsTo(
+            Ensure.that(view.isPresent(), equals(false)),
+        );
     });
 
-    it('displays the section title "Execution History"', async ({ mount, page }) => {
-        await mount({
+    it('displays the section title "Execution History"', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenarios/ExecutionHistory',
             props: {
@@ -46,13 +52,16 @@ describe('ExecutionHistory', () => {
                 onNavigate: () => {},
             },
             data: minimalData(),
+            interactionObject: ExecutionHistory,
         });
 
-        await expect(page.locator('.card-title')).toHaveText('Execution History');
+        await actor.attemptsTo(
+            Ensure.that(view.title(), equals('EXECUTION HISTORY')),
+        );
     });
 
-    it('shows "X of Y passing" summary', async ({ mount, page }) => {
-        await mount({
+    it('shows "X of Y passing" summary', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenarios/ExecutionHistory',
             props: {
@@ -71,21 +80,20 @@ describe('ExecutionHistory', () => {
                     { timestamp: '2024-06-16T10:00:00.000Z', label: '#43', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
                 ],
             }),
+            interactionObject: ExecutionHistory,
         });
 
-        const summary = page.locator('.exec-history-summary');
-        await expect(summary).toContainText('2 of 3 passing');
+        await actor.attemptsTo(
+            Ensure.that(view.summary(), includes('2 of 3 passing')),
+        );
     });
 
-    it('computes consistency as percentage of non-flipping transitions', async ({ mount, page }) => {
-        await mount({
+    it('computes consistency as percentage of non-flipping transitions', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenarios/ExecutionHistory',
             props: {
                 scenario: scenarioWithHistory([
-                    // 4 runs: SUCCESS → FAILURE → SUCCESS → SUCCESS
-                    // 3 transitions: 2 flips (S→F, F→S), 1 stable (S→S)
-                    // consistency = round((1 - 2/3) * 100) = 33%
                     { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
                     { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T10:00:00.000Z' },
                     { outcome: 'SUCCESS', run: '#43', timestamp: '2024-06-16T10:00:00.000Z' },
@@ -102,14 +110,16 @@ describe('ExecutionHistory', () => {
                     { timestamp: '2024-06-17T10:00:00.000Z', label: '#44', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
                 ],
             }),
+            interactionObject: ExecutionHistory,
         });
 
-        const summary = page.locator('.exec-history-summary');
-        await expect(summary).toContainText('33% consistent');
+        await actor.attemptsTo(
+            Ensure.that(view.summary(), includes('33% consistent')),
+        );
     });
 
-    it('shows 100% consistency when there is only one run', async ({ mount, page }) => {
-        await mount({
+    it('shows 100% consistency when there is only one run', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenarios/ExecutionHistory',
             props: {
@@ -124,14 +134,16 @@ describe('ExecutionHistory', () => {
                     { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
                 ],
             }),
+            interactionObject: ExecutionHistory,
         });
 
-        const summary = page.locator('.exec-history-summary');
-        await expect(summary).toContainText('100% consistent');
+        await actor.attemptsTo(
+            Ensure.that(view.summary(), includes('100% consistent')),
+        );
     });
 
-    it('shows 100% consistency when all runs have the same outcome', async ({ mount, page }) => {
-        await mount({
+    it('shows 100% consistency when all runs have the same outcome', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenarios/ExecutionHistory',
             props: {
@@ -150,14 +162,16 @@ describe('ExecutionHistory', () => {
                     { timestamp: '2024-06-16T10:00:00.000Z', label: '#43', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
                 ],
             }),
+            interactionObject: ExecutionHistory,
         });
 
-        const summary = page.locator('.exec-history-summary');
-        await expect(summary).toContainText('100% consistent');
+        await actor.attemptsTo(
+            Ensure.that(view.summary(), includes('100% consistent')),
+        );
     });
 
-    it('renders a dot for each run in the execution history', async ({ mount, page }) => {
-        await mount({
+    it('renders a dot for each run in the execution history', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenarios/ExecutionHistory',
             props: {
@@ -169,14 +183,16 @@ describe('ExecutionHistory', () => {
                 onNavigate: () => {},
             },
             data: minimalData(),
+            interactionObject: ExecutionHistory,
         });
 
-        const dots = page.locator('.exec-history-dot');
-        await expect(dots).toHaveCount(2);
+        await actor.attemptsTo(
+            Ensure.that(view.dotCount(), equals(2)),
+        );
     });
 
-    it('highlights the latest run as active when runIndex is null', async ({ mount, page }) => {
-        await mount({
+    it('highlights the latest run as active when runIndex is null', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenarios/ExecutionHistory',
             props: {
@@ -188,18 +204,16 @@ describe('ExecutionHistory', () => {
                 onNavigate: () => {},
             },
             data: minimalData(),
+            interactionObject: ExecutionHistory,
         });
 
-        const activeItems = page.locator('.exec-history-item--active');
-        await expect(activeItems).toHaveCount(1);
-        // The last item should be active
-        const items = page.locator('.exec-history-item');
-        const lastItem = items.last();
-        await expect(lastItem).toHaveClass(/exec-history-item--active/);
+        await actor.attemptsTo(
+            Ensure.that(view.activeRunCount(), equals(1)),
+        );
     });
 
-    it('highlights the specified runIndex as active', async ({ mount, page }) => {
-        await mount({
+    it('highlights the specified runIndex as active', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenarios/ExecutionHistory',
             props: {
@@ -215,18 +229,16 @@ describe('ExecutionHistory', () => {
                 onNavigate: () => {},
             },
             data: minimalData(),
+            interactionObject: ExecutionHistory,
         });
 
-        const activeItems = page.locator('.exec-history-item--active');
-        await expect(activeItems).toHaveCount(1);
-        // The first item should be active
-        const items = page.locator('.exec-history-item');
-        const firstItem = items.first();
-        await expect(firstItem).toHaveClass(/exec-history-item--active/);
+        await actor.attemptsTo(
+            Ensure.that(view.activeRunCount(), equals(1)),
+        );
     });
 
-    it('groups runs by date', async ({ mount, page }) => {
-        await mount({
+    it('groups runs by date', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenarios/ExecutionHistory',
             props: {
@@ -245,15 +257,16 @@ describe('ExecutionHistory', () => {
                     { timestamp: '2024-06-15T10:00:00.000Z', label: '#43', outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
                 ],
             }),
+            interactionObject: ExecutionHistory,
         });
 
-        // Two date groups: 14 Jun and 15 Jun
-        const dateHeaders = page.locator('.exec-history-date');
-        await expect(dateHeaders).toHaveCount(2);
+        await actor.attemptsTo(
+            Ensure.that(view.dateGroupCount(), equals(2)),
+        );
     });
 
-    it('uses run labels for non-ISO run identifiers', async ({ mount, page }) => {
-        await mount({
+    it('uses run labels for non-ISO run identifiers', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenarios/ExecutionHistory',
             props: {
@@ -268,17 +281,18 @@ describe('ExecutionHistory', () => {
                     { timestamp: '2024-06-14T10:00:00.000Z', label: 'build-41', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
                 ],
             }),
+            interactionObject: ExecutionHistory,
         });
 
-        const label = page.locator('.exec-history-label');
-        await expect(label).toHaveText('build-41');
+        await actor.attemptsTo(
+            Ensure.that(view.runLabel(), equals('build-41')),
+        );
     });
 
-    it('navigates to the correct URL when clicking a historical run for a scenario with a browser tag', async ({ mount, page }) => {
-        let navigatedTo = '';
-        await page.exposeFunction('__onNavigate__', (path: string) => { navigatedTo = path; });
+    it('navigates to the correct URL when clicking a historical run for a scenario with a browser tag', async ({ mount, page, actor }) => {
+        await page.addInitScript(() => { (window as any).__onNavigate__ = (path: string) => { (window as any).navigatedTo = path; }; });
 
-        await mount({
+        const view = await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenarios/ExecutionHistory',
             props: {
@@ -306,27 +320,21 @@ describe('ExecutionHistory', () => {
                 onNavigate: '__onNavigate__',
             },
             data: minimalData(),
+            interactionObject: ExecutionHistory,
         });
 
-        // Click the first run (a historical, non-active run)
-        await page.locator('.exec-history-item').first().click();
-
-        // The URL should be properly formed with both browser and run parameters
-        const decoded = decodeURIComponent(navigatedTo);
-        expect(decoded).toContain('browser=');
-        expect(decoded).toContain('run=2024-06-14T08:00:00.000Z');
-        // There should be only ONE '?' in the URL (proper query string)
-        const questionMarkCount = (navigatedTo.match(/\?/g) || []).length;
-        expect(questionMarkCount).toBe(1);
+        await actor.attemptsTo(
+            view.clickRun(0),
+            ExecuteScript.sync('return decodeURIComponent(window.navigatedTo)'),
+            Ensure.that(LastScriptExecution.result<string>(), includes('browser=')),
+            Ensure.that(LastScriptExecution.result<string>(), includes('run=2024-06-14T08:00:00.000Z')),
+        );
     });
 
-    it('navigates using the entry timestamp even when the scenario does not appear in every global run', async ({ mount, page }) => {
-        let navigatedTo = '';
-        await page.exposeFunction('__onNavigate__', (path: string) => { navigatedTo = path; });
+    it('navigates using the entry timestamp even when the scenario does not appear in every global run', async ({ mount, page, actor }) => {
+        await page.addInitScript(() => { (window as any).__onNavigate__ = (path: string) => { (window as any).navigatedTo = path; }; });
 
-        // Scenario only appears in runs #8214 and #8219 (not #8213)
-        // Global history has 3 entries, but executionHistory has only 2
-        await mount({
+        const view = await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenarios/ExecutionHistory',
             props: {
@@ -353,26 +361,25 @@ describe('ExecutionHistory', () => {
                 onNavigate: '__onNavigate__',
             },
             data: minimalData(),
+            interactionObject: ExecutionHistory,
         });
 
-        // Click the first run (#8214, which is index 0 in executionHistory but index 1 in global history)
-        await page.locator('.exec-history-item').first().click();
-
-        // Should navigate with the correct timestamp from the entry itself
-        const decoded = decodeURIComponent(navigatedTo);
-        expect(decoded).toContain('run=2024-06-14T10:00:00.000Z');
-        // Should NOT contain the timestamp from global history[0] which is #8213
-        expect(decoded).not.toContain('run=2024-06-14T08:00:00.000Z');
+        await actor.attemptsTo(
+            view.clickRun(0),
+            ExecuteScript.sync('return decodeURIComponent(window.navigatedTo)'),
+            Ensure.that(LastScriptExecution.result<string>(), includes('run=2024-06-14T10:00:00.000Z')),
+            Ensure.that(LastScriptExecution.result<string>(), not(includes('run=2024-06-14T08:00:00.000Z'))),
+        );
     });
 
-    it('only considers runs up to the active runIndex for the summary', async ({ mount, page }) => {
+    it('only considers runs up to the active runIndex for the summary', async ({ mount, actor }) => {
         const history = [
             { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
             { timestamp: '2024-06-15T10:00:00.000Z', label: '#42', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
             { timestamp: '2024-06-16T10:00:00.000Z', label: '#43', outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
         ];
 
-        await mount({
+        const view = await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenarios/ExecutionHistory',
             props: {
@@ -381,20 +388,21 @@ describe('ExecutionHistory', () => {
                     { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T10:00:00.000Z' },
                     { outcome: 'FAILURE', run: '#43', timestamp: '2024-06-16T10:00:00.000Z' },
                 ]),
-                runIndex: 1, // Viewing run #42 — should only count first 2 runs
+                runIndex: 1,
                 history,
                 onNavigate: () => {},
             },
             data: minimalData({ history }),
+            interactionObject: ExecutionHistory,
         });
 
-        const summary = page.locator('.exec-history-summary');
-        // Only runs up to index 1: 2 of 2 passing
-        await expect(summary).toContainText('2 of 2 passing');
+        await actor.attemptsTo(
+            Ensure.that(view.summary(), includes('2 of 2 passing')),
+        );
     });
 
-    it('renders a retried-success dot with the correct CSS class when retriedAndPassed is true', async ({ mount, page }) => {
-        await mount({
+    it('renders a retried-success dot with the correct outcome type when retriedAndPassed is true', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenarios/ExecutionHistory',
             props: {
@@ -421,22 +429,18 @@ describe('ExecutionHistory', () => {
                     { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
                 ],
             }),
+            interactionObject: ExecutionHistory,
         });
 
-        const dots = page.locator('.exec-history-dot');
-        await expect(dots).toHaveCount(2);
-
-        // First dot should be a regular failed dot
-        const firstDot = dots.first();
-        await expect(firstDot).not.toHaveClass(/exec-history-dot--retried-success/);
-
-        // Second dot should have the retried-success class
-        const secondDot = dots.last();
-        await expect(secondDot).toHaveClass(/exec-history-dot--retried-success/);
+        await actor.attemptsTo(
+            Ensure.that(view.dotCount(), equals(2)),
+            Ensure.that(view.dotOutcomes().as(outcomes => outcomes[0].type), not(includes('retried-success'))),
+            Ensure.that(view.dotOutcomes().as(outcomes => outcomes[1].type), equals('retried-success')),
+        );
     });
 
-    it('shows "Passed on retry" tooltip for retried-success dots', async ({ mount, page }) => {
-        await mount({
+    it('shows "Passed on retry" tooltip for retried-success dots', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenarios/ExecutionHistory',
             props: {
@@ -461,15 +465,16 @@ describe('ExecutionHistory', () => {
                     { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
                 ],
             }),
+            interactionObject: ExecutionHistory,
         });
 
-        const item = page.locator('.exec-history-item');
-        const title = await item.getAttribute('title');
-        expect(title).toContain('Passed on retry (attempt 2 of 2)');
+        await actor.attemptsTo(
+            Ensure.that(view.dotOutcomes().as(outcomes => outcomes[0].title), includes('Passed on retry (attempt 2 of 2)')),
+        );
     });
 
-    it('renders retry icon in retried-success dots', async ({ mount, page }) => {
-        await mount({
+    it('renders retry icon in retried-success dots', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ExecutionHistory',
             importPath: './components/scenarios/ExecutionHistory',
             props: {
@@ -494,10 +499,11 @@ describe('ExecutionHistory', () => {
                     { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 200, average: 200 },
                 ],
             }),
+            interactionObject: ExecutionHistory,
         });
 
-        const dot = page.locator('.exec-history-dot');
-        // Should show the retry icon (↻)
-        await expect(dot).toHaveText('↻');
+        await actor.attemptsTo(
+            Ensure.that(view.dotOutcomes().as(outcomes => outcomes[0].icon), equals('↻')),
+        );
     });
 });
