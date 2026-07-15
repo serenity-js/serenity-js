@@ -1,5 +1,8 @@
+import { contain, Ensure, equals, includes, not } from '@serenity-js/assertions';
+
+import { PhotoStrip } from '../../../src/serenity/scenarios/PhotoStrip.serenity.js';
 import { minimalData } from '../data-factories.js';
-import { describe, expect, it } from '../fixtures.js';
+import { describe, it } from '../fixtures.js';
 
 function activitiesWithPhotos() {
     return [
@@ -49,8 +52,8 @@ function activitiesWithPhotos() {
 
 describe('PhotoStrip', () => {
 
-    it('renders nothing when no .png artifacts exist', async ({ mount, page }) => {
-        await mount({
+    it('renders nothing when no .png artifacts exist', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'PhotoStrip',
             importPath: './components/scenarios/PhotoStrip',
             props: {
@@ -60,14 +63,16 @@ describe('PhotoStrip', () => {
                 scenarioStartedAt: '2024-06-15T14:30:00.000Z',
             },
             data: minimalData(),
+            interactionObject: PhotoStrip,
         });
 
-        await expect(page.locator('.photo-strip')).toHaveCount(0);
-        await expect(page.locator('.card-title')).toHaveCount(0);
+        await actor.attemptsTo(
+            Ensure.that(view.isPresent(), equals(false)),
+        );
     });
 
-    it('renders nothing when activities have no artifacts at all', async ({ mount, page }) => {
-        await mount({
+    it('renders nothing when activities have no artifacts at all', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'PhotoStrip',
             importPath: './components/scenarios/PhotoStrip',
             props: {
@@ -77,13 +82,16 @@ describe('PhotoStrip', () => {
                 scenarioStartedAt: '2024-06-15T14:30:00.000Z',
             },
             data: minimalData(),
+            interactionObject: PhotoStrip,
         });
 
-        await expect(page.locator('.photo-strip')).toHaveCount(0);
+        await actor.attemptsTo(
+            Ensure.that(view.isPresent(), equals(false)),
+        );
     });
 
-    it('displays the correct photo count in the title', async ({ mount, page }) => {
-        await mount({
+    it('displays the correct photo count in the title', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'PhotoStrip',
             importPath: './components/scenarios/PhotoStrip',
             props: {
@@ -91,14 +99,17 @@ describe('PhotoStrip', () => {
                 scenarioStartedAt: '2024-06-15T14:30:00.000Z',
             },
             data: minimalData(),
+            interactionObject: PhotoStrip,
         });
 
         // 3 photos: screenshot-1.png, nested-screenshot.png, screenshot-2.png
-        await expect(page.locator('.card-title')).toContainText('Screenshots (3)');
+        await actor.attemptsTo(
+            Ensure.that(view.title(), includes('SCREENSHOTS (3)')),
+        );
     });
 
-    it('renders a thumbnail for each screenshot', async ({ mount, page }) => {
-        await mount({
+    it('renders a thumbnail for each screenshot', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'PhotoStrip',
             importPath: './components/scenarios/PhotoStrip',
             props: {
@@ -106,14 +117,16 @@ describe('PhotoStrip', () => {
                 scenarioStartedAt: '2024-06-15T14:30:00.000Z',
             },
             data: minimalData(),
+            interactionObject: PhotoStrip,
         });
 
-        const items = page.locator('.photo-strip-item');
-        await expect(items).toHaveCount(3);
+        await actor.attemptsTo(
+            Ensure.that(view.photoCount(), equals(3)),
+        );
     });
 
-    it('displays the activity name as caption for each photo', async ({ mount, page }) => {
-        await mount({
+    it('displays the activity name as caption for each photo', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'PhotoStrip',
             importPath: './components/scenarios/PhotoStrip',
             props: {
@@ -121,14 +134,16 @@ describe('PhotoStrip', () => {
                 scenarioStartedAt: '2024-06-15T14:30:00.000Z',
             },
             data: minimalData(),
+            interactionObject: PhotoStrip,
         });
 
-        const captions = page.locator('.photo-strip-caption');
-        await expect(captions.first()).toHaveText('Navigate to login page');
+        await actor.attemptsTo(
+            Ensure.that(view.captions(), contain('Navigate to login page')),
+        );
     });
 
-    it('collects photos from nested child activities', async ({ mount, page }) => {
-        await mount({
+    it('collects photos from nested child activities', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'PhotoStrip',
             importPath: './components/scenarios/PhotoStrip',
             props: {
@@ -136,15 +151,17 @@ describe('PhotoStrip', () => {
                 scenarioStartedAt: '2024-06-15T14:30:00.000Z',
             },
             data: minimalData(),
+            interactionObject: PhotoStrip,
         });
 
         // The nested "Enter username" activity has a screenshot
-        const captions = await page.locator('.photo-strip-caption').allTextContents();
-        expect(captions).toContain('Enter username');
+        await actor.attemptsTo(
+            Ensure.that(view.captions(), contain('Enter username')),
+        );
     });
 
-    it('excludes non-.png artifacts', async ({ mount, page }) => {
-        await mount({
+    it('excludes non-.png artifacts', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'PhotoStrip',
             importPath: './components/scenarios/PhotoStrip',
             props: {
@@ -152,15 +169,17 @@ describe('PhotoStrip', () => {
                 scenarioStartedAt: '2024-06-15T14:30:00.000Z',
             },
             data: minimalData(),
+            interactionObject: PhotoStrip,
         });
 
         // The .json artifact from "Click submit" should not appear
-        const captions = await page.locator('.photo-strip-caption').allTextContents();
-        expect(captions).not.toContain('Click submit');
+        await actor.attemptsTo(
+            Ensure.that(view.captions(), not(contain('Click submit'))),
+        );
     });
 
-    it('opens lightbox when clicking a thumbnail', async ({ mount, page }) => {
-        await mount({
+    it('opens lightbox when clicking a thumbnail', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'PhotoStrip',
             importPath: './components/scenarios/PhotoStrip',
             props: {
@@ -168,18 +187,18 @@ describe('PhotoStrip', () => {
                 scenarioStartedAt: '2024-06-15T14:30:00.000Z',
             },
             data: minimalData(),
+            interactionObject: PhotoStrip,
         });
 
-        // Click the first thumbnail image
-        await page.locator('.photo-strip-item img').first().click();
-
-        const lightbox = page.locator('.lightbox-overlay');
-        await expect(lightbox).toBeVisible();
-        await expect(page.locator('.lightbox-caption')).toContainText('Navigate to login page');
+        await actor.attemptsTo(
+            view.openPhoto(0),
+            Ensure.that(view.lightbox.isOpen(), equals(true)),
+            Ensure.that(view.lightbox.caption(), includes('Navigate to login page')),
+        );
     });
 
-    it('lightbox navigates forward with ArrowRight', async ({ mount, page }) => {
-        await mount({
+    it('lightbox navigates forward with ArrowRight', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'PhotoStrip',
             importPath: './components/scenarios/PhotoStrip',
             props: {
@@ -187,19 +206,19 @@ describe('PhotoStrip', () => {
                 scenarioStartedAt: '2024-06-15T14:30:00.000Z',
             },
             data: minimalData(),
+            interactionObject: PhotoStrip,
         });
 
-        // Open lightbox on first photo
-        await page.locator('.photo-strip-item img').first().click();
-        await expect(page.locator('.lightbox-caption')).toContainText('Navigate to login page');
-
-        // Press ArrowRight to go to next
-        await page.keyboard.press('ArrowRight');
-        await expect(page.locator('.lightbox-caption')).toContainText('Fill in credentials');
+        await actor.attemptsTo(
+            view.openPhoto(0),
+            Ensure.that(view.lightbox.caption(), includes('Navigate to login page')),
+            view.lightbox.next(),
+            Ensure.that(view.lightbox.caption(), includes('Fill in credentials')),
+        );
     });
 
-    it('lightbox navigates backward with ArrowLeft', async ({ mount, page }) => {
-        await mount({
+    it('lightbox navigates backward with ArrowLeft', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'PhotoStrip',
             importPath: './components/scenarios/PhotoStrip',
             props: {
@@ -207,19 +226,19 @@ describe('PhotoStrip', () => {
                 scenarioStartedAt: '2024-06-15T14:30:00.000Z',
             },
             data: minimalData(),
+            interactionObject: PhotoStrip,
         });
 
-        // Open lightbox on second photo
-        await page.locator('.photo-strip-item img').nth(1).click();
-        await expect(page.locator('.lightbox-caption')).toContainText('Fill in credentials');
-
-        // Press ArrowLeft to go back
-        await page.keyboard.press('ArrowLeft');
-        await expect(page.locator('.lightbox-caption')).toContainText('Navigate to login page');
+        await actor.attemptsTo(
+            view.openPhoto(1),
+            Ensure.that(view.lightbox.caption(), includes('Fill in credentials')),
+            view.lightbox.prev(),
+            Ensure.that(view.lightbox.caption(), includes('Navigate to login page')),
+        );
     });
 
-    it('lightbox closes on Escape', async ({ mount, page }) => {
-        await mount({
+    it('lightbox closes on Escape', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'PhotoStrip',
             importPath: './components/scenarios/PhotoStrip',
             props: {
@@ -227,17 +246,19 @@ describe('PhotoStrip', () => {
                 scenarioStartedAt: '2024-06-15T14:30:00.000Z',
             },
             data: minimalData(),
+            interactionObject: PhotoStrip,
         });
 
-        await page.locator('.photo-strip-item img').first().click();
-        await expect(page.locator('.lightbox-overlay')).toBeVisible();
-
-        await page.keyboard.press('Escape');
-        await expect(page.locator('.lightbox-overlay')).toHaveCount(0);
+        await actor.attemptsTo(
+            view.openPhoto(0),
+            Ensure.that(view.lightbox.isOpen(), equals(true)),
+            view.lightbox.close(),
+            Ensure.that(view.lightbox.isOpen(), equals(false)),
+        );
     });
 
-    it('lightbox closes when clicking the overlay background', async ({ mount, page }) => {
-        await mount({
+    it('lightbox closes when clicking the overlay background', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'PhotoStrip',
             importPath: './components/scenarios/PhotoStrip',
             props: {
@@ -245,18 +266,19 @@ describe('PhotoStrip', () => {
                 scenarioStartedAt: '2024-06-15T14:30:00.000Z',
             },
             data: minimalData(),
+            interactionObject: PhotoStrip,
         });
 
-        await page.locator('.photo-strip-item img').first().click();
-        await expect(page.locator('.lightbox-overlay')).toBeVisible();
-
-        // Click the overlay itself (not the image)
-        await page.locator('.lightbox-overlay').click({ position: { x: 5, y: 5 } });
-        await expect(page.locator('.lightbox-overlay')).toHaveCount(0);
+        await actor.attemptsTo(
+            view.openPhoto(0),
+            Ensure.that(view.lightbox.isOpen(), equals(true)),
+            view.lightbox.closeByOverlayClick(),
+            Ensure.that(view.lightbox.isOpen(), equals(false)),
+        );
     });
 
-    it('lightbox shows counter indicating position (e.g., 1/3)', async ({ mount, page }) => {
-        await mount({
+    it('lightbox shows counter indicating position (e.g., 1/3)', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'PhotoStrip',
             importPath: './components/scenarios/PhotoStrip',
             props: {
@@ -264,14 +286,17 @@ describe('PhotoStrip', () => {
                 scenarioStartedAt: '2024-06-15T14:30:00.000Z',
             },
             data: minimalData(),
+            interactionObject: PhotoStrip,
         });
 
-        await page.locator('.photo-strip-item img').first().click();
-        await expect(page.locator('.lightbox-caption')).toContainText('1/3');
+        await actor.attemptsTo(
+            view.openPhoto(0),
+            Ensure.that(view.lightbox.counter(), includes('1/3')),
+        );
     });
 
-    it('lightbox hides previous nav button on first photo', async ({ mount, page }) => {
-        await mount({
+    it('lightbox hides previous nav button on first photo', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'PhotoStrip',
             importPath: './components/scenarios/PhotoStrip',
             props: {
@@ -279,15 +304,18 @@ describe('PhotoStrip', () => {
                 scenarioStartedAt: '2024-06-15T14:30:00.000Z',
             },
             data: minimalData(),
+            interactionObject: PhotoStrip,
         });
 
-        await page.locator('.photo-strip-item img').first().click();
-        await expect(page.locator('.lightbox-prev')).toHaveCount(0);
-        await expect(page.locator('.lightbox-next')).toBeVisible();
+        await actor.attemptsTo(
+            view.openPhoto(0),
+            Ensure.that(view.lightbox.hasPrevButton(), equals(false)),
+            Ensure.that(view.lightbox.hasNextButton(), equals(true)),
+        );
     });
 
-    it('lightbox hides next nav button on last photo', async ({ mount, page }) => {
-        await mount({
+    it('lightbox hides next nav button on last photo', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'PhotoStrip',
             importPath: './components/scenarios/PhotoStrip',
             props: {
@@ -295,10 +323,53 @@ describe('PhotoStrip', () => {
                 scenarioStartedAt: '2024-06-15T14:30:00.000Z',
             },
             data: minimalData(),
+            interactionObject: PhotoStrip,
         });
 
-        await page.locator('.photo-strip-item img').last().click();
-        await expect(page.locator('.lightbox-next')).toHaveCount(0);
-        await expect(page.locator('.lightbox-prev')).toBeVisible();
+        await actor.attemptsTo(
+            view.openPhoto(2),
+            Ensure.that(view.lightbox.hasNextButton(), equals(false)),
+            Ensure.that(view.lightbox.hasPrevButton(), equals(true)),
+        );
+    });
+
+    it('clicking the next button navigates to the next photo', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'PhotoStrip',
+            importPath: './components/scenarios/PhotoStrip',
+            props: {
+                activities: activitiesWithPhotos(),
+                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
+            },
+            data: minimalData(),
+            interactionObject: PhotoStrip,
+        });
+
+        await actor.attemptsTo(
+            view.openPhoto(0),
+            Ensure.that(view.lightbox.caption(), includes('Navigate to login page')),
+            view.lightbox.clickNext(),
+            Ensure.that(view.lightbox.caption(), includes('Fill in credentials')),
+        );
+    });
+
+    it('clicking the previous button navigates to the previous photo', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'PhotoStrip',
+            importPath: './components/scenarios/PhotoStrip',
+            props: {
+                activities: activitiesWithPhotos(),
+                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
+            },
+            data: minimalData(),
+            interactionObject: PhotoStrip,
+        });
+
+        await actor.attemptsTo(
+            view.openPhoto(1),
+            Ensure.that(view.lightbox.caption(), includes('Fill in credentials')),
+            view.lightbox.clickPrev(),
+            Ensure.that(view.lightbox.caption(), includes('Navigate to login page')),
+        );
     });
 });
