@@ -113,21 +113,15 @@ Each requires: component test first → interaction object method → integratio
 
 ## Pending: Component test refactoring to interaction objects
 
-351 lines of raw Playwright `page`/`expect()` across 19 component test files should be
-converted to use interaction objects. Priority by impact:
+6 highest-impact files converted (phase 9 scope):
+1. ✅ `CapabilitiesView.spec.ts` (64 → 19 raw, 4 intentionally kept for accessibility)
+2. ✅ `ExecutionHistory.spec.ts` (44 → 0 raw)
+3. ✅ `PhotoStrip.spec.ts` (40 → 0 raw)
+4. ✅ `ActivityNode.spec.ts` (27 → 0 raw)
+5. ✅ `SegmentedBar.spec.ts` (22 → 8 raw, 3 intentionally kept for visual rendering)
+6. ✅ `Delta.spec.ts` (20 → 0 raw)
 
-1. `CapabilitiesView.spec.ts` (64 usages) — tree filtering, README display, detail panel, sort options
-2. `ExecutionHistory.spec.ts` (44) — history dot rendering, run navigation
-3. `PhotoStrip.spec.ts` (40) — screenshot display, lightbox interaction
-4. `ActivityNode.spec.ts` (27) — REST panel, expand/collapse
-5. `SegmentedBar.spec.ts` (22) — outcome bar segments
-6. `Delta.spec.ts` (20) — trend delta indicators
-
-Each conversion requires: new IO methods (component test → implementation → integration reuse).
-The chicken-and-egg problem: these ARE the component tests for the IO, so the approach is:
-- Identify what user-observable behaviour the raw test exercises
-- Add the IO method with a NEW component test demonstrating it
-- Keep or remove the old raw test depending on whether it tests something the IO doesn't cover
+Remaining 15 files tracked in **phase 10** (`phase-10-component-test-io-conversion.md`).
 
 
 ## Pending: Review TestRunsView GitLink component test
