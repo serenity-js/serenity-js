@@ -1,108 +1,127 @@
+import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
+
+import { Delta } from '../../../src/serenity/common/Delta.serenity.js';
 import { minimalData } from '../data-factories.js';
-import { describe, expect, it } from '../fixtures.js';
+import { describe, it } from '../fixtures.js';
 
 describe('Delta', () => {
 
-    it('renders nothing when previous is undefined', async ({ mount, page }) => {
-        await mount({
+    it('renders nothing when previous is undefined', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'Delta',
             importPath: './components/common/charts/Delta',
             props: { current: 80, previous: undefined },
             data: minimalData(),
+            interactionObject: Delta,
         });
 
-        await expect(page.locator('.kpi-delta')).toHaveCount(0);
+        await actor.attemptsTo(
+            Ensure.that(view, not(isPresent())),
+        );
     });
 
-    it('shows "no change" when current equals previous', async ({ mount, page }) => {
-        await mount({
+    it('shows "no change" when current equals previous', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'Delta',
             importPath: './components/common/charts/Delta',
             props: { current: 75, previous: 75 },
             data: minimalData(),
+            interactionObject: Delta,
         });
 
-        const delta = page.locator('.kpi-delta');
-        await expect(delta).toHaveText('— no change');
-        await expect(delta).toHaveClass(/kpi-delta--neutral/);
+        await actor.attemptsTo(
+            Ensure.that(view.text(), equals('— no change')),
+            Ensure.that(view.sentiment(), equals('neutral')),
+        );
     });
 
-    it('shows upward arrow with positive class when value increases', async ({ mount, page }) => {
-        await mount({
+    it('shows upward arrow with positive class when value increases', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'Delta',
             importPath: './components/common/charts/Delta',
             props: { current: 85, previous: 70 },
             data: minimalData(),
+            interactionObject: Delta,
         });
 
-        const delta = page.locator('.kpi-delta');
-        await expect(delta).toContainText('↑ 15');
-        await expect(delta).toHaveClass(/kpi-delta--positive/);
+        await actor.attemptsTo(
+            Ensure.that(view.text(), equals('↑ 15')),
+            Ensure.that(view.sentiment(), equals('positive')),
+        );
     });
 
-    it('shows downward arrow with negative class when value decreases', async ({ mount, page }) => {
-        await mount({
+    it('shows downward arrow with negative class when value decreases', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'Delta',
             importPath: './components/common/charts/Delta',
             props: { current: 60, previous: 80 },
             data: minimalData(),
+            interactionObject: Delta,
         });
 
-        const delta = page.locator('.kpi-delta');
-        await expect(delta).toContainText('↓ 20');
-        await expect(delta).toHaveClass(/kpi-delta--negative/);
+        await actor.attemptsTo(
+            Ensure.that(view.text(), equals('↓ 20')),
+            Ensure.that(view.sentiment(), equals('negative')),
+        );
     });
 
-    it('inverts polarity when invert is true (increase = negative)', async ({ mount, page }) => {
-        await mount({
+    it('inverts polarity when invert is true (increase = negative)', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'Delta',
             importPath: './components/common/charts/Delta',
             props: { current: 5, previous: 2, invert: true },
             data: minimalData(),
+            interactionObject: Delta,
         });
 
-        // More failures = bad, so increase should show as negative
-        const delta = page.locator('.kpi-delta');
-        await expect(delta).toContainText('↓ 3');
-        await expect(delta).toHaveClass(/kpi-delta--negative/);
+        await actor.attemptsTo(
+            Ensure.that(view.text(), equals('↓ 3')),
+            Ensure.that(view.sentiment(), equals('negative')),
+        );
     });
 
-    it('inverts polarity when invert is true (decrease = positive)', async ({ mount, page }) => {
-        await mount({
+    it('inverts polarity when invert is true (decrease = positive)', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'Delta',
             importPath: './components/common/charts/Delta',
             props: { current: 1, previous: 4, invert: true },
             data: minimalData(),
+            interactionObject: Delta,
         });
 
-        // Fewer failures = good, so decrease should show as positive
-        const delta = page.locator('.kpi-delta');
-        await expect(delta).toContainText('↑ 3');
-        await expect(delta).toHaveClass(/kpi-delta--positive/);
+        await actor.attemptsTo(
+            Ensure.that(view.text(), equals('↑ 3')),
+            Ensure.that(view.sentiment(), equals('positive')),
+        );
     });
 
-    it('appends suffix to the displayed value', async ({ mount, page }) => {
-        await mount({
+    it('appends suffix to the displayed value', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'Delta',
             importPath: './components/common/charts/Delta',
             props: { current: 90, previous: 85, suffix: '%' },
             data: minimalData(),
+            interactionObject: Delta,
         });
 
-        const delta = page.locator('.kpi-delta');
-        await expect(delta).toContainText('↑ 5%');
+        await actor.attemptsTo(
+            Ensure.that(view.text(), equals('↑ 5%')),
+            Ensure.that(view.sentiment(), equals('positive')),
+        );
     });
 
-    it('displays absolute difference regardless of direction', async ({ mount, page }) => {
-        await mount({
+    it('displays absolute difference regardless of direction', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'Delta',
             importPath: './components/common/charts/Delta',
             props: { current: 10, previous: 25 },
             data: minimalData(),
+            interactionObject: Delta,
         });
 
-        const delta = page.locator('.kpi-delta');
-        // Should show 15, not -15
-        await expect(delta).toContainText('↓ 15');
+        await actor.attemptsTo(
+            Ensure.that(view.text(), equals('↓ 15')),
+            Ensure.that(view.sentiment(), equals('negative')),
+        );
     });
 });
