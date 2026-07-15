@@ -2,7 +2,7 @@ import { Ensure, equals, includes } from '@serenity-js/assertions';
 
 import { SystemContextView } from '../../../src/serenity/about/SystemContextView.serenity.js';
 import { minimalData } from '../data-factories.js';
-import { describe, expect, it } from '../fixtures.js';
+import { describe, it } from '../fixtures.js';
 
 describe('SystemContextView', () => {
 
@@ -114,15 +114,17 @@ describe('SystemContextView', () => {
         );
     });
 
-    it('shows placeholder when systemContext is missing', async ({ mount, page }) => {
-        await mount({
+    it('shows placeholder when systemContext is missing', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'SystemContextView',
             importPath: './components/about/SystemContextView',
             data: { ...minimalData(), systemContext: undefined },
+            interactionObject: SystemContextView,
         });
 
-        await expect(page.locator('.placeholder-view')).toBeVisible();
-        await expect(page.locator('body')).toContainText('not yet available');
+        await actor.attemptsTo(
+            Ensure.that(view.bodyText(), includes('not yet available')),
+        );
     });
 
     it('does not show CI section when ci is null', async ({ mount, actor }) => {

@@ -1,3 +1,9 @@
+/*
+ * Implementation contracts: these tests verify that ANSI SGR escape sequences
+ * are correctly converted to <span class="ansi-*"> elements with the right CSS
+ * class names and structure. This is a rendering contract — not user-observable
+ * behaviour in the interaction object sense.
+ */
 import { minimalData } from '../data-factories.js';
 import { describe, expect, it } from '../fixtures.js';
 

@@ -79,4 +79,55 @@ Same as phase 9 — one file at a time, verify after each:
 
 ## Status
 
-Not started.
+✅ **Complete** — all user-behaviour tests converted, implementation contract tests documented.
+
+### Converted files (9 items)
+
+| # | File | Result |
+|---|------|--------|
+| 10.1 | DeepLinking.spec.ts | ✅ 6 tests converted to IO (ScenarioDetailView + ExecuteScript for URL hash) |
+| 10.2 | HistoricalBanner.spec.ts | ✅ 6 IO tests + 2 kept raw (callback wiring, CSS class) |
+| 10.3 | TagsView.spec.ts | ✅ 4 IO tests + 1 kept raw (CSS colour gradients) |
+| 10.4 | ErrorsView.spec.ts | ✅ 9 IO tests (all converted) |
+| 10.5 | ScenariosView.spec.ts | ✅ 3 converted + 1 kept raw (ARIA accessibility) |
+| 10.6 | ScenarioDetailView.spec.ts | ✅ 7 per-run retry tab tests converted to IO |
+| 10.7 | TestRunsView.spec.ts | ✅ 3 converted (including GitLink branch/commit links) |
+| 10.8 | AboutView.spec.ts | ✅ 3 converted to IO |
+| 10.9 | ScenarioRowMobile.spec.ts | Kept raw (CSS layout + viewport mechanics) — documented |
+
+### Also converted (minimal stragglers)
+- ConsistencyView.spec.ts — 1 placeholder test converted
+- SystemContextView.spec.ts — 1 placeholder test converted
+
+### Implementation contract tests (documented, kept raw)
+
+All have explanatory comments at the top of the file or describe block:
+
+| File | Raw `expect()` | Reason |
+|------|:-:|---|
+| AnsiColours.spec.ts | 13 | ANSI→HTML colour rendering |
+| CapabilitiesView.spec.ts | 11 | ARIA roles, tabindex, keyboard |
+| DarkMode.spec.ts | 8 | CSS custom property theming |
+| SegmentedBar.spec.ts | 5 | CSS heights, colours, widths |
+| HistoricalBanner.spec.ts | 4 | Callback wiring, CSS class |
+| ScenarioRowMobile.spec.ts | 3 | CSS layout, click target mechanics |
+| ScenariosView.spec.ts | 3 | ARIA attributes (aria-live) |
+| TagsView.spec.ts | 2 | CSS pass/fail colour gradients |
+
+### New IOs created
+- `HistoricalBanner` — `src/serenity/common/HistoricalBanner.serenity.ts`
+
+### Existing IOs extended
+- `ScenarioDetailView` — `retryTabCount()`, `activeAttemptLabel()`, `videoSource()`, `hasVideo()`, `openPhotoAt()`, `metaText()`, `activityTreeText()`, `firstRetryTabLabel()`, `lastRetryTabLabel()`
+- `ScenariosView` — `runSelectorIsPresent()`
+- `TagsView` — `tagNames()`, `groupHeadings()`, `tagCardText()`
+- `ErrorsView` — `bodyText()`, `errorGroupTextFor()`, `errorGroupCount()`, `clickFirstErrorGroup()`, `clickErrorGroupContaining()`
+- `TestRunsView` — `bodyText()`, `branchLinkText()`, `branchLinkHref()`, `commitLinkText()`, `commitLinkHref()`
+- `AboutView` — `bodyText()`, `hasLinkTo()`
+- `ConsistencyView` — `bodyText()`
+- `SystemContextView` — `bodyText()`
+
+### Verification
+- 518 component tests pass (0 failures)
+- 49 raw `expect()` calls remain across 8 files (all implementation contracts)
+- No raw `expect()` in tests exercising user-observable behaviour

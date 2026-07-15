@@ -71,4 +71,7 @@ export class SystemContextView<NET> extends InteractionObject<NET> {
         Task.where('#actor opens the System Context view',
             this.navigation.openView('System'),
         );
+
+    bodyText = (): QuestionAdapter<string> =>
+        Text.of(this.rootElement).describedAs('system context view text');
 }

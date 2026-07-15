@@ -1,4 +1,4 @@
-import type { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
+import type { Question, QuestionAdapter } from '@serenity-js/core';
 import { Task } from '@serenity-js/core';
 import type { PageElement } from '@serenity-js/web';
 import { By, Click, Text } from '@serenity-js/web';
@@ -22,7 +22,7 @@ export class ActivityNode<NET> extends InteractionObject<NET> {
 
     readonly restPanel: RestQueryPanel<NET>;
 
-    constructor(rootElement: Answerable<PageElement<NET>>) {
+    constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
         super(rootElement);
         this.restPanel = new RestQueryPanel(this.restQueryPanelElement());
     }

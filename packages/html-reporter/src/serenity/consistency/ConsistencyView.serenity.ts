@@ -61,4 +61,7 @@ export class ConsistencyView<NET> extends InteractionObject<NET> {
         Task.where('#actor opens the Consistency view',
             this.navigation.openView('Consistency'),
         );
+
+    bodyText = (): QuestionAdapter<string> =>
+        Text.of(this.rootElement).describedAs('consistency view text');
 }

@@ -1,3 +1,8 @@
+/*
+ * Implementation contracts: these tests verify CSS custom property values change
+ * correctly on theme toggle (data-theme="dark" vs "light"). This tests the theming
+ * infrastructure — computed styles, not user-observable behaviour.
+ */
 import { minimalData } from '../data-factories.js';
 import { describe, expect, it } from '../fixtures.js';
 

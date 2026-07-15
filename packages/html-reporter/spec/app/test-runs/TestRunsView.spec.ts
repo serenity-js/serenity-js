@@ -1,23 +1,20 @@
-import { Ensure, equals } from '@serenity-js/assertions';
-import { By, PageElement } from '@serenity-js/web';
+import { Ensure, equals, includes } from '@serenity-js/assertions';
 
 import { TestRunsView } from '../../../src/serenity/test-runs/TestRunsView.serenity.js';
 import { minimalData } from '../data-factories.js';
-import { describe, expect, it } from '../fixtures.js';
+import { describe, it } from '../fixtures.js';
 
-describe('TestRunsView interaction object', () => {
+describe('TestRunsView', () => {
 
     it('reports the number of test run rows', async ({ mount, actor }) => {
-        await mount({
+        const view = await mount({
             component: 'TestRunsView',
             importPath: './components/test-runs/TestRunsView',
             props: { onNavigate: () => {} },
             data: minimalData(),
             chartJs: true,
+            interactionObject: TestRunsView,
         });
-
-        const rootElement = PageElement.located(By.css('#app')).describedAs('test runs view');
-        const view = new TestRunsView(rootElement);
 
         await actor.attemptsTo(
             Ensure.that(view.runCount(), equals(2)),
@@ -54,25 +51,25 @@ describe('TestRunsView interaction object', () => {
         );
         // Test passes if the run was found and clicked without throwing
     });
-});
 
-describe('TestRunsView', () => {
-
-    it('renders trend chart and run list', async ({ mount, page }) => {
-        await mount({
+    it('renders trend chart and run list', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'TestRunsView',
             importPath: './components/test-runs/TestRunsView',
             props: { onNavigate: () => {} },
             data: minimalData(),
             chartJs: true,
+            interactionObject: TestRunsView,
         });
 
-        await expect(page.locator('body')).toContainText('Trend');
-        await expect(page.locator('body')).toContainText('Test Run History');
+        await actor.attemptsTo(
+            Ensure.that(view.bodyText(), includes('TREND')),
+            Ensure.that(view.bodyText(), includes('TEST RUN HISTORY')),
+        );
     });
 
-    it('shows a row for each run in history', async ({ mount, page }) => {
-        await mount({
+    it('shows a row for each run in history', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'TestRunsView',
             importPath: './components/test-runs/TestRunsView',
             props: { onNavigate: () => {} },
@@ -84,17 +81,16 @@ describe('TestRunsView', () => {
                 ],
             }),
             chartJs: true,
+            interactionObject: TestRunsView,
         });
 
-        const rows = page.locator('.scenario-list .scenario-item');
-        await expect(rows).toHaveCount(3);
+        await actor.attemptsTo(
+            Ensure.that(view.runCount(), equals(3)),
+        );
     });
-});
 
-describe('TestRunsView GitLink', () => {
-
-    it('renders branch and commit as links to the repository', async ({ mount, page }) => {
-        await mount({
+    it('renders branch and commit as links to the repository', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'TestRunsView',
             importPath: './components/test-runs/TestRunsView',
             props: { onNavigate: () => {} },
@@ -111,14 +107,14 @@ describe('TestRunsView GitLink', () => {
                 ],
             }),
             chartJs: true,
+            interactionObject: TestRunsView,
         });
 
-        const branchLink = page.locator('a[href*="/tree/main"]');
-        await expect(branchLink).toBeVisible();
-        await expect(branchLink).toHaveText('main');
-
-        const commitLink = page.locator('a[href*="/commit/abc1234"]');
-        await expect(commitLink).toBeVisible();
-        await expect(commitLink).toHaveText('abc1234');
+        await actor.attemptsTo(
+            Ensure.that(view.branchLinkText(), equals('main')),
+            Ensure.that(view.branchLinkHref(), includes('/tree/main')),
+            Ensure.that(view.commitLinkText(), equals('abc1234')),
+            Ensure.that(view.commitLinkHref(), includes('/commit/abc1234')),
+        );
     });
 });

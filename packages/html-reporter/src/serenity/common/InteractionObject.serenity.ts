@@ -6,7 +6,7 @@ export class InteractionObject<NET> implements Optional {
     }
 
     isPresent(): Answerable<boolean> {
-        return (this.rootElement as PageElement<NET>).isPresent();
+        return this.rootElement.isPresent();
     }
 
     protected child(selector: Answerable<Selector>): QuestionAdapter<PageElement> {

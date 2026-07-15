@@ -1,8 +1,8 @@
-import { Ensure, equals } from '@serenity-js/assertions';
+import { Ensure, equals, includes } from '@serenity-js/assertions';
 
 import { ScenarioDetailView } from '../../../src/serenity/scenarios/ScenarioDetailView.serenity.js';
 import { minimalData } from '../data-factories.js';
-import { describe, expect, it } from '../fixtures.js';
+import { describe, it } from '../fixtures.js';
 
 describe('ScenarioDetailView interaction object', () => {
 
@@ -304,91 +304,109 @@ describe('ScenarioDetailView — per-run retry tabs', () => {
 
     describe('when viewing the latest run (retried)', () => {
 
-        it('shows attempt tabs', async ({ mount, page }) => {
-            await mount({
+        it('shows attempt tabs', async ({ mount, actor }) => {
+            const view = await mount({
                 component: 'ScenarioDetailView',
                 importPath: './components/scenarios/ScenarioDetailView',
                 props: { scenarioId: SCENARIO_ID, onNavigate: () => {} },
                 data: scenarioWithMixedRetryHistory(),
+                interactionObject: ScenarioDetailView,
             });
 
-            await expect(page.locator('.retry-tab')).toHaveCount(3);
-            await expect(page.locator('.retry-tab').first()).toContainText('Attempt 1');
-            await expect(page.locator('.retry-tab').last()).toContainText('Attempt 3');
+            await actor.attemptsTo(
+                Ensure.that(view.retryTabCount(), equals(3)),
+                Ensure.that(view.firstRetryTabLabel(), includes('Attempt 1')),
+                Ensure.that(view.lastRetryTabLabel(), includes('Attempt 3')),
+            );
         });
 
-        it('displays the scenario duration', async ({ mount, page }) => {
-            await mount({
+        it('displays the scenario duration', async ({ mount, actor }) => {
+            const view = await mount({
                 component: 'ScenarioDetailView',
                 importPath: './components/scenarios/ScenarioDetailView',
                 props: { scenarioId: SCENARIO_ID, onNavigate: () => {} },
                 data: scenarioWithMixedRetryHistory(),
+                interactionObject: ScenarioDetailView,
             });
 
-            await expect(page.locator('.scenario-detail-meta')).toContainText('150ms');
+            await actor.attemptsTo(
+                Ensure.that(view.metaText(), includes('150ms')),
+            );
         });
 
-        it('switches activity tree when clicking attempt tabs', async ({ mount, page }) => {
-            await mount({
+        it('switches activity tree when clicking attempt tabs', async ({ mount, actor }) => {
+            const view = await mount({
                 component: 'ScenarioDetailView',
                 importPath: './components/scenarios/ScenarioDetailView',
                 props: { scenarioId: SCENARIO_ID, onNavigate: () => {} },
                 data: scenarioWithMixedRetryHistory(),
+                interactionObject: ScenarioDetailView,
             });
 
-            // Starts with attempt 1
-            await expect(page.locator('.activity-tree')).toContainText('attempt 1 step');
-
-            // Click attempt 3 tab
-            await page.locator('.retry-tab').last().click();
-            await expect(page.locator('.activity-tree')).toContainText('attempt 3 step');
+            await actor.attemptsTo(
+                Ensure.that(view.activityTreeText(), includes('attempt 1 step')),
+                view.switchToAttempt(3),
+                Ensure.that(view.activityTreeText(), includes('attempt 3 step')),
+            );
         });
     });
 
     describe('when viewing a historical run that was not retried', () => {
 
-        it('hides attempt tabs', async ({ mount, page }) => {
-            await mount({
+        it('hides attempt tabs', async ({ mount, actor }) => {
+            const view = await mount({
                 component: 'ScenarioDetailView',
                 importPath: './components/scenarios/ScenarioDetailView',
                 props: { scenarioId: `${SCENARIO_ID}?run=${RUN_1_TIMESTAMP}`, onNavigate: () => {} },
                 data: scenarioWithMixedRetryHistory(),
+                interactionObject: ScenarioDetailView,
             });
 
-            await expect(page.locator('.retry-tab')).toHaveCount(0);
+            await actor.attemptsTo(
+                Ensure.that(view.retryTabCount(), equals(0)),
+            );
         });
 
-        it('displays the historical run duration', async ({ mount, page }) => {
-            await mount({
+        it('displays the historical run duration', async ({ mount, actor }) => {
+            const view = await mount({
                 component: 'ScenarioDetailView',
                 importPath: './components/scenarios/ScenarioDetailView',
                 props: { scenarioId: `${SCENARIO_ID}?run=${RUN_1_TIMESTAMP}`, onNavigate: () => {} },
                 data: scenarioWithMixedRetryHistory(),
+                interactionObject: ScenarioDetailView,
             });
 
-            await expect(page.locator('.scenario-detail-meta')).toContainText('200ms');
+            await actor.attemptsTo(
+                Ensure.that(view.metaText(), includes('200ms')),
+            );
         });
 
-        it('shows activities from the historical run', async ({ mount, page }) => {
-            await mount({
+        it('shows activities from the historical run', async ({ mount, actor }) => {
+            const view = await mount({
                 component: 'ScenarioDetailView',
                 importPath: './components/scenarios/ScenarioDetailView',
                 props: { scenarioId: `${SCENARIO_ID}?run=${RUN_1_TIMESTAMP}`, onNavigate: () => {} },
                 data: scenarioWithMixedRetryHistory(),
+                interactionObject: ScenarioDetailView,
             });
 
-            await expect(page.locator('.activity-tree')).toContainText('step from run 1');
+            await actor.attemptsTo(
+                Ensure.that(view.activityTreeText(), includes('step from run 1')),
+            );
         });
 
-        it('shows error block from the historical run', async ({ mount, page }) => {
-            await mount({
+        it('shows error block from the historical run', async ({ mount, actor }) => {
+            const view = await mount({
                 component: 'ScenarioDetailView',
                 importPath: './components/scenarios/ScenarioDetailView',
                 props: { scenarioId: `${SCENARIO_ID}?run=${RUN_1_TIMESTAMP}`, onNavigate: () => {} },
                 data: scenarioWithMixedRetryHistory(),
+                interactionObject: ScenarioDetailView,
             });
 
-            await expect(page.locator('.error-block')).toContainText('run 1 failed');
+            await actor.attemptsTo(
+                Ensure.that(view.errorBlock().message(), includes('run 1 failed')),
+            );
         });
     });
 });

@@ -1,9 +1,9 @@
-import { Ensure, equals } from '@serenity-js/assertions';
+import { Ensure, equals, includes } from '@serenity-js/assertions';
 
 import { AboutView } from '../../../src/serenity/about/AboutView.serenity.js';
-import { describe, expect, it } from '../fixtures.js';
+import { describe, it } from '../fixtures.js';
 
-describe('AboutView interaction object', () => {
+describe('AboutView', () => {
 
     it('renders the about content', async ({ mount, actor }) => {
         const view = await mount({
@@ -16,40 +16,46 @@ describe('AboutView interaction object', () => {
             Ensure.that(view.isVisible(), equals(true)),
         );
     });
-});
 
-describe('AboutView', () => {
-
-    it('displays confidence scoring explanation', async ({ mount, page }) => {
-        await mount({
+    it('displays confidence scoring explanation', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'AboutView',
             importPath: './components/about/AboutView',
+            interactionObject: AboutView,
         });
 
-        await expect(page.locator('body')).toContainText('Confidence scoring');
-        await expect(page.locator('body')).toContainText('Pass Rate');
-        await expect(page.locator('body')).toContainText('Consistency');
-        await expect(page.locator('body')).toContainText('Completeness');
+        await actor.attemptsTo(
+            Ensure.that(view.bodyText(), includes('Confidence scoring')),
+            Ensure.that(view.bodyText(), includes('Pass Rate')),
+            Ensure.that(view.bodyText(), includes('Consistency')),
+            Ensure.that(view.bodyText(), includes('Completeness')),
+        );
     });
 
-    it('displays glossary section', async ({ mount, page }) => {
-        await mount({
+    it('displays glossary section', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'AboutView',
             importPath: './components/about/AboutView',
+            interactionObject: AboutView,
         });
 
-        await expect(page.locator('body')).toContainText('Glossary');
-        await expect(page.locator('body')).toContainText('Actor');
-        await expect(page.locator('body')).toContainText('Ability');
-        await expect(page.locator('body')).toContainText('Task');
+        await actor.attemptsTo(
+            Ensure.that(view.bodyText(), includes('Glossary')),
+            Ensure.that(view.bodyText(), includes('Actor')),
+            Ensure.that(view.bodyText(), includes('Ability')),
+            Ensure.that(view.bodyText(), includes('Task')),
+        );
     });
 
-    it('links to serenity-js.org', async ({ mount, page }) => {
-        await mount({
+    it('links to serenity-js.org', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'AboutView',
             importPath: './components/about/AboutView',
+            interactionObject: AboutView,
         });
 
-        await expect(page.locator('a[href="https://serenity-js.org"]')).toBeVisible();
+        await actor.attemptsTo(
+            Ensure.that(view.hasLinkTo('https://serenity-js.org'), equals(true)),
+        );
     });
 });

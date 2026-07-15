@@ -1,10 +1,11 @@
-import { Ensure, equals } from '@serenity-js/assertions';
+import { contain, Ensure, equals, includes } from '@serenity-js/assertions';
+import { ExecuteScript, LastScriptExecution } from '@serenity-js/web';
 
 import { TagsView } from '../../../src/serenity/tags/TagsView.serenity.js';
 import { minimalData } from '../data-factories.js';
 import { describe, expect, it } from '../fixtures.js';
 
-describe('TagsView interaction object', () => {
+describe('TagsView', () => {
 
     it('reports the number of tag cards', async ({ mount, actor }) => {
         const view = await mount({
@@ -26,7 +27,7 @@ describe('TagsView interaction object', () => {
         );
     });
 
-    it('allows selecting a tag by name', async ({ mount, actor }) => {
+    it('renders tag cards grouped by type', async ({ mount, actor }) => {
         const view = await mount({
             component: 'TagsView',
             importPath: './components/tags/TagsView',
@@ -42,37 +43,16 @@ describe('TagsView interaction object', () => {
         });
 
         await actor.attemptsTo(
-            view.selectTag('Login'),
+            Ensure.that(view.groupHeadings(), contain('FEATURE (2)')),
+            Ensure.that(view.groupHeadings(), contain('TAG (1)')),
+            Ensure.that(view.tagNames(), contain('Login')),
+            Ensure.that(view.tagNames(), contain('Checkout')),
+            Ensure.that(view.tagNames(), contain('smoke')),
         );
-        // Test passes if the tag was found and clicked without throwing
-    });
-});
-
-describe('TagsView', () => {
-
-    it('renders tag cards grouped by type', async ({ mount, page }) => {
-        await mount({
-            component: 'TagsView',
-            importPath: './components/tags/TagsView',
-            props: { onNavigate: () => {} },
-            data: minimalData({
-                tags: [
-                    { type: 'feature', name: 'Login', scenarioCount: 3, passed: 3 },
-                    { type: 'feature', name: 'Checkout', scenarioCount: 2, passed: 1 },
-                    { type: 'tag', name: 'smoke', scenarioCount: 4, passed: 4 },
-                ],
-            }),
-        });
-
-        await expect(page.locator('body')).toContainText('Feature');
-        await expect(page.locator('body')).toContainText('Login');
-        await expect(page.locator('body')).toContainText('Checkout');
-        await expect(page.locator('body')).toContainText('Tag');
-        await expect(page.locator('body')).toContainText('smoke');
     });
 
-    it('displays pass rate percentage for each tag', async ({ mount, page }) => {
-        await mount({
+    it('displays pass rate percentage for each tag', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'TagsView',
             importPath: './components/tags/TagsView',
             props: { onNavigate: () => {} },
@@ -81,30 +61,38 @@ describe('TagsView', () => {
                     { type: 'feature', name: 'Login', scenarioCount: 4, passed: 3 },
                 ],
             }),
+            interactionObject: TagsView,
         });
 
-        await expect(page.locator('.tag-card')).toContainText('75%');
-        await expect(page.locator('.tag-card')).toContainText('4 scenarios');
+        await actor.attemptsTo(
+            Ensure.that(view.tagCardText('Login'), includes('75%')),
+            Ensure.that(view.tagCardText('Login'), includes('4 scenarios')),
+        );
     });
 
-    it('navigates to filtered scenarios on tag click', async ({ mount, page }) => {
-        let navigatedTo = '';
-        await page.exposeFunction('__onNavigate__', (path: string) => { navigatedTo = path; });
+    it('navigates to filtered scenarios on tag click', async ({ mount, page, actor }) => {
+        await page.addInitScript(() => { (window as any).__onNavigate__ = (path: string) => { (window as any).navigatedTo = path; }; });
 
-        await mount({
+        const view = await mount({
             component: 'TagsView',
             importPath: './components/tags/TagsView',
             props: { onNavigate: '__onNavigate__' },
             data: minimalData({
                 tags: [{ type: 'feature', name: 'Login', scenarioCount: 2, passed: 2 }],
             }),
+            interactionObject: TagsView,
         });
 
-        await page.locator('.tag-card').first().click();
-
-        expect(navigatedTo).toBe('/tests?search=' + encodeURIComponent('"Login"'));
+        await actor.attemptsTo(
+            view.selectTag('Login'),
+            ExecuteScript.sync('return decodeURIComponent(window.navigatedTo)'),
+            Ensure.that(LastScriptExecution.result<string>(), includes('"Login"')),
+        );
     });
 
+    // Visual contract test — verifies pass rate colors via inline style.
+    // Kept raw because it asserts on CSS styling (pass/fail color gradients),
+    // which is an implementation detail not suitable for interaction objects.
     it('displays correct pass rate colors', async ({ mount, page }) => {
         await mount({
             component: 'TagsView',

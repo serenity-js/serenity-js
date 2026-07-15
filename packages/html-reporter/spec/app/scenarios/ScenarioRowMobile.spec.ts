@@ -2,6 +2,12 @@ import { ScenariosView } from '../../../src/serenity/scenarios/ScenariosView.ser
 import { minimalData } from '../data-factories.js';
 import { describe, expect, it } from '../fixtures.js';
 
+/*
+ * Implementation contracts: these tests verify CSS layout behaviour (single-row tags,
+ * bounding box height) and click-target mechanics at specific viewport sizes. They
+ * require raw Playwright for viewport manipulation, bounding box measurement, and
+ * navigation callback capture — none of which map to user-observable IO behaviour.
+ */
 describe('ScenariosView mobile', () => {
 
     const scenarioWithManyTags = minimalData({

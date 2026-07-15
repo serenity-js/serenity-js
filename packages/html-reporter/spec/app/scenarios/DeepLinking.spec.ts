@@ -1,5 +1,9 @@
+import { Ensure, equals, includes } from '@serenity-js/assertions';
+import { ExecuteScript, LastScriptExecution } from '@serenity-js/web';
+
+import { ScenarioDetailView } from '../../../src/serenity/scenarios/ScenarioDetailView.serenity.js';
 import { minimalData } from '../data-factories.js';
-import { describe, expect, it } from '../fixtures.js';
+import { describe, it } from '../fixtures.js';
 
 /**
  * Builds fixture data for a retried scenario with videos per attempt.
@@ -44,61 +48,67 @@ const SCENARIO_ID = 'spec/retry.spec.ts:10';
 
 describe('Deep linking — ScenarioDetailView attempts', () => {
 
-    it('pre-selects attempt from ?attempt= URL parameter', async ({ mount, page }) => {
-        await mount({
+    it('pre-selects attempt from ?attempt= URL parameter', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ScenarioDetailView',
             importPath: './components/scenarios/ScenarioDetailView',
             props: { scenarioId: `${SCENARIO_ID}?attempt=2`, onNavigate: '__noop' },
             data: retriedScenarioData(),
+            interactionObject: ScenarioDetailView,
         });
 
-        const tabs = page.locator('.retry-tab');
-        await expect(tabs).toHaveCount(3);
-        await expect(tabs.nth(1)).toHaveClass(/active/);
+        await actor.attemptsTo(
+            Ensure.that(view.retryTabCount(), equals(3)),
+            Ensure.that(view.activeAttemptLabel(), includes('Attempt 2')),
+        );
     });
 
-    it('defaults to first attempt when no ?attempt= parameter', async ({ mount, page }) => {
-        await mount({
+    it('defaults to first attempt when no ?attempt= parameter', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ScenarioDetailView',
             importPath: './components/scenarios/ScenarioDetailView',
             props: { scenarioId: SCENARIO_ID, onNavigate: '__noop' },
             data: retriedScenarioData(),
+            interactionObject: ScenarioDetailView,
         });
 
-        const tabs = page.locator('.retry-tab');
-        await expect(tabs).toHaveCount(3);
-        await expect(tabs.nth(0)).toHaveClass(/active/);
+        await actor.attemptsTo(
+            Ensure.that(view.retryTabCount(), equals(3)),
+            Ensure.that(view.activeAttemptLabel(), includes('Attempt 1')),
+        );
     });
 
-    it('updates URL hash with ?attempt= when clicking an attempt tab', async ({ mount, page }) => {
-        await mount({
+    it('updates URL hash with ?attempt= when clicking an attempt tab', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ScenarioDetailView',
             importPath: './components/scenarios/ScenarioDetailView',
             props: { scenarioId: SCENARIO_ID, onNavigate: '__noop' },
             data: retriedScenarioData(),
+            interactionObject: ScenarioDetailView,
         });
 
-        const tabs = page.locator('.retry-tab');
-        await tabs.nth(2).click();
-
-        const hash = await page.evaluate(() => window.location.hash);
-        expect(hash).toContain('attempt=3');
+        await actor.attemptsTo(
+            view.switchToAttempt(3),
+            ExecuteScript.sync('return window.location.hash'),
+            Ensure.that(LastScriptExecution.result<string>(), includes('attempt=3')),
+        );
     });
 
-    it('shows the correct video for the selected attempt', async ({ mount, page }) => {
-        await mount({
+    it('shows the correct video for the selected attempt', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ScenarioDetailView',
             importPath: './components/scenarios/ScenarioDetailView',
             props: { scenarioId: `${SCENARIO_ID}?attempt=2`, onNavigate: '__noop' },
             data: retriedScenarioData(),
+            interactionObject: ScenarioDetailView,
         });
 
-        const videoSource = page.locator('video source');
-        await expect(videoSource).toHaveAttribute('src', 'test-runs/run-1/video-2.webm');
+        await actor.attemptsTo(
+            Ensure.that(view.videoSource(), equals('test-runs/run-1/video-2.webm')),
+        );
     });
 
-    it('hides video section for attempts that have no recording', async ({ mount, page }) => {
-        // Simulate video: 'on-first-retry' — only attempt 2 has a video
+    it('hides video section for attempts that have no recording', async ({ mount, actor }) => {
         const attemptsWithPartialVideo = [
             { attemptNumber: 1, outcome: 'FAILURE', duration: 200, activities: [{ name: 'step 1', outcome: 'FAILURE', duration: 200, children: [] }], error: { name: 'Error', message: 'attempt 1 failed' } },
             { attemptNumber: 2, outcome: 'FAILURE', duration: 180, activities: [{ name: 'step 2', outcome: 'FAILURE', duration: 180, children: [] }], error: { name: 'Error', message: 'attempt 2 failed' }, video: 'test-runs/run-1/video-retry.webm' },
@@ -124,16 +134,17 @@ describe('Deep linking — ScenarioDetailView attempts', () => {
             }],
         });
 
-        // Select attempt 1, which has no video
-        await mount({
+        const view = await mount({
             component: 'ScenarioDetailView',
             importPath: './components/scenarios/ScenarioDetailView',
             props: { scenarioId: `${SCENARIO_ID}?attempt=1`, onNavigate: '__noop' },
             data,
+            interactionObject: ScenarioDetailView,
         });
 
-        const video = page.locator('video');
-        await expect(video).toHaveCount(0);
+        await actor.attemptsTo(
+            Ensure.that(view.hasVideo(), equals(false)),
+        );
     });
 });
 
@@ -153,21 +164,20 @@ describe('Deep linking — PhotoStrip', () => {
         }],
     });
 
-    it('updates URL hash with ?photo= when clicking a photo thumbnail', async ({ mount, page }) => {
-        await mount({
+    it('updates URL hash with ?photo= when clicking a photo thumbnail', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ScenarioDetailView',
             importPath: './components/scenarios/ScenarioDetailView',
             props: { scenarioId: 'spec/photos.spec.ts:5', onNavigate: '__noop' },
             data: photoData,
             hash: '/tests/spec/photos.spec.ts:5',
+            interactionObject: ScenarioDetailView,
         });
 
-        // The photo strip renders img elements inside .photo-strip-item divs
-        const img = page.locator('.photo-strip-item img').first();
-        await expect(img).toBeVisible();
-        await img.click();
-
-        const hash = await page.evaluate(() => window.location.hash);
-        expect(hash).toContain('photo=0');
+        await actor.attemptsTo(
+            view.openPhotoAt(0),
+            ExecuteScript.sync('return window.location.hash'),
+            Ensure.that(LastScriptExecution.result<string>(), includes('photo=0')),
+        );
     });
 });

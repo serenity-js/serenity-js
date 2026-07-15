@@ -1,8 +1,9 @@
-import { contain, Ensure, equals, includes } from '@serenity-js/assertions';
+import { contain, Ensure, equals, includes, not } from '@serenity-js/assertions';
+import { ExecuteScript, LastScriptExecution } from '@serenity-js/web';
 
 import { ErrorsView } from '../../../src/serenity/errors/ErrorsView.serenity.js';
 import { minimalData } from '../data-factories.js';
-import { describe, expect, it } from '../fixtures.js';
+import { describe, it } from '../fixtures.js';
 
 function errorsData() {
     return minimalData({
@@ -41,74 +42,104 @@ function errorsData() {
     });
 }
 
+function ungroupedErrorsData() {
+    return minimalData({
+        scenarios: [
+            {
+                name: 'Login fails', category: 'Auth', outcome: 'FAILURE', duration: 50,
+                startedAt: '2024-06-15T14:30:00.000Z',
+                source: { path: 'spec/auth.spec.ts', line: 10 },
+                tags: [], activities: [],
+                executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
+                error: { name: 'AssertionError', message: 'expected true to equal false' },
+            },
+            {
+                name: 'Timeout test', category: 'Suite', outcome: 'FAILURE', duration: 5000,
+                startedAt: '2024-06-15T14:30:00.200Z',
+                source: { path: 'spec/slow.spec.ts', line: 5 },
+                tags: [], activities: [],
+                executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
+                error: { name: 'Error', message: 'timed out after 5000ms' },
+            },
+        ],
+        summary: {
+            title: 'Test', totalScenarios: 2,
+            outcomes: { passed: 0, failed: 2, pending: 0, skipped: 0, compromised: 0, error: 0 },
+            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:05.000Z',
+            duration: 5000, testRunner: 'Mocha',
+        },
+    });
+}
+
 describe('ErrorsView', () => {
 
-    it('groups scenarios with identical error messages', async ({ mount, page }) => {
-        await mount({
+    it('groups scenarios with identical error messages', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ErrorsView',
             importPath: './components/errors/ErrorsView',
             props: { onNavigate: () => {}, route: '#/errors' },
             data: errorsData(),
+            interactionObject: ErrorsView,
         });
 
-        // Should show "(×2)" for the duplicated error message
-        await expect(page.locator('body')).toContainText('(×2)');
-        // Should show "and 1 more" after the first scenario name
-        await expect(page.locator('body')).toContainText('and 1 more');
+        await actor.attemptsTo(
+            Ensure.that(view.bodyText(), includes('(×2)')),
+            Ensure.that(view.bodyText(), includes('and 1 more')),
+        );
     });
 
-    it('navigates to filtered scenarios view when clicking a grouped error', async ({ mount, page }) => {
-        let navigatedTo = '';
-        await page.exposeFunction('__onNavigate__', (path: string) => { navigatedTo = path; });
+    it('navigates to filtered scenarios view when clicking a grouped error', async ({ mount, page, actor }) => {
+        await page.addInitScript(() => { (window as any).__onNavigate__ = (path: string) => { (window as any).navigatedTo = path; }; });
 
-        await mount({
+        const view = await mount({
             component: 'ErrorsView',
             importPath: './components/errors/ErrorsView',
             props: { onNavigate: '__onNavigate__', route: '#/errors' },
             data: errorsData(),
+            interactionObject: ErrorsView,
         });
 
-        // Click the first grouped error row (Login fails + Signup fails share the same error message)
-        await page.locator('.scenario-item').first().click();
-
-        // The component should navigate to a search URL containing the error message
-        expect(navigatedTo).toContain('/tests?search=');
-        expect(decodeURIComponent(navigatedTo)).toContain('expected true to equal false');
+        await actor.attemptsTo(
+            view.clickFirstErrorGroup(),
+            ExecuteScript.sync('return decodeURIComponent(window.navigatedTo || \'\')'),
+            Ensure.that(LastScriptExecution.result<string>(), includes('/tests?search=')),
+            Ensure.that(LastScriptExecution.result<string>(), includes('expected true to equal false')),
+        );
     });
 
-    it('navigates to scenario detail when clicking a unique error', async ({ mount, page }) => {
-        let navigatedTo = '';
-        await page.exposeFunction('__onNavigate__', (path: string) => { navigatedTo = path; });
+    it('navigates to scenario detail when clicking a unique error', async ({ mount, page, actor }) => {
+        await page.addInitScript(() => { (window as any).__onNavigate__ = (path: string) => { (window as any).navigatedTo = path; }; });
 
-        await mount({
+        const view = await mount({
             component: 'ErrorsView',
             importPath: './components/errors/ErrorsView',
             props: { onNavigate: '__onNavigate__', route: '#/errors' },
             data: errorsData(),
+            interactionObject: ErrorsView,
         });
 
-        // Click the unique "timed out" error row
-        await page.locator('.scenario-item', { hasText: 'timed out' }).click();
-
-        // Should navigate to the specific scenario (not a search)
-        expect(decodeURIComponent(navigatedTo)).toContain('spec/slow.spec.ts');
+        await actor.attemptsTo(
+            view.clickErrorGroupContaining('timed out'),
+            ExecuteScript.sync('return decodeURIComponent(window.navigatedTo || \'\')'),
+            Ensure.that(LastScriptExecution.result<string>(), includes('spec/slow.spec.ts')),
+        );
     });
 
-    it('single error row does not show duplicate indicator', async ({ mount, page }) => {
-        await mount({
+    it('single error row does not show duplicate indicator', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ErrorsView',
             importPath: './components/errors/ErrorsView',
             props: { onNavigate: () => {}, route: '#/errors' },
             data: errorsData(),
+            interactionObject: ErrorsView,
         });
 
-        // The timeout error is unique (not grouped), should not show "×"
-        await expect(page.locator('.scenario-item', { hasText: 'timed out' })).not.toContainText('×');
+        await actor.attemptsTo(
+            Ensure.that(view.errorGroupTextFor('Timeout test'), not(includes('×'))),
+        );
     });
 
-    it('shows errors from a historical run when ?run= parameter is set', async ({ mount, page }) => {
-        // Scenario A: passed in latest run (#42), failed in historical run (#41)
-        // Scenario B: failed in latest run (#42), passed in historical run (#41)
+    it('shows errors from a historical run when ?run= parameter is set', async ({ mount, actor }) => {
         const data = minimalData({
             scenarios: [
                 {
@@ -139,21 +170,21 @@ describe('ErrorsView', () => {
             ],
         });
 
-        // View errors from run #41 (historical)
-        await mount({
+        const view = await mount({
             component: 'ErrorsView',
             importPath: './components/errors/ErrorsView',
             props: { onNavigate: () => {}, route: '#/errors?run=2024-06-14T10:00:00.000Z' },
             data,
+            interactionObject: ErrorsView,
         });
 
-        // Should show Scenario A (which failed in run #41)
-        await expect(page.locator('body')).toContainText('historical failure in run 41');
-        // Should NOT show Scenario B (which passed in run #41)
-        await expect(page.locator('body')).not.toContainText('latest failure in run 42');
+        await actor.attemptsTo(
+            Ensure.that(view.bodyText(), includes('historical failure in run 41')),
+            Ensure.that(view.bodyText(), not(includes('latest failure in run 42'))),
+        );
     });
 
-    it('shows "No Errors" when the selected historical run had no failures', async ({ mount, page }) => {
+    it('shows "No Errors" when the selected historical run had no failures', async ({ mount, actor }) => {
         const data = minimalData({
             scenarios: [
                 {
@@ -174,46 +205,17 @@ describe('ErrorsView', () => {
             ],
         });
 
-        // View errors from run #41 (which had no failures)
-        await mount({
+        const view = await mount({
             component: 'ErrorsView',
             importPath: './components/errors/ErrorsView',
             props: { onNavigate: () => {}, route: '#/errors?run=2024-06-14T10:00:00.000Z' },
             data,
+            interactionObject: ErrorsView,
         });
 
-        // Should show the "No Errors" placeholder
-        await expect(page.locator('body')).toContainText('No Errors');
-    });
-});
-
-describe('ErrorsView scenario access', () => {
-
-    const errorsViewData = minimalData({
-        scenarios: [
-            {
-                name: 'Login fails', category: 'Auth', outcome: 'FAILURE', duration: 50,
-                startedAt: '2024-06-15T14:30:00.000Z',
-                source: { path: 'spec/auth.spec.ts', line: 10 },
-                tags: [], activities: [],
-                executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
-                error: { name: 'AssertionError', message: 'expected true to equal false' },
-            },
-            {
-                name: 'Timeout test', category: 'Suite', outcome: 'FAILURE', duration: 5000,
-                startedAt: '2024-06-15T14:30:00.200Z',
-                source: { path: 'spec/slow.spec.ts', line: 5 },
-                tags: [], activities: [],
-                executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
-                error: { name: 'Error', message: 'timed out after 5000ms' },
-            },
-        ],
-        summary: {
-            title: 'Test', totalScenarios: 2,
-            outcomes: { passed: 0, failed: 2, pending: 0, skipped: 0, compromised: 0, error: 0 },
-            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:05.000Z',
-            duration: 5000, testRunner: 'Mocha',
-        },
+        await actor.attemptsTo(
+            Ensure.that(view.bodyText(), includes('No Errors')),
+        );
     });
 
     it('can find a scenario by name', async ({ mount, actor }) => {
@@ -221,7 +223,7 @@ describe('ErrorsView scenario access', () => {
             component: 'ErrorsView',
             importPath: './components/errors/ErrorsView',
             props: { onNavigate: () => {}, route: '/errors' },
-            data: errorsViewData,
+            data: ungroupedErrorsData(),
             interactionObject: ErrorsView,
         });
 
@@ -235,7 +237,7 @@ describe('ErrorsView scenario access', () => {
             component: 'ErrorsView',
             importPath: './components/errors/ErrorsView',
             props: { onNavigate: () => {}, route: '/errors' },
-            data: errorsViewData,
+            data: ungroupedErrorsData(),
             interactionObject: ErrorsView,
         });
 
@@ -249,7 +251,7 @@ describe('ErrorsView scenario access', () => {
             component: 'ErrorsView',
             importPath: './components/errors/ErrorsView',
             props: { onNavigate: () => {}, route: '/errors' },
-            data: errorsViewData,
+            data: ungroupedErrorsData(),
             interactionObject: ErrorsView,
         });
 

@@ -211,8 +211,8 @@ describe('ScenariosView deep linking', () => {
         );
     });
 
-    it('filters by run param showing only matching run', async ({ mount, page }) => {
-        await mount({
+    it('filters by run param showing only matching run', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ScenariosView',
             importPath: './components/scenarios/ScenariosView',
             props: { onNavigate: () => {}, route: '/tests?run=2024-06-14T10:00:00.000Z' },
@@ -222,16 +222,18 @@ describe('ScenariosView deep linking', () => {
                     { timestamp: '2024-06-15T14:30:00.000Z', label: 'build 42', outcomes: { passed: 3, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 1000, slowest: 400, fastest: 100, average: 250 },
                 ],
             }),
+            interactionObject: ScenariosView,
         });
 
-        // RunSelector should be visible when run param is present
-        await expect(page.locator('body')).toContainText('Test run');
+        await actor.attemptsTo(
+            Ensure.that(view.runSelectorIsPresent(), equals(true)),
+        );
     });
 });
 
 describe('ScenariosView scenario navigation', () => {
 
-    it('scenarios in the same file without line numbers are both listed distinctly', async ({ mount, actor, page }) => {
+    it('scenarios in the same file without line numbers are both listed distinctly', async ({ mount, actor }) => {
         const view = await mount({
             component: 'ScenariosView',
             importPath: './components/scenarios/ScenariosView',
@@ -258,19 +260,15 @@ describe('ScenariosView scenario navigation', () => {
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioCount(), equals(2)),
+            Ensure.that(view.scenarioNames(), contain('first scenario')),
+            Ensure.that(view.scenarioNames(), contain('second scenario')),
+            Ensure.that(view.scenarioCalled('first scenario').sourceLocation(), includes('shared.spec.ts')),
+            Ensure.that(view.scenarioCalled('second scenario').sourceLocation(), includes('shared.spec.ts')),
         );
-
-        // Both scenarios from the same file should be rendered as distinct items
-        const items = page.locator('.scenario-item');
-        await expect(items.first()).toContainText('first scenario');
-        await expect(items.last()).toContainText('second scenario');
-        // Both show the same source file
-        await expect(items.first()).toContainText('shared.spec.ts');
-        await expect(items.last()).toContainText('shared.spec.ts');
     });
 
-    it('displays line number in source path when available', async ({ mount, page }) => {
-        await mount({
+    it('displays line number in source path when available', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ScenariosView',
             importPath: './components/scenarios/ScenariosView',
             props: { onNavigate: () => undefined, route: '/tests' },
@@ -284,12 +282,16 @@ describe('ScenariosView scenario navigation', () => {
                     },
                 ],
             }),
+            interactionObject: ScenariosView,
         });
 
-        await expect(page.locator('.scenario-item')).toContainText('a.spec.ts:42');
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCalled('test with line').sourceLocation(), includes('a.spec.ts:42')),
+        );
     });
 });
 
+/* Implementation contract: verifies ARIA attributes for screen reader support. Kept as raw Playwright. */
 describe('ScenariosView accessibility', () => {
 
     it('filter result count has aria-live polite region', async ({ mount, page }) => {

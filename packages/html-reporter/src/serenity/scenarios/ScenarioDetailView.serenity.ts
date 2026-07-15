@@ -1,7 +1,7 @@
 import { includes } from '@serenity-js/assertions';
 import type { Question, QuestionAdapter } from '@serenity-js/core';
 import { Task } from '@serenity-js/core';
-import { By, Click, PageElement, Text } from '@serenity-js/web';
+import { Attribute, By, Click, PageElement, Text } from '@serenity-js/web';
 
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
@@ -55,6 +55,31 @@ export class ScenarioDetailView<NET> extends InteractionObject<NET> {
             Click.on(this.child(By.css('.copy-btn')).describedAs('copy source location button')),
         );
 
+    retryTabCount = (): Question<Promise<number>> =>
+        this.children(By.css('.retry-tab')).count()
+            .describedAs('retry tab count');
+
+    activeAttemptLabel = (): QuestionAdapter<string> =>
+        this.children(By.css('.retry-tab.active')).first().text().trim()
+            .describedAs('active attempt tab label');
+
+    videoSource = (): QuestionAdapter<string> =>
+        Attribute.called('src').of(this.child(By.css('video source')))
+            .describedAs('video source URL');
+
+    hasVideo = (): Question<Promise<boolean>> =>
+        this.child(By.css('video')).isPresent()
+            .describedAs('whether video is present');
+
+    openPhotoAt = (index: number): Task =>
+        Task.where(`#actor opens photo at index ${ index }`,
+            Click.on(
+                this.children(By.css('.photo-strip-item img'))
+                    .nth(index)
+                    .describedAs(`photo thumbnail #${ index }`)
+            ),
+        );
+
     switchToAttempt = (attemptNumber: number): Task =>
         Task.where(`#actor switches to attempt ${ attemptNumber }`,
             Click.on(
@@ -64,6 +89,22 @@ export class ScenarioDetailView<NET> extends InteractionObject<NET> {
                     .describedAs(`retry tab for attempt ${ attemptNumber }`)
             ),
         );
+
+    metaText = (): QuestionAdapter<string> =>
+        this.child(By.css('.scenario-detail-meta')).text().trim()
+            .describedAs('scenario detail meta text');
+
+    activityTreeText = (): QuestionAdapter<string> =>
+        this.child(By.css('.activity-tree')).text().trim()
+            .describedAs('activity tree text');
+
+    firstRetryTabLabel = (): QuestionAdapter<string> =>
+        this.children(By.css('.retry-tab')).first().text().trim()
+            .describedAs('first retry tab label');
+
+    lastRetryTabLabel = (): QuestionAdapter<string> =>
+        this.children(By.css('.retry-tab')).last().text().trim()
+            .describedAs('last retry tab label');
 
     open = (): Task =>
         Task.where('#actor opens the Scenario Detail view',

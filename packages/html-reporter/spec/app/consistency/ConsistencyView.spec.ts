@@ -2,7 +2,7 @@ import { contain, Ensure, equals, includes } from '@serenity-js/assertions';
 
 import { ConsistencyView } from '../../../src/serenity/consistency/ConsistencyView.serenity.js';
 import { minimalData } from '../data-factories.js';
-import { describe, expect, it } from '../fixtures.js';
+import { describe, it } from '../fixtures.js';
 
 describe('ConsistencyView scenario access', () => {
 
@@ -217,14 +217,17 @@ describe('ConsistencyView', () => {
         );
     });
 
-    it('shows placeholder when no inconsistent tests', async ({ mount, page }) => {
-        await mount({
+    it('shows placeholder when no inconsistent tests', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'ConsistencyView',
             importPath: './components/consistency/ConsistencyView',
             props: { onNavigate: () => {} },
             data: minimalData({ inconsistentTests: [] }),
+            interactionObject: ConsistencyView,
         });
 
-        await expect(page.locator('body')).toContainText('All Tests Consistent');
+        await actor.attemptsTo(
+            Ensure.that(view.bodyText(), includes('All Tests Consistent')),
+        );
     });
 });

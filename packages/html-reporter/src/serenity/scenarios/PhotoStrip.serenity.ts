@@ -19,7 +19,7 @@ export class Lightbox<NET> extends InteractionObject<NET> {
             .describedAs('lightbox next button');
 
     isOpen = (): Answerable<boolean> =>
-        (this.rootElement as PageElement<NET>).isPresent();
+        this.rootElement.isPresent();
 
     caption = (): QuestionAdapter<string> =>
         this.captionElement().text().trim()
@@ -72,8 +72,8 @@ export class PhotoStrip<NET> extends InteractionObject<NET> {
 
     readonly lightbox: Lightbox<unknown>;
 
-    constructor(rootElement: Answerable<PageElement<NET>>) {
-        super(rootElement as PageElement<NET> | QuestionAdapter<PageElement<NET>>);
+    constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
+        super(rootElement);
         this.lightbox = new Lightbox(
             PageElement.located(By.css('.lightbox-overlay')).describedAs('lightbox overlay'),
         );
