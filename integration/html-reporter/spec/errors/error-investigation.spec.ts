@@ -20,8 +20,8 @@ describe('Errors', () => {
             await actor.attemptsTo(
                 errorsView.open(),
 
-                Ensure.that(errorsView.kpiCardAt(0).accessibleLabel(), includes('Errors')),
-                Ensure.that(errorsView.kpiCardAt(0).subtitle(), includes('test')),
+                Ensure.that(errorsView.kpiCardCalled('Errors').accessibleLabel(), includes('Errors')),
+                Ensure.that(errorsView.kpiCardCalled('Errors').subtitle(), includes('test')),
             );
         });
     });
