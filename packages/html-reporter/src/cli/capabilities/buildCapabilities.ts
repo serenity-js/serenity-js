@@ -176,6 +176,19 @@ function computeDirectoryScores(node: ReportCapabilityNode): void {
     }
 }
 
+function findReadme(directoryPath: Path, projectFileSystem: FileSystem): Path | undefined {
+    try {
+        const entries = projectFileSystem.readdirSync(directoryPath);
+        const readmeEntry = entries.find(entry => /^readme\.md$/i.test(entry));
+        if (readmeEntry) {
+            return directoryPath.join(Path.from(readmeEntry));
+        }
+    } catch {
+        // Directory doesn't exist or isn't readable
+    }
+    return undefined;
+}
+
 function attachReadme(
     node: ReportCapabilityNode,
     directoryPath: Path,
@@ -183,8 +196,8 @@ function attachReadme(
     currentNodePath: string,
     nodeMap: Map<string, ReportCapabilityNode>,
 ): void {
-    const readmePath = directoryPath.join(Path.from('readme.md'));
-    if (projectFileSystem.exists(readmePath)) {
+    const readmePath = findReadme(directoryPath, projectFileSystem);
+    if (readmePath && projectFileSystem.exists(readmePath)) {
         const content = projectFileSystem.readFileSync(readmePath, { encoding: 'utf8' }) as string;
 
         // Extract first heading as displayName

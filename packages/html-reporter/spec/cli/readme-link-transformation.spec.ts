@@ -263,4 +263,55 @@ test.describe('README link transformation', () => {
             expect(dashboardNode.readme).toContain(encodeURIComponent('"dashboard/kpis.spec.ts"'));
         });
     });
+
+    test.describe('case-insensitive README detection', () => {
+
+        test('loads README.md with uppercase filename', () => {
+            const projectTree = {
+                '/project': {
+                    spec: {
+                        'README.md': '# Project\n\n[Dashboard](./dashboard/)',
+                        'example.spec.ts': '',
+                        dashboard: { 'kpis.spec.ts': '' },
+                    },
+                },
+            };
+            const filesystem = createMemFs(projectTree);
+            const projectFileSystem = new FileSystem(Path.from('/project'), filesystem);
+            const hierarchy = new RequirementsHierarchy(projectFileSystem, Path.from('spec'));
+
+            const run = makeRun([
+                { name: 'test a', path: '/project/spec/dashboard/kpis.spec.ts', line: 1 },
+                { name: 'test b', path: '/project/spec/example.spec.ts', line: 2 },
+            ]);
+
+            const tree = buildCapabilities(run, [run], hierarchy, projectFileSystem);
+            expect(tree.displayName).toEqual('Project');
+            expect(tree.readme).toContain('href="#/capabilities?path=dashboard"');
+        });
+
+        test('loads README.md with uppercase filename in subdirectory', () => {
+            const projectTree = {
+                '/project': {
+                    spec: {
+                        'example.spec.ts': '',
+                        e2e: { 'purchase.spec.ts': '', 'README.md': '# End-to-End Flows\n\nFull journey tests.' },
+                    },
+                },
+            };
+            const filesystem = createMemFs(projectTree);
+            const projectFileSystem = new FileSystem(Path.from('/project'), filesystem);
+            const hierarchy = new RequirementsHierarchy(projectFileSystem, Path.from('spec'));
+
+            const run = makeRun([
+                { name: 'test a', path: '/project/spec/e2e/purchase.spec.ts', line: 1 },
+                { name: 'test b', path: '/project/spec/example.spec.ts', line: 2 },
+            ]);
+
+            const tree = buildCapabilities(run, [run], hierarchy, projectFileSystem);
+            const e2eNode = tree.children!.find(c => c.name === 'e2e')!;
+            expect(e2eNode.displayName).toEqual('End-to-End Flows');
+            expect(e2eNode.readme).toContain('Full journey tests.');
+        });
+    });
 });
