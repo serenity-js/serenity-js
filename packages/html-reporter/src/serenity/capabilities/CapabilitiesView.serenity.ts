@@ -1,7 +1,7 @@
 import { includes } from '@serenity-js/assertions';
 import type { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
 import { Task, the } from '@serenity-js/core';
-import { Attribute, By, Click, PageElement, Text } from '@serenity-js/web';
+import { Attribute, By, Click, PageElement, PageElements, Select, Text, Value } from '@serenity-js/web';
 
 import { FilterBar } from '../common/FilterBar.serenity.js';
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
@@ -27,6 +27,10 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
         this.child(By.css('.req-detail-confidence'))
             .describedAs('detail panel confidence score');
 
+    private detailConfidenceLabel = () =>
+        this.child(By.css('.req-detail-confidence-label'))
+            .describedAs('detail panel confidence label');
+
     private detailScenarioCount = () =>
         this.child(By.css('.req-detail-scenario-count'))
             .describedAs('detail panel scenario count');
@@ -42,6 +46,27 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
     private treeNodeLabel = () =>
         PageElement.located(By.css('.req-tree-label'));
 
+    private readmeSection = () =>
+        this.child(By.css('.readme-content'))
+            .describedAs('README section');
+
+    private collapsibleReadme = () =>
+        this.children(By.css('details .readme-content'))
+            .describedAs('collapsible README sections');
+
+    private sortSelect = () =>
+        this.child(By.css('.sort-select'))
+            .describedAs('sort dropdown');
+
+    private sortOptionElements = () =>
+        PageElements.located(By.css('option'))
+            .of(this.sortSelect())
+            .describedAs('sort dropdown options');
+
+    private detailTitleElement = () =>
+        this.child(By.css('.req-detail-title'))
+            .describedAs('detail title');
+
     open = (): Task =>
         Task.where('#actor opens the Capabilities view',
             this.navigation.openView('Capabilities'),
@@ -50,6 +75,10 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
     confidence = (): QuestionAdapter<string> =>
         this.detailConfidence().text().trim()
             .describedAs('selected capability confidence');
+
+    confidenceLabel = (): QuestionAdapter<string> =>
+        this.detailConfidenceLabel().text().trim()
+            .describedAs('confidence label');
 
     scenarioCount = (): QuestionAdapter<string> =>
         this.detailScenarioCount().text().trim()
@@ -85,4 +114,50 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
                 .first()
                 .describedAs(`README link "${linkText}"`)
         ).describedAs(`href of README link "${linkText}"`);
+
+    readmeContent = (): QuestionAdapter<string> =>
+        this.readmeSection().text().trim()
+            .describedAs('README content');
+
+    readmeIsVisible = (): Question<Promise<boolean>> =>
+        this.readmeSection().isPresent()
+            .describedAs('whether README is visible');
+
+    readmeIsCollapsible = (): Question<Promise<boolean>> =>
+        this.collapsibleReadme().count()
+            .as(count => count > 0)
+            .describedAs('whether README is inside a collapsible');
+
+    sortOptions = (): Question<Promise<string[]>> =>
+        this.sortOptionElements()
+            .eachMappedTo(Text)
+            .describedAs('sort dropdown option labels');
+
+    selectedSort = (): QuestionAdapter<string> =>
+        Value.of(this.sortSelect())
+            .describedAs('selected sort option');
+
+    selectSort = (option: Answerable<string>): Task =>
+        Task.where(the`#actor sorts by "${option}"`,
+            Select.value(option).from(this.sortSelect()),
+        );
+
+    treeNodeLabels = (): Question<Promise<string[]>> =>
+        this.treeNodes()
+            .eachMappedTo(Text.of(this.treeNodeLabel()))
+            .describedAs('tree node labels');
+
+    childTreeNodeLabels = (): Question<Promise<string[]>> =>
+        this.treeNodes()
+            .eachMappedTo(Text.of(this.treeNodeLabel()))
+            .as(labels => labels.slice(1))
+            .describedAs('child tree node labels (excluding root)');
+
+    detailTitle = (): QuestionAdapter<string> =>
+        this.detailTitleElement().text().trim()
+            .describedAs('detail panel title');
+
+    emptyStateText = (): QuestionAdapter<string> =>
+        Text.of(this.rootElement).trim()
+            .describedAs('empty state text');
 }

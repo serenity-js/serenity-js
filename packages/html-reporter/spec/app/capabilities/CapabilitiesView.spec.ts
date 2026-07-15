@@ -1,4 +1,4 @@
-import { contain, Ensure, equals, includes } from '@serenity-js/assertions';
+import { contain, Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
 
 import { CapabilitiesView } from '../../../src/serenity/capabilities/CapabilitiesView.serenity.js';
 import { minimalData } from '../data-factories.js';
@@ -54,10 +54,7 @@ describe('CapabilitiesView interaction object', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(view.filterBar.filterLabels(), contain('All')),
-            Ensure.that(view.filterBar.filterLabels(), contain('Healthy')),
-            Ensure.that(view.filterBar.filterLabels(), contain('At Risk')),
-            Ensure.that(view.filterBar.filterLabels(), contain('Critical')),
+            Ensure.that(view.filterBar.filterLabels(), equals(['All', 'Healthy', 'At Risk', 'Critical', 'Gaps'])),
         );
     });
 
@@ -71,7 +68,7 @@ describe('CapabilitiesView interaction object', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(view.filterBar.activeFilters(), contain('All')),
+            Ensure.that(view.filterBar.activeFilters(), equals(['All'])),
         );
     });
 
@@ -89,7 +86,7 @@ describe('CapabilitiesView interaction object', () => {
         );
     });
 
-    it('search filters the tree and shows result count', async ({ mount, actor, page }) => {
+    it('search filters the tree and shows result count', async ({ mount, actor }) => {
         const view = await mount({
             component: 'CapabilitiesView',
             importPath: './components/capabilities/CapabilitiesView',
@@ -101,10 +98,23 @@ describe('CapabilitiesView interaction object', () => {
         await actor.attemptsTo(
             view.searchInput.enter('passing'),
             Ensure.that(view.resultCount.text(), includes('Showing 1 of 3 capabilities')),
+            Ensure.that(view.treeNodeLabels(), contain('passing-feature')),
+            Ensure.that(view.treeNodeLabels(), not(contain('failing-feature'))),
         );
+    });
 
-        await expect(page.locator('.req-tree-node', { hasText: 'passing-feature' })).toBeVisible();
-        await expect(page.locator('.req-tree-node', { hasText: 'failing-feature' })).not.toBeVisible();
+    it('does not show clear button when search is empty', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'CapabilitiesView',
+            importPath: './components/capabilities/CapabilitiesView',
+            data: capabilitiesData(),
+            props: { onNavigate: () => undefined, route: '#/capabilities' },
+            interactionObject: CapabilitiesView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.searchInput.isClearable(), equals(false)),
+        );
     });
 
     it('shows clear button when search has text', async ({ mount, actor }) => {
@@ -127,93 +137,91 @@ describe('CapabilitiesView', () => {
 
     describe('detail panel — documentation-first', () => {
 
-        it('shows README prominently (not collapsible, not hidden)', async ({ mount, page }) => {
-            await mount({
+        it('shows README prominently (not collapsible, not hidden)', async ({ mount, actor }) => {
+            const view = await mount({
                 component: 'CapabilitiesView',
                 importPath: './components/capabilities/CapabilitiesView',
                 data: capabilitiesData(),
                 props: { onNavigate: () => undefined, route: '#/capabilities' },
+                interactionObject: CapabilitiesView,
             });
 
-            // README should be visible without any interaction
-            const detail = page.locator('.req-detail-panel');
-            await expect(detail.locator('.readme-content')).toBeVisible();
-            await expect(detail.locator('.readme-content')).toContainText('project documentation');
-            // Should NOT be inside a collapsible details/summary element
-            await expect(detail.locator('details .readme-content')).toHaveCount(0);
+            await actor.attemptsTo(
+                Ensure.that(view.readmeContent(), includes('project documentation')),
+                Ensure.that(view.readmeIsCollapsible(), equals(false)),
+            );
         });
 
-        it('reading order: title, health header, outcome bar, README, test files', async ({ mount, page }) => {
-            await mount({
+        it('shows title, health header, and README for a selected capability', async ({ mount, actor }) => {
+            const view = await mount({
                 component: 'CapabilitiesView',
                 importPath: './components/capabilities/CapabilitiesView',
                 data: capabilitiesData(),
                 props: { onNavigate: () => undefined, route: '#/capabilities' },
+                interactionObject: CapabilitiesView,
             });
 
-            await page.locator('.req-tree-node', { hasText: 'passing-feature' }).click();
-
-            const detail = page.locator('.req-detail-panel');
-            // Title comes first
-            await expect(detail.locator('.req-detail-title').first()).toBeVisible();
-            // Detail header (confidence + metrics) comes before README
-            await expect(detail.locator('.req-detail-header')).toBeVisible();
-            // README is present and visible
-            await expect(detail.locator('.readme-content')).toContainText('Passing feature docs');
+            await actor.attemptsTo(
+                view.selectCapability('passing-feature'),
+                Ensure.that(view.detailTitle(), equals('Passing-Feature')),
+                Ensure.that(view.confidence(), equals('100%')),
+                Ensure.that(view.readmeContent(), includes('Passing feature docs')),
+            );
         });
     });
 
     describe('left panel — navigation', () => {
 
-        it('filter bar uses the shared filter-bar styling with confidence categories', async ({ mount, page }) => {
-            await mount({
+        it('filter bar uses the shared filter-bar styling with confidence categories', async ({ mount, actor }) => {
+            const view = await mount({
                 component: 'CapabilitiesView',
                 importPath: './components/capabilities/CapabilitiesView',
                 data: capabilitiesData(),
                 props: { onNavigate: () => undefined, route: '#/capabilities' },
+                interactionObject: CapabilitiesView,
             });
 
-            const leftPanel = page.locator('.req-tree-panel');
-            const filterBar = leftPanel.locator('.filter-bar');
-            await expect(filterBar).toBeVisible();
-            await expect(filterBar).toContainText('Healthy');
-            await expect(filterBar).toContainText('At Risk');
-            await expect(filterBar).toContainText('Critical');
-            await expect(filterBar).toContainText('Gaps');
+            await actor.attemptsTo(
+                Ensure.that(view.filterBar, isPresent()),
+                Ensure.that(view.filterBar.filterLabels(), equals(['All', 'Healthy', 'At Risk', 'Critical', 'Gaps'])),
+            );
         });
     });
 
     describe('detail header — single source of truth', () => {
 
-        it('shows confidence prominently in the detail panel header', async ({ mount, page }) => {
-            await mount({
+        it('shows confidence prominently in the detail panel header', async ({ mount, actor }) => {
+            const view = await mount({
                 component: 'CapabilitiesView',
                 importPath: './components/capabilities/CapabilitiesView',
                 data: capabilitiesData(),
                 props: { onNavigate: () => undefined, route: '#/capabilities' },
+                interactionObject: CapabilitiesView,
             });
 
-            const header = page.locator('.req-detail-header');
-            await expect(header).toBeVisible();
-            await expect(header.locator('.req-detail-confidence')).toContainText('%');
-            await expect(header.locator('.req-detail-confidence-label')).toContainText('confidence');
+            await actor.attemptsTo(
+                Ensure.that(view.confidence(), equals('90%')),
+                Ensure.that(view.confidenceLabel(), includes('CONFIDENCE')),
+            );
         });
     });
 
-    it('shows empty state when capabilities data is missing', async ({ mount, page }) => {
-        await mount({
+    it('shows empty state when capabilities data is missing', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'CapabilitiesView',
             importPath: './components/capabilities/CapabilitiesView',
             data: minimalData({ capabilities: null }),
             props: { onNavigate: () => undefined, route: '#/capabilities' },
+            interactionObject: CapabilitiesView,
         });
 
-        await expect(page.locator('.empty-state')).toBeVisible();
-        await expect(page.locator('body')).toContainText('specDirectory');
+        await actor.attemptsTo(
+            Ensure.that(view.emptyStateText(), includes('specDirectory')),
+        );
     });
 
-    it('filter bar and search are hidden when there is only 1 capability', async ({ mount, page }) => {
-        await mount({
+    it('filter bar and search are hidden when there is only 1 capability', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'CapabilitiesView',
             importPath: './components/capabilities/CapabilitiesView',
             data: minimalData({
@@ -234,106 +242,127 @@ describe('CapabilitiesView', () => {
                 },
             }),
             props: { onNavigate: () => undefined, route: '#/capabilities' },
+            interactionObject: CapabilitiesView,
         });
 
-        await expect(page.locator('.filter-bar')).not.toBeVisible();
-        await expect(page.locator('input.search-input')).not.toBeVisible();
+        await actor.attemptsTo(
+            Ensure.that(view.filterBar, not(isPresent())),
+            Ensure.that(view.searchInput, not(isPresent())),
+        );
     });
 });
 
 describe('CapabilitiesView sort control', () => {
 
-    it('displays a sort dropdown with options: Name, Confidence, Scenarios', async ({ mount, page }) => {
-        await mount({
+    it('displays a sort dropdown with options: Name, Confidence, Scenarios', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'CapabilitiesView',
             importPath: './components/capabilities/CapabilitiesView',
             data: capabilitiesData(),
             props: { onNavigate: () => undefined, route: '#/capabilities' },
+            interactionObject: CapabilitiesView,
         });
 
-        const sortSelect = page.locator('.req-tree-panel .sort-select');
-        await expect(sortSelect).toBeVisible();
-        await expect(sortSelect.locator('option')).toHaveCount(3);
-        await expect(sortSelect.locator('option[value="name"]')).toHaveText('Name');
-        await expect(sortSelect.locator('option[value="confidence"]')).toHaveText('Confidence');
-        await expect(sortSelect.locator('option[value="scenarios"]')).toHaveText('Scenarios');
+        await actor.attemptsTo(
+            Ensure.that(view.sortOptions(), equals(['Name', 'Confidence', 'Scenarios'])),
+        );
     });
 
-    it('defaults to sorting by name', async ({ mount, page }) => {
-        await mount({
+    it('defaults to sorting by name', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'CapabilitiesView',
             importPath: './components/capabilities/CapabilitiesView',
             data: capabilitiesData(),
             props: { onNavigate: () => undefined, route: '#/capabilities' },
+            interactionObject: CapabilitiesView,
         });
 
-        const sortSelect = page.locator('.req-tree-panel .sort-select');
-        await expect(sortSelect).toHaveValue('name');
+        await actor.attemptsTo(
+            Ensure.that(view.selectedSort(), equals('name')),
+        );
     });
 
-    it('sorts tree nodes by confidence ascending (worst first) when Confidence is selected', async ({ mount, page }) => {
-        await mount({
+    it('sorts tree nodes by confidence ascending (worst first) when Confidence is selected', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'CapabilitiesView',
             importPath: './components/capabilities/CapabilitiesView',
             data: capabilitiesData(),
             props: { onNavigate: () => undefined, route: '#/capabilities' },
+            interactionObject: CapabilitiesView,
         });
 
-        await page.locator('.req-tree-panel .sort-select').selectOption('confidence');
-
-        const nodeLabels = await page.locator('.req-tree-node .req-tree-label').allTextContents();
-        // Remove the root node (first entry)
-        const childLabels = nodeLabels.slice(1);
-        // failing-feature (50%) should come before pending-feature (70%) which comes before passing-feature (100%)
-        expect(childLabels[0]).toContain('failing');
-        expect(childLabels[childLabels.length - 1]).toContain('passing');
+        await actor.attemptsTo(
+            view.selectSort('confidence'),
+            // failing-feature (80%) should come before pending-feature (88%) which comes before passing-feature (100%)
+            Ensure.that(
+                view.childTreeNodeLabels().as(labels => labels[0]),
+                includes('failing'),
+            ),
+            Ensure.that(
+                view.childTreeNodeLabels().as(labels => labels[labels.length - 1]),
+                includes('passing'),
+            ),
+        );
     });
 
-    it('sorts tree nodes by scenario count descending when Scenarios is selected', async ({ mount, page }) => {
-        await mount({
+    it('sorts tree nodes by scenario count descending when Scenarios is selected', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'CapabilitiesView',
             importPath: './components/capabilities/CapabilitiesView',
             data: capabilitiesData(),
             props: { onNavigate: () => undefined, route: '#/capabilities' },
+            interactionObject: CapabilitiesView,
         });
 
-        await page.locator('.req-tree-panel .sort-select').selectOption('scenarios');
-
-        const nodeLabels = await page.locator('.req-tree-node .req-tree-label').allTextContents();
-        const childLabels = nodeLabels.slice(1);
-        // passing-feature (3 scenarios) should come first, others have 2 each
-        expect(childLabels[0]).toContain('passing');
+        await actor.attemptsTo(
+            view.selectSort('scenarios'),
+            // passing-feature (3 scenarios) should come first, others have 2 each
+            Ensure.that(
+                view.childTreeNodeLabels().as(labels => labels[0]),
+                includes('passing'),
+            ),
+        );
     });
 });
 
 describe('CapabilitiesView search and filter bar', () => {
 
-    it('search input is above the filter bar (matching ScenariosView pattern)', async ({ mount, page }) => {
-        await mount({
+    it('search input is above the filter bar (matching ScenariosView pattern)', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'CapabilitiesView',
             importPath: './components/capabilities/CapabilitiesView',
             data: capabilitiesData(),
             props: { onNavigate: () => undefined, route: '#/capabilities' },
+            interactionObject: CapabilitiesView,
         });
 
-        const leftPanel = page.locator('.req-tree-panel');
-        await expect(leftPanel.locator('input.search-input')).toBeVisible();
-        await expect(leftPanel.locator('.filter-bar')).toBeVisible();
+        await actor.attemptsTo(
+            Ensure.that(view.searchInput, isPresent()),
+            Ensure.that(view.filterBar, isPresent()),
+        );
     });
 
-    it('filter bar has a "Health:" label prefix consistent with ScenariosView "Status:" pattern', async ({ mount, page }) => {
-        await mount({
+    it('filter bar has a "Health:" label prefix consistent with ScenariosView "Status:" pattern', async ({ mount, actor }) => {
+        const view = await mount({
             component: 'CapabilitiesView',
             importPath: './components/capabilities/CapabilitiesView',
             data: capabilitiesData(),
             props: { onNavigate: () => undefined, route: '#/capabilities' },
+            interactionObject: CapabilitiesView,
         });
 
-        const filterBar = page.locator('.req-tree-panel .filter-bar');
-        await expect(filterBar).toContainText('Health:');
+        await actor.attemptsTo(
+            Ensure.that(view.filterBar.label(), includes('HEALTH:')),
+        );
     });
 });
 
+// Accessibility-contract tests: These verify ARIA implementation details (role attributes,
+// tabindex values, visually-hidden elements) that are not user-observable behaviour.
+// Exposing these as interaction object methods would violate the principle "IO APIs describe
+// user-observable behaviour, not implementation". They remain as raw Playwright assertions
+// because they test the component's accessibility contract with assistive technology, not
+// what a sighted user sees or does.
 describe('CapabilitiesView accessibility', () => {
 
     it('outcome bars have role="img" and aria-label for screen readers', async ({ mount, page }) => {
@@ -464,7 +493,7 @@ describe('CapabilitiesView detail panel interaction object', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(view.confidence(), includes('%')),
+            Ensure.that(view.confidence(), equals('91%')),
         );
     });
 
@@ -492,9 +521,7 @@ describe('CapabilitiesView detail panel interaction object', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(view.childCapabilityNames(), contain('authentication')),
-            Ensure.that(view.childCapabilityNames(), contain('checkout')),
-            Ensure.that(view.childCapabilityNames(), contain('todo')),
+            Ensure.that(view.childCapabilityNames(), equals(['authentication', 'checkout', 'todo'])),
         );
     });
 
@@ -509,7 +536,8 @@ describe('CapabilitiesView detail panel interaction object', () => {
 
         await actor.attemptsTo(
             view.selectCapability('authentication'),
-            Ensure.that(view.confidence(), includes('%')),
+            Ensure.that(view.detailTitle(), equals('Authentication')),
+            Ensure.that(view.confidence(), equals('93%')),
         );
     });
 

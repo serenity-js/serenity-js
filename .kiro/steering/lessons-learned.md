@@ -187,9 +187,9 @@ Signs you should extract further:
 
 ## CSS text-transform affects element.text() in interaction objects
 
-The `.context-label` and `.kpi-label` CSS classes apply `text-transform: uppercase`. When interaction objects read text via `element.text()` or `Text.of(element)`, they get the **rendered** (uppercase) text, not the source text.
+The `.context-label` and `.kpi-label` CSS classes apply `text-transform: uppercase`. The `.req-detail-title` class applies `text-transform: capitalize`. When interaction objects read text via `element.text()` or `Text.of(element)`, they get the **rendered** (transformed) text, not the source text.
 
-When using `.where(Text.of(...), equals(label))` to filter elements by label, the comparison value must be UPPERCASE to match. This applies to any CSS-styled text — always check the computed style when text matching fails unexpectedly.
+When using `.where(Text.of(...), equals(label))` to filter elements by label, the comparison value must match the **rendered** case. This applies to any CSS-styled text — always check the computed style when text matching fails unexpectedly.
 
 ## Use ContextItem meta-question pattern for structured element data
 
@@ -225,6 +225,15 @@ When `.first()` is called on an empty filtered list, it throws `ListItemNotFound
 
 Workaround: skip the `not(isPresent())` assertion for now. Tracked in `.kiro/specs/list-item-not-found-error-handling.md`.
 
+
+## Work in small chunks with short feedback loops
+
+Always prefer:
+- **Small batches** over large bulk changes — one domain area at a time, not all 12 placeholders at once
+- **Short feedback loops** — verify after each chunk, not at the end of a phase
+- **Continuous improvement** — each chunk informs the next; adapt approach based on what you learn
+
+This applies to delegation too: send the tdd-developer one focused task (e.g., "dashboard consistency card"), review the result, then send the next. Don't queue up all work upfront.
 
 ## Two failed attempts means stop and ask
 

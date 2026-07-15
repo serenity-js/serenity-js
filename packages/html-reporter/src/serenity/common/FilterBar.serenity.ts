@@ -15,6 +15,10 @@ export class FilterBar<NET> extends InteractionObject<NET> {
     private chipLabel = () =>
         PageElement.located(By.css('.chip-label'));
 
+    private labelElement = () =>
+        this.child(By.css('span.label-upper'))
+            .describedAs('filter bar label');
+
     private sortSelect = () =>
         this.child(By.css('.sort-select'))
             .describedAs('sort dropdown');
@@ -42,4 +46,8 @@ export class FilterBar<NET> extends InteractionObject<NET> {
     selectedSort = (): QuestionAdapter<string> =>
         Value.of(this.sortSelect())
             .describedAs('selected sort option');
+
+    label = (): QuestionAdapter<string> =>
+        this.labelElement().text().trim()
+            .describedAs('filter bar label');
 }

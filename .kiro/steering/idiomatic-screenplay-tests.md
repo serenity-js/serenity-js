@@ -450,3 +450,8 @@ validates exactly the API that integration tests depend on.
 | Positional access (`nth(0)`)               | Fragile, order-dependent           | `.where(criteria).first()`                         |
 | Accessing child objects in tests           | Leaks composition into tests       | Add delegating method on the view                  |
 | Naming constants after content             | Doesn't explain why it matters     | Name after role: `failingTest`, not `expiredCard`  |
+| `includes('%')` or `includes` for known values | Doesn't catch wrong values     | Use `equals('93%')` when the expected value is deterministic |
+| `Ensure.that(x.isPresent(), equals(true))` | Verbose, not idiomatic             | `Ensure.that(x, isPresent())` — IO implements `Optional` |
+| Multiple `contain(...)` for a known set    | Doesn't catch extra unexpected items | `equals(['All', 'Healthy', ...])` for exact set |
+| Negative method names (`isNotCollapsible`) | Double negatives harm readability  | Positive name + assert `equals(false)`: `isCollapsible()` |
+| `hasX()` boolean when content is available | Proves existence but not correctness | Assert on the actual content: `detailTitle()`, `confidence()` |

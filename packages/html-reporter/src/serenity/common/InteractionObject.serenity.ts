@@ -1,8 +1,12 @@
-import type { Answerable, QuestionAdapter } from '@serenity-js/core';
+import type { Answerable, Optional, QuestionAdapter } from '@serenity-js/core';
 import { PageElement, PageElements, type Selector } from '@serenity-js/web';
 
-export class InteractionObject<NET> {
+export class InteractionObject<NET> implements Optional {
     constructor(protected readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
+    }
+
+    isPresent(): Answerable<boolean> {
+        return (this.rootElement as PageElement<NET>).isPresent();
     }
 
     protected child(selector: Answerable<Selector>): QuestionAdapter<PageElement> {
