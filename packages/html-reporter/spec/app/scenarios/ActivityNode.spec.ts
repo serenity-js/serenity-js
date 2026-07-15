@@ -1,10 +1,13 @@
+import { Ensure, equals, includes, isFalse, isTrue } from '@serenity-js/assertions';
+
+import { ActivityNode } from '../../../src/serenity/scenarios/ActivityNode.serenity.js';
 import { minimalData } from '../data-factories.js';
-import { describe, expect, it } from '../fixtures.js';
+import { describe, it } from '../fixtures.js';
 
 describe('ActivityNode — HTTP exchange (restQuery)', () => {
 
-    it('renders a REST badge when restQuery is present', async ({ mount, page }) => {
-        await mount({
+    it('renders a REST badge when restQuery is present', async ({ mount, actor }) => {
+        const node = await mount({
             component: 'ActivityNode',
             importPath: './components/scenarios/ActivityNode',
             data: minimalData(),
@@ -24,14 +27,16 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
                     },
                 },
             },
+            interactionObject: ActivityNode,
         });
 
-        await expect(page.locator('.rest-badge')).toBeVisible();
-        await expect(page.locator('.rest-badge')).toContainText('REST');
+        await actor.attemptsTo(
+            Ensure.that(node.hasRestBadge(), isTrue()),
+        );
     });
 
-    it('displays method, URL, and status code', async ({ mount, page }) => {
-        await mount({
+    it('displays method, URL, and status code', async ({ mount, actor }) => {
+        const node = await mount({
             component: 'ActivityNode',
             importPath: './components/scenarios/ActivityNode',
             data: minimalData(),
@@ -51,20 +56,19 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
                     },
                 },
             },
+            interactionObject: ActivityNode,
         });
 
-        // Click the badge to expand the panel
-        await page.locator('.rest-badge').click();
-
-        const panel = page.locator('.rest-query-panel');
-        await expect(panel).toBeVisible();
-        await expect(panel).toContainText('HEAD');
-        await expect(panel).toContainText('https://todo-app.serenity-js.org/');
-        await expect(panel).toContainText('200');
+        await actor.attemptsTo(
+            node.expandRestPanel(),
+            Ensure.that(node.restPanel.method(), equals('HEAD')),
+            Ensure.that(node.restPanel.url(), equals('https://todo-app.serenity-js.org/')),
+            Ensure.that(node.restPanel.statusCode(), equals('200')),
+        );
     });
 
-    it('displays request and response headers', async ({ mount, page }) => {
-        await mount({
+    it('displays request and response headers', async ({ mount, actor }) => {
+        const node = await mount({
             component: 'ActivityNode',
             importPath: './components/scenarios/ActivityNode',
             data: minimalData(),
@@ -86,18 +90,19 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
                     },
                 },
             },
+            interactionObject: ActivityNode,
         });
 
-        await page.locator('.rest-badge').click();
-
-        const panel = page.locator('.rest-query-panel');
-        await expect(panel).toContainText('Content-Type: application/json');
-        await expect(panel).toContainText('Authorization: Bearer token123');
-        await expect(panel).toContainText('content-type: application/json');
+        await actor.attemptsTo(
+            node.expandRestPanel(),
+            Ensure.that(node.restPanelContent(), includes('Content-Type: application/json')),
+            Ensure.that(node.restPanelContent(), includes('Authorization: Bearer token123')),
+            Ensure.that(node.restPanelContent(), includes('content-type: application/json')),
+        );
     });
 
-    it('displays request and response bodies', async ({ mount, page }) => {
-        await mount({
+    it('displays request and response bodies', async ({ mount, actor }) => {
+        const node = await mount({
             component: 'ActivityNode',
             importPath: './components/scenarios/ActivityNode',
             data: minimalData(),
@@ -119,17 +124,18 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
                     },
                 },
             },
+            interactionObject: ActivityNode,
         });
 
-        await page.locator('.rest-badge').click();
-
-        const panel = page.locator('.rest-query-panel');
-        await expect(panel).toContainText('Buy milk');
-        await expect(panel).toContainText('"id": 1');
+        await actor.attemptsTo(
+            node.expandRestPanel(),
+            Ensure.that(node.restPanelContent(), includes('Buy milk')),
+            Ensure.that(node.restPanelContent(), includes('"id": 1')),
+        );
     });
 
-    it('does not render REST badge when restQuery is absent', async ({ mount, page }) => {
-        await mount({
+    it('does not render REST badge when restQuery is absent', async ({ mount, actor }) => {
+        const node = await mount({
             component: 'ActivityNode',
             importPath: './components/scenarios/ActivityNode',
             data: minimalData(),
@@ -142,16 +148,19 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
                     children: [],
                 },
             },
+            interactionObject: ActivityNode,
         });
 
-        await expect(page.locator('.rest-badge')).not.toBeVisible();
+        await actor.attemptsTo(
+            Ensure.that(node.hasRestBadge(), isFalse()),
+        );
     });
 });
 
 describe('ActivityNode — report data attachments', () => {
 
-    it('renders a data attachment block for each reportData entry', async ({ mount, page }) => {
-        await mount({
+    it('renders a data attachment block for each reportData entry', async ({ mount, actor }) => {
+        const node = await mount({
             component: 'ActivityNode',
             importPath: './components/scenarios/ActivityNode',
             data: minimalData(),
@@ -167,16 +176,18 @@ describe('ActivityNode — report data attachments', () => {
                     ],
                 },
             },
+            interactionObject: ActivityNode,
         });
 
-        const attachment = page.locator('.report-data-block');
-        await expect(attachment).toBeVisible();
-        await expect(attachment).toContainText('current items');
-        await expect(attachment).toContainText('buy milk');
+        await actor.attemptsTo(
+            Ensure.that(node.reportDataCount(), equals(1)),
+            Ensure.that(node.reportDataContent().as(blocks => blocks[0]), includes('current items')),
+            Ensure.that(node.reportDataContent().as(blocks => blocks[0]), includes('buy milk')),
+        );
     });
 
-    it('renders multiple data attachments', async ({ mount, page }) => {
-        await mount({
+    it('renders multiple data attachments', async ({ mount, actor }) => {
+        const node = await mount({
             component: 'ActivityNode',
             importPath: './components/scenarios/ActivityNode',
             data: minimalData(),
@@ -193,16 +204,18 @@ describe('ActivityNode — report data attachments', () => {
                     ],
                 },
             },
+            interactionObject: ActivityNode,
         });
 
-        const attachments = page.locator('.report-data-block');
-        await expect(attachments).toHaveCount(2);
-        await expect(attachments.first()).toContainText('request');
-        await expect(attachments.last()).toContainText('response');
+        await actor.attemptsTo(
+            Ensure.that(node.reportDataCount(), equals(2)),
+            Ensure.that(node.reportDataContent().as(blocks => blocks[0]), includes('request')),
+            Ensure.that(node.reportDataContent().as(blocks => blocks[1]), includes('response')),
+        );
     });
 
-    it('does not render data blocks when reportData is absent', async ({ mount, page }) => {
-        await mount({
+    it('does not render data blocks when reportData is absent', async ({ mount, actor }) => {
+        const node = await mount({
             component: 'ActivityNode',
             importPath: './components/scenarios/ActivityNode',
             data: minimalData(),
@@ -215,8 +228,11 @@ describe('ActivityNode — report data attachments', () => {
                     children: [],
                 },
             },
+            interactionObject: ActivityNode,
         });
 
-        await expect(page.locator('.report-data-block')).not.toBeVisible();
+        await actor.attemptsTo(
+            Ensure.that(node.reportDataCount(), equals(0)),
+        );
     });
 });
