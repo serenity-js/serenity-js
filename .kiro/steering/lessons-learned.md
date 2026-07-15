@@ -267,3 +267,14 @@ Check.whether(hamburgerMenu, isPresent())
 Each package produces both CJS (`lib/`) and ESM (`esm/`) output. Running `npx tsc --build tsconfig.build.json` only builds one of them. Other packages that depend on it (via `workspace:*` links) may resolve to either output depending on their `moduleResolution` setting (e.g., `Node16` uses the `exports` field which distinguishes `import` vs `require` conditions).
 
 Always use `npm run compile` in the package directory — this runs both `tsconfig-cjs.build.json` and `tsconfig-esm.build.json` builds. Failing to build both will cause type errors in downstream packages that happen to resolve via the stale output.
+
+
+## Component rewrites can silently drop functionality
+
+When delegating a component rewrite to a sub-agent, existing functionality (like repo URL links in TestRunRow) can be silently lost if:
+1. The rewrite prompt doesn't explicitly list ALL existing behaviours to preserve
+2. No component test covers the specific behaviour (e.g., "branch links to repo URL")
+
+**Prevention:** Before rewriting a component, enumerate its observable behaviours (not just its structure) and verify each has a test. If a behaviour isn't tested, add the test FIRST, then rewrite.
+
+**Detection:** After a rewrite, check for unused imports/variables — these often indicate dropped functionality (e.g., `repoUrl` computed but never used in the template).

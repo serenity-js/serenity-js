@@ -90,3 +90,35 @@ describe('TestRunsView', () => {
         await expect(rows).toHaveCount(3);
     });
 });
+
+describe('TestRunsView GitLink', () => {
+
+    it('renders branch and commit as links to the repository', async ({ mount, page }) => {
+        await mount({
+            component: 'TestRunsView',
+            importPath: './components/test-runs/TestRunsView',
+            props: { onNavigate: () => {} },
+            data: minimalData({
+                history: [
+                    {
+                        timestamp: '2024-06-15T14:30:00.000Z', label: '#42',
+                        outcomes: { passed: 3, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                        duration: 1000, slowest: 400, fastest: 100, average: 250,
+                        branch: 'main',
+                        commit: 'abc1234',
+                        repositoryUrl: 'git@github.com:serenity-js/serenity-js.git',
+                    },
+                ],
+            }),
+            chartJs: true,
+        });
+
+        const branchLink = page.locator('a[href*="/tree/main"]');
+        await expect(branchLink).toBeVisible();
+        await expect(branchLink).toHaveText('main');
+
+        const commitLink = page.locator('a[href*="/commit/abc1234"]');
+        await expect(commitLink).toBeVisible();
+        await expect(commitLink).toHaveText('abc1234');
+    });
+});

@@ -128,3 +128,13 @@ The chicken-and-egg problem: these ARE the component tests for the IO, so the ap
 - Identify what user-observable behaviour the raw test exercises
 - Add the IO method with a NEW component test demonstrating it
 - Keep or remove the old raw test depending on whether it tests something the IO doesn't cover
+
+
+## Pending: Review TestRunsView GitLink component test
+
+The test `TestRunsView GitLink › renders branch and commit as links to the repository`
+in `spec/app/test-runs/TestRunsView.spec.ts` uses raw Playwright `page.locator()` + `expect()`
+instead of idiomatic Screenplay. Options:
+- Add a `TestRunItem` interaction object with `branchLinkHref()` / `commitLinkHref()`
+- Or expose link verification via `TestRunsView` directly
+- Decide whether this is a component-level HTML test or should use interaction objects
