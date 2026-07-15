@@ -4,6 +4,7 @@ import { h } from 'preact';
 import type { ReportHistoryEntry } from '../../../src/cli/ReportData';
 import { formatDuration, formatRunLabel, formatTimestamp, scoreColor } from '../../utils';
 import { computeRunMetrics, normaliseRepoUrl } from '../../utils/computeRunMetrics';
+import { GitLink } from '../common/GitLink';
 import { icons } from '../common/icons';
 
 const html = htm.bind(h);
@@ -27,8 +28,8 @@ export function TestRunRow({ run, onNavigate }: TestRunRowProps): ReturnType<typ
             <span>${formatDuration(run.duration)}</span>
           </div>
           <div class="scenario-meta">
-            ${run.branch ? html`<span class="run-meta-item">${icons.branch} ${run.branch}</span>` : null}
-            ${run.commit ? html`<span class="run-meta-item mono">${icons.commit} ${run.commit}</span>` : null}
+            ${run.branch ? html`<${GitLink} icon=${icons.branch} label=${run.branch} href=${repoUrl ? repoUrl + '/tree/' + run.branch : ''} />` : null}
+            ${run.commit ? html`<${GitLink} icon=${icons.commit} label=${run.commit} href=${repoUrl ? repoUrl + '/commit/' + run.commit : ''} mono=${true} />` : null}
           </div>
           <div class="run-outcomes-line">
             <span style="font-size:var(--font-sm);font-weight:600;color:${scoreColor(confidence) || 'var(--text-primary)'}" title="Confidence: ${confidence}%">◐${confidence}%</span>
