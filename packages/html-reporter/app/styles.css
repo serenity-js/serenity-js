@@ -603,6 +603,39 @@
       flex-wrap: wrap;
     }
 
+    .run-meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .run-meta-item.mono {
+      font-family: var(--font-mono);
+      font-size: var(--font-xs);
+    }
+
+    .run-meta-item svg {
+      width: 12px;
+      height: 12px;
+      flex-shrink: 0;
+    }
+
+    .run-outcomes-line {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-top: 4px;
+    }
+
+    .run-outcomes-bar {
+      display: flex;
+      overflow: hidden;
+      border-radius: 3px;
+      background: var(--divider);
+      height: 6px;
+      flex: 1;
+    }
+
     .scenario-source {
       font-family: var(--font-mono);
       font-size: var(--font-xs);
@@ -1360,7 +1393,6 @@
     .status-item-history {
       display: flex;
       gap: 3px;
-      padding-left: 24px;
     }
 
     .status-item-history-line {
