@@ -278,3 +278,50 @@ When delegating a component rewrite to a sub-agent, existing functionality (like
 **Prevention:** Before rewriting a component, enumerate its observable behaviours (not just its structure) and verify each has a test. If a behaviour isn't tested, add the test FIRST, then rewrite.
 
 **Detection:** After a rewrite, check for unused imports/variables — these often indicate dropped functionality (e.g., `repoUrl` computed but never used in the template).
+
+
+## CI re-runs cause duplicate data when gh-pages history overlaps with fresh artifacts
+
+When a GitHub Actions workflow is re-run, the "HTML Report: aggregate" job downloads BOTH:
+1. Historical data from gh-pages (which includes the previously-merged current build)
+2. Fresh module artifacts from the current run
+
+The `mergeAdditively` function in `DataSnapshotAggregator` must handle overlapping scenes (same `sceneIdentity`) within the same attempt group:
+- **Different outcome** → record as retry attempt (earlier source had a failure that's now fixed)
+- **Same outcome** → keep the later version and skip the duplicate (not a genuine retry)
+
+Never blindly concatenate `[...base.scenes, ...addition.scenes]` — always check for identity collisions.
+
+## GitHub Actions artifact uploads reject colons in paths
+
+ISO timestamps (`2026-07-10T08:16:29.795Z`) contain colons which are invalid in:
+- Windows filesystems (NTFS)
+- GitHub Actions artifact uploads
+
+Always sanitise timestamps used as directory names: `.replaceAll(':', '-')` → `2026-07-10T08-16-29.795Z`. Keep the original ISO format for data fields (`startedAt`, `finishedAt`) — only sanitise when used as filesystem paths.
+
+## `detectTestRunId()` and `detectModuleId()` only appropriate for auto-detected CI environments
+
+When a user explicitly sets `testRunId` in the config, `detectModuleId()` should NOT fire. The module ID auto-detection creates subdirectories (`{testRunId}/{moduleId}-{attempt}/`) which breaks tools that expect `db.json` directly under `test-runs/{testRunId}/`.
+
+Rule: only call `detectModuleId()` when `testRunId` came from environment auto-detection (not from explicit config).
+
+## `bundle-template.mjs` output path must match the import's resolved location
+
+The `ReportTemplateWriter` imports `./template.js` relative to its own file (`src/cli/ReportTemplateWriter.ts`). When the file moves to a subdirectory, the bundle script must write to the matching compiled path (`lib/cli/template.js`, `esm/cli/template.js`), not the old root-level path.
+
+If the report renders blank (no KPI cards), check that `esm/cli/template.js` contains the real bundled HTML, not the development stub.
+
+## Integration tests that spawn child processes must control CI env var leakage
+
+Tests that verify directory-per-run behaviour (unique timestamps) will fail in CI because `GITHUB_RUN_NUMBER` causes all runs within the same job to share a single directory. Strip CI detection env vars (`GITHUB_RUN_NUMBER`, `GITHUB_RUN_ATTEMPT`, `CI_PIPELINE_IID`, `BUILD_NUMBER`, `CIRCLE_BUILD_NUM`) from the child process environment when the test needs isolated per-invocation directories.
+
+## WebdriverIO 8 chromedriver version must match the installed Chrome
+
+Pinning `chromedriver` in npm `devDependencies` while installing `chrome@stable` via `@puppeteer/browsers` causes version drift. When Chrome updates on the runner, the pinned chromedriver can't create sessions and WebdriverIO exits before Mocha starts — no `TestRunStarts` fires, no `db.json` is produced.
+
+Fix: use `computeExecutablePath` from `@puppeteer/browsers` to resolve both Chrome and chromedriver from the shared `./browsers/` directory (installed at `postinstall`). Pass via `goog:chromeOptions.binary` and `chromedriverCustomPath`. Remove the npm `chromedriver` dependency.
+
+## Deploy to gh-pages with `clean: true` to enforce pruning
+
+The `maxHistory` pruning in the aggregator only removes old runs from the local output directory. With `clean: false` on the deploy action, pruned directories persist on gh-pages forever and get re-downloaded on every subsequent run. Use `clean: true` to make gh-pages match the local output exactly.
