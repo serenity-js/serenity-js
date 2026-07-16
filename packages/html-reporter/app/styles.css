@@ -3409,3 +3409,26 @@
         animation: none;
     }
 }
+
+/* Mobile: breadcrumbs and tags single-line scroll */
+@media (max-width: 768px) {
+    .breadcrumb {
+        white-space: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
+        mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
+    }
+    .breadcrumb::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scenario-detail-tags {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+    .scenario-detail-tags::-webkit-scrollbar {
+        display: none;
+    }
+}

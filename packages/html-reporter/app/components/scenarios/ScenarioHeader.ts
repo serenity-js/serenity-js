@@ -52,7 +52,7 @@ export function ScenarioHeader({ scenario, activeDuration, specDirectory, tags, 
         </div>
 
         ${hasTags ? html`
-          <div class="flex-row flex-wrap gap-sm mb-md" style="gap:6px">
+          <div class="scenario-detail-tags flex-row flex-wrap gap-sm mb-md" style="gap:6px">
             ${[...new Map(tags.filter(t => t.type !== 'browser').map(t => [t.name, t])).values()].map(t => html`<span class="tag-chip tag-chip-static">${t.name}</span>`)}
           </div>
         ` : null}
