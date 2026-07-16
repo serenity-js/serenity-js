@@ -1,4 +1,5 @@
-import { Ensure, equals, includes } from '@serenity-js/assertions';
+import { Ensure, equals, includes, not } from '@serenity-js/assertions';
+import { ExecuteScript, LastScriptExecution } from '@serenity-js/web';
 
 import { TestRunsView } from '../../../src/serenity/test-runs/TestRunsView.serenity.js';
 import { minimalData } from '../data-factories.js';
@@ -116,5 +117,189 @@ describe('TestRunsView', () => {
             Ensure.that(view.commitLinkText(), equals('abc1234')),
             Ensure.that(view.commitLinkHref(), includes('/commit/abc1234')),
         );
+    });
+
+    describe('chart selection interaction', () => {
+
+        it('does not show the details panel initially', async ({ mount, actor }) => {
+            const view = await mount({
+                component: 'TestRunsView',
+                importPath: './components/test-runs/TestRunsView',
+                props: { onNavigate: () => {} },
+                data: minimalData(),
+                chartJs: true,
+                interactionObject: TestRunsView,
+            });
+
+            await actor.attemptsTo(
+                Ensure.that(view.hasDetailsPanel(), equals(false)),
+            );
+        });
+
+        // Chart canvas click tests use raw Playwright because clicking canvas
+        // coordinates requires pixel-level control that interaction objects can't provide.
+        it('shows the details panel when a chart bar is clicked', async ({ mount, page, actor }) => {
+            const view = await mount({
+                component: 'TestRunsView',
+                importPath: './components/test-runs/TestRunsView',
+                props: { onNavigate: () => {} },
+                data: minimalData(),
+                chartJs: true,
+                interactionObject: TestRunsView,
+            });
+
+            // Click on the chart canvas in the center-right area (second bar of 2)
+            const canvas = page.locator('canvas');
+            const box = await canvas.boundingBox();
+            if (box) {
+                await canvas.click({ position: { x: box.width * 0.75, y: box.height * 0.5 } });
+            }
+
+            await actor.attemptsTo(
+                Ensure.that(view.hasDetailsPanel(), equals(true)),
+            );
+        });
+
+        it('shows run metrics in the details panel', async ({ mount, page, actor }) => {
+            const view = await mount({
+                component: 'TestRunsView',
+                importPath: './components/test-runs/TestRunsView',
+                props: { onNavigate: () => {} },
+                data: minimalData(),
+                chartJs: true,
+                interactionObject: TestRunsView,
+            });
+
+            // Click the second bar (rightmost, index 1 of 2 bars)
+            const canvas = page.locator('canvas');
+            const box = await canvas.boundingBox();
+            if (box) {
+                await canvas.click({ position: { x: box.width * 0.75, y: box.height * 0.5 } });
+            }
+
+            await actor.attemptsTo(
+                Ensure.that(view.detailsPanelText(), includes('PASSED')),
+                Ensure.that(view.detailsPanelText(), includes('FAILED')),
+                Ensure.that(view.detailsPanelText(), includes('SKIPPED')),
+                Ensure.that(view.detailsPanelText(), includes('Fastest')),
+                Ensure.that(view.detailsPanelText(), includes('Slowest')),
+            );
+        });
+
+        it('shows the CTA button in the details panel', async ({ mount, page, actor }) => {
+            const view = await mount({
+                component: 'TestRunsView',
+                importPath: './components/test-runs/TestRunsView',
+                props: { onNavigate: () => {} },
+                data: minimalData(),
+                chartJs: true,
+                interactionObject: TestRunsView,
+            });
+
+            const canvas = page.locator('canvas');
+            const box = await canvas.boundingBox();
+            if (box) {
+                await canvas.click({ position: { x: box.width * 0.75, y: box.height * 0.5 } });
+            }
+
+            await actor.attemptsTo(
+                Ensure.that(view.detailsCtaText(), includes('Open run details')),
+            );
+        });
+
+        it('navigates only when CTA button is clicked', async ({ mount, page, actor }) => {
+            await page.addInitScript(() => {
+                (window as any).__onNavigate__ = (path: string) => {
+                    (window as any).navigatedTo = path;
+                };
+            });
+
+            const view = await mount({
+                component: 'TestRunsView',
+                importPath: './components/test-runs/TestRunsView',
+                props: { onNavigate: '__onNavigate__' },
+                data: minimalData(),
+                chartJs: true,
+                interactionObject: TestRunsView,
+            });
+
+            // Click on the chart — should NOT navigate
+            const canvas = page.locator('canvas');
+            const box = await canvas.boundingBox();
+            if (box) {
+                await canvas.click({ position: { x: box.width * 0.75, y: box.height * 0.5 } });
+            }
+
+            // Verify no navigation happened after chart click
+            await actor.attemptsTo(
+                ExecuteScript.sync('return window.navigatedTo || null'),
+                Ensure.that(LastScriptExecution.result<string | null>(), equals(null)),
+            );
+
+            // Now click the CTA button — should navigate
+            await actor.attemptsTo(
+                view.clickDetailsCtaButton(),
+                ExecuteScript.sync('return decodeURIComponent(window.navigatedTo || \'\')'),
+                Ensure.that(LastScriptExecution.result<string>(), includes('/tests?run=')),
+            );
+        });
+
+        it('dismisses the panel when Escape is pressed', async ({ mount, page, actor }) => {
+            const view = await mount({
+                component: 'TestRunsView',
+                importPath: './components/test-runs/TestRunsView',
+                props: { onNavigate: () => {} },
+                data: minimalData(),
+                chartJs: true,
+                interactionObject: TestRunsView,
+            });
+
+            // Click on a chart bar to open the panel
+            const canvas = page.locator('canvas');
+            const box = await canvas.boundingBox();
+            if (box) {
+                await canvas.click({ position: { x: box.width * 0.75, y: box.height * 0.5 } });
+            }
+
+            await actor.attemptsTo(
+                Ensure.that(view.hasDetailsPanel(), equals(true)),
+            );
+
+            // Press Escape to dismiss
+            await page.keyboard.press('Escape');
+
+            await actor.attemptsTo(
+                Ensure.that(view.hasDetailsPanel(), equals(false)),
+            );
+        });
+
+        it('dismisses the panel when clicking outside', async ({ mount, page, actor }) => {
+            const view = await mount({
+                component: 'TestRunsView',
+                importPath: './components/test-runs/TestRunsView',
+                props: { onNavigate: () => {} },
+                data: minimalData(),
+                chartJs: true,
+                interactionObject: TestRunsView,
+            });
+
+            // Click on a chart bar to open the panel
+            const canvas = page.locator('canvas');
+            const box = await canvas.boundingBox();
+            if (box) {
+                await canvas.click({ position: { x: box.width * 0.75, y: box.height * 0.5 } });
+            }
+
+            await actor.attemptsTo(
+                Ensure.that(view.hasDetailsPanel(), equals(true)),
+            );
+
+            // Click outside the chart/panel area (e.g. on the body)
+            await page.click('body', { position: { x: 10, y: 10 } });
+
+            await actor.attemptsTo(
+                Ensure.that(view.hasDetailsPanel(), equals(false)),
+            );
+        });
     });
 });

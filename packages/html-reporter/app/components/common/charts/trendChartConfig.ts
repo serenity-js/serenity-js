@@ -1,5 +1,5 @@
 import type { ReportHistoryEntry } from '../../../../src/cli/ReportData';
-import { formatDuration, formatRunLabel } from '../../../utils';
+import { formatDuration } from '../../../utils';
 
 interface ThemeColors {
     textColor: string;
@@ -101,8 +101,8 @@ export function buildTrendDatasets(history: ReportHistoryEntry[], theme: string)
     ];
 }
 
-export function buildTrendOptions(history: ReportHistoryEntry[], theme: string, onNavigate: (path: string) => void): Record<string, unknown> {
-    const { isDark, textColor, gridColor } = themeColors(theme);
+export function buildTrendOptions(history: ReportHistoryEntry[], theme: string, onClick: (_event: unknown, elements: Array<{ index: number; datasetIndex: number }>) => void): Record<string, unknown> {
+    const { textColor, gridColor } = themeColors(theme);
     const allDurations = history.flatMap(h => [h.fastest, h.slowest, h.average, h.duration].filter(v => v > 0));
     const minDuration = allDurations.length > 0 ? Math.min(...allDurations) : undefined;
     const maxDuration = allDurations.length > 0 ? Math.max(...allDurations) : undefined;
@@ -113,14 +113,10 @@ export function buildTrendOptions(history: ReportHistoryEntry[], theme: string, 
         resizeDelay: 100,
         layout: { padding: { top: 8, right: 4, bottom: 0, left: 0 } },
         interaction: { intersect: false, mode: 'index' as const },
-        onClick: (_event: unknown, elements: Array<{ index: number }>) => {
-            if (elements.length > 0) {
-                onNavigate('/tests?run=' + history[elements[0].index].timestamp);
-            }
-        },
+        onClick,
         plugins: {
             legend: buildLegendConfig(textColor),
-            tooltip: buildTooltipConfig(isDark, history),
+            tooltip: { enabled: false },
             zoom: {
                 pan: { enabled: true, mode: 'x' as const },
                 zoom: { wheel: { enabled: false }, pinch: { enabled: true }, mode: 'x' as const },
@@ -174,42 +170,3 @@ function buildLegendConfig(textColor: string) {
     };
 }
 
-function buildTooltipConfig(isDark: boolean, history: ReportHistoryEntry[]) {
-    return {
-        usePointStyle: true,
-        backgroundColor: isDark ? 'rgba(30,28,38,0.95)' : 'rgba(255,255,255,0.97)',
-        titleColor: isDark ? 'rgba(255,255,255,0.9)' : 'rgba(46,38,61,0.9)',
-        bodyColor: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(46,38,61,0.7)',
-        borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)',
-        borderWidth: 1,
-        cornerRadius: 8,
-        padding: { top: 10, right: 14, bottom: 10, left: 14 },
-        titleFont: { size: 12, weight: 600 },
-        bodyFont: { size: 11 },
-        titleMarginBottom: 8,
-        bodySpacing: 6,
-        boxPadding: 6,
-        callbacks: {
-            title: (items: Array<{ dataIndex: number }>) => {
-                return formatRunLabel(history[items[0].dataIndex].label, history[items[0].dataIndex].timestamp);
-            },
-            label: (context: { dataset: { label?: string }; raw: unknown }) => {
-                const label = context.dataset.label || '';
-                if (label === 'Duration Range') {
-                    const [low, high] = context.raw as [number, number];
-                    return '  Fastest: ' + formatDuration(low) + '  ·  Slowest: ' + formatDuration(high);
-                }
-                if (label === 'Duration' || label === 'Total Duration' || label === 'Average Duration') {
-                    return '  ' + label + ':  ' + formatDuration(context.raw as number);
-                }
-                return '  ' + label + ':  ' + context.raw;
-            },
-            labelColor: (context: { dataset: { backgroundColor?: unknown; borderColor?: unknown } }) => {
-                const bg = context.dataset.backgroundColor as string | undefined;
-                const border = context.dataset.borderColor as string | undefined;
-                const color = (bg && bg !== 'transparent') ? bg : border;
-                return { borderColor: color, backgroundColor: color };
-            },
-        } as Record<string, unknown>,
-    };
-}

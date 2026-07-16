@@ -27,6 +27,22 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
         this.child(By.css('a[href*="/commit/"]'))
             .describedAs('commit link');
 
+    private detailsPanel = () =>
+        PageElement.located(By.css('[data-testid="run-details-panel"]'))
+            .describedAs('run details panel');
+
+    private detailsCta = () =>
+        PageElement.located(By.css('[data-testid="run-details-cta"]'))
+            .describedAs('run details CTA button');
+
+    private detailsTitle = () =>
+        PageElement.located(By.css('.run-details-title'))
+            .describedAs('run details title');
+
+    private detailsMetricValues = () =>
+        PageElement.located(By.css('.run-details-metrics'))
+            .describedAs('run details metrics');
+
     bodyText = (): QuestionAdapter<string> =>
         Text.of(this.appContainer()).describedAs('test runs view body text');
 
@@ -37,6 +53,23 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
         this.child(By.css('canvas'))
             .isPresent()
             .describedAs('whether the test runs view has a trend chart');
+
+    hasDetailsPanel = (): Question<Promise<boolean>> =>
+        this.detailsPanel()
+            .isPresent()
+            .describedAs('whether the run details panel is visible');
+
+    detailsPanelTitle = (): QuestionAdapter<string> =>
+        Text.of(this.detailsTitle()).trim()
+            .describedAs('run details panel title');
+
+    detailsPanelText = (): QuestionAdapter<string> =>
+        Text.of(this.detailsPanel()).trim()
+            .describedAs('run details panel text');
+
+    detailsCtaText = (): QuestionAdapter<string> =>
+        Text.of(this.detailsCta()).trim()
+            .describedAs('run details CTA text');
 
     branchLinkText = (): QuestionAdapter<string> =>
         Text.of(this.branchLink()).trim()
@@ -60,6 +93,11 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
                 .nth(index)
                 .describedAs(`test run entry ${index + 1}`)
             ),
+        );
+
+    clickDetailsCtaButton = (): Task =>
+        Task.where('#actor clicks the run details CTA button',
+            Click.on(this.detailsCta()),
         );
 
     open = (): Task =>

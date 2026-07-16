@@ -3213,3 +3213,165 @@
     margin: 0;
     color: var(--text-secondary);
 }
+
+/* Run details panel (selection-first chart interaction) */
+
+.trend-chart-wrapper {
+    position: relative;
+}
+
+.run-details-panel {
+    margin-top: var(--space-md);
+    padding: var(--space-md);
+    background: var(--bg-primary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    animation: panel-appear 0.2s ease-out;
+}
+
+.run-details-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-md);
+}
+
+.run-details-title {
+    font-size: var(--font-md);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.run-details-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: var(--font-md);
+    color: var(--text-secondary);
+    padding: var(--space-xs);
+    border-radius: var(--radius-sm);
+    line-height: 1;
+}
+
+.run-details-close:hover {
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+}
+
+.run-details-metrics {
+    display: flex;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-md);
+}
+
+.run-details-metric {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.run-details-metric-value {
+    font-size: var(--font-xl);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.run-details-metric-label {
+    font-size: var(--font-xs);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.run-details-durations {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xs) var(--space-lg);
+    margin-bottom: var(--space-md);
+    padding: var(--space-sm) 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.run-details-duration-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-sm);
+}
+
+.run-details-duration-label {
+    color: var(--text-secondary);
+}
+
+.run-details-duration-value {
+    font-weight: 500;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+}
+
+.run-details-cta {
+    display: block;
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-primary, #696cff);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-sm);
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.15s ease;
+}
+
+.run-details-cta:hover {
+    opacity: 0.9;
+}
+
+.run-details-cta:focus-visible {
+    outline: 2px solid var(--color-primary, #696cff);
+    outline-offset: 2px;
+}
+
+@keyframes panel-appear {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile: bottom sheet variant */
+@media (max-width: 768px) {
+    .run-details-panel {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 0;
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+        z-index: 100;
+        animation: panel-slide-up 0.25s ease-out;
+    }
+
+    @keyframes panel-slide-up {
+        from {
+            opacity: 0;
+            transform: translateY(100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .run-details-panel {
+        animation: none;
+    }
+}
