@@ -8,6 +8,7 @@ import {
 } from '@serenity-js/core/model';
 
 import type { RunData } from '../model/RunData.js';
+import { tagDiscriminator } from '../model/sceneIdentity.js';
 import type { ReportHistoryEntry } from '../ReportData.js';
 
 const OUTCOME_CODE_DISPLAY_STRINGS: Record<number, string> = {
@@ -72,8 +73,8 @@ export function computeConsistencyAtRun(runs: RunData[]): number {
     const testOutcomes = new Map<string, string[]>();
     for (const run of runs) {
         for (const scene of run.scenes) {
-            const projectTag = scene.tags.find(t => t.type === 'project')?.name || '';
-            const identity = `${ scene.name }@${ scene.source.path }@${ projectTag }`;
+            const discriminator = tagDiscriminator(scene.tags);
+            const identity = `${ scene.name }@${ scene.source.path }@${ discriminator }`;
             if (!testOutcomes.has(identity)) testOutcomes.set(identity, []);
 
             const effectiveOutcome = (scene.retries > 0 && scene.outcome.code === ExecutionSuccessful.Code)

@@ -41,12 +41,12 @@ function findErrorLocation(activities: ReportActivity[]): { path: string; line: 
 
 export function useScenarioDetail(scenarioId: string, scenarios: ReportScenario[], history: ReportHistoryEntry[]): ScenarioDetailState {
     const hashNav = useHashHistory();
-    const { cleanId, runString, attemptString, projectString, browserString } = parseScenarioParameters(scenarioId);
+    const { cleanId, runString, attemptString, projectString, browserString, platformString } = parseScenarioParameters(scenarioId);
     const runIndex = useMemo(() => resolveRunIndex(runString, history), [runString]);
 
     const scenario = useMemo(
-        () => findMatchingScenario(scenarios, cleanId, projectString, browserString),
-        [scenarios, cleanId, projectString, browserString],
+        () => findMatchingScenario(scenarios, cleanId, projectString, browserString, platformString),
+        [scenarios, cleanId, projectString, browserString, platformString],
     );
 
     const [activeAttempt, setActiveAttempt] = useState(() => {
@@ -109,11 +109,12 @@ function parseScenarioParameters(scenarioId: string) {
         attemptString: params?.get('attempt') ?? null,
         projectString: params?.get('project') ?? null,
         browserString: params?.get('browser') ?? null,
+        platformString: params?.get('platform') ?? null,
     };
 }
 
 function findMatchingScenario(
-    scenarios: ReportScenario[], cleanId: string, projectString: string | null, browserString: string | null,
+    scenarios: ReportScenario[], cleanId: string, projectString: string | null, browserString: string | null, platformString: string | null,
 ): ReportScenario | null {
     return scenarios.find(s => {
         const sourceKey = s.source.line
@@ -121,12 +122,10 @@ function findMatchingScenario(
             : s.source.path + ':' + s.name;
         const idMatch = sourceKey === decodeURIComponent(cleanId) || s.id === cleanId;
         if (!idMatch) return false;
-        if (browserString) {
-            return (s.tags || []).some(t => t.type === 'browser' && t.name === browserString);
-        }
-        if (projectString) {
-            return (s.tags || []).some(t => t.type === 'project' && t.name === projectString);
-        }
+        const tags = s.tags || [];
+        if (browserString && !tags.some(t => t.type === 'browser' && t.name === browserString)) return false;
+        if (projectString && !tags.some(t => t.type === 'project' && t.name === projectString)) return false;
+        if (platformString && !tags.some(t => t.type === 'platform' && t.name === platformString)) return false;
         return true;
     }) || null;
 }

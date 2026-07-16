@@ -38,15 +38,14 @@ export function scenarioUrl(scenario: { source: ReportSource; name: string; tags
         const ts = typeof run === 'number' && historyArray[run] ? historyArray[run].timestamp : String(run);
         params.set('run', ts);
     }
-    // Use browser or project tag to differentiate cross-browser/cross-project variations
+    // Include all discriminator tags to uniquely identify cross-browser/project/platform variations
     const tags = scenario.tags || [];
     const browserTag = tags.find(t => t.type === 'browser');
     const projectTag = tags.find(t => t.type === 'project');
-    if (browserTag) {
-        params.set('browser', browserTag.name);
-    } else if (projectTag) {
-        params.set('project', projectTag.name);
-    }
+    const platformTag = tags.find(t => t.type === 'platform');
+    if (browserTag) params.set('browser', browserTag.name);
+    if (projectTag) params.set('project', projectTag.name);
+    if (platformTag) params.set('platform', platformTag.name);
     const qs = params.toString();
     return qs ? base + '?' + qs : base;
 }

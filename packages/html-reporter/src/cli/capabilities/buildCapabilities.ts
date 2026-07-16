@@ -13,7 +13,8 @@ import {
 import { marked, Renderer } from 'marked';
 
 import { scoreCapability, scoreDirectory } from '../CapabilityConfidenceScorer.js';
-import type { RunData, SceneRecord, TagRecord } from '../model/RunData.js';
+import type { RunData, SceneRecord } from '../model/RunData.js';
+import { sceneIdentityWithTags } from '../model/sceneIdentity.js';
 import type { ReportCapabilityNode, ReportOutcomes } from '../ReportData.js';
 
 const OUTCOME_CODE_DISPLAY_STRINGS: Record<number, string> = {
@@ -32,20 +33,6 @@ function outcomeCodeToDisplayString(code: number): string {
 function mapOutcomeToKey(outcome: string): string {
     const map: Record<string, string> = { SUCCESS: 'passed', FAILURE: 'failed', ERROR: 'error', COMPROMISED: 'compromised', PENDING: 'pending', SKIPPED: 'skipped' };
     return map[outcome] || 'error';
-}
-
-function sceneIdentity(scene: { source: { path: string; line: number }; name: string }): string {
-    return scene.source.line
-        ? `${ scene.source.path }:${ scene.source.line }`
-        : `${ scene.source.path }:${ scene.name }`;
-}
-
-function sceneIdentityWithBrowser(scene: { source: { path: string; line: number }; name: string; tags: TagRecord[] }): string {
-    const base = sceneIdentity(scene);
-    const browserTag = scene.tags.find(t => t.type === 'browser')?.name || '';
-    const projectTag = scene.tags.find(t => t.type === 'project')?.name || '';
-    const discriminator = browserTag || projectTag;
-    return discriminator ? `${ base }@${ discriminator }` : base;
 }
 
 /**
@@ -127,9 +114,9 @@ function processSceneForCapabilities(
     fileNode.outcomes[outcomeKey]++;
 
     // Build execution history for this scenario across all runs
-    const scenarioKey = sceneIdentityWithBrowser(scene);
+    const scenarioKey = sceneIdentityWithTags(scene);
     const executionHistory = allRuns.map(r => {
-        const match = r.scenes.find(s => sceneIdentityWithBrowser(s) === scenarioKey);
+        const match = r.scenes.find(s => sceneIdentityWithTags(s) === scenarioKey);
         return match ? outcomeCodeToDisplayString(match.outcome.code) : undefined;
     }).filter(Boolean) as string[];
 

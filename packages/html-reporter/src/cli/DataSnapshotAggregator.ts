@@ -16,6 +16,7 @@ import { marked } from 'marked';
 import { buildCapabilities } from './capabilities/buildCapabilities.js';
 import { buildHistory } from './history/buildHistory.js';
 import type { ActivityRecord, AttemptRecord, OutcomeCounts, RunData, SceneRecord, TagRecord } from './model/RunData.js';
+import { sceneIdentity, sceneIdentityWithTags } from './model/sceneIdentity.js';
 import { IncompatibleSchemaError, InvalidRunDataError, validateRunData } from './model/validation.js';
 import type { ReportActivity, ReportData, ReportExecutionHistoryEntry, ReportScenario, ReportSystemContext } from './ReportData.js';
 import { CURRENT_REPORT_DATA_SCHEMA_VERSION } from './ReportData.js';
@@ -341,17 +342,11 @@ export class DataSnapshotAggregator {
     }
 
     private sceneIdentity(scene: { source: { path: string; line: number }; name: string }): string {
-        return scene.source.line
-            ? `${ scene.source.path }:${ scene.source.line }`
-            : `${ scene.source.path }:${ scene.name }`;
+        return sceneIdentity(scene);
     }
 
     private sceneIdentityWithBrowser(scene: { source: { path: string; line: number }; name: string; tags: TagRecord[] }): string {
-        const base = this.sceneIdentity(scene);
-        const browserTag = scene.tags.find(t => t.type === 'browser')?.name || '';
-        const projectTag = scene.tags.find(t => t.type === 'project')?.name || '';
-        const discriminator = browserTag || projectTag;
-        return discriminator ? `${ base }@${ discriminator }` : base;
+        return sceneIdentityWithTags(scene);
     }
 
     private copyArtifactsFromSource(databaseJsonPath: string, runId: string, subDirectory: string): void {
