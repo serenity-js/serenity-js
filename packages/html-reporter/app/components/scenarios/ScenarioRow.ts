@@ -57,7 +57,7 @@ export function ScenarioRow({ scenario, sort, onNavigate, runIndex, setSearch, s
         <div class="scenario-tags">
           ${browserTag && browserTagObject ? html`<span class="badge ${browserBadgeClass(browserTag)} badge-link${browserActive ? ' active' : ''}" aria-pressed=${browserActive ? 'true' : 'false'} onClick=${(e: Event) => handleTagClick(e, browserTagObject)}>${browserTag}</span>` : null}
           ${scenario.retries && scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
-          ${[...new Map((scenario.tags || []).filter(t => t.type !== 'browser').map(t => [t.type + ':' + t.name, t])).values()].map(t => {
+          ${[...new Map((scenario.tags || []).filter(t => t.type !== 'browser').map(t => [t.name, t])).values()].map(t => {
                 const isActive = searchContainsTag(search, t);
                 return html`<span class="tag-chip tag-chip-sm${isActive ? ' active' : ''}" aria-pressed=${isActive ? 'true' : 'false'} onClick=${(e: Event) => handleTagClick(e, t)}>${t.name}</span>`;
             })}

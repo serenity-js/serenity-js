@@ -1,7 +1,7 @@
 import { includes } from '@serenity-js/assertions';
 import type { Question,QuestionAdapter } from '@serenity-js/core';
 import { Task, the } from '@serenity-js/core';
-import { Attribute, By, Click, PageElement, Text } from '@serenity-js/web';
+import { Attribute, By, Click, Text } from '@serenity-js/web';
 
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 
@@ -35,6 +35,11 @@ export class ScenarioItem<NET> extends InteractionObject<NET> {
         this.child(By.css('.scenario-name'))
             .isPresent()
             .describedAs('whether scenario is present');
+
+    tagChipLabels = (): Question<Promise<string[]>> =>
+        this.children(By.css('.tag-chip'))
+            .eachMappedTo(Text)
+            .describedAs('tag chip labels');
 
     clickTag = (name: string): Task =>
         Task.where(the`#actor clicks the "${name}" tag`,

@@ -298,4 +298,33 @@ describe('ScenariosView tag chip interaction', () => {
             Ensure.that(view.scenarioNames(), contain('Checkout flow')),
         );
     });
+
+    it('deduplicates tag chips with the same name but different types', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/scenarios/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests' },
+            data: minimalData({
+                scenarios: [
+                    {
+                        name: 'Capability test', category: 'Capabilities', outcome: 'SUCCESS', duration: 100,
+                        startedAt: '2024-06-15T14:30:00.000Z',
+                        source: { path: 'spec/cap.spec.ts', line: 5 },
+                        tags: [
+                            { type: 'feature', name: 'Capabilities' },
+                            { type: 'capability', name: 'Capabilities' },
+                            { type: 'project', name: 'desktop' },
+                        ],
+                        activities: [],
+                        executionHistory: [],
+                    },
+                ],
+            }),
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCalled('Capability test').tagChipLabels(), equals(['Capabilities', 'desktop'])),
+        );
+    });
 });
