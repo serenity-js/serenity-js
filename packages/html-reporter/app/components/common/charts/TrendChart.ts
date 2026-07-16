@@ -1,6 +1,5 @@
-import zoomPlugin from 'chartjs-plugin-zoom';
-
 import { Chart } from 'chart.js/auto';
+import zoomPlugin from 'chartjs-plugin-zoom';
 import htm from 'htm';
 import { h } from 'preact';
 
@@ -42,6 +41,9 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
     const panelRef = useRef<HTMLDivElement | null>(null);
     const [chartTheme, setChartTheme] = useState(() => localStorage.getItem('serenity-theme') || 'light');
     const [selectedRun, setSelectedRun] = useState<SelectedRun | null>(null);
+    const [canPanLeft, setCanPanLeft] = useState(false);
+    const [canPanRight, setCanPanRight] = useState(false);
+    const peekFiredRef = useRef(false);
 
     const clearSelection = useCallback(() => {
         setSelectedRun(null);
@@ -147,10 +149,49 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
             options: buildTrendOptions(history, chartTheme, handleBarClick),
         });
 
+        // Add onPanComplete callback to track pan position for fade overlays
+        const isMobile = window.innerWidth <= 768;
+        const hasPannableContent = history.length > 5;
+
+        if (isMobile && hasPannableContent && chartRef.current.options.plugins?.zoom) {
+            const zoomConfig = chartRef.current.options.plugins.zoom as Record<string, unknown>;
+            const panConfig = zoomConfig.pan as Record<string, unknown>;
+            panConfig.onPanComplete = ({ chart }: { chart: Chart }) => {
+                setCanPanLeft(chart.scales.x.min > 0);
+                setCanPanRight(chart.scales.x.max < history.length - 1);
+            };
+        }
+
+        // Set initial fade state on mobile when there's pannable content
+        if (isMobile && hasPannableContent) {
+            setCanPanLeft(true);    // chart starts at rightmost, so older bars are to the left
+            setCanPanRight(false);  // already at the right edge
+        } else {
+            setCanPanLeft(false);
+            setCanPanRight(false);
+        }
+
         // Override Hammer.js touch-action: none on mobile to allow vertical page scroll
         // Hammer sets 'none' when both pan and pinch are registered; we only need horizontal pan
-        if (canvasRef.current && window.innerWidth <= 768) {
+        if (canvasRef.current && isMobile) {
             canvasRef.current.style.touchAction = 'pan-y';
+        }
+
+        // Peek animation on first render (mobile only, with enough history)
+        if (isMobile && hasPannableContent && !peekFiredRef.current) {
+            peekFiredRef.current = true;
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (!prefersReducedMotion) {
+                const chart = chartRef.current;
+                setTimeout(() => {
+                    if (chart && !chart.ctx) return;  // chart was destroyed
+                    chart.pan({ x: 40 }, undefined, 'default');
+                    setTimeout(() => {
+                        if (chart && !chart.ctx) return;
+                        chart.pan({ x: -40 }, undefined, 'default');
+                    }, 400);
+                }, 500);
+            }
         }
 
         return () => { if (chartRef.current) chartRef.current.destroy(); };
@@ -167,6 +208,8 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
     return html`
     <div class="trend-chart-wrapper">
       <div class="trend-chart-container" ref=${containerRef} style="position:relative;width:100%;height:300px">
+        <div class="trend-chart-fade-left ${canPanLeft ? 'visible' : ''}" aria-hidden="true"></div>
+        <div class="trend-chart-fade-right ${canPanRight ? 'visible' : ''}" aria-hidden="true"></div>
         <canvas ref=${canvasRef} role="img" aria-label="Trend chart showing test outcomes and duration across recent test runs"></canvas>
       </div>
       ${selectedRun && html`

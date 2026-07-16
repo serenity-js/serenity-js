@@ -3222,6 +3222,34 @@
     position: relative;
 }
 
+/* Fade overlays indicating horizontal pan affordance on mobile */
+.trend-chart-fade-left,
+.trend-chart-fade-right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    pointer-events: none;
+    z-index: 2;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.trend-chart-fade-left {
+    left: 0;
+    background: linear-gradient(to right, var(--bg-card), transparent);
+}
+
+.trend-chart-fade-right {
+    right: 0;
+    background: linear-gradient(to left, var(--bg-card), transparent);
+}
+
+.trend-chart-fade-left.visible,
+.trend-chart-fade-right.visible {
+    opacity: 1;
+}
+
 .run-details-panel {
     margin-top: var(--space-md);
     padding: var(--space-md);
