@@ -1,4 +1,4 @@
-import { contain, Ensure, includes } from '@serenity-js/assertions';
+import { and, contain, Ensure, includes } from '@serenity-js/assertions';
 
 import { describe, it } from '../../src';
 
@@ -18,10 +18,12 @@ describe('Capabilities', () => {
             await actor.attemptsTo(
                 capabilitiesView.open(),
 
-                Ensure.that(capabilitiesView.childCapabilityNames(), contain('authentication')),
-                Ensure.that(capabilitiesView.childCapabilityNames(), contain('checkout')),
-                Ensure.that(capabilitiesView.childCapabilityNames(), contain('todo')),
-                Ensure.that(capabilitiesView.childCapabilityNames(), contain('End-to-End Flows')),
+                Ensure.that(capabilitiesView.childCapabilityNames(), and(
+                    contain('authentication'),
+                    contain('checkout'),
+                    contain('todo'),
+                    contain('End-to-End Flows'),
+                )),
             );
         });
     });
