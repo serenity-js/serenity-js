@@ -1,4 +1,5 @@
 import { contain, Ensure, equals, includes, not } from '@serenity-js/assertions';
+import { ExecuteScript, LastScriptExecution } from '@serenity-js/web';
 
 import { PhotoStrip } from '../../../src/serenity/scenarios/PhotoStrip.serenity.js';
 import { minimalData } from '../data-factories.js';
@@ -370,6 +371,49 @@ describe('PhotoStrip', () => {
             Ensure.that(view.lightbox.caption(), includes('Fill in credentials')),
             view.lightbox.clickPrev(),
             Ensure.that(view.lightbox.caption(), includes('Navigate to login page')),
+        );
+    });
+
+    it('locks body scroll when lightbox is open', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'PhotoStrip',
+            importPath: './components/scenarios/PhotoStrip',
+            props: {
+                activities: activitiesWithPhotos(),
+                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
+            },
+            data: minimalData(),
+            interactionObject: PhotoStrip,
+        });
+
+        await actor.attemptsTo(
+            view.openPhoto(0),
+            ExecuteScript.sync('return document.body.style.overflow'),
+            Ensure.that(LastScriptExecution.result<string>(), equals('hidden')),
+            ExecuteScript.sync('return document.body.style.position'),
+            Ensure.that(LastScriptExecution.result<string>(), equals('fixed')),
+        );
+    });
+
+    it('restores body scroll when lightbox is closed', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'PhotoStrip',
+            importPath: './components/scenarios/PhotoStrip',
+            props: {
+                activities: activitiesWithPhotos(),
+                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
+            },
+            data: minimalData(),
+            interactionObject: PhotoStrip,
+        });
+
+        await actor.attemptsTo(
+            view.openPhoto(0),
+            view.lightbox.close(),
+            ExecuteScript.sync('return document.body.style.overflow'),
+            Ensure.that(LastScriptExecution.result<string>(), equals('')),
+            ExecuteScript.sync('return document.body.style.position'),
+            Ensure.that(LastScriptExecution.result<string>(), equals('')),
         );
     });
 });
