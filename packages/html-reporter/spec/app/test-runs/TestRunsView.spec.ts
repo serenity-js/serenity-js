@@ -1,4 +1,4 @@
-import { Ensure, equals, includes, not } from '@serenity-js/assertions';
+import { Ensure, equals, includes } from '@serenity-js/assertions';
 import { ExecuteScript, LastScriptExecution } from '@serenity-js/web';
 
 import { TestRunsView } from '../../../src/serenity/test-runs/TestRunsView.serenity.js';
