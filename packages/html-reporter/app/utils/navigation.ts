@@ -51,21 +51,113 @@ export function scenarioUrl(scenario: { source: ReportSource; name: string; tags
 }
 
 export function matchesSearch(scenario: ScenarioLike, query: string): boolean {
+    const tokens = parseSearchTokens(query);
+    if (tokens.length === 0) return true;
+
     const tagNames = (scenario.tags || []).map(t => t.name).join(' ');
     const sourcePath = scenario.source?.path || '';
     const errorMessage = scenario.error?.message || '';
     const text = (scenario.name + ' ' + scenario.category + ' ' + tagNames + ' ' + sourcePath + ' ' + errorMessage).toLowerCase();
-    const tokens = parseSearchTokens(query.toLowerCase());
-    return tokens.every(token => text.includes(token));
+
+    return tokens.every(token => {
+        if (token.startsWith('@')) {
+            return matchesTagToken(scenario.tags || [], token);
+        }
+        return text.includes(token.toLowerCase());
+    });
 }
 
-function parseSearchTokens(query: string): string[] {
+function matchesTagToken(tags: ReportScenarioTag[], token: string): boolean {
+    // token is e.g. "@browser", "@browser:chromium", "@browser:\"chromium 149\""
+    const withoutAt = token.slice(1); // remove @
+    const colonIndex = withoutAt.indexOf(':');
+
+    if (colonIndex === -1) {
+        // @type — match any tag with this exact type
+        const type = withoutAt.toLowerCase();
+        return tags.some(t => t.type.toLowerCase() === type);
+    }
+
+    const type = withoutAt.slice(0, colonIndex).toLowerCase();
+    let value = withoutAt.slice(colonIndex + 1);
+    // Strip surrounding quotes if present
+    if (value.startsWith('"') && value.endsWith('"')) {
+        value = value.slice(1, -1);
+    }
+    value = value.toLowerCase();
+
+    return tags.some(t => t.type.toLowerCase() === type && t.name.toLowerCase().includes(value));
+}
+
+export function parseSearchTokens(query: string): string[] {
     const tokens: string[] = [];
-    const regex = /"([^"]+)"|(\S+)/g;
+    const regex = /@[^:\s]+:"[^"]*"|@\S+|"[^"]+"|(\S+)/g;
     let match;
     while ((match = regex.exec(query)) !== null) {
-        const token = match[1] || match[2].replace(/"/g, '');
+        let token = match[0];
+        // For non-@ tokens, strip surrounding quotes
+        if (!token.startsWith('@') && token.startsWith('"') && token.endsWith('"')) {
+            token = token.slice(1, -1);
+        }
         if (token) tokens.push(token);
     }
     return tokens;
+}
+
+export function formatTagToken(tag: { type: string; name: string }): string {
+    const value = tag.name.includes(' ') ? `"${tag.name}"` : tag.name;
+    return `@${tag.type}:${value}`;
+}
+
+export function searchContainsTag(search: string, tag: { type: string; name: string }): boolean {
+    const tokens = parseSearchTokens(search);
+    const targetType = tag.type.toLowerCase();
+    const targetName = tag.name.toLowerCase();
+
+    return tokens.some(token => {
+        if (!token.startsWith('@')) return false;
+        const withoutAt = token.slice(1);
+        const colonIndex = withoutAt.indexOf(':');
+        if (colonIndex === -1) return false;
+
+        const type = withoutAt.slice(0, colonIndex).toLowerCase();
+        if (type !== targetType) return false;
+
+        let value = withoutAt.slice(colonIndex + 1);
+        if (value.startsWith('"') && value.endsWith('"')) {
+            value = value.slice(1, -1);
+        }
+        return value.toLowerCase() === targetName;
+    });
+}
+
+export function toggleTagInSearch(search: string, tag: { type: string; name: string }): string {
+    if (searchContainsTag(search, tag)) {
+        // Remove the tag token
+        const tokens = parseSearchTokens(search);
+        const targetType = tag.type.toLowerCase();
+        const targetName = tag.name.toLowerCase();
+
+        const remaining = tokens.filter(token => {
+            if (!token.startsWith('@')) return true;
+            const withoutAt = token.slice(1);
+            const colonIndex = withoutAt.indexOf(':');
+            if (colonIndex === -1) return true;
+
+            const type = withoutAt.slice(0, colonIndex).toLowerCase();
+            if (type !== targetType) return true;
+
+            let value = withoutAt.slice(colonIndex + 1);
+            if (value.startsWith('"') && value.endsWith('"')) {
+                value = value.slice(1, -1);
+            }
+            return value.toLowerCase() !== targetName;
+        });
+
+        return remaining.join(' ').trim();
+    }
+
+    // Append the tag token
+    const token = formatTagToken(tag);
+    return search ? (search.trim() + ' ' + token) : token;
 }

@@ -142,6 +142,7 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
         <${ResultCount} showing=${filtered.length} total=${allScenarios.length} label="test scenarios" />
         <${VirtualScenarioList} filtered=${filtered} grouped=${grouped} sort=${sort}
           onNavigate=${onNavigate} runIndex=${runIndex} setSearch=${setSearch}
+          search=${search}
           specDirectory=${specDirectory}
           history=${history} />
       </div>

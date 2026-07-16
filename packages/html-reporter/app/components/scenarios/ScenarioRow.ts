@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData';
-import { ansiToHtml, browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, relativeSourcePath, scenarioUrl } from '../../utils';
+import { ansiToHtml, browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, relativeSourcePath, scenarioUrl, searchContainsTag, toggleTagInSearch } from '../../utils';
 import { HistoryDots } from '../common/HistoryDots';
 import { OutcomeBadge } from '../common/OutcomeBadge';
 
@@ -14,11 +14,12 @@ export interface ScenarioRowProps {
     onNavigate: (path: string) => void;
     runIndex: number | null;
     setSearch: (search: string) => void;
+    search: string;
     specDirectory?: string;
     history?: ReportHistoryEntry[];
 }
 
-export function ScenarioRow({ scenario, sort, onNavigate, runIndex, setSearch, specDirectory, history }: ScenarioRowProps): ReturnType<typeof html> {
+export function ScenarioRow({ scenario, sort, onNavigate, runIndex, setSearch, search, specDirectory, history }: ScenarioRowProps): ReturnType<typeof html> {
     const url = scenarioUrl(scenario, runIndex, history);
     const clickHandler = (e: MouseEvent) => {
         // Allow cmd+click / ctrl+click to open in new tab naturally
@@ -26,7 +27,16 @@ export function ScenarioRow({ scenario, sort, onNavigate, runIndex, setSearch, s
         e.preventDefault();
         onNavigate(url);
     };
-    const stopProp = (e: Event) => e.stopPropagation();
+
+    const handleTagClick = (e: Event, tag: { type: string; name: string }) => {
+        e.stopPropagation();
+        e.preventDefault();
+        setSearch(toggleTagInSearch(search, tag));
+    };
+
+    const browserTag = getBrowserTag(scenario);
+    const browserTagObject = browserTag ? (scenario.tags || []).find(t => t.type === 'browser') : null;
+    const browserActive = browserTagObject ? searchContainsTag(search, browserTagObject) : false;
 
     return html`
     <a class="scenario-item" href=${'#' + url} onClick=${clickHandler}
@@ -45,9 +55,12 @@ export function ScenarioRow({ scenario, sort, onNavigate, runIndex, setSearch, s
           <span class="scenario-source">${relativeSourcePath(scenario, specDirectory)}</span>
         </div>
         <div class="scenario-tags">
-          ${getBrowserTag(scenario) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(scenario)!)} badge-link" onClick=${(e: Event) => { stopProp(e); onNavigate('/tests?search=' + encodeURIComponent('"' + getBrowserTag(scenario)! + '"')); }}>${getBrowserTag(scenario)}</span>` : null}
+          ${browserTag && browserTagObject ? html`<span class="badge ${browserBadgeClass(browserTag)} badge-link${browserActive ? ' active' : ''}" aria-pressed=${browserActive ? 'true' : 'false'} onClick=${(e: Event) => handleTagClick(e, browserTagObject)}>${browserTag}</span>` : null}
           ${scenario.retries && scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
-          ${[...new Map((scenario.tags || []).filter(t => t.type !== 'feature' && t.type !== 'browser').map(t => [t.type + ':' + t.name, t])).values()].map(t => html`<span class="tag-chip tag-chip-sm" onClick=${(e: Event) => { stopProp(e); onNavigate('/tests?search=' + encodeURIComponent('"' + t.name + '"')); }}>${t.name}</span>`)}
+          ${[...new Map((scenario.tags || []).filter(t => t.type !== 'feature' && t.type !== 'browser').map(t => [t.type + ':' + t.name, t])).values()].map(t => {
+                const isActive = searchContainsTag(search, t);
+                return html`<span class="tag-chip tag-chip-sm${isActive ? ' active' : ''}" aria-pressed=${isActive ? 'true' : 'false'} onClick=${(e: Event) => handleTagClick(e, t)}>${t.name}</span>`;
+            })}
         </div>
       </div>
       <span class="scenario-duration">${formatDuration(scenario.duration)}</span>

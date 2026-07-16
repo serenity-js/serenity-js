@@ -16,11 +16,12 @@ export interface VirtualScenarioListProps {
     onNavigate: (path: string) => void;
     runIndex: number | null;
     setSearch: (search: string) => void;
+    search: string;
     specDirectory?: string;
     history?: ReportHistoryEntry[];
 }
 
-export function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, setSearch, specDirectory, history }: VirtualScenarioListProps): ReturnType<typeof html> {
+export function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIndex, setSearch, search, specDirectory, history }: VirtualScenarioListProps): ReturnType<typeof html> {
     const items = sort === 'category'
         ? Object.entries(grouped).flatMap(([, scenarios]) => scenarios)
         : filtered;
@@ -30,8 +31,9 @@ export function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIn
     const renderItem = useCallback((scenario: ReportScenario) => {
         return html`<${ScenarioRow} scenario=${scenario} sort=${sort}
             onNavigate=${onNavigate} runIndex=${runIndex} setSearch=${setSearch}
+            search=${search}
             specDirectory=${specDirectory} history=${history} />`;
-    }, [sort, onNavigate, runIndex, setSearch, specDirectory, history]);
+    }, [sort, onNavigate, runIndex, setSearch, search, specDirectory, history]);
 
     const renderGroupHeader = useCallback((category: string) => {
         const segments = category.split(' › ');
