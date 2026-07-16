@@ -13,7 +13,7 @@ import {
     TimelineView,
 } from '@serenity-js/html-reporter/serenity';
 import { useFixtures } from '@serenity-js/playwright-test';
-import { By, PageElement } from '@serenity-js/web';
+import { By, PageElement, Photographer, TakePhotosOfInteractions } from '@serenity-js/web';
 
 interface TestFixtures {
     navigation: Navigation;
@@ -26,7 +26,8 @@ interface TestFixtures {
         scenarios: {
             maxVisibleRows: number;
         }
-    }
+    };
+    isShowcase: boolean;
     scenarioDetailView: ScenarioDetailView<unknown>;
     scenariosView: ScenariosView<unknown>;
     systemContextView: SystemContextView<unknown>;
@@ -47,6 +48,22 @@ export const {
     beforeEach,
     afterEach,
 } = useFixtures<TestFixtures, WorkerFixtures>({
+    isShowcase: async ({ }, use, info) => {
+        await use(info.tags.includes('@showcase'));
+    },
+
+    crew: async ({ crew }, use, info) => {
+        const isShowcase = info.tags.includes('@showcase');
+
+        await use(
+            crew.map(member =>
+                isShowcase && member instanceof Photographer
+                    ? Photographer.whoWill(TakePhotosOfInteractions)
+                    : member
+            )
+        );
+    },
+
     page: async ({ page }, use) => {
         await page.goto('/index.html');
         await use(page);

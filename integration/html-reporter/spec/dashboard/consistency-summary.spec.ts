@@ -1,4 +1,4 @@
-import { contain, Ensure } from '@serenity-js/assertions';
+import { and, contain, Ensure } from '@serenity-js/assertions';
 
 import { describe, it } from '../../src';
 import { degradedTest, failingTest } from '../../src/scenarios';
@@ -9,8 +9,10 @@ describe('Dashboard', () => {
 
         it('shows newly degraded tests that were previously passing', { tag: '@showcase' }, async ({ actor, dashboardView }) => {
             await actor.attemptsTo(
-                Ensure.that(dashboardView.consistencyCardScenarioNames(), contain(failingTest)),
-                Ensure.that(dashboardView.consistencyCardScenarioNames(), contain(degradedTest)),
+                Ensure.that(dashboardView.consistencyCardScenarioNames(), and(
+                    contain(failingTest),
+                    contain(degradedTest)
+                )),
             );
         });
 

@@ -1,6 +1,7 @@
+import { includes } from '@serenity-js/assertions';
 import type { Question,QuestionAdapter } from '@serenity-js/core';
-import { Task } from '@serenity-js/core';
-import { Attribute, By, Click } from '@serenity-js/web';
+import { Task, the } from '@serenity-js/core';
+import { Attribute, By, Click, PageElement, Text } from '@serenity-js/web';
 
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 
@@ -9,6 +10,10 @@ export class ScenarioItem<NET> extends InteractionObject<NET> {
     private outcomeBadge = () =>
         this.child(By.css('[data-testid="outcome-badge"]'))
             .describedAs('outcome badge');
+
+    private tagChips = () =>
+        this.children(By.css('.tag-chip, .badge-link'))
+            .describedAs('tag chips');
 
     name = (): QuestionAdapter<string> =>
         this.child(By.css('.scenario-name')).text().trim()
@@ -30,6 +35,16 @@ export class ScenarioItem<NET> extends InteractionObject<NET> {
         this.child(By.css('.scenario-name'))
             .isPresent()
             .describedAs('whether scenario is present');
+
+    clickTag = (name: string): Task =>
+        Task.where(the`#actor clicks the "${name}" tag`,
+            Click.on(
+                this.tagChips()
+                    .where(Text, includes(name))
+                    .first()
+                    .describedAs(the`tag chip "${name}"`)
+            ),
+        );
 
     viewDetails = (): Task =>
         Task.where('#actor views scenario details',

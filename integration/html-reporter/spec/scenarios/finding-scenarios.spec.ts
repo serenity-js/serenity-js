@@ -56,5 +56,21 @@ describe('Test Scenarios', () => {
                 Ensure.that(scenariosView.scenarioCalled('should edit an item').outcome(), equals('SUCCESS')),
             );
         });
+
+        it('narrows results by clicking a tag chip on a scenario', { tag: '@showcase' }, async ({ actor, scenariosView }) => {
+            await actor.attemptsTo(
+                scenariosView.open(),
+                scenariosView.find('item'),
+
+                // 'item' appears in 9 scenarios across Checkout and Todo List features
+                Ensure.that(scenariosView.scenarioCount(), equals(9)),
+
+                // Click the 'Checkout' feature tag on one of the Checkout scenarios
+                scenariosView.scenarioCalled('add an item to the cart').clickTag('Checkout'),
+
+                // Now only the 3 Checkout scenarios containing 'item' are shown
+                Ensure.that(scenariosView.scenarioCount(), equals(3)),
+            );
+        });
     });
 });
