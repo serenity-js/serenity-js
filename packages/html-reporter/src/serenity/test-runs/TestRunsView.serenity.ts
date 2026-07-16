@@ -1,6 +1,6 @@
 import type { Question, QuestionAdapter } from '@serenity-js/core';
-import { Task } from '@serenity-js/core';
-import { Attribute, By, Click, PageElement, Text } from '@serenity-js/web';
+import { Interaction, Task } from '@serenity-js/core';
+import { Attribute, By, Click, Key, PageElement, Press, Text } from '@serenity-js/web';
 
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
@@ -89,7 +89,14 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
 
     clickChart = (): Task =>
         Task.where('#actor clicks the trend chart',
-            Click.on(this.child(By.css('canvas')).describedAs('trend chart canvas')),
+            Interaction.where('#actor clicks the chart canvas', async actor => {
+                const element = await actor.answer(this.child(By.css('canvas')).describedAs('trend chart canvas'));
+                const nativeLocator = await element.nativeElement() as any;
+                const box = await nativeLocator.boundingBox();
+                if (box) {
+                    await nativeLocator.click({ position: { x: box.width * 0.75, y: box.height * 0.5 } });
+                }
+            }),
         );
 
     selectRun = (index: number): Task =>
@@ -103,6 +110,11 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
     clickDetailsCtaButton = (): Task =>
         Task.where('#actor clicks the run details CTA button',
             Click.on(this.detailsCta()),
+        );
+
+    dismissDetailsPanel = (): Task =>
+        Task.where('#actor dismisses the run details panel',
+            Press.the(Key.Escape),
         );
 
     open = (): Task =>
