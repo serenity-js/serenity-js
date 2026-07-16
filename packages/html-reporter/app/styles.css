@@ -2615,9 +2615,9 @@
         height: 100% !important;
       }
 
-      /* Native horizontal scroll on the container; allow vertical page scroll */
+      /* Allow chartjs-plugin-zoom to handle horizontal pan; browser handles vertical scroll and pinch */
       .trend-chart-container canvas {
-        touch-action: manipulation;
+        touch-action: pan-y pinch-zoom;
       }
 
       /* Filter bar compact on mobile */

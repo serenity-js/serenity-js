@@ -33,8 +33,6 @@ export interface TrendChartProps {
     onNavigate: (path: string) => void;
 }
 
-const MIN_BAR_WIDTH_MOBILE = 60;
-
 export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType<typeof html> | null {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const chartRef = useRef<Chart | null>(null);
@@ -147,18 +145,10 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
             options: buildTrendOptions(history, chartTheme, handleBarClick),
         });
 
-        // On mobile, scroll the container to show the latest (rightmost) runs
-        if (containerRef.current && window.innerWidth <= 768) {
-            containerRef.current.scrollLeft = containerRef.current.scrollWidth;
-        }
-
         return () => { if (chartRef.current) chartRef.current.destroy(); };
     }, [history, chartTheme]);
 
     if (history.length === 0) return null;
-
-    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-    const minChartWidth = history.length * MIN_BAR_WIDTH_MOBILE;
 
     const handleNavigate = () => {
         if (selectedRun) {
@@ -168,10 +158,8 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
 
     return html`
     <div class="trend-chart-wrapper">
-      <div class="trend-chart-container" ref=${containerRef} style="position:relative;height:300px;${isMobile ? 'overflow-x:auto;-webkit-overflow-scrolling:touch' : 'overflow:hidden'}">
-        <div style="position:relative;width:${isMobile && minChartWidth > 0 ? minChartWidth + 'px' : '100%'};height:100%">
-          <canvas ref=${canvasRef} role="img" aria-label="Trend chart showing test outcomes and duration across recent test runs"></canvas>
-        </div>
+      <div class="trend-chart-container" ref=${containerRef} style="position:relative;width:100%;height:300px">
+        <canvas ref=${canvasRef} role="img" aria-label="Trend chart showing test outcomes and duration across recent test runs"></canvas>
       </div>
       ${selectedRun && html`
         <div class="run-details-panel" ref=${panelRef} data-testid="run-details-panel">
