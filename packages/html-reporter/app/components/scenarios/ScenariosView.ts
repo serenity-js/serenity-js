@@ -60,6 +60,9 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
         } else if (sort === 'status') {
             const statusOrder: Record<string, number> = { FAILURE: 1, ERROR: 2, COMPROMISED: 3, PENDING: 4, SKIPPED: 5, SUCCESS: 6 };
             result = [...result].sort((a, b) => (statusOrder[a.outcome] || 6) - (statusOrder[b.outcome] || 6));
+        } else {
+            // Default (category): sort by category then name within each category
+            result = [...result].sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
         }
         return result;
     }, [search, filter, sort]);

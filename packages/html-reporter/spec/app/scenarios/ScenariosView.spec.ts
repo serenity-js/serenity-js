@@ -146,6 +146,65 @@ describe('ScenariosView interaction object', () => {
     });
 });
 
+describe('ScenariosView category sort', () => {
+
+    it('orders scenarios alphabetically by name within each category', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/scenarios/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests' },
+            data: minimalData({
+                scenarios: [
+                    { name: 'Zebra test', category: 'Auth', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'spec/auth.spec.ts', line: 1 }, tags: [], activities: [], executionHistory: [] },
+                    { name: 'Alpha test', category: 'Auth', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.100Z', source: { path: 'spec/auth.spec.ts', line: 5 }, tags: [], activities: [], executionHistory: [] },
+                    { name: 'Middle test', category: 'Auth', outcome: 'FAILURE', duration: 100, startedAt: '2024-06-15T14:30:00.200Z', source: { path: 'spec/auth.spec.ts', line: 10 }, tags: [], activities: [], executionHistory: [], error: { name: 'Error', message: 'failed' } },
+                    { name: 'Beta checkout', category: 'Checkout', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.300Z', source: { path: 'spec/checkout.spec.ts', line: 1 }, tags: [], activities: [], executionHistory: [] },
+                    { name: 'Alpha checkout', category: 'Checkout', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.400Z', source: { path: 'spec/checkout.spec.ts', line: 5 }, tags: [], activities: [], executionHistory: [] },
+                ],
+            }),
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            // Default sort is 'category' — groups should be alphabetical, names within each group too
+            Ensure.that(view.scenarioNames(), equals([
+                'Alpha test',
+                'Middle test',
+                'Zebra test',
+                'Alpha checkout',
+                'Beta checkout',
+            ])),
+        );
+    });
+
+    it('groups same-named scenarios from different projects together within a category', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/scenarios/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests' },
+            data: minimalData({
+                scenarios: [
+                    { name: 'should complete checkout', category: 'Checkout', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'spec/checkout.spec.ts', line: 10 }, tags: [{ type: 'project', name: 'desktop' }], activities: [], executionHistory: [] },
+                    { name: 'should add to cart', category: 'Checkout', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.100Z', source: { path: 'spec/checkout.spec.ts', line: 20 }, tags: [{ type: 'project', name: 'desktop' }], activities: [], executionHistory: [] },
+                    { name: 'should complete checkout', category: 'Checkout', outcome: 'FAILURE', duration: 200, startedAt: '2024-06-15T14:30:00.200Z', source: { path: 'spec/checkout.spec.ts', line: 10 }, tags: [{ type: 'project', name: 'mobile' }], activities: [], executionHistory: [], error: { name: 'Error', message: 'mobile broken' } },
+                    { name: 'should add to cart', category: 'Checkout', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.300Z', source: { path: 'spec/checkout.spec.ts', line: 20 }, tags: [{ type: 'project', name: 'mobile' }], activities: [], executionHistory: [] },
+                ],
+            }),
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            // Same-named scenarios appear adjacent (sorted by name), regardless of project
+            Ensure.that(view.scenarioNames(), equals([
+                'should add to cart',
+                'should add to cart',
+                'should complete checkout',
+                'should complete checkout',
+            ])),
+        );
+    });
+});
+
 describe('ScenariosView deep linking', () => {
 
     const data = minimalData();
