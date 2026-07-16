@@ -26,7 +26,7 @@ describe('Test Scenarios', () => {
             );
         });
 
-        it('locates a failing test by filtering and searching', async ({ actor, scenariosView }) => {
+        it('locates a failing test by filtering and searching', { tag: '@showcase' }, async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
                 scenariosView.open(),
                 scenariosView.selectFilter('Failed'),
@@ -38,7 +38,7 @@ describe('Test Scenarios', () => {
             );
         });
 
-        it('shows the error preview inline in the scenario list', async ({ actor, scenariosView }) => {
+        it('shows the error preview inline in the scenario list', { tag: '@showcase' }, async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
                 scenariosView.open(),
                 scenariosView.selectFilter('Failed'),
@@ -48,7 +48,7 @@ describe('Test Scenarios', () => {
             );
         });
 
-        it('shows a retried scenario as ultimately passing', async ({ actor, scenariosView }) => {
+        it('shows a retried scenario as ultimately passing', { tag: '@showcase' }, async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
                 scenariosView.open(),
                 scenariosView.find('edit'),

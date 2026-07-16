@@ -6,7 +6,7 @@ describe('Dashboard', () => {
 
     describe('Confidence and KPIs', () => {
 
-        it('shows the overall confidence score', async ({ actor, dashboardView }) => {
+        it('shows the overall confidence score', { tag: '@showcase' }, async ({ actor, dashboardView }) => {
             await actor.attemptsTo(
                 Ensure.that(dashboardView.kpiCardCalled('Confidence').value(), includes('85')),
                 Ensure.that(dashboardView.kpiCardCalled('Confidence').subtitle(), includes('since last run')),

@@ -7,7 +7,7 @@ describe('Capabilities', () => {
 
     describe('Living Documentation', () => {
 
-        it('navigates to filtered scenarios when clicking a spec file link in the README', async ({ actor, capabilitiesView, scenariosView }) => {
+        it('navigates to filtered scenarios when clicking a spec file link in the README', { tag: '@showcase' }, async ({ actor, capabilitiesView, scenariosView }) => {
             await actor.attemptsTo(
                 capabilitiesView.open(),
                 capabilitiesView.followReadmeLink('Authentication'),

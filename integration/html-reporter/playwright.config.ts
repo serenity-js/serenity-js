@@ -33,8 +33,20 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
         reuseExistingServer: ! process.env.CI,
     },
     projects: [
-        { name: 'desktop', use: { browserName: 'chromium', viewport: { width: 1920, height: 1080 } } },
-        { name: 'tablet', use: { browserName: 'chromium', viewport: { width: 1024, height: 768 } } },
-        { name: 'mobile', use: { browserName: 'chromium', viewport: { width: 390, height: 844 } } },
+        {
+            name: 'showcase',
+            grep: /@showcase/,
+            use: {
+                browserName: 'chromium',
+                viewport: { width: 1920, height: 1080 },
+                video: 'on',
+                crew: [
+                    [ '@serenity-js/web:Photographer', { strategy: 'TakePhotosOfInteractions' } ],
+                ],
+            },
+        },
+        { name: 'desktop', grepInvert: /@showcase/, use: { browserName: 'chromium', viewport: { width: 1920, height: 1080 } } },
+        { name: 'tablet', grepInvert: /@showcase/, use: { browserName: 'chromium', viewport: { width: 1024, height: 768 } } },
+        { name: 'mobile', grepInvert: /@showcase/, use: { browserName: 'chromium', viewport: { width: 390, height: 844 } } },
     ],
 });

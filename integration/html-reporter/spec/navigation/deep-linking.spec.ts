@@ -12,7 +12,7 @@ describe('Navigation', () => {
 
     describe('Deep Linking', () => {
 
-        it('allows sharing a link to a filtered scenario view', async ({ actor, scenariosView }) => {
+        it('allows sharing a link to a filtered scenario view', { tag: '@showcase' }, async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
                 scenariosView.open(),
                 scenariosView.selectFilter('Failed'),

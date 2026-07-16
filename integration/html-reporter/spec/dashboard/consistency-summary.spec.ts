@@ -7,14 +7,14 @@ describe('Dashboard', () => {
 
     describe('Consistency Summary', () => {
 
-        it('shows newly degraded tests that were previously passing', async ({ actor, dashboardView }) => {
+        it('shows newly degraded tests that were previously passing', { tag: '@showcase' }, async ({ actor, dashboardView }) => {
             await actor.attemptsTo(
                 Ensure.that(dashboardView.consistencyCardScenarioNames(), contain(failingTest)),
                 Ensure.that(dashboardView.consistencyCardScenarioNames(), contain(degradedTest)),
             );
         });
 
-        it('shows recovered tests that are now passing', async ({ actor, dashboardView }) => {
+        it('shows recovered tests that are now passing', { tag: '@showcase' }, async ({ actor, dashboardView }) => {
             await actor.attemptsTo(
                 Ensure.that(dashboardView.consistencyCardScenarioNames(), contain('Persistence should persist items')),
             );

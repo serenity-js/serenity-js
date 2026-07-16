@@ -14,7 +14,7 @@ describe('Capabilities', () => {
             );
         });
 
-        it('lists feature areas with their scenario counts', async ({ actor, capabilitiesView }) => {
+        it('lists feature areas with their scenario counts', { tag: '@showcase' }, async ({ actor, capabilitiesView }) => {
             await actor.attemptsTo(
                 capabilitiesView.open(),
 

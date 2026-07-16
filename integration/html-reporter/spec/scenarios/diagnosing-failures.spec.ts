@@ -7,7 +7,7 @@ describe('Test Scenarios', () => {
 
     describe('Diagnosing Failures', () => {
 
-        it('shows the failing step and error message', async ({ actor, scenariosView, scenarioDetailView }) => {
+        it('shows the failing step and error message', { tag: '@showcase' }, async ({ actor, scenariosView, scenarioDetailView }) => {
             await actor.attemptsTo(
                 scenariosView.open(),
                 scenariosView.selectFilter('Failed'),
@@ -19,7 +19,7 @@ describe('Test Scenarios', () => {
             );
         });
 
-        it('identifies a timeout failure and its cause', async ({ actor, scenariosView, scenarioDetailView }) => {
+        it('identifies a timeout failure and its cause', { tag: '@showcase' }, async ({ actor, scenariosView, scenarioDetailView }) => {
             await actor.attemptsTo(
                 scenariosView.open(),
                 scenariosView.find('timeout error'),
