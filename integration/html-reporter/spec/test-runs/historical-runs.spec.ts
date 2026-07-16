@@ -24,5 +24,29 @@ describe('Test Runs', () => {
                 Ensure.that(Page.current().url().href, includes('#/tests?run=')),
             );
         });
+
+        it('shows run details panel when clicking the trend chart', { tag: '@showcase' }, async ({ actor, testRunsView }) => {
+            await actor.attemptsTo(
+                testRunsView.open(),
+                testRunsView.clickChart(),
+
+                Ensure.that(testRunsView.hasDetailsPanel(), equals(true)),
+                Ensure.that(testRunsView.detailsPanelText(), includes('PASSED')),
+                Ensure.that(testRunsView.detailsPanelText(), includes('FAILED')),
+            );
+        });
+
+        it('navigates to filtered scenarios via the details panel CTA', { tag: '@showcase' }, async ({ actor, testRunsView }) => {
+            await actor.attemptsTo(
+                testRunsView.open(),
+                testRunsView.clickChart(),
+
+                Ensure.that(testRunsView.hasDetailsPanel(), equals(true)),
+
+                testRunsView.clickDetailsCtaButton(),
+
+                Ensure.that(Page.current().url().href, includes('#/tests?run=')),
+            );
+        });
     });
 });

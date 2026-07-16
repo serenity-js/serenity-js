@@ -87,6 +87,11 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
         Attribute.called('href').of(this.commitLink())
             .describedAs('commit link href');
 
+    clickChart = (): Task =>
+        Task.where('#actor clicks the trend chart',
+            Click.on(this.child(By.css('canvas')).describedAs('trend chart canvas')),
+        );
+
     selectRun = (index: number): Task =>
         Task.where(`#actor selects test run ${index + 1}`,
             Click.on(this.runRows()
