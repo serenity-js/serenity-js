@@ -118,7 +118,7 @@ export function buildTrendOptions(history: ReportHistoryEntry[], theme: string, 
             legend: buildLegendConfig(textColor),
             tooltip: { enabled: false },
             zoom: {
-                pan: { enabled: true, mode: 'x' as const },
+                pan: { enabled: true, mode: 'x' as const, threshold: 10 },
                 zoom: { wheel: { enabled: false }, pinch: { enabled: true }, mode: 'x' as const },
                 limits: { x: { min: 0, max: history.length - 1 } },
             },

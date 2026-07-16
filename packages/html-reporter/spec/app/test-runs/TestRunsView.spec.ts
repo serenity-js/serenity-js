@@ -3,7 +3,7 @@ import { ExecuteScript, LastScriptExecution } from '@serenity-js/web';
 
 import { TestRunsView } from '../../../src/serenity/test-runs/TestRunsView.serenity.js';
 import { minimalData } from '../data-factories.js';
-import { describe, it } from '../fixtures.js';
+import { describe, expect, it } from '../fixtures.js';
 
 describe('TestRunsView', () => {
 
@@ -300,6 +300,41 @@ describe('TestRunsView', () => {
             await actor.attemptsTo(
                 Ensure.that(view.hasDetailsPanel(), equals(false)),
             );
+        });
+    });
+
+    /* Implementation contract: verifies touch-action CSS for mobile chart panning. Kept as raw Playwright. */
+    describe('TestRunsView chart touch support', () => {
+
+        it('applies touch-action pan-y to the chart canvas for mobile panning', async ({ mount, page }) => {
+            await page.setViewportSize({ width: 375, height: 667 });
+
+            await mount({
+                component: 'TestRunsView',
+                importPath: './components/test-runs/TestRunsView',
+                props: { onNavigate: () => {} },
+                data: minimalData(),
+                chartJs: true,
+            });
+
+            const canvas = page.locator('.trend-chart-container canvas');
+            await expect(canvas).toBeVisible();
+            const touchAction = await canvas.evaluate(el => getComputedStyle(el).touchAction);
+            expect(touchAction).toBe('pan-y');
+        });
+
+        it('wraps the chart in a container with the trend-chart-container class', async ({ mount, page }) => {
+            await mount({
+                component: 'TestRunsView',
+                importPath: './components/test-runs/TestRunsView',
+                props: { onNavigate: () => {} },
+                data: minimalData(),
+                chartJs: true,
+            });
+
+            const container = page.locator('.trend-chart-container');
+            await expect(container).toBeVisible();
+            await expect(container.locator('canvas')).toBeVisible();
         });
     });
 });

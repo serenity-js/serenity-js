@@ -2609,6 +2609,11 @@
         max-width: 100%;
       }
 
+      /* Let chartjs-plugin-zoom handle horizontal pan; browser handles vertical scroll */
+      .trend-chart-container canvas {
+        touch-action: pan-y;
+      }
+
       /* Filter bar compact on mobile */
       [data-testid="filter-bar"] .filter-chip {
         padding: 4px 10px;

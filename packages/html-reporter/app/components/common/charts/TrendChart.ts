@@ -169,7 +169,7 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
 
     return html`
     <div class="trend-chart-wrapper">
-      <div style="position:relative;width:100%;height:300px;overflow:hidden">
+      <div class="trend-chart-container" style="position:relative;width:100%;height:300px;overflow:hidden">
         <canvas ref=${canvasRef} role="img" aria-label="Trend chart showing test outcomes and duration across recent test runs"></canvas>
       </div>
       ${selectedRun && html`
