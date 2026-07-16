@@ -7,7 +7,7 @@ Chart.register(zoomPlugin);
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 
 import type { ReportHistoryEntry } from '../../../../src/cli/ReportData';
-import { formatDuration, formatRunLabel, formatTimestamp } from '../../../utils';
+import { abbreviateRunLabels, formatDuration, formatRunLabel, formatTimestamp } from '../../../utils';
 import { computeRunMetrics } from '../../../utils/computeRunMetrics';
 import { buildTrendDatasets, buildTrendOptions } from './trendChartConfig';
 
@@ -139,17 +139,20 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
             }
         };
 
+        const isMobile = window.innerWidth <= 768;
+
         chartRef.current = new Chart(canvasRef.current, {
             type: 'bar',
             data: {
-                labels: history.map(h => formatRunLabel(h.label, h.timestamp)),
+                labels: isMobile
+                    ? abbreviateRunLabels(history)
+                    : history.map(h => formatRunLabel(h.label, h.timestamp)),
                 datasets: buildTrendDatasets(history, chartTheme),
             },
             options: buildTrendOptions(history, chartTheme, handleBarClick),
         });
 
         // Add onPanComplete callback to track pan position for fade overlays
-        const isMobile = window.innerWidth <= 768;
         const hasPannableContent = history.length > 5;
 
         if (isMobile && hasPannableContent && chartRef.current.options.plugins?.zoom) {

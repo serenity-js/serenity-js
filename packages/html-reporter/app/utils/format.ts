@@ -46,3 +46,57 @@ export function formatTimestamp(iso: string): string {
 export function formatRunLabel(label: string, timestamp: string): string {
     return /^\d{4}-\d{2}-\d{2}T/.test(label) ? formatTimestamp(timestamp) : label + ' — ' + formatTimestamp(timestamp);
 }
+
+const SHORT_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+function looksLikeBuildNumber(label: string): boolean {
+    return label.length <= 10 && !/^\d{4}-\d{2}-\d{2}T/.test(label);
+}
+
+function pad2(n: number): string {
+    return n < 10 ? '0' + n : String(n);
+}
+
+/**
+ * Produces short x-axis labels for TrendChart.
+ *
+ * Priority 1: If all labels are short build numbers (≤10 chars, not ISO timestamps), return them directly.
+ * Priority 2: Otherwise, abbreviate based on the time span of the visible history:
+ *   - Same day → "HH:MM"
+ *   - Multiple days, same month → "D HH:MM"
+ *   - Multiple months, same year → "D Mon"
+ *   - Multiple years → "Mon 'YY"
+ */
+export function abbreviateRunLabels(history: Array<{ label: string; timestamp: string }>): string[] {
+    if (history.length === 0) return [];
+
+    // Priority 1: use labels directly if they all look like build numbers
+    if (history.every(h => looksLikeBuildNumber(h.label))) {
+        return history.map(h => h.label);
+    }
+
+    // Priority 2: contextual date abbreviation based on timestamps
+    const dates = history.map(h => new Date(h.timestamp));
+
+    const years = new Set(dates.map(d => d.getUTCFullYear()));
+    const months = new Set(dates.map(d => d.getUTCFullYear() + '-' + d.getUTCMonth()));
+    const days = new Set(dates.map(d => d.getUTCFullYear() + '-' + d.getUTCMonth() + '-' + d.getUTCDate()));
+
+    if (years.size > 1) {
+        // Multi-year: "Jul '26"
+        return dates.map(d => SHORT_MONTHS[d.getUTCMonth()] + " '" + String(d.getUTCFullYear()).slice(2));
+    }
+
+    if (months.size > 1) {
+        // Multi-month same year: "14 Jul"
+        return dates.map(d => d.getUTCDate() + ' ' + SHORT_MONTHS[d.getUTCMonth()]);
+    }
+
+    if (days.size > 1) {
+        // Multi-day same month: "14 18:24"
+        return dates.map(d => d.getUTCDate() + ' ' + pad2(d.getUTCHours()) + ':' + pad2(d.getUTCMinutes()));
+    }
+
+    // Same day: "18:24"
+    return dates.map(d => pad2(d.getUTCHours()) + ':' + pad2(d.getUTCMinutes()));
+}
