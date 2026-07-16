@@ -43,7 +43,6 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
     const [selectedRun, setSelectedRun] = useState<SelectedRun | null>(null);
     const [canPanLeft, setCanPanLeft] = useState(false);
     const [canPanRight, setCanPanRight] = useState(false);
-    const peekFiredRef = useRef(false);
 
     const clearSelection = useCallback(() => {
         setSelectedRun(null);
@@ -175,23 +174,6 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
         // Hammer sets 'none' when both pan and pinch are registered; we only need horizontal pan
         if (canvasRef.current && isMobile) {
             canvasRef.current.style.touchAction = 'pan-y';
-        }
-
-        // Peek animation on first render (mobile only, with enough history)
-        if (isMobile && hasPannableContent && !peekFiredRef.current) {
-            peekFiredRef.current = true;
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (!prefersReducedMotion) {
-                const chart = chartRef.current;
-                setTimeout(() => {
-                    if (chart && !chart.ctx) return;  // chart was destroyed
-                    chart.pan({ x: 40 }, undefined, 'default');
-                    setTimeout(() => {
-                        if (chart && !chart.ctx) return;
-                        chart.pan({ x: -40 }, undefined, 'default');
-                    }, 400);
-                }, 500);
-            }
         }
 
         return () => { if (chartRef.current) chartRef.current.destroy(); };
