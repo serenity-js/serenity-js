@@ -90,7 +90,7 @@ export function App(): ReturnType<typeof html> {
           </button>
           <div>
             <h1 class="topbar-title">${pageTitle}</h1>
-            <div class="topbar-subtitle" title="${DATA.summary.finishedAt}">${DATA.summary.testRunner} • ${formatTimestamp(DATA.summary.finishedAt)}</div>
+            <div class="topbar-subtitle" title="${DATA.summary.finishedAt}">${formatTimestamp(DATA.summary.finishedAt)}</div>
           </div>
         </div>
         <div class="topbar-actions">

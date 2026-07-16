@@ -440,6 +440,7 @@
       background: var(--bg-surface);
       color: var(--text-secondary);
       transition: all var(--transition);
+      white-space: nowrap;
     }
 
     .filter-chip:hover {
@@ -2353,7 +2354,10 @@
       }
       .req-tree-panel {
         position: static;
-        max-height: 300px;
+        max-height: 60vh;
+      }
+      .req-tree-panel [data-testid="filter-bar"] {
+        position: static;
       }
       .req-detail-wrap {
         max-height: none;
