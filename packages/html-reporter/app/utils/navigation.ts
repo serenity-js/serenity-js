@@ -67,15 +67,21 @@ export function matchesSearch(scenario: ScenarioLike, query: string): boolean {
     });
 }
 
+const KNOWN_TAG_TYPES = ['browser', 'project', 'platform', 'feature', 'capability', 'tag'];
+
 function matchesTagToken(tags: ReportScenarioTag[], token: string): boolean {
-    // token is e.g. "@browser", "@browser:chromium", "@browser:\"chromium 149\""
+    // token is e.g. "@browser", "@browser:chromium", "@browser:\"chromium 149\"", "@showcase"
     const withoutAt = token.slice(1); // remove @
     const colonIndex = withoutAt.indexOf(':');
 
     if (colonIndex === -1) {
-        // @type — match any tag with this exact type
-        const type = withoutAt.toLowerCase();
-        return tags.some(t => t.type.toLowerCase() === type);
+        const tokenLower = withoutAt.toLowerCase();
+        if (KNOWN_TAG_TYPES.includes(tokenLower)) {
+            // @browser, @feature, etc. — match any tag with this exact type
+            return tags.some(t => t.type.toLowerCase() === tokenLower);
+        }
+        // @showcase, @smoke, etc. — shorthand for @tag:value
+        return tags.some(t => t.type.toLowerCase() === 'tag' && t.name.toLowerCase().includes(tokenLower));
     }
 
     const type = withoutAt.slice(0, colonIndex).toLowerCase();
@@ -106,6 +112,10 @@ export function parseSearchTokens(query: string): string[] {
 
 export function formatTagToken(tag: { type: string; name: string }): string {
     const value = tag.name.includes(' ') ? `"${tag.name}"` : tag.name;
+    // Use shorthand @value for tags of type 'tag'
+    if (tag.type === 'tag') {
+        return `@${value}`;
+    }
     return `@${tag.type}:${value}`;
 }
 
@@ -118,7 +128,15 @@ export function searchContainsTag(search: string, tag: { type: string; name: str
         if (!token.startsWith('@')) return false;
         const withoutAt = token.slice(1);
         const colonIndex = withoutAt.indexOf(':');
-        if (colonIndex === -1) return false;
+
+        if (colonIndex === -1) {
+            // Shorthand @value — only matches tags of type 'tag'
+            if (targetType !== 'tag') return false;
+            const tokenLower = withoutAt.toLowerCase();
+            // Must not be a known tag type keyword (those mean type-level filtering)
+            if (KNOWN_TAG_TYPES.includes(tokenLower)) return false;
+            return tokenLower === targetName;
+        }
 
         const type = withoutAt.slice(0, colonIndex).toLowerCase();
         if (type !== targetType) return false;
@@ -142,7 +160,14 @@ export function toggleTagInSearch(search: string, tag: { type: string; name: str
             if (!token.startsWith('@')) return true;
             const withoutAt = token.slice(1);
             const colonIndex = withoutAt.indexOf(':');
-            if (colonIndex === -1) return true;
+
+            if (colonIndex === -1) {
+                // Shorthand @value — only matches tags of type 'tag'
+                if (targetType !== 'tag') return true;
+                const tokenLower = withoutAt.toLowerCase();
+                if (KNOWN_TAG_TYPES.includes(tokenLower)) return true;
+                return tokenLower !== targetName;
+            }
 
             const type = withoutAt.slice(0, colonIndex).toLowerCase();
             if (type !== targetType) return true;

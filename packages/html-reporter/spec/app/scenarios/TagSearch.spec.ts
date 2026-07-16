@@ -55,6 +55,52 @@ describe('ScenariosView tag search', () => {
         ],
     });
 
+    const dataWithTagTypeTags = minimalData({
+        scenarios: [
+            {
+                name: 'Showcase scenario', category: 'Demo', outcome: 'SUCCESS', duration: 100,
+                startedAt: '2024-06-15T14:30:00.000Z',
+                source: { path: 'spec/showcase.spec.ts', line: 10 },
+                tags: [
+                    { type: 'tag', name: 'showcase' },
+                    { type: 'browser', name: 'chromium 149.0.7827.55' },
+                ],
+                activities: [],
+                executionHistory: [],
+            },
+            {
+                name: 'Smoke test', category: 'Smoke', outcome: 'SUCCESS', duration: 200,
+                startedAt: '2024-06-15T14:30:00.100Z',
+                source: { path: 'spec/smoke.spec.ts', line: 5 },
+                tags: [
+                    { type: 'tag', name: 'smoke' },
+                    { type: 'browser', name: 'firefox 128.0' },
+                ],
+                activities: [],
+                executionHistory: [],
+            },
+            {
+                name: 'Feature scenario', category: 'Features', outcome: 'SUCCESS', duration: 300,
+                startedAt: '2024-06-15T14:30:00.200Z',
+                source: { path: 'spec/feature.spec.ts', line: 15 },
+                tags: [
+                    { type: 'feature', name: 'Payments' },
+                    { type: 'tag', name: 'retried' },
+                ],
+                activities: [],
+                executionHistory: [],
+            },
+            {
+                name: 'No tags scenario', category: 'Other', outcome: 'SUCCESS', duration: 100,
+                startedAt: '2024-06-15T14:30:00.300Z',
+                source: { path: 'spec/plain.spec.ts', line: 20 },
+                tags: [],
+                activities: [],
+                executionHistory: [],
+            },
+        ],
+    });
+
     it('@browser matches any scenario with a browser tag', async ({ mount, actor }) => {
         const view = await mount({
             component: 'ScenariosView',
@@ -122,6 +168,97 @@ describe('ScenariosView tag search', () => {
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioCount(), equals(0)),
+        );
+    });
+
+    it('@showcase matches scenarios with a tag of type "tag" whose name contains "showcase"', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/scenarios/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests?search=' + encodeURIComponent('@showcase') },
+            data: dataWithTagTypeTags,
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCount(), equals(1)),
+            Ensure.that(view.scenarioNames(), contain('Showcase scenario')),
+        );
+    });
+
+    it('@smoke matches scenarios with a tag of type "tag" whose name contains "smoke"', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/scenarios/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests?search=' + encodeURIComponent('@smoke') },
+            data: dataWithTagTypeTags,
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCount(), equals(1)),
+            Ensure.that(view.scenarioNames(), contain('Smoke test')),
+        );
+    });
+
+    it('@retried matches scenarios with a tag of type "tag" whose name contains "retried"', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/scenarios/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests?search=' + encodeURIComponent('@retried') },
+            data: dataWithTagTypeTags,
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCount(), equals(1)),
+            Ensure.that(view.scenarioNames(), contain('Feature scenario')),
+        );
+    });
+
+    it('@browser still matches any scenario with a browser tag (known type, not treated as @tag:browser)', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/scenarios/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests?search=' + encodeURIComponent('@browser') },
+            data: dataWithTagTypeTags,
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            // Showcase and Smoke have browser tags; Feature scenario does not
+            Ensure.that(view.scenarioCount(), equals(2)),
+        );
+    });
+
+    it('@feature still matches any scenario with a feature tag (known type)', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/scenarios/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests?search=' + encodeURIComponent('@feature') },
+            data: dataWithTagTypeTags,
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            // Only Feature scenario has a feature-type tag
+            Ensure.that(view.scenarioCount(), equals(1)),
+            Ensure.that(view.scenarioNames(), contain('Feature scenario')),
+        );
+    });
+
+    it('@tag:showcase also matches (explicit form equivalent to @showcase)', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/scenarios/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests?search=' + encodeURIComponent('@tag:showcase') },
+            data: dataWithTagTypeTags,
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCount(), equals(1)),
+            Ensure.that(view.scenarioNames(), contain('Showcase scenario')),
         );
     });
 
@@ -325,6 +462,66 @@ describe('ScenariosView tag chip interaction', () => {
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioCalled('Capability test').tagChipLabels(), equals(['Capabilities', 'desktop'])),
+        );
+    });
+
+    it('clicking a tag-type chip adds @value shorthand to the search field', async ({ mount, actor, page }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/scenarios/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests' },
+            data: minimalData({
+                scenarios: [
+                    {
+                        name: 'Showcase scenario', category: 'Demo', outcome: 'SUCCESS', duration: 100,
+                        startedAt: '2024-06-15T14:30:00.000Z',
+                        source: { path: 'spec/showcase.spec.ts', line: 10 },
+                        tags: [
+                            { type: 'tag', name: 'showcase' },
+                        ],
+                        activities: [],
+                        executionHistory: [],
+                    },
+                ],
+            }),
+            interactionObject: ScenariosView,
+        });
+
+        // Click the "showcase" tag chip
+        await page.locator('.tag-chip').filter({ hasText: 'showcase' }).click();
+
+        await actor.attemptsTo(
+            Ensure.that(view.searchInput.value(), equals('@showcase')),
+        );
+    });
+
+    it('clicking a tag-type chip that is already in search removes it (toggle off)', async ({ mount, actor, page }) => {
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/scenarios/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests?search=' + encodeURIComponent('@showcase') },
+            data: minimalData({
+                scenarios: [
+                    {
+                        name: 'Showcase scenario', category: 'Demo', outcome: 'SUCCESS', duration: 100,
+                        startedAt: '2024-06-15T14:30:00.000Z',
+                        source: { path: 'spec/showcase.spec.ts', line: 10 },
+                        tags: [
+                            { type: 'tag', name: 'showcase' },
+                        ],
+                        activities: [],
+                        executionHistory: [],
+                    },
+                ],
+            }),
+            interactionObject: ScenariosView,
+        });
+
+        // Click the "showcase" tag chip to toggle it off
+        await page.locator('.tag-chip').filter({ hasText: 'showcase' }).click();
+
+        await actor.attemptsTo(
+            Ensure.that(view.searchInput.value(), equals('')),
         );
     });
 });
