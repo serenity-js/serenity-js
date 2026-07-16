@@ -119,7 +119,11 @@ export function buildTrendOptions(history: ReportHistoryEntry[], theme: string, 
             tooltip: { enabled: false },
             zoom: {
                 pan: { enabled: true, mode: 'x' as const, threshold: 10 },
-                zoom: { wheel: { enabled: false }, pinch: { enabled: true }, mode: 'x' as const },
+                zoom: {
+                    wheel: { enabled: false },
+                    pinch: { enabled: typeof window !== 'undefined' && window.innerWidth > 768 },
+                    mode: 'x' as const,
+                },
                 limits: { x: { min: 0, max: history.length - 1 } },
             },
         },

@@ -1,8 +1,10 @@
-import 'chartjs-plugin-zoom';
+import zoomPlugin from 'chartjs-plugin-zoom';
 
 import { Chart } from 'chart.js/auto';
 import htm from 'htm';
 import { h } from 'preact';
+
+Chart.register(zoomPlugin);
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 
 import type { ReportHistoryEntry } from '../../../../src/cli/ReportData';
@@ -144,6 +146,12 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
             },
             options: buildTrendOptions(history, chartTheme, handleBarClick),
         });
+
+        // Override Hammer.js touch-action: none on mobile to allow vertical page scroll
+        // Hammer sets 'none' when both pan and pinch are registered; we only need horizontal pan
+        if (canvasRef.current && window.innerWidth <= 768) {
+            canvasRef.current.style.touchAction = 'pan-y';
+        }
 
         return () => { if (chartRef.current) chartRef.current.destroy(); };
     }, [history, chartTheme]);
