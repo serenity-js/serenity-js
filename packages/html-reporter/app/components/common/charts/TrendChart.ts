@@ -180,6 +180,10 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
           </div>
           <div class="run-details-metrics">
             <div class="run-details-metric">
+              <span class="run-details-metric-value">${selectedRun.metrics.passed + selectedRun.metrics.failed + selectedRun.metrics.skipped}</span>
+              <span class="run-details-metric-label">Total</span>
+            </div>
+            <div class="run-details-metric">
               <span class="run-details-metric-value" style="color:var(--color-passed)">${selectedRun.metrics.passed}</span>
               <span class="run-details-metric-label">Passed</span>
             </div>

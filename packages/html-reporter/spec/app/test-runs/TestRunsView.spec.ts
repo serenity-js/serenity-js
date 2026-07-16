@@ -178,6 +178,7 @@ describe('TestRunsView', () => {
             }
 
             await actor.attemptsTo(
+                Ensure.that(view.detailsPanelText(), includes('TOTAL')),
                 Ensure.that(view.detailsPanelText(), includes('PASSED')),
                 Ensure.that(view.detailsPanelText(), includes('FAILED')),
                 Ensure.that(view.detailsPanelText(), includes('SKIPPED')),
