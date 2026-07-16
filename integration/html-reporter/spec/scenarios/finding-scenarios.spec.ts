@@ -65,12 +65,11 @@ describe('Test Scenarios', () => {
                 // 'item' appears in 9 scenarios across Checkout and Todo List features
                 Ensure.that(scenariosView.scenarioCount(), equals(9)),
 
-                // Click the 'retried' tag on "should edit an item" to filter to only retried scenarios
-                scenariosView.scenarioCalled('should edit an item').clickTag('retried'),
+                // Click the 'Checkout' feature tag on one of the Checkout scenarios
+                scenariosView.scenarioCalled('add an item to the cart').clickTag('Checkout'),
 
-                // Now only the 1 retried scenario containing 'item' is shown
-                Ensure.that(scenariosView.scenarioCount(), equals(1)),
-                Ensure.that(scenariosView.scenarioCalled('should edit an item').isPresent(), equals(true)),
+                // Now only the 3 Checkout scenarios containing 'item' are shown
+                Ensure.that(scenariosView.scenarioCount(), equals(3)),
             );
         });
     });
