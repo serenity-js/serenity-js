@@ -39,6 +39,11 @@ export class DashboardView<NET> extends InteractionObject<NET> {
             .isPresent()
             .describedAs('whether the dashboard has a trend chart');
 
+    hasDetailsPanel = (): Question<Promise<boolean>> =>
+        PageElement.located(By.css('[data-testid="run-details-panel"]'))
+            .isPresent()
+            .describedAs('whether the chart details panel is visible');
+
     open = (): Task =>
         Task.where('#actor opens the Dashboard',
             this.navigation.openView('Dashboard'),

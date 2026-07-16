@@ -151,4 +151,28 @@ describe('DashboardView', () => {
             Ensure.that(view.hasTrendChart(), equals(true)),
         );
     });
+
+    // Chart canvas click tests use raw Playwright because clicking canvas
+    // coordinates requires pixel-level control that interaction objects can't provide.
+    it('shows the details panel when a chart bar is clicked', async ({ mount, page, actor }) => {
+        const view = await mount({
+            component: 'DashboardView',
+            importPath: './components/dashboard/DashboardView',
+            props: { onNavigate: () => {} },
+            data: dashboardData,
+            chartJs: true,
+            interactionObject: DashboardView,
+        });
+
+        // Click on the chart canvas in the center-right area (second bar of 2)
+        const canvas = page.locator('canvas');
+        const box = await canvas.boundingBox();
+        if (box) {
+            await canvas.click({ position: { x: box.width * 0.75, y: box.height * 0.5 } });
+        }
+
+        await actor.attemptsTo(
+            Ensure.that(view.hasDetailsPanel(), equals(true)),
+        );
+    });
 });
