@@ -997,6 +997,34 @@
       margin-top: var(--space-md);
     }
 
+    .cast-actor-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      cursor: pointer;
+      padding: var(--space-xs) 0;
+      background: none;
+      border: none;
+      font: inherit;
+      color: inherit;
+      width: 100%;
+      text-align: left;
+    }
+
+    .cast-actor-header:hover {
+      opacity: 0.8;
+    }
+
+    .cast-chevron {
+      font-size: 10px;
+      transition: transform 0.2s ease;
+      color: var(--text-secondary);
+    }
+
+    .cast-chevron.expanded {
+      transform: rotate(90deg);
+    }
+
     .cast-item {
       display: flex;
       align-items: center;
@@ -1016,6 +1044,23 @@
       justify-content: center;
       font-weight: 600;
       font-size: var(--font-sm);
+    }
+
+    .cast-ability-item {
+      margin-bottom: 4px;
+    }
+
+    .cast-details-list {
+      list-style: none;
+      padding-left: var(--space-md);
+      margin: 2px 0;
+      font-size: var(--font-sm);
+      color: var(--text-secondary);
+    }
+
+    .cast-detail-key {
+      color: var(--text-primary);
+      font-weight: 500;
     }
 
     /* Retry tabs */

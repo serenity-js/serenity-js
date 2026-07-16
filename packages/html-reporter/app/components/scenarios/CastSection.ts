@@ -1,5 +1,6 @@
 import htm from 'htm';
 import { h } from 'preact';
+import { useState } from 'preact/hooks';
 
 import type { ReportScenario } from '../../../src/cli/ReportData';
 
@@ -11,28 +12,88 @@ interface CastSectionProps {
     cast: Actor[];
 }
 
+function parseDetails(details: string): unknown {
+    try {
+        return JSON.parse(details);
+    } catch {
+        return null;
+    }
+}
+
+function isEmptyObject(obj: unknown): boolean {
+    if (obj === null || obj === undefined) return true;
+    if (typeof obj !== 'object') return false;
+    if (Array.isArray(obj)) return obj.length === 0;
+    return Object.keys(obj as Record<string, unknown>).length === 0;
+}
+
+function renderDetails(obj: unknown): ReturnType<typeof html> {
+    if (obj === null || obj === undefined) return null;
+    if (typeof obj !== 'object') return html`<span>${String(obj)}</span>`;
+    if (Array.isArray(obj)) {
+        if (obj.length === 0) return null;
+        return html`<ul class="cast-details-list">${obj.map(item => html`<li>${renderDetails(item)}</li>`)}</ul>`;
+    }
+    const entries = Object.entries(obj as Record<string, unknown>);
+    if (entries.length === 0) return null;
+    return html`<ul class="cast-details-list">
+        ${entries.map(([key, value]) => {
+            if (typeof value === 'object' && value !== null && !isEmptyObject(value)) {
+                return html`<li><span class="cast-detail-key">${key}</span>${renderDetails(value)}</li>`;
+            }
+            if (isEmptyObject(value)) {
+                return null;
+            }
+            return html`<li><span class="cast-detail-key">${key}:</span> ${String(value)}</li>`;
+        })}
+    </ul>`;
+}
+
 export function CastSection({ cast }: CastSectionProps): ReturnType<typeof html> {
+    const [expanded, setExpanded] = useState<Set<string>>(new Set());
+
+    const toggleActor = (name: string) => {
+        setExpanded(previous => {
+            const next = new Set(previous);
+            if (next.has(name)) next.delete(name);
+            else next.add(name);
+            return next;
+        });
+    };
+
     return html`
         <div class="cast-section">
-          <div class="card-title mb-sm">Cast</div>
-          ${cast.map(actor => html`
-            <div class="mb-md">
-              <div class="cast-item">
-                <div class="cast-avatar">${actor.name[0]}</div>
-                <div style="font-weight:500">${actor.name}</div>
-              </div>
-              <div style="margin-left:36px;font-size:var(--font-sm);color:var(--text-secondary)">
-                <div style="margin-bottom:2px;font-weight:500;color:var(--text-primary)">${actor.name} can:</div>
-                <ul style="list-style:disc;padding-left:var(--space-md);margin:0">
-                  ${actor.abilities.map(ability => html`
-                    <li style="margin-bottom:2px;font-family:${ability.details ? 'var(--font-mono)' : 'inherit'};font-size:${ability.details ? '11px' : '12px'}">
-                      <strong>${ability.name}</strong>${ability.details ? html`<span style="color:var(--text-disabled)"> ${ability.details}</span>` : null}
-                    </li>
-                  `)}
-                </ul>
-              </div>
-            </div>
-          `)}
+            <div class="card-title mb-sm">Cast</div>
+            ${cast.map(actor => {
+                const isExpanded = expanded.has(actor.name);
+                return html`
+                    <div class="mb-md">
+                        <button
+                            class="cast-actor-header"
+                            aria-expanded=${isExpanded}
+                            onClick=${() => toggleActor(actor.name)}
+                        >
+                            <span class="cast-chevron ${isExpanded ? 'expanded' : ''}">▶</span>
+                            <div class="cast-avatar">${actor.name[0]}</div>
+                            <div style="font-weight:500">${actor.name}</div>
+                        </button>
+                        ${isExpanded && html`
+                            <div style="margin-left:36px;font-size:var(--font-sm);color:var(--text-secondary)">
+                                ${actor.abilities.map(ability => {
+                                    const parsed = ability.details ? parseDetails(ability.details) : null;
+                                    const hasDetails = parsed !== null && !isEmptyObject(parsed);
+                                    return html`
+                                        <div class="cast-ability-item">
+                                            <strong>${ability.name}</strong>
+                                            ${hasDetails && renderDetails(parsed)}
+                                        </div>
+                                    `;
+                                })}
+                            </div>
+                        `}
+                    </div>
+                `;
+            })}
         </div>
     `;
 }
