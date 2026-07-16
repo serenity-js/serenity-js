@@ -1,6 +1,5 @@
 import { and, Ensure, equals, includes } from '@serenity-js/assertions';
-import { ExecuteScript, LastScriptExecution } from '@serenity-js/web';
-import { By, Click, ComputedStyle, isVisible, Key, PageElement, Press } from '@serenity-js/web';
+import { By, Click, ComputedStyle, ExecuteScript, isVisible, LastScriptExecution, PageElement } from '@serenity-js/web';
 
 import { TestRunsView } from '../../../src/serenity/test-runs/TestRunsView.serenity.js';
 import { minimalData } from '../data-factories.js';
