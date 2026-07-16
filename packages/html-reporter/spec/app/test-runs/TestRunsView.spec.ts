@@ -266,11 +266,11 @@ describe('TestRunsView', () => {
         });
     });
 
-    /* Implementation contract: verifies touch-action CSS property for mobile chart panning.
+    /* Implementation contract: verifies touch-action CSS property for mobile chart interaction.
        Uses ComputedStyle from @serenity-js/web rather than raw page.evaluate(). */
     describe('TestRunsView chart touch support', () => {
 
-        it('applies touch-action pan-y to the chart canvas for mobile panning', async ({ mount, page, actor }) => {
+        it('applies touch-action manipulation to the chart canvas for mobile scrolling', async ({ mount, page, actor }) => {
             await page.setViewportSize({ width: 375, height: 667 });
 
             await mount({
@@ -283,7 +283,7 @@ describe('TestRunsView', () => {
             });
 
             await actor.attemptsTo(
-                Ensure.that(ComputedStyle.called('touch-action').of(chartCanvas()), equals('pan-y')),
+                Ensure.that(ComputedStyle.called('touch-action').of(chartCanvas()), equals('manipulation')),
             );
         });
 

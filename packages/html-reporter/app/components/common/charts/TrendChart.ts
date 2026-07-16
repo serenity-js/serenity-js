@@ -33,9 +33,12 @@ export interface TrendChartProps {
     onNavigate: (path: string) => void;
 }
 
+const MIN_BAR_WIDTH_MOBILE = 60;
+
 export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType<typeof html> | null {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const chartRef = useRef<Chart | null>(null);
+    const containerRef = useRef<HTMLDivElement | null>(null);
     const panelRef = useRef<HTMLDivElement | null>(null);
     const [chartTheme, setChartTheme] = useState(() => localStorage.getItem('serenity-theme') || 'light');
     const [selectedRun, setSelectedRun] = useState<SelectedRun | null>(null);
@@ -48,7 +51,7 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
         }
     }, []);
 
-    // Theme observer + resize handler
+    // Theme observer
     useEffect(() => {
         const observer = new MutationObserver(() => {
             const t = document.documentElement.getAttribute('data-theme') || 'light';
@@ -56,20 +59,7 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
         });
         observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
-        const handleResize = () => {
-            if (!chartRef.current) return;
-            const isMobile = window.innerWidth <= 768;
-            const xScale = chartRef.current.options.scales!.x as { min?: number };
-            if (isMobile && history.length > 3) {
-                xScale.min = history.length - 3;
-            } else {
-                xScale.min = undefined;
-            }
-            chartRef.current.update('none');
-        };
-        window.addEventListener('resize', handleResize);
-
-        return () => { observer.disconnect(); window.removeEventListener('resize', handleResize); };
+        return () => { observer.disconnect(); };
     }, []);
 
     // Dismiss on Escape key
@@ -156,10 +146,19 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
             },
             options: buildTrendOptions(history, chartTheme, handleBarClick),
         });
+
+        // On mobile, scroll the container to show the latest (rightmost) runs
+        if (containerRef.current && window.innerWidth <= 768) {
+            containerRef.current.scrollLeft = containerRef.current.scrollWidth;
+        }
+
         return () => { if (chartRef.current) chartRef.current.destroy(); };
     }, [history, chartTheme]);
 
     if (history.length === 0) return null;
+
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    const minChartWidth = history.length * MIN_BAR_WIDTH_MOBILE;
 
     const handleNavigate = () => {
         if (selectedRun) {
@@ -169,8 +168,10 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
 
     return html`
     <div class="trend-chart-wrapper">
-      <div class="trend-chart-container" style="position:relative;width:100%;height:300px;overflow:hidden">
-        <canvas ref=${canvasRef} role="img" aria-label="Trend chart showing test outcomes and duration across recent test runs"></canvas>
+      <div class="trend-chart-container" ref=${containerRef} style="position:relative;height:300px;${isMobile ? 'overflow-x:auto;-webkit-overflow-scrolling:touch' : 'overflow:hidden'}">
+        <div style="position:relative;width:${isMobile && minChartWidth > 0 ? minChartWidth + 'px' : '100%'};height:100%">
+          <canvas ref=${canvasRef} role="img" aria-label="Trend chart showing test outcomes and duration across recent test runs"></canvas>
+        </div>
       </div>
       ${selectedRun && html`
         <div class="run-details-panel" ref=${panelRef} data-testid="run-details-panel">

@@ -129,8 +129,6 @@ export function buildTrendOptions(history: ReportHistoryEntry[], theme: string, 
                 border: { display: false },
                 ticks: { color: textColor, font: { size: 10 }, maxRotation: 0, padding: 4 },
                 grid: { display: false },
-                min: window.innerWidth <= 768 && history.length > 3 ? history.length - 3 : undefined,
-                max: history.length - 1,
             },
             y: {
                 stacked: true,

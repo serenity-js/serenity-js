@@ -2612,13 +2612,12 @@
       .dashboard-trend-card canvas,
       .trend-chart-container canvas {
         width: 100% !important;
-        height: auto !important;
-        max-width: 100%;
+        height: 100% !important;
       }
 
-      /* Let chartjs-plugin-zoom handle horizontal pan; browser handles vertical scroll */
+      /* Native horizontal scroll on the container; allow vertical page scroll */
       .trend-chart-container canvas {
-        touch-action: pan-y;
+        touch-action: manipulation;
       }
 
       /* Filter bar compact on mobile */
