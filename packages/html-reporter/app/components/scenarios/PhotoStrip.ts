@@ -1,6 +1,6 @@
 import htm from 'htm';
 import { h } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 
 import type { ReportActivity } from '../../../src/cli/ReportData';
 import { formatDuration, useHashHistory } from '../../utils';
@@ -15,6 +15,9 @@ export interface PhotoStripProps {
 export function PhotoStrip({ activities, scenarioStartedAt }: PhotoStripProps): ReturnType<typeof html> | null {
     const hashNav = useHashHistory();
     const [lightboxIndex, setLightboxIndex] = useState(-1);
+    const overlayRef = useRef<HTMLDivElement>(null);
+    const touchStartX = useRef(0);
+    const touchStartY = useRef(0);
 
     const openPhoto = (index: number) => {
         setLightboxIndex(index);
@@ -56,6 +59,37 @@ export function PhotoStrip({ activities, scenarioStartedAt }: PhotoStripProps): 
 
     if (photos.length === 0) return null;
 
+    const handleTouchStart = (e: TouchEvent) => {
+        touchStartX.current = e.touches[0].clientX;
+        touchStartY.current = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+        const dx = e.changedTouches[0].clientX - touchStartX.current;
+        const dy = e.changedTouches[0].clientY - touchStartY.current;
+        // Only trigger if horizontal swipe is dominant
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+            if (dx < 0 && lightboxIndex < photos.length - 1) {
+                openPhoto(lightboxIndex + 1);
+            } else if (dx > 0 && lightboxIndex > 0) {
+                openPhoto(lightboxIndex - 1);
+            }
+        }
+    };
+
+    const handleOverlayClick = (e: Event) => {
+        const target = e.target as HTMLElement;
+        if (target.classList.contains('lightbox-overlay')) {
+            openPhoto(-1);
+        }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') openPhoto(-1);
+        else if (e.key === 'ArrowRight' && lightboxIndex < photos.length - 1) openPhoto(lightboxIndex + 1);
+        else if (e.key === 'ArrowLeft' && lightboxIndex > 0) openPhoto(lightboxIndex - 1);
+    };
+
     return html`
       <div class="card mt-md">
         <div class="card-title">Screenshots (${photos.length})</div>
@@ -70,18 +104,32 @@ export function PhotoStrip({ activities, scenarioStartedAt }: PhotoStripProps): 
         </div>
       </div>
       ${lightboxIndex >= 0 && lightboxIndex < photos.length ? html`
-        <div class="lightbox-overlay" onClick=${(e: Event) => { if ((e.target as HTMLElement).classList.contains('lightbox-overlay')) openPhoto(-1); }}
-             onKeyDown=${(e: KeyboardEvent) => { if (e.key === 'Escape') openPhoto(-1); else if (e.key === 'ArrowRight' && lightboxIndex < photos.length - 1) openPhoto(lightboxIndex + 1); else if (e.key === 'ArrowLeft' && lightboxIndex > 0) openPhoto(lightboxIndex - 1); }}
-             tabIndex="0" ref=${(element: HTMLElement | null) => { if (element) element.focus(); }}>
+        <div class="lightbox-overlay"
+             ref=${(element: HTMLElement | null) => { if (element) { (overlayRef as { current: HTMLElement | null }).current = element; element.focus(); } }}
+             onClick=${handleOverlayClick}
+             onKeyDown=${handleKeyDown}
+             onTouchStart=${handleTouchStart}
+             onTouchEnd=${handleTouchEnd}
+             tabIndex="0">
           <div class="lightbox-content">
-            <button class="lightbox-close" onClick=${() => openPhoto(-1)}>✕</button>
-            ${lightboxIndex > 0 ? html`<button class="lightbox-nav lightbox-prev" onClick=${() => openPhoto(lightboxIndex - 1)}>‹</button>` : null}
-            ${lightboxIndex < photos.length - 1 ? html`<button class="lightbox-nav lightbox-next" onClick=${() => openPhoto(lightboxIndex + 1)}>›</button>` : null}
+            <button class="lightbox-close" onClick=${() => openPhoto(-1)} aria-label="Close lightbox">✕</button>
+            ${lightboxIndex > 0 ? html`<button class="lightbox-nav lightbox-prev" onClick=${() => openPhoto(lightboxIndex - 1)} aria-label="Previous photo">‹</button>` : null}
+            ${lightboxIndex < photos.length - 1 ? html`<button class="lightbox-nav lightbox-next" onClick=${() => openPhoto(lightboxIndex + 1)} aria-label="Next photo">›</button>` : null}
             <img src=${photos[lightboxIndex].path} alt=${photos[lightboxIndex].name} />
+            ${photos.length > 1 ? html`
+              <div class="lightbox-dots" aria-label="Photo position">
+                ${photos.map((_, i) => html`<span class="lightbox-dot ${i === lightboxIndex ? 'active' : ''}" aria-label=${`Photo ${i + 1} of ${photos.length}`}></span>`)}
+              </div>
+            ` : null}
             <div class="lightbox-caption">
               <div>${photos[lightboxIndex].name}</div>
               <div style="font-size:var(--font-xs);color:var(--text-secondary);font-family:var(--font-mono)">${photos[lightboxIndex].wallClock ? new Date(photos[lightboxIndex].wallClock).toLocaleTimeString() : ''} · +${formatDuration(photos[lightboxIndex].offsetMs)} · ${lightboxIndex + 1}/${photos.length}</div>
             </div>
+          </div>
+          <div class="lightbox-bottom-bar">
+            <span class="lightbox-bottom-caption">${photos[lightboxIndex].name}</span>
+            <span class="lightbox-bottom-counter">${lightboxIndex + 1}/${photos.length}</span>
+            <button class="lightbox-close-mobile" onClick=${() => openPhoto(-1)} aria-label="Close lightbox">✕</button>
           </div>
         </div>
       ` : null}
