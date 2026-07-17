@@ -61,21 +61,23 @@ export function FilterBar({ filters, activeFilter, onFilter, ariaLabel, label, m
     const selectId = sortId || 'sort-select';
 
     return html`
-    <div class="filter-bar" role="group" aria-label="${ariaLabel || 'Filter'}" style="align-items:center" data-testid="filter-bar">
-      ${label ? html`<span class="label-upper" style="align-self:center">${label}:</span>` : null}
-      ${filters.map(f => {
+    <div class="filter-bar-row" data-testid="filter-bar">
+      <div class="filter-bar" role="group" aria-label="${ariaLabel || 'Filter'}">
+        ${label ? html`<span class="label-upper">${label}:</span>` : null}
+        ${filters.map(f => {
             const isActive = multiSelect
                 ? (f.key === 'all' ? activeSet.size === 0 : activeSet.has(f.key))
                 : activeFilter === f.key;
             return html`
-            <button class="filter-chip ${f.className || f.key} ${isActive ? 'active' : ''}"
-                    onClick=${() => handleClick(f.key)}
-                    aria-pressed=${isActive}>
-                <span class="chip-label">${f.label}</span>
-                <span class="count">${f.count}</span>
-            </button>
-          `;
+              <button class="filter-chip ${f.className || f.key} ${isActive ? 'active' : ''}"
+                      onClick=${() => handleClick(f.key)}
+                      aria-pressed=${isActive}>
+                  <span class="chip-label">${f.label}</span>
+                  <span class="count">${f.count}</span>
+              </button>
+            `;
         })}
+      </div>
       ${sortOptions ? html`
         <div class="sort-group">
           <label class="label-upper" for="${selectId}">Sort:</label>

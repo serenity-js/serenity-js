@@ -4,6 +4,7 @@ import { useMemo } from 'preact/hooks';
 
 import type { ReportCapabilityNode, ReportHistoryEntry, ReportInconsistentTest, ReportScenario, ReportScenarioRef, ReportSummary, ReportSystemContext } from '../../../src/cli/ReportData';
 import { computeDashboardScores } from '../../utils/computeDashboardScores';
+import { tagDiscriminator } from '../../utils/navigation';
 import { classifyConsistencyKind } from '../../utils/selectors';
 import { TrendChart } from '../common/charts/TrendChart';
 import { DashboardConsistencyCard } from './DashboardConsistencyCard';
@@ -61,8 +62,12 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
 
     const getHistory = (t: ReportScenarioRef) => {
         const key = t.source.path + ':' + (t.source.line || '');
-        const match = scenarios.find(s => s.source.path + ':' + (s.source.line || '') === key)
-            || scenarios.find(s => s.name === t.name && s.source.path === t.source.path);
+        const discriminator = tagDiscriminator(t.tags);
+        const match = discriminator
+            ? scenarios.find(s => s.source.path + ':' + (s.source.line || '') === key && tagDiscriminator(s.tags) === discriminator)
+                || scenarios.find(s => s.name === t.name && s.source.path === t.source.path && tagDiscriminator(s.tags) === discriminator)
+            : scenarios.find(s => s.source.path + ':' + (s.source.line || '') === key)
+                || scenarios.find(s => s.name === t.name && s.source.path === t.source.path);
         return match && match.executionHistory ? match.executionHistory.slice(-5) : [];
     };
 

@@ -59,11 +59,11 @@ function kindColor(kind: string): string {
 
 function HistoryDotStrip({ history, labels }: { history: Array<string | { outcome: string; run: string; retriedAndPassed?: boolean }>; labels?: string[] }): ReturnType<typeof html> {
     return html`
-        <div class="status-item-history">
+        <div class="status-item-history" data-testid="history-dots">
           ${history.map((h, i) => {
                 const outcome = typeof h === 'string' ? h : (h.retriedAndPassed ? 'RETRIED_SUCCESS' : h.outcome);
                 const label = labels ? labels[i] : (typeof h === 'object' ? h.run : '');
-                return html`<span class="history-dot history-dot--${outcomeClass(outcome)}" title=${outcomeDisplayName(outcome) + (label ? ' (' + label + ')' : '')}></span>`;
+                return html`<span class="history-dot history-dot--${outcomeClass(outcome)}" data-outcome=${outcome} title=${outcomeDisplayName(outcome) + (label ? ' (' + label + ')' : '')}></span>`;
             })}
         </div>
     `;

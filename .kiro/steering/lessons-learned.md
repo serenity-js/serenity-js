@@ -354,3 +354,85 @@ Fix: use `computeExecutablePath` from `@puppeteer/browsers` to resolve both Chro
 ## Deploy to gh-pages with `clean: true` to enforce pruning
 
 The `maxHistory` pruning in the aggregator only removes old runs from the local output directory. With `clean: false` on the deploy action, pruned directories persist on gh-pages forever and get re-downloaded on every subsequent run. Use `clean: true` to make gh-pages match the local output exactly.
+
+## README filename lookups must be case-insensitive
+
+`buildCapabilities.ts` uses `FileSystem.exists()` and `readFileSync()` to load README files from spec directories. On macOS (case-insensitive HFS+/APFS), `Path.from('readme.md')` resolves to `README.md` transparently. On Linux CI (case-sensitive ext4), it does not — the file simply isn't found.
+
+Symptoms: capabilities tree nodes lose their `displayName` (falls back to raw directory name like `e2e` instead of `End-to-End Flows`) and `readme` content is empty (no `.readme-content` rendered, causing `ListItemNotFoundError` in tests that click README links).
+
+Fix: use `readdirSync` + case-insensitive regex (`/^readme\.md$/i`) to find the actual filename before reading it. Never hardcode a specific casing for README files.
+
+General rule: any `FileSystem.exists(path)` call where the path component comes from a convention (not user input) should account for case variation if the code must work on both macOS and Linux.
+
+## Virtual scroll containers make `position: sticky` ineffective on parent elements
+
+The html-reporter's scenario list uses a `.scroll-container` with `overflow-y: auto` for virtual scrolling. This means the document/main element does NOT scroll — only the internal container does. Any `position: sticky` on elements *outside* the scroll container (like a controls-row above the list) will never activate because the scroll context is internal.
+
+In practice this is fine: the controls already stay visible permanently because only the list content scrolls. Don't add sticky CSS to elements above a virtual scroll list — it's dead code.
+
+## Regenerating a served html-report requires `html-reporter aggregate`, not just `npm run compile`
+
+The `html-reporter serve --dir <path>` command serves a pre-generated `index.html`. Running `npm run compile` rebuilds the template.js bundle, but the served report still uses the old embedded template until you re-run:
+
+```bash
+node packages/html-reporter/bin/html-reporter.mjs aggregate \
+  --input "reports/serenity/test-runs/*" \
+  --output reports/serenity \
+  --title "Project Name"
+```
+
+Always regenerate the report after template changes to verify them visually in the browser.
+
+## Theme toggle belongs in sidebar, not in per-page headers
+
+A theme preference is a set-and-forget setting (persisted in localStorage, auto-detected from `prefers-color-scheme`). Placing it in every page's topbar wastes 38px of horizontal space on every view — which on mobile with longer titles causes the h1 to wrap (adding 33px of height).
+
+The sidebar footer is the correct location: accessible from every page via one click (hamburger → bottom), consistent with VS Code/Linear/Notion patterns, and costs zero content-area real estate.
+
+## The `.controls-row` pattern: flex-wrap with `flex-basis: 100%` for responsive break
+
+To make a row of controls sit inline on desktop but wrap on mobile without media queries for each child:
+
+```css
+.controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.controls-row .search-input-wrap {
+  flex: 1 1 220px;   /* grows, shrinks, wraps when < 220px available */
+  min-width: 160px;
+}
+
+@media (max-width: 767px) {
+  .controls-row .search-input-wrap {
+    flex-basis: 100%; /* forces wrap to own line on mobile */
+  }
+}
+```
+
+The filter bar (which follows in DOM order) naturally flows to the same line on desktop (enough space) or the next line on mobile (search took 100%). No explicit grid areas or breakpoint-specific layouts needed.
+
+## Stale http-server processes cause phantom test failures
+
+The integration test config at `integration/html-reporter/playwright.config.ts` uses `reuseExistingServer: true` in local mode. If a stale `http-server` process is running on port 8080 (e.g., from a manual `html-reporter serve` session), Playwright will reuse it instead of starting a fresh server pointing at the correct `examples/reports/serenity` directory.
+
+Symptoms: All or most integration tests fail with unexpected assertion values (wrong scenario counts, wrong confidence scores, missing scenarios). The errors look like data mismatches, not structural failures.
+
+Fix: Always kill stale servers before running integration tests:
+```bash
+pkill -f 'http-server.*8080'; pkill -f 'http-server.*8090'; sleep 2
+```
+
+General rule: if integration tests suddenly fail with data-level mismatches across all viewports, suspect a stale server before investigating CSS or template changes.
+
+## Moving elements outside a `data-testid` container breaks interaction objects
+
+When restructuring a component (e.g., moving `.sort-group` outside `.filter-bar` to fix scroll behaviour), any element that moves outside a `data-testid` boundary becomes invisible to interaction objects and tests that locate it via that testid.
+
+Before restructuring: check which `data-testid` attributes exist on the component's DOM, and which tests/interaction objects use them as scoping ancestors. If you move a child element to become a sibling, the `data-testid` must move to a wrapper that still encompasses both.
+
+Pattern: when extracting an element from a container for layout reasons, create a new wrapper div and move the `data-testid` up to the wrapper. The inner elements keep their semantic attributes (`role`, `aria-label`) but the test hook lives on the outermost structural boundary.

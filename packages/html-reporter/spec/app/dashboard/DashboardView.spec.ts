@@ -175,4 +175,59 @@ describe('DashboardView', () => {
             Ensure.that(view.hasDetailsPanel(), equals(true)),
         );
     });
+
+    it('shows the correct history dots for a degraded test when multiple scenarios share the same source location', async ({ mount, actor }) => {
+        const sharedSource = { path: 'spec/navigation/deep-linking.spec.ts', line: 32 };
+
+        const multiBrowserData = minimalData({
+            scenarios: [
+                {
+                    name: 'Deep Linking toggles themes', category: 'Navigation', outcome: 'SUCCESS', duration: 500,
+                    startedAt: '2024-06-15T14:30:00.000Z',
+                    source: sharedSource,
+                    tags: [{ type: 'project', name: 'desktop' }, { type: 'browser', name: 'chromium 126.0' }],
+                    activities: [],
+                    executionHistory: [
+                        { outcome: 'SUCCESS', run: '#41' },
+                        { outcome: 'SUCCESS', run: '#42' },
+                    ],
+                },
+                {
+                    name: 'Deep Linking toggles themes', category: 'Navigation', outcome: 'ERROR', duration: 30000,
+                    startedAt: '2024-06-15T14:30:01.000Z',
+                    source: sharedSource,
+                    tags: [{ type: 'project', name: 'mobile' }, { type: 'browser', name: 'chromium 126.0' }],
+                    activities: [],
+                    error: { name: 'TimeoutError', message: 'Timed out', stack: '' },
+                    executionHistory: [
+                        { outcome: 'SUCCESS', run: '#41' },
+                        { outcome: 'ERROR', run: '#42' },
+                    ],
+                },
+            ],
+            newFailures: [
+                {
+                    name: 'Deep Linking toggles themes',
+                    category: 'Navigation',
+                    source: sharedSource,
+                    tags: [{ type: 'project', name: 'mobile' }, { type: 'browser', name: 'chromium 126.0' }],
+                },
+            ],
+        });
+
+        const view = await mount({
+            component: 'DashboardView',
+            importPath: './components/dashboard/DashboardView',
+            props: { onNavigate: () => {} },
+            data: multiBrowserData,
+            interactionObject: DashboardView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.consistencyCardScenarioNames(), contain('Deep Linking toggles themes')),
+            // The last history dot must reflect the ERROR outcome of the mobile variant,
+            // not the SUCCESS outcome of the desktop variant
+            Ensure.that(view.consistencyItemHistoryOutcomes('Deep Linking toggles themes'), equals(['SUCCESS', 'ERROR'])),
+        );
+    });
 });

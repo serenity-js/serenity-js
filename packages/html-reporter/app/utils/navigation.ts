@@ -5,6 +5,14 @@ interface ScenarioLike extends ReportScenarioRef {
     error?: { message?: string };
 }
 
+export function tagDiscriminator(tags?: ReportScenarioTag[]): string {
+    if (!tags) return '';
+    const browserTag = tags.find(t => t.type === 'browser')?.name || '';
+    const projectTag = tags.find(t => t.type === 'project')?.name || '';
+    const platformTag = tags.find(t => t.type === 'platform')?.name || '';
+    return [browserTag, projectTag, platformTag].filter(Boolean).join('@');
+}
+
 export function getBrowserTag(scenario: ScenarioLike): string | null {
     const tag = (scenario.tags || []).find(t => t.type === 'browser');
     return tag ? tag.name : null;
