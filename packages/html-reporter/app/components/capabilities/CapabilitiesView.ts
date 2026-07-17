@@ -21,23 +21,40 @@ interface CapabilitiesViewProps {
 
 export function CapabilitiesView({ capabilities, onNavigate, route }: CapabilitiesViewProps): ReturnType<typeof html> {
     const hashNav = useHashHistory();
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState(() => hashNav.getParam('search') || '');
     const [selectedPath, setSelectedPath] = useState('');
     const [selectedNode, setSelectedNode] = useState<ReportCapabilityNode | null>(null);
-    const [activeFilter, setActiveFilter] = useState('all');
-    const [activeSort, setActiveSort] = useState('name');
+    const [activeFilter, setActiveFilter] = useState(() => hashNav.getParam('filter') || 'all');
+    const [activeSort, setActiveSort] = useState(() => hashNav.getParam('sort') || 'name');
     const [focusedPath, setFocusedPath] = useState('');
 
     useEffect(() => {
         if (!capabilities) return;
         const params = route && route.includes('?') ? new URLSearchParams(route.split('?')[1]) : null;
         const pathFromUrl = params?.get('path') ?? '';
+        const filterFromUrl = params?.get('filter') || 'all';
+        const sortFromUrl = params?.get('sort') || 'name';
+        const searchFromUrl = params?.get('search') || '';
         const node = findNodeByPath(capabilities, pathFromUrl);
         if (node) {
             setSelectedPath(pathFromUrl);
             setSelectedNode(node);
         }
+        setActiveFilter(filterFromUrl);
+        setActiveSort(sortFromUrl);
+        setSearchTerm(searchFromUrl);
     }, [route, capabilities]);
+
+    useEffect(() => {
+        const params = new URLSearchParams();
+        if (selectedPath) params.set('path', selectedPath);
+        if (activeFilter && activeFilter !== 'all') params.set('filter', activeFilter);
+        if (activeSort && activeSort !== 'name') params.set('sort', activeSort);
+        if (searchTerm) params.set('search', searchTerm);
+        const parameterString = params.toString();
+        const newHash = parameterString ? '/capabilities?' + parameterString : '/capabilities';
+        hashNav.replace(newHash);
+    }, [searchTerm, activeFilter, activeSort, selectedPath]);
 
     if (!capabilities) {
         return html`
@@ -76,8 +93,6 @@ export function CapabilitiesView({ capabilities, onNavigate, route }: Capabiliti
     const handleSelect = (path: string, node: ReportCapabilityNode) => {
         setSelectedPath(path);
         setSelectedNode(node);
-        const newHash = path ? '/capabilities?path=' + encodeURIComponent(path) : '/capabilities';
-        hashNav.push(newHash);
     };
 
     const onTreeKeyDown = (e: KeyboardEvent) => {

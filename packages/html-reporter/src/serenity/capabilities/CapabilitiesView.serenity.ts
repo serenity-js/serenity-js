@@ -98,6 +98,14 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
             ),
         );
 
+    selectFilter = (label: Answerable<string>): Task =>
+        this.filterBar.selectFilter(label);
+
+    find = (searchTerm: Answerable<string>): Task =>
+        Task.where(the`#actor searches for "${searchTerm}"`,
+            this.searchInput.enter(searchTerm),
+        );
+
     followReadmeLink = (linkText: Answerable<string>): Task =>
         Task.where(the`#actor follows the "${linkText}" link in the README`,
             Click.on(this.children(By.css('.readme-content a'))
