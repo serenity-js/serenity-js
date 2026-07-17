@@ -30,7 +30,7 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
     webServer: {
         command: 'npx http-server examples/reports/serenity -p 8080 -c-1',
         url: 'http://127.0.0.1:8080/index.html',
-        reuseExistingServer: ! process.env.CI,
+        reuseExistingServer: false,
     },
     projects: [
         { name: 'desktop', use: { browserName: 'chromium', viewport: { width: 1920, height: 1080 } } },

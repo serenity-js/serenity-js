@@ -16,6 +16,14 @@ If you're processing `DomainEventQueues` and see `SceneSequenceDetected`, always
 
 Not all test runner adapters emit source line numbers (e.g. Protractor/Mocha). When building identifiers from `source.path + ':' + source.line`, always handle the case where `line` is `undefined`. Use the scenario name as a disambiguation fallback.
 
+## Client-side scenario lookups must use tagDiscriminator, not just source location
+
+The server-side aggregator (`DataSnapshotAggregator`) uses `sceneIdentityWithTags()` which includes browser/project/platform tags when matching scenarios. Any client-side code (Preact components) that looks up a scenario by source location must do the same — otherwise it will match the **first** variant (e.g. desktop) when it should match a specific variant (e.g. mobile).
+
+Symptom: the dashboard consistency card showed SUCCESS history dots for a test marked as degraded, because `getHistory()` matched the passing desktop variant instead of the failing mobile variant.
+
+Rule: whenever you `scenarios.find()` using `source.path + ':' + source.line`, also compare `tagDiscriminator(ref.tags) === tagDiscriminator(scenario.tags)` when the ref has tags. The `tagDiscriminator()` utility in `app/utils/navigation.ts` mirrors the server-side function in `src/cli/model/sceneIdentity.ts`.
+
 ## The html-reporter has two distinct execution modes
 
 1. **Crew member mode** (`TestRunArchiver` + `HtmlReportGenerator`) — runs during a test, writes artifacts directly to `test-runs/`, reads from the same output directory for aggregation. No `sourceFileSystem` needed.
@@ -418,16 +426,16 @@ The filter bar (which follows in DOM order) naturally flows to the same line on 
 
 ## Stale http-server processes cause phantom test failures
 
-The integration test config at `integration/html-reporter/playwright.config.ts` uses `reuseExistingServer: true` in local mode. If a stale `http-server` process is running on port 8080 (e.g., from a manual `html-reporter serve` session), Playwright will reuse it instead of starting a fresh server pointing at the correct `examples/reports/serenity` directory.
+The integration test config at `integration/html-reporter/playwright.config.ts` uses `reuseExistingServer: false`, which means Playwright always starts a fresh server pointing at the correct `examples/reports/serenity` directory. If a stale `http-server` process is running on port 8080 (e.g., from a manual `html-reporter serve` session), Playwright's server start will fail.
 
-Symptoms: All or most integration tests fail with unexpected assertion values (wrong scenario counts, wrong confidence scores, missing scenarios). The errors look like data mismatches, not structural failures.
+Symptoms: Tests fail to start with "port already in use" errors.
 
 Fix: Always kill stale servers before running integration tests:
 ```bash
 pkill -f 'http-server.*8080'; pkill -f 'http-server.*8090'; sleep 2
 ```
 
-General rule: if integration tests suddenly fail with data-level mismatches across all viewports, suspect a stale server before investigating CSS or template changes.
+General rule: if integration tests fail to start, check for port conflicts before investigating other causes.
 
 ## Moving elements outside a `data-testid` container breaks interaction objects
 
@@ -436,3 +444,42 @@ When restructuring a component (e.g., moving `.sort-group` outside `.filter-bar`
 Before restructuring: check which `data-testid` attributes exist on the component's DOM, and which tests/interaction objects use them as scoping ancestors. If you move a child element to become a sibling, the `data-testid` must move to a wrapper that still encompasses both.
 
 Pattern: when extracting an element from a container for layout reasons, create a new wrapper div and move the `data-testid` up to the wrapper. The inner elements keep their semantic attributes (`role`, `aria-label`) but the test hook lives on the outermost structural boundary.
+
+## Integration tests require `npm test`, not `npx playwright test` directly
+
+The integration test suite at `integration/html-reporter/` has a `pretest` script that generates the test data (runs stub specs, produces `db.json`, aggregates the report). Running `npx playwright test` directly skips this step, which means:
+
+- Tests run against stale or missing report data
+- Failures look like assertion mismatches (wrong counts, missing scenarios) rather than "file not found"
+- The developer incorrectly concludes the tests are broken rather than recognising they skipped data generation
+
+**Always use `npm test`** in `integration/html-reporter/`. This runs the full pipeline:
+1. `example:clean` — removes `examples/reports/`
+2. `example:test` — runs stub specs (some intentionally fail) to produce `test-runs/42/db.json`
+3. `example:add-history` — creates synthetic historical run + re-aggregates report
+4. `test` — runs 126 Playwright tests across 3 viewports against the generated report
+
+The `example:test` step exits with code 1 (intentional failures in stub specs). This is normal — `failsafe` handles it. Don't treat it as a build failure.
+
+## `npm run compile` is the only correct build command for packages
+
+Each package produces BOTH CommonJS (`lib/`) and ESM (`esm/`) output via two separate tsconfig files. Common mistakes:
+
+- `npx tsc` — only builds one output format
+- `npx tsc --build tsconfig.build.json` — only builds one output format
+- `npx tsc --build tsconfig-cjs.build.json` — misses the ESM build
+
+**Always use `npm run compile`** in the package directory. This runs both tsconfig builds and (for html-reporter) the template bundle step.
+
+Downstream packages resolve via `workspace:*` links and may use EITHER output depending on their `moduleResolution` setting. A stale ESM build causes type errors in packages that resolve via the `exports` field's `import` condition.
+
+For the html-reporter specifically, `npm run compile` also runs `bundle-template.mjs` which produces the self-contained `template.js` bundle. Skipping this means integration tests run against a stale template — CSS/layout changes won't be reflected.
+
+## Kill stale servers BEFORE running integration tests, every time
+
+The integration test config at `integration/html-reporter/playwright.config.ts` uses `reuseExistingServer: false`, which means Playwright always starts a fresh server. However, if the port is already occupied (e.g., by a manual `html-reporter serve` session), the server start will fail and tests won't run.
+
+If you see "port 8080 already in use" errors, kill the stale process:
+```bash
+pkill -f 'http-server.*8080'; pkill -f 'http-server.*8090'; sleep 2
+```
