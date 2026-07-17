@@ -94,7 +94,6 @@ describe('ScenariosView interaction object', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(view.resultCount.text(), includes('4')),
             Ensure.that(view.scenarioCount(), equals(4)),
         );
     });
@@ -265,7 +264,6 @@ describe('ScenariosView deep linking', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(view.resultCount.text(), includes('Showing 4 of 4')),
             Ensure.that(view.scenarioCount(), equals(4)),
         );
     });
@@ -360,6 +358,9 @@ describe('ScenariosView accessibility', () => {
             props: { onNavigate: () => {}, route: '/tests' },
             data: minimalData(),
         });
+
+        // Apply a filter to make the result count appear
+        await page.locator('.filter-chip:has-text("Failed")').click();
 
         // The result count area should announce changes to screen readers
         const liveRegion = page.locator('[aria-live="polite"]');

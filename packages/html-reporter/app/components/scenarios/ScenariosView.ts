@@ -143,7 +143,7 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
       </div>
 
       <div class="card">
-        <${ResultCount} showing=${filtered.length} total=${allScenarios.length} label="test scenarios" />
+        ${filtered.length < allScenarios.length ? html`<${ResultCount} showing=${filtered.length} total=${allScenarios.length} label="test scenarios" />` : null}
         <${VirtualScenarioList} filtered=${filtered} grouped=${grouped} sort=${sort}
           onNavigate=${onNavigate} runIndex=${runIndex} setSearch=${setSearch}
           search=${search}

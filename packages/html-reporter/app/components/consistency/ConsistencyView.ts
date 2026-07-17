@@ -104,7 +104,7 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
       </div>
 
       <div class="card pb-0">
-        <${ResultCount} showing=${sortedItems.length} label=${sortedItems.length === 1 ? 'test scenario' : 'test scenarios'} />
+        ${sortedItems.length < inconsistentTests.length ? html`<${ResultCount} showing=${sortedItems.length} label=${sortedItems.length === 1 ? 'test scenario' : 'test scenarios'} />` : null}
         <${GroupedVirtualList}
             items=${sortedItems}
             groupBy=${groupByFunction}

@@ -34,6 +34,8 @@ export class Navigation {
 
     toggleTheme = (): Task =>
         Task.where('#actor toggles the theme',
+            Check.whether(this.hamburgerMenu, isVisible())
+                .andIfSo(Click.on(this.hamburgerMenu)),
             Click.on(PageElement.located(By.css('button[aria-label="Toggle theme"]')).describedAs('theme toggle button')),
         );
 }

@@ -184,7 +184,7 @@ export function CapabilitiesView({ capabilities, onNavigate, route }: Capabiliti
                     </div>
                 ` : null}
                 <div style="margin-top:var(--space-sm)">
-                    <${ResultCount} showing=${showFilterBar && (searchTerm || activeFilter !== 'all') ? visibleCount : totalCapabilities} total=${totalCapabilities} label=${totalCapabilities !== 1 ? 'capabilities' : 'capability'} />
+                    ${showFilterBar && (searchTerm || activeFilter !== 'all') && visibleCount < totalCapabilities ? html`<${ResultCount} showing=${visibleCount} total=${totalCapabilities} label=${totalCapabilities !== 1 ? 'capabilities' : 'capability'} />` : null}
                 </div>
                 <div class="req-tree-list" role="tree" onKeyDown=${onTreeKeyDown}>
                     <${TreeNode} node=${capabilities} onSelect=${handleSelect}

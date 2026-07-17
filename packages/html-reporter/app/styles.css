@@ -459,6 +459,7 @@
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       margin-bottom: var(--space-lg);
+      scroll-snap-type: x mandatory;
     }
 
     .filter-bar::-webkit-scrollbar {
@@ -479,6 +480,7 @@
       color: var(--text-secondary);
       transition: all var(--transition);
       white-space: nowrap;
+      scroll-snap-align: start;
     }
 
     .filter-chip:hover {
@@ -2806,22 +2808,15 @@
       .controls-row .search-input-wrap {
         flex-basis: 100%;
       }
-    }
-
-    @media (max-width: 1023px) {
       .controls-row {
-        position: sticky;
-        top: 0;
-        z-index: 50;
-        background: var(--bg-primary);
-        padding: var(--space-sm) 0;
-        border-bottom: 1px solid var(--divider);
-        margin-left: calc(-1 * var(--space-lg));
-        margin-right: calc(-1 * var(--space-lg));
-        padding-left: var(--space-lg);
-        padding-right: var(--space-lg);
+        gap: var(--space-xs);
+      }
+      .card {
+        padding-top: var(--space-sm);
       }
     }
+
+
 
     .scenario-tags {
       display: flex;

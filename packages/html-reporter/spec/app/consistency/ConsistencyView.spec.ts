@@ -112,7 +112,7 @@ describe('ConsistencyView', () => {
 
         await actor.attemptsTo(
             Ensure.that(view.filterBar.activeFilters(), contain('All')),
-            Ensure.that(view.resultCount.text(), includes('4 test scenarios')),
+            Ensure.that(view.scenarioCount(), equals(4)),
         );
     });
 

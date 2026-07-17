@@ -13,7 +13,6 @@ describe('Test Scenarios', () => {
 
                 Ensure.that(scenariosView.scenarioCount(), isGreaterThan(0)),
                 Ensure.that(scenariosView.scenarioCount(), equals(expected.scenarios.maxVisibleRows)),
-                Ensure.that(scenariosView.resultCountText(), includes('21')),
             );
         });
 
