@@ -342,19 +342,6 @@ describe('CapabilitiesView search and filter bar', () => {
         );
     });
 
-    it('filter bar has a "Health:" label prefix consistent with ScenariosView "Status:" pattern', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
-            data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
-            interactionObject: CapabilitiesView,
-        });
-
-        await actor.attemptsTo(
-            Ensure.that(view.filterBar.label(), includes('HEALTH:')),
-        );
-    });
 });
 
 // Accessibility-contract tests: These verify ARIA implementation details (role attributes,

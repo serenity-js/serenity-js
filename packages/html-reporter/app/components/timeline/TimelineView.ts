@@ -73,7 +73,7 @@ export function TimelineView({ scenarios: allScenarios, summary, onNavigate }: T
       </div>
 
       <div class="card pb-0">
-        <div ref=${parentRef} style="border-top:1px solid var(--border-color);max-height:calc(100vh - 320px);overflow-y:auto">
+        <div ref=${parentRef} class="scroll-container" style="border-top:1px solid var(--border-color)">
           <div style="height:${virtualizer.getTotalSize()}px;width:100%;position:relative">
             ${virtualizer.getVirtualItems().map(virtualRow => {
                 const i = virtualRow.index;

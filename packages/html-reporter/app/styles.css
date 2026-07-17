@@ -462,6 +462,7 @@
       flex: 1;
       min-width: 0;
       display: flex;
+      align-items: center;
       gap: var(--space-sm);
       flex-wrap: nowrap;
       overflow-x: auto;
@@ -759,6 +760,7 @@
       background: color-mix(in srgb, var(--color-pending) 15%, transparent);
       padding: 2px 8px;
       border-radius: var(--radius-sm);
+      white-space: nowrap;
     }
 
     /* ===== Search ===== */
@@ -2654,6 +2656,12 @@
       color: #a5a7ff;
     }
 
+    .scroll-container {
+      max-height: calc(100vh - 380px);
+      overflow-y: auto;
+      position: relative;
+    }
+
     /* ===== Responsive ===== */
     @media (max-width: 768px) {
       .sidebar {
@@ -2670,8 +2678,14 @@
 
       .main-content {
         margin-left: 0 !important;
+        padding: var(--space-sm);
         padding-bottom: 0;
         overflow-x: hidden;
+        min-height: auto;
+      }
+
+      .scroll-container {
+        max-height: calc(100vh - 240px);
       }
 
       .hamburger {
@@ -2687,10 +2701,6 @@
       }
 
       [data-testid="filter-bar"] {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        background: var(--bg-surface);
         padding-top: var(--space-sm);
         padding-bottom: var(--space-sm);
       }
@@ -2760,13 +2770,7 @@
       flex-shrink: 0;
     }
 
-    @media (max-width: 768px) {
-      .filter-bar .label-upper {
-        display: none;
-      }
-      .sort-group label {
-        display: none;
-      }
+    @media (max-width: 1024px) {
       .sort-group .sort-select {
         width: 38px;
         height: 38px;
@@ -2792,10 +2796,6 @@
     }
 
     @media (max-width: 768px) {
-      .run-selector-label {
-        display: none;
-      }
-
       .run-selector-row select {
         max-width: 200px;
         font-size: var(--font-sm);
@@ -2806,7 +2806,7 @@
     .controls-row {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--space-sm);
+      gap: var(--space-md);
       align-items: center;
       margin-bottom: var(--space-md);
     }
@@ -2832,7 +2832,7 @@
       }
       .controls-row {
         gap: var(--space-xs);
-        margin-bottom: var(--space-sm);
+        margin-bottom: var(--space-xs);
       }
       .card {
         padding-top: var(--space-sm);
@@ -3235,7 +3235,6 @@
     .label-upper { font-size: var(--font-xs); font-weight: 500; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
 
     .clickable { cursor: pointer; }
-    .scroll-container { max-height: calc(100vh - 380px); overflow-y: auto; position: relative; }
 
     .stat-card { padding: var(--space-sm) var(--space-md); display: flex; align-items: center; gap: var(--space-sm); }
     .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-sm); }

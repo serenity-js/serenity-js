@@ -100,7 +100,7 @@ export const {
 
     expected: async ({ }, use, info) => {
         const maxVisibleRows: Record<string, number> = {
-            desktop: 17,
+            desktop: 16,
             tablet: 15,
             mobile: 16,
         };

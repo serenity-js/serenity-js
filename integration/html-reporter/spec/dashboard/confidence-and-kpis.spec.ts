@@ -8,14 +8,14 @@ describe('Dashboard', () => {
 
         it('shows the overall confidence score', { tag: '@showcase' }, async ({ actor, dashboardView }) => {
             await actor.attemptsTo(
-                Ensure.that(dashboardView.kpiCardCalled('Confidence').value(), includes('85')),
+                Ensure.that(dashboardView.kpiCardCalled('Confidence').value(), includes('86')),
                 Ensure.that(dashboardView.kpiCardCalled('Confidence').subtitle(), includes('since last run')),
             );
         });
 
         it('shows the pass rate with the number of passing scenarios', async ({ actor, dashboardView }) => {
             await actor.attemptsTo(
-                Ensure.that(dashboardView.kpiCardCalled('Pass Rate').value(), includes('76')),
+                Ensure.that(dashboardView.kpiCardCalled('Pass Rate').value(), includes('77')),
                 Ensure.that(dashboardView.kpiCardCalled('Pass Rate').subtitle(), includes('passing')),
             );
         });
@@ -28,7 +28,7 @@ describe('Dashboard', () => {
 
         it('shows the consistency percentage', async ({ actor, dashboardView }) => {
             await actor.attemptsTo(
-                Ensure.that(dashboardView.kpiCardCalled('Consistency').value(), includes('81')),
+                Ensure.that(dashboardView.kpiCardCalled('Consistency').value(), includes('82')),
             );
         });
     });

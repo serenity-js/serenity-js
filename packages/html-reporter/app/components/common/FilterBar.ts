@@ -63,7 +63,6 @@ export function FilterBar({ filters, activeFilter, onFilter, ariaLabel, label, m
     return html`
     <div class="filter-bar-row" data-testid="filter-bar">
       <div class="filter-bar" role="group" aria-label="${ariaLabel || 'Filter'}">
-        ${label ? html`<span class="label-upper">${label}:</span>` : null}
         ${filters.map(f => {
             const isActive = multiSelect
                 ? (f.key === 'all' ? activeSet.size === 0 : activeSet.has(f.key))
@@ -80,7 +79,6 @@ export function FilterBar({ filters, activeFilter, onFilter, ariaLabel, label, m
       </div>
       ${sortOptions ? html`
         <div class="sort-group">
-          <label class="label-upper" for="${selectId}">Sort:</label>
           <select id="${selectId}" class="sort-select" value=${activeSort} onChange=${(e: Event) => onSort && onSort((e.target as HTMLSelectElement).value)} aria-label="Sort order">
             ${sortOptions.map(s => html`<option value=${s.key} selected=${activeSort === s.key}>${s.label}</option>`)}
           </select>
