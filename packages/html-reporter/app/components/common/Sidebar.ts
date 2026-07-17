@@ -16,9 +16,11 @@ interface SidebarProps {
     onNavigate: (path: string) => void;
     onClose: () => void;
     onToggleCollapse: () => void;
+    theme: string;
+    onToggleTheme: () => void;
 }
 
-export function Sidebar({ route, routes, sidebarOpen, collapsed, failedBadgeCount, onNavigate, onClose, onToggleCollapse }: SidebarProps): ReturnType<typeof html> {
+export function Sidebar({ route, routes, sidebarOpen, collapsed, failedBadgeCount, onNavigate, onClose, onToggleCollapse, theme, onToggleTheme }: SidebarProps): ReturnType<typeof html> {
     const navItems = routes.filter(r => r.navLabel && r.pattern !== '/about');
     const aboutRoute = routes.find(r => r.pattern === '/about');
 
@@ -70,10 +72,16 @@ export function Sidebar({ route, routes, sidebarOpen, collapsed, failedBadgeCoun
           <span>Learn Serenity/JS</span>
         </a>
       </nav>
-      <button class="sidebar-collapse-btn" onClick=${onToggleCollapse} title=${collapsed ? 'Expand sidebar' : 'Collapse sidebar'}>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-nav" style="transform:${collapsed ? 'rotate(180deg)' : 'none'};transition:transform 0.2s"><polyline points="15 18 9 12 15 6"/></svg>
-        <span>Collapse</span>
-      </button>
+      <div class="sidebar-footer">
+        <button class="sidebar-theme-btn" onClick=${onToggleTheme} title=${theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'} aria-label="Toggle theme">
+          ${theme === 'light' ? icons.moon : icons.sun}
+          <span>${theme === 'light' ? 'Dark' : 'Light'}</span>
+        </button>
+        <button class="sidebar-collapse-btn" onClick=${onToggleCollapse} title=${collapsed ? 'Expand sidebar' : 'Collapse sidebar'}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-nav" style="transform:${collapsed ? 'rotate(180deg)' : 'none'};transition:transform 0.2s"><polyline points="15 18 9 12 15 6"/></svg>
+          <span>Collapse</span>
+        </button>
+      </div>
     </aside>
   `;
 }

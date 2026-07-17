@@ -160,24 +160,28 @@ export function CapabilitiesView({ capabilities, onNavigate, route }: Capabiliti
         <div class="capabilities-split">
             <div class="card req-tree-panel">
                 ${showFilterBar ? html`
-                    <${SearchInput} value=${searchTerm} onInput=${setSearchTerm} placeholder="Find capabilities..." />
-                    <${FilterBar} filters=${[
-                        { key: 'all', label: 'All', count: healthCounts.total },
-                        { key: 'healthy', label: 'Healthy', count: healthCounts.healthy },
-                        { key: 'at-risk', label: 'At Risk', count: healthCounts.atRisk },
-                        { key: 'critical', label: 'Critical', count: healthCounts.critical },
-                        { key: 'gaps', label: 'Gaps', count: healthCounts.gaps },
-                    ]}
-                    activeFilter=${activeFilter} onFilter=${setActiveFilter}
-                    ariaLabel="Filter capabilities by health" label="Health"
-                    multiSelect=${false}
-                    sortOptions=${[
-                        { key: 'name', label: 'Name' },
-                        { key: 'confidence', label: 'Confidence' },
-                        { key: 'scenarios', label: 'Scenarios' },
-                    ]}
-                    activeSort=${activeSort} onSort=${setActiveSort}
-                    sortId="cap-sort-select" />
+                    <div class="controls-row">
+                        <div class="search-input-wrap">
+                            <${SearchInput} value=${searchTerm} onInput=${setSearchTerm} placeholder="Find capabilities..." />
+                        </div>
+                        <${FilterBar} filters=${[
+                            { key: 'all', label: 'All', count: healthCounts.total },
+                            { key: 'healthy', label: 'Healthy', count: healthCounts.healthy },
+                            { key: 'at-risk', label: 'At Risk', count: healthCounts.atRisk },
+                            { key: 'critical', label: 'Critical', count: healthCounts.critical },
+                            { key: 'gaps', label: 'Gaps', count: healthCounts.gaps },
+                        ]}
+                        activeFilter=${activeFilter} onFilter=${setActiveFilter}
+                        ariaLabel="Filter capabilities by health" label="Health"
+                        multiSelect=${false}
+                        sortOptions=${[
+                            { key: 'name', label: 'Name' },
+                            { key: 'confidence', label: 'Confidence' },
+                            { key: 'scenarios', label: 'Scenarios' },
+                        ]}
+                        activeSort=${activeSort} onSort=${setActiveSort}
+                        sortId="cap-sort-select" />
+                    </div>
                 ` : null}
                 <div style="margin-top:var(--space-sm)">
                     <${ResultCount} showing=${showFilterBar && (searchTerm || activeFilter !== 'all') ? visibleCount : totalCapabilities} total=${totalCapabilities} label=${totalCapabilities !== 1 ? 'capabilities' : 'capability'} />

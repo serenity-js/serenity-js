@@ -120,9 +120,12 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
 
       ${history.length > 1 ? html`<${RunSelector} activeTimestamp=${activeRunTimestamp} history=${history} onRunChange=${onRunChange} />` : null}
 
-      <${SearchInput} value=${search} onInput=${setSearch} />
+      <div class="controls-row">
+        <div class="search-input-wrap">
+          <${SearchInput} value=${search} onInput=${setSearch} />
+        </div>
 
-      <${FilterBar} filters=${[
+        <${FilterBar} filters=${[
             { key: 'all', label: 'All', count: runTotal },
             { key: 'passed', label: 'Passed', count: runOutcomes.passed },
             { key: 'failed', label: 'Failed', count: (runOutcomes.failed || 0) + (runOutcomes.error || 0) + (runOutcomes.compromised || 0) },
@@ -137,6 +140,7 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
             { key: 'status', label: 'Status' },
         ]}
         activeSort=${sort} onSort=${setSort} />
+      </div>
 
       <div class="card">
         <${ResultCount} showing=${filtered.length} total=${allScenarios.length} label="test scenarios" />

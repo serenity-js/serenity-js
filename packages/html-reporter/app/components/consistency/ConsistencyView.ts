@@ -80,9 +80,12 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
 
     return html`
     <div>
-      <${SearchInput} value=${search} onInput=${setSearch} />
+      <div class="controls-row">
+        <div class="search-input-wrap">
+          <${SearchInput} value=${search} onInput=${setSearch} />
+        </div>
 
-      <${FilterBar} filters=${[
+        <${FilterBar} filters=${[
             { key: 'all', label: 'All', count: inconsistentTests.length },
             { key: 'flaky', label: 'Flaky', count: flakyCount },
             { key: 'inconsistent', label: 'Inconsistent', count: inconsistentCount },
@@ -98,6 +101,7 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
         ]}
         activeSort=${sort} onSort=${setSort}
         sortId="consistency-sort-select" />
+      </div>
 
       <div class="card pb-0">
         <${ResultCount} showing=${sortedItems.length} label=${sortedItems.length === 1 ? 'test scenario' : 'test scenarios'} />

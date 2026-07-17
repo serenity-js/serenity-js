@@ -56,7 +56,8 @@ export function TimelineView({ scenarios: allScenarios, summary, onNavigate }: T
         <${KpiCard} label="Total" value=${formatDuration(summary.duration)} ariaLabel="Total duration: ${formatDuration(summary.duration)}" subtitle="${allScenarios.length} scenarios" />
       </div>
 
-      <${FilterBar} filters=${[
+      <div class="controls-row">
+        <${FilterBar} filters=${[
             { key: 'all', label: 'All', count: allScenarios.length },
             { key: 'passed', label: 'Passed', count: summary.outcomes.passed },
             { key: 'failed', label: 'Failed', count: (summary.outcomes.failed || 0) + (summary.outcomes.error || 0) + (summary.outcomes.compromised || 0) },
@@ -69,6 +70,7 @@ export function TimelineView({ scenarios: allScenarios, summary, onNavigate }: T
             { key: 'duration', label: 'Slowest first' },
         ]}
         activeSort=${sortBy} onSort=${setSortBy} />
+      </div>
 
       <div class="card pb-0">
         <div ref=${parentRef} style="border-top:1px solid var(--border-color);max-height:calc(100vh - 320px);overflow-y:auto">

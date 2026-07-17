@@ -79,7 +79,8 @@ export function App(): ReturnType<typeof html> {
     <${Sidebar} route=${effectiveRoute} sidebarOpen=${sidebarOpen} collapsed=${sidebarCollapsed}
                 routes=${routes}
                 failedBadgeCount=${totalFailedCount(DATA.summary.outcomes)}
-                onNavigate=${navigate} onClose=${() => setSidebarOpen(false)} onToggleCollapse=${toggleSidebar} />
+                onNavigate=${navigate} onClose=${() => setSidebarOpen(false)} onToggleCollapse=${toggleSidebar}
+                theme=${theme} onToggleTheme=${toggleTheme} />
     <main id="main-content" class="main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}"
           data-testid="${viewTestId}"
           style="margin-left:${sidebarCollapsed ? 'var(--sidebar-collapsed-width)' : 'var(--sidebar-width)'}">
@@ -92,11 +93,6 @@ export function App(): ReturnType<typeof html> {
             <h1 class="topbar-title">${pageTitle}</h1>
             <div class="topbar-subtitle" title="${DATA.summary.finishedAt}">${formatTimestamp(DATA.summary.finishedAt)}</div>
           </div>
-        </div>
-        <div class="topbar-actions">
-          <button class="btn-icon" onClick=${toggleTheme} aria-label="Toggle theme">
-            ${theme === 'light' ? icons.moon : icons.sun}
-          </button>
         </div>
       </div>
       ${view}
