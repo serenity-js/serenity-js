@@ -93,7 +93,7 @@ describe('TestRunsView', () => {
         );
     });
 
-    it('renders branch and commit as links to the repository', async ({ mount, actor }) => {
+    it('renders a shortened commit hash linking to the full commit URL', async ({ mount, actor }) => {
         const view = await mount({
             component: 'TestRunsView',
             importPath: './components/test-runs/TestRunsView',
@@ -105,7 +105,7 @@ describe('TestRunsView', () => {
                         outcomes: { passed: 3, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                         duration: 1000, slowest: 400, fastest: 100, average: 250,
                         branch: 'main',
-                        commit: 'abc1234',
+                        commit: 'abc1234def5678901234567890abcdef12345678',
                         repositoryUrl: 'git@github.com:serenity-js/serenity-js.git',
                     },
                 ],
@@ -115,10 +115,8 @@ describe('TestRunsView', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(view.branchLinkText(), equals('main')),
-            Ensure.that(view.branchLinkHref(), includes('/tree/main')),
             Ensure.that(view.commitLinkText(), equals('abc1234')),
-            Ensure.that(view.commitLinkHref(), includes('/commit/abc1234')),
+            Ensure.that(view.commitLinkHref(), includes('/commit/abc1234def5678901234567890abcdef12345678')),
         );
     });
 

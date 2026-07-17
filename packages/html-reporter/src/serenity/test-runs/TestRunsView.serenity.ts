@@ -19,10 +19,6 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
         this.children(By.css('.scenario-list .scenario-item'))
             .describedAs('test run rows');
 
-    private branchLink = () =>
-        this.child(By.css('a[href*="/tree/"]'))
-            .describedAs('branch link');
-
     private commitLink = () =>
         this.child(By.css('a[href*="/commit/"]'))
             .describedAs('commit link');
@@ -70,14 +66,6 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
     detailsCtaText = (): QuestionAdapter<string> =>
         Text.of(this.detailsCta()).trim()
             .describedAs('run details CTA text');
-
-    branchLinkText = (): QuestionAdapter<string> =>
-        Text.of(this.branchLink()).trim()
-            .describedAs('branch link text');
-
-    branchLinkHref = (): QuestionAdapter<string> =>
-        Attribute.called('href').of(this.branchLink())
-            .describedAs('branch link href');
 
     commitLinkText = (): QuestionAdapter<string> =>
         Text.of(this.commitLink()).trim()

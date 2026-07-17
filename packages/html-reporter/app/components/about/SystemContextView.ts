@@ -107,19 +107,23 @@ export function SystemContextView({ systemContext }: SystemContextViewProps): Re
               <div style="min-width:0">
                 <div class="context-label">Commit</div>
                 <div class="context-value context-value--commit">${ci.repositoryUrl && ci.commit
-                        ? html`<a href="${ci.repositoryUrl}/commit/${ci.commit}" class="context-link context-link--mono" target="_blank" rel="noopener">${ci.commit}</a>`
-                        : html`<span class="context-link--mono">${ci.commit}</span>`
+                        ? html`<a href="${ci.repositoryUrl}/commit/${ci.commit}" class="context-link context-link--mono" target="_blank" rel="noopener">${ci.commit.slice(0, 7)}</a>`
+                        : html`<span class="context-link--mono">${ci.commit.slice(0, 7)}</span>`
                 }${ci.commitMessage ? html`<span class="context-commit-msg"> — ${ci.commitMessage}</span>` : null}</div>
               </div>
             </div>
+            ${ci.pullRequestUrl ? html`
+              <div class="context-item">
+                <div class="context-icon">🔀</div>
+                <div>
+                  <div class="context-label">Pull Request</div>
+                  <div class="context-value">
+                    <a href=${ci.pullRequestUrl} class="context-link" target="_blank" rel="noopener">#${ci.pullRequestNumber}</a>
+                  </div>
+                </div>
+              </div>
+            ` : null}
           </div>
-          ${ci.pullRequestUrl ? html`
-            <div style="margin-top:var(--space-md)">
-              <a href=${ci.pullRequestUrl} class="context-link" target="_blank" rel="noopener">
-                View Pull Request #${ci.pullRequestNumber}
-              </a>
-            </div>
-          ` : null}
         </div>
       ` : null}
     </div>

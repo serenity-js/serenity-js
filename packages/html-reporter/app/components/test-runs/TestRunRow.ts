@@ -28,8 +28,7 @@ export function TestRunRow({ run, onNavigate }: TestRunRowProps): ReturnType<typ
             <span>${formatDuration(run.duration)}</span>
           </div>
           <div class="scenario-meta">
-            ${run.branch ? html`<${GitLink} icon=${icons.branch} label=${run.branch} href=${repoUrl ? repoUrl + '/tree/' + run.branch : ''} />` : null}
-            ${run.commit ? html`<${GitLink} icon=${icons.commit} label=${run.commit} href=${repoUrl ? repoUrl + '/commit/' + run.commit : ''} mono=${true} />` : null}
+            ${run.commit ? html`<${GitLink} icon=${icons.commit} label=${run.commit.slice(0, 7)} href=${repoUrl ? repoUrl + '/commit/' + run.commit : ''} mono=${true} />` : null}
           </div>
           <div class="run-outcomes-line">
             <span style="font-size:var(--font-sm);font-weight:600;color:${scoreColor(confidence) || 'var(--text-primary)'}" title="Confidence: ${confidence}%">◐${confidence}%</span>
