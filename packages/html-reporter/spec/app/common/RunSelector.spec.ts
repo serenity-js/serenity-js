@@ -1,7 +1,7 @@
 import { Ensure, equals, isFalse, isTrue } from '@serenity-js/assertions';
 
 import { RunSelector } from '../../../src/serenity/common/RunSelector.serenity.js';
-import { beforeEach, describe, it, expect } from '../fixtures.js';
+import { beforeEach, describe, expect, it } from '../fixtures.js';
 
 const sampleHistory = [
     {
