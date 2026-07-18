@@ -3,9 +3,8 @@ import { h } from 'preact';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 
 import type { ReportHistoryEntry, ReportOutcomes, ReportScenario, ReportSummary } from '../../../src/cli/ReportData';
-import { formatDuration, formatRunLabel, matchesOutcomeFilter, matchesSearch, resolveRunIndex, useHashHistory } from '../../utils';
+import { matchesOutcomeFilter, matchesSearch, resolveRunIndex, useHashHistory } from '../../utils';
 import { FilterBar } from '../common/FilterBar';
-import { HistoricalBanner } from '../common/HistoricalBanner';
 import { ResultCount } from '../common/ResultCount';
 import { RunSelector } from '../common/RunSelector';
 import { SearchInput } from '../common/SearchInput';
@@ -114,11 +113,7 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
 
     return html`
     <div>
-      ${historicalRun ? html`
-        <${HistoricalBanner} label="Viewing results from:" runLabel=${formatRunLabel(historicalRun.label, historicalRun.timestamp)} subtitle=${'— ' + formatDuration(historicalRun.duration)} showLatestHref="#/tests" onShowLatest=${() => {}} />
-      ` : null}
-
-      ${history.length > 1 ? html`<${RunSelector} activeTimestamp=${activeRunTimestamp} history=${history} onRunChange=${onRunChange} />` : null}
+      ${history.length > 1 ? html`<${RunSelector} activeTimestamp=${activeRunTimestamp} history=${history} onRunChange=${onRunChange} isHistorical=${!!historicalRun} showLatestHref="#/tests" />` : null}
 
       <div class="controls-row">
         <div class="search-input-wrap">

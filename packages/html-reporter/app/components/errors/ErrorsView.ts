@@ -4,8 +4,7 @@ import { useCallback, useMemo } from 'preact/hooks';
 
 import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData';
 import { ROW_HEIGHTS } from '../../config/layout';
-import { formatRunLabel, resolveRunIndex } from '../../utils';
-import { HistoricalBanner } from '../common/HistoricalBanner';
+import { resolveRunIndex } from '../../utils';
 import { icons } from '../common/icons';
 import { KpiCard } from '../common/KpiCard';
 import { GroupedVirtualList } from '../common/layout/GroupedVirtualList';
@@ -175,11 +174,7 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
 
     return html`
     <div>
-      ${errorHistoricalRun ? html`
-        <${HistoricalBanner} label="Viewing errors from:" runLabel=${formatRunLabel(errorHistoricalRun.label, errorHistoricalRun.timestamp)} onShowLatest=${errorShowLatest} />
-      ` : null}
-
-      ${history.length > 1 ? html`<${RunSelector} activeTimestamp=${errorActiveRunTs} history=${history} onRunChange=${onErrorRunChange} />` : null}
+      ${history.length > 1 ? html`<${RunSelector} activeTimestamp=${errorActiveRunTs} history=${history} onRunChange=${onErrorRunChange} isHistorical=${!!errorHistoricalRun} onShowLatest=${errorShowLatest} />` : null}
 
       <div class="kpi-row mb-md stat-grid">
         ${summaryCards.map(card => html`

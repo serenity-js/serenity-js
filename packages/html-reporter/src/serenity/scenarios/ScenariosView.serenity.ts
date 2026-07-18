@@ -56,7 +56,7 @@ export class ScenariosView<NET> extends InteractionObject<NET> {
         this.resultCount.text();
 
     private runSelector = () =>
-        this.child(By.css('select[aria-label="Select test run"]'))
+        this.child(By.css('select[aria-label^="Select test run"]'))
             .describedAs('run selector');
 
     runSelectorIsPresent = (): Answerable<boolean> =>

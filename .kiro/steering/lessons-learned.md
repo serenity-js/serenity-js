@@ -483,3 +483,64 @@ If you see "port 8080 already in use" errors, kill the stale process:
 ```bash
 pkill -f 'http-server.*8080'; pkill -f 'http-server.*8090'; sleep 2
 ```
+
+## Inline styles bypass CSS media query overrides
+
+If a component uses an inline `style="max-height:calc(100vh - 320px)"` on an element, no CSS class-based media query can override it — inline styles have higher specificity than any selector. The TimelineView had this problem: its scroll container used an inline max-height, so the mobile `.scroll-container` override never applied.
+
+Fix: always use CSS classes for properties that need responsive overrides. Move `max-height`, `overflow`, etc. to a class (`.scroll-container`) and apply responsive adjustments via media queries on that class.
+
+## CSS source-order within a single file can silently break media query overrides
+
+If a base rule (e.g., `.scroll-container { max-height: calc(100vh - 380px) }`) appears AFTER a `@media (max-width: 768px)` block that also targets `.scroll-container`, the base rule wins on mobile because both have the same specificity and the later one takes precedence regardless of media query.
+
+This is a classic CSS cascade bug that's hard to spot because the developer assumes "media query = conditional" when in fact it's "media query = additional condition, same specificity, source order still matters."
+
+Rule: base/default rules must appear BEFORE their responsive overrides in the file. When adding utility classes or late-in-file rules, check whether they conflict with earlier media query overrides.
+
+## Regenerating a served html-report requires `html-reporter aggregate`, not just `npm run compile`
+
+The `html-reporter serve --dir <path>` command serves a pre-generated `index.html`. Running `npm run compile` rebuilds the template.js bundle, but the served report still uses the old embedded template until you re-run:
+
+```bash
+npx failsafe example:clean example:test example:add-history
+```
+
+(in `integration/html-reporter/`) or equivalent aggregation step. Always regenerate the report after template changes to verify them visually in the browser.
+
+## Virtual scroll container height must account for ALL elements above it
+
+When calculating `max-height: calc(100vh - Xpx)` for a virtual scroll container, `X` must account for everything above it in the viewport:
+- Topbar (title + date)
+- Main content padding
+- Run selector (conditional — only when multiple runs exist)
+- Search input + gap
+- Filter bar + gap
+- Card padding + card title/divider
+
+On mobile with reduced padding, these add up to ~240px. On desktop with full padding + more spacing, ~380px. Getting this wrong by even 40px causes either the card to overflow the viewport or leaves a visible gap.
+
+When the content above varies (e.g., Run Selector present or not), the fixed offset is always a compromise. Prefer a value that works for the common case and accept a small gap in the edge case.
+
+## Don't add a separate status indicator when an existing control already communicates the state
+
+The `HistoricalBanner` was a full-width bar that said "Viewing results from: Run #X" with a "show latest" link. The `RunSelector` dropdown directly below it showed the same run in its selected option. This duplicated information, cost 50–70px of vertical space, and on mobile the CSS had to hide the RunSelector to avoid redundancy — which also removed the ability to switch runs.
+
+Rule: before introducing a banner/alert/status bar, check whether an existing interactive element (dropdown, tab, breadcrumb) already communicates the same state. If it does, enhance that element's visual treatment instead of adding a new component.
+
+Pattern for "you're looking at a non-default state":
+1. Give the existing control a **visual state variant** (accent border/background) to create ambient awareness
+2. Add a **small escape affordance** (link/button) inline next to the control to return to the default state
+3. Never render two elements that answer the same user question ("which run am I viewing?")
+
+This applies broadly: don't add a "You are filtering by X" banner above a filter bar that already shows the active filter. Don't add a "Branch: feature/foo" badge above a branch selector dropdown.
+
+## Interaction object locators must use prefix/substring matching when component state appends to aria-labels
+
+When a component conditionally appends to its `aria-label` based on state (e.g., `"Select test run"` → `"Select test run (historical)"`), interaction objects that locate the component via `[aria-label="Select test run"]` will break in the alternate state.
+
+Use prefix matching: `[aria-label^="Select test run"]` instead of exact matching. This applies to any attribute-based locator where the component has state-dependent suffixes.
+
+The RunSelector historical state change exposed this: `ScenariosView.serenity.ts` had `[aria-label="Select test run"]` which only matched the non-historical state. Updated to `[aria-label^="Select test run"]` to match both states.
+
+General rule: when modifying a component to add state-dependent attributes, grep for all interaction objects that locate it and update their selectors to remain stable across states.

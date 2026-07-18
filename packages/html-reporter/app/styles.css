@@ -2802,6 +2802,11 @@
       }
     }
 
+    .run-select--historical { background-color: var(--accent-light); border-color: var(--accent); }
+    .run-select--historical:hover { border-color: var(--accent); filter: brightness(1.1); }
+    .show-latest-link { font-size: var(--font-md); color: var(--accent); white-space: nowrap; text-decoration: underline; text-underline-offset: 2px; flex-shrink: 0; }
+    .show-latest-link:hover { filter: brightness(1.2); }
+
     /* ===== Controls Row ===== */
     .controls-row {
       display: flex;
@@ -3253,7 +3258,6 @@
 
     @media (max-width: 767px) {
       .historical-banner { font-size: var(--font-sm); padding: var(--space-sm) var(--space-md); }
-      .historical-banner + .run-selector-row { display: none; }
     }
     .virtual-list { width: 100%; position: relative; }
 
