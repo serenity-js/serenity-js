@@ -518,7 +518,12 @@ When calculating `max-height: calc(100vh - Xpx)` for a virtual scroll container,
 - Filter bar + gap
 - Card padding + card title/divider
 
-On mobile with reduced padding, these add up to ~240px. On desktop with full padding + more spacing, ~380px. Getting this wrong by even 40px causes either the card to overflow the viewport or leaves a visible gap.
+On mobile with reduced padding, these add up to ~220px. On desktop with full padding + more spacing, ~380px. Getting this wrong by even 40px causes either the card to overflow the viewport or leaves a visible gap.
+
+When debugging "too much/too little bottom space" on mobile:
+1. Don't add padding to the scroll container — it's a virtual scroll, absolutely-positioned items ignore padding
+2. Don't adjust the outer `.main-content` padding asymmetrically — that creates uneven margins
+3. **Measure the actual content above** (topbar + controls + card padding + group header) and set the offset to match
 
 When the content above varies (e.g., Run Selector present or not), the fixed offset is always a compromise. Prefer a value that works for the common case and accept a small gap in the edge case.
 
