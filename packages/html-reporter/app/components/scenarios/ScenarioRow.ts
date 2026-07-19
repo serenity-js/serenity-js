@@ -4,6 +4,7 @@ import { h } from 'preact';
 import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData';
 import { ansiToHtml, browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, relativeSourcePath, scenarioUrl, searchContainsTag, toggleTagInSearch } from '../../utils';
 import { HistoryDots } from '../common/HistoryDots';
+import { icons } from '../common/icons';
 import { OutcomeBadge } from '../common/OutcomeBadge';
 
 const html = htm.bind(h);
@@ -53,7 +54,7 @@ export function ScenarioRow({ scenario, sort, onNavigate, runIndex, setSearch, s
         ` : null}
         <div class="scenario-meta">
           <span class="scenario-source">${relativeSourcePath(scenario, specDirectory)}</span>
-          <span class="scenario-duration">${formatDuration(scenario.duration)}</span>
+          <span class="scenario-duration">${icons.clock}${formatDuration(scenario.duration)}</span>
         </div>
         <div class="scenario-tags">
           ${browserTag && browserTagObject ? html`<span class="badge ${browserBadgeClass(browserTag)} badge-link${browserActive ? ' active' : ''}" aria-pressed=${browserActive ? 'true' : 'false'} onClick=${(e: Event) => handleTagClick(e, browserTagObject)}>${browserTag}</span>` : null}

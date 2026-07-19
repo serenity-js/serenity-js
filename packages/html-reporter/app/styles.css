@@ -722,6 +722,15 @@
       color: var(--text-secondary);
       font-weight: 500;
       white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .scenario-duration svg {
+      width: 12px;
+      height: 12px;
+      flex-shrink: 0;
     }
 
     .scenario-error-preview {
