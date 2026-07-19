@@ -53,6 +53,7 @@ export function ScenarioRow({ scenario, sort, onNavigate, runIndex, setSearch, s
         ` : null}
         <div class="scenario-meta">
           <span class="scenario-source">${relativeSourcePath(scenario, specDirectory)}</span>
+          <span class="scenario-duration">${formatDuration(scenario.duration)}</span>
         </div>
         <div class="scenario-tags">
           ${browserTag && browserTagObject ? html`<span class="badge ${browserBadgeClass(browserTag)} badge-link${browserActive ? ' active' : ''}" aria-pressed=${browserActive ? 'true' : 'false'} onClick=${(e: Event) => handleTagClick(e, browserTagObject)}>${browserTag}</span>` : null}
@@ -63,7 +64,6 @@ export function ScenarioRow({ scenario, sort, onNavigate, runIndex, setSearch, s
             })}
         </div>
       </div>
-      <span class="scenario-duration">${formatDuration(scenario.duration)}</span>
     </a>
   `;
 }

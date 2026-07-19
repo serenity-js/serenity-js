@@ -646,6 +646,16 @@
       text-overflow: ellipsis;
     }
 
+    @media (max-width: 768px) {
+      .scenario-name {
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    }
+
     .scenario-history-line {
       display: flex;
       align-items: center;
@@ -660,7 +670,6 @@
       margin-top: 2px;
       font-size: var(--font-sm);
       color: var(--text-secondary);
-      flex-wrap: wrap;
     }
 
     .run-meta-item {
@@ -699,12 +708,13 @@
     .scenario-source {
       font-family: var(--font-mono);
       font-size: var(--font-xs);
-      direction: ltr;
-      unicode-bidi: normal;
+      direction: rtl;
+      text-align: left;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      max-width: 100%;
+      flex: 1;
+      min-width: 0;
     }
 
     .scenario-duration {
@@ -2709,15 +2719,15 @@
       }
 
       .scenario-name {
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
         overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
       }
 
       .scenario-meta {
         overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
       }
 
       /* Trend chart canvas: force Chart.js to respect container width */
