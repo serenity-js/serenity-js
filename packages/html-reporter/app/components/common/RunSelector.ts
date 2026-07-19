@@ -22,7 +22,7 @@ export function RunSelector({ activeTimestamp, history, onRunChange, isHistorica
 
     return html`
     <div class=${wrapperClass}>
-        <select class=${selectClass} value=${activeTimestamp} onChange=${onRunChange} aria-label=${ariaLabel} style="min-width:200px">
+        <select class=${selectClass} value=${activeTimestamp} onChange=${onRunChange} aria-label=${ariaLabel}>
             ${[...history].reverse().map((run) => {
                 const passRate = Math.round((run.outcomes.passed / ((run.outcomes.passed || 0) + (run.outcomes.failed || 0) + (run.outcomes.error || 0) + (run.outcomes.compromised || 0) + (run.outcomes.pending || 0) + (run.outcomes.skipped || 0))) * 100);
                 const label = formatRunLabel(run.label, run.timestamp) + ' — ' + passRate + '% pass rate';

@@ -2794,9 +2794,14 @@
       flex-wrap: wrap;
     }
 
+    .run-selector-row select {
+      min-width: 200px;
+    }
+
     @media (max-width: 768px) {
       .run-selector-row select {
-        max-width: 200px;
+        flex: 1 1 100%;
+        min-width: 0;
         font-size: var(--font-sm);
       }
     }
