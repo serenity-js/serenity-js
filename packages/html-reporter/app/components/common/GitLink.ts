@@ -13,7 +13,6 @@ interface GitLinkProps {
 export function GitLink({ icon, label, href, mono }: GitLinkProps): ReturnType<typeof html> {
     const textClass = mono ? 'font-mono text-xs' : 'text-xs';
     return html`
-        <span>•</span>
         <span class="inline-flex-center">
             ${icon}${href
                 ? html`<a href="${href}" target="_blank" rel="noopener" onClick=${(e: Event) => e.stopPropagation()} class="${textClass}" style="color:inherit;text-decoration:none" onMouseOver=${(e: Event) => (e.target as HTMLElement).style.textDecoration='underline'} onMouseOut=${(e: Event) => (e.target as HTMLElement).style.textDecoration='none'}>${label}</a>`
