@@ -33,8 +33,8 @@ describe('StartALocalServer', () => {
             configure({ actors: new Actors(handler) });
 
             return expect(actorCalled('Nadia').attemptsTo(
-                StartLocalServer.onPort(30000),
-                Ensure.that(LocalServer.port(), equals(30000)),
+                StartLocalServer.onPort(58000),
+                Ensure.that(LocalServer.port(), equals(58000)),
             )).to.be.fulfilled;
         });
 
@@ -77,7 +77,7 @@ describe('StartALocalServer', () => {
 
     describe('when detecting invocation location', () => {
         it('correctly detects its invocation location when configured with a specific port', () => {
-            const activity = StartLocalServer.onPort(30000);
+            const activity = StartLocalServer.onPort(58000);
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('StartLocalServer.spec.ts');
