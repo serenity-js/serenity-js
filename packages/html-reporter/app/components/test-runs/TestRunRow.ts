@@ -17,17 +17,15 @@ interface TestRunRowProps {
 export function TestRunRow({ run, onNavigate }: TestRunRowProps): ReturnType<typeof html> {
     const { confidence, failedCount, skippedCount, passedPct, failedPct, skippedPct } = computeRunMetrics(run);
     const repoUrl = normaliseRepoUrl(run.repositoryUrl);
+    const labelIsTimestamp = /^\d{4}-\d{2}-\d{2}T/.test(run.label);
 
     return html`
       <div class="scenario-item test-run-row" onClick=${() => onNavigate('/tests?run=' + run.timestamp)}>
         <div class="scenario-info" style="min-width:0;flex:1">
           <div class="scenario-name">${formatRunLabel(run.label, run.timestamp)}</div>
           <div class="scenario-meta">
-            <span>${formatTimestamp(run.timestamp)}</span>
-            <span>·</span>
+            ${labelIsTimestamp ? null : html`<span>${formatTimestamp(run.timestamp)}</span><span>·</span>`}
             <span>${formatDuration(run.duration)}</span>
-          </div>
-          <div class="scenario-meta">
             ${run.commit ? html`<${GitLink} icon=${icons.commit} label=${run.commit.slice(0, 7)} href=${repoUrl ? repoUrl + '/commit/' + run.commit : ''} mono=${true} />` : null}
           </div>
           <div class="run-outcomes-line">
