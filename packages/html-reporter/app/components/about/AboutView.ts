@@ -94,7 +94,7 @@ export function AboutView(): ReturnType<typeof html> {
             </div>
             <div class="panel-bg">
               <h4 class="section-title-sm">Machine-Readable Summary</h4>
-              <p class="section-text">A <code>summary.json</code> file is generated alongside the report for AI agents, CI bots, and custom tooling. It contains outcome totals, failure clusters grouped by error fingerprint, consistency classifications, and composite quality scores — all parseable without JavaScript execution. Discover it via the <code>&lt;link rel="alternate"&gt;</code> tag in the HTML head.</p>
+              <p class="section-text">A <a href="summary.json" target="_blank" rel="noopener" class="link-accent">summary.json</a> file is generated alongside the report for AI agents and CI tooling — outcome totals, failure clusters, consistency classifications, and quality scores, parseable without JavaScript.</p>
             </div>
           </div>
         </section>
