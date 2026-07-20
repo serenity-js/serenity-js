@@ -44,7 +44,6 @@ export function Sidebar({ route, routes, sidebarOpen, collapsed, failedBadgeCoun
         </svg>
       </div>
       <nav class="sidebar-nav">
-        <div class="nav-section-label">Report</div>
         ${navItems.map(item => {
             const badge = getBadge(item);
             return html`
