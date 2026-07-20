@@ -1,5 +1,6 @@
 ---
-status: outstanding
+status: rejected
+reason: Cosmetic rename with high churn, zero functional benefit. Current layout is sufficient.
 ---
 
 # Phase 9: Package Layout Restructuring

@@ -7,29 +7,12 @@ Last verified: 2026-07-20 against commit `115a2ea406`.
 
 ## Phase 9: Package Layout Restructuring
 
-**Goal:** Separate the three bounded contexts (`cli`, `app`, `serenity`) into distinct
-top-level directories so the package layout reflects its architecture.
+**Status: ❌ REJECTED**
 
-**What's done:**
-- `template/` → `app/` rename ✅
-
-**What remains:**
-
-| # | Task | Notes |
-|---|------|-------|
-| 9.1 | Move `src/cli/` → top-level `cli/` | Node.js reporter, archiver, aggregator, CLI commands |
-| 9.2 | Move `src/serenity/` → top-level `serenity/` | Interaction objects for testing the report |
-| 9.3 | Remove `src/` directory | Only `src/index.ts` and `src/serenity.ts` barrel files remain — fold into new layout |
-| 9.4 | Update `tsconfig-cjs.build.json` and `tsconfig-esm.build.json` | `rootDir`/`include` must cover `cli/` + `serenity/` |
-| 9.5 | Update `package.json` `exports` field | Ensure `lib/` and `esm/` output paths remain stable |
-| 9.6 | Update `scripts/bundle-template.mjs` | Template bundler reads from `app/` (already done) but output paths reference `cli/` |
-| 9.7 | Update esbuild fixture in `spec/app/fixtures.ts` | `importPath` references may change |
-| 9.8 | Update all relative imports across `serenity/` files | Currently `../../src/cli/ReportData` → needs new path |
-
-**Risk:** High churn. Every interaction object file imports from `src/cli/ReportData.ts`.
-The rename will touch 30+ files. Should be done in a single commit with no functional changes.
-
-**Effort:** ~1 hour (mechanical refactor + verify all builds and tests pass)
+The `template/` → `app/` rename (done) was the high-value move. The remaining `src/` split
+(`src/cli/` → `cli/`, `src/serenity/` → `serenity/`) is cosmetic — it touches 30+ files
+with zero functional benefit, creates review noise, and risks breaking the `exports` field.
+The current layout is already well-organised. If desired later, do it as an isolated PR.
 
 ---
 
@@ -104,7 +87,6 @@ by reducing parsing effort from "N failures" to "M distinct root causes."
 
 | Priority | Item | Effort | Risk | Rationale |
 |----------|------|--------|------|-----------|
-| 1 | Phase 9 (layout) | 1h | Medium (churn) | Unblocks clean package boundaries for release |
-| 2 | Phase 11 C1+C2 | 2h | Low | Machine-readable summary, no visible UI |
-| 3 | Phase 11 A1–A4 + B1 | 5h | Medium | New UI — needs approval |
-| 4 | ListItemNotFoundError | 2h | Low | Core package fix, workaround exists |
+| 1 | Phase 11 C1+C2 | 2h | Low | Machine-readable summary, no visible UI |
+| 2 | Phase 11 A1–A4 + B1 | 5h | Medium | New UI — needs approval |
+| 3 | ListItemNotFoundError | 2h | Low | Core package fix, workaround exists |
