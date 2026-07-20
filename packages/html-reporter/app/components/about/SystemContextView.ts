@@ -10,6 +10,18 @@ interface SystemContextViewProps {
     systemContext?: ReportSystemContext;
 }
 
+function ContextItem({ icon, label, value, wide }: { icon: string; label: string; value: ReturnType<typeof html>; wide?: boolean }): ReturnType<typeof html> {
+    return html`
+      <div class="context-item${wide ? ' context-item--wide' : ''}">
+        <div class="context-icon">${icon}</div>
+        <div style=${wide ? 'min-width:0' : ''}>
+          <div class="context-label">${label}</div>
+          <div class="context-value${wide ? ' context-value--commit' : ''}">${value}</div>
+        </div>
+      </div>
+    `;
+}
+
 export function SystemContextView({ systemContext }: SystemContextViewProps): ReturnType<typeof html> {
     const context = systemContext;
 
@@ -32,97 +44,31 @@ export function SystemContextView({ systemContext }: SystemContextViewProps): Re
     <div class="card">
       <div class="card-title" style="margin-bottom:var(--space-lg)">Environment</div>
       <div class="context-grid">
-        <div class="context-item">
-          <div class="context-icon">⚡</div>
-          <div>
-            <div class="context-label">Node.js</div>
-            <div class="context-value">${context.nodeVersion}</div>
-          </div>
-        </div>
-        <div class="context-item">
-          <div class="context-icon">🧪</div>
-          <div>
-            <div class="context-label">Test Runner</div>
-            <div class="context-value">${testRunner.name} ${testRunner.version}</div>
-          </div>
-        </div>
-        <div class="context-item">
-          <div class="context-icon">🖥</div>
-          <div>
-            <div class="context-label">Operating System</div>
-            <div class="context-value">${operatingSystem.name} ${operatingSystem.version} (${operatingSystem.arch})</div>
-          </div>
-        </div>
-        <div class="context-item">
-          <div class="context-icon">📦</div>
-          <div>
-            <div class="context-label">Serenity/JS</div>
-            <div class="context-value">v${context.serenityVersion}</div>
-          </div>
-        </div>
-        ${browsers.map(b => html`
-          <div class="context-item">
-            <div class="context-icon">🌐</div>
-            <div>
-              <div class="context-label">${b.name}</div>
-              <div class="context-value">${b.version}</div>
-            </div>
-          </div>
-        `)}
+        <${ContextItem} icon="⚡" label="Node.js" value=${context.nodeVersion} />
+        <${ContextItem} icon="🧪" label="Test Runner" value="${testRunner.name} ${testRunner.version}" />
+        <${ContextItem} icon="🖥" label="Operating System" value="${operatingSystem.name} ${operatingSystem.version} (${operatingSystem.arch})" />
+        <${ContextItem} icon="📦" label="Serenity/JS" value="v${context.serenityVersion}" />
+        ${browsers.map(b => html`<${ContextItem} icon="🌐" label=${b.name} value=${b.version} />`)}
       </div>
 
       ${ci ? html`
         <div style="margin-top:var(--space-xl)">
           <div class="card-title mb-md">CI / CD</div>
           <div class="context-grid">
-            <div class="context-item">
-              <div class="context-icon">🏗</div>
-              <div>
-                <div class="context-label">Provider</div>
-                <div class="context-value">${ci.provider}</div>
-              </div>
-            </div>
-            <div class="context-item">
-              <div class="context-icon">#</div>
-              <div>
-                <div class="context-label">Build</div>
-                <div class="context-value">${ci.jobUrl
-                        ? html`<a href=${ci.jobUrl} class="context-link" target="_blank" rel="noopener">#${ci.buildNumber}</a>`
-                        : html`#${ci.buildNumber}`
-                }</div>
-              </div>
-            </div>
-            <div class="context-item">
-              <div class="context-icon">🌿</div>
-              <div>
-                <div class="context-label">Branch</div>
-                <div class="context-value">${ci.repositoryUrl && ci.branch
-                        ? html`<a href="${ci.repositoryUrl}/tree/${ci.branch}" class="context-link" target="_blank" rel="noopener">${ci.branch}</a>`
-                        : ci.branch
-                }</div>
-              </div>
-            </div>
-            <div class="context-item context-item--wide">
-              <div class="context-icon">📝</div>
-              <div style="min-width:0">
-                <div class="context-label">Commit</div>
-                <div class="context-value context-value--commit">${ci.repositoryUrl && ci.commit
-                        ? html`<a href="${ci.repositoryUrl}/commit/${ci.commit}" class="context-link context-link--mono" target="_blank" rel="noopener">${ci.commit.slice(0, 7)}</a>`
-                        : html`<span class="context-link--mono">${ci.commit.slice(0, 7)}</span>`
-                }${ci.commitMessage ? html`<span class="context-commit-msg"> — ${ci.commitMessage}</span>` : null}</div>
-              </div>
-            </div>
-            ${ci.pullRequestUrl ? html`
-              <div class="context-item">
-                <div class="context-icon">🔀</div>
-                <div>
-                  <div class="context-label">Pull Request</div>
-                  <div class="context-value">
-                    <a href=${ci.pullRequestUrl} class="context-link" target="_blank" rel="noopener">#${ci.pullRequestNumber}</a>
-                  </div>
-                </div>
-              </div>
-            ` : null}
+            <${ContextItem} icon="🏗" label="Provider" value=${ci.provider} />
+            <${ContextItem} icon="#" label="Build" value=${ci.jobUrl
+                ? html`<a href=${ci.jobUrl} class="context-link" target="_blank" rel="noopener">#${ci.buildNumber}</a>`
+                : html`#${ci.buildNumber}`
+            } />
+            <${ContextItem} icon="🌿" label="Branch" value=${ci.repositoryUrl && ci.branch
+                ? html`<a href="${ci.repositoryUrl}/tree/${ci.branch}" class="context-link" target="_blank" rel="noopener">${ci.branch}</a>`
+                : ci.branch
+            } />
+            <${ContextItem} icon="📝" label="Commit" wide=${true} value=${html`${ci.repositoryUrl && ci.commit
+                ? html`<a href="${ci.repositoryUrl}/commit/${ci.commit}" class="context-link context-link--mono" target="_blank" rel="noopener">${ci.commit.slice(0, 7)}</a>`
+                : html`<span class="context-link--mono">${ci.commit.slice(0, 7)}</span>`
+            }${ci.commitMessage ? html`<span class="context-commit-msg"> — ${ci.commitMessage}</span>` : null}`} />
+            ${ci.pullRequestUrl ? html`<${ContextItem} icon="🔀" label="Pull Request" value=${html`<a href=${ci.pullRequestUrl} class="context-link" target="_blank" rel="noopener">#${ci.pullRequestNumber}</a>`} />` : null}
           </div>
         </div>
       ` : null}
