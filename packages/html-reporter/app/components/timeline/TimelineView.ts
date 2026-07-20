@@ -4,9 +4,10 @@ import { useMemo, useRef, useState } from 'preact/hooks';
 
 import type { ReportScenario, ReportSummary } from '../../../src/cli/ReportData';
 import { useVirtualizer } from '../../hooks';
-import { formatDuration, formatTimestamp, matchesOutcomeFilter, outcomeClass, outcomeIcon, scenarioUrl } from '../../utils';
+import { formatDuration, formatTimestamp, matchesOutcomeFilter, outcomeClass, scenarioUrl } from '../../utils';
 import { FilterBar } from '../common/FilterBar';
 import { KpiCard } from '../common/KpiCard';
+import { OutcomeBadge } from '../common/OutcomeBadge';
 
 const html = htm.bind(h);
 
@@ -92,7 +93,7 @@ export function TimelineView({ scenarios: allScenarios, summary, onNavigate }: T
                      onClick=${clickHandler}
                      title="Started: ${formatTimestamp(s.startedAt)} • Duration: ${formatDuration(s.duration)}">
                   <div style="display:flex;align-items:center;gap:6px;overflow:hidden">
-                    <span class="scenario-outcome-icon ${outcomeClass(s.outcome)}" style="width:18px;height:18px;font-size:var(--font-xs);flex-shrink:0">${outcomeIcon(s.outcome)}</span>
+                    <${OutcomeBadge} outcome=${s.outcome} size="xs" />
                     <span style="font-size:var(--font-sm);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;${nameColor}">${s.category} › ${s.name}</span>
                     <span style="font-size:var(--font-xs);${s.outcome !== 'SUCCESS' ? 'color:var(--color-' + outcomeClass(s.outcome) + ')' : 'color:var(--text-secondary)'};font-family:var(--font-mono);white-space:nowrap;flex-shrink:0">${formatDuration(s.duration)}</span>
                   </div>

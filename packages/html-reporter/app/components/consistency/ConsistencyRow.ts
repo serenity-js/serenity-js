@@ -2,7 +2,8 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportInconsistentTest } from '../../../src/cli/ReportData';
-import { browserBadgeClass, getBrowserTag, outcomeDisplayName, relativeSourcePath, scenarioUrl } from '../../utils';
+import { outcomeDisplayName, relativeSourcePath, scenarioUrl } from '../../utils';
+import { BrowserBadge } from '../common/BrowserBadge';
 import { HistoryDots } from '../common/HistoryDots';
 import { OutcomeBadge } from '../common/OutcomeBadge';
 
@@ -37,7 +38,7 @@ export function ConsistencyRow({ item: t, specDirectory, onNavigate }: Consisten
           <span class="scenario-source">${relativeSourcePath(t, specDirectory)}</span>
         </div>
         <div class="scenario-tags scroll-x-hidden">
-          ${getBrowserTag(t) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(t)!)}">${getBrowserTag(t)}</span>` : null}
+          ${html`<${BrowserBadge} scenario=${t} />`}
           ${(t.tags || []).filter(tag => tag.type === 'project').map(tag => html`<span class="badge">${tag.name}</span>`)}
         </div>
       </div>

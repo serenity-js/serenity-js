@@ -6,6 +6,7 @@ import type { ReportInconsistentTest } from '../../../src/cli/ReportData';
 import { ROW_HEIGHTS } from '../../config/layout';
 import { matchesSearch } from '../../utils';
 import { classifyConsistencyKind } from '../../utils/selectors';
+import { CategoryBreadcrumb } from '../common/CategoryBreadcrumb';
 import { FilterBar } from '../common/FilterBar';
 import { icons } from '../common/icons';
 import { GroupedVirtualList } from '../common/layout/GroupedVirtualList';
@@ -73,9 +74,7 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
     }, [specDirectory, onNavigate]);
 
     const renderGroupHeader = useCallback((category: string) => {
-        return html`${category.split(' › ').map((segment, index, array) => html`
-          <span class="clickable" onClick=${() => setSearch('"' + segment + '"')}>${segment}</span>${index < array.length - 1 ? html`<span style="margin:0 4px;text-decoration:none;cursor:default"> › </span>` : null}
-        `)}`;
+        return html`<${CategoryBreadcrumb} category=${category} onSegmentClick=${(segment: string) => setSearch('"' + segment + '"')} />`;
     }, [setSearch]);
 
     return html`

@@ -2,7 +2,9 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportScenarioRef } from '../../../src/cli/ReportData';
-import { browserBadgeClass, getBrowserTag, outcomeClass, outcomeDisplayName, outcomeIcon, scenarioUrl } from '../../utils';
+import { getBrowserTag, outcomeClass, outcomeDisplayName, outcomeIcon, scenarioUrl } from '../../utils';
+import { BrowserBadge } from '../common/BrowserBadge';
+import { HistoryDots } from '../common/HistoryDots';
 
 const html = htm.bind(h);
 
@@ -29,7 +31,20 @@ export function DashboardConsistencyCard({ items, hasItems, onNavigate, getHisto
           </div>
           ${items.length === 0
                     ? html`<div class="status-empty status-empty--ok"><span class="status-chip">✓</span> All tests consistent</div>`
-                    : items.map(t => html`
+                    : items.map(t => {
+                        const history = t.history || getHistory(t);
+                        const historyEntries = history.map((entry, i) => {
+                            const outcome = typeof entry === 'string' ? entry : entry.outcome;
+                            const retriedAndPassed = typeof entry === 'object' ? entry.retriedAndPassed : undefined;
+                            const label = t.labels ? t.labels[i] : (typeof entry === 'object' ? entry.run : '');
+                            return {
+                                outcome,
+                                retriedAndPassed,
+                                label: outcomeDisplayName(retriedAndPassed ? 'RETRIED_SUCCESS' : outcome) + (label ? ' (' + label + ')' : ''),
+                            };
+                        });
+
+                        return html`
                 <div class="status-item status-item--rich clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
                   <div class="status-item-main">
                     <span class="status-icon status-icon--${outcomeClass(t.lastOutcome)}">${outcomeIcon(t.lastOutcome)}</span>
@@ -37,15 +52,16 @@ export function DashboardConsistencyCard({ items, hasItems, onNavigate, getHisto
                   </div>
                   <div class="status-item-history-line">
                     <span class="status-item-kind" style="color:${kindColor(t.kind)}">${t.kind.toUpperCase()}</span>
-                    <${HistoryDotStrip} history=${t.history || getHistory(t)} labels=${t.labels} />
+                    <${HistoryDots} entries=${historyEntries} />
                   </div>
                   ${getBrowserTag(t) ? html`
                     <div class="status-item-tags scroll-x-hidden">
-                      <span class="badge ${browserBadgeClass(getBrowserTag(t)!)}">${getBrowserTag(t)}</span>
+                      <${BrowserBadge} scenario=${t} />
                     </div>
                   ` : null}
                 </div>
-            `)
+            `;
+                    })
             }
         </div>
     `;
@@ -55,16 +71,4 @@ function kindColor(kind: string): string {
     if (kind === 'degraded') return 'var(--color-failed)';
     if (kind === 'recovered') return 'var(--color-passed)';
     return 'var(--color-pending)';
-}
-
-function HistoryDotStrip({ history, labels }: { history: Array<string | { outcome: string; run: string; retriedAndPassed?: boolean }>; labels?: string[] }): ReturnType<typeof html> {
-    return html`
-        <div class="status-item-history" data-testid="history-dots">
-          ${history.map((h, i) => {
-                const outcome = typeof h === 'string' ? h : (h.retriedAndPassed ? 'RETRIED_SUCCESS' : h.outcome);
-                const label = labels ? labels[i] : (typeof h === 'object' ? h.run : '');
-                return html`<span class="history-dot history-dot--${outcomeClass(outcome)}" data-outcome=${outcome} title=${outcomeDisplayName(outcome) + (label ? ' (' + label + ')' : '')}></span>`;
-            })}
-        </div>
-    `;
 }

@@ -3,8 +3,9 @@ import { h } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 
 import type { ReportParameterSet } from '../../../src/cli/ReportData';
-import { formatDuration, outcomeClass, outcomeIcon, showToast, useHashHistory } from '../../utils';
+import { formatDuration, showToast, useHashHistory } from '../../utils';
 import { icons } from '../common/icons';
+import { OutcomeBadge } from '../common/OutcomeBadge';
 import { ActivityNode } from './ActivityNode';
 
 const html = htm.bind(h);
@@ -38,7 +39,7 @@ export function ParameterSetNode({ ps, index, groupIndex, forceExpanded }: Param
       <div class="panel-header flex-row gap-sm"
            onClick=${() => setExpanded(!expanded)}>
         <span class="expand-chevron ${expanded ? 'open' : ''}">▸</span>
-        <span class="scenario-outcome-icon ${outcomeClass(ps.outcome)}" style="width:18px;height:18px;font-size:var(--font-2xs);flex-shrink:0">${outcomeIcon(ps.outcome)}</span>
+        <${OutcomeBadge} outcome=${ps.outcome} size="xs" />
         <span class="text-sm" style="font-weight:500">#${index + 1} — ${parameterSummary}</span>
         <button onClick=${copyLink} title="Copy link to this example" class="icon-btn ml-auto" style="line-height:1;align-items:center">
           ${icons.link}

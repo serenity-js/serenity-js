@@ -8,6 +8,7 @@ const html = htm.bind(h);
 export interface HistoryDotsEntry {
     outcome: string;
     label?: string;
+    retriedAndPassed?: boolean;
 }
 
 export interface HistoryDotsProps {
@@ -19,6 +20,9 @@ export function HistoryDots({ entries, max = 5 }: HistoryDotsProps): ReturnType<
     const visible = entries.slice(-max);
 
     return html`
-        <span class="scenario-history" data-testid="history-dots">${visible.map(entry => html`<span class="history-dot history-dot--${outcomeClass(entry.outcome)}" data-outcome=${entry.outcome} title=${entry.label || ''}></span>`)}</span>
+        <span class="scenario-history" data-testid="history-dots">${visible.map(entry => {
+            const effectiveOutcome = entry.retriedAndPassed ? 'RETRIED_SUCCESS' : entry.outcome;
+            return html`<span class="history-dot history-dot--${outcomeClass(effectiveOutcome)}" data-outcome=${effectiveOutcome} title=${entry.label || ''}></span>`;
+        })}</span>
     `;
 }

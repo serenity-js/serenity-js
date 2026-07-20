@@ -4,7 +4,7 @@ import { useCallback, useMemo } from 'preact/hooks';
 
 import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData';
 import { ROW_HEIGHTS } from '../../config/layout';
-import { resolveRunIndex } from '../../utils';
+import { useRunSelection } from '../../hooks/useRunSelection';
 import { icons } from '../common/icons';
 import { KpiCard } from '../common/KpiCard';
 import { GroupedVirtualList } from '../common/layout/GroupedVirtualList';
@@ -33,20 +33,7 @@ interface ErrorRenderItem {
 }
 
 export function ErrorsView({ scenarios: allScenarios, history, specDirectory, onNavigate, route }: ErrorsViewProps): ReturnType<typeof html> {
-    const errorRunParameters = (route && route.includes('?')) ? new URLSearchParams(route.split('?')[1]) : null;
-    const errorRunString = errorRunParameters ? errorRunParameters.get('run') : null;
-    const errorRunIndex = useMemo(() => resolveRunIndex(errorRunString, history), [errorRunString]);
-    const errorIsHistorical = errorRunIndex !== null && errorRunIndex !== history.length - 1;
-    const errorHistoricalRun = errorIsHistorical ? history[errorRunIndex] : null;
-
-    const errorActiveRunTs = errorRunIndex !== null && history[errorRunIndex] ? history[errorRunIndex].timestamp : history[history.length - 1]?.timestamp || null;
-    const onErrorRunChange = (e: Event) => {
-        const ts = (e.target as HTMLSelectElement).value;
-        const index = history.findIndex(r => r.timestamp === ts);
-        const isLatest = index === history.length - 1;
-        onNavigate(isLatest ? '/errors' : '/errors?run=' + ts);
-    };
-    const errorShowLatest = () => onNavigate('/errors');
+    const { runIndex: errorRunIndex, isHistorical: errorIsHistorical, activeTimestamp: errorActiveRunTs, onRunChange: onErrorRunChange } = useRunSelection(route, history, '/errors', onNavigate);
 
     const errorScenarios = useMemo(() => {
         if (errorRunIndex === null || errorRunIndex === history.length - 1) {
@@ -174,7 +161,7 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
 
     return html`
     <div>
-      ${history.length > 1 ? html`<${RunSelector} activeTimestamp=${errorActiveRunTs} history=${history} onRunChange=${onErrorRunChange} isHistorical=${!!errorHistoricalRun} onShowLatest=${errorShowLatest} />` : null}
+      ${history.length > 1 ? html`<${RunSelector} activeTimestamp=${errorActiveRunTs} history=${history} onRunChange=${onErrorRunChange} isHistorical=${errorIsHistorical} showLatestHref="#/errors" />` : null}
 
       <div class="kpi-row mb-md stat-grid">
         ${summaryCards.map(card => html`

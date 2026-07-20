@@ -7,10 +7,11 @@ const html = htm.bind(h);
 
 export interface OutcomeBadgeProps {
     outcome: string;
-    size?: 'sm' | 'md' | 'lg';
+    size?: 'xs' | 'sm' | 'md' | 'lg';
 }
 
 const sizeStyles: Record<string, string> = {
+    xs: 'width:18px;height:18px;font-size:var(--font-2xs);flex-shrink:0',
     sm: 'width:18px;height:18px;font-size:var(--font-2xs);flex-shrink:0',
     md: '',
     lg: 'width:28px;height:28px;font-size:var(--font-md)',

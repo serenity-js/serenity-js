@@ -4,6 +4,7 @@ import { useCallback } from 'preact/hooks';
 
 import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData';
 import { ROW_HEIGHTS } from '../../config/layout';
+import { CategoryBreadcrumb } from '../common/CategoryBreadcrumb';
 import { GroupedVirtualList } from '../common/layout/GroupedVirtualList';
 import { ScenarioRow } from './ScenarioRow';
 
@@ -36,10 +37,7 @@ export function VirtualScenarioList({ filtered, grouped, sort, onNavigate, runIn
     }, [sort, onNavigate, runIndex, setSearch, search, specDirectory, history]);
 
     const renderGroupHeader = useCallback((category: string) => {
-        const segments = category.split(' › ');
-        return html`${segments.map((segment, index) => html`
-          <span class="clickable" onClick=${() => setSearch('"' + segment + '"')}>${segment}</span>${index < segments.length - 1 ? html`<span class="breadcrumb-sep"> › </span>` : null}
-        `)}`;
+        return html`<${CategoryBreadcrumb} category=${category} onSegmentClick=${(segment: string) => setSearch('"' + segment + '"')} />`;
     }, [setSearch]);
 
     return html`<${GroupedVirtualList}

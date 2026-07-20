@@ -3,7 +3,8 @@ import { h } from 'preact';
 
 import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData';
 import { useScrollFade } from '../../hooks/useScrollFade';
-import { browserBadgeClass, formatDuration, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, showToast } from '../../utils';
+import { formatDuration, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, showToast } from '../../utils';
+import { BrowserBadge } from '../common/BrowserBadge';
 import { icons } from '../common/icons';
 import { CastSection } from './CastSection';
 import { ExecutionHistory } from './ExecutionHistory';
@@ -54,7 +55,7 @@ export function ScenarioHeader({ scenario, activeDuration, specDirectory, tags, 
 
         ${hasTags ? html`
           <div class="scenario-detail-tags scroll-x-hidden flex-row flex-wrap gap-sm mb-md${tagsFadeClass}" style="gap:6px" ref=${tagsRef}>
-            ${getBrowserTag(scenario) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(scenario)!)}">${getBrowserTag(scenario)}</span>` : null}
+            <${BrowserBadge} scenario=${scenario} />
             ${[...new Map(tags.filter(t => t.type !== 'browser').map(t => [t.name, t])).values()].map(t => html`<span class="tag-chip tag-chip-static">${t.name}</span>`)}
           </div>
         ` : null}

@@ -1,9 +1,11 @@
 import htm from 'htm';
 import { h } from 'preact';
-import { useEffect, useMemo, useState } from 'preact/hooks';
+import { useMemo } from 'preact/hooks';
 
 import type { ReportHistoryEntry, ReportOutcomes, ReportScenario, ReportSummary } from '../../../src/cli/ReportData';
-import { matchesOutcomeFilter, matchesSearch, resolveRunIndex, useHashHistory } from '../../utils';
+import { useRunSelection } from '../../hooks/useRunSelection';
+import { useViewState } from '../../hooks/useViewState';
+import { matchesOutcomeFilter, matchesSearch } from '../../utils';
 import { FilterBar } from '../common/FilterBar';
 import { ResultCount } from '../common/ResultCount';
 import { RunSelector } from '../common/RunSelector';
@@ -23,26 +25,14 @@ interface ScenariosViewProps {
 }
 
 export function ScenariosView({ scenarios: allScenarios, history, summary, specDirectory, onNavigate, route }: ScenariosViewProps): ReturnType<typeof html> {
-    const hashNav = useHashHistory();
-    const [search, setSearch] = useState(() => {
-        return hashNav.getParam('search') || '';
-    });
-    const [filter, setFilter] = useState(() => {
-        return hashNav.getParam('filter') || 'all';
-    });
-    const [sort, setSort] = useState(() => {
-        return hashNav.getParam('sort') || 'category';
-    });
+    const { runIndex, isHistorical, activeTimestamp: activeRunTimestamp, onRunChange } = useRunSelection(route, history, '/tests', onNavigate);
 
-    useEffect(() => {
-        const params = route.includes('?') ? new URLSearchParams(route.split('?')[1]) : null;
-        const newSearch = params?.get('search') || '';
-        const newFilter = params?.get('filter') || 'all';
-        const newSort = params?.get('sort') || 'category';
-        setSearch(newSearch);
-        setFilter(newFilter);
-        setSort(newSort);
-    }, [route]);
+    const { search, setSearch, filter, setFilter, sort, setSort } = useViewState({
+        basePath: '/tests',
+        route,
+        defaults: { sort: 'category' },
+        extraParams: () => (runIndex !== null && history[runIndex] ? { run: history[runIndex].timestamp } : {}),
+    });
 
     const filtered = useMemo(() => {
         let result = allScenarios;
@@ -66,22 +56,6 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
         return result;
     }, [search, filter, sort]);
 
-    // Detect run index from route
-    const runParameters = route.includes('?') ? new URLSearchParams(route.split('?')[1]) : null;
-    const runString = runParameters ? runParameters.get('run') : null;
-    const runIndex = useMemo(() => resolveRunIndex(runString, history), [runString]);
-
-    useEffect(() => {
-        const params = new URLSearchParams();
-        if (search) params.set('search', search);
-        if (filter && filter !== 'all') params.set('filter', filter);
-        if (sort && sort !== 'category') params.set('sort', sort);
-        if (runIndex !== null && history[runIndex]) params.set('run', history[runIndex].timestamp);
-        const parameterString = params.toString();
-        const newHash = parameterString ? '/tests?' + parameterString : '/tests';
-        hashNav.replace(newHash);
-    }, [search, filter, sort]);
-
     const grouped = useMemo(() => {
         const groups: Record<string, typeof filtered> = {};
         for (const s of filtered) {
@@ -90,16 +64,6 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
         }
         return groups;
     }, [filtered]);
-
-    const historicalRun = (runIndex !== null && runIndex !== history.length - 1) ? history[runIndex] : null;
-
-    const activeRunTimestamp = runIndex !== null && history[runIndex] ? history[runIndex].timestamp : history[history.length - 1]?.timestamp;
-    const onRunChange = (e: Event) => {
-        const ts = (e.target as HTMLSelectElement).value;
-        const index = history.findIndex(r => r.timestamp === ts);
-        const isLatest = index === history.length - 1;
-        onNavigate(isLatest ? '/tests' : '/tests?run=' + ts);
-    };
 
     const runOutcomes: ReportOutcomes = useMemo(() => {
         if (runIndex !== null && history[runIndex]) {
@@ -113,7 +77,7 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
 
     return html`
     <div>
-      ${history.length > 1 ? html`<${RunSelector} activeTimestamp=${activeRunTimestamp} history=${history} onRunChange=${onRunChange} isHistorical=${!!historicalRun} showLatestHref="#/tests" />` : null}
+      ${history.length > 1 ? html`<${RunSelector} activeTimestamp=${activeRunTimestamp} history=${history} onRunChange=${onRunChange} isHistorical=${isHistorical} showLatestHref="#/tests" />` : null}
 
       <div class="controls-row">
         <div class="search-input-wrap">
