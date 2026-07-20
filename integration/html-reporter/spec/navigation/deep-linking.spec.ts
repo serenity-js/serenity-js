@@ -33,6 +33,7 @@ describe('Navigation', () => {
             await actor.attemptsTo(
                 notes().set('initialTheme', currentTheme()),
                 navigation.toggleTheme(),
+                navigation.toggleTheme(),
 
                 Wait.until(currentTheme(), not(equals(notes().get('initialTheme')))),
                 Ensure.that(currentTheme(), not(equals(notes().get('initialTheme')))),
