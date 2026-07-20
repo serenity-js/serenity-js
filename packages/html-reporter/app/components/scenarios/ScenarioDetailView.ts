@@ -57,7 +57,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
         <${ActivityTreeCard} scenario=${scenario} currentActivities=${currentActivities} />
       ` : null}
 
-      ${currentError ? html`<${ErrorBlock} error=${currentError} errorLocation=${errorLocation} />` : null}
+      ${currentError ? html`<${ErrorBlock} error=${currentError} errorLocation=${errorLocation} specDirectory=${specDirectory} />` : null}
 
       ${currentVideo ? html`<${VideoPlayer} src=${currentVideo} />` : null}
 

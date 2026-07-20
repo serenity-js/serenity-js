@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportError } from '../../../src/cli/ReportData';
-import { ansiToHtml, showToast } from '../../utils';
+import { ansiToHtml, showToast, stripAbsolutePaths } from '../../utils';
 import { icons } from '../common/icons';
 
 const html = htm.bind(h);
@@ -10,9 +10,10 @@ const html = htm.bind(h);
 interface ErrorBlockProps {
     error: ReportError;
     errorLocation?: { path: string; line: number; column: number } | null;
+    specDirectory?: string;
 }
 
-export function ErrorBlock({ error, errorLocation }: ErrorBlockProps): ReturnType<typeof html> {
+export function ErrorBlock({ error, errorLocation, specDirectory }: ErrorBlockProps): ReturnType<typeof html> {
     const copyLocation = (e: Event) => {
         e.stopPropagation();
         if (errorLocation) {
@@ -33,8 +34,8 @@ export function ErrorBlock({ error, errorLocation }: ErrorBlockProps): ReturnTyp
               </span>
             ` : null}
           </div>
-          <div class="error-message" dangerouslySetInnerHTML=${{ __html: ansiToHtml(error.message) }}></div>
-          <pre class="error-stack" dangerouslySetInnerHTML=${{ __html: ansiToHtml(error.stack || '') }}></pre>
+          <div class="error-message" dangerouslySetInnerHTML=${{ __html: ansiToHtml(stripAbsolutePaths(error.message, specDirectory)) }}></div>
+          <pre class="error-stack" dangerouslySetInnerHTML=${{ __html: ansiToHtml(stripAbsolutePaths(error.stack || '', specDirectory)) }}></pre>
         </div>
     `;
 }
