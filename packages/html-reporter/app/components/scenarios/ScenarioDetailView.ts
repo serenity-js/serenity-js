@@ -3,6 +3,7 @@ import { h } from 'preact';
 
 import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData';
 import { useScenarioDetail } from '../../hooks/useScenarioDetail';
+import { useScrollFade } from '../../hooks/useScrollFade';
 import { formatRunLabel, scenarioUrl } from '../../utils';
 import { HistoricalBanner } from '../common/HistoricalBanner';
 import { ErrorBlock } from '../errors/ErrorBlock';
@@ -69,9 +70,10 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
 
 function Breadcrumb({ scenario, runIndex, history, onNavigate }: { scenario: ReportScenario; runIndex: number | null; history: ReportHistoryEntry[]; onNavigate: (path: string) => void }): ReturnType<typeof html> {
     const backUrl = '/tests' + (runIndex !== null && history[runIndex] ? '?run=' + history[runIndex].timestamp : '');
+    const { ref, fadeClass } = useScrollFade<HTMLDivElement>();
 
     return html`
-      <div class="breadcrumb">
+      <div class="breadcrumb${fadeClass}" ref=${ref}>
         <a onClick=${() => onNavigate(backUrl)}>Test Scenarios</a>
         ${scenario.category.split(' › ').map((segment) => html`
           <span>›</span>

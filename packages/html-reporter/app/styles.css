@@ -3275,6 +3275,22 @@
     .icon-sm { width: 14px; height: 14px; }
     .icon-xs { width: 12px; height: 12px; flex-shrink: 0; }
 
+    /* ===== Scroll Fade Indicators ===== */
+    .fade-right {
+      -webkit-mask-image: linear-gradient(to right, black calc(100% - var(--fade-size, 24px)), transparent);
+      mask-image: linear-gradient(to right, black calc(100% - var(--fade-size, 24px)), transparent);
+    }
+    .fade-left {
+      -webkit-mask-image: linear-gradient(to left, black calc(100% - var(--fade-size, 24px)), transparent);
+      mask-image: linear-gradient(to left, black calc(100% - var(--fade-size, 24px)), transparent);
+    }
+    .fade-both {
+      -webkit-mask-image: linear-gradient(to right, transparent, black var(--fade-size, 24px), black calc(100% - var(--fade-size, 24px)), transparent);
+      mask-image: linear-gradient(to right, transparent, black var(--fade-size, 24px), black calc(100% - var(--fade-size, 24px)), transparent);
+    }
+
+    .photo-strip { --fade-size: 32px; }
+
     .btn-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-secondary); font-size: var(--font-lg); padding: 4px; line-height: 1; }
     .historical-banner { display: flex; align-items: center; justify-content: space-between; padding: 10px var(--space-md); margin-bottom: var(--space-md); background: var(--accent-light); border: 1px solid var(--accent); border-radius: var(--radius-sm); font-size: var(--font-md); }
     .historical-banner .link-underline { white-space: nowrap; flex-shrink: 0; }
@@ -3706,8 +3722,6 @@
         white-space: nowrap;
         overflow-x: auto;
         scrollbar-width: none;
-        -webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
-        mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
     }
     .breadcrumb::-webkit-scrollbar {
         display: none;

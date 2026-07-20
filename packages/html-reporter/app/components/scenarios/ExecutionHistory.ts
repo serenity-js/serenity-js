@@ -2,6 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData';
+import { useScrollFade } from '../../hooks/useScrollFade';
 import { formatRunLabel, outcomeClass, outcomeIcon, scenarioUrl } from '../../utils';
 
 const html = htm.bind(h);
@@ -14,6 +15,8 @@ export interface ExecutionHistoryProps {
 }
 
 export function ExecutionHistory({ scenario, runIndex, history, onNavigate }: ExecutionHistoryProps): ReturnType<typeof html> | null {
+    const { ref: stripRef, fadeClass: stripFadeClass } = useScrollFade<HTMLDivElement>();
+
     if (!scenario.executionHistory || scenario.executionHistory.length === 0) return null;
 
     // Map runIndex (global history index) to local executionHistory index by matching timestamps
@@ -48,7 +51,7 @@ export function ExecutionHistory({ scenario, runIndex, history, onNavigate }: Ex
         <div class="exec-history-summary">
           <span>${passed} of ${total} passing</span><span class="req-detail-metric-sep">·</span><span>${consistency}% consistent</span>
         </div>
-        <div class="exec-history-strip">
+        <div class="exec-history-strip${stripFadeClass}" ref=${stripRef}>
           ${groups.map(group => html`
             <div class="exec-history-group">
               <div class="exec-history-date">${group.date}</div>

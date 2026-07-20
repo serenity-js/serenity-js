@@ -2,6 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData';
+import { useScrollFade } from '../../hooks/useScrollFade';
 import { browserBadgeClass, formatDuration, getBrowserTag, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, showToast } from '../../utils';
 import { icons } from '../common/icons';
 import { CastSection } from './CastSection';
@@ -24,6 +25,8 @@ interface ScenarioHeaderProps {
 }
 
 export function ScenarioHeader({ scenario, activeDuration, specDirectory, tags, hasTags, hasExecutionHistory, cast, hasCast, runIndex, history, onNavigate }: ScenarioHeaderProps): ReturnType<typeof html> {
+    const { ref: tagsRef, fadeClass: tagsFadeClass } = useScrollFade<HTMLDivElement>();
+
     const copyTestPath = () => {
         const text = scenario.source.line ? scenario.source.path + ':' + scenario.source.line : scenario.source.path;
         navigator.clipboard.writeText(text).then(() => showToast('Path copied to clipboard')).catch(() => {});
@@ -43,16 +46,15 @@ export function ScenarioHeader({ scenario, activeDuration, specDirectory, tags, 
               </button>
             </div>
             <div class="scenario-detail-meta">
-              <span>${formatDuration(activeDuration)}</span>
-              <span>•</span>
               <span class="scenario-source">${relativeSourcePath(scenario, specDirectory)}</span>
-              ${getBrowserTag(scenario) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(scenario)!)}">${getBrowserTag(scenario)}</span>` : null}
+              <span class="scenario-duration">${icons.clock}${formatDuration(activeDuration)}</span>
             </div>
           </div>
         </div>
 
         ${hasTags ? html`
-          <div class="scenario-detail-tags flex-row flex-wrap gap-sm mb-md" style="gap:6px">
+          <div class="scenario-detail-tags flex-row flex-wrap gap-sm mb-md${tagsFadeClass}" style="gap:6px" ref=${tagsRef}>
+            ${getBrowserTag(scenario) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(scenario)!)}">${getBrowserTag(scenario)}</span>` : null}
             ${[...new Map(tags.filter(t => t.type !== 'browser').map(t => [t.name, t])).values()].map(t => html`<span class="tag-chip tag-chip-static">${t.name}</span>`)}
           </div>
         ` : null}

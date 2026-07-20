@@ -3,6 +3,7 @@ import { h } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 
 import type { ReportActivity } from '../../../src/cli/ReportData';
+import { useScrollFade } from '../../hooks/useScrollFade';
 import { formatDuration, useHashHistory } from '../../utils';
 
 const html = htm.bind(h);
@@ -18,6 +19,7 @@ export function PhotoStrip({ activities, scenarioStartedAt }: PhotoStripProps): 
     const overlayRef = useRef<HTMLDivElement>(null);
     const touchStartX = useRef(0);
     const touchStartY = useRef(0);
+    const { ref: stripRef, fadeClass: stripFadeClass } = useScrollFade<HTMLDivElement>();
 
     const isOpen = lightboxIndex >= 0;
 
@@ -112,7 +114,7 @@ export function PhotoStrip({ activities, scenarioStartedAt }: PhotoStripProps): 
     return html`
       <div class="card mt-md">
         <div class="card-title">Screenshots (${photos.length})</div>
-        <div class="photo-strip" id="photo-strip">
+        <div class="photo-strip${stripFadeClass}" id="photo-strip" ref=${stripRef}>
           ${photos.map((photo, index) => html`
             <div class="photo-strip-item" id=${'photo-' + index}>
               <img src=${photo.path} loading="lazy" alt=${photo.name} onClick=${() => openPhoto(index)} />
