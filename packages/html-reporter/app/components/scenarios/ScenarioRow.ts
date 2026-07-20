@@ -56,7 +56,7 @@ export function ScenarioRow({ scenario, sort, onNavigate, runIndex, setSearch, s
           <span class="scenario-source">${relativeSourcePath(scenario, specDirectory)}</span>
           <span class="scenario-duration">${icons.clock}${formatDuration(scenario.duration)}</span>
         </div>
-        <div class="scenario-tags">
+        <div class="scenario-tags scroll-x-hidden">
           ${browserTag && browserTagObject ? html`<span class="badge ${browserBadgeClass(browserTag)} badge-link${browserActive ? ' active' : ''}" aria-pressed=${browserActive ? 'true' : 'false'} onClick=${(e: Event) => handleTagClick(e, browserTagObject)}>${browserTag}</span>` : null}
           ${scenario.retries && scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
           ${[...new Map((scenario.tags || []).filter(t => t.type !== 'browser').map(t => [t.name, t])).values()].map(t => {

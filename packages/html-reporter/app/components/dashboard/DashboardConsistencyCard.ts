@@ -40,7 +40,7 @@ export function DashboardConsistencyCard({ items, hasItems, onNavigate, getHisto
                     <${HistoryDotStrip} history=${t.history || getHistory(t)} labels=${t.labels} />
                   </div>
                   ${getBrowserTag(t) ? html`
-                    <div class="status-item-tags">
+                    <div class="status-item-tags scroll-x-hidden">
                       <span class="badge ${browserBadgeClass(getBrowserTag(t)!)}">${getBrowserTag(t)}</span>
                     </div>
                   ` : null}

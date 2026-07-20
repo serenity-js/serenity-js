@@ -36,7 +36,7 @@ export function ConsistencyRow({ item: t, specDirectory, onNavigate }: Consisten
         <div class="scenario-meta">
           <span class="scenario-source">${relativeSourcePath(t, specDirectory)}</span>
         </div>
-        <div class="scenario-tags">
+        <div class="scenario-tags scroll-x-hidden">
           ${getBrowserTag(t) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(t)!)}">${getBrowserTag(t)}</span>` : null}
           ${(t.tags || []).filter(tag => tag.type === 'project').map(tag => html`<span class="badge">${tag.name}</span>`)}
         </div>

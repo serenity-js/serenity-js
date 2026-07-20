@@ -52,7 +52,7 @@ export function ActivityRow({ activity, displayName, hasChildren, expanded, onTo
           ${outcomeIcon(activity.outcome)}
         </div>
         <div class="activity-content">
-          <span class="activity-name ${activity.type === 'Task' ? 'task' : ''}">${displayName}</span>
+          <span class="activity-name line-clamp-2 ${activity.type === 'Task' ? 'task' : ''}">${displayName}</span>
           <div class="activity-meta">
             ${summaryText && !expanded ? html`<span class="activity-summary">${summaryText}</span>` : null}
             <span class="activity-duration">${icons.clock}${formatDuration(activity.duration || 0)}</span>

@@ -53,7 +53,7 @@ export function ScenarioHeader({ scenario, activeDuration, specDirectory, tags, 
         </div>
 
         ${hasTags ? html`
-          <div class="scenario-detail-tags flex-row flex-wrap gap-sm mb-md${tagsFadeClass}" style="gap:6px" ref=${tagsRef}>
+          <div class="scenario-detail-tags scroll-x-hidden flex-row flex-wrap gap-sm mb-md${tagsFadeClass}" style="gap:6px" ref=${tagsRef}>
             ${getBrowserTag(scenario) ? html`<span class="badge ${browserBadgeClass(getBrowserTag(scenario)!)}">${getBrowserTag(scenario)}</span>` : null}
             ${[...new Map(tags.filter(t => t.type !== 'browser').map(t => [t.name, t])).values()].map(t => html`<span class="tag-chip tag-chip-static">${t.name}</span>`)}
           </div>

@@ -71,7 +71,7 @@ function Breadcrumb({ scenario, runIndex, history, onNavigate }: { scenario: Rep
     const { ref, fadeClass } = useScrollFade<HTMLDivElement>();
 
     return html`
-      <div class="breadcrumb${fadeClass}" ref=${ref}>
+      <div class="breadcrumb scroll-x-hidden${fadeClass}" ref=${ref}>
         <a onClick=${() => onNavigate(backUrl)}>Test Scenarios</a>
         ${scenario.category.split(' › ').map((segment) => html`
           <span>›</span>

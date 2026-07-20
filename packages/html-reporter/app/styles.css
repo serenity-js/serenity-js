@@ -466,14 +466,8 @@
       align-items: center;
       gap: var(--space-sm);
       flex-wrap: nowrap;
-      overflow-x: auto;
-      scrollbar-width: none;
       scroll-snap-type: x mandatory;
       background: transparent;
-    }
-
-    .filter-bar::-webkit-scrollbar {
-      display: none;
     }
 
     .filter-chip {
@@ -914,13 +908,6 @@
     .activity-name {
       font-size: var(--font-md);
       min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      white-space: normal;
-      word-break: break-word;
     }
 
     .activity-name.task { font-weight: 500; }
@@ -1179,12 +1166,6 @@
       background: var(--bg-primary);
       border-radius: var(--radius-sm);
       padding: 3px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    .retry-tabs::-webkit-scrollbar {
-      display: none;
     }
 
     .retry-tab {
@@ -1598,13 +1579,7 @@
       gap: 4px;
       margin-left: 24px;
       margin-top: 2px;
-      overflow-x: auto;
       flex-wrap: nowrap;
-      scrollbar-width: none;
-    }
-
-    .status-item-tags::-webkit-scrollbar {
-      display: none;
     }
 
     .history-dot {
@@ -2921,12 +2896,6 @@
       flex-wrap: nowrap;
       gap: 4px;
       margin-top: 2px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    .scenario-tags::-webkit-scrollbar {
-      display: none;  /* Hide scrollbar on Chrome/Safari */
     }
 
     /* ===== Execution History Strip ===== */
@@ -3320,6 +3289,25 @@
     .icon-sm { width: 14px; height: 14px; }
     .icon-xs { width: 12px; height: 12px; flex-shrink: 0; }
 
+    /* ===== Scrollable Containers ===== */
+    .scroll-x-hidden {
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .scroll-x-hidden::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* ===== Text Clamping ===== */
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      white-space: normal;
+      word-break: break-word;
+    }
+
     /* ===== Scroll Fade Indicators ===== */
     .fade-right {
       -webkit-mask-image: linear-gradient(to right, black calc(100% - var(--fade-size, 24px)), transparent);
@@ -3370,8 +3358,6 @@
 
     .expand-chevron { font-size: var(--font-sm); transition: transform 0.2s; }
     .expand-chevron.open { transform: rotate(90deg); }
-    .expand-chevron-xs { font-size: var(--font-xs); width: 12px; flex-shrink: 0; text-align: center; transition: transform 0.15s; }
-    .expand-chevron-xs.open { transform: rotate(90deg); }
 
     .icon-btn { background: none; border: none; cursor: pointer; color: var(--text-secondary); padding: 2px; display: flex; opacity: 0.6; }
     .icon-btn-sm { background: none; border: none; cursor: pointer; color: var(--text-secondary); padding: 2px 4px; font-size: var(--font-sm); opacity: 0.7; }
@@ -3765,19 +3751,9 @@
 @media (max-width: 768px) {
     .breadcrumb {
         white-space: nowrap;
-        overflow-x: auto;
-        scrollbar-width: none;
-    }
-    .breadcrumb::-webkit-scrollbar {
-        display: none;
     }
 
     .scenario-detail-tags {
         flex-wrap: nowrap;
-        overflow-x: auto;
-        scrollbar-width: none;
-    }
-    .scenario-detail-tags::-webkit-scrollbar {
-        display: none;
     }
 }

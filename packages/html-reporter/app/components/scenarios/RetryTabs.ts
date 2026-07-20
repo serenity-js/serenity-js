@@ -18,7 +18,7 @@ export function RetryTabs({ attempts, activeAttempt, onSelect }: RetryTabsProps)
     const { ref, fadeClass } = useScrollFade<HTMLDivElement>();
 
     return html`
-        <div class="retry-tabs${fadeClass}" ref=${ref}>
+        <div class="retry-tabs scroll-x-hidden${fadeClass}" ref=${ref}>
           ${attempts.map((attempt, i) => html`
             <div class="retry-tab ${activeAttempt === i ? 'active' : ''} ${outcomeClass(attempt.outcome)}"
                  onClick=${() => { onSelect(i); hashNav.setParam('attempt', String(i + 1)); }}>

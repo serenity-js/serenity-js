@@ -62,7 +62,7 @@ export function FilterBar({ filters, activeFilter, onFilter, ariaLabel, label, m
 
     return html`
     <div class="filter-bar-row" data-testid="filter-bar">
-      <div class="filter-bar" role="group" aria-label="${ariaLabel || 'Filter'}">
+      <div class="filter-bar scroll-x-hidden" role="group" aria-label="${ariaLabel || 'Filter'}">
         ${filters.map(f => {
             const isActive = multiSelect
                 ? (f.key === 'all' ? activeSet.size === 0 : activeSet.has(f.key))
