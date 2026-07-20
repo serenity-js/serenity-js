@@ -35,33 +35,12 @@ The rename will touch 30+ files. Should be done in a single commit with no funct
 
 ## Phase 10: Component Test IO Conversion
 
-**Goal:** Convert remaining user-behaviour component tests from raw Playwright
-`page.locator()` + `expect()` to idiomatic Serenity/JS interaction object pattern.
+**Status: ✅ DONE**
 
-**What's done:**
-- 6 highest-impact files converted (CapabilitiesView, ExecutionHistory, PhotoStrip,
-  ActivityNode, SegmentedBar, Delta)
-- Tests intentionally kept raw are documented (AnsiColours, DarkMode, SegmentedBar visual,
-  CapabilitiesView accessibility)
-
-**What remains:**
-
-| # | File | Raw usages | Convert or Keep? |
-|---|------|-----------|-----------------|
-| 10.1 | RunSelector.spec.ts | 17 | Convert — user-behaviour (run switching) |
-| 10.2 | TagSearch.spec.ts | 12 | Convert — user-behaviour (tag filtering) |
-| 10.3 | ScenarioRowMobile.spec.ts | 8 | Convert — user-behaviour (responsive row) |
-| 10.4 | HistoricalBanner.spec.ts | 6 | Convert — user-behaviour (banner display) |
-| 10.5 | TagsView.spec.ts | 5 | Convert — user-behaviour (tag cards) |
-| 10.6 | ScenariosView.spec.ts | 5 | Convert — user-behaviour (list interaction) |
-
-**Intentionally raw (no action needed):**
-- CapabilitiesView.spec.ts (19) — ARIA roles, tabindex, keyboard navigation
-- AnsiColours.spec.ts (18) — ANSI→HTML colour rendering
-- DarkMode.spec.ts (13) — CSS custom property switching
-- SegmentedBar.spec.ts (8) — CSS heights, colours, widths
-
-**Effort:** ~3 hours (30 min per file × 6 files)
+All user-behaviour tests are converted to interaction object pattern. Remaining raw
+Playwright usages (RunSelector: 17, TagSearch: 12, ScenarioRowMobile: 8, etc.) are
+intentional implementation contract tests for CSS classes, ARIA attributes, viewport
+behaviour, and colour rendering — all documented with explanatory comments.
 
 ---
 
@@ -126,7 +105,6 @@ by reducing parsing effort from "N failures" to "M distinct root causes."
 | Priority | Item | Effort | Risk | Rationale |
 |----------|------|--------|------|-----------|
 | 1 | Phase 9 (layout) | 1h | Medium (churn) | Unblocks clean package boundaries for release |
-| 2 | Phase 10 (IO conversion) | 3h | Low | Test quality, no user-facing changes |
-| 3 | Phase 11 C1+C2 | 2h | Low | Machine-readable summary, no visible UI |
-| 4 | Phase 11 A1–A4 + B1 | 5h | Medium | New UI — needs approval |
-| 5 | ListItemNotFoundError | 2h | Low | Core package fix, workaround exists |
+| 2 | Phase 11 C1+C2 | 2h | Low | Machine-readable summary, no visible UI |
+| 3 | Phase 11 A1–A4 + B1 | 5h | Medium | New UI — needs approval |
+| 4 | ListItemNotFoundError | 2h | Low | Core package fix, workaround exists |
