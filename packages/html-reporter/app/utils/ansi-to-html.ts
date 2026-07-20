@@ -1,4 +1,15 @@
 /**
+ * Strips ANSI SGR escape sequences from a string, returning plain text.
+ * Use this in list views where colour rendering is not appropriate.
+ */
+export function stripAnsi(text: string): string {
+    if (!text || !text.includes('\u001b')) {
+        return text || '';
+    }
+    return text.replace(/\u001b\[[0-9;]*m/g, '');
+}
+
+/**
  * Converts ANSI SGR escape sequences in a string to HTML spans with CSS classes.
  *
  * Supported codes:

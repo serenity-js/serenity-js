@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData';
-import { ansiToHtml, browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, relativeSourcePath, scenarioUrl, searchContainsTag, stripAbsolutePaths, toggleTagInSearch } from '../../utils';
+import { browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, relativeSourcePath, scenarioUrl, searchContainsTag, stripAbsolutePaths, stripAnsi, toggleTagInSearch } from '../../utils';
 import { HistoryDots } from '../common/HistoryDots';
 import { icons } from '../common/icons';
 import { OutcomeBadge } from '../common/OutcomeBadge';
@@ -46,7 +46,7 @@ export function ScenarioRow({ scenario, sort, onNavigate, runIndex, setSearch, s
       <${OutcomeBadge} outcome=${scenario.outcome} />
       <div class="scenario-info">
         <div class="scenario-name">${sort !== 'category' && scenario.category ? scenario.category + ' › ' : ''}${scenario.name}</div>
-        ${scenario.error ? html`<div class="scenario-error-preview" dangerouslySetInnerHTML=${{ __html: ansiToHtml(stripAbsolutePaths(scenario.error.message, specDirectory)) }}></div>` : null}
+        ${scenario.error ? html`<div class="scenario-error-preview">${stripAnsi(stripAbsolutePaths(scenario.error.message, specDirectory))}</div>` : null}
         ${scenario.executionHistory && scenario.executionHistory.length > 1 ? html`
           <div class="scenario-history-line">
             <${HistoryDots} entries=${(runIndex !== null ? scenario.executionHistory.slice(0, runIndex + 1) : scenario.executionHistory).slice(-5).map(entry => ({ outcome: entry.outcome, label: entry.outcome + ' — ' + formatRunLabel(entry.run, entry.timestamp || '') }))} max=${5} />

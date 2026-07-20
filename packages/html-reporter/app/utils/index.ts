@@ -1,7 +1,7 @@
-export { ansiToHtml } from './ansi-to-html';
+export { ansiToHtml, stripAnsi } from './ansi-to-html';
 export { DATA } from './data';
-export { stripAbsolutePaths } from './formatError';
 export { abbreviateRunLabels, formatDuration, formatRunLabel, formatTimestamp, outcomeClass, outcomeDisplayName, outcomeIcon, scoreColor } from './format';
+export { stripAbsolutePaths } from './formatError';
 export { hashHistory, useHashHistory } from './hashHistory';
 export { browserBadgeClass, formatTagToken, getBrowserTag, matchesSearch, parseSearchTokens, relativeSourcePath, scenarioUrl, searchContainsTag, tagDiscriminator, toggleTagInSearch } from './navigation';
 export { RawHtml } from './raw-html';
