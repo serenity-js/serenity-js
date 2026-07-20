@@ -1,3 +1,8 @@
+---
+status: done
+completed: 2026-07-20
+---
+
 # Requirement Confidence Score
 
 ## Overview

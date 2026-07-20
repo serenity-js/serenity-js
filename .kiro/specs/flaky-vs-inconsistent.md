@@ -1,3 +1,8 @@
+---
+status: done
+completed: 2026-07-20
+---
+
 # Flaky vs Inconsistent: Four-Way Consistency Classification
 
 ## Context

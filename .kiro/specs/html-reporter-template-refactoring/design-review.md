@@ -1,3 +1,8 @@
+---
+status: done
+completed: 2026-06-27
+---
+
 # Design Review — Serenity/JS HTML Report
 
 Date: 2026-06-27  

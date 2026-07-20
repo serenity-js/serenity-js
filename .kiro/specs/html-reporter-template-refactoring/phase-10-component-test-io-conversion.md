@@ -1,3 +1,7 @@
+---
+status: outstanding
+---
+
 # Phase 10: Complete Component Test IO Conversion
 
 ## Goal

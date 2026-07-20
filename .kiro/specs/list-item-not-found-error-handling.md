@@ -1,3 +1,7 @@
+---
+status: outstanding
+---
+
 # ListItemNotFoundError handling in expectations
 
 ## Problem

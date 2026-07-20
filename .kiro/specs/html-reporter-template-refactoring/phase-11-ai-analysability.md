@@ -1,3 +1,7 @@
+---
+status: outstanding
+---
+
 # Phase 11: AI Analysability Improvements
 
 ## Goal
