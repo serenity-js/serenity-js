@@ -16,9 +16,10 @@ interface ActivityRowProps {
     hasRestQuery: boolean;
     restExpanded: boolean;
     onToggleRest: () => void;
+    summaryText?: string;
 }
 
-export function ActivityRow({ activity, displayName, hasChildren, expanded, onToggle, hasRestQuery, restExpanded, onToggleRest }: ActivityRowProps): ReturnType<typeof html> {
+export function ActivityRow({ activity, displayName, hasChildren, expanded, onToggle, hasRestQuery, restExpanded, onToggleRest, summaryText }: ActivityRowProps): ReturnType<typeof html> {
     const hashNav = useHashHistory();
     const hasPhoto = activity.artifacts && activity.artifacts.some(a => a.path && a.path.endsWith('.png'));
 
@@ -47,15 +48,19 @@ export function ActivityRow({ activity, displayName, hasChildren, expanded, onTo
 
     return html`
       <div class="activity-row" style=${hasChildren ? 'cursor:pointer' : ''} onClick=${hasChildren ? onToggle : undefined}>
-        ${hasChildren ? html`<span class="expand-chevron-xs ${expanded ? 'open' : ''}">▸</span>` : html`<span style="width:12px;flex-shrink:0"></span>`}
         <div class="activity-icon ${outcomeClass(activity.outcome)}" data-outcome=${activity.outcome}>
           ${outcomeIcon(activity.outcome)}
         </div>
-        <span class="activity-name ${activity.type === 'Task' ? 'task' : ''}">${displayName}</span>
-        ${hasPhoto ? html`<span style="cursor:pointer;opacity:0.7;font-size:var(--font-sm)" title="View screenshot" onClick=${scrollToPhoto}>📷</span>` : null}
-        ${hasRestQuery ? html`<span class="rest-badge" title="View HTTP exchange" onClick=${(e: Event) => { e.stopPropagation(); onToggleRest(); }}>REST</span>` : null}
-        ${activity.location ? html`<span class="copy-location" title="Copy invocation location: ${activity.location.path}:${activity.location.line}" onClick=${copyLocation}>${icons.copy}</span>` : null}
-        <span class="activity-duration">${formatDuration(activity.duration || 0)}</span>
+        <div class="activity-content">
+          <span class="activity-name ${activity.type === 'Task' ? 'task' : ''}">${displayName}</span>
+          <div class="activity-meta">
+            ${summaryText && !expanded ? html`<span class="activity-summary">${summaryText}</span>` : null}
+            <span class="activity-duration">${icons.clock}${formatDuration(activity.duration || 0)}</span>
+            ${activity.location ? html`<span class="copy-location" title="Copy invocation location: ${activity.location.path}:${activity.location.line}" onClick=${copyLocation}>${icons.copy}</span>` : null}
+            ${hasPhoto ? html`<span class="activity-meta-icon" title="View screenshot" onClick=${scrollToPhoto}>📷</span>` : null}
+            ${hasRestQuery ? html`<span class="rest-badge" title="View HTTP exchange" onClick=${(e: Event) => { e.stopPropagation(); onToggleRest(); }}>REST</span>` : null}
+          </div>
+        </div>
       </div>
     `;
 }

@@ -123,6 +123,7 @@
       background: var(--bg-primary);
       color: var(--text-primary);
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     #app {
@@ -466,7 +467,6 @@
       gap: var(--space-sm);
       flex-wrap: nowrap;
       overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       scroll-snap-type: x mandatory;
       background: transparent;
@@ -877,19 +877,21 @@
     .activity-node {
       padding: 6px 0;
       padding-left: var(--space-md);
-      border-left: 2px solid var(--border-color);
-      margin-left: 8px;
-    }
-
-    .activity-node:last-child {
-      border-left-color: transparent;
     }
 
     .activity-row {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: var(--space-sm);
       padding: 4px 0;
+    }
+
+    .activity-content {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
     .activity-icon {
@@ -901,6 +903,7 @@
       justify-content: center;
       font-size: var(--font-2xs);
       flex-shrink: 0;
+      margin-top: 2px;
     }
 
     .activity-icon.passed { background: var(--color-passed-bg); color: var(--color-passed); }
@@ -909,21 +912,56 @@
     .activity-icon.compromised { background: var(--color-compromised-bg); color: var(--color-compromised); }
 
     .activity-name {
-      flex: 1;
       font-size: var(--font-md);
       min-width: 0;
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      white-space: normal;
+      word-break: break-word;
     }
 
     .activity-name.task { font-weight: 500; }
+
+    .activity-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .activity-meta-icon {
+      cursor: pointer;
+      opacity: 0.7;
+      font-size: var(--font-sm);
+    }
+
+    .activity-summary {
+      font-size: var(--font-sm);
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
 
     .activity-duration {
       font-size: var(--font-sm);
       color: var(--text-secondary);
       font-family: var(--font-mono);
       white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .activity-duration svg {
+      width: 12px;
+      height: 12px;
+      flex-shrink: 0;
+    }
+
+    .activity-children {
+      padding-left: var(--space-md);
     }
 
     .rest-badge {
@@ -1141,6 +1179,12 @@
       background: var(--bg-primary);
       border-radius: var(--radius-sm);
       padding: 3px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .retry-tabs::-webkit-scrollbar {
+      display: none;
     }
 
     .retry-tab {
@@ -1149,6 +1193,8 @@
       font-size: var(--font-sm);
       font-weight: 500;
       cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
       transition: all var(--transition);
       color: var(--text-secondary);
     }
@@ -2876,8 +2922,7 @@
       gap: 4px;
       margin-top: 2px;
       overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;  /* Hide scrollbar on Firefox */
+      scrollbar-width: none;
     }
 
     .scenario-tags::-webkit-scrollbar {

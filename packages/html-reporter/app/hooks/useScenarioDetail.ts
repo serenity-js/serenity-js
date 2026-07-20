@@ -22,10 +22,6 @@ export interface ScenarioDetailState {
     hasCast: boolean;
     hasTags: boolean;
     hasExecutionHistory: boolean;
-    treeKey: number;
-    setTreeKey: (fn: (k: number) => number) => void;
-    treeExpanded: boolean;
-    setTreeExpanded: (v: boolean) => void;
 }
 
 function findErrorLocation(activities: ReportActivity[]): { path: string; line: number; column: number } | null {
@@ -56,8 +52,6 @@ export function useScenarioDetail(scenarioId: string, scenarios: ReportScenario[
         }
         return 0;
     });
-    const [treeKey, setTreeKey] = useState(0);
-    const [treeExpanded, setTreeExpanded] = useState(true);
 
     // Reset attempt selection when switching between runs (skip initial mount)
     const isInitialMount = useRef(true);
@@ -87,7 +81,7 @@ export function useScenarioDetail(scenarioId: string, scenarios: ReportScenario[
             historicalEntry: null, errorLocation: null, activeAttempts: null,
             hasRetries: false, activeDuration: 0, tags: [], cast: [],
             executionHistory: [], hasCast: false, hasTags: false,
-            hasExecutionHistory: false, treeKey, setTreeKey, treeExpanded, setTreeExpanded,
+            hasExecutionHistory: false,
         };
     }
 
@@ -96,7 +90,6 @@ export function useScenarioDetail(scenarioId: string, scenarios: ReportScenario[
     return {
         scenario, runIndex, activeAttempt, setActiveAttempt,
         ...viewData,
-        treeKey, setTreeKey, treeExpanded, setTreeExpanded,
     };
 }
 

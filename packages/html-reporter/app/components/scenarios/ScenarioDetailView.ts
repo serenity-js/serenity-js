@@ -33,8 +33,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
 
     const { scenario, runIndex, activeAttempt, setActiveAttempt, currentActivities, currentError,
         currentVideo, errorLocation, activeAttempts, hasRetries, activeDuration,
-        tags, cast, hasCast, hasTags, hasExecutionHistory,
-        treeKey, setTreeKey, treeExpanded, setTreeExpanded } = detail;
+        tags, cast, hasCast, hasTags, hasExecutionHistory } = detail;
 
     const isHistorical = runIndex !== null && runIndex !== history.length - 1 && history[runIndex];
 
@@ -55,8 +54,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
       ${hasRetries ? html`<${RetryTabs} attempts=${activeAttempts} activeAttempt=${activeAttempt} onSelect=${setActiveAttempt} />` : null}
 
       ${currentActivities.length > 0 || scenario.scenarioOutline ? html`
-        <${ActivityTreeCard} scenario=${scenario} currentActivities=${currentActivities}
-          treeKey=${treeKey} setTreeKey=${setTreeKey} treeExpanded=${treeExpanded} setTreeExpanded=${setTreeExpanded} />
+        <${ActivityTreeCard} scenario=${scenario} currentActivities=${currentActivities} />
       ` : null}
 
       ${currentError ? html`<${ErrorBlock} error=${currentError} errorLocation=${errorLocation} />` : null}
