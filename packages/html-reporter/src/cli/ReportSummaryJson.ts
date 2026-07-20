@@ -32,12 +32,18 @@ export const FailureClusterSchema = z.object({
     scenarios: z.array(FailureClusterScenarioSchema).min(1),
 }).describe('A group of scenarios sharing the same error fingerprint');
 
+export const ConsistencyScenarioRefSchema = z.object({
+    name: z.string().describe('Scenario name'),
+    source: z.string().describe('Source location as relative path:line'),
+    browser: z.string().optional().describe('Browser/project identifier'),
+}).describe('A scenario with a consistency classification');
+
 export const SummaryConsistencySchema = z.object({
-    flaky: z.number().int().min(0).describe('Tests that pass only via retry (build green, test unreliable)'),
-    inconsistent: z.number().int().min(0).describe('Tests whose final outcome differs across runs'),
-    degraded: z.number().int().min(0).describe('Tests that were passing, now failing'),
-    recovered: z.number().int().min(0).describe('Tests that were failing, now pass cleanly'),
-}).describe('Cross-run consistency classification counts');
+    flaky: z.array(ConsistencyScenarioRefSchema).describe('Tests that pass only via retry (build green, test unreliable)'),
+    inconsistent: z.array(ConsistencyScenarioRefSchema).describe('Tests whose final outcome differs across runs'),
+    degraded: z.array(ConsistencyScenarioRefSchema).describe('Tests that were passing, now failing'),
+    recovered: z.array(ConsistencyScenarioRefSchema).describe('Tests that were failing, now pass cleanly'),
+}).describe('Cross-run consistency classifications with affected test references');
 
 export const SummaryScoresSchema = z.object({
     confidence: z.number().min(0).max(100).describe('Composite confidence score: passRate × 0.40 + completeness × 0.25 + consistency × 0.35'),
@@ -64,5 +70,6 @@ export type SummaryRunInfo = z.infer<typeof SummaryRunInfoSchema>;
 export type SummaryTotals = z.infer<typeof SummaryTotalsSchema>;
 export type FailureCluster = z.infer<typeof FailureClusterSchema>;
 export type FailureClusterScenario = z.infer<typeof FailureClusterScenarioSchema>;
+export type ConsistencyScenarioRef = z.infer<typeof ConsistencyScenarioRefSchema>;
 export type SummaryConsistency = z.infer<typeof SummaryConsistencySchema>;
 export type SummaryScores = z.infer<typeof SummaryScoresSchema>;

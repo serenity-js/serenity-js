@@ -92,6 +92,10 @@ export function AboutView(): ReturnType<typeof html> {
               <h4 class="section-title-sm">Test Runs</h4>
               <p class="section-text">History of all test executions with trend analysis. Compare results across runs to identify regressions or improvements over time.</p>
             </div>
+            <div class="panel-bg">
+              <h4 class="section-title-sm">Machine-Readable Summary</h4>
+              <p class="section-text">A <code>summary.json</code> file is generated alongside the report for AI agents, CI bots, and custom tooling. It contains outcome totals, failure clusters grouped by error fingerprint, consistency classifications, and composite quality scores — all parseable without JavaScript execution. Discover it via the <code>&lt;link rel="alternate"&gt;</code> tag in the HTML head.</p>
+            </div>
           </div>
         </section>
 

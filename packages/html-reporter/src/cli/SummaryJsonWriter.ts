@@ -2,7 +2,7 @@ import type { FileSystem } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
 
 import { computeFailureClusters } from './FailureClusterAnalyser.js';
-import type { ReportData } from './ReportData.js';
+import type { ReportData, ReportSource } from './ReportData.js';
 import type { ReportSummaryJson, SummaryConsistency, SummaryScores } from './ReportSummaryJson.js';
 
 type ConsistencyKind = 'flaky' | 'inconsistent' | 'degraded' | 'recovered';
@@ -34,7 +34,7 @@ export class SummaryJsonWriter {
 
         const runs = Math.max(data.history.length, 1);
         const failureClusters = computeFailureClusters(data.scenarios, specDirectory);
-        const consistency = this.computeConsistency(data);
+        const consistency = this.computeConsistency(data, specDirectory);
         const scores = this.computeScores(summary, data.inconsistentTests.length);
 
         return {
@@ -54,20 +54,36 @@ export class SummaryJsonWriter {
         };
     }
 
-    private computeConsistency(data: ReportData): SummaryConsistency {
-        const counts: SummaryConsistency = { flaky: 0, inconsistent: 0, degraded: 0, recovered: 0 };
+    private computeConsistency(data: ReportData, specDirectory?: string): SummaryConsistency {
+        const result: SummaryConsistency = { flaky: [], inconsistent: [], degraded: [], recovered: [] };
 
         // Classify each inconsistent test by its history pattern
         for (const test of data.inconsistentTests) {
             const kind = classifyConsistencyKind(test.history || []);
-            counts[kind]++;
+            result[kind].push({
+                name: test.name,
+                source: formatSource(test.source, specDirectory),
+                ...getBrowser(test.tags) && { browser: getBrowser(test.tags) },
+            });
         }
 
         // Add degraded/recovered from degraded/recovered detection
-        counts.degraded += data.newFailures.length;
-        counts.recovered += data.newPasses.length;
+        for (const test of data.newFailures) {
+            result.degraded.push({
+                name: test.name,
+                source: formatSource(test.source, specDirectory),
+                ...getBrowser(test.tags) && { browser: getBrowser(test.tags) },
+            });
+        }
+        for (const test of data.newPasses) {
+            result.recovered.push({
+                name: test.name,
+                source: formatSource(test.source, specDirectory),
+                ...getBrowser(test.tags) && { browser: getBrowser(test.tags) },
+            });
+        }
 
-        return counts;
+        return result;
     }
 
     private computeScores(
@@ -100,6 +116,19 @@ function classifyConsistencyKind(history: string[]): ConsistencyKind {
     if (lastOutcome === 'SUCCESS') return 'recovered';
     if (lastOutcome === 'RETRIED_SUCCESS') return 'inconsistent';
     return 'degraded';
+}
+
+function getBrowser(tags?: Array<{ type: string; name: string }>): string | undefined {
+    return tags?.find(t => t.type === 'browser')?.name;
+}
+
+function formatSource(source: ReportSource, specDirectory?: string): string {
+    let p = source.path;
+    if (specDirectory) {
+        const prefix = specDirectory.endsWith('/') ? specDirectory : specDirectory + '/';
+        if (p.startsWith(prefix)) p = p.slice(prefix.length);
+    }
+    return source.line ? `${ p }:${ source.line }` : p;
 }
 
 function round1(value: number): number {

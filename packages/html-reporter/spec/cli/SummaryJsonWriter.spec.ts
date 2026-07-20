@@ -175,57 +175,134 @@ test.describe('SummaryJsonWriter', () => {
 
     test.describe('consistency', () => {
 
-        test('counts flaky tests', () => {
+        test('includes flaky tests with name, source, and browser', () => {
             const { summary } = writeSummary({
                 inconsistentTests: [
-                    createInconsistentTest({ history: ['SUCCESS', 'RETRIED_SUCCESS', 'SUCCESS'] }),
-                    createInconsistentTest({ history: ['RETRIED_SUCCESS', 'RETRIED_SUCCESS'] }),
+                    createInconsistentTest({
+                        name: 'Flaky Login',
+                        source: { path: 'specs/login.spec.ts', line: 10 },
+                        tags: [{ type: 'browser', name: 'chromium 120.0' }],
+                        history: ['SUCCESS', 'RETRIED_SUCCESS', 'SUCCESS'],
+                    }),
+                    createInconsistentTest({
+                        name: 'Flaky Checkout',
+                        source: { path: 'specs/checkout.spec.ts', line: 5 },
+                        history: ['RETRIED_SUCCESS', 'RETRIED_SUCCESS'],
+                    }),
                 ],
             });
 
-            expect(summary.consistency.flaky).toBe(2);
+            expect(summary.consistency.flaky).toHaveLength(2);
+            expect(summary.consistency.flaky[0]).toEqual({
+                name: 'Flaky Login',
+                source: 'specs/login.spec.ts:10',
+                browser: 'chromium 120.0',
+            });
+            expect(summary.consistency.flaky[1]).toEqual({
+                name: 'Flaky Checkout',
+                source: 'specs/checkout.spec.ts:5',
+            });
         });
 
-        test('counts degraded tests from newFailures', () => {
+        test('includes degraded tests from newFailures', () => {
             const { summary } = writeSummary({
                 newFailures: [
-                    { name: 'Test A', category: 'Suite', source: { path: 'a.spec.ts', line: 1 } },
+                    { name: 'Test A', category: 'Suite', source: { path: 'a.spec.ts', line: 1 }, tags: [{ type: 'browser', name: 'firefox 115' }] },
+                    { name: 'Test B', category: 'Suite', source: { path: 'b.spec.ts', line: 7 } },
                 ],
             });
 
-            expect(summary.consistency.degraded).toBe(1);
+            expect(summary.consistency.degraded).toHaveLength(2);
+            expect(summary.consistency.degraded[0]).toEqual({
+                name: 'Test A',
+                source: 'a.spec.ts:1',
+                browser: 'firefox 115',
+            });
+            expect(summary.consistency.degraded[1]).toEqual({
+                name: 'Test B',
+                source: 'b.spec.ts:7',
+            });
         });
 
-        test('counts recovered tests from newPasses', () => {
+        test('includes recovered tests from newPasses', () => {
             const { summary } = writeSummary({
                 newPasses: [
-                    { name: 'Test B', category: 'Suite', source: { path: 'b.spec.ts', line: 1 } },
+                    { name: 'Test B', category: 'Suite', source: { path: 'b.spec.ts', line: 1 }, tags: [{ type: 'browser', name: 'webkit 17' }] },
                 ],
             });
 
-            expect(summary.consistency.recovered).toBe(1);
+            expect(summary.consistency.recovered).toHaveLength(1);
+            expect(summary.consistency.recovered[0]).toEqual({
+                name: 'Test B',
+                source: 'b.spec.ts:1',
+                browser: 'webkit 17',
+            });
         });
 
-        test('counts inconsistent tests (retried success as last outcome)', () => {
+        test('classifies inconsistent tests (retried success as last outcome)', () => {
             const { summary } = writeSummary({
                 inconsistentTests: [
-                    createInconsistentTest({ history: ['FAILURE', 'RETRIED_SUCCESS'] }),
+                    createInconsistentTest({ name: 'Wobbly', source: { path: 'x.spec.ts', line: 3 }, history: ['FAILURE', 'RETRIED_SUCCESS'] }),
                 ],
             });
 
-            expect(summary.consistency.inconsistent).toBe(1);
+            expect(summary.consistency.inconsistent).toHaveLength(1);
+            expect(summary.consistency.inconsistent[0]).toEqual({
+                name: 'Wobbly',
+                source: 'x.spec.ts:3',
+            });
         });
 
-        test('counts degraded from inconsistentTests when last outcome is a failure', () => {
+        test('classifies degraded from inconsistentTests when last outcome is a failure', () => {
             const { summary } = writeSummary({
                 inconsistentTests: [
-                    createInconsistentTest({ history: ['SUCCESS', 'FAILURE'] }),
+                    createInconsistentTest({ name: 'Regressed', source: { path: 'r.spec.ts', line: 2 }, history: ['SUCCESS', 'FAILURE'] }),
                 ],
                 newFailures: [],
             });
 
-            // This is classified as 'degraded' from consistency classification
-            expect(summary.consistency.degraded).toBe(1);
+            expect(summary.consistency.degraded).toHaveLength(1);
+            expect(summary.consistency.degraded[0]).toEqual({
+                name: 'Regressed',
+                source: 'r.spec.ts:2',
+            });
+        });
+
+        test('returns empty arrays when no consistency issues exist', () => {
+            const { summary } = writeSummary({
+                inconsistentTests: [],
+                newFailures: [],
+                newPasses: [],
+            });
+
+            expect(summary.consistency.flaky).toEqual([]);
+            expect(summary.consistency.inconsistent).toEqual([]);
+            expect(summary.consistency.degraded).toEqual([]);
+            expect(summary.consistency.recovered).toEqual([]);
+        });
+
+        test('strips specDirectory prefix from source paths', () => {
+            const { summary } = writeSummary({
+                inconsistentTests: [
+                    createInconsistentTest({
+                        name: 'Deep Test',
+                        source: { path: 'tests/e2e/deep.spec.ts', line: 42 },
+                        history: ['RETRIED_SUCCESS', 'SUCCESS'],
+                    }),
+                ],
+            }, 'tests/e2e');
+
+            expect(summary.consistency.flaky[0].source).toBe('deep.spec.ts:42');
+        });
+
+        test('handles source without line number', () => {
+            const { summary } = writeSummary({
+                newFailures: [
+                    { name: 'No line', category: 'Suite', source: { path: 'no-line.spec.ts' } },
+                ],
+            });
+
+            expect(summary.consistency.degraded[0].source).toBe('no-line.spec.ts');
         });
     });
 

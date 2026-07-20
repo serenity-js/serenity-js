@@ -1,4 +1,4 @@
-import { Ensure, equals, includes, property } from '@serenity-js/assertions';
+import { Ensure, equals, includes } from '@serenity-js/assertions';
 import { GetRequest, LastResponse, Send } from '@serenity-js/rest';
 
 import { describe, it } from '../../src';
@@ -50,9 +50,9 @@ describe('Report', () => {
         it('reports consistency classifications', async ({ actor }) => {
             await actor.attemptsTo(
                 Send.a(GetRequest.to('/summary.json')),
-                Ensure.that(LastResponse.body<{ consistency: { flaky: number } }>().consistency, property('flaky', equals(1))),
-                Ensure.that(LastResponse.body<{ consistency: { degraded: number } }>().consistency, property('degraded', equals(4))),
-                Ensure.that(LastResponse.body<{ consistency: { recovered: number } }>().consistency, property('recovered', equals(2))),
+                Ensure.that(LastResponse.body<{ consistency: { flaky: unknown[] } }>().consistency.flaky.length, equals(1)),
+                Ensure.that(LastResponse.body<{ consistency: { degraded: unknown[] } }>().consistency.degraded.length, equals(4)),
+                Ensure.that(LastResponse.body<{ consistency: { recovered: unknown[] } }>().consistency.recovered.length, equals(2)),
             );
         });
 
