@@ -1,4 +1,4 @@
-import { Ensure, equals, includes, isGreaterThan } from '@serenity-js/assertions';
+import { Ensure, equals, includes, not, isGreaterThan } from '@serenity-js/assertions';
 
 import { describe, it } from '../../src';
 import { failingTest, timeoutTest } from '../../src/scenarios';
@@ -16,6 +16,18 @@ describe('Test Scenarios', () => {
 
                 Ensure.that(scenarioDetailView.errorBlock().message(), includes('Payment rejected')),
                 Ensure.that(scenarioDetailView.activityCalled('submits the payment').outcome(), equals('FAILURE')),
+            );
+        });
+
+        it('renders relative paths in error messages', async ({ actor, scenariosView, scenarioDetailView }) => {
+            await actor.attemptsTo(
+                scenariosView.open(),
+                scenariosView.selectFilter('Failed'),
+                scenariosView.find('expired card'),
+                scenariosView.scenarioCalled(failingTest).viewDetails(),
+
+                Ensure.that(scenarioDetailView.errorBlock().message(), includes('checkout.spec.ts')),
+                Ensure.that(scenarioDetailView.errorBlock().message(), not(includes('/home/runner'))),
             );
         });
 

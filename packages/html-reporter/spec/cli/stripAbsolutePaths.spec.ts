@@ -46,6 +46,13 @@ test.describe('stripAbsolutePaths', () => {
         expect(stripAbsolutePaths('', 'spec')).toBe('');
     });
 
+    test('handles specDirectory with leading ./ prefix', () => {
+        const text = 'at /Users/jan/Projects/project/spec/retries.spec.ts:11';
+        const result = stripAbsolutePaths(text, './spec');
+
+        expect(result).toBe('at spec/retries.spec.ts:11');
+    });
+
     test('preserves text that does not contain paths', () => {
         const text = 'Expected 1 to equal 2';
         expect(stripAbsolutePaths(text, 'spec')).toBe('Expected 1 to equal 2');
