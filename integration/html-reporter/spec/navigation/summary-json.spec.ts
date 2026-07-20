@@ -1,11 +1,21 @@
 import { Ensure, equals, includes, property } from '@serenity-js/assertions';
 import { GetRequest, LastResponse, Send } from '@serenity-js/rest';
+import { Attribute, By, PageElement } from '@serenity-js/web';
 
 import { describe, it } from '../../src';
+
+const summaryLink = PageElement.located(By.css('link[rel="alternate"][type="application/json"]')).describedAs('summary.json link');
 
 describe('Report', () => {
 
     describe('Machine-Readable Summary', () => {
+
+        it('is discoverable via a <link> tag in the HTML report', async ({ actor }) => {
+            await actor.attemptsTo(
+                Ensure.that(Attribute.called('href').of(summaryLink), equals('summary.json')),
+                Ensure.that(Attribute.called('title').of(summaryLink), equals('Machine-readable report summary')),
+            );
+        });
 
         it('produces a summary.json served alongside the HTML report', async ({ actor }) => {
             await actor.attemptsTo(
