@@ -996,8 +996,16 @@
     }
 
     .error-message {
-      font-size: var(--font-md);
+      font-family: var(--font-mono);
+      font-size: var(--font-sm);
+      white-space: pre-wrap;
+      word-break: break-word;
       margin-bottom: var(--space-sm);
+    }
+
+    .error-block .ansi-green,
+    .error-block .ansi-red {
+      font-weight: 600;
     }
 
     .error-stack {
