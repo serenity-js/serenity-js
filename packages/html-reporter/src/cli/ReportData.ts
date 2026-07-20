@@ -22,6 +22,7 @@ export interface ReportData {
     newPasses: ReportScenarioRef[];
     systemContext?: ReportSystemContext;
     capabilities?: ReportCapabilityNode;
+    specDirectory?: string;
 }
 
 export interface ReportSummary {

@@ -81,6 +81,7 @@ export class DataSnapshotAggregator {
             newPasses,
             systemContext: this.buildSystemContext(latestRun),
             capabilities: this.requirementsHierarchy ? buildCapabilities(latestRun, allRuns, this.requirementsHierarchy, this.projectFileSystem) : undefined,
+            specDirectory: this.config.specDirectory,
         };
 
         const js = `window.__SERENITY_REPORT_DATA__ = ${ JSON.stringify(snapshot, undefined, 2) };\n`;

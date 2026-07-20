@@ -38,7 +38,7 @@ export const routes: RouteDefinition[] = [
         data: (data, params) => ({
             scenarios: data.scenarios,
             history: data.history,
-            specDirectory: data.capabilities?.name,
+            specDirectory: data.specDirectory,
             scenarioId: params.segment + (params.query.toString() ? '?' + params.query.toString() : ''),
         }),
     },
@@ -53,7 +53,7 @@ export const routes: RouteDefinition[] = [
             scenarios: data.scenarios,
             history: data.history,
             summary: data.summary,
-            specDirectory: data.capabilities?.name,
+            specDirectory: data.specDirectory,
             route: params.path + (params.query.toString() ? '?' + params.query.toString() : ''),
         }),
     },
@@ -77,7 +77,7 @@ export const routes: RouteDefinition[] = [
         data: (data, params) => ({
             scenarios: data.scenarios,
             history: data.history,
-            specDirectory: data.capabilities?.name,
+            specDirectory: data.specDirectory,
             route: params.path + (params.query.toString() ? '?' + params.query.toString() : ''),
         }),
     },
@@ -89,7 +89,7 @@ export const routes: RouteDefinition[] = [
         navLabel: 'Consistency',
         data: (data) => ({
             inconsistentTests: data.inconsistentTests || [],
-            specDirectory: data.capabilities?.name,
+            specDirectory: data.specDirectory,
         }),
     },
     {

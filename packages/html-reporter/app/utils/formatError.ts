@@ -1,9 +1,21 @@
 /**
- * Strips the specDirectory prefix from absolute file paths in error messages and stack traces.
- * Renders relative paths in the UI while keeping absolute paths available for copy-to-clipboard.
+ * Strips absolute path prefixes from error messages and stack traces, rendering
+ * paths relative to the specDirectory.
+ *
+ * Uses the same marker approach as `relativeSourcePath()`: finds occurrences of
+ * `/specDirectory/` in the text and strips everything before the marker.
+ *
+ * Example:
+ *   text: "at /home/runner/work/project/spec/login.spec.ts:42"
+ *   specDirectory: "spec"
+ *   result: "at spec/login.spec.ts:42"
  */
 export function stripAbsolutePaths(text: string, specDirectory?: string): string {
     if (!specDirectory || !text) return text;
-    const prefix = specDirectory.endsWith('/') ? specDirectory : specDirectory + '/';
-    return text.replaceAll(prefix, '');
+    const marker = '/' + specDirectory + '/';
+    return text.replaceAll(new RegExp(`/[^\\s:]*${escapeRegex(marker)}`, 'g'), specDirectory + '/');
+}
+
+function escapeRegex(s: string): string {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
