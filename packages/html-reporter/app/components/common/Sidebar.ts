@@ -17,10 +17,10 @@ interface SidebarProps {
     onClose: () => void;
     onToggleCollapse: () => void;
     theme: string;
-    onToggleTheme: () => void;
+    onSetTheme: (theme: string) => void;
 }
 
-export function Sidebar({ route, routes, sidebarOpen, collapsed, failedBadgeCount, onNavigate, onClose, onToggleCollapse, theme, onToggleTheme }: SidebarProps): ReturnType<typeof html> {
+export function Sidebar({ route, routes, sidebarOpen, collapsed, failedBadgeCount, onNavigate, onClose, onToggleCollapse, theme, onSetTheme }: SidebarProps): ReturnType<typeof html> {
     const navItems = routes.filter(r => r.navLabel && r.pattern !== '/about');
     const aboutRoute = routes.find(r => r.pattern === '/about');
 
@@ -72,10 +72,17 @@ export function Sidebar({ route, routes, sidebarOpen, collapsed, failedBadgeCoun
         </a>
       </nav>
       <div class="sidebar-footer">
-        <button class="sidebar-theme-btn" onClick=${onToggleTheme} title="Theme: ${theme}" aria-label="Toggle theme">
-          ${theme === 'dark' ? icons.moon : theme === 'light' ? icons.sun : icons.system}
-          <span>${theme === 'dark' ? 'Dark' : theme === 'light' ? 'Light' : 'System'}</span>
-        </button>
+        <div class="theme-switch" role="radiogroup" aria-label="Theme preference">
+          <button class="theme-switch-option${theme === 'light' ? ' active' : ''}" onClick=${() => onSetTheme('light')} aria-checked=${theme === 'light'} role="radio" title="Light theme">
+            ${icons.sun}
+          </button>
+          <button class="theme-switch-option${theme === 'system' ? ' active' : ''}" onClick=${() => onSetTheme('system')} aria-checked=${theme === 'system'} role="radio" title="System theme">
+            ${icons.system}
+          </button>
+          <button class="theme-switch-option${theme === 'dark' ? ' active' : ''}" onClick=${() => onSetTheme('dark')} aria-checked=${theme === 'dark'} role="radio" title="Dark theme">
+            ${icons.moon}
+          </button>
+        </div>
         <button class="sidebar-collapse-btn" onClick=${onToggleCollapse} title=${collapsed ? 'Expand sidebar' : 'Collapse sidebar'}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-nav" style="transform:${collapsed ? 'rotate(180deg)' : 'none'};transition:transform 0.2s"><polyline points="15 18 9 12 15 6"/></svg>
           <span>Collapse</span>

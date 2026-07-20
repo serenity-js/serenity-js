@@ -1,4 +1,4 @@
-import { Ensure, equals, not } from '@serenity-js/assertions';
+import { Ensure, equals } from '@serenity-js/assertions';
 import { notes, Wait } from '@serenity-js/core';
 import { Attribute, By, Navigate, Page, PageElement } from '@serenity-js/web';
 
@@ -32,11 +32,10 @@ describe('Navigation', () => {
         it('toggles between light and dark themes', async ({ actor, navigation }) => {
             await actor.attemptsTo(
                 notes().set('initialTheme', currentTheme()),
-                navigation.toggleTheme(),
-                navigation.toggleTheme(),
+                navigation.selectTheme('Dark'),
 
-                Wait.until(currentTheme(), not(equals(notes().get('initialTheme')))),
-                Ensure.that(currentTheme(), not(equals(notes().get('initialTheme')))),
+                Wait.until(currentTheme(), equals('dark')),
+                Ensure.that(currentTheme(), equals('dark')),
             );
         });
     });

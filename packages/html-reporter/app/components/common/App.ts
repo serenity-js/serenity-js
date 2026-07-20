@@ -65,11 +65,6 @@ export function App(): ReturnType<typeof html> {
         window.location.hash = '#' + path;
     }, []);
 
-    const toggleTheme = () => setThemePreference(current => {
-        if (current === 'system') return 'light';
-        if (current === 'light') return 'dark';
-        return 'system';
-    });
     const toggleSidebar = () => setSidebarCollapsed(c => { const next = !c; localStorage.setItem('serenity-sidebar-collapsed', String(next)); return next; });
 
     // Route resolution: match route string to a route definition
@@ -103,7 +98,7 @@ export function App(): ReturnType<typeof html> {
                 routes=${routes}
                 failedBadgeCount=${totalFailedCount(DATA.summary.outcomes)}
                 onNavigate=${navigate} onClose=${() => setSidebarOpen(false)} onToggleCollapse=${toggleSidebar}
-                theme=${themePreference} onToggleTheme=${toggleTheme} />
+                theme=${themePreference} onSetTheme=${setThemePreference} />
     <main id="main-content" class="main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}"
           data-testid="${viewTestId}"
           style="margin-left:${sidebarCollapsed ? 'var(--sidebar-collapsed-width)' : 'var(--sidebar-width)'}">

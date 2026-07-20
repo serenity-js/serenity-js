@@ -32,10 +32,10 @@ export class Navigation {
             Wait.until(this.currentRouteName(), not(equals(notes().get('previousRouteName')))),
         );
 
-    toggleTheme = (): Task =>
-        Task.where('#actor toggles the theme',
+    selectTheme = (preference: string): Task =>
+        Task.where(the`#actor selects the ${preference} theme`,
             Check.whether(this.hamburgerMenu, isVisible())
                 .andIfSo(Click.on(this.hamburgerMenu)),
-            Click.on(PageElement.located(By.css('button[aria-label="Toggle theme"]')).describedAs('theme toggle button')),
+            Click.on(PageElement.located(By.css(`.theme-switch-option[title="${preference} theme"]`)).describedAs(`${preference} theme option`)),
         );
 }
