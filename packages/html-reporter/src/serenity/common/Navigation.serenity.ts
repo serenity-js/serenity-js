@@ -1,7 +1,7 @@
 import { equals, includes, not } from '@serenity-js/assertions';
-import type { Answerable } from '@serenity-js/core';
+import type { Answerable, QuestionAdapter } from '@serenity-js/core';
 import { Check, notes, Task, the, Wait } from '@serenity-js/core';
-import { By, Click, isVisible, Page, PageElement, PageElements, Text } from '@serenity-js/web';
+import { Attribute, By, Click, isVisible, Page, PageElement, PageElements, Text } from '@serenity-js/web';
 
 export class Navigation {
     private static routeRegex = /^#\/([^?]+)/;
@@ -9,6 +9,14 @@ export class Navigation {
     private hamburgerMenu = PageElement.located(By.css('button[aria-label="Open menu"]')).describedAs('hamburger menu button');
     private sidebar = PageElement.located(By.css('aside.sidebar'));
     private navItems = PageElements.located(By.css('.nav-item')).of(this.sidebar).describedAs('navigation items');
+
+    private summaryLinkElement = PageElement.located(By.css('link[rel="alternate"][type="application/json"]')).describedAs('summary.json link');
+
+    summaryLink = (): QuestionAdapter<string> =>
+        Attribute.called('href').of(this.summaryLinkElement).describedAs('summary.json href');
+
+    summaryLinkTitle = (): QuestionAdapter<string> =>
+        Attribute.called('title').of(this.summaryLinkElement).describedAs('summary.json link title');
 
     private navItemCalled = (name: Answerable<string>) =>
         this.navItems
