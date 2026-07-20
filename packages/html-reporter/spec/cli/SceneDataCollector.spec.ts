@@ -5,6 +5,7 @@ import {
     ActorEntersStage,
     InteractionFinished,
     InteractionStarts,
+    RetryableSceneDetected,
     SceneFinished,
     SceneParametersDetected,
     SceneSequenceDetected,
@@ -244,6 +245,150 @@ test.describe('SceneDataCollector', () => {
             expect(row2.outcome.code).toBe(2); // ExecutionFailedWithError.Code
             expect(row2.activities).toHaveLength(1);
             expect(row2.activities[0].name).toBe('Given alice is a contributor');
+        });
+
+        test('merges outline examples with separate sceneIds into one scenarioOutline (Cucumber adapter pattern)', () => {
+            const collector = new SceneDataCollector();
+            const queues = new DomainEventQueues();
+
+            // The Cucumber adapter assigns a unique sceneId per example row,
+            // but DomainEventQueues merges them into one queue because they share
+            // the same ScenarioDetails (name + location).
+            const outlineDetails = new ScenarioDetails(
+                new Name('People who make Serenity happen'),
+                new Category('Reports scenario outlines'),
+                new FileSystemLocation(Path.from('features/outlines.feature'), 8, 1),
+            );
+
+            const sceneId1 = CorrelationId.create();
+            const sceneId2 = CorrelationId.create();
+            const sceneId3 = CorrelationId.create();
+
+            const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+            const t1 = new Timestamp(new Date('2024-01-01T00:00:00.050Z'));
+            const t2 = new Timestamp(new Date('2024-01-01T00:00:00.100Z'));
+            const t3 = new Timestamp(new Date('2024-01-01T00:00:00.150Z'));
+            const t4 = new Timestamp(new Date('2024-01-01T00:00:00.200Z'));
+            const t5 = new Timestamp(new Date('2024-01-01T00:00:00.250Z'));
+
+            // Example row 1 (sceneId1)
+            queues.enqueue(new SceneSequenceDetected(sceneId1, outlineDetails, t0));
+            queues.enqueue(new SceneTemplateDetected(sceneId1, new Description('When <Developer> makes a contribution'), t0));
+            queues.enqueue(new SceneParametersDetected(sceneId1, outlineDetails, new ScenarioParameters(new Name('contributors'), new Description(''), { Developer: 'jan-molak' }), t0));
+            queues.enqueue(new SceneStarts(sceneId1, outlineDetails, t0));
+            const act1 = CorrelationId.create();
+            const actDetails1 = new ActivityDetails(new Name('When jan-molak makes a contribution'), new FileSystemLocation(Path.from('features/outlines.feature'), 10, 1));
+            queues.enqueue(new InteractionStarts(sceneId1, act1, actDetails1, t0));
+            queues.enqueue(new InteractionFinished(sceneId1, act1, actDetails1, new ExecutionSuccessful(), t1));
+            queues.enqueue(new SceneFinished(sceneId1, outlineDetails, new ExecutionSuccessful(), t1));
+
+            // Example row 2 (sceneId2)
+            queues.enqueue(new SceneSequenceDetected(sceneId2, outlineDetails, t2));
+            queues.enqueue(new SceneTemplateDetected(sceneId2, new Description('When <Developer> makes a contribution'), t2));
+            queues.enqueue(new SceneParametersDetected(sceneId2, outlineDetails, new ScenarioParameters(new Name('contributors'), new Description(''), { Developer: 'alice' }), t2));
+            queues.enqueue(new SceneStarts(sceneId2, outlineDetails, t2));
+            const act2 = CorrelationId.create();
+            const actDetails2 = new ActivityDetails(new Name('When alice makes a contribution'), new FileSystemLocation(Path.from('features/outlines.feature'), 10, 1));
+            queues.enqueue(new InteractionStarts(sceneId2, act2, actDetails2, t2));
+            queues.enqueue(new InteractionFinished(sceneId2, act2, actDetails2, new ExecutionSuccessful(), t3));
+            queues.enqueue(new SceneFinished(sceneId2, outlineDetails, new ExecutionSuccessful(), t3));
+
+            // Example row 3 (sceneId3)
+            queues.enqueue(new SceneSequenceDetected(sceneId3, outlineDetails, t4));
+            queues.enqueue(new SceneTemplateDetected(sceneId3, new Description('When <Developer> makes a contribution'), t4));
+            queues.enqueue(new SceneParametersDetected(sceneId3, outlineDetails, new ScenarioParameters(new Name('contributors'), new Description(''), { Developer: 'bob' }), t4));
+            queues.enqueue(new SceneStarts(sceneId3, outlineDetails, t4));
+            const act3 = CorrelationId.create();
+            const actDetails3 = new ActivityDetails(new Name('When bob makes a contribution'), new FileSystemLocation(Path.from('features/outlines.feature'), 10, 1));
+            queues.enqueue(new InteractionStarts(sceneId3, act3, actDetails3, t4));
+            queues.enqueue(new InteractionFinished(sceneId3, act3, actDetails3, new ExecutionSuccessful(), t5));
+            queues.enqueue(new SceneFinished(sceneId3, outlineDetails, new ExecutionSuccessful(), t5));
+
+            const runData = collector.collect({
+                queues,
+                testRunStartedAt: '2024-01-01T00:00:00.000Z',
+                testRunnerName: 'Cucumber',
+                testRunnerVersion: '12.0.0',
+                artifactPaths: new Map(),
+                systemContext,
+            });
+
+            // Should produce ONE scene with a scenarioOutline containing 3 parameters
+            expect(runData.scenes).toHaveLength(1);
+            const scene = runData.scenes[0];
+
+            expect(scene.name).toBe('People who make Serenity happen');
+            expect(scene.scenarioOutline).toBeDefined();
+            expect(scene.scenarioOutline.template).toContain('When <Developer> makes a contribution');
+            expect(scene.scenarioOutline.parameters).toHaveLength(3);
+
+            expect(scene.scenarioOutline.parameters[0].values).toEqual({ Developer: 'jan-molak' });
+            expect(scene.scenarioOutline.parameters[0].outcome.code).toBe(ExecutionSuccessful.Code);
+            expect(scene.scenarioOutline.parameters[0].activities).toHaveLength(1);
+            expect(scene.scenarioOutline.parameters[0].activities[0].name).toBe('When jan-molak makes a contribution');
+
+            expect(scene.scenarioOutline.parameters[1].values).toEqual({ Developer: 'alice' });
+            expect(scene.scenarioOutline.parameters[2].values).toEqual({ Developer: 'bob' });
+
+            // Should NOT have retries/attempts — these are examples, not retries
+            expect(scene.retries).toBeUndefined();
+            expect(scene.attempts).toBeUndefined();
+
+            // Overall outcome should be SUCCESS
+            expect(scene.outcome.code).toBe(ExecutionSuccessful.Code);
+        });
+
+        test('still treats multiple sceneIds as retries when RetryableSceneDetected is present', () => {
+            const collector = new SceneDataCollector();
+            const queues = new DomainEventQueues();
+
+            const details = new ScenarioDetails(
+                new Name('should allow retry'),
+                new Category('Suite'),
+                new FileSystemLocation(Path.from('spec/retry.spec.ts'), 5, 1),
+            );
+
+            const sceneId1 = CorrelationId.create();
+            const sceneId2 = CorrelationId.create();
+
+            const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+            const t1 = new Timestamp(new Date('2024-01-01T00:00:00.100Z'));
+            const t2 = new Timestamp(new Date('2024-01-01T00:00:00.200Z'));
+            const t3 = new Timestamp(new Date('2024-01-01T00:00:00.300Z'));
+
+            // Attempt 1 (fails) — has RetryableSceneDetected
+            queues.enqueue(new SceneSequenceDetected(sceneId1, details, t0));
+            queues.enqueue(new SceneParametersDetected(sceneId1, details, new ScenarioParameters(new Name(''), new Description(''), { Retries: 'Attempt #1' }), t0));
+            queues.enqueue(new SceneStarts(sceneId1, details, t0));
+            queues.enqueue(new RetryableSceneDetected(sceneId1, t0));
+            queues.enqueue(new SceneFinished(sceneId1, details, new ExecutionFailedWithAssertionError(new AssertionError('oops')), t1));
+
+            // Attempt 2 (passes) — has RetryableSceneDetected
+            queues.enqueue(new SceneSequenceDetected(sceneId2, details, t2));
+            queues.enqueue(new SceneParametersDetected(sceneId2, details, new ScenarioParameters(new Name(''), new Description(''), { Retries: 'Attempt #2' }), t2));
+            queues.enqueue(new SceneStarts(sceneId2, details, t2));
+            queues.enqueue(new RetryableSceneDetected(sceneId2, t2));
+            queues.enqueue(new SceneFinished(sceneId2, details, new ExecutionSuccessful(), t3));
+
+            const runData = collector.collect({
+                queues,
+                testRunStartedAt: '2024-01-01T00:00:00.000Z',
+                testRunnerName: 'Playwright',
+                testRunnerVersion: '1.50.0',
+                artifactPaths: new Map(),
+                systemContext,
+            });
+
+            expect(runData.scenes).toHaveLength(1);
+            const scene = runData.scenes[0];
+
+            // Should be treated as retries, NOT as scenario outline
+            expect(scene.retries).toBe(1);
+            expect(scene.attempts).toHaveLength(2);
+            expect(scene.attempts[0].outcome.code).toBe(ExecutionFailedWithAssertionError.Code);
+            expect(scene.attempts[1].outcome.code).toBe(ExecutionSuccessful.Code);
+            expect(scene.scenarioOutline).toBeUndefined();
+            expect(scene.outcome.code).toBe(ExecutionSuccessful.Code);
         });
 
         test('does not produce scenarioOutline for regular scenarios', () => {

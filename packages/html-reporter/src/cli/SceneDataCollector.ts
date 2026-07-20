@@ -110,6 +110,9 @@ export class SceneDataCollector {
                     this.attachVideo(record, events, sceneArtifactPaths);
                 }
                 scenes.push(record);
+            } else if (this.areScenarioOutlineExamples(projectEntries, events)) {
+                const mergedRecord = this.mergeOutlineExamples(projectEntries, events, sceneArtifactPaths);
+                scenes.push(mergedRecord);
             } else {
                 const finalRecord = this.buildRetryRecord(projectEntries, events, sceneArtifactPaths);
                 scenes.push(finalRecord);
@@ -117,6 +120,65 @@ export class SceneDataCollector {
         }
 
         return scenes;
+    }
+
+    private areScenarioOutlineExamples(
+        entries: Array<{ record: SceneRecord; sceneId: string }>,
+        events: Array<DomainEvent & { sceneId: CorrelationId }>,
+    ): boolean {
+        // If any record has scenarioOutline data AND none of the sceneIds
+        // have RetryableSceneDetected, these are outline examples, not retries.
+        const hasOutlineData = entries.some(e => e.record.scenarioOutline !== undefined);
+        if (!hasOutlineData) {
+            return false;
+        }
+
+        const sceneIds = new Set(entries.map(e => e.sceneId));
+        const hasRetryableSignal = events.some(
+            e => e instanceof RetryableSceneDetected && sceneIds.has(e.sceneId.value),
+        );
+
+        return !hasRetryableSignal;
+    }
+
+    private mergeOutlineExamples(
+        entries: Array<{ record: SceneRecord; sceneId: string }>,
+        events: Array<DomainEvent & { sceneId: CorrelationId }>,
+        sceneArtifactPaths?: Map<string, Path[]>,
+    ): SceneRecord {
+        // Use the last entry as the base (consistent with existing retry behaviour)
+        const finalEntry = entries[entries.length - 1];
+        const mergedRecord = { ...finalEntry.record };
+
+        // Concatenate all parameter sets from all examples
+        const allParameters = entries.flatMap(
+            e => e.record.scenarioOutline?.parameters ?? [],
+        );
+
+        // Take the template from the first entry that has one
+        const template = entries.find(e => e.record.scenarioOutline?.template)?.record.scenarioOutline?.template ?? '';
+
+        mergedRecord.scenarioOutline = { template, parameters: allParameters };
+        mergedRecord.activities = [];
+
+        // Overall outcome: worst outcome across all examples
+        const worstOutcome = entries.reduce((worst, e) => {
+            return (e.record.outcome.code < worst.code) ? e.record.outcome : worst;
+        }, entries[0].record.outcome);
+        mergedRecord.outcome = worstOutcome;
+
+        // Duration: sum of all examples
+        mergedRecord.duration = entries.reduce((sum, e) => sum + e.record.duration, 0);
+
+        // Remove retry artefacts — these are NOT retries
+        delete (mergedRecord as any).retries;
+        delete (mergedRecord as any).attempts;
+
+        if (sceneArtifactPaths) {
+            this.attachVideo(mergedRecord, events, sceneArtifactPaths);
+        }
+
+        return mergedRecord;
     }
 
     private buildRetryRecord(
