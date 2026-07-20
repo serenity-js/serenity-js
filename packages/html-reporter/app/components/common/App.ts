@@ -9,23 +9,42 @@ import { Sidebar } from './Sidebar';
 
 const html = htm.bind(h);
 
-function initTheme() {
-    const stored = localStorage.getItem('serenity-theme');
-    if (stored) return stored;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+function initThemePreference(): string {
+    return localStorage.getItem('serenity-theme') || 'system';
+}
+
+function resolveTheme(preference: string): string {
+    if (preference === 'system') {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    return preference;
 }
 
 export function App(): ReturnType<typeof html> {
     const hashNav = useHashHistory();
-    const [theme, setTheme] = useState(initTheme);
+    const [themePreference, setThemePreference] = useState(initThemePreference);
     const [route, setRoute] = useState(() => hashNav.getRoute());
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [sidebarCollapsed, setSidebarCollapsed] = useState(() => localStorage.getItem('serenity-sidebar-collapsed') === 'true');
 
     useEffect(() => {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('serenity-theme', theme);
-    }, [theme]);
+        const resolved = resolveTheme(themePreference);
+        document.documentElement.setAttribute('data-theme', resolved);
+        if (themePreference === 'system') {
+            localStorage.removeItem('serenity-theme');
+        } else {
+            localStorage.setItem('serenity-theme', themePreference);
+        }
+    }, [themePreference]);
+
+    // Listen for system theme changes when preference is 'system'
+    useEffect(() => {
+        if (themePreference !== 'system') return;
+        const media = window.matchMedia('(prefers-color-scheme: dark)');
+        const handler = () => document.documentElement.setAttribute('data-theme', media.matches ? 'dark' : 'light');
+        media.addEventListener('change', handler);
+        return () => media.removeEventListener('change', handler);
+    }, [themePreference]);
 
     useEffect(() => {
         const failures = totalFailedCount(DATA.summary.outcomes);
@@ -46,7 +65,11 @@ export function App(): ReturnType<typeof html> {
         window.location.hash = '#' + path;
     }, []);
 
-    const toggleTheme = () => setTheme(t => t === 'light' ? 'dark' : 'light');
+    const toggleTheme = () => setThemePreference(current => {
+        if (current === 'system') return 'light';
+        if (current === 'light') return 'dark';
+        return 'system';
+    });
     const toggleSidebar = () => setSidebarCollapsed(c => { const next = !c; localStorage.setItem('serenity-sidebar-collapsed', String(next)); return next; });
 
     // Route resolution: match route string to a route definition
@@ -80,7 +103,7 @@ export function App(): ReturnType<typeof html> {
                 routes=${routes}
                 failedBadgeCount=${totalFailedCount(DATA.summary.outcomes)}
                 onNavigate=${navigate} onClose=${() => setSidebarOpen(false)} onToggleCollapse=${toggleSidebar}
-                theme=${theme} onToggleTheme=${toggleTheme} />
+                theme=${themePreference} onToggleTheme=${toggleTheme} />
     <main id="main-content" class="main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}"
           data-testid="${viewTestId}"
           style="margin-left:${sidebarCollapsed ? 'var(--sidebar-collapsed-width)' : 'var(--sidebar-width)'}">

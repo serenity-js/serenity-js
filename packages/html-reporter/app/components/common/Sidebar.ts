@@ -73,9 +73,9 @@ export function Sidebar({ route, routes, sidebarOpen, collapsed, failedBadgeCoun
         </a>
       </nav>
       <div class="sidebar-footer">
-        <button class="sidebar-theme-btn" onClick=${onToggleTheme} title=${theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'} aria-label="Toggle theme">
-          ${theme === 'light' ? icons.moon : icons.sun}
-          <span>${theme === 'light' ? 'Dark' : 'Light'}</span>
+        <button class="sidebar-theme-btn" onClick=${onToggleTheme} title="Theme: ${theme}" aria-label="Toggle theme">
+          ${theme === 'dark' ? icons.moon : theme === 'light' ? icons.sun : icons.system}
+          <span>${theme === 'dark' ? 'Dark' : theme === 'light' ? 'Light' : 'System'}</span>
         </button>
         <button class="sidebar-collapse-btn" onClick=${onToggleCollapse} title=${collapsed ? 'Expand sidebar' : 'Collapse sidebar'}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-nav" style="transform:${collapsed ? 'rotate(180deg)' : 'none'};transition:transform 0.2s"><polyline points="15 18 9 12 15 6"/></svg>
