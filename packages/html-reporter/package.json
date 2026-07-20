@@ -67,8 +67,9 @@
     "clean": "rimraf target lib esm",
     "test": "c8 npm run test:no-coverage",
     "test:no-coverage": "npx playwright test",
-    "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs-package && npm run compile:cjs && npm run compile:template",
+    "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs-package && npm run compile:cjs && npm run compile:template && npm run compile:schema",
     "compile:template": "node scripts/bundle-template.mjs",
+    "compile:schema": "npx tsx scripts/generate-summary-schema.mjs",
     "compile:clean": "rimraf lib esm",
     "compile:esm": "tsc --project tsconfig-esm.build.json",
     "compile:cjs-package": "node -e \"require('fs').mkdirSync('lib', { recursive: true }); require('fs').writeFileSync('lib/package.json', '{ \\\"type\\\": \\\"commonjs\\\" }')\"",
@@ -116,6 +117,7 @@
     "memfs": "4.57.7",
     "preact": "10.25.4",
     "tsx": "4.22.4",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "zod": "4.4.3"
   }
 }
