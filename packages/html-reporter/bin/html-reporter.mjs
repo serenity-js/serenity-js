@@ -135,6 +135,7 @@ Examples:
         consistencyWindow: args.consistencyWindow ? parseInt(args.consistencyWindow, 10) : 5,
         maxHistory: args.maxHistory ? parseInt(args.maxHistory, 10) : undefined,
         title: args.title,
+        specDirectory: args.specRoot,
     }, requirementsHierarchy, projectFileSystem, sourceFileSystem);
 
     aggregator.aggregate(dbJsonPaths);

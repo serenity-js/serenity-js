@@ -20,11 +20,13 @@ import { sceneIdentity, sceneIdentityWithTags } from './model/sceneIdentity.js';
 import { IncompatibleSchemaError, InvalidRunDataError, validateRunData } from './model/validation.js';
 import type { ReportActivity, ReportData, ReportExecutionHistoryEntry, ReportScenario, ReportSystemContext } from './ReportData.js';
 import { CURRENT_REPORT_DATA_SCHEMA_VERSION } from './ReportData.js';
+import { SummaryJsonWriter } from './SummaryJsonWriter.js';
 
 interface AggregatorConfig {
     consistencyWindow: number;
     maxHistory?: number;
     title?: string;
+    specDirectory?: string;
 }
 
 /**
@@ -83,6 +85,8 @@ export class DataSnapshotAggregator {
 
         const js = `window.__SERENITY_REPORT_DATA__ = ${ JSON.stringify(snapshot, undefined, 2) };\n`;
         this.fileSystem.storeSync(Path.from('data.js'), js, 'utf8');
+
+        new SummaryJsonWriter(this.fileSystem).write(snapshot, this.config.specDirectory);
     }
 
     private pruneOldRuns(runDirectories: Path[]): void {
