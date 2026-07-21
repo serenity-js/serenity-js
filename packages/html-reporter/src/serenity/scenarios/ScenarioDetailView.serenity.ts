@@ -18,6 +18,10 @@ export class ScenarioDetailView<NET> extends InteractionObject<NET> {
         this.child(By.css('.scenario-detail-title')).text().trim()
             .describedAs('scenario name');
 
+    sourcePath = (): QuestionAdapter<string> =>
+        this.child(By.css('.scenario-source')).text().trim()
+            .describedAs('scenario source path');
+
     errorBlock = (): ErrorBlock<NET> =>
         new ErrorBlock(this.child(By.css('[data-testid="error-block"]')));
 

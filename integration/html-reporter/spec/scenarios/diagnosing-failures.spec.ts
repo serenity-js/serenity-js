@@ -26,8 +26,12 @@ describe('Test Scenarios', () => {
                 scenariosView.find('expired card'),
                 scenariosView.scenarioCalled(failingTest).viewDetails(),
 
+                Ensure.that(scenarioDetailView.sourcePath(), includes('checkout.spec.ts')),
+                Ensure.that(scenarioDetailView.sourcePath(), not(includes('/home/runner'))),
+                Ensure.that(scenarioDetailView.sourcePath(), not(includes('/Users/'))),
                 Ensure.that(scenarioDetailView.errorBlock().message(), includes('checkout.spec.ts')),
                 Ensure.that(scenarioDetailView.errorBlock().message(), not(includes('/home/runner'))),
+                Ensure.that(scenarioDetailView.errorBlock().message(), not(includes('/Users/'))),
             );
         });
 
