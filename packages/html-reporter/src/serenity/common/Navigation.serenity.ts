@@ -22,7 +22,7 @@ export class Navigation {
         this.navItems
             .where(Text, includes(name))
             .first()
-            .describedAs(the`"${name}"`);
+            .describedAs(the`${name}`);
 
     private currentRouteName = () =>
         Page.current()

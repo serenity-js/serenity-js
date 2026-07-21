@@ -42,12 +42,12 @@ export class ScenarioItem<NET> extends InteractionObject<NET> {
             .describedAs('tag chip labels');
 
     clickTag = (name: string): Task =>
-        Task.where(the`#actor clicks the "${name}" tag`,
+        Task.where(the`#actor clicks the ${name} tag`,
             Click.on(
                 this.tagChips()
                     .where(Text, includes(name))
                     .first()
-                    .describedAs(the`tag chip "${name}"`)
+                    .describedAs(the`tag chip ${name}`)
             ),
         );
 

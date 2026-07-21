@@ -43,11 +43,11 @@ export class TagsView<NET> extends InteractionObject<NET> {
             .describedAs(`text of tag card "${name}"`);
 
     selectTag = (name: Answerable<string>): Task =>
-        Task.where(the`#actor selects the "${name}" tag`,
+        Task.where(the`#actor selects the ${name} tag`,
             Click.on(this.tagCards()
                 .where(Text, includes(name))
                 .first()
-                .describedAs(the`tag card "${name}"`)
+                .describedAs(the`tag card ${name}`)
             ),
         );
 

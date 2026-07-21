@@ -35,11 +35,11 @@ export class FilterBar<NET> extends InteractionObject<NET> {
             .describedAs('active filter labels');
 
     selectFilter = (label: Answerable<string>): Task =>
-        Task.where(the`#actor selects the "${label}" filter`,
+        Task.where(the`#actor selects the ${label} filter`,
             Click.on(this.chips()
                 .where(Text.of(this.chipLabel()), includes(label))
                 .first()
-                .describedAs(the`filter chip "${label}"`)
+                .describedAs(the`filter chip ${label}`)
             ),
         );
 

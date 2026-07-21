@@ -66,7 +66,7 @@ export class ErrorsView<NET> extends InteractionObject<NET> {
                 this.children(By.css('.scenario-item'))
                     .where(Text, includes(text))
                     .first()
-                    .describedAs(the`error group containing "${ text }"`),
+                    .describedAs(the`error group containing ${ text }`),
             ),
         );
 

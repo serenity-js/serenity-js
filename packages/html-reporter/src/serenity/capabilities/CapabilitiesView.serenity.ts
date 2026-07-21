@@ -90,11 +90,11 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
             .describedAs('child capability names');
 
     selectCapability = (name: Answerable<string>): Task =>
-        Task.where(the`#actor selects capability "${name}"`,
+        Task.where(the`#actor selects capability ${name}`,
             Click.on(this.treeNodes()
                 .where(Text.of(this.treeNodeLabel()), includes(name))
                 .first()
-                .describedAs(the`tree node "${name}"`)
+                .describedAs(the`tree node ${name}`)
             ),
         );
 
@@ -102,16 +102,16 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
         this.filterBar.selectFilter(label);
 
     find = (searchTerm: Answerable<string>): Task =>
-        Task.where(the`#actor searches for "${searchTerm}"`,
+        Task.where(the`#actor searches for ${searchTerm}`,
             this.searchInput.enter(searchTerm),
         );
 
     followReadmeLink = (linkText: Answerable<string>): Task =>
-        Task.where(the`#actor follows the "${linkText}" link in the README`,
+        Task.where(the`#actor follows the ${linkText} link in the README`,
             Click.on(this.children(By.css('.readme-content a'))
                 .where(Text, includes(linkText))
                 .first()
-                .describedAs(the`README link "${linkText}"`)
+                .describedAs(the`README link ${linkText}`)
             ),
         );
 
@@ -146,7 +146,7 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
             .describedAs('selected sort option');
 
     selectSort = (option: Answerable<string>): Task =>
-        Task.where(the`#actor sorts by "${option}"`,
+        Task.where(the`#actor sorts by ${option}`,
             Select.value(option).from(this.sortSelect()),
         );
 
