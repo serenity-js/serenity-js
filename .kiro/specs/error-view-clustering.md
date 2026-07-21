@@ -184,70 +184,137 @@ errorGroupCalled = (label: string) => ({
 3. Should the group headers show a mini segmented bar (outcome distribution within the
    group)? Nice-to-have, not essential for v1.
 
-## Future Exploration: Common Failing Ancestor Task
+## Future Enhancement: Location-Based Clustering
 
-Serenity/JS activity trees are nested — tasks compose other tasks and interactions. This
-creates an opportunity for a more powerful clustering dimension: **common failing ancestor**.
+### Motivation
 
-### Example
+The v1 "Failing step" dimension groups by activity *description*. This has problems:
 
-Test 1:
+- Descriptions include the actor name (`"Alice clicks on..."` vs `"Bob clicks on..."`)
+- Descriptions include runtime-resolved values (`"enters 'foo@bar.com'..."` vs
+  `"enters 'admin@test.com'..."`)
+- Stripping actor names or parameters from descriptions is a string hack
+
+A better clustering signal: **where in the source code** the activity was invoked.
+
+### Approach: Cluster by Invocation Location
+
+Every `ActivityRecord` already carries `location?: { path, line, column }` — a
+`FileSystemLocation` value object serialised from `ActivityDetails`. Two scenarios
+that fail at the same `path:line` are structurally failing at the same code point,
+regardless of actor name, runtime parameters, or description text.
+
+This is analogous to how `sceneIdentityWithTags()` uses `source.path:line` for
+scenario identity rather than scenario name.
+
+### Two-Tier Clustering
+
+| Tier | Key source | When used |
+|------|-----------|-----------|
+| **1. Activity location** | `ActivityRecord.location` of the deepest failing node | Screenplay tests (activity tree present with locations) |
+| **2. Stack-trace location** | First user-code frame from `ErrorRecord.stack` | Non-Screenplay tests, or activities without location data |
+
+#### Tier 1: Activity-location clustering
+
+Walk the activity tree depth-first, find the deepest node with `error !== undefined`.
+Use its `location.path + ':' + location.line` as the cluster key.
+
+#### Tier 2: Stack-trace clustering
+
+When no activity location is available (plain Playwright Test without Screenplay,
+Cucumber steps that don't use Tasks/Interactions, hook failures):
+
+1. Parse `error.stack` to extract stack frames
+2. Find the first frame whose path is inside `specDirectory`
+3. Use `frame.path + ':' + frame.line` as the cluster key
+
+The `specDirectory` is already available in the report data — it's the natural boundary
+for distinguishing user-code frames from framework frames (`node_modules/@serenity-js/...`,
+`node_modules/@playwright/...`).
+
+### Cluster Key Data Model
+
+```typescript
+interface FailureLocationKey {
+    path: string;       // relative to specDirectory
+    line: number;
+    source: 'activity' | 'stack';  // which tier produced it
+}
 ```
-- task T1.1
-  - task T1.2
-    - task T1.3
-      - task T1.4
-        - activity A1
-        - activity A2  → Error
-```
 
-Test 2:
-```
-- task T2.1
-  - task T2.2
-    - task T1.3
-      - task T1.4
-        - activity A1
-        - activity A2  → Error
-```
+### Where This Logic Lives
 
-The deepest failing leaf (`activity A2`) is the same in both — that's what the "Failing
-step" dimension would group on. But the **common failing ancestor** is `T1.3`, which is
-the business-meaningful task that wraps the actual failure point.
+This is a reporting/read-model concern — it belongs in the html-reporter's aggregation
+layer (`DataSnapshotAggregator` / `FailureClusterAnalyser`), NOT in `@serenity-js/core`.
+The aggregator pre-computes the `clusterKey` for each failing scenario and embeds it in
+`db.json`, so the client does a simple group-by without walking trees or parsing stacks.
 
-### Why this is valuable
+### Data Availability
 
-- The deepest leaf is often a generic interaction (`Ensure.that(...)`, `Click.on(...)`)
-  that appears in many unrelated tests
-- The ancestor task carries business meaning ("Authenticate", "Complete checkout",
-  "Verify dashboard loads") which tells the user *what workflow* is broken
-- Two tests that share `T1.3 → T1.4 → A2` as a sub-tree are very likely failing for the
-  same root cause, even if their top-level task names differ entirely
+Confirmed in the existing data model:
 
-### Algorithm sketch
+- `ActivityRecord.location?: { path: string; line: number; column: number }` — present
+  for all Screenplay activities emitted by Playwright Test and Cucumber adapters
+- `ErrorRecord.stack: string` — present for all errors
+- `FileSystemLocation.line` is optional in the core domain model, but in practice
+  both Playwright Test and Cucumber adapters populate it
 
-For each pair of failing scenarios:
-1. Walk both activity trees to find the failing leaf path (ancestors → leaf)
-2. Compare paths bottom-up to find the longest common suffix
-3. The topmost node of the common suffix is the "common failing ancestor"
+### Advantages Over Description-Based Matching
 
-For grouping N scenarios:
-1. Compute the failing path for each scenario (list of activity names from root to leaf)
-2. Group by longest common suffix (greedy: start with pairs, merge into clusters)
-3. Label each cluster with its common ancestor task name
+| Concern | Description-based | Location-based |
+|---------|-------------------|----------------|
+| Actor name in text | Must strip — fragile regex | Not in location |
+| Runtime parameters | Must normalise — lossy | Not in location |
+| Same step in different files | Wrongly clusters together | Correctly separates |
+| Renamed step (same code) | Breaks cluster | Cluster survives |
+| Added blank line above | N/A | Shifts line number (acceptable for single-run) |
+| Non-Screenplay tests | No activity tree → no clustering | Stack trace fallback works |
 
-### Considerations
+### Relationship to v1 "Failing Step" Dimension
 
-- This requires comparing activity names across scenarios — could be expensive for large
-  reports (>500 failures), but in practice failure count is usually small
-- The algorithm is a variant of longest common suffix on sequences of strings
-- Actor names prefix task descriptions (`Alice attempts to...`) — these must be stripped
-  before comparison to avoid false negatives across actors
-- Parameterised values in task names (e.g., `Navigate to "https://..."`) need
-  normalisation to cluster correctly
+The v1 implementation (deepest leaf activity name) ships first as described in the
+main proposal above. Location-based clustering is a **refinement** that can either:
 
-### Verdict
+- **Replace** the name-based approach entirely (simpler, more accurate), or
+- **Augment** it as a fourth "Group by" dimension ("Group by: Location")
 
-Worth exploring as a v2 enhancement to the "Failing step" dimension. The v1 (deepest
-leaf only) ships first because it requires no cross-scenario comparison. The ancestor
-algorithm can be added later as a refinement that produces better cluster labels.
+The recommendation is to replace: use location as the clustering key but display the
+activity name (or parsed stack frame) as the human-readable cluster label.
+
+### Open Questions for Implementation
+
+1. **Cluster label when using location key**: The location (`login.ts:42`) is the
+   identity, but what do we *display* as the group header? Options:
+   - The activity name at that location (e.g., `Click.on(loginButton)`)
+   - The file:line itself (e.g., `login.spec.ts:42`)
+   - Both: activity name with file:line as secondary text
+   Recommendation: activity name as primary, file:line as subtitle.
+
+2. **Ancestor vs leaf clustering**: Should we cluster at the deepest failing
+   Interaction (most precise) or the nearest failing Task ancestor (more
+   business-meaningful)? The `ActivityRecord.type` field distinguishes them.
+   Could offer both: "Group by: Failing interaction" vs "Group by: Failing task".
+
+3. **Cross-run cluster stability**: `file:line` shifts when lines are added.
+   For a single test run this doesn't matter (all scenarios point to the same
+   code state). For cross-run comparison (e.g., "this cluster persists across
+   runs"), we'd need fuzzy matching or a content-hash. Defer to v2.
+
+4. **specDirectory for stack-trace tier**: What if `specDirectory` is not
+   configured? Fallback options:
+   - Use heuristic: first frame NOT in `node_modules/`
+   - Use project root (everything is "user code")
+   - Skip Tier 2 and fall back to message fingerprinting
+
+5. **Multiple user-code frames in stack**: Should we use only the top frame,
+   or could a "call path" (top N user-code frames) give better deduplication?
+   E.g., two tests might both fail at `utils.ts:10` but arrive there via
+   different call paths. Using just the top frame would over-cluster them.
+   Start with top frame only; refine if real-world usage shows over-clustering.
+
+6. **Pre-compute in aggregator vs compute client-side**: The recommendation is
+   aggregator (avoids parsing stacks in the browser). But this means the
+   clustering dimension is fixed at report generation time — the user can't
+   switch between "cluster by leaf" and "cluster by ancestor" without
+   re-aggregating. Alternative: ship both keys in `db.json` and let the
+   client pick which to group by.
