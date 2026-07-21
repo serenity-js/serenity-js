@@ -1,5 +1,5 @@
 import type { ReportHistoryEntry } from '../../../../src/cli/ReportData';
-import { formatDuration } from '../../../utils';
+import { formatDuration, totalFailedCount } from '../../../utils';
 
 interface ThemeColors {
     textColor: string;
@@ -33,7 +33,7 @@ export function buildTrendDatasets(history: ReportHistoryEntry[], theme: string)
         {
             type: 'bar' as const,
             label: 'Failed',
-            data: history.map(h => (h.outcomes.failed || 0) + (h.outcomes.error || 0) + (h.outcomes.compromised || 0)),
+            data: history.map(h => totalFailedCount(h.outcomes)),
             backgroundColor: isDark ? 'rgba(234,84,85,0.85)' : 'rgba(234,84,85,0.8)',
             borderRadius: 2,
             stack: 'outcomes',

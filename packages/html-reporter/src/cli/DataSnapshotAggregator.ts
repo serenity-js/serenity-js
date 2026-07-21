@@ -1,22 +1,27 @@
-import type { FileSystem } from '@serenity-js/core/io';
-import type { RequirementsHierarchy } from '@serenity-js/core/io';
+import type { FileSystem, RequirementsHierarchy } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
-import {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionSkipped,
-    ExecutionSuccessful,
-    ImplementationPending,
-} from '@serenity-js/core/model';
+import { ExecutionSuccessful } from '@serenity-js/core/model';
 import { marked } from 'marked';
 
 import { buildCapabilities } from './capabilities/buildCapabilities.js';
 import { buildHistory } from './history/buildHistory.js';
+import {
+    IncompatibleSchemaError,
+    InvalidRunDataError,
+    resolveRunLabel,
+    sceneIdentity,
+    sceneIdentityWithTags,
+    validateRunData
+} from './model/index.js';
+import { mapOutcomeToKey, outcomeCodeToDisplayString } from './model/outcomes.js';
 import type { ActivityRecord, AttemptRecord, OutcomeCounts, RunData, SceneRecord, TagRecord } from './model/RunData.js';
-import { sceneIdentity, sceneIdentityWithTags } from './model/sceneIdentity.js';
-import { IncompatibleSchemaError, InvalidRunDataError, validateRunData } from './model/validation.js';
-import type { ReportActivity, ReportData, ReportExecutionHistoryEntry, ReportScenario, ReportSystemContext } from './ReportData.js';
+import type {
+    ReportActivity,
+    ReportData,
+    ReportExecutionHistoryEntry,
+    ReportScenario,
+    ReportSystemContext
+} from './ReportData.js';
 import { CURRENT_REPORT_DATA_SCHEMA_VERSION } from './ReportData.js';
 import { SummaryJsonWriter } from './SummaryJsonWriter.js';
 
@@ -212,14 +217,14 @@ export class DataSnapshotAggregator {
         // Build a map of base scenes by identity to detect overlaps
         const baseScenesByIdentity = new Map<string, SceneRecord>();
         for (const scene of base.scenes) {
-            baseScenesByIdentity.set(this.sceneIdentity(scene), scene);
+            baseScenesByIdentity.set(sceneIdentity(scene), scene);
         }
 
         // Merge scenes: new scenes are added, overlapping scenes are handled
         merged.scenes = [...base.scenes];
         let hasOverlap = false;
         for (const additionScene of addition.scenes) {
-            const key = this.sceneIdentity(additionScene);
+            const key = sceneIdentity(additionScene);
             const existingScene = baseScenesByIdentity.get(key);
 
             if (!existingScene) {
@@ -271,11 +276,11 @@ export class DataSnapshotAggregator {
         const merged: RunData = { ...later };
         const earlierScenes = new Map<string, typeof earlier.scenes[0]>();
         for (const scene of earlier.scenes) {
-            earlierScenes.set(this.sceneIdentity(scene), scene);
+            earlierScenes.set(sceneIdentity(scene), scene);
         }
 
         merged.scenes = later.scenes.map(laterScene => {
-            const key = this.sceneIdentity(laterScene);
+            const key = sceneIdentity(laterScene);
             const earlierScene = earlierScenes.get(key);
             if (!earlierScene) {
                 return laterScene;
@@ -294,9 +299,9 @@ export class DataSnapshotAggregator {
         });
 
         // Include scenes from earlier attempt that weren't retried
-        const laterSceneKeys = new Set(later.scenes.map(s => this.sceneIdentity(s)));
+        const laterSceneKeys = new Set(later.scenes.map(s => sceneIdentity(s)));
         for (const earlierScene of earlier.scenes) {
-            if (!laterSceneKeys.has(this.sceneIdentity(earlierScene))) {
+            if (!laterSceneKeys.has(sceneIdentity(earlierScene))) {
                 merged.scenes.push(earlierScene);
             }
         }
@@ -336,18 +341,10 @@ export class DataSnapshotAggregator {
     private computeMergedOutcomes(scenes: SceneRecord[]): OutcomeCounts {
         const outcomes: OutcomeCounts = { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 };
         for (const scene of scenes) {
-            const key = this.mapOutcomeToKey(outcomeCodeToDisplayString(scene.outcome.code));
+            const key = mapOutcomeToKey(outcomeCodeToDisplayString(scene.outcome.code));
             outcomes[key as keyof OutcomeCounts]++;
         }
         return outcomes;
-    }
-
-    private sceneIdentity(scene: { source: { path: string; line: number }; name: string }): string {
-        return sceneIdentity(scene);
-    }
-
-    private sceneIdentityWithBrowser(scene: { source: { path: string; line: number }; name: string; tags: TagRecord[] }): string {
-        return sceneIdentityWithTags(scene);
     }
 
     private copyArtifactsFromSource(databaseJsonPath: string, runId: string, subDirectory: string): void {
@@ -384,10 +381,10 @@ export class DataSnapshotAggregator {
 
         const latestRun = allRuns[allRuns.length - 1];
         const previousRun = allRuns[allRuns.length - 2];
-        const previousOutcomes = new Map(previousRun.scenes.map(s => [this.sceneIdentityWithBrowser(s), s.outcome.code]));
+        const previousOutcomes = new Map(previousRun.scenes.map(s => [sceneIdentityWithTags(s), s.outcome.code]));
 
         for (const scene of latestRun.scenes) {
-            const key = this.sceneIdentityWithBrowser(scene);
+            const key = sceneIdentityWithTags(scene);
             const previousCode = previousOutcomes.get(key);
             if (previousCode !== undefined) {
                 const previousSuccess = previousCode === ExecutionSuccessful.Code;
@@ -427,13 +424,13 @@ export class DataSnapshotAggregator {
     }
 
     private buildExecutionHistory(scene: SceneRecord, allRuns: RunData[]): ReportExecutionHistoryEntry[] {
-        const key = this.sceneIdentityWithBrowser(scene);
+        const key = sceneIdentityWithTags(scene);
         return allRuns.map(run => {
-            const match = run.scenes.find(s => this.sceneIdentityWithBrowser(s) === key);
+            const match = run.scenes.find(s => sceneIdentityWithTags(s) === key);
             if (!match) return undefined;
             const entry: ReportExecutionHistoryEntry = {
                 outcome: outcomeCodeToDisplayString(match.outcome.code),
-                run: this.resolveRunLabel(run),
+                run: resolveRunLabel(run),
                 timestamp: run.startedAt,
                 duration: match.duration,
                 activities: match.activities.map(activity => this.mapActivityOutcome(activity)),
@@ -559,11 +556,6 @@ export class DataSnapshotAggregator {
         return [...tagMap.values()];
     }
 
-    private mapOutcomeToKey(outcome: string): string {
-        const map: Record<string, string> = { SUCCESS: 'passed', FAILURE: 'failed', ERROR: 'error', COMPROMISED: 'compromised', PENDING: 'pending', SKIPPED: 'skipped' };
-        return map[outcome] || 'error';
-    }
-
     private findRunDirectories(): Path[] {
         const testRunsDirectory = Path.from('test-runs');
 
@@ -586,7 +578,7 @@ export class DataSnapshotAggregator {
         const testOutcomes = new Map<string, { name: string; category: string; source: { path: string; line: number }; tags: TagRecord[]; outcomes: string[]; labels: string[] }>();
 
         for (const run of recentRuns) {
-            const runLabel = this.resolveRunLabel(run);
+            const runLabel = resolveRunLabel(run);
             for (const scene of run.scenes) {
                 const projectTag = scene.tags.find(t => t.type === 'project')?.name || '';
                 const identity = `${ scene.name }@${ scene.source.path }@${ projectTag }`;
@@ -645,10 +637,6 @@ export class DataSnapshotAggregator {
         return mapped;
     }
 
-    private resolveRunLabel(run: RunData): string {
-        return run.testRunId || run.startedAt;
-    }
-
     /**
      * Derives the specDirectory marker for client-side path stripping.
      * Uses {@link RequirementsHierarchy} to resolve the root directory
@@ -663,17 +651,4 @@ export class DataSnapshotAggregator {
             return undefined;
         }
     }
-}
-
-const OUTCOME_CODE_DISPLAY_STRINGS: Record<number, string> = {
-    [ExecutionSuccessful.Code]: 'SUCCESS',
-    [ExecutionFailedWithAssertionError.Code]: 'FAILURE',
-    [ExecutionFailedWithError.Code]: 'ERROR',
-    [ExecutionCompromised.Code]: 'COMPROMISED',
-    [ImplementationPending.Code]: 'PENDING',
-    [ExecutionSkipped.Code]: 'SKIPPED',
-};
-
-function outcomeCodeToDisplayString(code: number): string {
-    return OUTCOME_CODE_DISPLAY_STRINGS[code] || 'ERROR';
 }

@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportCapabilityNode } from '../../../src/cli/ReportData';
-import { RawHtml } from '../../utils';
+import { RawHtml, totalFailedCount } from '../../utils';
 import { SegmentedBar } from '../common/charts/SegmentedBar';
 import { icons } from '../common/icons';
 import { computeNodeScore, confidenceColor } from './CapabilityTree';
@@ -21,7 +21,7 @@ export function DetailPanel({ node, segmentPath, capabilities, onNavigate, onSel
     const displayNode = node || capabilities;
     const score = computeNodeScore(displayNode);
     const total = Object.values(displayNode.outcomes).reduce((a: number, b: number) => a + b, 0);
-    const failedCount = (displayNode.outcomes.failed || 0) + (displayNode.outcomes.error || 0) + (displayNode.outcomes.compromised || 0);
+    const failedCount = totalFailedCount(displayNode.outcomes);
 
     const directories = displayNode.children ? displayNode.children.filter(c => c.type === 'directory') : [];
     const files = displayNode.children ? displayNode.children.filter(c => c.type === 'file') : [];

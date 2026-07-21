@@ -1,3 +1,4 @@
+import { formatSource } from './model/formatSource.js';
 import type { ReportActivity, ReportScenario } from './ReportData.js';
 import type { FailureCluster, FailureClusterScenario } from './ReportSummaryJson.js';
 
@@ -97,23 +98,6 @@ function normaliseMessage(message: string): string {
     }
 
     return normalised;
-}
-
-function formatSource(source: { path: string; line?: number }, specDirectory?: string): string {
-    let path = source.path;
-
-    if (specDirectory) {
-        const prefix = specDirectory.endsWith('/') ? specDirectory : specDirectory + '/';
-        if (path.startsWith(prefix)) {
-            path = path.slice(prefix.length);
-        }
-    }
-
-    if (source.line !== undefined) {
-        return `${ path }:${ source.line }`;
-    }
-
-    return path;
 }
 
 function findFailingStep(activities: ReportActivity[]): string | undefined {

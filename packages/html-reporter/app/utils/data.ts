@@ -1,4 +1,4 @@
-import type { ReportData } from '../../src/ReportData';
+import type { ReportData } from '../../src/cli/ReportData';
 
 declare global {
     interface Window {

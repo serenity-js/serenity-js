@@ -1,28 +1,10 @@
-import {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionSkipped,
-    ExecutionSuccessful,
-    ImplementationPending,
-} from '@serenity-js/core/model';
+import { ExecutionSuccessful } from '@serenity-js/core/model';
 
+import { outcomeCodeToDisplayString } from '../model/outcomes.js';
+import { resolveRunLabel } from '../model/resolveRunLabel.js';
 import type { RunData } from '../model/RunData.js';
 import { tagDiscriminator } from '../model/sceneIdentity.js';
 import type { ReportHistoryEntry } from '../ReportData.js';
-
-const OUTCOME_CODE_DISPLAY_STRINGS: Record<number, string> = {
-    [ExecutionSuccessful.Code]: 'SUCCESS',
-    [ExecutionFailedWithAssertionError.Code]: 'FAILURE',
-    [ExecutionFailedWithError.Code]: 'ERROR',
-    [ExecutionCompromised.Code]: 'COMPROMISED',
-    [ImplementationPending.Code]: 'PENDING',
-    [ExecutionSkipped.Code]: 'SKIPPED',
-};
-
-function outcomeCodeToDisplayString(code: number): string {
-    return OUTCOME_CODE_DISPLAY_STRINGS[code] || 'ERROR';
-}
 
 /**
  * Builds the execution history entries from all runs.
@@ -95,6 +77,3 @@ export function computeConsistencyAtRun(runs: RunData[]): number {
     return totalTests > 0 ? Math.round((stableTests / totalTests) * 100) : 100;
 }
 
-function resolveRunLabel(run: RunData): string {
-    return run.testRunId || run.startedAt;
-}

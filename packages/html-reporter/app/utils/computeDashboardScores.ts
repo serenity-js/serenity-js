@@ -1,5 +1,5 @@
-import type { ReportCapabilityNode, ReportHistoryEntry, ReportSummary } from '../../src/ReportData';
-import { computeCompletenessFromTree, runConfidence } from '../utils';
+import type { ReportCapabilityNode, ReportHistoryEntry, ReportSummary } from '../../src/cli/ReportData';
+import { computeCompletenessFromTree, runConfidence, totalFailedCount } from './selectors';
 
 export interface DashboardScores {
     passRate: number;
@@ -27,7 +27,7 @@ export function computeDashboardScores(summary: ReportSummary, history: ReportHi
 }
 
 function computeCurrentScores(summary: ReportSummary, history: ReportHistoryEntry[], capabilities?: ReportCapabilityNode) {
-    const totalFailed = countFailed(summary);
+    const totalFailed = totalFailedCount(summary.outcomes);
     const latestScore = history.length > 0 ? history[history.length - 1].score : undefined;
 
     const passRate = latestScore ? latestScore.passRate : (summary.totalScenarios > 0 ? Math.round((summary.outcomes.passed / summary.totalScenarios) * 100) : 0);
@@ -58,7 +58,7 @@ function computePreviousScores(history: ReportHistoryEntry[]) {
         previousPassRate: previousScore?.passRate,
         previousConsistency: previousScore?.consistency,
         previousCompleteness: previousScore?.completeness,
-        previousFailed: countFailedFromOutcomes(previousRun.outcomes),
+        previousFailed: totalFailedCount(previousRun.outcomes),
         previousDuration: previousRun.duration,
     };
 }
@@ -67,15 +67,8 @@ function computeTrends(history: ReportHistoryEntry[]) {
     const scoreHistory = history.filter(h => h.score);
     return {
         confidenceTrend: scoreHistory.map(h => h.score!.confidence),
-        failedTrend: history.map(h => countFailedFromOutcomes(h.outcomes)),
+        failedTrend: history.map(h => totalFailedCount(h.outcomes)),
         durationTrend: history.map(h => h.duration),
     };
 }
 
-function countFailed(summary: ReportSummary): number {
-    return (summary.outcomes.failed || 0) + (summary.outcomes.error || 0) + (summary.outcomes.compromised || 0);
-}
-
-function countFailedFromOutcomes(outcomes: { failed?: number; error?: number; compromised?: number }): number {
-    return (outcomes.failed || 0) + (outcomes.error || 0) + (outcomes.compromised || 0);
-}

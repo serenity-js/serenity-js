@@ -4,7 +4,7 @@ import { useMemo, useRef, useState } from 'preact/hooks';
 
 import type { ReportScenario, ReportSummary } from '../../../src/cli/ReportData';
 import { useVirtualizer } from '../../hooks';
-import { formatDuration, formatTimestamp, matchesOutcomeFilter, outcomeClass, scenarioUrl } from '../../utils';
+import { formatDuration, formatTimestamp, matchesOutcomeFilter, outcomeClass, scenarioUrl, totalFailedCount } from '../../utils';
 import { FilterBar } from '../common/FilterBar';
 import { KpiCard } from '../common/KpiCard';
 import { OutcomeBadge } from '../common/OutcomeBadge';
@@ -61,7 +61,7 @@ export function TimelineView({ scenarios: allScenarios, summary, onNavigate }: T
         <${FilterBar} filters=${[
             { key: 'all', label: 'All', count: allScenarios.length },
             { key: 'passed', label: 'Passed', count: summary.outcomes.passed },
-            { key: 'failed', label: 'Failed', count: (summary.outcomes.failed || 0) + (summary.outcomes.error || 0) + (summary.outcomes.compromised || 0) },
+            { key: 'failed', label: 'Failed', count: totalFailedCount(summary.outcomes) },
             { key: 'skipped', label: 'Skipped', count: (summary.outcomes.skipped || 0) + (summary.outcomes.pending || 0) },
         ]}
         activeFilter=${filter} onFilter=${setFilter}

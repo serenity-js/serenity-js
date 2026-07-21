@@ -33,3 +33,36 @@ export type ValidOutcomeCode = typeof VALID_OUTCOME_CODES[number];
 export function isValidOutcomeCode(code: number): code is ValidOutcomeCode {
     return (VALID_OUTCOME_CODES as readonly number[]).includes(code);
 }
+
+/**
+ * Maps numeric outcome codes to their human-readable display strings.
+ */
+export const OUTCOME_CODE_DISPLAY_STRINGS: Record<number, string> = {
+    [ExecutionSuccessful.Code]: 'SUCCESS',
+    [ExecutionFailedWithAssertionError.Code]: 'FAILURE',
+    [ExecutionFailedWithError.Code]: 'ERROR',
+    [ExecutionCompromised.Code]: 'COMPROMISED',
+    [ImplementationPending.Code]: 'PENDING',
+    [ExecutionSkipped.Code]: 'SKIPPED',
+};
+
+/**
+ * Converts a numeric outcome code to its display string representation.
+ *
+ * @param code - A numeric outcome code
+ * @returns The display string (e.g. 'SUCCESS', 'FAILURE'), or 'ERROR' if unrecognised
+ */
+export function outcomeCodeToDisplayString(code: number): string {
+    return OUTCOME_CODE_DISPLAY_STRINGS[code] || 'ERROR';
+}
+
+/**
+ * Maps an outcome display string (e.g. 'SUCCESS') to its report key (e.g. 'passed').
+ *
+ * @param outcome - An outcome display string
+ * @returns The corresponding report key, or 'error' if unrecognised
+ */
+export function mapOutcomeToKey(outcome: string): string {
+    const map: Record<string, string> = { SUCCESS: 'passed', FAILURE: 'failed', ERROR: 'error', COMPROMISED: 'compromised', PENDING: 'pending', SKIPPED: 'skipped' };
+    return map[outcome] || 'error';
+}

@@ -1,4 +1,4 @@
-import type { ReportData } from '../../src/ReportData';
+import type { ReportData } from '../../src/cli/ReportData';
 
 export interface RouteParameters {
     /** Full path portion of the hash route (before '?') */

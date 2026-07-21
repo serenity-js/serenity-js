@@ -5,7 +5,7 @@ import { useMemo } from 'preact/hooks';
 import type { ReportHistoryEntry, ReportOutcomes, ReportScenario, ReportSummary } from '../../../src/cli/ReportData';
 import { useRunSelection } from '../../hooks/useRunSelection';
 import { useViewState } from '../../hooks/useViewState';
-import { matchesOutcomeFilter, matchesSearch } from '../../utils';
+import { matchesOutcomeFilter, matchesSearch, totalFailedCount } from '../../utils';
 import { FilterBar } from '../common/FilterBar';
 import { ResultCount } from '../common/ResultCount';
 import { RunSelector } from '../common/RunSelector';
@@ -87,7 +87,7 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
         <${FilterBar} filters=${[
             { key: 'all', label: 'All', count: runTotal },
             { key: 'passed', label: 'Passed', count: runOutcomes.passed },
-            { key: 'failed', label: 'Failed', count: (runOutcomes.failed || 0) + (runOutcomes.error || 0) + (runOutcomes.compromised || 0) },
+            { key: 'failed', label: 'Failed', count: totalFailedCount(runOutcomes) },
             { key: 'skipped', label: 'Skipped', count: (runOutcomes.skipped || 0) + (runOutcomes.pending || 0) },
         ]}
         activeFilter=${filter} onFilter=${setFilter}

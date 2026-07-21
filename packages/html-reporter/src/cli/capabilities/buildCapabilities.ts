@@ -2,38 +2,13 @@ import { posix } from 'node:path';
 
 import type { FileSystem, RequirementsHierarchy } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
-import {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionSkipped,
-    ExecutionSuccessful,
-    ImplementationPending,
-} from '@serenity-js/core/model';
 import { marked, Renderer } from 'marked';
 
 import { scoreCapability, scoreDirectory } from '../CapabilityConfidenceScorer.js';
+import { mapOutcomeToKey, outcomeCodeToDisplayString } from '../model/outcomes.js';
 import type { RunData, SceneRecord } from '../model/RunData.js';
 import { sceneIdentityWithTags } from '../model/sceneIdentity.js';
 import type { ReportCapabilityNode, ReportOutcomes } from '../ReportData.js';
-
-const OUTCOME_CODE_DISPLAY_STRINGS: Record<number, string> = {
-    [ExecutionSuccessful.Code]: 'SUCCESS',
-    [ExecutionFailedWithAssertionError.Code]: 'FAILURE',
-    [ExecutionFailedWithError.Code]: 'ERROR',
-    [ExecutionCompromised.Code]: 'COMPROMISED',
-    [ImplementationPending.Code]: 'PENDING',
-    [ExecutionSkipped.Code]: 'SKIPPED',
-};
-
-function outcomeCodeToDisplayString(code: number): string {
-    return OUTCOME_CODE_DISPLAY_STRINGS[code] || 'ERROR';
-}
-
-function mapOutcomeToKey(outcome: string): string {
-    const map: Record<string, string> = { SUCCESS: 'passed', FAILURE: 'failed', ERROR: 'error', COMPROMISED: 'compromised', PENDING: 'pending', SKIPPED: 'skipped' };
-    return map[outcome] || 'error';
-}
 
 /**
  * Builds the capabilities tree from a test run and its history.

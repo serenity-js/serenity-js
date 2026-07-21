@@ -1,4 +1,4 @@
-import type { ReportData } from '../../src/ReportData';
+import type { ReportData } from '../../src/cli/ReportData';
 import { AboutView } from '../components/about/AboutView';
 import { SystemContextView } from '../components/about/SystemContextView';
 import { CapabilitiesView } from '../components/capabilities/CapabilitiesView';

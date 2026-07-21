@@ -1,4 +1,6 @@
-import type { ReportCapabilityNode, ReportHistoryEntry, ReportOutcomes, ReportScenario } from '../../src/ReportData';
+import type { ReportCapabilityNode, ReportHistoryEntry, ReportOutcomes, ReportScenario } from '../../src/cli/ReportData';
+
+export { classifyConsistencyKind, type ConsistencyKind } from '../../src/cli/model/classifyConsistencyKind.js';
 
 export function topSlowestScenarios(scenarios: ReportScenario[], limit = 5): ReportScenario[] {
     return [...scenarios].sort((a, b) => b.duration - a.duration).slice(0, limit);
@@ -78,22 +80,3 @@ export function computeCompletenessFromTree(capabilities: ReportCapabilityNode |
     return total > 0 ? Math.round((complete / total) * 100) : 100;
 }
 
-export type ConsistencyKind = 'flaky' | 'inconsistent' | 'degraded' | 'recovered';
-
-/**
- * Classifies a test's consistency based on its execution history.
- *
- * - flaky: never genuinely fails (all outcomes are SUCCESS or RETRIED_SUCCESS)
- * - recovered: has failed before, but last outcome is a clean SUCCESS
- * - inconsistent: has failed before, last outcome is RETRIED_SUCCESS (surviving via retry)
- * - degraded: has failed before, last outcome is a failure
- */
-export function classifyConsistencyKind(history: string[]): ConsistencyKind {
-    const lastOutcome = history[history.length - 1];
-    const hasFailure = history.some(o => o !== 'SUCCESS' && o !== 'RETRIED_SUCCESS');
-
-    if (!hasFailure) return 'flaky';
-    if (lastOutcome === 'SUCCESS') return 'recovered';
-    if (lastOutcome === 'RETRIED_SUCCESS') return 'inconsistent';
-    return 'degraded';
-}

@@ -2,10 +2,10 @@ import type { FileSystem } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
 
 import { computeFailureClusters } from './FailureClusterAnalyser.js';
-import type { ReportData, ReportSource } from './ReportData.js';
+import { classifyConsistencyKind } from './model/classifyConsistencyKind.js';
+import { formatSource } from './model/formatSource.js';
+import type { ReportData } from './ReportData.js';
 import type { ReportSummaryJson, SummaryConsistency, SummaryScores } from './ReportSummaryJson.js';
-
-type ConsistencyKind = 'flaky' | 'inconsistent' | 'degraded' | 'recovered';
 
 /**
  * Writes a machine-readable `summary.json` alongside the HTML report
@@ -108,27 +108,8 @@ export class SummaryJsonWriter {
     }
 }
 
-function classifyConsistencyKind(history: string[]): ConsistencyKind {
-    const lastOutcome = history[history.length - 1];
-    const hasFailure = history.some(o => o !== 'SUCCESS' && o !== 'RETRIED_SUCCESS');
-
-    if (!hasFailure) return 'flaky';
-    if (lastOutcome === 'SUCCESS') return 'recovered';
-    if (lastOutcome === 'RETRIED_SUCCESS') return 'inconsistent';
-    return 'degraded';
-}
-
 function getBrowser(tags?: Array<{ type: string; name: string }>): string | undefined {
     return tags?.find(t => t.type === 'browser')?.name;
-}
-
-function formatSource(source: ReportSource, specDirectory?: string): string {
-    let p = source.path;
-    if (specDirectory) {
-        const prefix = specDirectory.endsWith('/') ? specDirectory : specDirectory + '/';
-        if (p.startsWith(prefix)) p = p.slice(prefix.length);
-    }
-    return source.line ? `${ p }:${ source.line }` : p;
 }
 
 function round1(value: number): number {

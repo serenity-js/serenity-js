@@ -1,4 +1,5 @@
-import type { ReportHistoryEntry } from '../../src/ReportData';
+import type { ReportHistoryEntry } from '../../src/cli/ReportData';
+import { totalFailedCount } from './selectors';
 
 export interface RunMetrics {
     total: number;
@@ -13,7 +14,7 @@ export interface RunMetrics {
 export function computeRunMetrics(run: ReportHistoryEntry): RunMetrics {
     const total = Object.values(run.outcomes).reduce((a: number, b: number) => a + b, 0);
     const confidence = run.score ? run.score.confidence : (total > 0 ? Math.round((run.outcomes.passed / total) * 100) : 0);
-    const failedCount = (run.outcomes.failed || 0) + (run.outcomes.error || 0) + (run.outcomes.compromised || 0);
+    const failedCount = totalFailedCount(run.outcomes);
     const skippedCount = (run.outcomes.pending || 0) + (run.outcomes.skipped || 0);
 
     return {

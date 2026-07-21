@@ -2,6 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportOutcomes } from '../../../../src/cli/ReportData';
+import { totalFailedCount } from '../../../utils';
 
 const html = htm.bind(h);
 
@@ -14,7 +15,7 @@ export function SegmentedBar({ outcomes, className }: SegmentedBarProps): Return
     const total = Object.values(outcomes).reduce((a: number, b: number) => a + b, 0);
     if (total === 0) return null;
     const passedCount = outcomes.passed || 0;
-    const failedCount = (outcomes.failed || 0) + (outcomes.error || 0) + (outcomes.compromised || 0);
+    const failedCount = totalFailedCount(outcomes);
     const skippedCount = (outcomes.pending || 0) + (outcomes.skipped || 0);
     const passed = passedCount / total * 100;
     const failed = failedCount / total * 100;
