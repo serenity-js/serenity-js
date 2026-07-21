@@ -1,72 +1,40 @@
 {
-  "generated": "2026-07-21T00:16:36.778Z",
+  "generated": "2026-07-21T09:24:30.122Z",
   "title": "Serenity/JS Integration Tests",
   "schemaVersion": 1,
   "latestRun": {
-    "timestamp": "2026-07-21T00:03:39.616Z",
-    "label": "8303",
+    "timestamp": "2026-07-21T09:15:21.463Z",
+    "label": "8304",
     "totals": {
-      "passed": 1812,
-      "failed": 3,
+      "passed": 1815,
+      "failed": 0,
       "pending": 85,
       "skipped": 0,
       "compromised": 0,
       "error": 0
     },
-    "duration": 600759
+    "duration": 365507
   },
   "runs": 5,
-  "failureClusters": [
-    {
-      "fingerprint": "AssertionError:Expected-error-message-to-not-include-\"runner\"-Expectation:-not(includes('runner'))-Expected-string:-runner-Received-string:-Expected-<<current-page>>.title()-to-equal-\"Payment-rejected\"-Expectatio",
-      "errorType": "AssertionError",
-      "message": "Expected error message to not include \"runner\"\n\nExpectation: not(includes('runner'))\n\nExpected string: runner\nReceived string: Expected <<current page>>.title() to equal \"Payment rejected\"\n\nExpectatio",
-      "scenarios": [
-        {
-          "name": "Diagnosing Failures renders relative paths in error messages",
-          "source": "/home/runner/work/serenity-js/serenity-js/integration/html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
-          "browser": "chromium 149.0.7827.55",
-          "failingStep": "Serena ensures that error message does not include \"/home/runner\""
-        },
-        {
-          "name": "Diagnosing Failures renders relative paths in error messages",
-          "source": "/home/runner/work/serenity-js/serenity-js/integration/html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
-          "browser": "chromium 149.0.7827.55",
-          "failingStep": "Serena ensures that error message does not include \"/home/runner\""
-        },
-        {
-          "name": "Diagnosing Failures renders relative paths in error messages",
-          "source": "/home/runner/work/serenity-js/serenity-js/integration/html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
-          "browser": "chromium 149.0.7827.55",
-          "failingStep": "Serena ensures that error message does not include \"/home/runner\""
-        }
-      ]
-    }
-  ],
+  "failureClusters": [],
   "consistency": {
     "flaky": [],
     "inconsistent": [],
-    "degraded": [
-      {
-        "name": "Diagnosing Failures renders relative paths in error messages",
-        "source": "/home/runner/work/serenity-js/serenity-js/integration/html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
-        "browser": "chromium 149.0.7827.55"
-      },
-      {
-        "name": "Diagnosing Failures renders relative paths in error messages",
-        "source": "/home/runner/work/serenity-js/serenity-js/integration/html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
-        "browser": "chromium 149.0.7827.55"
-      },
-      {
-        "name": "Diagnosing Failures renders relative paths in error messages",
-        "source": "/home/runner/work/serenity-js/serenity-js/integration/html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
-        "browser": "chromium 149.0.7827.55"
-      }
-    ],
+    "degraded": [],
     "recovered": [
       {
-        "name": "Deep Linking toggles between light and dark themes",
-        "source": "/home/runner/work/serenity-js/serenity-js/integration/html-reporter/spec/navigation/deep-linking.spec.ts:32",
+        "name": "Diagnosing Failures renders relative paths in error messages",
+        "source": "/home/runner/work/serenity-js/serenity-js/integration/html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Diagnosing Failures renders relative paths in error messages",
+        "source": "/home/runner/work/serenity-js/serenity-js/integration/html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Diagnosing Failures renders relative paths in error messages",
+        "source": "/home/runner/work/serenity-js/serenity-js/integration/html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
         "browser": "chromium 149.0.7827.55"
       },
       {
@@ -77,14 +45,34 @@
       {
         "name": "Deep Linking toggles between light and dark themes",
         "source": "/home/runner/work/serenity-js/serenity-js/integration/html-reporter/spec/navigation/deep-linking.spec.ts:32",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Deep Linking toggles between light and dark themes",
+        "source": "/home/runner/work/serenity-js/serenity-js/integration/html-reporter/spec/navigation/deep-linking.spec.ts:32",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Diagnosing Failures renders relative paths in error messages",
+        "source": "/home/runner/work/serenity-js/serenity-js/integration/html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Diagnosing Failures renders relative paths in error messages",
+        "source": "/home/runner/work/serenity-js/serenity-js/integration/html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Diagnosing Failures renders relative paths in error messages",
+        "source": "/home/runner/work/serenity-js/serenity-js/integration/html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
         "browser": "chromium 149.0.7827.55"
       }
     ]
   },
   "scores": {
-    "passRate": 99.8,
+    "passRate": 100,
     "completeness": 95.5,
-    "consistency": 99.8,
+    "consistency": 99.7,
     "confidence": 98.8
   }
 }
