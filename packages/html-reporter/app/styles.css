@@ -2850,16 +2850,15 @@
       align-items: center;
       gap: var(--space-sm);
       margin-bottom: var(--space-sm);
-      flex-wrap: wrap;
     }
 
     .run-selector-row select {
       min-width: 200px;
+      flex: 1 1 auto;
     }
 
     @media (max-width: 768px) {
       .run-selector-row select {
-        flex: 1 1 100%;
         min-width: 0;
         font-size: var(--font-sm);
       }
@@ -2867,7 +2866,7 @@
 
     .run-select--historical { background-color: var(--accent-light); border-color: var(--accent); }
     .run-select--historical:hover { border-color: var(--accent); filter: brightness(1.1); }
-    .show-latest-link { font-size: var(--font-md); color: var(--accent); white-space: nowrap; text-decoration: underline; text-underline-offset: 2px; flex-shrink: 0; }
+    .show-latest-link { font-size: var(--font-md); color: var(--accent); white-space: nowrap; text-decoration: underline; text-underline-offset: 2px; flex-shrink: 0; padding: var(--space-xs) var(--space-sm); }
     .show-latest-link:hover { filter: brightness(1.2); }
 
     /* ===== Controls Row ===== */
@@ -3024,6 +3023,7 @@
       overflow-x: auto;
       padding: var(--space-sm) 0;
       scroll-snap-type: x mandatory;
+      --fade-size: 32px;
     }
 
     .photo-strip-item {
@@ -3340,8 +3340,6 @@
       -webkit-mask-image: linear-gradient(to right, transparent, black var(--fade-size, 24px), black calc(100% - var(--fade-size, 24px)), transparent);
       mask-image: linear-gradient(to right, transparent, black var(--fade-size, 24px), black calc(100% - var(--fade-size, 24px)), transparent);
     }
-
-    .photo-strip { --fade-size: 32px; }
 
     .btn-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-secondary); font-size: var(--font-lg); padding: 4px; line-height: 1; }
     .historical-banner { display: flex; align-items: center; justify-content: space-between; padding: 10px var(--space-md); margin-bottom: var(--space-md); background: var(--accent-light); border: 1px solid var(--accent); border-radius: var(--radius-sm); font-size: var(--font-md); }
