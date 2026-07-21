@@ -85,14 +85,16 @@ class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
 
         // HtmlReportGenerator dependencies
         const projectFileSystem = new FileSystem(Path.from(process.cwd()));
+        const requirementsHierarchy = new RequirementsHierarchy(
+            projectFileSystem,
+            this.config.specDirectory ? Path.from(this.config.specDirectory) : undefined,
+        );
         const aggregator = new DataSnapshotAggregator(outputFileSystem, {
             consistencyWindow: this.config.consistencyWindow ?? 5,
             maxHistory: this.config.maxHistory,
             title: this.config.title,
-        }, this.config.specDirectory
-            ? new RequirementsHierarchy(projectFileSystem, Path.from(this.config.specDirectory))
-            : undefined,
-        this.config.specDirectory ? projectFileSystem : undefined,
+            buildCapabilities: !!this.config.specDirectory,
+        }, requirementsHierarchy, projectFileSystem, projectFileSystem,
         );
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
 

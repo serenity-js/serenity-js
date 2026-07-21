@@ -1,5 +1,3 @@
-import { readFileSync } from 'node:fs';
-
 import type { FileSystem } from '@serenity-js/core/io';
 import type { RequirementsHierarchy } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
@@ -26,7 +24,7 @@ interface AggregatorConfig {
     consistencyWindow: number;
     maxHistory?: number;
     title?: string;
-    specDirectory?: string;
+    buildCapabilities?: boolean;
 }
 
 /**
@@ -39,9 +37,9 @@ export class DataSnapshotAggregator {
     constructor(
         private readonly fileSystem: FileSystem,
         private readonly config: AggregatorConfig,
-        private readonly requirementsHierarchy?: RequirementsHierarchy,
-        private readonly projectFileSystem?: FileSystem,
-        private readonly sourceFileSystem?: FileSystem,
+        private readonly requirementsHierarchy: RequirementsHierarchy,
+        private readonly projectFileSystem: FileSystem,
+        private readonly sourceFileSystem: FileSystem,
     ) {
     }
 
@@ -80,14 +78,15 @@ export class DataSnapshotAggregator {
             newFailures,
             newPasses,
             systemContext: this.buildSystemContext(latestRun),
-            capabilities: this.requirementsHierarchy ? buildCapabilities(latestRun, allRuns, this.requirementsHierarchy, this.projectFileSystem) : undefined,
-            specDirectory: this.normaliseSpecDirectoryForClient(this.config.specDirectory),
+            capabilities: this.config.buildCapabilities ? buildCapabilities(latestRun, allRuns, this.requirementsHierarchy, this.projectFileSystem) : undefined,
+            specDirectory: this.resolveSpecDirectoryForClient(),
         };
 
         const js = `window.__SERENITY_REPORT_DATA__ = ${ JSON.stringify(snapshot, undefined, 2) };\n`;
         this.fileSystem.storeSync(Path.from('data.js'), js, 'utf8');
 
-        new SummaryJsonWriter(this.fileSystem).write(snapshot, this.config.specDirectory);
+        const specDirectoryPath = (() => { try { return this.requirementsHierarchy.rootDirectory().value; } catch { return undefined; } })();
+        new SummaryJsonWriter(this.fileSystem).write(snapshot, specDirectoryPath);
     }
 
     private pruneOldRuns(runDirectories: Path[]): void {
@@ -137,13 +136,10 @@ export class DataSnapshotAggregator {
     }
 
     private loadAndValidateRuns(paths: string[]): Array<{ run: RunData; path: string }> {
-        const sourceFs = this.sourceFileSystem;
         const results: Array<{ run: RunData; path: string }> = [];
 
         for (const databaseJsonPath of paths) {
-            const content = sourceFs
-                ? sourceFs.readFileSync(Path.from(databaseJsonPath), { encoding: 'utf8' }) as string
-                : readFileSync(databaseJsonPath, 'utf8');
+            const content = this.sourceFileSystem.readFileSync(Path.from(databaseJsonPath), { encoding: 'utf8' }) as string;
             const run = this.safeParseRunData(content, databaseJsonPath);
             if (!run) continue;
             results.push({ run, path: databaseJsonPath });
@@ -355,11 +351,6 @@ export class DataSnapshotAggregator {
     }
 
     private copyArtifactsFromSource(databaseJsonPath: string, runId: string, subDirectory: string): void {
-        const sourceFs = this.sourceFileSystem;
-        if (!sourceFs) {
-            return;
-        }
-
         const safeRunId = runId.replaceAll(':', '-');
         const sourceDirectory = Path.from(databaseJsonPath.replace(/\/db\.json$/, ''));
         const targetDirectory = subDirectory === '.'
@@ -368,7 +359,7 @@ export class DataSnapshotAggregator {
 
         this.fileSystem.ensureDirectoryExistsAtSync(targetDirectory);
 
-        const entries = sourceFs.readdirSync(sourceDirectory);
+        const entries = this.sourceFileSystem.readdirSync(sourceDirectory);
         for (const entry of entries) {
             if (entry === 'db.json') {
                 continue; // merged db.json is written separately at the build-level path
@@ -378,7 +369,7 @@ export class DataSnapshotAggregator {
                 continue;
             }
             const sourcePath = sourceDirectory.join(Path.from(entry));
-            const data = sourceFs.readFileSync(sourcePath);
+            const data = this.sourceFileSystem.readFileSync(sourcePath);
             this.fileSystem.storeSync(targetPath, data, undefined);
         }
     }
@@ -659,25 +650,18 @@ export class DataSnapshotAggregator {
     }
 
     /**
-     * Normalises specDirectory for client-side use.
-     * The client only needs the relative directory name as a marker for
-     * stripping absolute path prefixes from error messages and stack traces.
-     *
-     * - Absolute paths → basename (last segment)
-     * - Relative paths → stripped of leading `./`
+     * Derives the specDirectory marker for client-side path stripping.
+     * Uses {@link RequirementsHierarchy} to resolve the root directory
+     * (either from explicit config or via auto-detection), then returns
+     * just the basename for use as a path marker in the browser.
      */
-    private normaliseSpecDirectoryForClient(specDirectory: string | undefined): string | undefined {
-        if (!specDirectory) {
+    private resolveSpecDirectoryForClient(): string | undefined {
+        try {
+            const root = this.requirementsHierarchy.rootDirectory();
+            return root.basename();
+        } catch {
             return undefined;
         }
-
-        const path = Path.from(specDirectory);
-
-        if (path.isAbsolute()) {
-            return path.basename();
-        }
-
-        return path.value.replace(/^\.\//, '');
     }
 }
 

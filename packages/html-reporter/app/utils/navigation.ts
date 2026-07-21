@@ -27,21 +27,27 @@ export function browserBadgeClass(browserTag: string): string {
 }
 
 export function relativeSourcePath(scenario: { source: ReportSource; name: string }, specDirectory?: string): string {
-    const p = scenario.source.path;
-    const directory = specDirectory || 'spec';
-    const marker = '/' + directory + '/';
-    const index = p.indexOf(marker);
-    const relativePath = index !== -1 ? p.slice(index + marker.length) : p;
+    const relativePath = stripAbsolutePrefix(scenario.source.path, specDirectory);
     return scenario.source.line ? relativePath + ':' + scenario.source.line : relativePath;
 }
 
 export function relativeLocationPath(location: { path: string; line: number; column?: number }, specDirectory?: string): string {
-    const p = location.path;
-    const directory = specDirectory || 'spec';
-    const marker = '/' + directory + '/';
-    const index = p.indexOf(marker);
-    const relativePath = index !== -1 ? p.slice(index + marker.length) : p;
+    const relativePath = stripAbsolutePrefix(location.path, specDirectory);
     return relativePath + ':' + location.line;
+}
+
+function stripAbsolutePrefix(filePath: string, specDirectory?: string): string {
+    if (!specDirectory) {
+        return filePath;
+    }
+
+    const marker = '/' + specDirectory + '/';
+    const index = filePath.indexOf(marker);
+    if (index !== -1) {
+        return filePath.slice(index + marker.length);
+    }
+
+    return filePath;
 }
 
 export function scenarioUrl(scenario: { source: ReportSource; name: string; tags?: ReportScenarioTag[] }, run?: number | string | null, history?: Array<{ timestamp: string }>): string {

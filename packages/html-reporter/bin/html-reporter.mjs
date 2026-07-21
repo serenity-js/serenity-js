@@ -124,18 +124,19 @@ Examples:
     const outputFileSystem = new FileSystem(Path.from(outputDir));
 
     let requirementsHierarchy;
-    let projectFileSystem;
+    const projectFileSystem = new FileSystem(Path.from(process.cwd()));
 
     if (args.specRoot) {
-        projectFileSystem = new FileSystem(Path.from(process.cwd()));
         requirementsHierarchy = new RequirementsHierarchy(projectFileSystem, Path.from(args.specRoot));
+    } else {
+        requirementsHierarchy = new RequirementsHierarchy(projectFileSystem);
     }
 
     const aggregator = new DataSnapshotAggregator(outputFileSystem, {
         consistencyWindow: args.consistencyWindow ? parseInt(args.consistencyWindow, 10) : 5,
         maxHistory: args.maxHistory ? parseInt(args.maxHistory, 10) : undefined,
         title: args.title,
-        specDirectory: args.specRoot,
+        buildCapabilities: !!args.specRoot,
     }, requirementsHierarchy, projectFileSystem, sourceFileSystem);
 
     aggregator.aggregate(dbJsonPaths);

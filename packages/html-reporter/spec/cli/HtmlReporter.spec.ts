@@ -67,10 +67,11 @@ test.describe('HtmlReporter', () => {
         }, '/')) as unknown as typeof fs;
 
         const outputFileSystem = new FileSystem(outputDirectory, filesystem);
+        const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
         const artifactWriter = new ArtifactWriter(outputFileSystem);
         const sceneDataCollector = new SceneDataCollector();
         const runDataWriter = new RunDataWriter(outputFileSystem);
-        const aggregator = new DataSnapshotAggregator(outputFileSystem, { consistencyWindow: 5 });
+        const aggregator = new DataSnapshotAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), rootFileSystem, rootFileSystem);
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
         const systemContextDetector = new SystemContextDetector(new CIDetector({}), new ModuleLoader(process.cwd()));
 
@@ -230,7 +231,7 @@ test.describe('HtmlReporter', () => {
                 [outputDirectory.value]: {},
             }, '/')) as unknown as typeof fs;
             const outputFileSystem = new FileSystem(outputDirectory, reportFs);
-            const aggregator = new DataSnapshotAggregator(outputFileSystem, { consistencyWindow: 5 }, hierarchy, projectFileSystem);
+            const aggregator = new DataSnapshotAggregator(outputFileSystem, { consistencyWindow: 5, buildCapabilities: true }, hierarchy, projectFileSystem, projectFileSystem);
             const artifactWriter = new ArtifactWriter(outputFileSystem);
             const sceneDataCollector = new SceneDataCollector();
             const runDataWriter = new RunDataWriter(outputFileSystem);
@@ -473,7 +474,8 @@ test.describe('HtmlReporter', () => {
 
                 // Mimics HtmlReporterBuilder with no explicit testRunId
                 const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, detectTestRunId(), detectModuleId(), 1, stage);
-                const aggregator = new DataSnapshotAggregator(outputFileSystem, { consistencyWindow: 5 });
+                const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
+                const aggregator = new DataSnapshotAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), rootFileSystem, rootFileSystem);
                 const templateWriter = new ReportTemplateWriter(outputFileSystem);
                 const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
                 const reporter = new HtmlReporter(archiver, generator);
@@ -517,7 +519,8 @@ test.describe('HtmlReporter', () => {
 
                 // Mimics HtmlReporterBuilder with no explicit testRunId and no env vars
                 const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, detectTestRunId(), detectModuleId(), 1, stage);
-                const aggregator = new DataSnapshotAggregator(outputFileSystem, { consistencyWindow: 5 });
+                const rootFileSystem2 = new FileSystem(Path.from('/'), filesystem);
+                const aggregator = new DataSnapshotAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem2), rootFileSystem2, rootFileSystem2);
                 const templateWriter = new ReportTemplateWriter(outputFileSystem);
                 const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
                 const reporter = new HtmlReporter(archiver, generator);

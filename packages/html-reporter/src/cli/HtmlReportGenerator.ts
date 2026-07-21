@@ -108,11 +108,11 @@ class HtmlReportGeneratorBuilder implements StageCrewMemberBuilder<HtmlReportGen
             consistencyWindow: this.config.consistencyWindow ?? 5,
             maxHistory: this.config.maxHistory,
             title: this.config.title,
-            specDirectory: this.config.specDirectory,
-        }, this.config.specDirectory
-            ? new RequirementsHierarchy(projectFileSystem, Path.from(this.config.specDirectory))
-            : undefined,
-        this.config.specDirectory ? projectFileSystem : undefined,
+            buildCapabilities: !!this.config.specDirectory,
+        }, new RequirementsHierarchy(
+            projectFileSystem,
+            this.config.specDirectory ? Path.from(this.config.specDirectory) : undefined,
+        ), projectFileSystem, projectFileSystem,
         );
 
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
