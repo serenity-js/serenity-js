@@ -560,3 +560,40 @@ Use prefix matching: `[aria-label^="Select test run"]` instead of exact matching
 The RunSelector historical state change exposed this: `ScenariosView.serenity.ts` had `[aria-label="Select test run"]` which only matched the non-historical state. Updated to `[aria-label^="Select test run"]` to match both states.
 
 General rule: when modifying a component to add state-dependent attributes, grep for all interaction objects that locate it and update their selectors to remain stable across states.
+
+
+## Heterogeneous registries need a generic builder function, not loose types
+
+When a collection holds items with different type parameters (e.g., route definitions where each route has different view props), the naive approach is to widen the member type to `Record<string, unknown>` or `any`. This erases the type safety between producers and consumers.
+
+Pattern: use a `defineX<P>(config)` builder function that infers the generic, verifies internal consistency, then returns the type-erased collection member:
+
+```typescript
+function defineRoute<P>(config: RouteConfig<P>): RouteDefinition {
+    return config as unknown as RouteDefinition;
+}
+```
+
+The generic proves consistency at definition time; the cast is safe because it happens in exactly one controlled location. Callers never see `any` or need to cast.
+
+Applied to: `app/router/routes.ts` where each route ties a view component to its data function.
+
+## `Record<string, unknown>` as a return type is a code smell
+
+If a function constructs a specific structure (chart options, props object, API response), type the return precisely. `Record<string, unknown>` means "I know the shape but I'm not telling TypeScript" — it forces every consumer to cast.
+
+Common trigger: starting with a loose type during prototyping and never tightening it. The fix is mechanical — just declare the return type to match the object literal being returned.
+
+## Function parameter types should match actual field access, not the source interface
+
+When a function accesses `obj.tags` but is typed to accept `FullScenarioInterface`, every caller must provide a full scenario even if they only have `{ tags }`. Type parameters based on *what the function reads*, not *where the data typically comes from*:
+
+```typescript
+// Over-constrained: demands 8 fields, reads 1
+function getBrowserTag(scenario: ReportScenario): string | null
+
+// Right: demands only what it accesses
+function getBrowserTag(scenario: { tags?: Array<{ type: string; name: string }> }): string | null
+```
+
+This avoids casts at call sites and makes the function composable with partial data (e.g., in tests or when constructing objects incrementally).

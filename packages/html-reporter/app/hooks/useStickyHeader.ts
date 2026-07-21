@@ -1,21 +1,21 @@
 import { useCallback, useEffect, useRef } from 'preact/hooks';
 
-interface StickyHeaderOptions {
+interface StickyHeaderOptions<H extends { type: string }> {
     parentRef: { current: HTMLElement | null };
     id: string;
-    flatItems: Array<{ type: string; [key: string]: unknown }>;
+    flatItems: ReadonlyArray<H>;
     enabled: boolean;
     headerHeight: number;
     firstHeaderHeight: number;
     rowHeight: number;
-    renderContent: (element: HTMLDivElement, item: { type: string; [key: string]: unknown }) => void;
+    renderContent: (element: HTMLDivElement, item: H) => void;
 }
 
 interface StickyHeaderResult {
     parentRefCallback: (node: HTMLElement | null) => void;
 }
 
-export function useStickyHeader(options: StickyHeaderOptions): StickyHeaderResult {
+export function useStickyHeader<H extends { type: string }>(options: StickyHeaderOptions<H>): StickyHeaderResult {
     const { parentRef, id, flatItems, enabled, headerHeight, firstHeaderHeight, rowHeight, renderContent } = options;
 
     const stickyElementRef = useRef<HTMLDivElement | null>(null);

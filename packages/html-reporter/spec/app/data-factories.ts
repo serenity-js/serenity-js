@@ -6,7 +6,7 @@
 
 import { CURRENT_REPORT_DATA_SCHEMA_VERSION, type ReportData } from '../../src/cli/ReportData.js';
 
-export function minimalData(overrides: Partial<ReportData> & Record<string, unknown> = {}): ReportData {
+export function minimalData(overrides: Partial<ReportData> = {}): ReportData {
     return {
         schemaVersion: overrides.schemaVersion ?? CURRENT_REPORT_DATA_SCHEMA_VERSION,
         summary: {

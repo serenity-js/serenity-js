@@ -1,7 +1,7 @@
 import { useMemo } from 'preact/hooks';
 
 import type { ReportHistoryEntry } from '../../src/cli/ReportData';
-import { resolveRunIndex } from '../utils';
+import { resolveRunIndex, targetValue } from '../utils';
 
 interface RunSelection {
     runIndex: number | null;
@@ -21,7 +21,7 @@ export function useRunSelection(route: string, history: ReportHistoryEntry[], ba
     const activeTimestamp = runIndex !== null && history[runIndex] ? history[runIndex].timestamp : history[history.length - 1]?.timestamp || null;
 
     const onRunChange = (event: Event) => {
-        const timestamp = (event.target as HTMLSelectElement).value;
+        const timestamp = targetValue(event);
         const index = history.findIndex(r => r.timestamp === timestamp);
         const isLatest = index === history.length - 1;
         onNavigate(isLatest ? basePath : basePath + '?run=' + timestamp);

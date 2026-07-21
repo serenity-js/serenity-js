@@ -1,5 +1,6 @@
 export { ansiToHtml, stripAnsi } from './ansi-to-html';
 export { DATA } from './data';
+export { targetValue } from './events';
 export { abbreviateRunLabels, formatDuration, formatRunLabel, formatTimestamp, outcomeClass, outcomeDisplayName, outcomeIcon, scoreColor } from './format';
 export { stripAbsolutePaths } from './formatError';
 export { hashHistory, useHashHistory } from './hashHistory';

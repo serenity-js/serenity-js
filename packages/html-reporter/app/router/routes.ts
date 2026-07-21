@@ -12,12 +12,13 @@ import { TestRunsView } from '../components/test-runs/TestRunsView';
 import { TimelineView } from '../components/timeline/TimelineView';
 import { totalFailedCount } from '../utils';
 import type { RouteDefinition } from './RouteDefinition';
+import { defineRoute, routeWithQuery } from './RouteDefinition';
 
 export const routes: RouteDefinition[] = [
-    {
+    defineRoute({
         pattern: '/',
         title: (data: ReportData) => data.summary.title,
-        view: DashboardView as unknown as RouteDefinition['view'],
+        view: DashboardView,
         icon: 'dashboard',
         navLabel: 'Dashboard',
         data: (data) => ({
@@ -30,22 +31,22 @@ export const routes: RouteDefinition[] = [
             capabilities: data.capabilities,
             systemContext: data.systemContext,
         }),
-    },
-    {
+    }),
+    defineRoute({
         pattern: '/tests/:id',
         title: 'Test Scenario',
-        view: ScenarioDetailView as unknown as RouteDefinition['view'],
+        view: ScenarioDetailView,
         data: (data, params) => ({
             scenarios: data.scenarios,
             history: data.history,
             specDirectory: data.specDirectory,
             scenarioId: params.segment + (params.query.toString() ? '?' + params.query.toString() : ''),
         }),
-    },
-    {
+    }),
+    defineRoute({
         pattern: '/tests',
         title: 'Test Scenarios',
-        view: ScenariosView as unknown as RouteDefinition['view'],
+        view: ScenariosView,
         icon: 'testScenarios',
         navLabel: 'Test Scenarios',
         badge: (data: ReportData) => totalFailedCount(data.summary.outcomes),
@@ -54,85 +55,85 @@ export const routes: RouteDefinition[] = [
             history: data.history,
             summary: data.summary,
             specDirectory: data.specDirectory,
-            route: params.path + (params.query.toString() ? '?' + params.query.toString() : ''),
+            route: routeWithQuery(params),
         }),
-    },
-    {
+    }),
+    defineRoute({
         pattern: '/capabilities',
         title: 'Capabilities',
-        view: CapabilitiesView as unknown as RouteDefinition['view'],
+        view: CapabilitiesView,
         icon: 'completeness',
         navLabel: 'Capabilities',
         data: (data, params) => ({
             capabilities: data.capabilities,
-            route: params.path + (params.query.toString() ? '?' + params.query.toString() : ''),
+            route: routeWithQuery(params),
         }),
-    },
-    {
+    }),
+    defineRoute({
         pattern: '/errors',
         title: 'Errors',
-        view: ErrorsView as unknown as RouteDefinition['view'],
+        view: ErrorsView,
         icon: 'errors',
         navLabel: 'Errors',
         data: (data, params) => ({
             scenarios: data.scenarios,
             history: data.history,
             specDirectory: data.specDirectory,
-            route: params.path + (params.query.toString() ? '?' + params.query.toString() : ''),
+            route: routeWithQuery(params),
         }),
-    },
-    {
+    }),
+    defineRoute({
         pattern: '/consistency',
         title: 'Consistency',
-        view: ConsistencyView as unknown as RouteDefinition['view'],
+        view: ConsistencyView,
         icon: 'unstable',
         navLabel: 'Consistency',
         data: (data) => ({
             inconsistentTests: data.inconsistentTests || [],
             specDirectory: data.specDirectory,
         }),
-    },
-    {
+    }),
+    defineRoute({
         pattern: '/timeline',
         title: 'Timeline',
-        view: TimelineView as unknown as RouteDefinition['view'],
+        view: TimelineView,
         icon: 'timeline',
         navLabel: 'Timeline',
         data: (data) => ({
             scenarios: data.scenarios,
             summary: data.summary,
         }),
-    },
-    {
+    }),
+    defineRoute({
         pattern: '/tags',
         title: 'Tags',
-        view: TagsView as unknown as RouteDefinition['view'],
+        view: TagsView,
         icon: 'tags',
         navLabel: 'Tags',
         data: (data) => ({ tags: data.tags }),
-    },
-    {
+    }),
+    defineRoute({
         pattern: '/test-runs',
         title: 'Test Runs',
-        view: TestRunsView as unknown as RouteDefinition['view'],
+        view: TestRunsView,
         icon: 'testRuns',
         navLabel: 'Test Runs',
         data: (data) => ({ history: data.history }),
-    },
-    {
+    }),
+    defineRoute({
         pattern: '/system',
         title: 'System Context',
-        view: SystemContextView as unknown as RouteDefinition['view'],
+        view: SystemContextView,
         icon: 'system',
         navLabel: 'System Context',
         data: (data) => ({ systemContext: data.systemContext }),
-    },
-    {
+    }),
+    defineRoute({
         pattern: '/about',
         title: 'About This Report',
-        view: AboutView as unknown as RouteDefinition['view'],
+        view: AboutView,
         icon: 'info',
         navLabel: 'About This Report',
         data: () => ({}),
-    },
+    }),
 ];

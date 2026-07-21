@@ -1,6 +1,8 @@
 import htm from 'htm';
 import { h } from 'preact';
 
+import { targetValue } from '../../utils';
+
 const html = htm.bind(h);
 
 interface SearchInputProps {
@@ -17,7 +19,7 @@ export function SearchInput({ value, onInput, placeholder, ariaLabel }: SearchIn
     return html`
         <div style="position:relative" class="mb-md" data-testid="search-input">
             <input class="search-input" type="text" placeholder=${resolvedPlaceholder}
-                value=${value} onInput=${(e: Event) => onInput((e.target as HTMLInputElement).value)}
+                value=${value} onInput=${(e: Event) => onInput(targetValue(e))}
                 aria-label=${resolvedAriaLabel} />
             ${value ? html`<button onClick=${() => onInput('')}
                 class="btn-clear"

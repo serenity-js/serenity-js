@@ -1,3 +1,5 @@
+import type { ComponentChild } from 'preact';
+
 import type { ReportData } from '../../src/cli/ReportData';
 
 export interface RouteParameters {
@@ -9,33 +11,49 @@ export interface RouteParameters {
     segment?: string;
 }
 
-export interface RouteDefinition {
-    /**
-     * URL pattern to match.
-     * - Exact: '/tags'
-     * - With query: '/tests' (also matches '/tests?filter=failed')
-     * - Dynamic segment: '/tests/:id' (captures everything after '/tests/')
-     */
+/**
+ * A route definition that ties a view component to its data source.
+ *
+ * The generic `P` ensures type safety between `data` (which produces props)
+ * and `view` (which consumes them). App.ts additionally passes `onNavigate`
+ * at render time.
+ */
+export interface RouteConfig<P> {
     pattern: string;
-
-    /** Page title. String or function for dynamic titles. */
     title: string | ((data: ReportData) => string);
-
-    /** The view component to render for this route. */
-    view: (props: Record<string, unknown>) => unknown;
-
-    /** Icon key from icons.ts for the sidebar navigation. */
+    view: (props: P & { onNavigate: (path: string) => void }) => ComponentChild;
+    data: (data: ReportData, params: RouteParameters) => P;
     icon?: string;
-
-    /** Label for the sidebar navigation. Omit to hide from nav. */
     navLabel?: string;
-
-    /** Badge count for the sidebar navigation item. */
     badge?: (data: ReportData) => number;
+}
 
-    /**
-     * Selects the data subset this view needs from the full ReportData.
-     * Returns the props object that will be spread onto the view component.
-     */
+/**
+ * Type-erased route definition used in the routes array.
+ * Individual routes are type-checked at definition time via {@link defineRoute}.
+ */
+export interface RouteDefinition {
+    pattern: string;
+    title: string | ((data: ReportData) => string);
+    view: (props: Record<string, unknown>) => ComponentChild;
     data: (data: ReportData, params: RouteParameters) => Record<string, unknown>;
+    icon?: string;
+    navLabel?: string;
+    badge?: (data: ReportData) => number;
+}
+
+/**
+ * Defines a route with compile-time verification that the view's props
+ * match the data function's return type.
+ */
+export function defineRoute<P>(config: RouteConfig<P>): RouteDefinition {
+    return config as unknown as RouteDefinition;
+}
+
+/**
+ * Reconstructs the full route string including query parameters.
+ */
+export function routeWithQuery(params: RouteParameters): string {
+    const qs = params.query.toString();
+    return qs ? params.path + '?' + qs : params.path;
 }

@@ -49,7 +49,7 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
             const entry = s.executionHistory.find(e => e.timestamp === runTimestamp);
             if (!entry) continue;
             if (entry.outcome === 'FAILURE' || entry.outcome === 'ERROR' || entry.outcome === 'COMPROMISED' || entry.error) {
-                // Create a view of the scenario with the historical run's outcome/error/duration
+                // Construct a minimal scenario from the historical entry for display in ErrorRow
                 result.push({
                     ...s,
                     outcome: entry.outcome,
@@ -132,22 +132,31 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
         `;
     }, [categoryOrder]);
 
-    const renderStickyContent = useCallback((element: HTMLDivElement, item: { type: string; [key: string]: unknown }) => {
+    const renderStickyContent = useCallback((element: HTMLDivElement, header: { type: 'header'; category: string; icon: string; name: string; count: number }) => {
         element.style.display = 'flex';
         element.style.alignItems = 'center';
         element.style.gap = 'var(--space-sm)';
         element.innerHTML = '';
         const iconSpan = document.createElement('span');
-        iconSpan.textContent = (item.icon as string) || '✗';
+        iconSpan.textContent = header.icon;
         const nameSpan = document.createElement('span');
-        nameSpan.textContent = (item.name as string) || '';
+        nameSpan.textContent = header.name;
         const countSpan = document.createElement('span');
-        countSpan.textContent = '(' + (item.count || 0) + ')';
+        countSpan.textContent = '(' + header.count + ')';
         countSpan.style.cssText = 'font-size:var(--font-xs);color:var(--text-disabled);font-weight:400';
         element.appendChild(iconSpan);
         element.appendChild(nameSpan);
         element.appendChild(countSpan);
     }, []);
+
+    const groupHeaderData = useCallback((category: string) => {
+        const cat = categoryOrder.find(c => c.name === category);
+        return {
+            icon: categoryIcons[category] || '✗',
+            name: category,
+            count: cat ? cat.scenarios.length : 0,
+        };
+    }, [categoryOrder]);
 
     if (errorScenarios.length === 0) {
         return html`
@@ -176,6 +185,7 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
             rowHeight=${ROW_HEIGHTS.error}
             renderItem=${renderItem}
             renderGroupHeader=${renderGroupHeader}
+            groupHeaderData=${groupHeaderData}
             renderStickyContent=${renderStickyContent}
             id="vs-errors-sticky"
         />

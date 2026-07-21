@@ -21,6 +21,11 @@ export function outcomeIcon(outcome: string): string {
     return map[outcome] || '?';
 }
 
+/**
+ * Maps an outcome string to a human-readable display name.
+ * Note: outcome values are strings from data.js, not a compile-time union.
+ * New outcomes (e.g. 'RETRIED_SUCCESS') must be added here manually.
+ */
 export function outcomeDisplayName(outcome: string): string {
     const map: Record<string, string> = { SUCCESS: 'Passed', FAILURE: 'Failed', PENDING: 'Pending', SKIPPED: 'Skipped', COMPROMISED: 'Compromised', ERROR: 'Error', RETRIED_SUCCESS: 'Retried success' };
     return map[outcome] || outcome;

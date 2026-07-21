@@ -50,7 +50,7 @@ export function useViewState({ basePath, route, defaults, extraParams }: ViewSta
         const parameterString = params.toString();
         const newHash = parameterString ? basePath + '?' + parameterString : basePath;
         hashNav.replace(newHash);
-    }, [search, filter, sort]);
+    }, [search, filter, sort, basePath, extraParams]);
 
     return { search, setSearch, filter, setFilter, sort, setSort };
 }

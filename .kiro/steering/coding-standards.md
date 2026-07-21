@@ -272,3 +272,112 @@ oldMethod(param: string): void {
 - Adding new methods, properties, classes, or modules
 - Bug fixes (even if someone depended on buggy behaviour)
 - Performance improvements
+
+## Type Precision
+
+TypeScript types are documentation that the compiler enforces. Loose types (`any`, `Record<string, unknown>`, `unknown[]`) defer errors to runtime — treat them as technical debt from the moment they're written.
+
+### Return types must be as specific as the implementation allows
+
+```typescript
+// Wrong: caller loses all structure
+function buildOptions(): Record<string, unknown> { ... }
+
+// Right: caller gets compile-time verification
+function buildOptions(): ChartOptions { ... }
+```
+
+If a function constructs a well-shaped object, type the return to match. Never use `Record<string, unknown>` as a return type when the actual shape is known.
+
+### Function parameters should accept the minimum required type
+
+```typescript
+// Wrong: demands the full interface but only uses .tags
+function getBrowserTag(scenario: ReportScenario): string | undefined { ... }
+
+// Right: accepts anything with the fields actually accessed
+function getBrowserTag(scenario: { tags?: Array<{ type: string; name: string }> }): string | undefined { ... }
+```
+
+This makes the function reusable across contexts without forcing callers to cast or provide unnecessary fields.
+
+### Tie producers and consumers together generically
+
+When one function produces data that another consumes, use a generic to enforce consistency at the definition site:
+
+```typescript
+// Wrong: view and data are typed independently — mismatch is a runtime error
+interface RouteDefinition {
+    view: (props: Record<string, unknown>) => ComponentChild;
+    data: () => Record<string, unknown>;
+}
+
+// Right: generic ties data's output to view's input — mismatch is a compile error
+interface RouteConfig<P> {
+    view: (props: P) => ComponentChild;
+    data: () => P;
+}
+
+function defineRoute<P>(config: RouteConfig<P>): RouteDefinition {
+    return config as unknown as RouteDefinition;  // safe: generic already proved consistency
+}
+```
+
+Use this pattern (builder function with generic inference) whenever a heterogeneous collection needs type-safe members that can't share a single concrete type parameter.
+
+### Avoid `any` — use these alternatives
+
+| Situation | Instead of `any` | Use |
+|-----------|------------------|-----|
+| Heterogeneous collection member | `as any` at registration | Generic builder function (see above) |
+| Callback with varying params | `(...args: any[]) => any` | Minimal required type: `(event: Event) => void` |
+| Third-party library mismatch | `value as any` | Import the library's own types |
+| Object with dynamic keys | `Record<string, any>` | `Record<string, unknown>` + type narrowing |
+| Test data factory | `Partial<T> & Record<string, unknown>` | `Partial<T>` — don't weaken for convenience |
+
+The only acceptable `any` is inside a generic builder function body (where the generic already proved type safety) or in an eslint-disable-commented type alias with a JSDoc explaining why (e.g., framework interop).
+
+### Fallback values must preserve the expected type
+
+```typescript
+// Wrong: TypeScript infers {} which has no properties
+const runner = context.testRunner || {};
+runner.name; // TS2339: Property 'name' does not exist on type '{}'
+
+// Right: typed fallback preserves the interface
+const runner = context.testRunner || { name: '', version: '' };
+runner.name; // OK
+```
+
+### useEffect early returns require explicit `return undefined`
+
+TypeScript's `noImplicitReturns` flag treats `return;` as inconsistent with `return () => cleanup()` in useEffect callbacks. Always use `return undefined;` for early exits:
+
+```typescript
+useEffect(() => {
+    if (!shouldRun) return undefined;
+    const handler = () => { ... };
+    element.addEventListener('change', handler);
+    return () => element.removeEventListener('change', handler);
+}, [shouldRun]);
+```
+
+### Repeated inline expressions should be a named utility with a precise type
+
+If the same expression appears 3+ times, extract it to a named function with a typed signature. The function name documents intent; the type prevents drift:
+
+```typescript
+// Wrong: same arithmetic inlined in 11 files
+(outcomes.failed || 0) + (outcomes.error || 0) + (outcomes.compromised || 0)
+
+// Right: single typed utility
+function totalFailedCount(outcomes: ReportOutcomes): number { ... }
+```
+
+### DOM lib configuration for browser code
+
+When a tsconfig covers browser code that iterates DOM collections (`for...of` on `NodeListOf`, spreading `querySelectorAll` results), include `"dom.iterable"` alongside `"dom"` in the lib array:
+
+```json
+{ "lib": ["es2023", "dom", "dom.iterable"] }
+```

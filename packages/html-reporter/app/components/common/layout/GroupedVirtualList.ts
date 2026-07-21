@@ -9,7 +9,7 @@ import type { Range } from '../../../hooks/useVirtualizer';
 
 const html = htm.bind(h);
 
-export interface GroupedVirtualListProps<T> {
+export interface GroupedVirtualListProps<T, H = { category: string }> {
     /** Items to render */
     items: T[];
 
@@ -43,13 +43,16 @@ export interface GroupedVirtualListProps<T> {
     /** Aria label for the scroll container. */
     ariaLabel?: string;
 
-    /** Custom content to render inside the sticky header. Called with (element, item). */
-    renderStickyContent?: (element: HTMLDivElement, item: { type: string; [key: string]: unknown }) => void;
+    /** Computes additional header data for each group. Used by renderStickyContent. */
+    groupHeaderData?: (groupKey: string, groupItems: T[]) => H;
+
+    /** Custom content to render inside the sticky header. Called with (element, headerData). */
+    renderStickyContent?: (element: HTMLDivElement, header: H & { type: 'header'; category: string }) => void;
 }
 
-type FlatItem<T> = { type: 'header'; category: string } | { type: 'item'; item: T };
+type FlatItem<T, H> = { type: 'header'; category: string } & H | { type: 'item'; item: T };
 
-export function GroupedVirtualList<T>({
+export function GroupedVirtualList<T, H = { category: string }>({
     items,
     groupBy,
     rowHeight,
@@ -61,11 +64,12 @@ export function GroupedVirtualList<T>({
     overscan = 15,
     id = 'grouped-virtual-list',
     ariaLabel,
+    groupHeaderData,
     renderStickyContent,
-}: GroupedVirtualListProps<T>): ReturnType<typeof html> {
+}: GroupedVirtualListProps<T, H>): ReturnType<typeof html> {
     const parentRef = useRef<HTMLElement | null>(null);
 
-    const flatItems: Array<FlatItem<T>> = useMemo(() => {
+    const flatItems: Array<FlatItem<T, H>> = useMemo(() => {
         if (!groupBy) {
             return items.map(item => ({ type: 'item' as const, item }));
         }
@@ -75,15 +79,16 @@ export function GroupedVirtualList<T>({
             if (!groups[key]) groups[key] = [];
             groups[key].push(item);
         }
-        const result: Array<FlatItem<T>> = [];
+        const result: Array<FlatItem<T, H>> = [];
         for (const [category, groupItems] of Object.entries(groups)) {
-            result.push({ type: 'header', category });
+            const headerData = groupHeaderData ? groupHeaderData(category, groupItems) : {} as H;
+            result.push({ type: 'header', category, ...headerData } as FlatItem<T, H>);
             for (const item of groupItems) {
                 result.push({ type: 'item', item });
             }
         }
         return result;
-    }, [items, groupBy]);
+    }, [items, groupBy, groupHeaderData]);
 
     const headerIndices = useMemo(() => {
         const indices: number[] = [];
@@ -126,14 +131,16 @@ export function GroupedVirtualList<T>({
         rangeExtractor,
     });
 
-    const defaultRenderStickyContent = useCallback((element: HTMLDivElement, item: { type: string; [key: string]: unknown }) => {
-        element.textContent = (item.category as string).replace(/ › /g, '  ›  ');
+    const defaultRenderStickyContent = useCallback((element: HTMLDivElement, item: FlatItem<T, H>) => {
+        if (item.type === 'header') {
+            element.textContent = item.category.replace(/ › /g, '  ›  ');
+        }
     }, []);
 
     const { parentRefCallback } = useStickyHeader({
         parentRef,
         id,
-        flatItems: flatItems as Array<{ type: string; [key: string]: unknown }>,
+        flatItems,
         enabled: !!groupBy && headerIndices.length > 0,
         headerHeight,
         firstHeaderHeight,
@@ -153,11 +160,10 @@ export function GroupedVirtualList<T>({
             const flatItem = flatItems[virtualRow.index];
             if (flatItem.type === 'header') {
                 const topOffset = virtualRow.index === 0 ? 0 : 16;
-                const headerItem = flatItem as { type: 'header'; category: string };
                 return html`
               <div style="position:absolute;top:0;left:0;width:100%;height:${GROUP_HEADER_HEIGHTS.content}px;transform:translateY(${virtualRow.start + topOffset}px);background:var(--bg-surface);z-index:1"
                    class="scenario-group-header">
-                ${renderGroupHeader ? renderGroupHeader(headerItem.category) : html`<span>${headerItem.category}</span>`}
+                ${renderGroupHeader ? renderGroupHeader(flatItem.category) : html`<span>${flatItem.category}</span>`}
               </div>
             `;
             }

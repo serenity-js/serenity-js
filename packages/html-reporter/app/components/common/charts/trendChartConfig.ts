@@ -1,3 +1,5 @@
+import type { ChartDataset, ChartOptions } from 'chart.js';
+
 import type { ReportHistoryEntry } from '../../../../src/cli/ReportData';
 import { formatDuration, totalFailedCount } from '../../../utils';
 
@@ -16,7 +18,7 @@ function themeColors(chartTheme: string): ThemeColors {
     };
 }
 
-export function buildTrendDatasets(history: ReportHistoryEntry[], theme: string): any[] {
+export function buildTrendDatasets(history: ReportHistoryEntry[], theme: string): ChartDataset[] {
     const { isDark } = themeColors(theme);
     return [
         {
@@ -101,7 +103,7 @@ export function buildTrendDatasets(history: ReportHistoryEntry[], theme: string)
     ];
 }
 
-export function buildTrendOptions(history: ReportHistoryEntry[], theme: string, onClick: (_event: unknown, elements: Array<{ index: number; datasetIndex: number }>) => void): Record<string, unknown> {
+export function buildTrendOptions(history: ReportHistoryEntry[], theme: string, onClick: (_event: unknown, elements: Array<{ index: number; datasetIndex: number }>) => void): ChartOptions {
     const { textColor, gridColor } = themeColors(theme);
     const allDurations = history.flatMap(h => [h.fastest, h.slowest, h.average, h.duration].filter(v => v > 0));
     const minDuration = allDurations.length > 0 ? Math.min(...allDurations) : undefined;

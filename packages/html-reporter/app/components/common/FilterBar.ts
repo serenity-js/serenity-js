@@ -1,6 +1,8 @@
 import htm from 'htm';
 import { h } from 'preact';
 
+import { targetValue } from '../../utils';
+
 const html = htm.bind(h);
 
 export interface FilterDefinition {
@@ -79,7 +81,7 @@ export function FilterBar({ filters, activeFilter, onFilter, ariaLabel, label, m
       </div>
       ${sortOptions ? html`
         <div class="sort-group">
-          <select id="${selectId}" class="sort-select" value=${activeSort} onChange=${(e: Event) => onSort && onSort((e.target as HTMLSelectElement).value)} aria-label="Sort order">
+          <select id="${selectId}" class="sort-select" value=${activeSort} onChange=${(e: Event) => onSort && onSort(targetValue(e))} aria-label="Sort order">
             ${sortOptions.map(s => html`<option value=${s.key} selected=${activeSort === s.key}>${s.label}</option>`)}
           </select>
         </div>
