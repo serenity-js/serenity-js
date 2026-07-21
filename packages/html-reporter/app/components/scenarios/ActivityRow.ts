@@ -2,7 +2,8 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportActivity } from '../../../src/cli/ReportData';
-import { formatDuration, outcomeClass, outcomeIcon, showToast, useHashHistory } from '../../utils';
+import { formatDuration, outcomeClass, outcomeIcon, relativeLocationPath, showToast, useHashHistory } from '../../utils';
+import { DATA } from '../../utils/data';
 import { icons } from '../common/icons';
 
 const html = htm.bind(h);
@@ -41,7 +42,8 @@ export function ActivityRow({ activity, displayName, hasChildren, expanded, onTo
 
     const copyLocation = (e: Event) => {
         e.stopPropagation();
-        navigator.clipboard.writeText(activity.location!.path + ':' + activity.location!.line)
+        const relativePath = relativeLocationPath(activity.location!, DATA.specDirectory);
+        navigator.clipboard.writeText(relativePath)
             .then(() => showToast('Location copied to clipboard'))
             .catch(() => {});
     };
@@ -56,7 +58,7 @@ export function ActivityRow({ activity, displayName, hasChildren, expanded, onTo
           <div class="activity-meta">
             ${summaryText && !expanded ? html`<span class="activity-summary">${summaryText}</span>` : null}
             <span class="activity-duration">${icons.clock}${formatDuration(activity.duration || 0)}</span>
-            ${activity.location ? html`<span class="copy-location" title="Copy invocation location: ${activity.location.path}:${activity.location.line}" onClick=${copyLocation}>${icons.copy}</span>` : null}
+            ${activity.location ? html`<span class="copy-location" title="Copy invocation location" onClick=${copyLocation}>${icons.copy}</span>` : null}
             ${hasPhoto ? html`<span class="activity-meta-icon" title="View screenshot" onClick=${scrollToPhoto}>📷</span>` : null}
             ${hasRestQuery ? html`<span class="rest-badge" title="View HTTP exchange" onClick=${(e: Event) => { e.stopPropagation(); onToggleRest(); }}>REST</span>` : null}
           </div>

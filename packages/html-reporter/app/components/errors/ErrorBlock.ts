@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportError } from '../../../src/cli/ReportData';
-import { ansiToHtml, showToast, stripAbsolutePaths } from '../../utils';
+import { ansiToHtml, relativeLocationPath, showToast, stripAbsolutePaths } from '../../utils';
 import { icons } from '../common/icons';
 
 const html = htm.bind(h);
@@ -17,7 +17,8 @@ export function ErrorBlock({ error, errorLocation, specDirectory }: ErrorBlockPr
     const copyLocation = (e: Event) => {
         e.stopPropagation();
         if (errorLocation) {
-            navigator.clipboard.writeText(errorLocation.path + ':' + errorLocation.line)
+            const relativePath = relativeLocationPath(errorLocation, specDirectory);
+            navigator.clipboard.writeText(relativePath)
                 .then(() => showToast('Location copied to clipboard'))
                 .catch(() => {});
         }

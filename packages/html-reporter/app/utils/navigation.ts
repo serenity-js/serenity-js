@@ -35,6 +35,15 @@ export function relativeSourcePath(scenario: { source: ReportSource; name: strin
     return scenario.source.line ? relativePath + ':' + scenario.source.line : relativePath;
 }
 
+export function relativeLocationPath(location: { path: string; line: number; column?: number }, specDirectory?: string): string {
+    const p = location.path;
+    const directory = specDirectory || 'spec';
+    const marker = '/' + directory + '/';
+    const index = p.indexOf(marker);
+    const relativePath = index !== -1 ? p.slice(index + marker.length) : p;
+    return relativePath + ':' + location.line;
+}
+
 export function scenarioUrl(scenario: { source: ReportSource; name: string; tags?: ReportScenarioTag[] }, run?: number | string | null, history?: Array<{ timestamp: string }>): string {
     const id = scenario.source.line
         ? scenario.source.path + ':' + scenario.source.line
