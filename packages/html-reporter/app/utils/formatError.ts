@@ -18,7 +18,7 @@ export function stripAbsolutePaths(text: string, specDirectory?: string): string
     if (!normalised) return text;
 
     const marker = '/' + normalised + '/';
-    return text.replaceAll(new RegExp(`/[^\\s:]*${escapeRegex(marker)}`, 'g'), normalised + '/');
+    return text.replace(new RegExp(`/[^\\s:]*${escapeRegex(marker)}`, 'g'), normalised + '/');
 }
 
 function escapeRegex(s: string): string {

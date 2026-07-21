@@ -81,7 +81,7 @@ export class DataSnapshotAggregator {
             newPasses,
             systemContext: this.buildSystemContext(latestRun),
             capabilities: this.requirementsHierarchy ? buildCapabilities(latestRun, allRuns, this.requirementsHierarchy, this.projectFileSystem) : undefined,
-            specDirectory: this.config.specDirectory,
+            specDirectory: this.normaliseSpecDirectoryForClient(this.config.specDirectory),
         };
 
         const js = `window.__SERENITY_REPORT_DATA__ = ${ JSON.stringify(snapshot, undefined, 2) };\n`;
@@ -656,6 +656,28 @@ export class DataSnapshotAggregator {
 
     private resolveRunLabel(run: RunData): string {
         return run.testRunId || run.startedAt;
+    }
+
+    /**
+     * Normalises specDirectory for client-side use.
+     * The client only needs the relative directory name as a marker for
+     * stripping absolute path prefixes from error messages and stack traces.
+     *
+     * - Absolute paths → basename (last segment)
+     * - Relative paths → stripped of leading `./`
+     */
+    private normaliseSpecDirectoryForClient(specDirectory: string | undefined): string | undefined {
+        if (!specDirectory) {
+            return undefined;
+        }
+
+        const path = Path.from(specDirectory);
+
+        if (path.isAbsolute()) {
+            return path.basename();
+        }
+
+        return path.value.replace(/^\.\//, '');
     }
 }
 

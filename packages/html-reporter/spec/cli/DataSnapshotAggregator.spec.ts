@@ -16,7 +16,7 @@ test.describe('DataSnapshotAggregator', () => {
         return createFsFromVolume(Volume.fromNestedJSON(tree as any, root)) as unknown as typeof fs;
     }
 
-    function createAggregator(tree: Record<string, unknown>, config: { maxHistory?: number; consistencyWindow?: number; title?: string } = {}, requirementsHierarchy?: RequirementsHierarchy, projectFileSystem?: FileSystem): { aggregator: DataSnapshotAggregator; filesystem: typeof fs } {
+    function createAggregator(tree: Record<string, unknown>, config: { maxHistory?: number; consistencyWindow?: number; title?: string; specDirectory?: string } = {}, requirementsHierarchy?: RequirementsHierarchy, projectFileSystem?: FileSystem): { aggregator: DataSnapshotAggregator; filesystem: typeof fs } {
         const filesystem = createMemFs({ [outputDirectory.value]: tree });
 
         const fileSystem = new FileSystem(outputDirectory, filesystem);
@@ -25,6 +25,7 @@ test.describe('DataSnapshotAggregator', () => {
             consistencyWindow: config.consistencyWindow ?? 5,
             maxHistory: config.maxHistory,
             title: config.title,
+            specDirectory: config.specDirectory,
         }, requirementsHierarchy, projectFileSystem, sourceFileSystem);
 
         return { aggregator, filesystem };
@@ -2508,6 +2509,69 @@ test.describe('DataSnapshotAggregator', () => {
             aggregator.aggregate([`${directory1}/db.json`]);
 
             expect(filesystem.existsSync('/reports/serenity-js/data.js')).toBe(false);
+        });
+    });
+
+    test.describe('specDirectory normalisation', () => {
+
+        test('stores only the basename when specDirectory is an absolute path', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-15T14:30:00.000Z': {
+                        'db.json': JSON.stringify({ schemaVersion: 1,
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.100Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [{ name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                        }),
+                    },
+                },
+            }, { specDirectory: '/home/runner/work/serenity-js/integration/html-reporter/examples/specs' });
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            expect(data.specDirectory).toBe('specs');
+        });
+
+        test('preserves a relative specDirectory unchanged', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-15T14:30:00.000Z': {
+                        'db.json': JSON.stringify({ schemaVersion: 1,
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.100Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [{ name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                        }),
+                    },
+                },
+            }, { specDirectory: './specs' });
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            expect(data.specDirectory).toBe('specs');
+        });
+
+        test('strips leading ./ from relative specDirectory', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-15T14:30:00.000Z': {
+                        'db.json': JSON.stringify({ schemaVersion: 1,
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.100Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [{ name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                        }),
+                    },
+                },
+            }, { specDirectory: './test/specs' });
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            expect(data.specDirectory).toBe('test/specs');
         });
     });
 });
