@@ -223,20 +223,20 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
           </div>
           <div class="run-details-durations">
             <div class="run-details-duration-row">
-              <span class="run-details-duration-label">Fastest</span>
-              <span class="run-details-duration-value">${selectedRun.metrics.fastest}</span>
-            </div>
-            <div class="run-details-duration-row">
-              <span class="run-details-duration-label">Slowest</span>
-              <span class="run-details-duration-value">${selectedRun.metrics.slowest}</span>
+              <span class="run-details-duration-label">Total duration</span>
+              <span class="run-details-duration-value">${selectedRun.metrics.total}</span>
             </div>
             <div class="run-details-duration-row">
               <span class="run-details-duration-label">Average</span>
               <span class="run-details-duration-value">${selectedRun.metrics.average}</span>
             </div>
             <div class="run-details-duration-row">
-              <span class="run-details-duration-label">Total</span>
-              <span class="run-details-duration-value">${selectedRun.metrics.total}</span>
+              <span class="run-details-duration-label">Slowest</span>
+              <span class="run-details-duration-value">${selectedRun.metrics.slowest}</span>
+            </div>
+            <div class="run-details-duration-row">
+              <span class="run-details-duration-label">Fastest</span>
+              <span class="run-details-duration-value">${selectedRun.metrics.fastest}</span>
             </div>
           </div>
           <button class="run-details-cta" onClick=${handleNavigate} data-testid="run-details-cta">
