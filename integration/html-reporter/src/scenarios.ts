@@ -13,3 +13,6 @@ export const timeoutTest = 'Login should display a timeout error when the server
 
 /** A second authentication failure — used to demonstrate error clustering in a feature area */
 export const authFailure = 'Password Reset should validate the reset token';
+
+/** A test that fails on first attempt but passes on retry — demonstrates flaky/retried state */
+export const flakyTest = 'Editing should edit an item';

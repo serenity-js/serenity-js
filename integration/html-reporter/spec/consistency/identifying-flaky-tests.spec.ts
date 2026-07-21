@@ -1,7 +1,7 @@
-import { contain, Ensure, equals, isGreaterThan } from '@serenity-js/assertions';
+import { contain, Ensure, equals, includes, isGreaterThan } from '@serenity-js/assertions';
 
 import { describe, it } from '../../src';
-import { degradedTest, failingTest } from '../../src/scenarios';
+import { degradedTest, failingTest, flakyTest } from '../../src/scenarios';
 
 describe('Consistency', () => {
 
@@ -23,6 +23,20 @@ describe('Consistency', () => {
 
                 Ensure.that(scenarioDetailView.hasError(), equals(true)),
                 Ensure.that(scenarioDetailView.photoStripCount(), isGreaterThan(0)),
+            );
+        });
+
+        it('shows that a flaky test passed on retry', { tag: '@showcase' }, async ({ actor, consistencyView, scenarioDetailView }) => {
+            await actor.attemptsTo(
+                consistencyView.open(),
+
+                Ensure.that(consistencyView.scenarioNames(), contain(flakyTest)),
+
+                consistencyView.scenarioCalled(flakyTest).viewDetails(),
+
+                Ensure.that(scenarioDetailView.retryTabCount(), equals(2)),
+                Ensure.that(scenarioDetailView.firstRetryTabLabel(), includes('failed')),
+                Ensure.that(scenarioDetailView.lastRetryTabLabel(), includes('passed')),
             );
         });
     });
