@@ -14,17 +14,15 @@ export interface ParameterSetNodeProps {
     ps: ReportParameterSet;
     index: number;
     groupIndex: number;
-    forceExpanded: boolean | undefined;
 }
 
-export function ParameterSetNode({ ps, index, groupIndex, forceExpanded }: ParameterSetNodeProps): ReturnType<typeof html> {
+export function ParameterSetNode({ ps, index, groupIndex }: ParameterSetNodeProps): ReturnType<typeof html> {
     const hashNav = useHashHistory();
     const exampleId = (groupIndex !== undefined ? groupIndex + '-' : '') + (index + 1);
     const isLinked = (() => {
         return hashNav.getParam('example') === exampleId;
     })();
     const [expanded, setExpanded] = useState(true);
-    useEffect(() => { if (forceExpanded !== undefined) setExpanded(forceExpanded); }, [forceExpanded]);
     const nodeRef = useRef<HTMLElement | null>(null);
     const copyLink = (e: Event) => {
         e.stopPropagation();
