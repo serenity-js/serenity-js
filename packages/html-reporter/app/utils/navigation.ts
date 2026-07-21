@@ -13,7 +13,7 @@ export function tagDiscriminator(tags?: ReportScenarioTag[]): string {
     return [browserTag, projectTag, platformTag].filter(Boolean).join('@');
 }
 
-export function getBrowserTag(scenario: ScenarioLike): string | null {
+export function getBrowserTag(scenario: { tags?: Array<{ type: string; name: string }> }): string | null {
     const tag = (scenario.tags || []).find(t => t.type === 'browser');
     return tag ? tag.name : null;
 }

@@ -38,6 +38,7 @@ export function PhotoStrip({ activities, scenarioStartedAt }: PhotoStripProps): 
                 window.scrollTo(0, scrollY);
             };
         }
+        return undefined;
     }, [isOpen]);
 
     const openPhoto = (index: number) => {

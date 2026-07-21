@@ -980,7 +980,7 @@ test.describe('DataSnapshotAggregator', () => {
             const fileSystem = new FileSystem(outputDirectory, filesystem);
             const projectFs = new FileSystem(Path.from('/project'), filesystem);
             const hierarchy = new RequirementsHierarchy(projectFs, Path.from('/project/spec'));
-            const aggregator = new DataSnapshotAggregator(fileSystem, { consistencyWindow: 5, buildCapabilities: true }, hierarchy);
+            const aggregator = new DataSnapshotAggregator(fileSystem, { consistencyWindow: 5, buildCapabilities: true }, hierarchy, projectFs, new FileSystem(Path.from('/'), filesystem));
 
             aggregator.aggregate();
             const data = readDataJs(filesystem);
@@ -2534,7 +2534,7 @@ test.describe('DataSnapshotAggregator', () => {
                         }),
                     },
                 },
-            }, { specDirectory: 'specs' }, hierarchy, projectFileSystem);
+            }, { }, hierarchy, projectFileSystem);
 
             aggregator.aggregate();
 

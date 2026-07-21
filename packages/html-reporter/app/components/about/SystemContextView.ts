@@ -35,8 +35,8 @@ export function SystemContextView({ systemContext }: SystemContextViewProps): Re
     `;
     }
 
-    const testRunner = context.testRunner || {};
-    const operatingSystem = context.os || {};
+    const testRunner = context.testRunner || { name: '', version: '' };
+    const operatingSystem = context.os || { name: '', version: '', arch: '' };
     const browsers = context.browsers || [];
     const ci = context.ci;
 

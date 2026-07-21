@@ -112,7 +112,7 @@ describe('DashboardView', () => {
             props: { onNavigate: () => {} },
             data: minimalData({
                 newFailures: [
-                    { name: 'Failing Test', source: { path: 'spec/a.spec.ts', line: 10 } },
+                    { name: 'Failing Test', category: 'Suite', source: { path: 'spec/a.spec.ts', line: 10 } },
                 ],
             }),
             interactionObject: DashboardView,

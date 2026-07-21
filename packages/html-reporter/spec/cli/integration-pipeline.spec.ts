@@ -14,7 +14,7 @@ import {
     SceneFinished,
     SceneStarts,
 } from '@serenity-js/core/events';
-import { FileSystem, FileSystemLocation, Path, Version } from '@serenity-js/core/io';
+import { FileSystem, FileSystemLocation, Path, RequirementsHierarchy, Version } from '@serenity-js/core/io';
 import {
     ActivityDetails,
     Category,
@@ -118,7 +118,8 @@ function aggregateRuns(runs: Record<string, string>): ReportData {
     const filesystem = createMemFs({ '/output': { 'test-runs': tree } });
 
     const outputFs = new FileSystem(Path.from('/output'), filesystem);
-    const aggregator = new DataSnapshotAggregator(outputFs, { consistencyWindow: 5 });
+    const hierarchy = new RequirementsHierarchy(outputFs);
+    const aggregator = new DataSnapshotAggregator(outputFs, { consistencyWindow: 5 }, hierarchy, outputFs, outputFs);
     aggregator.aggregate();
 
     const content = filesystem.readFileSync('/output/data.js', 'utf8') as string;
@@ -295,7 +296,8 @@ test.describe('Full pipeline integration: events → db.json → data.js', () =>
             });
 
             const outputFs = new FileSystem(Path.from('/output'), filesystem);
-            const aggregator = new DataSnapshotAggregator(outputFs, { consistencyWindow: 5 });
+            const hierarchy = new RequirementsHierarchy(outputFs);
+            const aggregator = new DataSnapshotAggregator(outputFs, { consistencyWindow: 5 }, hierarchy, outputFs, outputFs);
             aggregator.aggregate();
 
             expect(filesystem.existsSync('/output/data.js')).toBe(false);

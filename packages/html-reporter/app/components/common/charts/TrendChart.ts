@@ -76,7 +76,7 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
 
     // Dismiss on click outside chart + panel
     useEffect(() => {
-        if (!selectedRun) return;
+        if (!selectedRun) return undefined;
 
         const handleClickOutside = (e: MouseEvent) => {
             const target = e.target as HTMLElement;
@@ -102,7 +102,7 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
 
     // Create/recreate chart
     useEffect(() => {
-        if (!canvasRef.current || history.length === 0) return;
+        if (!canvasRef.current || history.length === 0) return undefined;
         if (chartRef.current) chartRef.current.destroy();
 
         const handleBarClick = (_event: unknown, elements: Array<{ index: number; datasetIndex: number }>) => {

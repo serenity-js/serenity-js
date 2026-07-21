@@ -39,7 +39,7 @@ export function App(): ReturnType<typeof html> {
 
     // Listen for system theme changes when preference is 'system'
     useEffect(() => {
-        if (themePreference !== 'system') return;
+        if (themePreference !== 'system') return undefined;
         const media = window.matchMedia('(prefers-color-scheme: dark)');
         const handler = () => document.documentElement.setAttribute('data-theme', media.matches ? 'dark' : 'light');
         media.addEventListener('change', handler);

@@ -16,7 +16,7 @@ function themeColors(chartTheme: string): ThemeColors {
     };
 }
 
-export function buildTrendDatasets(history: ReportHistoryEntry[], theme: string): Record<string, unknown>[] {
+export function buildTrendDatasets(history: ReportHistoryEntry[], theme: string): any[] {
     const { isDark } = themeColors(theme);
     return [
         {

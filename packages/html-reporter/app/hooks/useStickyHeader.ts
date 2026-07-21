@@ -41,7 +41,7 @@ export function useStickyHeader(options: StickyHeaderOptions): StickyHeaderResul
         const stickyElement = stickyElementRef.current!;
         if (!element || !enabled) {
             stickyElement.style.display = 'none';
-            return;
+            return undefined;
         }
 
         const headerStarts: Array<{ index: number; start: number; item: typeof flatItems[0] }> = [];
