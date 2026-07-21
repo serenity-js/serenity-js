@@ -1,5 +1,5 @@
 import { Task } from '@serenity-js/core';
-import { By, Click } from '@serenity-js/web';
+import { Click } from '@serenity-js/web';
 
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 
