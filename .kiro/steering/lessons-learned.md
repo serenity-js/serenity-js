@@ -8,6 +8,23 @@ When Playwright Test retries a scenario, the adapter emits `SceneSequenceDetecte
 
 If you're processing `DomainEventQueues` and see `SceneSequenceDetected`, always check whether `RetryableSceneDetected` is also present before assuming it's a Scenario Outline.
 
+## Cucumber Scenario Outlines produce one sceneId per example row
+
+The Cucumber adapter calls `serenity.assignNewSceneId()` for every example row in a Scenario Outline. All rows share the same `ScenarioDetails` (name + source location of the outline declaration), so `DomainEventQueues` merges them into **one queue**. But `SceneDataCollector.groupEventsBySceneId()` then splits them back into separate groups — one `SceneRecordBuilder` per example.
+
+The critical downstream implication: `resolveRetries()` sees N records from one queue with no project tag differentiation. Without the `RetryableSceneDetected` check, it treats them as N retry attempts of the same test — marking a 42-example outline as "retried 41 times" and flagging it flaky.
+
+Rule: when `resolveRetries()` encounters multiple records in a project group, check `areScenarioOutlineExamples()` before assuming retries. The signal is: records have `scenarioOutline` data AND no `RetryableSceneDetected` events for their sceneIds.
+
+## ANSI escape sequences are Playwright Test-specific
+
+Only Playwright Test embeds ANSI SGR colour codes in error messages (green for Expected, red for Received). Cucumber, Mocha, Jasmine, and WebdriverIO produce plain text errors — sometimes with structured Expected/Received on separate lines, but no escape sequences.
+
+Implications for error rendering:
+- **List views** (ErrorRow, ScenarioRow): use `stripAnsi()` for plain text — colour fragments in truncated single-line previews look broken regardless of test runner
+- **Detail views** (ErrorBlock): use `ansiToHtml()` with `white-space: pre-wrap` — preserves newline structure from all runners and renders ANSI colours when present
+- Never assume error messages will have ANSI codes when designing error display logic
+
 ## DomainEventQueues merges events by ScenarioDetails, not just sceneId
 
 `DomainEventQueues.queueIdFor()` groups non-`SceneStarts` events by matching `ScenarioDetails` (name + location), not just by `sceneId`. This means events from different sceneIds can end up in the same queue if they share the same scenario identity. This is intentional — it enables retry grouping — but it means a single queue may contain multiple `SceneStarts`/`SceneFinished` pairs.
@@ -75,12 +92,6 @@ The existing `RunSelector.ts` established this pattern first.
 ## PhotoStrip collectPhotos traversal order
 
 The `collectPhotos` function in `PhotoStrip` processes each activity's own `artifacts` array **before** recursing into `children`. This means a parent activity's screenshots appear before its children's screenshots in the gallery, even though the child activity executes during the parent.
-
-## ANSI escape sequences in error messages
-
-Test runners like Playwright embed ANSI SGR colour codes in error messages (e.g., `\u001b[32m` for green "Expected" values, `\u001b[31m` for red "Received" values). The `ansiToHtml` utility in `template/utils/` converts these to `<span class="ansi-{colour}">` elements. Error rendering uses `dangerouslySetInnerHTML` to output the converted HTML.
-
-When adding new error display locations, remember to use `ansiToHtml()` — raw interpolation (`${error.message}`) will show escape characters to the user.
 
 ## Component extraction is import-path-stable
 
