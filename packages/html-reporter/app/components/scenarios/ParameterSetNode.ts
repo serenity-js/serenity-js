@@ -22,7 +22,8 @@ export function ParameterSetNode({ ps, index, groupIndex }: ParameterSetNodeProp
     const isLinked = (() => {
         return hashNav.getParam('example') === exampleId;
     })();
-    const [expanded, setExpanded] = useState(true);
+    const isFailing = ps.outcome !== 'SUCCESS';
+    const [expanded, setExpanded] = useState(isFailing || isLinked);
     const nodeRef = useRef<HTMLElement | null>(null);
     const copyLink = (e: Event) => {
         e.stopPropagation();
