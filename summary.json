@@ -1,19 +1,19 @@
 {
-  "generated": "2026-07-22T10:47:05.197Z",
+  "generated": "2026-07-22T12:48:49.877Z",
   "title": "Serenity/JS Integration Tests",
   "schemaVersion": 1,
   "latestRun": {
-    "timestamp": "2026-07-22T10:38:27.434Z",
-    "label": "8308",
+    "timestamp": "2026-07-22T12:40:54.865Z",
+    "label": "8309",
     "totals": {
-      "passed": 1821,
-      "failed": 9,
+      "passed": 1833,
+      "failed": 3,
       "pending": 85,
       "skipped": 0,
       "compromised": 0,
-      "error": 3
+      "error": 0
     },
-    "duration": 364397
+    "duration": 318073
   },
   "runs": 5,
   "failureClusters": [
@@ -41,81 +41,6 @@
           "failingStep": "Serena ensures that <<current page>>.url().href does include \"#/capabilities?path=e2e\""
         }
       ]
-    },
-    {
-      "fingerprint": "AssertionError:Expected-<<current-page>>.url().href-to-include-\"%40feature%3A%22Todo%20List%22\"-Expectation:-includes('%40feature%3A%22Todo%20List%22')-Expected-string:-%40feature%3A%22Todo%20List%22-Received-stri",
-      "errorType": "AssertionError",
-      "message": "Expected <<current page>>.url().href to include \"%40feature%3A%22Todo%20List%22\"\n\nExpectation: includes('%40feature%3A%22Todo%20List%22')\n\nExpected string: %40feature%3A%22Todo%20List%22\nReceived stri",
-      "scenarios": [
-        {
-          "name": "Feature Coverage navigates to filtered scenarios using format",
-          "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
-          "browser": "chromium 149.0.7827.55",
-          "failingStep": "Serena ensures that <<current page>>.url().href does include \"%40feature%3A%22Todo%20List%22\""
-        },
-        {
-          "name": "Feature Coverage navigates to filtered scenarios using format",
-          "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
-          "browser": "chromium 149.0.7827.55",
-          "failingStep": "Serena ensures that <<current page>>.url().href does include \"%40feature%3A%22Todo%20List%22\""
-        },
-        {
-          "name": "Feature Coverage navigates to filtered scenarios using format",
-          "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
-          "browser": "chromium 149.0.7827.55",
-          "failingStep": "Serena ensures that <<current page>>.url().href does include \"%40feature%3A%22Todo%20List%22\""
-        }
-      ]
-    },
-    {
-      "fingerprint": "Error:ListItemNotFoundError:-Can't-retrieve-the-first-item-from-a-list-with-0-items:-[-]",
-      "errorType": "Error",
-      "message": "ListItemNotFoundError: Can't retrieve the first item from a list with 0 items: [ ]",
-      "scenarios": [
-        {
-          "name": "Feature Coverage uses shorthand format for tags of type \"tag\"",
-          "source": "html-reporter/spec/tags/feature-coverage.spec.ts:20",
-          "browser": "chromium 149.0.7827.55",
-          "failingStep": "Serena clicks on tag card \"wip\" of the first of tag cards where Text does include \"wip\""
-        },
-        {
-          "name": "Feature Coverage uses shorthand format for tags of type \"tag\"",
-          "source": "html-reporter/spec/tags/feature-coverage.spec.ts:20",
-          "browser": "chromium 149.0.7827.55",
-          "failingStep": "Serena clicks on tag card \"wip\" of the first of tag cards where Text does include \"wip\""
-        },
-        {
-          "name": "Feature Coverage uses shorthand format for tags of type \"tag\"",
-          "source": "html-reporter/spec/tags/feature-coverage.spec.ts:20",
-          "browser": "chromium 149.0.7827.55",
-          "failingStep": "Serena clicks on tag card \"wip\" of the first of tag cards where Text does include \"wip\""
-        }
-      ]
-    },
-    {
-      "fingerprint": "AssertionError:Expected-number-of-tag-cards-to-equal-0-Expectation:-equals(0)-Expected-number:-0-Received-number:-6-at-feature-coverage.spec.ts",
-      "errorType": "AssertionError",
-      "message": "Expected number of tag cards to equal 0\n\nExpectation: equals(0)\n\nExpected number: 0\nReceived number: 6\n\n    at feature-coverage.spec.ts",
-      "scenarios": [
-        {
-          "name": "Outcome Filter shows only tags with failures when Failed is selected",
-          "source": "html-reporter/spec/tags/feature-coverage.spec.ts:68",
-          "browser": "chromium 149.0.7827.55",
-          "failingStep": "Serena ensures that number of tag cards does equal 0"
-        },
-        {
-          "name": "Outcome Filter shows only tags with failures when Failed is selected",
-          "source": "html-reporter/spec/tags/feature-coverage.spec.ts:68",
-          "browser": "chromium 149.0.7827.55",
-          "failingStep": "Serena ensures that number of tag cards does equal 0"
-        },
-        {
-          "name": "Outcome Filter shows only tags with failures when Failed is selected",
-          "source": "html-reporter/spec/tags/feature-coverage.spec.ts:68",
-          "browser": "chromium 149.0.7827.55",
-          "failingStep": "Serena ensures that number of tag cards does equal 0"
-        }
-      ]
     }
   ],
   "consistency": {
@@ -136,42 +61,52 @@
         "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
         "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
         "browser": "chromium 149.0.7827.55"
-      },
-      {
-        "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
-        "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
-        "browser": "chromium 149.0.7827.55"
-      },
-      {
-        "name": "Feature Coverage navigates to filtered scenarios using format",
-        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
-        "browser": "chromium 149.0.7827.55"
-      },
-      {
-        "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
-        "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
-        "browser": "chromium 149.0.7827.55"
-      },
-      {
-        "name": "Feature Coverage navigates to filtered scenarios using format",
-        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
-        "browser": "chromium 149.0.7827.55"
-      },
-      {
-        "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
-        "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
-        "browser": "chromium 149.0.7827.55"
-      },
-      {
-        "name": "Feature Coverage navigates to filtered scenarios using format",
-        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
-        "browser": "chromium 149.0.7827.55"
       }
     ],
     "recovered": [
       {
-        "name": "Diagnosing Failures renders relative paths in error messages",
-        "source": "html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
+        "name": "Feature Coverage navigates to filtered scenarios using format",
+        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Feature Coverage uses shorthand format for tags of type \"tag\"",
+        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:20",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Outcome Filter shows only tags with failures when Failed is selected",
+        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:68",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Feature Coverage navigates to filtered scenarios using format",
+        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Feature Coverage uses shorthand format for tags of type \"tag\"",
+        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:20",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Outcome Filter shows only tags with failures when Failed is selected",
+        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:68",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Feature Coverage navigates to filtered scenarios using format",
+        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Feature Coverage uses shorthand format for tags of type \"tag\"",
+        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:20",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Outcome Filter shows only tags with failures when Failed is selected",
+        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:68",
         "browser": "chromium 149.0.7827.55"
       },
       {
@@ -182,14 +117,34 @@
       {
         "name": "Diagnosing Failures renders relative paths in error messages",
         "source": "html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Diagnosing Failures renders relative paths in error messages",
+        "source": "html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Feature Coverage navigates to filtered scenarios using format",
+        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Feature Coverage navigates to filtered scenarios using format",
+        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Feature Coverage navigates to filtered scenarios using format",
+        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
         "browser": "chromium 149.0.7827.55"
       }
     ]
   },
   "scores": {
-    "passRate": 99.3,
+    "passRate": 99.8,
     "completeness": 95.6,
-    "consistency": 99.7,
-    "confidence": 98.5
+    "consistency": 99.2,
+    "confidence": 98.6
   }
 }
