@@ -1,57 +1,174 @@
 {
-  "generated": "2026-07-22T00:32:09.861Z",
+  "generated": "2026-07-22T10:47:05.197Z",
   "title": "Serenity/JS Integration Tests",
   "schemaVersion": 1,
   "latestRun": {
-    "timestamp": "2026-07-21T09:15:21.463Z",
-    "label": "8304",
+    "timestamp": "2026-07-22T10:38:27.434Z",
+    "label": "8308",
     "totals": {
-      "passed": 1815,
-      "failed": 0,
+      "passed": 1821,
+      "failed": 9,
       "pending": 85,
       "skipped": 0,
       "compromised": 0,
-      "error": 0
+      "error": 3
     },
-    "duration": 365507
+    "duration": 364397
   },
   "runs": 5,
-  "failureClusters": [],
+  "failureClusters": [
+    {
+      "fingerprint": "AssertionError:Expected-<<current-page>>.url().href-to-include-\"#/capabilities?path=e2e\"-Expectation:-includes('#/capabilities?path=e2e')-Expected-string:-#/capabilities?path=e2e-Received-string:-http://127.0.0.1:",
+      "errorType": "AssertionError",
+      "message": "Expected <<current page>>.url().href to include \"#/capabilities?path=e2e\"\n\nExpectation: includes('#/capabilities?path=e2e')\n\nExpected string: #/capabilities?path=e2e\nReceived string: http://127.0.0.1:",
+      "scenarios": [
+        {
+          "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
+          "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
+          "browser": "chromium 149.0.7827.55",
+          "failingStep": "Serena ensures that <<current page>>.url().href does include \"#/capabilities?path=e2e\""
+        },
+        {
+          "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
+          "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
+          "browser": "chromium 149.0.7827.55",
+          "failingStep": "Serena ensures that <<current page>>.url().href does include \"#/capabilities?path=e2e\""
+        },
+        {
+          "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
+          "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
+          "browser": "chromium 149.0.7827.55",
+          "failingStep": "Serena ensures that <<current page>>.url().href does include \"#/capabilities?path=e2e\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "AssertionError:Expected-<<current-page>>.url().href-to-include-\"%40feature%3A%22Todo%20List%22\"-Expectation:-includes('%40feature%3A%22Todo%20List%22')-Expected-string:-%40feature%3A%22Todo%20List%22-Received-stri",
+      "errorType": "AssertionError",
+      "message": "Expected <<current page>>.url().href to include \"%40feature%3A%22Todo%20List%22\"\n\nExpectation: includes('%40feature%3A%22Todo%20List%22')\n\nExpected string: %40feature%3A%22Todo%20List%22\nReceived stri",
+      "scenarios": [
+        {
+          "name": "Feature Coverage navigates to filtered scenarios using format",
+          "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
+          "browser": "chromium 149.0.7827.55",
+          "failingStep": "Serena ensures that <<current page>>.url().href does include \"%40feature%3A%22Todo%20List%22\""
+        },
+        {
+          "name": "Feature Coverage navigates to filtered scenarios using format",
+          "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
+          "browser": "chromium 149.0.7827.55",
+          "failingStep": "Serena ensures that <<current page>>.url().href does include \"%40feature%3A%22Todo%20List%22\""
+        },
+        {
+          "name": "Feature Coverage navigates to filtered scenarios using format",
+          "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
+          "browser": "chromium 149.0.7827.55",
+          "failingStep": "Serena ensures that <<current page>>.url().href does include \"%40feature%3A%22Todo%20List%22\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:ListItemNotFoundError:-Can't-retrieve-the-first-item-from-a-list-with-0-items:-[-]",
+      "errorType": "Error",
+      "message": "ListItemNotFoundError: Can't retrieve the first item from a list with 0 items: [ ]",
+      "scenarios": [
+        {
+          "name": "Feature Coverage uses shorthand format for tags of type \"tag\"",
+          "source": "html-reporter/spec/tags/feature-coverage.spec.ts:20",
+          "browser": "chromium 149.0.7827.55",
+          "failingStep": "Serena clicks on tag card \"wip\" of the first of tag cards where Text does include \"wip\""
+        },
+        {
+          "name": "Feature Coverage uses shorthand format for tags of type \"tag\"",
+          "source": "html-reporter/spec/tags/feature-coverage.spec.ts:20",
+          "browser": "chromium 149.0.7827.55",
+          "failingStep": "Serena clicks on tag card \"wip\" of the first of tag cards where Text does include \"wip\""
+        },
+        {
+          "name": "Feature Coverage uses shorthand format for tags of type \"tag\"",
+          "source": "html-reporter/spec/tags/feature-coverage.spec.ts:20",
+          "browser": "chromium 149.0.7827.55",
+          "failingStep": "Serena clicks on tag card \"wip\" of the first of tag cards where Text does include \"wip\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "AssertionError:Expected-number-of-tag-cards-to-equal-0-Expectation:-equals(0)-Expected-number:-0-Received-number:-6-at-feature-coverage.spec.ts",
+      "errorType": "AssertionError",
+      "message": "Expected number of tag cards to equal 0\n\nExpectation: equals(0)\n\nExpected number: 0\nReceived number: 6\n\n    at feature-coverage.spec.ts",
+      "scenarios": [
+        {
+          "name": "Outcome Filter shows only tags with failures when Failed is selected",
+          "source": "html-reporter/spec/tags/feature-coverage.spec.ts:68",
+          "browser": "chromium 149.0.7827.55",
+          "failingStep": "Serena ensures that number of tag cards does equal 0"
+        },
+        {
+          "name": "Outcome Filter shows only tags with failures when Failed is selected",
+          "source": "html-reporter/spec/tags/feature-coverage.spec.ts:68",
+          "browser": "chromium 149.0.7827.55",
+          "failingStep": "Serena ensures that number of tag cards does equal 0"
+        },
+        {
+          "name": "Outcome Filter shows only tags with failures when Failed is selected",
+          "source": "html-reporter/spec/tags/feature-coverage.spec.ts:68",
+          "browser": "chromium 149.0.7827.55",
+          "failingStep": "Serena ensures that number of tag cards does equal 0"
+        }
+      ]
+    }
+  ],
   "consistency": {
     "flaky": [],
     "inconsistent": [],
-    "degraded": [],
+    "degraded": [
+      {
+        "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
+        "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
+        "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
+        "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
+        "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Feature Coverage navigates to filtered scenarios using format",
+        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
+        "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Feature Coverage navigates to filtered scenarios using format",
+        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
+        "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Feature Coverage navigates to filtered scenarios using format",
+        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
+        "browser": "chromium 149.0.7827.55"
+      }
+    ],
     "recovered": [
-      {
-        "name": "Diagnosing Failures renders relative paths in error messages",
-        "source": "html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
-        "browser": "chromium 149.0.7827.55"
-      },
-      {
-        "name": "Diagnosing Failures renders relative paths in error messages",
-        "source": "html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
-        "browser": "chromium 149.0.7827.55"
-      },
-      {
-        "name": "Diagnosing Failures renders relative paths in error messages",
-        "source": "html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
-        "browser": "chromium 149.0.7827.55"
-      },
-      {
-        "name": "Deep Linking toggles between light and dark themes",
-        "source": "html-reporter/spec/navigation/deep-linking.spec.ts:32",
-        "browser": "chromium 149.0.7827.55"
-      },
-      {
-        "name": "Deep Linking toggles between light and dark themes",
-        "source": "html-reporter/spec/navigation/deep-linking.spec.ts:32",
-        "browser": "chromium 149.0.7827.55"
-      },
-      {
-        "name": "Deep Linking toggles between light and dark themes",
-        "source": "html-reporter/spec/navigation/deep-linking.spec.ts:32",
-        "browser": "chromium 149.0.7827.55"
-      },
       {
         "name": "Diagnosing Failures renders relative paths in error messages",
         "source": "html-reporter/spec/scenarios/diagnosing-failures.spec.ts:22",
@@ -70,9 +187,9 @@
     ]
   },
   "scores": {
-    "passRate": 100,
-    "completeness": 95.5,
+    "passRate": 99.3,
+    "completeness": 95.6,
     "consistency": 99.7,
-    "confidence": 98.8
+    "confidence": 98.5
   }
 }
