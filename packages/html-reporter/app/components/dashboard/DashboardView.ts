@@ -14,7 +14,16 @@ import { DashboardSlowestCard } from './DashboardSlowestCard';
 
 const html = htm.bind(h);
 
-function confidenceSubtitle(confidence: number, previousConfidence: number | undefined, totalScenarios: number, runCount: number, newFailCount: number, recoveredCount: number): string {
+interface ConfidenceContext {
+    confidence: number;
+    previousConfidence: number | undefined;
+    totalScenarios: number;
+    runCount: number;
+    newFailCount: number;
+    recoveredCount: number;
+}
+
+function confidenceSubtitle({ confidence, previousConfidence, totalScenarios, runCount, newFailCount, recoveredCount }: ConfidenceContext): string {
     if (previousConfidence === undefined) return `${totalScenarios} scenarios across ${runCount} run${runCount !== 1 ? 's' : ''}`;
     if (confidence > previousConfidence) {
         if (recoveredCount > 0) return `Improved since last run — ${recoveredCount} test${recoveredCount > 1 ? 's' : ''} recovered`;
@@ -76,7 +85,7 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
       <${DashboardKpiRow}
         summary=${summary}
         scores=${scores}
-        confidenceSubtitle=${confidenceSubtitle(scores.confidence, scores.previousConfidence, summary.totalScenarios, history.length, allNewFailures.length, allNewPasses.length)}
+        confidenceSubtitle=${confidenceSubtitle({ confidence: scores.confidence, previousConfidence: scores.previousConfidence, totalScenarios: summary.totalScenarios, runCount: history.length, newFailCount: allNewFailures.length, recoveredCount: allNewPasses.length })}
         inconsistentCount=${allInconsistentTests.length}
         onNavigate=${onNavigate}
       />

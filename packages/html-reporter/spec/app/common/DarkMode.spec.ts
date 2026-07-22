@@ -36,7 +36,7 @@ describe('Dark mode', () => {
             component: 'TagsView',
             importPath: './components/tags/TagsView',
             props: { onNavigate: () => {} },
-            data: minimalData({ tags: [{ type: 'feature', name: 'Login', scenarioCount: 2, passed: 2 }] }),
+            data: minimalData({ tags: [{ type: 'feature', name: 'Login', scenarioCount: 2, passed: 2, failed: 0, skipped: 0 }] }),
         });
 
         await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));

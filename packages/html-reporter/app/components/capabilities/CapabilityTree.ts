@@ -194,9 +194,18 @@ interface ResolvedTreeDisplay {
     score: { confidence: number; passRate: number; completeness: number; consistency: number };
 }
 
+interface TreeDisplayContext {
+    path: string;
+    selectedPath: string;
+    searchTerm: string;
+    isRoot: boolean | undefined;
+    nodeFilter: ((node: ReportCapabilityNode) => boolean) | null;
+}
+
 function resolveTreeDisplay(
-    node: ReportCapabilityNode, path: string, selectedPath: string, searchTerm: string, isRoot: boolean | undefined, nodeFilter: ((node: ReportCapabilityNode) => boolean) | null,
+    node: ReportCapabilityNode, context: TreeDisplayContext,
 ): ResolvedTreeDisplay | null {
+    const { path, selectedPath, searchTerm, isRoot, nodeFilter } = context;
     const isDirectory = node.type === 'directory' && node.children && node.children.length > 0;
     if (!isDirectory) return null;
     if (!isRoot && nodeFilter && !nodeFilter(node)) return null;
@@ -221,7 +230,7 @@ function resolveTreeDisplay(
 }
 
 export function TreeNode({ node, onSelect, selectedPath, focusedPath, depth, path, searchTerm, isRoot, nodeFilter, sortMode }: TreeNodeProps): ReturnType<typeof html> | null {
-    const resolved = resolveTreeDisplay(node, path, selectedPath, searchTerm, isRoot, nodeFilter);
+    const resolved = resolveTreeDisplay(node, { path, selectedPath, searchTerm, isRoot, nodeFilter });
     if (!resolved) return null;
 
     const { displayNode, collapsedPath, collapsedLabel, isSelected, score } = resolved;
@@ -248,4 +257,37 @@ export function TreeNode({ node, onSelect, selectedPath, focusedPath, depth, pat
             `)}
         </div>
     `;
+}
+
+export function resolveTreeKeyNavigation(key: string, currentIndex: number, visiblePaths: string[]): number {
+    switch (key) {
+        case 'ArrowDown':
+            return Math.min(currentIndex + 1, visiblePaths.length - 1);
+        case 'ArrowUp':
+            return Math.max(currentIndex - 1, 0);
+        case 'ArrowRight': {
+            const prefix = visiblePaths[currentIndex] ? visiblePaths[currentIndex] + '/' : '';
+            const childIndex = visiblePaths.findIndex((p, i) => i > currentIndex && p.startsWith(prefix));
+            return childIndex !== -1 ? childIndex : currentIndex;
+        }
+        case 'ArrowLeft': {
+            const currentPath = visiblePaths[currentIndex] || '';
+            const lastSlash = currentPath.lastIndexOf('/');
+            if (lastSlash !== -1) {
+                const parentIndex = visiblePaths.indexOf(currentPath.substring(0, lastSlash));
+                return parentIndex !== -1 ? parentIndex : currentIndex;
+            }
+            if (currentPath !== '') {
+                const rootIndex = visiblePaths.indexOf('');
+                return rootIndex !== -1 ? rootIndex : currentIndex;
+            }
+            return currentIndex;
+        }
+        case 'Home':
+            return 0;
+        case 'End':
+            return visiblePaths.length - 1;
+        default:
+            return currentIndex;
+    }
 }

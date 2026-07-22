@@ -9,7 +9,7 @@ import { icons } from '../common/icons';
 import { ResultCount } from '../common/ResultCount';
 import { SearchInput } from '../common/SearchInput';
 import { DetailPanel } from './CapabilityDetail';
-import { countTopLevelCapabilities, countVisibleNodes, findNodeByPath, getVisiblePaths, nodeConfidence, nodeHasGap, TreeNode } from './CapabilityTree';
+import { countTopLevelCapabilities, countVisibleNodes, findNodeByPath, getVisiblePaths, nodeConfidence, nodeHasGap, resolveTreeKeyNavigation, TreeNode } from './CapabilityTree';
 
 const html = htm.bind(h);
 
@@ -84,73 +84,23 @@ export function CapabilitiesView({ capabilities, onNavigate, route }: Capabiliti
     const onTreeKeyDown = (e: KeyboardEvent) => {
         const visiblePaths = getVisiblePaths(capabilities, searchTerm, nodeFilter);
         const currentIndex = visiblePaths.indexOf(focusedPath);
-        let nextIndex = currentIndex;
 
-        switch (e.key) {
-            case 'ArrowDown':
-                e.preventDefault();
-                nextIndex = Math.min(currentIndex + 1, visiblePaths.length - 1);
-                break;
-            case 'ArrowUp':
-                e.preventDefault();
-                nextIndex = Math.max(currentIndex - 1, 0);
-                break;
-            case 'ArrowRight': {
-                e.preventDefault();
-                // If focused node has children, move to first child
-                const childIndex = visiblePaths.findIndex(
-                    (p, i) => i > currentIndex && p.startsWith(visiblePaths[currentIndex] ? visiblePaths[currentIndex] + '/' : '')
-                );
-                if (childIndex !== -1) {
-                    nextIndex = childIndex;
-                }
-                break;
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (visiblePaths[currentIndex] !== undefined) {
+                const node = findNodeByPath(capabilities, visiblePaths[currentIndex]);
+                if (node) handleSelect(visiblePaths[currentIndex], node);
             }
-            case 'ArrowLeft': {
-                e.preventDefault();
-                // Move to parent node
-                const currentPath = visiblePaths[currentIndex] || '';
-                const lastSlash = currentPath.lastIndexOf('/');
-                if (lastSlash !== -1) {
-                    const parentPath = currentPath.substring(0, lastSlash);
-                    const parentIndex = visiblePaths.indexOf(parentPath);
-                    if (parentIndex !== -1) {
-                        nextIndex = parentIndex;
-                    }
-                } else if (currentPath !== '') {
-                    // Move to root (empty path)
-                    const rootIndex = visiblePaths.indexOf('');
-                    if (rootIndex !== -1) {
-                        nextIndex = rootIndex;
-                    }
-                }
-                break;
-            }
-            case 'Home':
-                e.preventDefault();
-                nextIndex = 0;
-                break;
-            case 'End':
-                e.preventDefault();
-                nextIndex = visiblePaths.length - 1;
-                break;
-            case 'Enter':
-            case ' ':
-                e.preventDefault();
-                if (visiblePaths[currentIndex] !== undefined) {
-                    const node = findNodeByPath(capabilities, visiblePaths[currentIndex]);
-                    if (node) handleSelect(visiblePaths[currentIndex], node);
-                }
-                return;
-            default:
-                return;
+            return;
         }
 
-        if (nextIndex !== currentIndex && visiblePaths[nextIndex] !== undefined) {
-            setFocusedPath(visiblePaths[nextIndex]);
-            const element = document.querySelector(`[data-tree-path="${CSS.escape(visiblePaths[nextIndex])}"]`) as HTMLElement;
-            if (element) element.focus();
-        }
+        const nextIndex = resolveTreeKeyNavigation(e.key, currentIndex, visiblePaths);
+        if (nextIndex === currentIndex || nextIndex === -1) return;
+
+        e.preventDefault();
+        setFocusedPath(visiblePaths[nextIndex]);
+        const element = document.querySelector(`[data-tree-path="${CSS.escape(visiblePaths[nextIndex])}"]`) as HTMLElement;
+        if (element) element.focus();
     };
 
     const totalCapabilities = countTopLevelCapabilities(capabilities);
