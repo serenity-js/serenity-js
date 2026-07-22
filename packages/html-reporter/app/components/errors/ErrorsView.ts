@@ -169,7 +169,7 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
     }
 
     return html`
-    <div>
+    <div class="flex-fill-view">
       ${history.length > 1 ? html`<${RunSelector} activeTimestamp=${errorActiveRunTs} history=${history} onRunChange=${onErrorRunChange} isHistorical=${errorIsHistorical} showLatestHref="#/errors" />` : null}
 
       <div class="kpi-row mb-md stat-grid">

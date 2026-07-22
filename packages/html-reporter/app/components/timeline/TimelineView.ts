@@ -49,7 +49,7 @@ export function TimelineView({ scenarios: allScenarios, summary, onNavigate }: T
     });
 
     return html`
-    <div>
+    <div class="flex-fill-view">
       <div class="kpi-row mb-md grid-4col">
         <${KpiCard} label="Slowest" value=${formatDuration(slowest)} ariaLabel="Slowest test: ${formatDuration(slowest)}" valueColor=${slowest > avg * 3 ? 'var(--color-failed)' : slowest > avg * 2 ? 'var(--color-pending)' : ''} />
         <${KpiCard} label="Fastest" value=${formatDuration(fastest)} ariaLabel="Fastest test: ${formatDuration(fastest)}" />

@@ -78,7 +78,7 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
     }, [setSearch]);
 
     return html`
-    <div>
+    <div class="flex-fill-view">
       <div class="controls-row">
         <div class="search-input-wrap">
           <${SearchInput} value=${search} onInput=${setSearch} />

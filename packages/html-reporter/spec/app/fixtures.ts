@@ -20,6 +20,7 @@ export interface MountOptions<IO = unknown> {
     dataAsProps?: boolean;   // When true, spread data fields into props (default: true for view-level components)
     chartJs?: boolean;       // Whether to load Chart.js (default: false)
     hash?: string;           // Initial URL hash (without leading #), e.g. '/tests?search=foo'
+    theme?: 'light' | 'dark'; // data-theme attribute on <html> (default: 'light')
     interactionObject?: new (rootElement: Answerable<PageElement>) => IO; // Serenity/JS Interaction Object to wrap the component
 }
 
@@ -32,7 +33,7 @@ export const {
     afterEach,
 } = useFixtures<{ mount: <IO>(options: MountOptions<IO>) => Promise<IO> }>({
     mount: async ({ page }, use) => {
-        const mount = async <IO>({ component, importPath, props = {}, data = {}, dataAsProps, chartJs = false, hash, interactionObject }: MountOptions<IO>): Promise<IO> => {
+        const mount = async <IO>({ component, importPath, props = {}, data = {}, dataAsProps, chartJs = false, hash, theme = 'light', interactionObject }: MountOptions<IO>): Promise<IO> => {
             // View-level components receive data as props. Merge data fields into props unless explicitly disabled.
             const viewComponents = ['DashboardView', 'ScenariosView', 'ScenarioDetailView', 'CapabilitiesView', 'ConsistencyView', 'ErrorsView', 'TagsView', 'TestRunsView', 'TimelineView', 'SystemContextView'];
             const shouldMergeData = dataAsProps !== undefined ? dataAsProps : viewComponents.includes(component);
@@ -69,7 +70,7 @@ export const {
                 : '';
 
             const html = `<!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="${theme}">
 <head><meta charset="UTF-8"><style>${STYLES}</style></head>
 <body>
   <div id="app"></div>

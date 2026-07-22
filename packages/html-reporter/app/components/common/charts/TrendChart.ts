@@ -39,7 +39,7 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
     const chartRef = useRef<Chart | null>(null);
     const containerRef = useRef<HTMLDivElement | null>(null);
     const panelRef = useRef<HTMLDivElement | null>(null);
-    const [chartTheme, setChartTheme] = useState(() => localStorage.getItem('serenity-theme') || 'light');
+    const [chartTheme, setChartTheme] = useState(() => document.documentElement.getAttribute('data-theme') || 'light');
     const [selectedRun, setSelectedRun] = useState<SelectedRun | null>(null);
     const [canPanLeft, setCanPanLeft] = useState(false);
     const [canPanRight, setCanPanRight] = useState(false);
@@ -192,7 +192,7 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
 
     return html`
     <div class="trend-chart-wrapper">
-      <div class="trend-chart-container" ref=${containerRef} style="position:relative;width:100%;height:300px">
+      <div class="trend-chart-container" ref=${containerRef} style="position:relative;width:100%;height:300px" data-chart-theme=${chartTheme}>
         <div class="trend-chart-fade-left ${canPanLeft ? 'visible' : ''}" aria-hidden="true"></div>
         <div class="trend-chart-fade-right ${canPanRight ? 'visible' : ''}" aria-hidden="true"></div>
         <canvas ref=${canvasRef} role="img" aria-label="Trend chart showing test outcomes and duration across recent test runs"></canvas>

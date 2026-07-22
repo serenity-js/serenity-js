@@ -1,5 +1,5 @@
 import { and, Ensure, equals, includes } from '@serenity-js/assertions';
-import { By, Click, ComputedStyle, ExecuteScript, isVisible, LastScriptExecution, PageElement } from '@serenity-js/web';
+import { Attribute, By, Click, ComputedStyle, ExecuteScript, isVisible, LastScriptExecution, PageElement } from '@serenity-js/web';
 
 import { TestRunsView } from '../../../src/serenity/test-runs/TestRunsView.serenity.js';
 import { minimalData } from '../data-factories.js';
@@ -298,6 +298,44 @@ describe('TestRunsView', () => {
             await actor.attemptsTo(
                 Ensure.that(chartContainer(), isVisible()),
                 Ensure.that(chartCanvas(), isVisible()),
+            );
+        });
+    });
+
+    /* Regression: TrendChart must initialise its theme from the data-theme DOM attribute,
+       not from localStorage (which is null for "system" preference users). Without this,
+       chart labels render with light-theme colours on a dark background — invisible. */
+    describe('TestRunsView chart theme initialisation', () => {
+
+        it('uses dark chart theme when data-theme is dark', async ({ mount, actor }) => {
+            await mount({
+                component: 'TestRunsView',
+                importPath: './components/test-runs/TestRunsView',
+                props: { onNavigate: () => {} },
+                data: minimalData(),
+                chartJs: true,
+                theme: 'dark',
+                interactionObject: TestRunsView,
+            });
+
+            await actor.attemptsTo(
+                Ensure.that(Attribute.called('data-chart-theme').of(chartContainer()), equals('dark')),
+            );
+        });
+
+        it('uses light chart theme when data-theme is light', async ({ mount, actor }) => {
+            await mount({
+                component: 'TestRunsView',
+                importPath: './components/test-runs/TestRunsView',
+                props: { onNavigate: () => {} },
+                data: minimalData(),
+                chartJs: true,
+                theme: 'light',
+                interactionObject: TestRunsView,
+            });
+
+            await actor.attemptsTo(
+                Ensure.that(Attribute.called('data-chart-theme').of(chartContainer()), equals('light')),
             );
         });
     });

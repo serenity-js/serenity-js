@@ -75,7 +75,7 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
     }, [runOutcomes]);
 
     return html`
-    <div>
+    <div class="flex-fill-view">
       ${history.length > 1 ? html`<${RunSelector} activeTimestamp=${activeRunTimestamp} history=${history} onRunChange=${onRunChange} isHistorical=${isHistorical} showLatestHref="#/tests" />` : null}
 
       <div class="controls-row">
