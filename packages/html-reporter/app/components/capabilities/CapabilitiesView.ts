@@ -9,7 +9,16 @@ import { icons } from '../common/icons';
 import { ResultCount } from '../common/ResultCount';
 import { SearchInput } from '../common/SearchInput';
 import { DetailPanel } from './CapabilityDetail';
-import { countTopLevelCapabilities, countVisibleNodes, findNodeByPath, getVisiblePaths, nodeConfidence, nodeHasGap, resolveTreeKeyNavigation, TreeNode } from './CapabilityTree';
+import {
+    countTopLevelCapabilities,
+    countVisibleNodes,
+    findNodeByPath,
+    getVisiblePaths,
+    nodeConfidence,
+    nodeHasGap,
+    resolveTreeKeyNavigation,
+    TreeNode
+} from './CapabilityTree';
 
 const html = htm.bind(h);
 

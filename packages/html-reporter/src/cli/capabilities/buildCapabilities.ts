@@ -2,7 +2,7 @@ import { posix } from 'node:path';
 
 import type { FileSystem, RequirementsHierarchy } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
-import { Marked } from 'marked';
+import { Marked, parseInline } from 'marked';
 
 import { scoreCapability, scoreDirectory } from '../CapabilityConfidenceScorer.js';
 import { mapOutcomeToKey, outcomeCodeToDisplayString } from '../model/outcomes.js';
@@ -175,13 +175,12 @@ function attachReadme(
 /**
  * Renders markdown content as HTML with custom link transformation.
  *
- * Uses `new Marked({ renderer: { link(...) } })` rather than direct property
- * assignment on a Renderer instance. The `Marked.use()` pattern internally
- * calls the renderer function via `.apply(renderer, args)`, which guarantees
- * correct `this` binding regardless of how the host environment compiles or
- * invokes the function. Direct assignment (`renderer.link = function(...)`)
- * relies on implicit method-call `this` binding, which can be lost on Linux
- * CI when Playwright's Babel transform processes the function expression.
+ * Uses the standalone `parseInline` function from `marked` to render link
+ * text tokens, rather than `this.parser.parseInline(tokens)`. The `this`
+ * binding inside renderer methods is unreliable — on Linux CI (different
+ * Node/Babel compilation), `this.parser` can be undefined when marked
+ * invokes the renderer function without preserving the call context.
+ * Using the standalone function eliminates the binding dependency entirely.
  *
  * @package
  */
@@ -194,7 +193,7 @@ export function renderReadmeHtml(
     const instance = new Marked({
         renderer: {
             link({ href, title, tokens }) {
-                const text = this.parser.parseInline(tokens);
+                const text = parseInline(tokens.map(t => t.raw).join(''));
                 const titleAttribute = title ? ` title="${title}"` : '';
 
                 // Rule 1: Not local — don't transform
