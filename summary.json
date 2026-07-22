@@ -1,70 +1,58 @@
 {
-  "generated": "2026-07-22T14:43:37.321Z",
+  "generated": "2026-07-22T15:21:48.118Z",
   "title": "Serenity/JS Integration Tests",
   "schemaVersion": 1,
   "latestRun": {
-    "timestamp": "2026-07-22T14:33:35.132Z",
-    "label": "8311",
+    "timestamp": "2026-07-22T15:13:04.274Z",
+    "label": "8312",
     "totals": {
-      "passed": 1833,
-      "failed": 3,
+      "passed": 1842,
+      "failed": 0,
       "pending": 85,
       "skipped": 0,
       "compromised": 0,
       "error": 0
     },
-    "duration": 451251
+    "duration": 324560
   },
   "runs": 5,
-  "failureClusters": [
-    {
-      "fingerprint": "AssertionError:Expected-<<current-page>>.url().href-to-include-\"#/capabilities?path=e2e\"-Expectation:-includes('#/capabilities?path=e2e')-Expected-string:-#/capabilities?path=e2e-Received-string:-http://127.0.0.1:",
-      "errorType": "AssertionError",
-      "message": "Expected <<current page>>.url().href to include \"#/capabilities?path=e2e\"\n\nExpectation: includes('#/capabilities?path=e2e')\n\nExpected string: #/capabilities?path=e2e\nReceived string: http://127.0.0.1:",
-      "scenarios": [
-        {
-          "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
-          "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
-          "browser": "chromium 149.0.7827.55",
-          "failingStep": "Serena ensures that <<current page>>.url().href does include \"#/capabilities?path=e2e\""
-        },
-        {
-          "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
-          "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
-          "browser": "chromium 149.0.7827.55",
-          "failingStep": "Serena ensures that <<current page>>.url().href does include \"#/capabilities?path=e2e\""
-        },
-        {
-          "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
-          "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
-          "browser": "chromium 149.0.7827.55",
-          "failingStep": "Serena ensures that <<current page>>.url().href does include \"#/capabilities?path=e2e\""
-        }
-      ]
-    }
-  ],
+  "failureClusters": [],
   "consistency": {
     "flaky": [],
     "inconsistent": [],
-    "degraded": [
-      {
-        "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
-        "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
-        "browser": "chromium 149.0.7827.55"
-      },
-      {
-        "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
-        "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
-        "browser": "chromium 149.0.7827.55"
-      },
-      {
-        "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
-        "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
-        "browser": "chromium 149.0.7827.55"
-      }
-    ],
+    "degraded": [],
     "recovered": [
       {
+        "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
+        "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
+        "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
+        "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Feature Coverage navigates to filtered scenarios using format",
+        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Feature Coverage uses shorthand format for tags of type \"tag\"",
+        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:20",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
+        "name": "Outcome Filter shows only tags with failures when Failed is selected",
+        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:68",
+        "browser": "chromium 149.0.7827.55"
+      },
+      {
         "name": "Feature Coverage navigates to filtered scenarios using format",
         "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
         "browser": "chromium 149.0.7827.55"
@@ -95,26 +83,26 @@
         "browser": "chromium 149.0.7827.55"
       },
       {
-        "name": "Feature Coverage navigates to filtered scenarios using format",
-        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:10",
+        "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
+        "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
         "browser": "chromium 149.0.7827.55"
       },
       {
-        "name": "Feature Coverage uses shorthand format for tags of type \"tag\"",
-        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:20",
+        "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
+        "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
         "browser": "chromium 149.0.7827.55"
       },
       {
-        "name": "Outcome Filter shows only tags with failures when Failed is selected",
-        "source": "html-reporter/spec/tags/feature-coverage.spec.ts:68",
+        "name": "Living Documentation navigates to a child capability when clicking a directory link in the README",
+        "source": "html-reporter/spec/capabilities/living-documentation.spec.ts:20",
         "browser": "chromium 149.0.7827.55"
       }
     ]
   },
   "scores": {
-    "passRate": 99.8,
+    "passRate": 100,
     "completeness": 95.6,
     "consistency": 99.4,
-    "confidence": 98.6
+    "confidence": 98.7
   }
 }
