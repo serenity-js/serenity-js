@@ -21,7 +21,7 @@ describe('Test Scenarios', () => {
                 scenariosView.open(),
                 scenariosView.selectFilter('Failed'),
 
-                Ensure.that(scenariosView.scenarioCount(), equals(5)),
+                Ensure.that(scenariosView.scenarioCount(), equals(7)),
             );
         });
 

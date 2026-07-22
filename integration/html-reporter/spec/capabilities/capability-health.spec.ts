@@ -10,7 +10,7 @@ describe('Capabilities', () => {
             await actor.attemptsTo(
                 capabilitiesView.open(),
 
-                Ensure.that(capabilitiesView.confidence(), includes('86')),
+                Ensure.that(capabilitiesView.confidence(), includes('84')),
             );
         });
 

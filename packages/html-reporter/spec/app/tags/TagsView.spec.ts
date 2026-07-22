@@ -110,6 +110,26 @@ describe('TagsView', () => {
         );
     });
 
+    it('double-quotes the entire tag token when the type contains a space', async ({ mount, page, actor }) => {
+        await page.addInitScript(() => { (window as any).__onNavigate__ = (path: string) => { (window as any).navigatedTo = path; }; });
+
+        const view = await mount({
+            component: 'TagsView',
+            importPath: './components/tags/TagsView',
+            props: { onNavigate: '__onNavigate__' },
+            data: minimalData({
+                tags: [{ type: 'External Tests', name: 'Manual', scenarioCount: 3, passed: 0, failed: 3, skipped: 0 }],
+            }),
+            interactionObject: TagsView,
+        });
+
+        await actor.attemptsTo(
+            view.selectTag('Manual'),
+            ExecuteScript.sync('return decodeURIComponent(window.navigatedTo)'),
+            Ensure.that(LastScriptExecution.result<string>(), includes('"@External Tests:Manual"')),
+        );
+    });
+
     describe('search', () => {
 
         it('filters tag cards by name', async ({ mount, actor }) => {

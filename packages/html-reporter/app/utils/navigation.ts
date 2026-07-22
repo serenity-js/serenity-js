@@ -139,7 +139,13 @@ export function formatTagToken(tag: { type: string; name: string }): string {
     if (tag.type === 'tag') {
         return `@${value}`;
     }
-    return `@${tag.type}:${value}`;
+    const token = `@${tag.type}:${value}`;
+    // When the type contains a space, quote the entire token so parseSearchTokens
+    // treats it as a single unit rather than splitting on whitespace
+    if (tag.type.includes(' ')) {
+        return `"${token}"`;
+    }
+    return token;
 }
 
 export function searchContainsTag(search: string, tag: { type: string; name: string }): boolean {
@@ -202,7 +208,7 @@ export function toggleTagInSearch(search: string, tag: { type: string; name: str
             return value.toLowerCase() !== targetName;
         });
 
-        return remaining.join(' ').trim();
+        return remaining.map(t => t.includes(' ') ? `"${t}"` : t).join(' ').trim();
     }
 
     // Append the tag token

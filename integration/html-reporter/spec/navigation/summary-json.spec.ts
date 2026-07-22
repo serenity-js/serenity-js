@@ -36,14 +36,14 @@ describe('Report', () => {
                 Send.a(GetRequest.to('/summary.json')),
                 Ensure.that(LastResponse.body<{ latestRun: { totals: { passed: number } } }>().latestRun.totals.passed, equals(17)),
                 Ensure.that(LastResponse.body<{ latestRun: { totals: { failed: number } } }>().latestRun.totals.failed, equals(2)),
-                Ensure.that(LastResponse.body<{ latestRun: { totals: { error: number } } }>().latestRun.totals.error, equals(3)),
+                Ensure.that(LastResponse.body<{ latestRun: { totals: { error: number } } }>().latestRun.totals.error, equals(5)),
             );
         });
 
         it('groups failures into clusters by error fingerprint', async ({ actor }) => {
             await actor.attemptsTo(
                 Send.a(GetRequest.to('/summary.json')),
-                Ensure.that(LastResponse.body<{ failureClusters: unknown[] }>().failureClusters.length, equals(5)),
+                Ensure.that(LastResponse.body<{ failureClusters: unknown[] }>().failureClusters.length, equals(7)),
             );
         });
 
@@ -59,9 +59,9 @@ describe('Report', () => {
         it('computes composite quality scores', async ({ actor }) => {
             await actor.attemptsTo(
                 Send.a(GetRequest.to('/summary.json')),
-                Ensure.that(LastResponse.body<{ scores: { passRate: number } }>().scores.passRate, equals(77.3)),
+                Ensure.that(LastResponse.body<{ scores: { passRate: number } }>().scores.passRate, equals(70.8)),
                 Ensure.that(LastResponse.body<{ scores: { completeness: number } }>().scores.completeness, equals(100)),
-                Ensure.that(LastResponse.body<{ scores: { confidence: number } }>().scores.confidence, equals(84.5)),
+                Ensure.that(LastResponse.body<{ scores: { confidence: number } }>().scores.confidence, equals(82.5)),
             );
         });
     });

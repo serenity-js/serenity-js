@@ -291,6 +291,42 @@ describe('ScenariosView tag search', () => {
             Ensure.that(view.scenarioCount(), equals(2)),
         );
     });
+
+    it('"@External Tests:Manual" matches scenarios with a tag whose type contains a space', async ({ mount, actor }) => {
+        const dataWithSpacedType = minimalData({
+            scenarios: [
+                {
+                    name: 'Manual test A', category: 'Manual', outcome: 'PENDING', duration: 0,
+                    startedAt: '2024-06-15T14:30:00.000Z',
+                    source: { path: 'spec/manual.spec.ts', line: 10 },
+                    tags: [{ type: 'External Tests', name: 'Manual' }],
+                    activities: [],
+                    executionHistory: [],
+                },
+                {
+                    name: 'Automated test B', category: 'E2E', outcome: 'SUCCESS', duration: 100,
+                    startedAt: '2024-06-15T14:30:00.100Z',
+                    source: { path: 'spec/auto.spec.ts', line: 5 },
+                    tags: [{ type: 'feature', name: 'Login' }],
+                    activities: [],
+                    executionHistory: [],
+                },
+            ],
+        });
+
+        const view = await mount({
+            component: 'ScenariosView',
+            importPath: './components/scenarios/ScenariosView',
+            props: { onNavigate: () => {}, route: '/tests?search=' + encodeURIComponent('"@External Tests:Manual"') },
+            data: dataWithSpacedType,
+            interactionObject: ScenariosView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCount(), equals(1)),
+            Ensure.that(view.scenarioNames(), contain('Manual test A')),
+        );
+    });
 });
 
 describe('ScenariosView tag chip interaction', () => {
