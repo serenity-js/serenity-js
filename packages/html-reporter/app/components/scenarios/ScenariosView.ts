@@ -31,7 +31,6 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
         basePath: '/tests',
         route,
         defaults: { sort: 'category' },
-        extraParams: () => (runIndex !== null && history[runIndex] ? { run: history[runIndex].timestamp } : {}),
     });
 
     const filtered = useMemo(() => {

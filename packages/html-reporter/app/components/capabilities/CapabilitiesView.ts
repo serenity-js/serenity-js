@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'preact/hooks';
 
 import type { ReportCapabilityNode } from '../../../src/cli/ReportData';
 import { useViewState } from '../../hooks/useViewState';
+import { useHashHistory } from '../../utils';
 import { FilterBar } from '../common/FilterBar';
 import { icons } from '../common/icons';
 import { ResultCount } from '../common/ResultCount';
@@ -37,8 +38,18 @@ export function CapabilitiesView({ capabilities, onNavigate, route }: Capabiliti
         basePath: '/capabilities',
         route,
         defaults: { sort: 'name' },
-        extraParams: () => (selectedPath ? { path: selectedPath } : {}),
     });
+
+    const hashNav = useHashHistory();
+
+    // Sync selectedPath to URL when user selects a tree node
+    useEffect(() => {
+        if (selectedPath) {
+            hashNav.setParam('path', selectedPath);
+        } else {
+            hashNav.deleteParam('path');
+        }
+    }, [selectedPath]);
 
     useEffect(() => {
         if (!capabilities) return;

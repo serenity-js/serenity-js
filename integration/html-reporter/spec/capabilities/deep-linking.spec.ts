@@ -1,4 +1,4 @@
-import { Ensure, equals } from '@serenity-js/assertions';
+import { Ensure, equals, includes } from '@serenity-js/assertions';
 import { notes } from '@serenity-js/core';
 import { Navigate, Page } from '@serenity-js/web';
 
@@ -47,6 +47,18 @@ describe('Capabilities', () => {
                 Ensure.that(capabilitiesView.filterBar.activeFilters(), equals(['Healthy'])),
                 Ensure.that(capabilitiesView.selectedSort(), equals('confidence')),
                 Ensure.that(capabilitiesView.searchInput.value(), equals('todo')),
+            );
+        });
+
+        it('preserves path param when filter changes', async ({ actor, capabilitiesView }) => {
+            await actor.attemptsTo(
+                // Navigate to a specific capability via deep link
+                Navigate.to('/index.html#/capabilities?path=e2e'),
+
+                // Change a filter — the path param must survive
+                capabilitiesView.selectFilter('Healthy'),
+
+                Ensure.that(Page.current().url().href, includes('path=e2e')),
             );
         });
     });

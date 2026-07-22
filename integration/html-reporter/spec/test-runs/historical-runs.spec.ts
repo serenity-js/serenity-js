@@ -48,5 +48,20 @@ describe('Test Runs', () => {
                 Ensure.that(Page.current().url().href, includes('#/tests?run=')),
             );
         });
+
+        it('preserves run param when applying a filter on the scenarios view', async ({ actor, testRunsView, scenariosView }) => {
+            await actor.attemptsTo(
+                testRunsView.open(),
+                testRunsView.selectRun(0),
+
+                // Verify we're on the scenarios view with run param
+                Ensure.that(Page.current().url().href, includes('#/tests?run=')),
+
+                // Apply a filter — run param must survive
+                scenariosView.selectFilter('Failed'),
+
+                Ensure.that(Page.current().url().href, includes('run=')),
+            );
+        });
     });
 });
