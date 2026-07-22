@@ -1,4 +1,4 @@
-import { Ensure, contain, equals, includes, isGreaterThan, not } from '@serenity-js/assertions';
+import { contain, Ensure, equals, includes, isGreaterThan, not } from '@serenity-js/assertions';
 import { Page } from '@serenity-js/web';
 
 import { describe, it } from '../../src';
