@@ -597,3 +597,26 @@ function getBrowserTag(scenario: { tags?: Array<{ type: string; name: string }> 
 ```
 
 This avoids casts at call sites and makes the function composable with partial data (e.g., in tests or when constructing objects incrementally).
+
+
+## Always use `npm test` for final verification, never bare test runner commands
+
+When verifying that changes work, always run the package's `npm test` (or `npm run test`) command — never `npx playwright test`, `npx mocha`, or any direct test runner invocation.
+
+`npm test` runs the full pipeline: pretest hooks (data generation, compilation) → test execution → coverage. Direct runner commands skip pretest steps and can pass against stale compiled output.
+
+This applies even when you "just compiled" — the pipeline exists to catch what you assume is fine. The urge to skip a step is the signal that the step is needed.
+
+Correct:
+```bash
+cd packages/html-reporter && npm test
+cd integration/html-reporter && npm test
+```
+
+Wrong:
+```bash
+npx playwright test spec/app/tags/
+npx mocha --config ../../.mocharc.yml 'spec/cli/*.spec.ts'
+```
+
+The only exception: running a single spec file during the Red→Green TDD cycle (before final verification). Final verification always uses `npm test`.

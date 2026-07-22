@@ -175,6 +175,8 @@ export interface ReportTag {
     name: string;
     scenarioCount: number;
     passed: number;
+    failed: number;
+    skipped: number;
 }
 
 export interface ReportInconsistentTest {

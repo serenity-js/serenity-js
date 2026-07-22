@@ -95,8 +95,8 @@ export function minimalData(overrides: Partial<ReportData> = {}): ReportData {
             },
         ],
         tags: overrides.tags || [
-            { type: 'feature', name: 'Login', scenarioCount: 2, passed: 2 },
-            { type: 'tag', name: 'smoke', scenarioCount: 2, passed: 1 },
+            { type: 'feature', name: 'Login', scenarioCount: 2, passed: 2, failed: 0, skipped: 0 },
+            { type: 'tag', name: 'smoke', scenarioCount: 2, passed: 1, failed: 1, skipped: 0 },
         ],
         inconsistentTests: overrides.inconsistentTests || [],
         newFailures: overrides.newFailures || [],

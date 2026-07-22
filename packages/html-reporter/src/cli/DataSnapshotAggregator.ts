@@ -1,6 +1,6 @@
 import type { FileSystem, RequirementsHierarchy } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
-import { ExecutionSuccessful } from '@serenity-js/core/model';
+import { ExecutionSkipped, ExecutionSuccessful, ImplementationPending } from '@serenity-js/core/model';
 import { marked } from 'marked';
 
 import { buildCapabilities } from './capabilities/buildCapabilities.js';
@@ -538,18 +538,22 @@ export class DataSnapshotAggregator {
         return [...browsers.entries()].map(([name, version]) => ({ name, version }));
     }
 
-    private computeTagStats(run: RunData): Array<{ type: string; name: string; scenarioCount: number; passed: number }> {
-        const tagMap = new Map<string, { type: string; name: string; scenarioCount: number; passed: number }>();
+    private computeTagStats(run: RunData): Array<{ type: string; name: string; scenarioCount: number; passed: number; failed: number; skipped: number }> {
+        const tagMap = new Map<string, { type: string; name: string; scenarioCount: number; passed: number; failed: number; skipped: number }>();
         for (const scene of run.scenes) {
             for (const tag of scene.tags) {
                 const key = tag.type + ':' + tag.name;
                 if (!tagMap.has(key)) {
-                    tagMap.set(key, { type: tag.type, name: tag.name, scenarioCount: 0, passed: 0 });
+                    tagMap.set(key, { type: tag.type, name: tag.name, scenarioCount: 0, passed: 0, failed: 0, skipped: 0 });
                 }
                 const entry = tagMap.get(key);
                 entry.scenarioCount++;
                 if (scene.outcome.code === ExecutionSuccessful.Code) {
                     entry.passed++;
+                } else if (scene.outcome.code === ExecutionSkipped.Code || scene.outcome.code === ImplementationPending.Code) {
+                    entry.skipped++;
+                } else {
+                    entry.failed++;
                 }
             }
         }
