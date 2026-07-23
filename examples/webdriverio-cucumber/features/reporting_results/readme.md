@@ -1,4 +1,7 @@
-Narrative:
+# Reporting results
+
+## Narrative
+
 In order to quickly learn how to use Serenity/JS with Cucumber
 As a busy developer
 I'd like to see examples demonstrating how Serenity/JS reports the result of executing Cucumber test scenarios.
