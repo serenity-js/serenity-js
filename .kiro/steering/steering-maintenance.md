@@ -1,60 +1,59 @@
 # Steering Documentation Maintenance
 
-This guide covers how to maintain and improve the steering documentation itself.
+## Purpose
 
-## When to Update Steering Docs
+These steering docs encode Serenity/JS engineering conventions that are not obvious from the code alone. They serve as long-term guidance for AI assistants and contributors alike, ensuring architectural consistency regardless of who is making changes.
 
-Recommend updating steering docs when:
+## Document Map
 
-- **Learning new patterns** - Discovered an undocumented convention or best practice while working on the codebase
-- **Correcting misunderstandings** - A steering doc led to incorrect assumptions that needed fixing
-- **Filling gaps** - Encountered a situation where guidance would have been helpful but didn't exist
-- **Outdated information** - Build commands, file locations, or processes have changed
-- **Clarifying ambiguity** - A doc was unclear and caused confusion
+| File | Purpose | Inclusion |
+|------|---------|-----------|
+| `project-overview.md` | Architecture, DDD philosophy, packages, tech stack | Always |
+| `coding-standards.md` | Value objects, Good Citizen rule, style, backwards compatibility | Always |
+| `development-workflow.md` | BDD/TDD process, engineering principles | Always |
+| `testing-patterns.md` | Executable specifications, test frameworks, Screenplay testing | Always |
+| `screenplay-pattern.md` | Implementing Abilities, Interactions, Tasks, Questions | Always |
+| `html-reporter-ux.md` | UX principles, personas, navigation model, evidence presentation, accessibility | Conditional: html-reporter files |
+| `web-testing.md` | PEQL, dependency inversion, browser packages | Conditional: web/playwright/webdriverio files |
+| `test-runner-adapters.md` | Adapter pattern, domain events, creating adapters | Conditional: cucumber/mocha/jasmine/playwright-test files |
+| `debugging-ci.md` | Running tests, CI pipeline, troubleshooting | Always |
+| `commit-conventions.md` | Conventional commits, scopes, release process | Always |
+| `steering-maintenance.md` | This file — meta-guidance | Always |
 
-## How to Propose Updates
+## When to Update
 
-1. **Ask first** - Before making changes, describe what you learned and suggest the update
-2. **Be specific** - Quote the section that needs updating and propose the new content
-3. **Explain why** - What situation revealed the need for this update?
+Update steering docs when:
 
-Example:
-> "While working on the Cucumber adapter, I learned that integration tests also require Java for the Serenity BDD reporter. Should I add this to `debugging-ci.md` under the Development Environment section?"
+- A convention was unclear and caused an incorrect implementation
+- A new pattern was discovered that should be followed consistently
+- Build commands, file paths, or tooling changed
+- An outdated example led to wrong assumptions
+- A new bounded context (package) was added
 
-## What Belongs in Steering Docs
+## How to Update
 
-**Include:**
-- Project-specific conventions not obvious from the code
-- Build and test commands with common variations
-- Architecture decisions and rationale
-- Workflow guidance (TDD process, PR workflow)
-- Troubleshooting common issues
-- Policies (backwards compatibility, deprecation)
+1. Identify the specific section that needs changing
+2. Propose the update with rationale ("this led to X mistake because Y")
+3. Keep updates concise — steering docs should be reference material, not tutorials
+4. Verify examples still compile and match actual codebase patterns
 
-**Exclude:**
-- Generic TypeScript/JavaScript knowledge
-- Information already in README.md or CONTRIBUTING.md (link instead)
-- Temporary workarounds (use code comments)
-- Highly volatile information that changes frequently
+## What Belongs Here vs Elsewhere
 
-## Steering Doc Organization
+**In steering docs:**
+- Project-specific conventions not obvious from code
+- Architecture decisions and their rationale
+- Build/test commands with common variations
+- Patterns that should be followed consistently
 
-| File | Purpose |
-|------|---------|
-| `project-overview.md` | Architecture, packages, tech stack |
-| `coding-standards.md` | Code style, TypeScript config, backwards compatibility |
-| `testing-patterns.md` | How to write tests |
-| `debugging-ci.md` | How to run tests, troubleshoot CI |
-| `development-workflow.md` | TDD process, when to ask for clarification |
-| `commit-conventions.md` | Commit messages, release process |
-| `screenplay-pattern.md` | Implementing Screenplay components |
-| `web-testing.md` | Web/PEQL patterns (conditional) |
-| `test-runner-adapters.md` | Adapter architecture (conditional) |
-| `steering-maintenance.md` | This file - meta-guidance |
+**Not in steering docs:**
+- Generic TypeScript knowledge
+- Information in README.md or CONTRIBUTING.md (link instead)
+- Temporary workarounds (use code comments with a TODO)
+- Step-by-step tutorials (use the website handbook)
 
-## Conditional Steering Docs
+## Conditional Inclusion
 
-Some docs use front-matter to activate only when relevant files are open:
+Use front-matter to activate docs only when relevant files are open:
 
 ```yaml
 ---
@@ -63,13 +62,13 @@ fileMatchPattern: "**/web/**,**/playwright/**"
 ---
 ```
 
-Use conditional inclusion for module-specific guidance that would add noise in other contexts.
+Use this for module-specific guidance that adds noise in other contexts.
 
-## Keeping Docs Current
+## Quality Criteria
 
-When making significant codebase changes:
-
-1. Check if any steering doc references the changed area
-2. Update examples if APIs changed
-3. Update file paths if structure changed
-4. Remove guidance for deleted features
+Good steering docs are:
+- **Opinionated** — state what to do, not all possible options
+- **Concise** — reference format, not prose essays
+- **Accurate** — examples match the actual codebase
+- **Stable** — don't change with every commit; capture durable conventions
+- **Non-duplicative** — each fact lives in one place

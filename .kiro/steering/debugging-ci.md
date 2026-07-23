@@ -1,203 +1,143 @@
-# Debugging and CI Troubleshooting
+# Debugging and CI
 
-## Running Tests
+## Running Tests Locally
 
 ### Unit Tests
 
 ```bash
-# All unit tests with coverage
-make test
+make test                  # All packages, with coverage
+make test-no-coverage      # Faster, no coverage
 
-# Unit tests without coverage (faster)
-make test-no-coverage
+cd packages/core && pnpm test   # Single package
+```
 
-# Specific package
+### Individual Test Files
+
+```bash
 cd packages/core
-pnpm test
+npx mocha --config ../../.mocharc.yml 'spec/screenplay/Actor.spec.ts'
+npx mocha --config ../../.mocharc.yml 'spec/**/*.spec.ts' --grep "Actor"
 ```
 
 ### Integration Tests
 
 ```bash
-# Specific integration module
 make INTEGRATION_SCOPE=playwright-test integration-test
-
-# All Cucumber versions
-make INTEGRATION_SCOPE=cucumber-all integration-test
-
-# All integration tests (slow)
-make INTEGRATION_SCOPE=all integration-test
+make INTEGRATION_SCOPE=cucumber-12 integration-test
+make INTEGRATION_SCOPE=all integration-test        # slow — runs everything
 ```
 
-### Running Individual Test Files
+Integration tests run against compiled output. Always recompile first:
 
 ```bash
-cd packages/core
-
-# Run a single test file
-npx mocha --config ../../.mocharc.yml 'spec/screenplay/Actor.spec.ts'
-
-# Run tests matching a pattern
-npx mocha --config ../../.mocharc.yml 'spec/**/*.spec.ts' --grep "Actor"
-
-# Verbose output
-npx mocha --config ../../.mocharc.yml 'spec/**/*.spec.ts' --reporter spec
+make clean
+make COMPILE_SCOPE=libs compile
+make INTEGRATION_SCOPE=playwright-test integration-test
 ```
 
 ## Common Build Issues
 
-### Nx Cache Issues
+### Stale Nx Cache
 
-If builds behave unexpectedly, clear the Nx cache:
-
-```bash
-make cc
-# or
-pnpm cc
-```
-
-### Compilation Order
-
-Packages must compile in dependency order. Nx handles this automatically, but if you see missing module errors:
+If builds behave unexpectedly after switching branches or making structural changes:
 
 ```bash
-# Compile all libs (respects dependency graph)
-make COMPILE_SCOPE=libs compile
-
-# Or compile everything
-make compile
+make cc    # clears Nx cache
 ```
 
-### TypeScript Errors
+### Missing Module Errors
 
-Check for type errors without emitting:
+Packages must compile in dependency order. Nx handles this, but if you see resolution errors:
 
 ```bash
-npx tsc --noEmit
+make COMPILE_SCOPE=libs compile    # compiles all library packages in order
 ```
 
-For a specific package:
+### Type Checking Without Emitting
 
 ```bash
 cd packages/core
 npx tsc --noEmit
 ```
 
-## CI Pipeline Structure
+### Browser Installation
 
-The GitHub Actions workflow runs in this order:
-
-1. **lint** - ESLint checks
-2. **compile** - TypeScript compilation
-3. **test-*** - Unit tests (parallel across Node versions and OS)
-4. **test-integration-*** - Integration tests (parallel by module)
-5. **coverage** - Aggregate coverage report
-6. **artifacts-publish** - NPM publish (main branch only)
-
-### CI Failure Investigation
-
-When CI fails, check:
-
-1. **Which job failed?** - Look at the job name in the workflow
-2. **What step failed?** - Expand the failed job to see the step
-3. **Download artifacts** - Failed integration tests upload reports
-
-### Common CI Failures
-
-**Lint failures:**
-```bash
-# Run locally
-make lint
-
-# Auto-fix what's possible
-pnpm lint:fix
-```
-
-**Compilation failures:**
-```bash
-# Clean and recompile
-make clean compile
-```
-
-**Test failures:**
-```bash
-# Run specific package tests
-cd packages/core
-pnpm test
-
-# Run specific integration test
-make INTEGRATION_SCOPE=playwright-test integration-test
-```
-
-## Debugging Tests
-
-### Integration Tests
-
-Integration tests spawn actual test runners. Debug by:
-
-1. Check the integration test's `src/` for the test scenarios
-2. Run the underlying test runner directly
-3. Check `target/` for generated reports
-
-Example for Playwright integration:
+Browsers install automatically during `make install`. To reinstall manually:
 
 ```bash
-cd integration/playwright-test
-# Look at src/ for test scenarios
-# Check target/site/serenity for reports after test run
-```
-
-### Browser Tests
-
-Browsers are installed automatically during `make install` or `pnpm install` via postinstall scripts. If you need to reinstall them manually:
-
-```bash
-# Reinstall all browsers
-pnpm postinstall
-
-# Or individually:
 pnpm postinstall:playwright    # Playwright browsers
 pnpm postinstall:protractor    # Chrome v129 for Protractor
 pnpm postinstall:webdriverio   # Chrome stable for WebdriverIO
 ```
 
-## Debugging Screenplay Pattern Issues
+## CI Pipeline
 
-### Activity Not Executing
+GitHub Actions workflow order:
 
-Check that the actor has required abilities:
+1. **lint** — ESLint
+2. **compile** — TypeScript compilation
+3. **test** — Unit tests (parallel across Node versions and OS)
+4. **integration** — Integration tests (parallel by module)
+5. **coverage** — Aggregate coverage
+6. **publish** — npm publish (main branch only)
 
-```typescript
-// Debug: log actor's abilities
-console.log(actor.toString());
-// → Actor(name=Alice, abilities=[PerformActivities, AnswerQuestions, BrowseTheWeb])
+### Investigating CI Failures
+
+1. Identify the failing job name
+2. Expand the failed step
+3. Download artefacts (failed integration tests upload Serenity BDD reports)
+
+### Reproducing CI Failures Locally
+
+```bash
+# Lint
+make lint
+pnpm lint:fix              # auto-fix formatting and imports
+
+# Compilation
+make clean compile
+
+# Unit tests
+cd packages/<name> && pnpm test
+
+# Integration
+make clean
+make COMPILE_SCOPE=libs compile
+make INTEGRATION_SCOPE=<module> integration-test
 ```
 
-### Question Returns Undefined
+## Debugging Screenplay Issues
 
-Verify the question is being answered:
+### Missing Ability
 
 ```typescript
-const result = await actor.answer(myQuestion);
-console.log('Result:', result, typeof result);
+// Error: "Alice can't BrowseTheWeb yet. Did you give them the ability to do so?"
+// Fix: ensure the actor has the required ability
+actor.whoCan(BrowseTheWebWithPlaywright.using(browser));
 ```
 
-### Events Not Emitting
+### Domain Events Not Flowing
 
-Check Stage is properly configured:
+Verify `stage.announce()` is being called in tests:
 
 ```typescript
-// In tests, verify stage.announce is called
 expect(stage.announce).to.have.been.calledWith(
     sinon.match.instanceOf(InteractionStarts)
 );
 ```
 
-## Performance Profiling
+### Integration Test Not Reflecting Changes
+
+Integration tests run against `lib/` (compiled output), not `src/`. Always:
+
+```bash
+make clean
+make COMPILE_SCOPE=libs compile
+```
+
+## Performance
 
 ### Slow Compilation
-
-Use Nx's profiling:
 
 ```bash
 NX_PROFILE=true pnpm compile:libs
@@ -205,16 +145,12 @@ NX_PROFILE=true pnpm compile:libs
 
 ### Slow Tests
 
-Run with timing:
-
 ```bash
 npx mocha --config ../../.mocharc.yml 'spec/**/*.spec.ts' --reporter spec --slow 50
 ```
 
-## Log Files
+## Artefacts
 
-CI failures may produce log files:
-
-- `lerna-debug.log` - Lerna operation logs
-- `target/` directories - Test outputs and reports
-- `integration/*/target/site/serenity/` - Serenity BDD reports
+- `packages/*/target/coverage/` — c8 coverage reports
+- `integration/*/target/site/serenity/` — Serenity BDD reports
+- `lerna-debug.log` — Lerna operation logs
