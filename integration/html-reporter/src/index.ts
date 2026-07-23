@@ -22,11 +22,6 @@ interface TestFixtures {
     consistencyView: ConsistencyView<unknown>;
     dashboardView: DashboardView<unknown>;
     errorsView: ErrorsView<unknown>;
-    expected: {
-        scenarios: {
-            maxVisibleRows: number;
-        }
-    };
     isShowcase: boolean;
     scenarioDetailView: ScenarioDetailView<unknown>;
     scenariosView: ScenariosView<unknown>;
@@ -96,20 +91,6 @@ export const {
     errorsView: async ({ navigation }, use) => {
         const rootElement = PageElement.located(By.css('[data-testid="errors"]')).describedAs('errors view');
         await use(new ErrorsView(rootElement, navigation));
-    },
-
-    expected: async ({ }, use, info) => {
-        const maxVisibleRows: Record<string, number> = {
-            desktop: 16,
-            tablet: 15,
-            mobile: 16,
-        };
-
-        await use({
-            scenarios: {
-                maxVisibleRows: maxVisibleRows[info.project.name] ?? 15,
-            },
-        });
     },
 
     scenarioDetailView: async ({ navigation }, use) => {

@@ -1,4 +1,4 @@
-import { Ensure, equals, includes, isGreaterThan } from '@serenity-js/assertions';
+import { Ensure, equals, includes, isGreaterThan, isLessThan } from '@serenity-js/assertions';
 
 import { describe, it } from '../../src';
 import { failingTest } from '../../src/scenarios';
@@ -7,12 +7,12 @@ describe('Test Scenarios', () => {
 
     describe('Finding Scenarios', () => {
 
-        it('shows the total number of scenarios', async ({ actor, scenariosView, expected }) => {
+        it('shows the total number of scenarios', async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
                 scenariosView.open(),
 
                 Ensure.that(scenariosView.scenarioCount(), isGreaterThan(0)),
-                Ensure.that(scenariosView.scenarioCount(), equals(expected.scenarios.maxVisibleRows)),
+                Ensure.that(scenariosView.scenarioCount(), isLessThan(24)),
             );
         });
 

@@ -450,6 +450,12 @@
     }
 
     /* ===== Flex Fill Layout (views with virtual scroll lists) ===== */
+    .main-content:has(> .flex-fill-view) {
+      height: 100vh;
+      min-height: 0;
+      overflow: hidden;
+    }
+
     .flex-fill-view {
       flex: 1;
       display: flex;
@@ -462,11 +468,13 @@
       display: flex;
       flex-direction: column;
       min-height: 0;
+      padding-bottom: 0;
     }
 
     .flex-fill-view > .card > .scroll-container {
       flex: 1;
       min-height: 0;
+      max-height: none;
     }
 
     /* ===== Grid Layouts ===== */
