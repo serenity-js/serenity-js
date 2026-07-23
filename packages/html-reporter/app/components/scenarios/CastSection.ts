@@ -27,22 +27,21 @@ function isEmptyObject(obj: unknown): boolean {
     return Object.keys(obj as Record<string, unknown>).length === 0;
 }
 
-function renderDetails(obj: unknown): ReturnType<typeof html> {
-    if (obj === null || obj === undefined) return null;
+function renderDetails(obj: unknown): ReturnType<typeof html> | undefined {
+    if (isEmptyObject(obj)) return undefined;
     if (typeof obj !== 'object') return html`<span>${String(obj)}</span>`;
     if (Array.isArray(obj)) {
-        if (obj.length === 0) return null;
         return html`<ul class="cast-details-list">${obj.map(item => html`<li>${renderDetails(item)}</li>`)}</ul>`;
     }
     const entries = Object.entries(obj as Record<string, unknown>);
-    if (entries.length === 0) return null;
+    if (entries.length === 0) return undefined;
     return html`<ul class="cast-details-list">
         ${entries.map(([key, value]) => {
             if (typeof value === 'object' && value !== null && !isEmptyObject(value)) {
                 return html`<li><span class="cast-detail-key">${key}</span>${renderDetails(value)}</li>`;
             }
             if (isEmptyObject(value)) {
-                return null;
+                return undefined;
             }
             return html`<li><span class="cast-detail-key">${key}:</span> ${String(value)}</li>`;
         })}

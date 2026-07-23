@@ -20,10 +20,49 @@ export interface ScenarioRowProps {
     history?: ReportHistoryEntry[];
 }
 
+function ScenarioMeta({ scenario, specDirectory }: { scenario: ReportScenario; specDirectory?: string }): ReturnType<typeof html> {
+    return html`
+        <div class="scenario-meta">
+          <span class="scenario-source">${relativeSourcePath(scenario, specDirectory)}</span>
+          <span class="scenario-duration">${icons.clock}${formatDuration(scenario.duration)}</span>
+        </div>
+    `;
+}
+
+function ScenarioTags({ scenario, search, handleTagClick }: { scenario: ReportScenario; search: string; handleTagClick: (e: Event, tag: { type: string; name: string }) => void }): ReturnType<typeof html> {
+    const browserTag = getBrowserTag(scenario);
+    const browserTagObject = browserTag ? (scenario.tags || []).find(t => t.type === 'browser') : null;
+    const browserActive = browserTagObject ? searchContainsTag(search, browserTagObject) : false;
+
+    const uniqueTags = [...new Map((scenario.tags || []).filter(t => t.type !== 'browser').map(t => [t.name, t])).values()];
+
+    return html`
+        <div class="scenario-tags scroll-x-hidden">
+          ${browserTag && browserTagObject ? html`<span class="badge ${browserBadgeClass(browserTag)} badge-link${browserActive ? ' active' : ''}" aria-pressed=${browserActive ? 'true' : 'false'} onClick=${(e: Event) => handleTagClick(e, browserTagObject)}>${browserTag}</span>` : null}
+          ${scenario.retries && scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
+          ${uniqueTags.map(t => {
+                const isActive = searchContainsTag(search, t);
+                return html`<span class="tag-chip tag-chip-sm${isActive ? ' active' : ''}" aria-pressed=${isActive ? 'true' : 'false'} onClick=${(e: Event) => handleTagClick(e, t)}>${t.name}</span>`;
+            })}
+        </div>
+    `;
+}
+
+function ScenarioHistoryLine({ scenario, runIndex }: { scenario: ReportScenario; runIndex: number | null }): ReturnType<typeof html> | null {
+    if (!scenario.executionHistory || scenario.executionHistory.length <= 1) return null;
+    const entries = (runIndex !== null ? scenario.executionHistory.slice(0, runIndex + 1) : scenario.executionHistory)
+        .slice(-5)
+        .map(entry => ({ outcome: entry.outcome, label: entry.outcome + ' — ' + formatRunLabel(entry.run, entry.timestamp || '') }));
+    return html`
+        <div class="scenario-history-line">
+          <${HistoryDots} entries=${entries} max=${5} />
+        </div>
+    `;
+}
+
 export function ScenarioRow({ scenario, sort, onNavigate, runIndex, setSearch, search, specDirectory, history }: ScenarioRowProps): ReturnType<typeof html> {
     const url = scenarioUrl(scenario, runIndex, history);
     const clickHandler = (e: MouseEvent) => {
-        // Allow cmd+click / ctrl+click to open in new tab naturally
         if (e.metaKey || e.ctrlKey) return;
         e.preventDefault();
         onNavigate(url);
@@ -35,10 +74,6 @@ export function ScenarioRow({ scenario, sort, onNavigate, runIndex, setSearch, s
         setSearch(toggleTagInSearch(search, tag));
     };
 
-    const browserTag = getBrowserTag(scenario);
-    const browserTagObject = browserTag ? (scenario.tags || []).find(t => t.type === 'browser') : null;
-    const browserActive = browserTagObject ? searchContainsTag(search, browserTagObject) : false;
-
     return html`
     <a class="scenario-item" href=${'#' + url} onClick=${clickHandler}
          onKeyDown=${(e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onNavigate(url); } }}
@@ -47,23 +82,9 @@ export function ScenarioRow({ scenario, sort, onNavigate, runIndex, setSearch, s
       <div class="scenario-info">
         <div class="scenario-name">${sort !== 'category' && scenario.category ? scenario.category + ' › ' : ''}${scenario.name}</div>
         ${scenario.error ? html`<div class="scenario-error-preview">${stripAnsi(stripAbsolutePaths(scenario.error.message, specDirectory))}</div>` : null}
-        ${scenario.executionHistory && scenario.executionHistory.length > 1 ? html`
-          <div class="scenario-history-line">
-            <${HistoryDots} entries=${(runIndex !== null ? scenario.executionHistory.slice(0, runIndex + 1) : scenario.executionHistory).slice(-5).map(entry => ({ outcome: entry.outcome, label: entry.outcome + ' — ' + formatRunLabel(entry.run, entry.timestamp || '') }))} max=${5} />
-          </div>
-        ` : null}
-        <div class="scenario-meta">
-          <span class="scenario-source">${relativeSourcePath(scenario, specDirectory)}</span>
-          <span class="scenario-duration">${icons.clock}${formatDuration(scenario.duration)}</span>
-        </div>
-        <div class="scenario-tags scroll-x-hidden">
-          ${browserTag && browserTagObject ? html`<span class="badge ${browserBadgeClass(browserTag)} badge-link${browserActive ? ' active' : ''}" aria-pressed=${browserActive ? 'true' : 'false'} onClick=${(e: Event) => handleTagClick(e, browserTagObject)}>${browserTag}</span>` : null}
-          ${scenario.retries && scenario.retries > 0 ? html`<span class="retries-badge">${scenario.retries + 1} ${(scenario.retries + 1) === 1 ? 'attempt' : 'attempts'}</span>` : null}
-          ${[...new Map((scenario.tags || []).filter(t => t.type !== 'browser').map(t => [t.name, t])).values()].map(t => {
-                const isActive = searchContainsTag(search, t);
-                return html`<span class="tag-chip tag-chip-sm${isActive ? ' active' : ''}" aria-pressed=${isActive ? 'true' : 'false'} onClick=${(e: Event) => handleTagClick(e, t)}>${t.name}</span>`;
-            })}
-        </div>
+        <${ScenarioHistoryLine} scenario=${scenario} runIndex=${runIndex} />
+        <${ScenarioMeta} scenario=${scenario} specDirectory=${specDirectory} />
+        <${ScenarioTags} scenario=${scenario} search=${search} handleTagClick=${handleTagClick} />
       </div>
     </a>
   `;

@@ -22,6 +22,50 @@ interface DashboardConsistencyCardProps {
     getHistory: (t: ReportScenarioRef) => Array<string | { outcome: string; run: string; retriedAndPassed?: boolean }>;
 }
 
+type HistoryEntry = string | { outcome: string; run: string; retriedAndPassed?: boolean };
+
+function buildHistoryEntries(history: HistoryEntry[], labels: string[] | undefined): Array<{ outcome: string; retriedAndPassed?: boolean; label: string }> {
+    return history.map((entry, i) => {
+        const outcome = typeof entry === 'string' ? entry : entry.outcome;
+        const retriedAndPassed = typeof entry === 'object' ? entry.retriedAndPassed : undefined;
+        const label = labels ? labels[i] : (typeof entry === 'object' ? entry.run : '');
+        return {
+            outcome,
+            retriedAndPassed,
+            label: outcomeDisplayName(retriedAndPassed ? 'RETRIED_SUCCESS' : outcome) + (label ? ' (' + label + ')' : ''),
+        };
+    });
+}
+
+function kindColor(kind: string): string {
+    if (kind === 'degraded') return 'var(--color-failed)';
+    if (kind === 'recovered') return 'var(--color-passed)';
+    return 'var(--color-pending)';
+}
+
+function ConsistencyItemRow({ item, onNavigate, getHistory }: { item: ConsistencyItem; onNavigate: (path: string) => void; getHistory: DashboardConsistencyCardProps['getHistory'] }): ReturnType<typeof html> {
+    const history = item.history || getHistory(item);
+    const historyEntries = buildHistoryEntries(history, item.labels);
+
+    return html`
+        <div class="status-item status-item--rich clickable" onClick=${() => onNavigate(scenarioUrl(item))}>
+          <div class="status-item-main">
+            <span class="status-icon status-icon--${outcomeClass(item.lastOutcome)}">${outcomeIcon(item.lastOutcome)}</span>
+            <span class="status-item-name">${item.name}</span>
+          </div>
+          <div class="status-item-history-line">
+            <span class="status-item-kind" style="color:${kindColor(item.kind)}">${item.kind.toUpperCase()}</span>
+            <${HistoryDots} entries=${historyEntries} />
+          </div>
+          ${getBrowserTag(item) ? html`
+            <div class="status-item-tags scroll-x-hidden">
+              <${BrowserBadge} scenario=${item} />
+            </div>
+          ` : null}
+        </div>
+    `;
+}
+
 export function DashboardConsistencyCard({ items, hasItems, onNavigate, getHistory }: DashboardConsistencyCardProps): ReturnType<typeof html> {
     return html`
         <div class="card dashboard-status-card" data-testid="dashboard-consistency-card">
@@ -31,44 +75,8 @@ export function DashboardConsistencyCard({ items, hasItems, onNavigate, getHisto
           </div>
           ${items.length === 0
                     ? html`<div class="status-empty status-empty--ok"><span class="status-chip">✓</span> All tests consistent</div>`
-                    : items.map(t => {
-                        const history = t.history || getHistory(t);
-                        const historyEntries = history.map((entry, i) => {
-                            const outcome = typeof entry === 'string' ? entry : entry.outcome;
-                            const retriedAndPassed = typeof entry === 'object' ? entry.retriedAndPassed : undefined;
-                            const label = t.labels ? t.labels[i] : (typeof entry === 'object' ? entry.run : '');
-                            return {
-                                outcome,
-                                retriedAndPassed,
-                                label: outcomeDisplayName(retriedAndPassed ? 'RETRIED_SUCCESS' : outcome) + (label ? ' (' + label + ')' : ''),
-                            };
-                        });
-
-                        return html`
-                <div class="status-item status-item--rich clickable" onClick=${() => onNavigate(scenarioUrl(t))}>
-                  <div class="status-item-main">
-                    <span class="status-icon status-icon--${outcomeClass(t.lastOutcome)}">${outcomeIcon(t.lastOutcome)}</span>
-                    <span class="status-item-name">${t.name}</span>
-                  </div>
-                  <div class="status-item-history-line">
-                    <span class="status-item-kind" style="color:${kindColor(t.kind)}">${t.kind.toUpperCase()}</span>
-                    <${HistoryDots} entries=${historyEntries} />
-                  </div>
-                  ${getBrowserTag(t) ? html`
-                    <div class="status-item-tags scroll-x-hidden">
-                      <${BrowserBadge} scenario=${t} />
-                    </div>
-                  ` : null}
-                </div>
-            `;
-                    })
+                    : items.map(t => html`<${ConsistencyItemRow} item=${t} onNavigate=${onNavigate} getHistory=${getHistory} />`)
             }
         </div>
     `;
-}
-
-function kindColor(kind: string): string {
-    if (kind === 'degraded') return 'var(--color-failed)';
-    if (kind === 'recovered') return 'var(--color-passed)';
-    return 'var(--color-pending)';
 }

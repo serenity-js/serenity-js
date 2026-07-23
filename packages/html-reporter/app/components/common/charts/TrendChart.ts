@@ -7,9 +7,11 @@ Chart.register(zoomPlugin);
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 
 import type { ReportHistoryEntry } from '../../../../src/cli/ReportData';
-import { abbreviateRunLabels, formatDuration, formatRunLabel, formatTimestamp } from '../../../utils';
+import { usePanState } from '../../../hooks/usePanState';
+import { formatDuration, formatRunLabel, formatTimestamp } from '../../../utils';
 import { computeRunMetrics } from '../../../utils/computeRunMetrics';
-import { buildTrendDatasets, buildTrendOptions } from './trendChartConfig';
+import { buildChartConfig } from './buildChartConfig';
+import { TrendChartDetails } from './TrendChartDetails';
 
 const html = htm.bind(h);
 
@@ -41,8 +43,8 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
     const panelRef = useRef<HTMLDivElement | null>(null);
     const [chartTheme, setChartTheme] = useState(() => document.documentElement.getAttribute('data-theme') || 'light');
     const [selectedRun, setSelectedRun] = useState<SelectedRun | null>(null);
-    const [canPanLeft, setCanPanLeft] = useState(false);
-    const [canPanRight, setCanPanRight] = useState(false);
+
+    const { canPanLeft, canPanRight, configurePan } = usePanState(canvasRef);
 
     const clearSelection = useCallback(() => {
         setSelectedRun(null);
@@ -139,50 +141,18 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
             }
         };
 
+        const config = buildChartConfig(history, chartTheme, handleBarClick);
+        chartRef.current = new Chart(canvasRef.current, config);
+
         const isMobile = window.innerWidth <= 768;
-
-        chartRef.current = new Chart(canvasRef.current, {
-            type: 'bar',
-            data: {
-                labels: isMobile
-                    ? abbreviateRunLabels(history)
-                    : history.map(h => formatRunLabel(h.label, h.timestamp)),
-                datasets: buildTrendDatasets(history, chartTheme),
-            },
-            options: buildTrendOptions(history, chartTheme, handleBarClick),
-        });
-
-        // Add onPanComplete callback to track pan position for fade overlays
-        const hasPannableContent = history.length > 5;
-
-        if (isMobile && hasPannableContent && chartRef.current.options.plugins?.zoom) {
-            const zoomConfig = chartRef.current.options.plugins.zoom as Record<string, unknown>;
-            const panConfig = zoomConfig.pan as Record<string, unknown>;
-            panConfig.onPanComplete = ({ chart }: { chart: Chart }) => {
-                setCanPanLeft(chart.scales.x.min > 0);
-                setCanPanRight(chart.scales.x.max < history.length - 1);
-            };
-        }
-
-        // Set initial fade state on mobile when there's pannable content
-        if (isMobile && hasPannableContent) {
-            setCanPanLeft(true);    // chart starts at rightmost, so older bars are to the left
-            setCanPanRight(false);  // already at the right edge
-        } else {
-            setCanPanLeft(false);
-            setCanPanRight(false);
-        }
-
-        // Override Hammer.js touch-action: none on mobile to allow vertical page scroll
-        // Hammer sets 'none' when both pan and pinch are registered; we only need horizontal pan
-        if (canvasRef.current && isMobile) {
-            canvasRef.current.style.touchAction = 'pan-y';
-        }
+        configurePan(chartRef.current, history.length, isMobile);
 
         return () => { if (chartRef.current) chartRef.current.destroy(); };
-    }, [history, chartTheme]);
+    }, [history, chartTheme, configurePan]);
 
-    if (history.length === 0) return null;
+    if (history.length === 0) {
+        return null;
+    }
 
     const handleNavigate = () => {
         if (selectedRun) {
@@ -198,52 +168,12 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
         <canvas ref=${canvasRef} role="img" aria-label="Trend chart showing test outcomes and duration across recent test runs"></canvas>
       </div>
       ${selectedRun && html`
-        <div class="run-details-panel" ref=${panelRef} data-testid="run-details-panel">
-          <div class="run-details-header">
-            <div class="run-details-title">${selectedRun.label}</div>
-            <button class="run-details-close" onClick=${clearSelection} aria-label="Close details panel">✕</button>
-          </div>
-          <div class="run-details-metrics">
-            <div class="run-details-metric">
-              <span class="run-details-metric-value">${selectedRun.metrics.passed + selectedRun.metrics.failed + selectedRun.metrics.skipped}</span>
-              <span class="run-details-metric-label">Total</span>
-            </div>
-            <div class="run-details-metric">
-              <span class="run-details-metric-value" style="color:var(--color-passed)">${selectedRun.metrics.passed}</span>
-              <span class="run-details-metric-label">Passed</span>
-            </div>
-            <div class="run-details-metric">
-              <span class="run-details-metric-value" style="color:var(--color-failed)">${selectedRun.metrics.failed}</span>
-              <span class="run-details-metric-label">Failed</span>
-            </div>
-            <div class="run-details-metric">
-              <span class="run-details-metric-value" style="color:var(--color-skipped)">${selectedRun.metrics.skipped}</span>
-              <span class="run-details-metric-label">Skipped</span>
-            </div>
-          </div>
-          <div class="run-details-durations">
-            <div class="run-details-duration-row">
-              <span class="run-details-duration-label">Total duration</span>
-              <span class="run-details-duration-value">${selectedRun.metrics.total}</span>
-            </div>
-            <div class="run-details-duration-row">
-              <span class="run-details-duration-label">Average</span>
-              <span class="run-details-duration-value">${selectedRun.metrics.average}</span>
-            </div>
-            <div class="run-details-duration-row">
-              <span class="run-details-duration-label">Slowest</span>
-              <span class="run-details-duration-value">${selectedRun.metrics.slowest}</span>
-            </div>
-            <div class="run-details-duration-row">
-              <span class="run-details-duration-label">Fastest</span>
-              <span class="run-details-duration-value">${selectedRun.metrics.fastest}</span>
-            </div>
-          </div>
-          <button class="run-details-cta" onClick=${handleNavigate} data-testid="run-details-cta">
-            Open run details →
-          </button>
-        </div>
-      `}
+        <${TrendChartDetails}
+          selectedRun=${selectedRun}
+          panelRef=${panelRef}
+          onClose=${clearSelection}
+          onNavigate=${handleNavigate}
+        />`}
     </div>
   `;
 }

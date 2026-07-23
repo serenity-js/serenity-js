@@ -5,7 +5,7 @@ import { useCallback, useMemo, useRef } from 'preact/hooks';
 
 import { GROUP_HEADER_HEIGHTS } from '../../../config/layout';
 import { useStickyHeader, useVirtualizer } from '../../../hooks';
-import type { Range } from '../../../hooks/useVirtualizer';
+import type { Range, VirtualItem } from '../../../hooks/useVirtualizer';
 
 const html = htm.bind(h);
 
@@ -51,6 +51,71 @@ export interface GroupedVirtualListProps<T, H = { category: string }> {
 }
 
 type FlatItem<T, H> = { type: 'header'; category: string } & H | { type: 'item'; item: T };
+
+/**
+ * Finds the active sticky header index — the last header whose index
+ * is at or before the current scroll start.
+ */
+function computeActiveStickyIndex(headerIndices: number[], startIndex: number): number {
+    let active = headerIndices[0];
+    for (const index of headerIndices) {
+        if (index > startIndex) break;
+        active = index;
+    }
+    return active;
+}
+
+/**
+ * Creates a range extractor that ensures the active sticky header is always
+ * included in the virtualised range, enabling the sticky header effect.
+ */
+function extractRangeWithStickyHeader(
+    range: Range,
+    headerIndices: number[],
+    activeStickyRef: { current: number },
+): number[] {
+    if (headerIndices.length === 0) {
+        activeStickyRef.current = -1;
+        return defaultRangeExtractor(range);
+    }
+
+    const activeStickyIndex = computeActiveStickyIndex(headerIndices, range.startIndex);
+    activeStickyRef.current = activeStickyIndex;
+
+    const defaultRange = defaultRangeExtractor(range);
+    if (!defaultRange.includes(activeStickyIndex)) {
+        return [activeStickyIndex, ...defaultRange];
+    }
+    return defaultRange;
+}
+
+/**
+ * Renders a single virtualised row — either a group header or an item.
+ */
+function renderVirtualRow<T, H>(
+    virtualRow: VirtualItem,
+    flatItem: FlatItem<T, H>,
+    rowHeight: number,
+    renderItem: (item: T, index: number) => ReturnType<typeof html>,
+    renderGroupHeader: ((group: string) => ReturnType<typeof html>) | undefined,
+): ReturnType<typeof html> {
+    if (flatItem.type === 'header') {
+        const topOffset = virtualRow.index === 0 ? 0 : 16;
+        return html`
+            <div style="position:absolute;top:0;left:0;width:100%;height:${GROUP_HEADER_HEIGHTS.content}px;transform:translateY(${virtualRow.start + topOffset}px);background:var(--bg-surface);z-index:1"
+                 class="scenario-group-header">
+                ${renderGroupHeader ? renderGroupHeader(flatItem.category) : html`<span>${flatItem.category}</span>`}
+            </div>
+        `;
+    }
+
+    const itemData = flatItem as { type: 'item'; item: T };
+    return html`
+        <div style="position:absolute;top:0;left:0;width:100%;height:${rowHeight}px;transform:translateY(${virtualRow.start}px);overflow:hidden">
+            ${renderItem(itemData.item, virtualRow.index)}
+        </div>
+    `;
+}
 
 export function GroupedVirtualList<T, H = { category: string }>({
     items,
@@ -101,21 +166,11 @@ export function GroupedVirtualList<T, H = { category: string }>({
     const activeStickyRef = useRef(-1);
 
     const rangeExtractor = useCallback((range: Range) => {
-        if (!groupBy || headerIndices.length === 0) {
+        if (!groupBy) {
             activeStickyRef.current = -1;
             return defaultRangeExtractor(range);
         }
-        let activeStickyIndex = headerIndices[0];
-        for (const index of headerIndices) {
-            if (index > range.startIndex) break;
-            activeStickyIndex = index;
-        }
-        activeStickyRef.current = activeStickyIndex;
-        const defaultRange = defaultRangeExtractor(range);
-        if (!defaultRange.includes(activeStickyIndex)) {
-            return [activeStickyIndex, ...defaultRange];
-        }
-        return defaultRange;
+        return extractRangeWithStickyHeader(range, headerIndices, activeStickyRef);
     }, [groupBy, headerIndices]);
 
     const virtualizer = useVirtualizer({
@@ -137,7 +192,7 @@ export function GroupedVirtualList<T, H = { category: string }>({
         }
     }, []);
 
-    const { parentRefCallback } = useStickyHeader({
+    const { parentRefCallback } = useStickyHeader<FlatItem<T, H>>({
         parentRef,
         id,
         flatItems,
@@ -145,7 +200,7 @@ export function GroupedVirtualList<T, H = { category: string }>({
         headerHeight,
         firstHeaderHeight,
         rowHeight,
-        renderContent: renderStickyContent || defaultRenderStickyContent,
+        renderContent: (renderStickyContent || defaultRenderStickyContent) as (element: HTMLDivElement, item: FlatItem<T, H>) => void,
     });
 
     if (items.length === 0 && renderEmpty) {
@@ -156,24 +211,9 @@ export function GroupedVirtualList<T, H = { category: string }>({
     <div ref=${parentRefCallback} class="scroll-container" tabindex="0"
          role="list" aria-label=${ariaLabel || 'List'}>
       <div style="height:${virtualizer.getTotalSize()}px;width:100%;position:relative">
-        ${virtualizer.getVirtualItems().map(virtualRow => {
-            const flatItem = flatItems[virtualRow.index];
-            if (flatItem.type === 'header') {
-                const topOffset = virtualRow.index === 0 ? 0 : 16;
-                return html`
-              <div style="position:absolute;top:0;left:0;width:100%;height:${GROUP_HEADER_HEIGHTS.content}px;transform:translateY(${virtualRow.start + topOffset}px);background:var(--bg-surface);z-index:1"
-                   class="scenario-group-header">
-                ${renderGroupHeader ? renderGroupHeader(flatItem.category) : html`<span>${flatItem.category}</span>`}
-              </div>
-            `;
-            }
-            const itemData = flatItem as { type: 'item'; item: T };
-            return html`
-            <div style="position:absolute;top:0;left:0;width:100%;height:${rowHeight}px;transform:translateY(${virtualRow.start}px);overflow:hidden">
-              ${renderItem(itemData.item, virtualRow.index)}
-            </div>
-          `;
-        })}
+        ${virtualizer.getVirtualItems().map(virtualRow =>
+            renderVirtualRow(virtualRow, flatItems[virtualRow.index], rowHeight, renderItem, renderGroupHeader),
+        )}
       </div>
     </div>
   `;

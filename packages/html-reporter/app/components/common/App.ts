@@ -2,6 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
 
+import type { RouteMatch } from '../../router';
 import { resolveRoute, routes } from '../../router';
 import { DATA, formatTimestamp, totalFailedCount, useHashHistory } from '../../utils';
 import { icons } from './icons';
@@ -18,6 +19,38 @@ function resolveTheme(preference: string): string {
         return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
     return preference;
+}
+
+interface ResolvedView {
+    view: ReturnType<typeof html>;
+    pageTitle: string;
+    viewTestId: string;
+}
+
+function resolveView(effectiveRoute: string, navigate: (path: string) => void): ResolvedView {
+    const match: RouteMatch | undefined = resolveRoute(effectiveRoute, routes);
+
+    if (!match) {
+        return {
+            view: html`<div class="card"><p>Page not found.</p></div>`,
+            pageTitle: 'Not Found',
+            viewTestId: 'not-found',
+        };
+    }
+
+    const viewData = match.definition.data(DATA, match.params);
+    const ViewComponent = match.definition.view;
+    const view = html`<${ViewComponent} ...${viewData} onNavigate=${navigate} />`;
+
+    const pageTitle = typeof match.definition.title === 'function'
+        ? match.definition.title(DATA)
+        : match.definition.title;
+
+    // Derive testid from route pattern: '/' → 'dashboard', '/tests/:id' → 'tests', '/test-runs' → 'test-runs'
+    const patternPath = match.definition.pattern.replace(/\/:.+$/, '');
+    const viewTestId = patternPath === '/' ? 'dashboard' : patternPath.slice(1);
+
+    return { view, pageTitle, viewTestId };
 }
 
 export function App(): ReturnType<typeof html> {
@@ -67,29 +100,8 @@ export function App(): ReturnType<typeof html> {
 
     const toggleSidebar = () => setSidebarCollapsed(c => { const next = !c; localStorage.setItem('serenity-sidebar-collapsed', String(next)); return next; });
 
-    // Route resolution: match route string to a route definition
     const effectiveRoute = route === '' ? '/' : route;
-    const match = resolveRoute(effectiveRoute, routes);
-
-    let view;
-    let pageTitle: string;
-    let viewTestId: string;
-
-    if (match) {
-        const viewData = match.definition.data(DATA, match.params);
-        const ViewComponent = match.definition.view;
-        view = html`<${ViewComponent} ...${viewData} onNavigate=${navigate} />`;
-        pageTitle = typeof match.definition.title === 'function'
-            ? match.definition.title(DATA)
-            : match.definition.title;
-        // Derive testid from route pattern: '/' → 'dashboard', '/tests/:id' → 'tests', '/test-runs' → 'test-runs'
-        const patternPath = match.definition.pattern.replace(/\/:.+$/, '');
-        viewTestId = patternPath === '/' ? 'dashboard' : patternPath.slice(1);
-    } else {
-        view = html`<div class="card"><p>Page not found.</p></div>`;
-        pageTitle = 'Not Found';
-        viewTestId = 'not-found';
-    }
+    const { view, pageTitle, viewTestId } = resolveView(effectiveRoute, navigate);
 
     return html`
     <a class="skip-link" href="#main-content">Skip to content</a>

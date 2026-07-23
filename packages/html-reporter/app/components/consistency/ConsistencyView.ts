@@ -22,6 +22,40 @@ interface ConsistencyViewProps {
     onNavigate: (path: string) => void;
 }
 
+interface ClassifiedTest extends ReportInconsistentTest {
+    kind: string;
+    lastOutcome: string;
+}
+
+function classifyTests(tests: ReportInconsistentTest[]): ClassifiedTest[] {
+    return tests.map(t => {
+        const lastOutcome = t.history && t.history.length > 0 ? t.history[t.history.length - 1] : 'SKIPPED';
+        const kind = classifyConsistencyKind(t.history || []);
+        return { ...t, kind, lastOutcome: typeof lastOutcome === 'string' ? lastOutcome : 'SKIPPED' };
+    });
+}
+
+function countByKind(tests: ClassifiedTest[]): { flaky: number; inconsistent: number; degraded: number; recovered: number } {
+    let flaky = 0, inconsistent = 0, degraded = 0, recovered = 0;
+    for (const t of tests) {
+        if (t.kind === 'flaky') flaky++;
+        else if (t.kind === 'inconsistent') inconsistent++;
+        else if (t.kind === 'degraded') degraded++;
+        else if (t.kind === 'recovered') recovered++;
+    }
+    return { flaky, inconsistent, degraded, recovered };
+}
+
+function filterByKind(tests: ClassifiedTest[], filter: string): ClassifiedTest[] {
+    if (filter === 'all') return tests;
+    return tests.filter(t => t.kind === filter);
+}
+
+function sortTests(tests: ClassifiedTest[], sort: string): ClassifiedTest[] {
+    if (sort === 'name') return [...tests].sort((a, b) => a.name.localeCompare(b.name));
+    return [...tests].sort((a, b) => (a.category || '').localeCompare(b.category || ''));
+}
+
 export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }: ConsistencyViewProps): ReturnType<typeof html> {
 
     const [filter, setFilter] = useState('all');
@@ -38,38 +72,21 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
     `;
     }
 
-    const allInconsistent = useMemo(() => inconsistentTests.map(t => {
-        const lastOutcome = t.history && t.history.length > 0 ? t.history[t.history.length - 1] : null;
-        const kind = classifyConsistencyKind(t.history || []);
-        return { ...t, kind, lastOutcome: lastOutcome || 'SKIPPED' };
-    }), []);
+    const allInconsistent = useMemo(() => classifyTests(inconsistentTests), []);
+    const counts = useMemo(() => countByKind(allInconsistent), [allInconsistent]);
 
-    const flakyCount = allInconsistent.filter(t => t.kind === 'flaky').length;
-    const inconsistentCount = allInconsistent.filter(t => t.kind === 'inconsistent').length;
-    const degradedCount = allInconsistent.filter(t => t.kind === 'degraded').length;
-    const recoveredCount = allInconsistent.filter(t => t.kind === 'recovered').length;
-
-    const allItems = useMemo(() => {
-        if (filter === 'flaky') return allInconsistent.filter(t => t.kind === 'flaky');
-        if (filter === 'inconsistent') return allInconsistent.filter(t => t.kind === 'inconsistent');
-        if (filter === 'degraded') return allInconsistent.filter(t => t.kind === 'degraded');
-        if (filter === 'recovered') return allInconsistent.filter(t => t.kind === 'recovered');
-        return allInconsistent;
-    }, [filter, allInconsistent]);
+    const filteredItems = useMemo(() => filterByKind(allInconsistent, filter), [filter, allInconsistent]);
 
     const searchedItems = useMemo(() => {
-        if (!search) return allItems;
-        return allItems.filter(t => matchesSearch(t, search));
-    }, [allItems, search]);
+        if (!search) return filteredItems;
+        return filteredItems.filter(t => matchesSearch(t, search));
+    }, [filteredItems, search]);
 
-    const sortedItems = useMemo(() => {
-        if (sort === 'name') return [...searchedItems].sort((a, b) => a.name.localeCompare(b.name));
-        return [...searchedItems].sort((a, b) => (a.category || '').localeCompare(b.category || ''));
-    }, [searchedItems, sort]);
+    const sortedItems = useMemo(() => sortTests(searchedItems, sort), [searchedItems, sort]);
 
-    const groupByFunction = sort === 'category' ? (t: ReportInconsistentTest & { kind: string }) => t.category || 'Uncategorised' : undefined;
+    const groupByFunction = sort === 'category' ? (t: ClassifiedTest) => t.category || 'Uncategorised' : undefined;
 
-    const renderItem = useCallback((item: ReportInconsistentTest & { kind: string }) => {
+    const renderItem = useCallback((item: ClassifiedTest) => {
         return html`<${ConsistencyRow} item=${item} specDirectory=${specDirectory} onNavigate=${onNavigate} />`;
     }, [specDirectory, onNavigate]);
 
@@ -86,10 +103,10 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
 
         <${FilterBar} filters=${[
             { key: 'all', label: 'All', count: inconsistentTests.length },
-            { key: 'flaky', label: 'Flaky', count: flakyCount },
-            { key: 'inconsistent', label: 'Inconsistent', count: inconsistentCount },
-            { key: 'degraded', label: 'Degraded', count: degradedCount, className: 'failed' },
-            { key: 'recovered', label: 'Recovered', count: recoveredCount, className: 'passed' },
+            { key: 'flaky', label: 'Flaky', count: counts.flaky },
+            { key: 'inconsistent', label: 'Inconsistent', count: counts.inconsistent },
+            { key: 'degraded', label: 'Degraded', count: counts.degraded, className: 'failed' },
+            { key: 'recovered', label: 'Recovered', count: counts.recovered, className: 'passed' },
         ]}
         activeFilter=${filter} onFilter=${setFilter}
         ariaLabel="Filter tests by consistency" label="Status"

@@ -6,10 +6,12 @@ import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/Report
 import { ROW_HEIGHTS } from '../../config/layout';
 import { useRunSelection } from '../../hooks/useRunSelection';
 import { icons } from '../common/icons';
-import { KpiCard } from '../common/KpiCard';
 import { GroupedVirtualList } from '../common/layout/GroupedVirtualList';
 import { ResultCount } from '../common/ResultCount';
 import { RunSelector } from '../common/RunSelector';
+import type { ErrorRenderItem } from './categoriseErrors';
+import { buildRenderItems, buildSummaryCards, categoriseErrors,CATEGORY_ICONS } from './categoriseErrors';
+import { ErrorKpiCards } from './ErrorKpiCards';
 import { ErrorRow } from './ErrorRow';
 
 const html = htm.bind(h);
@@ -22,25 +24,13 @@ interface ErrorsViewProps {
     route: string;
 }
 
-interface ErrorRenderItem {
-    type: 'header' | 'scenario';
-    icon?: string;
-    name?: string;
-    count?: number;
-    scenario?: ReportScenario;
-    duplicateCount?: number;
-    category?: string;
-}
-
 export function ErrorsView({ scenarios: allScenarios, history, specDirectory, onNavigate, route }: ErrorsViewProps): ReturnType<typeof html> {
     const { runIndex: errorRunIndex, isHistorical: errorIsHistorical, activeTimestamp: errorActiveRunTs, onRunChange: onErrorRunChange } = useRunSelection(route, history, '/errors', onNavigate);
 
     const errorScenarios = useMemo(() => {
         if (errorRunIndex === null || errorRunIndex === history.length - 1) {
-            // Latest run: filter by current outcome/error
             return allScenarios.filter(s => s.error || s.outcome === 'FAILURE' || s.outcome === 'ERROR' || s.outcome === 'COMPROMISED');
         }
-        // Historical run: find scenarios that failed in that specific run via executionHistory
         const runTimestamp = history[errorRunIndex]?.timestamp;
         if (!runTimestamp) return [];
         const result: ReportScenario[] = [];
@@ -49,7 +39,6 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
             const entry = s.executionHistory.find(e => e.timestamp === runTimestamp);
             if (!entry) continue;
             if (entry.outcome === 'FAILURE' || entry.outcome === 'ERROR' || entry.outcome === 'COMPROMISED' || entry.error) {
-                // Construct a minimal scenario from the historical entry for display in ErrorRow
                 result.push({
                     ...s,
                     outcome: entry.outcome,
@@ -61,55 +50,9 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
         return result;
     }, [allScenarios, errorRunIndex, history]);
 
-    function classifyError(error: { name?: string; message?: string }): string {
-        const name = (error.name || '').toLowerCase();
-        const message = (error.message || '').toLowerCase();
-        if (name.includes('compromised')) return 'Compromised Tests';
-        if (name.includes('assert') || name.includes('assertion')) return 'Assertion Errors';
-        if (message.includes('timed out') || message.includes('timeout')) return 'Timeout Errors';
-        return 'Runtime Errors';
-    }
-
-    const categories: Record<string, ReportScenario[]> = {};
-    for (const s of errorScenarios) {
-        const cat = classifyError(s.error || { name: s.outcome, message: '' });
-        if (!categories[cat]) categories[cat] = [];
-        categories[cat].push(s);
-    }
-
-    const categoryOrder = Object.entries(categories).map(([name, scenarios]) => {
-        return { name, scenarios: scenarios as ReportScenario[] };
-    }).sort((a, b) => b.scenarios.length - a.scenarios.length);
-
-    const categoryColors: Record<string, string> = { 'Assertion Errors': 'var(--color-failed)', 'Compromised Tests': 'var(--color-compromised)', 'Timeout Errors': 'var(--color-pending)', 'Runtime Errors': 'var(--color-failed)' };
-    const categoryIcons: Record<string, string> = { 'Assertion Errors': '≠', 'Compromised Tests': '⚠', 'Timeout Errors': '⏱', 'Runtime Errors': '✗' };
-
-    const summaryCards = categoryOrder.map(cat => ({
-        title: cat.name,
-        value: String(cat.scenarios.length),
-        color: categoryColors[cat.name] || 'var(--color-failed)',
-        subtitle: cat.scenarios.length === 1 ? '1 test' : cat.scenarios.length + ' tests',
-    }));
-
-    const renderItems: ErrorRenderItem[] = useMemo(() => {
-        const items: ErrorRenderItem[] = [];
-        for (const cat of categoryOrder) {
-            items.push({ type: 'header', icon: categoryIcons[cat.name] || '✗', name: cat.name, count: cat.scenarios.length, category: cat.name });
-            // Group by error message
-            const grouped = new Map<string, ReportScenario[]>();
-            for (const s of cat.scenarios) {
-                const key = s.error ? s.error.message : s.outcome;
-                if (!grouped.has(key)) grouped.set(key, []);
-                grouped.get(key)!.push(s);
-            }
-            for (const [, scenarios] of grouped) {
-                items.push({ type: 'scenario', scenario: scenarios[0], duplicateCount: scenarios.length, category: cat.name });
-            }
-        }
-        return items;
-    }, [categoryOrder]);
-
-    // Items for the grouped virtual list (only scenario items; headers are handled by groupBy)
+    const categoryOrder = useMemo(() => categoriseErrors(errorScenarios), [errorScenarios]);
+    const summaryCards = useMemo(() => buildSummaryCards(categoryOrder), [categoryOrder]);
+    const renderItems = useMemo(() => buildRenderItems(categoryOrder), [categoryOrder]);
     const scenarioItems = useMemo(() => renderItems.filter(item => item.type === 'scenario'), [renderItems]);
 
     const groupByFunction = useCallback((item: ErrorRenderItem) => {
@@ -122,7 +65,7 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
     }, [specDirectory, onNavigate]);
 
     const renderGroupHeader = useCallback((category: string) => {
-        const icon = categoryIcons[category] || '✗';
+        const icon = CATEGORY_ICONS[category] || '✗';
         const cat = categoryOrder.find(c => c.name === category);
         const count = cat ? cat.scenarios.length : 0;
         return html`
@@ -152,7 +95,7 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
     const groupHeaderData = useCallback((category: string) => {
         const cat = categoryOrder.find(c => c.name === category);
         return {
-            icon: categoryIcons[category] || '✗',
+            icon: CATEGORY_ICONS[category] || '✗',
             name: category,
             count: cat ? cat.scenarios.length : 0,
         };
@@ -172,11 +115,7 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
     <div class="flex-fill-view">
       ${history.length > 1 ? html`<${RunSelector} activeTimestamp=${errorActiveRunTs} history=${history} onRunChange=${onErrorRunChange} isHistorical=${errorIsHistorical} showLatestHref="#/errors" />` : null}
 
-      <div class="kpi-row mb-md stat-grid">
-        ${summaryCards.map(card => html`
-          <${KpiCard} label=${card.title} value=${card.value} ariaLabel="${card.title}: ${card.value}" valueColor=${card.color} subtitle=${card.subtitle} />
-        `)}
-      </div>
+      <${ErrorKpiCards} cards=${summaryCards} />
       <div class="card pb-0">
         <${ResultCount} showing=${errorScenarios.length} label=${errorScenarios.length === 1 ? 'error' : 'errors'} />
         <${GroupedVirtualList}

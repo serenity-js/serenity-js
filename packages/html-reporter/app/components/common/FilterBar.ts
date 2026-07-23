@@ -30,6 +30,40 @@ export interface FilterBarProps {
     sortId?: string;
 }
 
+interface FilterChipProps {
+    filter: FilterDefinition;
+    isActive: boolean;
+    onClick: () => void;
+}
+
+function FilterChip({ filter, isActive, onClick }: FilterChipProps): ReturnType<typeof html> {
+    return html`
+      <button class="filter-chip ${filter.className || filter.key} ${isActive ? 'active' : ''}"
+              onClick=${onClick}
+              aria-pressed=${isActive}>
+          <span class="chip-label">${filter.label}</span>
+          <span class="count">${filter.count}</span>
+      </button>
+    `;
+}
+
+interface SortDropdownProps {
+    selectId: string;
+    options: SortOption[];
+    activeSort?: string;
+    onSort?: (sort: string) => void;
+}
+
+function SortDropdown({ selectId, options, activeSort, onSort }: SortDropdownProps): ReturnType<typeof html> {
+    return html`
+      <div class="sort-group">
+        <select id="${selectId}" class="sort-select" value=${activeSort} onChange=${(e: Event) => onSort && onSort(targetValue(e))} aria-label="Sort order">
+          ${options.map(s => html`<option value=${s.key} selected=${activeSort === s.key}>${s.label}</option>`)}
+        </select>
+      </div>
+    `;
+}
+
 export function FilterBar({ filters, activeFilter, onFilter, ariaLabel, label, multiSelect = true, sortOptions, activeSort, onSort, sortId }: FilterBarProps): ReturnType<typeof html> {
 
     // Parse active filters as a Set (supports comma-separated multi-select)
@@ -60,31 +94,24 @@ export function FilterBar({ filters, activeFilter, onFilter, ariaLabel, label, m
         }
     };
 
+    const isChipActive = (f: FilterDefinition): boolean => {
+        if (multiSelect) {
+            return f.key === 'all' ? activeSet.size === 0 : activeSet.has(f.key);
+        }
+        return activeFilter === f.key;
+    };
+
     const selectId = sortId || 'sort-select';
 
     return html`
     <div class="filter-bar-row" data-testid="filter-bar">
       <div class="filter-bar scroll-x-hidden" role="group" aria-label="${ariaLabel || 'Filter'}">
-        ${filters.map(f => {
-            const isActive = multiSelect
-                ? (f.key === 'all' ? activeSet.size === 0 : activeSet.has(f.key))
-                : activeFilter === f.key;
-            return html`
-              <button class="filter-chip ${f.className || f.key} ${isActive ? 'active' : ''}"
-                      onClick=${() => handleClick(f.key)}
-                      aria-pressed=${isActive}>
-                  <span class="chip-label">${f.label}</span>
-                  <span class="count">${f.count}</span>
-              </button>
-            `;
-        })}
+        ${filters.map(f => html`
+          <${FilterChip} filter=${f} isActive=${isChipActive(f)} onClick=${() => handleClick(f.key)} />
+        `)}
       </div>
       ${sortOptions ? html`
-        <div class="sort-group">
-          <select id="${selectId}" class="sort-select" value=${activeSort} onChange=${(e: Event) => onSort && onSort(targetValue(e))} aria-label="Sort order">
-            ${sortOptions.map(s => html`<option value=${s.key} selected=${activeSort === s.key}>${s.label}</option>`)}
-          </select>
-        </div>
+        <${SortDropdown} selectId=${selectId} options=${sortOptions} activeSort=${activeSort} onSort=${onSort} />
       ` : null}
     </div>
   `;

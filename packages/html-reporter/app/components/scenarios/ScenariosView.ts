@@ -14,6 +14,22 @@ import { VirtualScenarioList } from './VirtualScenarioList';
 
 const html = htm.bind(h);
 
+const STATUS_ORDER: Record<string, number> = { FAILURE: 1, ERROR: 2, COMPROMISED: 3, PENDING: 4, SKIPPED: 5, SUCCESS: 6 };
+
+function sortScenarios(scenarios: ReportScenario[], sort: string): ReportScenario[] {
+    const sorted = [...scenarios];
+    switch (sort) {
+        case 'name':
+            return sorted.sort((a, b) => a.name.localeCompare(b.name));
+        case 'duration':
+            return sorted.sort((a, b) => b.duration - a.duration);
+        case 'status':
+            return sorted.sort((a, b) => (STATUS_ORDER[a.outcome] || 6) - (STATUS_ORDER[b.outcome] || 6));
+        default:
+            return sorted.sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
+    }
+}
+
 // ===== Test Scenarios List View =====
 interface ScenariosViewProps {
     scenarios: ReportScenario[];
@@ -41,18 +57,7 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
         if (search) {
             result = result.filter(s => matchesSearch(s, search));
         }
-        if (sort === 'name') {
-            result = [...result].sort((a, b) => a.name.localeCompare(b.name));
-        } else if (sort === 'duration') {
-            result = [...result].sort((a, b) => b.duration - a.duration);
-        } else if (sort === 'status') {
-            const statusOrder: Record<string, number> = { FAILURE: 1, ERROR: 2, COMPROMISED: 3, PENDING: 4, SKIPPED: 5, SUCCESS: 6 };
-            result = [...result].sort((a, b) => (statusOrder[a.outcome] || 6) - (statusOrder[b.outcome] || 6));
-        } else {
-            // Default (category): sort by category then name within each category
-            result = [...result].sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
-        }
-        return result;
+        return sortScenarios(result, sort);
     }, [search, filter, sort]);
 
     const grouped = useMemo(() => {

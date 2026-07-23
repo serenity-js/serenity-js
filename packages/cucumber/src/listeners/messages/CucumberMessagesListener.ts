@@ -50,32 +50,7 @@ export default function (serenity: Serenity, moduleLoader: ModuleLoader) {
             });
 
             options.eventBroadcaster.on('envelope', (envelope: Envelope) => {
-                // this.log('> [cucumber] ' + JSON.stringify(envelope) + '\n');
-
-                switch (true) {
-                    case !! envelope.testRunStarted:
-                        return this.emit(new TestRunStarts(serenity.currentTime()));
-
-                    case !! envelope.testCaseStarted:
-                        return this.emit(
-                            this.parser.parseTestCaseStarted(envelope.testCaseStarted),
-                        );
-
-                    case !! envelope.testStepStarted:
-                        return this.emit(
-                            this.parser.parseTestStepStarted(envelope.testStepStarted),
-                        );
-
-                    case !! envelope.testStepFinished:
-                        return this.emit(
-                            this.parser.parseTestStepFinished(envelope.testStepFinished),
-                        );
-
-                    case !! envelope.testCaseFinished:
-                        return this.emit(
-                            this.parser.parseTestCaseFinished(envelope.testCaseFinished),
-                        );
-                }
+                this.handleEnvelope(envelope);
             });
         }
 
@@ -106,6 +81,33 @@ export default function (serenity: Serenity, moduleLoader: ModuleLoader) {
                     options: {},
                 }),
             );
+        }
+
+        handleEnvelope(envelope: Envelope): void {
+            switch (true) {
+                case !! envelope.testRunStarted:
+                    return this.emit(new TestRunStarts(serenity.currentTime()));
+
+                case !! envelope.testCaseStarted:
+                    return this.emit(
+                        this.parser.parseTestCaseStarted(envelope.testCaseStarted),
+                    );
+
+                case !! envelope.testStepStarted:
+                    return this.emit(
+                        this.parser.parseTestStepStarted(envelope.testStepStarted),
+                    );
+
+                case !! envelope.testStepFinished:
+                    return this.emit(
+                        this.parser.parseTestStepFinished(envelope.testStepFinished),
+                    );
+
+                case !! envelope.testCaseFinished:
+                    return this.emit(
+                        this.parser.parseTestCaseFinished(envelope.testCaseFinished),
+                    );
+            }
         }
 
         emit(events: DomainEvent[] | DomainEvent): void {

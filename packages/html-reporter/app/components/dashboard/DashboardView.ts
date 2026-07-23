@@ -24,14 +24,18 @@ interface ConfidenceContext {
 }
 
 function confidenceSubtitle({ confidence, previousConfidence, totalScenarios, runCount, newFailCount, recoveredCount }: ConfidenceContext): string {
-    if (previousConfidence === undefined) return `${totalScenarios} scenarios across ${runCount} run${runCount !== 1 ? 's' : ''}`;
+    if (previousConfidence === undefined) {
+        return `${totalScenarios} scenarios across ${runCount} run${runCount !== 1 ? 's' : ''}`;
+    }
     if (confidence > previousConfidence) {
-        if (recoveredCount > 0) return `Improved since last run — ${recoveredCount} test${recoveredCount > 1 ? 's' : ''} recovered`;
-        return `Improved since last run — pass rate up`;
+        return recoveredCount > 0
+            ? `Improved since last run — ${recoveredCount} test${recoveredCount > 1 ? 's' : ''} recovered`
+            : `Improved since last run — pass rate up`;
     }
     if (confidence < previousConfidence) {
-        if (newFailCount > 0) return `Decreased since last run — ${newFailCount} new failure${newFailCount > 1 ? 's' : ''}`;
-        return `Decreased since last run — consistency dropped`;
+        return newFailCount > 0
+            ? `Decreased since last run — ${newFailCount} new failure${newFailCount > 1 ? 's' : ''}`
+            : `Decreased since last run — consistency dropped`;
     }
     return 'No change since last run';
 }
