@@ -11,6 +11,8 @@ This module tests the `@serenity-js/html-reporter` — a self-contained static H
 
 ## Features demonstrated
 
+The tests tagged [`@showcase`](https://serenity-js.github.io/serenity-js/?route=/tests&search=%40tag%3Ashowcase) demonstrate the key user journeys through the report:
+
 - Dashboard with confidence score, trend chart, and actionable cards (new failures, consistency, slowest tests)
 - Test scenario list with search, outcome filters, sort, and category grouping
 - Scenario detail view with activity tree, retry attempts, error blocks, screenshots, and video

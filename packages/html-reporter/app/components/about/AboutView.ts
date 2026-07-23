@@ -16,7 +16,7 @@ export function AboutView(): ReturnType<typeof html> {
           <h3 class="about-section-title">Confidence scoring</h3>
           <p>Confidence is the primary quality metric in this report. It answers the question:</p>
           <blockquote style="border-left:3px solid var(--accent);padding:var(--space-sm) var(--space-md);margin:var(--space-md) 0;color:var(--text-secondary);font-style:italic">
-            "How much should I trust this capability?"
+            "How confident am I that this capability works correctly?"
           </blockquote>
           <p>Confidence is a weighted composite of three signals:</p>
           <table class="content-table">
