@@ -132,7 +132,7 @@ export const routes: RouteDefinition[] = [
         pattern: '/about',
         title: 'About This Report',
         view: AboutView,
-        icon: 'info',
+        icon: 'compass',
         navLabel: 'About This Report',
         data: () => ({}),
     }),
