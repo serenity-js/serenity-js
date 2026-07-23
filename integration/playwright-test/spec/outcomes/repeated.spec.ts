@@ -12,7 +12,7 @@ import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../../src/playwright-test';
 
-describe('Repeated', () => {
+describe('Serenity/JS with Playwright Test', () => {
 
     describe('Test scenario', () => {
 

@@ -15,7 +15,7 @@
   },
   "scripts": {
     "clean": "rimraf target",
-    "test": "c8 mocha --config ../../.mocharc.yml --spec='spec/**/*.spec.*'"
+    "test": "c8 mocha"
   },
   "repository": {
     "type": "git",
@@ -38,6 +38,8 @@
     "webdriverio": "9.29.1"
   },
   "devDependencies": {
+    "@serenity-js/html-reporter": "workspace:*",
+    "@serenity-js/mocha": "workspace:*",
     "@types/mocha": "10.0.10",
     "c8": "11.0.0",
     "jasmine": "6.3.0",

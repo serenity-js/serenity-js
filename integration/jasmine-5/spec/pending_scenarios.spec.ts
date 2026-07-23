@@ -6,7 +6,7 @@ import { describe, it } from 'mocha';
 
 import { jasmine } from '../src/jasmine';
 
-describe('@serenity-js/jasmine', function () {
+describe('Serenity/JS with Jasmine 5', function () {
 
     this.timeout(5000);
 

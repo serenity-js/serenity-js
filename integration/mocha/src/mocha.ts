@@ -23,6 +23,8 @@ export function mocha(...params: string[]): Promise<SpawnResult> {
 
         ...params,
 
+        '--no-config',
+
         // The path to the reporter needs to be relative to the Mocha module.
         // Normally this will be simply "@serenity-js/mocha" as the Serenity/JS adapter for Jasmine
         // will be installed next to it.

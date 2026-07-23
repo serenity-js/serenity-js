@@ -10,7 +10,7 @@ import { describe, it } from 'mocha';
 
 import { playwrightTest } from '../src/playwright-test';
 
-describe('@serenity-js/playwright-test', function () {
+describe('Serenity/JS with Playwright Test', function () {
 
     this.timeout(60 * 1000);
 

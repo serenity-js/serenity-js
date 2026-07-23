@@ -1,7 +1,10 @@
 import { cpus } from 'node:os';
+import { resolve } from 'node:path';
 
 import { TestRunnerTagger } from '@integration/testing-tools';
+import { Browser, computeExecutablePath } from '@puppeteer/browsers';
 import { ArtifactArchiver, Duration, NoOpDiffFormatter } from '@serenity-js/core';
+import { TestRunArchiver } from '@serenity-js/html-reporter';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio-8';
@@ -9,6 +12,16 @@ import { WebdriverIOConfig } from '@serenity-js/webdriverio-8';
 const protocol = process.env.PROTOCOL === 'devtools'
     ? 'devtools'
     : 'webdriver';
+
+const defaults = {
+    buildId: 'stable',
+    cacheDir: resolve(__dirname, '../../browsers'),
+};
+
+const binaries = {
+    chromedriver: computeExecutablePath({ browser: 'chromedriver' as Browser, ...defaults }),
+    chrome: computeExecutablePath({ browser: 'chrome' as Browser, ...defaults }),
+};
 
 const options = {
     specs: [
@@ -27,6 +40,7 @@ const options = {
     capabilities: [{
         browserName: 'chrome',
         'goog:chromeOptions': {
+            binary: binaries.chrome,
             excludeSwitches: [ 'enable-automation' ],
             args: [
                 'no-sandbox',
@@ -53,7 +67,7 @@ const webdriverProtocol: Partial<WebdriverIOConfig> = {
     outputDir: 'target/logs',
     services: [
         [ 'chromedriver', {
-            chromedriverCustomPath: require(`chromedriver`).path,
+            chromedriverCustomPath: binaries.chromedriver,
         } ]
     ],
 };
@@ -89,6 +103,7 @@ export const config: WebdriverIOConfig = {
             SerenityBDDReporter.fromJSON({
                 specDirectory: '.'
             }),
+            TestRunArchiver.fromJSON({ outputDirectory: './target/html-report' }),
         ]
     },
 

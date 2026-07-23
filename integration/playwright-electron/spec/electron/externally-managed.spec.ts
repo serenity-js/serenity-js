@@ -7,44 +7,50 @@ import { _electron as electron, ElectronApplication } from 'playwright';
 
 import { describeElectronBehavior } from './shared-electron-tests';
 
-describe('Externally-managed Electron session', () => {
+describe('Serenity/JS with Playwright Test and Electron', () => {
 
-    let electronApp: ElectronApplication;
+    describe('Externally-managed Electron session', () => {
 
-    before(async function () {
-        this.timeout(30_000);
+        let electronApp: ElectronApplication;
 
-        const electronAppPath = path.resolve(__dirname, '../../../electron-app');
+        before(async function () {
+            this.timeout(30_000);
 
-        electronApp = await electron.launch({
-            args: [ path.join(electronAppPath, 'lib', 'main.js') ],
-            cwd: electronAppPath,
+            const electronAppPath = path.resolve(__dirname, '../../../electron-app');
+
+            electronApp = await electron.launch({
+                args: [ path.join(electronAppPath, 'lib', 'main.js') ],
+                cwd: electronAppPath,
+            });
+
+            // Wait for the first window
+            await electronApp.firstWindow();
+
+            configure({
+                diffFormatter: new NoOpDiffFormatter(),
+                actors: {
+                    prepare: (actor) => actor.whoCan(
+                        BrowseTheWebWithPlaywright.usingElectronApp(electronApp, {
+                            defaultNavigationTimeout: Duration.ofSeconds(5).inMilliseconds(),
+                            defaultTimeout: Duration.ofSeconds(3).inMilliseconds(),
+                        })
+                    ),
+                },
+            });
+
+            // Create the actor in the before() hook so it's placed in the
+            // 'background' focus area and persists across test scenes
+            actorCalled('ExternalTester');
         });
 
-        // Wait for the first window
-        await electronApp.firstWindow();
+        after(async function () {
+            this.timeout(10_000);
 
-        configure({
-            diffFormatter: new NoOpDiffFormatter(),
-            crew: [],
-            actors: {
-                prepare: (actor) => actor.whoCan(
-                    BrowseTheWebWithPlaywright.usingElectronApp(electronApp, {
-                        defaultNavigationTimeout: Duration.ofSeconds(5).inMilliseconds(),
-                        defaultTimeout: Duration.ofSeconds(3).inMilliseconds(),
-                    })
-                ),
-            },
+            await actorCalled('ExternalTester').dismiss();
+            await electronApp.close();
         });
+
+        // Run the shared test suite
+        describeElectronBehavior('externally-managed', 'ExternalTester');
     });
-
-    after(async function () {
-        this.timeout(10_000);
-
-        await actorCalled('ExternalTester').dismiss();
-        await electronApp.close();
-    });
-
-    // Run the shared test suite
-    describeElectronBehavior('externally-managed', 'ExternalTester');
 });
