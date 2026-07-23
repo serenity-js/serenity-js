@@ -15,7 +15,7 @@ export function GitLink({ icon, label, href, mono }: GitLinkProps): ReturnType<t
     return html`
         <span class="inline-flex-center">
             ${icon}${href
-                ? html`<a href="${href}" target="_blank" rel="noopener" onClick=${(e: Event) => e.stopPropagation()} class="${textClass}" style="color:inherit;text-decoration:none" onMouseOver=${(e: Event) => (e.target as HTMLElement).style.textDecoration='underline'} onMouseOut=${(e: Event) => (e.target as HTMLElement).style.textDecoration='none'}>${label}</a>`
+                ? html`<a href="${href}" target="_blank" onClick=${(e: Event) => e.stopPropagation()} class="${textClass}" style="color:inherit;text-decoration:none" onMouseOver=${(e: Event) => (e.target as HTMLElement).style.textDecoration='underline'} onMouseOut=${(e: Event) => (e.target as HTMLElement).style.textDecoration='none'}>${label}</a>`
                 : html`<span class="${textClass}">${label}</span>`
             }
         </span>

@@ -57,18 +57,18 @@ export function SystemContextView({ systemContext }: SystemContextViewProps): Re
           <div class="context-grid">
             <${ContextItem} icon="🏗" label="Provider" value=${ci.provider} />
             <${ContextItem} icon="#" label="Build" value=${ci.jobUrl
-                ? html`<a href=${ci.jobUrl} class="context-link" target="_blank" rel="noopener">#${ci.buildNumber}</a>`
+                ? html`<a href=${ci.jobUrl} class="context-link" target="_blank">#${ci.buildNumber}</a>`
                 : html`#${ci.buildNumber}`
             } />
             <${ContextItem} icon="🌿" label="Branch" value=${ci.repositoryUrl && ci.branch
-                ? html`<a href="${ci.repositoryUrl}/tree/${ci.branch}" class="context-link" target="_blank" rel="noopener">${ci.branch}</a>`
+                ? html`<a href="${ci.repositoryUrl}/tree/${ci.branch}" class="context-link" target="_blank">${ci.branch}</a>`
                 : ci.branch
             } />
             <${ContextItem} icon="📝" label="Commit" wide=${true} value=${html`${ci.repositoryUrl && ci.commit
-                ? html`<a href="${ci.repositoryUrl}/commit/${ci.commit}" class="context-link context-link--mono" target="_blank" rel="noopener">${ci.commit.slice(0, 7)}</a>`
+                ? html`<a href="${ci.repositoryUrl}/commit/${ci.commit}" class="context-link context-link--mono" target="_blank">${ci.commit.slice(0, 7)}</a>`
                 : html`<span class="context-link--mono">${ci.commit.slice(0, 7)}</span>`
             }${ci.commitMessage ? html`<span class="context-commit-msg"> — ${ci.commitMessage}</span>` : null}`} />
-            ${ci.pullRequestUrl ? html`<${ContextItem} icon="🔀" label="Pull Request" value=${html`<a href=${ci.pullRequestUrl} class="context-link" target="_blank" rel="noopener">#${ci.pullRequestNumber}</a>`} />` : null}
+            ${ci.pullRequestUrl ? html`<${ContextItem} icon="🔀" label="Pull Request" value=${html`<a href=${ci.pullRequestUrl} class="context-link" target="_blank">#${ci.pullRequestNumber}</a>`} />` : null}
           </div>
         </div>
       ` : null}
