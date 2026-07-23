@@ -81,8 +81,7 @@ export class TestRunArchiver implements StageCrewMember {
 
         if (event instanceof TestRunStarts) {
             this.testRunTimestamp = event.timestamp.toISOString();
-            this.resolvedTestRunId = this.testRunId || this.testRunTimestamp.replaceAll(':', '-');
-            this.artifactWriter.createRunDirectory(this.resolvedTestRunId, this.attempt, this.moduleId);
+            this.ensureRunDirectoryExists();
         }
 
         if (event instanceof TestRunnerDetected) {
@@ -95,16 +94,30 @@ export class TestRunArchiver implements StageCrewMember {
         }
 
         if (event instanceof ActivityRelatedArtifactGenerated) {
+            this.ensureRunDirectoryExists();
             this.artifactWriter.write(event);
         }
 
         if (event instanceof ArtifactGenerated && !(event instanceof ActivityRelatedArtifactGenerated)) {
+            this.ensureRunDirectoryExists();
             this.artifactWriter.writeSceneArtifact(event);
         }
 
         if (event instanceof TestRunFinishes) {
+            this.ensureRunDirectoryExists();
             this.archiveTestRun();
         }
+    }
+
+    private ensureRunDirectoryExists(): void {
+        if (this.resolvedTestRunId) {
+            return;
+        }
+        if (!this.testRunTimestamp) {
+            this.testRunTimestamp = new Date().toISOString();
+        }
+        this.resolvedTestRunId = this.testRunId || this.testRunTimestamp.replaceAll(':', '-');
+        this.artifactWriter.createRunDirectory(this.resolvedTestRunId, this.attempt, this.moduleId);
     }
 
     private archiveTestRun(): void {

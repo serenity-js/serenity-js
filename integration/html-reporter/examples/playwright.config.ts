@@ -15,7 +15,7 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
     reporter: [
         ['@serenity-js/playwright-test', {
             crew: [
-                ['@serenity-js/html-reporter:HtmlReporter', {
+                ['@serenity-js/html-reporter', {
                     outputDirectory: reportOutput,
                     specDirectory: resolve(__dirname, 'specs'),
                     title: 'Test Project',
