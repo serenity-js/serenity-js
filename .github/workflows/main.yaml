@@ -127,6 +127,7 @@ jobs:
     strategy:
       matrix:
         module:
+          - html-reporter
           - playwright-electron
           - playwright-test
           - playwright-test-ct
@@ -146,8 +147,15 @@ jobs:
       - name: Test
         run: |
           mkdir target && \
-          pnpm dlx playwright install --with-deps && \
           make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
+      - name: Upload html-report data
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: 'html-report-data-${{ matrix.module }}-attempt-${{ github.run_attempt }}'
+          path: integration/*/target/html-report/test-runs/
+          retention-days: 3
+          if-no-files-found: ignore
       - name: Upload test reports
         if: failure()
         uses: ./.github/actions/upload-compressed-artifact
@@ -193,6 +201,14 @@ jobs:
         run: |
           mkdir target && \
           make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
+      - name: Upload html-report data
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: 'html-report-data-${{ matrix.module }}-attempt-${{ github.run_attempt }}'
+          path: integration/*/target/html-report/test-runs/
+          retention-days: 3
+          if-no-files-found: ignore
       - name: Upload test reports
         if: failure()
         uses: ./.github/actions/upload-compressed-artifact
@@ -241,6 +257,14 @@ jobs:
         run: |
           mkdir target && \
           make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
+      - name: Upload html-report data
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: 'html-report-data-${{ matrix.module }}-attempt-${{ github.run_attempt }}'
+          path: integration/*/target/html-report/test-runs/
+          retention-days: 3
+          if-no-files-found: ignore
       - name: Upload test reports
         if: failure()
         uses: ./.github/actions/upload-compressed-artifact
@@ -299,6 +323,14 @@ jobs:
         run: |
           mkdir target && \
           make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
+      - name: Upload html-report data
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: 'html-report-data-${{ matrix.module }}-attempt-${{ github.run_attempt }}'
+          path: integration/*/target/html-report/test-runs/
+          retention-days: 3
+          if-no-files-found: ignore
       - name: Qlty
         uses: qltysh/qlty-action/coverage@fd52dc852530a708d68c3b7342f8d33d1df4cd55 # v2.2.1
         with:
@@ -337,6 +369,59 @@ jobs:
   #
   # NPM artifact publishing
   #
+
+  html-report:
+    name: 'HTML Report: aggregate'
+    if: always()
+    permissions:
+      contents: write
+    needs:
+      - test-integration
+      - test-integration-playwright
+      - test-integration-protractor
+      - test-integration-webdriverio
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - name: Set up Node
+        uses: ./.github/actions/setup-node
+      - name: Download compiled libs
+        uses: ./.github/actions/download-compressed-artifact
+        with:
+          artifact-name: 'compiled-libs'
+      - name: Restore historical test runs from GitHub Pages
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          ref: gh-pages
+          path: target/html-report
+        continue-on-error: true
+      - name: Download html-report data
+        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e # v4
+        with:
+          pattern: 'html-report-data-*'
+          path: target/html-report-data
+      - name: Generate report
+        run: |
+          pnpm run report:html -- aggregate \
+            --input "target/html-report-data/**/test-runs/*,target/html-report/test-runs/*" \
+            --output ./target/html-report \
+            --title "Serenity/JS Integration Tests" \
+            --specRoot integration \
+            --maxHistory 5
+      - name: Upload HTML report
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: 'html-report'
+          path: target/html-report/
+          retention-days: 14
+      - name: Deploy to GitHub Pages
+#        if: always() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/features/html-reporter')
+        uses: JamesIves/github-pages-deploy-action@v4.8.0
+        with:
+          branch: gh-pages
+          folder: target/html-report
+          clean: true
 
   artifacts-publish:
     name: 'NPM: publish artifacts'
