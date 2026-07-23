@@ -13,7 +13,7 @@ import {
     TestSuiteFinished,
     TestSuiteStarts,
 } from '@serenity-js/core/events';
-import { FileSystemLocation, Path, type RequirementsHierarchy } from '@serenity-js/core/io';
+import { FileSystemLocation, Path, type RequirementsHierarchy, type Version } from '@serenity-js/core/io';
 import {
     ArbitraryTag,
     CorrelationId,
@@ -21,6 +21,7 @@ import {
     ExecutionRetriedTag,
     ExecutionSuccessful,
     Name,
+    type Outcome,
     TestSuiteDetails
 } from '@serenity-js/core/model';
 import type { MochaOptions, Runnable, Suite, Test } from 'mocha';
@@ -38,6 +39,7 @@ export class SerenityReporterForMocha extends reporters.Base {
     private readonly outcomeMapper: MochaOutcomeMapper = new MochaOutcomeMapper();
 
     private readonly recorder: OutcomeRecorder = new OutcomeRecorder();
+    private readonly isParallel: boolean;
 
     private suiteIds: CorrelationId[] = [];
     private currentSceneId: CorrelationId = undefined;
@@ -45,17 +47,20 @@ export class SerenityReporterForMocha extends reporters.Base {
     /**
      * @param {Serenity} serenity
      * @param requirementsHierarchy
+     * @param mochaVersion
      * @param {mocha~Runner} runner
      * @param {mocha~MochaOptions} options
      */
     constructor(
         private readonly serenity: Serenity,
         private readonly requirementsHierarchy: RequirementsHierarchy,
+        private readonly mochaVersion: Version,
         runner: Runner,
         options?: MochaOptions,
     ) {
         super(runner, options);
 
+        this.isParallel = !!(runner as any).isParallelMode && (runner as any).isParallelMode();
         this.testMapper = new MochaTestMapper(this.serenity.cwd())
 
         runner.on(Runner.constants.EVENT_RUN_BEGIN,
@@ -66,86 +71,119 @@ export class SerenityReporterForMocha extends reporters.Base {
             },
         );
 
-        runner.on(Runner.constants.EVENT_SUITE_BEGIN,
-            (suite: Suite) => {
-                if (suite.root === false) {
-                    this.announceSuiteStartsFor(suite);
-                }
-            },
-        );
+        if (this.isParallel) {
+            runner.on(Runner.constants.EVENT_TEST_BEGIN,
+                (test: Test) => {
+                    this.announceSceneStartsFor(test);
+                },
+            );
 
-        runner.on(Runner.constants.EVENT_SUITE_END,
-            (suite: Suite) => {
-                if (suite.root === false) {
-                    this.announceSuiteFinishedFor(suite);
-                }
-            },
-        );
+            runner.on(Runner.constants.EVENT_TEST_PASS,
+                (test: Test) => {
+                    this.announceSceneFinishedForParallel(test, this.outcomeMapper.outcomeOf(test));
+                },
+            );
 
-        runner.on(Runner.constants.EVENT_TEST_BEGIN,
-            (test: Test) => {
-                this.recorder.started(test);
+            runner.on(Runner.constants.EVENT_TEST_FAIL,
+                (test: Test, error: Error) => {
+                    this.announceSceneFinishedForParallel(test, this.outcomeMapper.outcomeOf(test, error));
+                },
+            );
 
-                this.announceSceneStartsFor(test);
-            },
-        );
+            runner.on(Runner.constants.EVENT_TEST_PENDING,
+                (test: Test) => {
+                    if (!test.fn) {
+                        this.announceSceneSkippedFor(test);
+                    }
+                },
+            );
+        }
 
-        runner.on(Runner.constants.EVENT_TEST_PASS,
-            (test: Test) => {
-                this.announceRetryIfNeeded(test);
+        if (!this.isParallel) {
+            runner.on(Runner.constants.EVENT_SUITE_BEGIN,
+                (suite: Suite) => {
+                    if (suite.root === false && suite.file) {
+                        this.announceSuiteStartsFor(suite);
+                    }
+                },
+            );
 
-                this.recorder.finished(
-                    test.ctx ? test.ctx.currentTest : test,
-                    this.outcomeMapper.outcomeOf(test)
-                );
-            },
-        );
+            runner.on(Runner.constants.EVENT_SUITE_END,
+                (suite: Suite) => {
+                    if (suite.root === false && suite.file) {
+                        this.announceSuiteFinishedFor(suite);
+                    }
+                },
+            );
 
-        runner.on(Runner.constants.EVENT_TEST_FAIL,
-            (test: Test, error: Error) => {
-                this.announceRetryIfNeeded(test);
+            runner.on(Runner.constants.EVENT_TEST_BEGIN,
+                (test: Test) => {
+                    this.recorder.started(test);
+                    this.announceSceneStartsFor(test);
+                },
+            );
 
-                this.recorder.finished(
-                    test.ctx ? test.ctx.currentTest : test,
-                    this.outcomeMapper.outcomeOf(test, error)
-                );
-            },
-        );
+            runner.on(Runner.constants.EVENT_TEST_PASS,
+                (test: Test) => {
+                    this.announceRetryIfNeeded(test);
+                    this.recorder.finished(
+                        test.ctx ? test.ctx.currentTest : test,
+                        this.outcomeMapper.outcomeOf(test)
+                    );
+                },
+            );
 
-        runner.on(Runner.constants.EVENT_TEST_RETRY,
-            (test: Test, error: Error) => {
-                this.announceRetryIfNeeded(test);
+            runner.on(Runner.constants.EVENT_TEST_FAIL,
+                (test: Test, error: Error) => {
+                    this.announceRetryIfNeeded(test);
+                    this.recorder.finished(
+                        test.ctx ? test.ctx.currentTest : test,
+                        this.outcomeMapper.outcomeOf(test, error)
+                    );
+                },
+            );
 
-                this.recorder.finished(
-                    !! test.ctx && test.ctx.currentTest ? test.ctx.currentTest : test,
-                    this.outcomeMapper.outcomeOf(test, error),
-                );
-            },
-        );
+            runner.on(Runner.constants.EVENT_TEST_RETRY,
+                (test: Test, error: Error) => {
+                    this.announceRetryIfNeeded(test);
+                    this.recorder.finished(
+                        !! test.ctx && test.ctx.currentTest ? test.ctx.currentTest : test,
+                        this.outcomeMapper.outcomeOf(test, error),
+                    );
+                },
+            );
 
-        const announceSceneFinishedFor = SerenityReporterForMocha.prototype.announceSceneFinishedFor.bind(this);
+            const announceSceneFinishedFor = SerenityReporterForMocha.prototype.announceSceneFinishedFor.bind(this);
 
-        runner.suite.afterEach('Serenity/JS', function () {
-            return announceSceneFinishedFor(this.currentTest, this.test);
-        });
+            runner.suite.afterEach('Serenity/JS', function () {
+                return announceSceneFinishedFor(this.currentTest, this.test);
+            });
 
-        // https://github.com/cypress-io/cypress/issues/7562
-        runner.on('test:after:run', (test: Test) => {
-            return announceSceneFinishedFor(test, test);
-        });
+            // https://github.com/cypress-io/cypress/issues/7562
+            runner.on('test:after:run', (test: Test) => {
+                return announceSceneFinishedFor(test, test);
+            });
 
-        // Tests without body don't trigger the above custom afterEach hook
-        runner.on(Runner.constants.EVENT_TEST_PENDING,
-            (test: Test) => {
-                if (! test.fn) {
-                    this.announceSceneSkippedFor(test);
-                }
-            },
-        );
+            // Tests without body don't trigger the above custom afterEach hook
+            runner.on(Runner.constants.EVENT_TEST_PENDING,
+                (test: Test) => {
+                    if (! test.fn) {
+                        this.announceSceneSkippedFor(test);
+                    }
+                },
+            );
+        }
     }
 
     public done(failures: number, callback?: (failures: number) => void): void {
         this.emit(new TestRunFinishes(this.serenity.currentTime()));
+
+        if (this.isParallel) {
+            // In parallel mode, Screenplay activities run in worker processes,
+            // so the main process has no pending cues to wait for.
+            this.emit(new TestRunFinished(new ExecutionSuccessful(), this.serenity.currentTime()));
+            return callback(failures);
+        }
 
         this.serenity.waitForNextCue()
             .then(() => {
@@ -214,7 +252,7 @@ export class SerenityReporterForMocha extends reporters.Base {
             ... this.requirementsHierarchy.requirementTagsFor(scenarioDetails.location.path, scenarioDetails.category.value)
                 .map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime())),
 
-            new TestRunnerDetected(this.currentSceneId, new Name('Mocha'), this.serenity.currentTime()),
+            new TestRunnerDetected(this.currentSceneId, new Name('Mocha'), this.mochaVersion, this.serenity.currentTime()),
 
             ... scenarioTags.map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime())),
         );
@@ -261,6 +299,15 @@ export class SerenityReporterForMocha extends reporters.Base {
                 // https://github.com/mochajs/mocha/issues/1635
                 (runnable as any).error(error);
             });
+    }
+
+    private announceSceneFinishedForParallel(test: Test, outcome: Outcome): void {
+        const { scenarioDetails } = this.testMapper.detailsOf(test);
+
+        this.emit(
+            new SceneFinishes(this.currentSceneId, outcome, this.serenity.currentTime()),
+            new SceneFinished(this.currentSceneId, scenarioDetails, outcome, this.serenity.currentTime()),
+        );
     }
 
     private announceSceneSkippedFor(test: Test): void {
