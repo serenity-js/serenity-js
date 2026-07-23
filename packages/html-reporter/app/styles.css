@@ -251,33 +251,41 @@
     .sidebar-collapse-btn {
       display: flex;
       align-items: center;
-      gap: var(--space-sm);
-      padding: 10px var(--space-md);
+      justify-content: center;
+      width: 28px;
+      height: 28px;
       border-radius: var(--radius-sm);
       color: var(--text-sidebar);
+      opacity: 0.6;
       cursor: pointer;
       transition: all var(--transition);
-      font-size: var(--font-sm);
       border: none;
       background: none;
+      flex-shrink: 0;
     }
 
     .sidebar-collapse-btn:hover {
       background: rgba(255, 255, 255, 0.06);
-      color: var(--text-sidebar-active);
+      opacity: 1;
     }
 
     .sidebar.collapsed .sidebar-collapse-btn {
       justify-content: center;
-      padding: 10px;
     }
 
     .sidebar-footer {
       display: flex;
+      flex-direction: column;
       align-items: center;
       gap: var(--space-sm);
       padding: var(--space-sm) var(--space-md);
       margin-top: auto;
+    }
+
+    .sidebar-controls {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
     }
 
     .theme-switch {
@@ -318,8 +326,11 @@
     }
 
     .sidebar.collapsed .sidebar-footer {
-      flex-direction: column;
       padding: var(--space-sm) 4px;
+    }
+
+    .sidebar.collapsed .sidebar-controls {
+      flex-direction: column;
     }
 
     .sidebar.collapsed .theme-switch {
@@ -329,6 +340,28 @@
     .sidebar.collapsed .theme-switch-option {
       width: 28px;
       height: 28px;
+    }
+
+    .sidebar-copyright {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.4);
+      text-align: center;
+      padding: var(--space-sm) var(--space-sm) 0;
+      line-height: 1.4;
+    }
+
+    .sidebar-copyright a {
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+    }
+
+    .sidebar-copyright a:hover {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: underline;
+    }
+
+    .sidebar.collapsed .sidebar-copyright {
+      display: none;
     }
 
     .sidebar.collapsed + .main-content,

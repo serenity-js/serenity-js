@@ -14,7 +14,7 @@
  * This enables linking to specific report views from contexts that strip
  * or mangle URL fragments (markdown files viewed on file://, Slack, CI logs).
  */
-export function redirectQueryParamsToHash(): void {
+export function redirectQueryParametersToHash(): void {
     const search = window.location.search;
     if (!search) {
         return;
