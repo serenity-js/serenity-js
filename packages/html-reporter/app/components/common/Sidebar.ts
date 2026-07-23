@@ -86,7 +86,7 @@ export function Sidebar({ route, routes, sidebarOpen, collapsed, failedBadgeCoun
             ${collapsed ? icons.sidebarExpand : icons.sidebarCollapse}
           </button>
         </div>
-        <div class="sidebar-copyright">Serenity/JS © 2016–${new Date().getFullYear()} <a href="https://www.linkedin.com/in/janmolak/" target="_blank">Jan Molak</a><br />Made with 💛 in London</div>
+        <div class="sidebar-copyright">Serenity/JS © 2016–${new Date().getFullYear()} <a href="https://www.linkedin.com/in/janmolak/" target="_blank">Jan Molak</a><br />Made with 💛 in London, UK</div>
       </div>
     </aside>
   `;
