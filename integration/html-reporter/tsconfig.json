@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.options.json",
+
+  "compilerOptions": {
+    "lib": ["es2023", "dom"],
+    "types": [
+      "node"
+    ]
+  },
+
+  "include": [
+    "spec/**/*.ts",
+    "playwright.config.ts"
+  ]
+}

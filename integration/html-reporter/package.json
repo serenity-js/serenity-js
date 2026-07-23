@@ -1,0 +1,52 @@
+{
+  "name": "@integration/html-reporter",
+  "version": "3.0.0",
+  "description": "Internal module to test the Serenity/JS HTML reporter renders correctly in a browser",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "keywords": [
+    "serenity-js",
+    "internal"
+  ],
+  "scripts": {
+    "clean": "rimraf ./target ./test-results",
+    "example:clean": "rimraf ./examples/reports",
+    "example:test": "npx playwright test --config ./examples/playwright.config.ts",
+    "example:add-history": "npx tsx examples/generate-history.ts",
+    "example": "failsafe example:clean example:test example:add-history || true",
+    "pretest": "npm run clean && npm run example",
+    "test": "c8 playwright test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git"
+  },
+  "engines": {
+    "node": ">=22.12 || ^24"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.61.1",
+    "@serenity-js/assertions": "workspace:*",
+    "@serenity-js/core": "workspace:*",
+    "@serenity-js/html-reporter": "workspace:*",
+    "@serenity-js/playwright": "workspace:*",
+    "@serenity-js/playwright-test": "workspace:*",
+    "@serenity-js/rest": "workspace:*",
+    "@serenity-js/web": "workspace:*",
+    "c8": "11.0.0",
+    "http-server": "14.1.1",
+    "npm-failsafe": "1.4.0",
+    "playwright": "1.61.1",
+    "tsx": "4.19.4",
+    "typescript": "5.9.3"
+  }
+}

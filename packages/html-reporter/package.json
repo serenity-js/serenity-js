@@ -1,0 +1,123 @@
+{
+  "name": "@serenity-js/html-reporter",
+  "version": "3.44.1",
+  "description": "Serenity/JS HTML reporter that produces a self-contained static report with test results, trends, and execution history",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "funding": {
+    "url": "https://github.com/sponsors/serenity-js"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "type": "module",
+  "module": "./esm/index.js",
+  "bin": {
+    "html-reporter": "./bin/html-reporter.mjs"
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./esm/index.d.ts",
+        "default": "./esm/index.js"
+      },
+      "require": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      }
+    },
+    "./serenity": {
+      "import": {
+        "types": "./esm/serenity.d.ts",
+        "default": "./esm/serenity.js"
+      },
+      "require": {
+        "types": "./lib/serenity.d.ts",
+        "default": "./lib/serenity.js"
+      }
+    },
+    "./lib/*": "./lib/*",
+    "./esm/*": "./esm/*.js",
+    "./package.json": "./package.json"
+  },
+  "keywords": [
+    "automation",
+    "integration",
+    "serenity",
+    "serenity-js",
+    "screenplay",
+    "screenplay-pattern",
+    "reporter",
+    "html",
+    "report",
+    "tdd",
+    "bdd",
+    "test",
+    "testing"
+  ],
+  "scripts": {
+    "clean": "rimraf target lib esm",
+    "test": "c8 npm run test:no-coverage",
+    "test:no-coverage": "npx playwright test",
+    "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs-package && npm run compile:cjs && npm run compile:template && npm run compile:schema",
+    "compile:template": "node scripts/bundle-template.mjs",
+    "compile:schema": "npx tsx scripts/generate-summary-schema.mjs",
+    "compile:clean": "rimraf lib esm",
+    "compile:esm": "tsc --project tsconfig-esm.build.json",
+    "compile:cjs-package": "node -e \"require('fs').mkdirSync('lib', { recursive: true }); require('fs').writeFileSync('lib/package.json', '{ \\\"type\\\": \\\"commonjs\\\" }')\"",
+    "compile:cjs": "tsc --project tsconfig-cjs.build.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git",
+    "directory": "packages/html-reporter"
+  },
+  "bugs": {
+    "url": "https://github.com/serenity-js/serenity-js/issues"
+  },
+  "engines": {
+    "node": ">=22.12 || ^24"
+  },
+  "peerDependencies": {
+    "@serenity-js/core": "workspace:*",
+    "@serenity-js/web": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@serenity-js/web": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "marked": "14.0.0",
+    "tiny-types": "2.0.5",
+    "fast-glob": "3.3.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.61.1",
+    "@serenity-js/assertions": "workspace:*",
+    "@serenity-js/core": "workspace:*",
+    "@serenity-js/playwright": "workspace:*",
+    "@serenity-js/playwright-test": "workspace:*",
+    "@serenity-js/web": "workspace:*",
+    "@tanstack/virtual-core": "3.13.6",
+    "c8": "11.0.0",
+    "chart.js": "4.4.7",
+    "chartjs-plugin-zoom": "2.2.0",
+    "esbuild": "0.25.12",
+    "hammerjs": "2.0.8",
+    "htm": "3.1.1",
+    "memfs": "4.57.7",
+    "preact": "10.25.4",
+    "tsx": "4.22.4",
+    "typescript": "5.9.3",
+    "zod": "4.4.3"
+  }
+}
