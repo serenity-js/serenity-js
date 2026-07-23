@@ -6,7 +6,7 @@ import { CorrelationId, ExecutionSuccessful, FeatureTag, Name } from '@serenity-
 
 import { cucumber, cucumberVersion } from '../src';
 
-describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function () {
+describe(`Serenity/JS with Cucumber ${ cucumberVersion() }`, function () {
 
     when(cucumberVersion().major() <= 6)
         .it('recognises Screenplay activities in any part of the Cucumber scenario (cucumber <= 6)', () =>
@@ -22,7 +22,7 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                             expect(event.details.name).to.equal(new Name('A screenplay scenario'));
                             currentSceneId = event.sceneId;
                         })
-                        .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('JS')))
+                        .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises Screenplay activities')))
                         // before step
                         .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Lara makes an arrow')))
@@ -67,7 +67,7 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                             expect(event.details.name).to.equal(new Name('A screenplay scenario'));
                             currentSceneId = event.sceneId;
                         })
-                        .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('JS')))
+                        .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                         .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises Screenplay activities')))
                         // before
                         .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Before')))

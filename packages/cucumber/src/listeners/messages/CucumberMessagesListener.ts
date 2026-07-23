@@ -16,6 +16,8 @@ export default function (serenity: Serenity, moduleLoader: ModuleLoader) {
         { Formatter, formatterHelpers } = moduleLoader.require('@cucumber/cucumber'),
         TestCaseHookDefinition          = moduleLoader.require('@cucumber/cucumber/lib/models/test_case_hook_definition').default;
 
+    const cucumberVersion = moduleLoader.versionOf('@cucumber/cucumber');
+
     return class CucumberMessagesListener extends Formatter {
         static readonly fakeInternalAfterHookUri = '/internal/serenity-js/cucumber';
 
@@ -30,7 +32,7 @@ export default function (serenity: Serenity, moduleLoader: ModuleLoader) {
             this.parser = new CucumberMessagesParser(
                 serenity,
                 formatterHelpers,
-                options,
+                { ...options, testRunnerVersion: cucumberVersion },
                 (step: IParsedTestStep) =>
                     step?.actionLocation?.uri !== CucumberMessagesListener.fakeInternalAfterHookUri,
             );

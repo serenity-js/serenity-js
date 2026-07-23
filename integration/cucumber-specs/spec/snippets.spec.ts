@@ -7,7 +7,7 @@ import { CorrelationId, FeatureTag, ImplementationPending, Name } from '@serenit
 
 import { cucumber, cucumberVersion } from '../src';
 
-describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, () => {
+describe(`Serenity/JS with Cucumber ${ cucumberVersion() }`, () => {
 
     when(7 <= cucumberVersion().major())
         .it(`suggests implementation of Cucumber steps that haven't been implemented yet`, () =>
@@ -26,7 +26,7 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, () => {
                             expect(event.details.name).to.equal(new Name('A scenario with steps that have not been implemented yet'));
                             currentSceneId = event.sceneId;
                         })
-                        .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('JS')))
+                        .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Cucumber')))
                         .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS suggest implementation snippets')))
                         .next(ActivityStarts, event => expect(event.details.name).to.equal(new Name(`Given a step that hasn't been implemented yet`)))
                         .next(ActivityFinished, event => {

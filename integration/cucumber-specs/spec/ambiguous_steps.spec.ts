@@ -6,7 +6,7 @@ import { CorrelationId, ExecutionFailedWithError, FeatureTag, Name } from '@sere
 
 import { cucumber, cucumberVersion } from '../src';
 
-describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function () {
+describe(`Serenity/JS with Cucumber ${ cucumberVersion() }`, function () {
 
     it('recognises scenarios with ambiguous steps', () =>
         cucumber('features/passing_scenario.feature', 'ambiguous.steps.ts')
@@ -22,7 +22,7 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
 
                         currentSceneId = event.sceneId;
                     })
-                    .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('JS')))
+                    .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Cucumber')))
                     .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a passing scenario')))
                     .next(ActivityStarts, event => expect(event.details.name).to.equal(new Name('Given a step that passes')))
                     .next(ActivityFinished, event => {

@@ -11,7 +11,7 @@ import {
     SceneTemplateDetected,
     TestRunnerDetected
 } from '@serenity-js/core/events';
-import { FileSystem, FileSystemLocation, Path, RequirementsHierarchy } from '@serenity-js/core/io';
+import { FileSystem, FileSystemLocation, Path, RequirementsHierarchy, type Version } from '@serenity-js/core/io';
 import type { Outcome, Tag } from '@serenity-js/core/model';
 import {
     Category,
@@ -28,7 +28,7 @@ import { PlaywrightSceneId } from './PlaywrightSceneId.js';
 export class EventFactory {
     private requirementsHierarchy: RequirementsHierarchy;
 
-    constructor(rootDirectory: Path) {
+    constructor(rootDirectory: Path, private readonly playwrightVersion: Version) {
         this.requirementsHierarchy = new RequirementsHierarchy(
             new FileSystem(rootDirectory),
         );
@@ -71,7 +71,7 @@ export class EventFactory {
                 scenarioDetails,
                 startTime
             ),
-            new TestRunnerDetected(sceneId, new Name('Playwright'), startTime),
+            new TestRunnerDetected(sceneId, new Name('Playwright'), this.playwrightVersion, startTime),
             ...allTags.map(tag => new SceneTagged(sceneId, tag, startTime))
         )
 

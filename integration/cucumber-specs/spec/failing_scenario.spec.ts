@@ -17,7 +17,7 @@ import { CorrelationId, ExecutionFailedWithError, FeatureTag, Name } from '@sere
 
 import { cucumber, cucumberVersion } from '../src';
 
-describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function () {
+describe(`Serenity/JS with Cucumber ${ cucumberVersion() }`, function () {
 
     it('recognises a failing scenario', () =>
         cucumber('features/failing_scenario.feature', 'common.steps.ts')
@@ -33,7 +33,7 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
                         expect(event.details.name).to.equal(new Name('A failing scenario'));
                         currentSceneId = event.sceneId;
                     })
-                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('JS')))
+                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a failing scenario')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that fails with a generic error')))
                     .next(ActivityFinished,    event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))
@@ -68,7 +68,7 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
 
                         currentSceneId = event.sceneId;
                     })
-                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('JS')))
+                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))
                     .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a failing scenario')))
                     .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that fails with a generic error')))
                     .next(ActivityFinished,    event => {

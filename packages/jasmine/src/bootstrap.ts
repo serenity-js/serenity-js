@@ -1,5 +1,5 @@
 import { RuntimeError, serenity } from '@serenity-js/core';
-import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
+import { FileSystem, Path, RequirementsHierarchy, Version } from '@serenity-js/core/io';
 
 import { monkeyPatched } from './monkeyPatched.js';
 import { SerenityReporterForJasmine } from './SerenityReporterForJasmine.js';
@@ -75,7 +75,9 @@ export function bootstrap(config: SerenityReporterForJasmineConfig = {}, jasmine
         config?.specDirectory && cwd.resolve(Path.from(config?.specDirectory)),
     );
 
-    return new SerenityReporterForJasmine(serenity, requirementsHierarchy);
+    const jasmineVersion = Version.fromJSON(jasmine.version);
+
+    return new SerenityReporterForJasmine(serenity, requirementsHierarchy, jasmineVersion);
 }
 
 /**

@@ -6,7 +6,7 @@ import { ArbitraryTag, FeatureTag } from '@serenity-js/core/model';
 
 import { cucumber, cucumberVersion } from '../src';
 
-describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function () {
+describe(`Serenity/JS with Cucumber ${ cucumberVersion() }`, function () {
 
     it('recognises tags on a scenario', () =>
         cucumber('features/tags.feature', 'common.steps.ts', ['--name', 'A tagged scenario'])

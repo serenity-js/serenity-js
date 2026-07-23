@@ -27,7 +27,8 @@ import {
     FileSystemLocation,
     Path,
     RequirementsHierarchy,
-    trimmed
+    trimmed,
+    Version
 } from '@serenity-js/core/io';
 import {
     CapabilityTag,
@@ -56,7 +57,7 @@ describe('SerenityReporterForJasmine', () => {
 
     beforeEach(() => {
         serenity = new Serenity(new Clock(() => now), '/path/to');
-        reporter = new SerenityReporterForJasmine(serenity, new RequirementsHierarchy(new FileSystem(Path.from(process.cwd()))));
+        reporter = new SerenityReporterForJasmine(serenity, new RequirementsHierarchy(new FileSystem(Path.from(process.cwd()))), new Version('6.0.0'));
         listener = new Listener();
 
         serenity.configure({ crew: [ listener ] });
