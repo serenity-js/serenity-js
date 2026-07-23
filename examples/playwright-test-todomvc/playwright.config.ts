@@ -30,8 +30,7 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
     fullyParallel: true,
     /* Fail the build on CI if you accidentally left test.only in the source code. */
     forbidOnly: !!process.env.CI,
-    /* Retry on CI only */
-    retries: process.env.CI ? 2 : 0,
+    retries: 2, // process.env.CI ? 2 : 0,
     /* Opt out of parallel tests on CI. */
     workers: process.env.CI ? 1 : undefined,
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -43,6 +42,12 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
                 [ '@serenity-js/serenity-bdd', { reporter: { includeAbilityDetails: true } } ],
                 // '@serenity-js/console-reporter',
                 [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+                [ '@serenity-js/html-reporter', {
+                    outputDirectory: 'reports/serenity',
+                    specDirectory: './spec',
+                    maxHistory: 10,
+                }
+                ],
                 // [ '@serenity-js/core:StreamReporter', { outputFile: 'target/events.ndjson' }]
             ]
         }]
@@ -54,8 +59,7 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
         /* Base URL to use in actions like `await page.goto('/')`. */
         baseURL: 'https://todo-app.serenity-js.org/#/',
 
-        // video: 'on-first-retry',
-        // video: 'on',
+        video: 'on',
 
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         // trace: 'on',
