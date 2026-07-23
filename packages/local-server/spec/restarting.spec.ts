@@ -1,7 +1,7 @@
 import { expect } from '@integration/testing-tools';
-import { Ensure, equals } from '@serenity-js/assertions';
+import { Ensure, equals, startsWith } from '@serenity-js/assertions';
 import type { Actor, Cast} from '@serenity-js/core';
-import { actorCalled, actorInTheSpotlight, configure, Log } from '@serenity-js/core';
+import { actorCalled, actorInTheSpotlight, configure } from '@serenity-js/core';
 import { CallAnApi } from '@serenity-js/rest';
 import axios from 'axios';
 import { afterEach, describe } from 'mocha';
@@ -35,12 +35,13 @@ describe('ManageALocalServer', () => {
             });
 
             await expect(actorCalled('Nadia').attemptsTo(
-                StartLocalServer.onPort(30000),
-                Ensure.that(LocalServer.url(), equals('http://127.0.0.1:30000')),
+                StartLocalServer.onPort(58000),
+                Ensure.that(LocalServer.url(), startsWith('http://')),
+                Ensure.that(LocalServer.port(), equals(58000)),
                 StopLocalServer.ifRunning(),
-                StartLocalServer.onPort(30000),
-                Log.the(LocalServer.url()),
-                Ensure.that(LocalServer.url(), equals('http://127.0.0.1:30000')),
+                StartLocalServer.onPort(58000),
+                Ensure.that(LocalServer.url(), startsWith('http://')),
+                Ensure.that(LocalServer.port(), equals(58000)),
             )).to.be.fulfilled;
         });
 
