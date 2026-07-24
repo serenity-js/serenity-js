@@ -635,3 +635,17 @@ npx mocha --config ../../.mocharc.yml 'spec/cli/*.spec.ts'
 ```
 
 The only exception: running a single spec file during the Red→Green TDD cycle (before final verification). Final verification always uses `npm test`.
+
+## Mocha sets `error.multiple = [error]` — a circular self-reference
+
+Mocha's base reporter (`lib/reporters/base.js:395`) appends the error to its own `multiple` array property when a test and its hooks both fail: `test.err.multiple = (test.err.multiple || []).concat(err)`. Since `test.err` IS `err`, this creates `error.multiple = [error]` — a direct circular reference on every failing test.
+
+Any serialisation code that traverses all own properties of an Error (like `TinyType.prototype.toJSON`) will stack overflow. Safe serialisation must explicitly pick fields (`name`, `message`, `stack`, `cause`) rather than iterating `Object.getOwnPropertyNames(error)`.
+
+The html-reporter's `serialiseOutcome()` avoids calling `outcome.toJSON()` entirely — it only needs the code, and errors are extracted separately by `errorFrom()` which reads only the three safe string fields.
+
+## `detectModuleId()` and `systemContext.projectName` are not the same as explicit `moduleId`
+
+When multiple CI jobs share the same `package.json` (e.g., `webdriverio-8-web` running with different protocols), `systemContext.projectName` returns the same value for both. The explicit `moduleId` (from config or directory name) is the authoritative identifier.
+
+Rule: store `moduleId` in `db.json` and prefer it over `systemContext.projectName` when deriving module identity during aggregation.
