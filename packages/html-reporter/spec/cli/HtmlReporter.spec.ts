@@ -185,14 +185,14 @@ test.describe('HtmlReporter', () => {
             stage.announce(new TestRunStarts(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
 
             // Placeholder should include moduleId
-            const runDir = findRunDirectory(filesystem, '100') + '/webdriverio-8-web-devtools-1';
-            const placeholderContent = JSON.parse(filesystem.readFileSync(runDir + '/db.json', 'utf8') as string);
+            const runDirectory = findRunDirectory(filesystem, '100') + '/webdriverio-8-web-devtools-1';
+            const placeholderContent = JSON.parse(filesystem.readFileSync(runDirectory + '/db.json', 'utf8') as string);
             expect(placeholderContent.moduleId).toBe('webdriverio-8-web-devtools');
 
             stage.announce(new TestRunFinishes(new Timestamp(new Date('2024-06-15T14:30:01.000Z'))));
 
             // Final db.json should also include moduleId
-            const finalContent = JSON.parse(filesystem.readFileSync(runDir + '/db.json', 'utf8') as string);
+            const finalContent = JSON.parse(filesystem.readFileSync(runDirectory + '/db.json', 'utf8') as string);
             expect(finalContent.moduleId).toBe('webdriverio-8-web-devtools');
         });
 
