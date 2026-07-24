@@ -7,20 +7,19 @@ import { InteractionObject } from '../common/InteractionObject.serenity.js';
 
 export class ScenarioItem<NET> extends InteractionObject<NET> {
 
-    private outcomeBadge = () =>
-        this.child(By.css('[data-testid="outcome-badge"]'))
-            .describedAs('outcome badge');
+    // Structure — page elements
+    private readonly scenarioNameElement = this.child(By.css('.scenario-name')).describedAs('scenario name element');
+    private readonly outcomeBadge = this.child(By.css('[data-testid="outcome-badge"]')).describedAs('outcome badge');
+    private readonly tagChips = this.children(By.css('.tag-chip, .badge-link')).describedAs('tag chips');
 
-    private tagChips = () =>
-        this.children(By.css('.tag-chip, .badge-link'))
-            .describedAs('tag chips');
+    // Behaviour — questions
 
     name = (): QuestionAdapter<string> =>
-        this.child(By.css('.scenario-name')).text().trim()
+        this.scenarioNameElement.text().trim()
             .describedAs('scenario name');
 
     outcome = (): QuestionAdapter<string> =>
-        Attribute.called('data-outcome').of(this.outcomeBadge())
+        Attribute.called('data-outcome').of(this.outcomeBadge)
             .describedAs('scenario outcome');
 
     sourceLocation = (): QuestionAdapter<string> =>
@@ -32,7 +31,7 @@ export class ScenarioItem<NET> extends InteractionObject<NET> {
             .describedAs('scenario error preview');
 
     isPresent = (): Question<Promise<boolean>> =>
-        this.child(By.css('.scenario-name'))
+        this.scenarioNameElement
             .isPresent()
             .describedAs('whether scenario is present');
 
@@ -41,10 +40,12 @@ export class ScenarioItem<NET> extends InteractionObject<NET> {
             .eachMappedTo(Text)
             .describedAs('tag chip labels');
 
+    // Behaviour — tasks
+
     clickTag = (name: string): Task =>
         Task.where(the`#actor clicks the ${name} tag`,
             Click.on(
-                this.tagChips()
+                this.tagChips
                     .where(Text, includes(name))
                     .first()
                     .describedAs(the`tag chip ${name}`)
@@ -53,6 +54,6 @@ export class ScenarioItem<NET> extends InteractionObject<NET> {
 
     viewDetails = (): Task =>
         Task.where('#actor views scenario details',
-            Click.on(this.child(By.css('.scenario-name')).describedAs('scenario name')),
+            Click.on(this.scenarioNameElement),
         );
 }

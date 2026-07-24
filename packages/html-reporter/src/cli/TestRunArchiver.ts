@@ -24,6 +24,12 @@ import { RunDataWriter } from './RunDataWriter.js';
 import { SceneDataCollector } from './SceneDataCollector.js';
 import { SystemContextDetector } from './SystemContextDetector.js';
 
+interface ExecutionContext {
+    testRunId?: string;
+    moduleId?: string;
+    attempt?: number;
+}
+
 /**
  * A {@link StageCrewMember} that archives test run data (db.json + artifacts)
  * without generating the aggregated HTML report.
@@ -52,6 +58,10 @@ export class TestRunArchiver implements StageCrewMember {
     private testRunnerName = 'unknown';
     private testRunnerVersion = '0.0.0';
 
+    private readonly testRunId?: string;
+    private readonly moduleId?: string;
+    private readonly attempt: number;
+
     static fromJSON(config: HtmlReporterConfig = {}): StageCrewMemberBuilder<TestRunArchiver> {
         return new TestRunArchiverBuilder(config);
     }
@@ -61,15 +71,16 @@ export class TestRunArchiver implements StageCrewMember {
         private readonly sceneDataCollector: SceneDataCollector,
         private readonly runDataWriter: RunDataWriter,
         private readonly systemContextDetector: SystemContextDetector,
-        private readonly testRunId?: string,
-        private readonly moduleId?: string,
-        private readonly attempt: number = 1,
+        executionContext: ExecutionContext = {},
         private stage?: Stage,
     ) {
         ensure('artifactWriter', artifactWriter, isDefined());
         ensure('sceneDataCollector', sceneDataCollector, isDefined());
         ensure('runDataWriter', runDataWriter, isDefined());
         ensure('systemContextDetector', systemContextDetector, isDefined());
+        this.testRunId = executionContext.testRunId;
+        this.moduleId = executionContext.moduleId;
+        this.attempt = executionContext.attempt ?? 1;
     }
 
     assignedTo(stage: Stage): StageCrewMember {
@@ -167,11 +178,19 @@ export class TestRunArchiver implements StageCrewMember {
  * @package
  */
 export function detectTestRunId(): string | undefined {
-    return process.env.GITHUB_RUN_NUMBER
-        || process.env.CI_PIPELINE_IID
-        || process.env.BUILD_NUMBER       // Jenkins
-        || process.env.CIRCLE_BUILD_NUM   // CircleCI
-        || undefined;
+    const CI_RUN_ID_ENV_VARS = [
+        'GITHUB_RUN_NUMBER',
+        'CI_PIPELINE_IID',      // GitLab CI
+        'BUILD_NUMBER',         // Jenkins
+        'CIRCLE_BUILD_NUM',     // CircleCI
+    ];
+
+    for (const variableName of CI_RUN_ID_ENV_VARS) {
+        if (process.env[variableName]) {
+            return process.env[variableName];
+        }
+    }
+    return undefined;
 }
 
 /**
@@ -228,6 +247,6 @@ class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> 
         const testRunId = this.config.testRunId || detectTestRunId();
         const moduleId = this.config.moduleId || (this.config.testRunId ? undefined : detectModuleId());
 
-        return new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, testRunId, moduleId, attempt, stage);
+        return new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, { testRunId, moduleId, attempt }, stage);
     }
 }

@@ -70,14 +70,14 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
     const renderItems = useMemo(() => buildRenderItems(categoryOrder), [categoryOrder]);
     const scenarioItems = useMemo(() => renderItems.filter(item => item.type === 'scenario'), [renderItems]);
 
-    const groupByFunction = useCallback((item: ErrorRenderItem) => {
-        return item.category || 'Errors';
-    }, []);
+    const groupByFunction = useCallback((item: ErrorRenderItem) =>
+        item.category || 'Errors',
+    []);
 
-    const renderItem = useCallback((item: ErrorRenderItem) => {
-        return html`<${ErrorRow} scenario=${item.scenario} duplicateCount=${item.duplicateCount}
-            specDirectory=${specDirectory} onNavigate=${onNavigate} />`;
-    }, [specDirectory, onNavigate]);
+    const renderItem = useCallback((item: ErrorRenderItem) =>
+        html`<${ErrorRow} scenario=${item.scenario} duplicateCount=${item.duplicateCount}
+            specDirectory=${specDirectory} onNavigate=${onNavigate} />`,
+    [specDirectory, onNavigate]);
 
     const renderGroupHeader = useCallback((category: string) => {
         const icon = CATEGORY_ICONS[category] || '✗';
@@ -107,26 +107,21 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
         element.appendChild(countSpan);
     }, []);
 
-    const groupHeaderData = useCallback((category: string) => {
-        const cat = categoryOrder.find(c => c.name === category);
-        return {
-            icon: CATEGORY_ICONS[category] || '✗',
-            name: category,
-            count: cat ? cat.scenarios.length : 0,
-        };
-    }, [categoryOrder]);
+    const groupHeaderData = useCallback((category: string) => ({
+        icon: CATEGORY_ICONS[category] || '✗',
+        name: category,
+        count: categoryOrder.find(c => c.name === category)?.scenarios.length || 0,
+    }), [categoryOrder]);
 
-    if (errorScenarios.length === 0) {
-        return html`
+    return errorScenarios.length === 0
+        ? html`
       <div class="placeholder-view">
         ${icons.errors}
         <h2>No Errors</h2>
         <p>All tests passed without errors.</p>
       </div>
-    `;
-    }
-
-    return html`
+    `
+        : html`
     <div class="flex-fill-view">
       ${history.length > 1 ? html`<${RunSelector} activeTimestamp=${errorActiveRunTs} history=${history} onRunChange=${onErrorRunChange} isHistorical=${errorIsHistorical} showLatestHref="#/errors" />` : null}
 

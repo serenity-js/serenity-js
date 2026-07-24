@@ -113,6 +113,34 @@ function buildSelectedRun(entry: ReportHistoryEntry, index: number): SelectedRun
     };
 }
 
+function useChartInstance(
+    canvasRef: { current: HTMLCanvasElement | null },
+    chartRef: { current: Chart | null },
+    history: ReportHistoryEntry[],
+    chartTheme: string,
+    configurePan: (chart: Chart, dataLength: number, isMobile: boolean) => void,
+    onBarClick: (entry: ReportHistoryEntry, index: number) => void,
+): void {
+    useEffect(() => {
+        if (!canvasRef.current || history.length === 0) return undefined;
+        if (chartRef.current) chartRef.current.destroy();
+
+        const handleBarClick = (_event: unknown, elements: Array<{ index: number; datasetIndex: number }>) => {
+            if (elements.length === 0) return;
+            const index = elements[0].index;
+            onBarClick(history[index], index);
+        };
+
+        const config = buildChartConfig(history, chartTheme, handleBarClick);
+        chartRef.current = new Chart(canvasRef.current, config);
+
+        const isMobile = window.innerWidth <= 768;
+        configurePan(chartRef.current, history.length, isMobile);
+
+        return () => { if (chartRef.current) chartRef.current.destroy(); };
+    }, [history, chartTheme, configurePan, onBarClick]);
+}
+
 export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType<typeof html> | null {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const chartRef = useRef<Chart | null>(null);
@@ -134,36 +162,20 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
     useEscapeDismiss(selectedRun, clearSelection);
     useClickOutsideDismiss(selectedRun, canvasRef, panelRef, clearSelection);
 
-    // Create/recreate chart
-    useEffect(() => {
-        if (!canvasRef.current || history.length === 0) return undefined;
-        if (chartRef.current) chartRef.current.destroy();
+    const handleBarClick = useCallback((entry: ReportHistoryEntry, index: number) => {
+        const run = buildSelectedRun(entry, index);
+        setSelectedRun(run);
 
-        const handleBarClick = (_event: unknown, elements: Array<{ index: number; datasetIndex: number }>) => {
-            if (elements.length === 0) return;
+        if (chartRef.current) {
+            const activeElements = chartRef.current.data.datasets
+                .map((_ds, datasetIndex) => ({ datasetIndex, index }))
+                .filter((_element, i) => i < 3);
+            chartRef.current.setActiveElements(activeElements);
+            chartRef.current.update('none');
+        }
+    }, []);
 
-            const index = elements[0].index;
-            const entry = history[index];
-            const run = buildSelectedRun(entry, index);
-            setSelectedRun(run);
-
-            if (chartRef.current) {
-                const activeElements = chartRef.current.data.datasets
-                    .map((_ds, datasetIndex) => ({ datasetIndex, index }))
-                    .filter((_element, i) => i < 3);
-                chartRef.current.setActiveElements(activeElements);
-                chartRef.current.update('none');
-            }
-        };
-
-        const config = buildChartConfig(history, chartTheme, handleBarClick);
-        chartRef.current = new Chart(canvasRef.current, config);
-
-        const isMobile = window.innerWidth <= 768;
-        configurePan(chartRef.current, history.length, isMobile);
-
-        return () => { if (chartRef.current) chartRef.current.destroy(); };
-    }, [history, chartTheme, configurePan]);
+    useChartInstance(canvasRef, chartRef, history, chartTheme, configurePan, handleBarClick);
 
     if (history.length === 0) {
         return null;

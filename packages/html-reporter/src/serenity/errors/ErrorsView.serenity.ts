@@ -10,15 +10,24 @@ import { ScenarioItem } from '../scenarios/ScenarioItem.serenity.js';
 
 export class ErrorsView<NET> extends InteractionObject<NET> {
 
+    private static readonly scenarioNameSelector = By.css('.scenario-name');
+
+    // Structure — page elements
+    private readonly kpiCards = this.children(By.css('[data-testid="kpi-card"]')).describedAs('errors KPI cards');
+    private readonly scenarioItems = this.children(By.css('.scenario-item')).describedAs('errors scenario items');
+    private readonly scenarioNameElements = this.children(ErrorsView.scenarioNameSelector).describedAs('errors scenario names');
+
     constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
         super(rootElement);
     }
 
+    // Behaviour — questions
+
     kpiCardAt = (index: number): KpiCard<NET> =>
-        new KpiCard(this.children(By.css('[data-testid="kpi-card"]')).nth(index));
+        new KpiCard(this.kpiCards.nth(index));
 
     kpiCardCalled = (label: string): KpiCard<NET> => {
-        const cardElement = this.children(By.css('[data-testid="kpi-card"]'))
+        const cardElement = this.kpiCards
             .where(Text.of(PageElement.located(By.css('.kpi-label'))), includes(label.toUpperCase()))
             .first()
             .describedAs(`KPI card called "${label}"`);
@@ -26,22 +35,22 @@ export class ErrorsView<NET> extends InteractionObject<NET> {
     };
 
     scenarioCalled = (name: string): ScenarioItem<NET> => {
-        const matchingItem = this.children(By.css('.scenario-item'))
-            .where(Text.of(PageElement.located(By.css('.scenario-name'))), includes(name))
+        const matchingItem = this.scenarioItems
+            .where(Text.of(PageElement.located(ErrorsView.scenarioNameSelector)), includes(name))
             .first()
             .describedAs(`errors scenario called "${name}"`);
         return new ScenarioItem(matchingItem);
     };
 
     errorGroupTextFor = (name: string): QuestionAdapter<string> =>
-        this.children(By.css('.scenario-item'))
-            .where(Text.of(PageElement.located(By.css('.scenario-name'))), includes(name))
+        this.scenarioItems
+            .where(Text.of(PageElement.located(ErrorsView.scenarioNameSelector)), includes(name))
             .first()
             .text()
             .describedAs(`error group text for "${name}"`);
 
     scenarioNames = (): Question<Promise<string[]>> =>
-        this.children(By.css('.scenario-name'))
+        this.scenarioNameElements
             .eachMappedTo(Text)
             .describedAs('errors scenario names');
 
@@ -49,13 +58,15 @@ export class ErrorsView<NET> extends InteractionObject<NET> {
         Text.of(this.rootElement).describedAs('errors view body text');
 
     errorGroupCount = (): QuestionAdapter<number> =>
-        this.children(By.css('.scenario-item')).count()
+        this.scenarioItems.count()
             .describedAs('error group count');
+
+    // Behaviour — tasks
 
     clickFirstErrorGroup = (): Task =>
         Task.where('#actor clicks the first error group',
             Click.on(
-                this.children(By.css('.scenario-item')).first()
+                this.scenarioItems.first()
                     .describedAs('first error group'),
             ),
         );
@@ -63,7 +74,7 @@ export class ErrorsView<NET> extends InteractionObject<NET> {
     clickErrorGroupContaining = (text: Answerable<string>): Task =>
         Task.where(the`#actor clicks the error group containing ${ text }`,
             Click.on(
-                this.children(By.css('.scenario-item'))
+                this.scenarioItems
                     .where(Text, includes(text))
                     .first()
                     .describedAs(the`error group containing ${ text }`),

@@ -18,6 +18,16 @@ export interface CollapsedNode {
     collapsedLabel: string;
 }
 
+function getOnlyCollapsibleDirectory(node: ReportCapabilityNode): ReportCapabilityNode | null {
+    if (!node.children) return null;
+    const directories = node.children.filter(c => c.type === 'directory' && c.children && c.children.length > 0);
+    const files = node.children.filter(c => c.type === 'file');
+    if (directories.length === 1 && files.length === 0 && !directories[0].readme) {
+        return directories[0];
+    }
+    return null;
+}
+
 /**
  * Collapses single-directory children (GitHub-style path collapsing).
  * Stops at nodes with a readme (documentation targets) or multiple children.
@@ -26,20 +36,16 @@ export function collapseNode(node: ReportCapabilityNode, segmentPath: string): C
     let displayNode = node;
     let collapsedPath = segmentPath;
     let collapsedLabel = node.displayName || node.name;
+
     if (!node.readme && !hasFiles(node)) {
-        while (displayNode.children) {
-            const directories = displayNode.children.filter(c => c.type === 'directory' && c.children && c.children.length > 0);
-            const files = displayNode.children.filter(c => c.type === 'file');
-            if (directories.length === 1 && files.length === 0) {
-                const only = directories[0];
-                if (only.readme) break;
-                collapsedPath = collapsedPath ? collapsedPath + '/' + only.name : only.name;
-                collapsedLabel += '/' + (only.displayName || only.name);
-                displayNode = only;
-            } else {
-                break;
-            }
+        let next = getOnlyCollapsibleDirectory(displayNode);
+        while (next) {
+            collapsedPath = collapsedPath ? collapsedPath + '/' + next.name : next.name;
+            collapsedLabel += '/' + (next.displayName || next.name);
+            displayNode = next;
+            next = getOnlyCollapsibleDirectory(displayNode);
         }
     }
+
     return { displayNode, collapsedPath, collapsedLabel };
 }

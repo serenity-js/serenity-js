@@ -81,7 +81,7 @@ class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
         const testRunId = this.config.testRunId || detectTestRunId();
         const moduleId = this.config.moduleId || (this.config.testRunId ? undefined : detectModuleId());
 
-        const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, testRunId, moduleId, detectAttemptNumber(), stage);
+        const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, { testRunId, moduleId, attempt: detectAttemptNumber() }, stage);
 
         // HtmlReportGenerator dependencies
         const projectFileSystem = new FileSystem(Path.from(process.cwd()));

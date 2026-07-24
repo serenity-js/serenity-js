@@ -10,15 +10,24 @@ import { DashboardKpiCard } from './DashboardKpiCard.serenity.js';
 
 export class DashboardView<NET> extends InteractionObject<NET> {
 
+    private static readonly statusItemNameSelector = By.css('.status-item-name');
+
+    // Structure — page elements
+    private readonly kpiCards = this.children(By.css('[data-testid="dashboard-kpi-card"]')).describedAs('dashboard KPI cards');
+    private readonly consistencyItems = this.children(By.css('[data-testid="dashboard-consistency-card"] .status-item')).describedAs('dashboard consistency items');
+    private readonly statusItemNames = this.children(By.css('[data-testid="dashboard-consistency-card"] .status-item-name')).describedAs('dashboard consistency item names');
+
     constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
         super(rootElement);
     }
 
+    // Behaviour — questions
+
     kpiCardAt = (index: number): DashboardKpiCard<NET> =>
-        new DashboardKpiCard(this.children(By.css('[data-testid="dashboard-kpi-card"]')).nth(index));
+        new DashboardKpiCard(this.kpiCards.nth(index));
 
     kpiCardCalled = (label: string): DashboardKpiCard<NET> => {
-        const cardElement = this.children(By.css('[data-testid="dashboard-kpi-card"]'))
+        const cardElement = this.kpiCards
             .where(Text.of(PageElement.located(By.css('.kpi-label'))), includes(label.toUpperCase()))
             .first()
             .describedAs(`KPI card called "${label}"`);
@@ -26,13 +35,13 @@ export class DashboardView<NET> extends InteractionObject<NET> {
     };
 
     consistencyCardScenarioNames = (): Question<Promise<string[]>> =>
-        this.children(By.css('[data-testid="dashboard-consistency-card"] .status-item-name'))
+        this.statusItemNames
             .eachMappedTo(Text)
             .describedAs('dashboard consistency card scenario names');
 
     consistencyItemHistoryOutcomes = (scenarioName: string): Question<Promise<string[]>> => {
-        const item = this.children(By.css('[data-testid="dashboard-consistency-card"] .status-item'))
-            .where(Text.of(PageElement.located(By.css('.status-item-name'))), includes(scenarioName))
+        const item = this.consistencyItems
+            .where(Text.of(PageElement.located(DashboardView.statusItemNameSelector)), includes(scenarioName))
             .first()
             .describedAs(`consistency item "${scenarioName}"`);
         const dots = PageElements.located(By.css('[data-testid="history-dots"] .history-dot')).of(item);
@@ -41,8 +50,8 @@ export class DashboardView<NET> extends InteractionObject<NET> {
     };
 
     consistencyItemCalled = (scenarioName: string): ConsistencyItem<NET> => {
-        const item = this.children(By.css('[data-testid="dashboard-consistency-card"] .status-item'))
-            .where(Text.of(PageElement.located(By.css('.status-item-name'))), includes(scenarioName))
+        const item = this.consistencyItems
+            .where(Text.of(PageElement.located(DashboardView.statusItemNameSelector)), includes(scenarioName))
             .first()
             .describedAs(`consistency item "${scenarioName}"`);
         return new ConsistencyItem(item);
@@ -62,6 +71,8 @@ export class DashboardView<NET> extends InteractionObject<NET> {
         PageElement.located(By.css('[data-testid="run-details-panel"]'))
             .isPresent()
             .describedAs('whether the chart details panel is visible');
+
+    // Behaviour — tasks
 
     open = (): Task =>
         Task.where('#actor opens the Dashboard',

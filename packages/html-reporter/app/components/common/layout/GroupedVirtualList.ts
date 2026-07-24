@@ -146,19 +146,22 @@ function renderVirtualRow<T, H>(
     `;
 }
 
+interface VirtualizerConfig<T, H> {
+    flatItems: Array<FlatItem<T, H>>;
+    headerIndices: number[];
+    parentRef: { current: HTMLElement | null };
+    groupBy: ((item: T) => string) | undefined;
+    firstHeaderHeight: number;
+    headerHeight: number;
+    rowHeight: number;
+    overscan: number;
+}
+
 /**
  * Sets up the virtualizer configuration for the flat item list.
  */
-function useConfiguredVirtualizer<T, H>(
-    flatItems: Array<FlatItem<T, H>>,
-    headerIndices: number[],
-    parentRef: { current: HTMLElement | null },
-    groupBy: ((item: T) => string) | undefined,
-    firstHeaderHeight: number,
-    headerHeight: number,
-    rowHeight: number,
-    overscan: number,
-) {
+function useConfiguredVirtualizer<T, H>(config: VirtualizerConfig<T, H>) {
+    const { flatItems, headerIndices, parentRef, groupBy, firstHeaderHeight, headerHeight, rowHeight, overscan } = config;
     const activeStickyRef = useRef(-1);
 
     const rangeExtractor = useCallback((range: Range) => {
@@ -215,10 +218,10 @@ export function GroupedVirtualList<T, H = { category: string }>({
         return indices;
     }, [flatItems]);
 
-    const virtualizer = useConfiguredVirtualizer(
+    const virtualizer = useConfiguredVirtualizer({
         flatItems, headerIndices, parentRef, groupBy,
         firstHeaderHeight, headerHeight, rowHeight, overscan,
-    );
+    });
 
     const defaultRenderStickyContent = useCallback((element: HTMLDivElement, item: FlatItem<T, H>) => {
         if (item.type === 'header') {

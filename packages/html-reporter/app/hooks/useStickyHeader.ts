@@ -51,15 +51,18 @@ export function findActiveHeader<H>(
     return activeHeader;
 }
 
-export function updateStickyElement<H extends { type: string }>(
-    stickyElement: HTMLDivElement,
-    activeHeader: HeaderPosition<H> | null,
-    firstHeaderHeight: number,
-    headerHeight: number,
-    scrollTop: number,
-    renderContent: (element: HTMLDivElement, item: H) => void,
-    currentKey: { value: string },
-): void {
+interface UpdateStickyOptions<H> {
+    stickyElement: HTMLDivElement;
+    activeHeader: HeaderPosition<H> | null;
+    firstHeaderHeight: number;
+    headerHeight: number;
+    scrollTop: number;
+    renderContent: (element: HTMLDivElement, item: H) => void;
+    currentKey: { value: string };
+}
+
+export function updateStickyElement<H extends { type: string }>(options: UpdateStickyOptions<H>): void {
+    const { stickyElement, activeHeader, firstHeaderHeight, headerHeight, scrollTop, renderContent, currentKey } = options;
     const activeHeaderHeight = activeHeader && activeHeader.index === 0 ? firstHeaderHeight : headerHeight;
     if (!activeHeader || scrollTop <= activeHeader.start + activeHeaderHeight) {
         stickyElement.style.display = 'none';
@@ -108,7 +111,7 @@ export function useStickyHeader<H extends { type: string }>(options: StickyHeade
         const onScroll = (): void => {
             const scrollTop = element.scrollTop;
             const activeHeader = findActiveHeader(scrollTop, headerStarts);
-            updateStickyElement(stickyElement, activeHeader, firstHeaderHeight, headerHeight, scrollTop, renderContent, currentKey);
+            updateStickyElement({ stickyElement, activeHeader, firstHeaderHeight, headerHeight, scrollTop, renderContent, currentKey });
         };
 
         element.addEventListener('scroll', onScroll, { passive: true });

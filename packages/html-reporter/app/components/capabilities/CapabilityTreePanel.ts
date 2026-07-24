@@ -33,15 +33,17 @@ interface CapabilityTreePanelProps {
     onSelect: (path: string, node: ReportCapabilityNode) => void;
 }
 
-function handleTreeKeyDown(
-    e: KeyboardEvent,
-    capabilities: ReportCapabilityNode,
-    searchTerm: string,
-    nodeFilter: ((node: ReportCapabilityNode) => boolean) | null,
-    focusedPath: string,
-    setFocusedPath: (v: string) => void,
-    onSelect: (path: string, node: ReportCapabilityNode) => void,
-): void {
+interface TreeKeyDownOptions {
+    capabilities: ReportCapabilityNode;
+    searchTerm: string;
+    nodeFilter: ((node: ReportCapabilityNode) => boolean) | null;
+    focusedPath: string;
+    setFocusedPath: (v: string) => void;
+    onSelect: (path: string, node: ReportCapabilityNode) => void;
+}
+
+function handleTreeKeyDown(e: KeyboardEvent, options: TreeKeyDownOptions): void {
+    const { capabilities, searchTerm, nodeFilter, focusedPath, setFocusedPath, onSelect } = options;
     const visiblePaths = getVisiblePaths(capabilities, searchTerm, nodeFilter);
     const currentIndex = visiblePaths.indexOf(focusedPath);
 
@@ -111,7 +113,7 @@ export function CapabilityTreePanel({
     const showFilterBar = totalCapabilities > 1;
 
     const onTreeKeyDown = (e: KeyboardEvent) => {
-        handleTreeKeyDown(e, capabilities, searchTerm, nodeFilter, focusedPath, setFocusedPath, onSelect);
+        handleTreeKeyDown(e, { capabilities, searchTerm, nodeFilter, focusedPath, setFocusedPath, onSelect });
     };
 
     return html`

@@ -15,42 +15,47 @@ import { ScenarioItem } from '../scenarios/ScenarioItem.serenity.js';
 
 export class ConsistencyView<NET> extends InteractionObject<NET> {
 
-    readonly searchInput: SearchInput<NET>;
-    readonly filterBar: FilterBar<NET>;
-    readonly resultCount: ResultCount<NET>;
-    readonly historyDots: HistoryDots<NET>;
+    private static readonly scenarioNameSelector = By.css('.scenario-name');
+
+    // Structure — child interaction objects
+    readonly searchInput = new SearchInput<NET>(this.child(By.css('[data-testid="search-input"]')));
+    readonly filterBar = new FilterBar<NET>(this.child(By.css('[data-testid="filter-bar"]')));
+    readonly resultCount = new ResultCount<NET>(this.child(By.css('[data-testid="result-count"]')));
+    readonly historyDots = new HistoryDots<NET>(this.child(By.css('[data-testid="history-dots"]')));
+
+    // Structure — page elements
+    private readonly scenarioItems = this.children(By.css('.scenario-item')).describedAs('consistency scenario items');
+    private readonly scenarioNameElements = this.children(ConsistencyView.scenarioNameSelector).describedAs('consistency scenario names');
 
     constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
         super(rootElement);
-
-        this.searchInput = new SearchInput(this.child(By.css('[data-testid="search-input"]')));
-        this.filterBar = new FilterBar(this.child(By.css('[data-testid="filter-bar"]')));
-        this.resultCount = new ResultCount(this.child(By.css('[data-testid="result-count"]')));
-        this.historyDots = new HistoryDots(this.child(By.css('[data-testid="history-dots"]')));
     }
 
-    private scenarioItems = () =>
-        this.children(By.css('.scenario-item'))
-            .describedAs('consistency scenario items');
+    // Behaviour — questions (what the user observes)
 
     outcomeBadgeFor = (scenarioItem: Answerable<PageElement<NET>>): OutcomeBadge<NET> =>
         new OutcomeBadge<NET>(PageElement.located<NET>(By.css('[data-testid="outcome-badge"]')).of(scenarioItem));
 
     scenarioCount = (): Question<Promise<number>> =>
-        this.scenarioItems().count().describedAs('number of consistency scenarios');
+        this.scenarioItems.count().describedAs('number of consistency scenarios');
 
     scenarioCalled = (name: string): ScenarioItem<NET> => {
-        const matchingItem = this.children(By.css('.scenario-item'))
-            .where(Text.of(PageElement.located(By.css('.scenario-name'))), includes(name))
+        const matchingItem = this.scenarioItems
+            .where(Text.of(PageElement.located(ConsistencyView.scenarioNameSelector)), includes(name))
             .first()
             .describedAs(`consistency scenario called "${name}"`);
         return new ScenarioItem(matchingItem);
     };
 
     scenarioNames = (): Question<Promise<string[]>> =>
-        this.children(By.css('.scenario-name'))
+        this.scenarioNameElements
             .eachMappedTo(Text)
             .describedAs('consistency scenario names');
+
+    bodyText = (): QuestionAdapter<string> =>
+        Text.of(this.rootElement).describedAs('consistency view text');
+
+    // Behaviour — tasks (what the user does)
 
     find = (searchTerm: Answerable<string>): Task =>
         Task.where(the`#actor searches for ${searchTerm}`,
@@ -61,7 +66,4 @@ export class ConsistencyView<NET> extends InteractionObject<NET> {
         Task.where('#actor opens the Consistency view',
             this.navigation.openView('Consistency'),
         );
-
-    bodyText = (): QuestionAdapter<string> =>
-        Text.of(this.rootElement).describedAs('consistency view text');
 }

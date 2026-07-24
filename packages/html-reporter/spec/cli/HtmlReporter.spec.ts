@@ -75,7 +75,7 @@ test.describe('HtmlReporter', () => {
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
         const systemContextDetector = new SystemContextDetector(new CIDetector({}), new ModuleLoader(process.cwd()));
 
-        const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, undefined, undefined, 1, stage);
+        const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, { testRunId: undefined, moduleId: undefined, attempt: 1 }, stage);
         const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
         const reporter = new HtmlReporter(archiver, generator);
 
@@ -237,7 +237,7 @@ test.describe('HtmlReporter', () => {
             const runDataWriter = new RunDataWriter(outputFileSystem);
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
             const systemContextDetector = new SystemContextDetector(new CIDetector({}), new ModuleLoader(process.cwd()));
-            const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, undefined, undefined, 1, stage);
+            const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, { testRunId: undefined, moduleId: undefined, attempt: 1 }, stage);
             const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
             const reporter = new HtmlReporter(archiver, generator);
 
@@ -473,7 +473,7 @@ test.describe('HtmlReporter', () => {
                 const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()));
 
                 // Mimics HtmlReporterBuilder with no explicit testRunId
-                const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, detectTestRunId(), detectModuleId(), 1, stage);
+                const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, { testRunId: detectTestRunId(), moduleId: detectModuleId(), attempt: 1 }, stage);
                 const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
                 const aggregator = new DataSnapshotAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), rootFileSystem, rootFileSystem);
                 const templateWriter = new ReportTemplateWriter(outputFileSystem);
@@ -518,7 +518,7 @@ test.describe('HtmlReporter', () => {
                 const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()));
 
                 // Mimics HtmlReporterBuilder with no explicit testRunId and no env vars
-                const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, detectTestRunId(), detectModuleId(), 1, stage);
+                const archiver = new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, { testRunId: detectTestRunId(), moduleId: detectModuleId(), attempt: 1 }, stage);
                 const rootFileSystem2 = new FileSystem(Path.from('/'), filesystem);
                 const aggregator = new DataSnapshotAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem2), rootFileSystem2, rootFileSystem2);
                 const templateWriter = new ReportTemplateWriter(outputFileSystem);

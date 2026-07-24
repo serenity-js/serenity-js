@@ -119,27 +119,29 @@ export function toggleTagInSearch(search: string, tag: { type: string; name: str
     return search ? (search.trim() + ' ' + token) : token;
 }
 
-function isMatchingTag(token: string, targetType: string, targetName: string): boolean {
-    if (!token.startsWith('@')) return false;
-    const withoutAt = token.slice(1);
-    const colonIndex = withoutAt.indexOf(':');
+function matchesShorthandTag(withoutAt: string, targetType: string, targetName: string): boolean {
+    if (targetType !== 'tag') return false;
+    const tokenLower = withoutAt.toLowerCase();
+    return !KNOWN_TAG_TYPES.includes(tokenLower) && tokenLower === targetName;
+}
 
-    if (colonIndex === -1) {
-        // Shorthand @value — only matches tags of type 'tag'
-        if (targetType !== 'tag') return false;
-        const tokenLower = withoutAt.toLowerCase();
-        if (KNOWN_TAG_TYPES.includes(tokenLower)) return false;
-        return tokenLower === targetName;
-    }
-
+function matchesTypedTag(withoutAt: string, colonIndex: number, targetType: string, targetName: string): boolean {
     const type = withoutAt.slice(0, colonIndex).toLowerCase();
     if (type !== targetType) return false;
-
     let value = withoutAt.slice(colonIndex + 1);
     if (value.startsWith('"') && value.endsWith('"')) {
         value = value.slice(1, -1);
     }
     return value.toLowerCase() === targetName;
+}
+
+function isMatchingTag(token: string, targetType: string, targetName: string): boolean {
+    if (!token.startsWith('@')) return false;
+    const withoutAt = token.slice(1);
+    const colonIndex = withoutAt.indexOf(':');
+    return colonIndex === -1
+        ? matchesShorthandTag(withoutAt, targetType, targetName)
+        : matchesTypedTag(withoutAt, colonIndex, targetType, targetName);
 }
 
 function removeTagFromSearch(search: string, tag: { type: string; name: string }): string {

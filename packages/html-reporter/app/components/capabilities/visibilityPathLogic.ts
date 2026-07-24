@@ -1,14 +1,27 @@
 import type { ReportCapabilityNode } from '../../../src/cli/ReportData';
 import { collapseNode, matches } from './collapseLogic';
 
+function isVisibleDirectory(node: ReportCapabilityNode): boolean {
+    return node.type === 'directory' && !!node.children && node.children.length > 0;
+}
+
+function shouldIncludeNode(
+    node: ReportCapabilityNode,
+    searchTerm: string,
+    nodeFilter: ((node: ReportCapabilityNode) => boolean) | null,
+): boolean {
+    if (!isVisibleDirectory(node)) return false;
+    if (nodeFilter && !nodeFilter(node)) return false;
+    if (searchTerm && !matches(node, searchTerm)) return false;
+    return true;
+}
+
 export function countVisibleNodes(root: ReportCapabilityNode, searchTerm: string, nodeFilter: ((node: ReportCapabilityNode) => boolean) | null): number {
     let count = 0;
     function walk(node: ReportCapabilityNode) {
         if (!node.children) return;
         for (const child of node.children) {
-            if (child.type !== 'directory' || !child.children || child.children.length === 0) continue;
-            if (nodeFilter && !nodeFilter(child)) continue;
-            if (searchTerm && !matches(child, searchTerm)) continue;
+            if (!shouldIncludeNode(child, searchTerm, nodeFilter)) continue;
             count++;
             walk(child);
         }
@@ -17,32 +30,42 @@ export function countVisibleNodes(root: ReportCapabilityNode, searchTerm: string
     return count;
 }
 
+function computeCollapsedEntry(
+    node: ReportCapabilityNode,
+    parentPath: string,
+    isRoot: boolean,
+    searchTerm: string,
+): { displayNode: ReportCapabilityNode; collapsedPath: string } | null {
+    const segmentPath = isRoot ? '' : (parentPath ? parentPath + '/' + node.name : node.name);
+
+    const { displayNode, collapsedPath, collapsedLabel } = isRoot
+        ? { displayNode: node, collapsedPath: segmentPath, collapsedLabel: node.displayName || node.name }
+        : collapseNode(node, segmentPath);
+
+    if (searchTerm) {
+        const matchesSearch = collapsedLabel.toLowerCase().includes(searchTerm.toLowerCase());
+        const childrenMatch = displayNode.children ? displayNode.children.some(c => matches(c, searchTerm)) : false;
+        if (!matchesSearch && !childrenMatch) return null;
+    }
+
+    return { displayNode, collapsedPath };
+}
+
 export function getVisiblePaths(root: ReportCapabilityNode, searchTerm: string, nodeFilter: ((node: ReportCapabilityNode) => boolean) | null): string[] {
     const paths: string[] = [];
 
     function walk(node: ReportCapabilityNode, parentPath: string, isRoot: boolean) {
-        const isDirectory = node.type === 'directory' && node.children && node.children.length > 0;
-        if (!isDirectory) return;
-
-        const segmentPath = isRoot ? '' : (parentPath ? parentPath + '/' + node.name : node.name);
-
+        if (!isVisibleDirectory(node)) return;
         if (!isRoot && nodeFilter && !nodeFilter(node)) return;
 
-        // Apply single-child collapse logic
-        const { displayNode, collapsedPath, collapsedLabel } = isRoot
-            ? { displayNode: node, collapsedPath: segmentPath, collapsedLabel: node.displayName || node.name }
-            : collapseNode(node, segmentPath);
+        const entry = computeCollapsedEntry(node, parentPath, isRoot, searchTerm);
+        if (!entry) return;
 
-        // Check search filtering
-        const matchesSearch = !searchTerm || collapsedLabel.toLowerCase().includes(searchTerm.toLowerCase());
-        const childrenMatch = displayNode.children ? displayNode.children.some(c => matches(c, searchTerm)) : false;
-        if (searchTerm && !matchesSearch && !childrenMatch) return;
+        paths.push(entry.collapsedPath);
 
-        paths.push(collapsedPath);
-
-        if (displayNode.children) {
-            for (const child of displayNode.children) {
-                walk(child, collapsedPath, false);
+        if (entry.displayNode.children) {
+            for (const child of entry.displayNode.children) {
+                walk(child, entry.collapsedPath, false);
             }
         }
     }

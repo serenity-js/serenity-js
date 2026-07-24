@@ -12,16 +12,12 @@ import { SearchInput } from '../common/SearchInput.serenity.js';
 
 export class TagsView<NET> extends InteractionObject<NET> {
 
-    readonly searchInput: SearchInput<NET>;
-    readonly filterBar: FilterBar<NET>;
-    readonly resultCount: ResultCount<NET>;
+    readonly searchInput = new SearchInput<NET>(this.child(By.css('[data-testid="search-input"]')));
+    readonly filterBar = new FilterBar<NET>(this.child(By.css('[data-testid="filter-bar"]')));
+    readonly resultCount = new ResultCount<NET>(this.child(By.css('[data-testid="result-count"]')));
 
     constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
         super(rootElement);
-
-        this.searchInput = new SearchInput(this.child(By.css('[data-testid="search-input"]')));
-        this.filterBar = new FilterBar(this.child(By.css('[data-testid="filter-bar"]')));
-        this.resultCount = new ResultCount(this.child(By.css('[data-testid="result-count"]')));
     }
 
     private tagCards = () =>

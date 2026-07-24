@@ -23,14 +23,16 @@ function handleLightboxKeyDown(e: KeyboardEvent, currentIndex: number, photosLen
     }
 }
 
-function handleLightboxTouchEnd(
-    e: TouchEvent,
-    touchStartX: number,
-    touchStartY: number,
-    currentIndex: number,
-    photosLength: number,
-    onNavigate: (index: number) => void,
-): void {
+interface TouchEndOptions {
+    touchStartX: number;
+    touchStartY: number;
+    currentIndex: number;
+    photosLength: number;
+    onNavigate: (index: number) => void;
+}
+
+function handleLightboxTouchEnd(e: TouchEvent, options: TouchEndOptions): void {
+    const { touchStartX, touchStartY, currentIndex, photosLength, onNavigate } = options;
     const dx = e.changedTouches[0].clientX - touchStartX;
     const dy = e.changedTouches[0].clientY - touchStartY;
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
@@ -84,7 +86,7 @@ export function Lightbox({ photos, currentIndex, onNavigate }: LightboxProps): R
              onClick=${(e: Event) => handleOverlayClick(e, onNavigate)}
              onKeyDown=${(e: KeyboardEvent) => handleLightboxKeyDown(e, currentIndex, photos.length, onNavigate)}
              onTouchStart=${(e: TouchEvent) => { touchStartX.current = e.touches[0].clientX; touchStartY.current = e.touches[0].clientY; }}
-             onTouchEnd=${(e: TouchEvent) => handleLightboxTouchEnd(e, touchStartX.current, touchStartY.current, currentIndex, photos.length, onNavigate)}
+             onTouchEnd=${(e: TouchEvent) => handleLightboxTouchEnd(e, { touchStartX: touchStartX.current, touchStartY: touchStartY.current, currentIndex, photosLength: photos.length, onNavigate })}
              tabIndex="0">
           <div class="lightbox-content">
             <button class="lightbox-close" onClick=${() => onNavigate(-1)} aria-label="Close lightbox">✕</button>

@@ -76,25 +76,23 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
 
     const groupByFunction = sort === 'category' ? (t: ClassifiedTest) => t.category || 'Uncategorised' : undefined;
 
-    const renderItem = useCallback((item: ClassifiedTest) => {
-        return html`<${ConsistencyRow} item=${item} specDirectory=${specDirectory} onNavigate=${onNavigate} />`;
-    }, [specDirectory, onNavigate]);
+    const renderItem = useCallback((item: ClassifiedTest) =>
+        html`<${ConsistencyRow} item=${item} specDirectory=${specDirectory} onNavigate=${onNavigate} />`,
+    [specDirectory, onNavigate]);
 
-    const renderGroupHeader = useCallback((category: string) => {
-        return html`<${CategoryBreadcrumb} category=${category} onSegmentClick=${(segment: string) => setSearch('"' + segment + '"')} />`;
-    }, [setSearch]);
+    const renderGroupHeader = useCallback((category: string) =>
+        html`<${CategoryBreadcrumb} category=${category} onSegmentClick=${(segment: string) => setSearch('"' + segment + '"')} />`,
+    [setSearch]);
 
-    if (inconsistentTests.length === 0) {
-        return html`
+    return inconsistentTests.length === 0
+        ? html`
       <div class="placeholder-view">
         ${icons.unstable}
         <h2>All Tests Consistent</h2>
         <p>No inconsistent results detected.<br/>Run your test suite several times to populate history.</p>
       </div>
-    `;
-    }
-
-    return html`
+    `
+        : html`
     <div class="flex-fill-view">
       <div class="controls-row">
         <div class="search-input-wrap">

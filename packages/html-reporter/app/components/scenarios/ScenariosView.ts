@@ -67,15 +67,13 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
         return groups;
     }, [filtered]);
 
-    const runOutcomes: ReportOutcomes = useMemo(() => {
-        if (runIndex !== null && history[runIndex]) {
-            return history[runIndex].outcomes;
-        }
-        return summary.outcomes;
-    }, [runIndex]);
-    const runTotal = useMemo(() => {
-        return Object.values(runOutcomes).reduce((a: number, b: number) => a + b, 0);
-    }, [runOutcomes]);
+    const runOutcomes: ReportOutcomes = useMemo(() =>
+        runIndex !== null && history[runIndex] ? history[runIndex].outcomes : summary.outcomes,
+    [runIndex]);
+
+    const runTotal = useMemo(() =>
+        Object.values(runOutcomes).reduce((a: number, b: number) => a + b, 0),
+    [runOutcomes]);
 
     return html`
     <div class="flex-fill-view">
