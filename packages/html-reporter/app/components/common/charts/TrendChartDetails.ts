@@ -39,7 +39,7 @@ function moduleFailedCount(m: { outcomes?: { failed: number; error: number; comp
 export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }: TrendChartDetailsProps): ReturnType<typeof html> {
     const total = selectedRun.metrics.passed + selectedRun.metrics.failed + selectedRun.metrics.skipped;
     const modules = selectedRun.modules || [];
-    const hasModules = modules.length > 0;
+    const hasModules = modules.length > 1;
 
     return html`
         <div class="run-details-panel" ref=${panelRef} data-testid="run-details-panel">

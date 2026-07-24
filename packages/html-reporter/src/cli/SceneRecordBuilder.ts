@@ -227,7 +227,7 @@ export class SceneRecordBuilder {
             return;
         }
 
-        entry.record.outcome = event.outcome.toJSON();
+        entry.record.outcome = serialiseOutcome(event.outcome);
         entry.record.duration = event.timestamp.diff(entry.startTimestamp).inMilliseconds();
 
         if (event.outcome instanceof ProblemIndication) {
@@ -265,7 +265,7 @@ export class SceneRecordBuilder {
                 name: this.currentParameterSet.name,
                 description: this.currentParameterSet.description,
                 values: this.currentParameterSet.values,
-                outcome: event.outcome.toJSON(),
+                outcome: serialiseOutcome(event.outcome),
                 duration: event.timestamp.diff(this.currentExampleStartTimestamp).inMilliseconds(),
                 activities: this.rootActivities,
             });
@@ -274,14 +274,14 @@ export class SceneRecordBuilder {
             const attemptError = event.outcome instanceof ProblemIndication ? errorFrom(event.outcome) : undefined;
             this.attempts.push({
                 attemptNumber: this.sceneFinishedCount,
-                outcome: event.outcome.toJSON(),
+                outcome: serialiseOutcome(event.outcome),
                 activities: this.rootActivities,
                 duration: event.timestamp.diff(this.currentAttemptStartTimestamp).inMilliseconds(),
                 ...(attemptError ? { error: attemptError } : {}),
             });
         }
 
-        this.outcome = event.outcome.toJSON();
+        this.outcome = serialiseOutcome(event.outcome);
         this.duration = event.timestamp.diff(this.sceneStartTimestamp).inMilliseconds();
 
         if (event.outcome instanceof ProblemIndication) {
@@ -325,4 +325,39 @@ export function errorFrom(outcome: ProblemIndication): ErrorRecord {
         message: outcome.error.message,
         stack: outcome.error.stack || '',
     };
+}
+
+/**
+ * Safely extracts the outcome code without calling `ProblemIndication.toJSON()`.
+ *
+ * `ProblemIndication.toJSON()` delegates error serialisation to `ErrorSerialiser.serialise()`,
+ * which calls `error.toJSON()` on RuntimeError instances. Since RuntimeError extends TinyType,
+ * its `toJSON()` recursively serialises all properties — including `cause` chains that can be
+ * circular, triggering a stack overflow.
+ *
+ * This function avoids the problem by calling `toJSON()` only on non-problem outcomes
+ * (ExecutionSuccessful, ImplementationPending, ExecutionSkipped) where it's safe.
+ * For ProblemIndication subclasses, it uses the well-known static Code constants.
+ *
+ * Error details are extracted separately via `errorFrom()` which safely reads
+ * only `name`, `message`, and `stack` as plain strings.
+ */
+/**
+ * Safely extracts the outcome code without calling `ProblemIndication.toJSON()`.
+ *
+ * `ProblemIndication.toJSON()` calls `ErrorSerialiser.serialise(this.error)`, which
+ * invokes `TinyType.toJSON()` on RuntimeError instances. TinyType serialises ALL own
+ * properties — including `multiple`, a property that Mocha attaches to errors as a
+ * self-referencing circular array. This causes a stack overflow.
+ *
+ * The html-reporter only needs the outcome code (error details are extracted
+ * separately via `errorFrom()`), so we bypass `toJSON()` entirely.
+ */
+function serialiseOutcome(outcome: ProblemIndication | { toJSON(): SerialisedOutcome }): SerialisedOutcome {
+    if (outcome instanceof ExecutionFailedWithAssertionError) return { code: ExecutionFailedWithAssertionError.Code };
+    if (outcome instanceof ExecutionFailedWithError) return { code: ExecutionFailedWithError.Code };
+    if (outcome instanceof ExecutionCompromised) return { code: ExecutionCompromised.Code };
+    if (outcome instanceof ExecutionSkipped) return { code: ExecutionSkipped.Code };
+    if (outcome instanceof ImplementationPending) return { code: ImplementationPending.Code };
+    return { code: ExecutionSuccessful.Code };
 }

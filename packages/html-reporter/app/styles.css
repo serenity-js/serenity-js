@@ -1532,6 +1532,10 @@
       align-items: start;
     }
 
+    .dashboard-main-grid > * {
+      min-width: 0;
+    }
+
     .dashboard-trend-card {
       overflow: hidden;
     }
@@ -1737,6 +1741,11 @@
     @media (max-width: 1023px) {
       .dashboard-main-grid {
         grid-template-columns: 1fr;
+      }
+
+      .dashboard-main-grid > * {
+        min-width: 0;
+        overflow: hidden;
       }
 
       .kpi-row {
@@ -3788,6 +3797,10 @@
     letter-spacing: 0.5px;
     border-bottom: 1px solid var(--border-color);
     white-space: nowrap;
+    position: sticky;
+    top: 0;
+    background: var(--bg-primary);
+    z-index: 1;
 }
 
 .run-details-table td {
@@ -3863,7 +3876,15 @@
         border-radius: var(--radius-lg) var(--radius-lg) 0 0;
         box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
         z-index: 100;
+        max-height: 70vh;
+        overflow-y: auto;
         animation: panel-slide-up 0.25s ease-out;
+    }
+
+    .run-details-table-wrap {
+        max-height: 40vh;
+        overflow-y: auto;
+        overflow-x: auto;
     }
 
     @keyframes panel-slide-up {

@@ -58,7 +58,6 @@ describe('Test Runs', () => {
                 Ensure.that(testRunsView.hasDetailsPanel(), equals(true)),
                 Ensure.that(testRunsView.detailsPanelText(), includes('PASSED')),
                 Ensure.that(testRunsView.detailsPanelText(), includes('FAILED')),
-                Ensure.that(testRunsView.detailsPanelText(), includes('MODULE')),
             );
         });
 
