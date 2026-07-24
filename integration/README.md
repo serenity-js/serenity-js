@@ -10,7 +10,7 @@ Because these tests run against the framework's own public APIs, they serve as l
 
 ## @showcase scenarios
 
-Scenarios tagged **@showcase** are curated demonstrations of the HTML Reporter's key workflows. Filter by `@showcase` in the Test Scenarios view to find them.
+Scenarios tagged [**@showcase**](./index.html?route=/tests&search=%40showcase) are curated demonstrations of the HTML Reporter's key workflows.
 
 They're grouped around four themes:
 
