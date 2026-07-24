@@ -46,3 +46,25 @@ export function extractBrowsers(run: RunData): Array<{ name: string; version: st
     }
     return [...browsers.entries()].map(([name, version]) => ({ name, version }));
 }
+
+import type { ReportSystemContext } from '../ReportData.js';
+
+/**
+ * @package
+ */
+export function buildSystemContext(latestRun: RunData): ReportSystemContext | undefined {
+    if (!latestRun.systemContext) {
+        return undefined;
+    }
+    return {
+        nodeVersion: latestRun.systemContext.nodeVersion,
+        os: latestRun.systemContext.os,
+        serenityVersion: String(latestRun.systemContext.serenityVersion),
+        testRunner: latestRun.testRunner,
+        browsers: extractBrowsers(latestRun),
+        ci: latestRun.systemContext.runtime,
+        projectName: latestRun.systemContext.projectName,
+        packageManager: latestRun.systemContext.packageManager,
+        environmentUnderTest: latestRun.systemContext.environmentUnderTest,
+    };
+}

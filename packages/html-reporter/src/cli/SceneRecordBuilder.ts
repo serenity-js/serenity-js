@@ -105,7 +105,7 @@ export class SceneRecordBuilder {
 
         for (let i = 0; i < this.parameterSets.length; i++) {
             const ps = this.parameterSets[i];
-            const attemptError = this.findErrorInActivities(ps.activities);
+            const attemptError = findErrorInActivities(ps.activities);
             this.attempts.push({
                 attemptNumber: i + 1,
                 outcome: ps.outcome,
@@ -291,18 +291,19 @@ export class SceneRecordBuilder {
         }
     }
 
-    private findErrorInActivities(activities: ActivityRecord[]): ErrorRecord | undefined {
-        for (const activity of activities) {
-            if (activity.error) {
-                return activity.error;
-            }
-            if (activity.children) {
-                const childError = this.findErrorInActivities(activity.children);
-                if (childError) return childError;
-            }
+}
+
+function findErrorInActivities(activities: ActivityRecord[]): ErrorRecord | undefined {
+    for (const activity of activities) {
+        if (activity.error) {
+            return activity.error;
         }
-        return undefined;
+        if (activity.children) {
+            const childError = findErrorInActivities(activity.children);
+            if (childError) return childError;
+        }
     }
+    return undefined;
 }
 
 const OUTCOME_CODE_LABELS: Record<number, keyof OutcomeCounts> = {

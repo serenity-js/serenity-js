@@ -113,14 +113,17 @@ function buildSelectedRun(entry: ReportHistoryEntry, index: number): SelectedRun
     };
 }
 
-function useChartInstance(
-    canvasRef: { current: HTMLCanvasElement | null },
-    chartRef: { current: Chart | null },
-    history: ReportHistoryEntry[],
-    chartTheme: string,
-    configurePan: (chart: Chart, dataLength: number, isMobile: boolean) => void,
-    onBarClick: (entry: ReportHistoryEntry, index: number) => void,
-): void {
+interface ChartInstanceOptions {
+    canvasRef: { current: HTMLCanvasElement | null };
+    chartRef: { current: Chart | null };
+    history: ReportHistoryEntry[];
+    chartTheme: string;
+    configurePan: (chart: Chart, dataLength: number, isMobile: boolean) => void;
+    onBarClick: (entry: ReportHistoryEntry, index: number) => void;
+}
+
+function useChartInstance(options: ChartInstanceOptions): void {
+    const { canvasRef, chartRef, history, chartTheme, configurePan, onBarClick } = options;
     useEffect(() => {
         if (!canvasRef.current || history.length === 0) return undefined;
         if (chartRef.current) chartRef.current.destroy();
@@ -175,7 +178,7 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
         }
     }, []);
 
-    useChartInstance(canvasRef, chartRef, history, chartTheme, configurePan, handleBarClick);
+    useChartInstance({ canvasRef, chartRef, history, chartTheme, configurePan, onBarClick: handleBarClick });
 
     if (history.length === 0) {
         return null;

@@ -1,7 +1,7 @@
 import type { FileSystem, RequirementsHierarchy } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
 
-import { computeTagStats, extractBrowsers } from './aggregation/computeStats.js';
+import { buildSystemContext, computeTagStats } from './aggregation/computeStats.js';
 import { buildCapabilities } from './capabilities/buildCapabilities.js';
 import { buildHistory } from './history/buildHistory.js';
 import { computeDegradedRecovered, identifyUnstableTests } from './identifyUnstableTests.js';
@@ -15,7 +15,6 @@ import type { RunData } from './model/RunData.js';
 import type {
     ReportData,
     ReportScenario,
-    ReportSystemContext
 } from './ReportData.js';
 import { CURRENT_REPORT_DATA_SCHEMA_VERSION } from './ReportData.js';
 import { mergeAdditively, mergeAsRetry } from './resolveRetries.js';
@@ -78,7 +77,7 @@ export class DataSnapshotAggregator {
             inconsistentTests: identifyUnstableTests(allRuns, this.config.consistencyWindow),
             newFailures,
             newPasses,
-            systemContext: this.buildSystemContext(latestRun),
+            systemContext: buildSystemContext(latestRun),
             capabilities: this.config.buildCapabilities ? buildCapabilities(latestRun, allRuns, this.requirementsHierarchy, this.projectFileSystem) : undefined,
             specDirectory: this.resolveSpecDirectoryForClient(),
         };
@@ -250,23 +249,6 @@ export class DataSnapshotAggregator {
             const executionHistory = buildExecutionHistory(scene, allRuns);
             return enrichSingleScenario(scene, executionHistory);
         });
-    }
-
-    private buildSystemContext(latestRun: RunData): ReportSystemContext | undefined {
-        if (!latestRun.systemContext) {
-            return undefined;
-        }
-        return {
-            nodeVersion: latestRun.systemContext.nodeVersion,
-            os: latestRun.systemContext.os,
-            serenityVersion: String(latestRun.systemContext.serenityVersion),
-            testRunner: latestRun.testRunner,
-            browsers: extractBrowsers(latestRun),
-            ci: latestRun.systemContext.runtime,
-            projectName: latestRun.systemContext.projectName,
-            packageManager: latestRun.systemContext.packageManager,
-            environmentUnderTest: latestRun.systemContext.environmentUnderTest,
-        };
     }
 
     private findRunDirectories(): Path[] {

@@ -30,6 +30,13 @@ interface ExecutionContext {
     attempt?: number;
 }
 
+interface ArchiverDependencies {
+    artifactWriter: ArtifactWriter;
+    sceneDataCollector: SceneDataCollector;
+    runDataWriter: RunDataWriter;
+    systemContextDetector: SystemContextDetector;
+}
+
 /**
  * A {@link StageCrewMember} that archives test run data (db.json + artifacts)
  * without generating the aggregated HTML report.
@@ -58,6 +65,10 @@ export class TestRunArchiver implements StageCrewMember {
     private testRunnerName = 'unknown';
     private testRunnerVersion = '0.0.0';
 
+    private readonly artifactWriter: ArtifactWriter;
+    private readonly sceneDataCollector: SceneDataCollector;
+    private readonly runDataWriter: RunDataWriter;
+    private readonly systemContextDetector: SystemContextDetector;
     private readonly testRunId?: string;
     private readonly moduleId?: string;
     private readonly attempt: number;
@@ -67,17 +78,19 @@ export class TestRunArchiver implements StageCrewMember {
     }
 
     constructor(
-        private readonly artifactWriter: ArtifactWriter,
-        private readonly sceneDataCollector: SceneDataCollector,
-        private readonly runDataWriter: RunDataWriter,
-        private readonly systemContextDetector: SystemContextDetector,
+        deps: ArchiverDependencies,
         executionContext: ExecutionContext = {},
         private stage?: Stage,
     ) {
+        const { artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector } = deps;
         ensure('artifactWriter', artifactWriter, isDefined());
         ensure('sceneDataCollector', sceneDataCollector, isDefined());
         ensure('runDataWriter', runDataWriter, isDefined());
         ensure('systemContextDetector', systemContextDetector, isDefined());
+        this.artifactWriter = artifactWriter;
+        this.sceneDataCollector = sceneDataCollector;
+        this.runDataWriter = runDataWriter;
+        this.systemContextDetector = systemContextDetector;
         this.testRunId = executionContext.testRunId;
         this.moduleId = executionContext.moduleId;
         this.attempt = executionContext.attempt ?? 1;
@@ -247,6 +260,6 @@ class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> 
         const testRunId = this.config.testRunId || detectTestRunId();
         const moduleId = this.config.moduleId || (this.config.testRunId ? undefined : detectModuleId());
 
-        return new TestRunArchiver(artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector, { testRunId, moduleId, attempt }, stage);
+        return new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId, moduleId, attempt }, stage);
     }
 }
