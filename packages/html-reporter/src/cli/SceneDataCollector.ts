@@ -20,14 +20,7 @@ import {
 } from '@serenity-js/core/events';
 import type { Path } from '@serenity-js/core/io';
 import type { CorrelationId } from '@serenity-js/core/model';
-import type { RequestAndResponse, SerialisedOutcome } from '@serenity-js/core/model';
-import {
-    HTTPRequestResponse,
-    JSONData,
-    LogEntry,
-    ProblemIndication,
-    TextData,
-} from '@serenity-js/core/model';
+import type { SerialisedOutcome } from '@serenity-js/core/model';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
@@ -35,10 +28,13 @@ import {
     ExecutionSkipped,
     ExecutionSuccessful,
     ImplementationPending,
+    ProblemIndication,
 } from '@serenity-js/core/model';
 
+import { dispatchArtifact } from './artifactHandlers.js';
 import type { ActivityRecord, ActorRecord, ArtifactReference, ErrorRecord, OutcomeCounts, RunData, ScenarioParameterSet, SceneRecord, TagRecord } from './model/RunData.js';
 import { CURRENT_RUN_DATA_SCHEMA_VERSION } from './model/RunData.js';
+import { buildSceneRecords, groupEventsBySceneId, resolveRetries } from './retryResolution.js';
 import type { SystemContext } from './SystemContextDetector.js';
 
 export interface CollectOptions {
@@ -76,135 +72,12 @@ export class SceneDataCollector {
         artifactPaths: Map<string, Path[]>,
         sceneArtifactPaths?: Map<string, Path[]>,
     ): SceneRecord[] {
-        const eventsBySceneId = this.groupEventsBySceneId(events);
-        const records: Array<{ record: SceneRecord; sceneId: string }> = [];
-
-        for (const [sceneId, sceneEvents] of eventsBySceneId) {
-            if (!sceneEvents.some(e => e instanceof SceneStarts)) {
-                continue;
-            }
-            records.push({ record: new SceneRecordBuilder(artifactPaths).build(sceneEvents), sceneId });
-        }
-
-        return this.resolveRetries(records, events, sceneArtifactPaths);
-    }
-
-    private resolveRetries(
-        records: Array<{ record: SceneRecord; sceneId: string }>,
-        events: Array<DomainEvent & { sceneId: CorrelationId }>,
-        sceneArtifactPaths?: Map<string, Path[]>,
-    ): SceneRecord[] {
-        const scenes: SceneRecord[] = [];
-        const byProject = new Map<string, Array<{ record: SceneRecord; sceneId: string }>>();
-
-        for (const entry of records) {
-            const project = entry.record.tags.find(t => t.type === 'project')?.name || '__default__';
-            if (!byProject.has(project)) byProject.set(project, []);
-            byProject.get(project)!.push(entry);
-        }
-
-        for (const [, projectEntries] of byProject) {
-            if (projectEntries.length === 1) {
-                const { record } = projectEntries[0];
-                if (sceneArtifactPaths) {
-                    this.attachVideo(record, events, sceneArtifactPaths);
-                }
-                scenes.push(record);
-            } else if (this.areScenarioOutlineExamples(projectEntries, events)) {
-                const mergedRecord = this.mergeOutlineExamples(projectEntries, events, sceneArtifactPaths);
-                scenes.push(mergedRecord);
-            } else {
-                const finalRecord = this.buildRetryRecord(projectEntries, events, sceneArtifactPaths);
-                scenes.push(finalRecord);
-            }
-        }
-
-        return scenes;
-    }
-
-    private areScenarioOutlineExamples(
-        entries: Array<{ record: SceneRecord; sceneId: string }>,
-        events: Array<DomainEvent & { sceneId: CorrelationId }>,
-    ): boolean {
-        // If any record has scenarioOutline data AND none of the sceneIds
-        // have RetryableSceneDetected, these are outline examples, not retries.
-        const hasOutlineData = entries.some(e => e.record.scenarioOutline !== undefined);
-        if (!hasOutlineData) {
-            return false;
-        }
-
-        const sceneIds = new Set(entries.map(e => e.sceneId));
-        const hasRetryableSignal = events.some(
-            e => e instanceof RetryableSceneDetected && sceneIds.has(e.sceneId.value),
+        const eventsBySceneId = groupEventsBySceneId(events);
+        const records = buildSceneRecords(eventsBySceneId, sceneEvents =>
+            new SceneRecordBuilder(artifactPaths).build(sceneEvents),
         );
 
-        return !hasRetryableSignal;
-    }
-
-    private mergeOutlineExamples(
-        entries: Array<{ record: SceneRecord; sceneId: string }>,
-        events: Array<DomainEvent & { sceneId: CorrelationId }>,
-        sceneArtifactPaths?: Map<string, Path[]>,
-    ): SceneRecord {
-        // Use the last entry as the base (consistent with existing retry behaviour)
-        const finalEntry = entries[entries.length - 1];
-        const mergedRecord = { ...finalEntry.record };
-
-        // Concatenate all parameter sets from all examples
-        const allParameters = entries.flatMap(
-            e => e.record.scenarioOutline?.parameters ?? [],
-        );
-
-        // Take the template from the first entry that has one
-        const template = entries.find(e => e.record.scenarioOutline?.template)?.record.scenarioOutline?.template ?? '';
-
-        mergedRecord.scenarioOutline = { template, parameters: allParameters };
-        mergedRecord.activities = [];
-
-        // Overall outcome: worst outcome across all examples
-        const worstOutcome = entries.reduce((worst, e) => {
-            return (e.record.outcome.code < worst.code) ? e.record.outcome : worst;
-        }, entries[0].record.outcome);
-        mergedRecord.outcome = worstOutcome;
-
-        // Duration: sum of all examples
-        mergedRecord.duration = entries.reduce((sum, e) => sum + e.record.duration, 0);
-
-        // Remove retry artefacts — these are NOT retries
-        delete (mergedRecord as any).retries;
-        delete (mergedRecord as any).attempts;
-
-        if (sceneArtifactPaths) {
-            this.attachVideo(mergedRecord, events, sceneArtifactPaths);
-        }
-
-        return mergedRecord;
-    }
-
-    private buildRetryRecord(
-        projectEntries: Array<{ record: SceneRecord; sceneId: string }>,
-        events: Array<DomainEvent & { sceneId: CorrelationId }>,
-        sceneArtifactPaths?: Map<string, Path[]>,
-    ): SceneRecord {
-        const finalEntry = projectEntries[projectEntries.length - 1];
-        const finalRecord = finalEntry.record;
-        finalRecord.retries = projectEntries.length - 1;
-        finalRecord.attempts = projectEntries.map(({ record: r, sceneId: sid }, i) => ({
-            attemptNumber: i + 1,
-            outcome: r.outcome,
-            duration: r.duration,
-            activities: r.activities,
-            ...(r.error ? { error: r.error } : {}),
-            ...(sceneArtifactPaths ? this.findVideo(sid, sceneArtifactPaths) : {}),
-        }));
-        finalRecord.activities = finalRecord.attempts[finalRecord.attempts.length - 1].activities;
-        if (finalRecord.outcome.code === ExecutionSuccessful.Code) {
-            delete finalRecord.error;
-        }
-        if (sceneArtifactPaths) {
-            this.attachVideo(finalRecord, events, sceneArtifactPaths);
-        }
-        return finalRecord;
+        return resolveRetries(records, events, sceneArtifactPaths);
     }
 
     private assembleRunData(
@@ -235,46 +108,6 @@ export class SceneDataCollector {
             testRunner: { name: testRunnerName, version: testRunnerVersion },
             systemContext,
         };
-    }
-
-    private attachVideo(record: SceneRecord, events: Array<DomainEvent & { sceneId: CorrelationId }>, sceneArtifactPaths: Map<string, Path[]>): void {
-        for (const event of events) {
-            const sceneIdValue = event.sceneId.value;
-            if (sceneArtifactPaths.has(sceneIdValue)) {
-                const videoPaths = sceneArtifactPaths.get(sceneIdValue).filter(p => p.value.endsWith('.webm'));
-                if (videoPaths.length > 0) {
-                    record.video = videoPaths[0].value;
-                    return;
-                }
-            }
-        }
-    }
-
-    private findVideo(sceneId: string, sceneArtifactPaths: Map<string, Path[]>): { video?: string } {
-        if (sceneArtifactPaths.has(sceneId)) {
-            const videoPaths = sceneArtifactPaths.get(sceneId).filter(p => p.value.endsWith('.webm'));
-            if (videoPaths.length > 0) {
-                return { video: videoPaths[0].value };
-            }
-        }
-        return {};
-    }
-
-    private groupEventsBySceneId(events: Array<DomainEvent & { sceneId: CorrelationId }>): Map<string, Array<DomainEvent & { sceneId: CorrelationId }>> {
-        // Group events by sceneId. Events sharing the same sceneId form one execution.
-        // Multiple sceneIds in a merged queue represent different executions
-        // (e.g. cross-browser or cross-browser retries).
-        const groups = new Map<string, Array<DomainEvent & { sceneId: CorrelationId }>>();
-
-        for (const event of events) {
-            const id = event.sceneId.value;
-            if (!groups.has(id)) {
-                groups.set(id, []);
-            }
-            groups.get(id).push(event);
-        }
-
-        return groups;
     }
 
     private summariseOutcomes(scenes: SceneRecord[]): OutcomeCounts {
@@ -368,8 +201,6 @@ class SceneRecordBuilder {
     }
 
     private normaliseRetrySequence(): void {
-        // A retry sequence uses SceneSequenceDetected/SceneParametersDetected framing,
-        // but the parameterSets should be treated as retry attempts, not outline examples.
         if (!(this.isRetrySequence && this.isScenarioOutline && this.parameterSets.length > 0)) {
             return;
         }
@@ -451,7 +282,6 @@ class SceneRecordBuilder {
 
     private handleSceneStarts(event: SceneStarts): void {
         if (!this.name) {
-            // First SceneStarts sets the scene metadata
             this.name = event.details.name.value;
             this.category = event.details.category.value;
             this.sourcePath = event.details.location.path.value;
@@ -460,14 +290,12 @@ class SceneRecordBuilder {
             this.sceneStartTimestamp = event.timestamp;
             this.currentAttemptStartTimestamp = event.timestamp;
         } else if (!this.isScenarioOutline && this.sceneFinishedCount > 0) {
-            // Subsequent SceneStarts after SceneFinished = retry attempt
             this.rootActivities = [];
             this.activityStack.length = 0;
             this.currentAttemptStartTimestamp = event.timestamp;
         }
 
         if (this.isScenarioOutline && this.currentParameterSet) {
-            // Start collecting activities for this example row
             this.rootActivities = [];
             this.activityStack.length = 0;
             this.currentExampleStartTimestamp = event.timestamp;
@@ -518,28 +346,7 @@ class SceneRecordBuilder {
         const activityRecord = this.activityById.get(event.activityId.value);
 
         if (activityRecord) {
-            if (event.artifact instanceof HTTPRequestResponse) {
-                const data = event.artifact.map(value => value) as RequestAndResponse;
-                activityRecord.restQuery = {
-                    method: data.request.method.toUpperCase(),
-                    url: data.request.url,
-                    requestHeaders: mapToHeaderString(data.request.headers || {}),
-                    requestBody: bodyToString(data.request.data),
-                    statusCode: data.response.status,
-                    responseHeaders: mapToHeaderString(data.response.headers || {}),
-                    responseBody: bodyToString(data.response.data),
-                };
-            } else if (event.artifact instanceof TextData) {
-                this.appendReportData(activityRecord, event.name.value, event.artifact.map(value => value) as { contentType: string; data: string });
-            } else if (event.artifact instanceof LogEntry) {
-                const data = event.artifact.map(value => value) as { data: string };
-                if (!activityRecord.reportData) activityRecord.reportData = [];
-                activityRecord.reportData.push({ title: event.name.value, contents: data.data });
-            } else if (event.artifact instanceof JSONData) {
-                const data = event.artifact.map(value => value);
-                if (!activityRecord.reportData) activityRecord.reportData = [];
-                activityRecord.reportData.push({ title: event.name.value, contents: JSON.stringify(data, undefined, 4) });
-            }
+            dispatchArtifact(activityRecord, event);
         }
 
         const paths = this.artifactPaths.get(event.activityId.value);
@@ -550,15 +357,6 @@ class SceneRecordBuilder {
                 }
             }
         }
-    }
-
-    private appendReportData(activityRecord: ActivityRecord, title: string, data: { contentType?: string; data: string }): void {
-        if (!activityRecord.reportData) activityRecord.reportData = [];
-        activityRecord.reportData.push({
-            title,
-            contents: data.data,
-            ...(data.contentType ? { contentType: data.contentType } : {}),
-        });
     }
 
     private handleSceneFinished(event: SceneFinished): void {
@@ -575,7 +373,6 @@ class SceneRecordBuilder {
             });
             this.currentParameterSet = undefined;
         } else {
-            // Record this attempt (for both regular and retried scenarios)
             const attemptError = event.outcome instanceof ProblemIndication ? errorFrom(event.outcome) : undefined;
             this.attempts.push({
                 attemptNumber: this.sceneFinishedCount,
@@ -586,15 +383,12 @@ class SceneRecordBuilder {
             });
         }
 
-        // Always update the overall scene outcome/duration to the last one
         this.outcome = event.outcome.toJSON();
         this.duration = event.timestamp.diff(this.sceneStartTimestamp).inMilliseconds();
 
-        // Only set scene-level error if final outcome is a failure
         if (event.outcome instanceof ProblemIndication) {
             this.sceneError = errorFrom(event.outcome);
         } else {
-            // Clear any previous error if final attempt succeeded
             this.sceneError = undefined;
         }
     }
@@ -632,21 +426,4 @@ function errorFrom(outcome: ProblemIndication): ErrorRecord {
         message: outcome.error.message,
         stack: outcome.error.stack || '',
     };
-}
-
-function mapToHeaderString(headers: Record<string, string | number | boolean>): string {
-    return Object.entries(headers).map(([key, value]) => `${key}: ${value}`).join('\n');
-}
-
-function bodyToString(data: unknown): string | undefined {
-    if (data === null || data === undefined || data === '') {
-        return undefined;
-    }
-    if (typeof data === 'string') {
-        return data;
-    }
-    if (typeof data === 'object') {
-        return JSON.stringify(data, undefined, 4);
-    }
-    return String(data);
 }

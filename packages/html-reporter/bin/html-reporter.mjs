@@ -52,6 +52,53 @@ Commands:
 Run 'html-reporter <command> --help' for command-specific options.`);
 }
 
+// --- Helpers ---
+
+function resolveDbJsonPaths(inputPatterns) {
+    const dbJsonPaths = [];
+
+    for (const pattern of inputPatterns) {
+        const dbPattern = pattern.endsWith('db.json') ? pattern : pattern + '/**/db.json';
+        const matches = fg.sync(dbPattern, { absolute: true });
+        dbJsonPaths.push(...matches);
+    }
+
+    return dbJsonPaths;
+}
+
+function commonRoot(outputDir, paths) {
+    const allPaths = [outputDir, ...paths.map(p => p.replace(/\/db\.json$/, ''))];
+    const segments = allPaths.map(p => p.split('/'));
+    const common = [];
+    for (let i = 0; i < segments[0].length; i++) {
+        const segment = segments[0][i];
+        if (segments.every(s => s[i] === segment)) {
+            common.push(segment);
+        } else {
+            break;
+        }
+    }
+    return common.join('/') || '/';
+}
+
+function createAggregator(outputDir, dbJsonPaths, args) {
+    const root = commonRoot(outputDir, dbJsonPaths);
+    const sourceFileSystem = new FileSystem(Path.from(root));
+    const outputFileSystem = new FileSystem(Path.from(outputDir));
+    const projectFileSystem = new FileSystem(Path.from(process.cwd()));
+
+    const requirementsHierarchy = args.specRoot
+        ? new RequirementsHierarchy(projectFileSystem, Path.from(args.specRoot))
+        : new RequirementsHierarchy(projectFileSystem);
+
+    return new DataSnapshotAggregator(outputFileSystem, {
+        consistencyWindow: args.consistencyWindow ? parseInt(args.consistencyWindow, 10) : 5,
+        maxHistory: args.maxHistory ? parseInt(args.maxHistory, 10) : undefined,
+        title: args.title,
+        buildCapabilities: !!args.specRoot,
+    }, requirementsHierarchy, projectFileSystem, sourceFileSystem);
+}
+
 // --- Commands ---
 
 function aggregate(argv, startIndex) {
@@ -83,16 +130,8 @@ Examples:
     }
 
     const outputDir = resolve(args.output || './reports/serenity-js');
-
-    // Resolve input glob to find db.json files
     const inputPatterns = args.input.split(',').map(p => p.trim());
-    const dbJsonPaths = [];
-
-    for (const pattern of inputPatterns) {
-        const dbPattern = pattern.endsWith('db.json') ? pattern : pattern + '/**/db.json';
-        const matches = fg.sync(dbPattern, { absolute: true });
-        dbJsonPaths.push(...matches);
-    }
+    const dbJsonPaths = resolveDbJsonPaths(inputPatterns);
 
     if (dbJsonPaths.length === 0) {
         console.error(`No test run data found matching: ${args.input}`);
@@ -101,46 +140,10 @@ Examples:
 
     console.log(`Found ${dbJsonPaths.length} test runs`);
 
-    // Compute common root of output directory and all input paths
-    function commonRoot(paths) {
-        const allPaths = [outputDir, ...paths.map(p => p.replace(/\/db\.json$/, ''))];
-        const segments = allPaths.map(p => p.split('/'));
-        const common = [];
-        for (let i = 0; i < segments[0].length; i++) {
-            const segment = segments[0][i];
-            if (segments.every(s => s[i] === segment)) {
-                common.push(segment);
-            } else {
-                break;
-            }
-        }
-        return common.join('/') || '/';
-    }
-
-    const root = commonRoot(dbJsonPaths);
-    const sourceFileSystem = new FileSystem(Path.from(root));
-
-    // Run aggregation
-    const outputFileSystem = new FileSystem(Path.from(outputDir));
-
-    let requirementsHierarchy;
-    const projectFileSystem = new FileSystem(Path.from(process.cwd()));
-
-    if (args.specRoot) {
-        requirementsHierarchy = new RequirementsHierarchy(projectFileSystem, Path.from(args.specRoot));
-    } else {
-        requirementsHierarchy = new RequirementsHierarchy(projectFileSystem);
-    }
-
-    const aggregator = new DataSnapshotAggregator(outputFileSystem, {
-        consistencyWindow: args.consistencyWindow ? parseInt(args.consistencyWindow, 10) : 5,
-        maxHistory: args.maxHistory ? parseInt(args.maxHistory, 10) : undefined,
-        title: args.title,
-        buildCapabilities: !!args.specRoot,
-    }, requirementsHierarchy, projectFileSystem, sourceFileSystem);
-
+    const aggregator = createAggregator(outputDir, dbJsonPaths, args);
     aggregator.aggregate(dbJsonPaths);
 
+    const outputFileSystem = new FileSystem(Path.from(outputDir));
     const templateWriter = new ReportTemplateWriter(outputFileSystem);
     templateWriter.write();
 

@@ -1,6 +1,35 @@
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 
 /**
+ * Computes the CSS fade class for a horizontally scrollable element
+ * based on its current scroll position.
+ */
+export function computeFadeClass(element: HTMLElement): string {
+    const { scrollLeft, scrollWidth, clientWidth } = element;
+    const left = scrollLeft > 1;
+    const right = scrollLeft + clientWidth < scrollWidth - 1;
+
+    if (left && right) return ' fade-both';
+    if (left) return ' fade-left';
+    if (right) return ' fade-right';
+    return '';
+}
+
+function attachScrollListener(element: HTMLElement, handler: () => void): ResizeObserver {
+    element.addEventListener('scroll', handler, { passive: true });
+    const observer = new ResizeObserver(handler);
+    observer.observe(element);
+    return observer;
+}
+
+function detachScrollListener(element: HTMLElement, handler: () => void, observer: ResizeObserver | null): void {
+    element.removeEventListener('scroll', handler);
+    if (observer) {
+        observer.disconnect();
+    }
+}
+
+/**
  * Hook that provides scroll-position-aware fade indicators for horizontally scrollable containers.
  * Returns a callback ref to attach to the scrollable element and a CSS class string for the fade state.
  *
@@ -20,22 +49,14 @@ export function useScrollFade<T extends HTMLElement>(): {
         const element = elementRef.current;
         if (!element) return;
 
-        const { scrollLeft, scrollWidth, clientWidth } = element;
-        const left = scrollLeft > 1;
-        const right = scrollLeft + clientWidth < scrollWidth - 1;
-
-        const next = (left && right) ? ' fade-both' : left ? ' fade-left' : right ? ' fade-right' : '';
-
+        const next = computeFadeClass(element);
         setFadeClass(previous => previous === next ? previous : next);
     }, []);
 
     const ref = useCallback((element: T | null) => {
         // Clean up previous element
         if (elementRef.current) {
-            elementRef.current.removeEventListener('scroll', update);
-        }
-        if (observerRef.current) {
-            observerRef.current.disconnect();
+            detachScrollListener(elementRef.current, update, observerRef.current);
             observerRef.current = null;
         }
 
@@ -43,9 +64,7 @@ export function useScrollFade<T extends HTMLElement>(): {
 
         // Set up new element
         if (element) {
-            element.addEventListener('scroll', update, { passive: true });
-            observerRef.current = new ResizeObserver(update);
-            observerRef.current.observe(element);
+            observerRef.current = attachScrollListener(element, update);
             update();
         } else {
             setFadeClass('');
@@ -56,10 +75,7 @@ export function useScrollFade<T extends HTMLElement>(): {
     useEffect(() => {
         return () => {
             if (elementRef.current) {
-                elementRef.current.removeEventListener('scroll', update);
-            }
-            if (observerRef.current) {
-                observerRef.current.disconnect();
+                detachScrollListener(elementRef.current, update, observerRef.current);
             }
         };
     }, [update]);

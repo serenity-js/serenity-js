@@ -64,34 +64,40 @@ function SortDropdown({ selectId, options, activeSort, onSort }: SortDropdownPro
     `;
 }
 
+/**
+ * Computes the next filter value based on current active set and clicked key.
+ * Pure function — no side effects.
+ */
+function computeNextFilter(key: string, activeSet: Set<string>, filters: FilterDefinition[], multiSelect: boolean): string {
+    if (!multiSelect) {
+        return key;
+    }
+
+    if (key === 'all') {
+        return 'all';
+    }
+
+    const next = new Set(activeSet);
+    if (next.has(key)) {
+        next.delete(key);
+    } else {
+        next.add(key);
+    }
+
+    const nonAllFilters = filters.filter(f => f.key !== 'all');
+    if (next.size === 0 || next.size === nonAllFilters.length) {
+        return 'all';
+    }
+    return [...next].join(',');
+}
+
 export function FilterBar({ filters, activeFilter, onFilter, ariaLabel, label, multiSelect = true, sortOptions, activeSort, onSort, sortId }: FilterBarProps): ReturnType<typeof html> {
 
     // Parse active filters as a Set (supports comma-separated multi-select)
     const activeSet = (!activeFilter || activeFilter === 'all') ? new Set<string>() : new Set(activeFilter.split(','));
 
     const handleClick = (key: string) => {
-        if (!multiSelect) {
-            onFilter(key);
-            return;
-        }
-
-        if (key === 'all') {
-            onFilter('all');
-            return;
-        }
-        const next = new Set(activeSet);
-        if (next.has(key)) {
-            next.delete(key);
-        } else {
-            next.add(key);
-        }
-        // If none remain, reset to 'all'
-        const nonAllFilters = filters.filter(f => f.key !== 'all');
-        if (next.size === 0 || next.size === nonAllFilters.length) {
-            onFilter('all');
-        } else {
-            onFilter([...next].join(','));
-        }
+        onFilter(computeNextFilter(key, activeSet, filters, multiSelect));
     };
 
     const isChipActive = (f: FilterDefinition): boolean => {

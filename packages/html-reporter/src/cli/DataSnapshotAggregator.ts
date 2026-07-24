@@ -1,28 +1,24 @@
 import type { FileSystem, RequirementsHierarchy } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
 import { ExecutionSkipped, ExecutionSuccessful, ImplementationPending } from '@serenity-js/core/model';
-import { marked } from 'marked';
 
 import { buildCapabilities } from './capabilities/buildCapabilities.js';
 import { buildHistory } from './history/buildHistory.js';
+import { computeDegradedRecovered, identifyUnstableTests } from './identifyUnstableTests.js';
+import { buildExecutionHistory, enrichSingleScenario } from './mapScenarioToReport.js';
 import {
     IncompatibleSchemaError,
     InvalidRunDataError,
-    resolveRunLabel,
-    sceneIdentity,
-    sceneIdentityWithTags,
     validateRunData
 } from './model/index.js';
-import { mapOutcomeToKey, outcomeCodeToDisplayString } from './model/outcomes.js';
-import type { ActivityRecord, AttemptRecord, OutcomeCounts, RunData, SceneRecord, TagRecord } from './model/RunData.js';
+import type { RunData } from './model/RunData.js';
 import type {
-    ReportActivity,
     ReportData,
-    ReportExecutionHistoryEntry,
     ReportScenario,
     ReportSystemContext
 } from './ReportData.js';
 import { CURRENT_REPORT_DATA_SCHEMA_VERSION } from './ReportData.js';
+import { mergeAdditively, mergeAsRetry } from './resolveRetries.js';
 import { SummaryJsonWriter } from './SummaryJsonWriter.js';
 
 interface AggregatorConfig {
@@ -71,7 +67,7 @@ export class DataSnapshotAggregator {
         }
 
         const latestRun = allRuns[allRuns.length - 1];
-        const { newFailures, newPasses } = this.computeDegradedRecovered(allRuns);
+        const { newFailures, newPasses } = computeDegradedRecovered(allRuns);
 
         const snapshot: ReportData = {
             schemaVersion: CURRENT_REPORT_DATA_SCHEMA_VERSION,
@@ -79,7 +75,7 @@ export class DataSnapshotAggregator {
             scenarios: this.enrichScenarios(latestRun, allRuns),
             history: buildHistory(allRuns),
             tags: this.computeTagStats(latestRun),
-            inconsistentTests: this.identifyUnstableTests(allRuns),
+            inconsistentTests: identifyUnstableTests(allRuns, this.config.consistencyWindow),
             newFailures,
             newPasses,
             systemContext: this.buildSystemContext(latestRun),
@@ -192,11 +188,11 @@ export class DataSnapshotAggregator {
             const attemptNumbers = [...byAttempt.keys()].sort((a, b) => a - b);
             const mergedByAttempt: RunData[] = attemptNumbers.map(attemptNumber => {
                 const runsForAttempt = byAttempt.get(attemptNumber)!;
-                return runsForAttempt.reduce((base, run) => this.mergeAdditively(base, run));
+                return runsForAttempt.reduce((base, run) => mergeAdditively(base, run));
             });
 
             // Retry merge across attempts (in order)
-            const finalRun = mergedByAttempt.reduce((previous, current) => this.mergeAsRetry(previous, current));
+            const finalRun = mergedByAttempt.reduce((previous, current) => mergeAsRetry(previous, current));
             merged.set(runId, finalRun);
         }
 
@@ -209,142 +205,6 @@ export class DataSnapshotAggregator {
             this.fileSystem.ensureDirectoryExistsAtSync(Path.from('test-runs').join(Path.from(runId)));
             this.fileSystem.storeSync(outputPath, JSON.stringify(finalRun, undefined, 2), 'utf8');
         }
-    }
-
-    private mergeAdditively(base: RunData, addition: RunData): RunData {
-        const merged: RunData = { ...base };
-
-        // Build a map of base scenes by identity to detect overlaps
-        const baseScenesByIdentity = new Map<string, SceneRecord>();
-        for (const scene of base.scenes) {
-            baseScenesByIdentity.set(sceneIdentity(scene), scene);
-        }
-
-        // Merge scenes: new scenes are added, overlapping scenes are handled
-        merged.scenes = [...base.scenes];
-        let hasOverlap = false;
-        for (const additionScene of addition.scenes) {
-            const key = sceneIdentity(additionScene);
-            const existingScene = baseScenesByIdentity.get(key);
-
-            if (!existingScene) {
-                // No overlap — different module, just add it
-                merged.scenes.push(additionScene);
-            } else if (existingScene.outcome.code !== additionScene.outcome.code) {
-                // Same scene, different outcome — the earlier source captured a failure
-                // that the later source shows as fixed. Record as retry attempt.
-                const index = merged.scenes.indexOf(existingScene);
-                merged.scenes[index] = this.mergeSceneWithRetry(existingScene, additionScene);
-                hasOverlap = true;
-            } else {
-                // Same scene, same outcome — duplicate data from two input sources
-                // (e.g., gh-pages pre-merged run + fresh module artifacts).
-                // Keep the later version (may have more complete data) and skip the duplicate.
-                const index = merged.scenes.indexOf(existingScene);
-                merged.scenes[index] = additionScene;
-                hasOverlap = true;
-            }
-        }
-
-        // Recompute outcomes from merged scenes when overlaps were detected;
-        // otherwise sum the declared outcome counts (supports modules with scenes: [])
-        if (hasOverlap) {
-            merged.outcomes = this.computeMergedOutcomes(merged.scenes);
-        } else {
-            merged.outcomes = {
-                passed: base.outcomes.passed + addition.outcomes.passed,
-                failed: base.outcomes.failed + addition.outcomes.failed,
-                pending: base.outcomes.pending + addition.outcomes.pending,
-                skipped: base.outcomes.skipped + addition.outcomes.skipped,
-                compromised: base.outcomes.compromised + addition.outcomes.compromised,
-                error: base.outcomes.error + addition.outcomes.error,
-            };
-        }
-
-        if (addition.startedAt < merged.startedAt) merged.startedAt = addition.startedAt;
-        if (addition.finishedAt > merged.finishedAt) merged.finishedAt = addition.finishedAt;
-        merged.tags = [...base.tags];
-        for (const tag of (addition.tags || [])) {
-            if (!merged.tags.some(t => t.type === tag.type && t.name === tag.name)) {
-                merged.tags.push(tag);
-            }
-        }
-        return merged;
-    }
-
-    private mergeAsRetry(earlier: RunData, later: RunData): RunData {
-        const merged: RunData = { ...later };
-        const earlierScenes = new Map<string, typeof earlier.scenes[0]>();
-        for (const scene of earlier.scenes) {
-            earlierScenes.set(sceneIdentity(scene), scene);
-        }
-
-        merged.scenes = later.scenes.map(laterScene => {
-            const key = sceneIdentity(laterScene);
-            const earlierScene = earlierScenes.get(key);
-            if (!earlierScene) {
-                return laterScene;
-            }
-
-            // Only create retry attempts when the earlier scene actually failed.
-            // If the earlier scene already passed, the CI retry didn't change anything
-            // for this test — it's not a genuine retry, just a re-execution.
-            const earlierFailed = earlierScene.outcome.code !== ExecutionSuccessful.Code;
-            const earlierHadRetries = earlierScene.retries > 0;
-            if (!earlierFailed && !earlierHadRetries) {
-                return laterScene;
-            }
-
-            return this.mergeSceneWithRetry(earlierScene, laterScene);
-        });
-
-        // Include scenes from earlier attempt that weren't retried
-        const laterSceneKeys = new Set(later.scenes.map(s => sceneIdentity(s)));
-        for (const earlierScene of earlier.scenes) {
-            if (!laterSceneKeys.has(sceneIdentity(earlierScene))) {
-                merged.scenes.push(earlierScene);
-            }
-        }
-
-        // Recompute outcomes from the final merged scenes
-        merged.outcomes = this.computeMergedOutcomes(merged.scenes);
-        if (earlier.startedAt < merged.startedAt) merged.startedAt = earlier.startedAt;
-
-        return merged;
-    }
-
-    private mergeSceneWithRetry(earlierScene: SceneRecord, laterScene: SceneRecord): SceneRecord {
-        const existingAttempts = earlierScene.attempts || [];
-        const allAttempts = [
-            ...existingAttempts,
-            this.sceneToAttempt(earlierScene, existingAttempts.length + 1),
-            this.sceneToAttempt(laterScene, existingAttempts.length + 2),
-        ];
-        return {
-            ...laterScene,
-            attempts: allAttempts,
-            retries: allAttempts.length - 1,
-        } as SceneRecord;
-    }
-
-    private sceneToAttempt(scene: SceneRecord, attemptNumber: number): AttemptRecord {
-        return {
-            attemptNumber,
-            outcome: scene.outcome,
-            duration: scene.duration,
-            activities: scene.activities,
-            ...(scene.error ? { error: scene.error } : {}),
-            ...(scene.video ? { video: scene.video } : {}),
-        };
-    }
-
-    private computeMergedOutcomes(scenes: SceneRecord[]): OutcomeCounts {
-        const outcomes: OutcomeCounts = { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 };
-        for (const scene of scenes) {
-            const key = mapOutcomeToKey(outcomeCodeToDisplayString(scene.outcome.code));
-            outcomes[key as keyof OutcomeCounts]++;
-        }
-        return outcomes;
     }
 
     private copyArtifactsFromSource(databaseJsonPath: string, runId: string, subDirectory: string): void {
@@ -371,37 +231,6 @@ export class DataSnapshotAggregator {
         }
     }
 
-    private computeDegradedRecovered(allRuns: RunData[]): { newFailures: Array<{ name: string; category: string; source: { path: string; line: number }; tags?: TagRecord[] }>; newPasses: Array<{ name: string; category: string; source: { path: string; line: number }; tags?: TagRecord[] }> } {
-        const newFailures: Array<{ name: string; category: string; source: { path: string; line: number }; tags?: TagRecord[] }> = [];
-        const newPasses: Array<{ name: string; category: string; source: { path: string; line: number }; tags?: TagRecord[] }> = [];
-
-        if (allRuns.length < 2) {
-            return { newFailures, newPasses };
-        }
-
-        const latestRun = allRuns[allRuns.length - 1];
-        const previousRun = allRuns[allRuns.length - 2];
-        const previousOutcomes = new Map(previousRun.scenes.map(s => [sceneIdentityWithTags(s), s.outcome.code]));
-
-        for (const scene of latestRun.scenes) {
-            const key = sceneIdentityWithTags(scene);
-            const previousCode = previousOutcomes.get(key);
-            if (previousCode !== undefined) {
-                const previousSuccess = previousCode === ExecutionSuccessful.Code;
-                const currentSuccess = scene.outcome.code === ExecutionSuccessful.Code;
-                const currentRetried = scene.retries > 0 && currentSuccess;
-                if (previousSuccess && !currentSuccess) {
-                    newFailures.push({ name: scene.name, category: scene.category, source: scene.source, tags: scene.tags });
-                } else if (!previousSuccess && currentSuccess && !currentRetried) {
-                    // Only count as "recovered" if it passed without retrying
-                    newPasses.push({ name: scene.name, category: scene.category, source: scene.source, tags: scene.tags });
-                }
-            }
-        }
-
-        return { newFailures, newPasses };
-    }
-
     private buildSummary(latestRun: RunData): { title: string; totalScenarios: number; outcomes: typeof latestRun.outcomes; duration: number; startedAt: string; finishedAt: string; testRunner: string } {
         const duration = new Date(latestRun.finishedAt).getTime() - new Date(latestRun.startedAt).getTime();
 
@@ -418,90 +247,9 @@ export class DataSnapshotAggregator {
 
     private enrichScenarios(latestRun: RunData, allRuns: RunData[]): ReportScenario[] {
         return latestRun.scenes.map(scene => {
-            const executionHistory = this.buildExecutionHistory(scene, allRuns);
-            return this.enrichSingleScenario(scene, executionHistory);
+            const executionHistory = buildExecutionHistory(scene, allRuns);
+            return enrichSingleScenario(scene, executionHistory);
         });
-    }
-
-    private buildExecutionHistory(scene: SceneRecord, allRuns: RunData[]): ReportExecutionHistoryEntry[] {
-        const key = sceneIdentityWithTags(scene);
-        return allRuns.map(run => {
-            const match = run.scenes.find(s => sceneIdentityWithTags(s) === key);
-            if (!match) return undefined;
-            const entry: ReportExecutionHistoryEntry = {
-                outcome: outcomeCodeToDisplayString(match.outcome.code),
-                run: resolveRunLabel(run),
-                timestamp: run.startedAt,
-                duration: match.duration,
-                activities: match.activities.map(activity => this.mapActivityOutcome(activity)),
-            };
-            if (match.error) {
-                entry.error = match.error;
-            }
-            if (match.attempts && match.retries) {
-                entry.retries = match.retries;
-                entry.attempts = match.attempts.map(attempt => ({
-                    ...attempt,
-                    outcome: outcomeCodeToDisplayString(attempt.outcome.code),
-                    activities: attempt.activities.map(activity => this.mapActivityOutcome(activity)),
-                }));
-            }
-            if (match.retries > 0 && match.outcome.code === ExecutionSuccessful.Code) {
-                entry.retriedAndPassed = true;
-            }
-            return entry;
-        }).filter(Boolean) as ReportExecutionHistoryEntry[];
-    }
-
-    private enrichSingleScenario(scene: SceneRecord, executionHistory: ReportExecutionHistoryEntry[]): ReportScenario {
-        const enriched: ReportScenario = {
-            name: scene.name,
-            category: scene.category,
-            outcome: outcomeCodeToDisplayString(scene.outcome.code),
-            duration: scene.duration,
-            startedAt: scene.startedAt,
-            source: scene.source,
-            tags: [...new Map(scene.tags.map(t => [t.type + ':' + t.name, t])).values()],
-            activities: scene.activities.map(activity => this.mapActivityOutcome(activity)),
-            executionHistory,
-        };
-
-        if (scene.narrative) {
-            enriched.narrative = marked.parse(scene.narrative, { async: false }) as string;
-        }
-        if (scene.description) {
-            enriched.description = marked.parse(scene.description, { async: false }) as string;
-        }
-        if (scene.error) {
-            enriched.error = scene.error;
-        }
-        if (scene.cast) {
-            enriched.cast = scene.cast;
-        }
-        if (scene.video) {
-            enriched.video = scene.video;
-        }
-        if (scene.scenarioOutline) {
-            enriched.scenarioOutline = {
-                template: scene.scenarioOutline.template,
-                parameters: scene.scenarioOutline.parameters.map(ps => ({
-                    ...ps,
-                    ...(ps.description ? { description: marked.parse(ps.description, { async: false }) as string } : {}),
-                    outcome: outcomeCodeToDisplayString(ps.outcome.code),
-                    activities: ps.activities.map(activity => this.mapActivityOutcome(activity)),
-                })),
-            };
-        }
-        if (scene.attempts) {
-            enriched.retries = scene.retries;
-            enriched.attempts = scene.attempts.map(attempt => ({
-                ...attempt,
-                outcome: outcomeCodeToDisplayString(attempt.outcome.code),
-                activities: attempt.activities.map(activity => this.mapActivityOutcome(activity)),
-            }));
-        }
-
-        return enriched;
     }
 
     private buildSystemContext(latestRun: RunData): ReportSystemContext | undefined {
@@ -572,73 +320,6 @@ export class DataSnapshotAggregator {
             .filter(entry => this.fileSystem.exists(testRunsDirectory.join(Path.from(entry)).join(Path.from('db.json'))))
             .sort()
             .map(entry => testRunsDirectory.join(Path.from(entry)));
-    }
-
-    private identifyUnstableTests(allRuns: RunData[]): Array<{ name: string; category: string; source: { path: string; line: number }; tags: TagRecord[]; inconsistencyRate: number; history: string[]; labels: string[] }> {
-        const recentRuns = allRuns.slice(-this.config.consistencyWindow);
-
-        // Collect outcomes per test identity (name@path@project)
-        // Including the project tag ensures different browser/OS variations are tracked separately
-        const testOutcomes = new Map<string, { name: string; category: string; source: { path: string; line: number }; tags: TagRecord[]; outcomes: string[]; labels: string[] }>();
-
-        for (const run of recentRuns) {
-            const runLabel = resolveRunLabel(run);
-            for (const scene of run.scenes) {
-                const projectTag = scene.tags.find(t => t.type === 'project')?.name || '';
-                const identity = `${ scene.name }@${ scene.source.path }@${ projectTag }`;
-                if (!testOutcomes.has(identity)) {
-                    testOutcomes.set(identity, { name: scene.name, category: scene.category, source: scene.source, tags: scene.tags, outcomes: [], labels: [] });
-                }
-                const entry = testOutcomes.get(identity);
-
-                // A retried pass counts as a distinct outcome signal
-                const effectiveOutcome = (scene.retries > 0 && scene.outcome.code === ExecutionSuccessful.Code)
-                    ? 'RETRIED_SUCCESS'
-                    : outcomeCodeToDisplayString(scene.outcome.code);
-                entry.outcomes.push(effectiveOutcome);
-                entry.labels.push(runLabel);
-            }
-        }
-
-        // Find tests with mixed outcomes or any retried success
-        const unstable: Array<{ name: string; category: string; source: { path: string; line: number }; tags: TagRecord[]; inconsistencyRate: number; history: string[]; labels: string[] }> = [];
-
-        for (const [, test] of testOutcomes) {
-            const uniqueOutcomes = new Set(test.outcomes);
-            if (uniqueOutcomes.size > 1 || test.outcomes.includes('RETRIED_SUCCESS')) {
-                const failures = test.outcomes.filter(o => o !== 'SUCCESS').length;
-                unstable.push({
-                    name: test.name,
-                    category: test.category,
-                    source: test.source,
-                    tags: test.tags,
-                    inconsistencyRate: failures / test.outcomes.length,
-                    history: test.outcomes,
-                    labels: test.labels,
-                });
-            }
-        }
-
-        return unstable.sort((a, b) => b.inconsistencyRate - a.inconsistencyRate);
-    }
-
-    private mapActivityOutcome(activity: ActivityRecord): ReportActivity {
-        const mapped: ReportActivity = {
-            name: activity.name,
-            outcome: outcomeCodeToDisplayString(activity.outcome.code),
-            duration: activity.duration,
-            children: activity.children.map(child => this.mapActivityOutcome(child)),
-        };
-
-        if (activity.type) mapped.type = activity.type;
-        if (activity.startedAt) mapped.startedAt = activity.startedAt;
-        if (activity.location) mapped.location = activity.location;
-        if (activity.error) mapped.error = activity.error;
-        if (activity.artifacts) mapped.artifacts = activity.artifacts;
-        if (activity.restQuery) mapped.restQuery = activity.restQuery;
-        if (activity.reportData) mapped.reportData = activity.reportData;
-
-        return mapped;
     }
 
     /**

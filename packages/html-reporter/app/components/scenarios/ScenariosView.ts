@@ -16,18 +16,16 @@ const html = htm.bind(h);
 
 const STATUS_ORDER: Record<string, number> = { FAILURE: 1, ERROR: 2, COMPROMISED: 3, PENDING: 4, SKIPPED: 5, SUCCESS: 6 };
 
+const sortComparators: Record<string, (a: ReportScenario, b: ReportScenario) => number> = {
+    name: (a, b) => a.name.localeCompare(b.name),
+    duration: (a, b) => b.duration - a.duration,
+    status: (a, b) => (STATUS_ORDER[a.outcome] || 6) - (STATUS_ORDER[b.outcome] || 6),
+    category: (a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name),
+};
+
 function sortScenarios(scenarios: ReportScenario[], sort: string): ReportScenario[] {
-    const sorted = [...scenarios];
-    switch (sort) {
-        case 'name':
-            return sorted.sort((a, b) => a.name.localeCompare(b.name));
-        case 'duration':
-            return sorted.sort((a, b) => b.duration - a.duration);
-        case 'status':
-            return sorted.sort((a, b) => (STATUS_ORDER[a.outcome] || 6) - (STATUS_ORDER[b.outcome] || 6));
-        default:
-            return sorted.sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
-    }
+    const comparator = sortComparators[sort] || sortComparators.category;
+    return [...scenarios].sort(comparator);
 }
 
 // ===== Test Scenarios List View =====

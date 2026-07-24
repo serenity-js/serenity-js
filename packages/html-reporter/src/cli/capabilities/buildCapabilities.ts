@@ -30,27 +30,37 @@ export function buildCapabilities(
         processSceneForCapabilities(scene, root, nodeMap, allRuns, requirementsHierarchy);
     }
 
-    // Compute scores for file nodes
+    computeFileScores(nodeMap);
+    computeDirectoryScores(root);
+
+    if (projectFileSystem) {
+        attachReadmes(root, nodeMap, requirementsHierarchy, projectFileSystem);
+    }
+
+    return root;
+}
+
+function computeFileScores(nodeMap: Map<string, ReportCapabilityNode>): void {
     for (const [, node] of nodeMap) {
         if (node.type === 'file' && node.scenarios) {
             node.score = scoreCapability(node as ReportCapabilityNode & { scenarios: NonNullable<ReportCapabilityNode['scenarios']> });
         }
     }
+}
 
-    // Compute scores for directory nodes (bottom-up)
-    computeDirectoryScores(root);
-
-    if (projectFileSystem) {
-        const specRoot = requirementsHierarchy.rootDirectory();
-        attachReadme(root, specRoot, projectFileSystem, '', nodeMap);
-        for (const [key, node] of nodeMap) {
-            if (key && node.type === 'directory') {
-                attachReadme(node, specRoot.join(Path.from(key)), projectFileSystem, key, nodeMap);
-            }
+function attachReadmes(
+    root: ReportCapabilityNode,
+    nodeMap: Map<string, ReportCapabilityNode>,
+    requirementsHierarchy: RequirementsHierarchy,
+    projectFileSystem: FileSystem,
+): void {
+    const specRoot = requirementsHierarchy.rootDirectory();
+    attachReadme(root, specRoot, projectFileSystem, '', nodeMap);
+    for (const [key, node] of nodeMap) {
+        if (key && node.type === 'directory') {
+            attachReadme(node, specRoot.join(Path.from(key)), projectFileSystem, key, nodeMap);
         }
     }
-
-    return root;
 }
 
 function processSceneForCapabilities(
@@ -64,6 +74,29 @@ function processSceneForCapabilities(
     const fileName = segments[segments.length - 1];
     const directories = segments.slice(0, -1);
 
+    const currentDirectory = ensureDirectoryChain(directories, root, nodeMap);
+    const fileNode = ensureFileNode(segments, fileName, currentDirectory, nodeMap);
+
+    const outcomeKey = mapOutcomeToKey(outcomeCodeToDisplayString(scene.outcome.code)) as keyof ReportOutcomes;
+
+    fileNode.scenarioCount++;
+    fileNode.outcomes[outcomeKey]++;
+
+    const executionHistory = buildExecutionHistory(scene, allRuns);
+
+    fileNode.scenarios.push({ name: scene.name, outcome: outcomeCodeToDisplayString(scene.outcome.code), executionHistory });
+    if (scene.narrative && !fileNode.narrative) {
+        fileNode.narrative = scene.narrative;
+    }
+
+    propagateOutcomes(root, directories, nodeMap, outcomeKey);
+}
+
+function ensureDirectoryChain(
+    directories: string[],
+    root: ReportCapabilityNode,
+    nodeMap: Map<string, ReportCapabilityNode>,
+): ReportCapabilityNode {
     let currentDirectory = root;
     for (let i = 0; i < directories.length; i++) {
         const directoryKey = directories.slice(0, i + 1).join('/');
@@ -74,32 +107,38 @@ function processSceneForCapabilities(
         }
         currentDirectory = nodeMap.get(directoryKey);
     }
+    return currentDirectory;
+}
 
+function ensureFileNode(
+    segments: string[],
+    fileName: string,
+    currentDirectory: ReportCapabilityNode,
+    nodeMap: Map<string, ReportCapabilityNode>,
+): ReportCapabilityNode {
     const fileKey = segments.join('/');
     if (!nodeMap.has(fileKey)) {
         const file: ReportCapabilityNode = { type: 'file', name: fileName, outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, scenarios: [] };
         currentDirectory.children.push(file);
         nodeMap.set(fileKey, file);
     }
+    return nodeMap.get(fileKey);
+}
 
-    const fileNode = nodeMap.get(fileKey);
-    const outcomeKey = mapOutcomeToKey(outcomeCodeToDisplayString(scene.outcome.code)) as keyof ReportOutcomes;
-
-    fileNode.scenarioCount++;
-    fileNode.outcomes[outcomeKey]++;
-
-    // Build execution history for this scenario across all runs
+function buildExecutionHistory(scene: SceneRecord, allRuns: RunData[]): string[] {
     const scenarioKey = sceneIdentityWithTags(scene);
-    const executionHistory = allRuns.map(r => {
+    return allRuns.map(r => {
         const match = r.scenes.find(s => sceneIdentityWithTags(s) === scenarioKey);
         return match ? outcomeCodeToDisplayString(match.outcome.code) : undefined;
     }).filter(Boolean) as string[];
+}
 
-    fileNode.scenarios.push({ name: scene.name, outcome: outcomeCodeToDisplayString(scene.outcome.code), executionHistory });
-    if (scene.narrative && !fileNode.narrative) {
-        fileNode.narrative = scene.narrative;
-    }
-
+function propagateOutcomes(
+    root: ReportCapabilityNode,
+    directories: string[],
+    nodeMap: Map<string, ReportCapabilityNode>,
+    outcomeKey: keyof ReportOutcomes,
+): void {
     root.scenarioCount++;
     root.outcomes[outcomeKey]++;
     for (let i = 0; i < directories.length; i++) {
@@ -128,13 +167,12 @@ function computeDirectoryScores(node: ReportCapabilityNode): void {
         const confidence = scoreDirectory(scoredChildren);
         node.score = { confidence, passRate: 0, completeness: 0, consistency: 0 };
 
-        // Also compute pass rate/completeness/consistency for the directory directly
         const total = Object.values(node.outcomes).reduce((a: number, b: number) => a + b, 0) as number;
         const pending = ((node.outcomes.pending || 0) + (node.outcomes.skipped || 0)) as number;
         const executed = total - pending;
         node.score.passRate = executed > 0 ? Math.round((node.outcomes.passed / executed) * 100) : 0;
         node.score.completeness = total > 0 ? Math.round(((total - pending) / total) * 100) : 0;
-        node.score.consistency = 100; // Would need aggregated history; use child-weighted confidence instead
+        node.score.consistency = 100;
     }
 }
 
@@ -163,7 +201,6 @@ function attachReadme(
 
     const content = projectFileSystem.readFileSync(readmePath, { encoding: 'utf8' }) as string;
 
-    // Extract first heading as displayName
     const headingMatch = content.match(/^#{1,2}\s+(.+)$/m);
     if (headingMatch) {
         node.displayName = headingMatch[1].trim();
@@ -190,64 +227,11 @@ export function renderReadmeHtml(
     nodeMap: Map<string, ReportCapabilityNode>,
     displayName: string | undefined,
 ): string {
+    const linkRenderer = buildLinkRenderer(currentNodePath, nodeMap);
+
     const instance = new Marked({
         renderer: {
-            link({ href, title, tokens }) {
-                const text = parseInline(tokens.map(t => t.raw).join(''));
-                const titleAttribute = title ? ` title="${title}"` : '';
-
-                // Rule 1: Not local — don't transform
-                if (!href.startsWith('./') && !href.startsWith('../')) {
-                    const targetAttribute = href.startsWith('http') ? ' target="_blank" rel="noopener"' : '';
-                    return `<a href="${href}"${titleAttribute}${targetAttribute}>${text}</a>`;
-                }
-
-                // Resolve relative to current node path within spec directory
-                const basePath = currentNodePath || '.';
-                let resolved = posix.normalize(posix.join(basePath, href));
-
-                // Rule 3: Escapes specDirectory (goes above root)
-                if (resolved.startsWith('..')) {
-                    return `<a href="${href}"${titleAttribute}>${text}</a>`;
-                }
-
-                // Clean up leading "./" if present after normalize
-                if (resolved === '.') {
-                    resolved = '';
-                } else if (resolved.startsWith('./')) {
-                    resolved = resolved.substring(2);
-                }
-
-                // Rule 4: Ends with /readme.md (case-insensitive) — strip and treat as directory
-                if (/\/readme\.md$/i.test(resolved)) {
-                    resolved = resolved.replace(/\/readme\.md$/i, '');
-                } else if (/^readme\.md$/i.test(resolved)) {
-                    resolved = '';
-                }
-
-                // Rule 5: Directory link (ends with / or original href points to readme.md or node exists)
-                const withoutTrailingSlash = resolved.replace(/\/$/, '');
-                if (href.endsWith('/') || /\/readme\.md$/i.test(href) || /^\.\/readme\.md$/i.test(href) || nodeMap.has(withoutTrailingSlash)) {
-                    if (nodeMap.has(withoutTrailingSlash)) {
-                        if (withoutTrailingSlash === '') {
-                            return `<a href="#/capabilities"${titleAttribute}>${text}</a>`;
-                        }
-                        const encodedPath = encodeURIComponent(withoutTrailingSlash);
-                        return `<a href="#/capabilities?path=${encodedPath}"${titleAttribute}>${text}</a>`;
-                    }
-                    // Directory link but not in nodeMap — don't transform
-                    return `<a href="${href}"${titleAttribute}>${text}</a>`;
-                }
-
-                // Rule 6: Spec file link
-                if (/\.(spec|test)\.(ts|js|mjs|cjs)$/.test(resolved)) {
-                    const encodedSearch = encodeURIComponent('"' + withoutTrailingSlash + '"');
-                    return `<a href="#/tests?search=${encodedSearch}"${titleAttribute}>${text}</a>`;
-                }
-
-                // Rule 7: Any other case — don't transform
-                return `<a href="${href}"${titleAttribute}>${text}</a>`;
-            },
+            link: linkRenderer,
         },
     });
 
@@ -256,4 +240,83 @@ export function renderReadmeHtml(
         html = html.replace(/^\s*<h[12][^>]*>.*?<\/h[12]>\s*/i, '');
     }
     return html;
+}
+
+function buildLinkRenderer(
+    currentNodePath: string,
+    nodeMap: Map<string, ReportCapabilityNode>,
+): (token: { href: string; title?: string | null; tokens: Array<{ raw: string }> }) => string {
+    return ({ href, title, tokens }) => {
+        const text = parseInline(tokens.map(t => t.raw).join('')) as string;
+        const titleAttribute = title ? ` title="${title}"` : '';
+
+        const resolved = resolveLocalHref(href, currentNodePath);
+
+        if (resolved === undefined) {
+            return buildExternalLink(href, titleAttribute, text);
+        }
+
+        return buildInternalLink(resolved, href, titleAttribute, text, nodeMap);
+    };
+}
+
+function resolveLocalHref(href: string, currentNodePath: string): string | undefined {
+    if (!href.startsWith('./') && !href.startsWith('../')) {
+        return undefined;
+    }
+
+    const basePath = currentNodePath || '.';
+    let resolved = posix.normalize(posix.join(basePath, href));
+
+    if (resolved.startsWith('..')) {
+        return undefined;
+    }
+
+    if (resolved === '.') {
+        resolved = '';
+    } else if (resolved.startsWith('./')) {
+        resolved = resolved.substring(2);
+    }
+
+    if (/\/readme\.md$/i.test(resolved)) {
+        resolved = resolved.replace(/\/readme\.md$/i, '');
+    } else if (/^readme\.md$/i.test(resolved)) {
+        resolved = '';
+    }
+
+    return resolved;
+}
+
+function buildExternalLink(href: string, titleAttribute: string, text: string): string {
+    const targetAttribute = href.startsWith('http') ? ' target="_blank" rel="noopener"' : '';
+    return `<a href="${href}"${titleAttribute}${targetAttribute}>${text}</a>`;
+}
+
+function buildInternalLink(
+    resolved: string,
+    href: string,
+    titleAttribute: string,
+    text: string,
+    nodeMap: Map<string, ReportCapabilityNode>,
+): string {
+    const withoutTrailingSlash = resolved.replace(/\/$/, '');
+    const isDirectoryLink = href.endsWith('/') || /\/readme\.md$/i.test(href) || /^\.\/readme\.md$/i.test(href) || nodeMap.has(withoutTrailingSlash);
+
+    if (isDirectoryLink && nodeMap.has(withoutTrailingSlash)) {
+        const capabilitiesHref = withoutTrailingSlash === ''
+            ? '#/capabilities'
+            : `#/capabilities?path=${encodeURIComponent(withoutTrailingSlash)}`;
+        return `<a href="${capabilitiesHref}"${titleAttribute}>${text}</a>`;
+    }
+
+    if (isDirectoryLink) {
+        return `<a href="${href}"${titleAttribute}>${text}</a>`;
+    }
+
+    if (/\.(spec|test)\.(ts|js|mjs|cjs)$/.test(resolved)) {
+        const encodedSearch = encodeURIComponent('"' + withoutTrailingSlash + '"');
+        return `<a href="#/tests?search=${encodedSearch}"${titleAttribute}>${text}</a>`;
+    }
+
+    return `<a href="${href}"${titleAttribute}>${text}</a>`;
 }

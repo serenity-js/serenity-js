@@ -62,6 +62,26 @@ function pad2(n: number): string {
     return n < 10 ? '0' + n : String(n);
 }
 
+function formatByTimeSpan(dates: Date[], years: Set<number>, months: Set<string>, days: Set<string>): string[] {
+    if (years.size > 1) {
+        // Multi-year: "Jul '26"
+        return dates.map(d => SHORT_MONTHS[d.getUTCMonth()] + " '" + String(d.getUTCFullYear()).slice(2));
+    }
+
+    if (months.size > 1) {
+        // Multi-month same year: "14 Jul"
+        return dates.map(d => d.getUTCDate() + ' ' + SHORT_MONTHS[d.getUTCMonth()]);
+    }
+
+    if (days.size > 1) {
+        // Multi-day same month: "14 18:24"
+        return dates.map(d => d.getUTCDate() + ' ' + pad2(d.getUTCHours()) + ':' + pad2(d.getUTCMinutes()));
+    }
+
+    // Same day: "18:24"
+    return dates.map(d => pad2(d.getUTCHours()) + ':' + pad2(d.getUTCMinutes()));
+}
+
 /**
  * Produces short x-axis labels for TrendChart.
  *
@@ -87,21 +107,5 @@ export function abbreviateRunLabels(history: Array<{ label: string; timestamp: s
     const months = new Set(dates.map(d => d.getUTCFullYear() + '-' + d.getUTCMonth()));
     const days = new Set(dates.map(d => d.getUTCFullYear() + '-' + d.getUTCMonth() + '-' + d.getUTCDate()));
 
-    if (years.size > 1) {
-        // Multi-year: "Jul '26"
-        return dates.map(d => SHORT_MONTHS[d.getUTCMonth()] + " '" + String(d.getUTCFullYear()).slice(2));
-    }
-
-    if (months.size > 1) {
-        // Multi-month same year: "14 Jul"
-        return dates.map(d => d.getUTCDate() + ' ' + SHORT_MONTHS[d.getUTCMonth()]);
-    }
-
-    if (days.size > 1) {
-        // Multi-day same month: "14 18:24"
-        return dates.map(d => d.getUTCDate() + ' ' + pad2(d.getUTCHours()) + ':' + pad2(d.getUTCMinutes()));
-    }
-
-    // Same day: "18:24"
-    return dates.map(d => pad2(d.getUTCHours()) + ':' + pad2(d.getUTCMinutes()));
+    return formatByTimeSpan(dates, years, months, days);
 }

@@ -10,7 +10,7 @@ import { GroupedVirtualList } from '../common/layout/GroupedVirtualList';
 import { ResultCount } from '../common/ResultCount';
 import { RunSelector } from '../common/RunSelector';
 import type { ErrorRenderItem } from './categoriseErrors';
-import { buildRenderItems, buildSummaryCards, categoriseErrors,CATEGORY_ICONS } from './categoriseErrors';
+import { buildRenderItems, buildSummaryCards, categoriseErrors, CATEGORY_ICONS } from './categoriseErrors';
 import { ErrorKpiCards } from './ErrorKpiCards';
 import { ErrorRow } from './ErrorRow';
 
@@ -24,31 +24,46 @@ interface ErrorsViewProps {
     route: string;
 }
 
+function isErrorOutcome(outcome: string): boolean {
+    return outcome === 'FAILURE' || outcome === 'ERROR' || outcome === 'COMPROMISED';
+}
+
+/**
+ * Computes the list of scenarios with errors for the given run.
+ * If runIndex is null or the latest run, filters allScenarios directly.
+ * Otherwise, reconstructs scenarios from execution history for the historical run.
+ */
+function computeErrorScenarios(allScenarios: ReportScenario[], runIndex: number | null, history: ReportHistoryEntry[]): ReportScenario[] {
+    if (runIndex === null || runIndex === history.length - 1) {
+        return allScenarios.filter(s => s.error || isErrorOutcome(s.outcome));
+    }
+    const runTimestamp = history[runIndex]?.timestamp;
+    if (!runTimestamp) return [];
+
+    const result: ReportScenario[] = [];
+    for (const s of allScenarios) {
+        if (!s.executionHistory) continue;
+        const entry = s.executionHistory.find(e => e.timestamp === runTimestamp);
+        if (!entry) continue;
+        if (isErrorOutcome(entry.outcome) || entry.error) {
+            result.push({
+                ...s,
+                outcome: entry.outcome,
+                duration: entry.duration ?? s.duration,
+                error: entry.error || undefined,
+            } as ReportScenario);
+        }
+    }
+    return result;
+}
+
 export function ErrorsView({ scenarios: allScenarios, history, specDirectory, onNavigate, route }: ErrorsViewProps): ReturnType<typeof html> {
     const { runIndex: errorRunIndex, isHistorical: errorIsHistorical, activeTimestamp: errorActiveRunTs, onRunChange: onErrorRunChange } = useRunSelection(route, history, '/errors', onNavigate);
 
-    const errorScenarios = useMemo(() => {
-        if (errorRunIndex === null || errorRunIndex === history.length - 1) {
-            return allScenarios.filter(s => s.error || s.outcome === 'FAILURE' || s.outcome === 'ERROR' || s.outcome === 'COMPROMISED');
-        }
-        const runTimestamp = history[errorRunIndex]?.timestamp;
-        if (!runTimestamp) return [];
-        const result: ReportScenario[] = [];
-        for (const s of allScenarios) {
-            if (!s.executionHistory) continue;
-            const entry = s.executionHistory.find(e => e.timestamp === runTimestamp);
-            if (!entry) continue;
-            if (entry.outcome === 'FAILURE' || entry.outcome === 'ERROR' || entry.outcome === 'COMPROMISED' || entry.error) {
-                result.push({
-                    ...s,
-                    outcome: entry.outcome,
-                    duration: entry.duration ?? s.duration,
-                    error: entry.error || undefined,
-                } as ReportScenario);
-            }
-        }
-        return result;
-    }, [allScenarios, errorRunIndex, history]);
+    const errorScenarios = useMemo(
+        () => computeErrorScenarios(allScenarios, errorRunIndex, history),
+        [allScenarios, errorRunIndex, history],
+    );
 
     const categoryOrder = useMemo(() => categoriseErrors(errorScenarios), [errorScenarios]);
     const summaryCards = useMemo(() => buildSummaryCards(categoryOrder), [categoryOrder]);

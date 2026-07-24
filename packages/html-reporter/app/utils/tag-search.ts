@@ -119,33 +119,35 @@ export function toggleTagInSearch(search: string, tag: { type: string; name: str
     return search ? (search.trim() + ' ' + token) : token;
 }
 
+function isMatchingTag(token: string, targetType: string, targetName: string): boolean {
+    if (!token.startsWith('@')) return false;
+    const withoutAt = token.slice(1);
+    const colonIndex = withoutAt.indexOf(':');
+
+    if (colonIndex === -1) {
+        // Shorthand @value — only matches tags of type 'tag'
+        if (targetType !== 'tag') return false;
+        const tokenLower = withoutAt.toLowerCase();
+        if (KNOWN_TAG_TYPES.includes(tokenLower)) return false;
+        return tokenLower === targetName;
+    }
+
+    const type = withoutAt.slice(0, colonIndex).toLowerCase();
+    if (type !== targetType) return false;
+
+    let value = withoutAt.slice(colonIndex + 1);
+    if (value.startsWith('"') && value.endsWith('"')) {
+        value = value.slice(1, -1);
+    }
+    return value.toLowerCase() === targetName;
+}
+
 function removeTagFromSearch(search: string, tag: { type: string; name: string }): string {
     const tokens = parseSearchTokens(search);
     const targetType = tag.type.toLowerCase();
     const targetName = tag.name.toLowerCase();
 
-    const remaining = tokens.filter(token => {
-        if (!token.startsWith('@')) return true;
-        const withoutAt = token.slice(1);
-        const colonIndex = withoutAt.indexOf(':');
-
-        if (colonIndex === -1) {
-            // Shorthand @value — only matches tags of type 'tag'
-            if (targetType !== 'tag') return true;
-            const tokenLower = withoutAt.toLowerCase();
-            if (KNOWN_TAG_TYPES.includes(tokenLower)) return true;
-            return tokenLower !== targetName;
-        }
-
-        const type = withoutAt.slice(0, colonIndex).toLowerCase();
-        if (type !== targetType) return true;
-
-        let value = withoutAt.slice(colonIndex + 1);
-        if (value.startsWith('"') && value.endsWith('"')) {
-            value = value.slice(1, -1);
-        }
-        return value.toLowerCase() !== targetName;
-    });
+    const remaining = tokens.filter(token => !isMatchingTag(token, targetType, targetName));
 
     return remaining.map(t => t.includes(' ') ? `"${t}"` : t).join(' ').trim();
 }

@@ -53,6 +53,35 @@ export interface GroupedVirtualListProps<T, H = { category: string }> {
 type FlatItem<T, H> = { type: 'header'; category: string } & H | { type: 'item'; item: T };
 
 /**
+ * Builds a flat list of items interleaved with group headers.
+ * If no `groupBy` is provided, returns items wrapped with `{ type: 'item' }`.
+ */
+function buildFlatItems<T, H>(
+    items: T[],
+    groupBy: ((item: T) => string) | undefined,
+    groupHeaderData: ((groupKey: string, groupItems: T[]) => H) | undefined,
+): Array<FlatItem<T, H>> {
+    if (!groupBy) {
+        return items.map(item => ({ type: 'item' as const, item }));
+    }
+    const groups: Record<string, T[]> = {};
+    for (const item of items) {
+        const key = groupBy(item);
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(item);
+    }
+    const result: Array<FlatItem<T, H>> = [];
+    for (const [category, groupItems] of Object.entries(groups)) {
+        const headerData = groupHeaderData ? groupHeaderData(category, groupItems) : {} as H;
+        result.push({ type: 'header', category, ...headerData } as FlatItem<T, H>);
+        for (const item of groupItems) {
+            result.push({ type: 'item', item });
+        }
+    }
+    return result;
+}
+
+/**
  * Finds the active sticky header index — the last header whose index
  * is at or before the current scroll start.
  */
@@ -117,52 +146,19 @@ function renderVirtualRow<T, H>(
     `;
 }
 
-export function GroupedVirtualList<T, H = { category: string }>({
-    items,
-    groupBy,
-    rowHeight,
-    renderItem,
-    renderGroupHeader,
-    renderEmpty,
-    firstHeaderHeight = GROUP_HEADER_HEIGHTS.first,
-    headerHeight = GROUP_HEADER_HEIGHTS.rest,
-    overscan = 15,
-    id = 'grouped-virtual-list',
-    ariaLabel,
-    groupHeaderData,
-    renderStickyContent,
-}: GroupedVirtualListProps<T, H>): ReturnType<typeof html> {
-    const parentRef = useRef<HTMLElement | null>(null);
-
-    const flatItems: Array<FlatItem<T, H>> = useMemo(() => {
-        if (!groupBy) {
-            return items.map(item => ({ type: 'item' as const, item }));
-        }
-        const groups: Record<string, T[]> = {};
-        for (const item of items) {
-            const key = groupBy(item);
-            if (!groups[key]) groups[key] = [];
-            groups[key].push(item);
-        }
-        const result: Array<FlatItem<T, H>> = [];
-        for (const [category, groupItems] of Object.entries(groups)) {
-            const headerData = groupHeaderData ? groupHeaderData(category, groupItems) : {} as H;
-            result.push({ type: 'header', category, ...headerData } as FlatItem<T, H>);
-            for (const item of groupItems) {
-                result.push({ type: 'item', item });
-            }
-        }
-        return result;
-    }, [items, groupBy, groupHeaderData]);
-
-    const headerIndices = useMemo(() => {
-        const indices: number[] = [];
-        flatItems.forEach((item, i) => {
-            if (item.type === 'header') indices.push(i);
-        });
-        return indices;
-    }, [flatItems]);
-
+/**
+ * Sets up the virtualizer configuration for the flat item list.
+ */
+function useConfiguredVirtualizer<T, H>(
+    flatItems: Array<FlatItem<T, H>>,
+    headerIndices: number[],
+    parentRef: { current: HTMLElement | null },
+    groupBy: ((item: T) => string) | undefined,
+    firstHeaderHeight: number,
+    headerHeight: number,
+    rowHeight: number,
+    overscan: number,
+) {
     const activeStickyRef = useRef(-1);
 
     const rangeExtractor = useCallback((range: Range) => {
@@ -185,6 +181,44 @@ export function GroupedVirtualList<T, H = { category: string }>({
         overscan,
         rangeExtractor,
     });
+
+    return virtualizer;
+}
+
+export function GroupedVirtualList<T, H = { category: string }>({
+    items,
+    groupBy,
+    rowHeight,
+    renderItem,
+    renderGroupHeader,
+    renderEmpty,
+    firstHeaderHeight = GROUP_HEADER_HEIGHTS.first,
+    headerHeight = GROUP_HEADER_HEIGHTS.rest,
+    overscan = 15,
+    id = 'grouped-virtual-list',
+    ariaLabel,
+    groupHeaderData,
+    renderStickyContent,
+}: GroupedVirtualListProps<T, H>): ReturnType<typeof html> {
+    const parentRef = useRef<HTMLElement | null>(null);
+
+    const flatItems = useMemo(
+        () => buildFlatItems(items, groupBy, groupHeaderData),
+        [items, groupBy, groupHeaderData],
+    );
+
+    const headerIndices = useMemo(() => {
+        const indices: number[] = [];
+        flatItems.forEach((item, i) => {
+            if (item.type === 'header') indices.push(i);
+        });
+        return indices;
+    }, [flatItems]);
+
+    const virtualizer = useConfiguredVirtualizer(
+        flatItems, headerIndices, parentRef, groupBy,
+        firstHeaderHeight, headerHeight, rowHeight, overscan,
+    );
 
     const defaultRenderStickyContent = useCallback((element: HTMLDivElement, item: FlatItem<T, H>) => {
         if (item.type === 'header') {

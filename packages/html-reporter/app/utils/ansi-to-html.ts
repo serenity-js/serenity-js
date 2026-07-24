@@ -80,33 +80,27 @@ const COLOUR_NAMES = new Set([
     'bright-black', 'bright-red', 'bright-green', 'bright-yellow', 'bright-blue', 'bright-magenta', 'bright-cyan', 'bright-white',
 ]);
 
+type SgrAction = (openSpans: string[], result: string) => string;
+
+const SGR_ACTIONS: Record<number, SgrAction> = {
+    1: (openSpans, result) => { openSpans.push('bold'); return result + '<span class="ansi-bold">'; },
+    2: (openSpans, result) => { openSpans.push('dim'); return result + '<span class="ansi-dim">'; },
+    22: (openSpans, result) => closeSpanAt(Math.max(openSpans.lastIndexOf('bold'), openSpans.lastIndexOf('dim')), openSpans, result),
+    39: (openSpans, result) => closeSpanAt(findLastColourIndex(openSpans), openSpans, result),
+};
+
 function handleSgrCode(code: number, openSpans: string[], result: string): string {
     if (code === 0) {
         return closeAllSpans(openSpans, result);
     }
 
-    if (code === 1) {
-        openSpans.push('bold');
-        return result + '<span class="ansi-bold">';
+    const action = SGR_ACTIONS[code];
+    if (action) {
+        return action(openSpans, result);
     }
 
-    if (code === 2) {
-        openSpans.push('dim');
-        return result + '<span class="ansi-dim">';
-    }
-
-    if (code === 22) {
-        const targetIndex = Math.max(openSpans.lastIndexOf('bold'), openSpans.lastIndexOf('dim'));
-        return closeSpanAt(targetIndex, openSpans, result);
-    }
-
-    if (code === 39) {
-        const targetIndex = findLastColourIndex(openSpans);
-        return closeSpanAt(targetIndex, openSpans, result);
-    }
-
-    if (COLOUR_CLASSES[code]) {
-        const cls = COLOUR_CLASSES[code];
+    const cls = COLOUR_CLASSES[code];
+    if (cls) {
         openSpans.push(cls.replace('ansi-', ''));
         return result + `<span class="${cls}">`;
     }

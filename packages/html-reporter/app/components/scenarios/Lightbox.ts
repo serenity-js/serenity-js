@@ -13,6 +13,42 @@ export interface LightboxProps {
     onNavigate: (index: number) => void;
 }
 
+function handleLightboxKeyDown(e: KeyboardEvent, currentIndex: number, photosLength: number, onNavigate: (index: number) => void): void {
+    if (e.key === 'Escape') {
+        onNavigate(-1);
+    } else if (e.key === 'ArrowRight' && currentIndex < photosLength - 1) {
+        onNavigate(currentIndex + 1);
+    } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+        onNavigate(currentIndex - 1);
+    }
+}
+
+function handleLightboxTouchEnd(
+    e: TouchEvent,
+    touchStartX: number,
+    touchStartY: number,
+    currentIndex: number,
+    photosLength: number,
+    onNavigate: (index: number) => void,
+): void {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+        if (dx < 0 && currentIndex < photosLength - 1) {
+            onNavigate(currentIndex + 1);
+        } else if (dx > 0 && currentIndex > 0) {
+            onNavigate(currentIndex - 1);
+        }
+    }
+}
+
+function handleOverlayClick(e: Event, onNavigate: (index: number) => void): void {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('lightbox-overlay')) {
+        onNavigate(-1);
+    }
+}
+
 export function Lightbox({ photos, currentIndex, onNavigate }: LightboxProps): ReturnType<typeof html> | null {
     const overlayRef = useRef<HTMLDivElement>(null);
     const touchStartX = useRef(0);
@@ -42,43 +78,13 @@ export function Lightbox({ photos, currentIndex, onNavigate }: LightboxProps): R
 
     const photo = photos[currentIndex];
 
-    const handleTouchStart = (e: TouchEvent) => {
-        touchStartX.current = e.touches[0].clientX;
-        touchStartY.current = e.touches[0].clientY;
-    };
-
-    const handleTouchEnd = (e: TouchEvent) => {
-        const dx = e.changedTouches[0].clientX - touchStartX.current;
-        const dy = e.changedTouches[0].clientY - touchStartY.current;
-        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
-            if (dx < 0 && currentIndex < photos.length - 1) {
-                onNavigate(currentIndex + 1);
-            } else if (dx > 0 && currentIndex > 0) {
-                onNavigate(currentIndex - 1);
-            }
-        }
-    };
-
-    const handleOverlayClick = (e: Event) => {
-        const target = e.target as HTMLElement;
-        if (target.classList.contains('lightbox-overlay')) {
-            onNavigate(-1);
-        }
-    };
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.key === 'Escape') onNavigate(-1);
-        else if (e.key === 'ArrowRight' && currentIndex < photos.length - 1) onNavigate(currentIndex + 1);
-        else if (e.key === 'ArrowLeft' && currentIndex > 0) onNavigate(currentIndex - 1);
-    };
-
     return html`
         <div class="lightbox-overlay"
              ref=${(element: HTMLElement | null) => { if (element) { (overlayRef as { current: HTMLElement | null }).current = element; element.focus(); } }}
-             onClick=${handleOverlayClick}
-             onKeyDown=${handleKeyDown}
-             onTouchStart=${handleTouchStart}
-             onTouchEnd=${handleTouchEnd}
+             onClick=${(e: Event) => handleOverlayClick(e, onNavigate)}
+             onKeyDown=${(e: KeyboardEvent) => handleLightboxKeyDown(e, currentIndex, photos.length, onNavigate)}
+             onTouchStart=${(e: TouchEvent) => { touchStartX.current = e.touches[0].clientX; touchStartY.current = e.touches[0].clientY; }}
+             onTouchEnd=${(e: TouchEvent) => handleLightboxTouchEnd(e, touchStartX.current, touchStartY.current, currentIndex, photos.length, onNavigate)}
              tabIndex="0">
           <div class="lightbox-content">
             <button class="lightbox-close" onClick=${() => onNavigate(-1)} aria-label="Close lightbox">✕</button>

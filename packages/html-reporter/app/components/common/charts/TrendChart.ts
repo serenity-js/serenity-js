@@ -36,36 +36,22 @@ export interface TrendChartProps {
     onNavigate: (path: string) => void;
 }
 
-export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType<typeof html> | null {
-    const canvasRef = useRef<HTMLCanvasElement | null>(null);
-    const chartRef = useRef<Chart | null>(null);
-    const containerRef = useRef<HTMLDivElement | null>(null);
-    const panelRef = useRef<HTMLDivElement | null>(null);
+function useThemeObserver(): string {
     const [chartTheme, setChartTheme] = useState(() => document.documentElement.getAttribute('data-theme') || 'light');
-    const [selectedRun, setSelectedRun] = useState<SelectedRun | null>(null);
 
-    const { canPanLeft, canPanRight, configurePan } = usePanState(canvasRef);
-
-    const clearSelection = useCallback(() => {
-        setSelectedRun(null);
-        if (chartRef.current) {
-            chartRef.current.setActiveElements([]);
-            chartRef.current.update('none');
-        }
-    }, []);
-
-    // Theme observer
     useEffect(() => {
         const observer = new MutationObserver(() => {
             const t = document.documentElement.getAttribute('data-theme') || 'light';
             setChartTheme(t);
         });
         observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-
         return () => { observer.disconnect(); };
     }, []);
 
-    // Dismiss on Escape key
+    return chartTheme;
+}
+
+function useEscapeDismiss(selectedRun: SelectedRun | null, clearSelection: () => void): void {
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape' && selectedRun) {
@@ -75,8 +61,14 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
         document.addEventListener('keydown', handleKeyDown);
         return () => document.removeEventListener('keydown', handleKeyDown);
     }, [selectedRun, clearSelection]);
+}
 
-    // Dismiss on click outside chart + panel
+function useClickOutsideDismiss(
+    selectedRun: SelectedRun | null,
+    canvasRef: { current: HTMLCanvasElement | null },
+    panelRef: { current: HTMLDivElement | null },
+    clearSelection: () => void,
+): void {
     useEffect(() => {
         if (!selectedRun) return undefined;
 
@@ -91,7 +83,6 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
             clearSelection();
         };
 
-        // Delay to avoid catching the same click that set the selection
         const timer = setTimeout(() => {
             document.addEventListener('click', handleClickOutside);
         }, 0);
@@ -101,6 +92,47 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
             document.removeEventListener('click', handleClickOutside);
         };
     }, [selectedRun, clearSelection]);
+}
+
+function buildSelectedRun(entry: ReportHistoryEntry, index: number): SelectedRun {
+    const { failedCount, skippedCount } = computeRunMetrics(entry);
+    return {
+        runId: entry.timestamp,
+        index,
+        label: formatRunLabel(entry.label, entry.timestamp),
+        timestamp: formatTimestamp(entry.timestamp),
+        metrics: {
+            passed: entry.outcomes.passed,
+            failed: failedCount,
+            skipped: skippedCount,
+            fastest: formatDuration(entry.fastest),
+            slowest: formatDuration(entry.slowest),
+            average: formatDuration(entry.average),
+            total: formatDuration(entry.duration),
+        },
+    };
+}
+
+export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType<typeof html> | null {
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const chartRef = useRef<Chart | null>(null);
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const panelRef = useRef<HTMLDivElement | null>(null);
+    const [selectedRun, setSelectedRun] = useState<SelectedRun | null>(null);
+
+    const chartTheme = useThemeObserver();
+    const { canPanLeft, canPanRight, configurePan } = usePanState(canvasRef);
+
+    const clearSelection = useCallback(() => {
+        setSelectedRun(null);
+        if (chartRef.current) {
+            chartRef.current.setActiveElements([]);
+            chartRef.current.update('none');
+        }
+    }, []);
+
+    useEscapeDismiss(selectedRun, clearSelection);
+    useClickOutsideDismiss(selectedRun, canvasRef, panelRef, clearSelection);
 
     // Create/recreate chart
     useEffect(() => {
@@ -112,30 +144,13 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
 
             const index = elements[0].index;
             const entry = history[index];
-            const { failedCount, skippedCount } = computeRunMetrics(entry);
-
-            const run: SelectedRun = {
-                runId: entry.timestamp,
-                index,
-                label: formatRunLabel(entry.label, entry.timestamp),
-                timestamp: formatTimestamp(entry.timestamp),
-                metrics: {
-                    passed: entry.outcomes.passed,
-                    failed: failedCount,
-                    skipped: skippedCount,
-                    fastest: formatDuration(entry.fastest),
-                    slowest: formatDuration(entry.slowest),
-                    average: formatDuration(entry.average),
-                    total: formatDuration(entry.duration),
-                },
-            };
+            const run = buildSelectedRun(entry, index);
             setSelectedRun(run);
 
-            // Highlight the selected bar
             if (chartRef.current) {
                 const activeElements = chartRef.current.data.datasets
                     .map((_ds, datasetIndex) => ({ datasetIndex, index }))
-                    .filter((_element, i) => i < 3); // Only the stacked bar datasets
+                    .filter((_element, i) => i < 3);
                 chartRef.current.setActiveElements(activeElements);
                 chartRef.current.update('none');
             }

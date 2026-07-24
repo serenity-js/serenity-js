@@ -15,6 +15,64 @@ interface StickyHeaderResult {
     parentRefCallback: (node: HTMLElement | null) => void;
 }
 
+interface HeaderPosition<H> {
+    index: number;
+    start: number;
+    item: H;
+}
+
+export function computeHeaderPositions<H extends { type: string }>(
+    flatItems: ReadonlyArray<H>,
+    firstHeaderHeight: number,
+    headerHeight: number,
+    rowHeight: number,
+): Array<HeaderPosition<H>> {
+    const headerStarts: Array<HeaderPosition<H>> = [];
+    let position = 0;
+    for (let i = 0; i < flatItems.length; i++) {
+        if (flatItems[i].type === 'header') {
+            headerStarts.push({ index: i, start: position, item: flatItems[i] });
+        }
+        const itemHeaderHeight = i === 0 ? firstHeaderHeight : headerHeight;
+        position += flatItems[i].type === 'header' ? itemHeaderHeight : rowHeight;
+    }
+    return headerStarts;
+}
+
+export function findActiveHeader<H>(
+    scrollTop: number,
+    headerStarts: ReadonlyArray<HeaderPosition<H>>,
+): HeaderPosition<H> | null {
+    let activeHeader: HeaderPosition<H> | null = null;
+    for (const header of headerStarts) {
+        if (header.start <= scrollTop) activeHeader = header;
+        else break;
+    }
+    return activeHeader;
+}
+
+export function updateStickyElement<H extends { type: string }>(
+    stickyElement: HTMLDivElement,
+    activeHeader: HeaderPosition<H> | null,
+    firstHeaderHeight: number,
+    headerHeight: number,
+    scrollTop: number,
+    renderContent: (element: HTMLDivElement, item: H) => void,
+    currentKey: { value: string },
+): void {
+    const activeHeaderHeight = activeHeader && activeHeader.index === 0 ? firstHeaderHeight : headerHeight;
+    if (!activeHeader || scrollTop <= activeHeader.start + activeHeaderHeight) {
+        stickyElement.style.display = 'none';
+        return;
+    }
+    stickyElement.style.display = 'block';
+    const key = JSON.stringify(activeHeader.item);
+    if (currentKey.value !== key) {
+        currentKey.value = key;
+        renderContent(stickyElement, activeHeader.item);
+    }
+}
+
 export function useStickyHeader<H extends { type: string }>(options: StickyHeaderOptions<H>): StickyHeaderResult {
     const { parentRef, id, flatItems, enabled, headerHeight, firstHeaderHeight, rowHeight, renderContent } = options;
 
@@ -44,36 +102,13 @@ export function useStickyHeader<H extends { type: string }>(options: StickyHeade
             return undefined;
         }
 
-        const headerStarts: Array<{ index: number; start: number; item: typeof flatItems[0] }> = [];
-        let position = 0;
-        for (let i = 0; i < flatItems.length; i++) {
-            if (flatItems[i].type === 'header') {
-                headerStarts.push({ index: i, start: position, item: flatItems[i] });
-            }
-            const itemHeaderHeight = i === 0 ? firstHeaderHeight : headerHeight;
-            position += flatItems[i].type === 'header' ? itemHeaderHeight : rowHeight;
-        }
-
-        let currentKey = '';
+        const headerStarts = computeHeaderPositions(flatItems, firstHeaderHeight, headerHeight, rowHeight);
+        const currentKey = { value: '' };
 
         const onScroll = (): void => {
             const scrollTop = element.scrollTop;
-            let activeHeader: typeof headerStarts[0] | null = null;
-            for (const header of headerStarts) {
-                if (header.start <= scrollTop) activeHeader = header;
-                else break;
-            }
-            const activeHeaderHeight = activeHeader && activeHeader.index === 0 ? firstHeaderHeight : headerHeight;
-            if (!activeHeader || scrollTop <= activeHeader.start + activeHeaderHeight) {
-                stickyElement.style.display = 'none';
-                return;
-            }
-            stickyElement.style.display = 'block';
-            const key = JSON.stringify(activeHeader.item);
-            if (currentKey !== key) {
-                currentKey = key;
-                renderContent(stickyElement, activeHeader.item);
-            }
+            const activeHeader = findActiveHeader(scrollTop, headerStarts);
+            updateStickyElement(stickyElement, activeHeader, firstHeaderHeight, headerHeight, scrollTop, renderContent, currentKey);
         };
 
         element.addEventListener('scroll', onScroll, { passive: true });
