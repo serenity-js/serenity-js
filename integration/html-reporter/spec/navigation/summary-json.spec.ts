@@ -64,5 +64,12 @@ describe('Report', () => {
                 Ensure.that(LastResponse.body<{ scores: { confidence: number } }>().scores.confidence, equals(82.5)),
             );
         });
+
+        it('omits per-module breakdown for single-module runs', async ({ actor }) => {
+            await actor.attemptsTo(
+                Send.a(GetRequest.to('/summary.json')),
+                Ensure.that(LastResponse.body<{ modules: unknown }>().modules, equals(undefined)),
+            );
+        });
     });
 });

@@ -149,6 +149,9 @@ export class TestRunArchiver implements StageCrewMember {
         if (this.resolvedTestRunId) {
             placeholder.testRunId = this.resolvedTestRunId;
         }
+        if (this.moduleId) {
+            placeholder.moduleId = this.moduleId;
+        }
         if (this.attempt) {
             placeholder.attempt = this.attempt;
         }
@@ -189,6 +192,7 @@ export class TestRunArchiver implements StageCrewMember {
             });
 
             runData.testRunId = this.resolvedTestRunId;
+            runData.moduleId = this.moduleId;
             runData.attempt = this.artifactWriter.getAttempt();
             this.runDataWriter.write(runData, this.artifactWriter.getRunDirectory());
 

@@ -209,6 +209,9 @@ export class DataSnapshotAggregator {
     }
 
     private deriveModuleId(run: RunData, index: number): string {
+        if (run.moduleId) {
+            return run.moduleId;
+        }
         if (run.systemContext?.projectName) {
             return run.systemContext.projectName;
         }

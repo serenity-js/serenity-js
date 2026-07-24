@@ -52,6 +52,17 @@ export const SummaryScoresSchema = z.object({
     consistency: z.number().min(0).max(100).describe('Outcome repeatability across runs'),
 }).describe('Composite quality scores (0–100)');
 
+export const SummaryModuleSchema = z.object({
+    id: z.string().describe('Module identifier (e.g. "@integration/playwright-web")'),
+    outcome: z.enum(['passed', 'failed', 'incomplete']).describe('Overall module outcome'),
+    tests: z.number().int().min(0).describe('Number of test scenarios in this module'),
+    passed: z.number().int().min(0).describe('Number of passing scenarios'),
+    failed: z.number().int().min(0).describe('Number of failing scenarios (failed + error + compromised)'),
+    duration: z.number().int().min(0).optional().describe('Module execution duration in milliseconds'),
+    startedAt: z.string().describe('ISO 8601 timestamp when the module started'),
+    finishedAt: z.string().optional().describe('ISO 8601 timestamp when the module finished (absent for incomplete modules)'),
+}).describe('Per-module outcome summary');
+
 export const ReportSummaryJsonSchema = z.object({
     generated: z.string().datetime().describe('ISO 8601 timestamp when this summary was generated'),
     title: z.string().describe('Report title (from config or auto-detected)'),
@@ -61,6 +72,7 @@ export const ReportSummaryJsonSchema = z.object({
     failureClusters: z.array(FailureClusterSchema).describe('Failures grouped by error fingerprint. Empty array when all tests pass.'),
     consistency: SummaryConsistencySchema,
     scores: SummaryScoresSchema,
+    modules: z.array(SummaryModuleSchema).optional().describe('Per-module breakdown of the latest run. Present when the run was aggregated from multiple modules.'),
 }).describe('Machine-readable summary of an aggregated Serenity/JS HTML test report');
 
 // ===== TypeScript types (inferred from Zod) =====
@@ -73,3 +85,4 @@ export type FailureClusterScenario = z.infer<typeof FailureClusterScenarioSchema
 export type ConsistencyScenarioRef = z.infer<typeof ConsistencyScenarioRefSchema>;
 export type SummaryConsistency = z.infer<typeof SummaryConsistencySchema>;
 export type SummaryScores = z.infer<typeof SummaryScoresSchema>;
+export type SummaryModule = z.infer<typeof SummaryModuleSchema>;

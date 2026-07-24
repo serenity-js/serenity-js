@@ -163,6 +163,39 @@ test.describe('HtmlReporter', () => {
             expect(content.testRunner).toEqual({ name: 'Playwright', version: '1.50.0' });
         });
 
+        test('stores explicit moduleId in placeholder and final db.json', () => {
+            const filesystem = createFsFromVolume(Volume.fromNestedJSON({
+                [outputDirectory.value]: {},
+            }, '/')) as unknown as typeof fs;
+
+            const outputFileSystem = new FileSystem(outputDirectory, filesystem);
+            const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
+            const artifactWriter = new ArtifactWriter(outputFileSystem);
+            const sceneDataCollector = new SceneDataCollector();
+            const runDataWriter = new RunDataWriter(outputFileSystem);
+            const systemContextDetector = new SystemContextDetector(new CIDetector({}), new ModuleLoader(process.cwd()));
+
+            const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId: '100', moduleId: 'webdriverio-8-web-devtools', attempt: 1 }, stage);
+            const aggregator = new DataSnapshotAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), rootFileSystem, rootFileSystem);
+            const templateWriter = new ReportTemplateWriter(outputFileSystem);
+            const reporter = new HtmlReporter(archiver, new HtmlReportGenerator(aggregator, templateWriter, stage));
+
+            stage.assign(reporter);
+
+            stage.announce(new TestRunStarts(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
+
+            // Placeholder should include moduleId
+            const runDir = findRunDirectory(filesystem, '100') + '/webdriverio-8-web-devtools-1';
+            const placeholderContent = JSON.parse(filesystem.readFileSync(runDir + '/db.json', 'utf8') as string);
+            expect(placeholderContent.moduleId).toBe('webdriverio-8-web-devtools');
+
+            stage.announce(new TestRunFinishes(new Timestamp(new Date('2024-06-15T14:30:01.000Z'))));
+
+            // Final db.json should also include moduleId
+            const finalContent = JSON.parse(filesystem.readFileSync(runDir + '/db.json', 'utf8') as string);
+            expect(finalContent.moduleId).toBe('webdriverio-8-web-devtools');
+        });
+
         test('emits AsyncOperationAttempted before report generation on TestRunFinishes', () => {
             const { reporter } = createReporter();
             

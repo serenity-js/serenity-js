@@ -36,6 +36,7 @@ export function isoTimestamp(value: string): ISOTimestamp {
 export interface RunData {
     schemaVersion: number;
     testRunId?: string;
+    moduleId?: string;     // Explicit module identifier from config or auto-detected
     attempt?: number;      // 1-based CI job attempt number. Default: 1
     startedAt: string;
     finishedAt?: string;

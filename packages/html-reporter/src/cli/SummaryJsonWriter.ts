@@ -51,6 +51,7 @@ export class SummaryJsonWriter {
             failureClusters,
             consistency,
             scores,
+            ...this.buildModules(data),
         };
     }
 
@@ -104,6 +105,32 @@ export class SummaryJsonWriter {
             completeness: round1(completeness),
             consistency: round1(consistency),
             confidence: round1(confidence),
+        };
+    }
+
+    private buildModules(data: ReportData): { modules?: Array<{ id: string; outcome: 'passed' | 'failed' | 'incomplete'; tests: number; passed: number; failed: number; duration?: number; startedAt: string; finishedAt?: string }> } {
+        const latestEntry = data.history.length > 0 ? data.history[data.history.length - 1] : undefined;
+        if (!latestEntry?.modules || latestEntry.modules.length <= 1) {
+            return {};
+        }
+
+        return {
+            modules: latestEntry.modules.map(m => {
+                const tests = m.outcomes ? Object.values(m.outcomes).reduce((a, b) => a + b, 0) : 0;
+                const failed = m.outcomes ? (m.outcomes.failed || 0) + (m.outcomes.error || 0) + (m.outcomes.compromised || 0) : 0;
+                const duration = m.finishedAt ? new Date(m.finishedAt).getTime() - new Date(m.startedAt).getTime() : undefined;
+
+                return {
+                    id: m.moduleId,
+                    outcome: (m.outcome || 'passed') as 'passed' | 'failed' | 'incomplete',
+                    tests,
+                    passed: m.outcomes?.passed || 0,
+                    failed,
+                    ...(duration !== undefined ? { duration } : {}),
+                    startedAt: m.startedAt,
+                    ...(m.finishedAt ? { finishedAt: m.finishedAt } : {}),
+                };
+            }),
         };
     }
 }
