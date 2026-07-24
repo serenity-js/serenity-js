@@ -103,7 +103,7 @@ export const config: WebdriverIOConfig = {
             SerenityBDDReporter.fromJSON({
                 specDirectory: '.'
             }),
-            TestRunArchiver.fromJSON({ outputDirectory: './target/html-report' }),
+            TestRunArchiver.fromJSON({ outputDirectory: './target/html-report', moduleId: `webdriverio-8-web-${protocol}` }),
         ]
     },
 
