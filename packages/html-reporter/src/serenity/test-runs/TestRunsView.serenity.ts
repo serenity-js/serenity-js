@@ -62,12 +62,33 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
 
     clickChart = (): Task =>
         Task.where('#actor clicks the trend chart',
+            Interaction.where('#actor clicks the last bar in the chart', async actor => {
+                const element = await actor.answer(this.chartCanvas);
+                const nativeLocator = await element.nativeElement() as any;
+                const box = await nativeLocator.boundingBox();
+                const count = await actor.answer(this.runRows.count());
+                if (box && count > 0) {
+                    const barIndex = count - 1;
+                    const plotLeft = box.width * 0.10;
+                    const plotWidth = box.width * 0.80;
+                    const x = plotLeft + plotWidth * (barIndex + 0.5) / count;
+                    await nativeLocator.click({ position: { x, y: box.height * 0.5 } });
+                }
+            }),
+        );
+
+    clickChartBar = (barIndex: number): Task =>
+        Task.where(`#actor clicks bar ${barIndex} in the trend chart`,
             Interaction.where('#actor clicks the chart canvas', async actor => {
                 const element = await actor.answer(this.chartCanvas);
                 const nativeLocator = await element.nativeElement() as any;
                 const box = await nativeLocator.boundingBox();
-                if (box) {
-                    await nativeLocator.click({ position: { x: box.width * 0.75, y: box.height * 0.5 } });
+                const count = await actor.answer(this.runRows.count());
+                if (box && count > 0) {
+                    const plotLeft = box.width * 0.10;
+                    const plotWidth = box.width * 0.80;
+                    const x = plotLeft + plotWidth * (barIndex + 0.5) / count;
+                    await nativeLocator.click({ position: { x, y: box.height * 0.5 } });
                 }
             }),
         );

@@ -18,3 +18,4 @@ They're grouped around four themes:
 - **Tracking stability** — retry detection, flaky test identification, execution history
 - **Understanding quality** — pass rates, outcome distribution, capability health
 - **Navigating and sharing** — deep links, filtering, search, cross-referencing evidence
+- **Detecting incomplete runs** — CI crashes surfaced with ⚠️ indicators in trend chart, run selector, and module table

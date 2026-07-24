@@ -27,3 +27,4 @@ The tests tagged [`@showcase`](https://serenity-js.github.io/serenity-js/?route=
 - Virtual scrolling for large datasets (5000+ scenarios)
 - HTTP request/response visualisation in the activity tree
 - Data artifact rendering (LogEntry, TextData, JSONData)
+- Incomplete run detection — CI crashes surfaced with ⚠️ indicators in trend chart, run selector, and dashboard

@@ -24,8 +24,11 @@ export function RunSelector({ activeTimestamp, history, onRunChange, isHistorica
     <div class=${wrapperClass}>
         <select class=${selectClass} value=${activeTimestamp} onChange=${onRunChange} aria-label=${ariaLabel}>
             ${[...history].reverse().map((run) => {
+                const hasIncompleteModules = run.modules?.some(m => !m.finishedAt);
                 const passRate = Math.round((run.outcomes.passed / ((run.outcomes.passed || 0) + totalFailedCount(run.outcomes) + (run.outcomes.pending || 0) + (run.outcomes.skipped || 0))) * 100);
-                const label = formatRunLabel(run.label, run.timestamp) + ' — ' + passRate + '% pass rate';
+                const prefix = hasIncompleteModules ? '⚠️ ' : '';
+                const suffix = hasIncompleteModules ? ' (incomplete)' : ' — ' + passRate + '% pass rate';
+                const label = prefix + formatRunLabel(run.label, run.timestamp) + suffix;
                 return html`<option value=${run.timestamp} selected=${run.timestamp === activeTimestamp}>${label}</option>`;
             })}
         </select>

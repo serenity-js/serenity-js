@@ -127,6 +127,42 @@ test.describe('HtmlReporter', () => {
             expect(hasMatchingDirectory).toBe(true);
         });
 
+        test('writes placeholder db.json on TestRunStarts with startedAt but no finishedAt', () => {
+            const { reporter, filesystem } = createReporter();
+
+            stage.assign(reporter);
+
+            stage.announce(new TestRunStarts(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
+
+            const databaseJsonPath = findRunDirectory(filesystem, '2024-06-15T14-30-00.000Z') + '/db.json';
+            expect(filesystem.existsSync(databaseJsonPath)).toBe(true);
+
+            const content = JSON.parse(filesystem.readFileSync(databaseJsonPath, 'utf8') as string);
+            expect(content.startedAt).toBe('2024-06-15T14:30:00.000Z');
+            expect(content.finishedAt).toBeUndefined();
+            expect(content.schemaVersion).toBe(1);
+            expect(content.scenes).toEqual([]);
+            expect(content.outcomes).toEqual({ passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 });
+            expect(content.systemContext).toBeDefined();
+            expect(content.testRunner).toBeUndefined();
+        });
+
+        test('overwrites placeholder with full db.json on TestRunFinishes including finishedAt', () => {
+            const { reporter, filesystem } = createReporter();
+
+            stage.assign(reporter);
+
+            stage.announce(new TestRunStarts(new Timestamp(new Date('2024-06-15T14:30:00.000Z'))));
+            stage.announce(new TestRunnerDetected(CorrelationId.create(), new Name('Playwright'), new Version('1.50.0'), new Timestamp(new Date('2024-06-15T14:30:00.100Z'))));
+            stage.announce(new TestRunFinishes(new Timestamp(new Date('2024-06-15T14:30:01.000Z'))));
+
+            const databaseJsonPath = findRunDirectory(filesystem, '2024-06-15T14-30-00.000Z') + '/db.json';
+            const content = JSON.parse(filesystem.readFileSync(databaseJsonPath, 'utf8') as string);
+            expect(content.startedAt).toBe('2024-06-15T14:30:00.000Z');
+            expect(content.finishedAt).toBeDefined();
+            expect(content.testRunner).toEqual({ name: 'Playwright', version: '1.50.0' });
+        });
+
         test('emits AsyncOperationAttempted before report generation on TestRunFinishes', () => {
             const { reporter } = createReporter();
             

@@ -145,6 +145,31 @@ When overlapping scenes appear in the same attempt group:
 - Different outcome → record as retry attempt
 - Same outcome → keep the later version, skip duplicate
 
+### Incomplete Run Detection (Crash Recovery)
+
+Detects when a CI runner crashes before `TestRunFinishes` fires, using a two-phase write pattern:
+
+1. **On `TestRunStarts`:** write a placeholder `db.json` with `startedAt`, empty `scenes[]`, and `systemContext` — but
+   no `finishedAt` and no `testRunner`
+2. **On `TestRunFinishes`:** overwrite with the full `db.json` including `finishedAt`
+
+If the process crashes between steps 1 and 2, the placeholder persists. During aggregation, `db.json` files without
+`finishedAt` are classified as incomplete modules.
+
+**Data model:**
+- `RunData.finishedAt` and `RunData.testRunner` are optional (absent in placeholders)
+- `RunData.modules`: `Array<{ moduleId, startedAt, finishedAt?, outcome?, outcomes? }>` — tracks per-module completion
+- `ReportHistoryEntry.modules` passes through to the client for UI rendering
+
+**UI indicators:**
+- ⚠️ prefix on trend chart x-axis labels for runs with incomplete modules
+- Warning icon + "(incomplete)" suffix in RunSelector dropdown entries
+- Module table in TrendChartDetails showing per-module status (✅/❌/⚠️)
+- Ambient banner on Dashboard when the latest run is incomplete
+
+**Rule:** `finishedAt` absence is the sole signal — no separate `status` field. A `db.json` without `finishedAt` is
+valid, not a schema error.
+
 ## Component Patterns
 
 ### Extraction Cycle

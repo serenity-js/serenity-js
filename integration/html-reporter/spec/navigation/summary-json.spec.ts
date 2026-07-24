@@ -27,7 +27,7 @@ describe('Report', () => {
                 Send.a(GetRequest.to('/summary.json')),
                 Ensure.that(LastResponse.body<{ title: string }>().title, equals('Test Project')),
                 Ensure.that(LastResponse.body<{ schemaVersion: number }>().schemaVersion, equals(1)),
-                Ensure.that(LastResponse.body<{ runs: number }>().runs, equals(2)),
+                Ensure.that(LastResponse.body<{ runs: number }>().runs, equals(3)),
             );
         });
 

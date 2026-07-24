@@ -76,14 +76,19 @@ export function buildHistory(allRuns: RunData[]): ReportHistoryEntry[] {
         const runsUpToHere = allRuns.slice(0, index + 1);
         const consistency = computeConsistencyAtRun(runsUpToHere);
 
+        const duration = run.finishedAt
+            ? new Date(run.finishedAt).getTime() - new Date(run.startedAt).getTime()
+            : 0;
+
         return {
             timestamp: run.startedAt,
-            duration: new Date(run.finishedAt).getTime() - new Date(run.startedAt).getTime(),
+            duration,
             outcomes: run.outcomes,
             label: resolveRunLabel(run),
             ...computeDurationStats(run.scenes),
             ...extractCiMetadata(run),
             score: computeRunScore(passRate, completeness, consistency),
+            ...(run.modules ? { modules: run.modules } : {}),
         };
     });
 }

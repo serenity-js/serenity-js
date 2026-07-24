@@ -38,12 +38,13 @@ export interface RunData {
     testRunId?: string;
     attempt?: number;      // 1-based CI job attempt number. Default: 1
     startedAt: string;
-    finishedAt: string;
+    finishedAt?: string;
     outcomes: OutcomeCounts;
     scenes: SceneRecord[];
     tags: TagRecord[];
-    testRunner: { name: string; version: string };
+    testRunner?: { name: string; version: string };
     systemContext: SystemContext;
+    modules?: Array<{ moduleId: string; startedAt: string; finishedAt?: string; outcome?: 'passed' | 'failed' | 'incomplete'; outcomes?: OutcomeCounts }>;
 }
 
 export interface OutcomeCounts {

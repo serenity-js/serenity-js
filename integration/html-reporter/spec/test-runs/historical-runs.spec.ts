@@ -12,7 +12,32 @@ describe('Test Runs', () => {
                 testRunsView.open(),
 
                 Ensure.that(testRunsView.hasTrendChart(), equals(true)),
-                Ensure.that(testRunsView.runCount(), equals(2)),
+                Ensure.that(testRunsView.runCount(), equals(3)),
+            );
+        });
+
+        it('shows a warning icon for an incomplete run in the run selector', { tag: '@showcase' }, async ({ actor, testRunsView, scenariosView }) => {
+            await actor.attemptsTo(
+                // Open the Test Runs view and verify the incomplete run is visible
+                testRunsView.open(),
+
+                // Click the incomplete run bar (first/leftmost) to open the details panel
+                testRunsView.clickChartBar(0),
+
+                // Verify the details panel shows module information
+                Ensure.that(testRunsView.hasDetailsPanel(), equals(true)),
+                Ensure.that(testRunsView.detailsPanelText(), includes('passing-module')),
+                Ensure.that(testRunsView.detailsPanelText(), includes('failing-module')),
+                Ensure.that(testRunsView.detailsPanelText(), includes('crashed-module')),
+                Ensure.that(testRunsView.detailsPanelText(), includes('incomplete')),
+
+                // Close the panel and navigate to the Scenarios view
+                testRunsView.dismissDetailsPanel(),
+                scenariosView.open(),
+
+                // Verify the RunSelector shows the warning for the incomplete run
+                Ensure.that(scenariosView.runSelectorText(), includes('⚠️')),
+                Ensure.that(scenariosView.runSelectorText(), includes('(incomplete)')),
             );
         });
 
@@ -33,6 +58,7 @@ describe('Test Runs', () => {
                 Ensure.that(testRunsView.hasDetailsPanel(), equals(true)),
                 Ensure.that(testRunsView.detailsPanelText(), includes('PASSED')),
                 Ensure.that(testRunsView.detailsPanelText(), includes('FAILED')),
+                Ensure.that(testRunsView.detailsPanelText(), includes('MODULE')),
             );
         });
 

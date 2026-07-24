@@ -20,6 +20,8 @@ import { ensure, isDefined } from 'tiny-types';
 import { ArtifactWriter } from './ArtifactWriter.js';
 import { CIDetector } from './CiDetector.js';
 import type { HtmlReporterConfig } from './HtmlReporterConfig.js';
+import type { RunData } from './model/RunData.js';
+import { CURRENT_RUN_DATA_SCHEMA_VERSION } from './model/RunData.js';
 import { RunDataWriter } from './RunDataWriter.js';
 import { SceneDataCollector } from './SceneDataCollector.js';
 import { SystemContextDetector } from './SystemContextDetector.js';
@@ -106,6 +108,7 @@ export class TestRunArchiver implements StageCrewMember {
         if (event instanceof TestRunStarts) {
             this.testRunTimestamp = event.timestamp.toISOString();
             this.ensureRunDirectoryExists();
+            this.writePlaceholder();
         }
 
         if (event instanceof TestRunnerDetected) {
@@ -131,6 +134,26 @@ export class TestRunArchiver implements StageCrewMember {
             this.ensureRunDirectoryExists();
             this.archiveTestRun();
         }
+    }
+
+    private writePlaceholder(): void {
+        const placeholder: RunData = {
+            schemaVersion: CURRENT_RUN_DATA_SCHEMA_VERSION,
+            startedAt: this.testRunTimestamp,
+            outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+            scenes: [],
+            tags: [],
+            systemContext: this.systemContextDetector.detect(),
+        };
+
+        if (this.resolvedTestRunId) {
+            placeholder.testRunId = this.resolvedTestRunId;
+        }
+        if (this.attempt) {
+            placeholder.attempt = this.attempt;
+        }
+
+        this.runDataWriter.write(placeholder, this.artifactWriter.getRunDirectory());
     }
 
     private ensureRunDirectoryExists(): void {

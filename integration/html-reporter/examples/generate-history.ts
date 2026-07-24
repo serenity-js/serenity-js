@@ -69,6 +69,62 @@ const previousRunDirectory = resolve(testRunsDirectory, '41');
 mkdirSync(previousRunDirectory, { recursive: true });
 writeFileSync(resolve(previousRunDirectory, 'db.json'), JSON.stringify(previousDatabase, undefined, 2), 'utf8');
 
+// Create a multi-module incomplete run (simulates a CI build where one module crashed)
+// Three modules sharing testRunId '40': one passed, one failed, one incomplete
+const incompleteTimestamp = new Date(new Date(previousTimestamp).getTime() - 86_400_000).toISOString(); // 1 day before historical run
+const incompleteFinished = new Date(new Date(incompleteTimestamp).getTime() + 120_000).toISOString(); // 2 min later
+
+const passingModuleDatabase = {
+    schemaVersion: latestDatabase.schemaVersion,
+    testRunId: '40',
+    startedAt: incompleteTimestamp,
+    finishedAt: incompleteFinished,
+    outcomes: { passed: 3, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+    scenes: [
+        { name: 'Module A test 1', category: 'Passing Module', outcome: { code: 64 }, duration: 100, startedAt: incompleteTimestamp, source: { path: 'passing-module/a.spec.ts', line: 1 }, tags: [], activities: [] },
+        { name: 'Module A test 2', category: 'Passing Module', outcome: { code: 64 }, duration: 150, startedAt: incompleteTimestamp, source: { path: 'passing-module/a.spec.ts', line: 10 }, tags: [], activities: [] },
+        { name: 'Module A test 3', category: 'Passing Module', outcome: { code: 64 }, duration: 200, startedAt: incompleteTimestamp, source: { path: 'passing-module/b.spec.ts', line: 1 }, tags: [], activities: [] },
+    ],
+    tags: [],
+    testRunner: { name: 'Playwright', version: '1.50.0' },
+    systemContext: { ...latestDatabase.systemContext, projectName: 'passing-module' },
+};
+
+const failingModuleDatabase = {
+    schemaVersion: latestDatabase.schemaVersion,
+    testRunId: '40',
+    startedAt: new Date(new Date(incompleteTimestamp).getTime() + 60_000).toISOString(),
+    finishedAt: new Date(new Date(incompleteTimestamp).getTime() + 180_000).toISOString(),
+    outcomes: { passed: 1, failed: 2, pending: 0, skipped: 0, compromised: 0, error: 0 },
+    scenes: [
+        { name: 'Module B test 1', category: 'Failing Module', outcome: { code: 64 }, duration: 100, startedAt: incompleteTimestamp, source: { path: 'failing-module/c.spec.ts', line: 1 }, tags: [], activities: [] },
+        { name: 'Module B test 2', category: 'Failing Module', outcome: { code: 4 }, duration: 200, startedAt: incompleteTimestamp, source: { path: 'failing-module/c.spec.ts', line: 10 }, tags: [], activities: [], error: { name: 'AssertionError', message: 'Expected value to match', stack: '' } },
+        { name: 'Module B test 3', category: 'Failing Module', outcome: { code: 4 }, duration: 150, startedAt: incompleteTimestamp, source: { path: 'failing-module/d.spec.ts', line: 1 }, tags: [], activities: [], error: { name: 'AssertionError', message: 'Assertion failed', stack: '' } },
+    ],
+    tags: [],
+    testRunner: { name: 'Playwright', version: '1.50.0' },
+    systemContext: { ...latestDatabase.systemContext, projectName: 'failing-module' },
+};
+
+const crashedModuleDatabase = {
+    schemaVersion: latestDatabase.schemaVersion,
+    testRunId: '40',
+    startedAt: new Date(new Date(incompleteTimestamp).getTime() + 30_000).toISOString(),
+    // No finishedAt — simulates a crashed runner
+    outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+    scenes: [],
+    tags: [],
+    systemContext: { ...latestDatabase.systemContext, projectName: 'crashed-module' },
+};
+
+const incompleteRunDirectory = resolve(testRunsDirectory, '40');
+mkdirSync(resolve(incompleteRunDirectory, 'passing-module-1'), { recursive: true });
+mkdirSync(resolve(incompleteRunDirectory, 'failing-module-1'), { recursive: true });
+mkdirSync(resolve(incompleteRunDirectory, 'crashed-module-1'), { recursive: true });
+writeFileSync(resolve(incompleteRunDirectory, 'passing-module-1', 'db.json'), JSON.stringify(passingModuleDatabase, undefined, 2), 'utf8');
+writeFileSync(resolve(incompleteRunDirectory, 'failing-module-1', 'db.json'), JSON.stringify(failingModuleDatabase, undefined, 2), 'utf8');
+writeFileSync(resolve(incompleteRunDirectory, 'crashed-module-1', 'db.json'), JSON.stringify(crashedModuleDatabase, undefined, 2), 'utf8');
+
 // Re-run aggregation using the html-reporter CLI
 const cliPath = resolve(__dirname, '../../../packages/html-reporter/bin/html-reporter.mjs');
 const specDirectory = resolve(__dirname, 'specs');
@@ -82,4 +138,5 @@ execSync([
 ].join(' '), { stdio: 'inherit' });
 
 console.log(`Generated historical run at ${previousTimestamp}`);
-console.log(`Re-aggregated data.js with ${runs.length + 1} runs`);
+console.log(`Generated incomplete run at ${incompleteTimestamp}`);
+console.log(`Re-aggregated data.js with ${runs.length + 2} runs`);

@@ -2568,4 +2568,83 @@ test.describe('DataSnapshotAggregator', () => {
             expect(data.specDirectory).toBe('features');
         });
     });
+
+    test.describe('incomplete run detection', () => {
+
+        test('includes a run with missing finishedAt in history with duration 0', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-15T14-30-00.000Z': {
+                        'db.json': JSON.stringify({
+                            schemaVersion: 1,
+                            startedAt: '2024-06-15T14:30:00.000Z',
+                            outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [],
+                            tags: [],
+                            systemContext: { nodeVersion: 'v22', os: { name: 'linux', version: '6', arch: 'x64' }, serenityVersion: '3.44.0', runtime: { provider: 'node', version: 'v22' } },
+                        }),
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            expect(data.history).toHaveLength(1);
+            expect(data.history[0].duration).toBe(0);
+            expect(data.history[0].timestamp).toBe('2024-06-15T14:30:00.000Z');
+        });
+
+        test('tracks modules with finishedAt in history when merging external runs', () => {
+            const filesystem = createMemFs({
+                '/source/test-runs/42/module-a-1': {
+                    'db.json': JSON.stringify({
+                        schemaVersion: 1, testRunId: '42',
+                        startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:05.000Z',
+                        outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                        scenes: [
+                            { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                            { name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T14:30:00.100Z', source: { path: 'a.spec.ts', line: 5 }, tags: [], activities: [] },
+                        ],
+                        tags: [],
+                        testRunner: { name: 'Playwright', version: '1.50.0' },
+                        systemContext: { nodeVersion: 'v22', os: { name: 'linux', version: '6', arch: 'x64' }, serenityVersion: '3.44.0', runtime: { provider: 'node', version: 'v22' }, projectName: 'module-a' },
+                    }),
+                },
+                '/source/test-runs/42/module-b-1': {
+                    'db.json': JSON.stringify({
+                        schemaVersion: 1, testRunId: '42',
+                        startedAt: '2024-06-15T14:30:00.000Z',
+                        outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                        scenes: [],
+                        tags: [],
+                        systemContext: { nodeVersion: 'v22', os: { name: 'linux', version: '6', arch: 'x64' }, serenityVersion: '3.44.0', runtime: { provider: 'node', version: 'v22' }, projectName: 'module-b' },
+                    }),
+                },
+                [outputDirectory.value]: {},
+            });
+
+            const fileSystem = new FileSystem(outputDirectory, filesystem);
+            const sourceFileSystem = new FileSystem(Path.from('/'), filesystem);
+            const projectFs = new FileSystem(Path.from('/'), filesystem);
+            const hierarchy = new RequirementsHierarchy(projectFs);
+            const aggregator = new DataSnapshotAggregator(fileSystem, { consistencyWindow: 5 }, hierarchy, projectFs, sourceFileSystem);
+
+            aggregator.aggregate([
+                '/source/test-runs/42/module-a-1/db.json',
+                '/source/test-runs/42/module-b-1/db.json',
+            ]);
+
+            const data = readDataJs(filesystem);
+            expect(data.history).toHaveLength(1);
+            expect(data.history[0].modules).toHaveLength(2);
+
+            const completeModule = data.history[0].modules.find(m => m.finishedAt);
+            const incompleteModule = data.history[0].modules.find(m => !m.finishedAt);
+            expect(completeModule.moduleId).toBe('module-a');
+            expect(completeModule.finishedAt).toBe('2024-06-15T14:30:05.000Z');
+            expect(incompleteModule.moduleId).toBe('module-b');
+            expect(incompleteModule.finishedAt).toBeUndefined();
+        });
+    });
 });

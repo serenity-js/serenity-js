@@ -60,7 +60,7 @@ export function buildSystemContext(latestRun: RunData): ReportSystemContext | un
         nodeVersion: latestRun.systemContext.nodeVersion,
         os: latestRun.systemContext.os,
         serenityVersion: String(latestRun.systemContext.serenityVersion),
-        testRunner: latestRun.testRunner,
+        testRunner: latestRun.testRunner || { name: 'unknown', version: '' },
         browsers: extractBrowsers(latestRun),
         ci: latestRun.systemContext.runtime,
         projectName: latestRun.systemContext.projectName,

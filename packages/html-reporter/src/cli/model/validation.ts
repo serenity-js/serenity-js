@@ -67,11 +67,19 @@ export function validateRunData(raw: unknown, sourcePath: string): RunData {
 
     // Required string fields
     assertString(object, 'startedAt', sourcePath);
-    assertString(object, 'finishedAt', sourcePath);
+
+    // Optional string fields (absent in placeholder db.json from incomplete runs)
+    // finishedAt: absent when the test process crashed before TestRunFinishes
+    // testRunner: absent when the test process crashed before TestRunnerDetected
+    if (object.finishedAt !== undefined && typeof object.finishedAt !== 'string') {
+        throw new InvalidRunDataError(sourcePath, 'field "finishedAt" must be a string when present');
+    }
+    if (object.testRunner !== undefined && (typeof object.testRunner !== 'object' || object.testRunner === null || Array.isArray(object.testRunner))) {
+        throw new InvalidRunDataError(sourcePath, 'field "testRunner" must be an object when present');
+    }
 
     // Required object fields
     assertObject(object, 'outcomes', sourcePath);
-    assertObject(object, 'testRunner', sourcePath);
 
     // Required array fields
     assertArray(object, 'scenes', sourcePath);

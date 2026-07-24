@@ -348,6 +348,21 @@ ISO timestamps (`2026-07-10T08:16:29.795Z`) contain colons which are invalid in:
 
 Always sanitise timestamps used as directory names: `.replaceAll(':', '-')` → `2026-07-10T08-16-29.795Z`. Keep the original ISO format for data fields (`startedAt`, `finishedAt`) — only sanitise when used as filesystem paths.
 
+## Two-phase db.json write detects crashed CI runs
+
+The `TestRunArchiver` uses a two-phase write to detect process crashes:
+
+1. **On `TestRunStarts`:** write a placeholder `db.json` with `startedAt`, empty `scenes[]`, `systemContext` — but no `finishedAt` and no `testRunner`
+2. **On `TestRunFinishes`:** overwrite with the full `db.json` including `finishedAt`
+
+If the CI runner crashes between steps 1 and 2, the placeholder persists on disk. During aggregation, `db.json` files without `finishedAt` are classified as incomplete modules and surfaced with ⚠️ indicators in the report.
+
+Key design decisions:
+- `finishedAt` absence is the **sole signal** for incomplete runs — no separate `status` field needed
+- A `db.json` without `finishedAt` is valid, not a schema error — `validateRunData` accepts it
+- The placeholder includes `systemContext` (detected synchronously) so the report can show environment info even for crashed runs
+- `RunData.testRunner` is also optional — it's populated later by `TestRunnerDetected`, which may never fire if the crash is early
+
 ## `detectTestRunId()` and `detectModuleId()` only appropriate for auto-detected CI environments
 
 When a user explicitly sets `testRunId` in the config, `detectModuleId()` should NOT fire. The module ID auto-detection creates subdirectories (`{testRunId}/{moduleId}-{attempt}/`) which breaks tools that expect `db.json` directly under `test-runs/{testRunId}/`.

@@ -161,6 +161,13 @@ export interface ReportHistoryEntry {
     ciJobUrl?: string;
     repositoryUrl?: string;
     score?: ReportHistoryScore;
+    modules?: Array<{
+        moduleId: string;
+        startedAt: string;
+        finishedAt?: string;
+        outcome?: 'passed' | 'failed' | 'incomplete';
+        outcomes?: ReportOutcomes;
+    }>;
 }
 
 export interface ReportHistoryScore {

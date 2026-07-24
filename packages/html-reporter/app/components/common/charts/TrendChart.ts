@@ -29,6 +29,20 @@ export interface SelectedRun {
         average: string;
         total: string;
     };
+    modules?: Array<{
+        moduleId: string;
+        startedAt: string;
+        finishedAt?: string;
+        outcome?: 'passed' | 'failed' | 'incomplete';
+        outcomes?: {
+            passed: number;
+            failed: number;
+            pending: number;
+            skipped: number;
+            compromised: number;
+            error: number;
+        };
+    }>;
 }
 
 export interface TrendChartProps {
@@ -110,6 +124,7 @@ function buildSelectedRun(entry: ReportHistoryEntry, index: number): SelectedRun
             average: formatDuration(entry.average),
             total: formatDuration(entry.duration),
         },
+        ...(entry.modules ? { modules: entry.modules } : {}),
     };
 }
 

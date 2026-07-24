@@ -175,6 +175,15 @@ export class DataSnapshotAggregator {
         const merged = new Map<string, RunData>();
 
         for (const [runId, runsInGroup] of groups) {
+            // Collect module metadata before merging
+            const modules = runsInGroup.map((run, index) => ({
+                moduleId: this.deriveModuleId(run, index),
+                startedAt: run.startedAt,
+                finishedAt: run.finishedAt,
+                outcome: this.deriveModuleOutcome(run),
+                outcomes: run.outcomes,
+            }));
+
             // Sub-group by attempt number (missing attempt defaults to 1)
             const byAttempt = new Map<number, RunData[]>();
             for (const run of runsInGroup) {
@@ -192,10 +201,26 @@ export class DataSnapshotAggregator {
 
             // Retry merge across attempts (in order)
             const finalRun = mergedByAttempt.reduce((previous, current) => mergeAsRetry(previous, current));
+            finalRun.modules = modules;
             merged.set(runId, finalRun);
         }
 
         return merged;
+    }
+
+    private deriveModuleId(run: RunData, index: number): string {
+        if (run.systemContext?.projectName) {
+            return run.systemContext.projectName;
+        }
+        return `module-${index + 1}`;
+    }
+
+    private deriveModuleOutcome(run: RunData): 'passed' | 'failed' | 'incomplete' {
+        if (!run.finishedAt) {
+            return 'incomplete';
+        }
+        const { failed = 0, error = 0, compromised = 0 } = run.outcomes;
+        return (failed + error + compromised) > 0 ? 'failed' : 'passed';
     }
 
     private persistMergedRuns(merged: Map<string, RunData>): void {
@@ -231,16 +256,20 @@ export class DataSnapshotAggregator {
     }
 
     private buildSummary(latestRun: RunData): { title: string; totalScenarios: number; outcomes: typeof latestRun.outcomes; duration: number; startedAt: string; finishedAt: string; testRunner: string } {
-        const duration = new Date(latestRun.finishedAt).getTime() - new Date(latestRun.startedAt).getTime();
+        const duration = latestRun.finishedAt
+            ? new Date(latestRun.finishedAt).getTime() - new Date(latestRun.startedAt).getTime()
+            : 0;
+
+        const testRunnerName = latestRun.testRunner?.name || 'unknown';
 
         return {
-            title: this.config.title || latestRun.testRunner.name,
+            title: this.config.title || testRunnerName,
             totalScenarios: latestRun.scenes.length,
             outcomes: latestRun.outcomes,
             duration,
             startedAt: latestRun.startedAt,
-            finishedAt: latestRun.finishedAt,
-            testRunner: latestRun.testRunner.name,
+            finishedAt: latestRun.finishedAt || latestRun.startedAt,
+            testRunner: testRunnerName,
         };
     }
 

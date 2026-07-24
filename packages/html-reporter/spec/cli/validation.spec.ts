@@ -183,13 +183,11 @@ test.describe('validateRunData', () => {
                 .toThrow(/startedAt/);
         });
 
-        test('throws when finishedAt is missing', () => {
+        test('accepts db.json without finishedAt (incomplete run placeholder)', () => {
             const { finishedAt: finishedAt_, ...withoutFinishedAt } = validMinimalRunData;
 
             expect(() => validateRunData(withoutFinishedAt, '/path/to/db.json'))
-                .toThrow(InvalidRunDataError);
-            expect(() => validateRunData(withoutFinishedAt, '/path/to/db.json'))
-                .toThrow(/finishedAt/);
+                .not.toThrow();
         });
 
         test('throws when outcomes is missing', () => {
@@ -219,13 +217,11 @@ test.describe('validateRunData', () => {
                 .toThrow(/tags/);
         });
 
-        test('throws when testRunner is missing', () => {
+        test('accepts db.json without testRunner (incomplete run placeholder)', () => {
             const { testRunner: testRunner_, ...withoutTestRunner } = validMinimalRunData;
 
             expect(() => validateRunData(withoutTestRunner, '/path/to/db.json'))
-                .toThrow(InvalidRunDataError);
-            expect(() => validateRunData(withoutTestRunner, '/path/to/db.json'))
-                .toThrow(/testRunner/);
+                .not.toThrow();
         });
     });
 

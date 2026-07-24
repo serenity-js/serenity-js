@@ -188,7 +188,7 @@ describe('TestRunsView', () => {
 
             await actor.attemptsTo(
                 view.clickChart(),
-                Ensure.that(view.detailsCtaText(), includes('Open run details')),
+                Ensure.that(view.detailsCtaText(), includes('Show test scenarios')),
             );
         });
 
