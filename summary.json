@@ -1,32 +1,53 @@
 {
-  "generated": "2026-07-24T00:40:14.472Z",
+  "generated": "2026-07-24T16:38:05.590Z",
   "title": "Serenity/JS Integration Tests",
   "schemaVersion": 1,
   "latestRun": {
-    "timestamp": "2026-07-24T00:28:13.176Z",
-    "label": "8320",
+    "timestamp": "2026-07-24T16:15:29.257Z",
+    "label": "8322",
     "totals": {
-      "passed": 1851,
-      "failed": 0,
+      "passed": 1835,
+      "failed": 1,
       "pending": 85,
       "skipped": 0,
       "compromised": 0,
       "error": 0
     },
-    "duration": 572727
+    "duration": 1145533
   },
   "runs": 5,
-  "failureClusters": [],
+  "failureClusters": [
+    {
+      "fingerprint": "AssertionError:expected-1-to-equal-+0",
+      "errorType": "AssertionError",
+      "message": "expected 1 to equal +0",
+      "scenarios": [
+        {
+          "name": "electron integration launches a fresh electron app instance per test for test-scoped actors",
+          "source": "playwright-test/spec/electron.spec.ts"
+        }
+      ]
+    }
+  ],
   "consistency": {
     "flaky": [],
     "inconsistent": [],
-    "degraded": [],
+    "degraded": [
+      {
+        "name": "electron integration launches a fresh electron app instance per test for test-scoped actors",
+        "source": "playwright-test/spec/electron.spec.ts"
+      },
+      {
+        "name": "electron integration launches a fresh electron app instance per test for test-scoped actors",
+        "source": "playwright-test/spec/electron.spec.ts"
+      }
+    ],
     "recovered": []
   },
   "scores": {
-    "passRate": 100,
+    "passRate": 99.9,
     "completeness": 95.6,
-    "consistency": 100,
+    "consistency": 99.9,
     "confidence": 98.9
   }
 }
