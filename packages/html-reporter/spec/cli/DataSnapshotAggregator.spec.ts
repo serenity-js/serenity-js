@@ -40,13 +40,33 @@ test.describe('DataSnapshotAggregator', () => {
         return JSON.parse(json) as ReportData;
     }
 
+    // Default system context for test fixtures
+    const defaultSystemContext = {
+        nodeVersion: 'v22.0.0',
+        os: { name: 'linux', version: '6.0.0', arch: 'x64' },
+        serenityVersion: '3.44.0',
+        runtime: { provider: 'node', version: 'v22.0.0' },
+    };
+
+    /**
+     * Creates a valid db.json string with sensible defaults.
+     * All fields can be overridden by passing them in the data parameter.
+     */
+    function runData(data: Record<string, unknown>): string {
+        return JSON.stringify({
+            schemaVersion: 1,
+            systemContext: defaultSystemContext,
+            ...data,
+        });
+    }
+
     test.describe('aggregation', () => {
 
         test('produces data.js from a single test run', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z',
                             finishedAt: '2024-06-15T14:30:01.000Z',
                             outcomes: { passed: 3, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -79,7 +99,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.100Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
@@ -100,7 +120,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-14T10:00:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.500Z',
                             outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [
@@ -111,7 +131,7 @@ test.describe('DataSnapshotAggregator', () => {
                         }),
                     },
                     '2024-06-15T14:30:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:01.000Z',
                             outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [
@@ -136,7 +156,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-14T10:00:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.500Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'Old Test', category: 'Suite', outcome: { code: 64 }, duration: 500, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'old.spec.ts', line: 1 }, tags: [], activities: [] }],
@@ -144,7 +164,7 @@ test.describe('DataSnapshotAggregator', () => {
                         }),
                     },
                     '2024-06-15T14:30:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.200Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'New Test', category: 'Suite', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'new.spec.ts', line: 1 }, tags: [], activities: [] }],
@@ -166,7 +186,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.100Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
@@ -186,7 +206,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.100Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
@@ -228,7 +248,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
                             outcomes: { passed: 2, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [
@@ -260,7 +280,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.100Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
@@ -289,7 +309,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
                             outcomes: { passed: 3, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [
@@ -325,7 +345,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-14T10:00:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.500Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [
@@ -335,7 +355,7 @@ test.describe('DataSnapshotAggregator', () => {
                         }),
                     },
                     '2024-06-15T14:30:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
                             outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [
@@ -366,7 +386,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
                             outcomes: { passed: 5, failed: 5, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [
@@ -409,9 +429,9 @@ test.describe('DataSnapshotAggregator', () => {
         test('retains only the most recent N test run directories when maxHistory is configured', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-06-13T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1, startedAt: '2024-06-13T10:00:00.000Z', finishedAt: '2024-06-13T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }), 'screenshot.png': 'old-data' },
-                    '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1, startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
-                    '2024-06-15T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1, startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    '2024-06-13T10:00:00.000Z': { 'db.json': runData({ startedAt: '2024-06-13T10:00:00.000Z', finishedAt: '2024-06-13T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }), 'screenshot.png': 'old-data' },
+                    '2024-06-14T10:00:00.000Z': { 'db.json': runData({ startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    '2024-06-15T10:00:00.000Z': { 'db.json': runData({ startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
                 },
             }, { maxHistory: 2 });
 
@@ -434,10 +454,10 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 // Simulate 4 historical runs already on gh-pages (output dir)
                 'test-runs': {
-                    'run-1': { 'db.json': JSON.stringify({ schemaVersion: 1, testRunId: 'run-1', startedAt: '2024-06-12T10:00:00.000Z', finishedAt: '2024-06-12T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-12T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
-                    'run-2': { 'db.json': JSON.stringify({ schemaVersion: 1, testRunId: 'run-2', startedAt: '2024-06-13T10:00:00.000Z', finishedAt: '2024-06-13T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
-                    'run-3': { 'db.json': JSON.stringify({ schemaVersion: 1, testRunId: 'run-3', startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
-                    'run-4': { 'db.json': JSON.stringify({ schemaVersion: 1, testRunId: 'run-4', startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    'run-1': { 'db.json': runData({ testRunId: 'run-1', startedAt: '2024-06-12T10:00:00.000Z', finishedAt: '2024-06-12T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-12T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    'run-2': { 'db.json': runData({ testRunId: 'run-2', startedAt: '2024-06-13T10:00:00.000Z', finishedAt: '2024-06-13T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    'run-3': { 'db.json': runData({ testRunId: 'run-3', startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    'run-4': { 'db.json': runData({ testRunId: 'run-4', startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
                 },
             }, { maxHistory: 3 });
 
@@ -463,9 +483,9 @@ test.describe('DataSnapshotAggregator', () => {
         test('identifies tests with mixed outcomes within the consistency window as inconsistent', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-06-13T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1, startedAt: '2024-06-13T10:00:00.000Z', finishedAt: '2024-06-13T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Unstable Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
-                    '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1, startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Unstable Test', category: 'Suite', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
-                    '2024-06-15T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1, startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Unstable Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    '2024-06-13T10:00:00.000Z': { 'db.json': runData({ startedAt: '2024-06-13T10:00:00.000Z', finishedAt: '2024-06-13T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Unstable Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    '2024-06-14T10:00:00.000Z': { 'db.json': runData({ startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Unstable Test', category: 'Suite', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    '2024-06-15T10:00:00.000Z': { 'db.json': runData({ startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Unstable Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
                 },
             }, { consistencyWindow: 5 });
 
@@ -479,8 +499,8 @@ test.describe('DataSnapshotAggregator', () => {
         test('does not flag a test as inconsistent if all outcomes within the consistency window are the same', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-06-13T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1, startedAt: '2024-06-13T10:00:00.000Z', finishedAt: '2024-06-13T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Stable Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
-                    '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1, startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Stable Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    '2024-06-13T10:00:00.000Z': { 'db.json': runData({ startedAt: '2024-06-13T10:00:00.000Z', finishedAt: '2024-06-13T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Stable Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-13T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    '2024-06-14T10:00:00.000Z': { 'db.json': runData({ startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Stable Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
                 },
             }, { consistencyWindow: 5 });
 
@@ -494,10 +514,10 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     // Old failure (outside window of 2)
-                    '2024-06-12T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1, startedAt: '2024-06-12T10:00:00.000Z', finishedAt: '2024-06-12T10:00:00.100Z', outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Test', category: 'S', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-12T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    '2024-06-12T10:00:00.000Z': { 'db.json': runData({ startedAt: '2024-06-12T10:00:00.000Z', finishedAt: '2024-06-12T10:00:00.100Z', outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Test', category: 'S', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-12T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
                     // Recent passes (inside window of 2)
-                    '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1, startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Test', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
-                    '2024-06-15T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1, startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Test', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    '2024-06-14T10:00:00.000Z': { 'db.json': runData({ startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Test', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    '2024-06-15T10:00:00.000Z': { 'db.json': runData({ startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Test', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
                 },
             }, { consistencyWindow: 2 });
 
@@ -511,7 +531,7 @@ test.describe('DataSnapshotAggregator', () => {
         test('does not classify tests as degraded when consistently pending across runs and source.line is undefined', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                    '2024-06-14T10:00:00.000Z': { 'db.json': runData({
                         startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.500Z',
                         outcomes: { passed: 2, failed: 0, pending: 2, skipped: 0, compromised: 0, error: 0 },
                         scenes: [
@@ -522,7 +542,7 @@ test.describe('DataSnapshotAggregator', () => {
                         ],
                         tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
                     }) },
-                    '2024-06-15T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                    '2024-06-15T10:00:00.000Z': { 'db.json': runData({
                         startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.500Z',
                         outcomes: { passed: 2, failed: 0, pending: 2, skipped: 0, compromised: 0, error: 0 },
                         scenes: [
@@ -549,11 +569,11 @@ test.describe('DataSnapshotAggregator', () => {
             // one inconsistent entry for chromium only, not a merged entry.
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-06-14T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1, startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [
+                    '2024-06-14T10:00:00.000Z': { 'db.json': runData({ startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [
                         { name: 'Login test', category: 'Auth', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'login.spec.ts', line: 5 }, tags: [{ type: 'project', name: 'chromium' }], activities: [] },
                         { name: 'Login test', category: 'Auth', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'login.spec.ts', line: 5 }, tags: [{ type: 'project', name: 'firefox' }], activities: [] },
                     ], tags: [], testRunner: { name: 'PW', version: '1.0.0' } }) },
-                    '2024-06-15T10:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1, startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z', outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [
+                    '2024-06-15T10:00:00.000Z': { 'db.json': runData({ startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z', outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [
                         { name: 'Login test', category: 'Auth', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'login.spec.ts', line: 5 }, tags: [{ type: 'project', name: 'chromium' }], activities: [] },
                         { name: 'Login test', category: 'Auth', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'login.spec.ts', line: 5 }, tags: [{ type: 'project', name: 'firefox' }], activities: [] },
                     ], tags: [], testRunner: { name: 'PW', version: '1.0.0' } }) },
@@ -576,7 +596,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
                             outcomes: { passed: 2, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [
@@ -608,7 +628,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-14T10:00:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }],
@@ -616,7 +636,7 @@ test.describe('DataSnapshotAggregator', () => {
                         }),
                     },
                     '2024-06-15T10:00:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z',
                             outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'T', category: 'S', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }],
@@ -641,7 +661,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
                             outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [
@@ -668,7 +688,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.100Z',
                             outcomes: { passed: 0, failed: 0, pending: 1, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{
@@ -712,8 +732,7 @@ test.describe('DataSnapshotAggregator', () => {
             filesystem.mkdirSync(testRunDirectory1, { recursive: true });
             filesystem.mkdirSync(testRunDirectory2, { recursive: true });
 
-            filesystem.writeFileSync(testRunDirectory1 + '/db.json', JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(testRunDirectory1 + '/db.json', runData({
                 testRunId: '42',
                 startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
                 outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -724,8 +743,7 @@ test.describe('DataSnapshotAggregator', () => {
                 tags: [{ type: 'tag', name: 'mocha' }], testRunner: { name: 'Mocha', version: '11.0.0' },
             }));
 
-            filesystem.writeFileSync(testRunDirectory2 + '/db.json', JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(testRunDirectory2 + '/db.json', runData({
                 testRunId: '42',
                 startedAt: '2024-06-15T14:30:01.000Z', finishedAt: '2024-06-15T14:30:01.400Z',
                 outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -758,8 +776,7 @@ test.describe('DataSnapshotAggregator', () => {
             // where Test A failed
             const ghPagesRunDirectory = '/source/gh-pages/test-runs/42';
             filesystem.mkdirSync(ghPagesRunDirectory, { recursive: true });
-            filesystem.writeFileSync(ghPagesRunDirectory + '/db.json', JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(ghPagesRunDirectory + '/db.json', runData({
                 testRunId: '42',
                 attempt: 1,
                 startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
@@ -774,8 +791,7 @@ test.describe('DataSnapshotAggregator', () => {
             // Simulate fresh module artifacts from attempt 3 (re-run) where Test A now passes
             const freshArtifactDirectory = '/source/module-a/test-runs/42';
             filesystem.mkdirSync(freshArtifactDirectory, { recursive: true });
-            filesystem.writeFileSync(freshArtifactDirectory + '/db.json', JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(freshArtifactDirectory + '/db.json', runData({
                 testRunId: '42',
                 attempt: 1,
                 startedAt: '2024-06-15T14:31:00.000Z', finishedAt: '2024-06-15T14:31:00.500Z',
@@ -823,8 +839,7 @@ test.describe('DataSnapshotAggregator', () => {
             // Same test appears in both gh-pages pre-merged and raw artifacts, both passing
             const ghPagesRunDirectory = '/source/gh-pages/test-runs/42';
             filesystem.mkdirSync(ghPagesRunDirectory, { recursive: true });
-            filesystem.writeFileSync(ghPagesRunDirectory + '/db.json', JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(ghPagesRunDirectory + '/db.json', runData({
                 testRunId: '42',
                 attempt: 1,
                 startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
@@ -838,8 +853,7 @@ test.describe('DataSnapshotAggregator', () => {
 
             const freshArtifactDirectory = '/source/module-a/test-runs/42';
             filesystem.mkdirSync(freshArtifactDirectory, { recursive: true });
-            filesystem.writeFileSync(freshArtifactDirectory + '/db.json', JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(freshArtifactDirectory + '/db.json', runData({
                 testRunId: '42',
                 attempt: 1,
                 startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.500Z',
@@ -874,7 +888,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     'run1': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:01.000Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{
@@ -899,7 +913,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     'run1': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:01.000Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{
@@ -924,7 +938,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     'run1': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:01.000Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{
@@ -961,7 +975,7 @@ test.describe('DataSnapshotAggregator', () => {
                 [outputDirectory.value]: {
                     'test-runs': {
                         'run1': {
-                            'db.json': JSON.stringify({ schemaVersion: 1,
+                            'db.json': runData({
                                 startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:01.000Z',
                                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                                 scenes: [{
@@ -994,7 +1008,7 @@ test.describe('DataSnapshotAggregator', () => {
         test('passes through retries count and attempts array in enriched scenarios', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                    '2024-01-01T00:00:00.000Z': { 'db.json': runData({
                         startedAt: '2024-01-01T00:00:00.000Z',
                         finishedAt: '2024-01-01T00:00:01.000Z',
                         outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1038,7 +1052,7 @@ test.describe('DataSnapshotAggregator', () => {
         test('includes per-run attempts in execution history only for runs that had retries', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                    '2024-01-01T00:00:00.000Z': { 'db.json': runData({
                         startedAt: '2024-01-01T00:00:00.000Z',
                         finishedAt: '2024-01-01T00:00:01.000Z',
                         outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1050,7 +1064,7 @@ test.describe('DataSnapshotAggregator', () => {
                         }],
                         tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
                     }) },
-                    '2024-01-02T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                    '2024-01-02T00:00:00.000Z': { 'db.json': runData({
                         startedAt: '2024-01-02T00:00:00.000Z',
                         finishedAt: '2024-01-02T00:00:01.000Z',
                         outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1097,7 +1111,7 @@ test.describe('DataSnapshotAggregator', () => {
         test('does not inflate scenario count for retried tests', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                    '2024-01-01T00:00:00.000Z': { 'db.json': runData({
                         startedAt: '2024-01-01T00:00:00.000Z',
                         finishedAt: '2024-01-01T00:00:01.000Z',
                         outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1126,7 +1140,7 @@ test.describe('DataSnapshotAggregator', () => {
         test('sets retriedAndPassed on execution history entries where outcome is SUCCESS but required retry', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                    '2024-01-01T00:00:00.000Z': { 'db.json': runData({
                         startedAt: '2024-01-01T00:00:00.000Z', finishedAt: '2024-01-01T00:00:01.000Z',
                         outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                         scenes: [{
@@ -1152,7 +1166,7 @@ test.describe('DataSnapshotAggregator', () => {
         test('does not set retriedAndPassed when test passed without retry', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                    '2024-01-01T00:00:00.000Z': { 'db.json': runData({
                         startedAt: '2024-01-01T00:00:00.000Z', finishedAt: '2024-01-01T00:00:01.000Z',
                         outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                         scenes: [{
@@ -1174,7 +1188,7 @@ test.describe('DataSnapshotAggregator', () => {
         test('does not set retriedAndPassed when test was retried but ultimately failed', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                    '2024-01-01T00:00:00.000Z': { 'db.json': runData({
                         startedAt: '2024-01-01T00:00:00.000Z', finishedAt: '2024-01-01T00:00:01.000Z',
                         outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                         scenes: [{
@@ -1200,7 +1214,7 @@ test.describe('DataSnapshotAggregator', () => {
         test('identifies a test that passed via retry as inconsistent (RETRIED_SUCCESS)', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                    '2024-01-01T00:00:00.000Z': { 'db.json': runData({
                         startedAt: '2024-01-01T00:00:00.000Z', finishedAt: '2024-01-01T00:00:01.000Z',
                         outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                         scenes: [{
@@ -1214,7 +1228,7 @@ test.describe('DataSnapshotAggregator', () => {
                         }],
                         tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
                     }) },
-                    '2024-01-02T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                    '2024-01-02T00:00:00.000Z': { 'db.json': runData({
                         startedAt: '2024-01-02T00:00:00.000Z', finishedAt: '2024-01-02T00:00:01.000Z',
                         outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                         scenes: [{
@@ -1239,7 +1253,7 @@ test.describe('DataSnapshotAggregator', () => {
         test('identifies a test that always passes via retry as inconsistent', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                    '2024-01-01T00:00:00.000Z': { 'db.json': runData({
                         startedAt: '2024-01-01T00:00:00.000Z', finishedAt: '2024-01-01T00:00:01.000Z',
                         outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                         scenes: [{
@@ -1253,7 +1267,7 @@ test.describe('DataSnapshotAggregator', () => {
                         }],
                         tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
                     }) },
-                    '2024-01-02T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                    '2024-01-02T00:00:00.000Z': { 'db.json': runData({
                         startedAt: '2024-01-02T00:00:00.000Z', finishedAt: '2024-01-02T00:00:01.000Z',
                         outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                         scenes: [{
@@ -1282,7 +1296,7 @@ test.describe('DataSnapshotAggregator', () => {
         test('does not count a retried pass as recovered in computeDegradedRecovered', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                    '2024-01-01T00:00:00.000Z': { 'db.json': runData({
                         startedAt: '2024-01-01T00:00:00.000Z', finishedAt: '2024-01-01T00:00:01.000Z',
                         outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
                         scenes: [{
@@ -1292,7 +1306,7 @@ test.describe('DataSnapshotAggregator', () => {
                         }],
                         tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
                     }) },
-                    '2024-01-02T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                    '2024-01-02T00:00:00.000Z': { 'db.json': runData({
                         startedAt: '2024-01-02T00:00:00.000Z', finishedAt: '2024-01-02T00:00:01.000Z',
                         outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                         scenes: [{
@@ -1319,7 +1333,7 @@ test.describe('DataSnapshotAggregator', () => {
         test('penalises retried passes in consistency score', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
-                    '2024-01-01T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                    '2024-01-01T00:00:00.000Z': { 'db.json': runData({
                         startedAt: '2024-01-01T00:00:00.000Z', finishedAt: '2024-01-01T00:00:01.000Z',
                         outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                         scenes: [
@@ -1333,7 +1347,7 @@ test.describe('DataSnapshotAggregator', () => {
                         ],
                         tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
                     }) },
-                    '2024-01-02T00:00:00.000Z': { 'db.json': JSON.stringify({ schemaVersion: 1,
+                    '2024-01-02T00:00:00.000Z': { 'db.json': runData({
                         startedAt: '2024-01-02T00:00:00.000Z', finishedAt: '2024-01-02T00:00:01.000Z',
                         outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                         scenes: [
@@ -1370,8 +1384,7 @@ test.describe('DataSnapshotAggregator', () => {
             // Create source directories with db.json + artifacts using the memfs
             const sourceDirectory = '/source/project-a/test-runs/2024-06-15T14:30:00.000Z';
             filesystem.mkdirSync(sourceDirectory, { recursive: true });
-            filesystem.writeFileSync(`${sourceDirectory}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${sourceDirectory}/db.json`, runData({
                 startedAt: '2024-06-15T14:30:00.000Z',
                 finishedAt: '2024-06-15T14:30:01.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1404,7 +1417,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14-30-00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z',
                             finishedAt: '2024-06-15T14:30:01.000Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1420,8 +1433,7 @@ test.describe('DataSnapshotAggregator', () => {
             // Source has a file with the same name
             const sourceDirectory = '/source/project-a/test-runs/2024-06-15T14:30:00.000Z';
             filesystem.mkdirSync(sourceDirectory, { recursive: true });
-            filesystem.writeFileSync(`${sourceDirectory}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${sourceDirectory}/db.json`, runData({
                 startedAt: '2024-06-15T14:30:00.000Z',
                 finishedAt: '2024-06-15T14:30:01.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1448,8 +1460,7 @@ test.describe('DataSnapshotAggregator', () => {
             // Source A
             const sourceDirectoryA = '/source/project-a/test-runs/2024-06-15T14:30:00.000Z';
             filesystem.mkdirSync(sourceDirectoryA, { recursive: true });
-            filesystem.writeFileSync(`${sourceDirectoryA}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${sourceDirectoryA}/db.json`, runData({
                 startedAt: '2024-06-15T14:30:00.000Z',
                 finishedAt: '2024-06-15T14:30:01.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1462,8 +1473,7 @@ test.describe('DataSnapshotAggregator', () => {
             // Source B (different timestamp)
             const sourceDirectoryB = '/source/project-b/test-runs/2024-06-16T10:00:00.000Z';
             filesystem.mkdirSync(sourceDirectoryB, { recursive: true });
-            filesystem.writeFileSync(`${sourceDirectoryB}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${sourceDirectoryB}/db.json`, runData({
                 startedAt: '2024-06-16T10:00:00.000Z',
                 finishedAt: '2024-06-16T10:00:02.000Z',
                 outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1490,8 +1500,7 @@ test.describe('DataSnapshotAggregator', () => {
             filesystem.mkdirSync(directoryA, { recursive: true });
             filesystem.mkdirSync(directoryB, { recursive: true });
 
-            filesystem.writeFileSync(`${directoryA}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directoryA}/db.json`, runData({
                 testRunId: 'run-42', attempt: 1,
                 startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:01.000Z',
                 outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1502,8 +1511,7 @@ test.describe('DataSnapshotAggregator', () => {
                 tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
             }));
 
-            filesystem.writeFileSync(`${directoryB}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directoryB}/db.json`, runData({
                 testRunId: 'run-42', attempt: 1,
                 startedAt: '2024-06-15T14:30:00.500Z', finishedAt: '2024-06-15T14:30:02.000Z',
                 outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1529,16 +1537,14 @@ test.describe('DataSnapshotAggregator', () => {
             filesystem.mkdirSync(directoryA, { recursive: true });
             filesystem.mkdirSync(directoryB, { recursive: true });
 
-            filesystem.writeFileSync(`${directoryA}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directoryA}/db.json`, runData({
                 testRunId: 'run-99', attempt: 1,
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:01.000Z',
                 outcomes: { passed: 3, failed: 1, pending: 1, skipped: 0, compromised: 0, error: 0 },
                 scenes: [], tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
             }));
 
-            filesystem.writeFileSync(`${directoryB}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directoryB}/db.json`, runData({
                 testRunId: 'run-99', attempt: 1,
                 startedAt: '2024-06-15T10:00:00.200Z', finishedAt: '2024-06-15T10:00:02.000Z',
                 outcomes: { passed: 2, failed: 0, pending: 0, skipped: 1, compromised: 0, error: 0 },
@@ -1562,8 +1568,7 @@ test.describe('DataSnapshotAggregator', () => {
             filesystem.mkdirSync(directoryA, { recursive: true });
             filesystem.mkdirSync(directoryB, { recursive: true });
 
-            filesystem.writeFileSync(`${directoryA}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directoryA}/db.json`, runData({
                 testRunId: 'run-7', attempt: 1,
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:01.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1571,8 +1576,7 @@ test.describe('DataSnapshotAggregator', () => {
                 tags: [{ type: 'feature', name: 'login' }], testRunner: { name: 'Mocha', version: '11.0.0' },
             }));
 
-            filesystem.writeFileSync(`${directoryB}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directoryB}/db.json`, runData({
                 testRunId: 'run-7', attempt: 1,
                 startedAt: '2024-06-15T10:00:00.100Z', finishedAt: '2024-06-15T10:00:01.100Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1595,16 +1599,14 @@ test.describe('DataSnapshotAggregator', () => {
             filesystem.mkdirSync(directoryA, { recursive: true });
             filesystem.mkdirSync(directoryB, { recursive: true });
 
-            filesystem.writeFileSync(`${directoryA}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directoryA}/db.json`, runData({
                 testRunId: 'run-5', attempt: 1,
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                 scenes: [], tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
             }));
 
-            filesystem.writeFileSync(`${directoryB}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directoryB}/db.json`, runData({
                 testRunId: 'run-5', attempt: 1,
                 startedAt: '2024-06-15T10:00:02.000Z', finishedAt: '2024-06-15T10:00:08.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1629,8 +1631,7 @@ test.describe('DataSnapshotAggregator', () => {
             filesystem.mkdirSync(directory1, { recursive: true });
             filesystem.mkdirSync(directory2, { recursive: true });
 
-            filesystem.writeFileSync(`${directory1}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory1}/db.json`, runData({
                 testRunId: 'run-10', attempt: 1,
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
                 outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1643,8 +1644,7 @@ test.describe('DataSnapshotAggregator', () => {
                 tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
             }));
 
-            filesystem.writeFileSync(`${directory2}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory2}/db.json`, runData({
                 testRunId: 'run-10', attempt: 2,
                 startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1677,8 +1677,7 @@ test.describe('DataSnapshotAggregator', () => {
             filesystem.mkdirSync(directory1, { recursive: true });
             filesystem.mkdirSync(directory2, { recursive: true });
 
-            filesystem.writeFileSync(`${directory1}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory1}/db.json`, runData({
                 testRunId: 'run-11', attempt: 1,
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
                 outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1689,8 +1688,7 @@ test.describe('DataSnapshotAggregator', () => {
                 tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
             }));
 
-            filesystem.writeFileSync(`${directory2}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory2}/db.json`, runData({
                 testRunId: 'run-11', attempt: 2,
                 startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
                 outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1717,8 +1715,7 @@ test.describe('DataSnapshotAggregator', () => {
             filesystem.mkdirSync(directory1, { recursive: true });
             filesystem.mkdirSync(directory2, { recursive: true });
 
-            filesystem.writeFileSync(`${directory1}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory1}/db.json`, runData({
                 testRunId: 'run-12', attempt: 1,
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1728,8 +1725,7 @@ test.describe('DataSnapshotAggregator', () => {
                 tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
             }));
 
-            filesystem.writeFileSync(`${directory2}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory2}/db.json`, runData({
                 testRunId: 'run-12', attempt: 2,
                 startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
                 outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1758,8 +1754,7 @@ test.describe('DataSnapshotAggregator', () => {
             filesystem.mkdirSync(directory1, { recursive: true });
             filesystem.mkdirSync(directory2, { recursive: true });
 
-            filesystem.writeFileSync(`${directory1}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory1}/db.json`, runData({
                 testRunId: 'run-13', attempt: 1,
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
                 outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1770,8 +1765,7 @@ test.describe('DataSnapshotAggregator', () => {
                 tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
             }));
 
-            filesystem.writeFileSync(`${directory2}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory2}/db.json`, runData({
                 testRunId: 'run-13', attempt: 2,
                 startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1803,8 +1797,7 @@ test.describe('DataSnapshotAggregator', () => {
             filesystem.mkdirSync(directory2, { recursive: true });
 
             // Legacy db.json: has testRunId but no attempt field
-            filesystem.writeFileSync(`${directory2}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory2}/db.json`, runData({
                 testRunId: 'run-20',
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1815,8 +1808,7 @@ test.describe('DataSnapshotAggregator', () => {
             }));
 
             // Modern db.json: same testRunId, attempt 1
-            filesystem.writeFileSync(`${directory1}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory1}/db.json`, runData({
                 testRunId: 'run-20', attempt: 1,
                 startedAt: '2024-06-15T10:00:01.000Z', finishedAt: '2024-06-15T10:00:06.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1841,16 +1833,14 @@ test.describe('DataSnapshotAggregator', () => {
             filesystem.mkdirSync(directoryA, { recursive: true });
             filesystem.mkdirSync(directoryB, { recursive: true });
 
-            filesystem.writeFileSync(`${directoryA}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directoryA}/db.json`, runData({
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                 scenes: [{ name: 'A', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }],
                 tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
             }));
 
-            filesystem.writeFileSync(`${directoryB}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directoryB}/db.json`, runData({
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:06.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                 scenes: [{ name: 'B', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'b.ts', line: 1 }, tags: [], activities: [] }],
@@ -1881,8 +1871,7 @@ test.describe('DataSnapshotAggregator', () => {
             }
 
             // Attempt 1: module-a passes, module-b fails
-            filesystem.writeFileSync(`${directories.a1}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directories.a1}/db.json`, runData({
                 testRunId: 'run-30', attempt: 1,
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1890,8 +1879,7 @@ test.describe('DataSnapshotAggregator', () => {
                 tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
             }));
 
-            filesystem.writeFileSync(`${directories.b1}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directories.b1}/db.json`, runData({
                 testRunId: 'run-30', attempt: 1,
                 startedAt: '2024-06-15T10:00:01.000Z', finishedAt: '2024-06-15T10:00:06.000Z',
                 outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1900,8 +1888,7 @@ test.describe('DataSnapshotAggregator', () => {
             }));
 
             // Attempt 2: both pass
-            filesystem.writeFileSync(`${directories.a2}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directories.a2}/db.json`, runData({
                 testRunId: 'run-30', attempt: 2,
                 startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1909,8 +1896,7 @@ test.describe('DataSnapshotAggregator', () => {
                 tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
             }));
 
-            filesystem.writeFileSync(`${directories.b2}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directories.b2}/db.json`, runData({
                 testRunId: 'run-30', attempt: 2,
                 startedAt: '2024-06-15T10:01:01.000Z', finishedAt: '2024-06-15T10:01:06.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1943,8 +1929,7 @@ test.describe('DataSnapshotAggregator', () => {
             filesystem.mkdirSync(directory2, { recursive: true });
 
             // Attempt 1: Test A passes, Test B fails
-            filesystem.writeFileSync(`${directory1}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory1}/db.json`, runData({
                 testRunId: 'run-50', attempt: 1,
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
                 outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -1961,8 +1946,7 @@ test.describe('DataSnapshotAggregator', () => {
             }));
 
             // Attempt 2: both pass (CI job was retried)
-            filesystem.writeFileSync(`${directory2}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory2}/db.json`, runData({
                 testRunId: 'run-50', attempt: 2,
                 startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
                 outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2003,7 +1987,7 @@ test.describe('DataSnapshotAggregator', () => {
                 // Historical run where the test passes cleanly
                 'test-runs': {
                     'run-49': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             testRunId: 'run-49',
                             startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:05.000Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2024,8 +2008,7 @@ test.describe('DataSnapshotAggregator', () => {
             filesystem.mkdirSync(directory2, { recursive: true });
 
             // Both attempts pass
-            filesystem.writeFileSync(`${directory1}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory1}/db.json`, runData({
                 testRunId: 'run-50', attempt: 1,
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2037,8 +2020,7 @@ test.describe('DataSnapshotAggregator', () => {
                 tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
             }));
 
-            filesystem.writeFileSync(`${directory2}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory2}/db.json`, runData({
                 testRunId: 'run-50', attempt: 2,
                 startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2072,8 +2054,7 @@ test.describe('DataSnapshotAggregator', () => {
             filesystem.mkdirSync(directory2, { recursive: true });
 
             // Attempt 1: test passed via Playwright Test retry (failed first, passed second)
-            filesystem.writeFileSync(`${directory1}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory1}/db.json`, runData({
                 testRunId: 'run-51', attempt: 1,
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2090,8 +2071,7 @@ test.describe('DataSnapshotAggregator', () => {
             }));
 
             // Attempt 2: test passes cleanly (CI retry re-ran the job)
-            filesystem.writeFileSync(`${directory2}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory2}/db.json`, runData({
                 testRunId: 'run-51', attempt: 2,
                 startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2125,8 +2105,7 @@ test.describe('DataSnapshotAggregator', () => {
             filesystem.mkdirSync(directory1, { recursive: true });
             filesystem.mkdirSync(directory2, { recursive: true });
 
-            filesystem.writeFileSync(`${directory1}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory1}/db.json`, runData({
                 testRunId: 'run-52', attempt: 1,
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2138,8 +2117,7 @@ test.describe('DataSnapshotAggregator', () => {
                 tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
             }));
 
-            filesystem.writeFileSync(`${directory2}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory2}/db.json`, runData({
                 testRunId: 'run-52', attempt: 2,
                 startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2172,8 +2150,7 @@ test.describe('DataSnapshotAggregator', () => {
             filesystem.mkdirSync(directory1, { recursive: true });
             filesystem.mkdirSync(directory2, { recursive: true });
 
-            filesystem.writeFileSync(`${directory1}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory1}/db.json`, runData({
                 testRunId: 'run-40', attempt: 1,
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
                 outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2181,8 +2158,7 @@ test.describe('DataSnapshotAggregator', () => {
                 tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
             }));
 
-            filesystem.writeFileSync(`${directory2}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory2}/db.json`, runData({
                 testRunId: 'run-40', attempt: 2,
                 startedAt: '2024-06-15T10:01:00.000Z', finishedAt: '2024-06-15T10:01:05.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2210,7 +2186,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '42': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             testRunId: '42',
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:05.000Z',
                             outcomes: { passed: 3, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2246,7 +2222,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '40': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             testRunId: '40',
                             startedAt: '2024-06-13T10:00:00.000Z', finishedAt: '2024-06-13T10:00:05.000Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2256,7 +2232,7 @@ test.describe('DataSnapshotAggregator', () => {
                         'playwright-test-1': { 'screenshot.png': 'OLD' },
                     },
                     '41': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             testRunId: '41',
                             startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:05.000Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2266,7 +2242,7 @@ test.describe('DataSnapshotAggregator', () => {
                         'playwright-test-1': { 'screenshot.png': 'MID' },
                     },
                     '42': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             testRunId: '42',
                             startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2299,8 +2275,7 @@ test.describe('DataSnapshotAggregator', () => {
 
             const sourceDirectory = '/source/integration/test-runs/42/playwright-test-1';
             filesystem.mkdirSync(sourceDirectory, { recursive: true });
-            filesystem.writeFileSync(`${sourceDirectory}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${sourceDirectory}/db.json`, runData({
                 testRunId: '42', attempt: 1,
                 startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:05.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2332,7 +2307,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '40': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             testRunId: '40',
                             startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:05.000Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2342,7 +2317,7 @@ test.describe('DataSnapshotAggregator', () => {
                         'mocha-1': { 'screenshot.png': 'OLD_SCREENSHOT' },
                     },
                     '41': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             testRunId: '41',
                             startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2357,8 +2332,7 @@ test.describe('DataSnapshotAggregator', () => {
             // External input: new data for run 41 (already in output) + run 41 has screenshots
             const sourceDirectory = '/source/integration/test-runs/41/playwright-test-1';
             filesystem.mkdirSync(sourceDirectory, { recursive: true });
-            filesystem.writeFileSync(`${sourceDirectory}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${sourceDirectory}/db.json`, runData({
                 testRunId: '41', attempt: 1,
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:05.000Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2389,7 +2363,7 @@ test.describe('DataSnapshotAggregator', () => {
                         'db.json': 'this is not valid JSON at all',
                     },
                     '2024-06-15T10:00:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.500Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
@@ -2418,7 +2392,7 @@ test.describe('DataSnapshotAggregator', () => {
                         }),
                     },
                     '2024-06-15T10:00:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.500Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'Valid Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
@@ -2439,10 +2413,10 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-14T10:00:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1, startedAt: '2024-06-14T10:00:00.000Z' }),
+                        'db.json': runData({ startedAt: '2024-06-14T10:00:00.000Z' }),
                     },
                     '2024-06-15T10:00:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.500Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'Valid Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
@@ -2485,8 +2459,7 @@ test.describe('DataSnapshotAggregator', () => {
             filesystem.mkdirSync(directory2, { recursive: true });
 
             filesystem.writeFileSync(`${directory1}/db.json`, 'totally broken JSON');
-            filesystem.writeFileSync(`${directory2}/db.json`, JSON.stringify({
-                schemaVersion: 1,
+            filesystem.writeFileSync(`${directory2}/db.json`, runData({
                 testRunId: 'run-b',
                 startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.500Z',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -2526,7 +2499,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.100Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
@@ -2552,7 +2525,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14:30:00.000Z': {
-                        'db.json': JSON.stringify({ schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.100Z',
                             outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [{ name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: '/project/features/login.feature', line: 1 }, tags: [], activities: [] }],
@@ -2575,8 +2548,7 @@ test.describe('DataSnapshotAggregator', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
                     '2024-06-15T14-30-00.000Z': {
-                        'db.json': JSON.stringify({
-                            schemaVersion: 1,
+                        'db.json': runData({
                             startedAt: '2024-06-15T14:30:00.000Z',
                             outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                             scenes: [],
@@ -2598,8 +2570,7 @@ test.describe('DataSnapshotAggregator', () => {
         test('tracks modules with finishedAt in history when merging external runs', () => {
             const filesystem = createMemFs({
                 '/source/test-runs/42/module-a-1': {
-                    'db.json': JSON.stringify({
-                        schemaVersion: 1, testRunId: '42',
+                    'db.json': runData({ testRunId: '42',
                         startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:05.000Z',
                         outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                         scenes: [
@@ -2612,8 +2583,7 @@ test.describe('DataSnapshotAggregator', () => {
                     }),
                 },
                 '/source/test-runs/42/module-b-1': {
-                    'db.json': JSON.stringify({
-                        schemaVersion: 1, testRunId: '42',
+                    'db.json': runData({ testRunId: '42',
                         startedAt: '2024-06-15T14:30:00.000Z',
                         outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
                         scenes: [],
