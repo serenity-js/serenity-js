@@ -3879,12 +3879,50 @@
         max-height: 70vh;
         overflow-y: auto;
         animation: panel-slide-up 0.25s ease-out;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .run-details-header {
+        flex-shrink: 0;
     }
 
     .run-details-table-wrap {
-        max-height: 40vh;
+        max-height: none;
+        flex: 1;
+        min-height: 0;
         overflow-y: auto;
         overflow-x: auto;
+    }
+
+    .run-details-durations {
+        flex-shrink: 0;
+    }
+
+    .run-details-cta {
+        flex-shrink: 0;
+        position: sticky;
+        bottom: 0;
+        margin-top: auto;
+        background: var(--color-primary, #696cff);
+        z-index: 1;
+    }
+
+    /* Sticky module column on horizontal scroll */
+    .run-details-table th:first-child,
+    .run-details-table td:first-child {
+        position: sticky;
+        left: 0;
+        background: var(--bg-primary);
+        z-index: 2;
+    }
+
+    .run-details-table th:first-child {
+        z-index: 3;
+    }
+
+    .run-details-table-row--incomplete td:first-child {
+        background: var(--bg-primary);
     }
 
     @keyframes panel-slide-up {

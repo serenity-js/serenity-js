@@ -36,6 +36,11 @@ function moduleFailedCount(m: { outcomes?: { failed: number; error: number; comp
     return (m.outcomes.failed || 0) + (m.outcomes.error || 0) + (m.outcomes.compromised || 0);
 }
 
+function moduleSkippedCount(m: { outcomes?: { pending: number; skipped: number } }): number {
+    if (!m.outcomes) return 0;
+    return (m.outcomes.pending || 0) + (m.outcomes.skipped || 0);
+}
+
 export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }: TrendChartDetailsProps): ReturnType<typeof html> {
     const total = selectedRun.metrics.passed + selectedRun.metrics.failed + selectedRun.metrics.skipped;
     const modules = selectedRun.modules || [];
@@ -58,6 +63,7 @@ export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }
                     <th>Tests</th>
                     <th>Passed</th>
                     <th>Failed</th>
+                    <th>Skipped</th>
                     <th>Started</th>
                     <th>Duration</th>
                   </tr>
@@ -70,6 +76,7 @@ export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }
                       <td>${m.outcome === 'incomplete' ? '—' : moduleScenarioCount(m)}</td>
                       <td>${m.outcome === 'incomplete' ? '—' : (m.outcomes?.passed || 0)}</td>
                       <td>${m.outcome === 'incomplete' ? '—' : moduleFailedCount(m)}</td>
+                      <td>${m.outcome === 'incomplete' ? '—' : moduleSkippedCount(m)}</td>
                       <td>${formatTimestamp(m.startedAt)}</td>
                       <td>${moduleDuration(m)}</td>
                     </tr>
@@ -82,6 +89,7 @@ export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }
                     <td><strong>${total}</strong></td>
                     <td><strong>${selectedRun.metrics.passed}</strong></td>
                     <td><strong>${selectedRun.metrics.failed}</strong></td>
+                    <td><strong>${selectedRun.metrics.skipped}</strong></td>
                     <td></td>
                     <td><strong>${selectedRun.metrics.total}</strong></td>
                   </tr>

@@ -104,7 +104,7 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
         onNavigate=${onNavigate}
       />
 
-      <${DashboardMeta} totalScenarios=${summary.totalScenarios} testRunner=${summary.testRunner} systemContext=${systemContext} />
+      <${DashboardMeta} testRunner=${summary.testRunner} systemContext=${systemContext} />
 
       <div class="dashboard-main-grid">
         <div class="card dashboard-trend-card">
