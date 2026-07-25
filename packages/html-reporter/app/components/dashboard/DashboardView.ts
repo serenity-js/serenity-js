@@ -40,6 +40,31 @@ function confidenceSubtitle({ confidence, previousConfidence, totalScenarios, ru
     return 'No change since last run';
 }
 
+function createHistoryLookup(scenarios: ReportScenario[]): (t: ReportScenarioRef) => Array<{ outcome: string }> {
+    return (t: ReportScenarioRef) => {
+        const key = t.source.path + ':' + (t.source.line || '');
+        const discriminator = tagDiscriminator(t.tags);
+        const match = discriminator
+            ? scenarios.find(s => s.source.path + ':' + (s.source.line || '') === key && tagDiscriminator(s.tags) === discriminator)
+                || scenarios.find(s => s.name === t.name && s.source.path === t.source.path && tagDiscriminator(s.tags) === discriminator)
+            : scenarios.find(s => s.source.path + ':' + (s.source.line || '') === key)
+                || scenarios.find(s => s.name === t.name && s.source.path === t.source.path);
+        return match && match.executionHistory ? match.executionHistory.slice(-5) : [];
+    };
+}
+
+function IncompleteBanner({ incompleteCount, totalCount }: { incompleteCount: number; totalCount: number }): ReturnType<typeof html> {
+    if (incompleteCount === 0) {
+        return null;
+    }
+    return html`
+        <div class="dashboard-incomplete-banner" role="alert">
+          <span class="dashboard-incomplete-banner-icon">⚠️</span>
+          <span>The latest run is incomplete — ${incompleteCount} of ${totalCount} module${totalCount !== 1 ? 's' : ''} did not finish. Results below reflect only the modules that completed successfully.</span>
+        </div>
+    `;
+}
+
 // ===== Dashboard View =====
 interface DashboardViewProps {
     summary: ReportSummary;
@@ -73,16 +98,7 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
             }),
     ].slice(0, 5), [newFailures, newPasses, inconsistent]);
 
-    const getHistory = (t: ReportScenarioRef) => {
-        const key = t.source.path + ':' + (t.source.line || '');
-        const discriminator = tagDiscriminator(t.tags);
-        const match = discriminator
-            ? scenarios.find(s => s.source.path + ':' + (s.source.line || '') === key && tagDiscriminator(s.tags) === discriminator)
-                || scenarios.find(s => s.name === t.name && s.source.path === t.source.path && tagDiscriminator(s.tags) === discriminator)
-            : scenarios.find(s => s.source.path + ':' + (s.source.line || '') === key)
-                || scenarios.find(s => s.name === t.name && s.source.path === t.source.path);
-        return match && match.executionHistory ? match.executionHistory.slice(-5) : [];
-    };
+    const getHistory = useMemo(() => createHistoryLookup(scenarios), [scenarios]);
 
     const latestRun = history.length > 0 ? history[history.length - 1] : undefined;
     const incompleteModules = latestRun?.modules?.filter(m => !m.finishedAt) || [];
@@ -90,12 +106,7 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
 
     return html`
     <div class="dashboard">
-      ${incompleteModules.length > 0 && html`
-        <div class="dashboard-incomplete-banner" role="alert">
-          <span class="dashboard-incomplete-banner-icon">⚠️</span>
-          <span>The latest run is incomplete — ${incompleteModules.length} of ${totalModules} module${totalModules !== 1 ? 's' : ''} did not finish. Results below reflect only the modules that completed successfully.</span>
-        </div>
-      `}
+      <${IncompleteBanner} incompleteCount=${incompleteModules.length} totalCount=${totalModules} />
       <${DashboardKpiRow}
         summary=${summary}
         scores=${scores}

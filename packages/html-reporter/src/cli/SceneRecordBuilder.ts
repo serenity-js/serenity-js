@@ -353,11 +353,19 @@ export function errorFrom(outcome: ProblemIndication): ErrorRecord {
  * The html-reporter only needs the outcome code (error details are extracted
  * separately via `errorFrom()`), so we bypass `toJSON()` entirely.
  */
+const outcomeCodeMap = [
+    { type: ExecutionFailedWithAssertionError, code: ExecutionFailedWithAssertionError.Code },
+    { type: ExecutionFailedWithError, code: ExecutionFailedWithError.Code },
+    { type: ExecutionCompromised, code: ExecutionCompromised.Code },
+    { type: ExecutionSkipped, code: ExecutionSkipped.Code },
+    { type: ImplementationPending, code: ImplementationPending.Code },
+] as const;
+
 function serialiseOutcome(outcome: ProblemIndication | { toJSON(): SerialisedOutcome }): SerialisedOutcome {
-    if (outcome instanceof ExecutionFailedWithAssertionError) return { code: ExecutionFailedWithAssertionError.Code };
-    if (outcome instanceof ExecutionFailedWithError) return { code: ExecutionFailedWithError.Code };
-    if (outcome instanceof ExecutionCompromised) return { code: ExecutionCompromised.Code };
-    if (outcome instanceof ExecutionSkipped) return { code: ExecutionSkipped.Code };
-    if (outcome instanceof ImplementationPending) return { code: ImplementationPending.Code };
+    for (const entry of outcomeCodeMap) {
+        if (outcome instanceof entry.type) {
+            return { code: entry.code };
+        }
+    }
     return { code: ExecutionSuccessful.Code };
 }
