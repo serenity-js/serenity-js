@@ -1,5 +1,6 @@
 import type { RunData } from './RunData.js';
 import { CURRENT_RUN_DATA_SCHEMA_VERSION } from './RunData.js';
+import { RunDataSchema } from './RunDataSchema.js';
 
 /**
  * Thrown when a db.json file cannot be parsed as valid RunData.
@@ -51,65 +52,46 @@ export class IncompatibleSchemaError extends Error {
  * @package
  */
 export function validateRunData(raw: unknown, sourcePath: string): RunData {
+    // Pre-check: must be a JSON object (not null, array, or primitive)
     if (raw === null || typeof raw !== 'object' || Array.isArray(raw)) {
         throw new InvalidRunDataError(sourcePath, 'must be a JSON object');
     }
 
+    // Semantic check: schema version compatibility (before structural validation)
     const object = raw as Record<string, unknown>;
-
-    // Schema version check
-    if (typeof object.schemaVersion !== 'number') {
-        throw new InvalidRunDataError(sourcePath, 'missing required field "schemaVersion"');
-    }
-    if (object.schemaVersion > CURRENT_RUN_DATA_SCHEMA_VERSION) {
+    if (typeof object.schemaVersion === 'number' && object.schemaVersion > CURRENT_RUN_DATA_SCHEMA_VERSION) {
         throw new IncompatibleSchemaError(sourcePath, object.schemaVersion, CURRENT_RUN_DATA_SCHEMA_VERSION);
     }
 
-    // Required string fields
-    assertString(object, 'startedAt', sourcePath);
-
-    // Optional string fields (absent in placeholder db.json from incomplete runs)
-    // finishedAt: absent when the test process crashed before TestRunFinishes
-    // testRunner: absent when the test process crashed before TestRunnerDetected
-    if (object.finishedAt !== undefined && typeof object.finishedAt !== 'string') {
-        throw new InvalidRunDataError(sourcePath, 'field "finishedAt" must be a string when present');
-    }
-    if (object.testRunner !== undefined && (typeof object.testRunner !== 'object' || object.testRunner === null || Array.isArray(object.testRunner))) {
-        throw new InvalidRunDataError(sourcePath, 'field "testRunner" must be an object when present');
+    // Structural validation via Zod
+    const result = RunDataSchema.safeParse(raw);
+    if (!result.success) {
+        const firstIssue = result.error.issues[0];
+        const path = firstIssue.path.join('.');
+        throw new InvalidRunDataError(sourcePath, formatZodError(path, firstIssue.message));
     }
 
-    // Required object fields
-    assertObject(object, 'outcomes', sourcePath);
-
-    // Required array fields
-    assertArray(object, 'scenes', sourcePath);
-    assertArray(object, 'tags', sourcePath);
-
-    // Outcomes must have all required counts
-    const outcomes = object.outcomes as Record<string, unknown>;
-    for (const key of ['passed', 'failed', 'pending', 'skipped', 'compromised', 'error']) {
-        if (typeof outcomes[key] !== 'number') {
-            throw new InvalidRunDataError(sourcePath, `outcomes.${key} must be a number`);
-        }
-    }
-
-    return raw as RunData;
+    return result.data as RunData;
 }
 
-function assertString(object: Record<string, unknown>, field: string, path: string): void {
-    if (typeof object[field] !== 'string') {
-        throw new InvalidRunDataError(path, `missing or invalid required field "${field}" (expected string)`);
+/**
+ * Formats a Zod validation error into a human-readable message.
+ */
+function formatZodError(path: string, message: string): string {
+    // Zod's "Required" message for missing fields
+    if (message === 'Required') {
+        return path
+            ? `missing required field "${path}"`
+            : 'missing required field "schemaVersion"';
     }
-}
 
-function assertObject(object: Record<string, unknown>, field: string, path: string): void {
-    if (object[field] === null || typeof object[field] !== 'object' || Array.isArray(object[field])) {
-        throw new InvalidRunDataError(path, `missing or invalid required field "${field}" (expected object)`);
+    // Type mismatch errors
+    if (message.startsWith('Expected')) {
+        return path
+            ? `${path}: ${message.toLowerCase()}`
+            : message.toLowerCase();
     }
-}
 
-function assertArray(object: Record<string, unknown>, field: string, path: string): void {
-    if (!Array.isArray(object[field])) {
-        throw new InvalidRunDataError(path, `missing or invalid required field "${field}" (expected array)`);
-    }
+    // Default: include path if present
+    return path ? `${path}: ${message}` : message;
 }

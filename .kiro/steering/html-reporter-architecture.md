@@ -18,6 +18,7 @@ Complements `html-reporter-ux.md` (which covers design principles, personas, and
 | `window.__SERENITY_REPORT_DATA__` | Data loaded via `<script src="data.js">` — enables `file://` support |
 | @tanstack/virtual-core | Virtualisation for lists > 50 items, framework-agnostic core |
 | Chart.js | Only charting library — do not introduce alternatives |
+| Zod | Runtime validation for `db.json` files via `RunDataSchema` |
 | No React, Tailwind, or shadcn | Keep bundle small and dependency-free |
 
 ## Package Layout
@@ -169,6 +170,22 @@ If the process crashes between steps 1 and 2, the placeholder persists. During a
 
 **Rule:** `finishedAt` absence is the sole signal — no separate `status` field. A `db.json` without `finishedAt` is
 valid, not a schema error.
+
+### RunData Validation
+
+`db.json` files are validated via Zod schema (`RunDataSchema` in `src/cli/model/RunDataSchema.ts`). The schema is the
+single source of truth for the `RunData` structure — when fields become optional, update the schema and the TypeScript
+interface together.
+
+Validation rules:
+- `schemaVersion` is checked first; future versions throw `IncompatibleSchemaError` (semantic, not structural)
+- All other validation errors throw `InvalidRunDataError` with the Zod error path
+- `scenes` are `z.unknown()` — trusted producer code, not validated deeply
+- `systemContext` is `z.unknown()` — contains `Version` TinyType that serialises to string; validating deeply would require a separate JSON shape interface
+- `attempt` must be `>= 1` when present
+- Outcome counts must be non-negative integers
+
+The schema lives alongside the interface (`RunData.ts`) — keep them in sync.
 
 ## Component Patterns
 

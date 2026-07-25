@@ -649,3 +649,20 @@ The html-reporter's `serialiseOutcome()` avoids calling `outcome.toJSON()` entir
 When multiple CI jobs share the same `package.json` (e.g., `webdriverio-8-web` running with different protocols), `systemContext.projectName` returns the same value for both. The explicit `moduleId` (from config or directory name) is the authoritative identifier.
 
 Rule: store `moduleId` in `db.json` and prefer it over `systemContext.projectName` when deriving module identity during aggregation.
+
+## Zod schema is the single source of truth for RunData validation
+
+Hand-written validation functions (`assertString`, `assertObject`, `assertArray`) duplicate shape information that's already expressed in the TypeScript interface. When fields become optional (e.g., `finishedAt`, `testRunner` for incomplete runs), the validation logic must be updated separately — leading to drift and bugs.
+
+The fix: define a `RunDataSchema` in Zod that mirrors the `RunData` interface. Use `safeParse()` to validate, wrap Zod errors in the existing `InvalidRunDataError` class for consistent error handling.
+
+Key patterns:
+- **Semantic vs structural errors**: Check `schemaVersion` compatibility *before* Zod parsing. Future versions throw `IncompatibleSchemaError` (semantic), not `InvalidRunDataError` (structural).
+- **Trusted inner structures**: Use `z.unknown()` for complex nested types like `scenes[]` where the producer is trusted code and deep validation adds no value.
+- **TinyType serialisation mismatch**: `systemContext.serenityVersion` is a `Version` TinyType in the TypeScript interface but serialises to a plain string in JSON. Validating it deeply would require a separate "JSON shape" interface — not worth the complexity for trusted producer code.
+- **Error message formatting**: Zod's `path.join('.')` + `message` produces paths like `outcomes.passed` that match existing test expectations.
+
+Benefits:
+- Single source of truth — update one place when the model changes
+- Stricter validation for free — Zod's `.int().min(0)` catches negative counts and floats that hand-written code missed
+- Better error messages — Zod provides precise paths to the invalid field

@@ -335,6 +335,219 @@ test.describe('validateRunData', () => {
         });
     });
 
+    test.describe('validates attempt field', () => {
+
+        test('accepts attempt of 1', () => {
+            const data = { ...validMinimalRunData, attempt: 1 };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .not.toThrow();
+        });
+
+        test('accepts attempt greater than 1', () => {
+            const data = { ...validMinimalRunData, attempt: 5 };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .not.toThrow();
+        });
+
+        test('throws when attempt is 0', () => {
+            const data = { ...validMinimalRunData, attempt: 0 };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(InvalidRunDataError);
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(/attempt/);
+        });
+
+        test('throws when attempt is negative', () => {
+            const data = { ...validMinimalRunData, attempt: -1 };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(InvalidRunDataError);
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(/attempt/);
+        });
+
+        test('throws when attempt is not an integer', () => {
+            const data = { ...validMinimalRunData, attempt: 1.5 };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(InvalidRunDataError);
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(/attempt/);
+        });
+    });
+
+    test.describe('validates outcome count constraints', () => {
+
+        test('throws when outcomes.passed is negative', () => {
+            const data = { ...validMinimalRunData, outcomes: { ...validMinimalRunData.outcomes, passed: -1 } };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(InvalidRunDataError);
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(/outcomes\.passed/);
+        });
+
+        test('throws when outcomes.failed is not an integer', () => {
+            const data = { ...validMinimalRunData, outcomes: { ...validMinimalRunData.outcomes, failed: 1.5 } };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(InvalidRunDataError);
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(/outcomes\.failed/);
+        });
+    });
+
+    test.describe('validates tag record structure', () => {
+
+        test('accepts tags with valid type and name', () => {
+            const data = { ...validMinimalRunData, tags: [{ type: 'feature', name: 'Login' }] };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .not.toThrow();
+        });
+
+        test('throws when tag is missing type', () => {
+            const data = { ...validMinimalRunData, tags: [{ name: 'Login' }] };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(InvalidRunDataError);
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(/tags/);
+        });
+
+        test('throws when tag is missing name', () => {
+            const data = { ...validMinimalRunData, tags: [{ type: 'feature' }] };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(InvalidRunDataError);
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(/tags/);
+        });
+
+        test('throws when tag type is not a string', () => {
+            const data = { ...validMinimalRunData, tags: [{ type: 123, name: 'Login' }] };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(InvalidRunDataError);
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(/tags/);
+        });
+    });
+
+    test.describe('validates testRunner structure', () => {
+
+        test('throws when testRunner is missing name', () => {
+            const data = { ...validMinimalRunData, testRunner: { version: '1.50.0' } };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(InvalidRunDataError);
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(/testRunner/);
+        });
+
+        test('throws when testRunner is missing version', () => {
+            const data = { ...validMinimalRunData, testRunner: { name: 'Playwright' } };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(InvalidRunDataError);
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(/testRunner/);
+        });
+
+        test('throws when testRunner.name is not a string', () => {
+            const data = { ...validMinimalRunData, testRunner: { name: 123, version: '1.50.0' } };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(InvalidRunDataError);
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(/testRunner/);
+        });
+    });
+
+    test.describe('validates modules array structure', () => {
+
+        test('accepts valid modules array', () => {
+            const data = {
+                ...validMinimalRunData,
+                modules: [
+                    { moduleId: 'playwright-web', startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:01.000Z' },
+                ],
+            };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .not.toThrow();
+        });
+
+        test('accepts module without finishedAt (incomplete)', () => {
+            const data = {
+                ...validMinimalRunData,
+                modules: [
+                    { moduleId: 'playwright-web', startedAt: '2024-06-15T14:30:00.000Z' },
+                ],
+            };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .not.toThrow();
+        });
+
+        test('throws when module is missing moduleId', () => {
+            const data = {
+                ...validMinimalRunData,
+                modules: [
+                    { startedAt: '2024-06-15T14:30:00.000Z' },
+                ],
+            };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(InvalidRunDataError);
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(/modules/);
+        });
+
+        test('throws when module is missing startedAt', () => {
+            const data = {
+                ...validMinimalRunData,
+                modules: [
+                    { moduleId: 'playwright-web' },
+                ],
+            };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(InvalidRunDataError);
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(/modules/);
+        });
+
+        test('accepts module with outcome field', () => {
+            const data = {
+                ...validMinimalRunData,
+                modules: [
+                    { moduleId: 'playwright-web', startedAt: '2024-06-15T14:30:00.000Z', outcome: 'passed' },
+                ],
+            };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .not.toThrow();
+        });
+
+        test('throws when module outcome is invalid', () => {
+            const data = {
+                ...validMinimalRunData,
+                modules: [
+                    { moduleId: 'playwright-web', startedAt: '2024-06-15T14:30:00.000Z', outcome: 'invalid' },
+                ],
+            };
+
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(InvalidRunDataError);
+            expect(() => validateRunData(data, '/path/to/db.json'))
+                .toThrow(/modules/);
+        });
+    });
+
     test.describe('error class properties', () => {
 
         test('InvalidRunDataError exposes path and reason', () => {
