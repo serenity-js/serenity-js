@@ -2,6 +2,7 @@ import { Chart } from 'chart.js/auto';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import htm from 'htm';
 import { h } from 'preact';
+import { createPortal } from 'preact/compat';
 
 Chart.register(zoomPlugin);
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
@@ -165,9 +166,17 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
     const containerRef = useRef<HTMLDivElement | null>(null);
     const panelRef = useRef<HTMLDivElement | null>(null);
     const [selectedRun, setSelectedRun] = useState<SelectedRun | null>(null);
+    const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 768);
 
     const chartTheme = useThemeObserver();
     const { canPanLeft, canPanRight, configurePan } = usePanState(canvasRef);
+
+    // Track viewport size for conditional portal rendering
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth <= 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const clearSelection = useCallback(() => {
         setSelectedRun(null);
@@ -212,13 +221,20 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
         <div class="trend-chart-fade-right ${canPanRight ? 'visible' : ''}" aria-hidden="true"></div>
         <canvas ref=${canvasRef} role="img" aria-label="Trend chart showing test outcomes and duration across recent test runs"></canvas>
       </div>
-      ${selectedRun && html`
+      ${selectedRun && !isMobile && html`
         <${TrendChartDetails}
           selectedRun=${selectedRun}
           panelRef=${panelRef}
           onClose=${clearSelection}
           onNavigate=${handleNavigate}
         />`}
+      ${selectedRun && isMobile && createPortal(html`
+        <${TrendChartDetails}
+          selectedRun=${selectedRun}
+          panelRef=${panelRef}
+          onClose=${clearSelection}
+          onNavigate=${handleNavigate}
+        />`, document.body)}
     </div>
   `;
 }

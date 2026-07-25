@@ -53,88 +53,90 @@ export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }
             <button class="run-details-close" onClick=${onClose} aria-label="Close details panel">✕</button>
           </div>
 
-          ${hasModules && html`
-            <div class="run-details-table-wrap">
-              <table class="run-details-table">
-                <thead>
-                  <tr>
-                    <th>Module</th>
-                    <th>Outcome</th>
-                    <th>Tests</th>
-                    <th>Passed</th>
-                    <th>Failed</th>
-                    <th>Skipped</th>
-                    <th>Started</th>
-                    <th>Duration</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${modules.map(m => html`
-                    <tr class="run-details-table-row run-details-table-row--${m.outcome || 'passed'}">
-                      <td class="run-details-table-module">${m.moduleId}</td>
-                      <td class="run-details-table-outcome">${OUTCOME_ICONS[m.outcome || 'passed']} ${m.outcome || 'passed'}</td>
-                      <td>${m.outcome === 'incomplete' ? '—' : moduleScenarioCount(m)}</td>
-                      <td>${m.outcome === 'incomplete' ? '—' : (m.outcomes?.passed || 0)}</td>
-                      <td>${m.outcome === 'incomplete' ? '—' : moduleFailedCount(m)}</td>
-                      <td>${m.outcome === 'incomplete' ? '—' : moduleSkippedCount(m)}</td>
-                      <td>${formatTimestamp(m.startedAt)}</td>
-                      <td>${moduleDuration(m)}</td>
+          <div class="run-details-body">
+            ${hasModules && html`
+              <div class="run-details-table-wrap">
+                <table class="run-details-table">
+                  <thead>
+                    <tr>
+                      <th>Module</th>
+                      <th>Outcome</th>
+                      <th>Tests</th>
+                      <th>Passed</th>
+                      <th>Failed</th>
+                      <th>Skipped</th>
+                      <th>Started</th>
+                      <th>Duration</th>
                     </tr>
-                  `)}
-                </tbody>
-                <tfoot>
-                  <tr class="run-details-table-totals">
-                    <td><strong>Total</strong></td>
-                    <td></td>
-                    <td><strong>${total}</strong></td>
-                    <td><strong>${selectedRun.metrics.passed}</strong></td>
-                    <td><strong>${selectedRun.metrics.failed}</strong></td>
-                    <td><strong>${selectedRun.metrics.skipped}</strong></td>
-                    <td></td>
-                    <td><strong>${selectedRun.metrics.total}</strong></td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          `}
+                  </thead>
+                  <tbody>
+                    ${modules.map(m => html`
+                      <tr class="run-details-table-row run-details-table-row--${m.outcome || 'passed'}">
+                        <td class="run-details-table-module">${m.moduleId}</td>
+                        <td class="run-details-table-outcome">${OUTCOME_ICONS[m.outcome || 'passed']} ${m.outcome || 'passed'}</td>
+                        <td>${m.outcome === 'incomplete' ? '—' : moduleScenarioCount(m)}</td>
+                        <td>${m.outcome === 'incomplete' ? '—' : (m.outcomes?.passed || 0)}</td>
+                        <td>${m.outcome === 'incomplete' ? '—' : moduleFailedCount(m)}</td>
+                        <td>${m.outcome === 'incomplete' ? '—' : moduleSkippedCount(m)}</td>
+                        <td>${formatTimestamp(m.startedAt)}</td>
+                        <td>${moduleDuration(m)}</td>
+                      </tr>
+                    `)}
+                  </tbody>
+                  <tfoot>
+                    <tr class="run-details-table-totals">
+                      <td><strong>Total</strong></td>
+                      <td></td>
+                      <td><strong>${total}</strong></td>
+                      <td><strong>${selectedRun.metrics.passed}</strong></td>
+                      <td><strong>${selectedRun.metrics.failed}</strong></td>
+                      <td><strong>${selectedRun.metrics.skipped}</strong></td>
+                      <td></td>
+                      <td><strong>${selectedRun.metrics.total}</strong></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            `}
 
-          ${!hasModules && html`
-            <div class="run-details-metrics">
-              <div class="run-details-metric">
-                <span class="run-details-metric-value">${total}</span>
-                <span class="run-details-metric-label">Total</span>
+            ${!hasModules && html`
+              <div class="run-details-metrics">
+                <div class="run-details-metric">
+                  <span class="run-details-metric-value">${total}</span>
+                  <span class="run-details-metric-label">Total</span>
+                </div>
+                <div class="run-details-metric">
+                  <span class="run-details-metric-value" style="color:var(--color-passed)">${selectedRun.metrics.passed}</span>
+                  <span class="run-details-metric-label">Passed</span>
+                </div>
+                <div class="run-details-metric">
+                  <span class="run-details-metric-value" style="color:var(--color-failed)">${selectedRun.metrics.failed}</span>
+                  <span class="run-details-metric-label">Failed</span>
+                </div>
+                <div class="run-details-metric">
+                  <span class="run-details-metric-value" style="color:var(--color-skipped)">${selectedRun.metrics.skipped}</span>
+                  <span class="run-details-metric-label">Skipped</span>
+                </div>
               </div>
-              <div class="run-details-metric">
-                <span class="run-details-metric-value" style="color:var(--color-passed)">${selectedRun.metrics.passed}</span>
-                <span class="run-details-metric-label">Passed</span>
-              </div>
-              <div class="run-details-metric">
-                <span class="run-details-metric-value" style="color:var(--color-failed)">${selectedRun.metrics.failed}</span>
-                <span class="run-details-metric-label">Failed</span>
-              </div>
-              <div class="run-details-metric">
-                <span class="run-details-metric-value" style="color:var(--color-skipped)">${selectedRun.metrics.skipped}</span>
-                <span class="run-details-metric-label">Skipped</span>
-              </div>
-            </div>
-          `}
+            `}
 
-          ${total > 0 && html`
-            <div class="run-details-durations">
-              <div class="run-details-duration-row">
-                <span class="run-details-duration-label">Slowest</span>
-                <span class="run-details-duration-value">${selectedRun.metrics.slowest}</span>
+            ${total > 0 && html`
+              <div class="run-details-durations">
+                <div class="run-details-duration-row">
+                  <span class="run-details-duration-label">Slowest</span>
+                  <span class="run-details-duration-value">${selectedRun.metrics.slowest}</span>
+                </div>
+                <div class="run-details-duration-row">
+                  <span class="run-details-duration-label">Fastest</span>
+                  <span class="run-details-duration-value">${selectedRun.metrics.fastest}</span>
+                </div>
+                <div class="run-details-duration-row">
+                  <span class="run-details-duration-label">Average</span>
+                  <span class="run-details-duration-value">${selectedRun.metrics.average}</span>
+                </div>
               </div>
-              <div class="run-details-duration-row">
-                <span class="run-details-duration-label">Fastest</span>
-                <span class="run-details-duration-value">${selectedRun.metrics.fastest}</span>
-              </div>
-              <div class="run-details-duration-row">
-                <span class="run-details-duration-label">Average</span>
-                <span class="run-details-duration-value">${selectedRun.metrics.average}</span>
-              </div>
-            </div>
-          `}
+            `}
+          </div>
 
           <button class="run-details-cta" onClick=${onNavigate} data-testid="run-details-cta">
             Show test scenarios →

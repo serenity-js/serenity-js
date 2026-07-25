@@ -129,6 +129,7 @@
     #app {
       display: flex;
       min-height: 100vh;
+      min-height: 100dvh; /* iOS Safari dynamic viewport height */
     }
 
     /* ===== Sidebar ===== */
@@ -3690,7 +3691,7 @@
 .run-details-panel {
     margin-top: var(--space-md);
     padding: var(--space-md);
-    background: var(--bg-primary);
+    background: var(--bg-surface);
     border-radius: var(--radius-md);
     border: 1px solid var(--border-color);
     animation: panel-appear 0.2s ease-out;
@@ -3877,35 +3878,31 @@
         box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
         z-index: 100;
         max-height: 70vh;
-        overflow-y: auto;
+        max-height: 70dvh;
         animation: panel-slide-up 0.25s ease-out;
         display: flex;
         flex-direction: column;
+        overflow: hidden;
     }
 
     .run-details-header {
         flex-shrink: 0;
     }
 
-    .run-details-table-wrap {
-        max-height: none;
+    .run-details-body {
         flex: 1;
         min-height: 0;
         overflow-y: auto;
-        overflow-x: auto;
+        overflow-x: hidden;
     }
 
-    .run-details-durations {
-        flex-shrink: 0;
+    .run-details-table-wrap {
+        overflow-x: auto;
     }
 
     .run-details-cta {
         flex-shrink: 0;
-        position: sticky;
-        bottom: 0;
-        margin-top: auto;
-        background: var(--color-primary, #696cff);
-        z-index: 1;
+        margin-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     /* Sticky module column on horizontal scroll */
