@@ -33,6 +33,20 @@ Implications for error rendering:
 
 Not all test runner adapters emit source line numbers (e.g. Protractor/Mocha). When building identifiers from `source.path + ':' + source.line`, always handle the case where `line` is `undefined`. Use the scenario name as a disambiguation fallback.
 
+**Bug pattern:** When `source.line` is undefined for multiple scenarios in the same file, the key `path + ':' + (line || '')` becomes identical for all of them (e.g. `/path/to/file:`). A naive `.find()` by this key returns the **first** scenario in the file, not the one you want.
+
+```typescript
+// ✗ Wrong — matches first scenario in file when line is undefined
+scenarios.find(s => s.source.path + ':' + (s.source.line || '') === key)
+
+// ✓ Correct — only use path:line when line exists, otherwise match by name
+const hasLine = ref.source.line !== undefined;
+if (hasLine) {
+    match = scenarios.find(s => s.source.path + ':' + s.source.line === key);
+}
+match ??= scenarios.find(s => s.name === ref.name && s.source.path === ref.source.path);
+```
+
 ## Client-side scenario lookups must use tagDiscriminator, not just source location
 
 The server-side aggregator (`DataSnapshotAggregator`) uses `sceneIdentityWithTags()` which includes browser/project/platform tags when matching scenarios. Any client-side code (Preact components) that looks up a scenario by source location must do the same — otherwise it will match the **first** variant (e.g. desktop) when it should match a specific variant (e.g. mobile).
