@@ -1,31 +1,666 @@
 {
-  "generated": "2026-07-25T23:53:31.716Z",
+  "generated": "2026-07-26T00:30:49.276Z",
   "title": "Serenity/JS Integration Tests",
   "schemaVersion": 1,
   "latestRun": {
-    "timestamp": "2026-07-25T23:45:18.073Z",
-    "label": "8331",
+    "timestamp": "2026-07-26T00:20:34.278Z",
+    "label": "8332",
     "totals": {
-      "passed": 1856,
-      "failed": 0,
+      "passed": 1614,
+      "failed": 9,
       "pending": 85,
       "skipped": 0,
       "compromised": 0,
-      "error": 1
+      "error": 58
     },
-    "duration": 341581
+    "duration": 469118
   },
   "runs": 5,
   "failureClusters": [
     {
-      "fingerprint": "TimeoutError:locator.scrollIntoViewIfNeeded:-Timeout-N.Nms-exceeded.-Call-log:---attempting-scroll-into-view-action---waiting-for-element-to-be-stable",
-      "errorType": "TimeoutError",
-      "message": "locator.scrollIntoViewIfNeeded: Timeout N.Nms exceeded.\nCall log:\n  - attempting scroll into view action\n    - waiting for element to be stable",
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Elle-navigates-to-\"by_css.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-at-Cl",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Elle navigates to \"by_css.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n    at Cl",
       "scenarios": [
         {
-          "name": "Externally-managed Electron session Electron browsing session (externally-managed) clicking on elements allows the actor to click on a button",
-          "source": "playwright-electron/spec/electron/externally-managed.spec.ts",
-          "failingStep": "ExternalTester clicks on the click button"
+          "name": "when locating an element by css generates a description for a PageElement without a custom description",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.ByCss.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Elle navigates to \"/screenplay/models/page-element/by_css.html\""
+        },
+        {
+          "name": "when locating an element by css containing text generates a description for a PageElement without a custom description",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.ByCssContainingText.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Elle navigates to \"/screenplay/models/page-element/by_css.html\""
+        },
+        {
+          "name": "when locating an element by XPath generates a description for a PageElement without a custom description",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.ByXPath.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Elle navigates to \"/screenplay/models/page-element/by_css.html\""
+        },
+        {
+          "name": "when locating elements by css generates a description for PageElements without a custom description",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.located.ByCss.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Elle navigates to \"/screenplay/models/page-elements/by_css.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Francesca-navigates-to-\"form.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-at",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Francesca navigates to \"form.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n    at",
+      "scenarios": [
+        {
+          "name": "switchTo() when working with regular Web elements should set focus on the element of interest",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Francesca navigates to \"/screenplay/models/page-element/form.html\""
+        },
+        {
+          "name": "switchTo() when working with regular Web elements should switch focus from one element to another",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Francesca navigates to \"/screenplay/models/page-element/form.html\""
+        },
+        {
+          "name": "switchTo() when working with regular Web elements and performing activities in the context of an Web element should automatically switch back to the previously focused element when the sequence is complete",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Francesca navigates to \"/screenplay/models/page-element/form.html\""
+        },
+        {
+          "name": "switchTo() when working with regular Web elements and performing activities in the context of an Web element should automatically switch back to previously-focused element in nested sequences",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Francesca navigates to \"/screenplay/models/page-element/form.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Elle-navigates-to-\"shopping_list.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Elle navigates to \"shopping_list.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n  ",
+      "scenarios": [
+        {
+          "name": "allows the actor to locate a single web element matching the selector",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Elle navigates to \"/screenplay/models/page-elements/shopping_list.html\""
+        },
+        {
+          "name": "allows the actor to locate all web elements matching a selector",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Elle navigates to \"/screenplay/models/page-elements/shopping_list.html\""
+        },
+        {
+          "name": "allows the actor to locate an element relative to another page element",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Elle navigates to \"/screenplay/models/page-elements/shopping_list.html\""
+        },
+        {
+          "name": "allows the actor to locate all elements relative to another page element",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Elle navigates to \"/screenplay/models/page-elements/shopping_list.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Joe-navigates-to-\"result.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-at-Cli",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Joe navigates to \"result.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n    at Cli",
+      "scenarios": [
+        {
+          "name": "when used with ExecuteScript.sync allows the actor to retrieve the result of the script execution",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/LastScriptExecution.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Joe navigates to \"/screenplay/questions/last-script-execution/result.html\""
+        },
+        {
+          "name": "when used with ExecuteScript.sync returns undefined or null if the script did not return any result",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/LastScriptExecution.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Joe navigates to \"/screenplay/questions/last-script-execution/result.html\""
+        },
+        {
+          "name": "when used with ExecuteScript.async allows the actor to retrieve the result of the script execution",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/LastScriptExecution.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Joe navigates to \"/screenplay/questions/last-script-execution/result.html\""
+        },
+        {
+          "name": "when used with ExecuteScript.async returns undefined or null if the script did not return any result",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/LastScriptExecution.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Joe navigates to \"/screenplay/questions/last-script-execution/result.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:ActivityRelatedArtifactGenerated-event-not-found-within-SceneStarts,-ActorEntersStage,-ActorSpotlighted,-InteractionStarts,-InteractionFinished,-AsyncOperationAttempted,-AsyncOperationFailed",
+      "errorType": "Error",
+      "message": "ActivityRelatedArtifactGenerated event not found within SceneStarts, ActorEntersStage, ActorSpotlighted, InteractionStarts, InteractionFinished, AsyncOperationAttempted, AsyncOperationFailed",
+      "scenarios": [
+        {
+          "name": "when instructed to take a photo of failed interactions, takes a photo when a problem occurs",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts",
+          "browser": "chrome 129.0.6668.100"
+        },
+        {
+          "name": "when instructed to take a photo of failed interactions, takes a photo when a timeout is reached",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts",
+          "browser": "chrome 129.0.6668.100"
+        },
+        {
+          "name": "when instructed to take a photo of failed interactions, includes the browser context in the name of the emitted artifact",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts",
+          "browser": "chrome 129.0.6668.100"
+        },
+        {
+          "name": "when instructed to take a photo of all interactions takes a photo when a problem occurs",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts",
+          "browser": "chrome 129.0.6668.100"
+        }
+      ]
+    },
+    {
+      "fingerprint": "AssertionError:expected-promise-to-be-rejected-with-'LogicError'-but-it-was-rejected-with-'Error:-1-async-operation-has-failed-t…'",
+      "errorType": "AssertionError",
+      "message": "expected promise to be rejected with 'LogicError' but it was rejected with 'Error: 1 async operation has failed t…'",
+      "scenarios": [
+        {
+          "name": "when handling errors should complain when trying to switch to an element that doesn't exist",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Francesca navigates to \"/screenplay/models/page-element/page_with_no_iframes.html\""
+        },
+        {
+          "name": "called complains if the target is not specified",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Wendy ensures that computed style property 'content' does equal \"non-existent\""
+        },
+        {
+          "name": "complains if the script hasn't been executed yet",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/LastScriptExecution.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Bob navigates to \"/screenplay/questions/last-script-execution/result.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "AssertionError:expected-promise-to-be-fulfilled-but-it-was-rejected-with-'Error:-2-async-operations-have-failed…'",
+      "errorType": "AssertionError",
+      "message": "expected promise to be fulfilled but it was rejected with 'Error: 2 async operations have failed…'",
+      "scenarios": [
+        {
+          "name": "when instructed to take photos before and after all interactions takes a before and after photo when the interaction goes well",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts",
+          "browser": "chrome 129.0.6668.100"
+        },
+        {
+          "name": "when instructed to take photos before and after all interactions takes two photos per interaction",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts",
+          "browser": "chrome 129.0.6668.100"
+        },
+        {
+          "name": "when instructed to take photos before and after all interactions includes the browser context in the name of the emitted artifact",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts",
+          "browser": "chrome 129.0.6668.100"
+        }
+      ]
+    },
+    {
+      "fingerprint": "AssertionError:expected-promise-to-be-fulfilled-but-it-was-rejected-with-'Error:-1-async-operation-has-failed-t…'",
+      "errorType": "AssertionError",
+      "message": "expected promise to be fulfilled but it was rejected with 'Error: 1 async operation has failed t…'",
+      "scenarios": [
+        {
+          "name": "when instructed to take a photo of all interactions takes a photo when the interaction goes well",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts",
+          "browser": "chrome 129.0.6668.100"
+        },
+        {
+          "name": "when instructed to take a photo of all interactions takes one photo per interaction",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts",
+          "browser": "chrome 129.0.6668.100"
+        },
+        {
+          "name": "when instructed to take a photo of all interactions includes the browser context in the name of the emitted artifact",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts",
+          "browser": "chrome 129.0.6668.100"
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Elle-navigates-to-\"by_deep_css.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Elle navigates to \"by_deep_css.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n    ",
+      "scenarios": [
+        {
+          "name": "when locating an element by deep css generates a description for a PageElement without a custom description",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.ByDeepCss.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Elle navigates to \"/screenplay/models/page-element/by_deep_css.html\""
+        },
+        {
+          "name": "when locating elements by deep css generates a description for PageElements without a custom description",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.located.ByDeepCss.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Elle navigates to \"/screenplay/models/page-elements/by_deep_css.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Elle-navigates-to-\"by_tag_name.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Elle navigates to \"by_tag_name.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n    ",
+      "scenarios": [
+        {
+          "name": "when locating an element by tag name generates a description for a PageElement without a custom description",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.ByTagName.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Elle navigates to \"/screenplay/models/page-element/by_tag_name.html\""
+        },
+        {
+          "name": "when locating elements by tag name generates a description for PageElements without a custom description",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.located.ByTagName.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Elle navigates to \"/screenplay/models/page-elements/by_tag_name.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Francesca-navigates-to-\"page_with_an_iframe.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Francesca navigates to \"page_with_an_iframe.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127",
+      "scenarios": [
+        {
+          "name": "isPresent() resolves to true when the regular element is present",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Francesca navigates to \"/screenplay/models/page-element/page_with_an_iframe.html\""
+        },
+        {
+          "name": "isPresent() resolves to true when the iframe element is present",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Francesca navigates to \"/screenplay/models/page-element/page_with_an_iframe.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Francesca-navigates-to-\"outer_html.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Francesca navigates to \"outer_html.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n",
+      "scenarios": [
+        {
+          "name": "html() should return the outer HTML of the element",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Francesca navigates to \"/screenplay/models/page-element/outer_html.html\""
+        },
+        {
+          "name": "html() should return the outer HTML of all elements",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Francesca navigates to \"/screenplay/models/page-element/outer_html.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Elle-navigates-to-\"dynamic_shopping_list.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Elle navigates to \"dynamic_shopping_list.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.",
+      "scenarios": [
+        {
+          "name": "when iterating over page elements lets the actor perform a given task for each one of them",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Elle navigates to \"/screenplay/models/page-elements/dynamic_shopping_list.html\""
+        },
+        {
+          "name": "when filtering a list of page elements and no filters are applied lets the actor interact with the list of matching elements so that it gets the number of items",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Elle navigates to \"/screenplay/models/page-elements/dynamic_shopping_list.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Wendy-navigates-to-\"display-none.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Wendy navigates to \"display-none.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n  ",
+      "scenarios": [
+        {
+          "name": "called of allows the actor to read an in-line style property of a DOM element matching the locator",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Wendy navigates to \"/screenplay/questions/computed-style/display-none.html\""
+        },
+        {
+          "name": "called of allows the actor to read a computed style property of a DOM element matching the locator",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Wendy navigates to \"/screenplay/questions/computed-style/display-none.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Wendy-navigates-to-\"shopping_list.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Wendy navigates to \"shopping_list.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n ",
+      "scenarios": [
+        {
+          "name": "ofAll allows the actor to read the text of all DOM elements matching the locator",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Wendy navigates to \"/screenplay/questions/text/shopping_list.html\""
+        },
+        {
+          "name": "ofAll allows for a question relative to another target to be asked",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Wendy navigates to \"/screenplay/questions/text/shopping_list.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:ActivityRelatedArtifactGenerated-event-not-found-within-InteractionFinished,-AsyncOperationAttempted,-AsyncOperationFailed",
+      "errorType": "Error",
+      "message": "ActivityRelatedArtifactGenerated event not found within InteractionFinished, AsyncOperationAttempted, AsyncOperationFailed",
+      "scenarios": [
+        {
+          "name": "when instructed to take a photo of failed interactions, correlates the photo with the activity it is concerning",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts",
+          "browser": "chrome 129.0.6668.100"
+        },
+        {
+          "name": "when instructed to take a photo of all interactions correlates the photo with the activity it's concerning",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts",
+          "browser": "chrome 129.0.6668.100"
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:ActivityRelatedArtifactGenerated-event-not-found-within-SceneStarts,-ActorEntersStage,-ActorSpotlighted,-TaskStarts,-TaskStarts,-InteractionStarts,-InteractionFinished,-AsyncOperationAttempted,-AsyncO",
+      "errorType": "Error",
+      "message": "ActivityRelatedArtifactGenerated event not found within SceneStarts, ActorEntersStage, ActorSpotlighted, TaskStarts, TaskStarts, InteractionStarts, InteractionFinished, AsyncOperationAttempted, AsyncO",
+      "scenarios": [
+        {
+          "name": "when instructed to take a photo of failed interactions, takes only one picture, even though nested tasks might all be marked as failing",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts",
+          "browser": "chrome 129.0.6668.100"
+        },
+        {
+          "name": "when instructed to take a photo of all interactions takes only one photo, even though nested tasks might all be marked as failing",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts",
+          "browser": "chrome 129.0.6668.100"
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Bernie-switches-to-page-which-URL-does-include-\"main_page.html\"'...---Error:-ECONNREFUSED-connect-EC",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Bernie switches to page which URL does include \"main_page.html\"'... - Error: ECONNREFUSED connect EC",
+      "scenarios": [
+        {
+          "name": "when managing closed windows complains when trying to switch to a Page closed by JavaScript",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/Page.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Bernie clicks on close window link"
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Bernie-navigates-to-\"viewport_size.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Bernie navigates to \"viewport_size.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n",
+      "scenarios": [
+        {
+          "name": "when managing the viewport size current() viewport setViewportSize() allows the actor to set the size of the viewport",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/Page.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Bernie navigates to \"/screenplay/models/page/viewport_size.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Elle-navigates-to-\"by_id.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-at-Cli",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Elle navigates to \"by_id.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n    at Cli",
+      "scenarios": [
+        {
+          "name": "when locating an element by id generates a description for a PageElement without a custom description",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.ById.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Elle navigates to \"/screenplay/models/page-element/by_id.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Francesca-navigates-to-\"page_with_no_iframes.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-12",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Francesca navigates to \"page_with_no_iframes.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 12",
+      "scenarios": [
+        {
+          "name": "isPresent() resolves to false when the element is not present",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Francesca navigates to \"/screenplay/models/page-element/page_with_no_iframes.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Francesca-navigates-to-\"outer_html_shadow_dom.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-1",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Francesca navigates to \"outer_html_shadow_dom.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 1",
+      "scenarios": [
+        {
+          "name": "html() should pierce shadow DOM",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Francesca navigates to \"/screenplay/models/page-element/outer_html_shadow_dom.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Francesca-reloads-the-page'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-at-ClientR",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Francesca reloads the page'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n    at ClientR",
+      "scenarios": [
+        {
+          "name": "switchTo() when working with iframes should switch context to the iframe of interest",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Francesca navigates to \"/screenplay/models/page-element/page_with_an_iframe.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Francesca-navigates-to-\"drag_and_drop.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Francesca navigates to \"drag_and_drop.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1",
+      "scenarios": [
+        {
+          "name": "dragTo() should successfully drag an element to the specified dropzone",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Francesca navigates to \"/screenplay/models/page-element/drag_and_drop.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Francesca-navigates-to-\"dynamic_drag_and_drop.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-1",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Francesca navigates to \"dynamic_drag_and_drop.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 1",
+      "scenarios": [
+        {
+          "name": "dragTo() should successfully drag an element to a dynamically enabled dropzone",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Francesca navigates to \"/screenplay/models/page-element/dynamic_drag_and_drop.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Elle-navigates-to-\"by_xpath.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-at-",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Elle navigates to \"by_xpath.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n    at ",
+      "scenarios": [
+        {
+          "name": "when locating elements by XPath generates a description for PageElements without a custom description",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.located.ByXPath.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Elle navigates to \"/screenplay/models/page-elements/by_xpath.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Peggy-navigates-to-\"locator_patterns.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Peggy navigates to \"locator_patterns.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:",
+      "scenarios": [
+        {
+          "name": "when using advanced locator strategies to find a specific element using a direct locator pattern finds the element, if one exists",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.patterns.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Peggy navigates to \"/screenplay/models/page-elements/locator_patterns.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Elle-navigates-to-\"lazy_loaded_shopping_list.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-12",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Elle navigates to \"lazy_loaded_shopping_list.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 12",
+      "scenarios": [
+        {
+          "name": "when accessing lazy loaded lists waits until the lazy loaded shopping list contains items",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Elle navigates to \"/screenplay/models/page-elements/lazy_loaded_shopping_list.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Wendy-navigates-to-\"filtering-by-computed-style.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Wendy navigates to \"filtering-by-computed-style.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED",
+      "scenarios": [
+        {
+          "name": "called of allows the actor to filter a list of elements by computed style property of an element",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Wendy navigates to \"/screenplay/questions/computed-style/filtering-by-computed-style.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Wendy-navigates-to-\"loader.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-at-C",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Wendy navigates to \"loader.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n    at C",
+      "scenarios": [
+        {
+          "name": "called of allow the actor to wait until the computed style property has an expected value",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Wendy navigates to \"/screenplay/questions/computed-style/loader.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Wendy-navigates-to-\"pseudo-element.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Wendy navigates to \"pseudo-element.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n",
+      "scenarios": [
+        {
+          "name": "called ofPseudoElement of allows the actor to read an in-line style property of a DOM element matching the locator",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Wendy navigates to \"/screenplay/questions/computed-style/pseudo-element.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Wendy-navigates-to-\"filtering-by-pseudo-element.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Wendy navigates to \"filtering-by-pseudo-element.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED",
+      "scenarios": [
+        {
+          "name": "called ofPseudoElement of allows the actor to filter a list of elements by computed style property of a pseudo-element",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Wendy navigates to \"/screenplay/questions/computed-style/filtering-by-pseudo-element.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Wendy-navigates-to-\"hello_world.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Wendy navigates to \"hello_world.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n   ",
+      "scenarios": [
+        {
+          "name": "of allows the actor to read the text of the DOM element matching the locator",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Wendy navigates to \"/screenplay/questions/text/hello_world.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Wendy-navigates-to-\"single_number_example.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Wendy navigates to \"single_number_example.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0",
+      "scenarios": [
+        {
+          "name": "of when mapping allows for the answer to be mapped to another type",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Wendy navigates to \"/screenplay/questions/text/single_number_example.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Wendy-navigates-to-\"date_example.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Wendy navigates to \"date_example.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n  ",
+      "scenarios": [
+        {
+          "name": "of when mapping allows for the transformations to be chained",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Wendy navigates to \"/screenplay/questions/text/date_example.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Wendy-navigates-to-\"percentages.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Wendy navigates to \"percentages.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n   ",
+      "scenarios": [
+        {
+          "name": "ofAll allows for the answer to be mapped",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Wendy navigates to \"/screenplay/questions/text/percentages.html\""
+        }
+      ]
+    },
+    {
+      "fingerprint": "Error:1-async-operation-has-failed-to-complete:-[Photographer:TakePhotosOfFailures]-Taking-screenshot-of-'Francesca-navigates-to-\"checkbox.html\"'...---Error:-ECONNREFUSED-connect-ECONNREFUSED-127.0.0.1:N-",
+      "errorType": "Error",
+      "message": "1 async operation has failed to complete:\n[Photographer:TakePhotosOfFailures] Taking screenshot of 'Francesca navigates to \"checkbox.html\"'... - Error: ECONNREFUSED connect ECONNREFUSED 127.0.0.1:N\n  ",
+      "scenarios": [
+        {
+          "name": "when wrapping native elements preserves information about the original selector <css>",
+          "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/interactions/Enter.spec.ts",
+          "browser": "chrome 129.0.6668.100",
+          "failingStep": "Francesca navigates to \"/screenplay/models/page-element/checkbox.html\""
         }
       ]
     }
@@ -35,6 +670,678 @@
     "inconsistent": [],
     "degraded": [
       {
+        "name": "when managing closed windows complains when trying to switch to a Page closed by JavaScript",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/Page.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when managing the viewport size current() viewport setViewportSize() allows the actor to set the size of the viewport",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/Page.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating an element by css generates a description for a PageElement without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.ByCss.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating an element by css containing text generates a description for a PageElement without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.ByCssContainingText.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating an element by deep css generates a description for a PageElement without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.ByDeepCss.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating an element by id generates a description for a PageElement without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.ById.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating an element by tag name generates a description for a PageElement without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.ByTagName.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating an element by XPath generates a description for a PageElement without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.ByXPath.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when handling errors should complain when trying to switch to an element that doesn't exist",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "isPresent() resolves to true when the regular element is present",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "isPresent() resolves to true when the iframe element is present",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "isPresent() resolves to false when the element is not present",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "html() should return the outer HTML of the element",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "html() should return the outer HTML of all elements",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "html() should pierce shadow DOM",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "switchTo() when working with iframes should switch context to the iframe of interest",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "switchTo() when working with regular Web elements should set focus on the element of interest",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "switchTo() when working with regular Web elements should switch focus from one element to another",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "switchTo() when working with regular Web elements and performing activities in the context of an Web element should automatically switch back to the previously focused element when the sequence is complete",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "switchTo() when working with regular Web elements and performing activities in the context of an Web element should automatically switch back to previously-focused element in nested sequences",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "dragTo() should successfully drag an element to the specified dropzone",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "dragTo() should successfully drag an element to a dynamically enabled dropzone",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating elements by css generates a description for PageElements without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.located.ByCss.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating elements by deep css generates a description for PageElements without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.located.ByDeepCss.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating elements by tag name generates a description for PageElements without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.located.ByTagName.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating elements by XPath generates a description for PageElements without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.located.ByXPath.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when using advanced locator strategies to find a specific element using a direct locator pattern finds the element, if one exists",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.patterns.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "allows the actor to locate a single web element matching the selector",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "allows the actor to locate all web elements matching a selector",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "allows the actor to locate an element relative to another page element",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "allows the actor to locate all elements relative to another page element",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when iterating over page elements lets the actor perform a given task for each one of them",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when filtering a list of page elements and no filters are applied lets the actor interact with the list of matching elements so that it gets the number of items",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when accessing lazy loaded lists waits until the lazy loaded shopping list contains items",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "called complains if the target is not specified",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "called of allows the actor to read an in-line style property of a DOM element matching the locator",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "called of allows the actor to read a computed style property of a DOM element matching the locator",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "called of allows the actor to filter a list of elements by computed style property of an element",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "called of allow the actor to wait until the computed style property has an expected value",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "called ofPseudoElement of allows the actor to read an in-line style property of a DOM element matching the locator",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "called ofPseudoElement of allows the actor to filter a list of elements by computed style property of a pseudo-element",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "complains if the script hasn't been executed yet",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/LastScriptExecution.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when used with ExecuteScript.sync allows the actor to retrieve the result of the script execution",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/LastScriptExecution.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when used with ExecuteScript.sync returns undefined or null if the script did not return any result",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/LastScriptExecution.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when used with ExecuteScript.async allows the actor to retrieve the result of the script execution",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/LastScriptExecution.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when used with ExecuteScript.async returns undefined or null if the script did not return any result",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/LastScriptExecution.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "of allows the actor to read the text of the DOM element matching the locator",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "of when mapping allows for the answer to be mapped to another type",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "of when mapping allows for the transformations to be chained",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "ofAll allows the actor to read the text of all DOM elements matching the locator",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "ofAll allows for a question relative to another target to be asked",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "ofAll allows for the answer to be mapped",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take photos before and after all interactions takes a before and after photo when the interaction goes well",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take photos before and after all interactions takes two photos per interaction",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take photos before and after all interactions includes the browser context in the name of the emitted artifact",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of failed interactions, takes a photo when a problem occurs",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of failed interactions, takes a photo when a timeout is reached",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of failed interactions, correlates the photo with the activity it is concerning",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of failed interactions, takes only one picture, even though nested tasks might all be marked as failing",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of failed interactions, includes the browser context in the name of the emitted artifact",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of all interactions takes a photo when the interaction goes well",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of all interactions takes a photo when a problem occurs",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of all interactions correlates the photo with the activity it's concerning",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of all interactions takes only one photo, even though nested tasks might all be marked as failing",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of all interactions takes one photo per interaction",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of all interactions includes the browser context in the name of the emitted artifact",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when wrapping native elements preserves information about the original selector <css>",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/interactions/Enter.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when managing closed windows complains when trying to switch to a Page closed by JavaScript",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/Page.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when managing the viewport size current() viewport setViewportSize() allows the actor to set the size of the viewport",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/Page.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating an element by css generates a description for a PageElement without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.ByCss.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating an element by css containing text generates a description for a PageElement without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.ByCssContainingText.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating an element by deep css generates a description for a PageElement without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.ByDeepCss.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating an element by id generates a description for a PageElement without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.ById.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating an element by tag name generates a description for a PageElement without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.ByTagName.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating an element by XPath generates a description for a PageElement without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.located.ByXPath.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when handling errors should complain when trying to switch to an element that doesn't exist",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "isPresent() resolves to true when the regular element is present",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "isPresent() resolves to true when the iframe element is present",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "isPresent() resolves to false when the element is not present",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "html() should return the outer HTML of the element",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "html() should return the outer HTML of all elements",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "html() should pierce shadow DOM",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "switchTo() when working with iframes should switch context to the iframe of interest",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "switchTo() when working with regular Web elements should set focus on the element of interest",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "switchTo() when working with regular Web elements should switch focus from one element to another",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "switchTo() when working with regular Web elements and performing activities in the context of an Web element should automatically switch back to the previously focused element when the sequence is complete",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "switchTo() when working with regular Web elements and performing activities in the context of an Web element should automatically switch back to previously-focused element in nested sequences",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "dragTo() should successfully drag an element to the specified dropzone",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "dragTo() should successfully drag an element to a dynamically enabled dropzone",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating elements by css generates a description for PageElements without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.located.ByCss.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating elements by deep css generates a description for PageElements without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.located.ByDeepCss.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating elements by tag name generates a description for PageElements without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.located.ByTagName.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when locating elements by XPath generates a description for PageElements without a custom description",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.located.ByXPath.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when using advanced locator strategies to find a specific element using a direct locator pattern finds the element, if one exists",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.patterns.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "allows the actor to locate a single web element matching the selector",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "allows the actor to locate all web elements matching a selector",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "allows the actor to locate an element relative to another page element",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "allows the actor to locate all elements relative to another page element",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when iterating over page elements lets the actor perform a given task for each one of them",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when filtering a list of page elements and no filters are applied lets the actor interact with the list of matching elements so that it gets the number of items",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when accessing lazy loaded lists waits until the lazy loaded shopping list contains items",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElements.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "called complains if the target is not specified",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "called of allows the actor to read an in-line style property of a DOM element matching the locator",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "called of allows the actor to read a computed style property of a DOM element matching the locator",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "called of allows the actor to filter a list of elements by computed style property of an element",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "called of allow the actor to wait until the computed style property has an expected value",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "called ofPseudoElement of allows the actor to read an in-line style property of a DOM element matching the locator",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "called ofPseudoElement of allows the actor to filter a list of elements by computed style property of a pseudo-element",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/ComputedStyle.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "complains if the script hasn't been executed yet",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/LastScriptExecution.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when used with ExecuteScript.sync allows the actor to retrieve the result of the script execution",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/LastScriptExecution.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when used with ExecuteScript.sync returns undefined or null if the script did not return any result",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/LastScriptExecution.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when used with ExecuteScript.async allows the actor to retrieve the result of the script execution",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/LastScriptExecution.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when used with ExecuteScript.async returns undefined or null if the script did not return any result",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/LastScriptExecution.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "of allows the actor to read the text of the DOM element matching the locator",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "of when mapping allows for the answer to be mapped to another type",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "of when mapping allows for the transformations to be chained",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "ofAll allows the actor to read the text of all DOM elements matching the locator",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "ofAll allows for a question relative to another target to be asked",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "ofAll allows for the answer to be mapped",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/questions/Text.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take photos before and after all interactions takes a before and after photo when the interaction goes well",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take photos before and after all interactions takes two photos per interaction",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take photos before and after all interactions includes the browser context in the name of the emitted artifact",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of failed interactions, takes a photo when a problem occurs",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of failed interactions, takes a photo when a timeout is reached",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of failed interactions, correlates the photo with the activity it is concerning",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of failed interactions, takes only one picture, even though nested tasks might all be marked as failing",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of failed interactions, includes the browser context in the name of the emitted artifact",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfFailures.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of all interactions takes a photo when the interaction goes well",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of all interactions takes a photo when a problem occurs",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of all interactions correlates the photo with the activity it's concerning",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of all interactions takes only one photo, even though nested tasks might all be marked as failing",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of all interactions takes one photo per interaction",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when instructed to take a photo of all interactions includes the browser context in the name of the emitted artifact",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/stage/crew/photographer/strategies/TakePhotosOfInteractions.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      },
+      {
+        "name": "when wrapping native elements preserves information about the original selector <css>",
+        "source": "protractor-web/node_modules/@integration/web-specs/spec/screenplay/interactions/Enter.spec.ts",
+        "browser": "chrome 129.0.6668.100"
+      }
+    ],
+    "recovered": [
+      {
         "name": "Externally-managed Electron session Electron browsing session (externally-managed) clicking on elements allows the actor to click on a button",
         "source": "playwright-electron/spec/electron/externally-managed.spec.ts"
       },
@@ -42,14 +1349,13 @@
         "name": "Externally-managed Electron session Electron browsing session (externally-managed) clicking on elements allows the actor to click on a button",
         "source": "playwright-electron/spec/electron/externally-managed.spec.ts"
       }
-    ],
-    "recovered": []
+    ]
   },
   "scores": {
-    "passRate": 99.9,
-    "completeness": 95.6,
-    "consistency": 99.9,
-    "confidence": 98.9
+    "passRate": 96,
+    "completeness": 95.2,
+    "consistency": 96.1,
+    "confidence": 95.9
   },
   "modules": [
     {
@@ -58,9 +1364,9 @@
       "tests": 30,
       "passed": 20,
       "failed": 0,
-      "duration": 6821,
-      "startedAt": "2026-07-25T23:45:57.012Z",
-      "finishedAt": "2026-07-25T23:46:03.833Z"
+      "duration": 5945,
+      "startedAt": "2026-07-26T00:23:31.587Z",
+      "finishedAt": "2026-07-26T00:23:37.532Z"
     },
     {
       "id": "cucumber-10",
@@ -68,9 +1374,9 @@
       "tests": 30,
       "passed": 27,
       "failed": 0,
-      "duration": 18781,
-      "startedAt": "2026-07-25T23:50:17.932Z",
-      "finishedAt": "2026-07-25T23:50:36.713Z"
+      "duration": 18332,
+      "startedAt": "2026-07-26T00:24:06.229Z",
+      "finishedAt": "2026-07-26T00:24:24.561Z"
     },
     {
       "id": "cucumber-11",
@@ -78,9 +1384,9 @@
       "tests": 30,
       "passed": 27,
       "failed": 0,
-      "duration": 11890,
-      "startedAt": "2026-07-25T23:50:28.879Z",
-      "finishedAt": "2026-07-25T23:50:40.769Z"
+      "duration": 11840,
+      "startedAt": "2026-07-26T00:21:28.471Z",
+      "finishedAt": "2026-07-26T00:21:40.311Z"
     },
     {
       "id": "cucumber-12",
@@ -88,9 +1394,9 @@
       "tests": 30,
       "passed": 27,
       "failed": 0,
-      "duration": 18359,
-      "startedAt": "2026-07-25T23:45:18.073Z",
-      "finishedAt": "2026-07-25T23:45:36.432Z"
+      "duration": 20175,
+      "startedAt": "2026-07-26T00:20:37.943Z",
+      "finishedAt": "2026-07-26T00:20:58.118Z"
     },
     {
       "id": "cucumber-13",
@@ -98,9 +1404,9 @@
       "tests": 30,
       "passed": 27,
       "failed": 0,
-      "duration": 18012,
-      "startedAt": "2026-07-25T23:45:24.689Z",
-      "finishedAt": "2026-07-25T23:45:42.701Z"
+      "duration": 17030,
+      "startedAt": "2026-07-26T00:23:34.125Z",
+      "finishedAt": "2026-07-26T00:23:51.155Z"
     },
     {
       "id": "cucumber-2",
@@ -108,9 +1414,9 @@
       "tests": 30,
       "passed": 20,
       "failed": 0,
-      "duration": 8803,
-      "startedAt": "2026-07-25T23:48:42.286Z",
-      "finishedAt": "2026-07-25T23:48:51.089Z"
+      "duration": 8840,
+      "startedAt": "2026-07-26T00:23:02.809Z",
+      "finishedAt": "2026-07-26T00:23:11.649Z"
     },
     {
       "id": "cucumber-3",
@@ -118,9 +1424,9 @@
       "tests": 30,
       "passed": 20,
       "failed": 0,
-      "duration": 8578,
-      "startedAt": "2026-07-25T23:49:24.250Z",
-      "finishedAt": "2026-07-25T23:49:32.828Z"
+      "duration": 8237,
+      "startedAt": "2026-07-26T00:20:58.830Z",
+      "finishedAt": "2026-07-26T00:21:07.067Z"
     },
     {
       "id": "cucumber-4",
@@ -128,9 +1434,9 @@
       "tests": 30,
       "passed": 20,
       "failed": 0,
-      "duration": 9239,
-      "startedAt": "2026-07-25T23:48:19.014Z",
-      "finishedAt": "2026-07-25T23:48:28.253Z"
+      "duration": 9108,
+      "startedAt": "2026-07-26T00:23:03.616Z",
+      "finishedAt": "2026-07-26T00:23:12.724Z"
     },
     {
       "id": "cucumber-5",
@@ -138,9 +1444,9 @@
       "tests": 30,
       "passed": 20,
       "failed": 0,
-      "duration": 8995,
-      "startedAt": "2026-07-25T23:47:39.015Z",
-      "finishedAt": "2026-07-25T23:47:48.010Z"
+      "duration": 9640,
+      "startedAt": "2026-07-26T00:21:18.994Z",
+      "finishedAt": "2026-07-26T00:21:28.634Z"
     },
     {
       "id": "cucumber-6",
@@ -148,9 +1454,9 @@
       "tests": 30,
       "passed": 20,
       "failed": 0,
-      "duration": 9824,
-      "startedAt": "2026-07-25T23:45:24.060Z",
-      "finishedAt": "2026-07-25T23:45:33.884Z"
+      "duration": 9800,
+      "startedAt": "2026-07-26T00:20:55.830Z",
+      "finishedAt": "2026-07-26T00:21:05.630Z"
     },
     {
       "id": "cucumber-7",
@@ -158,9 +1464,9 @@
       "tests": 30,
       "passed": 26,
       "failed": 0,
-      "duration": 9342,
-      "startedAt": "2026-07-25T23:48:31.416Z",
-      "finishedAt": "2026-07-25T23:48:40.758Z"
+      "duration": 12285,
+      "startedAt": "2026-07-26T00:24:43.666Z",
+      "finishedAt": "2026-07-26T00:24:55.951Z"
     },
     {
       "id": "cucumber-8-javascript-api",
@@ -168,9 +1474,9 @@
       "tests": 30,
       "passed": 27,
       "failed": 0,
-      "duration": 17548,
-      "startedAt": "2026-07-25T23:48:22.841Z",
-      "finishedAt": "2026-07-25T23:48:40.389Z"
+      "duration": 16491,
+      "startedAt": "2026-07-26T00:21:02.287Z",
+      "finishedAt": "2026-07-26T00:21:18.778Z"
     },
     {
       "id": "cucumber-8-legacy-api",
@@ -178,9 +1484,9 @@
       "tests": 30,
       "passed": 27,
       "failed": 0,
-      "duration": 17208,
-      "startedAt": "2026-07-25T23:48:47.706Z",
-      "finishedAt": "2026-07-25T23:49:04.914Z"
+      "duration": 15729,
+      "startedAt": "2026-07-26T00:21:25.729Z",
+      "finishedAt": "2026-07-26T00:21:41.458Z"
     },
     {
       "id": "cucumber-9",
@@ -188,9 +1494,9 @@
       "tests": 30,
       "passed": 27,
       "failed": 0,
-      "duration": 15633,
-      "startedAt": "2026-07-25T23:48:53.952Z",
-      "finishedAt": "2026-07-25T23:49:09.585Z"
+      "duration": 14626,
+      "startedAt": "2026-07-26T00:23:26.606Z",
+      "finishedAt": "2026-07-26T00:23:41.232Z"
     },
     {
       "id": "html-reporter",
@@ -198,9 +1504,9 @@
       "tests": 201,
       "passed": 201,
       "failed": 0,
-      "duration": 173123,
-      "startedAt": "2026-07-25T23:46:03.207Z",
-      "finishedAt": "2026-07-25T23:48:56.330Z"
+      "duration": 164690,
+      "startedAt": "2026-07-26T00:21:00.120Z",
+      "finishedAt": "2026-07-26T00:23:44.810Z"
     },
     {
       "id": "jasmine-5",
@@ -208,9 +1514,9 @@
       "tests": 20,
       "passed": 20,
       "failed": 0,
-      "duration": 10281,
-      "startedAt": "2026-07-25T23:47:40.401Z",
-      "finishedAt": "2026-07-25T23:47:50.682Z"
+      "duration": 10527,
+      "startedAt": "2026-07-26T00:24:41.417Z",
+      "finishedAt": "2026-07-26T00:24:51.944Z"
     },
     {
       "id": "jasmine",
@@ -218,9 +1524,9 @@
       "tests": 20,
       "passed": 20,
       "failed": 0,
-      "duration": 9911,
-      "startedAt": "2026-07-25T23:49:42.000Z",
-      "finishedAt": "2026-07-25T23:49:51.911Z"
+      "duration": 9268,
+      "startedAt": "2026-07-26T00:23:36.280Z",
+      "finishedAt": "2026-07-26T00:23:45.548Z"
     },
     {
       "id": "mocha",
@@ -228,19 +1534,19 @@
       "tests": 21,
       "passed": 21,
       "failed": 0,
-      "duration": 8939,
-      "startedAt": "2026-07-25T23:47:35.640Z",
-      "finishedAt": "2026-07-25T23:47:44.579Z"
+      "duration": 8794,
+      "startedAt": "2026-07-26T00:20:42.957Z",
+      "finishedAt": "2026-07-26T00:20:51.751Z"
     },
     {
       "id": "playwright-electron",
-      "outcome": "failed",
+      "outcome": "passed",
       "tests": 24,
-      "passed": 23,
-      "failed": 1,
-      "duration": 6438,
-      "startedAt": "2026-07-25T23:45:34.743Z",
-      "finishedAt": "2026-07-25T23:45:41.181Z"
+      "passed": 24,
+      "failed": 0,
+      "duration": 6390,
+      "startedAt": "2026-07-26T00:21:04.433Z",
+      "finishedAt": "2026-07-26T00:21:10.823Z"
     },
     {
       "id": "playwright-test",
@@ -248,9 +1554,9 @@
       "tests": 68,
       "passed": 68,
       "failed": 0,
-      "duration": 186708,
-      "startedAt": "2026-07-25T23:45:37.496Z",
-      "finishedAt": "2026-07-25T23:48:44.204Z"
+      "duration": 162356,
+      "startedAt": "2026-07-26T00:21:15.930Z",
+      "finishedAt": "2026-07-26T00:23:58.286Z"
     },
     {
       "id": "playwright-test-ct",
@@ -258,9 +1564,9 @@
       "tests": 7,
       "passed": 7,
       "failed": 0,
-      "duration": 1361,
-      "startedAt": "2026-07-25T23:45:37.367Z",
-      "finishedAt": "2026-07-25T23:45:38.728Z"
+      "duration": 2750,
+      "startedAt": "2026-07-26T00:20:35.781Z",
+      "finishedAt": "2026-07-26T00:20:38.531Z"
     },
     {
       "id": "playwright-web",
@@ -268,9 +1574,9 @@
       "tests": 551,
       "passed": 551,
       "failed": 0,
-      "duration": 106746,
-      "startedAt": "2026-07-25T23:46:01.796Z",
-      "finishedAt": "2026-07-25T23:47:48.542Z"
+      "duration": 104015,
+      "startedAt": "2026-07-26T00:21:11.710Z",
+      "finishedAt": "2026-07-26T00:22:55.725Z"
     },
     {
       "id": "protractor-cucumber",
@@ -278,9 +1584,9 @@
       "tests": 3,
       "passed": 3,
       "failed": 0,
-      "duration": 3629,
-      "startedAt": "2026-07-25T23:45:28.402Z",
-      "finishedAt": "2026-07-25T23:45:32.031Z"
+      "duration": 4031,
+      "startedAt": "2026-07-26T00:20:34.278Z",
+      "finishedAt": "2026-07-26T00:20:38.309Z"
     },
     {
       "id": "protractor-jasmine",
@@ -288,9 +1594,9 @@
       "tests": 7,
       "passed": 7,
       "failed": 0,
-      "duration": 8180,
-      "startedAt": "2026-07-25T23:45:38.228Z",
-      "finishedAt": "2026-07-25T23:45:46.408Z"
+      "duration": 8859,
+      "startedAt": "2026-07-26T00:20:44.882Z",
+      "finishedAt": "2026-07-26T00:20:53.741Z"
     },
     {
       "id": "protractor-mocha",
@@ -298,19 +1604,19 @@
       "tests": 8,
       "passed": 8,
       "failed": 0,
-      "duration": 9720,
-      "startedAt": "2026-07-25T23:45:52.549Z",
-      "finishedAt": "2026-07-25T23:46:02.269Z"
+      "duration": 9754,
+      "startedAt": "2026-07-26T00:21:00.588Z",
+      "finishedAt": "2026-07-26T00:21:10.342Z"
     },
     {
       "id": "protractor-web",
-      "outcome": "passed",
-      "tests": 549,
-      "passed": 549,
-      "failed": 0,
-      "duration": 110376,
-      "startedAt": "2026-07-25T23:45:33.537Z",
-      "finishedAt": "2026-07-25T23:47:23.913Z"
+      "outcome": "failed",
+      "tests": 373,
+      "passed": 306,
+      "failed": 67,
+      "duration": 66329,
+      "startedAt": "2026-07-26T00:21:17.679Z",
+      "finishedAt": "2026-07-26T00:22:24.008Z"
     },
     {
       "id": "rest",
@@ -318,9 +1624,9 @@
       "tests": 7,
       "passed": 7,
       "failed": 0,
-      "duration": 1038,
-      "startedAt": "2026-07-25T23:46:14.460Z",
-      "finishedAt": "2026-07-25T23:46:15.498Z"
+      "duration": 989,
+      "startedAt": "2026-07-26T00:23:55.503Z",
+      "finishedAt": "2026-07-26T00:23:56.492Z"
     },
     {
       "id": "webdriverio-8-cucumber",
@@ -328,9 +1634,9 @@
       "tests": 2,
       "passed": 2,
       "failed": 0,
-      "duration": 48946,
-      "startedAt": "2026-07-25T23:45:23.401Z",
-      "finishedAt": "2026-07-25T23:46:12.347Z"
+      "duration": 44965,
+      "startedAt": "2026-07-26T00:20:38.150Z",
+      "finishedAt": "2026-07-26T00:21:23.115Z"
     },
     {
       "id": "webdriverio-8-jasmine",
@@ -338,9 +1644,9 @@
       "tests": 6,
       "passed": 6,
       "failed": 0,
-      "duration": 108792,
-      "startedAt": "2026-07-25T23:46:19.942Z",
-      "finishedAt": "2026-07-25T23:48:08.734Z"
+      "duration": 108714,
+      "startedAt": "2026-07-26T00:21:30.937Z",
+      "finishedAt": "2026-07-26T00:23:19.651Z"
     },
     {
       "id": "webdriverio-8-mocha",
@@ -348,9 +1654,9 @@
       "tests": 7,
       "passed": 7,
       "failed": 0,
-      "duration": 126984,
-      "startedAt": "2026-07-25T23:48:12.880Z",
-      "finishedAt": "2026-07-25T23:50:19.864Z"
+      "duration": 128880,
+      "startedAt": "2026-07-26T00:23:23.791Z",
+      "finishedAt": "2026-07-26T00:25:32.671Z"
     },
     {
       "id": "webdriverio-8-web-devtools",
@@ -358,9 +1664,9 @@
       "tests": 3,
       "passed": 3,
       "failed": 0,
-      "duration": 460,
-      "startedAt": "2026-07-25T23:50:14.596Z",
-      "finishedAt": "2026-07-25T23:50:15.056Z"
+      "duration": 472,
+      "startedAt": "2026-07-26T00:28:22.924Z",
+      "finishedAt": "2026-07-26T00:28:23.396Z"
     },
     {
       "id": "webdriverio-8-web-webdriver",
@@ -368,9 +1674,9 @@
       "tests": 3,
       "passed": 3,
       "failed": 0,
-      "duration": 498,
-      "startedAt": "2026-07-25T23:50:59.156Z",
-      "finishedAt": "2026-07-25T23:50:59.654Z"
+      "duration": 468,
+      "startedAt": "2026-07-26T00:25:46.408Z",
+      "finishedAt": "2026-07-26T00:25:46.876Z"
     },
     {
       "id": "webdriverio-cucumber",
@@ -378,9 +1684,9 @@
       "tests": 2,
       "passed": 2,
       "failed": 0,
-      "duration": 23389,
-      "startedAt": "2026-07-25T23:45:32.627Z",
-      "finishedAt": "2026-07-25T23:45:56.016Z"
+      "duration": 22436,
+      "startedAt": "2026-07-26T00:20:47.203Z",
+      "finishedAt": "2026-07-26T00:21:09.639Z"
     },
     {
       "id": "webdriverio-jasmine",
@@ -388,9 +1694,9 @@
       "tests": 6,
       "passed": 6,
       "failed": 0,
-      "duration": 30655,
-      "startedAt": "2026-07-25T23:46:03.271Z",
-      "finishedAt": "2026-07-25T23:46:33.926Z"
+      "duration": 30816,
+      "startedAt": "2026-07-26T00:21:16.825Z",
+      "finishedAt": "2026-07-26T00:21:47.641Z"
     },
     {
       "id": "webdriverio-mocha",
@@ -398,9 +1704,9 @@
       "tests": 7,
       "passed": 7,
       "failed": 0,
-      "duration": 35367,
-      "startedAt": "2026-07-25T23:46:37.377Z",
-      "finishedAt": "2026-07-25T23:47:12.744Z"
+      "duration": 35963,
+      "startedAt": "2026-07-26T00:21:51.104Z",
+      "finishedAt": "2026-07-26T00:22:27.067Z"
     },
     {
       "id": "webdriverio-web",
@@ -408,9 +1714,9 @@
       "tests": 3,
       "passed": 3,
       "failed": 0,
-      "duration": 517,
-      "startedAt": "2026-07-25T23:48:37.498Z",
-      "finishedAt": "2026-07-25T23:48:38.015Z"
+      "duration": 537,
+      "startedAt": "2026-07-26T00:26:15.799Z",
+      "finishedAt": "2026-07-26T00:26:16.336Z"
     }
   ]
 }
