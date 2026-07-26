@@ -42,14 +42,39 @@ function confidenceSubtitle({ confidence, previousConfidence, totalScenarios, ru
 
 function createHistoryLookup(scenarios: ReportScenario[]): (t: ReportScenarioRef) => Array<{ outcome: string }> {
     return (t: ReportScenarioRef) => {
+        const hasLine = t.source.line !== undefined;
         const key = t.source.path + ':' + (t.source.line || '');
         const discriminator = tagDiscriminator(t.tags);
-        const match = discriminator
-            ? scenarios.find(s => s.source.path + ':' + (s.source.line || '') === key && tagDiscriminator(s.tags) === discriminator)
-                || scenarios.find(s => s.name === t.name && s.source.path === t.source.path && tagDiscriminator(s.tags) === discriminator)
-            : scenarios.find(s => s.source.path + ':' + (s.source.line || '') === key)
-                || scenarios.find(s => s.name === t.name && s.source.path === t.source.path);
-        return match && match.executionHistory ? match.executionHistory.slice(-5) : [];
+
+        let match: ReportScenario | undefined;
+
+        if (discriminator) {
+            // With discriminator: try key first (only if line exists), then name+path
+            if (hasLine) {
+                match = scenarios.find(s =>
+                    s.source.path + ':' + (s.source.line || '') === key &&
+                    tagDiscriminator(s.tags) === discriminator
+                );
+            }
+            match ??= scenarios.find(s =>
+                s.name === t.name &&
+                s.source.path === t.source.path &&
+                tagDiscriminator(s.tags) === discriminator
+            );
+        } else {
+            // Without discriminator: try key first (only if line exists), then name+path
+            if (hasLine) {
+                match = scenarios.find(s =>
+                    s.source.path + ':' + (s.source.line || '') === key
+                );
+            }
+            match ??= scenarios.find(s =>
+                s.name === t.name &&
+                s.source.path === t.source.path
+            );
+        }
+
+        return match?.executionHistory?.slice(-5) ?? [];
     };
 }
 

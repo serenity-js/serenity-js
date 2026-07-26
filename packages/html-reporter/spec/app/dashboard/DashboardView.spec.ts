@@ -230,4 +230,73 @@ describe('DashboardView', () => {
             Ensure.that(view.consistencyItemHistoryOutcomes('Deep Linking toggles themes'), equals(['SUCCESS', 'ERROR'])),
         );
     });
+
+    it('shows the correct history dots for a degraded test when multiple scenarios share the same file but have no line numbers', async ({ mount, actor }) => {
+        // This test reproduces the bug where scenarios in the same file without line numbers
+        // would match the wrong scenario's history because the key-based lookup (path:line)
+        // would match the first scenario in the file when line is undefined.
+        const sharedPath = 'spec/electron/externally-managed.spec.ts';
+
+        const noLineNumberData = minimalData({
+            scenarios: [
+                {
+                    name: 'Electron reading content allows the actor to read text',
+                    category: 'Electron',
+                    outcome: 'SUCCESS',
+                    duration: 100,
+                    startedAt: '2024-06-15T14:30:00.000Z',
+                    source: { path: sharedPath },  // No line number
+                    tags: [],
+                    activities: [],
+                    executionHistory: [
+                        { outcome: 'SUCCESS', run: '#41' },
+                        { outcome: 'SUCCESS', run: '#42' },
+                        { outcome: 'SUCCESS', run: '#43' },
+                    ],
+                },
+                {
+                    name: 'Electron clicking on elements allows the actor to click',
+                    category: 'Electron',
+                    outcome: 'ERROR',
+                    duration: 500,
+                    startedAt: '2024-06-15T14:30:01.000Z',
+                    source: { path: sharedPath },  // Same path, no line number
+                    tags: [],
+                    activities: [],
+                    error: { name: 'Error', message: 'Click failed', stack: '' },
+                    executionHistory: [
+                        { outcome: 'SUCCESS', run: '#41' },
+                        { outcome: 'SUCCESS', run: '#42' },
+                        { outcome: 'ERROR', run: '#43' },
+                    ],
+                },
+            ],
+            newFailures: [
+                {
+                    name: 'Electron clicking on elements allows the actor to click',
+                    category: 'Electron',
+                    source: { path: sharedPath },  // No line number, same as in scenarios
+                    tags: [],
+                },
+            ],
+        });
+
+        const view = await mount({
+            component: 'DashboardView',
+            importPath: './components/dashboard/DashboardView',
+            props: { onNavigate: () => {} },
+            data: noLineNumberData,
+            interactionObject: DashboardView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.consistencyCardScenarioNames(), contain('Electron clicking on elements allows the actor to click')),
+            // The history dots must reflect the ERROR outcome of the clicking test,
+            // NOT the all-SUCCESS history of the reading test (which appears first in the scenarios array)
+            Ensure.that(
+                view.consistencyItemHistoryOutcomes('Electron clicking on elements allows the actor to click'),
+                equals(['SUCCESS', 'SUCCESS', 'ERROR']),
+            ),
+        );
+    });
 });
