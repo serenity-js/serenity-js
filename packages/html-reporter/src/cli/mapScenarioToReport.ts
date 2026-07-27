@@ -1,7 +1,7 @@
 import { ExecutionSuccessful } from '@serenity-js/core/model';
 import { marked } from 'marked';
 
-import { resolveRunLabel, sceneIdentityWithTags } from './model/index.js';
+import { resolveRunLabel, sceneIdentity } from './model/index.js';
 import { outcomeCodeToDisplayString } from './model/outcomes.js';
 import type { ActivityRecord, RunData, SceneRecord } from './model/RunData.js';
 import type {
@@ -73,9 +73,9 @@ export function enrichSingleScenario(scene: SceneRecord, executionHistory: Repor
  * @package
  */
 export function buildExecutionHistory(scene: SceneRecord, allRuns: RunData[]): ReportExecutionHistoryEntry[] {
-    const key = sceneIdentityWithTags(scene);
+    const key = sceneIdentity(scene);
     return allRuns.map(run => {
-        const match = run.scenes.find(s => sceneIdentityWithTags(s) === key);
+        const match = run.scenes.find(s => sceneIdentity(s) === key);
         if (!match) return undefined;
         const entry: ReportExecutionHistoryEntry = {
             outcome: outcomeCodeToDisplayString(match.outcome.code),

@@ -1,6 +1,6 @@
 import { ExecutionSuccessful } from '@serenity-js/core/model';
 
-import { resolveRunLabel, sceneIdentityWithTags } from './model/index.js';
+import { resolveRunLabel, sceneIdentity } from './model/index.js';
 import { outcomeCodeToDisplayString } from './model/outcomes.js';
 import type { RunData, TagRecord } from './model/RunData.js';
 
@@ -83,10 +83,10 @@ export function computeDegradedRecovered(allRuns: RunData[]): {
 
     const latestRun = allRuns[allRuns.length - 1];
     const previousRun = allRuns[allRuns.length - 2];
-    const previousOutcomes = new Map(previousRun.scenes.map(s => [sceneIdentityWithTags(s), s.outcome.code]));
+    const previousOutcomes = new Map(previousRun.scenes.map(s => [sceneIdentity(s), s.outcome.code]));
 
     for (const scene of latestRun.scenes) {
-        const key = sceneIdentityWithTags(scene);
+        const key = sceneIdentity(scene);
         const previousCode = previousOutcomes.get(key);
         if (previousCode !== undefined) {
             const previousSuccess = previousCode === ExecutionSuccessful.Code;

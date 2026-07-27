@@ -6,16 +6,19 @@ import { sceneIdentity } from './model/sceneIdentity.js';
 
 /**
  * Additively merges two RunData objects that share the same testRunId and attempt number.
- * Handles overlapping scenes (same identity) by detecting outcome differences:
+ * Handles overlapping scenes (same identity including module tag) by detecting outcome differences:
  * - Different outcome → records as retry attempt
  * - Same outcome → keeps the later version (deduplication)
+ *
+ * Uses sceneIdentity to distinguish scenes from different modules that share the same
+ * source location (e.g., webdriverio-8-web-devtools vs webdriverio-8-web-webdriverio).
  *
  * @package
  */
 export function mergeAdditively(base: RunData, addition: RunData): RunData {
     const merged: RunData = { ...base };
 
-    // Build a map of base scenes by identity to detect overlaps
+    // Build a map of base scenes by identity (including module tag) to detect overlaps
     const baseScenesByIdentity = new Map<string, SceneRecord>();
     for (const scene of base.scenes) {
         baseScenesByIdentity.set(sceneIdentity(scene), scene);
@@ -77,6 +80,9 @@ export function mergeAdditively(base: RunData, addition: RunData): RunData {
  * Merges two RunData objects representing consecutive CI attempts of the same test run.
  * The `later` run takes precedence for scenes it contains; scenes from `earlier` that
  * genuinely failed are recorded as retry attempts on the corresponding later scene.
+ *
+ * Uses sceneIdentity to correctly match scenes across attempts, including
+ * module discrimination.
  *
  * @package
  */

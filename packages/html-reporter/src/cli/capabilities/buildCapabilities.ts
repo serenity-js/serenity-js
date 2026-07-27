@@ -4,7 +4,7 @@ import { Path } from '@serenity-js/core/io';
 import { scoreCapability, scoreDirectory } from '../CapabilityConfidenceScorer.js';
 import { mapOutcomeToKey, outcomeCodeToDisplayString } from '../model/outcomes.js';
 import type { RunData, SceneRecord } from '../model/RunData.js';
-import { sceneIdentityWithTags } from '../model/sceneIdentity.js';
+import { sceneIdentity } from '../model/sceneIdentity.js';
 import type { ReportCapabilityNode, ReportOutcomes } from '../ReportData.js';
 import { findReadme, renderReadmeHtml } from './renderReadme.js';
 
@@ -126,9 +126,9 @@ function ensureFileNode(
 }
 
 function buildExecutionHistory(scene: SceneRecord, allRuns: RunData[]): string[] {
-    const scenarioKey = sceneIdentityWithTags(scene);
+    const scenarioKey = sceneIdentity(scene);
     return allRuns.map(r => {
-        const match = r.scenes.find(s => sceneIdentityWithTags(s) === scenarioKey);
+        const match = r.scenes.find(s => sceneIdentity(s) === scenarioKey);
         return match ? outcomeCodeToDisplayString(match.outcome.code) : undefined;
     }).filter(Boolean) as string[];
 }
