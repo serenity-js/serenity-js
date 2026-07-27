@@ -1,6 +1,6 @@
 import type { ComponentChild } from 'preact';
 
-import type { ReportData } from '../../src/cli/ReportData';
+import type { ReportData } from '../../src/cli/ReportData.js';
 
 export interface RouteParameters {
     /** Full path portion of the hash route (before '?') */

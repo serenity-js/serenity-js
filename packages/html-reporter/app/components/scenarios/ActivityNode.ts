@@ -2,13 +2,13 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 
-import type { ReportActivity } from '../../../src/cli/ReportData';
-import { parseActivityContent } from '../../utils/parseActivityContent';
-import { RestQueryPanel } from '../common/RestQueryPanel';
-import { ActivityDataTable } from './ActivityDataTable';
-import { ActivityDocString } from './ActivityDocString';
-import { ActivityReportData } from './ActivityReportData';
-import { ActivityRow } from './ActivityRow';
+import type { ReportActivity } from '../../../src/cli/ReportData.js';
+import { parseActivityContent } from '../../utils/parseActivityContent.js';
+import { RestQueryPanel } from '../common/RestQueryPanel.js';
+import { ActivityDataTable } from './ActivityDataTable.js';
+import { ActivityDocString } from './ActivityDocString.js';
+import { ActivityReportData } from './ActivityReportData.js';
+import { ActivityRow } from './ActivityRow.js';
 
 const html = htm.bind(h);
 

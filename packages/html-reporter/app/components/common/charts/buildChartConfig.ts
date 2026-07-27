@@ -1,8 +1,8 @@
 import type { ChartConfiguration } from 'chart.js';
 
-import type { ReportHistoryEntry } from '../../../../src/cli/ReportData';
-import { abbreviateRunLabels, formatRunLabel } from '../../../utils';
-import { buildTrendDatasets, buildTrendOptions } from './trendChartConfig';
+import type { ReportHistoryEntry } from '../../../../src/cli/ReportData.js';
+import { abbreviateRunLabels, formatRunLabel } from '../../../utils/index.js';
+import { buildTrendDatasets, buildTrendOptions } from './trendChartConfig.js';
 
 export function buildChartConfig(
     history: ReportHistoryEntry[],

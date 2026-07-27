@@ -1,9 +1,9 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportSystemContext } from '../../../src/cli/ReportData';
-import { normaliseRepoUrl } from '../../utils/computeRunMetrics';
-import { icons } from '../common/icons';
+import type { ReportSystemContext } from '../../../src/cli/ReportData.js';
+import { normaliseRepoUrl } from '../../utils/computeRunMetrics.js';
+import { icons } from '../common/icons.js';
 
 const html = htm.bind(h);
 

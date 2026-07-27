@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import { targetValue } from '../../utils';
+import { targetValue } from '../../utils/index.js';
 
 const html = htm.bind(h);
 

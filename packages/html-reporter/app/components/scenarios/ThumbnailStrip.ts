@@ -1,9 +1,9 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import { useScrollFade } from '../../hooks/useScrollFade';
-import { formatDuration } from '../../utils';
-import type { PhotoEntry } from './collectPhotos';
+import { useScrollFade } from '../../hooks/useScrollFade.js';
+import { formatDuration } from '../../utils/index.js';
+import type { PhotoEntry } from './collectPhotos.js';
 
 const html = htm.bind(h);
 

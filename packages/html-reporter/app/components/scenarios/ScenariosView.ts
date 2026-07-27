@@ -2,15 +2,15 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useMemo } from 'preact/hooks';
 
-import type { ReportHistoryEntry, ReportOutcomes, ReportScenario, ReportSummary } from '../../../src/cli/ReportData';
-import { useRunSelection } from '../../hooks/useRunSelection';
-import { useViewState } from '../../hooks/useViewState';
-import { matchesOutcomeFilter, matchesSearch, totalFailedCount } from '../../utils';
-import { FilterBar } from '../common/FilterBar';
-import { ResultCount } from '../common/ResultCount';
-import { RunSelector } from '../common/RunSelector';
-import { SearchInput } from '../common/SearchInput';
-import { VirtualScenarioList } from './VirtualScenarioList';
+import type { ReportHistoryEntry, ReportOutcomes, ReportScenario, ReportSummary } from '../../../src/cli/ReportData.js';
+import { useRunSelection } from '../../hooks/useRunSelection.js';
+import { useViewState } from '../../hooks/useViewState.js';
+import { matchesOutcomeFilter, matchesSearch, totalFailedCount } from '../../utils/index.js';
+import { FilterBar } from '../common/FilterBar.js';
+import { ResultCount } from '../common/ResultCount.js';
+import { RunSelector } from '../common/RunSelector.js';
+import { SearchInput } from '../common/SearchInput.js';
+import { VirtualScenarioList } from './VirtualScenarioList.js';
 
 const html = htm.bind(h);
 

@@ -1,4 +1,4 @@
-import type { ReportData } from '../../src/cli/ReportData';
+import type { ReportData } from '../../src/cli/ReportData.js';
 
 const raw = (window as { __SERENITY_REPORT_DATA__?: ReportData }).__SERENITY_REPORT_DATA__;
 

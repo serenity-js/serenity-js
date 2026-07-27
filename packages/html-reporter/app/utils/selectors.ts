@@ -1,4 +1,4 @@
-import type { ReportCapabilityNode, ReportHistoryEntry, ReportOutcomes, ReportScenario } from '../../src/cli/ReportData';
+import type { ReportCapabilityNode, ReportHistoryEntry, ReportOutcomes, ReportScenario } from '../../src/cli/ReportData.js';
 
 export { classifyConsistencyKind, type ConsistencyKind } from '../../src/cli/model/classifyConsistencyKind.js';
 

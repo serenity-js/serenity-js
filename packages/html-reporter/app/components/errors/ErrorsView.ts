@@ -2,17 +2,17 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useMemo } from 'preact/hooks';
 
-import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData';
-import { ROW_HEIGHTS } from '../../config/layout';
-import { useRunSelection } from '../../hooks/useRunSelection';
-import { icons } from '../common/icons';
-import { GroupedVirtualList } from '../common/layout/GroupedVirtualList';
-import { ResultCount } from '../common/ResultCount';
-import { RunSelector } from '../common/RunSelector';
-import type { ErrorRenderItem } from './categoriseErrors';
-import { buildRenderItems, buildSummaryCards, categoriseErrors, CATEGORY_ICONS } from './categoriseErrors';
-import { ErrorKpiCards } from './ErrorKpiCards';
-import { ErrorRow } from './ErrorRow';
+import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData.js';
+import { ROW_HEIGHTS } from '../../config/layout.js';
+import { useRunSelection } from '../../hooks/useRunSelection.js';
+import { icons } from '../common/icons.js';
+import { GroupedVirtualList } from '../common/layout/GroupedVirtualList.js';
+import { ResultCount } from '../common/ResultCount.js';
+import { RunSelector } from '../common/RunSelector.js';
+import type { ErrorRenderItem } from './categoriseErrors.js';
+import { buildRenderItems, buildSummaryCards, categoriseErrors, CATEGORY_ICONS } from './categoriseErrors.js';
+import { ErrorKpiCards } from './ErrorKpiCards.js';
+import { ErrorRow } from './ErrorRow.js';
 
 const html = htm.bind(h);
 

@@ -1,11 +1,11 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportInconsistentTest } from '../../../src/cli/ReportData';
-import { outcomeDisplayName, relativeSourcePath, scenarioUrl } from '../../utils';
-import { BrowserBadge } from '../common/BrowserBadge';
-import { HistoryDots } from '../common/HistoryDots';
-import { OutcomeBadge } from '../common/OutcomeBadge';
+import type { ReportInconsistentTest } from '../../../src/cli/ReportData.js';
+import { outcomeDisplayName, relativeSourcePath, scenarioUrl } from '../../utils/index.js';
+import { BrowserBadge } from '../common/BrowserBadge.js';
+import { HistoryDots } from '../common/HistoryDots.js';
+import { OutcomeBadge } from '../common/OutcomeBadge.js';
 
 const html = htm.bind(h);
 

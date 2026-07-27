@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 
-import type { ReportScenario } from '../../../src/cli/ReportData';
+import type { ReportScenario } from '../../../src/cli/ReportData.js';
 
 const html = htm.bind(h);
 

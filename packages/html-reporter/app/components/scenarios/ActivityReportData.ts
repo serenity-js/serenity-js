@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportActivity } from '../../../src/cli/ReportData';
+import type { ReportActivity } from '../../../src/cli/ReportData.js';
 
 const html = htm.bind(h);
 

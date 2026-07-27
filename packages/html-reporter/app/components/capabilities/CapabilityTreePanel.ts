@@ -2,10 +2,10 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useMemo } from 'preact/hooks';
 
-import type { ReportCapabilityNode } from '../../../src/cli/ReportData';
-import { FilterBar } from '../common/FilterBar';
-import { ResultCount } from '../common/ResultCount';
-import { SearchInput } from '../common/SearchInput';
+import type { ReportCapabilityNode } from '../../../src/cli/ReportData.js';
+import { FilterBar } from '../common/FilterBar.js';
+import { ResultCount } from '../common/ResultCount.js';
+import { SearchInput } from '../common/SearchInput.js';
 import {
     countTopLevelCapabilities,
     countVisibleNodes,
@@ -13,7 +13,7 @@ import {
     getVisiblePaths,
     resolveTreeKeyNavigation,
     TreeNode,
-} from './CapabilityTree';
+} from './CapabilityTree.js';
 
 const html = htm.bind(h);
 

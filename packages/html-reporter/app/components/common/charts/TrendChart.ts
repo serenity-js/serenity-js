@@ -7,12 +7,12 @@ import { createPortal } from 'preact/compat';
 Chart.register(zoomPlugin);
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 
-import type { ReportHistoryEntry } from '../../../../src/cli/ReportData';
-import { usePanState } from '../../../hooks/usePanState';
-import { formatDuration, formatRunLabel, formatTimestamp } from '../../../utils';
-import { computeRunMetrics } from '../../../utils/computeRunMetrics';
-import { buildChartConfig } from './buildChartConfig';
-import { TrendChartDetails } from './TrendChartDetails';
+import type { ReportHistoryEntry } from '../../../../src/cli/ReportData.js';
+import { usePanState } from '../../../hooks/usePanState.js';
+import { formatDuration, formatRunLabel, formatTimestamp } from '../../../utils/index.js';
+import { computeRunMetrics } from '../../../utils/computeRunMetrics.js';
+import { buildChartConfig } from './buildChartConfig.js';
+import { TrendChartDetails } from './TrendChartDetails.js';
 
 const html = htm.bind(h);
 

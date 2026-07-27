@@ -2,17 +2,17 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 
-import type { ReportCapabilityNode } from '../../../src/cli/ReportData';
-import { useViewState } from '../../hooks/useViewState';
-import { useHashHistory } from '../../utils';
-import { icons } from '../common/icons';
-import { DetailPanel } from './CapabilityDetail';
+import type { ReportCapabilityNode } from '../../../src/cli/ReportData.js';
+import { useViewState } from '../../hooks/useViewState.js';
+import { useHashHistory } from '../../utils/index.js';
+import { icons } from '../common/icons.js';
+import { DetailPanel } from './CapabilityDetail.js';
 import {
     findNodeByPath,
     nodeConfidence,
     nodeHasGap,
-} from './CapabilityTree';
-import { CapabilityTreePanel } from './CapabilityTreePanel';
+} from './CapabilityTree.js';
+import { CapabilityTreePanel } from './CapabilityTreePanel.js';
 
 const html = htm.bind(h);
 

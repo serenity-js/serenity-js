@@ -1,5 +1,5 @@
-import type { ReportCapabilityNode, ReportHistoryEntry, ReportSummary } from '../../src/cli/ReportData';
-import { computeCompletenessFromTree, runConfidence, totalFailedCount } from './selectors';
+import type { ReportCapabilityNode, ReportHistoryEntry, ReportSummary } from '../../src/cli/ReportData.js';
+import { computeCompletenessFromTree, runConfidence, totalFailedCount } from './selectors.js';
 
 export interface DashboardScores {
     passRate: number;

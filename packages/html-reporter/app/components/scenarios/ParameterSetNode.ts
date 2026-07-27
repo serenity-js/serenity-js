@@ -2,11 +2,11 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 
-import type { ReportParameterSet } from '../../../src/cli/ReportData';
-import { formatDuration, showToast, useHashHistory } from '../../utils';
-import { icons } from '../common/icons';
-import { OutcomeBadge } from '../common/OutcomeBadge';
-import { ActivityNode } from './ActivityNode';
+import type { ReportParameterSet } from '../../../src/cli/ReportData.js';
+import { formatDuration, showToast, useHashHistory } from '../../utils/index.js';
+import { icons } from '../common/icons.js';
+import { OutcomeBadge } from '../common/OutcomeBadge.js';
+import { ActivityNode } from './ActivityNode.js';
 
 const html = htm.bind(h);
 

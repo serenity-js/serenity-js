@@ -1,9 +1,9 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportScenario } from '../../../src/cli/ReportData';
-import { formatDuration, formatTimestamp, outcomeClass, scenarioUrl } from '../../utils';
-import { OutcomeBadge } from '../common/OutcomeBadge';
+import type { ReportScenario } from '../../../src/cli/ReportData.js';
+import { formatDuration, formatTimestamp, outcomeClass, scenarioUrl } from '../../utils/index.js';
+import { OutcomeBadge } from '../common/OutcomeBadge.js';
 
 const html = htm.bind(h);
 

@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import { outcomeClass } from '../../utils';
+import { outcomeClass } from '../../utils/index.js';
 
 const html = htm.bind(h);
 

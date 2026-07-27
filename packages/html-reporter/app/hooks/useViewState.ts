@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'preact/hooks';
 
-import { type HashHistory, useHashHistory } from '../utils';
+import { type HashHistory, useHashHistory } from '../utils/index.js';
 
 interface ViewStateOptions {
     basePath: string;

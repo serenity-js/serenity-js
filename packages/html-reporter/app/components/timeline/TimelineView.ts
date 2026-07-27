@@ -2,13 +2,13 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useMemo, useRef, useState } from 'preact/hooks';
 
-import type { ReportScenario, ReportSummary } from '../../../src/cli/ReportData';
-import { useVirtualizer } from '../../hooks';
-import { formatDuration, matchesOutcomeFilter, totalFailedCount } from '../../utils';
-import { FilterBar } from '../common/FilterBar';
-import { KpiCard } from '../common/KpiCard';
-import { TimelineBar } from './TimelineBar';
-import { computeDurationStats } from './timelineHelpers';
+import type { ReportScenario, ReportSummary } from '../../../src/cli/ReportData.js';
+import { useVirtualizer } from '../../hooks/index.js';
+import { formatDuration, matchesOutcomeFilter, totalFailedCount } from '../../utils/index.js';
+import { FilterBar } from '../common/FilterBar.js';
+import { KpiCard } from '../common/KpiCard.js';
+import { TimelineBar } from './TimelineBar.js';
+import { computeDurationStats } from './timelineHelpers.js';
 
 const html = htm.bind(h);
 

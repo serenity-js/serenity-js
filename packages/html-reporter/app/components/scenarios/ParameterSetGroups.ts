@@ -2,9 +2,9 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useMemo } from 'preact/hooks';
 
-import type { ReportParameterSet } from '../../../src/cli/ReportData';
-import { ParameterSetGroup } from './ParameterSetGroup';
-import { ParameterSetNode } from './ParameterSetNode';
+import type { ReportParameterSet } from '../../../src/cli/ReportData.js';
+import { ParameterSetGroup } from './ParameterSetGroup.js';
+import { ParameterSetNode } from './ParameterSetNode.js';
 
 const html = htm.bind(h);
 

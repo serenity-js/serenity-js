@@ -2,10 +2,10 @@ import htm from 'htm';
 import type { Ref } from 'preact';
 import { h } from 'preact';
 
-import { formatDuration, formatTimestamp } from '../../../utils';
+import { formatDuration, formatTimestamp } from '../../../utils/index.js';
 import { link } from '../../../utils/link.js';
-import { buildModuleOutcomeUrl, buildModuleUrl } from '../../../utils/moduleUrls';
-import type { SelectedRun } from './TrendChart';
+import { buildModuleOutcomeUrl, buildModuleUrl } from '../../../utils/moduleUrls.js';
+import type { SelectedRun } from './TrendChart.js';
 
 const html = htm.bind(h);
 

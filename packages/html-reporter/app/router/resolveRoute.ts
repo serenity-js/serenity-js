@@ -1,4 +1,4 @@
-import type { RouteDefinition, RouteParameters } from './RouteDefinition';
+import type { RouteDefinition, RouteParameters } from './RouteDefinition.js';
 
 export interface RouteMatch {
     definition: RouteDefinition;

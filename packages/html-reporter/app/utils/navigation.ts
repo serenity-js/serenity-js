@@ -1,5 +1,5 @@
 import { tagDiscriminator as serverTagDiscriminator } from '../../src/cli/model/sceneIdentity.js';
-import type { ReportScenarioTag, ReportSource } from '../../src/cli/ReportData';
+import type { ReportScenarioTag, ReportSource } from '../../src/cli/ReportData.js';
 import { link } from './link.js';
 
 /**

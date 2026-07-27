@@ -1,8 +1,8 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportOutcomes } from '../../../../src/cli/ReportData';
-import { totalFailedCount } from '../../../utils';
+import type { ReportOutcomes } from '../../../../src/cli/ReportData.js';
+import { totalFailedCount } from '../../../utils/index.js';
 
 const html = htm.bind(h);
 

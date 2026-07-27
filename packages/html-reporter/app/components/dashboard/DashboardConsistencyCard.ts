@@ -1,10 +1,10 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportScenarioRef } from '../../../src/cli/ReportData';
-import { getBrowserTag, outcomeClass, outcomeDisplayName, outcomeIcon, scenarioUrl } from '../../utils';
-import { BrowserBadge } from '../common/BrowserBadge';
-import { HistoryDots } from '../common/HistoryDots';
+import type { ReportScenarioRef } from '../../../src/cli/ReportData.js';
+import { getBrowserTag, outcomeClass, outcomeDisplayName, outcomeIcon, scenarioUrl } from '../../utils/index.js';
+import { BrowserBadge } from '../common/BrowserBadge.js';
+import { HistoryDots } from '../common/HistoryDots.js';
 
 const html = htm.bind(h);
 

@@ -2,11 +2,11 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 
-import type { ReportActivity } from '../../../src/cli/ReportData';
-import { useHashHistory } from '../../utils';
-import { collectPhotos } from './collectPhotos';
-import { Lightbox } from './Lightbox';
-import { ThumbnailStrip } from './ThumbnailStrip';
+import type { ReportActivity } from '../../../src/cli/ReportData.js';
+import { useHashHistory } from '../../utils/index.js';
+import { collectPhotos } from './collectPhotos.js';
+import { Lightbox } from './Lightbox.js';
+import { ThumbnailStrip } from './ThumbnailStrip.js';
 
 const html = htm.bind(h);
 

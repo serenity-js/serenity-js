@@ -1,13 +1,13 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportSummary } from '../../../src/cli/ReportData';
-import { formatDuration, scoreColor } from '../../utils';
-import type { DashboardScores } from '../../utils/computeDashboardScores';
-import { AreaSparkline } from '../common/charts/AreaSparkline';
-import { Delta } from '../common/charts/Delta';
-import { DotTrend } from '../common/charts/DotTrend';
-import { DashboardKpiCard } from './DashboardKpiCard';
+import type { ReportSummary } from '../../../src/cli/ReportData.js';
+import { formatDuration, scoreColor } from '../../utils/index.js';
+import type { DashboardScores } from '../../utils/computeDashboardScores.js';
+import { AreaSparkline } from '../common/charts/AreaSparkline.js';
+import { Delta } from '../common/charts/Delta.js';
+import { DotTrend } from '../common/charts/DotTrend.js';
+import { DashboardKpiCard } from './DashboardKpiCard.js';
 
 const html = htm.bind(h);
 

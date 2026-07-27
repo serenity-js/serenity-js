@@ -1,5 +1,5 @@
-import type { ReportScenario } from '../../../src/cli/ReportData';
-import type { ErrorCategorySummary } from './ErrorKpiCards';
+import type { ReportScenario } from '../../../src/cli/ReportData.js';
+import type { ErrorCategorySummary } from './ErrorKpiCards.js';
 
 export interface ErrorCategory {
     name: string;

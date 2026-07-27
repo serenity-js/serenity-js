@@ -2,11 +2,11 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useCallback } from 'preact/hooks';
 
-import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData';
-import { ROW_HEIGHTS } from '../../config/layout';
-import { CategoryBreadcrumb } from '../common/CategoryBreadcrumb';
-import { GroupedVirtualList } from '../common/layout/GroupedVirtualList';
-import { ScenarioRow } from './ScenarioRow';
+import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData.js';
+import { ROW_HEIGHTS } from '../../config/layout.js';
+import { CategoryBreadcrumb } from '../common/CategoryBreadcrumb.js';
+import { GroupedVirtualList } from '../common/layout/GroupedVirtualList.js';
+import { ScenarioRow } from './ScenarioRow.js';
 
 const html = htm.bind(h);
 

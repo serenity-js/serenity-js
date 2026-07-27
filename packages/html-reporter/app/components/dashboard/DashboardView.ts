@@ -2,15 +2,15 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useMemo } from 'preact/hooks';
 
-import type { ReportCapabilityNode, ReportHistoryEntry, ReportInconsistentTest, ReportScenario, ReportScenarioRef, ReportSummary, ReportSystemContext } from '../../../src/cli/ReportData';
-import { computeDashboardScores } from '../../utils/computeDashboardScores';
-import { tagDiscriminator } from '../../utils/navigation';
-import { classifyConsistencyKind } from '../../utils/selectors';
-import { TrendChart } from '../common/charts/TrendChart';
-import { DashboardConsistencyCard } from './DashboardConsistencyCard';
-import { DashboardKpiRow } from './DashboardKpiRow';
-import { DashboardMeta } from './DashboardMeta';
-import { DashboardSlowestCard } from './DashboardSlowestCard';
+import type { ReportCapabilityNode, ReportHistoryEntry, ReportInconsistentTest, ReportScenario, ReportScenarioRef, ReportSummary, ReportSystemContext } from '../../../src/cli/ReportData.js';
+import { computeDashboardScores } from '../../utils/computeDashboardScores.js';
+import { tagDiscriminator } from '../../utils/navigation.js';
+import { classifyConsistencyKind } from '../../utils/selectors.js';
+import { TrendChart } from '../common/charts/TrendChart.js';
+import { DashboardConsistencyCard } from './DashboardConsistencyCard.js';
+import { DashboardKpiRow } from './DashboardKpiRow.js';
+import { DashboardMeta } from './DashboardMeta.js';
+import { DashboardSlowestCard } from './DashboardSlowestCard.js';
 
 const html = htm.bind(h);
 

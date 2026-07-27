@@ -1,10 +1,10 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportScenario } from '../../../src/cli/ReportData';
-import { formatDuration, outcomeClass, relativeSourcePath, scenarioUrl, stripAbsolutePaths, stripAnsi } from '../../utils';
+import type { ReportScenario } from '../../../src/cli/ReportData.js';
+import { formatDuration, outcomeClass, relativeSourcePath, scenarioUrl, stripAbsolutePaths, stripAnsi } from '../../utils/index.js';
 import { link } from '../../utils/link.js';
-import { OutcomeBadge } from '../common/OutcomeBadge';
+import { OutcomeBadge } from '../common/OutcomeBadge.js';
 
 const html = htm.bind(h);
 

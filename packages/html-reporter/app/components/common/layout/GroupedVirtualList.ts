@@ -3,9 +3,9 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useMemo, useRef } from 'preact/hooks';
 
-import { GROUP_HEADER_HEIGHTS } from '../../../config/layout';
-import { useStickyHeader, useVirtualizer } from '../../../hooks';
-import type { Range, VirtualItem } from '../../../hooks/useVirtualizer';
+import { GROUP_HEADER_HEIGHTS } from '../../../config/layout.js';
+import { useStickyHeader, useVirtualizer } from '../../../hooks/index.js';
+import type { Range, VirtualItem } from '../../../hooks/useVirtualizer.js';
 
 const html = htm.bind(h);
 

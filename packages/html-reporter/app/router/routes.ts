@@ -1,18 +1,18 @@
-import type { ReportData } from '../../src/cli/ReportData';
-import { AboutView } from '../components/about/AboutView';
-import { SystemContextView } from '../components/about/SystemContextView';
-import { CapabilitiesView } from '../components/capabilities/CapabilitiesView';
-import { ConsistencyView } from '../components/consistency/ConsistencyView';
-import { DashboardView } from '../components/dashboard/DashboardView';
-import { ErrorsView } from '../components/errors/ErrorsView';
-import { ScenarioDetailView } from '../components/scenarios/ScenarioDetailView';
-import { ScenariosView } from '../components/scenarios/ScenariosView';
-import { TagsView } from '../components/tags/TagsView';
-import { TestRunsView } from '../components/test-runs/TestRunsView';
-import { TimelineView } from '../components/timeline/TimelineView';
-import { totalFailedCount } from '../utils';
-import type { RouteDefinition } from './RouteDefinition';
-import { defineRoute, routeWithQuery } from './RouteDefinition';
+import type { ReportData } from '../../src/cli/ReportData.js';
+import { AboutView } from '../components/about/AboutView.js';
+import { SystemContextView } from '../components/about/SystemContextView.js';
+import { CapabilitiesView } from '../components/capabilities/CapabilitiesView.js';
+import { ConsistencyView } from '../components/consistency/ConsistencyView.js';
+import { DashboardView } from '../components/dashboard/DashboardView.js';
+import { ErrorsView } from '../components/errors/ErrorsView.js';
+import { ScenarioDetailView } from '../components/scenarios/ScenarioDetailView.js';
+import { ScenariosView } from '../components/scenarios/ScenariosView.js';
+import { TagsView } from '../components/tags/TagsView.js';
+import { TestRunsView } from '../components/test-runs/TestRunsView.js';
+import { TimelineView } from '../components/timeline/TimelineView.js';
+import { totalFailedCount } from '../utils/index.js';
+import type { RouteDefinition } from './RouteDefinition.js';
+import { defineRoute, routeWithQuery } from './RouteDefinition.js';
 
 export const routes: RouteDefinition[] = [
     defineRoute({

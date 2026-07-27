@@ -1,18 +1,18 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData';
-import { useScenarioDetail } from '../../hooks/useScenarioDetail';
-import { useScrollFade } from '../../hooks/useScrollFade';
-import { formatRunLabel, scenarioUrl } from '../../utils';
+import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData.js';
+import { useScenarioDetail } from '../../hooks/useScenarioDetail.js';
+import { useScrollFade } from '../../hooks/useScrollFade.js';
+import { formatRunLabel, scenarioUrl } from '../../utils/index.js';
 import { link } from '../../utils/link.js';
-import { HistoricalBanner } from '../common/HistoricalBanner';
-import { ErrorBlock } from '../errors/ErrorBlock';
-import { ActivityTreeCard } from './ActivityTreeCard';
-import { PhotoStrip } from './PhotoStrip';
-import { RetryTabs } from './RetryTabs';
-import { ScenarioHeader } from './ScenarioHeader';
-import { VideoPlayer } from './VideoPlayer';
+import { HistoricalBanner } from '../common/HistoricalBanner.js';
+import { ErrorBlock } from '../errors/ErrorBlock.js';
+import { ActivityTreeCard } from './ActivityTreeCard.js';
+import { PhotoStrip } from './PhotoStrip.js';
+import { RetryTabs } from './RetryTabs.js';
+import { ScenarioHeader } from './ScenarioHeader.js';
+import { VideoPlayer } from './VideoPlayer.js';
 
 const html = htm.bind(h);
 

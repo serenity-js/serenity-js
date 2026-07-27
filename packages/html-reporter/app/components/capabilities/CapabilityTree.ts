@@ -1,11 +1,11 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportCapabilityNode } from '../../../src/cli/ReportData';
-import { capabilityConfidence, scoreColor } from '../../utils';
-import { SegmentedBar } from '../common/charts/SegmentedBar';
-import { icons } from '../common/icons';
-import { collapseNode } from './capabilityTreeUtilities';
+import type { ReportCapabilityNode } from '../../../src/cli/ReportData.js';
+import { capabilityConfidence, scoreColor } from '../../utils/index.js';
+import { SegmentedBar } from '../common/charts/SegmentedBar.js';
+import { icons } from '../common/icons.js';
+import { collapseNode } from './capabilityTreeUtilities.js';
 
 const html = htm.bind(h);
 
@@ -52,8 +52,8 @@ export function nodeMatches(node: ReportCapabilityNode, term: string): boolean {
     return false;
 }
 
-export type { CollapsedNode } from './capabilityTreeUtilities';
-export { collapseNode, countVisibleNodes, getVisiblePaths, resolveTreeKeyNavigation } from './capabilityTreeUtilities';
+export type { CollapsedNode } from './capabilityTreeUtilities.js';
+export { collapseNode, countVisibleNodes, getVisiblePaths, resolveTreeKeyNavigation } from './capabilityTreeUtilities.js';
 
 export function findNodeByPath(root: ReportCapabilityNode, targetPath: string): ReportCapabilityNode | null {
     if (!targetPath) return root;

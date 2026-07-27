@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import { formatTagToken, scoreColor } from '../../utils';
+import { formatTagToken, scoreColor } from '../../utils/index.js';
 import { link } from '../../utils/link.js';
 
 const html = htm.bind(h);

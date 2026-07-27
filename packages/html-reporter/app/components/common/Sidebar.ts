@@ -1,10 +1,10 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { RouteDefinition } from '../../router/RouteDefinition';
-import { DATA } from '../../utils';
-import { SerenityJsLogo, SerenityJsMark } from './brand';
-import { icons } from './icons';
+import type { RouteDefinition } from '../../router/RouteDefinition.js';
+import { DATA } from '../../utils/index.js';
+import { SerenityJsLogo, SerenityJsMark } from './brand.js';
+import { icons } from './icons.js';
 
 const html = htm.bind(h);
 

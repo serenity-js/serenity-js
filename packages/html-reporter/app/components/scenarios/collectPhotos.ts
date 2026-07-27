@@ -1,4 +1,4 @@
-import type { ReportActivity } from '../../../src/cli/ReportData';
+import type { ReportActivity } from '../../../src/cli/ReportData.js';
 
 export interface PhotoEntry {
     path: string;

@@ -1,9 +1,9 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportHistoryEntry } from '../../../src/cli/ReportData';
-import { TrendChart } from '../common/charts/TrendChart';
-import { TestRunRow } from './TestRunRow';
+import type { ReportHistoryEntry } from '../../../src/cli/ReportData.js';
+import { TrendChart } from '../common/charts/TrendChart.js';
+import { TestRunRow } from './TestRunRow.js';
 
 const html = htm.bind(h);
 

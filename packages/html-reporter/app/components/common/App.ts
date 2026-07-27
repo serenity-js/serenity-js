@@ -2,11 +2,11 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useEffect, useState } from 'preact/hooks';
 
-import type { RouteMatch } from '../../router';
-import { resolveRoute, routes } from '../../router';
-import { DATA, formatTimestamp, totalFailedCount, useHashHistory } from '../../utils';
-import { icons } from './icons';
-import { Sidebar } from './Sidebar';
+import type { RouteMatch } from '../../router/index.js';
+import { resolveRoute, routes } from '../../router/index.js';
+import { DATA, formatTimestamp, totalFailedCount, useHashHistory } from '../../utils/index.js';
+import { icons } from './icons.js';
+import { Sidebar } from './Sidebar.js';
 
 const html = htm.bind(h);
 

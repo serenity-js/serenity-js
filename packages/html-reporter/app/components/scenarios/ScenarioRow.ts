@@ -1,11 +1,11 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData';
-import { browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, relativeSourcePath, scenarioUrl, searchContainsTag, stripAbsolutePaths, stripAnsi, toggleTagInSearch } from '../../utils';
-import { HistoryDots } from '../common/HistoryDots';
-import { icons } from '../common/icons';
-import { OutcomeBadge } from '../common/OutcomeBadge';
+import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData.js';
+import { browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, relativeSourcePath, scenarioUrl, searchContainsTag, stripAbsolutePaths, stripAnsi, toggleTagInSearch } from '../../utils/index.js';
+import { HistoryDots } from '../common/HistoryDots.js';
+import { icons } from '../common/icons.js';
+import { OutcomeBadge } from '../common/OutcomeBadge.js';
 
 const html = htm.bind(h);
 

@@ -1,7 +1,7 @@
 import { useMemo } from 'preact/hooks';
 
-import type { ReportHistoryEntry } from '../../src/cli/ReportData';
-import { resolveRunIndex, targetValue } from '../utils';
+import type { ReportHistoryEntry } from '../../src/cli/ReportData.js';
+import { resolveRunIndex, targetValue } from '../utils/index.js';
 
 interface RunSelection {
     runIndex: number | null;

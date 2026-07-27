@@ -1,7 +1,7 @@
 import type { ChartDataset, ChartOptions } from 'chart.js';
 
-import type { ReportHistoryEntry } from '../../../../src/cli/ReportData';
-import { formatDuration, totalFailedCount } from '../../../utils';
+import type { ReportHistoryEntry } from '../../../../src/cli/ReportData.js';
+import { formatDuration, totalFailedCount } from '../../../utils/index.js';
 
 interface ThemeColors {
     textColor: string;

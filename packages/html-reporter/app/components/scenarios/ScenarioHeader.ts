@@ -1,13 +1,13 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData';
-import { useScrollFade } from '../../hooks/useScrollFade';
-import { formatDuration, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, showToast } from '../../utils';
-import { BrowserBadge } from '../common/BrowserBadge';
-import { icons } from '../common/icons';
-import { CastSection } from './CastSection';
-import { ExecutionHistory } from './ExecutionHistory';
+import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData.js';
+import { useScrollFade } from '../../hooks/useScrollFade.js';
+import { formatDuration, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, showToast } from '../../utils/index.js';
+import { BrowserBadge } from '../common/BrowserBadge.js';
+import { icons } from '../common/icons.js';
+import { CastSection } from './CastSection.js';
+import { ExecutionHistory } from './ExecutionHistory.js';
 
 const html = htm.bind(h);
 

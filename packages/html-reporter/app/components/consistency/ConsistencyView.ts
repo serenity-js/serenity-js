@@ -2,17 +2,17 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useMemo, useState } from 'preact/hooks';
 
-import type { ReportInconsistentTest } from '../../../src/cli/ReportData';
-import { ROW_HEIGHTS } from '../../config/layout';
-import { matchesSearch } from '../../utils';
-import { classifyConsistencyKind } from '../../utils/selectors';
-import { CategoryBreadcrumb } from '../common/CategoryBreadcrumb';
-import { FilterBar } from '../common/FilterBar';
-import { icons } from '../common/icons';
-import { GroupedVirtualList } from '../common/layout/GroupedVirtualList';
-import { ResultCount } from '../common/ResultCount';
-import { SearchInput } from '../common/SearchInput';
-import { ConsistencyRow } from './ConsistencyRow';
+import type { ReportInconsistentTest } from '../../../src/cli/ReportData.js';
+import { ROW_HEIGHTS } from '../../config/layout.js';
+import { matchesSearch } from '../../utils/index.js';
+import { classifyConsistencyKind } from '../../utils/selectors.js';
+import { CategoryBreadcrumb } from '../common/CategoryBreadcrumb.js';
+import { FilterBar } from '../common/FilterBar.js';
+import { icons } from '../common/icons.js';
+import { GroupedVirtualList } from '../common/layout/GroupedVirtualList.js';
+import { ResultCount } from '../common/ResultCount.js';
+import { SearchInput } from '../common/SearchInput.js';
+import { ConsistencyRow } from './ConsistencyRow.js';
 
 const html = htm.bind(h);
 

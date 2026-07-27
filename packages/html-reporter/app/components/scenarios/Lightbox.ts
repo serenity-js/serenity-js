@@ -2,8 +2,8 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
 
-import { formatDuration } from '../../utils';
-import type { PhotoEntry } from './collectPhotos';
+import { formatDuration } from '../../utils/index.js';
+import type { PhotoEntry } from './collectPhotos.js';
 
 const html = htm.bind(h);
 

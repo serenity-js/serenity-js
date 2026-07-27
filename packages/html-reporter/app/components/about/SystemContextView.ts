@@ -1,8 +1,8 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportSystemContext } from '../../../src/cli/ReportData';
-import { icons } from '../common/icons';
+import type { ReportSystemContext } from '../../../src/cli/ReportData.js';
+import { icons } from '../common/icons.js';
 
 const html = htm.bind(h);
 

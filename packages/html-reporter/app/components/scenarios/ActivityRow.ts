@@ -1,10 +1,10 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportActivity } from '../../../src/cli/ReportData';
-import { formatDuration, outcomeClass, outcomeIcon, relativeLocationPath, showToast, useHashHistory } from '../../utils';
-import { DATA } from '../../utils/data';
-import { icons } from '../common/icons';
+import type { ReportActivity } from '../../../src/cli/ReportData.js';
+import { formatDuration, outcomeClass, outcomeIcon, relativeLocationPath, showToast, useHashHistory } from '../../utils/index.js';
+import { DATA } from '../../utils/data.js';
+import { icons } from '../common/icons.js';
 
 const html = htm.bind(h);
 

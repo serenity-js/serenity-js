@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import { KpiCard } from '../common/KpiCard';
+import { KpiCard } from '../common/KpiCard.js';
 
 const html = htm.bind(h);
 

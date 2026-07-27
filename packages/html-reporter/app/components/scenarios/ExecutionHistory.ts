@@ -1,9 +1,9 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData';
-import { useScrollFade } from '../../hooks/useScrollFade';
-import { formatRunLabel, outcomeClass, outcomeIcon, scenarioUrl } from '../../utils';
+import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData.js';
+import { useScrollFade } from '../../hooks/useScrollFade.js';
+import { formatRunLabel, outcomeClass, outcomeIcon, scenarioUrl } from '../../utils/index.js';
 
 const html = htm.bind(h);
 

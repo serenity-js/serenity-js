@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import { browserBadgeClass, getBrowserTag } from '../../utils';
+import { browserBadgeClass, getBrowserTag } from '../../utils/index.js';
 
 const html = htm.bind(h);
 

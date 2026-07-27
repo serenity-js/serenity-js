@@ -1,8 +1,8 @@
 import htm from 'htm';
 import { h, render } from 'preact';
 
-import { App } from './components/common/App';
-import { redirectQueryParametersToHash } from './redirectQueryParametersToHash';
+import { App } from './components/common/App.js';
+import { redirectQueryParametersToHash } from './redirectQueryParametersToHash.js';
 
 // Convert query-param deep links (e.g., ?route=/tests&search=@tag:showcase)
 // to hash routes (e.g., #/tests?search=@tag:showcase) before the app renders.

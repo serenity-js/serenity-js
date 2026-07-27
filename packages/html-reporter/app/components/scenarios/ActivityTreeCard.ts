@@ -1,10 +1,10 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportActivity, ReportScenario } from '../../../src/cli/ReportData';
-import { RawHtml } from '../../utils';
-import { ActivityNode } from './ActivityNode';
-import { ParameterSetGroups } from './ParameterSetGroups';
+import type { ReportActivity, ReportScenario } from '../../../src/cli/ReportData.js';
+import { RawHtml } from '../../utils/index.js';
+import { ActivityNode } from './ActivityNode.js';
+import { ParameterSetGroups } from './ParameterSetGroups.js';
 
 const html = htm.bind(h);
 

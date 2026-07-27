@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
-import type { ReportActivity, ReportAttempt, ReportError, ReportExecutionHistoryEntry, ReportHistoryEntry, ReportScenario } from '../../src/cli/ReportData';
-import { resolveRunIndex, useHashHistory } from '../utils';
+import type { ReportActivity, ReportAttempt, ReportError, ReportExecutionHistoryEntry, ReportHistoryEntry, ReportScenario } from '../../src/cli/ReportData.js';
+import { resolveRunIndex, useHashHistory } from '../utils/index.js';
 
 export interface ScenarioDetailState {
     scenario: ReportScenario | null;

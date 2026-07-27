@@ -1,12 +1,12 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportCapabilityNode } from '../../../src/cli/ReportData';
-import { RawHtml, totalFailedCount } from '../../utils';
+import type { ReportCapabilityNode } from '../../../src/cli/ReportData.js';
+import { RawHtml, totalFailedCount } from '../../utils/index.js';
 import { link } from '../../utils/link.js';
-import { SegmentedBar } from '../common/charts/SegmentedBar';
-import { icons } from '../common/icons';
-import { computeNodeScore, confidenceColor } from './CapabilityTree';
+import { SegmentedBar } from '../common/charts/SegmentedBar.js';
+import { icons } from '../common/icons.js';
+import { computeNodeScore, confidenceColor } from './CapabilityTree.js';
 
 const html = htm.bind(h);
 

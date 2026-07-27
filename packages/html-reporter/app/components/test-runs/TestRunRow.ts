@@ -1,11 +1,11 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportHistoryEntry } from '../../../src/cli/ReportData';
-import { formatDuration, formatRunLabel, formatTimestamp, scoreColor } from '../../utils';
-import { computeRunMetrics, normaliseRepoUrl } from '../../utils/computeRunMetrics';
-import { GitLink } from '../common/GitLink';
-import { icons } from '../common/icons';
+import type { ReportHistoryEntry } from '../../../src/cli/ReportData.js';
+import { formatDuration, formatRunLabel, formatTimestamp, scoreColor } from '../../utils/index.js';
+import { computeRunMetrics, normaliseRepoUrl } from '../../utils/computeRunMetrics.js';
+import { GitLink } from '../common/GitLink.js';
+import { icons } from '../common/icons.js';
 
 const html = htm.bind(h);
 

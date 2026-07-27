@@ -1,4 +1,4 @@
-import type { ReportTag } from '../../../src/cli/ReportData';
+import type { ReportTag } from '../../../src/cli/ReportData.js';
 
 export interface FilterCounts {
     passed: number;

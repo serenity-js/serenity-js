@@ -2,12 +2,12 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 
-import type { ReportTag } from '../../../src/cli/ReportData';
-import { FilterBar } from '../common/FilterBar';
-import { ResultCount } from '../common/ResultCount';
-import { SearchInput } from '../common/SearchInput';
-import { TagRow, TagRowHeader } from './TagRow';
-import { computeFilterCounts, filterTags, groupTagsByType } from './tagsHelpers';
+import type { ReportTag } from '../../../src/cli/ReportData.js';
+import { FilterBar } from '../common/FilterBar.js';
+import { ResultCount } from '../common/ResultCount.js';
+import { SearchInput } from '../common/SearchInput.js';
+import { TagRow, TagRowHeader } from './TagRow.js';
+import { computeFilterCounts, filterTags, groupTagsByType } from './tagsHelpers.js';
 
 const html = htm.bind(h);
 
