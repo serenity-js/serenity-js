@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Serenity/JS Report</title>
   <link rel="icon" type="image/png" sizes="32x32" href="https://serenity-js.org/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="https://serenity-js.org/icons/favicon-16x16.png">
@@ -135,6 +135,23 @@
       color: var(--text-primary);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+    }
+
+    /*
+     * iOS Safari 26+ "Liquid Glass" workaround:
+     * Safari clips fixed/sticky and page-bottom content when its toolbar
+     * collapses. Moving scroll from the viewport to the body element
+     * prevents the toolbar from collapsing entirely.
+     * Scoped to mobile viewports where the Liquid Glass UI is active.
+     */
+    @media (max-width: 768px) {
+      html {
+        overflow: hidden;
+      }
+      body {
+        overflow: auto;
+        overscroll-behavior: contain;
+      }
     }
 
     #app {
@@ -3881,30 +3898,45 @@
 @media (max-width: 768px) {
     .run-details-panel {
         position: fixed;
-        bottom: 0;
         left: 0;
         right: 0;
+        bottom: 0;
+        top: auto;
         margin: 0;
-        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-        box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
         z-index: 100;
-        max-height: 70vh;
-        max-height: 70dvh;
-        animation: panel-slide-up 0.25s ease-out;
+
+        /* Flex column: header + scrollable body + fixed footer */
         display: flex;
         flex-direction: column;
         overflow: hidden;
+
+        /* Never exceed 70% of viewport so content behind remains visible */
+        max-height: 70dvh;
+
+        /* Visual treatment */
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+        padding: var(--space-md);
+        padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom, 0px));
+
+        animation: panel-slide-up 0.25s ease-out;
     }
 
     .run-details-header {
-        flex-shrink: 0;
+        flex: 0 0 auto;
     }
 
     .run-details-body {
-        flex: 1;
+        flex: 1 1 auto;
         min-height: 0;
         overflow-y: auto;
         overflow-x: hidden;
+        overscroll-behavior: contain;
+    }
+
+    .run-details-footer {
+        flex: 0 0 auto;
+        padding-top: var(--space-md);
     }
 
     .run-details-table-wrap {
@@ -3912,8 +3944,7 @@
     }
 
     .run-details-cta {
-        flex-shrink: 0;
-        margin-bottom: env(safe-area-inset-bottom, 0px);
+        margin-top: 0;
     }
 
     /* Sticky module column on horizontal scroll */
@@ -4595,9 +4626,11 @@
             `}
           </div>
 
-          <button class="run-details-cta" onClick=${i} data-testid="run-details-cta">
-            Show test scenarios →
-          </button>
+          <div class="run-details-footer">
+            <button class="run-details-cta" onClick=${i} data-testid="run-details-cta">
+              Show test scenarios →
+            </button>
+          </div>
         </div>
     `}It.register($h);var xl=T.bind(k);function W_(){let[e,t]=z(()=>document.documentElement.getAttribute("data-theme")||"light");return K(()=>{let n=new MutationObserver(()=>{let i=document.documentElement.getAttribute("data-theme")||"light";t(i)});return n.observe(document.documentElement,{attributes:!0,attributeFilter:["data-theme"]}),()=>{n.disconnect()}},[]),e}function U_(e,t){K(()=>{let n=i=>{i.key==="Escape"&&e&&t()};return document.addEventListener("keydown",n),()=>document.removeEventListener("keydown",n)},[e,t])}function j_(e,t,n,i){K(()=>{if(!e)return;let s=r=>{let a=r.target,l=t.current?.parentElement,c=n.current;l&&l.contains(a)||c&&c.contains(a)||i()},o=setTimeout(()=>{document.addEventListener("click",s)},0);return()=>{clearTimeout(o),document.removeEventListener("click",s)}},[e,i])}function Y_(e,t){let{failedCount:n,skippedCount:i}=hr(e);return{runId:e.timestamp,index:t,label:$t(e.label,e.timestamp),timestamp:zt(e.timestamp),metrics:{passed:e.outcomes.passed,failed:n,skipped:i,fastest:B(e.fastest),slowest:B(e.slowest),average:B(e.average),total:B(e.duration)},...e.modules?{modules:e.modules}:{}}}function q_(e){let{canvasRef:t,chartRef:n,history:i,chartTheme:s,configurePan:o,onBarClick:r}=e;K(()=>{if(!t.current||i.length===0)return;n.current&&n.current.destroy();let l=Yh(i,s,(u,d)=>{if(d.length===0)return;let h=d[0].index;r(i[h],h)});n.current=new It(t.current,l);let c=window.innerWidth<=768;return o(n.current,i.length,c),()=>{n.current&&n.current.destroy()}},[i,s,o,r])}function pr({history:e,onNavigate:t}){let n=it(null),i=it(null),s=it(null),o=it(null),[r,a]=z(null),[l,c]=z(()=>window.innerWidth<=768),u=W_(),{canPanLeft:d,canPanRight:h,configurePan:f}=oa(n);K(()=>{let v=()=>c(window.innerWidth<=768);return window.addEventListener("resize",v),()=>window.removeEventListener("resize",v)},[]);let p=J(()=>{a(null),i.current&&(i.current.setActiveElements([]),i.current.update("none"))},[]);U_(r,p),j_(r,n,o,p);let g=J((v,x)=>{let w=Y_(v,x);if(a(w),i.current){let S=i.current.data.datasets.map((C,$)=>({datasetIndex:$,index:x})).filter((C,$)=>$<3);i.current.setActiveElements(S),i.current.update("none")}},[]);if(q_({canvasRef:n,chartRef:i,history:e,chartTheme:u,configurePan:f,onBarClick:g}),e.length===0)return null;let y=()=>{r&&t("/tests?run="+r.runId)};return xl`
     <div class="trend-chart-wrapper">
