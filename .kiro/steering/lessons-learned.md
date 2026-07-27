@@ -745,3 +745,28 @@ const isRunLevel = slashIndex === -1;  // No slash after ID = run-level
 **Rule:** When module-level files exist for a `testRunId`, exclude run-level files from the merge — they contain stale pre-merged data that would mask missing/crashed modules.
 
 Applied to `DataSnapshotAggregator.ts` via `isRunLevel` tracking through `loadAndValidateRuns()` → `groupByTestRunId()` → `mergeRunGroups()`.
+
+
+## Discriminated union URL builder centralises encoding and validates parameters at compile time
+
+When URL construction is scattered across components (each using `encodeURIComponent` inline), encoding bugs are inevitable and URL structure becomes inconsistent. The fix: a single `link()` function with discriminated union types.
+
+**Pattern:**
+```typescript
+type LinkOptions =
+    | { view: 'dashboard' }
+    | { view: 'tests'; path?: string; run?: string; filter?: 'passed' | 'failed' }
+    | { view: 'capabilities'; path?: string };
+
+function link(options: LinkOptions): string {
+    // All encoding happens here, once
+}
+```
+
+**Benefits:**
+1. **Single source of truth** — all encoding logic in one place
+2. **Compile-time validation** — `link({ view: 'dashboard', filter: 'failed' })` is a type error (dashboard doesn't accept filter)
+3. **Consistent encoding** — impossible to forget `encodeURIComponent`
+4. **Self-documenting** — the union types show exactly which parameters each view accepts
+
+**Applied to:** `app/utils/link.ts` in the html-reporter. Key components (`scenarioUrl`, `buildModuleUrl`, interaction objects) delegate to `link()` instead of constructing URLs inline.
