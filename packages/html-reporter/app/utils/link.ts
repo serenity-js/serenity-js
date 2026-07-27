@@ -153,63 +153,75 @@ export type OutcomeFilter = 'all' | 'passed' | 'failed' | 'skipped' | 'pending' 
  * @returns URL path with properly encoded path segments and query parameters
  */
 export function link(options: LinkOptions): string {
-    const { view } = options;
-
-    // Build base path
-    let base = view === 'dashboard' ? '/' : '/' + view;
-
-    // Handle path segment for detail views (with proper type narrowing)
-    if (options.view === 'tests' && options.path) {
-        base += '/' + encodeURIComponent(options.path);
-    }
-
-    // Build query parameters using URLSearchParams for automatic encoding
-    const params = new URLSearchParams();
-
-    // Tests view parameters
-    if (options.view === 'tests') {
-        if (options.run !== undefined && options.run !== null) {
-            params.set('run', String(options.run));
-        }
-        if (options.search) {
-            params.set('search', options.search);
-        }
-        if (options.filter && options.filter !== 'all') {
-            params.set('filter', options.filter);
-        }
-        if (options.sort) {
-            params.set('sort', options.sort);
-        }
-        if (options.browser) {
-            params.set('browser', options.browser);
-        }
-        if (options.project) {
-            params.set('project', options.project);
-        }
-        if (options.platform) {
-            params.set('platform', options.platform);
-        }
-    }
-
-    // Capabilities view parameters (path as query param, not path segment)
-    if (options.view === 'capabilities' && options.path) {
-        params.set('path', options.path);
-    }
-
-    // Errors view parameters
-    if (options.view === 'errors') {
-        if (options.run !== undefined && options.run !== null) {
-            params.set('run', String(options.run));
-        }
-        if (options.search) {
-            params.set('search', options.search);
-        }
-    }
+    const base = buildBasePath(options);
+    const params = buildQueryParams(options);
 
     // URLSearchParams.toString() encodes spaces as '+', but we want '%20' for consistency
     // with encodeURIComponent (used for path segments) and existing moduleUrls patterns
     const query = params.toString().replace(/\+/g, '%20');
     return query ? base + '?' + query : base;
+}
+
+function buildBasePath(options: LinkOptions): string {
+    const base = options.view === 'dashboard' ? '/' : '/' + options.view;
+
+    // Tests view supports path segment for scenario detail
+    if (options.view === 'tests' && options.path) {
+        return base + '/' + encodeURIComponent(options.path);
+    }
+
+    return base;
+}
+
+type Transform = (value: unknown) => string | undefined;
+
+/** Pass through as string */
+const passThrough: Transform = (value) => String(value);
+
+/** Skip 'all' filter since it's the default */
+const skipIfAll: Transform = (value) => value === 'all' ? undefined : String(value);
+
+/**
+ * View-specific parameter mappings: { paramName: transform }
+ * Note: 'path' for tests view is handled as a path segment in buildBasePath(), not here.
+ */
+const viewParams: Record<string, Record<string, Transform>> = {
+    tests: {
+        run: passThrough,
+        search: passThrough,
+        filter: skipIfAll,
+        sort: passThrough,
+        browser: passThrough,
+        project: passThrough,
+        platform: passThrough,
+    },
+    capabilities: {
+        path: passThrough,
+    },
+    errors: {
+        run: passThrough,
+        search: passThrough,
+    },
+};
+
+function buildQueryParams(options: LinkOptions): URLSearchParams {
+    const params = new URLSearchParams();
+    const mappings = viewParams[options.view] || {};
+
+    for (const [param, transform] of Object.entries(mappings)) {
+        const value = (options as Record<string, unknown>)[param];
+
+        if (value === undefined || value === null) {
+            continue;
+        }
+
+        const transformed = transform(value);
+        if (transformed !== undefined) {
+            params.set(param, transformed);
+        }
+    }
+
+    return params;
 }
 
 /**
