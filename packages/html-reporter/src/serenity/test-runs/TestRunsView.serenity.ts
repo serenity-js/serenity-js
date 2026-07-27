@@ -1,5 +1,5 @@
 import { includes } from '@serenity-js/assertions';
-import type { QuestionAdapter } from '@serenity-js/core';
+import type { Answerable, QuestionAdapter } from '@serenity-js/core';
 import { Interaction, Question, Task } from '@serenity-js/core';
 import { Attribute, By, Click, Key, Page, PageElement, PageElements, Press, Text } from '@serenity-js/web';
 
@@ -74,12 +74,11 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
             .describedAs('module names in the table');
 
     /**
-     * Extracts the run ID from the current URL's hash parameters.
+     * Returns the current run ID from the URL's hash parameters.
      * Returns undefined if no run parameter is found.
-     * Useful for constructing expected navigation URLs in tests.
      */
-    extractRunId = (): Question<Promise<string | undefined>> =>
-        Question.about('run ID from current URL', async actor => {
+    currentRunId = (): Question<Promise<string | undefined>> =>
+        Question.about('current run ID', async actor => {
             const url = await actor.answer(Page.current().url().href);
             const match = url.match(/[?&]run=([^&]+)/);
             return match ? decodeURIComponent(match[1]) : undefined;
@@ -214,48 +213,47 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
     // URL helpers — type-safe navigation URLs using the same link() function as components
 
     /**
-     * Builds URL for viewing a module's scenarios (all outcomes).
+     * Builds URL for viewing a module's scenarios with optional outcome filter.
+     * 
+     * Accepts Answerable parameters so Questions can be passed directly without actor.answer().
      * 
      * @param moduleName - Module identifier (e.g., 'playwright-web')
-     * @param runId - Test run ID
+     * @param runId - Test run ID (can be a Question)
+     * @param filter - Optional outcome filter ('passed', 'failed', 'skipped')
      * @returns URL path with hash and query parameters
      * 
      * @example
+     * // With static values
      * view.moduleUrl('playwright-web', '42')
      * // → '#/tests?run=42&search=%40module%3Aplaywright-web'
-     */
-    moduleUrl = (moduleName: string, runId: string): string =>
-        '#' + link({ view: 'tests', run: runId, search: '@module:' + moduleName });
-
-    /**
-     * Builds URL for viewing a module's passed scenarios.
      * 
-     * @param moduleName - Module identifier
-     * @param runId - Test run ID
-     * @returns URL path with hash and query parameters including filter=passed
-     */
-    modulePassedUrl = (moduleName: string, runId: string): string =>
-        '#' + link({ view: 'tests', run: runId, search: '@module:' + moduleName, filter: 'passed' });
-
-    /**
-     * Builds URL for viewing a module's failed scenarios.
+     * @example
+     * // With outcome filter
+     * view.moduleUrl('playwright-web', '42', 'failed')
+     * // → '#/tests?run=42&search=%40module%3Aplaywright-web&filter=failed'
      * 
-     * @param moduleName - Module identifier
-     * @param runId - Test run ID
-     * @returns URL path with hash and query parameters including filter=failed
+     * @example
+     * // With Question (idiomatic Screenplay)
+     * view.moduleUrl('playwright-web', view.currentRunId(), 'passed')
+     * // Actor resolves currentRunId() automatically
      */
-    moduleFailedUrl = (moduleName: string, runId: string): string =>
-        '#' + link({ view: 'tests', run: runId, search: '@module:' + moduleName, filter: 'failed' });
-
-    /**
-     * Builds URL for viewing a module's skipped scenarios.
-     * 
-     * @param moduleName - Module identifier
-     * @param runId - Test run ID
-     * @returns URL path with hash and query parameters including filter=skipped
-     */
-    moduleSkippedUrl = (moduleName: string, runId: string): string =>
-        '#' + link({ view: 'tests', run: runId, search: '@module:' + moduleName, filter: 'skipped' });
+    moduleUrl = (
+        moduleName: Answerable<string>,
+        runId: Answerable<string | undefined>,
+        filter?: Answerable<OutcomeFilter>
+    ): QuestionAdapter<string> =>
+        Question.about(`URL for module ${moduleName}`, async actor => {
+            const resolvedModuleName = await actor.answer(moduleName);
+            const resolvedRunId = await actor.answer(runId);
+            const resolvedFilter = filter ? await actor.answer(filter) : undefined;
+            
+            return '#' + link({
+                view: 'tests',
+                run: resolvedRunId,
+                search: '@module:' + resolvedModuleName,
+                ...(resolvedFilter ? { filter: resolvedFilter } : {}),
+            });
+        });
 
     open = (): Task =>
         Task.where('#actor opens the Test Runs view',

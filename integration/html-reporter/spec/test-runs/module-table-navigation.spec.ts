@@ -31,17 +31,11 @@ describe('Test Runs', () => {
                 
                 // Wait for navigation to complete
                 Wait.until(Page.current().url().href, includes('search=')),
-            );
-            
-            // Extract actual run ID from URL
-            const runId = await actor.answer(testRunsView.extractRunId());
-            const expectedUrl = testRunsView.moduleUrl('passing-module', runId!);
-            
-            await actor.attemptsTo(
+                
                 // Should navigate to Test Scenarios with module filter
                 Ensure.that(
                     Page.current().url().hash,
-                    includes(expectedUrl)
+                    includes(testRunsView.moduleUrl('passing-module', testRunsView.currentRunId()))
                 ),
                 
                 // Search input should show the module filter
@@ -58,17 +52,11 @@ describe('Test Runs', () => {
                 
                 // Wait for navigation to complete
                 Wait.until(Page.current().url().href, includes('filter=passed')),
-            );
-            
-            // Extract actual run ID from URL
-            const runId = await actor.answer(testRunsView.extractRunId());
-            const expectedUrl = testRunsView.modulePassedUrl('passing-module', runId!);
-            
-            await actor.attemptsTo(
+                
                 // URL should match exactly
                 Ensure.that(
                     Page.current().url().hash,
-                    includes(expectedUrl)
+                    includes(testRunsView.moduleUrl('passing-module', testRunsView.currentRunId(), 'passed'))
                 ),
                 
                 // Filter bar should show Passed as active - check the first filter includes "Passed"
@@ -86,17 +74,11 @@ describe('Test Runs', () => {
                 
                 // Wait for navigation to complete
                 Wait.until(Page.current().url().href, includes('filter=failed')),
-            );
-            
-            // Extract actual run ID from URL
-            const runId = await actor.answer(testRunsView.extractRunId());
-            const expectedUrl = testRunsView.moduleFailedUrl('failing-module', runId!);
-            
-            await actor.attemptsTo(
+                
                 // URL should match exactly
                 Ensure.that(
                     Page.current().url().hash,
-                    includes(expectedUrl)
+                    includes(testRunsView.moduleUrl('failing-module', testRunsView.currentRunId(), 'failed'))
                 ),
                 
                 // Filter bar should show Failed as active
@@ -116,17 +98,11 @@ describe('Test Runs', () => {
                 
                 // Wait for navigation to complete
                 Wait.until(Page.current().url().href, includes('filter=skipped')),
-            );
-            
-            // Extract actual run ID from URL
-            const runId = await actor.answer(testRunsView.extractRunId());
-            const expectedUrl = testRunsView.moduleSkippedUrl('passing-module', runId!);
-            
-            await actor.attemptsTo(
+                
                 // URL should match exactly
                 Ensure.that(
                     Page.current().url().hash,
-                    includes(expectedUrl)
+                    includes(testRunsView.moduleUrl('passing-module', testRunsView.currentRunId(), 'skipped'))
                 ),
                 
                 // Filter bar should show Skipped as active
