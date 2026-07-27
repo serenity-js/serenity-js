@@ -1,3 +1,5 @@
+import { link } from './link.js';
+
 /**
  * Builds a URL for filtering test scenarios by module.
  *
@@ -6,7 +8,7 @@
  * @returns URL path with query parameters for module filtering
  */
 export function buildModuleUrl(runId: string, moduleId: string): string {
-    return `/tests?run=${encodeURIComponent(runId)}&search=${encodeURIComponent('@module:' + moduleId)}`;
+    return link({ view: 'tests', run: runId, search: '@module:' + moduleId });
 }
 
 /**
@@ -18,5 +20,5 @@ export function buildModuleUrl(runId: string, moduleId: string): string {
  * @returns URL path with query parameters for module and outcome filtering
  */
 export function buildModuleOutcomeUrl(runId: string, moduleId: string, filter: 'passed' | 'failed' | 'skipped'): string {
-    return `/tests?run=${encodeURIComponent(runId)}&search=${encodeURIComponent('@module:' + moduleId)}&filter=${filter}`;
+    return link({ view: 'tests', run: runId, search: '@module:' + moduleId, filter });
 }

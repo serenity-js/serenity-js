@@ -1,8 +1,10 @@
 import { includes } from '@serenity-js/assertions';
-import type { Question, QuestionAdapter } from '@serenity-js/core';
-import { Interaction, Task } from '@serenity-js/core';
-import { Attribute, By, Click, Key, PageElement, PageElements, Press, Text } from '@serenity-js/web';
+import type { QuestionAdapter } from '@serenity-js/core';
+import { Interaction, Question, Task } from '@serenity-js/core';
+import { Attribute, By, Click, Key, Page, PageElement, PageElements, Press, Text } from '@serenity-js/web';
 
+import type { OutcomeFilter } from '../../utils/link.js';
+import { link } from '../../utils/link.js';
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
 
@@ -70,6 +72,18 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
             .of(this.detailsPanel)
             .eachMappedTo(Text)
             .describedAs('module names in the table');
+
+    /**
+     * Extracts the run ID from the current URL's hash parameters.
+     * Returns undefined if no run parameter is found.
+     * Useful for constructing expected navigation URLs in tests.
+     */
+    extractRunId = (): Question<Promise<string | undefined>> =>
+        Question.about('run ID from current URL', async actor => {
+            const url = await actor.answer(Page.current().url().href);
+            const match = url.match(/[?&]run=([^&]+)/);
+            return match ? decodeURIComponent(match[1]) : undefined;
+        });
 
     // Behaviour — tasks
 
@@ -196,6 +210,52 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
                 await element.click();
             }),
         );
+
+    // URL helpers — type-safe navigation URLs using the same link() function as components
+
+    /**
+     * Builds URL for viewing a module's scenarios (all outcomes).
+     * 
+     * @param moduleName - Module identifier (e.g., 'playwright-web')
+     * @param runId - Test run ID
+     * @returns URL path with hash and query parameters
+     * 
+     * @example
+     * view.moduleUrl('playwright-web', '42')
+     * // → '#/tests?run=42&search=%40module%3Aplaywright-web'
+     */
+    moduleUrl = (moduleName: string, runId: string): string =>
+        '#' + link({ view: 'tests', run: runId, search: '@module:' + moduleName });
+
+    /**
+     * Builds URL for viewing a module's passed scenarios.
+     * 
+     * @param moduleName - Module identifier
+     * @param runId - Test run ID
+     * @returns URL path with hash and query parameters including filter=passed
+     */
+    modulePassedUrl = (moduleName: string, runId: string): string =>
+        '#' + link({ view: 'tests', run: runId, search: '@module:' + moduleName, filter: 'passed' });
+
+    /**
+     * Builds URL for viewing a module's failed scenarios.
+     * 
+     * @param moduleName - Module identifier
+     * @param runId - Test run ID
+     * @returns URL path with hash and query parameters including filter=failed
+     */
+    moduleFailedUrl = (moduleName: string, runId: string): string =>
+        '#' + link({ view: 'tests', run: runId, search: '@module:' + moduleName, filter: 'failed' });
+
+    /**
+     * Builds URL for viewing a module's skipped scenarios.
+     * 
+     * @param moduleName - Module identifier
+     * @param runId - Test run ID
+     * @returns URL path with hash and query parameters including filter=skipped
+     */
+    moduleSkippedUrl = (moduleName: string, runId: string): string =>
+        '#' + link({ view: 'tests', run: runId, search: '@module:' + moduleName, filter: 'skipped' });
 
     open = (): Task =>
         Task.where('#actor opens the Test Runs view',

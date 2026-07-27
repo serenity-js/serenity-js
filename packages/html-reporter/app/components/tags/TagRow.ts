@@ -2,6 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import { formatTagToken, scoreColor } from '../../utils';
+import { link } from '../../utils/link.js';
 
 const html = htm.bind(h);
 
@@ -41,7 +42,7 @@ export function TagRow({ type, name, scenarioCount, passRate, onNavigate }: TagR
     const barWidth = passRate + '%';
 
     const handleClick = (): void => {
-        onNavigate('/tests?search=' + encodeURIComponent(formatTagToken({ type, name })));
+        onNavigate(link({ view: 'tests', search: formatTagToken({ type, name }) }));
     };
 
     return html`

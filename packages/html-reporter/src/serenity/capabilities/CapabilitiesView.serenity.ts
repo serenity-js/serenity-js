@@ -3,6 +3,7 @@ import type { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
 import { Task, the } from '@serenity-js/core';
 import { Attribute, By, Click, PageElement, PageElements, Select, Text, Value } from '@serenity-js/web';
 
+import { link } from '../../utils/link.js';
 import { FilterBar } from '../common/FilterBar.serenity.js';
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
@@ -140,4 +141,19 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
         Task.where(the`#actor sorts by ${option}`,
             Select.value(option).from(this.sortSelectElement),
         );
+
+    // URL helpers — type-safe navigation URLs using the same link() function as components
+
+    /**
+     * Builds URL for viewing capability detail.
+     * 
+     * @param path - Capability tree path (e.g., 'authentication/login')
+     * @returns URL path with hash and query parameters
+     * 
+     * @example
+     * view.capabilityDetailUrl('authentication/login')
+     * // → '#/capabilities?path=authentication%2Flogin'
+     */
+    capabilityDetailUrl = (path: string): string =>
+        '#' + link({ view: 'capabilities', path });
 }

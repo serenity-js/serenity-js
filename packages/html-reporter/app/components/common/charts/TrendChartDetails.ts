@@ -3,6 +3,7 @@ import type { Ref } from 'preact';
 import { h } from 'preact';
 
 import { formatDuration, formatTimestamp } from '../../../utils';
+import { link } from '../../../utils/link.js';
 import { buildModuleOutcomeUrl, buildModuleUrl } from '../../../utils/moduleUrls';
 import type { SelectedRun } from './TrendChart';
 
@@ -180,7 +181,7 @@ export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }
           </div>
 
           <div class="run-details-footer">
-            <button class="run-details-cta" onClick=${() => onNavigate('/tests?run=' + encodeURIComponent(selectedRun.runId))} data-testid="run-details-cta">
+            <button class="run-details-cta" onClick=${() => onNavigate(link({ view: 'tests', run: selectedRun.runId }))} data-testid="run-details-cta">
               Show test scenarios →
             </button>
           </div>

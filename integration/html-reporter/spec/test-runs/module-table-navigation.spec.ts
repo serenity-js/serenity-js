@@ -31,11 +31,18 @@ describe('Test Runs', () => {
                 
                 // Wait for navigation to complete
                 Wait.until(Page.current().url().href, includes('search=')),
-                
+            );
+            
+            // Extract actual run ID from URL
+            const runId = await actor.answer(testRunsView.extractRunId());
+            const expectedUrl = testRunsView.moduleUrl('passing-module', runId!);
+            
+            await actor.attemptsTo(
                 // Should navigate to Test Scenarios with module filter
-                Ensure.that(Page.current().url().href, includes('#/tests?')),
-                Ensure.that(Page.current().url().href, includes('run=')),
-                Ensure.that(Page.current().url().href, includes('search=%40module%3Apassing-module')),
+                Ensure.that(
+                    Page.current().url().hash,
+                    includes(expectedUrl)
+                ),
                 
                 // Search input should show the module filter
                 Ensure.that(scenariosView.searchInputValue(), equals('@module:passing-module')),
@@ -51,10 +58,18 @@ describe('Test Runs', () => {
                 
                 // Wait for navigation to complete
                 Wait.until(Page.current().url().href, includes('filter=passed')),
-                
-                // URL should have both module search and filter
-                Ensure.that(Page.current().url().href, includes('search=%40module%3Apassing-module')),
-                Ensure.that(Page.current().url().href, includes('filter=passed')),
+            );
+            
+            // Extract actual run ID from URL
+            const runId = await actor.answer(testRunsView.extractRunId());
+            const expectedUrl = testRunsView.modulePassedUrl('passing-module', runId!);
+            
+            await actor.attemptsTo(
+                // URL should match exactly
+                Ensure.that(
+                    Page.current().url().hash,
+                    includes(expectedUrl)
+                ),
                 
                 // Filter bar should show Passed as active - check the first filter includes "Passed"
                 Ensure.that(scenariosView.activeFilters().as(filters => filters[0]), includes('Passed')),
@@ -71,9 +86,18 @@ describe('Test Runs', () => {
                 
                 // Wait for navigation to complete
                 Wait.until(Page.current().url().href, includes('filter=failed')),
-                
-                Ensure.that(Page.current().url().href, includes('search=%40module%3Afailing-module')),
-                Ensure.that(Page.current().url().href, includes('filter=failed')),
+            );
+            
+            // Extract actual run ID from URL
+            const runId = await actor.answer(testRunsView.extractRunId());
+            const expectedUrl = testRunsView.moduleFailedUrl('failing-module', runId!);
+            
+            await actor.attemptsTo(
+                // URL should match exactly
+                Ensure.that(
+                    Page.current().url().hash,
+                    includes(expectedUrl)
+                ),
                 
                 // Filter bar should show Failed as active
                 Ensure.that(scenariosView.activeFilters().as(filters => filters[0]), includes('Failed')),
@@ -92,9 +116,18 @@ describe('Test Runs', () => {
                 
                 // Wait for navigation to complete
                 Wait.until(Page.current().url().href, includes('filter=skipped')),
-                
-                Ensure.that(Page.current().url().href, includes('search=%40module%3Apassing-module')),
-                Ensure.that(Page.current().url().href, includes('filter=skipped')),
+            );
+            
+            // Extract actual run ID from URL
+            const runId = await actor.answer(testRunsView.extractRunId());
+            const expectedUrl = testRunsView.moduleSkippedUrl('passing-module', runId!);
+            
+            await actor.attemptsTo(
+                // URL should match exactly
+                Ensure.that(
+                    Page.current().url().hash,
+                    includes(expectedUrl)
+                ),
                 
                 // Filter bar should show Skipped as active
                 Ensure.that(scenariosView.activeFilters().as(filters => filters[0]), includes('Skipped')),
