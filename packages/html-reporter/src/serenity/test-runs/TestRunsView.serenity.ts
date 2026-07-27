@@ -149,66 +149,37 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
         );
 
     clickModulePassedCount = (moduleName: string): Task =>
-        Task.where(`#actor clicks the Passed count for module "${moduleName}"`,
-            Interaction.where(`#actor finds and clicks the Passed count`, async actor => {
-                // Find the row for this module
-                const moduleRows = PageElements.located(By.css('.run-details-table-row'))
-                    .of(this.detailsPanel);
-                
-                // Find the row containing this module name
-                const targetRow = moduleRows
-                    .where(Text, includes(moduleName))
-                    .first();
-                
-                // Within that row, find the 4th td (Passed column, after Module/Outcome/Tests)
-                const passedButton = PageElement.located(By.css('td:nth-child(4) .count-link'))
-                    .of(targetRow)
-                    .describedAs(`Passed count button for ${moduleName}`);
-                
-                const element = await actor.answer(passedButton);
-                await element.click();
-            }),
-        );
+        this.clickModuleOutcomeCount(moduleName, 4, 'Passed');
 
     clickModuleFailedCount = (moduleName: string): Task =>
-        Task.where(`#actor clicks the Failed count for module "${moduleName}"`,
-            Interaction.where(`#actor finds and clicks the Failed count`, async actor => {
-                const moduleRows = PageElements.located(By.css('.run-details-table-row'))
-                    .of(this.detailsPanel);
-                
-                const targetRow = moduleRows
-                    .where(Text, includes(moduleName))
-                    .first();
-                
-                // 5th td (Failed column)
-                const failedButton = PageElement.located(By.css('td:nth-child(5) .count-link'))
-                    .of(targetRow)
-                    .describedAs(`Failed count button for ${moduleName}`);
-                
-                const element = await actor.answer(failedButton);
-                await element.click();
-            }),
-        );
+        this.clickModuleOutcomeCount(moduleName, 5, 'Failed');
 
     clickModuleSkippedCount = (moduleName: string): Task =>
-        Task.where(`#actor clicks the Skipped count for module "${moduleName}"`,
-            Interaction.where(`#actor finds and clicks the Skipped count`, async actor => {
+        this.clickModuleOutcomeCount(moduleName, 6, 'Skipped');
+
+    /**
+     * Helper to click an outcome count button in the module table.
+     * The column layout is: Module (1) | Outcome (2) | Tests (3) | Passed (4) | Failed (5) | Skipped (6)
+     */
+    private clickModuleOutcomeCount(moduleName: string, column: number, outcomeLabel: string): Task {
+        return Task.where(`#actor clicks the ${outcomeLabel} count for module "${moduleName}"`,
+            Interaction.where(`#actor finds and clicks the ${outcomeLabel} count`, async actor => {
                 const moduleRows = PageElements.located(By.css('.run-details-table-row'))
                     .of(this.detailsPanel);
-                
+
                 const targetRow = moduleRows
                     .where(Text, includes(moduleName))
                     .first();
-                
-                // 6th td (Skipped column)
-                const skippedButton = PageElement.located(By.css('td:nth-child(6) .count-link'))
+
+                const countButton = PageElement.located(By.css(`td:nth-child(${column}) .count-link`))
                     .of(targetRow)
-                    .describedAs(`Skipped count button for ${moduleName}`);
-                
-                const element = await actor.answer(skippedButton);
+                    .describedAs(`${outcomeLabel} count button for ${moduleName}`);
+
+                const element = await actor.answer(countButton);
                 await element.click();
             }),
         );
+    }
 
     // URL helpers — type-safe navigation URLs using the same link() function as components
 
