@@ -7,7 +7,6 @@ const reportOutput = resolve(__dirname, 'target', 'html-report');
 
 export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
     testDir: './spec',
-    testIgnore: '**/module-filtering.spec.ts', // Run separately with playwright-multimodule.config.ts
     timeout: 30_000,
     retries: 0,
     workers: process.env.CI ? 1 : undefined,
@@ -25,12 +24,12 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
     ],
     use: {
         headless: true,
-        baseURL: 'http://127.0.0.1:8080/index.html',
+        baseURL: 'http://127.0.0.1:8080',
         defaultActorName: 'Serena',
     },
     webServer: {
-        command: 'npx http-server examples/reports/serenity -p 8080 -c-1',
-        url: 'http://127.0.0.1:8080/index.html',
+        command: 'npx http-server examples/reports -p 8080 -c-1',
+        url: 'http://127.0.0.1:8080/single/index.html',
         reuseExistingServer: false,
     },
     projects: [

@@ -7,7 +7,7 @@ import { execSync } from 'node:child_process';
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-const reportDirectory = resolve(__dirname, 'reports', 'serenity');
+const reportDirectory = resolve(__dirname, 'reports', 'single');
 const testRunsDirectory = resolve(reportDirectory, 'test-runs');
 
 // Find the most recent run

@@ -9,7 +9,7 @@ describe('Navigation', () => {
 
         it('redirects ?route= to the corresponding hash route', async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
-                Navigate.to('/index.html?route=/tests'),
+                Navigate.to('/single/index.html?route=/tests'),
 
                 Ensure.that(Page.current().url().hash, startsWith('#/tests')),
                 Ensure.that(scenariosView.scenarioCount(), isGreaterThan(0)),
@@ -18,7 +18,7 @@ describe('Navigation', () => {
 
         it('forwards additional query params as hash-route parameters', async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
-                Navigate.to('/index.html?route=/tests&search=%40feature%3AAuthentication'),
+                Navigate.to('/single/index.html?route=/tests&search=%40feature%3AAuthentication'),
 
                 Ensure.that(Page.current().url().hash, includes('search=%40feature%3AAuthentication')),
                 Ensure.that(scenariosView.scenarioCount(), isGreaterThan(0)),
@@ -28,7 +28,7 @@ describe('Navigation', () => {
 
         it('preserves hash routes when no ?route= param is present', async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
-                Navigate.to('/index.html#/tests'),
+                Navigate.to('/single/index.html#/tests'),
 
                 Ensure.that(Page.current().url().hash, startsWith('#/tests')),
                 Ensure.that(scenariosView.scenarioCount(), isGreaterThan(0)),

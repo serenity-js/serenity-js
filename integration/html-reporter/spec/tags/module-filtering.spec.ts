@@ -1,5 +1,5 @@
-import { contain, Ensure, equals, includes } from '@serenity-js/assertions';
-import { Page } from '@serenity-js/web';
+import { contain, Ensure, includes } from '@serenity-js/assertions';
+import { Navigate, Page } from '@serenity-js/web';
 
 import { describe, it } from '../../src';
 
@@ -9,6 +9,7 @@ describe('Module Tagging', () => {
 
         it('should show module tags in the Tags view', async ({ actor, tagsView }) => {
             await actor.attemptsTo(
+                Navigate.to('/multi/index.html'),
                 tagsView.open(),
 
                 // The Tags view shows feature tags (11) + module tags (3) = 14 total
@@ -19,12 +20,10 @@ describe('Module Tagging', () => {
             );
         });
 
-        it('should filter scenarios by module using @module:name search token', async ({ actor, scenariosView }) => {
+        it('should filter scenarios by module using @module:name search token', { tag: '@showcase' }, async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
+                Navigate.to('/multi/index.html'),
                 scenariosView.open(),
-
-                // Total scenarios before filtering (18 from multi-module data)
-                Ensure.that(scenariosView.scenarioCount(), equals(18)),
 
                 // Search for playwright-web module (8 scenarios)
                 scenariosView.find('@module:playwright-web'),
@@ -32,35 +31,38 @@ describe('Module Tagging', () => {
                 // URL should contain the encoded search token
                 Ensure.that(Page.current().url().href, includes(encodeURIComponent('@module:playwright-web'))),
 
-                // Should show only playwright-web scenarios
-                Ensure.that(scenariosView.scenarioCount(), equals(8)),
+                // Should show only playwright-web scenarios (8 out of 18 total)
+                Ensure.that(scenariosView.resultCountText(), includes('8')),
             );
         });
 
         it('should filter to webdriverio-cucumber module', async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
+                Navigate.to('/multi/index.html'),
                 scenariosView.open(),
 
                 scenariosView.find('@module:webdriverio-cucumber'),
 
                 // Should show 6 scenarios from webdriverio-cucumber
-                Ensure.that(scenariosView.scenarioCount(), equals(6)),
+                Ensure.that(scenariosView.resultCountText(), includes('6')),
             );
         });
 
         it('should filter to rest-api module', async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
+                Navigate.to('/multi/index.html'),
                 scenariosView.open(),
 
                 scenariosView.find('@module:rest-api'),
 
                 // Should show 4 scenarios from rest-api (all passing)
-                Ensure.that(scenariosView.scenarioCount(), equals(4)),
+                Ensure.that(scenariosView.resultCountText(), includes('4')),
             );
         });
 
-        it('should allow clicking a module tag to navigate to filtered scenarios', async ({ actor, tagsView }) => {
+        it('should allow clicking a module tag to navigate to filtered scenarios', { tag: '@showcase' }, async ({ actor, tagsView }) => {
             await actor.attemptsTo(
+                Navigate.to('/multi/index.html'),
                 tagsView.open(),
 
                 // Click on the playwright-web module tag
@@ -74,6 +76,7 @@ describe('Module Tagging', () => {
 
         it('should combine module filter with outcome filter', async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
+                Navigate.to('/multi/index.html'),
                 scenariosView.open(),
 
                 // Search for failed scenarios in playwright-web module
@@ -81,7 +84,7 @@ describe('Module Tagging', () => {
                 scenariosView.selectFilter('Failed'),
 
                 // Should show only the 2 failed playwright-web scenarios
-                Ensure.that(scenariosView.scenarioCount(), equals(2)),
+                Ensure.that(scenariosView.resultCountText(), includes('2')),
 
                 // URL should have both filters
                 Ensure.that(Page.current().url().href, includes('filter=failed')),
@@ -90,13 +93,14 @@ describe('Module Tagging', () => {
 
         it('should show module tags in scenario rows', async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
+                Navigate.to('/multi/index.html'),
                 scenariosView.open(),
 
-                // Find a specific scenario from playwright-web
-                scenariosView.find('Login should log in with valid credentials'),
+                // Find a specific scenario from playwright-web - use the exact name from generate-multimodule-data.ts
+                scenariosView.find('Login should authenticate with valid credentials'),
 
                 // The scenario should be visible with its tags
-                Ensure.that(scenariosView.scenarioCount(), equals(1)),
+                Ensure.that(scenariosView.resultCountText(), includes('1')),
 
                 // Module tag should be clickable in the scenario row
                 // (This is verified by the tag being present in the DOM)

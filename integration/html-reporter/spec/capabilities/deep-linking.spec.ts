@@ -17,7 +17,7 @@ describe('Capabilities', () => {
                 notes().set('filteredUrl', Page.current().url().href),
 
                 // Navigate away and back via the captured URL
-                Navigate.to('/index.html'),
+                Navigate.to('/single/index.html'),
                 Navigate.to(notes().get('filteredUrl')),
 
                 // Verify the filter is restored
@@ -32,7 +32,7 @@ describe('Capabilities', () => {
 
                 notes().set('sortedUrl', Page.current().url().href),
 
-                Navigate.to('/index.html'),
+                Navigate.to('/single/index.html'),
                 Navigate.to(notes().get('sortedUrl')),
 
                 Ensure.that(capabilitiesView.selectedSort(), equals('confidence')),
@@ -42,7 +42,7 @@ describe('Capabilities', () => {
         it('restores combined filter, sort and search from URL', async ({ actor, capabilitiesView }) => {
             await actor.attemptsTo(
                 // Navigate directly to a deep link with all params
-                Navigate.to('/index.html#/capabilities?filter=healthy&sort=confidence&search=todo'),
+                Navigate.to('/single/index.html#/capabilities?filter=healthy&sort=confidence&search=todo'),
 
                 Ensure.that(capabilitiesView.filterBar.activeFilters(), equals(['Healthy'])),
                 Ensure.that(capabilitiesView.selectedSort(), equals('confidence')),
@@ -53,7 +53,7 @@ describe('Capabilities', () => {
         it('preserves path param when filter changes', async ({ actor, capabilitiesView }) => {
             await actor.attemptsTo(
                 // Navigate to a specific capability via deep link
-                Navigate.to('/index.html#/capabilities?path=e2e'),
+                Navigate.to('/single/index.html#/capabilities?path=e2e'),
 
                 // Change a filter — the path param must survive
                 capabilitiesView.selectFilter('Healthy'),

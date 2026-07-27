@@ -60,7 +60,7 @@ export const {
     },
 
     page: async ({ page }, use) => {
-        await page.goto('/index.html');
+        await page.goto('/single/index.html');
         await use(page);
     },
 

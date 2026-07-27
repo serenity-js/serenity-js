@@ -5,7 +5,7 @@ import type { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/play
 
 const examplesDirectory = __dirname;
 const appDirectory = resolve(examplesDirectory, 'app');
-const reportOutput = resolve(examplesDirectory, 'reports', 'serenity');
+const reportOutput = resolve(examplesDirectory, 'reports', 'single');
 
 export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
     testDir: './specs',

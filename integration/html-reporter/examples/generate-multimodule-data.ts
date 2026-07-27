@@ -9,7 +9,7 @@ import { execSync } from 'node:child_process';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-const testRunsDirectory = resolve(__dirname, '..', 'examples-multimodule', 'reports', 'serenity', 'test-runs', '42');
+const testRunsDirectory = resolve(__dirname, 'reports', 'multi', 'test-runs', '42');
 const baseTimestamp = '2026-07-27T15:00:00.000Z';
 
 // Module 1: playwright-web (mostly passing, some failures)
@@ -114,8 +114,8 @@ console.log('Total: 18 scenarios from 3 modules\n');
 
 // Aggregate the report
 console.log('Aggregating multi-module report...');
-const outputDirectory = resolve(__dirname, '..', 'examples-multimodule', 'reports', 'serenity');
+const outputDirectory = resolve(__dirname, 'reports', 'multi');
 const aggregateCommand = `npx html-reporter aggregate --input "${outputDirectory}/test-runs/*" --output "${outputDirectory}" --title "Multi-Module Test Project"`;
 execSync(aggregateCommand, { cwd: __dirname, stdio: 'inherit' });
 
-console.log('✓ Multi-module report ready at examples-multimodule/reports/serenity/index.html');
+console.log('✓ Multi-module report ready at examples/reports/multi/index.html');
