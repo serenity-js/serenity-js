@@ -5,6 +5,7 @@ import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/Report
 import { useScenarioDetail } from '../../hooks/useScenarioDetail';
 import { useScrollFade } from '../../hooks/useScrollFade';
 import { formatRunLabel, scenarioUrl } from '../../utils';
+import { link } from '../../utils/link.js';
 import { HistoricalBanner } from '../common/HistoricalBanner';
 import { ErrorBlock } from '../errors/ErrorBlock';
 import { ActivityTreeCard } from './ActivityTreeCard';
@@ -75,7 +76,7 @@ function Breadcrumb({ scenario, runIndex, history, onNavigate }: { scenario: Rep
         <a onClick=${() => onNavigate(backUrl)}>Test Scenarios</a>
         ${scenario.category.split(' › ').map((segment) => html`
           <span>›</span>
-          <a onClick=${() => onNavigate('/tests?search=' + encodeURIComponent('"' + segment + '"'))}>${segment}</a>
+          <a onClick=${() => onNavigate(link({ view: 'tests', search: `"${segment}"` }))}>${segment}</a>
         `)}
         <span>›</span>
         <span>${scenario.name}</span>

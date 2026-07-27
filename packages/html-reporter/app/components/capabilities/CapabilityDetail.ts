@@ -3,6 +3,7 @@ import { h } from 'preact';
 
 import type { ReportCapabilityNode } from '../../../src/cli/ReportData';
 import { RawHtml, totalFailedCount } from '../../utils';
+import { link } from '../../utils/link.js';
 import { SegmentedBar } from '../common/charts/SegmentedBar';
 import { icons } from '../common/icons';
 import { computeNodeScore, confidenceColor } from './CapabilityTree';
@@ -82,7 +83,7 @@ export function DetailPanel({ node, segmentPath, capabilities, onNavigate, onSel
                         const childScore = computeNodeScore(child);
                         const filePath = segmentPath + '/' + child.name;
                         return html`
-                            <div class="req-detail-file-card clickable" onClick=${() => onNavigate('/tests?search=' + encodeURIComponent('"' + filePath + '"'))}>
+                            <div class="req-detail-file-card clickable" onClick=${() => onNavigate(link({ view: 'tests', search: `"${filePath}"` }))}>
                                 <span class="req-detail-child-icon">${icons.file}</span>
                                 <span class="req-detail-child-name">${child.displayName || child.name}</span>
                                 <span class="req-detail-child-health">
