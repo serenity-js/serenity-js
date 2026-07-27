@@ -138,9 +138,11 @@ export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }
             `}
           </div>
 
-          <button class="run-details-cta" onClick=${onNavigate} data-testid="run-details-cta">
-            Show test scenarios →
-          </button>
+          <div class="run-details-footer">
+            <button class="run-details-cta" onClick=${onNavigate} data-testid="run-details-cta">
+              Show test scenarios →
+            </button>
+          </div>
         </div>
     `;
 }

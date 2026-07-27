@@ -680,3 +680,48 @@ Benefits:
 - Single source of truth — update one place when the model changes
 - Stricter validation for free — Zod's `.int().min(0)` catches negative counts and floats that hand-written code missed
 - Better error messages — Zod provides precise paths to the invalid field
+
+## iOS Safari 26+ Liquid Glass clips `position: fixed` and page-bottom content
+
+Safari 26 introduced "Liquid Glass" — translucent floating navigation controls (Dynamic Island address bar + bottom tab bar). When the toolbar collapses (user scrolls down), Safari **clips** `position: fixed` content that extends into the area behind the floating controls. It also clips regular page content at the bottom of the viewport.
+
+**Symptoms:**
+- `position: fixed; bottom: 0` elements disappear or get clipped when the toolbar collapses
+- Page content at the bottom gets cut off after the overscroll bounce
+- Content reappears when the user scrolls up (toolbar re-expands)
+
+**This is NOT solvable with CSS viewport units or safe-area-inset.** The issue is that Safari intentionally refuses to render content behind its translucent floating controls. No combination of `dvh`, `svh`, `env(safe-area-inset-bottom)`, `viewport-fit=cover`, or transforms fixes it.
+
+**Root cause:** Safari's Liquid Glass UI clips fixed-positioned and page-bottom content when the toolbar is in its collapsed state. This is triggered by viewport-level scroll (scroll on `window`/`document`).
+
+**The fix:** Move scroll from the viewport to the body element. This prevents the toolbar from ever collapsing:
+
+```css
+@media (max-width: 768px) {
+  html {
+    overflow: hidden;
+  }
+  body {
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+}
+```
+
+**Trade-off:** The address bar stays permanently expanded on mobile (never auto-hides). For report/tool UIs this is acceptable. For content-reading apps where screen real estate matters, it may not be.
+
+**Side effects to be aware of:**
+- `window.scrollTo()` no longer works — use `document.body.scrollTo()` instead
+- Scroll position restoration on back-navigation may not work automatically
+- Third-party libraries that assume viewport scroll may need adjustment
+
+**Apple's own workaround (alternative, for cases where scroll must remain on viewport):**
+A fixed container at `top: 0; left: 0; right: 0` with declared height < 50vh and `overflow: visible`. Inner content at `height: 100vh` overflows the container — Safari renders the overflow including into the toolbar area. Apple.com uses this for their dropdown navigation. This is fragile and counter-intuitive.
+
+**Timeline:** This behaviour was introduced in Safari 26.0 (iOS 26). A related `position: fixed` displacement bug was fixed in Safari 26.1, but the Liquid Glass content clipping persists in 26.5+ as it appears to be intentional design, not a bug.
+
+**`viewport-fit=cover` is still required** for `env(safe-area-inset-bottom)` to report non-zero values. Always include it in the viewport meta tag regardless of Liquid Glass:
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+```
+
