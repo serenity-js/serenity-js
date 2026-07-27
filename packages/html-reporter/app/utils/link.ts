@@ -154,7 +154,7 @@ export type OutcomeFilter = 'all' | 'passed' | 'failed' | 'skipped' | 'pending' 
  */
 export function link(options: LinkOptions): string {
     const base = buildBasePath(options);
-    const params = buildQueryParams(options);
+    const params = buildQueryParameters(options);
 
     // URLSearchParams.toString() encodes spaces as '+', but we want '%20' for consistency
     // with encodeURIComponent (used for path segments) and existing moduleUrls patterns
@@ -185,7 +185,7 @@ const skipIfAll: Transform = (value) => value === 'all' ? undefined : String(val
  * View-specific parameter mappings: { paramName: transform }
  * Note: 'path' for tests view is handled as a path segment in buildBasePath(), not here.
  */
-const viewParams: Record<string, Record<string, Transform>> = {
+const viewParameters: Record<string, Record<string, Transform>> = {
     tests: {
         run: passThrough,
         search: passThrough,
@@ -204,12 +204,12 @@ const viewParams: Record<string, Record<string, Transform>> = {
     },
 };
 
-function buildQueryParams(options: LinkOptions): URLSearchParams {
-    const params = new URLSearchParams();
-    const mappings = viewParams[options.view] || {};
+function buildQueryParameters(options: LinkOptions): URLSearchParams {
+    const parameters = new URLSearchParams();
+    const mappings = viewParameters[options.view] || {};
 
-    for (const [param, transform] of Object.entries(mappings)) {
-        const value = (options as Record<string, unknown>)[param];
+    for (const [name, transform] of Object.entries(mappings)) {
+        const value = options[name as keyof typeof options];
 
         if (value === undefined || value === null) {
             continue;
@@ -217,11 +217,11 @@ function buildQueryParams(options: LinkOptions): URLSearchParams {
 
         const transformed = transform(value);
         if (transformed !== undefined) {
-            params.set(param, transformed);
+            parameters.set(name, transformed);
         }
     }
 
-    return params;
+    return parameters;
 }
 
 /**
