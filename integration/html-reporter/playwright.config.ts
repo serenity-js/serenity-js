@@ -7,6 +7,7 @@ const reportOutput = resolve(__dirname, 'target', 'html-report');
 
 export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
     testDir: './spec',
+    testIgnore: '**/module-filtering.spec.ts', // Run separately with playwright-multimodule.config.ts
     timeout: 30_000,
     retries: 0,
     workers: process.env.CI ? 1 : undefined,

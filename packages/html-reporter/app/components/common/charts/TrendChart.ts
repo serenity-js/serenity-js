@@ -9,8 +9,8 @@ import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 
 import type { ReportHistoryEntry } from '../../../../src/cli/ReportData.js';
 import { usePanState } from '../../../hooks/usePanState.js';
-import { formatDuration, formatRunLabel, formatTimestamp } from '../../../utils/index.js';
 import { computeRunMetrics } from '../../../utils/computeRunMetrics.js';
+import { formatDuration, formatRunLabel, formatTimestamp } from '../../../utils/index.js';
 import { buildChartConfig } from './buildChartConfig.js';
 import { TrendChartDetails } from './TrendChartDetails.js';
 

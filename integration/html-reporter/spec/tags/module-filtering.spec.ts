@@ -93,7 +93,7 @@ describe('Module Tagging', () => {
                 scenariosView.open(),
 
                 // Find a specific scenario from playwright-web
-                scenariosView.find('Login should authenticate'),
+                scenariosView.find('Login should log in with valid credentials'),
 
                 // The scenario should be visible with its tags
                 Ensure.that(scenariosView.scenarioCount(), equals(1)),

@@ -2,8 +2,8 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportHistoryEntry } from '../../../src/cli/ReportData.js';
-import { formatDuration, formatRunLabel, formatTimestamp, scoreColor } from '../../utils/index.js';
 import { computeRunMetrics, normaliseRepoUrl } from '../../utils/computeRunMetrics.js';
+import { formatDuration, formatRunLabel, formatTimestamp, scoreColor } from '../../utils/index.js';
 import { GitLink } from '../common/GitLink.js';
 import { icons } from '../common/icons.js';
 

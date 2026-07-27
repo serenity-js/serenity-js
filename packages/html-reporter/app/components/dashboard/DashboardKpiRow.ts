@@ -2,8 +2,8 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportSummary } from '../../../src/cli/ReportData.js';
-import { formatDuration, scoreColor } from '../../utils/index.js';
 import type { DashboardScores } from '../../utils/computeDashboardScores.js';
+import { formatDuration, scoreColor } from '../../utils/index.js';
 import { AreaSparkline } from '../common/charts/AreaSparkline.js';
 import { Delta } from '../common/charts/Delta.js';
 import { DotTrend } from '../common/charts/DotTrend.js';
