@@ -135,18 +135,29 @@ export class DataSnapshotAggregator {
         return [...merged.values()].sort((a, b) => a.startedAt.localeCompare(b.startedAt));
     }
 
-    private loadAndValidateRuns(paths: string[]): Array<{ run: RunData; path: string }> {
-        const results: Array<{ run: RunData; path: string }> = [];
+    private loadAndValidateRuns(paths: string[]): Array<{ run: RunData; path: string; isRunLevel: boolean }> {
+        const results: Array<{ run: RunData; path: string; isRunLevel: boolean }> = [];
 
         for (const databaseJsonPath of paths) {
             const content = this.sourceFileSystem.readFileSync(Path.from(databaseJsonPath), { encoding: 'utf8' }) as string;
             const run = this.safeParseRunData(content, databaseJsonPath);
             if (!run) continue;
-            results.push({ run, path: databaseJsonPath });
 
-            // Copy sibling artifacts before any merging
+            // Determine if this is a run-level db.json (pre-merged) vs module-level (individual module)
+            // Run-level: test-runs/8334/db.json (relative path after test-runs/ has no slash)
+            // Module-level: test-runs/8334/cucumber-1/db.json (relative path has a slash)
             const pathWithoutDatabase = databaseJsonPath.replace(/\/db\.json$/, '');
             const testRunsIndex = pathWithoutDatabase.lastIndexOf('/test-runs/');
+            let isRunLevel = false;
+            if (testRunsIndex !== -1) {
+                const relative = pathWithoutDatabase.slice(testRunsIndex + '/test-runs/'.length);
+                const slashIndex = relative.indexOf('/');
+                isRunLevel = slashIndex === -1; // No slash = run-level (e.g., "8334")
+            }
+
+            results.push({ run, path: databaseJsonPath, isRunLevel });
+
+            // Copy sibling artifacts before any merging
             if (testRunsIndex !== -1) {
                 const relative = pathWithoutDatabase.slice(testRunsIndex + '/test-runs/'.length);
                 const slashIndex = relative.indexOf('/');
@@ -161,22 +172,33 @@ export class DataSnapshotAggregator {
         return results;
     }
 
-    private groupByTestRunId(runs: Array<{ run: RunData; path: string }>): Map<string, RunData[]> {
-        const groups = new Map<string, RunData[]>();
-        for (const { run } of runs) {
+    private groupByTestRunId(runs: Array<{ run: RunData; path: string; isRunLevel: boolean }>): Map<string, Array<{ run: RunData; isRunLevel: boolean }>> {
+        const groups = new Map<string, Array<{ run: RunData; isRunLevel: boolean }>>();
+        for (const { run, isRunLevel } of runs) {
             const groupId = run.testRunId || run.startedAt.replaceAll(':', '-');
             if (!groups.has(groupId)) groups.set(groupId, []);
-            groups.get(groupId)!.push(run);
+            groups.get(groupId)!.push({ run, isRunLevel });
         }
         return groups;
     }
 
-    private mergeRunGroups(groups: Map<string, RunData[]>): Map<string, RunData> {
+    private mergeRunGroups(groups: Map<string, Array<{ run: RunData; isRunLevel: boolean }>>): Map<string, RunData> {
         const merged = new Map<string, RunData>();
 
         for (const [runId, runsInGroup] of groups) {
+            // If we have fresh module-level db.json files for this run, exclude any stale
+            // run-level (pre-merged) db.json. The run-level file contains outdated merged data
+            // from a previous CI attempt and would incorrectly contribute "zombie" module data
+            // from modules that crashed in the current run but succeeded previously.
+            const hasModuleLevelRuns = runsInGroup.some(r => !r.isRunLevel);
+            const filteredRuns = hasModuleLevelRuns
+                ? runsInGroup.filter(r => !r.isRunLevel)
+                : runsInGroup;
+
+            const runsToMerge = filteredRuns.map(r => r.run);
+
             // Collect module metadata before merging
-            const modules = runsInGroup.map((run, index) => ({
+            const modules = runsToMerge.map((run, index) => ({
                 moduleId: this.deriveModuleId(run, index),
                 startedAt: run.startedAt,
                 finishedAt: run.finishedAt,
@@ -186,7 +208,7 @@ export class DataSnapshotAggregator {
 
             // Sub-group by attempt number (missing attempt defaults to 1)
             const byAttempt = new Map<number, RunData[]>();
-            for (const run of runsInGroup) {
+            for (const run of runsToMerge) {
                 const attempt = run.attempt ?? 1;
                 if (!byAttempt.has(attempt)) byAttempt.set(attempt, []);
                 byAttempt.get(attempt)!.push(run);

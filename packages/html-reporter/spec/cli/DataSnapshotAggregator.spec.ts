@@ -880,6 +880,99 @@ test.describe('DataSnapshotAggregator', () => {
                 expect(scenario.attempts).toBeUndefined();
             }
         });
+
+        test('excludes stale run-level pre-merged db.json when fresh module-level db.json files exist for the same testRunId', () => {
+            // This is the "zombie module data" bug scenario:
+            // - gh-pages has a pre-merged test-runs/42/db.json from a previous CI run where webdriverio succeeded
+            // - The current CI run produces fresh module-level db.json files (e.g., test-runs/42/cucumber-1/db.json)
+            // - webdriverio crashed in the current run and didn't produce a db.json
+            // - Without the fix, the pre-merged run-level file contributes stale webdriverio data
+            const { aggregator, filesystem } = createAggregator({});
+
+            // Pre-merged run-level db.json from gh-pages (stale — from a previous successful run)
+            // This has data from both cucumber and webdriverio modules merged together
+            const ghPagesRunDirectory = '/source/gh-pages/test-runs/42';
+            filesystem.mkdirSync(ghPagesRunDirectory, { recursive: true });
+            filesystem.writeFileSync(ghPagesRunDirectory + '/db.json', runData({
+                testRunId: '42',
+                moduleId: 'cucumber-1',  // The merged file has the moduleId of the first module
+                startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:10.000Z',
+                outcomes: { passed: 5, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    // Contains scenes from both modules — this is stale merged data
+                    { name: 'Cucumber Test A', category: 'Cucumber', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'cucumber.spec.ts', line: 1 }, tags: [], activities: [] },
+                    { name: 'Cucumber Test B', category: 'Cucumber', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:01.000Z', source: { path: 'cucumber.spec.ts', line: 5 }, tags: [], activities: [] },
+                    { name: 'WebdriverIO Test A', category: 'WebdriverIO', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:02.000Z', source: { path: 'wdio.spec.ts', line: 1 }, tags: [], activities: [] },
+                    { name: 'WebdriverIO Test B', category: 'WebdriverIO', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:03.000Z', source: { path: 'wdio.spec.ts', line: 5 }, tags: [], activities: [] },
+                    { name: 'WebdriverIO Test C', category: 'WebdriverIO', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:04.000Z', source: { path: 'wdio.spec.ts', line: 9 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            // Fresh module-level db.json from current CI run (cucumber succeeded)
+            const freshCucumberDirectory = '/source/artifacts/test-runs/42/cucumber-1';
+            filesystem.mkdirSync(freshCucumberDirectory, { recursive: true });
+            filesystem.writeFileSync(freshCucumberDirectory + '/db.json', runData({
+                testRunId: '42',
+                moduleId: 'cucumber-1',
+                startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:02.000Z',
+                outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Cucumber Test A', category: 'Cucumber', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'cucumber.spec.ts', line: 1 }, tags: [], activities: [] },
+                    { name: 'Cucumber Test B', category: 'Cucumber', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:01.000Z', source: { path: 'cucumber.spec.ts', line: 5 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                systemContext: { nodeVersion: 'v22', os: { name: 'linux', version: '6', arch: 'x64' }, serenityVersion: '3.44.0', runtime: { provider: 'node', version: 'v22' }, projectName: 'cucumber' },
+            }));
+
+            // Note: NO webdriverio db.json exists — it crashed before producing results
+
+            aggregator.aggregate([
+                ghPagesRunDirectory + '/db.json',
+                freshCucumberDirectory + '/db.json',
+            ]);
+
+            const data = readDataJs(filesystem);
+
+            // Should ONLY have the 2 cucumber scenarios from the fresh module-level file
+            // The stale webdriverio data from the pre-merged run-level file should NOT appear
+            expect(data.scenarios).toHaveLength(2);
+            expect(data.summary.totalScenarios).toBe(2);
+            expect(data.summary.outcomes.passed).toBe(2);
+
+            // Verify all scenarios are from cucumber (no zombie webdriverio data)
+            const scenarioNames = data.scenarios.map(s => s.name).sort();
+            expect(scenarioNames).toEqual(['Cucumber Test A', 'Cucumber Test B']);
+
+            // Modules array should only have the fresh cucumber module
+            expect(data.history[0].modules).toHaveLength(1);
+            expect(data.history[0].modules[0].moduleId).toBe('cucumber-1');
+        });
+
+        test('uses run-level db.json when no module-level files exist (backwards compatibility)', () => {
+            // When there are only run-level db.json files (old format), they should still work
+            const { aggregator, filesystem } = createAggregator({});
+
+            const runDirectory = '/source/test-runs/42';
+            filesystem.mkdirSync(runDirectory, { recursive: true });
+            filesystem.writeFileSync(runDirectory + '/db.json', runData({
+                testRunId: '42',
+                startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:05.000Z',
+                outcomes: { passed: 3, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                    { name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:01.000Z', source: { path: 'a.spec.ts', line: 5 }, tags: [], activities: [] },
+                    { name: 'Test C', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:02.000Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            aggregator.aggregate([runDirectory + '/db.json']);
+
+            const data = readDataJs(filesystem);
+            expect(data.scenarios).toHaveLength(3);
+            expect(data.summary.totalScenarios).toBe(3);
+        });
     });
 
     test.describe('markdown rendering', () => {
