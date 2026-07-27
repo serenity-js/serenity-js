@@ -725,3 +725,23 @@ A fixed container at `top: 0; left: 0; right: 0` with declared height < 50vh and
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 ```
 
+
+
+## Path depth distinguishes stale pre-merged data from fresh module-level data
+
+When the html-reporter aggregates `db.json` files from multiple sources (fresh CI artifacts + historical gh-pages data), the same `testRunId` can appear in both:
+- **Run-level (pre-merged):** `test-runs/8334/db.json` — aggregated output from a previous CI run, containing stale data
+- **Module-level (individual):** `test-runs/8334/cucumber-1/db.json` — fresh artifact from a specific CI job
+
+If a CI module crashes before producing test results, the historical pre-merged file may show stale data from a previous successful run. This causes the crashed module to incorrectly appear with "green" results in the report.
+
+**Detection pattern:** After stripping the `test-runs/` prefix and the run ID, check for a directory separator:
+```typescript
+const relative = pathWithoutDatabase.slice(testRunsIndex + '/test-runs/'.length);
+const slashIndex = relative.indexOf('/');
+const isRunLevel = slashIndex === -1;  // No slash after ID = run-level
+```
+
+**Rule:** When module-level files exist for a `testRunId`, exclude run-level files from the merge — they contain stale pre-merged data that would mask missing/crashed modules.
+
+Applied to `DataSnapshotAggregator.ts` via `isRunLevel` tracking through `loadAndValidateRuns()` → `groupByTestRunId()` → `mergeRunGroups()`.
