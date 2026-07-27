@@ -4,6 +4,7 @@ import type { FileSystem } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
 import { Marked, parseInline } from 'marked';
 
+import { link } from '../../utils/link.js';
 import type { ReportCapabilityNode } from '../ReportData.js';
 
 /**
@@ -23,7 +24,7 @@ export function findReadme(directoryPath: Path, projectFileSystem: FileSystem): 
 }
 
 /**
- * Renders markdown content as HTML with custom link transformation.
+ * Renders Markdown content as HTML with custom link transformation.
  *
  * Uses the standalone `parseInline` function from `marked` to render link
  * text tokens, rather than `this.parser.parseInline(tokens)`. The `this`
@@ -118,7 +119,7 @@ function buildInternalLink(
     if (isDirectoryLink && nodeMap.has(withoutTrailingSlash)) {
         const capabilitiesHref = withoutTrailingSlash === ''
             ? '#/capabilities'
-            : `#/capabilities?path=${encodeURIComponent(withoutTrailingSlash)}`;
+            : '#' + link({ view: 'capabilities', path: withoutTrailingSlash });
         return `<a href="${capabilitiesHref}"${titleAttribute}>${text}</a>`;
     }
 
@@ -127,8 +128,7 @@ function buildInternalLink(
     }
 
     if (/\.(spec|test)\.(ts|js|mjs|cjs)$/.test(resolved)) {
-        const encodedSearch = encodeURIComponent('"' + withoutTrailingSlash + '"');
-        return `<a href="#/tests?search=${encodedSearch}"${titleAttribute}>${text}</a>`;
+        return `<a href="#${link({ view: 'tests', search: `"${withoutTrailingSlash}"` })}"${titleAttribute}>${text}</a>`;
     }
 
     return `<a href="${href}"${titleAttribute}>${text}</a>`;

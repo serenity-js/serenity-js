@@ -1,16 +1,42 @@
+import { tagDiscriminator as serverTagDiscriminator } from '../../src/cli/model/sceneIdentity.js';
 import type { ReportScenarioTag, ReportSource } from '../../src/cli/ReportData';
+import { link } from './link.js';
 
+/**
+ * Returns a discriminator string from browser, project, and platform tags.
+ * Delegates to the server-side implementation to avoid duplication.
+ * 
+ * @param tags - Optional array of tags
+ * @returns Discriminator string (e.g., "chromium@mobile@darwin") or empty string
+ */
 export function tagDiscriminator(tags?: ReportScenarioTag[]): string {
     if (!tags) return '';
-    const browserTag = tags.find(t => t.type === 'browser')?.name || '';
-    const projectTag = tags.find(t => t.type === 'project')?.name || '';
-    const platformTag = tags.find(t => t.type === 'platform')?.name || '';
-    return [browserTag, projectTag, platformTag].filter(Boolean).join('@');
+    return serverTagDiscriminator(tags);
 }
 
-export function getBrowserTag(scenario: { tags?: Array<{ type: string; name: string }> }): string | null {
-    const tag = (scenario.tags || []).find(t => t.type === 'browser');
+/**
+ * Extracts a tag value by type from a scenario.
+ * 
+ * @param scenario - Scenario or object with tags
+ * @param type - Tag type to extract (e.g., 'browser', 'project', 'platform')
+ * @returns Tag value or null if not found
+ */
+export function getTagByType(
+    scenario: { tags?: Array<{ type: string; name: string }> },
+    type: string
+): string | null {
+    const tag = (scenario.tags || []).find(t => t.type === type);
     return tag ? tag.name : null;
+}
+
+/**
+ * Extracts the browser tag from a scenario.
+ * 
+ * @param scenario - Scenario with optional tags
+ * @returns Browser name (e.g., "chromium 149") or null
+ */
+export function getBrowserTag(scenario: { tags?: Array<{ type: string; name: string }> }): string | null {
+    return getTagByType(scenario, 'browser');
 }
 
 export function browserBadgeClass(browserTag: string): string {
@@ -21,16 +47,44 @@ export function browserBadgeClass(browserTag: string): string {
     return 'badge-browser';
 }
 
+/**
+ * Formats a scenario source location as a relative path with line number.
+ * 
+ * @param scenario - Scenario with source location
+ * @param specDirectory - Spec directory name
+ * @returns Formatted path (e.g., "auth.spec.ts:42")
+ */
 export function relativeSourcePath(scenario: { source: ReportSource; name: string }, specDirectory?: string): string {
     const relativePath = stripAbsolutePrefix(scenario.source.path, specDirectory);
     return scenario.source.line ? relativePath + ':' + scenario.source.line : relativePath;
 }
 
+/**
+ * Formats an activity location as a relative path with line number.
+ * 
+ * @param location - Location with path and line
+ * @param specDirectory - Spec directory name
+ * @returns Formatted path (e.g., "Click.ts:20")
+ */
 export function relativeLocationPath(location: { path: string; line: number; column?: number }, specDirectory?: string): string {
     const relativePath = stripAbsolutePrefix(location.path, specDirectory);
     return relativePath + ':' + location.line;
 }
 
+/**
+ * Strips the spec directory prefix from a file path for display purposes.
+ * Uses a marker-based approach to find the spec directory anywhere in the path.
+ * 
+ * @param filePath - Full file path
+ * @param specDirectory - Spec directory name (e.g., "spec", "test")
+ * @returns Relative path from spec directory
+ * 
+ * @example
+ * stripAbsolutePrefix('/project/spec/auth.spec.ts', 'spec')
+ * // → 'auth.spec.ts'
+ * 
+ * @package
+ */
 function stripAbsolutePrefix(filePath: string, specDirectory?: string): string {
     if (!specDirectory) {
         return filePath;
@@ -49,21 +103,26 @@ export function scenarioUrl(scenario: { source: ReportSource; name: string; tags
     const id = scenario.source.line
         ? scenario.source.path + ':' + scenario.source.line
         : scenario.source.path + ':' + scenario.name;
-    const base = '/tests/' + encodeURIComponent(id);
-    const params = new URLSearchParams();
+    
+    // Determine run ID
+    let runId: string | undefined;
     if (run !== undefined && run !== null) {
         const historyArray = history || [];
-        const ts = typeof run === 'number' && historyArray[run] ? historyArray[run].timestamp : String(run);
-        params.set('run', ts);
+        runId = typeof run === 'number' && historyArray[run] ? historyArray[run].timestamp : String(run);
     }
-    // Include all discriminator tags to uniquely identify cross-browser/project/platform variations
+    
+    // Extract discriminator tags
     const tags = scenario.tags || [];
     const browserTag = tags.find(t => t.type === 'browser');
     const projectTag = tags.find(t => t.type === 'project');
     const platformTag = tags.find(t => t.type === 'platform');
-    if (browserTag) params.set('browser', browserTag.name);
-    if (projectTag) params.set('project', projectTag.name);
-    if (platformTag) params.set('platform', platformTag.name);
-    const qs = params.toString();
-    return qs ? base + '?' + qs : base;
+    
+    return link({
+        view: 'tests',
+        path: id,
+        run: runId,
+        browser: browserTag?.name,
+        project: projectTag?.name,
+        platform: platformTag?.name,
+    });
 }

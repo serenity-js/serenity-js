@@ -1,14 +1,16 @@
 /**
- * Strips absolute path prefixes from error messages and stack traces, rendering
- * paths relative to the specDirectory.
- *
- * Uses a marker approach: finds occurrences of `/specDirectory/` in the text
- * and strips everything before the marker, so absolute paths become relative.
- *
- * Example:
- *   text: "at /home/runner/work/project/spec/login.spec.ts:42"
- *   specDirectory: "spec" (or "./spec")
- *   result: "at spec/login.spec.ts:42"
+ * Strips absolute paths from error messages using regex pattern matching.
+ * Preserves the relative portion after the spec directory.
+ * 
+ * Used for cleaning up stack traces and error messages for display.
+ * 
+ * @param text - Error message or stack trace
+ * @param specDirectory - Spec directory name
+ * @returns Text with absolute paths stripped
+ * 
+ * @example
+ * stripAbsolutePaths('Error at /project/spec/auth.spec.ts:42', 'spec')
+ * // → 'Error at spec/auth.spec.ts:42'
  */
 export function stripAbsolutePaths(text: string, specDirectory?: string): string {
     if (!specDirectory || !text) return text;

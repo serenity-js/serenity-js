@@ -1,4 +1,4 @@
-export type { RouteMatch } from './resolveRoute';
-export { resolveRoute } from './resolveRoute';
-export type { RouteDefinition, RouteParameters } from './RouteDefinition';
-export { routes } from './routes';
+export type { RouteMatch } from './resolveRoute.js';
+export { resolveRoute } from './resolveRoute.js';
+export type { RouteDefinition, RouteParameters } from './RouteDefinition.js';
+export { routes } from './routes.js';
