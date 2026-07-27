@@ -16,8 +16,21 @@ if (runs.length === 0) {
     throw new Error('No test runs found. Run the stub spec first.');
 }
 
-const latestRunDirectory = resolve(testRunsDirectory, runs[runs.length - 1]);
-const latestDatabase = JSON.parse(readFileSync(resolve(latestRunDirectory, 'db.json'), 'utf8'));
+const latestRunId = runs[runs.length - 1];
+const latestRunDirectory = resolve(testRunsDirectory, latestRunId);
+
+// Check if this is a module-based run (has subdirectories)
+const entries = readdirSync(latestRunDirectory);
+const isModuleBased = entries.some(entry => {
+    const stat = require('fs').statSync(resolve(latestRunDirectory, entry));
+    return stat.isDirectory();
+});
+
+const latestDatabasePath = isModuleBased
+    ? resolve(latestRunDirectory, entries.find(e => require('fs').statSync(resolve(latestRunDirectory, e)).isDirectory())!, 'db.json')
+    : resolve(latestRunDirectory, 'db.json');
+
+const latestDatabase = JSON.parse(readFileSync(latestDatabasePath, 'utf8'));
 
 // Create a historical run (1 day earlier) with inverted outcomes:
 // - "should complete an item" was PASSING (now it fails → degraded)
@@ -77,15 +90,16 @@ const incompleteFinished = new Date(new Date(incompleteTimestamp).getTime() + 12
 const passingModuleDatabase = {
     schemaVersion: latestDatabase.schemaVersion,
     testRunId: '40',
+    moduleId: 'passing-module',
     startedAt: incompleteTimestamp,
     finishedAt: incompleteFinished,
     outcomes: { passed: 3, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
     scenes: [
-        { name: 'Module A test 1', category: 'Passing Module', outcome: { code: 64 }, duration: 100, startedAt: incompleteTimestamp, source: { path: 'passing-module/a.spec.ts', line: 1 }, tags: [], activities: [] },
-        { name: 'Module A test 2', category: 'Passing Module', outcome: { code: 64 }, duration: 150, startedAt: incompleteTimestamp, source: { path: 'passing-module/a.spec.ts', line: 10 }, tags: [], activities: [] },
-        { name: 'Module A test 3', category: 'Passing Module', outcome: { code: 64 }, duration: 200, startedAt: incompleteTimestamp, source: { path: 'passing-module/b.spec.ts', line: 1 }, tags: [], activities: [] },
+        { name: 'Module A test 1', category: 'Passing Module', outcome: { code: 64 }, duration: 100, startedAt: incompleteTimestamp, source: { path: 'passing-module/a.spec.ts', line: 1 }, tags: [{ type: 'module', name: 'passing-module' }], activities: [] },
+        { name: 'Module A test 2', category: 'Passing Module', outcome: { code: 64 }, duration: 150, startedAt: incompleteTimestamp, source: { path: 'passing-module/a.spec.ts', line: 10 }, tags: [{ type: 'module', name: 'passing-module' }], activities: [] },
+        { name: 'Module A test 3', category: 'Passing Module', outcome: { code: 64 }, duration: 200, startedAt: incompleteTimestamp, source: { path: 'passing-module/b.spec.ts', line: 1 }, tags: [{ type: 'module', name: 'passing-module' }], activities: [] },
     ],
-    tags: [],
+    tags: [{ type: 'module', name: 'passing-module' }],
     testRunner: { name: 'Playwright', version: '1.50.0' },
     systemContext: { ...latestDatabase.systemContext, projectName: 'passing-module' },
 };
@@ -93,15 +107,16 @@ const passingModuleDatabase = {
 const failingModuleDatabase = {
     schemaVersion: latestDatabase.schemaVersion,
     testRunId: '40',
+    moduleId: 'failing-module',
     startedAt: new Date(new Date(incompleteTimestamp).getTime() + 60_000).toISOString(),
     finishedAt: new Date(new Date(incompleteTimestamp).getTime() + 180_000).toISOString(),
     outcomes: { passed: 1, failed: 2, pending: 0, skipped: 0, compromised: 0, error: 0 },
     scenes: [
-        { name: 'Module B test 1', category: 'Failing Module', outcome: { code: 64 }, duration: 100, startedAt: incompleteTimestamp, source: { path: 'failing-module/c.spec.ts', line: 1 }, tags: [], activities: [] },
-        { name: 'Module B test 2', category: 'Failing Module', outcome: { code: 4 }, duration: 200, startedAt: incompleteTimestamp, source: { path: 'failing-module/c.spec.ts', line: 10 }, tags: [], activities: [], error: { name: 'AssertionError', message: 'Expected value to match', stack: '' } },
-        { name: 'Module B test 3', category: 'Failing Module', outcome: { code: 4 }, duration: 150, startedAt: incompleteTimestamp, source: { path: 'failing-module/d.spec.ts', line: 1 }, tags: [], activities: [], error: { name: 'AssertionError', message: 'Assertion failed', stack: '' } },
+        { name: 'Module B test 1', category: 'Failing Module', outcome: { code: 64 }, duration: 100, startedAt: incompleteTimestamp, source: { path: 'failing-module/c.spec.ts', line: 1 }, tags: [{ type: 'module', name: 'failing-module' }], activities: [] },
+        { name: 'Module B test 2', category: 'Failing Module', outcome: { code: 4 }, duration: 200, startedAt: incompleteTimestamp, source: { path: 'failing-module/c.spec.ts', line: 10 }, tags: [{ type: 'module', name: 'failing-module' }], activities: [], error: { name: 'AssertionError', message: 'Expected value to match', stack: '' } },
+        { name: 'Module B test 3', category: 'Failing Module', outcome: { code: 4 }, duration: 150, startedAt: incompleteTimestamp, source: { path: 'failing-module/d.spec.ts', line: 1 }, tags: [{ type: 'module', name: 'failing-module' }], activities: [], error: { name: 'AssertionError', message: 'Assertion failed', stack: '' } },
     ],
-    tags: [],
+    tags: [{ type: 'module', name: 'failing-module' }],
     testRunner: { name: 'Playwright', version: '1.50.0' },
     systemContext: { ...latestDatabase.systemContext, projectName: 'failing-module' },
 };
@@ -109,11 +124,12 @@ const failingModuleDatabase = {
 const crashedModuleDatabase = {
     schemaVersion: latestDatabase.schemaVersion,
     testRunId: '40',
+    moduleId: 'crashed-module',
     startedAt: new Date(new Date(incompleteTimestamp).getTime() + 30_000).toISOString(),
     // No finishedAt — simulates a crashed runner
     outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
     scenes: [],
-    tags: [],
+    tags: [{ type: 'module', name: 'crashed-module' }],
     systemContext: { ...latestDatabase.systemContext, projectName: 'crashed-module' },
 };
 

@@ -17,6 +17,7 @@ export interface CollectOptions {
     artifactPaths: Map<string, Path[]>;
     systemContext: SystemContext;
     sceneArtifactPaths?: Map<string, Path[]>;
+    moduleId?: string;
 }
 
 /**
@@ -27,7 +28,7 @@ export interface CollectOptions {
 export class SceneDataCollector {
 
     collect(options: CollectOptions): RunData {
-        const { queues, testRunStartedAt, testRunnerName, testRunnerVersion, artifactPaths, systemContext, sceneArtifactPaths } = options;
+        const { queues, testRunStartedAt, testRunnerName, testRunnerVersion, artifactPaths, systemContext, sceneArtifactPaths, moduleId } = options;
         const scenes: SceneRecord[] = [];
 
         queues.forEach(queue => {
@@ -35,6 +36,13 @@ export class SceneDataCollector {
             const queueScenes = this.processQueue(events, artifactPaths, sceneArtifactPaths);
             scenes.push(...queueScenes);
         });
+
+        // Attach module tag to all scenes when moduleId is provided
+        if (moduleId) {
+            for (const scene of scenes) {
+                scene.tags.push({ type: 'module', name: moduleId });
+            }
+        }
 
         return this.assembleRunData(scenes, testRunStartedAt, testRunnerName, testRunnerVersion, systemContext);
     }

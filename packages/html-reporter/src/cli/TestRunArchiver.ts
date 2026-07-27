@@ -189,6 +189,7 @@ export class TestRunArchiver implements StageCrewMember {
                 artifactPaths: this.artifactWriter.getArtifactPaths(),
                 systemContext: this.systemContextDetector.detect(),
                 sceneArtifactPaths: this.artifactWriter.getSceneArtifactPaths(),
+                moduleId: this.moduleId,
             });
 
             runData.testRunId = this.resolvedTestRunId;

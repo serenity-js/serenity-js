@@ -1,7 +1,7 @@
 import { includes } from '@serenity-js/assertions';
 import type { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
 import { Task, the } from '@serenity-js/core';
-import { By, PageElement, Text } from '@serenity-js/web';
+import { By, PageElement, PageElements, Text, Value } from '@serenity-js/web';
 
 import { FilterBar } from '../common/FilterBar.serenity.js';
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
@@ -55,6 +55,17 @@ export class ScenariosView<NET> extends InteractionObject<NET> {
 
     resultCountText = (): QuestionAdapter<string> =>
         this.resultCount.text();
+
+    searchInputValue = (): QuestionAdapter<string> =>
+        Value.of(PageElement.located(By.css('[data-testid="search-input"] input'))
+            .of(this.rootElement))
+            .describedAs('search input value');
+
+    activeFilters = (): Question<Promise<string[]>> =>
+        PageElements.located(By.css('.filter-chip[aria-pressed="true"]'))
+            .of(this.rootElement)
+            .eachMappedTo(Text)
+            .describedAs('active filter labels');
 
     private readonly runSelectorElement = this.child(By.css('select[aria-label^="Select test run"]'))
         .describedAs('run selector');

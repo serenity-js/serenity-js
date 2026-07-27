@@ -208,12 +208,6 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
         return null;
     }
 
-    const handleNavigate = () => {
-        if (selectedRun) {
-            onNavigate('/tests?run=' + selectedRun.runId);
-        }
-    };
-
     return html`
     <div class="trend-chart-wrapper">
       <div class="trend-chart-container" ref=${containerRef} style="position:relative;width:100%;height:300px" data-chart-theme=${chartTheme}>
@@ -226,14 +220,14 @@ export function TrendChart({ history, onNavigate }: TrendChartProps): ReturnType
           selectedRun=${selectedRun}
           panelRef=${panelRef}
           onClose=${clearSelection}
-          onNavigate=${handleNavigate}
+          onNavigate=${onNavigate}
         />`}
       ${selectedRun && isMobile && createPortal(html`
         <${TrendChartDetails}
           selectedRun=${selectedRun}
           panelRef=${panelRef}
           onClose=${clearSelection}
-          onNavigate=${handleNavigate}
+          onNavigate=${onNavigate}
         />`, document.body)}
     </div>
   `;

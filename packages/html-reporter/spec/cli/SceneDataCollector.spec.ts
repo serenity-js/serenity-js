@@ -1006,3 +1006,194 @@ test.describe('SceneDataCollector', () => {
         });
     });
 });
+
+test.describe('module tagging', () => {
+
+    test('attaches module tag to all scenes when moduleId is provided', () => {
+        const collector = new SceneDataCollector();
+        const queues = new DomainEventQueues();
+
+        const details1 = new ScenarioDetails(
+            new Name('first test'),
+            new Category('Suite'),
+            new FileSystemLocation(Path.from('test.spec.ts'), 1, 1),
+        );
+        const details2 = new ScenarioDetails(
+            new Name('second test'),
+            new Category('Suite'),
+            new FileSystemLocation(Path.from('test.spec.ts'), 10, 1),
+        );
+
+        const sceneId1 = CorrelationId.create();
+        const sceneId2 = CorrelationId.create();
+
+        const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+        const t1 = new Timestamp(new Date('2024-01-01T00:00:00.100Z'));
+        const t2 = new Timestamp(new Date('2024-01-01T00:00:00.200Z'));
+        const t3 = new Timestamp(new Date('2024-01-01T00:00:00.300Z'));
+
+        // First scenario
+        queues.enqueue(new SceneStarts(sceneId1, details1, t0));
+        queues.enqueue(new SceneFinished(sceneId1, details1, new ExecutionSuccessful(), t1));
+
+        // Second scenario
+        queues.enqueue(new SceneStarts(sceneId2, details2, t2));
+        queues.enqueue(new SceneFinished(sceneId2, details2, new ExecutionSuccessful(), t3));
+
+        const runData = collector.collect({
+            queues,
+            testRunStartedAt: '2024-01-01T00:00:00.000Z',
+            testRunnerName: 'Playwright',
+            testRunnerVersion: '1.50.0',
+            artifactPaths: new Map(),
+            systemContext,
+            moduleId: 'playwright-test',
+        });
+
+        expect(runData.scenes).toHaveLength(2);
+
+        // Both scenes should have the module tag
+        const scene1ModuleTag = runData.scenes[0].tags.find(tag => tag.type === 'module');
+        expect(scene1ModuleTag).toBeDefined();
+        expect(scene1ModuleTag.name).toBe('playwright-test');
+
+        const scene2ModuleTag = runData.scenes[1].tags.find(tag => tag.type === 'module');
+        expect(scene2ModuleTag).toBeDefined();
+        expect(scene2ModuleTag.name).toBe('playwright-test');
+
+        // The module tag should also appear in the run-level tags collection
+        const runModuleTag = runData.tags.find(tag => tag.type === 'module');
+        expect(runModuleTag).toBeDefined();
+        expect(runModuleTag.name).toBe('playwright-test');
+    });
+
+    test('does not attach module tag when moduleId is undefined', () => {
+        const collector = new SceneDataCollector();
+        const queues = new DomainEventQueues();
+
+        const details = new ScenarioDetails(
+            new Name('test without module'),
+            new Category('Suite'),
+            new FileSystemLocation(Path.from('test.spec.ts'), 1, 1),
+        );
+        const sceneId = CorrelationId.create();
+
+        const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+        const t1 = new Timestamp(new Date('2024-01-01T00:00:00.100Z'));
+
+        queues.enqueue(new SceneStarts(sceneId, details, t0));
+        queues.enqueue(new SceneTagged(sceneId, new ArbitraryTag('smoke'), t0));
+        queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t1));
+
+        // Do not provide moduleId
+        const runData = collector.collect({
+            queues,
+            testRunStartedAt: '2024-01-01T00:00:00.000Z',
+            testRunnerName: 'Mocha',
+            testRunnerVersion: '11.0.0',
+            artifactPaths: new Map(),
+            systemContext,
+        });
+
+        expect(runData.scenes).toHaveLength(1);
+
+        // Should have no module tag when moduleId is undefined
+        const moduleTags = runData.scenes[0].tags.filter(tag => tag.type === 'module');
+        expect(moduleTags).toHaveLength(0);
+
+        // Run-level tags should also have no module tag
+        const runModuleTags = runData.tags.filter(tag => tag.type === 'module');
+        expect(runModuleTags).toHaveLength(0);
+    });
+
+    test('attaches module tag to retried scenes', () => {
+        const collector = new SceneDataCollector();
+        const queues = new DomainEventQueues();
+
+        const details = new ScenarioDetails(
+            new Name('retried test with module'),
+            new Category('Suite'),
+            new FileSystemLocation(Path.from('test.spec.ts'), 5, 1),
+        );
+        const sceneId = CorrelationId.create();
+
+        const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+        const t1 = new Timestamp(new Date('2024-01-01T00:00:00.100Z'));
+        const t2 = new Timestamp(new Date('2024-01-01T00:00:00.200Z'));
+        const t3 = new Timestamp(new Date('2024-01-01T00:00:00.300Z'));
+
+        // Attempt 1: fails
+        queues.enqueue(new SceneStarts(sceneId, details, t0));
+        queues.enqueue(new SceneFinished(sceneId, details, new ExecutionFailedWithAssertionError(new AssertionError('fail')), t1));
+
+        // Attempt 2: passes
+        queues.enqueue(new SceneStarts(sceneId, details, t2));
+        queues.enqueue(new SceneFinished(sceneId, details, new ExecutionSuccessful(), t3));
+
+        const runData = collector.collect({
+            queues,
+            testRunStartedAt: '2024-01-01T00:00:00.000Z',
+            testRunnerName: 'Playwright',
+            testRunnerVersion: '1.50.0',
+            artifactPaths: new Map(),
+            systemContext,
+            moduleId: 'webdriverio-8-devtools',
+        });
+
+        expect(runData.scenes).toHaveLength(1);
+        expect(runData.scenes[0].retries).toBe(1);
+
+        // Retried scene should have the module tag
+        const moduleTag = runData.scenes[0].tags.find(tag => tag.type === 'module');
+        expect(moduleTag).toBeDefined();
+        expect(moduleTag.name).toBe('webdriverio-8-devtools');
+    });
+
+    test('attaches module tag to scenario outline scenes', () => {
+        const collector = new SceneDataCollector();
+        const queues = new DomainEventQueues();
+
+        const outlineDetails = new ScenarioDetails(
+            new Name('outline with <param>'),
+            new Category('Suite'),
+            new FileSystemLocation(Path.from('outline.feature'), 3, 1),
+        );
+        const sceneId = CorrelationId.create();
+
+        const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+        const t1 = new Timestamp(new Date('2024-01-01T00:00:00.100Z'));
+        const t2 = new Timestamp(new Date('2024-01-01T00:00:00.200Z'));
+        const t3 = new Timestamp(new Date('2024-01-01T00:00:00.300Z'));
+
+        queues.enqueue(new SceneSequenceDetected(sceneId, outlineDetails, t0));
+        queues.enqueue(new SceneTemplateDetected(sceneId, new Description('Given <param>'), t0));
+
+        // Row 1
+        queues.enqueue(new SceneParametersDetected(sceneId, outlineDetails, new ScenarioParameters(new Name('examples'), new Description(''), { param: 'foo' }), t0));
+        queues.enqueue(new SceneStarts(sceneId, outlineDetails, t0));
+        queues.enqueue(new SceneFinished(sceneId, outlineDetails, new ExecutionSuccessful(), t1));
+
+        // Row 2
+        queues.enqueue(new SceneParametersDetected(sceneId, outlineDetails, new ScenarioParameters(new Name('examples'), new Description(''), { param: 'bar' }), t2));
+        queues.enqueue(new SceneStarts(sceneId, outlineDetails, t2));
+        queues.enqueue(new SceneFinished(sceneId, outlineDetails, new ExecutionSuccessful(), t3));
+
+        const runData = collector.collect({
+            queues,
+            testRunStartedAt: '2024-01-01T00:00:00.000Z',
+            testRunnerName: 'Cucumber',
+            testRunnerVersion: '12.0.0',
+            artifactPaths: new Map(),
+            systemContext,
+            moduleId: 'cucumber-12',
+        });
+
+        expect(runData.scenes).toHaveLength(1);
+        expect(runData.scenes[0].scenarioOutline).toBeDefined();
+
+        // Scenario outline should have the module tag
+        const moduleTag = runData.scenes[0].tags.find(tag => tag.type === 'module');
+        expect(moduleTag).toBeDefined();
+        expect(moduleTag.name).toBe('cucumber-12');
+    });
+});

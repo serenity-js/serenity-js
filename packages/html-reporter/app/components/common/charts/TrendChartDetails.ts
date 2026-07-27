@@ -3,6 +3,7 @@ import type { Ref } from 'preact';
 import { h } from 'preact';
 
 import { formatDuration, formatTimestamp } from '../../../utils';
+import { buildModuleOutcomeUrl, buildModuleUrl } from '../../../utils/moduleUrls';
 import type { SelectedRun } from './TrendChart';
 
 const html = htm.bind(h);
@@ -11,7 +12,7 @@ export interface TrendChartDetailsProps {
     selectedRun: SelectedRun;
     panelRef: Ref<HTMLDivElement | null>;
     onClose: () => void;
-    onNavigate: () => void;
+    onNavigate: (path: string) => void;
 }
 
 const OUTCOME_ICONS: Record<string, string> = {
@@ -72,12 +73,52 @@ export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }
                   <tbody>
                     ${modules.map(m => html`
                       <tr class="run-details-table-row run-details-table-row--${m.outcome || 'passed'}">
-                        <td class="run-details-table-module">${m.moduleId}</td>
+                        <td class="run-details-table-module">
+                          <a 
+                            href=${buildModuleUrl(selectedRun.runId, m.moduleId)}
+                            onClick=${(e: Event) => {
+                                e.preventDefault();
+                                onNavigate(buildModuleUrl(selectedRun.runId, m.moduleId));
+                            }}
+                          >
+                            ${m.moduleId}
+                          </a>
+                        </td>
                         <td class="run-details-table-outcome">${OUTCOME_ICONS[m.outcome || 'passed']} ${m.outcome || 'passed'}</td>
                         <td>${m.outcome === 'incomplete' ? '—' : moduleScenarioCount(m)}</td>
-                        <td>${m.outcome === 'incomplete' ? '—' : (m.outcomes?.passed || 0)}</td>
-                        <td>${m.outcome === 'incomplete' ? '—' : moduleFailedCount(m)}</td>
-                        <td>${m.outcome === 'incomplete' ? '—' : moduleSkippedCount(m)}</td>
+                        <td>
+                          ${m.outcome === 'incomplete' ? '—' : html`
+                            <button 
+                              class="count-link"
+                              onClick=${() => onNavigate(buildModuleOutcomeUrl(selectedRun.runId, m.moduleId, 'passed'))}
+                              aria-label=${`View ${m.outcomes?.passed || 0} passed tests from ${m.moduleId}`}
+                            >
+                              ${m.outcomes?.passed || 0}
+                            </button>
+                          `}
+                        </td>
+                        <td>
+                          ${m.outcome === 'incomplete' ? '—' : html`
+                            <button 
+                              class="count-link"
+                              onClick=${() => onNavigate(buildModuleOutcomeUrl(selectedRun.runId, m.moduleId, 'failed'))}
+                              aria-label=${`View ${moduleFailedCount(m)} failed tests from ${m.moduleId}`}
+                            >
+                              ${moduleFailedCount(m)}
+                            </button>
+                          `}
+                        </td>
+                        <td>
+                          ${m.outcome === 'incomplete' ? '—' : html`
+                            <button 
+                              class="count-link"
+                              onClick=${() => onNavigate(buildModuleOutcomeUrl(selectedRun.runId, m.moduleId, 'skipped'))}
+                              aria-label=${`View ${moduleSkippedCount(m)} skipped tests from ${m.moduleId}`}
+                            >
+                              ${moduleSkippedCount(m)}
+                            </button>
+                          `}
+                        </td>
                         <td>${formatTimestamp(m.startedAt)}</td>
                         <td>${moduleDuration(m)}</td>
                       </tr>
@@ -139,7 +180,7 @@ export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }
           </div>
 
           <div class="run-details-footer">
-            <button class="run-details-cta" onClick=${onNavigate} data-testid="run-details-cta">
+            <button class="run-details-cta" onClick=${() => onNavigate('/tests?run=' + encodeURIComponent(selectedRun.runId))} data-testid="run-details-cta">
               Show test scenarios →
             </button>
           </div>

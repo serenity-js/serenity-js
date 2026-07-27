@@ -22,7 +22,11 @@
     "example:clean": "rimraf ./examples/reports",
     "example:test": "npx playwright test --config ./examples/playwright.config.ts",
     "example:add-history": "npx tsx examples/generate-history.ts",
-    "example": "failsafe example:clean example:test example:add-history || true",
+    "example:multimodule": "npx tsx examples/generate-multimodule-data.ts",
+    "example": "failsafe example:clean example:test example:add-history example:multimodule || true",
+    "multimodule:clean": "rimraf ./examples-multimodule",
+    "multimodule:generate": "npx tsx examples/generate-multimodule-data.ts",
+    "test:multimodule": "npm run multimodule:clean && npm run multimodule:generate && playwright test --config=playwright-multimodule.config.ts",
     "pretest": "npm run clean && npm run example",
     "test": "c8 playwright test"
   },
