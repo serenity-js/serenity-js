@@ -3,6 +3,7 @@ import { h } from 'preact';
 
 import type { RouteDefinition } from '../../router/RouteDefinition.js';
 import { DATA } from '../../utils/index.js';
+import { link } from '../../utils/link.js';
 import { SerenityJsLogo, SerenityJsMark } from './brand.js';
 import { icons } from './icons.js';
 
@@ -79,7 +80,7 @@ export function Sidebar({ route, routes, sidebarOpen, collapsed, failedBadgeCoun
 
     return html`
     <aside class="sidebar ${sidebarOpen ? 'open' : ''} ${collapsed ? 'collapsed' : ''}">
-      <div class="sidebar-brand clickable" onClick=${() => { onNavigate('/'); onClose(); }}>
+      <div class="sidebar-brand clickable" onClick=${() => { onNavigate(link({ view: 'dashboard' })); onClose(); }}>
         ${SerenityJsLogo}
         ${SerenityJsMark}
       </div>

@@ -3,6 +3,7 @@ import { h } from 'preact';
 
 import type { ReportScenarioRef } from '../../../src/cli/ReportData.js';
 import { getBrowserTag, outcomeClass, outcomeDisplayName, outcomeIcon, scenarioUrl } from '../../utils/index.js';
+import { link } from '../../utils/link.js';
 import { BrowserBadge } from '../common/BrowserBadge.js';
 import { HistoryDots } from '../common/HistoryDots.js';
 
@@ -71,7 +72,7 @@ export function DashboardConsistencyCard({ items, hasItems, onNavigate, getHisto
         <div class="card dashboard-status-card" data-testid="dashboard-consistency-card">
           <div class="card-header">
             <span class="status-card-title">Consistency</span>
-            ${hasItems ? html`<a class="view-all-link" onClick=${() => onNavigate('/consistency')}>View all →</a>` : null}
+            ${hasItems ? html`<a class="view-all-link" onClick=${() => onNavigate(link({ view: 'consistency' }))}>View all →</a>` : null}
           </div>
           ${items.length === 0
                     ? html`<div class="status-empty status-empty--ok"><span class="status-chip">✓</span> All tests consistent</div>`

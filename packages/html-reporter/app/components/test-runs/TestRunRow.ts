@@ -4,6 +4,7 @@ import { h } from 'preact';
 import type { ReportHistoryEntry } from '../../../src/cli/ReportData.js';
 import { computeRunMetrics, normaliseRepoUrl } from '../../utils/computeRunMetrics.js';
 import { formatDuration, formatRunLabel, formatTimestamp, scoreColor } from '../../utils/index.js';
+import { link } from '../../utils/link.js';
 import { GitLink } from '../common/GitLink.js';
 import { icons } from '../common/icons.js';
 
@@ -20,7 +21,7 @@ export function TestRunRow({ run, onNavigate }: TestRunRowProps): ReturnType<typ
     const labelIsTimestamp = /^\d{4}-\d{2}-\d{2}T/.test(run.label);
 
     return html`
-      <div class="scenario-item test-run-row" onClick=${() => onNavigate('/tests?run=' + run.timestamp)}>
+      <div class="scenario-item test-run-row" onClick=${() => onNavigate(link({ view: 'tests', run: run.timestamp }))}>
         <div class="scenario-info" style="min-width:0;flex:1">
           <div class="scenario-name">${formatRunLabel(run.label, run.timestamp)}</div>
           <div class="scenario-meta">

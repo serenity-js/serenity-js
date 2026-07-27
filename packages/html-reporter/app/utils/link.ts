@@ -44,8 +44,8 @@ export interface TestsLink {
     run?: string | number;
     /** Search query (e.g., '@module:playwright-test', '@browser:chromium') */
     search?: string;
-    /** Outcome filter */
-    filter?: OutcomeFilter;
+    /** Outcome filter — single value or array for multiple filters (e.g., ['failed', 'skipped']) */
+    filter?: OutcomeFilter | OutcomeFilter[];
     /** Sort order */
     sort?: 'category' | 'name' | 'duration' | 'status';
     /** Browser tag (for multi-variant scenario discrimination) */
@@ -175,11 +175,20 @@ function buildBasePath(options: LinkOptions): string {
 
 type Transform = (value: unknown) => string | undefined;
 
-/** Pass through as string */
-const passThrough: Transform = (value) => String(value);
+/** Pass through as string, skip empty values */
+const passThrough: Transform = (value) => {
+    const stringValue = String(value);
+    return stringValue === '' ? undefined : stringValue;
+};
 
-/** Skip 'all' filter since it's the default */
-const skipIfAll: Transform = (value) => value === 'all' ? undefined : String(value);
+/** Handle filter: skip 'all', join arrays with comma */
+const filterTransform: Transform = (value) => {
+    if (Array.isArray(value)) {
+        const filtered = value.filter(v => v !== 'all');
+        return filtered.length > 0 ? filtered.join(',') : undefined;
+    }
+    return value === 'all' ? undefined : String(value);
+};
 
 /**
  * View-specific parameter mappings: { paramName: transform }
@@ -189,7 +198,7 @@ const viewParameters: Record<string, Record<string, Transform>> = {
     tests: {
         run: passThrough,
         search: passThrough,
-        filter: skipIfAll,
+        filter: filterTransform,
         sort: passThrough,
         browser: passThrough,
         project: passThrough,

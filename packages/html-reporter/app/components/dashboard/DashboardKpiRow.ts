@@ -4,6 +4,7 @@ import { h } from 'preact';
 import type { ReportSummary } from '../../../src/cli/ReportData.js';
 import type { DashboardScores } from '../../utils/computeDashboardScores.js';
 import { formatDuration, scoreColor } from '../../utils/index.js';
+import { link } from '../../utils/link.js';
 import { AreaSparkline } from '../common/charts/AreaSparkline.js';
 import { Delta } from '../common/charts/Delta.js';
 import { DotTrend } from '../common/charts/DotTrend.js';
@@ -28,19 +29,19 @@ export function DashboardKpiRow({ summary, scores, confidenceSubtitle, inconsist
 
     return html`
       <div class="kpi-row">
-        <${DashboardKpiCard} label="Confidence" value=${percentValue(confidence, 'base')} ariaLabel="Confidence: ${confidence} percent" onClick=${() => onNavigate('/capabilities')} valueColor=${scoreColor(confidence) || ''} variant="hero">
+        <${DashboardKpiCard} label="Confidence" value=${percentValue(confidence, 'base')} ariaLabel="Confidence: ${confidence} percent" onClick=${() => onNavigate(link({ view: 'capabilities' }))} valueColor=${scoreColor(confidence) || ''} variant="hero">
           <span class="kpi-subtitle">${confidenceSubtitle}</span>
           <${AreaSparkline} values=${confidenceTrend} color=${scoreColor(confidence) || 'var(--accent)'} />
         </${DashboardKpiCard}>
-        <${DashboardKpiCard} label="Pass Rate" value=${percentValue(passRate, 'sm')} ariaLabel="Pass rate: ${passRate} percent" onClick=${() => onNavigate('/tests?filter=failed,skipped')} valueColor=${scoreColor(passRate) || ''}>
+        <${DashboardKpiCard} label="Pass Rate" value=${percentValue(passRate, 'sm')} ariaLabel="Pass rate: ${passRate} percent" onClick=${() => onNavigate(link({ view: 'tests', filter: ['failed', 'skipped'] }))} valueColor=${scoreColor(passRate) || ''}>
           <${Delta} current=${passRate} previous=${previousPassRate} suffix="%" />
           <span class="kpi-subtitle">${summary.outcomes.passed} of ${summary.totalScenarios} passing</span>
         </${DashboardKpiCard}>
-        <${DashboardKpiCard} label="Consistency" value=${percentValue(consistency, 'sm')} ariaLabel="Consistency: ${consistency} percent" onClick=${() => onNavigate('/consistency')} valueColor=${scoreColor(consistency) || ''}>
+        <${DashboardKpiCard} label="Consistency" value=${percentValue(consistency, 'sm')} ariaLabel="Consistency: ${consistency} percent" onClick=${() => onNavigate(link({ view: 'consistency' }))} valueColor=${scoreColor(consistency) || ''}>
           <${Delta} current=${consistency} previous=${previousConsistency} suffix="%" />
           <span class="kpi-subtitle">${consistency === 100 ? 'All tests consistent' : inconsistentCount + ' inconsistent test' + (inconsistentCount !== 1 ? 's' : '')}</span>
         </${DashboardKpiCard}>
-        <${DashboardKpiCard} label="Completeness" value=${percentValue(completenessScore, 'sm')} ariaLabel="Completeness: ${completenessScore} percent" onClick=${() => onNavigate('/capabilities')} valueColor=${scoreColor(completenessScore) || ''}>
+        <${DashboardKpiCard} label="Completeness" value=${percentValue(completenessScore, 'sm')} ariaLabel="Completeness: ${completenessScore} percent" onClick=${() => onNavigate(link({ view: 'capabilities' }))} valueColor=${scoreColor(completenessScore) || ''}>
           <${Delta} current=${completenessScore} previous=${previousCompleteness} suffix="%" />
           <span class="kpi-subtitle">${summary.totalScenarios - (summary.outcomes.pending || 0) - (summary.outcomes.skipped || 0)} of ${summary.totalScenarios} implemented</span>
         </${DashboardKpiCard}>
@@ -58,11 +59,11 @@ function OperationalCards({ summary, scores, onNavigate }: { summary: ReportSumm
 
     return html`
         <div class="kpi-row-operational">
-          <${DashboardKpiCard} label="Failed" value=${totalFailed} ariaLabel="${totalFailed} failed scenarios" onClick=${() => onNavigate('/tests?filter=failed')} valueColor=${totalFailed > 0 ? 'var(--color-failed)' : 'var(--text-primary)'} variant="operational">
+          <${DashboardKpiCard} label="Failed" value=${totalFailed} ariaLabel="${totalFailed} failed scenarios" onClick=${() => onNavigate(link({ view: 'tests', filter: 'failed' }))} valueColor=${totalFailed > 0 ? 'var(--color-failed)' : 'var(--text-primary)'} variant="operational">
             <${Delta} current=${totalFailed} previous=${previousFailed} invert=${true} />
             <${DotTrend} values=${failedTrend} color="var(--color-failed)" />
           </${DashboardKpiCard}>
-          <${DashboardKpiCard} label="Total Duration" value=${formatDuration(summary.duration)} ariaLabel="Total duration: ${formatDuration(summary.duration)}" onClick=${() => onNavigate('/tests?sort=duration')} variant="operational">
+          <${DashboardKpiCard} label="Total Duration" value=${formatDuration(summary.duration)} ariaLabel="Total duration: ${formatDuration(summary.duration)}" onClick=${() => onNavigate(link({ view: 'tests', sort: 'duration' }))} variant="operational">
             <${DurationDelta} current=${summary.duration} previous=${previousDuration} />
             <${DotTrend} values=${durationTrend} color="var(--accent)" />
           </${DashboardKpiCard}>

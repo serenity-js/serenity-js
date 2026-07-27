@@ -79,6 +79,21 @@ test.describe('link() — type-safe URL builder', () => {
             expect(url).toBe('/tests');
         });
 
+        test('accepts array of filters', () => {
+            const url = link({ view: 'tests', filter: ['failed', 'skipped'] });
+            expect(url).toBe('/tests?filter=failed%2Cskipped');
+        });
+
+        test('omits "all" from array filters', () => {
+            const url = link({ view: 'tests', filter: ['all', 'failed'] });
+            expect(url).toBe('/tests?filter=failed');
+        });
+
+        test('omits filter when array contains only "all"', () => {
+            const url = link({ view: 'tests', filter: ['all'] });
+            expect(url).toBe('/tests');
+        });
+
         test('adds sort query parameter', () => {
             const url = link({ view: 'tests', sort: 'duration' });
             expect(url).toBe('/tests?sort=duration');
