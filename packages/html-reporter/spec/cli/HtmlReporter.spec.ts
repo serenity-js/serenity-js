@@ -40,7 +40,7 @@ import { ReportTemplateWriter } from '../../src/cli/ReportTemplateWriter.js';
 import { RunDataWriter } from '../../src/cli/RunDataWriter.js';
 import { SceneDataCollector } from '../../src/cli/SceneDataCollector.js';
 import { SystemContextDetector } from '../../src/cli/SystemContextDetector.js';
-import { detectModuleId, detectTestRunId, TestRunArchiver } from '../../src/cli/TestRunArchiver.js';
+import { detectModuleId, detectTestRunId, detectWorkerId, TestRunArchiver } from '../../src/cli/TestRunArchiver.js';
 
 test.describe('HtmlReporter', () => {
 
@@ -613,6 +613,36 @@ test.describe('HtmlReporter', () => {
                     delete process.env.GITHUB_RUN_NUMBER;
                 } else {
                     process.env.GITHUB_RUN_NUMBER = originalEnvironment;
+                }
+            }
+        });
+
+        test('detects WDIO_WORKER_ID when running in WebdriverIO parallel mode', () => {
+            const originalWorkerId = process.env.WDIO_WORKER_ID;
+            process.env.WDIO_WORKER_ID = '0-5';
+
+            try {
+                expect(detectWorkerId()).toBe('0-5');
+            } finally {
+                if (originalWorkerId === undefined) {
+                    delete process.env.WDIO_WORKER_ID;
+                } else {
+                    process.env.WDIO_WORKER_ID = originalWorkerId;
+                }
+            }
+        });
+
+        test('returns undefined when WDIO_WORKER_ID is not set', () => {
+            const originalWorkerId = process.env.WDIO_WORKER_ID;
+            delete process.env.WDIO_WORKER_ID;
+
+            try {
+                expect(detectWorkerId()).toBeUndefined();
+            } finally {
+                if (originalWorkerId === undefined) {
+                    delete process.env.WDIO_WORKER_ID;
+                } else {
+                    process.env.WDIO_WORKER_ID = originalWorkerId;
                 }
             }
         });

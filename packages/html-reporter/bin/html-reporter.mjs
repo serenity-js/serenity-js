@@ -58,16 +58,26 @@ function resolveDbJsonPaths(inputPatterns) {
     const dbJsonPaths = [];
 
     for (const pattern of inputPatterns) {
-        const dbPattern = pattern.endsWith('db.json') ? pattern : pattern + '/**/db.json';
-        const matches = fg.sync(dbPattern, { absolute: true });
-        dbJsonPaths.push(...matches);
+        // Match both db.json (single worker) and db-*.json (parallel workers)
+        if (pattern.endsWith('db.json') || pattern.includes('db-')) {
+            const matches = fg.sync(pattern, { absolute: true });
+            dbJsonPaths.push(...matches);
+        } else {
+            // Look for both patterns: db.json and db-{workerId}.json
+            const dbPattern = pattern + '/**/db.json';
+            const workerDbPattern = pattern + '/**/db-*.json';
+            const dbMatches = fg.sync(dbPattern, { absolute: true });
+            const workerMatches = fg.sync(workerDbPattern, { absolute: true });
+            dbJsonPaths.push(...dbMatches, ...workerMatches);
+        }
     }
 
     return dbJsonPaths;
 }
 
 function commonRoot(outputDir, paths) {
-    const allPaths = [outputDir, ...paths.map(p => p.replace(/\/db\.json$/, ''))];
+    // Strip both db.json and db-{workerId}.json from paths
+    const allPaths = [outputDir, ...paths.map(p => p.replace(/\/db(-[^/]+)?\.json$/, ''))];
     const segments = allPaths.map(p => p.split('/'));
     const common = [];
     for (let i = 0; i < segments[0].length; i++) {

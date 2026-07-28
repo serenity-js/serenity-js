@@ -770,3 +770,29 @@ function link(options: LinkOptions): string {
 4. **Self-documenting** — the union types show exactly which parameters each view accepts
 
 **Applied to:** `app/utils/link.ts` in the html-reporter. Key components (`scenarioUrl`, `buildModuleUrl`, interaction objects) delegate to `link()` instead of constructing URLs inline.
+
+## WebdriverIO parallel workers write to conflicting db.json paths
+
+WebdriverIO distributes spec files across parallel workers, each running in its own process with its own Serenity/JS instance (including `TestRunArchiver`). Without coordination, all workers write to the same `db.json` path — the last worker to finish overwrites all others.
+
+**Symptoms:** Only ~3 tests appear in the report from WebdriverIO modules instead of 56+. The tests are from one random worker's subset, not the full suite.
+
+**Detection:** Search the report for `@module:webdriverio-8-web-devtools` and see only a few scenarios instead of the expected count.
+
+**Root cause:** Each WebdriverIO worker process:
+1. Has its own `TestRunArchiver` instance
+2. Writes to `test-runs/{buildId}/{moduleId}-{attempt}/db.json`
+3. Overwrites any existing db.json from previously-finished workers
+
+**Fix:** Detect `WDIO_WORKER_ID` environment variable (WebdriverIO sets this in each worker) and create worker-specific filenames:
+- `db-0-0.json`, `db-0-1.json`, ... `db-0-55.json`
+- Aggregation globs must find both `db.json` and `db-*.json`
+- Artifact copying must strip both patterns when deriving source directory
+
+**Implementation:**
+- `detectWorkerId()` in `TestRunArchiver.ts` reads `process.env.WDIO_WORKER_ID`
+- `RunDataWriter` accepts optional `workerId` and creates `db-{workerId}.json`
+- `html-reporter.mjs` `resolveDbJsonPaths()` matches both patterns
+- `DataSnapshotAggregator` `loadAndValidateRuns()` and `copyArtifactsFromSource()` handle both patterns
+
+This pattern applies to any test runner with parallel worker processes where Serenity/JS crew members run independently per-worker.

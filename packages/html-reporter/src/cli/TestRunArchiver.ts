@@ -266,6 +266,21 @@ export function detectAttemptNumber(): number {
 }
 
 /**
+ * Detect WebdriverIO worker ID when running in parallel worker mode.
+ *
+ * WebdriverIO sets `WDIO_WORKER_ID` environment variable in each worker process.
+ * Format is `{capability}-{spec}` like `0-5`.
+ *
+ * When multiple workers run in parallel, each writes to the same directory
+ * but we need unique filenames to prevent race conditions.
+ *
+ * @package
+ */
+export function detectWorkerId(): string | undefined {
+    return process.env.WDIO_WORKER_ID;
+}
+
+/**
  * @package
  */
 class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> {
@@ -279,9 +294,10 @@ class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> 
         const outputDirectory = Path.from(this.config.outputDirectory || './reports/serenity-js');
         const outputFileSystem = new FileSystem(outputDirectory);
 
+        const workerId = detectWorkerId();
         const artifactWriter = new ArtifactWriter(outputFileSystem);
         const sceneDataCollector = new SceneDataCollector();
-        const runDataWriter = new RunDataWriter(outputFileSystem);
+        const runDataWriter = new RunDataWriter(outputFileSystem, workerId);
         const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()), { projectName: this.config.projectName, runtime: this.config.ci });
 
         const attempt = detectAttemptNumber();

@@ -2710,4 +2710,230 @@ test.describe('DataSnapshotAggregator', () => {
             expect(incompleteModule.finishedAt).toBeUndefined();
         });
     });
+
+    test.describe('parallel worker file aggregation (WebdriverIO)', () => {
+
+        test('merges multiple db-{workerId}.json files from the same module directory', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            // Set up worker files in a source directory
+            const moduleDirectory = '/source/test-runs/42/webdriverio-1';
+            filesystem.mkdirSync(moduleDirectory, { recursive: true });
+
+            filesystem.writeFileSync(moduleDirectory + '/db-0-0.json', runData({
+                testRunId: '42',
+                moduleId: 'webdriverio',
+                startedAt: '2024-06-15T14:30:00.000Z',
+                finishedAt: '2024-06-15T14:30:01.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [],
+                testRunner: { name: 'WebdriverIO', version: '8.0.0' },
+            }));
+
+            filesystem.writeFileSync(moduleDirectory + '/db-0-1.json', runData({
+                testRunId: '42',
+                moduleId: 'webdriverio',
+                startedAt: '2024-06-15T14:30:00.000Z',
+                finishedAt: '2024-06-15T14:30:02.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T14:30:01.000Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [],
+                testRunner: { name: 'WebdriverIO', version: '8.0.0' },
+            }));
+
+            aggregator.aggregate([
+                moduleDirectory + '/db-0-0.json',
+                moduleDirectory + '/db-0-1.json',
+            ]);
+
+            const data = readDataJs(filesystem);
+            expect(data.scenarios).toHaveLength(2);
+            expect(data.scenarios.map(s => s.name).sort()).toEqual(['Test A', 'Test B']);
+        });
+
+        test('aggregates outcomes from all worker files', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            const moduleDirectory = '/source/test-runs/42/webdriverio-1';
+            filesystem.mkdirSync(moduleDirectory, { recursive: true });
+
+            filesystem.writeFileSync(moduleDirectory + '/db-0-0.json', runData({
+                testRunId: '42',
+                startedAt: '2024-06-15T14:30:00.000Z',
+                finishedAt: '2024-06-15T14:30:01.000Z',
+                outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                    { name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.100Z', source: { path: 'a.spec.ts', line: 5 }, tags: [], activities: [] },
+                ],
+                tags: [],
+                testRunner: { name: 'WebdriverIO', version: '8.0.0' },
+            }));
+
+            filesystem.writeFileSync(moduleDirectory + '/db-0-1.json', runData({
+                testRunId: '42',
+                startedAt: '2024-06-15T14:30:00.000Z',
+                finishedAt: '2024-06-15T14:30:02.000Z',
+                outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test C', category: 'Suite', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T14:30:01.000Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [] },
+                    { name: 'Test D', category: 'Suite', outcome: { code: 4 }, duration: 200, startedAt: '2024-06-15T14:30:01.200Z', source: { path: 'b.spec.ts', line: 5 }, tags: [], activities: [] },
+                ],
+                tags: [],
+                testRunner: { name: 'WebdriverIO', version: '8.0.0' },
+            }));
+
+            aggregator.aggregate([
+                moduleDirectory + '/db-0-0.json',
+                moduleDirectory + '/db-0-1.json',
+            ]);
+
+            const data = readDataJs(filesystem);
+            expect(data.scenarios).toHaveLength(4);
+            expect(data.summary.outcomes.passed).toBe(3);
+            expect(data.summary.outcomes.failed).toBe(1);
+        });
+
+        test('handles mixed db.json and db-{workerId}.json files in the same run', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            // Single-process module uses db.json
+            const mochaDirectory = '/source/test-runs/42/mocha-1';
+            filesystem.mkdirSync(mochaDirectory, { recursive: true });
+            filesystem.writeFileSync(mochaDirectory + '/db.json', runData({
+                testRunId: '42',
+                moduleId: 'mocha',
+                startedAt: '2024-06-15T14:30:00.000Z',
+                finishedAt: '2024-06-15T14:30:01.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Mocha Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'mocha.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [],
+                testRunner: { name: 'Mocha', version: '11.0.0' },
+            }));
+
+            // Parallel module uses worker files
+            const wdioDirectory = '/source/test-runs/42/webdriverio-1';
+            filesystem.mkdirSync(wdioDirectory, { recursive: true });
+            filesystem.writeFileSync(wdioDirectory + '/db-0-0.json', runData({
+                testRunId: '42',
+                moduleId: 'webdriverio',
+                startedAt: '2024-06-15T14:30:00.000Z',
+                finishedAt: '2024-06-15T14:30:02.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'WDIO Test A', category: 'Suite', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T14:30:01.000Z', source: { path: 'wdio-a.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [],
+                testRunner: { name: 'WebdriverIO', version: '8.0.0' },
+            }));
+            filesystem.writeFileSync(wdioDirectory + '/db-0-1.json', runData({
+                testRunId: '42',
+                moduleId: 'webdriverio',
+                startedAt: '2024-06-15T14:30:00.000Z',
+                finishedAt: '2024-06-15T14:30:03.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'WDIO Test B', category: 'Suite', outcome: { code: 64 }, duration: 300, startedAt: '2024-06-15T14:30:02.000Z', source: { path: 'wdio-b.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [],
+                testRunner: { name: 'WebdriverIO', version: '8.0.0' },
+            }));
+
+            aggregator.aggregate([
+                mochaDirectory + '/db.json',
+                wdioDirectory + '/db-0-0.json',
+                wdioDirectory + '/db-0-1.json',
+            ]);
+
+            const data = readDataJs(filesystem);
+            expect(data.scenarios).toHaveLength(3);
+            expect(data.scenarios.map(s => s.name).sort()).toEqual(['Mocha Test', 'WDIO Test A', 'WDIO Test B']);
+        });
+
+        test('copies artifacts but skips all db*.json files when aggregating worker files', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            const moduleDirectory = '/source/test-runs/42/webdriverio-1';
+            filesystem.mkdirSync(moduleDirectory, { recursive: true });
+
+            filesystem.writeFileSync(moduleDirectory + '/db-0-0.json', runData({
+                testRunId: '42',
+                startedAt: '2024-06-15T14:30:00.000Z',
+                finishedAt: '2024-06-15T14:30:01.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
+                tags: [],
+                testRunner: { name: 'WebdriverIO', version: '8.0.0' },
+            }));
+
+            filesystem.writeFileSync(moduleDirectory + '/db-0-1.json', runData({
+                testRunId: '42',
+                startedAt: '2024-06-15T14:30:00.000Z',
+                finishedAt: '2024-06-15T14:30:02.000Z',
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T14:30:01.000Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [] }],
+                tags: [],
+                testRunner: { name: 'WebdriverIO', version: '8.0.0' },
+            }));
+
+            filesystem.writeFileSync(moduleDirectory + '/screenshot-1.png', 'PNG_DATA_1');
+            filesystem.writeFileSync(moduleDirectory + '/screenshot-2.png', 'PNG_DATA_2');
+
+            aggregator.aggregate([
+                moduleDirectory + '/db-0-0.json',
+                moduleDirectory + '/db-0-1.json',
+            ]);
+
+            // Artifacts should be copied
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/42/webdriverio-1/screenshot-1.png')).toBe(true);
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/42/webdriverio-1/screenshot-2.png')).toBe(true);
+
+            // Worker db files should NOT be copied (merged db.json is written at build level)
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/42/webdriverio-1/db-0-0.json')).toBe(false);
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/42/webdriverio-1/db-0-1.json')).toBe(false);
+        });
+
+        test('uses the latest finishedAt timestamp when merging worker files', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            const moduleDirectory = '/source/test-runs/42/webdriverio-1';
+            filesystem.mkdirSync(moduleDirectory, { recursive: true });
+
+            filesystem.writeFileSync(moduleDirectory + '/db-0-0.json', runData({
+                testRunId: '42',
+                startedAt: '2024-06-15T14:30:00.000Z',
+                finishedAt: '2024-06-15T14:30:01.000Z',  // Worker 0 finishes first
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
+                tags: [],
+                testRunner: { name: 'WebdriverIO', version: '8.0.0' },
+            }));
+
+            filesystem.writeFileSync(moduleDirectory + '/db-0-1.json', runData({
+                testRunId: '42',
+                startedAt: '2024-06-15T14:30:00.000Z',
+                finishedAt: '2024-06-15T14:35:00.000Z',  // Worker 1 finishes last
+                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [{ name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T14:30:01.000Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [] }],
+                tags: [],
+                testRunner: { name: 'WebdriverIO', version: '8.0.0' },
+            }));
+
+            aggregator.aggregate([
+                moduleDirectory + '/db-0-0.json',
+                moduleDirectory + '/db-0-1.json',
+            ]);
+
+            const data = readDataJs(filesystem);
+            // The merged run should use the latest finishedAt from all workers
+            expect(data.summary.finishedAt).toBe('2024-06-15T14:35:00.000Z');
+        });
+    });
 });

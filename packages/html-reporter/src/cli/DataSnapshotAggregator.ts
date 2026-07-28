@@ -146,7 +146,8 @@ export class DataSnapshotAggregator {
             // Determine if this is a run-level db.json (pre-merged) vs module-level (individual module)
             // Run-level: test-runs/8334/db.json (relative path after test-runs/ has no slash)
             // Module-level: test-runs/8334/cucumber-1/db.json (relative path has a slash)
-            const pathWithoutDatabase = databaseJsonPath.replace(/\/db\.json$/, '');
+            // Worker files: test-runs/8334/cucumber-1/db-0-5.json (same as module-level)
+            const pathWithoutDatabase = databaseJsonPath.replace(/\/db(-[^/]+)?\.json$/, '');
             const testRunsIndex = pathWithoutDatabase.lastIndexOf('/test-runs/');
             let isRunLevel = false;
             if (testRunsIndex !== -1) {
@@ -258,7 +259,8 @@ export class DataSnapshotAggregator {
 
     private copyArtifactsFromSource(databaseJsonPath: string, runId: string, subDirectory: string): void {
         const safeRunId = runId.replaceAll(':', '-');
-        const sourceDirectory = Path.from(databaseJsonPath.replace(/\/db\.json$/, ''));
+        // Strip both db.json and db-{workerId}.json from path
+        const sourceDirectory = Path.from(databaseJsonPath.replace(/\/db(-[^/]+)?\.json$/, ''));
         const targetDirectory = subDirectory === '.'
             ? Path.from('test-runs').join(Path.from(safeRunId))
             : Path.from('test-runs').join(Path.from(safeRunId)).join(Path.from(subDirectory));
@@ -267,8 +269,9 @@ export class DataSnapshotAggregator {
 
         const entries = this.sourceFileSystem.readdirSync(sourceDirectory);
         for (const entry of entries) {
-            if (entry === 'db.json') {
-                continue; // merged db.json is written separately at the build-level path
+            // Skip all db*.json files (merged db.json is written separately at the build-level path)
+            if (/^db(-[^/]+)?\.json$/.test(entry)) {
+                continue;
             }
             const targetPath = targetDirectory.join(Path.from(entry));
             if (this.fileSystem.exists(targetPath)) {
