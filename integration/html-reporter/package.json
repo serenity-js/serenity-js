@@ -22,8 +22,9 @@
     "example:clean": "rimraf ./examples/reports",
     "example:single": "npx playwright test --config ./examples/playwright.config.ts",
     "example:single:history": "npx tsx examples/generate-history.ts",
-    "example:multi": "npx tsx examples/generate-multimodule-data.ts",
-    "example": "failsafe example:clean example:single example:single:history example:multi || true",
+    "example:multi-module": "npx tsx examples/generate-multimodule-data.ts",
+    "example:multi-worker": "npx tsx examples/generate-multiworker-data.ts",
+    "example": "failsafe example:clean example:single example:single:history example:multi-module example:multi-worker || true",
     "pretest": "npm run clean && npm run example",
     "test": "c8 playwright test"
   },

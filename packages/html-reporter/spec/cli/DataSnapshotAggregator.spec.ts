@@ -2935,5 +2935,63 @@ test.describe('DataSnapshotAggregator', () => {
             // The merged run should use the latest finishedAt from all workers
             expect(data.summary.finishedAt).toBe('2024-06-15T14:35:00.000Z');
         });
+
+        test('aggregates worker files with the same moduleId into a single module entry in history', () => {
+            const { aggregator, filesystem } = createAggregator({});
+
+            const moduleDirectory = '/source/test-runs/42/webdriverio-1';
+            filesystem.mkdirSync(moduleDirectory, { recursive: true });
+
+            // Two worker files with the SAME moduleId (simulating WebdriverIO parallel workers)
+            filesystem.writeFileSync(moduleDirectory + '/db-0-0.json', runData({
+                testRunId: '42',
+                moduleId: 'webdriverio-web',
+                startedAt: '2024-06-15T14:30:00.000Z',
+                finishedAt: '2024-06-15T14:30:01.000Z',
+                outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                    { name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.100Z', source: { path: 'a.spec.ts', line: 5 }, tags: [], activities: [] },
+                ],
+                tags: [],
+                testRunner: { name: 'WebdriverIO', version: '9.0.0' },
+            }));
+
+            filesystem.writeFileSync(moduleDirectory + '/db-0-1.json', runData({
+                testRunId: '42',
+                moduleId: 'webdriverio-web',
+                startedAt: '2024-06-15T14:30:00.000Z',
+                finishedAt: '2024-06-15T14:30:02.000Z',
+                outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test C', category: 'Suite', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T14:30:01.000Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [] },
+                    { name: 'Test D', category: 'Suite', outcome: { code: 4 }, duration: 200, startedAt: '2024-06-15T14:30:01.200Z', source: { path: 'b.spec.ts', line: 5 }, tags: [], activities: [] },
+                ],
+                tags: [],
+                testRunner: { name: 'WebdriverIO', version: '9.0.0' },
+            }));
+
+            aggregator.aggregate([
+                moduleDirectory + '/db-0-0.json',
+                moduleDirectory + '/db-0-1.json',
+            ]);
+
+            const data = readDataJs(filesystem);
+
+            // Key assertion: should have ONE module entry, not two
+            expect(data.history[0].modules).toHaveLength(1);
+            expect(data.history[0].modules[0].moduleId).toBe('webdriverio-web');
+
+            // Outcomes should be aggregated from both workers
+            expect(data.history[0].modules[0].outcomes.passed).toBe(3);
+            expect(data.history[0].modules[0].outcomes.failed).toBe(1);
+
+            // Module outcome should reflect the aggregated result (failed because there's 1 failure)
+            expect(data.history[0].modules[0].outcome).toBe('failed');
+
+            // Timestamps: earliest startedAt, latest finishedAt
+            expect(data.history[0].modules[0].startedAt).toBe('2024-06-15T14:30:00.000Z');
+            expect(data.history[0].modules[0].finishedAt).toBe('2024-06-15T14:30:02.000Z');
+        });
     });
 });

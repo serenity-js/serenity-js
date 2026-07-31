@@ -9,7 +9,7 @@ describe('Module Tagging', () => {
 
         it('should show module tags in the Tags view', async ({ actor, tagsView }) => {
             await actor.attemptsTo(
-                Navigate.to('/multi/index.html'),
+                Navigate.to('/multi-module/index.html'),
                 tagsView.open(),
 
                 // The Tags view shows feature tags (11) + module tags (3) = 14 total
@@ -22,7 +22,7 @@ describe('Module Tagging', () => {
 
         it('should filter scenarios by module using @module:name search token', { tag: '@showcase' }, async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
-                Navigate.to('/multi/index.html'),
+                Navigate.to('/multi-module/index.html'),
                 scenariosView.open(),
 
                 // Search for playwright-web module (8 scenarios)
@@ -38,7 +38,7 @@ describe('Module Tagging', () => {
 
         it('should filter to webdriverio-cucumber module', async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
-                Navigate.to('/multi/index.html'),
+                Navigate.to('/multi-module/index.html'),
                 scenariosView.open(),
 
                 scenariosView.find('@module:webdriverio-cucumber'),
@@ -50,7 +50,7 @@ describe('Module Tagging', () => {
 
         it('should filter to rest-api module', async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
-                Navigate.to('/multi/index.html'),
+                Navigate.to('/multi-module/index.html'),
                 scenariosView.open(),
 
                 scenariosView.find('@module:rest-api'),
@@ -62,7 +62,7 @@ describe('Module Tagging', () => {
 
         it('should allow clicking a module tag to navigate to filtered scenarios', { tag: '@showcase' }, async ({ actor, tagsView }) => {
             await actor.attemptsTo(
-                Navigate.to('/multi/index.html'),
+                Navigate.to('/multi-module/index.html'),
                 tagsView.open(),
 
                 // Click on the playwright-web module tag
@@ -76,7 +76,7 @@ describe('Module Tagging', () => {
 
         it('should combine module filter with outcome filter', async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
-                Navigate.to('/multi/index.html'),
+                Navigate.to('/multi-module/index.html'),
                 scenariosView.open(),
 
                 // Search for failed scenarios in playwright-web module
@@ -93,7 +93,7 @@ describe('Module Tagging', () => {
 
         it('should show module tags in scenario rows', async ({ actor, scenariosView }) => {
             await actor.attemptsTo(
-                Navigate.to('/multi/index.html'),
+                Navigate.to('/multi-module/index.html'),
                 scenariosView.open(),
 
                 // Find a specific scenario from playwright-web - use the exact name from generate-multimodule-data.ts
