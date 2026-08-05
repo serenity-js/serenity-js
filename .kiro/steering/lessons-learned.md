@@ -95,6 +95,18 @@ Binary artifacts (photos, videos) are persisted as files and referenced by path.
 2. After every batch of file writes, run the hook commands manually — e.g. `npx eslint <changed-files>` for `lint-on-save`.
 3. Treat hook commands as mandatory verification steps, not optional extras, before presenting work as complete.
 
+## Lint ALL staged files before every commit — no exceptions
+
+Before every `git commit`, lint every staged `.ts`, `.js`, and `.mjs` file — not just files from one package:
+
+```bash
+git diff --cached --name-only --diff-filter=d | grep -E '\.(ts|js|mjs)$' | xargs npx eslint
+```
+
+Do NOT hand-pick files to lint. Do NOT report "lint clean" unless you ran the command above and it exited 0. If you only linted a subset, say so explicitly.
+
+This catches cross-package issues (e.g., a file in `integration/` that uses a variable name violating `unicorn/name-replacements`) that per-package linting misses.
+
 ## htm tagged template return type in Preact components
 
 `htm.bind(h)` returns a function typed as `(strings, ...values) => HResult | HResult[]` where `HResult` is `VNode<Attributes>`. This means `html\`...\`` can return either a VNode or an array of VNodes at the type level, even though a single root element always produces a single VNode at runtime.
