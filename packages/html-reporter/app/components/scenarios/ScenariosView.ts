@@ -45,6 +45,7 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
         basePath: '/tests',
         route,
         defaults: { sort: 'category' },
+        validFilters: ['passed', 'failed', 'skipped'],
     });
 
     const filtered = useMemo(() => {
@@ -102,7 +103,7 @@ export function ScenariosView({ scenarios: allScenarios, history, summary, specD
       </div>
 
       <div class="card">
-        ${filtered.length < allScenarios.length ? html`<${ResultCount} showing=${filtered.length} total=${allScenarios.length} label="test scenarios" />` : null}
+        ${html`<${ResultCount} showing=${filtered.length} total=${filtered.length < allScenarios.length ? allScenarios.length : undefined} label="test scenarios" />`}
         <${VirtualScenarioList} filtered=${filtered} grouped=${grouped} sort=${sort}
           onNavigate=${onNavigate} runIndex=${runIndex} setSearch=${setSearch}
           search=${search}

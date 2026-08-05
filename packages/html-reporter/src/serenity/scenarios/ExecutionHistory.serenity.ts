@@ -21,7 +21,7 @@ class ExecutionHistoryDotOutcome {
                 const match = classAttribute.match(/exec-history-dot--(\S+)/);
                 return match ? match[1] : '';
             }),
-            title: Attribute.called('title').of(item),
+            title: Attribute.called('aria-label').of(item),
             icon: Text.of(dot).trim(),
         }).describedAs('execution history dot outcome');
     };

@@ -71,8 +71,8 @@ export function DashboardConsistencyCard({ items, hasItems, onNavigate, getHisto
     return html`
         <div class="card dashboard-status-card" data-testid="dashboard-consistency-card">
           <div class="card-header">
-            <span class="status-card-title">Consistency</span>
-            ${hasItems ? html`<a class="view-all-link" onClick=${() => onNavigate(link({ view: 'consistency' }))}>View all →</a>` : null}
+            <h2 class="status-card-title">Consistency</h2>
+            ${hasItems ? html`<a class="view-all-link" href="#${link({ view: 'consistency' })}" onClick=${(e: Event) => { e.preventDefault(); onNavigate(link({ view: 'consistency' })); }}>View all →</a>` : null}
           </div>
           ${items.length === 0
                     ? html`<div class="status-empty status-empty--ok"><span class="status-chip">✓</span> All tests consistent</div>`

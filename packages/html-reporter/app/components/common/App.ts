@@ -4,7 +4,8 @@ import { useCallback, useEffect, useState } from 'preact/hooks';
 
 import type { RouteMatch } from '../../router/index.js';
 import { resolveRoute, routes } from '../../router/index.js';
-import { DATA, formatTimestamp, totalFailedCount, useHashHistory } from '../../utils/index.js';
+import { DATA } from '../../utils/data.js';
+import { formatTimestamp, totalFailedCount, useHashHistory } from '../../utils/index.js';
 import { icons } from './icons.js';
 import { Sidebar } from './Sidebar.js';
 
@@ -32,7 +33,11 @@ function resolveView(effectiveRoute: string, navigate: (path: string) => void): 
 
     if (!match) {
         return {
-            view: html`<div class="card"><p>Page not found.</p></div>`,
+            view: html`<div class="card">
+                <h2>Page Not Found</h2>
+                <p>The requested page does not exist.</p>
+                <a href="#/" class="view-all-link" onClick=${(e: Event) => { e.preventDefault(); navigate('/'); }}>Go to Dashboard →</a>
+            </div>`,
             pageTitle: 'Not Found',
             viewTestId: 'not-found',
         };
@@ -80,8 +85,9 @@ export function App(): ReturnType<typeof html> {
     }, [themePreference]);
 
     useEffect(() => {
+        const title = DATA.summary.title || 'Serenity/JS Report';
         const failures = totalFailedCount(DATA.summary.outcomes);
-        document.title = `${ DATA.summary.title } | Serenity/JS (${ failures === 0 ? '✓' : failures })`;
+        document.title = `${ title } | Serenity/JS (${ failures === 0 ? '✓' : failures })`;
     }, []);
 
     useEffect(() => {
@@ -102,16 +108,17 @@ export function App(): ReturnType<typeof html> {
 
     const effectiveRoute = route === '' ? '/' : route;
     const { view, pageTitle, viewTestId } = resolveView(effectiveRoute, navigate);
+    const routeMatched = !!resolveRoute(effectiveRoute, routes);
 
     return html`
-    <a class="skip-link" href="#main-content">Skip to content</a>
+    <a class="skip-link" href="#main-content" onClick=${(e: Event) => { e.preventDefault(); document.getElementById('main-content')?.focus(); }}>Skip to content</a>
     <div class="sidebar-overlay ${sidebarOpen ? 'visible' : ''}" onClick=${() => setSidebarOpen(false)}></div>
     <${Sidebar} route=${effectiveRoute} sidebarOpen=${sidebarOpen} collapsed=${sidebarCollapsed}
-                routes=${routes}
+                routes=${routes} routeMatched=${routeMatched}
                 failedBadgeCount=${totalFailedCount(DATA.summary.outcomes)}
                 onNavigate=${navigate} onClose=${() => setSidebarOpen(false)} onToggleCollapse=${toggleSidebar}
                 theme=${themePreference} onSetTheme=${setThemePreference} />
-    <main id="main-content" class="main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}"
+    <main id="main-content" tabindex="-1" class="main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}"
           data-testid="${viewTestId}"
           style="margin-left:${sidebarCollapsed ? 'var(--sidebar-collapsed-width)' : 'var(--sidebar-width)'}">
       <div class="topbar">

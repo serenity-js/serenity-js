@@ -30,6 +30,10 @@ function computeCurrentScores(summary: ReportSummary, history: ReportHistoryEntr
     const totalFailed = totalFailedCount(summary.outcomes);
     const latestScore = history.length > 0 ? history[history.length - 1].score : undefined;
 
+    if (summary.totalScenarios === 0 && !latestScore) {
+        return { passRate: 0, consistency: 0, completenessScore: 0, confidence: 0, totalFailed: 0 };
+    }
+
     const passRate = latestScore ? latestScore.passRate : (summary.totalScenarios > 0 ? Math.round((summary.outcomes.passed / summary.totalScenarios) * 100) : 0);
     const consistency = latestScore ? latestScore.consistency : 100;
     const completenessScore = latestScore ? latestScore.completeness : computeCompletenessFromTree(capabilities);

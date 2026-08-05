@@ -17,7 +17,7 @@ import { defineRoute, routeWithQuery } from './RouteDefinition.js';
 export const routes: RouteDefinition[] = [
     defineRoute({
         pattern: '/',
-        title: (data: ReportData) => data.summary.title,
+        title: (data: ReportData) => data.summary.title || 'Serenity/JS Report',
         view: DashboardView,
         icon: 'dashboard',
         navLabel: 'Dashboard',

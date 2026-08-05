@@ -11,6 +11,16 @@ export function totalFailedCount(outcomes: ReportOutcomes): number {
 }
 
 /**
+ * Validates a filter value against a set of allowed keys.
+ * Returns the validated filter or 'all' if invalid.
+ */
+export function validateFilter(raw: string, validKeys: string[] | undefined): string {
+    if (!validKeys || !raw || raw === 'all') return raw || 'all';
+    const parts = raw.split(',').filter(k => validKeys.includes(k));
+    return parts.length === 0 ? 'all' : parts.join(',');
+}
+
+/**
  * Map from filter UI keys to outcome strings.
  */
 const OUTCOME_FILTER_MAP: Record<string, string[]> = {
@@ -64,7 +74,7 @@ export function capabilityConfidence(passRate: number, completeness: number, con
  * A file is "complete" if it has at least one executed test and no pending/skipped tests.
  */
 export function computeCompletenessFromTree(capabilities: ReportCapabilityNode | undefined): number {
-    if (!capabilities) return 100;
+    if (!capabilities) return 0;
     let total = 0;
     let complete = 0;
     function walk(node: ReportCapabilityNode) {
@@ -77,6 +87,6 @@ export function computeCompletenessFromTree(capabilities: ReportCapabilityNode |
         if (node.children) node.children.forEach(walk);
     }
     if (capabilities.children) capabilities.children.forEach(walk);
-    return total > 0 ? Math.round((complete / total) * 100) : 100;
+    return total > 0 ? Math.round((complete / total) * 100) : 0;
 }
 

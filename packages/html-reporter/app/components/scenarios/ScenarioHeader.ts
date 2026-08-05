@@ -29,7 +29,7 @@ export function ScenarioHeader({ scenario, activeDuration, specDirectory, tags, 
     const { ref: tagsRef, fadeClass: tagsFadeClass } = useScrollFade<HTMLDivElement>();
 
     const copyTestPath = () => {
-        const text = scenario.source.line ? scenario.source.path + ':' + scenario.source.line : scenario.source.path;
+        const text = relativeSourcePath(scenario, specDirectory);
         navigator.clipboard.writeText(text).then(() => showToast('Path copied to clipboard')).catch(() => {});
     };
 

@@ -16,15 +16,15 @@ export function DashboardSlowestCard({ scenarios, onNavigate }: DashboardSlowest
     return html`
         <div class="card dashboard-status-card" data-testid="dashboard-slowest-card">
           <div class="card-header">
-            <span class="status-card-title">Slowest Tests</span>
-            <a class="view-all-link" onClick=${() => onNavigate(link({ view: 'tests', sort: 'duration' }))}>View all →</a>
+            <h2 class="status-card-title">Slowest Tests</h2>
+            <a class="view-all-link" href="#${link({ view: 'tests', sort: 'duration' })}" onClick=${(e: Event) => { e.preventDefault(); onNavigate(link({ view: 'tests', sort: 'duration' })); }}>View all →</a>
           </div>
           ${scenarios.map(s => html`
-            <div class="status-item clickable" onClick=${() => onNavigate(scenarioUrl(s))}>
+            <a class="status-item" href="#${scenarioUrl(s)}" onClick=${(e: Event) => { e.preventDefault(); onNavigate(scenarioUrl(s)); }}>
               <span class="status-icon" style="color:var(--color-pending)">⏱</span>
               <span class="status-item-name">${s.name}</span>
               <span class="status-item-meta">${formatDuration(s.duration)}</span>
-            </div>
+            </a>
           `)}
         </div>
     `;

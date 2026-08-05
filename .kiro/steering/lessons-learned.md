@@ -796,3 +796,77 @@ WebdriverIO distributes spec files across parallel workers, each running in its 
 - `DataSnapshotAggregator` `loadAndValidateRuns()` and `copyArtifactsFromSource()` handle both patterns
 
 This pattern applies to any test runner with parallel worker processes where Serenity/JS crew members run independently per-worker.
+
+## Agent definition design: system prompt vs prompt template separation
+
+The `.kiro/agents/<name>.json` `prompt` field (system prompt) and `.kiro/prompts/<name>.md` (prompt template) serve different purposes and should not duplicate content.
+
+**System prompt** — defines identity, knowledge, and constraints that apply to every invocation:
+- Role and mission
+- Codebase-specific knowledge (build commands, architecture facts)
+- Quality model and heuristics
+- Classification criteria
+- Hard constraints (read-only, no production code, etc.)
+
+**Prompt template** — defines the task-specific workflow for a single invocation:
+- Setup steps (start servers, generate data)
+- Mode selection (explore, reproduce, audit)
+- Session structure (charter → investigation → debrief)
+- Output format requirements
+- Viewport specifications and other task parameters
+
+**Anti-patterns:**
+- Listing the same heuristics in both files
+- Repeating constraints in both places
+- Putting build commands only in the prompt template (not available when the agent reasons about feasibility before starting)
+- Putting session structure in the system prompt (clutters identity with workflow)
+
+**Key decisions:**
+- The system prompt should be self-sufficient for the agent to know *what it is* and *what it knows*
+- The prompt template should be self-sufficient for the agent to know *what to do this session*
+- `resources` in the agent definition provide deep context without bloating the prompt — prefer linking steering docs over inlining their content
+- `allowedTools` should match the agent's role — a read-only investigator should not have `fs_write`
+- `hooks.stop` should clean up any side effects the agent's workflow creates (servers, temp files)
+- The `description` field should include "Use when..." and "Do NOT use for..." to help the orchestrator select the right agent
+
+## `utils/index.ts` barrel is side-effect-free — keep it that way
+
+The `utils/index.ts` barrel must never re-export modules with top-level side effects. Previously, `DATA` was re-exported from `data.ts` which threw at module load time — this poisoned every component that imported any utility, breaking 43 tests.
+
+Current state (correct):
+- `data.ts` is NOT in the barrel. Its 3 consumers import it directly.
+- `data.ts` uses a lazy Proxy — validation runs on first property access, not at import time.
+- All other barrel members (`format.ts`, `selectors.ts`, `navigation.ts`, etc.) are pure functions with no side effects.
+
+Rule: before adding a new export to `utils/index.ts`, verify the module has no top-level throws, no `window` access at import time, and no mutable state initialization.
+
+## Skip-to-content links in hash-routed SPAs must use preventDefault + focus()
+
+Native `<a href="#main-content">` changes `window.location.hash` to `#main-content`, which hash-based SPA routers (like the html-reporter's) interpret as a route — triggering a 404 view.
+
+Fix: use `onClick=${(e) => { e.preventDefault(); document.getElementById('main-content')?.focus(); }}` with `tabindex="-1"` on the target element. The `href` attribute is still needed for discoverability and as a fallback, but the click handler prevents the hash change.
+
+## Always use existing CSS classes for links — never invent unverified class names
+
+Using a class like `btn-primary` that doesn't exist in the stylesheet leaves links with the browser's default colour (purple/magenta), which looks broken in dark themes. Always check `styles.css` for existing patterns (e.g., `view-all-link` for accent-coloured action links).
+
+The report's design system uses text links with `view-all-link` for navigational actions — not button-styled links. There is no `btn-primary` class and no need to introduce one.
+
+## Preact components that conditionally render nothing: guard at the call site
+
+Don't put `if (condition) return null` inside a component when the parent can decide whether to render it. The internal guard forces a `| null` return type annotation and hides the rendering decision from the parent.
+
+Prefer:
+```typescript
+${incompleteModules.length > 0 ? html`<${IncompleteBanner} .../>` : null}
+```
+
+Over:
+```typescript
+function IncompleteBanner(...): ReturnType<typeof html> | null {
+    if (count === 0) return null;  // ← hide this decision from the parent
+    return html`...`;
+}
+```
+
+The component becomes simpler (always renders), the type is cleaner, and the parent explicitly controls what's visible.

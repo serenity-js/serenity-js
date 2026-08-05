@@ -35,7 +35,7 @@ function isErrorOutcome(outcome: string): boolean {
  */
 function computeErrorScenarios(allScenarios: ReportScenario[], runIndex: number | null, history: ReportHistoryEntry[]): ReportScenario[] {
     if (runIndex === null || runIndex === history.length - 1) {
-        return allScenarios.filter(s => s.error || isErrorOutcome(s.outcome));
+        return allScenarios.filter(s => isErrorOutcome(s.outcome));
     }
     const runTimestamp = history[runIndex]?.timestamp;
     if (!runTimestamp) return [];
@@ -45,7 +45,7 @@ function computeErrorScenarios(allScenarios: ReportScenario[], runIndex: number 
         if (!s.executionHistory) continue;
         const entry = s.executionHistory.find(e => e.timestamp === runTimestamp);
         if (!entry) continue;
-        if (isErrorOutcome(entry.outcome) || entry.error) {
+        if (isErrorOutcome(entry.outcome)) {
             result.push({
                 ...s,
                 outcome: entry.outcome,

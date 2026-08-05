@@ -141,7 +141,7 @@ describe('ConsistencyView', () => {
 
         await actor.attemptsTo(
             view.filterBar.selectFilter('Flaky'),
-            Ensure.that(view.resultCount.text(), includes('1 test')),
+            Ensure.that(view.resultCount.text(), includes('Showing 1')),
         );
     });
 
@@ -156,7 +156,7 @@ describe('ConsistencyView', () => {
 
         await actor.attemptsTo(
             view.filterBar.selectFilter('Inconsistent'),
-            Ensure.that(view.resultCount.text(), includes('1 test')),
+            Ensure.that(view.resultCount.text(), includes('Showing 1')),
         );
     });
 
@@ -171,7 +171,7 @@ describe('ConsistencyView', () => {
 
         await actor.attemptsTo(
             view.filterBar.selectFilter('Degraded'),
-            Ensure.that(view.resultCount.text(), includes('1 test')),
+            Ensure.that(view.resultCount.text(), includes('Showing 1')),
         );
     });
 
@@ -186,7 +186,7 @@ describe('ConsistencyView', () => {
 
         await actor.attemptsTo(
             view.filterBar.selectFilter('Recovered'),
-            Ensure.that(view.resultCount.text(), includes('1 test')),
+            Ensure.that(view.resultCount.text(), includes('Showing 1')),
         );
     });
 

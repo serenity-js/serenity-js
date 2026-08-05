@@ -14,6 +14,9 @@ const html = htm.bind(h);
 
 interface ActivityNodeProps {
     activity: ReportActivity;
+    level?: number;
+    posInSet?: number;
+    setSize?: number;
 }
 
 function hasFailure(activity: ReportActivity): boolean {
@@ -40,7 +43,7 @@ function countActivities(activity: ReportActivity): { total: number; failed: num
     return { total, failed };
 }
 
-export function ActivityNode({ activity }: ActivityNodeProps): ReturnType<typeof html> {
+export function ActivityNode({ activity, level = 1, posInSet = 1, setSize = 1 }: ActivityNodeProps): ReturnType<typeof html> {
     const hasChildren = activity.children && activity.children.length > 0;
 
     // Auto-expand if the activity contains a failure, collapse if all passing
@@ -62,7 +65,11 @@ export function ActivityNode({ activity }: ActivityNodeProps): ReturnType<typeof
     }, [activity, hasChildren]);
 
     return html`
-    <div class="activity-node">
+    <div class="activity-node" role="treeitem" tabIndex=${level === 1 && posInSet === 1 ? 0 : -1}
+         aria-level=${level}
+         aria-setsize=${setSize}
+         aria-posinset=${posInSet}
+         aria-expanded=${hasChildren ? String(expanded) : undefined}>
       <${ActivityRow}
         activity=${activity}
         displayName=${displayName}
@@ -79,8 +86,8 @@ export function ActivityNode({ activity }: ActivityNodeProps): ReturnType<typeof
       ${hasRestQuery && restExpanded ? html`<${RestQueryPanel} restQuery=${activity.restQuery} />` : null}
       ${activity.reportData && activity.reportData.length > 0 ? html`<${ActivityReportData} entries=${activity.reportData} />` : null}
       ${hasChildren && expanded ? html`
-        <div class="activity-children">
-          ${activity.children.map(child => html`<${ActivityNode} activity=${child} />`)}
+        <div class="activity-children" role="group">
+          ${activity.children.map((child, index) => html`<${ActivityNode} activity=${child} level=${(level || 1) + 1} posInSet=${index + 1} setSize=${activity.children.length} />`)}
         </div>
       ` : null}
     </div>

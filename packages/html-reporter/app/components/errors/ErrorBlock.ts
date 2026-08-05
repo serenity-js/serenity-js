@@ -31,7 +31,7 @@ export function ErrorBlock({ error, errorLocation, specDirectory }: ErrorBlockPr
             ${errorLocation ? html`
               <span class="ml-auto inline-flex-center text-xs font-mono text-secondary" style="font-weight:400">
                 ${errorLocation.path.split('/').pop()}:${errorLocation.line}
-                <span class="copy-location" title="Copy location" onClick=${copyLocation}>${icons.copy}</span>
+                <button type="button" class="copy-location icon-button" aria-label="Copy location" onClick=${copyLocation}>${icons.copy}</button>
               </span>
             ` : null}
           </div>

@@ -58,7 +58,7 @@ export function ActivityRow({ activity, displayName, hasChildren, expanded, onTo
           <div class="activity-meta">
             ${summaryText && !expanded ? html`<span class="activity-summary">${summaryText}</span>` : null}
             <span class="activity-duration">${icons.clock}${formatDuration(activity.duration || 0)}</span>
-            ${activity.location ? html`<span class="copy-location" title="Copy invocation location" onClick=${copyLocation}>${icons.copy}</span>` : null}
+            ${activity.location ? html`<button type="button" class="copy-location" aria-label="Copy invocation location" onClick=${copyLocation}>${icons.copy}</button>` : null}
             ${hasPhoto ? html`<span class="activity-meta-icon" title="View screenshot" onClick=${scrollToPhoto}>📷</span>` : null}
             ${hasRestQuery ? html`<span class="rest-badge" title="View HTTP exchange" onClick=${(e: Event) => { e.stopPropagation(); onToggleRest(); }}>REST</span>` : null}
           </div>

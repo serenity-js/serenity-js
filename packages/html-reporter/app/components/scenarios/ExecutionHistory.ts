@@ -69,10 +69,10 @@ function ExecutionHistoryItem({ item, activeIndex, scenario, onNavigate }: {
         : `${entry.outcome} — ${fullLabel}`;
 
     return html`
-      <div class="exec-history-item ${isActive ? 'exec-history-item--active' : ''}" title="${tooltipText}" onClick=${handleRunClick}>
-        <div class="exec-history-dot exec-history-dot--${dotOutcome}" style="background:var(--color-${dotOutcome})">${dotIcon}</div>
+      <a class="exec-history-item ${isActive ? 'exec-history-item--active' : ''}" href="#${scenarioUrl(scenario, entry.timestamp || ts)}" aria-label="${tooltipText}" onClick=${(e: Event) => { e.preventDefault(); handleRunClick(e); }}>
+        <span class="exec-history-dot exec-history-dot--${dotOutcome}" style="background:var(--color-${dotOutcome})">${dotIcon}</span>
         <span class="exec-history-label">${shortLabel}</span>
-      </div>
+      </a>
     `;
 }
 
@@ -93,11 +93,11 @@ export function ExecutionHistory({ scenario, runIndex, history, onNavigate }: Ex
 
     return html`
       <div class="mb-md">
-        <div class="card-title mb-sm">Execution History</div>
+        <h2 class="card-title mb-sm">Execution History</h2>
         <div class="exec-history-summary">
           <span>${passed} of ${total} passing</span><span class="req-detail-metric-sep">·</span><span>${consistency}% consistent</span>
         </div>
-        <div class="exec-history-strip${stripFadeClass}" ref=${stripRef}>
+        <div class="exec-history-strip${stripFadeClass}" ref=${stripRef} role="group" aria-label="Execution history">
           ${groups.map(group => html`
             <div class="exec-history-group">
               <div class="exec-history-date">${group.date}</div>

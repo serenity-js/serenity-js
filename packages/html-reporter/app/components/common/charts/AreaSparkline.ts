@@ -23,7 +23,7 @@ export function AreaSparkline({ values, color, width = 200, height = 48 }: AreaS
     const line = pts.map(p => `${p.x},${p.y}`).join(' ');
     const area = `${pts.map(p => `${p.x},${p.y}`).join(' ')} ${width},${height} 0,${height}`;
     return html`
-        <svg class="sparkline-area" width="100%" height=${height} viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">
+        <svg class="sparkline-area" aria-hidden="true" width="100%" height=${height} viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">
             <polygon fill=${color} points=${area} />
             <polyline fill="none" stroke=${color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points=${line} opacity="0.6" />
         </svg>

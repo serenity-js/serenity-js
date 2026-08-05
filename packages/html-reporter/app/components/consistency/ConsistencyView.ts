@@ -89,7 +89,7 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
       <div class="placeholder-view">
         ${icons.unstable}
         <h2>All Tests Consistent</h2>
-        <p>No inconsistent results detected.<br/>Run your test suite several times to populate history.</p>
+        <p>No inconsistent results detected. Run your test suite several times to populate history.</p>
       </div>
     `
         : html`
@@ -118,7 +118,7 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
       </div>
 
       <div class="card pb-0">
-        ${sortedItems.length < inconsistentTests.length ? html`<${ResultCount} showing=${sortedItems.length} label=${sortedItems.length === 1 ? 'test scenario' : 'test scenarios'} />` : null}
+        ${html`<${ResultCount} showing=${sortedItems.length} total=${sortedItems.length < inconsistentTests.length ? inconsistentTests.length : undefined} label=${sortedItems.length === 1 ? 'test scenario' : 'test scenarios'} />`}
         <${GroupedVirtualList}
             items=${sortedItems}
             groupBy=${groupByFunction}

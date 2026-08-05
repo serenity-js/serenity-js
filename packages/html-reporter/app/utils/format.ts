@@ -42,8 +42,10 @@ export function scoreColor(value: number): string | undefined {
     return undefined;
 }
 
-export function formatTimestamp(iso: string): string {
+export function formatTimestamp(iso: string | undefined): string {
+    if (!iso) return '—';
     const d = new Date(iso);
+    if (isNaN(d.getTime())) return '—';
     return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
         + ' ' + d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
 }

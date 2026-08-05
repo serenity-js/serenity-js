@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { RouteDefinition } from '../../router/RouteDefinition.js';
-import { DATA } from '../../utils/index.js';
+import { DATA } from '../../utils/data.js';
 import { link } from '../../utils/link.js';
 import { SerenityJsLogo, SerenityJsMark } from './brand.js';
 import { icons } from './icons.js';
@@ -36,17 +36,38 @@ interface ThemeToggleProps {
 }
 
 function ThemeToggle({ theme, onSetTheme }: ThemeToggleProps): ReturnType<typeof html> {
+    const options = ['light', 'system', 'dark'] as const;
+    const labels: Record<string, string> = { light: 'Light theme', system: 'System theme', dark: 'Dark theme' };
+    const iconMap: Record<string, unknown> = { light: icons.sun, system: icons.system, dark: icons.moon };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+        const currentIndex = options.indexOf(theme as typeof options[number]);
+        let nextIndex = -1;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            nextIndex = (currentIndex + 1) % options.length;
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            nextIndex = (currentIndex - 1 + options.length) % options.length;
+        }
+        if (nextIndex >= 0) {
+            e.preventDefault();
+            onSetTheme(options[nextIndex]);
+            const container = (e.currentTarget as HTMLElement);
+            const buttons = container.querySelectorAll('[role="radio"]');
+            (buttons[nextIndex] as HTMLElement)?.focus();
+        }
+    };
+
     return html`
-      <div class="theme-switch" role="radiogroup" aria-label="Theme preference">
-        <button class="theme-switch-option${theme === 'light' ? ' active' : ''}" onClick=${() => onSetTheme('light')} aria-checked=${theme === 'light'} role="radio" title="Light theme">
-          ${icons.sun}
-        </button>
-        <button class="theme-switch-option${theme === 'system' ? ' active' : ''}" onClick=${() => onSetTheme('system')} aria-checked=${theme === 'system'} role="radio" title="System theme">
-          ${icons.system}
-        </button>
-        <button class="theme-switch-option${theme === 'dark' ? ' active' : ''}" onClick=${() => onSetTheme('dark')} aria-checked=${theme === 'dark'} role="radio" title="Dark theme">
-          ${icons.moon}
-        </button>
+      <div class="theme-switch" role="radiogroup" aria-label="Theme preference" onKeyDown=${handleKeyDown}>
+        ${options.map(opt => html`
+          <button class="theme-switch-option${theme === opt ? ' active' : ''}"
+                  onClick=${() => onSetTheme(opt)}
+                  aria-checked=${String(theme === opt)}
+                  tabIndex=${theme === opt ? 0 : -1}
+                  role="radio" title=${labels[opt]}>
+            ${iconMap[opt]}
+          </button>
+        `)}
       </div>
     `;
 }
@@ -57,6 +78,7 @@ interface SidebarProps {
     sidebarOpen: boolean;
     collapsed: boolean;
     failedBadgeCount: number;
+    routeMatched?: boolean;
     onNavigate: (path: string) => void;
     onClose: () => void;
     onToggleCollapse: () => void;
@@ -64,12 +86,12 @@ interface SidebarProps {
     onSetTheme: (theme: string) => void;
 }
 
-export function Sidebar({ route, routes, sidebarOpen, collapsed, failedBadgeCount, onNavigate, onClose, onToggleCollapse, theme, onSetTheme }: SidebarProps): ReturnType<typeof html> {
+export function Sidebar({ route, routes, sidebarOpen, collapsed, failedBadgeCount, routeMatched, onNavigate, onClose, onToggleCollapse, theme, onSetTheme }: SidebarProps): ReturnType<typeof html> {
     const navItems = routes.filter(r => r.navLabel && r.pattern !== '/about');
     const aboutRoute = routes.find(r => r.pattern === '/about');
 
     const isActive = (path: string) => {
-        if (path === '/') return route === '/' || route === '';
+        if (path === '/') return route === '/' || route === '' || routeMatched === false;
         return route.startsWith(path);
     };
 
@@ -79,7 +101,7 @@ export function Sidebar({ route, routes, sidebarOpen, collapsed, failedBadgeCoun
     };
 
     return html`
-    <aside class="sidebar ${sidebarOpen ? 'open' : ''} ${collapsed ? 'collapsed' : ''}">
+    <aside class="sidebar ${sidebarOpen ? 'open' : ''} ${collapsed ? 'collapsed' : ''}" aria-label="Site navigation">
       <div class="sidebar-brand clickable" onClick=${() => { onNavigate(link({ view: 'dashboard' })); onClose(); }}>
         ${SerenityJsLogo}
         ${SerenityJsMark}

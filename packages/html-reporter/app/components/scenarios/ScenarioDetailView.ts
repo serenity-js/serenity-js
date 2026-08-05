@@ -29,7 +29,11 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
     const detail = useScenarioDetail(scenarioId, scenarios, history);
 
     if (!detail.scenario) {
-        return html`<div class="card"><p>Test scenario not found.</p></div>`;
+        return html`<div class="card">
+            <nav class="breadcrumb"><a href="#/tests" onClick=${(e: Event) => { e.preventDefault(); onNavigate('/tests'); }}>Test Scenarios</a><span>›</span><span>Not Found</span></nav>
+            <p>Test scenario not found.</p>
+            <a href="#/tests" onClick=${(e: Event) => { e.preventDefault(); onNavigate('/tests'); }}>← Back to Test Scenarios</a>
+        </div>`;
     }
 
     const { scenario, runIndex, activeAttempt, setActiveAttempt, currentActivities, currentError,

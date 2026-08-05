@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'preact/hooks';
 
 import { type HashHistory, useHashHistory } from '../utils/index.js';
+import { validateFilter } from '../utils/selectors.js';
 
 interface ViewStateOptions {
     basePath: string;
     route: string;
     defaults?: { search?: string; filter?: string; sort?: string };
+    validFilters?: string[];
 }
 
 interface ViewState {
@@ -68,7 +70,7 @@ export function syncStateToUrl(
     hashNav.replace(newHash);
 }
 
-export function useViewState({ basePath, route, defaults }: ViewStateOptions): ViewState {
+export function useViewState({ basePath, route, defaults, validFilters }: ViewStateOptions): ViewState {
     const hashNav = useHashHistory();
     const resolvedDefaults: ViewStateDefaults = {
         search: defaults?.search || '',
@@ -77,14 +79,14 @@ export function useViewState({ basePath, route, defaults }: ViewStateOptions): V
     };
 
     const [search, setSearch] = useState(() => hashNav.getParam('search') || resolvedDefaults.search);
-    const [filter, setFilter] = useState(() => hashNav.getParam('filter') || resolvedDefaults.filter);
+    const [filter, setFilter] = useState(() => validateFilter(hashNav.getParam('filter') || resolvedDefaults.filter, validFilters));
     const [sort, setSort] = useState(() => hashNav.getParam('sort') || resolvedDefaults.sort);
 
     // Sync from route when navigated externally
     useEffect(() => {
         const parsed = parseStateFromRoute(route, resolvedDefaults);
         setSearch(parsed.search);
-        setFilter(parsed.filter);
+        setFilter(validateFilter(parsed.filter, validFilters));
         setSort(parsed.sort);
     }, [route]);
 

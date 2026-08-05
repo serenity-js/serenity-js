@@ -79,9 +79,6 @@ function createHistoryLookup(scenarios: ReportScenario[]): (t: ReportScenarioRef
 }
 
 function IncompleteBanner({ incompleteCount, totalCount }: { incompleteCount: number; totalCount: number }): ReturnType<typeof html> {
-    if (incompleteCount === 0) {
-        return null;
-    }
     return html`
         <div class="dashboard-incomplete-banner" role="alert">
           <span class="dashboard-incomplete-banner-icon">⚠️</span>
@@ -131,7 +128,7 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
 
     return html`
     <div class="dashboard">
-      <${IncompleteBanner} incompleteCount=${incompleteModules.length} totalCount=${totalModules} />
+      ${incompleteModules.length > 0 ? html`<${IncompleteBanner} incompleteCount=${incompleteModules.length} totalCount=${totalModules} />` : null}
       <${DashboardKpiRow}
         summary=${summary}
         scores=${scores}
@@ -145,7 +142,7 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
       <div class="dashboard-main-grid">
         <div class="card dashboard-trend-card">
           <div class="card-header">
-            <div class="card-title mb-0">Trend</div>
+            <h2 class="card-title mb-0">Trend</h2>
           </div>
           <${TrendChart} history=${history} onNavigate=${onNavigate} />
         </div>
