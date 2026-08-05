@@ -14,15 +14,15 @@
 
 import { createServer } from 'node:http';
 import { exec } from 'node:child_process';
-import { existsSync, readFileSync, statSync } from 'node:fs';
-import { networkInterfaces } from 'node:os';
-import { extname, join, resolve } from 'node:path';
+import { existsSync } from 'node:fs';
+import { join, resolve } from 'node:path';
 
 import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import fg from 'fast-glob';
 
 import { DataSnapshotAggregator } from '../esm/cli/DataSnapshotAggregator.js';
 import { ReportTemplateWriter } from '../esm/cli/ReportTemplateWriter.js';
+import { getNetworkAddress, handleRequest } from './staticFileServer.mjs';
 
 // --- Arg parsing ---
 
@@ -161,18 +161,6 @@ Examples:
     console.log(`Report generated at ${outputDir}/index.html`);
 }
 
-function getNetworkAddress() {
-    const interfaces = networkInterfaces();
-    for (const entries of Object.values(interfaces)) {
-        for (const entry of entries || []) {
-            if (entry.family === 'IPv4' && !entry.internal) {
-                return entry.address;
-            }
-        }
-    }
-    return undefined;
-}
-
 function serve(argv, startIndex) {
     const args = parseArgs(argv, startIndex);
 
@@ -211,63 +199,8 @@ Examples:
         process.exit(1);
     }
 
-    const mimeTypes = {
-        '.html': 'text/html',
-        '.js': 'application/javascript',
-        '.css': 'text/css',
-        '.json': 'application/json',
-        '.png': 'image/png',
-        '.jpg': 'image/jpeg',
-        '.gif': 'image/gif',
-        '.svg': 'image/svg+xml',
-        '.webm': 'video/webm',
-        '.mp4': 'video/mp4',
-        '.woff': 'font/woff',
-        '.woff2': 'font/woff2',
-        '.ico': 'image/x-icon',
-    };
-
     const server = createServer((req, res) => {
-        const url = new URL(req.url, `http://${host}:${port}`);
-        let pathname = decodeURIComponent(url.pathname);
-
-        // Default to index.html
-        if (pathname === '/') {
-            pathname = '/index.html';
-        }
-
-        const filePath = join(dir, pathname);
-
-        // Security: prevent directory traversal
-        if (!filePath.startsWith(dir)) {
-            res.writeHead(403);
-            res.end('Forbidden');
-            return;
-        }
-
-        try {
-            if (!existsSync(filePath) || !statSync(filePath).isFile()) {
-                // SPA fallback: serve index.html for non-file paths
-                const indexPath = join(dir, 'index.html');
-                const content = readFileSync(indexPath);
-                res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-                res.end(content);
-                return;
-            }
-
-            const content = readFileSync(filePath);
-            const ext = extname(filePath).toLowerCase();
-            const contentType = mimeTypes[ext] || 'application/octet-stream';
-
-            res.writeHead(200, {
-                'Content-Type': contentType,
-                'Cache-Control': 'no-cache',
-            });
-            res.end(content);
-        } catch (error) {
-            res.writeHead(500);
-            res.end('Internal Server Error');
-        }
+        handleRequest(req, res, dir, host, port);
     });
 
     server.listen(port, host, () => {

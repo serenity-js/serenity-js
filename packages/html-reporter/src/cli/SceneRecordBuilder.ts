@@ -21,17 +21,15 @@ import {
 import type { Path } from '@serenity-js/core/io';
 import type { CorrelationId, SerialisedOutcome } from '@serenity-js/core/model';
 import {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionSkipped,
-    ExecutionSuccessful,
     ImplementationPending,
     ProblemIndication,
 } from '@serenity-js/core/model';
 
 import { dispatchArtifact } from './artifactHandlers.js';
-import type { ActivityRecord, ActorRecord, ArtifactReference, ErrorRecord, OutcomeCounts, ScenarioParameterSet, SceneRecord, TagRecord } from './model/RunData.js';
+import type { ActivityRecord, ActorRecord, ArtifactReference, ErrorRecord, ScenarioParameterSet, SceneRecord, TagRecord } from './model/RunData.js';
+import { errorFrom, findErrorInActivities, serialiseOutcome } from './outcomeSerialisers.js';
+
+export { errorFrom, outcomeCodeToLabel, serialiseOutcome } from './outcomeSerialisers.js';
 
 /**
  * Builds a single SceneRecord from a sequence of domain events.
@@ -293,79 +291,4 @@ export class SceneRecordBuilder {
 
 }
 
-function findErrorInActivities(activities: ActivityRecord[]): ErrorRecord | undefined {
-    for (const activity of activities) {
-        if (activity.error) {
-            return activity.error;
-        }
-        if (activity.children) {
-            const childError = findErrorInActivities(activity.children);
-            if (childError) return childError;
-        }
-    }
-    return undefined;
-}
 
-const OUTCOME_CODE_LABELS: Record<number, keyof OutcomeCounts> = {
-    [ExecutionSuccessful.Code]: 'passed',
-    [ExecutionFailedWithAssertionError.Code]: 'failed',
-    [ExecutionFailedWithError.Code]: 'error',
-    [ExecutionCompromised.Code]: 'compromised',
-    [ImplementationPending.Code]: 'pending',
-    [ExecutionSkipped.Code]: 'skipped',
-};
-
-export function outcomeCodeToLabel(code: number): keyof OutcomeCounts {
-    return OUTCOME_CODE_LABELS[code] || 'error';
-}
-
-export function errorFrom(outcome: ProblemIndication): ErrorRecord {
-    return {
-        name: outcome.error.name,
-        message: outcome.error.message,
-        stack: outcome.error.stack || '',
-    };
-}
-
-/**
- * Safely extracts the outcome code without calling `ProblemIndication.toJSON()`.
- *
- * `ProblemIndication.toJSON()` delegates error serialisation to `ErrorSerialiser.serialise()`,
- * which calls `error.toJSON()` on RuntimeError instances. Since RuntimeError extends TinyType,
- * its `toJSON()` recursively serialises all properties — including `cause` chains that can be
- * circular, triggering a stack overflow.
- *
- * This function avoids the problem by calling `toJSON()` only on non-problem outcomes
- * (ExecutionSuccessful, ImplementationPending, ExecutionSkipped) where it's safe.
- * For ProblemIndication subclasses, it uses the well-known static Code constants.
- *
- * Error details are extracted separately via `errorFrom()` which safely reads
- * only `name`, `message`, and `stack` as plain strings.
- */
-/**
- * Safely extracts the outcome code without calling `ProblemIndication.toJSON()`.
- *
- * `ProblemIndication.toJSON()` calls `ErrorSerialiser.serialise(this.error)`, which
- * invokes `TinyType.toJSON()` on RuntimeError instances. TinyType serialises ALL own
- * properties — including `multiple`, a property that Mocha attaches to errors as a
- * self-referencing circular array. This causes a stack overflow.
- *
- * The html-reporter only needs the outcome code (error details are extracted
- * separately via `errorFrom()`), so we bypass `toJSON()` entirely.
- */
-const outcomeCodeMap = [
-    { type: ExecutionFailedWithAssertionError, code: ExecutionFailedWithAssertionError.Code },
-    { type: ExecutionFailedWithError, code: ExecutionFailedWithError.Code },
-    { type: ExecutionCompromised, code: ExecutionCompromised.Code },
-    { type: ExecutionSkipped, code: ExecutionSkipped.Code },
-    { type: ImplementationPending, code: ImplementationPending.Code },
-] as const;
-
-function serialiseOutcome(outcome: ProblemIndication | { toJSON(): SerialisedOutcome }): SerialisedOutcome {
-    for (const entry of outcomeCodeMap) {
-        if (outcome instanceof entry.type) {
-            return { code: entry.code };
-        }
-    }
-    return { code: ExecutionSuccessful.Code };
-}

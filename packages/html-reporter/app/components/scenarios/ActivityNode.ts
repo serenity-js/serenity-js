@@ -19,6 +19,14 @@ interface ActivityNodeProps {
     setSize?: number;
 }
 
+interface ActivityDetailsProps {
+    activity: ReportActivity;
+    effectiveDataTable: { headers: string[]; rows: string[][] } | undefined;
+    effectiveDocString: string | undefined;
+    hasRestQuery: boolean;
+    restExpanded: boolean;
+}
+
 function hasFailure(activity: ReportActivity): boolean {
     if (activity.outcome !== 'SUCCESS') return true;
     if (activity.children) {
@@ -41,6 +49,15 @@ function countActivities(activity: ReportActivity): { total: number; failed: num
     }
     walk(activity);
     return { total, failed };
+}
+
+function renderActivityDetails({ activity, effectiveDataTable, effectiveDocString, hasRestQuery, restExpanded }: ActivityDetailsProps): ReturnType<typeof html> {
+    return html`
+      ${effectiveDataTable ? html`<${ActivityDataTable} headers=${effectiveDataTable.headers} rows=${effectiveDataTable.rows} />` : null}
+      ${effectiveDocString ? html`<${ActivityDocString} content=${effectiveDocString} />` : null}
+      ${hasRestQuery && restExpanded ? html`<${RestQueryPanel} restQuery=${activity.restQuery} />` : null}
+      ${activity.reportData && activity.reportData.length > 0 ? html`<${ActivityReportData} entries=${activity.reportData} />` : null}
+    `;
 }
 
 export function ActivityNode({ activity, level = 1, posInSet = 1, setSize = 1 }: ActivityNodeProps): ReturnType<typeof html> {
@@ -81,10 +98,7 @@ export function ActivityNode({ activity, level = 1, posInSet = 1, setSize = 1 }:
         onToggleRest=${() => setRestExpanded(!restExpanded)}
         summaryText=${summaryText}
       />
-      ${effectiveDataTable ? html`<${ActivityDataTable} headers=${effectiveDataTable.headers} rows=${effectiveDataTable.rows} />` : null}
-      ${effectiveDocString ? html`<${ActivityDocString} content=${effectiveDocString} />` : null}
-      ${hasRestQuery && restExpanded ? html`<${RestQueryPanel} restQuery=${activity.restQuery} />` : null}
-      ${activity.reportData && activity.reportData.length > 0 ? html`<${ActivityReportData} entries=${activity.reportData} />` : null}
+      <${renderActivityDetails} activity=${activity} effectiveDataTable=${effectiveDataTable} effectiveDocString=${effectiveDocString} hasRestQuery=${hasRestQuery} restExpanded=${restExpanded} />
       ${hasChildren && expanded ? html`
         <div class="activity-children" role="group">
           ${activity.children.map((child, index) => html`<${ActivityNode} activity=${child} level=${(level || 1) + 1} posInSet=${index + 1} setSize=${activity.children.length} />`)}

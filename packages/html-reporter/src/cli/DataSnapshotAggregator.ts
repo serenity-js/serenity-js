@@ -2,6 +2,7 @@ import type { FileSystem, RequirementsHierarchy } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
 
 import { buildSystemContext, computeTagStats } from './aggregation/computeStats.js';
+import { aggregateModuleMetadata } from './aggregation/moduleMetadata.js';
 import { buildCapabilities } from './capabilities/buildCapabilities.js';
 import { buildHistory } from './history/buildHistory.js';
 import { computeDegradedRecovered, identifyUnstableTests } from './identifyUnstableTests.js';
@@ -201,7 +202,7 @@ export class DataSnapshotAggregator {
             // Collect and aggregate module metadata by moduleId
             // This handles WebdriverIO parallel workers that produce multiple db-*.json files
             // with the same moduleId - they should be aggregated into a single module entry
-            const modules = this.aggregateModuleMetadata(runsToMerge);
+            const modules = aggregateModuleMetadata(runsToMerge);
 
             // Sub-group by attempt number (missing attempt defaults to 1)
             const byAttempt = new Map<number, RunData[]>();
@@ -225,104 +226,6 @@ export class DataSnapshotAggregator {
         }
 
         return merged;
-    }
-
-    private deriveModuleId(run: RunData, index: number): string {
-        if (run.moduleId) {
-            return run.moduleId;
-        }
-        if (run.systemContext?.projectName) {
-            return run.systemContext.projectName;
-        }
-        return `module-${index + 1}`;
-    }
-
-    private deriveModuleOutcome(run: RunData): 'passed' | 'failed' | 'incomplete' {
-        if (!run.finishedAt) {
-            return 'incomplete';
-        }
-        const { failed = 0, error = 0, compromised = 0 } = run.outcomes;
-        return (failed + error + compromised) > 0 ? 'failed' : 'passed';
-    }
-
-    /**
-     * Aggregates module metadata from multiple RunData objects, grouping by moduleId.
-     * This handles WebdriverIO parallel workers that produce multiple db-*.json files
-     * with the same moduleId - they are combined into a single module entry with
-     * aggregated outcomes.
-     */
-    private aggregateModuleMetadata(runs: RunData[]): Array<{
-        moduleId: string;
-        startedAt: string;
-        finishedAt?: string;
-        outcome: 'passed' | 'failed' | 'incomplete';
-        outcomes: RunData['outcomes'];
-    }> {
-        const moduleMap = new Map<string, {
-            moduleId: string;
-            startedAt: string;
-            finishedAt?: string;
-            outcomes: RunData['outcomes'];
-        }>();
-
-        for (const [index, run] of runs.entries()) {
-            const moduleId = this.deriveModuleId(run, index);
-            const existing = moduleMap.get(moduleId);
-
-            if (existing) {
-                const merged = this.mergeModuleTimestamps(existing, run);
-                existing.startedAt = merged.startedAt;
-                existing.finishedAt = merged.finishedAt;
-                existing.outcomes = this.sumOutcomes(existing.outcomes, run.outcomes);
-            } else {
-                moduleMap.set(moduleId, {
-                    moduleId,
-                    startedAt: run.startedAt,
-                    finishedAt: run.finishedAt,
-                    outcomes: { ...run.outcomes },
-                });
-            }
-        }
-
-        return [...moduleMap.values()].map(m => ({
-            ...m,
-            outcome: this.deriveOutcomeFromOutcomes(m.finishedAt, m.outcomes),
-        }));
-    }
-
-    private mergeModuleTimestamps(
-        a: { startedAt: string; finishedAt?: string },
-        b: { startedAt: string; finishedAt?: string },
-    ): { startedAt: string; finishedAt?: string } {
-        return {
-            startedAt: a.startedAt < b.startedAt ? a.startedAt : b.startedAt,
-            finishedAt: this.latestTimestamp(a.finishedAt, b.finishedAt),
-        };
-    }
-
-    private latestTimestamp(a?: string, b?: string): string | undefined {
-        if (!a) return b;
-        if (!b) return a;
-        return a > b ? a : b;
-    }
-
-    private sumOutcomes(a: RunData['outcomes'], b: RunData['outcomes']): RunData['outcomes'] {
-        return {
-            passed: (a.passed || 0) + (b.passed || 0),
-            failed: (a.failed || 0) + (b.failed || 0),
-            pending: (a.pending || 0) + (b.pending || 0),
-            skipped: (a.skipped || 0) + (b.skipped || 0),
-            compromised: (a.compromised || 0) + (b.compromised || 0),
-            error: (a.error || 0) + (b.error || 0),
-        };
-    }
-
-    private deriveOutcomeFromOutcomes(finishedAt: string | undefined, outcomes: RunData['outcomes']): 'passed' | 'failed' | 'incomplete' {
-        if (!finishedAt) {
-            return 'incomplete';
-        }
-        const { failed = 0, error = 0, compromised = 0 } = outcomes;
-        return (failed + error + compromised) > 0 ? 'failed' : 'passed';
     }
 
     private persistMergedRuns(merged: Map<string, RunData>): void {
