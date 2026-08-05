@@ -15,6 +15,7 @@
 import { createServer } from 'node:http';
 import { exec } from 'node:child_process';
 import { existsSync, readFileSync, statSync } from 'node:fs';
+import { networkInterfaces } from 'node:os';
 import { extname, join, resolve } from 'node:path';
 
 import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
@@ -160,6 +161,18 @@ Examples:
     console.log(`Report generated at ${outputDir}/index.html`);
 }
 
+function getNetworkAddress() {
+    const interfaces = networkInterfaces();
+    for (const entries of Object.values(interfaces)) {
+        for (const entry of entries || []) {
+            if (entry.family === 'IPv4' && !entry.internal) {
+                return entry.address;
+            }
+        }
+    }
+    return undefined;
+}
+
 function serve(argv, startIndex) {
     const args = parseArgs(argv, startIndex);
 
@@ -171,7 +184,7 @@ Serve the generated HTML report on a local HTTP server.
 Options:
   --dir        Directory containing the report (default: ./reports/serenity-js)
   --port       Port to listen on (default: 8080)
-  --host       Host to bind to (default: localhost)
+  --host       Host to bind to (default: 0.0.0.0)
   --open       Open the report in the default browser
 
 Examples:
@@ -183,7 +196,7 @@ Examples:
 
     const dir = resolve(args.dir || './reports/serenity-js');
     const port = parseInt(args.port || '8080', 10);
-    const host = args.host || 'localhost';
+    const host = args.host || '0.0.0.0';
     const shouldOpen = args.open !== undefined;
 
     if (!existsSync(dir)) {
@@ -258,16 +271,25 @@ Examples:
     });
 
     server.listen(port, host, () => {
-        const url = `http://${host}:${port}`;
-        console.log(`Serenity/JS report server running at ${url}`);
-        console.log(`Serving from: ${dir}`);
+        const localUrl = `http://localhost:${port}`;
+        console.log(`Serenity/JS report server running:`);
+        console.log(`  Local:   ${localUrl}`);
+
+        if (host === '0.0.0.0' || host === '::') {
+            const networkIp = getNetworkAddress();
+            if (networkIp) {
+                console.log(`  Network: http://${networkIp}:${port}`);
+            }
+        }
+
+        console.log(`\nServing from: ${dir}`);
         console.log('Press Ctrl+C to stop.\n');
 
         if (shouldOpen) {
             const openCmd = process.platform === 'darwin' ? 'open'
                 : process.platform === 'win32' ? 'start'
                 : 'xdg-open';
-            exec(`${openCmd} ${url}`);
+            exec(`${openCmd} ${localUrl}`);
         }
     });
 
