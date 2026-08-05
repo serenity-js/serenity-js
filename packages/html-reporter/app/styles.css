@@ -3987,6 +3987,7 @@
         overflow-y: auto;
         overflow-x: hidden;
         overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
     }
 
     .run-details-footer {
@@ -3995,7 +3996,8 @@
     }
 
     .run-details-table-wrap {
-        overflow-x: auto;
+        overflow: auto;
+        max-height: calc(70dvh - 160px); /* Panel max-height minus header + footer + padding */
     }
 
     .run-details-cta {
