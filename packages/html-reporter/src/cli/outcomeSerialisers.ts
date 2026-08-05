@@ -1,25 +1,19 @@
-import type { SerialisedOutcome } from '@serenity-js/core/model';
+import type { ProblemIndication, SerialisedOutcome } from '@serenity-js/core/model';
 import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
     ExecutionSkipped,
     ExecutionSuccessful,
-    ImplementationPending,
-    ProblemIndication,
+    ImplementationPending
 } from '@serenity-js/core/model';
 
 import type { ActivityRecord, ErrorRecord, OutcomeCounts } from './model/RunData.js';
 
 export function findErrorInActivities(activities: ActivityRecord[]): ErrorRecord | undefined {
     for (const activity of activities) {
-        if (activity.error) {
-            return activity.error;
-        }
-        if (activity.children) {
-            const childError = findErrorInActivities(activity.children);
-            if (childError) return childError;
-        }
+        const error = activity.error ?? findErrorInActivities(activity.children ?? []);
+        if (error) return error;
     }
     return undefined;
 }
