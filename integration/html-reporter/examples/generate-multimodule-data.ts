@@ -180,7 +180,7 @@ const smokeModule = createModule({
 });
 
 // Module 11: webdriverio-perf (performance tests, one slow failure)
-const perfModule = createModule({
+const performanceModule = createModule({
     testRunId: '42',
     moduleId: 'webdriverio-perf',
     startedAt: addMilliseconds(baseTimestamp, 35_000),
@@ -220,7 +220,7 @@ writeModuleFile(resolve(testRunsDirectory, 'webdriverio-visual-1'), 'db.json', v
 writeModuleFile(resolve(testRunsDirectory, 'mocha-integration-1'), 'db.json', mochaIntegrationModule);
 writeModuleFile(resolve(testRunsDirectory, 'playwright-a11y-1'), 'db.json', a11yModule);
 writeModuleFile(resolve(testRunsDirectory, 'cucumber-smoke-1'), 'db.json', smokeModule);
-writeModuleFile(resolve(testRunsDirectory, 'webdriverio-perf-1'), 'db.json', perfModule);
+writeModuleFile(resolve(testRunsDirectory, 'webdriverio-perf-1'), 'db.json', performanceModule);
 writeModuleFile(resolve(testRunsDirectory, 'mocha-contract-1'), 'db.json', contractModule);
 
 console.log('✓ Generated multi-module test data');
