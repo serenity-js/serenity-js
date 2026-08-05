@@ -4,7 +4,7 @@ import { useMemo } from 'preact/hooks';
 
 import type { ReportCapabilityNode, ReportHistoryEntry, ReportInconsistentTest, ReportScenario, ReportScenarioRef, ReportSummary, ReportSystemContext } from '../../../src/cli/ReportData.js';
 import { computeDashboardScores } from '../../utils/computeDashboardScores.js';
-import { tagDiscriminator } from '../../utils/navigation.js';
+import { sceneIdentity, tagDiscriminator } from '../../utils/navigation.js';
 import { classifyConsistencyKind } from '../../utils/selectors.js';
 import { TrendChart } from '../common/charts/TrendChart.js';
 import { DashboardConsistencyCard } from './DashboardConsistencyCard.js';
@@ -113,7 +113,10 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
         ...newFailures.map(t => ({ ...t, kind: 'degraded' as const, lastOutcome: 'FAILURE' })),
         ...newPasses.map(t => ({ ...t, kind: 'recovered' as const, lastOutcome: 'SUCCESS' })),
         ...inconsistent
-            .filter(t => !newFailures.some(f => f.source.path === t.source.path) && !newPasses.some(p => p.source.path === t.source.path))
+            .filter(t => {
+                const id = sceneIdentity(t);
+                return !newFailures.some(f => sceneIdentity(f) === id) && !newPasses.some(p => sceneIdentity(p) === id);
+            })
             .map(t => {
                 const kind = classifyConsistencyKind(t.history || []);
                 return { ...t, kind, lastOutcome: t.history && t.history.length > 0 ? t.history[t.history.length - 1] : 'SKIPPED' };

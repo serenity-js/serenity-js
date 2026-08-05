@@ -1,4 +1,4 @@
-import { tagDiscriminator as serverTagDiscriminator } from '../../src/cli/model/sceneIdentity.js';
+import { sceneIdentity as serverSceneIdentity, tagDiscriminator as serverTagDiscriminator } from '../../src/cli/model/sceneIdentity.js';
 import type { ReportScenarioTag, ReportSource } from '../../src/cli/ReportData.js';
 import { link } from './link.js';
 
@@ -12,6 +12,16 @@ import { link } from './link.js';
 export function tagDiscriminator(tags?: ReportScenarioTag[]): string {
     if (!tags) return '';
     return serverTagDiscriminator(tags);
+}
+
+/**
+ * Computes a unique identity for a scenario from its source location and tags.
+ * Delegates to the server-side implementation.
+ *
+ * Accepts the broader client-side types where `line` and `tags` may be optional.
+ */
+export function sceneIdentity(scene: { source: { path: string; line?: number }; name: string; tags?: Array<{ type: string; name: string }> }): string {
+    return serverSceneIdentity({ source: { path: scene.source.path, line: scene.source.line as number }, name: scene.name, tags: scene.tags || [] });
 }
 
 /**

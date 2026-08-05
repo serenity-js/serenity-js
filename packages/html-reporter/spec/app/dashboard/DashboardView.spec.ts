@@ -299,4 +299,60 @@ describe('DashboardView', () => {
             ),
         );
     });
+
+    it('does not exclude unstable tests from the consistency card when a different test in the same file is in newFailures', async ({ mount, actor }) => {
+        // Two tests in the same file: one is newly degraded (in newFailures),
+        // the other is independently unstable (in inconsistentTests).
+        // The dedup filter should NOT exclude the second test just because it shares a source.path.
+        const sharedFile = 'spec/web/Page.spec.ts';
+
+        const data = minimalData({
+            scenarios: [
+                {
+                    name: 'closes pages gracefully', category: 'Page', outcome: 'ERROR', duration: 500,
+                    startedAt: '2024-06-15T14:30:00.000Z',
+                    source: { path: sharedFile, line: 10 },
+                    tags: [{ type: 'module', name: 'webdriverio-devtools' }],
+                    activities: [],
+                    error: { name: 'Error', message: 'Page closed', stack: '' },
+                    executionHistory: [{ outcome: 'SUCCESS', run: '#1' }, { outcome: 'ERROR', run: '#2' }],
+                },
+                {
+                    name: 'switches between windows', category: 'Page', outcome: 'SUCCESS', duration: 300,
+                    startedAt: '2024-06-15T14:30:01.000Z',
+                    source: { path: sharedFile, line: 42 },
+                    tags: [{ type: 'module', name: 'webdriverio-devtools' }],
+                    activities: [],
+                    executionHistory: [{ outcome: 'ERROR', run: '#1' }, { outcome: 'SUCCESS', run: '#2' }],
+                },
+            ],
+            newFailures: [
+                { name: 'closes pages gracefully', category: 'Page', source: { path: sharedFile, line: 10 }, tags: [{ type: 'module', name: 'webdriverio-devtools' }] },
+            ],
+            inconsistentTests: [
+                {
+                    name: 'switches between windows', category: 'Page',
+                    source: { path: sharedFile, line: 42 },
+                    tags: [{ type: 'module', name: 'webdriverio-devtools' }],
+                    inconsistencyRate: 0.5,
+                    history: ['ERROR', 'SUCCESS'],
+                    labels: ['#1', '#2'],
+                },
+            ],
+        });
+
+        const view = await mount({
+            component: 'DashboardView',
+            importPath: './components/dashboard/DashboardView',
+            props: { onNavigate: () => {} },
+            data,
+            interactionObject: DashboardView,
+        });
+
+        await actor.attemptsTo(
+            // Both tests should appear in the consistency card
+            Ensure.that(view.consistencyCardScenarioNames(), contain('closes pages gracefully')),
+            Ensure.that(view.consistencyCardScenarioNames(), contain('switches between windows')),
+        );
+    });
 });

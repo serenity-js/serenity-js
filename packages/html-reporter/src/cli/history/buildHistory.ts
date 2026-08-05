@@ -3,7 +3,7 @@ import { ExecutionSuccessful } from '@serenity-js/core/model';
 import { outcomeCodeToDisplayString } from '../model/outcomes.js';
 import { resolveRunLabel } from '../model/resolveRunLabel.js';
 import type { RunData } from '../model/RunData.js';
-import { tagDiscriminator } from '../model/sceneIdentity.js';
+import { sceneIdentity } from '../model/sceneIdentity.js';
 import type { ReportHistoryEntry } from '../ReportData.js';
 
 interface DurationStats {
@@ -47,8 +47,7 @@ function buildOutcomeMap(runs: RunData[]): Map<string, string[]> {
     const testOutcomes = new Map<string, string[]>();
     for (const run of runs) {
         for (const scene of run.scenes) {
-            const discriminator = tagDiscriminator(scene.tags);
-            const identity = `${ scene.name }@${ scene.source.path }@${ discriminator }`;
+            const identity = sceneIdentity(scene);
             if (!testOutcomes.has(identity)) testOutcomes.set(identity, []);
 
             const effectiveOutcome = (scene.retries > 0 && scene.outcome.code === ExecutionSuccessful.Code)
