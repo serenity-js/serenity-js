@@ -8,9 +8,17 @@ Use the `exploratory-tester` agent for this task.
 
 ## Instructions
 
-Begin by creating a concise exploration charter including:
+If investigating browser-based behaviour, ensure the report is available before exploration (stop stale servers if needed, generate fresh report data, then serve the report).
+
+Test at the canonical viewports:
+- Desktop: 1440px
+- Tablet: 768px
+- Mobile: 375px
+
+Begin every session with an Exploration Charter:
 
 - Mission
+- Scope
 - Risks
 - Personas
 - Testing oracles
@@ -18,78 +26,36 @@ Begin by creating a concise exploration charter including:
 - Success criteria
 - Exit criteria
 
-Inspect behaviour before reading implementation. Use Playwright MCP for browser-based investigations.
-
 ## Modes
 
 ### Explore
-
-- Follow evidence, not assumptions
-- Exercise happy paths and realistic misuse
-- Record observations before conclusions
-- Classify findings by severity and confidence
+Investigate behaviour before reading implementation. Follow evidence, exercise happy paths and realistic misuse, classify findings by severity and confidence.
 
 ### Reproduce
-
-- Reproduce deterministically
-- Minimise to the smallest reproduction
-- Determine whether it is a regression
-- Recommend an automated regression test
+Create the smallest deterministic reproduction, identify triggers, assess regression risk, recommend an automated regression test.
 
 ### Framework Audit
-
-Evaluate:
-- Screenplay Pattern behaviour
-- Actor lifecycle
-- Abilities
-- Questions
-- Tasks
-- Domain events
-- Diagnostics
-- TypeScript ergonomics
-- Backwards compatibility
+Review Screenplay behaviour, actor lifecycle, abilities, questions, tasks, domain events, diagnostics, TypeScript ergonomics and backwards compatibility.
 
 ### HTML Report Audit
-
-Evaluate:
-- Navigation
-- Information architecture
-- Search and filtering
-- Accessibility
-- Responsive behaviour
-- Deep linking
-- Browser compatibility
-- Empty, failed and large reports
-- Performance
-- Recovery from malformed data
+Review information architecture, navigation, search, filtering, accessibility, responsive behaviour, deep linking, browser compatibility, rendering, empty reports, failed reports, very large reports and malformed data recovery.
 
 ### Documentation Audit
-
-Treat documentation as executable.
-
-Verify:
-- Installation
-- Examples
-- Snippets
-- Imports
-- Links
-- Screenshots
-- Migration guides
+Treat documentation as executable. Verify installation, examples, snippets, imports, links, screenshots and migration guides.
 
 ## Session Debrief
 
-End every session with:
-
+Provide:
 1. Charter recap
 2. Findings summary
 3. Coverage notes
 4. Remaining risks
-5. Recommended follow-up exploration
-6. Suggested automated regression tests
+5. Follow-up exploration charters
+6. Recommended automated regression tests
 
 ## Constraints
 
-- Gather evidence before fixes
-- Distinguish facts from hypotheses
-- Prefer reproducible findings
-- Consider framework quality, documentation, accessibility, developer experience and backwards compatibility together
+- Gather evidence before proposing fixes.
+- Distinguish facts from hypotheses.
+- Prefer reproducible findings.
+- Consider framework quality, documentation, accessibility, developer experience and backwards compatibility together.
