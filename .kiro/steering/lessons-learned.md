@@ -870,3 +870,41 @@ function IncompleteBanner(...): ReturnType<typeof html> | null {
 ```
 
 The component becomes simpler (always renders), the type is cleaner, and the parent explicitly controls what's visible.
+
+## Mobile media query resets override earlier specificity-equal rules
+
+When a mobile `@media` block redeclares `.run-details-table td:first-child { z-index: 2 }`, it overrides an earlier `.run-details-table-totals td:first-child { z-index: 4 }` rule because they have **identical specificity** and the media query block appears later in source order.
+
+Fix: repeat the higher-specificity z-index overrides (thead corner, tfoot corner) INSIDE the mobile media query block. Don't assume earlier rules "stick" — the mobile block resets them.
+
+General rule: when a media query redeclares a base property on a broad selector (e.g., `td:first-child`), any narrower overrides for that same property must also appear inside the media query.
+
+## Fixed-height flex panels require explicit `height`, not just `max-height`
+
+A `position: fixed` flex-column panel with `max-height: 70dvh` will **shrink to content** if its children don't provide intrinsic height. An absolutely-positioned child or a `flex: 1 1 0` child with `overflow: hidden` contributes no content height.
+
+To make a flex child fill remaining space in a fixed panel:
+1. Give the panel an explicit `height` (not just `max-height`) — e.g., `height: 70dvh`
+2. Give the fill child `flex: 1 1 0; min-height: 0; overflow: hidden; position: relative`
+3. Give the scroll container inside it `position: absolute; inset: 0; overflow: auto`
+
+The panel's `height` creates a definite size for the flex algorithm to distribute. Without it, the panel sizes to content, and a zero-height child stays zero.
+
+## Sticky table headers require the table-wrap to be the scroll container
+
+`position: sticky; top: 0` on `<th>` elements only works relative to their **nearest scrolling ancestor**. If a parent above the table-wrap ALSO scrolls (e.g., `.run-details-body` with `overflow-y: auto`), scrolling that parent moves the entire table-wrap out of view — the sticky header clips because it's stuck within the table-wrap, not within the body.
+
+Fix: ensure only ONE element in the hierarchy scrolls the table content — the table-wrap itself. The body above it must not scroll (`overflow: hidden` or no overflow).
+
+## Sticky cells at intersections need z-index hierarchy across both axes
+
+When a table has sticky headers (top), sticky first column (left), AND sticky footer (bottom), cells at the intersections (top-left corner, bottom-left corner) need higher z-index than cells on either single axis alone.
+
+The correct z-index hierarchy for a two-axis sticky table:
+```
+5: thead th:first-child    (top + left — highest, covers everything)
+4: tfoot td:first-child    (bottom + left)
+3: thead th / tfoot td     (single axis: top or bottom)
+2: tbody td:first-child    (single axis: left only)
+1: tbody td                (no stickiness)
+```

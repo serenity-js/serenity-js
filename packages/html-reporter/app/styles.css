@@ -3858,6 +3858,11 @@
 
 /* Header-column intersection gets highest z-index */
 .run-details-table thead th:first-child {
+    z-index: 5;
+}
+
+/* Totals-column intersection needs to be above both sticky-left and sticky-bottom cells */
+.run-details-table-totals td:first-child {
     z-index: 4;
 }
 
@@ -3908,6 +3913,10 @@
     border-top: 1px solid var(--border-color);
     padding-top: var(--space-sm);
     font-weight: 600;
+    position: sticky;
+    bottom: 0;
+    background: var(--bg-surface);
+    z-index: 3;
 }
 
 .run-details-table-row--incomplete td {
@@ -3965,7 +3974,8 @@
         flex-direction: column;
         overflow: hidden;
 
-        /* Never exceed 70% of viewport so content behind remains visible */
+        /* Fixed height = max available. Body flex-grows to fill remaining space. */
+        height: 70dvh;
         max-height: 70dvh;
 
         /* Visual treatment */
@@ -3982,21 +3992,23 @@
     }
 
     .run-details-body {
-        flex: 1 1 auto;
+        flex: 1 1 0;
         min-height: 0;
-        overflow-y: auto;
-        overflow-x: hidden;
-        overscroll-behavior: contain;
-        -webkit-overflow-scrolling: touch;
+        overflow: hidden;
+        position: relative;
     }
 
     .run-details-footer {
         flex: 0 0 auto;
-        padding-top: var(--space-md);
+        padding-top: var(--space-sm);
     }
 
     .run-details-table-wrap {
+        position: absolute;
+        inset: 0;
         overflow: auto;
+        max-height: none;
+        margin-bottom: 0;
         -webkit-overflow-scrolling: touch;
     }
 
@@ -4015,6 +4027,14 @@
 
     .run-details-table th:first-child {
         z-index: 3;
+    }
+
+    .run-details-table thead th:first-child {
+        z-index: 5;
+    }
+
+    .run-details-table-totals td:first-child {
+        z-index: 4;
     }
 
     .run-details-table-row--incomplete td:first-child {
