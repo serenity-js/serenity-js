@@ -24,8 +24,7 @@ export function identifyUnstableTests(
     for (const run of recentRuns) {
         const runLabel = resolveRunLabel(run);
         for (const scene of run.scenes) {
-            const projectTag = scene.tags.find(t => t.type === 'project')?.name || '';
-            const identity = `${ scene.name }@${ scene.source.path }@${ projectTag }`;
+            const identity = sceneIdentity(scene);
             if (!testOutcomes.has(identity)) {
                 testOutcomes.set(identity, { name: scene.name, category: scene.category, source: scene.source, tags: scene.tags, outcomes: [], labels: [] });
             }
