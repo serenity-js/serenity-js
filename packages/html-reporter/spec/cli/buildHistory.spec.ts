@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test';
-
 import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/model';
 
 import { computeConsistencyAtRun } from '../../src/cli/history/buildHistory.js';

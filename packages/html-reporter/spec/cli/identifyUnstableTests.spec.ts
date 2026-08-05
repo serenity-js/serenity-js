@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test';
-
 import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/model';
 
 import { identifyUnstableTests } from '../../src/cli/identifyUnstableTests.js';

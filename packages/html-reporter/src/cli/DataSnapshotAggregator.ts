@@ -1,6 +1,7 @@
 import type { FileSystem, RequirementsHierarchy } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
 
+import { classifyRunPath } from './aggregation/classifyRunPath.js';
 import { buildSystemContext, computeTagStats } from './aggregation/computeStats.js';
 import { aggregateModuleMetadata } from './aggregation/moduleMetadata.js';
 import { buildCapabilities } from './capabilities/buildCapabilities.js';
@@ -144,30 +145,14 @@ export class DataSnapshotAggregator {
             const run = this.safeParseRunData(content, databaseJsonPath);
             if (!run) continue;
 
-            // Determine if this is a run-level db.json (pre-merged) vs module-level (individual module)
-            // Run-level: test-runs/8334/db.json (relative path after test-runs/ has no slash)
-            // Module-level: test-runs/8334/cucumber-1/db.json (relative path has a slash)
-            // Worker files: test-runs/8334/cucumber-1/db-0-5.json (same as module-level)
-            const pathWithoutDatabase = databaseJsonPath.replace(/\/db(-[^/]+)?\.json$/, '');
-            const testRunsIndex = pathWithoutDatabase.lastIndexOf('/test-runs/');
-            let isRunLevel = false;
-            if (testRunsIndex !== -1) {
-                const relative = pathWithoutDatabase.slice(testRunsIndex + '/test-runs/'.length);
-                const slashIndex = relative.indexOf('/');
-                isRunLevel = slashIndex === -1; // No slash = run-level (e.g., "8334")
-            }
+            const classification = classifyRunPath(databaseJsonPath);
+            const isRunLevel = classification?.isRunLevel ?? false;
 
             results.push({ run, path: databaseJsonPath, isRunLevel });
 
             // Copy sibling artifacts before any merging
-            if (testRunsIndex !== -1) {
-                const relative = pathWithoutDatabase.slice(testRunsIndex + '/test-runs/'.length);
-                const slashIndex = relative.indexOf('/');
-                if (slashIndex !== -1) {
-                    this.copyArtifactsFromSource(databaseJsonPath, relative.slice(0, slashIndex), relative.slice(slashIndex + 1));
-                } else {
-                    this.copyArtifactsFromSource(databaseJsonPath, relative, '.');
-                }
+            if (classification) {
+                this.copyArtifactsFromSource(databaseJsonPath, classification.runId, classification.subDirectory);
             }
         }
 

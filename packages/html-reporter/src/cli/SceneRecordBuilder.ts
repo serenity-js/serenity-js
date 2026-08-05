@@ -290,5 +290,3 @@ export class SceneRecordBuilder {
     }
 
 }
-
-
