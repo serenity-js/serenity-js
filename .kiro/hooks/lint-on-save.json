@@ -2,19 +2,11 @@
   "version": "v1",
   "hooks": [
     {
-      "name": "lint-on-save",
-      "trigger": "PostFileSave",
-      "matcher": "\\.ts$",
-      "action": { "type": "command", "command": "pnpm run lint" },
-      "timeout": 30,
-      "enabled": true
-    },
-    {
       "name": "lint-modified-files",
       "trigger": "stop",
       "action": {
         "type": "command",
-        "command": "git diff --name-only --diff-filter=d HEAD 2>/dev/null | grep -E '\\.(ts|js|mjs)$' | head -20 | xargs -r npx eslint --no-warn-ignored 2>&1 || true"
+        "command": "FILES=$(git diff --name-only --diff-filter=d HEAD 2>/dev/null | grep -E '\\.(ts|js|mjs)$' | head -20); if [ -n \"$FILES\" ]; then echo \"$FILES\" | xargs npx eslint --no-warn-ignored; fi"
       },
       "timeout": 30,
       "enabled": true
