@@ -162,6 +162,9 @@ export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }
               </div>
             `}
 
+          </div>
+
+          <div class="run-details-footer">
             ${total > 0 && html`
               <div class="run-details-durations">
                 <div class="run-details-duration-row">
@@ -178,9 +181,6 @@ export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }
                 </div>
               </div>
             `}
-          </div>
-
-          <div class="run-details-footer">
             <button class="run-details-cta" onClick=${() => onNavigate(link({ view: 'tests', run: selectedRun.runId }))} data-testid="run-details-cta">
               Show test scenarios →
             </button>
