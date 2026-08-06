@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.44.1](https://github.com/serenity-js/serenity-js/compare/v3.44.0...v3.44.1) (2026-07-06)
+
+
+### Bug Fixes
+
+* **deps:** update protractor dependencies to v2.3.0 ([94a1e5f](https://github.com/serenity-js/serenity-js/commit/94a1e5fbb3b19c2efbc5d81d297449793d7881aa))
+* **deps:** update rest dependencies ([0a7322a](https://github.com/serenity-js/serenity-js/commit/0a7322a3662cac4db535049647042ff96e5c775b))
+* **eslint:** adapt config to eslint-plugin-unicorn v71 ([eec6f0a](https://github.com/serenity-js/serenity-js/commit/eec6f0affa2acd313b955bb0ce444fb06ecf5b21))
+
+
+
+
+
 # [3.44.0](https://github.com/serenity-js/serenity-js/compare/v3.43.4...v3.44.0) (2026-06-13)
 
 **Note:** Version bump only for package @serenity-js/protractor
