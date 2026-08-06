@@ -31,12 +31,14 @@ export function playwrightTest(...params: string[]): Promise<SpawnResult> {
         ),
     };
 
+    const hasCustomConfig = parameters.some(parameter => parameter.startsWith('--config='));
+
     return spawner(
         playwrightExecutable,
         { cwd: path.resolve(__dirname, '..'), env },
     )(
         'test',
-        `--config=${ path.resolve(__dirname, '../playwright.config.ts') }`,
+        ...(hasCustomConfig ? [] : [ `--config=${ path.resolve(__dirname, '../playwright.config.ts') }` ]),
 
         ...parameters,
     );

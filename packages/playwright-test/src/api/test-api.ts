@@ -29,6 +29,7 @@ import { PlaywrightStepReporter, } from '../reporter/index.js';
 import { PlaywrightTestSceneIdFactory } from '../reporter/PlaywrightTestSceneIdFactory.js';
 import { PerformActivitiesAsPlaywrightSteps } from './PerformActivitiesAsPlaywrightSteps.js';
 import type { SerenityFixtures, SerenityWorkerFixtures } from './serenity-fixtures.js';
+import { WorkerEventStreamer } from './WorkerEventStreamer.js';
 import { WorkerEventStreamWriter } from './WorkerEventStreamWriter.js';
 
 interface SerenityInternalFixtures {
@@ -41,6 +42,7 @@ interface SerenityInternalWorkerFixtures {
     sceneIdFactoryInternal: PlaywrightTestSceneIdFactory;
     diffFormatterInternal: DiffFormatter;
     eventStreamWriterInternal: WorkerEventStreamWriter;
+    liveEventStreamerInternal: WorkerEventStreamer;
     workerCastInternal: Cast;
     actorLifecycleManagerInternal: ActorLifecycleManager;
 }
@@ -209,9 +211,22 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
         { scope: 'worker', box: true },
     ],
 
+    liveEventStreamerInternal: [
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+        async ({}, use) => {
+
+            const liveEventStreamer = WorkerEventStreamer.fromEnvironment();
+
+            await use(liveEventStreamer);
+
+            await liveEventStreamer.close();
+        },
+        { scope: 'worker', box: true },
+    ],
+
     configureWorkerInternal: [
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-        async ({ diffFormatterInternal, eventStreamWriterInternal, extraWorkerAbilities, sceneIdFactoryInternal, serenity, browser }, use, info: WorkerInfo) => {
+        async ({ diffFormatterInternal, eventStreamWriterInternal, extraWorkerAbilities, liveEventStreamerInternal, sceneIdFactoryInternal, serenity, browser }, use, info: WorkerInfo) => {
 
             serenity.configure({
                 actors: Cast.where(actor => {
@@ -228,6 +243,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
                 }),
                 crew: [
                     eventStreamWriterInternal,
+                    liveEventStreamerInternal,
                 ],
                 diffFormatter: diffFormatterInternal,
             });
