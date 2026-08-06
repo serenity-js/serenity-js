@@ -23,7 +23,7 @@ export class TestRunnerTagger implements StageCrewMember {
             this.stage.announce(
                 new events.SceneTagged(
                     this.stage.currentSceneId(),
-                    new ArbitraryTag(`${this.tagName}:${ event.name.value }`),
+                    new ArbitraryTag(`${this.tagName}-${ event.name.value }`),
                     this.stage.currentTime()
                 )
             );
