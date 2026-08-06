@@ -108,7 +108,7 @@ dependencies follow the dependency rule: abstractions never depend on concretion
 - **Coverage**: c8
 - **Linting**: ESLint with TypeScript, Unicorn, simple-import-sort, and Mocha plugins
 - **Value Objects**: tiny-types
-- **Node.js**: ^20 || ^22 || ^24
+- **Node.js**: ^22.12 || ^24
 
 ## Build Commands
 
