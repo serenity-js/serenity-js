@@ -35,21 +35,21 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - name: Setup Node
         if: matrix.language == 'javascript-typescript'
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
-          node-version: 24.16.0
+          node-version: 24.19.0
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@8aad20d150bbac5944a9f9d289da16a4b0d87c1e # v4
+        uses: github/codeql-action/init@5595ccaf912efad79be6eef63a5619ff05969be3 # v4
         with:
           config-file: ${{ matrix.config-file }}
           languages: ${{ matrix.language }}
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@8aad20d150bbac5944a9f9d289da16a4b0d87c1e # v4
+        uses: github/codeql-action/analyze@5595ccaf912efad79be6eef63a5619ff05969be3 # v4
         with:
           category: "/language:${{matrix.language}}"

@@ -1,4 +1,4 @@
-import type { Chalk, Options } from 'chalk';    // eslint-disable-line unicorn/import-style
+import type { Chalk, Options } from 'chalk';     
 import chalk from 'chalk';    
 
 const ChalkInstance = chalk.Instance;

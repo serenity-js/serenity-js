@@ -32,7 +32,7 @@ allowBuilds:
   es5-ext: false
   esbuild: false
   geckodriver: false
-minimumReleaseAge: 1440       # 1 day, in minutes
+minimumReleaseAge: 1440 # 1 day, in minutes
 minimumReleaseAgeExclude:
   - eslint@10.5.0
   - "@cucumber/*"
@@ -42,6 +42,7 @@ minimumReleaseAgeExclude:
   - "typescript"
   - "eslint"
   - "@typescript-eslint/*"
+  - eslint-plugin-unicorn@71.0.0
 trustPolicy: no-downgrade
 trustPolicyIgnoreAfter: 525600 # 1 year, in minutes
 trustPolicyExclude:

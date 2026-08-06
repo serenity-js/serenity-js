@@ -6,7 +6,7 @@ import { TinyType } from 'tiny-types';
 function tinyTypeEquals(_super) {
     return function assertTinyTypes(another: TinyType) {
 
-        const obj = this._obj;  // eslint-disable-line unicorn/prevent-abbreviations
+        const obj = this._obj;   
         if (obj && obj instanceof TinyType) {
             return this.assert(
                 obj.equals(another),
