@@ -115,6 +115,8 @@ npx @serenity-js/html-reporter serve --dir ./reports/serenity --open
 | `maxHistory`        | `number` | —                       | Maximum test runs to retain (older runs are pruned)           |
 | `consistencyWindow` | `number` | `5`                     | Number of recent runs used to detect flaky tests              |
 
+> **Note:** `consistencyWindow` is effectively capped at `maxHistory`. If you set `consistencyWindow: 10` but `maxHistory: 5`, the reporter uses the 5 available runs for flaky detection.
+
 ## CLI
 
 The package includes a CLI for aggregating results from multiple parallel jobs and serving reports locally.

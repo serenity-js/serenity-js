@@ -476,6 +476,27 @@ test.describe('DataSnapshotAggregator', () => {
             // maxHistory=3 means the oldest (run-1) is pruned, keeping run-2, run-3, run-4
             expect(data.history).toHaveLength(3);
         });
+
+        test('uses all available runs for consistency when consistencyWindow exceeds maxHistory', () => {
+            // maxHistory=2 keeps only 2 runs on disk, but consistencyWindow=10 requests 10.
+            // The test was unstable (pass → fail) within those 2 runs, so it should still
+            // be detected as inconsistent despite the window being larger than available data.
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-14T10:00:00.000Z': { 'db.json': runData({ startedAt: '2024-06-14T10:00:00.000Z', finishedAt: '2024-06-14T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Flaky Test', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                    '2024-06-15T10:00:00.000Z': { 'db.json': runData({ startedAt: '2024-06-15T10:00:00.000Z', finishedAt: '2024-06-15T10:00:00.100Z', outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'Flaky Test', category: 'S', outcome: { code: 4 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },
+                },
+            }, { maxHistory: 2, consistencyWindow: 10 });
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            // consistencyWindow is effectively capped at the available runs (2)
+            // The test flipped from pass to fail, so it's detected as inconsistent
+            expect(data.inconsistentTests).toHaveLength(1);
+            expect(data.inconsistentTests[0].name).toBe('Flaky Test');
+            expect(data.inconsistentTests[0].history).toEqual(['SUCCESS', 'FAILURE']);
+        });
     });
 
     test.describe('inconsistent test identification', () => {
