@@ -169,8 +169,8 @@ importers:
   examples/cucumber-domain-level-testing:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 13.0.0
-        version: 13.0.0
+        specifier: 13.2.1
+        version: 13.2.1
       '@examples/calculator-app':
         specifier: workspace:*
         version: link:../calculator-app
@@ -208,8 +208,8 @@ importers:
   examples/cucumber-reporting:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 13.0.0
-        version: 13.0.0
+        specifier: 13.2.1
+        version: 13.2.1
       '@serenity-js/assertions':
         specifier: workspace:*
         version: link:../../packages/assertions
@@ -244,8 +244,8 @@ importers:
   examples/cucumber-rest-api-level-testing:
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 13.0.0
-        version: 13.0.0
+        specifier: 13.2.1
+        version: 13.2.1
       '@examples/calculator-app':
         specifier: workspace:*
         version: link:../calculator-app
@@ -1791,8 +1791,8 @@ importers:
   integration/protractor-cucumber:
     dependencies:
       '@cucumber/cucumber':
-        specifier: 13.0.0
-        version: 13.0.0
+        specifier: 13.2.1
+        version: 13.2.1
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../testing-tools
@@ -2115,8 +2115,8 @@ importers:
   integration/webdriverio-8-cucumber:
     dependencies:
       '@cucumber/cucumber':
-        specifier: 13.0.0
-        version: 13.0.0
+        specifier: 13.2.1
+        version: 13.2.1
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../testing-tools
@@ -2337,8 +2337,8 @@ importers:
   integration/webdriverio-cucumber:
     dependencies:
       '@cucumber/cucumber':
-        specifier: 13.0.0
-        version: 13.0.0
+        specifier: 13.2.1
+        version: 13.2.1
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../testing-tools
@@ -2694,8 +2694,8 @@ importers:
         specifier: 41.0.0
         version: 41.0.0
       '@cucumber/messages':
-        specifier: 34.0.1
-        version: 34.0.1
+        specifier: 34.2.1
+        version: 34.2.1
       '@serenity-js/core':
         specifier: workspace:*
         version: link:../core
@@ -2710,8 +2710,8 @@ importers:
         version: 2.0.5
     devDependencies:
       '@cucumber/cucumber':
-        specifier: 13.0.0
-        version: 13.0.0
+        specifier: 13.2.1
+        version: 13.2.1
       '@integration/testing-tools':
         specifier: workspace:*
         version: link:../../integration/testing-tools
@@ -3602,6 +3602,7 @@ packages:
 
   '@cucumber/create-meta@5.0.0':
     resolution: {integrity: sha512-Z5kMZkUff00S3/KSnKzB/KOm2UIxMXY1xXmj2dQMlD49lV6v/W8EEvgDMNtQotQNSOQU5bDupmWQpk+o16tXIw==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@cucumber/cucumber-expressions@12.1.3':
     resolution: {integrity: sha512-LB8MAzE4F/t2KIgsDEz4gZH0xSI4aG0/LmYUPyISPPjUS1pI/yGWWyeX2WsiUQxpSs765WcNIq5Bggt7gGGO3Q==}
@@ -3624,9 +3625,6 @@ packages:
   '@cucumber/cucumber-expressions@19.0.0':
     resolution: {integrity: sha512-4FKoOQh2Uf6F6/Ln+1OxuK8LkTg6PyAqekhf2Ix8zqV2M54sH+m7XNJNLhOFOAW/t9nxzRbw2CcvXbCLjcvHZg==}
 
-  '@cucumber/cucumber-expressions@19.0.1':
-    resolution: {integrity: sha512-tJrTgCZ5/vgDBfAs2pQu0fu88gPJIGQ40AC/3ftg5/i/BwnhX/W1MbaFF8A+tanY1zbUWWarGFJ2QMKItPQ/QQ==}
-
   '@cucumber/cucumber-expressions@20.0.0':
     resolution: {integrity: sha512-t2FBLKuU0U1nP5FM8pHiVonYcXVm07fvXr/H9osdvrjcLXSWc5OCbOOqV/k5S56w/YndPv1Sv2/m/x1KBYvIlA==}
 
@@ -3643,11 +3641,6 @@ packages:
   '@cucumber/cucumber@12.9.0':
     resolution: {integrity: sha512-QbgEo/DcKFMRGL+yULh8Kw6peEfdPJjhYjpKp0dYc+6Dv1Bmp6hvxIdTi2CIinYBCXhvCZzNO1Ct/n6Dk1yAtA==}
     engines: {node: 20 || 22 || >=24}
-    hasBin: true
-
-  '@cucumber/cucumber@13.0.0':
-    resolution: {integrity: sha512-lUD/IxGZXbfSP+pd7zaYvJIJXBaTZ36CmQxcLDYkilGH8y4ycaOnXe7ll0QFukYFh9/1x6S7pw6lYspJg6g7jw==}
-    engines: {node: 22 || 24 || >=26}
     hasBin: true
 
   '@cucumber/cucumber@13.2.1':
@@ -3753,9 +3746,6 @@ packages:
 
   '@cucumber/gherkin@38.0.0':
     resolution: {integrity: sha512-duEXK+KDfQUzu3vsSzXjkxQ2tirF5PRsc1Xrts6THKHJO6mjw4RjM8RV+vliuDasmhhrmdLcOcM7d9nurNTJKw==}
-
-  '@cucumber/gherkin@39.1.0':
-    resolution: {integrity: sha512-pqmSO2bUWxJm3TbNrKXlDaHjL6c77+ez9kWmfCd9oRPeTRPEVH3spZvpAqdXYWOZYSNYwWFCAAeZ4RGpkauNoQ==}
 
   '@cucumber/gherkin@41.0.0':
     resolution: {integrity: sha512-pKGx1EzNjtWbpw74kEevKDMj71dF3ZSaFJpLYuWVvRZKe+Cwoq5iEkuMaELIg1jxIu8jH/A2HPMpMR8UBvdG0w==}
@@ -3865,21 +3855,16 @@ packages:
   '@cucumber/messages@33.0.4':
     resolution: {integrity: sha512-i6P1a0bnmhecOHfvIW0rhMxv/gMKfBKwDMxmD9/Uo1HSqpQ17ocHms1JwWW6uTMLAopqqWlcz7l6Pax+qUOTzg==}
 
-  '@cucumber/messages@34.0.1':
-    resolution: {integrity: sha512-Mvh8CkZD4TGykvXqM9qpnYVGy9cqMxYkImtghl2cF1hEuBtuDGU716zQk7KviLh0ssidM/phh9kdbJL/73dHpg==}
-
   '@cucumber/messages@34.2.0':
     resolution: {integrity: sha512-6X6T1TApmbQNqxC0Oh3GcnLU+gfE5fp+cEXE/ml6+Ldx76Q6BDmkgM5vagSSDXP+vetPV2Fb0kWVeP7QIR6+Aw==}
+
+  '@cucumber/messages@34.2.1':
+    resolution: {integrity: sha512-aj2iCAG9ZOpMVcMxcgShifv5fbR96b7SMgdWcPXXh2QbFp7OEcAnQ5MC5YfWUDSDasmw7FU5NJEsOrXdTQOU1A==}
 
   '@cucumber/pretty-formatter@1.0.1':
     resolution: {integrity: sha512-A1lU4VVP0aUWdOTmpdzvXOyEYuPtBDI0xYwYJnmoMDplzxMdhcHk86lyyvYDoMoPzzq6OkOE3isuosvUU4X7IQ==}
     peerDependencies:
       '@cucumber/cucumber': '>=7.0.0'
-      '@cucumber/messages': '*'
-
-  '@cucumber/pretty-formatter@3.3.1':
-    resolution: {integrity: sha512-wy8M/Poaqnoom+YP1mzZMfHEE3pP9/0JAYajkjpHTtanp4KJGpAXdukuUYbmmgFjRXUmUSK3s5I+I5+f+q2blA==}
-    peerDependencies:
       '@cucumber/messages': '*'
 
   '@cucumber/pretty-formatter@4.0.0':
@@ -5427,9 +5412,6 @@ packages:
 
   '@types/node@22.19.21':
     resolution: {integrity: sha512-VMeFBSCKQKmm2swI2kW51SFusDqekC6q9trBCvJ/JliDchFSuoYYKN7yVNjPthP1HKZcx3U1gI/wTcEBjEFKTA==}
-
-  '@types/node@24.13.2':
-    resolution: {integrity: sha512-fRa09kZTgu8o71KFcDjUFuc7F+dEbZYZmkI0mg5YBTRs0yMKjYHsq/c0urDKeDb+D5qVgXOdFcuu+DZPKOITwA==}
 
   '@types/node@24.13.3':
     resolution: {integrity: sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q==}
@@ -10627,11 +10609,6 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  semver@7.8.1:
-    resolution: {integrity: sha512-rkVq3IXh+4FDGch+KwzX3aV9W3kO54GyEgpvBzSyctDA6Xtd7RJQV1xmXbeQp5v7+VzLOfVqiutSE6GICgPFvg==}
-    engines: {node: '>=10'}
-    hasBin: true
-
   semver@7.8.5:
     resolution: {integrity: sha512-Y7/KDsb8LjooZpwaqGyulO6DQlksgCncchHGk+sZIY4SBvUocMBEFH5Ur1fI4dV+Jvl0w6cjvucaIi40puRioA==}
     engines: {node: '>=10'}
@@ -11032,10 +11009,6 @@ packages:
 
   super-regex@1.1.0:
     resolution: {integrity: sha512-WHkws2ZflZe41zj6AolvvmaTrWds/VuyeYr9iPVv/oQeaIoVxMKaushfFWpOGDT+GuBrM/sVqF8KUCYQlSSTdQ==}
-    engines: {node: '>=18'}
-
-  supports-color@10.2.2:
-    resolution: {integrity: sha512-SS+jx45GF1QjgEXQx4NJZV9ImqmO2NPz5FNsIHrsDjh2YsHnawpan7SNQ1o8NuhrbHZy9AZhIoCUiCeaW/C80g==}
     engines: {node: '>=18'}
 
   supports-color@11.0.0:
@@ -12333,10 +12306,6 @@ snapshots:
     dependencies:
       regexp-match-indices: 1.0.2
 
-  '@cucumber/cucumber-expressions@19.0.1':
-    dependencies:
-      regexp-match-indices: 1.0.2
-
   '@cucumber/cucumber-expressions@20.0.0':
     dependencies:
       regexp-match-indices: 1.0.2
@@ -12466,43 +12435,6 @@ snapshots:
       string-argv: 0.3.1
       supports-color: 8.1.1
       type-fest: 4.41.0
-      util-arity: 1.1.0
-      yaml: 2.9.0
-      yup: 1.7.1
-
-  '@cucumber/cucumber@13.0.0':
-    dependencies:
-      '@cucumber/ci-environment': 13.0.0
-      '@cucumber/cucumber-expressions': 19.0.1
-      '@cucumber/gherkin': 39.1.0
-      '@cucumber/gherkin-streams': 6.0.0(@cucumber/gherkin@39.1.0)(@cucumber/message-streams@4.1.1(@cucumber/messages@32.3.1))(@cucumber/messages@32.3.1)
-      '@cucumber/gherkin-utils': 11.0.0
-      '@cucumber/html-formatter': 23.1.0(@cucumber/messages@32.3.1)
-      '@cucumber/junit-xml-formatter': 0.13.3(@cucumber/messages@32.3.1)
-      '@cucumber/message-streams': 4.1.1(@cucumber/messages@32.3.1)
-      '@cucumber/messages': 32.3.1
-      '@cucumber/pretty-formatter': 3.3.1(@cucumber/messages@32.3.1)
-      '@cucumber/tag-expressions': 9.1.0
-      assertion-error-formatter: 3.0.0
-      cli-table3: 0.6.5
-      commander: 15.0.0
-      debug: 4.4.3(supports-color@10.2.2)
-      error-stack-parser: 2.1.4
-      figures: 6.1.0
-      has-ansi: 6.0.2
-      indent-string: 5.0.0
-      is-installed-globally: 1.0.0
-      is-stream: 4.0.1
-      knuth-shuffle-seeded: 1.0.6
-      lodash.merge: 4.6.2
-      lodash.mergewith: 4.6.2
-      luxon: 3.7.2
-      mkdirp: 3.0.1
-      read-package-up: 12.0.0
-      semver: 7.8.1
-      string-argv: 0.3.2
-      supports-color: 10.2.2
-      type-fest: 5.7.0
       util-arity: 1.1.0
       yaml: 2.9.0
       yup: 1.7.1
@@ -12761,14 +12693,6 @@ snapshots:
       commander: 14.0.0
       source-map-support: 0.5.21
 
-  '@cucumber/gherkin-streams@6.0.0(@cucumber/gherkin@39.1.0)(@cucumber/message-streams@4.1.1(@cucumber/messages@32.3.1))(@cucumber/messages@32.3.1)':
-    dependencies:
-      '@cucumber/gherkin': 39.1.0
-      '@cucumber/message-streams': 4.1.1(@cucumber/messages@32.3.1)
-      '@cucumber/messages': 32.3.1
-      commander: 14.0.0
-      source-map-support: 0.5.21
-
   '@cucumber/gherkin-streams@7.0.1(@cucumber/gherkin@42.0.0)(@cucumber/message-streams@5.0.1(@cucumber/messages@34.2.0))(@cucumber/messages@34.2.0)':
     dependencies:
       '@cucumber/gherkin': 42.0.0
@@ -12860,17 +12784,13 @@ snapshots:
     dependencies:
       '@cucumber/messages': 32.3.1
 
-  '@cucumber/gherkin@39.1.0':
-    dependencies:
-      '@cucumber/messages': 32.3.1
-
   '@cucumber/gherkin@41.0.0':
     dependencies:
-      '@cucumber/messages': 32.3.1
+      '@cucumber/messages': 33.0.4
 
   '@cucumber/gherkin@42.0.0':
     dependencies:
-      '@cucumber/messages': 34.0.1
+      '@cucumber/messages': 34.2.0
 
   '@cucumber/html-formatter@15.0.2':
     dependencies:
@@ -13027,9 +12947,9 @@ snapshots:
 
   '@cucumber/messages@33.0.4': {}
 
-  '@cucumber/messages@34.0.1': {}
-
   '@cucumber/messages@34.2.0': {}
+
+  '@cucumber/messages@34.2.1': {}
 
   '@cucumber/pretty-formatter@1.0.1(@cucumber/cucumber@12.9.0)(@cucumber/messages@32.3.1)':
     dependencies:
@@ -13039,12 +12959,6 @@ snapshots:
       cli-table3: 0.6.5
       figures: 3.2.0
       ts-dedent: 2.3.0
-
-  '@cucumber/pretty-formatter@3.3.1(@cucumber/messages@32.3.1)':
-    dependencies:
-      '@cucumber/messages': 32.3.1
-      '@cucumber/query': 15.0.1(@cucumber/messages@32.3.1)
-      luxon: 3.7.2
 
   '@cucumber/pretty-formatter@4.0.0(@cucumber/messages@34.2.0)':
     dependencies:
@@ -13675,7 +13589,7 @@ snapshots:
 
   '@jest/pattern@30.4.0':
     dependencies:
-      '@types/node': 24.13.2
+      '@types/node': 24.13.3
       jest-regex-util: 30.4.0
 
   '@jest/schemas@29.6.3':
@@ -13701,7 +13615,7 @@ snapshots:
       '@jest/schemas': 30.4.1
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 24.13.2
+      '@types/node': 24.13.3
       '@types/yargs': 17.0.35
       chalk: 4.1.2
 
@@ -14582,10 +14496,6 @@ snapshots:
   '@types/node@22.19.21':
     dependencies:
       undici-types: 6.21.0
-
-  '@types/node@24.13.2':
-    dependencies:
-      undici-types: 7.18.2
 
   '@types/node@24.13.3':
     dependencies:
@@ -15944,7 +15854,7 @@ snapshots:
 
   chrome-launcher@1.2.1(supports-color@11.0.0):
     dependencies:
-      '@types/node': 24.13.2
+      '@types/node': 24.13.3
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 2.0.2(supports-color@11.0.0)
@@ -16682,12 +16592,6 @@ snapshots:
       ms: 2.1.2
     optionalDependencies:
       supports-color: 11.0.0
-
-  debug@4.4.3(supports-color@10.2.2):
-    dependencies:
-      ms: 2.1.3
-    optionalDependencies:
-      supports-color: 10.2.2
 
   debug@4.4.3(supports-color@11.0.0):
     dependencies:
@@ -18784,7 +18688,7 @@ snapshots:
   jest-mock@30.4.1:
     dependencies:
       '@jest/types': 30.4.1
-      '@types/node': 24.13.2
+      '@types/node': 24.13.3
       jest-util: 30.4.1
 
   jest-regex-util@30.4.0: {}
@@ -18801,7 +18705,7 @@ snapshots:
   jest-util@30.4.1:
     dependencies:
       '@jest/types': 30.4.1
-      '@types/node': 24.13.2
+      '@types/node': 24.13.3
       chalk: 4.1.2
       ci-info: 4.4.0
       graceful-fs: 4.2.11
@@ -21110,8 +21014,6 @@ snapshots:
 
   semver@7.7.4: {}
 
-  semver@7.8.1: {}
-
   semver@7.8.5: {}
 
   send@0.18.0(supports-color@11.0.0):
@@ -21649,8 +21551,6 @@ snapshots:
       function-timeout: 1.0.2
       make-asynchronous: 1.1.0
       time-span: 5.1.0
-
-  supports-color@10.2.2: {}
 
   supports-color@11.0.0: {}
 
