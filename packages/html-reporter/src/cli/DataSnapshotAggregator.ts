@@ -42,6 +42,7 @@ export class DataSnapshotAggregator {
         private readonly requirementsHierarchy: RequirementsHierarchy,
         private readonly projectFileSystem: FileSystem,
         private readonly sourceFileSystem: FileSystem,
+        private readonly warn: typeof console.warn = console.warn,
     ) {
     }
 
@@ -107,7 +108,7 @@ export class DataSnapshotAggregator {
             return validateRunData(raw, path);
         } catch (error) {
             if (error instanceof InvalidRunDataError || error instanceof IncompatibleSchemaError || error instanceof SyntaxError) {
-                console.warn(`[html-reporter] Skipping ${ path }: ${ (error as Error).message }`);
+                this.warn(`[html-reporter] Skipping ${ path }: ${ (error as Error).message }`);
                 return null;
             }
             throw error;

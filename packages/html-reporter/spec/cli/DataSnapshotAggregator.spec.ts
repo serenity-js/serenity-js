@@ -28,7 +28,7 @@ test.describe('DataSnapshotAggregator', () => {
             maxHistory: config.maxHistory,
             title: config.title,
             buildCapabilities: !!requirementsHierarchy,
-        }, hierarchy, defaultProjectFs, sourceFileSystem);
+        }, hierarchy, defaultProjectFs, sourceFileSystem, () => undefined);
 
         return { aggregator, filesystem };
     }
