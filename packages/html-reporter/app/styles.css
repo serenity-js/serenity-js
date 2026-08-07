@@ -3974,8 +3974,7 @@
         flex-direction: column;
         overflow: hidden;
 
-        /* Fixed height = max available. Body flex-grows to fill remaining space. */
-        height: 70dvh;
+        /* Shrinks to content for single-module, constrained for multi-module */
         max-height: 70dvh;
 
         /* Visual treatment */
@@ -3992,8 +3991,18 @@
     }
 
     .run-details-body {
-        flex: 1 1 0;
+        flex: 1 1 auto;
         min-height: 0;
+    }
+
+    /* When the module table is present, the panel needs explicit height
+       so the body gets definite space for the absolute-positioned table-wrap */
+    .run-details-panel:has(.run-details-table-wrap) {
+        height: 70dvh;
+    }
+
+    .run-details-panel:has(.run-details-table-wrap) .run-details-body {
+        flex-basis: 0;
         overflow: hidden;
         position: relative;
     }
