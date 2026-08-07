@@ -3,7 +3,7 @@ import { beforeEach, describe, it } from 'mocha';
 import * as sinon from 'sinon';
 
 import type { Actor} from '../../../src';
-import { actorCalled, Check, Interaction } from '../../../src';
+import { actorCalled, Check, Interaction, isHidden } from '../../../src';
 import { expect } from '../../expect';
 import { isIdenticalTo } from '../../isIdenticalTo';
 
@@ -115,6 +115,10 @@ describe('Check', () => {
                     name: 'Jan',
                 },
             })).andIfSo().toString()).to.equal(`#actor checks whether {"person":{"name":"Jan"}} does have value identical to {"person":{"name":"Jan"}}`);
+        });
+
+        it('is hidden, so the check itself is omitted from the report while the activities it performs are still reported', () => {
+            expect(isHidden(Check.whether(4, isIdenticalTo(4)).andIfSo())).to.equal(true);
         });
     })
 });
