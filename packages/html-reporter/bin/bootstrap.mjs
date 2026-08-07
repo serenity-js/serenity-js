@@ -18,7 +18,7 @@ import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import fg from 'fast-glob';
 import yargs from 'yargs';
 
-import { DataSnapshotAggregator } from '../esm/cli/DataSnapshotAggregator.js';
+import { MultiSourceAggregator } from '../esm/cli/MultiSourceAggregator.js';
 import { ReportTemplateWriter } from '../esm/cli/ReportTemplateWriter.js';
 import { getNetworkAddress, handleRequest } from './staticFileServer.mjs';
 
@@ -70,7 +70,7 @@ function createAggregator(outputDirectory, dbJsonPaths, options) {
         ? new RequirementsHierarchy(projectFileSystem, Path.from(options.specRoot))
         : new RequirementsHierarchy(projectFileSystem);
 
-    return new DataSnapshotAggregator(outputFileSystem, {
+    return new MultiSourceAggregator(outputFileSystem, {
         consistencyWindow: options.consistencyWindow,
         maxHistory: options.maxHistory,
         title: options.title,

@@ -26,9 +26,9 @@ import {
 } from '@serenity-js/core/model';
 import { createFsFromVolume, Volume } from 'memfs';
 
-import { DataSnapshotAggregator } from '../../src/cli/DataSnapshotAggregator.js';
 import type { ReportData } from '../../src/cli/ReportData.js';
 import { SceneDataCollector } from '../../src/cli/SceneDataCollector.js';
+import { SingleSourceAggregator } from '../../src/cli/SingleSourceAggregator.js';
 import type { SystemContext } from '../../src/cli/SystemContextDetector.js';
 
 // -- Helpers --
@@ -119,7 +119,7 @@ function aggregateRuns(runs: Record<string, string>): ReportData {
 
     const outputFs = new FileSystem(Path.from('/output'), filesystem);
     const hierarchy = new RequirementsHierarchy(outputFs);
-    const aggregator = new DataSnapshotAggregator(outputFs, { consistencyWindow: 5 }, hierarchy, outputFs, outputFs, () => undefined);
+    const aggregator = new SingleSourceAggregator(outputFs, { consistencyWindow: 5 }, hierarchy, outputFs, () => undefined);
     aggregator.aggregate();
 
     const content = filesystem.readFileSync('/output/data.js', 'utf8') as string;
@@ -297,7 +297,7 @@ test.describe('Full pipeline integration: events → db.json → data.js', () =>
 
             const outputFs = new FileSystem(Path.from('/output'), filesystem);
             const hierarchy = new RequirementsHierarchy(outputFs);
-            const aggregator = new DataSnapshotAggregator(outputFs, { consistencyWindow: 5 }, hierarchy, outputFs, outputFs, () => undefined);
+            const aggregator = new SingleSourceAggregator(outputFs, { consistencyWindow: 5 }, hierarchy, outputFs, () => undefined);
             aggregator.aggregate();
 
             expect(filesystem.existsSync('/output/data.js')).toBe(false);

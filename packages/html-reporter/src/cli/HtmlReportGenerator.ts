@@ -10,9 +10,9 @@ import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import { CorrelationId, Description, Name } from '@serenity-js/core/model';
 import { ensure, isDefined } from 'tiny-types';
 
-import { DataSnapshotAggregator } from './DataSnapshotAggregator.js';
 import type { HtmlReporterConfig } from './HtmlReporterConfig.js';
 import { ReportTemplateWriter } from './ReportTemplateWriter.js';
+import { SingleSourceAggregator } from './SingleSourceAggregator.js';
 
 /**
  * A {@link StageCrewMember} that aggregates test run data and generates
@@ -43,7 +43,7 @@ export class HtmlReportGenerator implements StageCrewMember {
     }
 
     constructor(
-        private readonly aggregator: DataSnapshotAggregator,
+        private readonly aggregator: SingleSourceAggregator,
         private readonly templateWriter: ReportTemplateWriter,
         private stage?: Stage,
     ) {
@@ -104,7 +104,7 @@ class HtmlReportGeneratorBuilder implements StageCrewMemberBuilder<HtmlReportGen
         const outputFileSystem = new FileSystem(outputDirectory);
         const projectFileSystem = new FileSystem(Path.from(process.cwd()));
 
-        const aggregator = new DataSnapshotAggregator(outputFileSystem, {
+        const aggregator = new SingleSourceAggregator(outputFileSystem, {
             consistencyWindow: this.config.consistencyWindow ?? 5,
             maxHistory: this.config.maxHistory,
             title: this.config.title,
@@ -112,7 +112,7 @@ class HtmlReportGeneratorBuilder implements StageCrewMemberBuilder<HtmlReportGen
         }, new RequirementsHierarchy(
             projectFileSystem,
             this.config.specDirectory ? Path.from(this.config.specDirectory) : undefined,
-        ), projectFileSystem, projectFileSystem,
+        ), projectFileSystem,
         );
 
         const templateWriter = new ReportTemplateWriter(outputFileSystem);

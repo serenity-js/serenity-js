@@ -7,7 +7,7 @@ import { createFsFromVolume, Volume } from 'memfs';
 import { DataSnapshotAggregator } from '../../src/cli/DataSnapshotAggregator.js';
 import type { ReportData } from '../../src/cli/ReportData.js';
 
-test.describe('DataSnapshotAggregator', () => {
+test.describe('ReportAggregator', () => {
 
     const outputDirectory = Path.from('/reports/serenity-js');
 

@@ -5,12 +5,12 @@ import { ensure, isDefined } from 'tiny-types';
 
 import { ArtifactWriter } from './ArtifactWriter.js';
 import { CIDetector } from './CiDetector.js';
-import { DataSnapshotAggregator } from './DataSnapshotAggregator.js';
 import type { HtmlReporterConfig } from './HtmlReporterConfig.js';
 import { HtmlReportGenerator } from './HtmlReportGenerator.js';
 import { ReportTemplateWriter } from './ReportTemplateWriter.js';
 import { RunDataWriter } from './RunDataWriter.js';
 import { SceneDataCollector } from './SceneDataCollector.js';
+import { SingleSourceAggregator } from './SingleSourceAggregator.js';
 import { SystemContextDetector } from './SystemContextDetector.js';
 import { detectAttemptNumber, detectModuleId, detectTestRunId, TestRunArchiver } from './TestRunArchiver.js';
 
@@ -89,12 +89,12 @@ class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
             projectFileSystem,
             this.config.specDirectory ? Path.from(this.config.specDirectory) : undefined,
         );
-        const aggregator = new DataSnapshotAggregator(outputFileSystem, {
+        const aggregator = new SingleSourceAggregator(outputFileSystem, {
             consistencyWindow: this.config.consistencyWindow ?? 5,
             maxHistory: this.config.maxHistory,
             title: this.config.title,
             buildCapabilities: !!this.config.specDirectory,
-        }, requirementsHierarchy, projectFileSystem, projectFileSystem,
+        }, requirementsHierarchy, projectFileSystem,
         );
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
 
