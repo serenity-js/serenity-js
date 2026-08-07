@@ -168,10 +168,6 @@ export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }
             ${total > 0 && html`
               <div class="run-details-durations">
                 <div class="run-details-duration-row">
-                  <span class="run-details-duration-label">Duration</span>
-                  <span class="run-details-duration-value">${selectedRun.metrics.total}</span>
-                </div>
-                <div class="run-details-duration-row">
                   <span class="run-details-duration-label">Slowest</span>
                   <span class="run-details-duration-value">${selectedRun.metrics.slowest}</span>
                 </div>
