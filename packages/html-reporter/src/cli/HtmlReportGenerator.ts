@@ -10,9 +10,9 @@ import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import { CorrelationId, Description, Name } from '@serenity-js/core/model';
 import { ensure, isDefined } from 'tiny-types';
 
-import { SingleSourceAggregator } from './aggregation/SingleSourceAggregator.js';
+import { SingleSourceAggregator } from './aggregation/index.js';
 import type { HtmlReporterConfig } from './HtmlReporterConfig.js';
-import { ReportTemplateWriter } from './reporting/ReportTemplateWriter.js';
+import { ReportTemplateWriter } from './reporting/index.js';
 
 /**
  * A {@link StageCrewMember} that aggregates test run data and generates

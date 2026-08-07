@@ -3,16 +3,11 @@ import type { DomainEvent } from '@serenity-js/core/events';
 import { FileSystem, ModuleLoader, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import { ensure, isDefined } from 'tiny-types';
 
-import { SingleSourceAggregator } from './aggregation/SingleSourceAggregator.js';
-import { ArtifactWriter } from './collection/ArtifactWriter.js';
-import { CIDetector } from './collection/CiDetector.js';
-import { RunDataWriter } from './collection/RunDataWriter.js';
-import { SceneDataCollector } from './collection/SceneDataCollector.js';
-import { SystemContextDetector } from './collection/SystemContextDetector.js';
-import { detectAttemptNumber, detectModuleId, detectTestRunId, TestRunArchiver } from './collection/TestRunArchiver.js';
+import { SingleSourceAggregator } from './aggregation/index.js';
+import { ArtifactWriter, CIDetector, detectAttemptNumber, detectModuleId, detectTestRunId, RunDataWriter, SceneDataCollector, SystemContextDetector, TestRunArchiver } from './collection/index.js';
 import type { HtmlReporterConfig } from './HtmlReporterConfig.js';
 import { HtmlReportGenerator } from './HtmlReportGenerator.js';
-import { ReportTemplateWriter } from './reporting/ReportTemplateWriter.js';
+import { ReportTemplateWriter } from './reporting/index.js';
 
 /**
  * A {@link StageCrewMember} that produces a self-contained static HTML report.
