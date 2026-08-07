@@ -58,7 +58,7 @@ Tests read like specifications. Each Task (`Authenticate`, `Inventory`, `Checkou
 | **Duplicated selectors and test logic** | The [Screenplay Pattern](https://serenity-js.org/handbook/design/screenplay-pattern/?ref=github-serenity-js-readme) gives you composable, reusable Tasks that separate *what* from *how* |
 | **Hard to tell what a test did** | [Structured reports](https://serenity-js.org/handbook/reporting/?ref=github-serenity-js-readme) show every action, with timing and screenshots |
 | **Multi-user workflows are hard to implement** | [Multi-actor support](https://serenity-js.org/handbook/test-runners/playwright-test/multi-actor-scenarios/?ref=github-serenity-js-readme) is built in |
-| **Stakeholders can't read test reports** | [Serenity BDD reports](https://serenity-js.org/handbook/reporting/serenity-bdd-reporter/?ref=github-serenity-js-readme) generate living documentation for technical and business audiences |
+| **Stakeholders can't read test reports** | [HTML reports](https://serenity-js.org/handbook/reporting/html-reporter/?ref=github-serenity-js-readme) with trends, consistency analysis, and living documentation |
 | **Logic duplicated across API and UI tests** | Screenplay Tasks [work across interfaces](https://serenity-js.org/handbook/web-testing/blended-testing/?ref=github-serenity-js-readme) |
 | **Slow UI-only test suites** | [Blended testing](https://serenity-js.org/handbook/web-testing/blended-testing/?ref=github-serenity-js-readme) — use APIs for setup, UI only where it matters |
 | **Locked into one tool** | Screenplay Tasks are portable — switch [integration tools](https://serenity-js.org/handbook/architecture/?ref=github-serenity-js-readme) and [test runners](https://serenity-js.org/handbook/test-runners/?ref=github-serenity-js-readme) without rewriting |
@@ -106,7 +106,10 @@ npm install --save-dev @serenity-js/core @serenity-js/console-reporter @serenity
 +       [ '@serenity-js/playwright-test', {
 +           crew: [
 +               '@serenity-js/console-reporter',
-+               [ '@serenity-js/html-reporter', { outputDirectory: './reports/serenity', specDirectory: './tests' } ],
++               [ '@serenity-js/html-reporter', { 
++                   specDirectory: './tests' 
++                   outputDirectory: './reports/serenity',\
++               } ],
 +           ]
 +       }]
 +   ],
@@ -146,7 +149,7 @@ That's it. Your existing tests gain structured reporting immediately. Adopt the 
 - **[15-minute tutorial](https://serenity-js.org/handbook/tutorials/your-first-web-scenario/?ref=github-serenity-js-readme)** — build your first Screenplay test in the browser
 - **[Project Templates](https://serenity-js.org/getting-started/project-templates/?ref=github-serenity-js-readme)** — pre-configured starters for Playwright, WebdriverIO, Cucumber
 - **[API Documentation](https://serenity-js.org/api/?ref=github-serenity-js-readme)** — reference for all `@serenity-js/*` modules
-- **[Reporting](https://serenity-js.org/handbook/reporting/?ref=github-serenity-js-readme)** — console, HTML, Serenity BDD living documentation
+- **[Reporting](https://serenity-js.org/handbook/reporting/?ref=github-serenity-js-readme)** — HTML reports, console output, Serenity BDD living documentation
 - **[Releases & Compatibility](https://serenity-js.org/releases/?ref=github-serenity-js-readme)** — latest versions, changelog, and Node/Playwright/WebdriverIO compatibility matrix
 
 ---
