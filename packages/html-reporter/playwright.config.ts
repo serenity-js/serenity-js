@@ -5,7 +5,6 @@ export default defineConfig({
     testDir: './spec',
     timeout: 30_000,
     retries: 0,
-    workers: 1,
     projects: [
         {
             name: 'unit',
