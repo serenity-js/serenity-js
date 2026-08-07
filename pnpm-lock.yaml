@@ -3152,11 +3152,11 @@ importers:
         specifier: 2.0.5
         version: 2.0.5
       which:
-        specifier: 6.0.1
-        version: 6.0.1
+        specifier: 7.0.0
+        version: 7.0.0
       yargs:
-        specifier: 17.7.3
-        version: 17.7.3
+        specifier: 18.1.0
+        version: 18.1.0
     devDependencies:
       '@integration/testing-tools':
         specifier: workspace:*
@@ -10666,6 +10666,10 @@ packages:
     resolution: {integrity: sha512-tsaTIkKW9b4N+AEj+SVA+WhJzV7/zMhcSu78mLKWSk7cXMOSHsBKFWUs0fWwq8QyK3MgJBQRX6Gbi4kYbdvGkQ==}
     engines: {node: '>=18'}
 
+  string-width@8.2.2:
+    resolution: {integrity: sha512-GaPUh5gfdrYzqeVNZvUfT23vYYxXzKYidUcnMtJg/3rxRV63EFZy3k6xfKlmfeJD0176lnUV/Usr3XcwSvFzpg==}
+    engines: {node: '>=20'}
+
   string_decoder@1.1.1:
     resolution: {integrity: sha512-n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==}
 
@@ -11437,6 +11441,11 @@ packages:
     engines: {node: ^20.17.0 || >=22.9.0}
     hasBin: true
 
+  which@7.0.0:
+    resolution: {integrity: sha512-RancgH2dmbLdHl6LRhEqvklWMgl/Hdnun0Y90KhBOLkMefg8Qa7/Zel8Sm+8HEcP6DEjzsWzpkuBQEZok58isA==}
+    engines: {node: ^22.22.2 || ^24.15.0 || >=26.0.0}
+    hasBin: true
+
   widest-line@3.1.0:
     resolution: {integrity: sha512-NsmoXalsWVDMGupxZ5R08ka9flZjjiLvHVAWYOKtiKM8ujtZWr9cRffak+uSE48+Ob8ObalXpwyeUiyDD6QFgg==}
     engines: {node: '>=8'}
@@ -11621,8 +11630,8 @@ packages:
     resolution: {integrity: sha512-GZtjxm/J/4TSxuL3FNYjCmLktBTnIw/rVmKSIyKeYAZpmJB2ig9VauCC5xsa82GNKVKDAqpOn3KVzNt0zmrU0g==}
     engines: {node: '>=12'}
 
-  yargs@18.0.0:
-    resolution: {integrity: sha512-4UEqdc2RYGHZc7Doyqkrqiln3p9X2DZVxaGbwhn2pi7MrRagKaOcIKe8L3OxYcbhXLgLFUS3zAYuQjKBQgmuNg==}
+  yargs@18.1.0:
+    resolution: {integrity: sha512-2rAgRKu54VsHkqI0/tYkmluGXHD4KW7yZoycuqDQ15QOTnc2VVfy0nN/1eMhnQLO00A+dwtK20xuCnc1YGeUyg==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=23}
 
   yauzl@3.4.0:
@@ -13770,7 +13779,7 @@ snapshots:
   '@puppeteer/browsers@3.0.6(proxy-agent@8.0.2(supports-color@11.0.0))(yauzl@3.4.0)':
     dependencies:
       modern-tar: 0.7.6
-      yargs: 18.0.0
+      yargs: 18.1.0
     optionalDependencies:
       proxy-agent: 8.0.2(supports-color@11.0.0)
       yauzl: 3.4.0
@@ -13778,7 +13787,7 @@ snapshots:
   '@puppeteer/browsers@3.0.6(proxy-agent@8.0.2(supports-color@8.1.1))(yauzl@3.4.0)':
     dependencies:
       modern-tar: 0.7.6
-      yargs: 18.0.0
+      yargs: 18.1.0
     optionalDependencies:
       proxy-agent: 8.0.2(supports-color@8.1.1)
       yauzl: 3.4.0
@@ -15235,7 +15244,7 @@ snapshots:
       istanbul-reports: 3.2.0
       test-exclude: 8.0.0
       v8-to-istanbul: 9.3.0
-      yargs: 18.0.0
+      yargs: 18.1.0
       yargs-parser: 21.1.1
 
   cacache@20.0.4:
@@ -20919,6 +20928,11 @@ snapshots:
       get-east-asian-width: 1.6.0
       strip-ansi: 7.2.0
 
+  string-width@8.2.2:
+    dependencies:
+      get-east-asian-width: 1.6.0
+      strip-ansi: 7.2.0
+
   string_decoder@1.1.1:
     dependencies:
       safe-buffer: 5.1.2
@@ -21719,6 +21733,10 @@ snapshots:
     dependencies:
       isexe: 4.0.0
 
+  which@7.0.0:
+    dependencies:
+      isexe: 4.0.0
+
   widest-line@3.1.0:
     dependencies:
       string-width: 4.2.3
@@ -21882,12 +21900,12 @@ snapshots:
       y18n: 5.0.8
       yargs-parser: 21.1.1
 
-  yargs@18.0.0:
+  yargs@18.1.0:
     dependencies:
       cliui: 9.0.1
       escalade: 3.2.0
       get-caller-file: 2.0.5
-      string-width: 7.2.0
+      string-width: 8.2.2
       y18n: 5.0.8
       yargs-parser: 22.0.0
 
