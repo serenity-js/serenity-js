@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.44.2](https://github.com/serenity-js/serenity-js/compare/v3.44.1...v3.44.2) (2026-08-07)
+
+### Bug Fixes
+
+* **core:** bump minimum supported Node version to 22.13.0 ([3c10a4f](https://github.com/serenity-js/serenity-js/commit/3c10a4fddcfcbc991a3e1908122dc51a2d9acde4)), closes [lerna/lerna#4390](https://github.com/lerna/lerna/issues/4390)
+* **deps:** update cucumber ([9a3edbd](https://github.com/serenity-js/serenity-js/commit/9a3edbd85de86d150666c3b6e770d86ce352bb6f))
+* **deps:** update dependency @cucumber/gherkin to v42 ([d1b01be](https://github.com/serenity-js/serenity-js/commit/d1b01be4cec74757e607eed72c556e030414bab2))
+
+
 ## [3.44.1](https://github.com/serenity-js/serenity-js/compare/v3.44.0...v3.44.1) (2026-07-06)
 
 
