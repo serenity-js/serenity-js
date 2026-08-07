@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { capabilityLink, link, scenarioLink, testsLink } from '../../../app/utils/link.js';
+import { capabilityLink, link, scenarioLink, testsLink } from '../../app/utils/link.js';
 
 test.describe('link() — type-safe URL builder', () => {
 
