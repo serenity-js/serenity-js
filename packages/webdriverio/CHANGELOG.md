@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.44.2](https://github.com/serenity-js/serenity-js/compare/v3.44.1...v3.44.2) (2026-08-07)
+
+### Bug Fixes
+
+* **core:** bump minimum supported Node version to 22.13.0 ([3c10a4f](https://github.com/serenity-js/serenity-js/commit/3c10a4fddcfcbc991a3e1908122dc51a2d9acde4)), closes [lerna/lerna#4390](https://github.com/lerna/lerna/issues/4390)
+* **deps:** update rest dependencies ([2ec8aea](https://github.com/serenity-js/serenity-js/commit/2ec8aeae31073c57c8880451f8a6fecc43d6508a))
+* **deps:** update webdriverio dependencies to ^9.30.1 ([dc983be](https://github.com/serenity-js/serenity-js/commit/dc983be520b40e3908a846f4a7ea81609dd1a109))
+
+
 ## [3.44.1](https://github.com/serenity-js/serenity-js/compare/v3.44.0...v3.44.1) (2026-07-06)
 
 
