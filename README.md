@@ -106,7 +106,7 @@ npm install --save-dev @serenity-js/core @serenity-js/console-reporter @serenity
 +       [ '@serenity-js/playwright-test', {
 +           crew: [
 +               '@serenity-js/console-reporter',
-+               [ '@serenity-js/html-reporter', { outputDirectory: './reports/serenity' } ],
++               [ '@serenity-js/html-reporter', { outputDirectory: './reports/serenity', specDirectory: './tests' } ],
 +           ]
 +       }]
 +   ],
