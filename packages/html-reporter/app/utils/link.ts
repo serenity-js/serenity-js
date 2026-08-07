@@ -19,10 +19,10 @@ export type {
     TestRunsLink,
     TestsLink,
     TimelineLink,
-} from '../../src/utils/link.js';
+} from '../../src/navigation/link.js';
 export {
     capabilityLink,
     link,
     scenarioLink,
     testsLink,
-} from '../../src/utils/link.js';
+} from '../../src/navigation/link.js';

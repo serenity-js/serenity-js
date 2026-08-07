@@ -4,7 +4,7 @@ import type { FileSystem } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
 import { Marked, parseInline } from 'marked';
 
-import { link } from '../../utils/link.js';
+import { link } from '../../navigation/link.js';
 import type { ReportCapabilityNode } from '../reporting/ReportData.js';
 
 /**

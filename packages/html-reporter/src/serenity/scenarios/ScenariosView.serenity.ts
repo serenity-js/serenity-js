@@ -3,8 +3,8 @@ import type { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
 import { Task, the } from '@serenity-js/core';
 import { By, PageElement, PageElements, Text, Value } from '@serenity-js/web';
 
-import type { OutcomeFilter } from '../../utils/link.js';
-import { link } from '../../utils/link.js';
+import type { OutcomeFilter } from '../../navigation/link.js';
+import { link } from '../../navigation/link.js';
 import { FilterBar } from '../common/FilterBar.serenity.js';
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
