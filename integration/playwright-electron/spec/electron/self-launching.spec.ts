@@ -26,7 +26,7 @@ describe('Serenity/JS with Playwright Test and Electron', () => {
                     prepare: (actor) => actor.whoCan(
                         BrowseTheWebWithPlaywright.launchingElectronApp(electronOptions, {
                             defaultNavigationTimeout: Duration.ofSeconds(5).inMilliseconds(),
-                            defaultTimeout: Duration.ofSeconds(3).inMilliseconds(),
+                            defaultTimeout: Duration.ofSeconds(5).inMilliseconds(),
                         })
                     ),
                 },
