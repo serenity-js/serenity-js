@@ -114,6 +114,10 @@ npx @serenity-js/html-reporter serve --dir ./reports/serenity --open
 | `specDirectory`     | `string` | —                       | Root of your specs, used to build the capabilities hierarchy  |
 | `maxHistory`        | `number` | —                       | Maximum test runs to retain (older runs are pruned)           |
 | `consistencyWindow` | `number` | `5`                     | Number of recent runs used to detect flaky tests              |
+| `projectName`       | `string` | —                       | Project name in the report (defaults to the closest `package.json` name) |
+| `testRunId`         | `string` | auto-detected           | Test run directory identifier (defaults to CI build number or ISO timestamp) |
+| `moduleId`          | `string` | —                       | Module identifier for parallel CI job shards                  |
+| `ci`                | `object` | auto-detected           | Override CI/CD context (`provider`, `buildNumber`, `branch`, `commit`, `jobUrl`, etc.) |
 
 > **Note:** `consistencyWindow` is effectively capped at `maxHistory`. If you set `consistencyWindow: 10` but `maxHistory: 5`, the reporter uses the 5 available runs for detecting consistency issues.
 
