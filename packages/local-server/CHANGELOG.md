@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.44.3](https://github.com/serenity-js/serenity-js/compare/v3.44.2...v3.44.3) (2026-08-07)
+
+### Bug Fixes
+
+* **serenity-bdd:** raised the minimum Node.js version required to support Yargs and Which upgrade ([bd8cb46](https://github.com/serenity-js/serenity-js/commit/bd8cb4631051905f5b782c413482b7534d442d1c)), closes [#3177](https://github.com/serenity-js/serenity-js/issues/3177)
+
+
+## [3.44.2](https://github.com/serenity-js/serenity-js/compare/v3.44.1...v3.44.2) (2026-08-07)
+
+### Bug Fixes
+
+* **core:** bump minimum supported Node version to 22.13.0 ([3c10a4f](https://github.com/serenity-js/serenity-js/commit/3c10a4fddcfcbc991a3e1908122dc51a2d9acde4)), closes [lerna/lerna#4390](https://github.com/lerna/lerna/issues/4390)
+* **deps:** update rest dependencies ([2ec8aea](https://github.com/serenity-js/serenity-js/commit/2ec8aeae31073c57c8880451f8a6fecc43d6508a))
+* **local-server:** avoid port conflicts and IPv6 fragility in tests ([68b4442](https://github.com/serenity-js/serenity-js/commit/68b44427b5555a0213323843b84119f8df79477c))
+
+
 ## [3.44.1](https://github.com/serenity-js/serenity-js/compare/v3.44.0...v3.44.1) (2026-07-06)
 
 

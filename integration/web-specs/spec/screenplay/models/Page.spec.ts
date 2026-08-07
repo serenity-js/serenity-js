@@ -5,7 +5,7 @@ import { URL } from 'node:url';
 import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals, includes, isPresent, not, startsWith } from '@serenity-js/assertions';
 import { actorCalled, Duration, Interaction, LogicError, Question, Wait } from '@serenity-js/core';
-import { By, Click, Navigate, Page, PageElement, Switch, Text } from '@serenity-js/web';
+import { By, Click, ExecuteScript, Navigate, Page, PageElement, Switch, Text } from '@serenity-js/web';
 
 describe('Page', () => {
 
@@ -153,7 +153,7 @@ describe('Page', () => {
                 Wait.upTo(Duration.ofSeconds(10)).until(Page.whichTitle(equals(NewTab.title)), isPresent()),
 
                 Switch.to(Page.whichTitle(equals(NewTab.title))).and(
-                    Click.on(NewTab.closeLink()),
+                    ExecuteScript.sync(() => window.close()),
                 ),
 
                 // Use Ensure.eventually to handle the race condition where the window
@@ -205,7 +205,7 @@ describe('Page', () => {
                 Wait.upTo(Duration.ofSeconds(10)).until(Page.whichTitle(equals(NewTab.title)), isPresent()),
 
                 Switch.to(Page.whichTitle(equals(NewTab.title))).and(
-                    Click.on(NewTab.closeLink()),
+                    ExecuteScript.sync(() => window.close()),
                 ),
 
                 // Wait for the page to be discarded before attempting to switch to it
