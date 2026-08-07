@@ -584,4 +584,78 @@ describe('Stage', () => {
             expect(relevantEvents[5].constructor.name).to.equal('ActorSpotlighted');
         });
     });
+
+    describe('when unassigning listeners', () => {
+
+        let manager: StageManager;
+
+        beforeEach(() => {
+            manager = new StageManager(Duration.ofMilliseconds(100), new Clock());
+        });
+
+        class EventCapturingListener {
+            public readonly events: any[] = [];
+
+            notifyOf(event: any): void {
+                this.events.push(event);
+            }
+        }
+
+        it('stops notifying an unassigned listener of domain events', () => {
+            const listener = new EventCapturingListener();
+            const stage = new Stage(new Extras(), manager, new ErrorFactory(), clock, interactionTimeout);
+            stage.assign(listener);
+
+            stage.actor('Alice');
+            expect(listener.events.length).to.be.greaterThan(0);
+
+            const eventCountBeforeUnassign = listener.events.length;
+
+            stage.unassign(listener);
+
+            stage.actor('Bob');
+
+            expect(listener.events).to.have.lengthOf(eventCountBeforeUnassign);
+        });
+
+        it('unassigns multiple listeners at once', () => {
+            const listener1 = new EventCapturingListener();
+            const listener2 = new EventCapturingListener();
+            const stage = new Stage(new Extras(), manager, new ErrorFactory(), clock, interactionTimeout);
+            stage.assign(listener1, listener2);
+
+            stage.actor('Alice');
+            expect(listener1.events.length).to.be.greaterThan(0);
+            expect(listener2.events.length).to.be.greaterThan(0);
+
+            const countBefore1 = listener1.events.length;
+            const countBefore2 = listener2.events.length;
+
+            stage.unassign(listener1, listener2);
+
+            stage.actor('Bob');
+
+            expect(listener1.events).to.have.lengthOf(countBefore1);
+            expect(listener2.events).to.have.lengthOf(countBefore2);
+        });
+
+        it('does not affect other registered listeners when one is unassigned', () => {
+            const listener1 = new EventCapturingListener();
+            const listener2 = new EventCapturingListener();
+            const stage = new Stage(new Extras(), manager, new ErrorFactory(), clock, interactionTimeout);
+            stage.assign(listener1, listener2);
+
+            stage.actor('Alice');
+
+            const countBefore1 = listener1.events.length;
+            const countBefore2 = listener2.events.length;
+
+            stage.unassign(listener1);
+
+            stage.actor('Bob');
+
+            expect(listener1.events).to.have.lengthOf(countBefore1);
+            expect(listener2.events.length).to.be.greaterThan(countBefore2);
+        });
+    });
 });

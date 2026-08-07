@@ -1,12 +1,13 @@
-In order to quickly learn how to use Serenity/JS with Playwright Test
-As a busy developer
-I'd like to see an example
+# Todo List App
 
-This `readme.md` file is called _"the narrative"_. It's a great place to describe the business
-capabilities of your system and the features that help to enable them.
+This test suite verifies the [TodoMVC](https://todo-app.serenity-js.org) application using Playwright Test with Serenity/JS. It demonstrates how the Screenplay Pattern structures real-world web tests — from simple interactions to multi-step workflows with retry handling.
 
-**Please note:** [Serenity/JS](https://serenity-js.org) lets your group Playwright Test `.spec` files in directories corresponding to "epics", "themes" or "business capabilities" of your system and provide
-each one of those with additional context using a `readme.md` file.
+## Capabilities
 
-**By the way:** Did you notice that you can use **[markdown syntax](https://www.markdownguide.org/)** to better express
-your thoughts?
+- **Recording items** — adding new todos and verifying they appear in the list
+- **Completing items** — toggling completion status and filtering by state
+- **Editing** — modifying existing todo text inline
+- **Bulk operations** — marking all items complete, clearing completed items
+- **Persistence** — verifying todos survive page reload via local storage
+- **Routing** — filtering views (All, Active, Completed) via URL hash
+- **Retries and flaky tests** — demonstrating how Serenity/JS reports retried and intermittently failing scenarios

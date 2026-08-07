@@ -58,6 +58,7 @@
     "integration-test:jasmine-5": "lerna run test --concurrency 1 --scope @integration/jasmine-5",
     "integration-test:mocha": "lerna run test --concurrency 1 --scope @integration/mocha",
     "integration-test:playwright-all": "lerna run test --concurrency 1 --scope @integration/playwright-*",
+    "integration-test:html-reporter": "lerna run test --scope @integration/html-reporter",
     "integration-test:playwright-test": "lerna run test --scope @integration/playwright-test",
     "integration-test:playwright-test-ct": "lerna run test --scope @integration/playwright-test-ct",
     "integration-test:rest": "lerna run test --scope @integration/rest",
@@ -85,7 +86,8 @@
     "lerna:test:version": "lerna version --no-git-tag-version --no-push",
     "lerna:test:publish": "lerna publish --no-git-tag-version --no-push",
     "version:print": "npx tsx bin/print-versions.ts",
-    "prepare": "husky"
+    "prepare": "husky",
+    "report:html": "node packages/html-reporter/bin/html-reporter.mjs"
   },
   "devDependencies": {
     "@commitlint/cli": "19.8.1",

@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { browser } from '@wdio/globals';
 
-describe('WebdriverIO', () => {
+describe('Serenity/JS with WebdriverIO', () => {
 
     describe('automationProtocol', () => {
 

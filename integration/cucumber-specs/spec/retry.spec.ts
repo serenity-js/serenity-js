@@ -18,7 +18,7 @@ import { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetried
 
 import { cucumber, cucumberVersion } from '../src';
 
-describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function () {
+describe(`Serenity/JS with Cucumber ${ cucumberVersion() }`, function () {
 
     when(7 <= cucumberVersion().major())
         .it('reports scenarios that have been retried and succeeded', () =>

@@ -5,148 +5,152 @@ fileMatchPattern: "**/cucumber/**,**/mocha/**,**/jasmine/**,**/playwright-test/*
 
 # Test Runner Adapters in Serenity/JS
 
-## Adapter Architecture
+## Architecture: The Adapter Pattern
 
-Test runner adapters translate between Serenity/JS and specific test frameworks:
+Test runner adapters are the boundary between Serenity/JS and external test frameworks. They translate
+framework-specific test lifecycle events into the Serenity/JS domain event model. This decoupling lets the reporting and
+Screenplay layers remain unchanged regardless of which test runner is in use.
 
 ```
-Test Runner (Cucumber/Mocha/Jasmine/Playwright Test)
+Test Runner (native lifecycle events)
     ↓
-Serenity/JS Adapter (@serenity-js/cucumber, etc.)
+Adapter (translates to domain events)
     ↓
-Serenity/JS Core (Stage, StageManager, Domain Events)
+Stage / StageManager (domain event bus)
     ↓
-Reporters (SerenityBDDReporter, ConsoleReporter)
+StageCrewMembers (reporters, archivers)
 ```
 
-## Domain Events
+### Design Principle
 
-Adapters emit domain events to communicate test lifecycle:
+Adapters are **anti-corruption layers** in DDD terms. They prevent the vocabulary and assumptions of an external
+framework from leaking into the domain model. The adapter's only job is to:
+
+1. Listen to the test runner's native events
+2. Map them to `DomainEvent` instances
+3. Emit events via `stage.announce()`
+
+No business logic belongs in an adapter.
+
+## Domain Event Model
+
+The domain event model represents the test lifecycle as a series of immutable, timestamped facts:
+
+### Test Lifecycle
+
+```
+TestRunStarts         → TestRunFinishes    → TestRunFinished
+SceneStarts           → SceneFinishes      → SceneFinished
+InteractionStarts     → InteractionFinished
+TaskStarts            → TaskFinished
+```
+
+### Metadata Events
 
 ```typescript
-// Test lifecycle events
-TestRunStarts
-SceneStarts
-SceneFinishes
-SceneFinished
-TestRunFinishes
-TestRunFinished
-
-// Activity events
-InteractionStarts
-InteractionFinished
-TaskStarts
-TaskFinished
-
-// Metadata events
-SceneTagged
-SceneDescriptionDetected
-FeatureNarrativeDetected
+SceneTagged                 // Test categories, features, issues
+SceneDescriptionDetected    // Scenario description
+FeatureNarrativeDetected    // Feature-file narrative
+BusinessRuleDetected        // Business rule association
+SceneParametersDetected     // Data-driven scenario parameters
+RetryableSceneDetected      // Retry capability
 ```
 
-## Cucumber Adapter
-
-Located in `packages/cucumber/src/`:
-
-### Key Components
-
-- `CucumberCLIAdapter` - CLI integration
-- `SerenityFormatterOutput` - Cucumber formatter
-- `notifier/` - Event translation
-
-### Cucumber Version Support
-
-The adapter supports Cucumber v1 through v12. Version-specific code uses feature detection:
+### Artifact Events
 
 ```typescript
-// Check Cucumber version capabilities
-if (typeof cucumber.defineParameterType === 'function') {
-    // Cucumber 2+ feature
-}
+ArtifactGenerated           // Screenshots, logs, HTTP exchanges
+ArtifactArchived            // Artefact saved to disk
 ```
 
-### Integration Tests
+Each event carries a `sceneId` (CorrelationId) to correlate activities with their owning scenario.
 
-Each Cucumber version has dedicated integration tests:
+## Adapter Implementations
 
-```
-integration/cucumber-1/   → Cucumber 1.x
-integration/cucumber-12/  → Cucumber 12.x
-```
+### Cucumber (`packages/cucumber/`)
 
-## Mocha Adapter
+Translates Cucumber.js formatter output into domain events. Supports Cucumber v1 through v13 using feature detection (no
+version-specific code branches).
 
-Located in `packages/mocha/src/`:
+Key components:
 
-### Key Components
+- `CucumberCLIAdapter` — CLI entry point
+- `SerenityFormatterOutput` — Cucumber formatter producing domain events
+- `notifier/` — Event mapping logic
 
-- `SerenityReporterForMocha` - Mocha reporter class
-- Hooks into Mocha's event system
+### Mocha (`packages/mocha/`)
 
-### Registration
+Implements a Mocha reporter that emits domain events:
+
+- `SerenityReporterForMocha` — hooks into Mocha's event system (`suite`, `test`, `pass`, `fail`, `pending`)
+
+### Jasmine (`packages/jasmine/`)
+
+- `SerenityReporterForJasmine` — hooks into Jasmine's reporter API
+- Produces both CommonJS and ESM builds (dual `tsconfig-cjs.build.json` / `tsconfig-esm.build.json`)
+
+### Playwright Test (`packages/playwright-test/`)
+
+Uses Playwright's fixture system and reporter API:
+
+- `SerenityFixtures` — provides `actor` fixture to tests
+- `SerenityReporterForPlaywrightTest` — translates Playwright reporter events to domain events
 
 ```typescript
-// mocharc.yml
-reporter: '@serenity-js/mocha'
-```
+import { describe, it } from '@serenity-js/playwright-test';
 
-## Jasmine Adapter
-
-Located in `packages/jasmine/src/`:
-
-### Key Components
-
-- `SerenityReporterForJasmine` - Jasmine reporter
-- Supports both CJS and ESM
-
-### Dual Module Support
-
-Jasmine package produces both CommonJS and ESM:
-
-```
-packages/jasmine/
-├── lib/          # CommonJS output
-├── esm/          # ESM output
-├── tsconfig-cjs.build.json
-└── tsconfig-esm.build.json
-```
-
-## Playwright Test Adapter
-
-Located in `packages/playwright-test/src/`:
-
-### Key Components
-
-- `SerenityFixtures` - Playwright Test fixtures
-- `SerenityReporterForPlaywrightTest` - Reporter
-
-### Fixture-based Integration
-
-```typescript
-import { test } from '@serenity-js/playwright-test';
-
-test('example', async ({ actor }) => {
-    await actor.attemptsTo(
-        Navigate.to('https://example.org'),
-    );
+describe('Feature', () => {
+    it('scenario', async ({ actor }) => {
+        await actor.attemptsTo(
+            Navigate.to('https://example.org'),
+        );
+    });
 });
 ```
 
 ## Creating a New Adapter
 
-1. Create package in `packages/<runner-name>/`
-2. Implement reporter/adapter that:
-   - Listens to test runner events
-   - Translates to Serenity/JS domain events
-   - Emits events via `stage.announce()`
-3. Add integration tests in `integration/<runner-name>/`
-4. Update CI workflow in `.github/workflows/main.yaml`
+### Requirements
 
-### Adapter Checklist
+An adapter must emit these domain events in the correct order:
 
-- [ ] Emit `TestRunStarts` at test run beginning
-- [ ] Emit `SceneStarts`/`SceneFinished` for each test
-- [ ] Emit `SceneTagged` for test metadata
-- [ ] Handle test outcomes (pass/fail/skip/pending)
-- [ ] Support retries if the runner supports them
-- [ ] Emit `TestRunFinished` at test run end
+1. `TestRunStarts` — once, at the start
+2. For each test scenario:
+    - `SceneStarts` (with `ScenarioDetails`)
+    - `SceneTagged` for any metadata (categories, features, issues)
+    - Activity events as the Screenplay Pattern executes
+    - `SceneFinishes` (signals the scenario is wrapping up)
+    - `SceneFinished` (with execution `Outcome`)
+3. `TestRunFinishes` / `TestRunFinished` — once, at the end
+
+### Execution Outcomes
+
+Map test results to the domain model:
+
+| Test Runner Result | Serenity/JS Outcome                 |
+|--------------------|-------------------------------------|
+| Pass               | `ExecutionSuccessful`               |
+| Fail (assertion)   | `ExecutionFailedWithAssertionError` |
+| Fail (other)       | `ExecutionFailedWithError`          |
+| Skip               | `ExecutionSkipped`                  |
+| Pending/Todo       | `ImplementationPending`             |
+
+### Integration Tests
+
+Each adapter has integration tests in `integration/<runner>/` that verify the correct domain events are emitted for
+various test lifecycle scenarios.
+
+```bash
+make INTEGRATION_SCOPE=playwright-test integration-test
+make INTEGRATION_SCOPE=mocha integration-test
+make INTEGRATION_SCOPE=cucumber-12 integration-test
+```
+
+### Checklist
+
+- [ ] Emits `TestRunStarts` / `TestRunFinished` correctly
+- [ ] Emits `SceneStarts` / `SceneFinished` per scenario
+- [ ] Maps all outcome types (pass, fail, skip, pending)
+- [ ] Handles retries if the runner supports them
+- [ ] Emits `SceneTagged` for relevant metadata
+- [ ] Does not contain business logic — only event translation

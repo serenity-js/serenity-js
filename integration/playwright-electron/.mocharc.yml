@@ -7,7 +7,9 @@ reporter: mocha-multi
 reporter-options: 'mocha-multi=.mocha-reporters.json'
 require:
   - 'ts-node/register'
+  - './setup.ts'
 timeout: 60000
+retries: 1
 v8-stack-trace-limit: 100
 spec:
   - './spec/electron/**/*.spec.ts'

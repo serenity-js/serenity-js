@@ -6,7 +6,7 @@ import { Description, Name } from '@serenity-js/core/model';
 
 import { cucumber, cucumberVersion } from '../src';
 
-describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function () {
+describe(`Serenity/JS with Cucumber ${ cucumberVersion() }`, function () {
 
     it('recognises scenario descriptions', () =>
         cucumber('features/descriptions.feature', 'common.steps.ts')

@@ -47,12 +47,28 @@ export class MochaTestMapper {
     public featureNameFor(scenario: Test | Suite): string {
         const parentTitle = scenario?.parent?.title;
 
-        return parentTitle !== undefined && parentTitle.trim() !== ''
-            ? this.featureNameFor(scenario.parent)
-            : scenario.title;
+        if (parentTitle !== undefined && parentTitle.trim() !== '') {
+            return this.featureNameFor(scenario.parent);
+        }
+
+        // In parallel mode, parent.title may not be reconstructed but fullTitle() works
+        if (typeof (scenario as Test).fullTitle === 'function') {
+            const full = (scenario as Test).fullTitle();
+            const title = scenario.title;
+            if (full.endsWith(title) && full.length > title.length) {
+                return full.slice(0, full.length - title.length).trim();
+            }
+        }
+
+        return scenario.title;
     }
 
     private fullNameOf(scenario: Test | Suite): string {
+        // In parallel mode, fullTitle() is available and reliable even when parent chain isn't reconstructed
+        if (typeof (scenario as Test).fullTitle === 'function') {
+            return (scenario as Test).fullTitle();
+        }
+
         return scenario.parent
             ? `${ this.fullNameOf(scenario.parent) } ${ scenario.title }`.trim()
             : scenario.title;

@@ -162,6 +162,18 @@ export class Stage implements EmitsDomainEvents {
     }
 
     /**
+     * Removes previously assigned listeners so they are no longer notified of
+     * [Serenity/JS domain events](https://serenity-js.org/api/core-events/class/DomainEvent/).
+     *
+     * @param listeners
+     */
+    unassign(...listeners: ListensToDomainEvents[]): void {
+        for (const listener of listeners) {
+            this.manager.deregister(listener);
+        }
+    }
+
+    /**
      * Notifies all the assigned listeners of the events,
      * emitting them one by one.
      *

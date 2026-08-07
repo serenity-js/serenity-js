@@ -1,0 +1,98 @@
+import { readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+import type { Answerable } from '@serenity-js/core';
+import { useFixtures } from '@serenity-js/playwright-test';
+import { By, PageElement } from '@serenity-js/web';
+import { buildSync } from 'esbuild';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const TEMPLATE_DIR = resolve(__dirname, '../../app');
+const PACKAGE_ROOT = resolve(__dirname, '../..');
+const STYLES = readFileSync(resolve(TEMPLATE_DIR, 'styles.css'), 'utf8');
+
+export interface MountOptions<IO = unknown> {
+    component: string;       // Component name, e.g. 'FilterBar'
+    importPath: string;      // Import path relative to app/, e.g. './components/FilterBar'
+    props?: Record<string, unknown>;
+    data?: unknown;          // Injected as window.__SERENITY_REPORT_DATA__
+    dataAsProps?: boolean;   // When true, spread data fields into props (default: true for view-level components)
+    chartJs?: boolean;       // Whether to load Chart.js (default: false)
+    hash?: string;           // Initial URL hash (without leading #), e.g. '/tests?search=foo'
+    theme?: 'light' | 'dark'; // data-theme attribute on <html> (default: 'light')
+    interactionObject?: new (rootElement: Answerable<PageElement>) => IO; // Serenity/JS Interaction Object to wrap the component
+}
+
+export const {
+    describe,
+    it,
+    test,
+    expect,
+    beforeEach,
+    afterEach,
+} = useFixtures<{ mount: <IO>(options: MountOptions<IO>) => Promise<IO> }>({
+    mount: async ({ page }, use) => {
+        const mount = async <IO>({ component, importPath, props = {}, data = {}, dataAsProps, chartJs = false, hash, theme = 'light', interactionObject }: MountOptions<IO>): Promise<IO> => {
+            // View-level components receive data as props. Merge data fields into props unless explicitly disabled.
+            const viewComponents = ['DashboardView', 'ScenariosView', 'ScenarioDetailView', 'CapabilitiesView', 'ConsistencyView', 'ErrorsView', 'TagsView', 'TestRunsView', 'TimelineView', 'SystemContextView'];
+            const shouldMergeData = dataAsProps !== undefined ? dataAsProps : viewComponents.includes(component);
+            const mergedProps = shouldMergeData ? { ...(data as Record<string, unknown>), ...props } : props;
+
+            const entryCode = [
+                `import htm from 'htm';`,
+                `import { h, render } from 'preact';`,
+                `import { ${component} } from '${importPath}';`,
+                `const html = htm.bind(h);`,
+                `const props = ${JSON.stringify(mergedProps)};`,
+                // Replace string-valued props starting with '__' with window function references
+                `for (const [k, v] of Object.entries(props)) { if (typeof v === 'string' && v.startsWith('__') && typeof window[v] === 'function') props[k] = window[v]; }`,
+                `render(html\`<\${${component}} ...\${props} />\`, document.getElementById('app'));`,
+            ].join('\n');
+
+            const result = buildSync({
+                stdin: { contents: entryCode, resolveDir: TEMPLATE_DIR, loader: 'ts' },
+                bundle: true,
+                write: false,
+                format: 'iife',
+                target: 'es2020',
+                nodePaths: [resolve(PACKAGE_ROOT, 'node_modules')],
+            });
+
+            const appJs = new TextDecoder().decode(result.outputFiles[0].contents);
+
+            const chartScripts = chartJs
+                ? [
+                    readFileSync(resolve(PACKAGE_ROOT, 'node_modules/chart.js/dist/chart.umd.js'), 'utf8'),
+                    readFileSync(resolve(PACKAGE_ROOT, 'node_modules/hammerjs/hammer.min.js'), 'utf8'),
+                    readFileSync(resolve(PACKAGE_ROOT, 'node_modules/chartjs-plugin-zoom/dist/chartjs-plugin-zoom.min.js'), 'utf8'),
+                ].join(';\n')
+                : '';
+
+            const html = `<!DOCTYPE html>
+<html lang="en" data-theme="${theme}">
+<head><meta charset="UTF-8"><style>${STYLES}</style></head>
+<body>
+  <div id="app"></div>
+  <script>window.__SERENITY_REPORT_DATA__ = ${JSON.stringify(data)};</script>
+  ${chartScripts ? `<script>${chartScripts}</script>` : ''}
+  <script>${appJs}</script>
+</body>
+</html>`;
+
+            await page.route('**/test-harness.html', route => {
+                route.fulfill({ contentType: 'text/html', body: html });
+            });
+            await page.goto('http://localhost/test-harness.html' + (hash ? '#' + hash : ''), { waitUntil: 'load' });
+
+            if (interactionObject) {
+                const rootElement = PageElement.located(By.css('#app > *')).describedAs('mounted component');
+                return new interactionObject(rootElement) as IO;
+            }
+
+            return undefined as unknown as IO;
+        };
+
+        await use(mount);
+    },
+});

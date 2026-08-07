@@ -1,8 +1,34 @@
 # Serenity/JS Testing Patterns
 
+## Philosophy
+
+Tests are executable specifications. They describe **what the system does**, not how it's implemented. A good test reads as a behaviour description that remains valid even when the implementation changes.
+
+### Naming Tests as Behaviours
+
+Tests describe outcomes, not method calls:
+
+```typescript
+// Wrong: names the method
+it('calls dial() on the phone service', () => { ... });
+
+// Right: describes the behaviour
+it('dials the given phone number', () => { ... });
+
+// Right: describes a constraint
+it('complains when the actor lacks the required ability', () => { ... });
+
+// Right: describes a domain outcome
+it('emits an InteractionFinished event upon completion', () => { ... });
+```
+
+### Signal Over Noise
+
+Each test should assert one behavioural outcome. If a test needs extensive setup, that's often a sign the subject under test has too many responsibilities.
+
 ## Test Framework
 
-Unit tests use Mocha with Chai assertions and Sinon for mocking.
+Unit tests use Mocha + Chai + Sinon. Parameterised tests use `mocha-testdata`.
 
 ### Test File Structure
 
@@ -11,7 +37,7 @@ import { beforeEach, describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 import * as sinon from 'sinon';
 
-import { expect } from '../expect';  // Local chai configuration
+import { expect } from '../expect';  // Local Chai configuration
 
 describe('ClassName', () => {
 
@@ -21,29 +47,26 @@ describe('ClassName', () => {
         dependency = sinon.createStubInstance(Dependency);
     });
 
-    describe('methodName', () => {
+    describe('when performing some behaviour', () => {
 
-        it('describes expected behavior', () => {
-            // Arrange
+        it('produces the expected outcome', () => {
             const subject = new ClassName(dependency);
 
-            // Act
-            const result = subject.methodName();
+            const result = subject.doSomething();
 
-            // Assert
             expect(result).to.equal(expected);
         });
 
-        it('handles edge case', () => {
+        it('handles the edge case', () => {
             // ...
         });
     });
 });
 ```
 
-### Parameterized Tests
+### Parameterised Tests (Specification by Example)
 
-Use `mocha-testdata` for data-driven tests:
+Use `mocha-testdata` when a behaviour should hold for multiple inputs:
 
 ```typescript
 import { given } from 'mocha-testdata';
@@ -53,45 +76,39 @@ given([
     { description: 'null',      value: null,      expected: 'null'      },
     { description: 'object',    value: { },       expected: 'object'    },
 ]).
-it('handles various input types', ({ value, expected }) => {
+it('describes the value as its type', ({ value, expected }) => {
     expect(format(value)).to.equal(expected);
 });
 ```
 
-### Async Test Patterns
+This is the closest equivalent to Gherkin `Examples:` tables in unit tests. Use it whenever a behaviour should be demonstrated across a range of inputs.
 
-Return promises or use async/await:
+### Async Patterns
 
 ```typescript
-it('resolves async operations', async () => {
+it('resolves with the expected value', async () => {
     const result = await actor.answer(question);
     expect(result).to.equal(expected);
 });
 
-it('rejects with specific error', () => {
+it('rejects with a descriptive error', () => {
     return expect(actor.attemptsTo(failingTask))
         .to.be.rejectedWith(ConfigurationError, 'expected message');
-});
-
-it('chains promise assertions', () => {
-    return expect(asyncOperation()).to.be.fulfilled
-        .then(result => {
-            expect(result).to.have.property('name');
-        });
 });
 ```
 
 ### Sinon Patterns
 
 ```typescript
-// Stub instance methods
+// Stub collaborators
 const stage = sinon.createStubInstance(Stage);
 stage.currentTime.returns(new Timestamp(new Date()));
 stage.announce.resolves();
 
-// Verify calls
-expect(stage.announce).to.have.been.calledWith(sinon.match.instanceOf(Event));
-expect(stage.announce).to.have.callCount(2);
+// Verify domain events were emitted
+expect(stage.announce).to.have.been.calledWith(
+    sinon.match.instanceOf(InteractionStarts)
+);
 expect(stage.announce.getCall(0).args[0]).to.be.instanceOf(InteractionStarts);
 ```
 
@@ -119,45 +136,29 @@ packages/core/
 
 ### Integration Tests (`integration/`)
 
-Each integration module tests a specific test runner combination:
+Each module tests a specific runner or browser combination:
 
 ```
 integration/
-├── cucumber-1/          # Cucumber v1.x
-├── cucumber-12/         # Cucumber v12.x (latest)
-├── playwright-test/     # Playwright Test runner
+├── playwright-test/     # Playwright Test runner adapter
 ├── playwright-web/      # Playwright web interactions
-├── webdriverio-8-*/     # WebdriverIO v8 combinations
-├── webdriverio-*/       # WebdriverIO v9+ combinations
-└── testing-tools/       # Shared test utilities
+├── cucumber-12/         # Cucumber v12.x
+├── webdriverio-*/       # WebdriverIO combinations
+└── testing-tools/       # Shared test utilities (EventRecorder, PickEvent)
 ```
 
 ### Shared Test Utilities
 
 `integration/testing-tools/` provides:
-- `EventRecorder` - Captures domain events for assertions
-- `PickEvent` - Fluent API for event assertions
-- Test fixtures and helpers
+- `EventRecorder` — captures domain events for assertions
+- `PickEvent` — fluent API for selecting and asserting on specific events
+- Shared fixtures and helpers
 
-## Coverage
-
-Coverage is collected via c8 with configuration in `.c8rc.json`:
-
-```json
-{
-  "all": true,
-  "include": ["src/**/*.ts"],
-  "exclude": ["spec/**", "lib/**"],
-  "reporter": ["text", "lcov"],
-  "report-dir": "target/coverage"
-}
-```
-
-Coverage reports go to `packages/*/target/coverage/`.
-
-## Example Test Implementations
+## Testing Screenplay Pattern Components
 
 ### Testing an Interaction
+
+Verify that the interaction delegates to the ability correctly:
 
 ```typescript
 describe('Click', () => {
@@ -172,7 +173,7 @@ describe('Click', () => {
 
     it('clicks on a page element', async () => {
         const button = PageElement.located(By.css('.submit'));
-        
+
         await actor.attemptsTo(Click.on(button));
 
         expect(page.click).to.have.been.calledOnce;
@@ -181,6 +182,8 @@ describe('Click', () => {
 ```
 
 ### Testing a Question
+
+Verify that the question retrieves the correct information:
 
 ```typescript
 describe('Text', () => {
@@ -198,8 +201,10 @@ describe('Text', () => {
 
 ### Testing Error Conditions
 
+Verify that errors are descriptive and guide the developer:
+
 ```typescript
-it('complains when ability is missing', () => {
+it('complains when the required ability is missing', () => {
     const actor = Actor.named('Ben');  // No abilities
 
     return expect(actor.attemptsTo(Click.on(button)))
@@ -209,3 +214,41 @@ it('complains when ability is missing', () => {
         );
 });
 ```
+
+### Testing Domain Events
+
+Verify that the correct events flow through the system:
+
+```typescript
+it('emits InteractionStarts and InteractionFinished events', async () => {
+    await actor.attemptsTo(Click.on(button));
+
+    expect(stage.announce).to.have.callCount(2);
+    expect(stage.announce.getCall(0).args[0]).to.be.instanceOf(InteractionStarts);
+    expect(stage.announce.getCall(1).args[0]).to.be.instanceOf(InteractionFinished);
+});
+```
+
+## Coverage
+
+Coverage via c8, configured in `.c8rc.json`:
+
+```json
+{
+  "all": true,
+  "include": ["src/**/*.ts"],
+  "exclude": ["spec/**", "lib/**"],
+  "reporter": ["text", "lcov"],
+  "report-dir": "target/coverage"
+}
+```
+
+Reports go to `packages/*/target/coverage/`.
+
+## What Makes a Good Test
+
+- **Describes behaviour** — "dials the phone number", not "calls dial()"
+- **Is deterministic** — no flakiness, no race conditions, no reliance on timing
+- **Fails for the right reason** — when the behaviour breaks, not when the implementation changes
+- **Is self-contained** — setup is visible; no hidden shared state
+- **Uses the domain vocabulary** — Actors, Abilities, Tasks, Questions, domain events

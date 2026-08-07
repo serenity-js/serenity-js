@@ -11,7 +11,7 @@ import type { Actor, Timestamp } from './screenplay/index.js';
 import { Clock, Duration } from './screenplay/index.js';
 import type { Cast } from './stage/Cast.js';
 import { Extras } from './stage/Extras.js';
-import type { ActorLifecycleManager, StageCrewMember, StageCrewMemberBuilder } from './stage/index.js';
+import type { ActorLifecycleManager, ListensToDomainEvents, StageCrewMember, StageCrewMemberBuilder } from './stage/index.js';
 import { StageManager } from './stage/index.js';
 import { Stage } from './stage/Stage.js';
 
@@ -69,8 +69,12 @@ export class Serenity implements EmitsDomainEvents {
      * in your test suite.
      *
      * @param config
+     *
+     * @returns
+     *  The instantiated stage crew members registered during this configuration,
+     *  or an empty array if no crew was configured.
      */
-    configure(config: SerenityConfig): void {
+    configure(config: SerenityConfig): ListensToDomainEvents[] {
         const looksLikeBuilder          = has<StageCrewMemberBuilder>({ build: 'function' });
         const looksLikeStageCrewMember  = has<StageCrewMember>({ assignedTo: 'function', notifyOf: 'function' });
 
@@ -94,31 +98,35 @@ export class Serenity implements EmitsDomainEvents {
         });
 
         if (Array.isArray(config.crew)) {
-            this.stage.assign(
-                ...config.crew.map((stageCrewMemberDescription, i) => {
+            const crewMembers = config.crew.map((stageCrewMemberDescription, i) => {
 
-                    const stageCrewMember = this.classLoader.looksLoadable(stageCrewMemberDescription)
-                        ? this.classLoader.instantiate<StageCrewMember | StageCrewMemberBuilder>(stageCrewMemberDescription)
-                        : stageCrewMemberDescription;
+                const stageCrewMember = this.classLoader.looksLoadable(stageCrewMemberDescription)
+                    ? this.classLoader.instantiate<StageCrewMember | StageCrewMemberBuilder>(stageCrewMemberDescription)
+                    : stageCrewMemberDescription;
 
-                    if (looksLikeBuilder(stageCrewMember)) {
-                        return stageCrewMember.build({
-                            stage: this.stage,
-                            fileSystem: this.fileSystem,
-                            outputStream: this.outputStream,
-                        });
-                    }
+                if (looksLikeBuilder(stageCrewMember)) {
+                    return stageCrewMember.build({
+                        stage: this.stage,
+                        fileSystem: this.fileSystem,
+                        outputStream: this.outputStream,
+                    });
+                }
 
-                    if (looksLikeStageCrewMember(stageCrewMember)) {
-                        return stageCrewMember.assignedTo(this.stage);
-                    }
+                if (looksLikeStageCrewMember(stageCrewMember)) {
+                    return stageCrewMember.assignedTo(this.stage);
+                }
 
-                    throw new ConfigurationError(
-                        d`Entries under \`crew\` should implement either StageCrewMember or StageCrewMemberBuilder interfaces, \`${ stageCrewMemberDescription }\` found at index ${ i }`
-                    );
-                }),
-            );
+                throw new ConfigurationError(
+                    d`Entries under \`crew\` should implement either StageCrewMember or StageCrewMemberBuilder interfaces, \`${ stageCrewMemberDescription }\` found at index ${ i }`
+                );
+            });
+
+            this.stage.assign(...crewMembers);
+
+            return crewMembers;
         }
+
+        return [];
     }
 
     /**
@@ -293,6 +301,16 @@ export class Serenity implements EmitsDomainEvents {
 
     announce(...events: Array<DomainEvent>): void {
         this.stage.announce(...events);
+    }
+
+    /**
+     * Removes previously registered listeners so they are no longer notified of
+     * [Serenity/JS domain events](https://serenity-js.org/api/core-events/class/DomainEvent/).
+     *
+     * @param listeners
+     */
+    unassign(...listeners: ListensToDomainEvents[]): void {
+        this.stage.unassign(...listeners);
     }
 
     currentTime(): Timestamp {

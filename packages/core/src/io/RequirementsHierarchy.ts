@@ -1,4 +1,4 @@
-import { ConfigurationError } from '../errors/index.js';
+import { ConfigurationError, LogicError } from '../errors/index.js';
 import { CapabilityTag, FeatureTag, Tag, ThemeTag } from '../model/index.js';
 import type { FileSystem } from './FileSystem.js';
 import { Path } from './Path.js';
@@ -23,7 +23,7 @@ export class RequirementsHierarchy {
     }
 
     requirementTagsFor(pathToSpec: Path, featureName?: string): Tag[] {
-        const [ fileBasedFeatureName, capabilityName, ...themeNames ] = this.hierarchyFor(pathToSpec).reverse().filter(segment => !['.', '..'].includes(segment));
+        const [ fileBasedFeatureName, capabilityName, ...themeNames ] = this.hierarchyFor(pathToSpec).reverse().filter(segment => ! [ '.', '..' ].includes(segment));
 
         const themeTags = themeNames.reverse().map(themeName => Tag.humanReadable(ThemeTag, themeName));
         const capabilityTag = capabilityName && Tag.humanReadable(CapabilityTag, capabilityName);
@@ -56,7 +56,7 @@ export class RequirementsHierarchy {
     }
 
     rootDirectory(): Path {
-        if (!this.root) {
+        if (! this.root) {
             this.root = this.userDefinedSpecDirectory
                 ? this.resolve(this.userDefinedSpecDirectory)
                 : this.guessRootDirectory();
@@ -78,10 +78,45 @@ export class RequirementsHierarchy {
     }
 
     private resolve(userDefinedRootDirectory: Path): Path {
-        if (!this.fileSystem.exists(userDefinedRootDirectory)) {
+        if (! this.fileSystem.exists(userDefinedRootDirectory)) {
             throw new ConfigurationError(`Configured specDirectory \`${ userDefinedRootDirectory }\` does not exist`);
         }
 
         return this.fileSystem.resolve(userDefinedRootDirectory);
+    }
+
+    /**
+     * Checks whether a README file exists at the given directory path
+     * (case-insensitive lookup for `readme.md`).
+     */
+    hasReadmeAt(directoryPath: Path): boolean {
+        return !! this.findReadmeAt(directoryPath);
+    }
+
+    /**
+     * Reads and returns the content of the README file at the given directory path.
+     * Use {@link hasReadmeAt} to check existence before calling this method.
+     *
+     * @throws {ConfigurationError} if no README exists at the path
+     */
+    readmeAt(directoryPath: Path): string {
+        const readmePath = this.findReadmeAt(directoryPath);
+        if (! readmePath) {
+            throw new LogicError(`No README found at ${ directoryPath }. Use hasReadmeAt() to check existence before calling readmeAt()`);
+        }
+
+        return this.fileSystem.readFileSync(readmePath, { encoding: 'utf8' }) as string;
+    }
+
+    private findReadmeAt(directoryPath: Path): Path | undefined {
+        if (! this.fileSystem.exists(directoryPath)) {
+            return undefined;
+        }
+        const entries = this.fileSystem.readdirSync(directoryPath);
+        const readmeFilename = entries.find(entry => /^readme\.md$/i.test(entry));
+
+        return readmeFilename
+            ? directoryPath.join(Path.from(readmeFilename))
+            : undefined;
     }
 }

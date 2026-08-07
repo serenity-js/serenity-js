@@ -12,6 +12,7 @@ export default tseslint.config(
             '**/node_modules/**',
             '**/esm/**',
             '**/lib/**',
+            '**/*.d.ts',
             'integration/**/examples/**/*.js',
             '**/target/**',
         ],

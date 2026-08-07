@@ -4,6 +4,7 @@ import { resolve } from 'node:path';
 import { TestRunnerTagger } from '@integration/testing-tools';
 import { Browser, computeExecutablePath } from '@puppeteer/browsers';
 import { ArtifactArchiver, Duration, NoOpDiffFormatter } from '@serenity-js/core';
+import { TestRunArchiver } from '@serenity-js/html-reporter';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { WithSerenityConfig } from '@serenity-js/webdriverio';
@@ -50,6 +51,7 @@ export const config: WebdriverIO.Config & WithSerenityConfig = {
             SerenityBDDReporter.fromJSON({
                 specDirectory: '.'
             }),
+            TestRunArchiver.fromJSON({ outputDirectory: './target/html-report' }),
         ]
     },
 

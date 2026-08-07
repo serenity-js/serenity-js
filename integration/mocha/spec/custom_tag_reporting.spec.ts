@@ -25,7 +25,7 @@ import { describe, it } from 'mocha';
 
 import { mocha } from '../src/mocha';
 
-describe('@serenity-js/mocha', function () {
+describe('Serenity/JS with Mocha', function () {
 
     it('emits custom tags if present on describe or test title so that Serenity BDD can aggregate them correctly', () => mocha( 'examples/custom_tags/custom_tags_in_title.spec.js')
         .then(ifExitCodeIsOtherThan(0, logOutput))

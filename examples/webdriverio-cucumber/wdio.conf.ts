@@ -11,6 +11,7 @@ export const config: WebdriverIOConfig = {
             '@serenity-js/console-reporter',
             '@serenity-js/serenity-bdd',
             [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+            [ '@serenity-js/html-reporter', { outputDirectory: 'reports/serenity' } ],
         ]
     },
 

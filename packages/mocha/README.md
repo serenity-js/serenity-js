@@ -139,6 +139,28 @@ reporter-options:       # Note: array, not an object
   - 'specDirectory=e2e' # Configure custom requirements hierarchy root, such as "e2e"
 ```
 
+#### Running in parallel mode
+
+To use Serenity/JS with Mocha's [`--parallel`](https://mochajs.org/#parallel-tests) mode,
+add `@serenity-js/mocha` to your `require` list in addition to using it as the reporter.
+This registers [Root Hook Plugins](https://mochajs.org/#root-hook-plugins) that ensure
+Serenity/JS waits for async operations (such as ability cleanup) to complete between tests in worker processes.
+
+```yaml title=".mocharc.yml"
+reporter: '@serenity-js/mocha'
+require:
+  - '@serenity-js/mocha'
+  - spec/support/serenity.config.ts
+check-leaks: false
+timeout: 5000
+```
+
+Then run Mocha with the `--parallel` flag:
+
+```console
+mocha --parallel --config .mocharc.yml
+```
+
 ### Using Serenity/JS Mocha with WebdriverIO
 
 Configure your WebdriverIO installation as per instructions in [`@serenity-js/webdriverio`](https://serenity-js.org/api/webdriverio/) module.
