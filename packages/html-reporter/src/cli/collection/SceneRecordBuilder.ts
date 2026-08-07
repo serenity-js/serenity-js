@@ -25,8 +25,8 @@ import {
     ProblemIndication,
 } from '@serenity-js/core/model';
 
+import type { ActivityRecord, ActorRecord, ArtifactReference, ErrorRecord, ScenarioParameterSet, SceneRecord, TagRecord } from '../model/RunData.js';
 import { dispatchArtifact } from './artifactHandlers.js';
-import type { ActivityRecord, ActorRecord, ArtifactReference, ErrorRecord, ScenarioParameterSet, SceneRecord, TagRecord } from './model/RunData.js';
 import { errorFrom, findErrorInActivities, serialiseOutcome } from './outcomeSerialisers.js';
 
 export { errorFrom, outcomeCodeToLabel, serialiseOutcome } from './outcomeSerialisers.js';

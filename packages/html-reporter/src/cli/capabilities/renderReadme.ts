@@ -5,7 +5,7 @@ import { Path } from '@serenity-js/core/io';
 import { Marked, parseInline } from 'marked';
 
 import { link } from '../../utils/link.js';
-import type { ReportCapabilityNode } from '../ReportData.js';
+import type { ReportCapabilityNode } from '../reporting/ReportData.js';
 
 /**
  * @package

@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportSummary } from '../../../src/cli/ReportData.js';
+import type { ReportSummary } from '../../../src/cli/reporting/ReportData.js';
 import type { DashboardScores } from '../../utils/computeDashboardScores.js';
 import { formatDuration, scoreColor } from '../../utils/index.js';
 import { link } from '../../utils/link.js';

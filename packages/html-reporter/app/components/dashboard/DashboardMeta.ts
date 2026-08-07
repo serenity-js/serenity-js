@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportSystemContext } from '../../../src/cli/ReportData.js';
+import type { ReportSystemContext } from '../../../src/cli/reporting/ReportData.js';
 import { normaliseRepoUrl } from '../../utils/computeRunMetrics.js';
 import { icons } from '../common/icons.js';
 

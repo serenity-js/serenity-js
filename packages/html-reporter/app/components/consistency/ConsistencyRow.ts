@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportInconsistentTest } from '../../../src/cli/ReportData.js';
+import type { ReportInconsistentTest } from '../../../src/cli/reporting/ReportData.js';
 import { outcomeDisplayName, relativeSourcePath, scenarioUrl } from '../../utils/index.js';
 import { BrowserBadge } from '../common/BrowserBadge.js';
 import { HistoryDots } from '../common/HistoryDots.js';

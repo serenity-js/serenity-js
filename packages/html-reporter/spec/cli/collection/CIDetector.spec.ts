@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { CIDetector } from '../../src/cli/CiDetector.js';
+import { CIDetector } from '../../../src/cli/collection/CiDetector.js';
 
 test.describe('CIDetector', () => {
 

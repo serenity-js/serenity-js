@@ -1,4 +1,4 @@
-import type { ReportScenarioRef, ReportScenarioTag } from '../../src/cli/ReportData.js';
+import type { ReportScenarioRef, ReportScenarioTag } from '../../src/cli/reporting/ReportData.js';
 
 interface ScenarioLike extends ReportScenarioRef {
     tags?: ReportScenarioTag[];

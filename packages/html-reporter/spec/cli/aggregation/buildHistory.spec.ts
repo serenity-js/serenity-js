@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test';
 import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/model';
 
-import { computeConsistencyAtRun } from '../../src/cli/history/buildHistory.js';
-import type { RunData } from '../../src/cli/model/RunData.js';
+import { computeConsistencyAtRun } from '../../../src/cli/history/buildHistory.js';
+import type { RunData } from '../../../src/cli/model/RunData.js';
 
 function createRun(overrides: Partial<RunData> = {}): RunData {
     return {

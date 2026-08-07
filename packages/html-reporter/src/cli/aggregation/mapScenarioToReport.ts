@@ -1,14 +1,14 @@
 import { ExecutionSuccessful } from '@serenity-js/core/model';
 import { marked } from 'marked';
 
-import { resolveRunLabel, sceneIdentity } from './model/index.js';
-import { outcomeCodeToDisplayString } from './model/outcomes.js';
-import type { ActivityRecord, RunData, SceneRecord } from './model/RunData.js';
+import { resolveRunLabel, sceneIdentity } from '../model/index.js';
+import { outcomeCodeToDisplayString } from '../model/outcomes.js';
+import type { ActivityRecord, RunData, SceneRecord } from '../model/RunData.js';
 import type {
     ReportActivity,
     ReportExecutionHistoryEntry,
     ReportScenario,
-} from './ReportData.js';
+} from '../reporting/ReportData.js';
 
 /**
  * Maps a SceneRecord to a ReportScenario with enriched data including

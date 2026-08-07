@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test';
 import { ModuleLoader } from '@serenity-js/core/io';
 
-import { CIDetector } from '../../src/cli/CiDetector.js';
-import { SystemContextDetector } from '../../src/cli/SystemContextDetector.js';
+import { CIDetector } from '../../../src/cli/collection/CiDetector.js';
+import { SystemContextDetector } from '../../../src/cli/collection/SystemContextDetector.js';
 
 test.describe('SystemContextDetector', () => {
 

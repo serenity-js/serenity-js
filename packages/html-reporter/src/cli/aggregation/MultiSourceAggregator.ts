@@ -1,9 +1,9 @@
 import type { FileSystem, RequirementsHierarchy } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
 
-import { classifyRunPath } from './aggregation/classifyRunPath.js';
-import { aggregateModuleMetadata } from './aggregation/moduleMetadata.js';
-import type { RunData } from './model/RunData.js';
+import type { RunData } from '../model/RunData.js';
+import { classifyRunPath } from './classifyRunPath.js';
+import { aggregateModuleMetadata } from './moduleMetadata.js';
 import type { AggregatorConfig } from './ReportAggregator.js';
 import { ReportAggregator } from './ReportAggregator.js';
 import { mergeAdditively, mergeAsRetry } from './resolveRetries.js';

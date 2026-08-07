@@ -4,7 +4,7 @@ import { outcomeCodeToDisplayString } from '../model/outcomes.js';
 import { resolveRunLabel } from '../model/resolveRunLabel.js';
 import type { RunData } from '../model/RunData.js';
 import { sceneIdentity } from '../model/sceneIdentity.js';
-import type { ReportHistoryEntry } from '../ReportData.js';
+import type { ReportHistoryEntry } from '../reporting/ReportData.js';
 
 interface DurationStats {
     slowest: number;

@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 
-import type { ReportCapabilityNode } from '../../../src/cli/ReportData.js';
+import type { ReportCapabilityNode } from '../../../src/cli/reporting/ReportData.js';
 import { useViewState } from '../../hooks/useViewState.js';
 import { useHashHistory } from '../../utils/index.js';
 import { icons } from '../common/icons.js';

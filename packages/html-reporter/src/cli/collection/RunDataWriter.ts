@@ -1,7 +1,7 @@
 import type { FileSystem } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
 
-import type { RunData } from './model/RunData.js';
+import type { RunData } from '../model/RunData.js';
 
 /**
  * Writes the db.json file for the current test run.

@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useMemo, useState } from 'preact/hooks';
 
-import type { ReportInconsistentTest } from '../../../src/cli/ReportData.js';
+import type { ReportInconsistentTest } from '../../../src/cli/reporting/ReportData.js';
 import { ROW_HEIGHTS } from '../../config/layout.js';
 import { matchesSearch } from '../../utils/index.js';
 import { classifyConsistencyKind } from '../../utils/selectors.js';

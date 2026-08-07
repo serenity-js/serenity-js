@@ -1,11 +1,11 @@
 import type { FileSystem, RequirementsHierarchy } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
 
-import { scoreCapability, scoreDirectory } from '../CapabilityConfidenceScorer.js';
+import { scoreCapability, scoreDirectory } from '../analysis/CapabilityConfidenceScorer.js';
 import { mapOutcomeToKey, outcomeCodeToDisplayString } from '../model/outcomes.js';
 import type { RunData, SceneRecord } from '../model/RunData.js';
 import { sceneIdentity } from '../model/sceneIdentity.js';
-import type { ReportCapabilityNode, ReportOutcomes } from '../ReportData.js';
+import type { ReportCapabilityNode, ReportOutcomes } from '../reporting/ReportData.js';
 import { findReadme, renderReadmeHtml } from './renderReadme.js';
 
 /**

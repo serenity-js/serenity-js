@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useMemo } from 'preact/hooks';
 
-import type { ReportCapabilityNode, ReportHistoryEntry, ReportInconsistentTest, ReportScenario, ReportScenarioRef, ReportSummary, ReportSystemContext } from '../../../src/cli/ReportData.js';
+import type { ReportCapabilityNode, ReportHistoryEntry, ReportInconsistentTest, ReportScenario, ReportScenarioRef, ReportSummary, ReportSystemContext } from '../../../src/cli/reporting/ReportData.js';
 import { computeDashboardScores } from '../../utils/computeDashboardScores.js';
 import { sceneIdentity, tagDiscriminator } from '../../utils/navigation.js';
 import { classifyConsistencyKind } from '../../utils/selectors.js';

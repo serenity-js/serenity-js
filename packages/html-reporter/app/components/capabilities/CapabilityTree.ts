@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportCapabilityNode } from '../../../src/cli/ReportData.js';
+import type { ReportCapabilityNode } from '../../../src/cli/reporting/ReportData.js';
 import { capabilityConfidence, scoreColor } from '../../utils/index.js';
 import { SegmentedBar } from '../common/charts/SegmentedBar.js';
 import { icons } from '../common/icons.js';

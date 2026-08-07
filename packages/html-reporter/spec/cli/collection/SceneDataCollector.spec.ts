@@ -33,8 +33,8 @@ import {
     TextData,
 } from '@serenity-js/core/model';
 
-import { SceneDataCollector } from '../../src/cli/SceneDataCollector.js';
-import type { SystemContext } from '../../src/cli/SystemContextDetector.js';
+import { SceneDataCollector } from '../../../src/cli/collection/SceneDataCollector.js';
+import type { SystemContext } from '../../../src/cli/collection/SystemContextDetector.js';
 
 const systemContext: SystemContext = { nodeVersion: 'v22', os: { name: 'linux', version: '6', arch: 'x64' }, serenityVersion: new Version('3.44.0'), runtime: { provider: 'localhost', buildNumber: '1', branch: 'main', commit: 'abc123' } };
 

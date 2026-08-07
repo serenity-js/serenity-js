@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
-import { computeFailureClusters, fingerprintError } from '../../src/cli/FailureClusterAnalyser.js';
-import type { ReportScenario } from '../../src/cli/ReportData.js';
+import { computeFailureClusters, fingerprintError } from '../../../src/cli/analysis/FailureClusterAnalyser.js';
+import type { ReportScenario } from '../../../src/cli/reporting/ReportData.js';
 
 test.describe('FailureClusterAnalyser', () => {
 

@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useMemo } from 'preact/hooks';
 
-import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData.js';
+import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/reporting/ReportData.js';
 import { ROW_HEIGHTS } from '../../config/layout.js';
 import { useRunSelection } from '../../hooks/useRunSelection.js';
 import { icons } from '../common/icons.js';

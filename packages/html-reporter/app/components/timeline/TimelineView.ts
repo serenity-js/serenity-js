@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useMemo, useRef, useState } from 'preact/hooks';
 
-import type { ReportScenario, ReportSummary } from '../../../src/cli/ReportData.js';
+import type { ReportScenario, ReportSummary } from '../../../src/cli/reporting/ReportData.js';
 import { useVirtualizer } from '../../hooks/index.js';
 import { formatDuration, matchesOutcomeFilter, totalFailedCount } from '../../utils/index.js';
 import { FilterBar } from '../common/FilterBar.js';

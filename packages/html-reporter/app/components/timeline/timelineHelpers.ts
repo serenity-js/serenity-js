@@ -1,4 +1,4 @@
-import type { ReportScenario } from '../../../src/cli/ReportData.js';
+import type { ReportScenario } from '../../../src/cli/reporting/ReportData.js';
 
 export interface DurationStats {
     avg: number;

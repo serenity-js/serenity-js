@@ -47,7 +47,7 @@ export function extractBrowsers(run: RunData): Array<{ name: string; version: st
     return [...browsers.entries()].map(([name, version]) => ({ name, version }));
 }
 
-import type { ReportSystemContext } from '../ReportData.js';
+import type { ReportSystemContext } from '../reporting/ReportData.js';
 
 /**
  * @package

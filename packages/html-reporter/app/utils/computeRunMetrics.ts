@@ -1,4 +1,4 @@
-import type { ReportHistoryEntry } from '../../src/cli/ReportData.js';
+import type { ReportHistoryEntry } from '../../src/cli/reporting/ReportData.js';
 import { totalFailedCount } from './selectors.js';
 
 export interface RunMetrics {

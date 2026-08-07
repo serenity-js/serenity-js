@@ -10,7 +10,7 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { z } from 'zod';
 
-import { ReportSummaryJsonSchema } from '../src/cli/ReportSummaryJson.ts';
+import { ReportSummaryJsonSchema } from '../src/cli/reporting/ReportSummaryJson.ts';
 
 const jsonSchema = z.toJSONSchema(ReportSummaryJsonSchema);
 

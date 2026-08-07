@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportScenarioRef } from '../../../src/cli/ReportData.js';
+import type { ReportScenarioRef } from '../../../src/cli/reporting/ReportData.js';
 import { getBrowserTag, outcomeClass, outcomeDisplayName, outcomeIcon, scenarioUrl } from '../../utils/index.js';
 import { link } from '../../utils/link.js';
 import { BrowserBadge } from '../common/BrowserBadge.js';

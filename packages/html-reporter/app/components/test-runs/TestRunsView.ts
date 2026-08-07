@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportHistoryEntry } from '../../../src/cli/ReportData.js';
+import type { ReportHistoryEntry } from '../../../src/cli/reporting/ReportData.js';
 import { TrendChart } from '../common/charts/TrendChart.js';
 import { TestRunRow } from './TestRunRow.js';
 

@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData.js';
+import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/reporting/ReportData.js';
 import { browserBadgeClass, formatDuration, formatRunLabel, getBrowserTag, relativeSourcePath, scenarioUrl, searchContainsTag, stripAbsolutePaths, stripAnsi, toggleTagInSearch } from '../../utils/index.js';
 import { HistoryDots } from '../common/HistoryDots.js';
 import { icons } from '../common/icons.js';

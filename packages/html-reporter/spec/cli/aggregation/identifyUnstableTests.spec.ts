@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test';
 import { ExecutionFailedWithError, ExecutionSuccessful } from '@serenity-js/core/model';
 
-import { identifyUnstableTests } from '../../src/cli/identifyUnstableTests.js';
-import type { RunData } from '../../src/cli/model/RunData.js';
+import { identifyUnstableTests } from '../../../src/cli/aggregation/identifyUnstableTests.js';
+import type { RunData } from '../../../src/cli/model/RunData.js';
 
 function createRun(overrides: Partial<RunData> = {}): RunData {
     return {

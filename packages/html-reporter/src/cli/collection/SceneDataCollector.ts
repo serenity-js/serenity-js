@@ -3,9 +3,9 @@ import type { DomainEvent } from '@serenity-js/core/events';
 import type { Path } from '@serenity-js/core/io';
 import type { CorrelationId } from '@serenity-js/core/model';
 
-import type { OutcomeCounts, RunData, SceneRecord, TagRecord } from './model/RunData.js';
-import { CURRENT_RUN_DATA_SCHEMA_VERSION } from './model/RunData.js';
-import { buildSceneRecords, groupEventsBySceneId, resolveRetries } from './retryResolution.js';
+import { buildSceneRecords, groupEventsBySceneId, resolveRetries } from '../aggregation/retryResolution.js';
+import type { OutcomeCounts, RunData, SceneRecord, TagRecord } from '../model/RunData.js';
+import { CURRENT_RUN_DATA_SCHEMA_VERSION } from '../model/RunData.js';
 import { outcomeCodeToLabel, SceneRecordBuilder } from './SceneRecordBuilder.js';
 import type { SystemContext } from './SystemContextDetector.js';
 

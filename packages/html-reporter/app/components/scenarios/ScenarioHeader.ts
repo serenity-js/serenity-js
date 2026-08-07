@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData.js';
+import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/reporting/ReportData.js';
 import { useScrollFade } from '../../hooks/useScrollFade.js';
 import { formatDuration, outcomeClass, outcomeIcon, RawHtml, relativeSourcePath, showToast } from '../../utils/index.js';
 import { BrowserBadge } from '../common/BrowserBadge.js';

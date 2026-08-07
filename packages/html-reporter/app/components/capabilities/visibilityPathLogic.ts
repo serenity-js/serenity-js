@@ -1,4 +1,4 @@
-import type { ReportCapabilityNode } from '../../../src/cli/ReportData.js';
+import type { ReportCapabilityNode } from '../../../src/cli/reporting/ReportData.js';
 import { collapseNode, matches } from './collapseLogic.js';
 
 function isVisibleDirectory(node: ReportCapabilityNode): boolean {

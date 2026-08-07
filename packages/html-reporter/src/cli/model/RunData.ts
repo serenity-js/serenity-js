@@ -1,6 +1,6 @@
 import type { SerialisedOutcome } from '@serenity-js/core/model';
 
-import type { SystemContext } from '../SystemContextDetector.js';
+import type { SystemContext } from '../collection/SystemContextDetector.js';
 
 /**
  * Current schema version of the RunData model.

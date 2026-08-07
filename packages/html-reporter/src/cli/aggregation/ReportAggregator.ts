@@ -1,22 +1,22 @@
 import type { FileSystem, RequirementsHierarchy } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
 
-import { buildSystemContext, computeTagStats } from './aggregation/computeStats.js';
-import { buildCapabilities } from './capabilities/buildCapabilities.js';
-import { buildHistory } from './history/buildHistory.js';
-import { computeDegradedRecovered, identifyUnstableTests } from './identifyUnstableTests.js';
-import { buildExecutionHistory, enrichSingleScenario } from './mapScenarioToReport.js';
+import { buildCapabilities } from '../capabilities/buildCapabilities.js';
+import { buildHistory } from '../history/buildHistory.js';
 import {
     IncompatibleSchemaError,
     InvalidRunDataError,
     validateRunData
-} from './model/index.js';
-import type { RunData } from './model/RunData.js';
+} from '../model/index.js';
+import type { RunData } from '../model/RunData.js';
 import type {
     ReportData,
     ReportScenario,
-} from './ReportData.js';
-import { CURRENT_REPORT_DATA_SCHEMA_VERSION } from './ReportData.js';
+} from '../reporting/ReportData.js';
+import { CURRENT_REPORT_DATA_SCHEMA_VERSION } from '../reporting/ReportData.js';
+import { buildSystemContext, computeTagStats } from './computeStats.js';
+import { computeDegradedRecovered, identifyUnstableTests } from './identifyUnstableTests.js';
+import { buildExecutionHistory, enrichSingleScenario } from './mapScenarioToReport.js';
 import { SummaryJsonWriter } from './SummaryJsonWriter.js';
 
 export interface AggregatorConfig {

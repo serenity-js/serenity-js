@@ -1,8 +1,8 @@
 import { ExecutionSuccessful } from '@serenity-js/core/model';
 
-import { mapOutcomeToKey, outcomeCodeToDisplayString } from './model/outcomes.js';
-import type { AttemptRecord, OutcomeCounts, RunData, SceneRecord } from './model/RunData.js';
-import { sceneIdentity } from './model/sceneIdentity.js';
+import { mapOutcomeToKey, outcomeCodeToDisplayString } from '../model/outcomes.js';
+import type { AttemptRecord, OutcomeCounts, RunData, SceneRecord } from '../model/RunData.js';
+import { sceneIdentity } from '../model/sceneIdentity.js';
 
 /**
  * Additively merges two RunData objects that share the same testRunId and attempt number.

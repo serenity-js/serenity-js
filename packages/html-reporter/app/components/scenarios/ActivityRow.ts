@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportActivity } from '../../../src/cli/ReportData.js';
+import type { ReportActivity } from '../../../src/cli/reporting/ReportData.js';
 import { DATA } from '../../utils/data.js';
 import { formatDuration, outcomeClass, outcomeIcon, relativeLocationPath, showToast, useHashHistory } from '../../utils/index.js';
 import { icons } from '../common/icons.js';

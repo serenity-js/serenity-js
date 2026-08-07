@@ -31,16 +31,16 @@ import {
 import { createFsFromVolume, Volume } from 'memfs';
 
 import pkg from '../../package.json' with { type: 'json' };
-import { ArtifactWriter } from '../../src/cli/ArtifactWriter.js';
-import { CIDetector } from '../../src/cli/CiDetector.js';
+import { SingleSourceAggregator } from '../../src/cli/aggregation/SingleSourceAggregator.js';
+import { ArtifactWriter } from '../../src/cli/collection/ArtifactWriter.js';
+import { CIDetector } from '../../src/cli/collection/CiDetector.js';
+import { RunDataWriter } from '../../src/cli/collection/RunDataWriter.js';
+import { SceneDataCollector } from '../../src/cli/collection/SceneDataCollector.js';
+import { SystemContextDetector } from '../../src/cli/collection/SystemContextDetector.js';
+import { detectModuleId, detectTestRunId, detectWorkerId, TestRunArchiver } from '../../src/cli/collection/TestRunArchiver.js';
 import { HtmlReporter } from '../../src/cli/HtmlReporter.js';
 import { HtmlReportGenerator } from '../../src/cli/HtmlReportGenerator.js';
-import { ReportTemplateWriter } from '../../src/cli/ReportTemplateWriter.js';
-import { RunDataWriter } from '../../src/cli/RunDataWriter.js';
-import { SceneDataCollector } from '../../src/cli/SceneDataCollector.js';
-import { SingleSourceAggregator } from '../../src/cli/SingleSourceAggregator.js';
-import { SystemContextDetector } from '../../src/cli/SystemContextDetector.js';
-import { detectModuleId, detectTestRunId, detectWorkerId, TestRunArchiver } from '../../src/cli/TestRunArchiver.js';
+import { ReportTemplateWriter } from '../../src/cli/reporting/ReportTemplateWriter.js';
 
 test.describe('HtmlReporter', () => {
 

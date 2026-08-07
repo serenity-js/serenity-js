@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 
-import type { ReportParameterSet } from '../../../src/cli/ReportData.js';
+import type { ReportParameterSet } from '../../../src/cli/reporting/ReportData.js';
 import { RawHtml } from '../../utils/index.js';
 import { ParameterSetNode } from './ParameterSetNode.js';
 

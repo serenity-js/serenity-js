@@ -18,8 +18,8 @@ import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import fg from 'fast-glob';
 import yargs from 'yargs';
 
-import { MultiSourceAggregator } from '../esm/cli/MultiSourceAggregator.js';
-import { ReportTemplateWriter } from '../esm/cli/ReportTemplateWriter.js';
+import { MultiSourceAggregator } from '../esm/cli/aggregation/MultiSourceAggregator.js';
+import { ReportTemplateWriter } from '../esm/cli/reporting/ReportTemplateWriter.js';
 import { getNetworkAddress, handleRequest } from './staticFileServer.mjs';
 
 const pkg = JSON.parse(readFileSync(resolve(fileURLToPath(import.meta.url), '../../package.json'), 'utf8'));

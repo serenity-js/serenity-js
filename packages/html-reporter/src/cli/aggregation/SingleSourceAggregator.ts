@@ -1,7 +1,7 @@
 import type { FileSystem, RequirementsHierarchy } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
 
-import type { RunData } from './model/RunData.js';
+import type { RunData } from '../model/RunData.js';
 import type { AggregatorConfig } from './ReportAggregator.js';
 import { ReportAggregator } from './ReportAggregator.js';
 

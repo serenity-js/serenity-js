@@ -1,4 +1,4 @@
-import type { ReportCapabilityNode, ReportHistoryEntry, ReportSummary } from '../../src/cli/ReportData.js';
+import type { ReportCapabilityNode, ReportHistoryEntry, ReportSummary } from '../../src/cli/reporting/ReportData.js';
 import { computeCompletenessFromTree, runConfidence, totalFailedCount } from './selectors.js';
 
 export interface DashboardScores {

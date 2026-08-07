@@ -9,7 +9,7 @@
 import { expect, test } from '@playwright/test';
 
 import { renderReadmeHtml } from '../../src/cli/capabilities/buildCapabilities.js';
-import type { ReportCapabilityNode } from '../../src/cli/ReportData.js';
+import type { ReportCapabilityNode } from '../../src/cli/reporting/ReportData.js';
 
 function makeNode(name: string): ReportCapabilityNode {
     return {

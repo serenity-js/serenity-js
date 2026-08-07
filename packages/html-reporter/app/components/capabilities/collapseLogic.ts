@@ -1,4 +1,4 @@
-import type { ReportCapabilityNode } from '../../../src/cli/ReportData.js';
+import type { ReportCapabilityNode } from '../../../src/cli/reporting/ReportData.js';
 
 function hasFiles(node: ReportCapabilityNode): boolean {
     return !!(node.children && node.children.some(c => c.type === 'file'));

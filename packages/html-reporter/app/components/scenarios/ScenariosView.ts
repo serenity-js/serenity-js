@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useMemo } from 'preact/hooks';
 
-import type { ReportHistoryEntry, ReportOutcomes, ReportScenario, ReportSummary } from '../../../src/cli/ReportData.js';
+import type { ReportHistoryEntry, ReportOutcomes, ReportScenario, ReportSummary } from '../../../src/cli/reporting/ReportData.js';
 import { useRunSelection } from '../../hooks/useRunSelection.js';
 import { useViewState } from '../../hooks/useViewState.js';
 import { matchesOutcomeFilter, matchesSearch, totalFailedCount } from '../../utils/index.js';

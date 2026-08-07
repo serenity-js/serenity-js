@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportAttempt } from '../../../src/cli/ReportData.js';
+import type { ReportAttempt } from '../../../src/cli/reporting/ReportData.js';
 import { useScrollFade } from '../../hooks/useScrollFade.js';
 import { outcomeClass, useHashHistory } from '../../utils/index.js';
 

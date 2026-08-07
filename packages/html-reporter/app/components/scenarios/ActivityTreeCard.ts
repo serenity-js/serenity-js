@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useCallback, useRef } from 'preact/hooks';
 
-import type { ReportActivity, ReportScenario } from '../../../src/cli/ReportData.js';
+import type { ReportActivity, ReportScenario } from '../../../src/cli/reporting/ReportData.js';
 import { RawHtml } from '../../utils/index.js';
 import { ActivityNode } from './ActivityNode.js';
 import { handleTreeKeyDown } from './activityTreeKeyboard.js';

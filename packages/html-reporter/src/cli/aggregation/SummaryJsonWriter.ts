@@ -1,11 +1,11 @@
 import type { FileSystem } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
 
-import { computeFailureClusters } from './FailureClusterAnalyser.js';
-import { classifyConsistencyKind } from './model/classifyConsistencyKind.js';
-import { formatSource } from './model/formatSource.js';
-import type { ReportData } from './ReportData.js';
-import type { ReportSummaryJson, SummaryConsistency, SummaryScores } from './ReportSummaryJson.js';
+import { computeFailureClusters } from '../analysis/FailureClusterAnalyser.js';
+import { classifyConsistencyKind } from '../model/classifyConsistencyKind.js';
+import { formatSource } from '../model/formatSource.js';
+import type { ReportData } from '../reporting/ReportData.js';
+import type { ReportSummaryJson, SummaryConsistency, SummaryScores } from '../reporting/ReportSummaryJson.js';
 
 /**
  * Writes a machine-readable `summary.json` alongside the HTML report

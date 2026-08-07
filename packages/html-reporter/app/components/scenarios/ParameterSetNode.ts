@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 
-import type { ReportParameterSet } from '../../../src/cli/ReportData.js';
+import type { ReportParameterSet } from '../../../src/cli/reporting/ReportData.js';
 import { formatDuration, showToast, useHashHistory } from '../../utils/index.js';
 import { icons } from '../common/icons.js';
 import { OutcomeBadge } from '../common/OutcomeBadge.js';

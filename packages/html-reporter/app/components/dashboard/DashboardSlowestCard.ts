@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportScenario } from '../../../src/cli/ReportData.js';
+import type { ReportScenario } from '../../../src/cli/reporting/ReportData.js';
 import { formatDuration, scenarioUrl } from '../../utils/index.js';
 import { link } from '../../utils/link.js';
 

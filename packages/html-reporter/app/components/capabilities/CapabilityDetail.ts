@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportCapabilityNode } from '../../../src/cli/ReportData.js';
+import type { ReportCapabilityNode } from '../../../src/cli/reporting/ReportData.js';
 import { RawHtml, totalFailedCount } from '../../utils/index.js';
 import { link } from '../../utils/link.js';
 import { SegmentedBar } from '../common/charts/SegmentedBar.js';

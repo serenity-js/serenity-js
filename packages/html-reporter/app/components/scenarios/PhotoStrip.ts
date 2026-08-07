@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 
-import type { ReportActivity } from '../../../src/cli/ReportData.js';
+import type { ReportActivity } from '../../../src/cli/reporting/ReportData.js';
 import { useHashHistory } from '../../utils/index.js';
 import { collectPhotos } from './collectPhotos.js';
 import { Lightbox } from './Lightbox.js';

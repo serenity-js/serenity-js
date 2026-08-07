@@ -17,11 +17,11 @@ import { FileSystem, ModuleLoader, Path } from '@serenity-js/core/io';
 import { CorrelationId, Description, Name } from '@serenity-js/core/model';
 import { ensure, isDefined } from 'tiny-types';
 
+import type { HtmlReporterConfig } from '../HtmlReporterConfig.js';
+import type { RunData } from '../model/RunData.js';
+import { CURRENT_RUN_DATA_SCHEMA_VERSION } from '../model/RunData.js';
 import { ArtifactWriter } from './ArtifactWriter.js';
 import { CIDetector } from './CiDetector.js';
-import type { HtmlReporterConfig } from './HtmlReporterConfig.js';
-import type { RunData } from './model/RunData.js';
-import { CURRENT_RUN_DATA_SCHEMA_VERSION } from './model/RunData.js';
 import { RunDataWriter } from './RunDataWriter.js';
 import { SceneDataCollector } from './SceneDataCollector.js';
 import { SystemContextDetector } from './SystemContextDetector.js';

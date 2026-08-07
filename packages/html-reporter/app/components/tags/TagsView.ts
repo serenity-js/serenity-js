@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 
-import type { ReportTag } from '../../../src/cli/ReportData.js';
+import type { ReportTag } from '../../../src/cli/reporting/ReportData.js';
 import { FilterBar } from '../common/FilterBar.js';
 import { ResultCount } from '../common/ResultCount.js';
 import { SearchInput } from '../common/SearchInput.js';

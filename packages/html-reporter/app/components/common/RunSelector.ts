@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportHistoryEntry } from '../../../src/cli/ReportData.js';
+import type { ReportHistoryEntry } from '../../../src/cli/reporting/ReportData.js';
 import { formatRunLabel, totalFailedCount } from '../../utils/index.js';
 
 const html = htm.bind(h);

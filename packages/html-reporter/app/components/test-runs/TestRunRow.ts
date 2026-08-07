@@ -1,7 +1,7 @@
 import htm from 'htm';
 import { h } from 'preact';
 
-import type { ReportHistoryEntry } from '../../../src/cli/ReportData.js';
+import type { ReportHistoryEntry } from '../../../src/cli/reporting/ReportData.js';
 import { computeRunMetrics, normaliseRepoUrl } from '../../utils/computeRunMetrics.js';
 import { formatDuration, formatRunLabel, formatTimestamp, scoreColor } from '../../utils/index.js';
 import { link } from '../../utils/link.js';

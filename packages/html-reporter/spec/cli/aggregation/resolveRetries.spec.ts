@@ -9,8 +9,8 @@
 import { expect, test } from '@playwright/test';
 import { ExecutionFailedWithAssertionError, ExecutionSuccessful } from '@serenity-js/core/model';
 
-import type { RunData, SceneRecord } from '../../src/cli/model/RunData.js';
-import { mergeAdditively } from '../../src/cli/resolveRetries.js';
+import { mergeAdditively } from '../../../src/cli/aggregation/resolveRetries.js';
+import type { RunData, SceneRecord } from '../../../src/cli/model/RunData.js';
 
 function createRunData(overrides: Partial<RunData> = {}): RunData {
     return {

@@ -7,7 +7,7 @@ import { createPortal } from 'preact/compat';
 Chart.register(zoomPlugin);
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 
-import type { ReportHistoryEntry } from '../../../../src/cli/ReportData.js';
+import type { ReportHistoryEntry } from '../../../../src/cli/reporting/ReportData.js';
 import { usePanState } from '../../../hooks/usePanState.js';
 import { computeRunMetrics } from '../../../utils/computeRunMetrics.js';
 import { formatDuration, formatRunLabel, formatTimestamp } from '../../../utils/index.js';

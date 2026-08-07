@@ -4,10 +4,10 @@ import { expect, test } from '@playwright/test';
 import { FileSystem, Path } from '@serenity-js/core/io';
 import { createFsFromVolume, Volume } from 'memfs';
 
-import type { ReportData } from '../../src/cli/ReportData.js';
-import type { ReportSummaryJson } from '../../src/cli/ReportSummaryJson.js';
-import { ReportSummaryJsonSchema } from '../../src/cli/ReportSummaryJson.js';
-import { SummaryJsonWriter } from '../../src/cli/SummaryJsonWriter.js';
+import { SummaryJsonWriter } from '../../../src/cli/aggregation/SummaryJsonWriter.js';
+import type { ReportData } from '../../../src/cli/reporting/ReportData.js';
+import type { ReportSummaryJson } from '../../../src/cli/reporting/ReportSummaryJson.js';
+import { ReportSummaryJsonSchema } from '../../../src/cli/reporting/ReportSummaryJson.js';
 
 test.describe('SummaryJsonWriter', () => {
 

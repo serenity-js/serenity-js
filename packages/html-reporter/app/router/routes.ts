@@ -1,4 +1,4 @@
-import type { ReportData } from '../../src/cli/ReportData.js';
+import type { ReportData } from '../../src/cli/reporting/ReportData.js';
 import { AboutView } from '../components/about/AboutView.js';
 import { SystemContextView } from '../components/about/SystemContextView.js';
 import { CapabilitiesView } from '../components/capabilities/CapabilitiesView.js';

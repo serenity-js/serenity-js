@@ -4,9 +4,9 @@ import { expect, test } from '@playwright/test';
 import { FileSystem, Path } from '@serenity-js/core/io';
 import { createFsFromVolume, Volume } from 'memfs';
 
-import { ArtifactWriter } from '../../src/cli/ArtifactWriter.js';
-import type { RunData } from '../../src/cli/model/RunData.js';
-import { RunDataWriter } from '../../src/cli/RunDataWriter.js';
+import { ArtifactWriter } from '../../../src/cli/collection/ArtifactWriter.js';
+import { RunDataWriter } from '../../../src/cli/collection/RunDataWriter.js';
+import type { RunData } from '../../../src/cli/model/RunData.js';
 
 test.describe('ArtifactWriter', () => {
 

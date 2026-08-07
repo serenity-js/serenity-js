@@ -8,7 +8,7 @@ import {
     ImplementationPending
 } from '@serenity-js/core/model';
 
-import type { ActivityRecord, ErrorRecord, OutcomeCounts } from './model/RunData.js';
+import type { ActivityRecord, ErrorRecord, OutcomeCounts } from '../model/RunData.js';
 
 export function findErrorInActivities(activities: ActivityRecord[]): ErrorRecord | undefined {
     for (const activity of activities) {

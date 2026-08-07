@@ -4,7 +4,7 @@ import type { Path } from '@serenity-js/core/io';
 import type { CorrelationId } from '@serenity-js/core/model';
 import { ExecutionSuccessful } from '@serenity-js/core/model';
 
-import type { SceneRecord } from './model/RunData.js';
+import type { SceneRecord } from '../model/RunData.js';
 
 /**
  * Groups domain events by sceneId.

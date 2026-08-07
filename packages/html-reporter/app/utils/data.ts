@@ -1,4 +1,4 @@
-import type { ReportData } from '../../src/cli/ReportData.js';
+import type { ReportData } from '../../src/cli/reporting/ReportData.js';
 
 let validated = false;
 

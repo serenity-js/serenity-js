@@ -2,7 +2,7 @@ import type { ActivityRelatedArtifactGenerated } from '@serenity-js/core/events'
 import type { RequestAndResponse } from '@serenity-js/core/model';
 import { HTTPRequestResponse, JSONData, LogEntry, TextData } from '@serenity-js/core/model';
 
-import type { ActivityRecord } from './model/RunData.js';
+import type { ActivityRecord } from '../model/RunData.js';
 
 /**
  * Handles an HTTPRequestResponse artifact by attaching REST query data to the activity record.

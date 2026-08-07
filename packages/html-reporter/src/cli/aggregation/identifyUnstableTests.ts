@@ -1,8 +1,8 @@
 import { ExecutionSuccessful } from '@serenity-js/core/model';
 
-import { resolveRunLabel, sceneIdentity } from './model/index.js';
-import { outcomeCodeToDisplayString } from './model/outcomes.js';
-import type { RunData, TagRecord } from './model/RunData.js';
+import { resolveRunLabel, sceneIdentity } from '../model/index.js';
+import { outcomeCodeToDisplayString } from '../model/outcomes.js';
+import type { RunData, TagRecord } from '../model/RunData.js';
 
 /**
  * Identifies tests with inconsistent outcomes across recent runs.

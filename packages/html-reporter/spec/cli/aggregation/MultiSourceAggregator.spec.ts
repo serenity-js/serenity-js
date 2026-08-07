@@ -4,9 +4,9 @@ import { expect, test } from '@playwright/test';
 import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import { createFsFromVolume, Volume } from 'memfs';
 
-import { MultiSourceAggregator } from '../../src/cli/MultiSourceAggregator.js';
-import type { ReportData } from '../../src/cli/ReportData.js';
-import { SingleSourceAggregator } from '../../src/cli/SingleSourceAggregator.js';
+import { MultiSourceAggregator } from '../../../src/cli/aggregation/MultiSourceAggregator.js';
+import { SingleSourceAggregator } from '../../../src/cli/aggregation/SingleSourceAggregator.js';
+import type { ReportData } from '../../../src/cli/reporting/ReportData.js';
 
 test.describe('MultiSourceAggregator', () => {
 

@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useCallback } from 'preact/hooks';
 
-import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/ReportData.js';
+import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/reporting/ReportData.js';
 import { ROW_HEIGHTS } from '../../config/layout.js';
 import { CategoryBreadcrumb } from '../common/CategoryBreadcrumb.js';
 import { GroupedVirtualList } from '../common/layout/GroupedVirtualList.js';

@@ -3,16 +3,16 @@ import type { DomainEvent } from '@serenity-js/core/events';
 import { FileSystem, ModuleLoader, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import { ensure, isDefined } from 'tiny-types';
 
-import { ArtifactWriter } from './ArtifactWriter.js';
-import { CIDetector } from './CiDetector.js';
+import { SingleSourceAggregator } from './aggregation/SingleSourceAggregator.js';
+import { ArtifactWriter } from './collection/ArtifactWriter.js';
+import { CIDetector } from './collection/CiDetector.js';
+import { RunDataWriter } from './collection/RunDataWriter.js';
+import { SceneDataCollector } from './collection/SceneDataCollector.js';
+import { SystemContextDetector } from './collection/SystemContextDetector.js';
+import { detectAttemptNumber, detectModuleId, detectTestRunId, TestRunArchiver } from './collection/TestRunArchiver.js';
 import type { HtmlReporterConfig } from './HtmlReporterConfig.js';
 import { HtmlReportGenerator } from './HtmlReportGenerator.js';
-import { ReportTemplateWriter } from './ReportTemplateWriter.js';
-import { RunDataWriter } from './RunDataWriter.js';
-import { SceneDataCollector } from './SceneDataCollector.js';
-import { SingleSourceAggregator } from './SingleSourceAggregator.js';
-import { SystemContextDetector } from './SystemContextDetector.js';
-import { detectAttemptNumber, detectModuleId, detectTestRunId, TestRunArchiver } from './TestRunArchiver.js';
+import { ReportTemplateWriter } from './reporting/ReportTemplateWriter.js';
 
 /**
  * A {@link StageCrewMember} that produces a self-contained static HTML report.

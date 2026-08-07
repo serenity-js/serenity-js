@@ -1,4 +1,4 @@
-import type { CapabilityScore,ReportOutcomes } from './ReportData.js';
+import type { CapabilityScore,ReportOutcomes } from '../reporting/ReportData.js';
 
 const WEIGHT_PASS_RATE = 0.40;
 const WEIGHT_COMPLETENESS = 0.25;

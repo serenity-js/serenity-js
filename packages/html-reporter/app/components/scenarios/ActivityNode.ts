@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 
-import type { ReportActivity } from '../../../src/cli/ReportData.js';
+import type { ReportActivity } from '../../../src/cli/reporting/ReportData.js';
 import { parseActivityContent } from '../../utils/parseActivityContent.js';
 import { RestQueryPanel } from '../common/RestQueryPanel.js';
 import { ActivityDataTable } from './ActivityDataTable.js';

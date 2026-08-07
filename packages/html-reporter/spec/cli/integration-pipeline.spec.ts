@@ -26,10 +26,10 @@ import {
 } from '@serenity-js/core/model';
 import { createFsFromVolume, Volume } from 'memfs';
 
-import type { ReportData } from '../../src/cli/ReportData.js';
-import { SceneDataCollector } from '../../src/cli/SceneDataCollector.js';
-import { SingleSourceAggregator } from '../../src/cli/SingleSourceAggregator.js';
-import type { SystemContext } from '../../src/cli/SystemContextDetector.js';
+import { SingleSourceAggregator } from '../../src/cli/aggregation/SingleSourceAggregator.js';
+import { SceneDataCollector } from '../../src/cli/collection/SceneDataCollector.js';
+import type { SystemContext } from '../../src/cli/collection/SystemContextDetector.js';
+import type { ReportData } from '../../src/cli/reporting/ReportData.js';
 
 // -- Helpers --
 const systemContext: SystemContext = {

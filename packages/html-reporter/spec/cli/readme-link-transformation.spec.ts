@@ -10,7 +10,7 @@ import { createFsFromVolume, Volume } from 'memfs';
 
 import { buildCapabilities } from '../../src/cli/capabilities/buildCapabilities.js';
 import type { RunData } from '../../src/cli/model/RunData.js';
-import type { ReportCapabilityNode } from '../../src/cli/ReportData.js';
+import type { ReportCapabilityNode } from '../../src/cli/reporting/ReportData.js';
 
 function createMemFs(tree: Record<string, unknown>, root = '/'): typeof fs {
     return createFsFromVolume(Volume.fromNestedJSON(tree as any, root)) as unknown as typeof fs;

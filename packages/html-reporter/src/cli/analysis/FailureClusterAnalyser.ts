@@ -1,6 +1,6 @@
-import { formatSource } from './model/formatSource.js';
-import type { ReportActivity, ReportScenario } from './ReportData.js';
-import type { FailureCluster, FailureClusterScenario } from './ReportSummaryJson.js';
+import { formatSource } from '../model/formatSource.js';
+import type { ReportActivity, ReportScenario } from '../reporting/ReportData.js';
+import type { FailureCluster, FailureClusterScenario } from '../reporting/ReportSummaryJson.js';
 
 /**
  * Compute a stable fingerprint from an error type and message.
