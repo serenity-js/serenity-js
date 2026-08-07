@@ -1,6 +1,11 @@
+import { createRequire } from 'node:module';
+
 import { expect, test } from '@playwright/test';
 
 import { bootstrap } from '../../bin/bootstrap.mjs';
+
+const require = createRequire(import.meta.url);
+const pkg = require('../../package.json');
 
 function run(argv: string[]): Promise<{ error?: Error; parsed?: Record<string, unknown>; output?: string }> {
     return new Promise(resolve => {
@@ -25,7 +30,7 @@ test.describe('html-reporter CLI', () => {
         test('shows version number', async () => {
             const { error, output } = await run(['--version']);
             expect(error).toBeUndefined();
-            expect(output).toMatch(/\d+\.\d+\.\d+/);
+            expect(output).toContain(pkg.version);
         });
 
         test('requires a command', async () => {

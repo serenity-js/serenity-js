@@ -10,8 +10,9 @@
 
 import { createServer } from 'node:http';
 import { exec } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { FileSystem, Path, RequirementsHierarchy } from '@serenity-js/core/io';
 import fg from 'fast-glob';
@@ -20,6 +21,8 @@ import yargs from 'yargs';
 import { DataSnapshotAggregator } from '../esm/cli/DataSnapshotAggregator.js';
 import { ReportTemplateWriter } from '../esm/cli/ReportTemplateWriter.js';
 import { getNetworkAddress, handleRequest } from './staticFileServer.mjs';
+
+const pkg = JSON.parse(readFileSync(resolve(fileURLToPath(import.meta.url), '../../package.json'), 'utf8'));
 
 // --- Helpers ---
 
@@ -154,6 +157,7 @@ function serveHandler(argv) {
 export function bootstrap(argv, interceptor) {
     yargs()
         .scriptName('html-reporter')
+        .version(pkg.version)
         .usage('Usage: $0 <command> [options]')
         .command('aggregate', 'Aggregate test run data into an HTML report', (builder) => {
             builder
