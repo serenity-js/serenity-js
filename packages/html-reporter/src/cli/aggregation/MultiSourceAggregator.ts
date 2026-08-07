@@ -21,11 +21,10 @@ export class MultiSourceAggregator extends ReportAggregator {
         fileSystem: FileSystem,
         config: AggregatorConfig,
         requirementsHierarchy: RequirementsHierarchy,
-        projectFileSystem: FileSystem,
         private readonly sourceFileSystem: FileSystem,
         warn: typeof console.warn = console.warn,
     ) {
-        super(fileSystem, config, requirementsHierarchy, projectFileSystem, warn);
+        super(fileSystem, config, requirementsHierarchy, warn);
     }
 
     aggregate(externalRunPaths: string[]): void {

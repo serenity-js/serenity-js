@@ -1,4 +1,4 @@
-import type { FileSystem, RequirementsHierarchy } from '@serenity-js/core/io';
+import type { RequirementsHierarchy } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
 
 import { scoreCapability, scoreDirectory } from '../analysis/CapabilityConfidenceScorer.js';
@@ -6,7 +6,7 @@ import { mapOutcomeToKey, outcomeCodeToDisplayString } from '../model/outcomes.j
 import type { RunData, SceneRecord } from '../model/RunData.js';
 import { sceneIdentity } from '../model/sceneIdentity.js';
 import type { ReportCapabilityNode, ReportOutcomes } from '../reporting/ReportData.js';
-import { findReadme, renderReadmeHtml } from './renderReadme.js';
+import { renderReadmeHtml } from './renderReadme.js';
 
 /**
  * Builds the capabilities tree from a test run and its history.
@@ -17,7 +17,6 @@ export function buildCapabilities(
     run: RunData,
     allRuns: RunData[],
     requirementsHierarchy: RequirementsHierarchy,
-    projectFileSystem?: FileSystem,
 ): ReportCapabilityNode {
     const rootName = requirementsHierarchy.rootDirectory().basename();
     const root: ReportCapabilityNode = { type: 'directory', name: rootName, outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenarioCount: 0, children: [] };
@@ -31,9 +30,7 @@ export function buildCapabilities(
     computeFileScores(nodeMap);
     computeDirectoryScores(root);
 
-    if (projectFileSystem) {
-        attachReadmes(root, nodeMap, requirementsHierarchy, projectFileSystem);
-    }
+    attachReadmes(root, nodeMap, requirementsHierarchy);
 
     return root;
 }
@@ -52,13 +49,12 @@ function attachReadmes(
     root: ReportCapabilityNode,
     nodeMap: Map<string, ReportCapabilityNode>,
     requirementsHierarchy: RequirementsHierarchy,
-    projectFileSystem: FileSystem,
 ): void {
     const specRoot = requirementsHierarchy.rootDirectory();
-    attachReadme(root, specRoot, projectFileSystem, '', nodeMap);
+    attachReadme(root, specRoot, requirementsHierarchy, '', nodeMap);
     for (const [key, node] of nodeMap) {
         if (key && node.type === 'directory') {
-            attachReadme(node, specRoot.join(Path.from(key)), projectFileSystem, key, nodeMap);
+            attachReadme(node, specRoot.join(Path.from(key)), requirementsHierarchy, key, nodeMap);
         }
     }
 }
@@ -179,14 +175,13 @@ function computeDirectoryScores(node: ReportCapabilityNode): void {
 function attachReadme(
     node: ReportCapabilityNode,
     directoryPath: Path,
-    projectFileSystem: FileSystem,
+    requirementsHierarchy: RequirementsHierarchy,
     currentNodePath: string,
     nodeMap: Map<string, ReportCapabilityNode>,
 ): void {
-    const readmePath = findReadme(directoryPath, projectFileSystem);
-    if (!readmePath || !projectFileSystem.exists(readmePath)) return;
+    if (!requirementsHierarchy.hasReadmeAt(directoryPath)) return;
 
-    const content = projectFileSystem.readFileSync(readmePath, { encoding: 'utf8' }) as string;
+    const content = requirementsHierarchy.readmeAt(directoryPath);
 
     const headingMatch = content.match(/^#{1,2}\s+(.+)$/m);
     if (headingMatch) {

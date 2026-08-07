@@ -119,7 +119,7 @@ function aggregateRuns(runs: Record<string, string>): ReportData {
 
     const outputFs = new FileSystem(Path.from('/output'), filesystem);
     const hierarchy = new RequirementsHierarchy(outputFs);
-    const aggregator = new SingleSourceAggregator(outputFs, { consistencyWindow: 5 }, hierarchy, outputFs, () => undefined);
+    const aggregator = new SingleSourceAggregator(outputFs, { consistencyWindow: 5 }, hierarchy, () => undefined);
     aggregator.aggregate();
 
     const content = filesystem.readFileSync('/output/data.js', 'utf8') as string;
@@ -297,7 +297,7 @@ test.describe('Full pipeline integration: events → db.json → data.js', () =>
 
             const outputFs = new FileSystem(Path.from('/output'), filesystem);
             const hierarchy = new RequirementsHierarchy(outputFs);
-            const aggregator = new SingleSourceAggregator(outputFs, { consistencyWindow: 5 }, hierarchy, outputFs, () => undefined);
+            const aggregator = new SingleSourceAggregator(outputFs, { consistencyWindow: 5 }, hierarchy, () => undefined);
             aggregator.aggregate();
 
             expect(filesystem.existsSync('/output/data.js')).toBe(false);

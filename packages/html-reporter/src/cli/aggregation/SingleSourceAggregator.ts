@@ -18,10 +18,9 @@ export class SingleSourceAggregator extends ReportAggregator {
         fileSystem: FileSystem,
         config: AggregatorConfig,
         requirementsHierarchy: RequirementsHierarchy,
-        projectFileSystem: FileSystem,
         warn: typeof console.warn = console.warn,
     ) {
-        super(fileSystem, config, requirementsHierarchy, projectFileSystem, warn);
+        super(fileSystem, config, requirementsHierarchy, warn);
     }
 
     aggregate(): void {

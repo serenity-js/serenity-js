@@ -28,7 +28,7 @@ test.describe('SingleSourceAggregator', () => {
             maxHistory: config.maxHistory,
             title: config.title,
             buildCapabilities: !!requirementsHierarchy,
-        }, hierarchy, defaultProjectFs, () => undefined);
+        }, hierarchy, () => undefined);
 
         return { aggregator, filesystem };
     }
@@ -260,7 +260,7 @@ test.describe('SingleSourceAggregator', () => {
                         }),
                     },
                 },
-            }, {}, hierarchy, projectFileSystem);
+            }, {}, hierarchy);
 
             aggregator.aggregate();
 
@@ -322,7 +322,7 @@ test.describe('SingleSourceAggregator', () => {
                         }),
                     },
                 },
-            }, {}, hierarchy, projectFileSystem);
+            }, {}, hierarchy);
 
             aggregator.aggregate();
 
@@ -365,7 +365,7 @@ test.describe('SingleSourceAggregator', () => {
                         }),
                     },
                 },
-            }, {}, hierarchy, projectFileSystem);
+            }, {}, hierarchy);
 
             aggregator.aggregate();
 
@@ -407,7 +407,7 @@ test.describe('SingleSourceAggregator', () => {
                         }),
                     },
                 },
-            }, {}, hierarchy, projectFileSystem);
+            }, {}, hierarchy);
 
             aggregator.aggregate();
 
@@ -1229,7 +1229,7 @@ test.describe('SingleSourceAggregator', () => {
                         }),
                     },
                 },
-            }, {}, hierarchy, projectFileSystem);
+            }, {}, hierarchy);
 
             aggregator.aggregate();
 

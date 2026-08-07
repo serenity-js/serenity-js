@@ -37,7 +37,6 @@ export abstract class ReportAggregator {
         protected readonly fileSystem: FileSystem,
         protected readonly config: AggregatorConfig,
         protected readonly requirementsHierarchy: RequirementsHierarchy,
-        protected readonly projectFileSystem: FileSystem,
         protected readonly warn: typeof console.warn = console.warn,
     ) {
     }
@@ -62,7 +61,7 @@ export abstract class ReportAggregator {
             newFailures,
             newPasses,
             systemContext: buildSystemContext(latestRun),
-            capabilities: this.config.buildCapabilities ? buildCapabilities(latestRun, allRuns, this.requirementsHierarchy, this.projectFileSystem) : undefined,
+            capabilities: this.config.buildCapabilities ? buildCapabilities(latestRun, allRuns, this.requirementsHierarchy) : undefined,
             specDirectory: this.resolveSpecDirectoryForClient(),
         };
 

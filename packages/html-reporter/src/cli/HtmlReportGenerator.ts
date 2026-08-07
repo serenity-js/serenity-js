@@ -112,7 +112,7 @@ class HtmlReportGeneratorBuilder implements StageCrewMemberBuilder<HtmlReportGen
         }, new RequirementsHierarchy(
             projectFileSystem,
             this.config.specDirectory ? Path.from(this.config.specDirectory) : undefined,
-        ), projectFileSystem,
+        ),
         );
 
         const templateWriter = new ReportTemplateWriter(outputFileSystem);

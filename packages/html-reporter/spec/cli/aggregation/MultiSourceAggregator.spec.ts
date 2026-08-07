@@ -28,7 +28,7 @@ test.describe('MultiSourceAggregator', () => {
             maxHistory: config.maxHistory,
             title: config.title,
             buildCapabilities: !!requirementsHierarchy,
-        }, hierarchy, defaultProjectFs, () => undefined);
+        }, hierarchy, () => undefined);
 
         return { aggregator, filesystem };
     }
@@ -45,7 +45,7 @@ test.describe('MultiSourceAggregator', () => {
             maxHistory: config.maxHistory,
             title: config.title,
             buildCapabilities: !!requirementsHierarchy,
-        }, hierarchy, defaultProjectFs, sourceFileSystem, () => undefined);
+        }, hierarchy, sourceFileSystem, () => undefined);
 
         return { aggregator, filesystem };
     }

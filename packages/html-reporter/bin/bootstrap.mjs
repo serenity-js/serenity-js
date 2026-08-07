@@ -75,7 +75,7 @@ function createAggregator(outputDirectory, dbJsonPaths, options) {
         maxHistory: options.maxHistory,
         title: options.title,
         buildCapabilities: !!options.specRoot,
-    }, requirementsHierarchy, projectFileSystem, sourceFileSystem);
+    }, requirementsHierarchy, sourceFileSystem);
 }
 
 // --- Commands ---

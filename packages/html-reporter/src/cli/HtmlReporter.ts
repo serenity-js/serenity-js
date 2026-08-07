@@ -89,7 +89,7 @@ class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
             maxHistory: this.config.maxHistory,
             title: this.config.title,
             buildCapabilities: !!this.config.specDirectory,
-        }, requirementsHierarchy, projectFileSystem,
+        }, requirementsHierarchy,
         );
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
 
