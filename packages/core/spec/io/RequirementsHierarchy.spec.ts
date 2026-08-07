@@ -183,6 +183,64 @@ describe('RequirementsHierarchy', () => {
             expect(tags[4]).to.equal(new FeatureTag('Default payment method'));
         });
     });
+
+    describe('readme resolution', () => {
+
+        it('returns true when a README.md exists in the directory', () => {
+            const hierarchy = new RequirementsHierarchy(
+                fileSystem({ '/home/alice/my-project': { spec: { 'README.md': '# Hello' } } }),
+                Path.from('spec'),
+            );
+
+            expect(hierarchy.hasReadmeAt(hierarchy.rootDirectory())).to.equal(true);
+        });
+
+        it('finds readme.md case-insensitively', () => {
+            const hierarchy = new RequirementsHierarchy(
+                fileSystem({ '/home/alice/my-project': { spec: { 'readme.md': '# Lower case' } } }),
+                Path.from('spec'),
+            );
+
+            expect(hierarchy.hasReadmeAt(hierarchy.rootDirectory())).to.equal(true);
+        });
+
+        it('returns false when no README exists', () => {
+            const hierarchy = new RequirementsHierarchy(
+                fileSystem({ '/home/alice/my-project': { spec: { 'test.spec.ts': '' } } }),
+                Path.from('spec'),
+            );
+
+            expect(hierarchy.hasReadmeAt(hierarchy.rootDirectory())).to.equal(false);
+        });
+
+        it('returns false for a non-existent directory', () => {
+            const hierarchy = new RequirementsHierarchy(
+                fileSystem({ '/home/alice/my-project': { spec: {} } }),
+                Path.from('spec'),
+            );
+
+            expect(hierarchy.hasReadmeAt(Path.from('/home/alice/my-project/spec/nonexistent'))).to.equal(false);
+        });
+
+        it('reads the content of a README file', () => {
+            const hierarchy = new RequirementsHierarchy(
+                fileSystem({ '/home/alice/my-project': { spec: { 'README.md': '# My Feature\n\nDescription here.' } } }),
+                Path.from('spec'),
+            );
+
+            expect(hierarchy.readmeAt(hierarchy.rootDirectory())).to.equal('# My Feature\n\nDescription here.');
+        });
+
+        it('throws a LogicError when reading a README that does not exist', () => {
+            const hierarchy = new RequirementsHierarchy(
+                fileSystem({ '/home/alice/my-project': { spec: { 'test.spec.ts': '' } } }),
+                Path.from('spec'),
+            );
+
+            expect(() => hierarchy.readmeAt(hierarchy.rootDirectory()))
+                .to.throw(/No README found/);
+        });
+    });
 });
 
 function fileSystem(fakeDirectoryStructure: JSONObject) {
