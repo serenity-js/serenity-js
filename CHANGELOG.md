@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.44.3](https://github.com/serenity-js/serenity-js/compare/v3.44.2...v3.44.3) (2026-08-07)
+
+### Bug Fixes
+
+* **deps:** update serenity bdd dependencies ([d935658](https://github.com/serenity-js/serenity-js/commit/d935658a93d289f55a981faacf5b852416738adb))
+* **deps:** update serenity bdd dependencies ([de84bad](https://github.com/serenity-js/serenity-js/commit/de84badf094abbbb424ed7896c7aaa2a93f0b0e9))
+* **serenity-bdd:** raised the minimum Node.js version required to support Yargs and Which upgrade ([bd8cb46](https://github.com/serenity-js/serenity-js/commit/bd8cb4631051905f5b782c413482b7534d442d1c)), closes [#3177](https://github.com/serenity-js/serenity-js/issues/3177)
+
+
 ## [3.44.2](https://github.com/serenity-js/serenity-js/compare/v3.44.1...v3.44.2) (2026-08-07)
 
 ### Bug Fixes
