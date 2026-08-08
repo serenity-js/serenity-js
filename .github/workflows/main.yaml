@@ -416,7 +416,7 @@ jobs:
           path: target/html-report/
           retention-days: 14
       - name: Deploy to GitHub Pages
-        if: always() && (github.ref == 'refs/heads/main')
+        if: always() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/features/html-reporter')
         uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           branch: gh-pages

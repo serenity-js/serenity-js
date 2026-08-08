@@ -17,15 +17,21 @@ Tracking document for all documentation work required to launch `@serenity-js/ht
 - [x] /getting-started/ (Why Serenity/JS) Level 1 config example uses HTML Reporter
 - [x] /handbook/ landing page "Insightful reporting" section highlights HTML Reporter
 
-## Remaining
+## Remaining (priority order for announcement)
 
-- [ ] Update project templates to use @serenity-js/html-reporter and link to live HTML reports
+### Must-have before announcement
 - [ ] Update GitHub root README.md Quick Start section to show HTML Reporter config
-- [ ] Add troubleshooting section: 'Java issues → Try the HTML Reporter'
-- [ ] Update architecture page package diagram to include @serenity-js/html-reporter
-- [ ] Update homepage 'Report what really matters' section to mention HTML Reporter
+- [ ] Update project templates to use @serenity-js/html-reporter and link to live HTML reports
 - [ ] Publish blog post (verify version number matches actual release)
+
+### Should-have (same week)
+- [ ] Add FAQ topics to handbook article (see section below)
+- [ ] Update homepage 'Report what really matters' section to mention HTML Reporter
 - [ ] Add @serenity-js/html-reporter to API docs generation pipeline
+
+### Can follow after (week 2+)
+- [ ] Update architecture page package diagram to include @serenity-js/html-reporter
+- [ ] Add troubleshooting section: 'Java issues → Try the HTML Reporter'
 
 ## FAQ topics to cover in handbook article
 
