@@ -1,5 +1,10 @@
 # RuntimeError.toJSON Circular Reference Protection
 
+## Status: DEFERRED — workaround in place
+
+The html-reporter's `outcomeSerialisers.ts` avoids calling `outcome.toJSON()` entirely via `serialiseOutcome()`.
+The proper fix (Option A) is tracked here for future implementation in `@serenity-js/core`.
+
 ## Problem
 
 `RuntimeError.toJSON()` delegates to `TinyType.prototype.toJSON.apply(this)`, which recursively serialises ALL own

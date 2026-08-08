@@ -920,3 +920,42 @@ The correct z-index hierarchy for a two-axis sticky table:
 2: tbody td:first-child    (single axis: left only)
 1: tbody td                (no stickiness)
 ```
+
+## pnpm `--` separator breaks yargs command parsing
+
+When a script is invoked via `pnpm run report:html -- aggregate ...`, pnpm inserts a `--` separator between the script command and user arguments. Yargs treats `--` as "end of options" — everything after it becomes positional arguments, not commands. The `aggregate` command silently doesn't match.
+
+Fix: strip a leading `--` from argv before passing to yargs:
+```javascript
+const argv = process.argv.slice(2);
+const cleanArgv = argv[0] === '--' ? argv.slice(1) : argv;
+bootstrap(cleanArgv);
+```
+
+## yargs version resolution in monorepos
+
+`yargs().version()` without an argument resolves the version from the nearest `package.json` walking up the directory tree. In a monorepo, this finds the workspace root (e.g., `3.0.0-monorepo`) instead of the package's own version.
+
+Fix: explicitly pass the version from the package's own `package.json`:
+```javascript
+const pkg = JSON.parse(readFileSync(resolve(fileURLToPath(import.meta.url), '../../package.json'), 'utf8'));
+yargs().version(pkg.version)
+```
+
+## Tell, don't ask: move behaviour into the object that owns the data
+
+When `buildCapabilities` needed to read README files, it accepted a `projectFileSystem` parameter and did the file I/O itself. The `RequirementsHierarchy` already had the filesystem internally but kept it private.
+
+Instead of exposing the private (`getFileSystem()`) or passing it around, add behaviour to the owner: `hasReadmeAt(path)` and `readmeAt(path)`. This eliminated a constructor parameter from the entire aggregator hierarchy.
+
+Pattern: if you find yourself passing an object's internal dependency to another function so that function can do work the object could do itself — move that work into the object.
+
+## `npm run compile` must include @serenity-js/core when changing its public API
+
+When adding methods to `RequirementsHierarchy` in `@serenity-js/core`, downstream packages (like html-reporter) resolve types from core's compiled output (`lib/`). If you only compile the downstream package, TypeScript can't see the new methods.
+
+Always compile the dependency first:
+```bash
+cd packages/core && npm run compile
+cd packages/html-reporter && npm run compile
+```

@@ -32,13 +32,22 @@ packages/html-reporter/
 │   ├── hooks/           ← Custom Preact hooks (useVirtualizer, useStickyHeader, useHashHistory)
 │   └── utils/           ← Shared selectors, formatters, navigation helpers
 ├── src/                 ← Node.js code
-│   ├── cli/             ← Reporter, archiver, aggregator, summary writer
+│   ├── cli/             ← Top-level crew members (HtmlReporter, HtmlReportGenerator)
+│   │   ├── collection/  ← Data collection during test run (TestRunArchiver, SceneDataCollector, etc.)
+│   │   ├── aggregation/ ← Combining runs into a snapshot (ReportAggregator, SingleSource/MultiSource)
+│   │   ├── reporting/   ← Final output generation (ReportTemplateWriter, ReportData types)
+│   │   ├── analysis/    ← Scoring and clustering (CapabilityConfidenceScorer, FailureClusterAnalyser)
+│   │   ├── capabilities/← Capabilities tree building
+│   │   ├── history/     ← Execution history building
+│   │   └── model/       ← Data model (RunData, validation, scene identity)
+│   ├── navigation/      ← URL builder (link.ts — shared by app and interaction objects)
 │   └── serenity/        ← Interaction objects for component/integration tests
 ├── spec/
-│   ├── cli/             ← Unit tests for CLI/reporter logic
+│   ├── cli/             ← Unit tests (mirrors src/cli/ subdirectory structure)
+│   ├── navigation/      ← Link URL builder tests
 │   └── app/             ← Component tests (Playwright + esbuild fixture)
 ├── scripts/             ← Build scripts (bundle-template.mjs, generate-summary-schema.mjs)
-└── bin/                 ← CLI entry point
+└── bin/                 ← CLI entry point (bootstrap.mjs + yargs)
 ```
 
 ## Route Architecture
