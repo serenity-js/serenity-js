@@ -13,6 +13,9 @@ Tracking document for all documentation work required to launch `@serenity-js/ht
 - [x] Blog post drafted (src/blog/2026-08-06-html-reporter/)
 - [x] Getting-started guides updated (Playwright, WebdriverIO, Cucumber)
 - [x] 'Why Serenity/JS' comparison table updated
+- [x] Getting-started screenshots replaced with HTML Reporter dashboard (all 3 guides)
+- [x] /getting-started/ (Why Serenity/JS) Level 1 config example uses HTML Reporter
+- [x] /handbook/ landing page "Insightful reporting" section highlights HTML Reporter
 
 ## Remaining
 

@@ -19,7 +19,7 @@
 
 ## Features
 
-- **Single HTML file** — all JavaScript, CSS, and data inlined; works from `file://`, GitHub Pages, S3, or any static host
+- **Single HTML file** — all JavaScript, CSS, and chart logic inlined in `index.html`; test data loaded from a companion `data.js` file. Works from `file://`, GitHub Pages, S3, or any static host
 - **No external dependencies at runtime** — works in air-gapped environments, no CDN links, no network requests
 - **Execution history and trends** — preserves data across runs, showing how tests behave over time
 - **Activity trees with evidence** — every Task, Interaction, and assertion shown with timing, screenshots, and HTTP exchanges

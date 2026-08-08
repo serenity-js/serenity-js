@@ -959,3 +959,23 @@ Always compile the dependency first:
 cd packages/core && npm run compile
 cd packages/html-reporter && npm run compile
 ```
+
+## Documentation messaging: lead with differentiators, not features
+
+When writing documentation for a new module that competes with or replaces an existing option, structure the page as:
+
+1. **Key features** (value proposition) — lead with what's *different*, not what's *possible*. For the HTML Reporter: trend history, flaky detection, no Java. Not: "produces HTML reports" (obvious from the name).
+2. **Progressive adoption** — explicitly state that users get value before fully committing. Removes the "all or nothing" fear.
+3. **Comparison with alternatives** — a table with a clear recommendation ("unless you already depend on X, Y is typically the better choice"). Don't be neutral when one option is genuinely better for most users.
+4. **Migration path** — show both options (run side-by-side, or replace entirely). Reference the comparison rather than repeating it.
+
+Anti-patterns:
+- "You will learn:" bullet lists that duplicate the table of contents (the heading structure already communicates this)
+- Separate "Features" section that restates the "Key features" intro with slightly different wording
+- Neutral "choose based on your needs" framing when there's a clear default recommendation
+
+Also: use the product name ("Serenity/JS HTML Reporter") in headings and captions, not the npm package name (`@serenity-js/html-reporter`). Branding matters in user-facing documentation.
+
+## data.js makes the report a multi-file deployment, not a single shareable file
+
+The HTML Reporter produces `index.html` + `data.js` + screenshot/video files. Don't describe it as "share the file with a colleague" — that implies one file. Say "deploy the directory to any static host" or "open `index.html` directly". The `file://` claim is about zero-server operation, not single-file portability.
