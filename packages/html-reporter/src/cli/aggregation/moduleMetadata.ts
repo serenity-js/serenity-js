@@ -95,5 +95,5 @@ export function aggregateModuleMetadata(runs: RunData[]): Array<{
     return [...moduleMap.values()].map(m => ({
         ...m,
         outcome: deriveOutcomeFromOutcomes(m.finishedAt, m.outcomes),
-    }));
+    })).sort((a, b) => a.moduleId.localeCompare(b.moduleId, undefined, { numeric: true }));
 }
