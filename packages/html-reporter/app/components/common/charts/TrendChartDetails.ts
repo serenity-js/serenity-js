@@ -159,6 +159,10 @@ export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }
                   <span class="run-details-metric-value" style="color:var(--color-skipped)">${selectedRun.metrics.skipped}</span>
                   <span class="run-details-metric-label">Skipped</span>
                 </div>
+                <div class="run-details-metric">
+                  <span class="run-details-metric-value" style="color:var(--accent)">${selectedRun.metrics.total}</span>
+                  <span class="run-details-metric-label">Duration</span>
+                </div>
               </div>
             `}
 
