@@ -1,8 +1,9 @@
-import { expect, test } from '@playwright/test';
-import { buildSync } from 'esbuild';
 import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+import { expect, test } from '@playwright/test';
+import { buildSync } from 'esbuild';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const TEMPLATE_DIR = resolve(__dirname, '../../../../../app');
