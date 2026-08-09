@@ -29,6 +29,9 @@ Tracking document for all documentation work required to launch `@serenity-js/ht
 - [ ] Update homepage 'Report what really matters' section to mention HTML Reporter
 - [ ] Add @serenity-js/html-reporter to API docs generation pipeline
 
+### Post-merge cleanup
+- [ ] Remove `features/html-reporter` branch conditions from `.github/workflows/main.yaml` gh-pages deploy step — keep only `github.ref == 'refs/heads/main'`
+
 ### Can follow after (week 2+)
 - [ ] Update architecture page package diagram to include @serenity-js/html-reporter
 - [ ] Add troubleshooting section: 'Java issues → Try the HTML Reporter'

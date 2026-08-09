@@ -416,7 +416,15 @@ jobs:
           path: target/html-report/
           retention-days: 14
       - name: Deploy to GitHub Pages
-        if: always() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/features/html-reporter')
+        # TODO: Remove features/html-reporter conditions after the PR is merged to main.
+        #       Keep only: github.ref == 'refs/heads/main'
+        if: |
+          always() && (
+            github.ref == 'refs/heads/main' ||
+            github.ref == 'refs/heads/features/html-reporter' ||
+            github.head_ref == 'main' ||
+            github.head_ref == 'features/html-reporter'
+          )
         uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           branch: gh-pages
