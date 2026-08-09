@@ -101,10 +101,18 @@ export class MultiSourceAggregator extends ReportAggregator {
 
             const runsToMerge = filteredRuns.map(r => r.run);
 
-            // Collect and aggregate module metadata by moduleId
-            // This handles WebdriverIO parallel workers that produce multiple db-*.json files
-            // with the same moduleId - they should be aggregated into a single module entry
-            const modules = aggregateModuleMetadata(runsToMerge);
+            // Determine module metadata:
+            // - For historical run-level files (single file with existing multi-module data),
+            //   preserve the modules array that was correctly computed during the original aggregation.
+            // - For fresh module-level aggregation (multiple files), compute from scratch.
+            const isSingleRunLevelFile = filteredRuns.length === 1
+                && filteredRuns[0].isRunLevel
+                && Array.isArray(filteredRuns[0].run.modules)
+                && filteredRuns[0].run.modules.length > 0;
+
+            const modules = isSingleRunLevelFile
+                ? filteredRuns[0].run.modules!
+                : aggregateModuleMetadata(runsToMerge);
 
             // Sub-group by attempt number (missing attempt defaults to 1)
             const byAttempt = new Map<number, RunData[]>();

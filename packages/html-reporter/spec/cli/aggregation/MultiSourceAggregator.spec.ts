@@ -1781,4 +1781,193 @@ test.describe('MultiSourceAggregator', () => {
             expect(data.history[0].modules[0].finishedAt).toBe('2024-06-15T14:30:02.000Z');
         });
     });
+
+    test.describe('historical run-level db.json — multi-module metadata preservation', () => {
+
+        test('preserves the existing multi-module modules array from a historical run-level db.json', () => {
+            const { aggregator, filesystem } = createMultiSourceAggregator({});
+
+            // Historical run-level db.json from gh-pages that already has a correct multi-module
+            // modules array (produced during the original fresh aggregation)
+            const runDirectory = '/source/gh-pages/test-runs/42';
+            filesystem.mkdirSync(runDirectory, { recursive: true });
+            filesystem.writeFileSync(runDirectory + '/db.json', runData({
+                testRunId: '42',
+                moduleId: 'cucumber-1',  // The merged file inherits moduleId from first module
+                startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:35:00.000Z',
+                outcomes: { passed: 50, failed: 2, pending: 1, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Cucumber Test', category: 'Cucumber', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'cucumber.spec.ts', line: 1 }, tags: [], activities: [] },
+                    { name: 'Playwright Test', category: 'Playwright', outcome: { code: 4 }, duration: 200, startedAt: '2024-06-15T14:31:00.000Z', source: { path: 'playwright.spec.ts', line: 1 }, tags: [], activities: [] },
+                    { name: 'WDIO Test', category: 'WebdriverIO', outcome: { code: 64 }, duration: 150, startedAt: '2024-06-15T14:32:00.000Z', source: { path: 'wdio.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                // The key field — this was correctly computed during the original aggregation
+                modules: [
+                    { moduleId: 'cucumber-1', startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:31:00.000Z', outcome: 'passed', outcomes: { passed: 20, failed: 0, pending: 1, skipped: 0, compromised: 0, error: 0 } },
+                    { moduleId: 'playwright-test-1', startedAt: '2024-06-15T14:31:00.000Z', finishedAt: '2024-06-15T14:33:00.000Z', outcome: 'failed', outcomes: { passed: 15, failed: 2, pending: 0, skipped: 0, compromised: 0, error: 0 } },
+                    { moduleId: 'webdriverio-web-1', startedAt: '2024-06-15T14:33:00.000Z', finishedAt: '2024-06-15T14:35:00.000Z', outcome: 'passed', outcomes: { passed: 15, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 } },
+                ],
+            }));
+
+            aggregator.aggregate([runDirectory + '/db.json']);
+
+            const data = readDataJs(filesystem);
+
+            // The modules array should be PRESERVED with all 3 modules, not collapsed to 1
+            expect(data.history[0].modules).toHaveLength(3);
+            expect(data.history[0].modules[0].moduleId).toBe('cucumber-1');
+            expect(data.history[0].modules[1].moduleId).toBe('playwright-test-1');
+            expect(data.history[0].modules[2].moduleId).toBe('webdriverio-web-1');
+
+            // Verify the outcome data is preserved
+            expect(data.history[0].modules[0].outcomes.passed).toBe(20);
+            expect(data.history[0].modules[1].outcomes.failed).toBe(2);
+            expect(data.history[0].modules[2].outcomes.passed).toBe(15);
+        });
+
+        test('preserves a single-module modules array from a historical run-level db.json', () => {
+            const { aggregator, filesystem } = createMultiSourceAggregator({});
+
+            const runDirectory = '/source/gh-pages/test-runs/43';
+            filesystem.mkdirSync(runDirectory, { recursive: true });
+            filesystem.writeFileSync(runDirectory + '/db.json', runData({
+                testRunId: '43',
+                moduleId: 'mocha-1',
+                startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:31:00.000Z',
+                outcomes: { passed: 10, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                modules: [
+                    { moduleId: 'mocha-1', startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:31:00.000Z', outcome: 'passed', outcomes: { passed: 10, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 } },
+                ],
+            }));
+
+            aggregator.aggregate([runDirectory + '/db.json']);
+
+            const data = readDataJs(filesystem);
+
+            // Single-module array should still work fine
+            expect(data.history[0].modules).toHaveLength(1);
+            expect(data.history[0].modules[0].moduleId).toBe('mocha-1');
+            expect(data.history[0].modules[0].outcomes.passed).toBe(10);
+        });
+
+        test('derives modules from moduleId when a historical run-level db.json has no modules array', () => {
+            const { aggregator, filesystem } = createMultiSourceAggregator({});
+
+            const runDirectory = '/source/gh-pages/test-runs/44';
+            filesystem.mkdirSync(runDirectory, { recursive: true });
+            filesystem.writeFileSync(runDirectory + '/db.json', runData({
+                testRunId: '44',
+                moduleId: 'cucumber-1',
+                startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:31:00.000Z',
+                outcomes: { passed: 5, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                // No modules array — old format
+            }));
+
+            aggregator.aggregate([runDirectory + '/db.json']);
+
+            const data = readDataJs(filesystem);
+
+            // Should derive from moduleId (existing behavior)
+            expect(data.history[0].modules).toHaveLength(1);
+            expect(data.history[0].modules[0].moduleId).toBe('cucumber-1');
+        });
+
+        test('computes modules normally when multiple fresh module-level db.json files exist', () => {
+            const { aggregator, filesystem } = createMultiSourceAggregator({});
+
+            // Fresh module-level files (NOT run-level)
+            const cucumberDirectory = '/source/artifacts/test-runs/45/cucumber-1';
+            const playwrightDirectory = '/source/artifacts/test-runs/45/playwright-test-1';
+            filesystem.mkdirSync(cucumberDirectory, { recursive: true });
+            filesystem.mkdirSync(playwrightDirectory, { recursive: true });
+
+            filesystem.writeFileSync(cucumberDirectory + '/db.json', runData({
+                testRunId: '45',
+                moduleId: 'cucumber-1',
+                startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:31:00.000Z',
+                outcomes: { passed: 10, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Cucumber Test', category: 'Cucumber', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'cucumber.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Cucumber', version: '10.0.0' },
+            }));
+
+            filesystem.writeFileSync(playwrightDirectory + '/db.json', runData({
+                testRunId: '45',
+                moduleId: 'playwright-test-1',
+                startedAt: '2024-06-15T14:31:00.000Z', finishedAt: '2024-06-15T14:33:00.000Z',
+                outcomes: { passed: 8, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Playwright Test', category: 'Playwright', outcome: { code: 4 }, duration: 200, startedAt: '2024-06-15T14:31:00.000Z', source: { path: 'playwright.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Playwright', version: '1.50.0' },
+            }));
+
+            aggregator.aggregate([cucumberDirectory + '/db.json', playwrightDirectory + '/db.json']);
+
+            const data = readDataJs(filesystem);
+
+            // Modules should be computed from the individual files (normal behavior)
+            expect(data.history[0].modules).toHaveLength(2);
+            expect(data.history[0].modules.map(m => m.moduleId).sort()).toEqual(['cucumber-1', 'playwright-test-1']);
+        });
+
+        test('excludes run-level file when fresh module-level files exist even if the run-level has a multi-module modules array', () => {
+            const { aggregator, filesystem } = createMultiSourceAggregator({});
+
+            // Historical run-level db.json with a rich multi-module array
+            const ghPagesDirectory = '/source/gh-pages/test-runs/46';
+            filesystem.mkdirSync(ghPagesDirectory, { recursive: true });
+            filesystem.writeFileSync(ghPagesDirectory + '/db.json', runData({
+                testRunId: '46',
+                moduleId: 'cucumber-1',
+                startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:35:00.000Z',
+                outcomes: { passed: 30, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Old Cucumber Test', category: 'Cucumber', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'cucumber.spec.ts', line: 1 }, tags: [], activities: [] },
+                    { name: 'Old Playwright Test', category: 'Playwright', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:31:00.000Z', source: { path: 'playwright.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                modules: [
+                    { moduleId: 'cucumber-1', startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:31:00.000Z', outcome: 'passed', outcomes: { passed: 15, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 } },
+                    { moduleId: 'playwright-test-1', startedAt: '2024-06-15T14:31:00.000Z', finishedAt: '2024-06-15T14:35:00.000Z', outcome: 'passed', outcomes: { passed: 15, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 } },
+                ],
+            }));
+
+            // Fresh module-level file (only cucumber — playwright crashed)
+            const freshCucumberDirectory = '/source/artifacts/test-runs/46/cucumber-1';
+            filesystem.mkdirSync(freshCucumberDirectory, { recursive: true });
+            filesystem.writeFileSync(freshCucumberDirectory + '/db.json', runData({
+                testRunId: '46',
+                moduleId: 'cucumber-1',
+                startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:31:00.000Z',
+                outcomes: { passed: 12, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                scenes: [
+                    { name: 'Fresh Cucumber Test', category: 'Cucumber', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'cucumber.spec.ts', line: 1 }, tags: [], activities: [] },
+                ],
+                tags: [], testRunner: { name: 'Cucumber', version: '10.0.0' },
+            }));
+
+            aggregator.aggregate([ghPagesDirectory + '/db.json', freshCucumberDirectory + '/db.json']);
+
+            const data = readDataJs(filesystem);
+
+            // Fresh module-level data wins — run-level file excluded
+            expect(data.scenarios).toHaveLength(1);
+            expect(data.scenarios[0].name).toBe('Fresh Cucumber Test');
+
+            // Modules should be derived from fresh data only (one module)
+            expect(data.history[0].modules).toHaveLength(1);
+            expect(data.history[0].modules[0].moduleId).toBe('cucumber-1');
+        });
+    });
 });
