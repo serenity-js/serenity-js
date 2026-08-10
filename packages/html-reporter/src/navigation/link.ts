@@ -84,10 +84,12 @@ export interface ConsistencyLink {
 }
 
 /**
- * Timeline view — no parameters (chronological view).
+ * Timeline view — chronological view with optional sort.
  */
 export interface TimelineLink {
     view: 'timeline';
+    /** Sort order */
+    sort?: 'time' | 'duration';
 }
 
 /**
@@ -210,6 +212,9 @@ const viewParameters: Record<string, Record<string, Transform>> = {
     errors: {
         run: passThrough,
         search: passThrough,
+    },
+    timeline: {
+        sort: passThrough,
     },
 };
 

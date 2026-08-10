@@ -16,10 +16,16 @@ interface TimelineViewProps {
     scenarios: ReportScenario[];
     summary: ReportSummary;
     onNavigate: (path: string) => void;
+    route: string;
 }
 
-export function TimelineView({ scenarios: allScenarios, summary, onNavigate }: TimelineViewProps): ReturnType<typeof html> {
-    const [sortBy, setSortBy] = useState('time');
+export function TimelineView({ scenarios: allScenarios, summary, onNavigate, route }: TimelineViewProps): ReturnType<typeof html> {
+    const initialSort = useMemo(() => {
+        const params = new URLSearchParams(route.split('?')[1] || '');
+        const sort = params.get('sort');
+        return sort === 'duration' ? 'duration' : 'time';
+    }, []);
+    const [sortBy, setSortBy] = useState(initialSort);
     const [filter, setFilter] = useState('all');
     const start = new Date(summary.startedAt).getTime();
     const end = new Date(summary.finishedAt).getTime();

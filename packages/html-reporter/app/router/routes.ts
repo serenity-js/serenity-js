@@ -99,9 +99,10 @@ export const routes: RouteDefinition[] = [
         view: TimelineView,
         icon: 'timeline',
         navLabel: 'Timeline',
-        data: (data) => ({
+        data: (data, params) => ({
             scenarios: data.scenarios,
             summary: data.summary,
+            route: routeWithQuery(params),
         }),
     }),
     defineRoute({

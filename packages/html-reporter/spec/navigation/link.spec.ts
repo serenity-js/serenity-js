@@ -204,6 +204,10 @@ test.describe('link() — type-safe URL builder', () => {
             const url = link({ view: 'timeline' });
             expect(url).toBe('/timeline');
         });
+
+        test('timeline with sort', () => {
+            expect(link({ view: 'timeline', sort: 'duration' })).toEqual('/timeline?sort=duration');
+        });
     });
 
     test.describe('TagsLink', () => {

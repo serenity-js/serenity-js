@@ -17,7 +17,7 @@ export function DashboardSlowestCard({ scenarios, onNavigate }: DashboardSlowest
         <div class="card dashboard-status-card" data-testid="dashboard-slowest-card">
           <div class="card-header">
             <h2 class="status-card-title">Slowest Tests</h2>
-            <a class="view-all-link" href="#${link({ view: 'tests', sort: 'duration' })}" onClick=${(e: Event) => { e.preventDefault(); onNavigate(link({ view: 'tests', sort: 'duration' })); }}>View all →</a>
+            <a class="view-all-link" href="#${link({ view: 'timeline', sort: 'duration' })}" onClick=${(e: Event) => { e.preventDefault(); onNavigate(link({ view: 'timeline', sort: 'duration' })); }}>View all →</a>
           </div>
           ${scenarios.map(s => html`
             <a class="status-item" href="#${scenarioUrl(s)}" onClick=${(e: Event) => { e.preventDefault(); onNavigate(scenarioUrl(s)); }}>
