@@ -16,10 +16,10 @@ interface TimelineViewProps {
     scenarios: ReportScenario[];
     summary: ReportSummary;
     onNavigate: (path: string) => void;
-    route: string;
+    route?: string;
 }
 
-export function TimelineView({ scenarios: allScenarios, summary, onNavigate, route }: TimelineViewProps): ReturnType<typeof html> {
+export function TimelineView({ scenarios: allScenarios, summary, onNavigate, route = '' }: TimelineViewProps): ReturnType<typeof html> {
     const initialSort = useMemo(() => {
         const params = new URLSearchParams(route.split('?')[1] || '');
         const sort = params.get('sort');
