@@ -60,11 +60,12 @@ pnpm test
 Integration tests run against compiled output. Always recompile first:
 
 ```bash
-# Clean stale artifacts, compile, then test
 make clean
 make COMPILE_SCOPE=libs compile
 make INTEGRATION_SCOPE=playwright-test integration-test
 ```
+
+See `debugging-ci.md` for full command variations, troubleshooting, and CI reproduction steps.
 
 Integration tests are required when:
 - Adding or modifying test runner adapter behaviour
@@ -135,7 +136,23 @@ When making changes:
 - Each commit should leave the codebase in a working state
 - Prefer a series of small, reviewable changes over a single large one
 
+This applies to delegation too: send a sub-agent one focused task (e.g., "dashboard consistency card"), review the result, then send the next. Don't queue up all work upfront — short feedback loops catch misunderstandings early.
+
 ## Verification Standards
+
+### Always use package.json scripts for final verification
+
+During development, it's fine to use bare commands for speed (`npx tsc --noEmit`, `npx mocha 'spec/one.spec.ts'`, `npx playwright test spec/app/one.spec.ts`). But before committing or reporting work as complete, always use the package.json script equivalents:
+
+| During TDD (fast feedback) | Final verification (before commit) |
+|---|---|
+| `npx tsc --noEmit` | `npm run compile` |
+| `npx mocha 'spec/one.spec.ts'` | `npm test` |
+| `npx playwright test spec/app/tags/` | `npm test` |
+
+**Why:** Package.json scripts run the full pipeline — pretest hooks (data generation, compilation), all test suites (not just one), and post-test steps (coverage, bundling). Bare commands skip these and can pass against stale output, missing test suites, or incomplete builds.
+
+This applies even when you "just compiled" — the pipeline exists to catch what you assume is fine. The urge to skip a step is the signal that the step is needed.
 
 ### Before Presenting Results as Complete
 
@@ -143,6 +160,8 @@ When making changes:
 2. **New code has tests** — every new function, class, or behaviour change has a corresponding spec
 3. **ESLint passes** — `npx eslint <changed-files>` reports no errors
 4. **Build succeeds** — `make COMPILE_SCOPE=libs compile` completes without errors
+
+See the Pre-Commit Checklist below for the full list.
 
 ### Honesty About Verification
 

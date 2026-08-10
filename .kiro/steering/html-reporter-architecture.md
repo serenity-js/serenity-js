@@ -74,6 +74,10 @@ Three rules: exact match, query params, dynamic segment (`:path`). No regex, no 
 URLs with `?route=/path&key=value` are converted to `#/path?key=value` via `history.replaceState` before the app
 renders. This enables linking from contexts that strip `#` fragments (markdown on `file://`, Slack, CI logs).
 
+### URL Builder (`link.ts`)
+
+A single `link()` function with discriminated union types centralises URL encoding and validates parameters at compile time. All components delegate to `link()` — never construct URLs inline. Invalid parameter combinations (e.g., `{ view: 'dashboard', filter: 'failed' }`) are compile errors.
+
 ## Virtualisation
 
 ### GroupedVirtualList
@@ -144,16 +148,44 @@ Classification logic lives in `classifyConsistencyKind()` in `utils/selectors.ts
 Always use `sceneIdentity(scene)` — never inline `source.path + ':' + source.line`. Client-side lookups must include
 `tagDiscriminator` (browser/project/platform tags) to distinguish multi-variant scenarios.
 
+Source line numbers are not always available (e.g. Protractor/Mocha adapters). When building identifiers from `source.path + ':' + source.line`, handle `undefined` line — use the scenario name as a disambiguation fallback.
+
 ### Error Fingerprinting
 
 Normalise by stripping: ANSI escape sequences, absolute file paths (keep filename + line), run-varying numeric values
 (timestamps, ports). This ensures the same root cause clusters across machines and runs.
+
+### ANSI Escape Sequences
+
+Only Playwright Test embeds ANSI SGR colour codes in error messages. Cucumber, Mocha, Jasmine, and WebdriverIO produce plain text.
+
+- **List views**: `stripAnsi()` for plain text
+- **Detail views**: `ansiToHtml()` with `white-space: pre-wrap`
+- Never assume error messages will have ANSI codes
 
 ### Additive Merge Rules (CI Re-runs)
 
 When overlapping scenes appear in the same attempt group:
 - Different outcome → record as retry attempt
 - Same outcome → keep the later version, skip duplicate
+
+### Path Depth Disambiguation
+
+When aggregating from multiple sources, the same `testRunId` can appear at different path depths:
+- **Run-level (pre-merged):** `test-runs/8334/db.json` — stale aggregated output from a previous run
+- **Module-level (individual):** `test-runs/8334/cucumber-1/db.json` — fresh artifact from a CI job
+
+Rule: when module-level files exist for a `testRunId`, exclude run-level files — they contain stale data that masks missing/crashed modules.
+
+### Parallel Worker Coordination (WebdriverIO)
+
+WebdriverIO parallel workers each run their own `TestRunArchiver`. Without coordination, all write to the same `db.json` path. Fix: detect `WDIO_WORKER_ID` and create worker-specific filenames (`db-{workerId}.json`). Aggregation globs must find both `db.json` and `db-*.json`.
+
+### GitHub Pages Deployment
+
+- Use `clean: true` on the deploy action so pruned directories don't persist forever
+- Sanitise timestamps in directory names: `.replaceAll(':', '-')` (GitHub Actions artifact uploads reject colons)
+- Strip CI detection env vars from child processes in integration tests that need isolated directories
 
 ### Incomplete Run Detection (Crash Recovery)
 
@@ -168,6 +200,7 @@ If the process crashes between steps 1 and 2, the placeholder persists. During a
 
 **Data model:**
 - `RunData.finishedAt` and `RunData.testRunner` are optional (absent in placeholders)
+- `RunData.testRunner` is also optional — it's populated later by `TestRunnerDetected`, which may never fire if the crash is early
 - `RunData.modules`: `Array<{ moduleId, startedAt, finishedAt?, outcome?, outcomes? }>` — tracks per-module completion
 - `ReportHistoryEntry.modules` passes through to the client for UI rendering
 
@@ -217,6 +250,16 @@ Complete the full cycle before starting the next extraction.
 - **Tasks** (verbs): `open()`, `find()`, `selectFilter()`
 - No implementation leakage: never expose `ariaLive()`, `cssClass()`, raw attribute accessors
 - Structured results: return `Array<{type, title}>` not parallel arrays
+
+### Artifact Rendering
+
+| Artifact | Persisted to disk? | Inlined in data.js? | Rendered as |
+|----------|:-:|:-:|---|
+| `Photo` (screenshot) | Yes (.png) | No (path reference) | Thumbnail + lightbox |
+| `HTTPRequestResponse` | No | Yes (`restQuery`) | Collapsible REST panel |
+| `LogEntry` / `TextData` | No | Yes (`reportData[]`) | Pre-formatted text block |
+| `JSONData` (generic) | No | Yes (`reportData[]`) | Pre-formatted JSON block |
+| Video (.webm) | Yes | No (path reference) | Inline video player |
 
 ### When to Use IO vs Raw Playwright in Tests
 

@@ -78,11 +78,21 @@ Key components:
 - `SerenityFormatterOutput` — Cucumber formatter producing domain events
 - `notifier/` — Event mapping logic
 
+#### Scenario Outline Event Grouping
+
+The Cucumber adapter calls `serenity.assignNewSceneId()` for every example row in a Scenario Outline. All rows share the same `ScenarioDetails` (name + source location), so `DomainEventQueues` merges them into one queue. But `SceneDataCollector.groupEventsBySceneId()` splits them back into separate groups.
+
+Implication for retry detection: `resolveRetries()` sees N records from one queue. Check `areScenarioOutlineExamples()` before assuming retries. The signal is: records have `scenarioOutline` data AND no `RetryableSceneDetected` events for their sceneIds.
+
 ### Mocha (`packages/mocha/`)
 
 Implements a Mocha reporter that emits domain events:
 
 - `SerenityReporterForMocha` — hooks into Mocha's event system (`suite`, `test`, `pass`, `fail`, `pending`)
+
+#### Error Serialisation Pitfall
+
+Mocha's base reporter sets `error.multiple = [error]` — a circular self-reference. Any serialisation code traversing all own properties of an Error will stack overflow. Safe serialisation must explicitly pick fields (`name`, `message`, `stack`, `cause`) rather than iterating `Object.getOwnPropertyNames(error)`.
 
 ### Jasmine (`packages/jasmine/`)
 
@@ -107,6 +117,22 @@ describe('Feature', () => {
     });
 });
 ```
+
+#### Retry Event Framing
+
+When Playwright Test retries a scenario, the adapter emits `SceneSequenceDetected` + `SceneParametersDetected` framing (the same framing used for Cucumber Scenario Outlines). The events share a single `sceneId` and arrive in one queue. Distinguish retries from outlines by checking for `RetryableSceneDetected` in the event stream.
+
+If you're processing `DomainEventQueues` and see `SceneSequenceDetected`, always check whether `RetryableSceneDetected` is also present before assuming it's a Scenario Outline.
+
+#### Crew Lifecycle in Fixtures
+
+The `configureScenarioInternal` fixture calls `serenity.configure({ crew: [...] })` for each test. Because `configure()` appends crew to the `StageManager.subscribers` array, crew members accumulate across tests in the same worker (causing duplicate screenshots).
+
+The fix: `configure()` returns the instantiated crew array. The fixture stores it and calls `serenity.unassign(...sceneCrew)` in the `finally` block after `persist()`.
+
+## Domain Event Queue Semantics
+
+`DomainEventQueues.queueIdFor()` groups events by matching `ScenarioDetails` (name + location), not just by `sceneId`. Events from different sceneIds can end up in the same queue if they share the same scenario identity. This is intentional — it enables retry grouping — but means a single queue may contain multiple `SceneStarts`/`SceneFinished` pairs.
 
 ## Creating a New Adapter
 

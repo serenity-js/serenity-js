@@ -70,6 +70,23 @@ pnpm postinstall:protractor    # Chrome v129 for Protractor
 pnpm postinstall:webdriverio   # Chrome stable for WebdriverIO
 ```
 
+### Dual CJS/ESM Builds
+
+Each package produces both CJS (`lib/`) and ESM (`esm/`) output. Running `npx tsc --build tsconfig.build.json` only builds one format. Always use `npm run compile` — this runs both `tsconfig-cjs.build.json` and `tsconfig-esm.build.json`.
+
+For the html-reporter, `npm run compile` also runs `bundle-template.mjs` which produces the self-contained `template.js` bundle.
+
+### Cross-Package Compilation Order
+
+When changing a package's public API, downstream packages resolve types from compiled output. Compile dependencies before dependents:
+
+```bash
+cd packages/core && npm run compile
+cd packages/html-reporter && npm run compile
+```
+
+If you see type errors referencing methods you just added, the dependency hasn't been recompiled.
+
 ## CI Pipeline
 
 GitHub Actions workflow order:

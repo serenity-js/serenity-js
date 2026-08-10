@@ -78,6 +78,21 @@ const nameOfItem = itemName().of(item());
 
 The only acceptable inheritance: abstract base classes defining contracts for dependency inversion (`BrowseTheWeb` → `BrowseTheWebWithPlaywright`).
 
+### Tell, Don't Ask
+
+Move behaviour into the object that owns the data. If you find yourself passing an object's internal dependency to another function so that function can do work the object could do itself — move that work into the object.
+
+```typescript
+// Wrong: extracting internal state and operating on it externally
+const fs = hierarchy.getFileSystem();
+const readme = fs.readFile(path);
+
+// Right: ask the object to do what you need
+const readme = hierarchy.readmeAt(path);
+```
+
+This eliminates constructor parameters that only exist to shuttle dependencies between callers.
+
 ## TypeScript Configuration
 
 Target ES2023 with CommonJS modules:
@@ -259,19 +274,7 @@ oldMethod(param: string): void {
 }
 ```
 
-### What Constitutes a Breaking Change
-
-- Removing a public class, method, or property
-- Changing method signatures (parameter types, return types)
-- Changing default behaviour users rely on
-- Renaming exports
-
-### What Is NOT a Breaking Change
-
-- Adding new optional parameters with defaults
-- Adding new methods, properties, classes, or modules
-- Bug fixes (even if someone depended on buggy behaviour)
-- Performance improvements
+See `commit-conventions.md` for detailed lists of what constitutes (and does not constitute) a breaking change.
 
 ## Type Precision
 

@@ -19,6 +19,7 @@ These steering docs encode Serenity/JS engineering conventions that are not obvi
 | `debugging-ci.md` | Running tests, CI pipeline, troubleshooting | Always |
 | `commit-conventions.md` | Conventional commits, scopes, release process | Always |
 | `steering-maintenance.md` | This file — meta-guidance | Always |
+| `lessons-learned.md` | Niche patterns, temporary rules, implementation gotchas | Conditional: html-reporter files |
 
 ## When to Update
 

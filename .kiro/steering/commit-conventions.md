@@ -132,6 +132,18 @@ pnpm commit
 
 Launches `cz-customizable` with guided prompts.
 
+## Amending Commits
+
+Before running `git commit --amend`, verify the commit hasn't been pushed:
+
+```bash
+git log --oneline origin/<branch>..HEAD
+```
+
+If the output is empty, the commit is already on the remote — do NOT amend. Create a new commit instead. Amending a pushed commit rewrites history and requires a force push, which is destructive and risks breaking CI or other collaborators' branches.
+
+Rule: only amend **unpushed** commits. When in doubt, create a new fixup commit.
+
 ## Release Process
 
 Automated on `main` via Lerna:

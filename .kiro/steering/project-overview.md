@@ -40,12 +40,14 @@ Serenity/JS applies DDD within its own codebase:
 
 ### Composition Over Inheritance
 
+Favour delegation and composition over deep class hierarchies. See `coding-standards.md` for detailed patterns and examples.
+
+Key applications:
 - Tasks compose Activities (not extend them)
-- PageElements compose via `.of()` (meta-questions, not deep class hierarchies)
-- Expectations compose via `and()`, `or()`, `not()` (algebraic composition)
-- Abilities are composed onto Actors via `.whoCan()` (delegation, not inheritance)
-- The only meaningful inheritance: abstract classes that define contracts (`BrowseTheWeb` →
-  `BrowseTheWebWithPlaywright`)
+- PageElements compose via `.of()` (meta-questions)
+- Expectations compose via `and()`, `or()`, `not()`
+- Abilities compose onto Actors via `.whoCan()`
+- The only acceptable inheritance: abstract base classes defining contracts for dependency inversion
 
 ### SOLID in Practice
 
