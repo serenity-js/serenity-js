@@ -2155,8 +2155,8 @@ importers:
         specifier: 12.0.0
         version: 12.0.0
       chromedriver:
-        specifier: 148.0.4
-        version: 148.0.4(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0)
+        specifier: 151.0.5
+        version: 151.0.5(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0)
       mocha:
         specifier: 11.8.0
         version: 11.8.0
@@ -2329,7 +2329,7 @@ importers:
         version: 5.9.3
       wdio-chromedriver-service:
         specifier: 8.1.1
-        version: 8.1.1(@wdio/types@8.41.0)(chromedriver@148.0.4(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0))(supports-color@11.0.0)(webdriverio@8.46.0(devtools@8.42.0(encoding@0.1.13)(supports-color@11.0.0))(encoding@0.1.13)(supports-color@11.0.0))
+        version: 8.1.1(@wdio/types@8.41.0)(chromedriver@151.0.5(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0))(supports-color@11.0.0)(webdriverio@8.46.0(devtools@8.42.0(encoding@0.1.13)(supports-color@11.0.0))(encoding@0.1.13)(supports-color@11.0.0))
       webdriverio:
         specifier: 8.46.0
         version: 8.46.0(devtools@8.42.0(encoding@0.1.13)(supports-color@11.0.0))(encoding@0.1.13)(supports-color@11.0.0)
@@ -3606,6 +3606,7 @@ packages:
 
   '@cucumber/create-meta@5.0.0':
     resolution: {integrity: sha512-Z5kMZkUff00S3/KSnKzB/KOm2UIxMXY1xXmj2dQMlD49lV6v/W8EEvgDMNtQotQNSOQU5bDupmWQpk+o16tXIw==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@cucumber/cucumber-expressions@12.1.3':
     resolution: {integrity: sha512-LB8MAzE4F/t2KIgsDEz4gZH0xSI4aG0/LmYUPyISPPjUS1pI/yGWWyeX2WsiUQxpSs765WcNIq5Bggt7gGGO3Q==}
@@ -5608,6 +5609,10 @@ packages:
     resolution: {integrity: sha512-+Ut8d9LLqwEvHHJl1+PIHqoyDxFgVN847JTVM3Izi3xHDWPE4UtzzXysMZQs64DMcrJfBeS/uoEP4AD3HQHnQQ==}
     engines: {node: '>=12.0'}
 
+  adm-zip@0.6.0:
+    resolution: {integrity: sha512-XleryMhbuksdKtofnWZ9Sk+4CUTbms4Mb/EU32SZwToAyZ5RgVos/ki8n+yr0LWHOGKuakbXTuuYNHLQjhddgg==}
+    engines: {node: '>=14.0'}
+
   agent-base@4.3.0:
     resolution: {integrity: sha512-salcGninV0nPrwpGNn4VTXBb1SOuXQBiqbrNXoeizJsHrsL6ERFM2Ne3JUSBWRE6aeNJI2ROP/WEEIDUiDe3cg==}
     engines: {node: '>= 4.0.0'}
@@ -6155,8 +6160,8 @@ packages:
     engines: {node: '>=12.13.0'}
     hasBin: true
 
-  chromedriver@148.0.4:
-    resolution: {integrity: sha512-3UyptFDG4YF1Pyv3fzn95s1CN4K3zCpHSmE6g+6J4f2u9KxxOYzrwN2GApVyM2z02hlbSqzo9Ajn2hMi7LnvCw==}
+  chromedriver@151.0.5:
+    resolution: {integrity: sha512-oPI/VtTeLePbkTOI5o4yvEOlcdpmqEdqQNLZbyu5ha6kpDQYfDRuliisDiph29hBK/UzHSmOyZFKX1mE3efYOQ==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -13440,7 +13445,7 @@ snapshots:
       agent-base: 7.1.4
       http-proxy-agent: 7.0.2(supports-color@8.1.1)
       https-proxy-agent: 7.0.6(supports-color@8.1.1)
-      lru-cache: 11.5.1
+      lru-cache: 11.5.2
       socks-proxy-agent: 8.0.5(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
@@ -13507,7 +13512,7 @@ snapshots:
       '@gar/promise-retry': 1.0.3
       '@npmcli/promise-spawn': 9.0.1
       ini: 6.0.0
-      lru-cache: 11.5.1
+      lru-cache: 11.5.2
       npm-pick-manifest: 11.0.3
       proc-log: 6.1.0
       semver: 7.8.5
@@ -14764,6 +14769,8 @@ snapshots:
 
   adm-zip@0.5.17: {}
 
+  adm-zip@0.6.0: {}
+
   agent-base@4.3.0:
     dependencies:
       es6-promisify: 5.0.0
@@ -15251,7 +15258,7 @@ snapshots:
       '@npmcli/fs': 5.0.0
       fs-minipass: 3.0.3
       glob: 13.0.6
-      lru-cache: 11.5.1
+      lru-cache: 11.5.2
       minipass: 7.1.3
       minipass-collect: 2.0.1
       minipass-flush: 1.0.7
@@ -15441,10 +15448,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  chromedriver@148.0.4(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0):
+  chromedriver@151.0.5(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0):
     dependencies:
       '@testim/chrome-version': 1.1.4
-      adm-zip: 0.5.17
+      adm-zip: 0.6.0
       axios: 1.19.0(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0)
       compare-versions: 6.1.1
       proxy-agent: 8.0.2(supports-color@11.0.0)
@@ -17578,7 +17585,7 @@ snapshots:
 
   hosted-git-info@9.0.3:
     dependencies:
-      lru-cache: 11.5.1
+      lru-cache: 11.5.2
 
   hpack.js@2.1.6:
     dependencies:
@@ -21536,7 +21543,7 @@ snapshots:
     dependencies:
       defaults: 1.0.4
 
-  wdio-chromedriver-service@8.1.1(@wdio/types@8.41.0)(chromedriver@148.0.4(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0))(supports-color@11.0.0)(webdriverio@8.46.0(devtools@8.42.0(encoding@0.1.13)(supports-color@11.0.0))(encoding@0.1.13)(supports-color@11.0.0)):
+  wdio-chromedriver-service@8.1.1(@wdio/types@8.41.0)(chromedriver@151.0.5(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0))(supports-color@11.0.0)(webdriverio@8.46.0(devtools@8.42.0(encoding@0.1.13)(supports-color@11.0.0))(encoding@0.1.13)(supports-color@11.0.0)):
     dependencies:
       '@wdio/logger': 8.38.0
       fs-extra: 11.3.5
@@ -21545,7 +21552,7 @@ snapshots:
       webdriverio: 8.46.0(devtools@8.42.0(encoding@0.1.13)(supports-color@11.0.0))(encoding@0.1.13)(supports-color@11.0.0)
     optionalDependencies:
       '@wdio/types': 8.41.0
-      chromedriver: 148.0.4(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0)
+      chromedriver: 151.0.5(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0)
     transitivePeerDependencies:
       - supports-color
 
