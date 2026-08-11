@@ -165,7 +165,7 @@ export function TreeNode({ node, onSelect, selectedPath, focusedPath, depth, pat
                  data-tree-path=${collapsedPath}
                  onClick=${() => onSelect(collapsedPath, displayNode)}>
                 <span class="req-tree-icon">${icons.folder}</span>
-                <span class="req-tree-label">${isRoot ? (node.displayName || node.name) : collapsedLabel}</span>
+                <span class="req-tree-label" title=${isRoot ? undefined : collapsedLabel}>${isRoot ? (node.displayName || node.name) : collapsedLabel}</span>
                 <span class="req-tree-metrics">
                     <span class="req-tree-confidence" style="color:${confidenceColor(score.confidence)}" title="Confidence: ${score.confidence}%"><span class="req-tree-confidence-icon">◐</span>${score.confidence}%</span>
                     <${SegmentedBar} outcomes=${displayNode.outcomes} />

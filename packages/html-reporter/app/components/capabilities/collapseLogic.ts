@@ -41,7 +41,7 @@ export function collapseNode(node: ReportCapabilityNode, segmentPath: string): C
         let next = getOnlyCollapsibleDirectory(displayNode);
         while (next) {
             collapsedPath = collapsedPath ? collapsedPath + '/' + next.name : next.name;
-            collapsedLabel += '/' + (next.displayName || next.name);
+            collapsedLabel += ' / ' + (next.displayName || next.name);
             displayNode = next;
             next = getOnlyCollapsibleDirectory(displayNode);
         }
