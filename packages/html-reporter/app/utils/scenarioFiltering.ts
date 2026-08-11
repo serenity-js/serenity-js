@@ -1,14 +1,15 @@
 import type { ReportScenario } from '../../src/cli/reporting/ReportData.js';
+import { naturalCompare } from './naturalCompare.js';
 import { matchesOutcomeFilter } from './selectors.js';
 import { matchesSearch } from './tag-search.js';
 
 const STATUS_ORDER: Record<string, number> = { FAILURE: 1, ERROR: 2, COMPROMISED: 3, PENDING: 4, SKIPPED: 5, SUCCESS: 6 };
 
 const sortComparators: Record<string, (a: ReportScenario, b: ReportScenario) => number> = {
-    name: (a, b) => a.name.localeCompare(b.name),
+    name: (a, b) => naturalCompare(a.name, b.name),
     duration: (a, b) => b.duration - a.duration,
     status: (a, b) => (STATUS_ORDER[a.outcome] || 6) - (STATUS_ORDER[b.outcome] || 6),
-    category: (a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name),
+    category: (a, b) => naturalCompare(a.category, b.category) || naturalCompare(a.name, b.name),
 };
 
 function sortScenarios(scenarios: ReportScenario[], sort: string): ReportScenario[] {

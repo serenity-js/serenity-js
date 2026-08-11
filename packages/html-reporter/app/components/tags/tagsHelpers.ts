@@ -1,4 +1,5 @@
 import type { ReportTag } from '../../../src/cli/reporting/ReportData.js';
+import { naturalCompare } from '../../utils/naturalCompare.js';
 
 export interface FilterCounts {
     passed: number;
@@ -46,7 +47,7 @@ export function groupTagsByType(tags: ReportTag[]): TagGroup[] {
     const typeOrder = Object.keys(tagsByType).sort((a, b) => {
         if (a === 'feature') return -1;
         if (b === 'feature') return 1;
-        return a.localeCompare(b);
+        return naturalCompare(a, b);
     });
 
     return typeOrder.map(type => {

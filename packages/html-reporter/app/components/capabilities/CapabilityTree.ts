@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportCapabilityNode } from '../../../src/cli/reporting/ReportData.js';
-import { capabilityConfidence, scoreColor } from '../../utils/index.js';
+import { capabilityConfidence, naturalCompare, scoreColor } from '../../utils/index.js';
 import { SegmentedBar } from '../common/charts/SegmentedBar.js';
 import { icons } from '../common/icons.js';
 import { collapseNode } from './capabilityTreeUtilities.js';
@@ -89,7 +89,7 @@ function sortChildren(children: ReportCapabilityNode[] | undefined, sortMode: st
             });
             break;
         default: // 'name'
-            sorted.sort((a, b) => (a.displayName || a.name).localeCompare(b.displayName || b.name));
+            sorted.sort((a, b) => naturalCompare(a.displayName || a.name, b.displayName || b.name));
             break;
     }
     return sorted;

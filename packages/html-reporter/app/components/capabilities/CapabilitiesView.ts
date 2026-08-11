@@ -1,6 +1,6 @@
 import htm from 'htm';
 import { h } from 'preact';
-import { useEffect, useMemo, useState } from 'preact/hooks';
+import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
 import type { ReportCapabilityNode } from '../../../src/cli/reporting/ReportData.js';
 import { useMobileSheetState } from '../../hooks/useMobileSheetState.js';
@@ -65,7 +65,15 @@ export function CapabilitiesView({ capabilities, onNavigate, route, onOpenSideba
 
     const hashNav = useHashHistory();
 
+    // Track whether path change is user-initiated (needs pushState) vs URL-driven (already in history)
+    const userNavigated = useRef(false);
+
     useEffect(() => {
+        if (userNavigated.current) {
+            userNavigated.current = false;
+            // Push handled in handleSelect
+            return;
+        }
         if (selectedPath) {
             hashNav.setParam('path', selectedPath);
         } else {
@@ -103,6 +111,15 @@ export function CapabilitiesView({ capabilities, onNavigate, route, onOpenSideba
     const handleSelect = (path: string, node: ReportCapabilityNode) => {
         setSelectedPath(path);
         setSelectedNode(node);
+        userNavigated.current = true;
+        // Push to history so browser back/forward works
+        const params = new URLSearchParams();
+        if (path) params.set('path', path);
+        if (searchTerm) params.set('search', searchTerm);
+        if (activeFilter && activeFilter !== 'all') params.set('filter', activeFilter);
+        if (activeSort && activeSort !== 'name') params.set('sort', activeSort);
+        const qs = params.toString();
+        hashNav.push('/capabilities' + (qs ? '?' + qs : ''));
     };
 
     const handleMobileSelect = (path: string, node: ReportCapabilityNode) => {

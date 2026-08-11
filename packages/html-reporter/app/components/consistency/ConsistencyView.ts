@@ -5,7 +5,7 @@ import { useCallback, useMemo, useState } from 'preact/hooks';
 import type { ReportInconsistentTest } from '../../../src/cli/reporting/ReportData.js';
 import { ROW_HEIGHTS } from '../../config/layout.js';
 import { useMobileSheetState } from '../../hooks/useMobileSheetState.js';
-import { matchesSearch } from '../../utils/index.js';
+import { matchesSearch, naturalCompare } from '../../utils/index.js';
 import { classifyConsistencyKind } from '../../utils/selectors.js';
 import { CategoryBreadcrumb } from '../common/CategoryBreadcrumb.js';
 import { FilterBar } from '../common/FilterBar.js';
@@ -57,8 +57,8 @@ function filterByKind(tests: ClassifiedTest[], filter: string): ClassifiedTest[]
 }
 
 function sortTests(tests: ClassifiedTest[], sort: string): ClassifiedTest[] {
-    if (sort === 'name') return [...tests].sort((a, b) => a.name.localeCompare(b.name));
-    return [...tests].sort((a, b) => (a.category || '').localeCompare(b.category || ''));
+    if (sort === 'name') return [...tests].sort((a, b) => naturalCompare(a.name, b.name));
+    return [...tests].sort((a, b) => naturalCompare(a.category || '', b.category || ''));
 }
 
 export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate, onOpenSidebar }: ConsistencyViewProps): ReturnType<typeof html> {
