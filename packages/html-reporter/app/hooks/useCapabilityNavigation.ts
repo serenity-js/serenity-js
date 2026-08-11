@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 
 import type { ReportCapabilityNode } from '../../src/cli/reporting/ReportData.js';
+import { link } from '../../src/navigation/link.js';
 import { findNodeByPath } from '../components/capabilities/CapabilityTree.js';
 import { useHashHistory } from '../utils/index.js';
 
@@ -20,20 +21,22 @@ export interface CapabilityNavigationResult {
     handleSelect: (path: string, node: ReportCapabilityNode) => void;
 }
 
+function resolvePathFromRoute(route: string): string {
+    const params = route && route.includes('?') ? new URLSearchParams(route.split('?')[1]) : null;
+    return params?.get('path') ?? '';
+}
+
 export function useCapabilityNavigation({ capabilities, route, searchTerm, activeFilter, activeSort }: CapabilityNavigationOptions): CapabilityNavigationResult {
     const [selectedPath, setSelectedPath] = useState('');
     const [selectedNode, setSelectedNode] = useState<ReportCapabilityNode | null>(null);
     const [focusedPath, setFocusedPath] = useState('');
 
     const hashNav = useHashHistory();
-
-    // Track whether path change is user-initiated (needs pushState) vs URL-driven (already in history)
     const userNavigated = useRef(false);
 
     useEffect(() => {
         if (userNavigated.current) {
             userNavigated.current = false;
-            // Push handled in handleSelect
             return undefined;
         }
         if (selectedPath) {
@@ -46,8 +49,7 @@ export function useCapabilityNavigation({ capabilities, route, searchTerm, activ
 
     useEffect(() => {
         if (!capabilities) return undefined;
-        const params = route && route.includes('?') ? new URLSearchParams(route.split('?')[1]) : null;
-        const pathFromUrl = params?.get('path') ?? '';
+        const pathFromUrl = resolvePathFromRoute(route);
         const node = findNodeByPath(capabilities, pathFromUrl);
         if (node) {
             setSelectedPath(pathFromUrl);
@@ -60,14 +62,13 @@ export function useCapabilityNavigation({ capabilities, route, searchTerm, activ
         setSelectedPath(path);
         setSelectedNode(node);
         userNavigated.current = true;
-        // Push to history so browser back/forward works
-        const params = new URLSearchParams();
-        if (path) params.set('path', path);
-        if (searchTerm) params.set('search', searchTerm);
-        if (activeFilter && activeFilter !== 'all') params.set('filter', activeFilter);
-        if (activeSort && activeSort !== 'name') params.set('sort', activeSort);
-        const qs = params.toString();
-        hashNav.push('/capabilities' + (qs ? '?' + qs : ''));
+        hashNav.push(link({
+            view: 'capabilities',
+            path: path || undefined,
+            search: searchTerm || undefined,
+            filter: activeFilter && activeFilter !== 'all' ? activeFilter : undefined,
+            sort: activeSort && activeSort !== 'name' ? activeSort : undefined,
+        }));
     };
 
     return { selectedPath, selectedNode, focusedPath, setFocusedPath, handleSelect };

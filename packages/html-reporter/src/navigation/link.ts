@@ -63,6 +63,12 @@ export interface CapabilitiesLink {
     view: 'capabilities';
     /** Capability tree path (e.g., 'authentication/login') */
     path?: string;
+    /** Search term */
+    search?: string;
+    /** Health filter (e.g., 'healthy', 'at-risk', 'critical') */
+    filter?: string;
+    /** Sort mode (e.g., 'name', 'confidence') */
+    sort?: string;
 }
 
 /**
@@ -208,6 +214,9 @@ const viewParameters: Record<string, Record<string, Transform>> = {
     },
     capabilities: {
         path: passThrough,
+        search: passThrough,
+        filter: passThrough,
+        sort: passThrough,
     },
     errors: {
         run: passThrough,
