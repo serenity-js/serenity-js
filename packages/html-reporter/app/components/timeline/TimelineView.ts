@@ -4,11 +4,11 @@ import { useMemo, useRef, useState } from 'preact/hooks';
 
 import type { ReportScenario, ReportSummary } from '../../../src/cli/reporting/ReportData.js';
 import { useVirtualizer } from '../../hooks/index.js';
+import { useMobileSheetState } from '../../hooks/useMobileSheetState.js';
 import { formatDuration, matchesOutcomeFilter, totalFailedCount } from '../../utils/index.js';
-import { BottomSheet } from '../common/BottomSheet.js';
 import { FilterBar } from '../common/FilterBar.js';
 import { KpiCard } from '../common/KpiCard.js';
-import { SortSheetContent } from '../common/SortSheetContent.js';
+import { MobileSheets } from '../common/MobileSheets.js';
 import { TopbarActions } from '../common/TopbarActions.js';
 import { ViewTopbar } from '../common/ViewTopbar.js';
 import { TimelineBar } from './TimelineBar.js';
@@ -26,6 +26,7 @@ interface TimelineViewProps {
 
 export function TimelineView({ scenarios: allScenarios, summary, onNavigate, route = '', onOpenSidebar }: TimelineViewProps): ReturnType<typeof html> {
     const openSidebar = onOpenSidebar || (() => {});
+    const sheets = useMobileSheetState();
     const initialSort = useMemo(() => {
         const params = new URLSearchParams(route.split('?')[1] || '');
         const sort = params.get('sort');
@@ -33,9 +34,6 @@ export function TimelineView({ scenarios: allScenarios, summary, onNavigate, rou
     }, []);
     const [sortBy, setSortBy] = useState(initialSort);
     const [filter, setFilter] = useState('all');
-    const [filterSheetOpen, setFilterSheetOpen] = useState(false);
-    const [sortSheetOpen, setSortSheetOpen] = useState(false);
-    const [statsSheetOpen, setStatsSheetOpen] = useState(false);
 
     const start = new Date(summary.startedAt).getTime();
     const end = new Date(summary.finishedAt).getTime();
@@ -74,7 +72,16 @@ export function TimelineView({ scenarios: allScenarios, summary, onNavigate, rou
         { key: 'duration', label: 'Slowest first' },
     ];
 
-    const topbarActions = html`<${TopbarActions} onOpenFilter=${() => setFilterSheetOpen(true)} onOpenSort=${() => setSortSheetOpen(true)} onOpenStats=${() => setStatsSheetOpen(true)} />`;
+    const statsContent = html`
+        <div class="kpi-row grid-4col">
+          <${KpiCard} label="Slowest" value=${formatDuration(slowest)} ariaLabel="Slowest test: ${formatDuration(slowest)}" valueColor=${slowest > avg * 3 ? 'var(--color-failed)' : slowest > avg * 2 ? 'var(--color-pending)' : ''} />
+          <${KpiCard} label="Fastest" value=${formatDuration(fastest)} ariaLabel="Fastest test: ${formatDuration(fastest)}" />
+          <${KpiCard} label="Average" value=${formatDuration(avg)} ariaLabel="Average duration: ${formatDuration(avg)}" />
+          <${KpiCard} label="Total" value=${formatDuration(summary.duration)} ariaLabel="Total duration: ${formatDuration(summary.duration)}" subtitle="${allScenarios.length} scenarios" />
+        </div>
+    `;
+
+    const topbarActions = html`<${TopbarActions} onOpenFilter=${sheets.openFilter} onOpenSort=${sheets.openSort} onOpenStats=${sheets.openStats} />`;
 
     return html`
     <div class="flex-fill-view">
@@ -114,30 +121,23 @@ export function TimelineView({ scenarios: allScenarios, summary, onNavigate, rou
         </div>
       </div>
 
-      ${filterSheetOpen ? html`<${BottomSheet} isOpen=${true} onClose=${() => setFilterSheetOpen(false)} title="Filter">
-        <${FilterBar} filters=${filters}
-          activeFilter=${filter} onFilter=${setFilter}
-          ariaLabel="Filter tests by outcome" label="Status" />
-        <div class="filter-sheet-count" aria-live="polite">
-          Showing ${scenarios.length} of ${allScenarios.length}
-        </div>
-      </${BottomSheet}>` : null}
-
-      ${sortSheetOpen ? html`<${BottomSheet} isOpen=${true} onClose=${() => setSortSheetOpen(false)} title="Sort">
-        <${SortSheetContent}
-          sortOptions=${sortOptions}
-          activeSort=${sortBy} onSort=${setSortBy}
-        />
-      </${BottomSheet}>` : null}
-
-      ${statsSheetOpen ? html`<${BottomSheet} isOpen=${true} onClose=${() => setStatsSheetOpen(false)} title="Timing Statistics">
-        <div class="kpi-row grid-4col">
-          <${KpiCard} label="Slowest" value=${formatDuration(slowest)} ariaLabel="Slowest test: ${formatDuration(slowest)}" valueColor=${slowest > avg * 3 ? 'var(--color-failed)' : slowest > avg * 2 ? 'var(--color-pending)' : ''} />
-          <${KpiCard} label="Fastest" value=${formatDuration(fastest)} ariaLabel="Fastest test: ${formatDuration(fastest)}" />
-          <${KpiCard} label="Average" value=${formatDuration(avg)} ariaLabel="Average duration: ${formatDuration(avg)}" />
-          <${KpiCard} label="Total" value=${formatDuration(summary.duration)} ariaLabel="Total duration: ${formatDuration(summary.duration)}" subtitle="${allScenarios.length} scenarios" />
-        </div>
-      </${BottomSheet}>` : null}
+      <${MobileSheets}
+        filterSheetOpen=${sheets.filterSheetOpen}
+        onCloseFilter=${sheets.closeFilter}
+        filterTitle="Filter"
+        search=${''}
+        onSearch=${() => {}}
+        filters=${filters}
+        activeFilter=${filter} onFilter=${setFilter}
+        filteredCount=${scenarios.length} totalCount=${allScenarios.length}
+        sortSheetOpen=${sheets.sortSheetOpen}
+        onCloseSort=${sheets.closeSort}
+        sortOptions=${sortOptions}
+        activeSort=${sortBy} onSort=${setSortBy}
+        statsSheetOpen=${sheets.statsSheetOpen}
+        onCloseStats=${sheets.closeStats}
+        statsContent=${statsContent}
+      />
     </div>
   `;
 }

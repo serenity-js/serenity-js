@@ -4,11 +4,11 @@ import { useCallback, useMemo, useState } from 'preact/hooks';
 
 import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/reporting/ReportData.js';
 import { ROW_HEIGHTS } from '../../config/layout.js';
+import { useMobileSheetState } from '../../hooks/useMobileSheetState.js';
 import { useRunSelection } from '../../hooks/useRunSelection.js';
-import { BottomSheet } from '../common/BottomSheet.js';
-import { FilterSheetContent } from '../common/FilterSheetContent.js';
 import { icons } from '../common/icons.js';
 import { GroupedVirtualList } from '../common/layout/GroupedVirtualList.js';
+import { MobileSheets } from '../common/MobileSheets.js';
 import { ResultCount } from '../common/ResultCount.js';
 import { RunSelector } from '../common/RunSelector.js';
 import { SearchInput } from '../common/SearchInput.js';
@@ -65,7 +65,7 @@ function computeErrorScenarios(allScenarios: ReportScenario[], runIndex: number 
 
 export function ErrorsView({ scenarios: allScenarios, history, specDirectory, onNavigate, route, onOpenSidebar }: ErrorsViewProps): ReturnType<typeof html> {
     const openSidebar = onOpenSidebar || (() => {});
-    const [filterSheetOpen, setFilterSheetOpen] = useState(false);
+    const sheets = useMobileSheetState();
     const [search, setSearch] = useState('');
     const { runIndex: errorRunIndex, isHistorical: errorIsHistorical, activeTimestamp: errorActiveRunTs, onRunChange: onErrorRunChange } = useRunSelection(route, history, '/errors', onNavigate);
 
@@ -145,7 +145,7 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
     `;
     }
 
-    const topbarActions = html`<${TopbarActions} onOpenFilter=${() => setFilterSheetOpen(true)} />`;
+    const topbarActions = html`<${TopbarActions} onOpenFilter=${sheets.openFilter} />`;
 
     return html`
     <div class="flex-fill-view">
@@ -173,14 +173,15 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
         />
       </div>
 
-      ${filterSheetOpen ? html`<${BottomSheet} isOpen=${true} onClose=${() => setFilterSheetOpen(false)} title="Search & Run">
-        ${history.length > 1 ? html`<${RunSelector} activeTimestamp=${errorActiveRunTs} history=${history} onRunChange=${onErrorRunChange} isHistorical=${errorIsHistorical} showLatestHref="#/errors" />` : null}
-        <${FilterSheetContent}
-          search=${search} onSearch=${setSearch}
-          filteredCount=${filteredErrors.length} totalCount=${errorScenarios.length}
-          searchPlaceholder="Find errors..."
-        />
-      </${BottomSheet}>` : null}
+      <${MobileSheets}
+        filterSheetOpen=${sheets.filterSheetOpen}
+        onCloseFilter=${sheets.closeFilter}
+        filterTitle="Search & Run"
+        filterHeader=${history.length > 1 ? html`<${RunSelector} activeTimestamp=${errorActiveRunTs} history=${history} onRunChange=${onErrorRunChange} isHistorical=${errorIsHistorical} showLatestHref="#/errors" />` : null}
+        search=${search} onSearch=${setSearch}
+        filteredCount=${filteredErrors.length} totalCount=${errorScenarios.length}
+        searchPlaceholder="Find errors..."
+      />
     </div>
   `;
 }

@@ -1,6 +1,9 @@
+export { useFocusTrap } from './useFocusTrap.js';
+export { useMobileSheetState } from './useMobileSheetState.js';
 export { usePanState } from './usePanState.js';
 export { useRunSelection } from './useRunSelection.js';
 export { useScenarioDetail } from './useScenarioDetail.js';
+export { useScenarioFilter } from './useScenarioFilter.js';
 export { useScrollFade } from './useScrollFade.js';
 export { useStickyHeader } from './useStickyHeader.js';
 export { useViewState } from './useViewState.js';

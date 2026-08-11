@@ -4,17 +4,16 @@ import { useCallback, useMemo, useState } from 'preact/hooks';
 
 import type { ReportInconsistentTest } from '../../../src/cli/reporting/ReportData.js';
 import { ROW_HEIGHTS } from '../../config/layout.js';
+import { useMobileSheetState } from '../../hooks/useMobileSheetState.js';
 import { matchesSearch } from '../../utils/index.js';
 import { classifyConsistencyKind } from '../../utils/selectors.js';
-import { BottomSheet } from '../common/BottomSheet.js';
 import { CategoryBreadcrumb } from '../common/CategoryBreadcrumb.js';
 import { FilterBar } from '../common/FilterBar.js';
-import { FilterSheetContent } from '../common/FilterSheetContent.js';
 import { icons } from '../common/icons.js';
 import { GroupedVirtualList } from '../common/layout/GroupedVirtualList.js';
+import { MobileSheets } from '../common/MobileSheets.js';
 import { ResultCount } from '../common/ResultCount.js';
 import { SearchInput } from '../common/SearchInput.js';
-import { SortSheetContent } from '../common/SortSheetContent.js';
 import { TopbarActions } from '../common/TopbarActions.js';
 import { ViewTopbar } from '../common/ViewTopbar.js';
 import { ConsistencyRow } from './ConsistencyRow.js';
@@ -64,12 +63,11 @@ function sortTests(tests: ClassifiedTest[], sort: string): ClassifiedTest[] {
 
 export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate, onOpenSidebar }: ConsistencyViewProps): ReturnType<typeof html> {
     const openSidebar = onOpenSidebar || (() => {});
+    const sheets = useMobileSheetState();
 
     const [filter, setFilter] = useState('all');
     const [search, setSearch] = useState('');
     const [sort, setSort] = useState('category');
-    const [filterSheetOpen, setFilterSheetOpen] = useState(false);
-    const [sortSheetOpen, setSortSheetOpen] = useState(false);
 
     const allInconsistent = useMemo(() => classifyTests(inconsistentTests), [inconsistentTests]);
     const counts = useMemo(() => countByKind(allInconsistent), [allInconsistent]);
@@ -119,7 +117,7 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate, 
     `;
     }
 
-    const topbarActions = html`<${TopbarActions} onOpenFilter=${() => setFilterSheetOpen(true)} onOpenSort=${() => setSortSheetOpen(true)} />`;
+    const topbarActions = html`<${TopbarActions} onOpenFilter=${sheets.openFilter} onOpenSort=${sheets.openSort} />`;
 
     return html`
     <div class="flex-fill-view">
@@ -150,22 +148,18 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate, 
         />
       </div>
 
-      ${filterSheetOpen ? html`<${BottomSheet} isOpen=${true} onClose=${() => setFilterSheetOpen(false)} title="Search & Filter">
-        <${FilterSheetContent}
-          search=${search} onSearch=${setSearch}
-          filters=${filters}
-          activeFilter=${filter} onFilter=${setFilter}
-          filteredCount=${sortedItems.length} totalCount=${inconsistentTests.length}
-          ariaLabel="Filter tests by consistency"
-        />
-      </${BottomSheet}>` : null}
-
-      ${sortSheetOpen ? html`<${BottomSheet} isOpen=${true} onClose=${() => setSortSheetOpen(false)} title="Sort">
-        <${SortSheetContent}
-          sortOptions=${sortOptions}
-          activeSort=${sort} onSort=${setSort}
-        />
-      </${BottomSheet}>` : null}
+      <${MobileSheets}
+        filterSheetOpen=${sheets.filterSheetOpen}
+        onCloseFilter=${sheets.closeFilter}
+        search=${search} onSearch=${setSearch}
+        filters=${filters}
+        activeFilter=${filter} onFilter=${setFilter}
+        filteredCount=${sortedItems.length} totalCount=${inconsistentTests.length}
+        sortSheetOpen=${sheets.sortSheetOpen}
+        onCloseSort=${sheets.closeSort}
+        sortOptions=${sortOptions}
+        activeSort=${sort} onSort=${setSort}
+      />
     </div>
   `;
 }

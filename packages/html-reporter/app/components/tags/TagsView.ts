@@ -3,9 +3,9 @@ import { h } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 
 import type { ReportTag } from '../../../src/cli/reporting/ReportData.js';
-import { BottomSheet } from '../common/BottomSheet.js';
+import { useMobileSheetState } from '../../hooks/useMobileSheetState.js';
 import { FilterBar } from '../common/FilterBar.js';
-import { FilterSheetContent } from '../common/FilterSheetContent.js';
+import { MobileSheets } from '../common/MobileSheets.js';
 import { ResultCount } from '../common/ResultCount.js';
 import { SearchInput } from '../common/SearchInput.js';
 import { TopbarActions } from '../common/TopbarActions.js';
@@ -23,9 +23,9 @@ interface TagsViewProps {
 
 export function TagsView({ tags, onNavigate, onOpenSidebar }: TagsViewProps): ReturnType<typeof html> {
     const openSidebar = onOpenSidebar || (() => {});
+    const sheets = useMobileSheetState();
     const [search, setSearch] = useState('');
     const [filter, setFilter] = useState('all');
-    const [filterSheetOpen, setFilterSheetOpen] = useState(false);
 
     const filterCounts = useMemo(() => computeFilterCounts(tags), [tags]);
 
@@ -40,7 +40,7 @@ export function TagsView({ tags, onNavigate, onOpenSidebar }: TagsViewProps): Re
 
     const groups = useMemo(() => groupTagsByType(filtered), [filtered]);
 
-    const topbarActions = html`<${TopbarActions} onOpenFilter=${() => setFilterSheetOpen(true)} />`;
+    const topbarActions = html`<${TopbarActions} onOpenFilter=${sheets.openFilter} />`;
 
     return html`
     <div>
@@ -71,16 +71,15 @@ export function TagsView({ tags, onNavigate, onOpenSidebar }: TagsViewProps): Re
         `)}
       </div>
 
-      ${filterSheetOpen ? html`<${BottomSheet} isOpen=${true} onClose=${() => setFilterSheetOpen(false)} title="Search & Filter">
-        <${FilterSheetContent}
-          search=${search} onSearch=${setSearch}
-          filters=${filters}
-          activeFilter=${filter} onFilter=${setFilter}
-          filteredCount=${filtered.length} totalCount=${tags.length}
-          ariaLabel="Filter tags by outcome"
-          searchPlaceholder="Find tags..."
-        />
-      </${BottomSheet}>` : null}
+      <${MobileSheets}
+        filterSheetOpen=${sheets.filterSheetOpen}
+        onCloseFilter=${sheets.closeFilter}
+        search=${search} onSearch=${setSearch}
+        filters=${filters}
+        activeFilter=${filter} onFilter=${setFilter}
+        filteredCount=${filtered.length} totalCount=${tags.length}
+        searchPlaceholder="Find tags..."
+      />
     </div>
   `;
 }
