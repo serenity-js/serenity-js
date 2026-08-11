@@ -1,4 +1,5 @@
 export { ansiToHtml, stripAnsi } from './ansi-to-html.js';
+export { buildNodeFilter, computeHealthCounts, type HealthCounts } from './capabilityFiltering.js';
 export { targetValue } from './events.js';
 export { abbreviateRunLabels, formatDuration, formatRunLabel, formatTimestamp, outcomeClass, outcomeDisplayName, outcomeIcon, scoreColor } from './format.js';
 export { stripAbsolutePaths } from './formatError.js';

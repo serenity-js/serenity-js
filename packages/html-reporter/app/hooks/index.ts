@@ -1,3 +1,4 @@
+export { useCapabilityNavigation } from './useCapabilityNavigation.js';
 export { useFocusTrap } from './useFocusTrap.js';
 export { useMobileSheetState } from './useMobileSheetState.js';
 export { usePanState } from './usePanState.js';

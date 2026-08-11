@@ -1,20 +1,16 @@
 import htm from 'htm';
 import { h } from 'preact';
-import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import { useMemo } from 'preact/hooks';
 
 import type { ReportCapabilityNode } from '../../../src/cli/reporting/ReportData.js';
+import { useCapabilityNavigation } from '../../hooks/useCapabilityNavigation.js';
 import { useMobileSheetState } from '../../hooks/useMobileSheetState.js';
 import { useViewState } from '../../hooks/useViewState.js';
-import { useHashHistory } from '../../utils/index.js';
+import { buildNodeFilter, computeHealthCounts } from '../../utils/capabilityFiltering.js';
 import { BottomSheet } from '../common/BottomSheet.js';
 import { icons } from '../common/icons.js';
 import { ViewTopbar } from '../common/ViewTopbar.js';
 import { DetailPanel } from './CapabilityDetail.js';
-import {
-    findNodeByPath,
-    nodeConfidence,
-    nodeHasGap,
-} from './CapabilityTree.js';
 import { CapabilityTreePanel } from './CapabilityTreePanel.js';
 
 const html = htm.bind(h);
@@ -26,36 +22,9 @@ interface CapabilitiesViewProps {
     onOpenSidebar?: () => void;
 }
 
-function buildNodeFilter(activeFilter: string): ((node: ReportCapabilityNode) => boolean) | null {
-    if (activeFilter === 'critical') return (n: ReportCapabilityNode) => nodeConfidence(n) < 50;
-    if (activeFilter === 'at-risk') return (n: ReportCapabilityNode) => { const s = nodeConfidence(n); return s >= 50 && s < 90; };
-    if (activeFilter === 'healthy') return (n: ReportCapabilityNode) => nodeConfidence(n) >= 90;
-    if (activeFilter === 'gaps') return nodeHasGap;
-    return null;
-}
-
-function computeHealthCounts(capabilities: ReportCapabilityNode): { healthy: number; atRisk: number; critical: number; gaps: number; total: number } {
-    let healthy = 0, atRisk = 0, critical = 0, gaps = 0;
-    function walk(n: ReportCapabilityNode) {
-        if (n.type === 'directory' && n.children) {
-            const score = nodeConfidence(n);
-            if (score < 50) critical++;
-            else if (score < 90) atRisk++;
-            else healthy++;
-            if (nodeHasGap(n)) gaps++;
-            n.children.forEach(walk);
-        }
-    }
-    if (capabilities.children) capabilities.children.forEach(walk);
-    return { healthy, atRisk, critical, gaps, total: healthy + atRisk + critical };
-}
-
 export function CapabilitiesView({ capabilities, onNavigate, route, onOpenSidebar }: CapabilitiesViewProps): ReturnType<typeof html> {
     const openSidebar = onOpenSidebar || (() => {});
     const sheets = useMobileSheetState();
-    const [selectedPath, setSelectedPath] = useState('');
-    const [selectedNode, setSelectedNode] = useState<ReportCapabilityNode | null>(null);
-    const [focusedPath, setFocusedPath] = useState('');
 
     const { search: searchTerm, setSearch: setSearchTerm, filter: activeFilter, setFilter: setActiveFilter, sort: activeSort, setSort: setActiveSort } = useViewState({
         basePath: '/capabilities',
@@ -63,34 +32,8 @@ export function CapabilitiesView({ capabilities, onNavigate, route, onOpenSideba
         defaults: { sort: 'name' },
     });
 
-    const hashNav = useHashHistory();
-
-    // Track whether path change is user-initiated (needs pushState) vs URL-driven (already in history)
-    const userNavigated = useRef(false);
-
-    useEffect(() => {
-        if (userNavigated.current) {
-            userNavigated.current = false;
-            // Push handled in handleSelect
-            return;
-        }
-        if (selectedPath) {
-            hashNav.setParam('path', selectedPath);
-        } else {
-            hashNav.deleteParam('path');
-        }
-    }, [selectedPath]);
-
-    useEffect(() => {
-        if (!capabilities) return;
-        const params = route && route.includes('?') ? new URLSearchParams(route.split('?')[1]) : null;
-        const pathFromUrl = params?.get('path') ?? '';
-        const node = findNodeByPath(capabilities, pathFromUrl);
-        if (node) {
-            setSelectedPath(pathFromUrl);
-            setSelectedNode(node);
-        }
-    }, [route, capabilities]);
+    const { selectedPath, selectedNode, focusedPath, setFocusedPath, handleSelect } =
+        useCapabilityNavigation({ capabilities, route, searchTerm, activeFilter, activeSort });
 
     if (!capabilities) {
         return html`
@@ -107,20 +50,6 @@ export function CapabilitiesView({ capabilities, onNavigate, route, onOpenSideba
 
     const nodeFilter = useMemo(() => buildNodeFilter(activeFilter), [activeFilter]);
     const healthCounts = useMemo(() => computeHealthCounts(capabilities), [capabilities]);
-
-    const handleSelect = (path: string, node: ReportCapabilityNode) => {
-        setSelectedPath(path);
-        setSelectedNode(node);
-        userNavigated.current = true;
-        // Push to history so browser back/forward works
-        const params = new URLSearchParams();
-        if (path) params.set('path', path);
-        if (searchTerm) params.set('search', searchTerm);
-        if (activeFilter && activeFilter !== 'all') params.set('filter', activeFilter);
-        if (activeSort && activeSort !== 'name') params.set('sort', activeSort);
-        const qs = params.toString();
-        hashNav.push('/capabilities' + (qs ? '?' + qs : ''));
-    };
 
     const handleMobileSelect = (path: string, node: ReportCapabilityNode) => {
         handleSelect(path, node);
