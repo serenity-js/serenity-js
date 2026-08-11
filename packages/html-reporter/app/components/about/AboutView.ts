@@ -241,9 +241,10 @@ export function AboutView({ onOpenSidebar }: AboutViewProps): ReturnType<typeof 
           </section>
 
           <section>
-            <h3 class="about-section-title">Report an issue</h3>
+            <h3 class="about-section-title">Get involved</h3>
             <p>
-              Found a bug or have a suggestion? <a href="https://serenity-js.org/community/contributing/reporting-issues/" target="_blank" class="link-accent">Let us know</a> — we'd love to hear from you.
+              Serenity/JS is an open-source project and contributions of all kinds are welcome — from bug reports and documentation improvements to new features and community support.
+              <a href="https://serenity-js.org/community/contributing/" target="_blank" class="link-accent">Find your way to contribute</a>.
             </p>
           </section>
         </div>
