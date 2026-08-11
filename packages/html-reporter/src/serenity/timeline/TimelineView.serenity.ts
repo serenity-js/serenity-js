@@ -1,9 +1,10 @@
 import { includes } from '@serenity-js/assertions';
-import type { Question, QuestionAdapter } from '@serenity-js/core';
-import { Task } from '@serenity-js/core';
-import { By, PageElement, Text } from '@serenity-js/web';
+import type { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
+import { Task, the } from '@serenity-js/core';
+import { By, Click, PageElement, Text } from '@serenity-js/web';
 
 import { FilterBar } from '../common/FilterBar.serenity.js';
+import type { InteractionObjectOptions } from '../common/InteractionObject.serenity.js';
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { KpiCard } from '../common/KpiCard.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
@@ -13,12 +14,41 @@ export class TimelineView<NET> extends InteractionObject<NET> {
     // Structure — child interaction objects
     readonly filterBar = new FilterBar<NET>(this.child(By.css('[data-testid="filter-bar"]')));
 
+    // Structure — mobile child interaction objects
+    private readonly mobileFilterBar = new FilterBar<NET>(
+        this.child(By.css('[data-testid="bottom-sheet"] [data-testid="filter-bar"]'))
+    );
+
     // Structure — page elements
     private readonly kpiCards = this.children(By.css('[data-testid="kpi-card"]')).describedAs('timeline KPI cards');
 
-    constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
-        super(rootElement);
+    constructor(
+        rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>,
+        private readonly navigation: Navigation = new Navigation(),
+        options?: InteractionObjectOptions,
+    ) {
+        super(rootElement, options);
     }
+
+    // Mobile helpers
+
+    private filterSheetTrigger = () =>
+        this.child(By.css('[aria-label="Search and filter"]'))
+            .describedAs('filter sheet trigger');
+
+    private bottomSheetClose = () =>
+        this.child(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
+            .describedAs('bottom sheet close button');
+
+    private openFilterSheet = (): Task =>
+        Task.where('#actor opens the filter sheet',
+            Click.on(this.filterSheetTrigger()),
+        );
+
+    private closeFilterSheet = (): Task =>
+        Task.where('#actor closes the filter sheet',
+            Click.on(this.bottomSheetClose()),
+        );
 
     // Behaviour — questions
 
@@ -41,6 +71,15 @@ export class TimelineView<NET> extends InteractionObject<NET> {
             .describedAs('timeline scenario count');
 
     // Behaviour — tasks
+
+    selectFilter = (label: Answerable<string>): Task =>
+        this.mobile
+            ? Task.where(the`#actor selects the ${label} filter`,
+                this.openFilterSheet(),
+                this.mobileFilterBar.selectFilter(label),
+                this.closeFilterSheet(),
+            )
+            : this.filterBar.selectFilter(label);
 
     open = (): Task =>
         Task.where('#actor opens the Timeline view',

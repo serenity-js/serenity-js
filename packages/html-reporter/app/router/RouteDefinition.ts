@@ -21,7 +21,7 @@ export interface RouteParameters {
 export interface RouteConfig<P> {
     pattern: string;
     title: string | ((data: ReportData) => string);
-    view: (props: P & { onNavigate: (path: string) => void }) => ComponentChild;
+    view: (props: P & { onNavigate: (path: string) => void; onOpenSidebar?: () => void }) => ComponentChild;
     data: (data: ReportData, params: RouteParameters) => P;
     icon?: string;
     navLabel?: string;

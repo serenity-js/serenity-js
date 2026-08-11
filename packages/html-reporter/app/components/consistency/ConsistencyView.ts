@@ -6,12 +6,17 @@ import type { ReportInconsistentTest } from '../../../src/cli/reporting/ReportDa
 import { ROW_HEIGHTS } from '../../config/layout.js';
 import { matchesSearch } from '../../utils/index.js';
 import { classifyConsistencyKind } from '../../utils/selectors.js';
+import { BottomSheet } from '../common/BottomSheet.js';
 import { CategoryBreadcrumb } from '../common/CategoryBreadcrumb.js';
 import { FilterBar } from '../common/FilterBar.js';
+import { FilterSheetContent } from '../common/FilterSheetContent.js';
 import { icons } from '../common/icons.js';
 import { GroupedVirtualList } from '../common/layout/GroupedVirtualList.js';
 import { ResultCount } from '../common/ResultCount.js';
 import { SearchInput } from '../common/SearchInput.js';
+import { SortSheetContent } from '../common/SortSheetContent.js';
+import { TopbarActions } from '../common/TopbarActions.js';
+import { ViewTopbar } from '../common/ViewTopbar.js';
 import { ConsistencyRow } from './ConsistencyRow.js';
 
 const html = htm.bind(h);
@@ -20,6 +25,7 @@ interface ConsistencyViewProps {
     inconsistentTests: ReportInconsistentTest[];
     specDirectory?: string;
     onNavigate: (path: string) => void;
+    onOpenSidebar?: () => void;
 }
 
 interface ClassifiedTest extends ReportInconsistentTest {
@@ -56,11 +62,14 @@ function sortTests(tests: ClassifiedTest[], sort: string): ClassifiedTest[] {
     return [...tests].sort((a, b) => (a.category || '').localeCompare(b.category || ''));
 }
 
-export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }: ConsistencyViewProps): ReturnType<typeof html> {
+export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate, onOpenSidebar }: ConsistencyViewProps): ReturnType<typeof html> {
+    const openSidebar = onOpenSidebar || (() => {});
 
     const [filter, setFilter] = useState('all');
     const [search, setSearch] = useState('');
     const [sort, setSort] = useState('category');
+    const [filterSheetOpen, setFilterSheetOpen] = useState(false);
+    const [sortSheetOpen, setSortSheetOpen] = useState(false);
 
     const allInconsistent = useMemo(() => classifyTests(inconsistentTests), [inconsistentTests]);
     const counts = useMemo(() => countByKind(allInconsistent), [allInconsistent]);
@@ -84,35 +93,47 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
         html`<${CategoryBreadcrumb} category=${category} onSegmentClick=${(segment: string) => setSearch('"' + segment + '"')} />`,
     [setSearch]);
 
-    return inconsistentTests.length === 0
-        ? html`
-      <div class="placeholder-view">
-        ${icons.unstable}
-        <h2>All Tests Consistent</h2>
-        <p>No inconsistent results detected. Run your test suite several times to populate history.</p>
+    const filters = [
+        { key: 'all', label: 'All', count: inconsistentTests.length },
+        { key: 'flaky', label: 'Flaky', count: counts.flaky },
+        { key: 'inconsistent', label: 'Inconsistent', count: counts.inconsistent },
+        { key: 'degraded', label: 'Degraded', count: counts.degraded, className: 'failed' },
+        { key: 'recovered', label: 'Recovered', count: counts.recovered, className: 'passed' },
+    ];
+
+    const sortOptions = [
+        { key: 'category', label: 'Category' },
+        { key: 'name', label: 'Name' },
+    ];
+
+    if (inconsistentTests.length === 0) {
+        return html`
+      <div class="flex-fill-view">
+        <${ViewTopbar} title="Consistency" onOpenSidebar=${openSidebar} />
+        <div class="placeholder-view">
+          ${icons.unstable}
+          <h2>All Tests Consistent</h2>
+          <p>No inconsistent results detected. Run your test suite several times to populate history.</p>
+        </div>
       </div>
-    `
-        : html`
+    `;
+    }
+
+    const topbarActions = html`<${TopbarActions} onOpenFilter=${() => setFilterSheetOpen(true)} onOpenSort=${() => setSortSheetOpen(true)} />`;
+
+    return html`
     <div class="flex-fill-view">
-      <div class="controls-row">
+      <${ViewTopbar} title="Consistency" onOpenSidebar=${openSidebar} actions=${topbarActions} />
+      <div class="controls-row desktop-only">
         <div class="search-input-wrap">
           <${SearchInput} value=${search} onInput=${setSearch} />
         </div>
 
-        <${FilterBar} filters=${[
-            { key: 'all', label: 'All', count: inconsistentTests.length },
-            { key: 'flaky', label: 'Flaky', count: counts.flaky },
-            { key: 'inconsistent', label: 'Inconsistent', count: counts.inconsistent },
-            { key: 'degraded', label: 'Degraded', count: counts.degraded, className: 'failed' },
-            { key: 'recovered', label: 'Recovered', count: counts.recovered, className: 'passed' },
-        ]}
+        <${FilterBar} filters=${filters}
         activeFilter=${filter} onFilter=${setFilter}
         ariaLabel="Filter tests by consistency" label="Status"
         multiSelect=${false}
-        sortOptions=${[
-            { key: 'category', label: 'Category' },
-            { key: 'name', label: 'Name' },
-        ]}
+        sortOptions=${sortOptions}
         activeSort=${sort} onSort=${setSort}
         sortId="consistency-sort-select" />
       </div>
@@ -128,6 +149,23 @@ export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate }
             id="vs-consistency-sticky"
         />
       </div>
+
+      ${filterSheetOpen ? html`<${BottomSheet} isOpen=${true} onClose=${() => setFilterSheetOpen(false)} title="Search & Filter">
+        <${FilterSheetContent}
+          search=${search} onSearch=${setSearch}
+          filters=${filters}
+          activeFilter=${filter} onFilter=${setFilter}
+          filteredCount=${sortedItems.length} totalCount=${inconsistentTests.length}
+          ariaLabel="Filter tests by consistency"
+        />
+      </${BottomSheet}>` : null}
+
+      ${sortSheetOpen ? html`<${BottomSheet} isOpen=${true} onClose=${() => setSortSheetOpen(false)} title="Sort">
+        <${SortSheetContent}
+          sortOptions=${sortOptions}
+          activeSort=${sort} onSort=${setSort}
+        />
+      </${BottomSheet}>` : null}
     </div>
   `;
 }

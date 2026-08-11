@@ -732,7 +732,7 @@
       text-overflow: ellipsis;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 768px), ((pointer: coarse) and (max-height: 500px)) {
       .scenario-name {
         white-space: normal;
         display: -webkit-box;
@@ -1780,7 +1780,7 @@
       }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 768px), ((pointer: coarse) and (max-height: 500px)) {
       .dashboard-main-grid {
         grid-template-columns: 1fr;
         overflow: hidden;
@@ -2609,7 +2609,7 @@
       color: var(--text-primary);
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 768px), ((pointer: coarse) and (max-height: 500px)) {
       .capabilities-split {
         grid-template-columns: 1fr;
       }
@@ -2828,7 +2828,7 @@
     }
 
     /* ===== Responsive ===== */
-    @media (max-width: 768px) {
+    @media (max-width: 768px), ((pointer: coarse) and (max-height: 500px)) {
       .sidebar {
         transform: translateX(-100%);
       }
@@ -2964,7 +2964,7 @@
       flex: 1 1 auto;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 768px), ((pointer: coarse) and (max-height: 500px)) {
       .run-selector-row select {
         min-width: 0;
         font-size: var(--font-sm);
@@ -3276,7 +3276,7 @@
       display: none;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 768px), ((pointer: coarse) and (max-height: 500px)) {
       .lightbox-bottom-bar {
         position: fixed;
         bottom: 0;
@@ -3959,7 +3959,7 @@
 }
 
 /* Mobile: bottom sheet variant */
-@media (max-width: 768px) {
+@media (max-width: 768px), ((pointer: coarse) and (max-height: 500px)) {
     .run-details-panel {
         position: fixed;
         left: 0;
@@ -4062,14 +4062,8 @@
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .run-details-panel {
-        animation: none;
-    }
-}
-
 /* Mobile: breadcrumbs and tags single-line scroll */
-@media (max-width: 768px) {
+@media (max-width: 768px), ((pointer: coarse) and (max-height: 500px)) {
     .breadcrumb {
         white-space: nowrap;
     }
@@ -4092,3 +4086,193 @@
 .data-error p { margin-bottom: 0.75rem; line-height: 1.6; }
 .data-error p.hint { color: #666; }
 .data-error code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 0.9em; }
+
+@keyframes panel-slide-up {
+    from { opacity: 0; transform: translateY(100%); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Bottom Sheet ===== */
+.bottom-sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 200;
+    animation: backdrop-fade-in 0.2s ease-out;
+}
+
+.bottom-sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    z-index: 201;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 70dvh;
+    background: var(--bg-surface);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+    padding: var(--space-md);
+    padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom, 0px));
+    animation: panel-slide-up 0.25s ease-out;
+}
+
+.bottom-sheet-header {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-md);
+}
+
+.bottom-sheet-title {
+    font-size: var(--font-lg);
+    font-weight: 600;
+}
+
+.bottom-sheet-close {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.bottom-sheet-close:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.bottom-sheet-close svg {
+    width: 18px;
+    height: 18px;
+}
+
+.bottom-sheet-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@keyframes backdrop-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ===== View Topbar (mobile-only per-view header) ===== */
+.view-topbar {
+    display: none;
+}
+
+@media (max-width: 768px), ((pointer: coarse) and (max-height: 500px)) {
+    .view-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: var(--space-sm);
+        gap: var(--space-sm);
+    }
+
+    .view-topbar-left {
+        display: flex;
+        align-items: center;
+        gap: var(--space-sm);
+        min-width: 0;
+    }
+
+    .view-topbar-left .topbar-title {
+        font-size: var(--font-lg);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .view-topbar-left .topbar-subtitle {
+        font-size: var(--font-xs);
+    }
+
+    .view-topbar-right {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        flex-shrink: 0;
+    }
+}
+
+/* ===== Filter Sheet Content ===== */
+.filter-sheet-count {
+    text-align: center;
+    padding-top: var(--space-md);
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+}
+
+.filter-sheet-reset {
+    color: var(--accent);
+    font-size: var(--font-sm);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+}
+
+.filter-sheet-reset:hover {
+    filter: brightness(1.2);
+}
+
+/* ===== Sort Sheet Content ===== */
+.sort-sheet-label {
+    font-size: var(--font-sm);
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--space-sm);
+}
+
+.sort-sheet-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+}
+
+.sort-sheet-option {
+    padding: 8px 16px;
+    border-radius: var(--radius-xl);
+    font-size: var(--font-md);
+    border: 1px solid var(--border-color);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.sort-sheet-option:hover {
+    border-color: var(--accent);
+}
+
+.sort-sheet-option[aria-pressed="true"] {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+/* ===== Desktop/Mobile Visibility Toggles ===== */
+.desktop-topbar {
+    display: flex;
+}
+
+@media (max-width: 768px), ((pointer: coarse) and (max-height: 500px)) {
+    .desktop-topbar {
+        display: none;
+    }
+    .desktop-only {
+        display: none !important;
+    }
+}

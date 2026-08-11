@@ -1,11 +1,12 @@
 import { includes } from '@serenity-js/assertions';
 import type { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
 import { Task, the } from '@serenity-js/core';
-import { By, PageElement, PageElements, Text, Value } from '@serenity-js/web';
+import { By, Click, PageElement, PageElements, Text, Value } from '@serenity-js/web';
 
 import type { OutcomeFilter } from '../../navigation/link.js';
 import { link } from '../../navigation/link.js';
 import { FilterBar } from '../common/FilterBar.serenity.js';
+import type { InteractionObjectOptions } from '../common/InteractionObject.serenity.js';
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
 import { ResultCount } from '../common/ResultCount.serenity.js';
@@ -21,13 +22,46 @@ export class ScenariosView<NET> extends InteractionObject<NET> {
     readonly filterBar = new FilterBar<NET>(this.child(By.css('[data-testid="filter-bar"]')));
     readonly resultCount = new ResultCount<NET>(this.child(By.css('[data-testid="result-count"]')));
 
+    // Structure — mobile child interaction objects
+    private readonly mobileSearchInput = new SearchInput<NET>(
+        this.child(By.css('[data-testid="bottom-sheet"] [data-testid="search-input"]'))
+    );
+
+    private readonly mobileFilterBar = new FilterBar<NET>(
+        this.child(By.css('[data-testid="bottom-sheet"] [data-testid="filter-bar"]'))
+    );
+
     // Structure — page elements
     private readonly scenarioItems = this.children(By.css('.scenario-item')).describedAs('scenario items');
     private readonly scenarioNameElements = this.children(ScenariosView.scenarioNameSelector).describedAs('scenario names');
 
-    constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
-        super(rootElement);
+    constructor(
+        rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>,
+        private readonly navigation: Navigation = new Navigation(),
+        options?: InteractionObjectOptions,
+    ) {
+        super(rootElement, options);
     }
+
+    // Mobile helpers
+
+    private filterSheetTrigger = () =>
+        this.child(By.css('[aria-label="Search and filter"]'))
+            .describedAs('filter sheet trigger');
+
+    private bottomSheetClose = () =>
+        this.child(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
+            .describedAs('bottom sheet close button');
+
+    private openFilterSheet = (): Task =>
+        Task.where('#actor opens the filter sheet',
+            Click.on(this.filterSheetTrigger()),
+        );
+
+    private closeFilterSheet = (): Task =>
+        Task.where('#actor closes the filter sheet',
+            Click.on(this.bottomSheetClose()),
+        );
 
     // Behaviour — questions
 
@@ -48,12 +82,24 @@ export class ScenariosView<NET> extends InteractionObject<NET> {
             .describedAs('scenario names');
 
     find = (searchTerm: Answerable<string>): Task =>
-        Task.where(the`#actor searches for ${searchTerm}`,
-            this.searchInput.enter(searchTerm),
-        );
+        this.mobile
+            ? Task.where(the`#actor searches for ${searchTerm}`,
+                this.openFilterSheet(),
+                this.mobileSearchInput.enter(searchTerm),
+                this.closeFilterSheet(),
+            )
+            : Task.where(the`#actor searches for ${searchTerm}`,
+                this.searchInput.enter(searchTerm),
+            );
 
     selectFilter = (label: Answerable<string>): Task =>
-        this.filterBar.selectFilter(label);
+        this.mobile
+            ? Task.where(the`#actor selects the ${label} filter`,
+                this.openFilterSheet(),
+                this.mobileFilterBar.selectFilter(label),
+                this.closeFilterSheet(),
+            )
+            : this.filterBar.selectFilter(label);
 
     resultCountText = (): QuestionAdapter<string> =>
         this.resultCount.text();

@@ -1,14 +1,19 @@
 import htm from 'htm';
 import { h } from 'preact';
-import { useCallback, useMemo } from 'preact/hooks';
+import { useCallback, useMemo, useState } from 'preact/hooks';
 
 import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/reporting/ReportData.js';
 import { ROW_HEIGHTS } from '../../config/layout.js';
 import { useRunSelection } from '../../hooks/useRunSelection.js';
+import { BottomSheet } from '../common/BottomSheet.js';
+import { FilterSheetContent } from '../common/FilterSheetContent.js';
 import { icons } from '../common/icons.js';
 import { GroupedVirtualList } from '../common/layout/GroupedVirtualList.js';
 import { ResultCount } from '../common/ResultCount.js';
 import { RunSelector } from '../common/RunSelector.js';
+import { SearchInput } from '../common/SearchInput.js';
+import { TopbarActions } from '../common/TopbarActions.js';
+import { ViewTopbar } from '../common/ViewTopbar.js';
 import type { ErrorRenderItem } from './categoriseErrors.js';
 import { buildRenderItems, buildSummaryCards, categoriseErrors, CATEGORY_ICONS } from './categoriseErrors.js';
 import { ErrorKpiCards } from './ErrorKpiCards.js';
@@ -22,6 +27,7 @@ interface ErrorsViewProps {
     specDirectory?: string;
     onNavigate: (path: string) => void;
     route: string;
+    onOpenSidebar?: () => void;
 }
 
 function isErrorOutcome(outcome: string): boolean {
@@ -57,7 +63,10 @@ function computeErrorScenarios(allScenarios: ReportScenario[], runIndex: number 
     return result;
 }
 
-export function ErrorsView({ scenarios: allScenarios, history, specDirectory, onNavigate, route }: ErrorsViewProps): ReturnType<typeof html> {
+export function ErrorsView({ scenarios: allScenarios, history, specDirectory, onNavigate, route, onOpenSidebar }: ErrorsViewProps): ReturnType<typeof html> {
+    const openSidebar = onOpenSidebar || (() => {});
+    const [filterSheetOpen, setFilterSheetOpen] = useState(false);
+    const [search, setSearch] = useState('');
     const { runIndex: errorRunIndex, isHistorical: errorIsHistorical, activeTimestamp: errorActiveRunTs, onRunChange: onErrorRunChange } = useRunSelection(route, history, '/errors', onNavigate);
 
     const errorScenarios = useMemo(
@@ -65,7 +74,17 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
         [allScenarios, errorRunIndex, history],
     );
 
-    const categoryOrder = useMemo(() => categoriseErrors(errorScenarios), [errorScenarios]);
+    const filteredErrors = useMemo(() => {
+        if (!search) return errorScenarios;
+        const term = search.toLowerCase();
+        return errorScenarios.filter(s =>
+            s.name.toLowerCase().includes(term) ||
+            s.category.toLowerCase().includes(term) ||
+            (s.error?.message && s.error.message.toLowerCase().includes(term))
+        );
+    }, [errorScenarios, search]);
+
+    const categoryOrder = useMemo(() => categoriseErrors(filteredErrors), [filteredErrors]);
     const summaryCards = useMemo(() => buildSummaryCards(categoryOrder), [categoryOrder]);
     const renderItems = useMemo(() => buildRenderItems(categoryOrder), [categoryOrder]);
     const scenarioItems = useMemo(() => renderItems.filter(item => item.type === 'scenario'), [renderItems]);
@@ -113,21 +132,35 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
         count: categoryOrder.find(c => c.name === category)?.scenarios.length || 0,
     }), [categoryOrder]);
 
-    return errorScenarios.length === 0
-        ? html`
-      <div class="placeholder-view">
-        ${icons.errors}
-        <h2>No Errors</h2>
-        <p>All tests passed without errors.</p>
+    if (errorScenarios.length === 0) {
+        return html`
+      <div class="flex-fill-view">
+        <${ViewTopbar} title="Errors" onOpenSidebar=${openSidebar} />
+        <div class="placeholder-view">
+          ${icons.errors}
+          <h2>No Errors</h2>
+          <p>All tests passed without errors.</p>
+        </div>
       </div>
-    `
-        : html`
+    `;
+    }
+
+    const topbarActions = html`<${TopbarActions} onOpenFilter=${() => setFilterSheetOpen(true)} />`;
+
+    return html`
     <div class="flex-fill-view">
-      ${history.length > 1 ? html`<${RunSelector} activeTimestamp=${errorActiveRunTs} history=${history} onRunChange=${onErrorRunChange} isHistorical=${errorIsHistorical} showLatestHref="#/errors" />` : null}
+      <${ViewTopbar} title="Errors" onOpenSidebar=${openSidebar} actions=${topbarActions} />
+      ${history.length > 1 ? html`<div class="desktop-only"><${RunSelector} activeTimestamp=${errorActiveRunTs} history=${history} onRunChange=${onErrorRunChange} isHistorical=${errorIsHistorical} showLatestHref="#/errors" /></div>` : null}
+
+      <div class="controls-row desktop-only">
+        <div class="search-input-wrap">
+          <${SearchInput} value=${search} onInput=${setSearch} placeholder="Find errors..." />
+        </div>
+      </div>
 
       <${ErrorKpiCards} cards=${summaryCards} />
       <div class="card pb-0">
-        <${ResultCount} showing=${errorScenarios.length} label=${errorScenarios.length === 1 ? 'error' : 'errors'} />
+        <${ResultCount} showing=${filteredErrors.length} total=${filteredErrors.length < errorScenarios.length ? errorScenarios.length : undefined} label=${filteredErrors.length === 1 ? 'error' : 'errors'} />
         <${GroupedVirtualList}
             items=${scenarioItems}
             groupBy=${groupByFunction}
@@ -139,6 +172,15 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
             id="vs-errors-sticky"
         />
       </div>
+
+      ${filterSheetOpen ? html`<${BottomSheet} isOpen=${true} onClose=${() => setFilterSheetOpen(false)} title="Search & Run">
+        ${history.length > 1 ? html`<${RunSelector} activeTimestamp=${errorActiveRunTs} history=${history} onRunChange=${onErrorRunChange} isHistorical=${errorIsHistorical} showLatestHref="#/errors" />` : null}
+        <${FilterSheetContent}
+          search=${search} onSearch=${setSearch}
+          filteredCount=${filteredErrors.length} totalCount=${errorScenarios.length}
+          searchPlaceholder="Find errors..."
+        />
+      </${BottomSheet}>` : null}
     </div>
   `;
 }

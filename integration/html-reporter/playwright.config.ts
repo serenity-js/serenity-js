@@ -26,6 +26,7 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
         headless: true,
         baseURL: 'http://127.0.0.1:8080',
         defaultActorName: 'Serena',
+        reducedMotion: 'reduce',
     },
     webServer: {
         command: 'npx http-server examples/reports -p 8080 -c-1',

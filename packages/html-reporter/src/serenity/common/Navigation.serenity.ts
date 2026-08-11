@@ -6,7 +6,7 @@ import { Attribute, By, Click, isVisible, Page, PageElement, PageElements, Text 
 export class Navigation {
     private static routeRegex = /^#\/([^?]+)/;
 
-    private hamburgerMenu = PageElement.located(By.css('button[aria-label="Open menu"]')).describedAs('hamburger menu button');
+    private hamburgerMenu = PageElement.located(By.css('.view-topbar button[aria-label="Open menu"]')).describedAs('hamburger menu button');
     private sidebar = PageElement.located(By.css('aside.sidebar'));
     private navItems = PageElements.located(By.css('.nav-item')).of(this.sidebar).describedAs('navigation items');
 

@@ -3,9 +3,13 @@ import { h } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 
 import type { ReportTag } from '../../../src/cli/reporting/ReportData.js';
+import { BottomSheet } from '../common/BottomSheet.js';
 import { FilterBar } from '../common/FilterBar.js';
+import { FilterSheetContent } from '../common/FilterSheetContent.js';
 import { ResultCount } from '../common/ResultCount.js';
 import { SearchInput } from '../common/SearchInput.js';
+import { TopbarActions } from '../common/TopbarActions.js';
+import { ViewTopbar } from '../common/ViewTopbar.js';
 import { TagRow, TagRowHeader } from './TagRow.js';
 import { computeFilterCounts, filterTags, groupTagsByType } from './tagsHelpers.js';
 
@@ -14,11 +18,14 @@ const html = htm.bind(h);
 interface TagsViewProps {
     tags: ReportTag[];
     onNavigate: (path: string) => void;
+    onOpenSidebar?: () => void;
 }
 
-export function TagsView({ tags, onNavigate }: TagsViewProps): ReturnType<typeof html> {
+export function TagsView({ tags, onNavigate, onOpenSidebar }: TagsViewProps): ReturnType<typeof html> {
+    const openSidebar = onOpenSidebar || (() => {});
     const [search, setSearch] = useState('');
     const [filter, setFilter] = useState('all');
+    const [filterSheetOpen, setFilterSheetOpen] = useState(false);
 
     const filterCounts = useMemo(() => computeFilterCounts(tags), [tags]);
 
@@ -33,9 +40,12 @@ export function TagsView({ tags, onNavigate }: TagsViewProps): ReturnType<typeof
 
     const groups = useMemo(() => groupTagsByType(filtered), [filtered]);
 
+    const topbarActions = html`<${TopbarActions} onOpenFilter=${() => setFilterSheetOpen(true)} />`;
+
     return html`
     <div>
-      <div class="controls-row">
+      <${ViewTopbar} title="Tags" onOpenSidebar=${openSidebar} actions=${topbarActions} />
+      <div class="controls-row desktop-only">
         <div class="search-input-wrap">
           <${SearchInput} value=${search} onInput=${setSearch} placeholder="Find tags..." />
         </div>
@@ -60,6 +70,17 @@ export function TagsView({ tags, onNavigate }: TagsViewProps): ReturnType<typeof
             })}
         `)}
       </div>
+
+      ${filterSheetOpen ? html`<${BottomSheet} isOpen=${true} onClose=${() => setFilterSheetOpen(false)} title="Search & Filter">
+        <${FilterSheetContent}
+          search=${search} onSearch=${setSearch}
+          filters=${filters}
+          activeFilter=${filter} onFilter=${setFilter}
+          filteredCount=${filtered.length} totalCount=${tags.length}
+          ariaLabel="Filter tags by outcome"
+          searchPlaceholder="Find tags..."
+        />
+      </${BottomSheet}>` : null}
     </div>
   `;
 }

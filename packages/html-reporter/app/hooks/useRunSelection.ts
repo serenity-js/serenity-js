@@ -24,7 +24,22 @@ export function useRunSelection(route: string, history: ReportHistoryEntry[], ba
         const timestamp = targetValue(event);
         const index = history.findIndex(r => r.timestamp === timestamp);
         const isLatest = index === history.length - 1;
-        onNavigate(isLatest ? basePath : basePath + '?run=' + timestamp);
+
+        // Read current params from the live URL (not the stale route prop)
+        // because useViewState.syncStateToUrl may have updated the hash
+        // without triggering a route prop update yet.
+        const currentHash = window.location.hash.replace(/^#/, '');
+        const currentParameters = currentHash.includes('?')
+            ? new URLSearchParams(currentHash.split('?')[1])
+            : new URLSearchParams();
+        currentParameters.delete('run');
+
+        if (!isLatest) {
+            currentParameters.set('run', timestamp);
+        }
+
+        const parameterString = currentParameters.toString();
+        onNavigate(parameterString ? basePath + '?' + parameterString : basePath);
     };
 
     return { runIndex, isHistorical, historicalRun, activeTimestamp, onRunChange };

@@ -28,7 +28,7 @@ interface ResolvedView {
     viewTestId: string;
 }
 
-function resolveView(effectiveRoute: string, navigate: (path: string) => void): ResolvedView {
+function resolveView(effectiveRoute: string, navigate: (path: string) => void, openSidebar: () => void): ResolvedView {
     const match: RouteMatch | undefined = resolveRoute(effectiveRoute, routes);
 
     if (!match) {
@@ -45,7 +45,7 @@ function resolveView(effectiveRoute: string, navigate: (path: string) => void): 
 
     const viewData = match.definition.data(DATA, match.params);
     const ViewComponent = match.definition.view;
-    const view = html`<${ViewComponent} ...${viewData} onNavigate=${navigate} />`;
+    const view = html`<${ViewComponent} ...${viewData} onNavigate=${navigate} onOpenSidebar=${openSidebar} />`;
 
     const pageTitle = typeof match.definition.title === 'function'
         ? match.definition.title(DATA)
@@ -107,7 +107,7 @@ export function App(): ReturnType<typeof html> {
     const toggleSidebar = () => setSidebarCollapsed(c => { const next = !c; localStorage.setItem('serenity-sidebar-collapsed', String(next)); return next; });
 
     const effectiveRoute = route === '' ? '/' : route;
-    const { view, pageTitle, viewTestId } = resolveView(effectiveRoute, navigate);
+    const { view, pageTitle, viewTestId } = resolveView(effectiveRoute, navigate, () => setSidebarOpen(true));
     const routeMatched = !!resolveRoute(effectiveRoute, routes);
 
     return html`
@@ -121,7 +121,7 @@ export function App(): ReturnType<typeof html> {
     <main id="main-content" tabindex="-1" class="main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''}"
           data-testid="${viewTestId}"
           style="margin-left:${sidebarCollapsed ? 'var(--sidebar-collapsed-width)' : 'var(--sidebar-width)'}">
-      <div class="topbar">
+      <div class="topbar desktop-topbar">
         <div class="topbar-left">
           <button class="btn-icon hamburger" onClick=${() => setSidebarOpen(true)} aria-label="Open menu">
             ${icons.menu}

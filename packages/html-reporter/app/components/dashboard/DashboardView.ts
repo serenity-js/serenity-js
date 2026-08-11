@@ -7,6 +7,7 @@ import { computeDashboardScores } from '../../utils/computeDashboardScores.js';
 import { sceneIdentity, tagDiscriminator } from '../../utils/navigation.js';
 import { classifyConsistencyKind } from '../../utils/selectors.js';
 import { TrendChart } from '../common/charts/TrendChart.js';
+import { ViewTopbar } from '../common/ViewTopbar.js';
 import { DashboardConsistencyCard } from './DashboardConsistencyCard.js';
 import { DashboardKpiRow } from './DashboardKpiRow.js';
 import { DashboardMeta } from './DashboardMeta.js';
@@ -98,9 +99,11 @@ interface DashboardViewProps {
     capabilities?: ReportCapabilityNode;
     systemContext?: ReportSystemContext;
     onNavigate: (path: string) => void;
+    onOpenSidebar?: () => void;
 }
 
-export function DashboardView({ summary, history, scenarios, newFailures: allNewFailures, newPasses: allNewPasses, inconsistentTests: allInconsistentTests, capabilities, systemContext, onNavigate }: DashboardViewProps): ReturnType<typeof html> {
+export function DashboardView({ summary, history, scenarios, newFailures: allNewFailures, newPasses: allNewPasses, inconsistentTests: allInconsistentTests, capabilities, systemContext, onNavigate, onOpenSidebar }: DashboardViewProps): ReturnType<typeof html> {
+    const openSidebar = onOpenSidebar || (() => {});
     const scores = computeDashboardScores(summary, history, capabilities);
 
     const sorted = [...scenarios].sort((a, b) => b.duration - a.duration);
@@ -130,34 +133,37 @@ export function DashboardView({ summary, history, scenarios, newFailures: allNew
     const totalModules = latestRun?.modules?.length || 0;
 
     return html`
-    <div class="dashboard">
-      ${incompleteModules.length > 0 ? html`<${IncompleteBanner} incompleteCount=${incompleteModules.length} totalCount=${totalModules} />` : null}
-      <${DashboardKpiRow}
-        summary=${summary}
-        scores=${scores}
-        confidenceSubtitle=${confidenceSubtitle({ confidence: scores.confidence, previousConfidence: scores.previousConfidence, totalScenarios: summary.totalScenarios, runCount: history.length, newFailCount: allNewFailures.length, recoveredCount: allNewPasses.length })}
-        inconsistentCount=${allInconsistentTests.length}
-        onNavigate=${onNavigate}
-      />
+    <div>
+      <${ViewTopbar} title=${summary.title || 'Dashboard'} onOpenSidebar=${openSidebar} />
+      <div class="dashboard">
+        ${incompleteModules.length > 0 ? html`<${IncompleteBanner} incompleteCount=${incompleteModules.length} totalCount=${totalModules} />` : null}
+        <${DashboardKpiRow}
+          summary=${summary}
+          scores=${scores}
+          confidenceSubtitle=${confidenceSubtitle({ confidence: scores.confidence, previousConfidence: scores.previousConfidence, totalScenarios: summary.totalScenarios, runCount: history.length, newFailCount: allNewFailures.length, recoveredCount: allNewPasses.length })}
+          inconsistentCount=${allInconsistentTests.length}
+          onNavigate=${onNavigate}
+        />
 
-      <${DashboardMeta} testRunner=${summary.testRunner} systemContext=${systemContext} />
+        <${DashboardMeta} testRunner=${summary.testRunner} systemContext=${systemContext} />
 
-      <div class="dashboard-main-grid">
-        <div class="card dashboard-trend-card">
-          <div class="card-header">
-            <h2 class="card-title mb-0">Trend</h2>
+        <div class="dashboard-main-grid">
+          <div class="card dashboard-trend-card">
+            <div class="card-header">
+              <h2 class="card-title mb-0">Trend</h2>
+            </div>
+            <${TrendChart} history=${history} onNavigate=${onNavigate} />
           </div>
-          <${TrendChart} history=${history} onNavigate=${onNavigate} />
-        </div>
 
-        <div class="dashboard-health-col">
-          <${DashboardConsistencyCard}
-            items=${consistencyItems}
-            hasItems=${newFailures.length > 0 || newPasses.length > 0 || inconsistent.length > 0}
-            onNavigate=${onNavigate}
-            getHistory=${getHistory}
-          />
-          <${DashboardSlowestCard} scenarios=${slowest} onNavigate=${onNavigate} />
+          <div class="dashboard-health-col">
+            <${DashboardConsistencyCard}
+              items=${consistencyItems}
+              hasItems=${newFailures.length > 0 || newPasses.length > 0 || inconsistent.length > 0}
+              onNavigate=${onNavigate}
+              getHistory=${getHistory}
+            />
+            <${DashboardSlowestCard} scenarios=${slowest} onNavigate=${onNavigate} />
+          </div>
         </div>
       </div>
     </div>

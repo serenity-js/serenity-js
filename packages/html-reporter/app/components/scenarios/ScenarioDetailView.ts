@@ -7,6 +7,7 @@ import { useScrollFade } from '../../hooks/useScrollFade.js';
 import { formatRunLabel, scenarioUrl } from '../../utils/index.js';
 import { link } from '../../utils/link.js';
 import { HistoricalBanner } from '../common/HistoricalBanner.js';
+import { ViewTopbar } from '../common/ViewTopbar.js';
 import { ErrorBlock } from '../errors/ErrorBlock.js';
 import { ActivityTreeCard } from './ActivityTreeCard.js';
 import { PhotoStrip } from './PhotoStrip.js';
@@ -23,16 +24,21 @@ interface ScenarioDetailViewProps {
     specDirectory?: string;
     scenarioId: string;
     onNavigate: (path: string) => void;
+    onOpenSidebar?: () => void;
 }
 
-export function ScenarioDetailView({ scenarios, history, specDirectory, scenarioId, onNavigate }: ScenarioDetailViewProps): ReturnType<typeof html> {
+export function ScenarioDetailView({ scenarios, history, specDirectory, scenarioId, onNavigate, onOpenSidebar }: ScenarioDetailViewProps): ReturnType<typeof html> {
+    const openSidebar = onOpenSidebar || (() => {});
     const detail = useScenarioDetail(scenarioId, scenarios, history);
 
     if (!detail.scenario) {
-        return html`<div class="card">
-            <nav class="breadcrumb"><a href="#/tests" onClick=${(e: Event) => { e.preventDefault(); onNavigate('/tests'); }}>Test Scenarios</a><span>›</span><span>Not Found</span></nav>
-            <p>Test scenario not found.</p>
-            <a href="#/tests" onClick=${(e: Event) => { e.preventDefault(); onNavigate('/tests'); }}>← Back to Test Scenarios</a>
+        return html`<div>
+            <${ViewTopbar} title="Test Scenario" onOpenSidebar=${openSidebar} />
+            <div class="card">
+                <nav class="breadcrumb"><a href="#/tests" onClick=${(e: Event) => { e.preventDefault(); onNavigate('/tests'); }}>Test Scenarios</a><span>›</span><span>Not Found</span></nav>
+                <p>Test scenario not found.</p>
+                <a href="#/tests" onClick=${(e: Event) => { e.preventDefault(); onNavigate('/tests'); }}>← Back to Test Scenarios</a>
+            </div>
         </div>`;
     }
 
@@ -44,6 +50,7 @@ export function ScenarioDetailView({ scenarios, history, specDirectory, scenario
 
     return html`
     <div>
+      <${ViewTopbar} title=${scenario.name} onOpenSidebar=${openSidebar} />
       <${Breadcrumb} scenario=${scenario} runIndex=${runIndex} history=${history} onNavigate=${onNavigate} />
 
       ${isHistorical ? html`

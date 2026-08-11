@@ -6,6 +6,7 @@ import type { ReportCapabilityNode } from '../../../src/cli/reporting/ReportData
 import { useViewState } from '../../hooks/useViewState.js';
 import { useHashHistory } from '../../utils/index.js';
 import { icons } from '../common/icons.js';
+import { ViewTopbar } from '../common/ViewTopbar.js';
 import { DetailPanel } from './CapabilityDetail.js';
 import {
     findNodeByPath,
@@ -20,6 +21,7 @@ interface CapabilitiesViewProps {
     capabilities?: ReportCapabilityNode;
     onNavigate: (path: string) => void;
     route: string;
+    onOpenSidebar?: () => void;
 }
 
 function buildNodeFilter(activeFilter: string): ((node: ReportCapabilityNode) => boolean) | null {
@@ -46,7 +48,8 @@ function computeHealthCounts(capabilities: ReportCapabilityNode): { healthy: num
     return { healthy, atRisk, critical, gaps, total: healthy + atRisk + critical };
 }
 
-export function CapabilitiesView({ capabilities, onNavigate, route }: CapabilitiesViewProps): ReturnType<typeof html> {
+export function CapabilitiesView({ capabilities, onNavigate, route, onOpenSidebar }: CapabilitiesViewProps): ReturnType<typeof html> {
+    const openSidebar = onOpenSidebar || (() => {});
     const [selectedPath, setSelectedPath] = useState('');
     const [selectedNode, setSelectedNode] = useState<ReportCapabilityNode | null>(null);
     const [focusedPath, setFocusedPath] = useState('');
@@ -80,10 +83,13 @@ export function CapabilitiesView({ capabilities, onNavigate, route }: Capabiliti
 
     if (!capabilities) {
         return html`
-            <div class="empty-state">
-                <div class="empty-state-icon">${icons.completeness}</div>
-                <div class="empty-state-title">Capabilities</div>
-                <div class="empty-state-description">Configure a <code>specDirectory</code> to derive the capabilities hierarchy.</div>
+            <div>
+                <${ViewTopbar} title="Capabilities" onOpenSidebar=${openSidebar} />
+                <div class="empty-state">
+                    <div class="empty-state-icon">${icons.completeness}</div>
+                    <div class="empty-state-title">Capabilities</div>
+                    <div class="empty-state-description">Configure a <code>specDirectory</code> to derive the capabilities hierarchy.</div>
+                </div>
             </div>
         `;
     }
@@ -97,19 +103,22 @@ export function CapabilitiesView({ capabilities, onNavigate, route }: Capabiliti
     };
 
     return html`
-        <div class="capabilities-split">
-            <${CapabilityTreePanel}
-                capabilities=${capabilities}
-                searchTerm=${searchTerm} setSearchTerm=${setSearchTerm}
-                activeFilter=${activeFilter} setActiveFilter=${setActiveFilter}
-                activeSort=${activeSort} setActiveSort=${setActiveSort}
-                selectedPath=${selectedPath} focusedPath=${focusedPath}
-                setFocusedPath=${setFocusedPath}
-                nodeFilter=${nodeFilter} healthCounts=${healthCounts}
-                onSelect=${handleSelect} />
-            <div class="req-detail-wrap">
-                <${DetailPanel} node=${selectedNode} segmentPath=${selectedPath}
-                    capabilities=${capabilities} onNavigate=${onNavigate} onSelect=${handleSelect} />
+        <div>
+            <${ViewTopbar} title="Capabilities" onOpenSidebar=${openSidebar} />
+            <div class="capabilities-split">
+                <${CapabilityTreePanel}
+                    capabilities=${capabilities}
+                    searchTerm=${searchTerm} setSearchTerm=${setSearchTerm}
+                    activeFilter=${activeFilter} setActiveFilter=${setActiveFilter}
+                    activeSort=${activeSort} setActiveSort=${setActiveSort}
+                    selectedPath=${selectedPath} focusedPath=${focusedPath}
+                    setFocusedPath=${setFocusedPath}
+                    nodeFilter=${nodeFilter} healthCounts=${healthCounts}
+                    onSelect=${handleSelect} />
+                <div class="req-detail-wrap">
+                    <${DetailPanel} node=${selectedNode} segmentPath=${selectedPath}
+                        capabilities=${capabilities} onNavigate=${onNavigate} onSelect=${handleSelect} />
+                </div>
             </div>
         </div>
     `;

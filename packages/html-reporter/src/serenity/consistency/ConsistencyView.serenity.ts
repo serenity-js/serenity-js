@@ -2,10 +2,11 @@ import { includes } from '@serenity-js/assertions';
 import type { Answerable, Question } from '@serenity-js/core';
 import type { QuestionAdapter } from '@serenity-js/core';
 import { Task, the } from '@serenity-js/core';
-import { By, PageElement, Text } from '@serenity-js/web';
+import { By, Click, PageElement, Text } from '@serenity-js/web';
 
 import { FilterBar } from '../common/FilterBar.serenity.js';
 import { HistoryDots } from '../common/HistoryDots.serenity.js';
+import type { InteractionObjectOptions } from '../common/InteractionObject.serenity.js';
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
 import { OutcomeBadge } from '../common/OutcomeBadge.serenity.js';
@@ -23,13 +24,46 @@ export class ConsistencyView<NET> extends InteractionObject<NET> {
     readonly resultCount = new ResultCount<NET>(this.child(By.css('[data-testid="result-count"]')));
     readonly historyDots = new HistoryDots<NET>(this.child(By.css('[data-testid="history-dots"]')));
 
+    // Structure — mobile child interaction objects
+    private readonly mobileSearchInput = new SearchInput<NET>(
+        this.child(By.css('[data-testid="bottom-sheet"] [data-testid="search-input"]'))
+    );
+
+    private readonly mobileFilterBar = new FilterBar<NET>(
+        this.child(By.css('[data-testid="bottom-sheet"] [data-testid="filter-bar"]'))
+    );
+
     // Structure — page elements
     private readonly scenarioItems = this.children(By.css('.scenario-item')).describedAs('consistency scenario items');
     private readonly scenarioNameElements = this.children(ConsistencyView.scenarioNameSelector).describedAs('consistency scenario names');
 
-    constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
-        super(rootElement);
+    constructor(
+        rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>,
+        private readonly navigation: Navigation = new Navigation(),
+        options?: InteractionObjectOptions,
+    ) {
+        super(rootElement, options);
     }
+
+    // Mobile helpers
+
+    private filterSheetTrigger = () =>
+        this.child(By.css('[aria-label="Search and filter"]'))
+            .describedAs('filter sheet trigger');
+
+    private bottomSheetClose = () =>
+        this.child(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
+            .describedAs('bottom sheet close button');
+
+    private openFilterSheet = (): Task =>
+        Task.where('#actor opens the filter sheet',
+            Click.on(this.filterSheetTrigger()),
+        );
+
+    private closeFilterSheet = (): Task =>
+        Task.where('#actor closes the filter sheet',
+            Click.on(this.bottomSheetClose()),
+        );
 
     // Behaviour — questions (what the user observes)
 
@@ -58,9 +92,24 @@ export class ConsistencyView<NET> extends InteractionObject<NET> {
     // Behaviour — tasks (what the user does)
 
     find = (searchTerm: Answerable<string>): Task =>
-        Task.where(the`#actor searches for ${searchTerm}`,
-            this.searchInput.enter(searchTerm),
-        );
+        this.mobile
+            ? Task.where(the`#actor searches for ${searchTerm}`,
+                this.openFilterSheet(),
+                this.mobileSearchInput.enter(searchTerm),
+                this.closeFilterSheet(),
+            )
+            : Task.where(the`#actor searches for ${searchTerm}`,
+                this.searchInput.enter(searchTerm),
+            );
+
+    selectFilter = (label: Answerable<string>): Task =>
+        this.mobile
+            ? Task.where(the`#actor selects the ${label} filter`,
+                this.openFilterSheet(),
+                this.mobileFilterBar.selectFilter(label),
+                this.closeFilterSheet(),
+            )
+            : this.filterBar.selectFilter(label);
 
     open = (): Task =>
         Task.where('#actor opens the Consistency view',

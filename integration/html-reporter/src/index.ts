@@ -1,3 +1,4 @@
+import type { InteractionObjectOptions } from '@serenity-js/html-reporter/serenity';
 import {
     AboutView,
     CapabilitiesView,
@@ -78,9 +79,11 @@ export const {
         await use(new CapabilitiesView(rootElement, navigation));
     },
 
-    consistencyView: async ({ navigation }, use) => {
+    consistencyView: async ({ page, navigation }, use) => {
+        const viewport = page.viewportSize();
+        const options: InteractionObjectOptions = { mobile: viewport ? viewport.width <= 768 : false };
         const rootElement = PageElement.located(By.css('[data-testid="consistency"]')).describedAs('consistency view');
-        await use(new ConsistencyView(rootElement, navigation));
+        await use(new ConsistencyView(rootElement, navigation, options));
     },
 
     dashboardView: async ({ navigation }, use) => {
@@ -88,9 +91,11 @@ export const {
         await use(new DashboardView(rootElement, navigation));
     },
 
-    errorsView: async ({ navigation }, use) => {
+    errorsView: async ({ page, navigation }, use) => {
+        const viewport = page.viewportSize();
+        const options: InteractionObjectOptions = { mobile: viewport ? viewport.width <= 768 : false };
         const rootElement = PageElement.located(By.css('[data-testid="errors"]')).describedAs('errors view');
-        await use(new ErrorsView(rootElement, navigation));
+        await use(new ErrorsView(rootElement, navigation, options));
     },
 
     scenarioDetailView: async ({ navigation }, use) => {
@@ -98,9 +103,11 @@ export const {
         await use(new ScenarioDetailView(rootElement, navigation));
     },
 
-    scenariosView: async ({ navigation }, use) => {
+    scenariosView: async ({ page, navigation }, use) => {
+        const viewport = page.viewportSize();
+        const options: InteractionObjectOptions = { mobile: viewport ? viewport.width <= 768 : false };
         const rootElement = PageElement.located(By.css('[data-testid="tests"]')).describedAs('scenarios view');
-        await use(new ScenariosView(rootElement, navigation));
+        await use(new ScenariosView(rootElement, navigation, options));
     },
 
     systemContextView: async ({ navigation }, use) => {
@@ -108,9 +115,11 @@ export const {
         await use(new SystemContextView(rootElement, navigation));
     },
 
-    tagsView: async ({ navigation }, use) => {
+    tagsView: async ({ page, navigation }, use) => {
+        const viewport = page.viewportSize();
+        const options: InteractionObjectOptions = { mobile: viewport ? viewport.width <= 768 : false };
         const rootElement = PageElement.located(By.css('[data-testid="tags"]')).describedAs('tags view');
-        await use(new TagsView(rootElement, navigation));
+        await use(new TagsView(rootElement, navigation, options));
     },
 
     testRunsView: async ({ navigation }, use) => {
@@ -118,8 +127,10 @@ export const {
         await use(new TestRunsView(rootElement, navigation));
     },
 
-    timelineView: async ({ navigation }, use) => {
+    timelineView: async ({ page, navigation }, use) => {
+        const viewport = page.viewportSize();
+        const options: InteractionObjectOptions = { mobile: viewport ? viewport.width <= 768 : false };
         const rootElement = PageElement.located(By.css('[data-testid="timeline"]')).describedAs('timeline view');
-        await use(new TimelineView(rootElement, navigation));
+        await use(new TimelineView(rootElement, navigation, options));
     },
 });

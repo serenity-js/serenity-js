@@ -260,3 +260,57 @@ describe('ErrorsView', () => {
         );
     });
 });
+
+describe('ErrorsView search', () => {
+
+    it('narrows error list when searching by scenario name', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ErrorsView',
+            importPath: './components/errors/ErrorsView',
+            props: { onNavigate: () => {}, route: '/errors' },
+            data: errorsData(),
+            interactionObject: ErrorsView,
+        });
+
+        await actor.attemptsTo(
+            view.find('Login'),
+            Ensure.that(view.resultCountText(), includes('1 of 3')),
+            Ensure.that(view.scenarioNames(), contain('Login fails')),
+            Ensure.that(view.scenarioNames(), not(contain('Timeout test'))),
+        );
+    });
+
+    it('narrows error list when searching by error message', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ErrorsView',
+            importPath: './components/errors/ErrorsView',
+            props: { onNavigate: () => {}, route: '/errors' },
+            data: errorsData(),
+            interactionObject: ErrorsView,
+        });
+
+        await actor.attemptsTo(
+            view.find('timed out'),
+            Ensure.that(view.resultCountText(), includes('1 of 3')),
+            Ensure.that(view.scenarioNames(), contain('Timeout test')),
+            Ensure.that(view.scenarioNames(), not(contain('Login fails'))),
+        );
+    });
+
+    it('shows all errors when search is cleared', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'ErrorsView',
+            importPath: './components/errors/ErrorsView',
+            props: { onNavigate: () => {}, route: '/errors' },
+            data: errorsData(),
+            interactionObject: ErrorsView,
+        });
+
+        await actor.attemptsTo(
+            view.find('Login'),
+            Ensure.that(view.errorGroupCount(), equals(1)),
+            view.searchInput.clear(),
+            Ensure.that(view.errorGroupCount(), equals(2)),
+        );
+    });
+});

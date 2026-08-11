@@ -3,6 +3,7 @@ export { SystemContextView } from './serenity/about/SystemContextView.serenity.j
 export { CapabilitiesView } from './serenity/capabilities/CapabilitiesView.serenity.js';
 export { FilterBar } from './serenity/common/FilterBar.serenity.js';
 export { HistoryDots } from './serenity/common/HistoryDots.serenity.js';
+export type { InteractionObjectOptions } from './serenity/common/InteractionObject.serenity.js';
 export { InteractionObject } from './serenity/common/InteractionObject.serenity.js';
 export { KpiCard } from './serenity/common/KpiCard.serenity.js';
 export { Navigation } from './serenity/common/Navigation.serenity.js';

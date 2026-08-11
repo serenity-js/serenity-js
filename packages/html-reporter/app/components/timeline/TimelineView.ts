@@ -5,8 +5,12 @@ import { useMemo, useRef, useState } from 'preact/hooks';
 import type { ReportScenario, ReportSummary } from '../../../src/cli/reporting/ReportData.js';
 import { useVirtualizer } from '../../hooks/index.js';
 import { formatDuration, matchesOutcomeFilter, totalFailedCount } from '../../utils/index.js';
+import { BottomSheet } from '../common/BottomSheet.js';
 import { FilterBar } from '../common/FilterBar.js';
 import { KpiCard } from '../common/KpiCard.js';
+import { SortSheetContent } from '../common/SortSheetContent.js';
+import { TopbarActions } from '../common/TopbarActions.js';
+import { ViewTopbar } from '../common/ViewTopbar.js';
 import { TimelineBar } from './TimelineBar.js';
 import { computeDurationStats } from './timelineHelpers.js';
 
@@ -17,9 +21,11 @@ interface TimelineViewProps {
     summary: ReportSummary;
     onNavigate: (path: string) => void;
     route?: string;
+    onOpenSidebar?: () => void;
 }
 
-export function TimelineView({ scenarios: allScenarios, summary, onNavigate, route = '' }: TimelineViewProps): ReturnType<typeof html> {
+export function TimelineView({ scenarios: allScenarios, summary, onNavigate, route = '', onOpenSidebar }: TimelineViewProps): ReturnType<typeof html> {
+    const openSidebar = onOpenSidebar || (() => {});
     const initialSort = useMemo(() => {
         const params = new URLSearchParams(route.split('?')[1] || '');
         const sort = params.get('sort');
@@ -27,6 +33,10 @@ export function TimelineView({ scenarios: allScenarios, summary, onNavigate, rou
     }, []);
     const [sortBy, setSortBy] = useState(initialSort);
     const [filter, setFilter] = useState('all');
+    const [filterSheetOpen, setFilterSheetOpen] = useState(false);
+    const [sortSheetOpen, setSortSheetOpen] = useState(false);
+    const [statsSheetOpen, setStatsSheetOpen] = useState(false);
+
     const start = new Date(summary.startedAt).getTime();
     const end = new Date(summary.finishedAt).getTime();
     const totalDur = end - start;
@@ -52,28 +62,35 @@ export function TimelineView({ scenarios: allScenarios, summary, onNavigate, rou
         overscan: 20,
     });
 
+    const filters = [
+        { key: 'all', label: 'All', count: allScenarios.length },
+        { key: 'passed', label: 'Passed', count: summary.outcomes.passed },
+        { key: 'failed', label: 'Failed', count: totalFailedCount(summary.outcomes) },
+        { key: 'skipped', label: 'Skipped', count: (summary.outcomes.skipped || 0) + (summary.outcomes.pending || 0) },
+    ];
+
+    const sortOptions = [
+        { key: 'time', label: 'Execution order' },
+        { key: 'duration', label: 'Slowest first' },
+    ];
+
+    const topbarActions = html`<${TopbarActions} onOpenFilter=${() => setFilterSheetOpen(true)} onOpenSort=${() => setSortSheetOpen(true)} onOpenStats=${() => setStatsSheetOpen(true)} />`;
+
     return html`
     <div class="flex-fill-view">
-      <div class="kpi-row mb-md grid-4col">
+      <${ViewTopbar} title="Timeline" onOpenSidebar=${openSidebar} actions=${topbarActions} />
+      <div class="kpi-row mb-md grid-4col desktop-only">
         <${KpiCard} label="Slowest" value=${formatDuration(slowest)} ariaLabel="Slowest test: ${formatDuration(slowest)}" valueColor=${slowest > avg * 3 ? 'var(--color-failed)' : slowest > avg * 2 ? 'var(--color-pending)' : ''} />
         <${KpiCard} label="Fastest" value=${formatDuration(fastest)} ariaLabel="Fastest test: ${formatDuration(fastest)}" />
         <${KpiCard} label="Average" value=${formatDuration(avg)} ariaLabel="Average duration: ${formatDuration(avg)}" />
         <${KpiCard} label="Total" value=${formatDuration(summary.duration)} ariaLabel="Total duration: ${formatDuration(summary.duration)}" subtitle="${allScenarios.length} scenarios" />
       </div>
 
-      <div class="controls-row">
-        <${FilterBar} filters=${[
-            { key: 'all', label: 'All', count: allScenarios.length },
-            { key: 'passed', label: 'Passed', count: summary.outcomes.passed },
-            { key: 'failed', label: 'Failed', count: totalFailedCount(summary.outcomes) },
-            { key: 'skipped', label: 'Skipped', count: (summary.outcomes.skipped || 0) + (summary.outcomes.pending || 0) },
-        ]}
+      <div class="controls-row desktop-only">
+        <${FilterBar} filters=${filters}
         activeFilter=${filter} onFilter=${setFilter}
         ariaLabel="Filter tests by outcome" label="Status"
-        sortOptions=${[
-            { key: 'time', label: 'Execution order' },
-            { key: 'duration', label: 'Slowest first' },
-        ]}
+        sortOptions=${sortOptions}
         activeSort=${sortBy} onSort=${setSortBy} />
       </div>
 
@@ -96,6 +113,31 @@ export function TimelineView({ scenarios: allScenarios, summary, onNavigate, rou
           </div>
         </div>
       </div>
+
+      ${filterSheetOpen ? html`<${BottomSheet} isOpen=${true} onClose=${() => setFilterSheetOpen(false)} title="Filter">
+        <${FilterBar} filters=${filters}
+          activeFilter=${filter} onFilter=${setFilter}
+          ariaLabel="Filter tests by outcome" label="Status" />
+        <div class="filter-sheet-count" aria-live="polite">
+          Showing ${scenarios.length} of ${allScenarios.length}
+        </div>
+      </${BottomSheet}>` : null}
+
+      ${sortSheetOpen ? html`<${BottomSheet} isOpen=${true} onClose=${() => setSortSheetOpen(false)} title="Sort">
+        <${SortSheetContent}
+          sortOptions=${sortOptions}
+          activeSort=${sortBy} onSort=${setSortBy}
+        />
+      </${BottomSheet}>` : null}
+
+      ${statsSheetOpen ? html`<${BottomSheet} isOpen=${true} onClose=${() => setStatsSheetOpen(false)} title="Timing Statistics">
+        <div class="kpi-row grid-4col">
+          <${KpiCard} label="Slowest" value=${formatDuration(slowest)} ariaLabel="Slowest test: ${formatDuration(slowest)}" valueColor=${slowest > avg * 3 ? 'var(--color-failed)' : slowest > avg * 2 ? 'var(--color-pending)' : ''} />
+          <${KpiCard} label="Fastest" value=${formatDuration(fastest)} ariaLabel="Fastest test: ${formatDuration(fastest)}" />
+          <${KpiCard} label="Average" value=${formatDuration(avg)} ariaLabel="Average duration: ${formatDuration(avg)}" />
+          <${KpiCard} label="Total" value=${formatDuration(summary.duration)} ariaLabel="Total duration: ${formatDuration(summary.duration)}" subtitle="${allScenarios.length} scenarios" />
+        </div>
+      </${BottomSheet}>` : null}
     </div>
   `;
 }
