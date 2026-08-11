@@ -190,6 +190,38 @@ Before restructuring: check which `data-testid` attributes exist and which tests
 
 ---
 
+## HTML Reporter — Mobile UX Patterns
+
+### Views must return a single root element (not a Fragment)
+
+When a view returns adjacent elements (e.g., ViewTopbar + flex-fill-view as siblings), the test fixture can't locate the component root with `#app > *`. Always wrap in a single container — either `<div class="flex-fill-view">` for virtual-scroll views or a plain `<div>` for others.
+
+### useEffect with inline arrow function in deps causes re-firing
+
+A `useEffect([isOpen, onClose])` where `onClose` is `() => setState(false)` creates a new function reference every render. If the effect does `.focus()`, it steals focus from inputs on every keystroke. Split into separate effects: focus management depends only on `[isOpen]`, keyboard handling can depend on `[isOpen, onClose]`.
+
+### Navigation IO hamburger must scope to `.view-topbar`
+
+When both `desktop-topbar` (hidden on mobile) and `view-topbar` (visible on mobile) contain a `button[aria-label="Open menu"]`, the unscoped selector matches the hidden one first. Use `.view-topbar button[aria-label="Open menu"]` for correct mobile behaviour.
+
+### `reducedMotion: 'reduce'` in integration test Playwright config
+
+Eliminates all animation/transition timing issues in tests. The global CSS rule `* { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }` ensures `animationend` events still fire. Good practice to model for the community.
+
+### `onRunChange` must read current URL from `window.location.hash`
+
+The `route` prop in a closure may be stale if `useViewState.syncStateToUrl` has written to the hash via `replaceState` since the last render. Read the live URL directly when constructing navigation targets.
+
+### Use `naturalCompare` for all user-facing sorted lists
+
+`a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })` ensures "Test 10" sorts after "Test 9". Extracted as `app/utils/naturalCompare.ts` — use it everywhere instead of bare `localeCompare`.
+
+### Extend the centralised `link()` function rather than building URLs locally
+
+When a hook or component needs to construct a navigation URL, extend the `LinkOptions` discriminated union in `src/navigation/link.ts` rather than creating a local URL builder. This keeps URL encoding and parameter construction in one place.
+
+---
+
 ## Working Style — Agent-Specific
 
 ### Component rewrites can silently drop functionality
@@ -199,6 +231,14 @@ When delegating a component rewrite to a sub-agent, existing functionality can b
 2. No component test covers the specific behaviour
 
 **Prevention:** Before rewriting a component, enumerate its observable behaviours and verify each has a test. If a behaviour isn't tested, add the test FIRST, then rewrite.
+
+### Verify with `npm test` (package script), not bare commands
+
+Always use `npm test` for final verification — it runs pretest hooks, all test suites, and coverage. Bare `npx playwright test` skips these and can pass against stale output. The urge to skip a step is the signal the step is needed.
+
+### Regenerate integration test reports after recompiling
+
+Integration tests serve reports from `examples/reports/`. After `npm run compile` updates the template, the served reports are stale until regenerated: `npm run example:clean && npm run example`.
 
 ### Kiro hooks do not fire automatically from the write tool
 

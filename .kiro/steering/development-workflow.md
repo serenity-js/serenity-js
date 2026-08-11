@@ -121,6 +121,24 @@ Anti-patterns to avoid:
 - Using sed/awk on structured files — write a TypeScript script instead
 - Post-processing tool output when the tool can produce it correctly
 
+### Spike and Stabilise
+
+When a multi-file change accumulates workarounds (fixture hacks, conditional locators, "undo" edits), you're **spiking** — gathering knowledge about the problem, not producing a shippable solution. This is valuable, but recognise it for what it is.
+
+**The pattern (Dan North's "Spike and Stabilise"):**
+1. **Spike** — explore the problem space. Incremental patches reveal structural requirements you didn't anticipate. This is a knowledge-gathering exercise, not production code.
+2. **Recognise** — when you start adding workarounds for issues you introduced moments ago, the spike has served its purpose. You now understand the constraints.
+3. **Stash** — `git stash` the spike. The knowledge is in your head (or context), not in the code.
+4. **Stabilise** — reimplement from scratch using proper engineering (TDD, single-root components from the start, correct locators from the start). The second attempt is faster because the architecture is understood.
+
+**Signals you're in a spike, not a clean implementation:**
+- Test fixture needed a wrapper hack to accommodate component structure
+- More than 2 files needed "undo" edits to fix earlier assumptions
+- The diff is hard to explain as a single coherent change
+- You're adding `as any` casts or conditional logic to work around your own recent changes
+
+**Agent behaviour:** When you notice these signals, propose to the user: "This has become a spike — I've learned what the design needs to be. Shall I stash and reimplement cleanly with TDD?" Do not continue patching.
+
 ### Preserve Existing Design
 
 When making changes:
