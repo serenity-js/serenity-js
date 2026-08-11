@@ -244,6 +244,8 @@ export function AboutView({ onOpenSidebar }: AboutViewProps): ReturnType<typeof 
             <h3 class="about-section-title">Get involved</h3>
             <p>
               Serenity/JS is an open-source project and contributions of all kinds are welcome — from bug reports and documentation improvements to new features and community support.
+            </p>
+            <p>
               <a href="https://serenity-js.org/community/contributing/" target="_blank" class="link-accent">Find your way to contribute</a>.
             </p>
           </section>

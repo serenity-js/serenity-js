@@ -127,7 +127,7 @@ export function Sidebar({ route, routes, sidebarOpen, collapsed, failedBadgeCoun
             ${collapsed ? icons.sidebarExpand : icons.sidebarCollapse}
           </button>
         </div>
-        <div class="sidebar-copyright">Serenity/JS © 2016–${new Date().getFullYear()} <a href="https://www.linkedin.com/in/janmolak/" target="_blank">Jan Molak</a><br />Made with 💛 in London, UK<br /><a href="https://serenity-js.org/community/contributing/" target="_blank">Get involved</a></div>
+        <div class="sidebar-copyright">Serenity/JS © 2016–${new Date().getFullYear()} <a href="https://www.linkedin.com/in/janmolak/" target="_blank">Jan Molak</a><br />Made with 💛 in London, UK<br /><a href="https://serenity-js.org/community/contributing/" target="_blank">Contribute to Serenity/JS</a></div>
       </div>
     </aside>
   `;
