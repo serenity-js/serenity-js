@@ -74,9 +74,11 @@ export const {
         await use(new AboutView(rootElement, navigation));
     },
 
-    capabilitiesView: async ({ navigation }, use) => {
+    capabilitiesView: async ({ page, navigation }, use) => {
+        const viewport = page.viewportSize();
+        const options: InteractionObjectOptions = { mobile: viewport ? viewport.width <= 768 : false };
         const rootElement = PageElement.located(By.css('[data-testid="capabilities"]')).describedAs('capabilities view');
-        await use(new CapabilitiesView(rootElement, navigation));
+        await use(new CapabilitiesView(rootElement, navigation, options));
     },
 
     consistencyView: async ({ page, navigation }, use) => {

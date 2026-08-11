@@ -6,13 +6,13 @@ import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/report
 import { ROW_HEIGHTS } from '../../config/layout.js';
 import { useMobileSheetState } from '../../hooks/useMobileSheetState.js';
 import { useRunSelection } from '../../hooks/useRunSelection.js';
+import { BottomSheet } from '../common/BottomSheet.js';
 import { icons } from '../common/icons.js';
 import { GroupedVirtualList } from '../common/layout/GroupedVirtualList.js';
 import { MobileSheets } from '../common/MobileSheets.js';
 import { ResultCount } from '../common/ResultCount.js';
 import { RunSelector } from '../common/RunSelector.js';
 import { SearchInput } from '../common/SearchInput.js';
-import { TopbarActions } from '../common/TopbarActions.js';
 import { ViewTopbar } from '../common/ViewTopbar.js';
 import type { ErrorRenderItem } from './categoriseErrors.js';
 import { buildRenderItems, buildSummaryCards, categoriseErrors, CATEGORY_ICONS } from './categoriseErrors.js';
@@ -145,7 +145,14 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
     `;
     }
 
-    const topbarActions = html`<${TopbarActions} onOpenFilter=${sheets.openFilter} />`;
+    const topbarActions = html`
+        <button class="btn-icon" onClick=${sheets.openStats} aria-label="Error statistics">
+            ${icons.stats}
+        </button>
+        <button class="btn-icon" onClick=${sheets.openFilter} aria-label="Search and filter">
+            ${icons.search}
+        </button>
+    `;
 
     return html`
     <div class="flex-fill-view">
@@ -158,7 +165,7 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
         </div>
       </div>
 
-      <${ErrorKpiCards} cards=${summaryCards} />
+      <div class="desktop-only"><${ErrorKpiCards} cards=${summaryCards} /></div>
       <div class="card pb-0">
         <${ResultCount} showing=${filteredErrors.length} total=${filteredErrors.length < errorScenarios.length ? errorScenarios.length : undefined} label=${filteredErrors.length === 1 ? 'error' : 'errors'} />
         <${GroupedVirtualList}
@@ -182,6 +189,10 @@ export function ErrorsView({ scenarios: allScenarios, history, specDirectory, on
         filteredCount=${filteredErrors.length} totalCount=${errorScenarios.length}
         searchPlaceholder="Find errors..."
       />
+
+      ${sheets.statsSheetOpen ? html`<${BottomSheet} isOpen=${true} onClose=${sheets.closeStats} title="Error Stats">
+          <${ErrorKpiCards} cards=${summaryCards} />
+      </${BottomSheet}>` : null}
     </div>
   `;
 }

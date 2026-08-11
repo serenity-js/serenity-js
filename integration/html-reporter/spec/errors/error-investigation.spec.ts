@@ -19,6 +19,7 @@ describe('Errors', () => {
         it('shows error category summary with scenario counts', async ({ actor, errorsView }) => {
             await actor.attemptsTo(
                 errorsView.open(),
+                errorsView.openStatsSheet(),
 
                 Ensure.that(errorsView.kpiCardCalled('Errors').accessibleLabel(), includes('Errors')),
                 Ensure.that(errorsView.kpiCardCalled('Errors').subtitle(), includes('test')),

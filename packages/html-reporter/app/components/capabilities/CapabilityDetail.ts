@@ -6,7 +6,7 @@ import { RawHtml, totalFailedCount } from '../../utils/index.js';
 import { link } from '../../utils/link.js';
 import { SegmentedBar } from '../common/charts/SegmentedBar.js';
 import { icons } from '../common/icons.js';
-import { computeNodeScore, confidenceColor } from './CapabilityTree.js';
+import { computeNodeScore, confidenceColor, findNodeByPath } from './CapabilityTree.js';
 
 const html = htm.bind(h);
 
@@ -96,9 +96,23 @@ export function DetailPanel({ node, segmentPath, capabilities, onNavigate, onSel
                 </div>
             ` : null}
 
-            ${directories.length > 0 ? html`
+            ${(directories.length > 0 || segmentPath) ? html`
                 <div class="req-detail-files">
                     <h4 class="req-detail-section-title">Capabilities</h4>
+                    ${segmentPath ? html`
+                        <div class="req-detail-file-card clickable" onClick=${() => {
+                            const parentPath = segmentPath.includes('/')
+                                ? segmentPath.slice(0, segmentPath.lastIndexOf('/'))
+                                : '';
+                            const parentNode = parentPath
+                                ? findNodeByPath(capabilities, parentPath)
+                                : capabilities;
+                            onSelect(parentPath, parentNode || capabilities);
+                        }}>
+                            <span class="req-detail-child-icon">${icons.folder}</span>
+                            <span class="req-detail-child-name">..</span>
+                        </div>
+                    ` : null}
                     ${directories.map(child => {
                         const childScore = computeNodeScore(child);
                         const childPath = segmentPath ? segmentPath + '/' + child.name : child.name;

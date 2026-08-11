@@ -1,7 +1,7 @@
 import { includes } from '@serenity-js/assertions';
 import type { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
-import { Task, the } from '@serenity-js/core';
-import { By, Click, PageElement, Text } from '@serenity-js/web';
+import { Check, Task, the } from '@serenity-js/core';
+import { By, Click, isVisible, PageElement, Text } from '@serenity-js/web';
 
 import type { InteractionObjectOptions } from '../common/InteractionObject.serenity.js';
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
@@ -26,12 +26,17 @@ export class ErrorsView<NET> extends InteractionObject<NET> {
 
     // Structure — page elements
     private readonly kpiCards = this.children(By.css('[data-testid="kpi-card"]')).describedAs('errors KPI cards');
+    private readonly mobileKpiCards = this.children(By.css('[data-testid="bottom-sheet"] [data-testid="kpi-card"]')).describedAs('mobile errors KPI cards');
     private readonly scenarioItems = this.children(By.css('.scenario-item')).describedAs('errors scenario items');
     private readonly scenarioNameElements = this.children(ErrorsView.scenarioNameSelector).describedAs('errors scenario names');
 
     private filterSheetTrigger = () =>
         this.child(By.css('[aria-label="Search and filter"]'))
             .describedAs('filter sheet trigger');
+
+    private statsSheetTrigger = () =>
+        this.child(By.css('[aria-label="Error statistics"]'))
+            .describedAs('stats sheet trigger');
 
     private bottomSheetClose = () =>
         this.child(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
@@ -47,6 +52,18 @@ export class ErrorsView<NET> extends InteractionObject<NET> {
             Click.on(this.bottomSheetClose()),
         );
 
+    openStatsSheet = (): Task =>
+        Task.where('#actor opens the error stats sheet',
+            Check.whether(this.statsSheetTrigger(), isVisible())
+                .andIfSo(Click.on(this.statsSheetTrigger())),
+        );
+
+    closeStatsSheet = (): Task =>
+        Task.where('#actor closes the error stats sheet',
+            Check.whether(this.bottomSheetClose(), isVisible())
+                .andIfSo(Click.on(this.bottomSheetClose())),
+        );
+
     constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation(), options?: InteractionObjectOptions) {
         super(rootElement, options);
     }
@@ -57,7 +74,8 @@ export class ErrorsView<NET> extends InteractionObject<NET> {
         new KpiCard(this.kpiCards.nth(index));
 
     kpiCardCalled = (label: string): KpiCard<NET> => {
-        const cardElement = this.kpiCards
+        const cards = this.mobile ? this.mobileKpiCards : this.kpiCards;
+        const cardElement = cards
             .where(Text.of(PageElement.located(By.css('.kpi-label'))), includes(label.toUpperCase()))
             .first()
             .describedAs(`KPI card called "${label}"`);

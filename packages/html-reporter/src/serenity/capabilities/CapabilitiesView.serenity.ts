@@ -5,6 +5,7 @@ import { Attribute, By, Click, PageElement, PageElements, Select, Text, Value } 
 
 import { link } from '../../navigation/link.js';
 import { FilterBar } from '../common/FilterBar.serenity.js';
+import type { InteractionObjectOptions } from '../common/InteractionObject.serenity.js';
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
 import { ResultCount } from '../common/ResultCount.serenity.js';
@@ -19,6 +20,14 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
     readonly filterBar = new FilterBar<NET>(this.child(By.css('[data-testid="filter-bar"]')));
     readonly resultCount = new ResultCount<NET>(this.child(By.css('[data-testid="result-count"]')));
 
+    // Mobile child IOs (inside bottom sheet)
+    private readonly mobileSearchInput = new SearchInput<NET>(
+        this.child(By.css('[data-testid="bottom-sheet"] [data-testid="search-input"]'))
+    );
+    private readonly mobileFilterBar = new FilterBar<NET>(
+        this.child(By.css('[data-testid="bottom-sheet"] [data-testid="filter-bar"]'))
+    );
+
     // Structure — page elements
     private readonly readmeLinks = this.children(By.css('.readme-content a')).describedAs('README links');
     private readonly detailConfidence = this.child(By.css('.req-detail-confidence')).describedAs('detail panel confidence score');
@@ -31,8 +40,27 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
     private readonly sortSelectElement = this.child(By.css('.sort-select')).describedAs('sort dropdown');
     private readonly detailTitleElement = this.child(By.css('.req-detail-title')).describedAs('detail title');
 
-    constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
-        super(rootElement);
+    // Mobile helpers
+    private treeSheetTrigger = () =>
+        this.child(By.css('[aria-label="Browse capabilities"]'))
+            .describedAs('tree sheet trigger');
+
+    private bottomSheetClose = () =>
+        this.child(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
+            .describedAs('bottom sheet close button');
+
+    private openTreeSheet = (): Task =>
+        Task.where('#actor opens the capabilities tree sheet',
+            Click.on(this.treeSheetTrigger()),
+        );
+
+    private closeTreeSheet = (): Task =>
+        Task.where('#actor closes the capabilities tree sheet',
+            Click.on(this.bottomSheetClose()),
+        );
+
+    constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation(), options?: InteractionObjectOptions) {
+        super(rootElement, options);
     }
 
     // Behaviour — questions
@@ -121,12 +149,24 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
         );
 
     selectFilter = (label: Answerable<string>): Task =>
-        this.filterBar.selectFilter(label);
+        this.mobile
+            ? Task.where(the`#actor selects the ${label} filter`,
+                this.openTreeSheet(),
+                this.mobileFilterBar.selectFilter(label),
+                this.closeTreeSheet(),
+            )
+            : this.filterBar.selectFilter(label);
 
     find = (searchTerm: Answerable<string>): Task =>
-        Task.where(the`#actor searches for ${searchTerm}`,
-            this.searchInput.enter(searchTerm),
-        );
+        this.mobile
+            ? Task.where(the`#actor searches for ${searchTerm}`,
+                this.openTreeSheet(),
+                this.mobileSearchInput.enter(searchTerm),
+                this.closeTreeSheet(),
+            )
+            : Task.where(the`#actor searches for ${searchTerm}`,
+                this.searchInput.enter(searchTerm),
+            );
 
     followReadmeLink = (linkText: Answerable<string>): Task =>
         Task.where(the`#actor follows the ${linkText} link in the README`,
@@ -138,9 +178,15 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
         );
 
     selectSort = (option: Answerable<string>): Task =>
-        Task.where(the`#actor sorts by ${option}`,
-            Select.value(option).from(this.sortSelectElement),
-        );
+        this.mobile
+            ? Task.where(the`#actor sorts by ${option}`,
+                this.openTreeSheet(),
+                Select.value(option).from(this.child(By.css('[data-testid="bottom-sheet"] .sort-select')).describedAs('mobile sort dropdown')),
+                this.closeTreeSheet(),
+            )
+            : Task.where(the`#actor sorts by ${option}`,
+                Select.value(option).from(this.sortSelectElement),
+            );
 
     // URL helpers — type-safe navigation URLs using the same link() function as components
 

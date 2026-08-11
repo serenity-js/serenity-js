@@ -3,8 +3,10 @@ import { h } from 'preact';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 
 import type { ReportCapabilityNode } from '../../../src/cli/reporting/ReportData.js';
+import { useMobileSheetState } from '../../hooks/useMobileSheetState.js';
 import { useViewState } from '../../hooks/useViewState.js';
 import { useHashHistory } from '../../utils/index.js';
+import { BottomSheet } from '../common/BottomSheet.js';
 import { icons } from '../common/icons.js';
 import { ViewTopbar } from '../common/ViewTopbar.js';
 import { DetailPanel } from './CapabilityDetail.js';
@@ -50,6 +52,7 @@ function computeHealthCounts(capabilities: ReportCapabilityNode): { healthy: num
 
 export function CapabilitiesView({ capabilities, onNavigate, route, onOpenSidebar }: CapabilitiesViewProps): ReturnType<typeof html> {
     const openSidebar = onOpenSidebar || (() => {});
+    const sheets = useMobileSheetState();
     const [selectedPath, setSelectedPath] = useState('');
     const [selectedNode, setSelectedNode] = useState<ReportCapabilityNode | null>(null);
     const [focusedPath, setFocusedPath] = useState('');
@@ -102,10 +105,39 @@ export function CapabilitiesView({ capabilities, onNavigate, route, onOpenSideba
         setSelectedNode(node);
     };
 
+    const handleMobileSelect = (path: string, node: ReportCapabilityNode) => {
+        handleSelect(path, node);
+        sheets.closeFilter();
+    };
+
+    const topbarActions = html`
+        <button class="btn-icon" onClick=${sheets.openFilter} aria-label="Browse capabilities">
+            ${icons.folder}
+        </button>
+    `;
+
     return html`
         <div>
-            <${ViewTopbar} title="Capabilities" onOpenSidebar=${openSidebar} />
+            <${ViewTopbar} title="Capabilities" onOpenSidebar=${openSidebar} actions=${topbarActions} />
             <div class="capabilities-split">
+                <div class="desktop-only">
+                    <${CapabilityTreePanel}
+                        capabilities=${capabilities}
+                        searchTerm=${searchTerm} setSearchTerm=${setSearchTerm}
+                        activeFilter=${activeFilter} setActiveFilter=${setActiveFilter}
+                        activeSort=${activeSort} setActiveSort=${setActiveSort}
+                        selectedPath=${selectedPath} focusedPath=${focusedPath}
+                        setFocusedPath=${setFocusedPath}
+                        nodeFilter=${nodeFilter} healthCounts=${healthCounts}
+                        onSelect=${handleSelect} />
+                </div>
+                <div class="req-detail-wrap">
+                    <${DetailPanel} node=${selectedNode} segmentPath=${selectedPath}
+                        capabilities=${capabilities} onNavigate=${onNavigate} onSelect=${handleSelect} />
+                </div>
+            </div>
+
+            ${sheets.filterSheetOpen ? html`<${BottomSheet} isOpen=${true} onClose=${sheets.closeFilter} title="Capabilities">
                 <${CapabilityTreePanel}
                     capabilities=${capabilities}
                     searchTerm=${searchTerm} setSearchTerm=${setSearchTerm}
@@ -114,12 +146,8 @@ export function CapabilitiesView({ capabilities, onNavigate, route, onOpenSideba
                     selectedPath=${selectedPath} focusedPath=${focusedPath}
                     setFocusedPath=${setFocusedPath}
                     nodeFilter=${nodeFilter} healthCounts=${healthCounts}
-                    onSelect=${handleSelect} />
-                <div class="req-detail-wrap">
-                    <${DetailPanel} node=${selectedNode} segmentPath=${selectedPath}
-                        capabilities=${capabilities} onNavigate=${onNavigate} onSelect=${handleSelect} />
-                </div>
-            </div>
+                    onSelect=${handleMobileSelect} />
+            </${BottomSheet}>` : null}
         </div>
     `;
 }
