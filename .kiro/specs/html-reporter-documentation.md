@@ -35,6 +35,7 @@ Tracking document for all documentation work required to launch `@serenity-js/ht
 ### Can follow after (week 2+)
 - [ ] Update architecture page package diagram to include @serenity-js/html-reporter
 - [ ] Add troubleshooting section: 'Java issues → Try the HTML Reporter'
+- [ ] Update screenshot in `examples/cucumber-reporting/features/reporting_results/readme.md` to reflect the new HTML Reporter UI
 
 ## FAQ topics to cover in handbook article
 

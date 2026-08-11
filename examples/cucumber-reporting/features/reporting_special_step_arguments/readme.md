@@ -1,6 +1,5 @@
-Reporting special step arguments
+# Reporting special step arguments
 
-Narrative:
 In order to quickly learn how to use Serenity/JS with Cucumber
 As a busy developer
 I'd like to see examples demonstrating how Serenity/JS reports special step arguments
