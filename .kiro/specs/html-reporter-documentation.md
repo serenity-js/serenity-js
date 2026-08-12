@@ -16,11 +16,18 @@ Tracking document for all documentation work required to launch `@serenity-js/ht
 - [x] Getting-started screenshots replaced with HTML Reporter dashboard (all 3 guides)
 - [x] /getting-started/ (Why Serenity/JS) Level 1 config example uses HTML Reporter
 - [x] /handbook/ landing page "Insightful reporting" section highlights HTML Reporter
+- [x] Requirements hierarchy section added to handbook article
+- [x] README links to handbook page for advanced concepts
+- [x] README configuration table — accurate defaults (specDirectory, projectName, moduleId auto-detected)
+- [x] README — Report Output Structure section added
+- [x] README — CI config override example added
+- [x] README — CI integration link corrected to /handbook/integration/
+- [x] README — serve command --host note added
 
 ## Remaining (priority order for announcement)
 
 ### Must-have before announcement
-- [ ] Update GitHub root README.md Quick Start section to show HTML Reporter config
+- [x] Update GitHub root README.md Quick Start section to show HTML Reporter config
 - [ ] Update project templates to use @serenity-js/html-reporter and link to live HTML reports
 - [ ] Publish blog post (verify version number matches actual release)
 
