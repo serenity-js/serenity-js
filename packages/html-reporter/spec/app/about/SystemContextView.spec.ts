@@ -6,6 +6,32 @@ import { describe, it } from '../fixtures.js';
 
 describe('SystemContextView', () => {
 
+    it('displays the project name', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'SystemContextView',
+            importPath: './components/about/SystemContextView',
+            data: minimalData(),
+            interactionObject: SystemContextView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.projectName(), equals('@serenity-js/test-project')),
+        );
+    });
+
+    it('displays the package manager', async ({ mount, actor }) => {
+        const view = await mount({
+            component: 'SystemContextView',
+            importPath: './components/about/SystemContextView',
+            data: minimalData(),
+            interactionObject: SystemContextView,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.packageManager(), equals('pnpm')),
+        );
+    });
+
     it('displays the Node.js version', async ({ mount, actor }) => {
         const view = await mount({
             component: 'SystemContextView',

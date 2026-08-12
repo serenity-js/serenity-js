@@ -10,6 +10,7 @@ describe('System Context', () => {
             await actor.attemptsTo(
                 systemContextView.open(),
 
+                Ensure.that(systemContextView.projectName(), includes('test-project')),
                 Ensure.that(systemContextView.testRunner(), includes('Playwright')),
                 Ensure.that(systemContextView.nodeVersion(), includes(process.versions.node)),
             );

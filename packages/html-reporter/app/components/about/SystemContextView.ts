@@ -52,10 +52,12 @@ export function SystemContextView({ systemContext, onOpenSidebar }: SystemContex
       <div class="card">
         <div class="card-title" style="margin-bottom:var(--space-lg)">Environment</div>
         <div class="context-grid">
+          ${context.projectName ? html`<${ContextItem} icon="📂" label="Project" value=${context.projectName} />` : null}
           <${ContextItem} icon="⚡" label="Node.js" value=${context.nodeVersion} />
           <${ContextItem} icon="🧪" label="Test Runner" value="${testRunner.name} ${testRunner.version}" />
           <${ContextItem} icon="🖥" label="Operating System" value="${operatingSystem.name} ${operatingSystem.version} (${operatingSystem.arch})" />
           <${ContextItem} icon="📦" label="Serenity/JS" value="v${context.serenityVersion}" />
+          ${context.packageManager ? html`<${ContextItem} icon="📋" label="Package Manager" value=${context.packageManager} />` : null}
           ${browsers.map(b => html`<${ContextItem} icon="🌐" label=${b.name} value=${b.version} />`)}
         </div>
 

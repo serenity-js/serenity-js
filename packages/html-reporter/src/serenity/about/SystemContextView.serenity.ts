@@ -37,6 +37,12 @@ export class SystemContextView<NET> extends InteractionObject<NET> {
     nodeVersion = (): QuestionAdapter<string> =>
         this.itemCalled('NODE.JS').value;
 
+    projectName = (): QuestionAdapter<string> =>
+        this.itemCalled('PROJECT').value;
+
+    packageManager = (): QuestionAdapter<string> =>
+        this.itemCalled('PACKAGE MANAGER').value;
+
     testRunner = (): QuestionAdapter<string> =>
         this.itemCalled('TEST RUNNER').value;
 
