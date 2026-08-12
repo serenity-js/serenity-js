@@ -264,3 +264,15 @@ Integration tests serve reports from `examples/reports/`. After `npm run compile
 - **Prompt template** — task-specific workflow (single invocation)
 
 Don't duplicate content between them. `resources` in the agent definition provide deep context without bloating the prompt.
+
+---
+
+## Serenity/JS Templates — CI Gotchas
+
+### `@wdio/xvfb` auto-detection breaks IPC in Docker containers
+
+WebdriverIO 9.30+ bundles `@wdio/xvfb` into `@wdio/local-runner` and auto-activates it when it detects `--headless` Chrome *and* `xvfb-run` is available in PATH. In Docker containers (like the `ghcr.io/serenity-js/playwright` image), `xvfb-run` is present but wrapping the worker process with it breaks Node's IPC channel (`EINVAL` on `process.send()`). Fix: set `autoXvfb: false` in `wdio.conf.ts`.
+
+### Renovate lock file drift on major version bumps
+
+Renovate can update `package.json` without regenerating `package-lock.json` correctly, especially for major version bumps that introduce new transitive dependencies (e.g. Cucumber 13 adding `@cucumber/pretty-formatter` and `@cucumber/query`). CI then fails with `npm ci` complaining about missing packages in the lock file. Fix: add `:lockFileMaintenance` to the Renovate `extends` array — this periodically regenerates the lock file and catches drift before it breaks CI.
