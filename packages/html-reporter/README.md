@@ -113,12 +113,12 @@ By default the server binds to `0.0.0.0` (all interfaces). Use `--host 127.0.0.1
 |---------------------|----------|-------------------------|---------------------------------------------------------------|
 | `outputDirectory`   | `string` | `./reports/serenity-js` | Where the report is generated                                 |
 | `title`             | `string` | —                       | Report title shown in the header                              |
-| `specDirectory`     | `string` | auto-detected           | Root of your specs, used to build the capabilities hierarchy  |
+| `specDirectory`     | `string` | auto-detected           | Root of your specs, used to build the [requirements hierarchy](https://serenity-js.org/handbook/reporting/html-reporter/#the-requirements-hierarchy)  |
 | `maxHistory`        | `number` | —                       | Maximum test runs to retain (older runs are pruned)           |
 | `consistencyWindow` | `number` | `5`                     | Number of recent runs used to detect flaky tests              |
 | `projectName`       | `string` | auto-detected           | Project name shown in the System Context view (defaults to the closest `package.json` name) |
 | `testRunId`         | `string` | auto-detected           | Test run directory identifier (defaults to CI build number or ISO timestamp) |
-| `moduleId`          | `string` | auto-detected           | Module identifier for parallel CI job shards                  |
+| `moduleId`          | `string` | auto-detected           | Module identifier for parallel CI job shards (defaults to working directory name when a CI build number is detected) |
 | `ci`                | `object` | auto-detected           | Override CI/CD context (`provider`, `buildNumber`, `branch`, `commit`, `jobUrl`, etc.) |
 
 > **Note:** `consistencyWindow` is effectively capped at `maxHistory`. If you set `consistencyWindow: 10` but `maxHistory: 5`, the reporter uses the 5 available runs for detecting consistency issues.
@@ -187,6 +187,7 @@ The `index.html` file works standalone — open it directly from `file://` or se
 
 ## Documentation
 
+- [HTML Reporter Handbook](https://serenity-js.org/handbook/reporting/html-reporter/) — requirements hierarchy, CI integration patterns, migration from Serenity BDD
 - [API Reference](https://serenity-js.org/api/html-reporter/)
 - [Reporting Guide](https://serenity-js.org/handbook/reporting/)
 - [Serenity/JS Project Templates](https://serenity-js.org/getting-started/project-templates/)
