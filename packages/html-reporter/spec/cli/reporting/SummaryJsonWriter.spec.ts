@@ -197,10 +197,12 @@ test.describe('SummaryJsonWriter', () => {
                 name: 'Flaky Login',
                 source: 'specs/login.spec.ts:10',
                 browser: 'chromium 120.0',
+                lastOutcome: 'SUCCESS',
             });
             expect(summary.consistency.flaky[1]).toEqual({
                 name: 'Flaky Checkout',
                 source: 'specs/checkout.spec.ts:5',
+                lastOutcome: 'RETRIED_SUCCESS',
             });
         });
 
@@ -217,10 +219,12 @@ test.describe('SummaryJsonWriter', () => {
                 name: 'Test A',
                 source: 'a.spec.ts:1',
                 browser: 'firefox 115',
+                lastOutcome: 'FAILURE',
             });
             expect(summary.consistency.degraded[1]).toEqual({
                 name: 'Test B',
                 source: 'b.spec.ts:7',
+                lastOutcome: 'FAILURE',
             });
         });
 
@@ -236,6 +240,7 @@ test.describe('SummaryJsonWriter', () => {
                 name: 'Test B',
                 source: 'b.spec.ts:1',
                 browser: 'webkit 17',
+                lastOutcome: 'SUCCESS',
             });
         });
 
@@ -250,6 +255,7 @@ test.describe('SummaryJsonWriter', () => {
             expect(summary.consistency.inconsistent[0]).toEqual({
                 name: 'Wobbly',
                 source: 'x.spec.ts:3',
+                lastOutcome: 'RETRIED_SUCCESS',
             });
         });
 
@@ -265,6 +271,7 @@ test.describe('SummaryJsonWriter', () => {
             expect(summary.consistency.degraded[0]).toEqual({
                 name: 'Regressed',
                 source: 'r.spec.ts:2',
+                lastOutcome: 'FAILURE',
             });
         });
 
@@ -401,6 +408,184 @@ test.describe('SummaryJsonWriter', () => {
             expect(summary.scores.passRate).toBe(66.7);
         });
     });
+
+    test.describe('$schema', () => {
+
+        test('includes the JSON Schema URL', () => {
+            const { summary } = writeSummary({});
+
+            expect(summary.$schema).toBe('https://serenity-js.org/schemas/report-summary.json');
+        });
+    });
+
+    test.describe('reportUrl', () => {
+
+        test('includes a relative URL to the HTML report', () => {
+            const { summary } = writeSummary({});
+
+            expect(summary.reportUrl).toBe('./index.html');
+        });
+    });
+
+    test.describe('ci', () => {
+
+        test('includes CI context when systemContext.ci is present', () => {
+            const { summary } = writeSummary({
+                systemContext: {
+                    nodeVersion: '22.0.0',
+                    os: { name: 'linux', version: '6.5.0', arch: 'x64' },
+                    serenityVersion: '3.40.0',
+                    testRunner: { name: 'Playwright Test', version: '1.40.0' },
+                    browsers: [],
+                    ci: {
+                        provider: 'GitHub Actions',
+                        buildNumber: '8458',
+                        branch: 'main',
+                        commit: 'abc123def456',
+                        jobUrl: 'https://github.com/org/repo/actions/runs/12345',
+                        pullRequestUrl: 'https://github.com/org/repo/pull/42',
+                    },
+                },
+            });
+
+            expect(summary.ci).toEqual({
+                commit: 'abc123def456',
+                branch: 'main',
+                jobUrl: 'https://github.com/org/repo/actions/runs/12345',
+                pullRequestUrl: 'https://github.com/org/repo/pull/42',
+            });
+        });
+
+        test('omits ci when systemContext has no ci field', () => {
+            const { summary } = writeSummary({
+                systemContext: {
+                    nodeVersion: '22.0.0',
+                    os: { name: 'linux', version: '6.5.0', arch: 'x64' },
+                    serenityVersion: '3.40.0',
+                    testRunner: { name: 'Playwright Test', version: '1.40.0' },
+                    browsers: [],
+                },
+            });
+
+            expect(summary.ci).toBeUndefined();
+        });
+
+        test('omits ci when systemContext is absent', () => {
+            const { summary } = writeSummary({});
+
+            expect(summary.ci).toBeUndefined();
+        });
+
+        test('omits optional jobUrl and pullRequestUrl when not present', () => {
+            const { summary } = writeSummary({
+                systemContext: {
+                    nodeVersion: '22.0.0',
+                    os: { name: 'linux', version: '6.5.0', arch: 'x64' },
+                    serenityVersion: '3.40.0',
+                    testRunner: { name: 'Playwright Test', version: '1.40.0' },
+                    browsers: [],
+                    ci: {
+                        provider: 'Jenkins',
+                        buildNumber: '100',
+                        branch: 'feature/x',
+                        commit: 'deadbeef',
+                    },
+                },
+            });
+
+            expect(summary.ci).toEqual({
+                commit: 'deadbeef',
+                branch: 'feature/x',
+            });
+        });
+    });
+
+    test.describe('delta', () => {
+
+        test('computes outcome differences between latest and previous run', () => {
+            const { summary } = writeSummary({
+                history: [
+                    createHistoryEntry({ outcomes: { passed: 8, failed: 2, pending: 1, skipped: 0, compromised: 0, error: 0 } }),
+                    createHistoryEntry({ outcomes: { passed: 10, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 } }),
+                ],
+            });
+
+            expect(summary.delta).toEqual({
+                passed: 2,
+                failed: -1,
+                pending: -1,
+                skipped: 0,
+                compromised: 0,
+                error: 0,
+            });
+        });
+
+        test('is absent when only one run exists', () => {
+            const { summary } = writeSummary({
+                history: [createHistoryEntry({})],
+            });
+
+            expect(summary.delta).toBeUndefined();
+        });
+
+        test('is absent when no history exists', () => {
+            const { summary } = writeSummary({
+                history: [],
+            });
+
+            expect(summary.delta).toBeUndefined();
+        });
+    });
+
+    test.describe('slowest', () => {
+
+        test('includes the top 5 slowest scenarios by duration', () => {
+            const { summary } = writeSummary({
+                scenarios: [
+                    createScenario({ name: 'Fast', duration: 100, source: { path: 'fast.spec.ts', line: 1 } }),
+                    createScenario({ name: 'Slow A', duration: 5000, source: { path: 'slow.spec.ts', line: 10 } }),
+                    createScenario({ name: 'Slow B', duration: 4000, source: { path: 'slow.spec.ts', line: 20 } }),
+                    createScenario({ name: 'Slow C', duration: 3000, source: { path: 'slow.spec.ts', line: 30 } }),
+                    createScenario({ name: 'Slow D', duration: 2000, source: { path: 'slow.spec.ts', line: 40 } }),
+                    createScenario({ name: 'Slow E', duration: 1500, source: { path: 'slow.spec.ts', line: 50 } }),
+                    createScenario({ name: 'Medium', duration: 500, source: { path: 'med.spec.ts', line: 1 } }),
+                ],
+            });
+
+            expect(summary.slowest).toHaveLength(5);
+            expect(summary.slowest![0]).toEqual({ name: 'Slow A', source: 'slow.spec.ts:10', duration: 5000 });
+            expect(summary.slowest![4]).toEqual({ name: 'Slow E', source: 'slow.spec.ts:50', duration: 1500 });
+        });
+
+        test('is absent when there are no scenarios', () => {
+            const { summary } = writeSummary({
+                scenarios: [],
+            });
+
+            expect(summary.slowest).toBeUndefined();
+        });
+
+        test('includes fewer than 5 when fewer scenarios exist', () => {
+            const { summary } = writeSummary({
+                scenarios: [
+                    createScenario({ name: 'Only one', duration: 300, source: { path: 'a.spec.ts', line: 1 } }),
+                ],
+            });
+
+            expect(summary.slowest).toHaveLength(1);
+            expect(summary.slowest![0]).toEqual({ name: 'Only one', source: 'a.spec.ts:1', duration: 300 });
+        });
+
+        test('respects specDirectory when formatting source paths', () => {
+            const { summary } = writeSummary({
+                scenarios: [
+                    createScenario({ name: 'Deep test', duration: 1000, source: { path: 'tests/e2e/deep.spec.ts', line: 5 } }),
+                ],
+            }, 'tests/e2e');
+
+            expect(summary.slowest![0].source).toBe('deep.spec.ts:5');
+        });
+    });
 });
 
 // ===== Test Helpers =====
@@ -415,6 +600,7 @@ function createReportData(overrides: Partial<ReportData>): ReportData {
         inconsistentTests: overrides.inconsistentTests || [],
         newFailures: overrides.newFailures || [],
         newPasses: overrides.newPasses || [],
+        ...overrides.systemContext && { systemContext: overrides.systemContext },
     };
 }
 

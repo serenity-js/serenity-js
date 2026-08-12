@@ -12,7 +12,7 @@ export const SummaryTotalsSchema = z.object({
 }).describe('Outcome counts for the test run');
 
 export const SummaryRunInfoSchema = z.object({
-    timestamp: z.string().datetime().describe('ISO 8601 timestamp when the run started'),
+    timestamp: z.iso.datetime().describe('ISO 8601 timestamp when the run started'),
     label: z.string().describe('Human-readable run label (e.g. "#8300", "17 Jul 2026 14:50")'),
     totals: SummaryTotalsSchema,
     duration: z.number().int().min(0).describe('Total execution duration in milliseconds'),
@@ -36,6 +36,7 @@ export const ConsistencyScenarioRefSchema = z.object({
     name: z.string().describe('Scenario name'),
     source: z.string().describe('Source location as relative path:line'),
     browser: z.string().optional().describe('Browser/project identifier'),
+    lastOutcome: z.string().optional().describe('Most recent outcome for this test (e.g. "SUCCESS", "FAILURE", "RETRIED_SUCCESS")'),
 }).describe('A scenario with a consistency classification');
 
 export const SummaryConsistencySchema = z.object({
@@ -63,15 +64,42 @@ export const SummaryModuleSchema = z.object({
     finishedAt: z.string().optional().describe('ISO 8601 timestamp when the module finished (absent for incomplete modules)'),
 }).describe('Per-module outcome summary');
 
+export const SummaryCIContextSchema = z.object({
+    commit: z.string().describe('Git commit SHA'),
+    branch: z.string().describe('Git branch name'),
+    jobUrl: z.string().optional().describe('URL to the CI job (e.g. GitHub Actions run)'),
+    pullRequestUrl: z.string().optional().describe('URL to the associated pull request'),
+}).describe('CI/CD context for the latest run');
+
+export const SummaryDeltaSchema = z.object({
+    passed: z.number().int().describe('Change in passed count vs previous run (positive = improvement)'),
+    failed: z.number().int().describe('Change in failed count vs previous run (positive = more failures)'),
+    pending: z.number().int().describe('Change in pending count'),
+    skipped: z.number().int().describe('Change in skipped count'),
+    compromised: z.number().int().describe('Change in compromised count'),
+    error: z.number().int().describe('Change in error count'),
+}).describe('Difference in outcome counts between the latest run and the previous run');
+
+export const SlowestScenarioSchema = z.object({
+    name: z.string().describe('Scenario name'),
+    source: z.string().describe('Source location as relative path:line'),
+    duration: z.number().int().min(0).describe('Execution duration in milliseconds'),
+}).describe('A scenario identified as one of the slowest in the run');
+
 export const ReportSummaryJsonSchema = z.object({
-    generated: z.string().datetime().describe('ISO 8601 timestamp when this summary was generated'),
+    $schema: z.string().optional().describe('JSON Schema URL for self-documentation'),
+    generated: z.iso.datetime().describe('ISO 8601 timestamp when this summary was generated'),
     title: z.string().describe('Report title (from config or auto-detected)'),
     schemaVersion: z.number().int().min(1).describe('Schema version for forward compatibility'),
+    reportUrl: z.string().optional().describe('URL to the full HTML report (relative or absolute)'),
+    ci: SummaryCIContextSchema.optional(),
     latestRun: SummaryRunInfoSchema,
     runs: z.number().int().min(1).describe('Total number of historical test runs in the report'),
+    delta: SummaryDeltaSchema.optional().describe('Outcome count changes vs the previous run. Absent when only one run exists.'),
     failureClusters: z.array(FailureClusterSchema).describe('Failures grouped by error fingerprint. Empty array when all tests pass.'),
     consistency: SummaryConsistencySchema,
     scores: SummaryScoresSchema,
+    slowest: z.array(SlowestScenarioSchema).optional().describe('Top 5 slowest scenarios in the latest run by duration'),
     modules: z.array(SummaryModuleSchema).optional().describe('Per-module breakdown of the latest run. Present when the run was aggregated from multiple modules.'),
 }).describe('Machine-readable summary of an aggregated Serenity/JS HTML test report');
 
@@ -86,3 +114,6 @@ export type ConsistencyScenarioRef = z.infer<typeof ConsistencyScenarioRefSchema
 export type SummaryConsistency = z.infer<typeof SummaryConsistencySchema>;
 export type SummaryScores = z.infer<typeof SummaryScoresSchema>;
 export type SummaryModule = z.infer<typeof SummaryModuleSchema>;
+export type SummaryCIContext = z.infer<typeof SummaryCIContextSchema>;
+export type SummaryDelta = z.infer<typeof SummaryDeltaSchema>;
+export type SlowestScenario = z.infer<typeof SlowestScenarioSchema>;
