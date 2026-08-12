@@ -43,11 +43,15 @@ export class PlaywrightEventBuffer {
         this.eventFactory = new EventFactory(Path.from(config.rootDir));
     }
 
-    appendTestStart(test: TestCase, result: TestResult): void {
+    appendTestStart(test: TestCase, result: TestResult): DomainEvent[] {
+        const sceneStartEvents = this.eventFactory.createSceneStartEvents(test, result);
+
         this.events.set(
             this.sceneId(test, result).value,
-            this.eventFactory.createSceneStartEvents(test, result),
+            sceneStartEvents,
         );
+
+        return [ ...sceneStartEvents ];
     }
 
     appendRetryableSceneEvents(test: TestCase, result: TestResult): void {
