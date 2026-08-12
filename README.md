@@ -107,8 +107,8 @@ npm install --save-dev @serenity-js/core @serenity-js/console-reporter @serenity
 +           crew: [
 +               '@serenity-js/console-reporter',
 +               [ '@serenity-js/html-reporter', { 
-+                   specDirectory: './tests' 
-+                   outputDirectory: './reports/serenity',\
++                   specDirectory: './tests',
++                   outputDirectory: './reports/serenity',
 +               } ],
 +           ]
 +       }]
