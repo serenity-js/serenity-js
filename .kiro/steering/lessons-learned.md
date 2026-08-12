@@ -173,6 +173,16 @@ When a component renders repeated items with consistent internal structure, mode
 - `isPresent()` checks DOM existence — the element is in the DOM but may be hidden via CSS
 - `isVisible()` checks computed visibility — use this for `Check.whether()` with elements hidden on some viewports
 
+### Interaction object methods must not conflate `isPresent` and `isVisible`
+
+Never name a method `isVisible()` or `...IsVisible()` when it delegates to `.isPresent()`. These are semantically different:
+- `isPresent()` = DOM existence (is the element in the tree?)
+- `isVisible()` = computed CSS visibility (is it rendered and not hidden?)
+
+If an IO needs to check whether a child element exists (e.g., "does the README section appear?"), name it `...IsPresent()`. Reserve `isVisible` for actual visibility checks via `isVisible()` from `@serenity-js/web`.
+
+For component-level presence, prefer the `Optional` interface inherited from `InteractionObject` — `Ensure.that(view, isPresent())` — over custom child-element lookups. The root element check is more reliable across platforms (child lookups have shown flakiness on Windows CI due to timing).
+
 ### Stale http-server processes cause phantom test failures
 
 If integration tests fail to start, check for port conflicts. Kill stale servers:

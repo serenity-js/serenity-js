@@ -514,3 +514,4 @@ validates exactly the API that integration tests depend on.
 | Multiple `contain(...)` for a known set    | Doesn't catch extra unexpected items | `equals(['All', 'Healthy', ...])` for exact set |
 | Negative method names (`isNotCollapsible`) | Double negatives harm readability  | Positive name + assert `equals(false)`: `isCollapsible()` |
 | `hasX()` boolean when content is available | Proves existence but not correctness | Assert on the actual content: `detailTitle()`, `confidence()` |
+| Naming a method `isVisible()` when it calls `.isPresent()` | Misleads about what's checked; child lookups flake on Windows | Use `...IsPresent()` for DOM existence, or rely on the `Optional` interface |
