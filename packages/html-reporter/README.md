@@ -105,21 +105,40 @@ After your tests complete, open the report directly or serve it locally:
 npx @serenity-js/html-reporter serve --dir ./reports/serenity --open
 ```
 
+By default the server binds to `0.0.0.0` (all interfaces). Use `--host 127.0.0.1` to restrict access to localhost, or `--host ::` for IPv6.
+
 ## Configuration Options
 
 | Option              | Type     | Default                 | Description                                                   |
 |---------------------|----------|-------------------------|---------------------------------------------------------------|
 | `outputDirectory`   | `string` | `./reports/serenity-js` | Where the report is generated                                 |
 | `title`             | `string` | —                       | Report title shown in the header                              |
-| `specDirectory`     | `string` | —                       | Root of your specs, used to build the capabilities hierarchy  |
+| `specDirectory`     | `string` | auto-detected           | Root of your specs, used to build the capabilities hierarchy  |
 | `maxHistory`        | `number` | —                       | Maximum test runs to retain (older runs are pruned)           |
 | `consistencyWindow` | `number` | `5`                     | Number of recent runs used to detect flaky tests              |
-| `projectName`       | `string` | —                       | Project name in the report (defaults to the closest `package.json` name) |
+| `projectName`       | `string` | auto-detected           | Project name shown in the System Context view (defaults to the closest `package.json` name) |
 | `testRunId`         | `string` | auto-detected           | Test run directory identifier (defaults to CI build number or ISO timestamp) |
-| `moduleId`          | `string` | —                       | Module identifier for parallel CI job shards                  |
+| `moduleId`          | `string` | auto-detected           | Module identifier for parallel CI job shards                  |
 | `ci`                | `object` | auto-detected           | Override CI/CD context (`provider`, `buildNumber`, `branch`, `commit`, `jobUrl`, etc.) |
 
 > **Note:** `consistencyWindow` is effectively capped at `maxHistory`. If you set `consistencyWindow: 10` but `maxHistory: 5`, the reporter uses the 5 available runs for detecting consistency issues.
+
+### Overriding CI context
+
+The reporter auto-detects CI metadata from environment variables (GitHub Actions, GitLab CI, Jenkins, CircleCI). Use the `ci` option when running outside CI or when auto-detection doesn't match your setup:
+
+```typescript
+['@serenity-js/html-reporter', {
+    outputDirectory: './reports/serenity',
+    ci: {
+        provider: 'Jenkins',
+        buildNumber: process.env.BUILD_NUMBER,
+        branch: process.env.GIT_BRANCH,
+        commit: process.env.GIT_COMMIT,
+        jobUrl: process.env.BUILD_URL,
+    },
+}]
+```
 
 ## CLI
 
@@ -145,7 +164,26 @@ The pattern works with any CI provider:
 2. **Run** your test suite (the reporter writes to the output directory)
 3. **Deploy** the output to static hosting (GitHub Pages, GitLab Pages, S3, etc.)
 
-See the [Serenity/JS CI/CD integration guide](https://serenity-js.org/handbook/reporting/) for provider-specific examples.
+See the [Serenity/JS CI/CD integration guide](https://serenity-js.org/handbook/integration/) for provider-specific examples.
+
+## Report Output Structure
+
+After a test run, the output directory contains:
+
+```
+reports/serenity/
+├── index.html          ← Self-contained report viewer (JS + CSS inlined)
+├── data.js             ← Aggregated test data loaded by index.html
+├── screenshots/        ← Captured screenshots (referenced by data.js)
+└── test-runs/
+    └── <run-id>/       ← One directory per test run
+        └── <module>/
+            └── db.json ← Raw test data for that module/run
+```
+
+The `test-runs/` directory is what enables execution history and trend analysis. Each run is stored independently so the reporter can aggregate them into the final `data.js`. Persist this entire directory between CI builds to retain history.
+
+The `index.html` file works standalone — open it directly from `file://` or serve it from any static host. It reads `data.js` via a relative `<script>` tag; no network requests are made at runtime.
 
 ## Documentation
 
