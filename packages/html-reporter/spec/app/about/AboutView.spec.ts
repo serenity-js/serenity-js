@@ -1,4 +1,4 @@
-import { Ensure, equals, includes } from '@serenity-js/assertions';
+import { Ensure, equals, includes, isPresent } from '@serenity-js/assertions';
 
 import { AboutView } from '../../../src/serenity/about/AboutView.serenity.js';
 import { describe, it } from '../fixtures.js';
@@ -13,7 +13,7 @@ describe('AboutView', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(view.isVisible(), equals(true)),
+            Ensure.that(view, isPresent()),
         );
     });
 

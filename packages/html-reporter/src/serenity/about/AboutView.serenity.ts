@@ -15,11 +15,6 @@ export class AboutView<NET> extends InteractionObject<NET> {
     bodyText = (): QuestionAdapter<string> =>
         Text.of(this.rootElement).describedAs('about view body text');
 
-    isVisible = (): Question<Promise<boolean>> =>
-        this.child(By.css('.card'))
-            .isPresent()
-            .describedAs('whether the about view is visible');
-
     hasLinkTo = (url: string): Question<Promise<boolean>> =>
         this.child(By.css(`a[href="${url}"]`))
             .isPresent()

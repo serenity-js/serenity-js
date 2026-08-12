@@ -86,9 +86,9 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
         this.readmeSection.text().trim()
             .describedAs('README content');
 
-    readmeIsVisible = (): Question<Promise<boolean>> =>
+    readmeIsPresent = (): Question<Promise<boolean>> =>
         this.readmeSection.isPresent()
-            .describedAs('whether README is visible');
+            .describedAs('whether README is present');
 
     readmeIsCollapsible = (): Question<Promise<boolean>> =>
         this.collapsibleReadme.count()
