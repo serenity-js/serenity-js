@@ -44,6 +44,26 @@ Each activity's own `artifacts` array is processed **before** recursing into `ch
 
 Before introducing a banner/alert/status bar, check whether an existing interactive element (dropdown, tab, breadcrumb) already communicates the same state. If it does, enhance that element's visual treatment instead of adding a new component.
 
+### Use `optionalField(key, value)` for conditional JSON fields
+
+When building JSON objects with fields that should be absent (not `null`) when empty, use the `optionalField` helper instead of inline spread patterns:
+
+```typescript
+// ✓ Good — clear, consistent, no linter complaints
+...optionalField('ci', ci),
+...optionalField('browser', getBrowser(test.tags)),
+
+// ✗ Avoid — confusing to readers, eqeqeq lint rule flags !=
+...(x != null && { x }),
+...x && { x },
+```
+
+The helper lives in `SummaryJsonWriter.ts`. If needed elsewhere, extract to a shared utility.
+
+### Zod 4: use `z.iso.datetime()` not `z.string().datetime()`
+
+`z.string().datetime()` is deprecated in Zod 4. Use `z.iso.datetime()` — produces identical JSON Schema output but avoids deprecation warnings.
+
 ---
 
 ## HTML Reporter — CSS & Layout
