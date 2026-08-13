@@ -24,7 +24,7 @@
 ## Installation
 
 ```bash
-npm install --save-dev @serenity-js/assertions @serenity-js/console-reporter @serenity-js/core @serenity-js/serenity-bdd @serenity-js/web @serenity-js/playwright
+npm install --save-dev @serenity-js/assertions @serenity-js/console-reporter @serenity-js/core @serenity-js/html-reporter @serenity-js/web @serenity-js/playwright
 ```
 
 See the [Serenity/JS Installation Guide](https://serenity-js.org/handbook/installation/).
@@ -95,12 +95,14 @@ describe('Website', () => {
             )),
             crew: [
                 [ '@serenity-js/console-reporter', { theme: 'auto' } ],
-                [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+                [ '@serenity-js/html-reporter', {
+                    outputDirectory: './reports/serenity-js',
+                    specDirectory: 'spec',
+                } ],
                 [ '@serenity-js/web:Photographer', {
                     strategy: 'TakePhotosOfFailures',
                     // strategy: 'TakePhotosOfInteractions',
                 } ],
-                [ '@serenity-js/serenity-bdd', { specDirectory: 'spec' } ],
             ]
         })
     })

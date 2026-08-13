@@ -36,7 +36,7 @@ npm init playwright@latest
 Install the below Serenity/JS modules in your Playwright Test project directory:
 
 ```sh
-npm install --save-dev @serenity-js/assertions @serenity-js/console-reporter @serenity-js/core @serenity-js/rest @serenity-js/serenity-bdd @serenity-js/web @serenity-js/playwright @serenity-js/playwright-test
+npm install --save-dev @serenity-js/assertions @serenity-js/console-reporter @serenity-js/core @serenity-js/html-reporter @serenity-js/rest @serenity-js/web @serenity-js/playwright @serenity-js/playwright-test
 ```
 
 See the [Serenity/JS Installation Guide](https://serenity-js.org/handbook/installation/).
@@ -324,10 +324,10 @@ To use Serenity/JS reporting capabilities, register the `@serenity-js/playwright
 `playwright.config.ts` and define the appropriate reporting services (a.k.a. your "stage crew").
 
 For example, to enable [Serenity/JS Console Reporter](https://serenity-js.org/handbook/reporting/console-reporter/)
-and [Serenity BDD Reporter](https://serenity-js.org/handbook/reporting/serenity-bdd-reporter/), install the relevant modules:
+and [HTML Reporter](https://serenity-js.org/handbook/reporting/html-reporter/), install the relevant modules:
 
 ```bash
-npm install --save-dev @serenity-js/console-reporter @serenity-js/serenity-bdd
+npm install --save-dev @serenity-js/console-reporter @serenity-js/html-reporter
 ```
 
 Next, configure your Playwright project as follows:
@@ -345,8 +345,10 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
         [ '@serenity-js/playwright-test', {
             crew: [
                 '@serenity-js/console-reporter',
-                [ '@serenity-js/serenity-bdd', { specDirectory: './spec' } ],
-                [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+                [ '@serenity-js/html-reporter', {
+                    outputDirectory: './reports/serenity-js',
+                    specDirectory: './spec',
+                } ],
                 // '@serenity-js/core:StreamReporter',
             ]
         }],
@@ -361,6 +363,8 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
 ```
 
 Serenity/JS reporters work well with native [Playwright reporters](https://playwright.dev/docs/test-reporters).
+
+> **Using Serenity BDD?** If you prefer Serenity BDD reports, see the [Serenity BDD Reporter](https://serenity-js.org/handbook/reporting/serenity-bdd-reporter/) documentation.
 
 ## Documentation
 

@@ -81,8 +81,7 @@ exports.config = {
         // runner: 'mocha',
         crew: [
             '@serenity-js/console-reporter',
-            '@serenity-js/serenity-bdd',
-            [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: './target/site/serenity' } ],
+            [ '@serenity-js/html-reporter', { outputDirectory: './reports/serenity-js' } ],
             [ '@serenity-js/web:Photographer', {
                 strategy: 'TakePhotosOfFailures', // or: 'TakePhotosOfInteractions'
             } ],

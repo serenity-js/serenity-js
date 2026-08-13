@@ -38,7 +38,7 @@ If you're starting a new project, we recommend using the [Serenity/JS WebdriverI
 To add Serenity/JS to an existing WebdriverIO 8 project, install the following Serenity/JS modules from NPM:
 
 ```sh
-npm install --save-dev @serenity-js/core @serenity-js/web @serenity-js/webdriverio-8 @serenity-js/assertions @serenity-js/rest @serenity-js/console-reporter @serenity-js/serenity-bdd
+npm install --save-dev @serenity-js/core @serenity-js/web @serenity-js/webdriverio-8 @serenity-js/assertions @serenity-js/rest @serenity-js/console-reporter @serenity-js/html-reporter
 ```
 
 Learn more about Serenity/JS modules:
@@ -48,6 +48,7 @@ Learn more about Serenity/JS modules:
 - [`@serenity-js/assertions`](https://serenity-js.org/api/assertions/)
 - [`@serenity-js/rest`](https://serenity-js.org/api/rest/)
 - [`@serenity-js/console-reporter`](https://serenity-js.org/api/console-reporter/)
+- [`@serenity-js/html-reporter`](https://serenity-js.org/api/html-reporter/)
 - [`@serenity-js/serenity-bdd`](https://serenity-js.org/api/serenity-bdd/)
 
 If you prefer to review a reference implementation first, clone a [Serenity/JS Project Template](https://serenity-js.org/handbook/project-templates/) for your preferred test runner.
@@ -77,11 +78,10 @@ export const config: WebdriverIOConfig = {
             // Optional, print test execution results to standard output
             '@serenity-js/console-reporter',
 
-            // Optional, produce Serenity BDD reports
-            // and living documentation (HTML)
-            '@serenity-js/serenity-bdd',
-            [ '@serenity-js/core:ArtifactArchiver', {
-                outputDirectory: 'target/site/serenity'
+            // Optional, produce an interactive HTML report
+            // with trend history and flaky test detection
+            [ '@serenity-js/html-reporter', {
+                outputDirectory: './reports/serenity-js'
             } ],
 
             // Optional, automatically capture screenshots

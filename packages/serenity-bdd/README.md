@@ -3,6 +3,8 @@
 [`@serenity-js/serenity-bdd`](https://serenity-js.org/api/serenity-bdd/) 
 enables Serenity BDD reports and living documentation for your Serenity/JS test suites.
 
+> **Looking for a simpler reporting setup?** Consider [`@serenity-js/html-reporter`](https://serenity-js.org/handbook/reporting/html-reporter/) — no Java required, built-in trend analysis, single-file output. See the [migration guide](https://serenity-js.org/handbook/reporting/html-reporter/#migrating-from-serenity-bdd-reporter).
+
 ## Features
 
 - Generates rich HTML and JSON reports

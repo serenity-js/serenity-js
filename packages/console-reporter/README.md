@@ -167,6 +167,8 @@ to learn about the supported colour themes.
 ## Documentation
 
 - [API Reference](https://serenity-js.org/api/)
+- [Reporting Guide](https://serenity-js.org/handbook/reporting/) — learn about all Serenity/JS reporters
+- [HTML Reporter](https://serenity-js.org/handbook/reporting/html-reporter/) — interactive HTML report with trend history and flaky test detection
 - [Screenplay Pattern Guide](https://serenity-js.org/handbook/design/screenplay-pattern/)
 - [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/)
 - [Tutorial: First Web Scenario](https://serenity-js.org/handbook/tutorials/your-first-web-scenario/)

@@ -106,8 +106,9 @@ To run your tests and generate Serenity/JS reports, execute the following comman
 npm run serenity
 ```
 
-Your test results will be available in the `target/site/serenity` directory.
-To view them, open the `index.html` file in your preferred web browser.
+Your test results will be available in the output directory configured in your reporter settings.
+See the [Serenity/JS Reporting guide](https://serenity-js.org/handbook/reporting/) to learn about available reporters,
+including the [HTML Reporter](https://serenity-js.org/handbook/reporting/html-reporter/) and [Serenity BDD Reporter](https://serenity-js.org/handbook/reporting/serenity-bdd-reporter/).
 
 ## Documentation
 
