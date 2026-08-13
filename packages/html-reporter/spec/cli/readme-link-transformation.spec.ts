@@ -60,7 +60,7 @@ function buildWithRootReadme(readmeContent: string, projectTree?: Record<string,
         { name: 'test c', path: '/project/spec/example.spec.ts', line: 1 },
     ]);
 
-    return buildCapabilities(run, [run], hierarchy, projectFileSystem);
+    return buildCapabilities(run, [run], hierarchy);
 }
 
 test.describe('README link transformation', () => {
@@ -110,7 +110,7 @@ test.describe('README link transformation', () => {
                 { name: 'test b', path: '/project/spec/example.spec.ts', line: 2 },
             ]);
 
-            const tree = buildCapabilities(run, [run], hierarchy, projectFileSystem);
+            const tree = buildCapabilities(run, [run], hierarchy);
             const dashboardNode = tree.children!.find(c => c.name === 'dashboard')!;
             expect(dashboardNode.readme).toContain('href="#/capabilities"');
             expect(dashboardNode.readme).not.toContain('path=');
@@ -142,7 +142,7 @@ test.describe('README link transformation', () => {
                 { name: 'test a', path: '/project/spec/login.test.ts', line: 1 },
             ]);
 
-            const tree = buildCapabilities(run, [run], hierarchy, projectFileSystem);
+            const tree = buildCapabilities(run, [run], hierarchy);
             expect(tree.readme).toContain('href="#/tests?search=');
             expect(tree.readme).toContain(encodeURIComponent('"login.test.ts"'));
         });
@@ -193,7 +193,7 @@ test.describe('README link transformation', () => {
                 { name: 'test b', path: '/project/spec/example.spec.ts', line: 2 },
             ]);
 
-            const tree = buildCapabilities(run, [run], hierarchy, projectFileSystem);
+            const tree = buildCapabilities(run, [run], hierarchy);
             const dashboardNode = tree.children!.find(c => c.name === 'dashboard')!;
             expect(dashboardNode.readme).toContain('href="../../package.json"');
         });
@@ -235,7 +235,7 @@ test.describe('README link transformation', () => {
                 { name: 'test c', path: '/project/spec/example.spec.ts', line: 2 },
             ]);
 
-            const tree = buildCapabilities(run, [run], hierarchy, projectFileSystem);
+            const tree = buildCapabilities(run, [run], hierarchy);
             const dashboardNode = tree.children!.find(c => c.name === 'dashboard')!;
             expect(dashboardNode.readme).toContain('href="#/capabilities?path=scenarios"');
         });
@@ -258,7 +258,7 @@ test.describe('README link transformation', () => {
                 { name: 'test b', path: '/project/spec/example.spec.ts', line: 2 },
             ]);
 
-            const tree = buildCapabilities(run, [run], hierarchy, projectFileSystem);
+            const tree = buildCapabilities(run, [run], hierarchy);
             const dashboardNode = tree.children!.find(c => c.name === 'dashboard')!;
             expect(dashboardNode.readme).toContain(encodeURIComponent('"dashboard/kpis.spec.ts"'));
         });
@@ -285,7 +285,7 @@ test.describe('README link transformation', () => {
                 { name: 'test b', path: '/project/spec/example.spec.ts', line: 2 },
             ]);
 
-            const tree = buildCapabilities(run, [run], hierarchy, projectFileSystem);
+            const tree = buildCapabilities(run, [run], hierarchy);
             expect(tree.displayName).toEqual('Project');
             expect(tree.readme).toContain('href="#/capabilities?path=dashboard"');
         });
@@ -308,7 +308,7 @@ test.describe('README link transformation', () => {
                 { name: 'test b', path: '/project/spec/example.spec.ts', line: 2 },
             ]);
 
-            const tree = buildCapabilities(run, [run], hierarchy, projectFileSystem);
+            const tree = buildCapabilities(run, [run], hierarchy);
             const e2eNode = tree.children!.find(c => c.name === 'e2e')!;
             expect(e2eNode.displayName).toEqual('End-to-End Flows');
             expect(e2eNode.readme).toContain('Full journey tests.');

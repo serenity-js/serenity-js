@@ -7,6 +7,7 @@ import { createFsFromVolume, Volume } from 'memfs';
 import { ArtifactWriter } from '../../../src/cli/collection/ArtifactWriter.js';
 import { RunDataWriter } from '../../../src/cli/collection/RunDataWriter.js';
 import type { RunData } from '../../../src/cli/model/RunData.js';
+import type { SystemContext } from '../../../src/cli/collection/SystemContextDetector.js';
 
 test.describe('ArtifactWriter', () => {
 
@@ -117,7 +118,7 @@ test.describe('RunDataWriter', () => {
             os: { name: 'linux', version: '6.0.0', arch: 'x64' },
             serenityVersion: '3.44.0',
             runtime: { provider: 'node', version: 'v22.0.0' },
-        },
+        } as unknown as SystemContext,
     };
 
     function createRunDataWriter(workerId?: string): { writer: RunDataWriter; filesystem: typeof fs; fileSystem: FileSystem } {

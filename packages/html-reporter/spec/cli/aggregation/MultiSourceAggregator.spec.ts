@@ -358,7 +358,7 @@ test.describe('MultiSourceAggregator', () => {
             // Regression test: when --input glob includes test-runs/* from the output directory
             // (e.g. gh-pages historical data), maxHistory pruning must not delete those files
             // before loadExternalRuns reads them.
-            const { aggregator, filesystem } = createAggregator({
+            const { aggregator, filesystem } = createMultiSourceAggregator({
                 // Simulate 4 historical runs already on gh-pages (output dir)
                 'test-runs': {
                     'run-1': { 'db.json': runData({ testRunId: 'run-1', startedAt: '2024-06-12T10:00:00.000Z', finishedAt: '2024-06-12T10:00:00.100Z', outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, scenes: [{ name: 'T', category: 'S', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-12T10:00:00.000Z', source: { path: 'a.ts', line: 1 }, tags: [], activities: [] }], tags: [], testRunner: { name: 'M', version: '1.0.0' } }) },

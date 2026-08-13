@@ -23,8 +23,9 @@ function createScene(name: string, outcomeCode: number, tags: Array<{ type: stri
         source: { path: '/specs/Page.spec.ts', line: 42 },
         outcome: { code: outcomeCode },
         duration: 1000,
-        retries: 0,
+        startedAt: '2024-06-15T10:00:00.000Z',
         tags,
+        activities: [],
     };
 }
 

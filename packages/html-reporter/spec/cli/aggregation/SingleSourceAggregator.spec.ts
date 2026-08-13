@@ -803,7 +803,7 @@ test.describe('SingleSourceAggregator', () => {
             const fileSystem = new FileSystem(outputDirectory, filesystem);
             const projectFs = new FileSystem(Path.from('/project'), filesystem);
             const hierarchy = new RequirementsHierarchy(projectFs, Path.from('/project/spec'));
-            const aggregator = new SingleSourceAggregator(fileSystem, { consistencyWindow: 5, buildCapabilities: true }, hierarchy, projectFs, () => undefined);
+            const aggregator = new SingleSourceAggregator(fileSystem, { consistencyWindow: 5, buildCapabilities: true }, hierarchy, () => undefined);
 
             aggregator.aggregate();
             const data = readDataJs(filesystem);
@@ -1292,9 +1292,8 @@ test.describe('SingleSourceAggregator', () => {
 
             const fileSystem = new FileSystem(outputDirectory, filesystem);
             const sourceFileSystem = new FileSystem(Path.from('/'), filesystem);
-            const projectFs = new FileSystem(Path.from('/'), filesystem);
-            const hierarchy = new RequirementsHierarchy(projectFs);
-            const aggregator = new MultiSourceAggregator(fileSystem, { consistencyWindow: 5 }, hierarchy, projectFs, sourceFileSystem);
+            const hierarchy = new RequirementsHierarchy(sourceFileSystem);
+            const aggregator = new MultiSourceAggregator(fileSystem, { consistencyWindow: 5 }, hierarchy, sourceFileSystem);
 
             aggregator.aggregate([
                 '/source/test-runs/42/module-a-1/db.json',

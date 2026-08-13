@@ -589,7 +589,7 @@ test.describe('HtmlReporter', () => {
                 // Mimics HtmlReporterBuilder with no explicit testRunId and no env vars
                 const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId: detectTestRunId(), moduleId: detectModuleId(), attempt: 1 }, stage);
                 const rootFileSystem2 = new FileSystem(Path.from('/'), filesystem);
-                const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem2), rootFileSystem2, () => undefined);
+                const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem2), () => undefined);
                 const templateWriter = new ReportTemplateWriter(outputFileSystem);
                 const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
                 const reporter = new HtmlReporter(archiver, generator);
