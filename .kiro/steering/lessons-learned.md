@@ -210,6 +210,29 @@ If integration tests fail to start, check for port conflicts. Kill stale servers
 pkill -f 'http-server.*8080'; pkill -f 'http-server.*8090'; sleep 2
 ```
 
+### Prefer the `interactionObject` fixture over `mount` for IO-based component tests
+
+The `interactionObject` fixture avoids the type collision with Playwright's built-in `mount` and is more concise:
+
+```typescript
+// ✓ Preferred — type-safe, derives component name from IO class
+const view = await interactionObject(AboutView, './components/about/AboutView');
+const view = await interactionObject(DashboardView, './components/dashboard/DashboardView', { data: reportData });
+
+// Still available for non-IO tests (DarkMode, ThemeToggle, ARIA, etc.)
+await mount({ component: 'FilterBar', importPath: './components/common/FilterBar', props: { ... } });
+```
+
+The `component` name is derived from `io.name`. The `path` is the esbuild import path relative to `app/`. Optional third arg takes `{ data, props, chartJs, hash, theme }`.
+
+### Playwright 1.62+ includes `mount` in `PlaywrightTestArgs` — custom `mount` fixtures collide
+
+`PlaywrightTestArgs` defines `mount` with a story-based signature. Overriding it via `useFixtures<{ mount: ... }>` or `test.extend<{ mount: ... }>` with a different signature triggers a type error because the `Fixtures` type requires overrides to be assignable to the parent's type. The only workaround is `as any` at the `use()` call boundary. The `interactionObject` fixture avoids this by using a non-colliding name.
+
+### Test helpers for `SceneRecord` must not include `retries` for simple scenarios
+
+`SceneRecord` is a discriminated union: `SimpleSceneRecord` (no retries), `RetriedSceneRecord` (has retries + attempts), `OutlineSceneRecord` (has scenarioOutline). Including `retries: 0` in a test helper makes TypeScript try to match `RetriedSceneRecord` which then requires `attempts`. Omit `retries` entirely for simple test scenes.
+
 ### Regenerating a served html-report requires re-aggregation, not just compile
 
 `npm run compile` rebuilds the template.js bundle, but the served report uses the old embedded template until you re-run aggregation (e.g., `npx failsafe example:clean example:test example:add-history` in `integration/html-reporter/`).
