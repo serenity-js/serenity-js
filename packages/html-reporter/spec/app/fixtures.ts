@@ -62,6 +62,7 @@ function createMountFunction(page: Page) {
             // Replace string-valued props starting with '__' with window function references
             `for (const [k, v] of Object.entries(props)) { if (typeof v === 'string' && v.startsWith('__') && typeof window[v] === 'function') props[k] = window[v]; }`,
             `render(html\`<\${${component}} ...\${props} />\`, document.getElementById('app'));`,
+            `window.__COMPONENT_RENDERED__ = true;`,
         ].join('\n');
 
         const result = buildSync({
@@ -98,6 +99,7 @@ function createMountFunction(page: Page) {
             route.fulfill({ contentType: 'text/html', body: html });
         });
         await page.goto('http://localhost/test-harness.html' + (hash ? '#' + hash : ''), { waitUntil: 'load' });
+        await page.waitForFunction(() => (window as any).__COMPONENT_RENDERED__ === true);
 
         if (interactionObject) {
             const rootElement = PageElement.located(By.css('#app > *')).describedAs('mounted component');
