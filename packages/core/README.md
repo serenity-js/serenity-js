@@ -50,11 +50,11 @@ Explore practical examples and in-depth explanations in the [Serenity/JS Handboo
 
 ## Documentation
 
+- [Tutorial: First Web Scenario](https://serenity-js.org/handbook/tutorials/your-first-web-scenario/)
+- [Tutorial: First API Scenario](https://serenity-js.org/handbook/tutorials/your-first-api-scenario/)
 - [API Reference](https://serenity-js.org/api/)
 - [Screenplay Pattern Guide](https://serenity-js.org/handbook/design/screenplay-pattern/)
 - [Serenity/JS Project Templates](https://serenity-js.org/handbook/project-templates/)
-- [Tutorial: First Web Scenario](https://serenity-js.org/handbook/tutorials/your-first-web-scenario/)
-- [Tutorial: First API Scenario](https://serenity-js.org/handbook/tutorials/your-first-api-scenario/)
 
 ## Contributing
 
