@@ -186,6 +186,7 @@ See the Pre-Commit Checklist below for the full list.
 - If you can verify something (read a file, run a command), do it
 - If you cannot (visual rendering, file:// URLs), say so explicitly and offer an alternative
 - Never fabricate observations or claim to have seen something you inferred
+- **Never project certainty when you have doubts.** If you are unsure whether something will work — especially irreversible operations like publishing, deploying, or deleting — say "I'm not certain" upfront. Phrasing like "that's fine" or "this should work" when you're guessing can lead to costly mistakes. State what you know, what you're inferring, and what you cannot verify.
 
 ## Clarification Policy
 

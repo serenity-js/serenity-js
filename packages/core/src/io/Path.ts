@@ -49,11 +49,6 @@ export class Path extends TinyType {
         // In other cases, the colon is simply omitted, as in "file:///c/tmp/test.txt".
         path = path.replace(/^(.+)\|/, '$1:');
 
-        // for Windows, we need to invert the path separators from what a URI uses
-        if (sep === '\\') {
-            path = path.replaceAll('/', '\\');
-        }
-
         if (! (/^.+:/.test(path))) {
             // unix path, because there's no Windows drive at the beginning
             path = sep + path;
