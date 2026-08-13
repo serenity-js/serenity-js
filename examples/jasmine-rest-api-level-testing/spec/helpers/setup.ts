@@ -11,6 +11,7 @@ beforeAll(() => {
             [ '@serenity-js/console-reporter', { theme: 'auto' } ],
             [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: path.resolve(__dirname, '../../target/site/serenity') } ],
             '@serenity-js/serenity-bdd',
+            [ '@serenity-js/html-reporter', { outputDirectory: path.resolve(__dirname, '../../reports/serenity') } ],
         ],
     });
 });

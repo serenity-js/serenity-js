@@ -7,7 +7,7 @@ import { BusinessRule, CorrelationId, Description, ExecutionSuccessful, FeatureT
 
 import { cucumber, cucumberVersion } from '../src';
 
-describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, () => {
+describe(`Serenity/JS with Cucumber ${ cucumberVersion() }`, () => {
 
     when(7 <= cucumberVersion().major())
         .it(`recognises rules and examples`, () =>

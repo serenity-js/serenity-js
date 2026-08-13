@@ -4,7 +4,7 @@ import { expect, PickEvent } from '@integration/testing-tools';
 import type { Stage } from '@serenity-js/core';
 import { AssertionError, Duration, ImplementationPendingError, TestCompromisedError, Timestamp } from '@serenity-js/core';
 import { ArtifactGenerated, AsyncOperationAttempted, AsyncOperationCompleted, SceneFinished, SceneStarts, TestRunFinishes, TestRunnerDetected } from '@serenity-js/core/events';
-import { FileSystemLocation, Path } from '@serenity-js/core/io';
+import { FileSystemLocation, Path, Version } from '@serenity-js/core/io';
 import {
     Category,
     CorrelationId,
@@ -429,7 +429,7 @@ describe('SerenityBDDReporter', () => {
 
                 stage.announce(
                     new SceneStarts(aSceneId, simpleCucumberScenario),
-                    new TestRunnerDetected(aSceneId, new Name('JS')),
+                    new TestRunnerDetected(aSceneId, new Name('JS'), new Version('1.0.0')),
                     new SceneFinished(aSceneId, simpleCucumberScenario, new ExecutionSuccessful()),
                     new TestRunFinishes(),
                 );
@@ -448,7 +448,7 @@ describe('SerenityBDDReporter', () => {
 
                 stage.announce(
                     new SceneStarts(aSceneId, nestedPlaywrightScenario),
-                    new TestRunnerDetected(aSceneId, new Name('Playwright')),
+                    new TestRunnerDetected(aSceneId, new Name('Playwright'), new Version('1.0.0')),
                     new SceneFinished(aSceneId, nestedPlaywrightScenario, new ExecutionSuccessful()),
                     new TestRunFinishes(),
                 );

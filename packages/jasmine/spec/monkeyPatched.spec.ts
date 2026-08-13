@@ -23,6 +23,7 @@ describe('@serenity-js/jasmine', () => {
         };
 
         jasmine = {
+            version: '6.0.0',
             Spec: function Spec() {
                 this.result = {};
             },

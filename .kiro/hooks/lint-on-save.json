@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "lint-modified-files",
+      "trigger": "stop",
+      "action": {
+        "type": "command",
+        "command": "FILES=$(git diff --name-only --diff-filter=d HEAD 2>/dev/null | grep -E '\\.(ts|js|mjs)$' | head -20); if [ -n \"$FILES\" ]; then echo \"$FILES\" | xargs npx eslint --no-warn-ignored; fi"
+      },
+      "timeout": 30,
+      "enabled": true
+    }
+  ]
+}

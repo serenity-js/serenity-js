@@ -17,6 +17,7 @@ exports.config = {
                 // strategy: 'TakePhotosOfInteractions',
             } ],
             [ '@serenity-js/serenity-bdd', { specDirectory: 'spec' } ],
+            [ '@serenity-js/html-reporter', { outputDirectory: 'reports/serenity' } ],
         ]
     },
 

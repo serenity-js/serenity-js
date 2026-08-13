@@ -6,7 +6,7 @@ import { describe, it } from 'mocha';
 
 import { jasmine } from '../src/jasmine';
 
-describe('@serenity-js/jasmine', function () {
+describe('Serenity/JS with Jasmine', function () {
 
     it('recognises a passing scenario', () => jasmine('examples/passing.spec.js')
         .then(ifExitCodeIsOtherThan(0, logOutput))

@@ -1,0 +1,13 @@
+{
+  "extends": "../../.c8rc.json",
+  "reportDir": "./target/coverage",
+  "allowExternal": true,
+  "include": [
+    "**/packages/html-reporter/lib/**/*.js"
+  ],
+  "exclude": [
+    "**/target/**",
+    "**/spec/**",
+    "**/*.d.ts"
+  ]
+}

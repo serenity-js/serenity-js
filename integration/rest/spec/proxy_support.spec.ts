@@ -47,7 +47,7 @@ interface LocalServers {
     serverUrl: string;
 }
 
-describe('@serenity-js/rest', function () {
+describe('Serenity/JS REST', function () {
 
     this.timeout(30_000);
 

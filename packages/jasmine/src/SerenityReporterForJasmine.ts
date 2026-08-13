@@ -21,7 +21,7 @@ import {
     TestSuiteStarts,
 } from '@serenity-js/core/events';
 import type { RequirementsHierarchy } from '@serenity-js/core/io';
-import { FileSystemLocation, Path } from '@serenity-js/core/io';
+import { FileSystemLocation, Path, type Version } from '@serenity-js/core/io';
 import {
     ActivityDetails,
     Category,
@@ -69,6 +69,7 @@ export class SerenityReporterForJasmine implements JasmineReporter {
     constructor(
         private readonly serenity: Serenity,
         private readonly requirementsHierachy: RequirementsHierarchy,
+        private readonly jasmineVersion: Version,
     ) {
     }
 
@@ -99,7 +100,7 @@ export class SerenityReporterForJasmine implements JasmineReporter {
             ... this.requirementsHierachy.requirementTagsFor(scenarioDetails.location.path, Tags.stripFrom(this.currentFeatureNameFor(result)))
                 .map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime())),
 
-            new TestRunnerDetected(this.currentSceneId, new Name('Jasmine'), this.serenity.currentTime()),
+            new TestRunnerDetected(this.currentSceneId, new Name('Jasmine'), this.jasmineVersion, this.serenity.currentTime()),
 
             ... scenarioTags.map(tag => new SceneTagged(this.currentSceneId, tag, this.serenity.currentTime()))
         );

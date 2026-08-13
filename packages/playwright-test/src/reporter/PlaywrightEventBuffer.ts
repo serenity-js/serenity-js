@@ -1,16 +1,18 @@
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
 import { type FullConfig } from '@playwright/test';
 import { type TestCase, type TestResult } from '@playwright/test/reporter';
 import { Duration, LogicError, Timestamp } from '@serenity-js/core';
 import {
+    ArtifactGenerated,
     type DomainEvent,
     InteractionFinished,
     RetryableSceneDetected,
     SceneFinished,
     SceneTagged
 } from '@serenity-js/core/events';
-import { Path } from '@serenity-js/core/io';
+import { Path, Version } from '@serenity-js/core/io';
 import type {     CorrelationId,Outcome } from '@serenity-js/core/model';
 import {
     ArbitraryTag,
@@ -18,7 +20,9 @@ import {
     ExecutionFailedWithError,
     ExecutionIgnored,
     ExecutionSkipped,
-    ExecutionSuccessful
+    ExecutionSuccessful,
+    Name,
+    Photo,
 } from '@serenity-js/core/model';
 import { type JSONObject } from 'tiny-types';
 
@@ -39,8 +43,8 @@ export class PlaywrightEventBuffer {
         workerIndex: number;
     }>();
 
-    configure(config: Pick<FullConfig, 'rootDir'>): void {
-        this.eventFactory = new EventFactory(Path.from(config.rootDir));
+    configure(config: Pick<FullConfig, 'rootDir' | 'version'>): void {
+        this.eventFactory = new EventFactory(Path.from(config.rootDir), new Version(config.version));
     }
 
     appendTestStart(test: TestCase, result: TestResult): void {
@@ -153,6 +157,20 @@ export class PlaywrightEventBuffer {
         this.events.get(sceneId.value).push(
             this.eventFactory.createSceneFinishedEvent(test, result, scenarioOutcome)
         );
+
+        // Emit video artifacts if present
+        for (const attachment of result.attachments) {
+            if (attachment.contentType === 'video/webm' && attachment.path) {
+                try {
+                    const videoBuffer = readFileSync(attachment.path);
+                    this.events.get(sceneId.value).push(
+                        new ArtifactGenerated(sceneId, new Name('video'), Photo.fromBuffer(videoBuffer))
+                    );
+                } catch {
+                    // Video file may not be available yet
+                }
+            }
+        }
     }
 
     flush(test: TestCase, result: TestResult): DomainEvent[] {

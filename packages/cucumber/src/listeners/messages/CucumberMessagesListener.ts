@@ -16,6 +16,8 @@ export default function (serenity: Serenity, moduleLoader: ModuleLoader) {
         { Formatter, formatterHelpers } = moduleLoader.require('@cucumber/cucumber'),
         TestCaseHookDefinition          = moduleLoader.require('@cucumber/cucumber/lib/models/test_case_hook_definition').default;
 
+    const cucumberVersion = moduleLoader.versionOf('@cucumber/cucumber');
+
     return class CucumberMessagesListener extends Formatter {
         static readonly fakeInternalAfterHookUri = '/internal/serenity-js/cucumber';
 
@@ -30,7 +32,7 @@ export default function (serenity: Serenity, moduleLoader: ModuleLoader) {
             this.parser = new CucumberMessagesParser(
                 serenity,
                 formatterHelpers,
-                options,
+                { ...options, testRunnerVersion: cucumberVersion },
                 (step: IParsedTestStep) =>
                     step?.actionLocation?.uri !== CucumberMessagesListener.fakeInternalAfterHookUri,
             );
@@ -48,32 +50,7 @@ export default function (serenity: Serenity, moduleLoader: ModuleLoader) {
             });
 
             options.eventBroadcaster.on('envelope', (envelope: Envelope) => {
-                // this.log('> [cucumber] ' + JSON.stringify(envelope) + '\n');
-
-                switch (true) {
-                    case !! envelope.testRunStarted:
-                        return this.emit(new TestRunStarts(serenity.currentTime()));
-
-                    case !! envelope.testCaseStarted:
-                        return this.emit(
-                            this.parser.parseTestCaseStarted(envelope.testCaseStarted),
-                        );
-
-                    case !! envelope.testStepStarted:
-                        return this.emit(
-                            this.parser.parseTestStepStarted(envelope.testStepStarted),
-                        );
-
-                    case !! envelope.testStepFinished:
-                        return this.emit(
-                            this.parser.parseTestStepFinished(envelope.testStepFinished),
-                        );
-
-                    case !! envelope.testCaseFinished:
-                        return this.emit(
-                            this.parser.parseTestCaseFinished(envelope.testCaseFinished),
-                        );
-                }
+                this.handleEnvelope(envelope);
             });
         }
 
@@ -104,6 +81,33 @@ export default function (serenity: Serenity, moduleLoader: ModuleLoader) {
                     options: {},
                 }),
             );
+        }
+
+        handleEnvelope(envelope: Envelope): void {
+            switch (true) {
+                case !! envelope.testRunStarted:
+                    return this.emit(new TestRunStarts(serenity.currentTime()));
+
+                case !! envelope.testCaseStarted:
+                    return this.emit(
+                        this.parser.parseTestCaseStarted(envelope.testCaseStarted),
+                    );
+
+                case !! envelope.testStepStarted:
+                    return this.emit(
+                        this.parser.parseTestStepStarted(envelope.testStepStarted),
+                    );
+
+                case !! envelope.testStepFinished:
+                    return this.emit(
+                        this.parser.parseTestStepFinished(envelope.testStepFinished),
+                    );
+
+                case !! envelope.testCaseFinished:
+                    return this.emit(
+                        this.parser.parseTestCaseFinished(envelope.testCaseFinished),
+                    );
+            }
         }
 
         emit(events: DomainEvent[] | DomainEvent): void {

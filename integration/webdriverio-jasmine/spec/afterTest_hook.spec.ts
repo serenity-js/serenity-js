@@ -6,7 +6,7 @@ import { describe, it } from 'mocha';
 
 import { wdio } from '../src';
 
-describe('@serenity-js/webdriverio with Jasmine', function () {
+describe('Serenity/JS with WebdriverIO and Jasmine', function () {
 
     this.timeout(60_000);
 

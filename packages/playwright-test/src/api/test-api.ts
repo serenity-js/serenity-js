@@ -246,7 +246,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
         // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
         async ({ actorLifecycleManagerInternal, actors, browser, browserName, crew, cueTimeout, diffFormatterInternal, eventStreamWriterInternal, interactionTimeout, platform, sceneIdFactoryInternal, serenity }, use, info: TestInfo) => {
 
-            serenity.configure({
+            const sceneCrew = serenity.configure({
                 actors: asCast(actors),
                 diffFormatter: diffFormatterInternal,
                 cueTimeout: asDuration(cueTimeout),
@@ -295,6 +295,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
             }
             finally {
                 await eventStreamWriterInternal.persist(playwrightSceneId.value);
+                serenity.unassign(...sceneCrew);
             }
         },
         { auto: true, box: true, }

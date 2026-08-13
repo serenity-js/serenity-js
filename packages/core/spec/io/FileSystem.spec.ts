@@ -58,6 +58,18 @@ describe ('FileSystem', () => {
             expect(jsonFrom(fs.readFileSync(absolutePath.value))).to.eql(originalJSON);
         });
 
+        it ('stores a JSON file synchronously, creating intermediate directories', () => {
+            const fs = FakeFS.with({
+                [ processCWD.value ]: FakeFS.Empty_Directory,
+            });
+            const out = new FileSystem(processCWD, fs);
+
+            const absolutePath = out.storeSync(new Path('outlet/some.json'), JSON.stringify(originalJSON));
+
+            expect(fs.existsSync(absolutePath.value)).to.equal(true);
+            expect(jsonFrom(fs.readFileSync(absolutePath.value))).to.eql(originalJSON);
+        });
+
         it ('tells the absolute path to a JSON file once it is saved', async () => {
             const fs = FakeFS.with({
                 [ processCWD.value ]: FakeFS.Empty_Directory,
@@ -66,6 +78,18 @@ describe ('FileSystem', () => {
             const destination = new Path('outlet/some.json');
 
             const result = await out.store(destination, JSON.stringify(originalJSON))
+
+            expect(result.equals(processCWD.resolve(destination)));
+        });
+
+        it ('tells the absolute path to a JSON file saved synchronously', () => {
+            const fs = FakeFS.with({
+                [ processCWD.value ]: FakeFS.Empty_Directory,
+            });
+            const out = new FileSystem(processCWD, fs);
+            const destination = new Path('outlet/some.json');
+
+            const result = out.storeSync(destination, JSON.stringify(originalJSON));
 
             expect(result.equals(processCWD.resolve(destination)));
         });
@@ -93,6 +117,18 @@ describe ('FileSystem', () => {
             const out = new FileSystem(processCWD, fs);
 
             const absolutePath = await out.store(new Path('outlet/some.png'), imageBuffer);
+
+            expect(fs.existsSync(absolutePath.value)).to.equal(true);
+            expect(pictureAt(fs.readFileSync(absolutePath.value))).to.eql(image);
+        });
+
+        it ('stores a base64-encoded picture synchronously', () => {
+            const fs = FakeFS.with({
+                [ processCWD.value ]: FakeFS.Empty_Directory,
+            });
+            const out = new FileSystem(processCWD, fs);
+
+            const absolutePath = out.storeSync(new Path('outlet/some.png'), imageBuffer);
 
             expect(fs.existsSync(absolutePath.value)).to.equal(true);
             expect(pictureAt(fs.readFileSync(absolutePath.value))).to.eql(image);

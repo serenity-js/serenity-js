@@ -6,6 +6,7 @@ configure({
         // '@serenity-js/core:StreamReporter',
         [ '@serenity-js/console-reporter', { theme: 'auto' } ],
         [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+        [ '@serenity-js/html-reporter', { outputDirectory: 'reports/serenity', specDirectory: './features' } ],
         '@serenity-js/serenity-bdd',
     ],
 });

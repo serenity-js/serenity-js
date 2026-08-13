@@ -7,7 +7,7 @@ import { CorrelationId, ExecutionSkipped, FeatureTag, Name } from '@serenity-js/
 
 import { cucumber, cucumberVersion } from '../src';
 
-describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, () => {
+describe(`Serenity/JS with Cucumber ${ cucumberVersion() }`, () => {
 
     when(7 <= cucumberVersion().major())
         .it(`recognises a scenario tagged as 'skipped'`, () =>
@@ -23,7 +23,7 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, () => {
                             expect(event.details.name).to.equal(new Name('A scenario which tag marks it as skipped'));
                             currentSceneId = event.sceneId;
                         })
-                        .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('JS')))
+                        .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Cucumber')))
                         .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises skipped scenarios')))
                         .next(ActivityStarts, event => expect(event.details.name).to.equal(new Name(`Before`)))
                         .next(ActivityFinished, event => expect(event.outcome).to.equal(new ExecutionSkipped()))

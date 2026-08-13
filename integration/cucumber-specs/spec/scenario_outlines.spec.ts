@@ -6,7 +6,7 @@ import { Category, CorrelationId, Description, Name } from '@serenity-js/core/mo
 
 import { cucumber, cucumberVersion } from '../src';
 
-describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function () {
+describe(`Serenity/JS with Cucumber ${ cucumberVersion() }`, function () {
 
     it('recognises scenario outlines as sequences of scenes', () =>
         cucumber('features/scenario_outlines.feature', 'common.steps.ts')

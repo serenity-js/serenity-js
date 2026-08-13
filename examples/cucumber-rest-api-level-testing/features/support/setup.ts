@@ -12,6 +12,7 @@ configure({
         [ '@serenity-js/console-reporter', { theme: 'dark' } ],
         [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: path.resolve(__dirname, '../../target/site/serenity') } ],
         [ '@serenity-js/serenity-bdd', { specDirectory: path.resolve(__dirname, '../../features') } ],
+        [ '@serenity-js/html-reporter', { outputDirectory: path.resolve(__dirname, '../../reports/serenity'), specDirectory: path.resolve(__dirname, '../../features') } ],
     ],
 });
 
