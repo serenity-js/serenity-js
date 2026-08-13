@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.45.3](https://github.com/serenity-js/serenity-js/compare/v3.45.2...v3.45.3) (2026-08-13)
+
+### Bug Fixes
+
+* **deps:** upgrade upath to 3.0.8 ([33a6278](https://github.com/serenity-js/serenity-js/commit/33a62787bd6477d167bcfdb80fdac096fc45e56b))
+
+
 ## [3.45.2](https://github.com/serenity-js/serenity-js/compare/v3.45.1...v3.45.2) (2026-08-13)
 
 ### Bug Fixes
