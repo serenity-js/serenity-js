@@ -1,7 +1,15 @@
 {
-  "generated": "2026-08-11T22:50:21.638Z",
+  "$schema": "https://serenity-js.org/schemas/report-summary.json",
+  "generated": "2026-08-13T15:49:21.780Z",
   "title": "Serenity/JS Integration Tests",
   "schemaVersion": 1,
+  "reportUrl": "./index.html",
+  "ci": {
+    "commit": "7a51ba25016aee1609748a8731aa9e839b15e923",
+    "branch": "features/html-reporter",
+    "jobUrl": "https://github.com/serenity-js/serenity-js/actions/runs/31542514789",
+    "pullRequestUrl": "https://github.com/serenity-js/serenity-js/pull/3397"
+  },
   "latestRun": {
     "timestamp": "2026-08-11T22:34:32.953Z",
     "label": "8458",
@@ -16,6 +24,14 @@
     "duration": 770646
   },
   "runs": 5,
+  "delta": {
+    "passed": 0,
+    "failed": 0,
+    "pending": 0,
+    "skipped": 0,
+    "compromised": 0,
+    "error": 0
+  },
   "failureClusters": [],
   "consistency": {
     "flaky": [],
@@ -29,6 +45,33 @@
     "consistency": 100,
     "confidence": 99.4
   },
+  "slowest": [
+    {
+      "name": "supports native cucumber formatters",
+      "source": "webdriverio-8-cucumber/spec/native_cucumber_formatters.spec.ts",
+      "duration": 28274
+    },
+    {
+      "name": "recognises a passing scenario",
+      "source": "webdriverio-8-cucumber/spec/passing_scenario.spec.ts",
+      "duration": 18030
+    },
+    {
+      "name": "afterTest hook is invoked with correct result for a passing scenario",
+      "source": "webdriverio-8-mocha/spec/afterTest_hook.spec.ts",
+      "duration": 17754
+    },
+    {
+      "name": "afterTest hook is invoked with correct result for a failing scenario",
+      "source": "webdriverio-8-mocha/spec/afterTest_hook.spec.ts",
+      "duration": 17740
+    },
+    {
+      "name": "recognises a failing scenario",
+      "source": "webdriverio-8-mocha/spec/failing_scenario.spec.ts",
+      "duration": 17623
+    }
+  ],
   "modules": [
     {
       "id": "cucumber-1",
