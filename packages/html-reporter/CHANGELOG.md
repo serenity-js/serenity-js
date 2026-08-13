@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.45.2](https://github.com/serenity-js/serenity-js/compare/v3.45.1...v3.45.2) (2026-08-13)
+
+### Bug Fixes
+
+* **deps:** update html reporter dependencies ([ea78f53](https://github.com/serenity-js/serenity-js/commit/ea78f537b3db8892df2b7c3b9c0d239c7d79d729))
+* **html-reporter:** aligned node engine requirement with other Serenity/JS packages ([59a5c9b](https://github.com/serenity-js/serenity-js/commit/59a5c9b45205bd4d9a8e2668db24e6ba0249ec5c))
+
+
 ## [3.45.1](https://github.com/serenity-js/serenity-js/compare/v3.45.0...v3.45.1) (2026-08-13)
 
 **Note:** Version bump only for package @serenity-js/html-reporter

@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.45.2](https://github.com/serenity-js/serenity-js/compare/v3.45.1...v3.45.2) (2026-08-13)
+
+### Bug Fixes
+
+* **core:** updated validate-npm-package-name dependency ([0bb5e26](https://github.com/serenity-js/serenity-js/commit/0bb5e2631a98c391e7e719d5aa6d23993428ab0f))
+
+
 ## [3.45.1](https://github.com/serenity-js/serenity-js/compare/v3.45.0...v3.45.1) (2026-08-13)
 
 **Note:** Version bump only for package @serenity-js/core
