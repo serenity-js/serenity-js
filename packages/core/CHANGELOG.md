@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.45.0](https://github.com/serenity-js/serenity-js/compare/v3.44.3...v3.45.0) (2026-08-13)
+
+### Bug Fixes
+
+* **core:** use explicit file paths for tiny-types imports in specs ([29de44a](https://github.com/serenity-js/serenity-js/commit/29de44a34658eb05d9396a48433725f87d469ace))
+
+### Features
+
+* **core:** add ScenarioTagger crew member, FileSystem.storeSync, and Serenity.unassign() ([6251acf](https://github.com/serenity-js/serenity-js/commit/6251acfeec001e5601ec266f81ee06a97ca2143a))
+* **core:** enrich TestRunnerDetected event with test runner version ([4be9650](https://github.com/serenity-js/serenity-js/commit/4be96500fa0284a99cc9a38b1e832f582c652810))
+
+
 ## [3.44.3](https://github.com/serenity-js/serenity-js/compare/v3.44.2...v3.44.3) (2026-08-07)
 
 ### Bug Fixes

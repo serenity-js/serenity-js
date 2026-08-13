@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.45.0](https://github.com/serenity-js/serenity-js/compare/v3.44.3...v3.45.0) (2026-08-13)
+
+### Bug Fixes
+
+* **playwright-test:** prevent crew members from accumulating across tests in the same worker ([5c8aec3](https://github.com/serenity-js/serenity-js/commit/5c8aec3f0330c7f0e5fd8b1baf160c984a9bf488))
+
+### Features
+
+* **core:** enrich TestRunnerDetected event with test runner version ([4be9650](https://github.com/serenity-js/serenity-js/commit/4be96500fa0284a99cc9a38b1e832f582c652810))
+
+
 ## [3.44.3](https://github.com/serenity-js/serenity-js/compare/v3.44.2...v3.44.3) (2026-08-07)
 
 ### Bug Fixes

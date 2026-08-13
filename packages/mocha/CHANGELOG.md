@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.45.0](https://github.com/serenity-js/serenity-js/compare/v3.44.3...v3.45.0) (2026-08-13)
+
+### Bug Fixes
+
+* **mocha:** emit scene events in parallel mode for html-report data ([9da7fec](https://github.com/serenity-js/serenity-js/commit/9da7fec11a3ae618f587c44edfbeebe1808d30a7))
+
+
 ## [3.44.3](https://github.com/serenity-js/serenity-js/compare/v3.44.2...v3.44.3) (2026-08-07)
 
 ### Bug Fixes
