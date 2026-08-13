@@ -1,4 +1,4 @@
-import { equal } from 'tiny-types/lib/objects/equal';
+import { equal } from 'tiny-types/lib/objects/equal.js';
 
 import { type Answerable, AssertionError, Interaction, the } from '../../src';
 

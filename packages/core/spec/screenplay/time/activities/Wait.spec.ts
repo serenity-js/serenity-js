@@ -1,6 +1,6 @@
 
 import { describe, it } from 'mocha';
-import { equal } from 'tiny-types/lib/objects';
+import { equal } from 'tiny-types/lib/objects/equal.js';
 
 import type { Answerable} from '../../../../src';
 import { Ability, AssertionError, Cast, Duration, Expectation, Interaction, List, NoOpDiffFormatter, Question, Serenity, Timestamp, Wait } from '../../../../src';
