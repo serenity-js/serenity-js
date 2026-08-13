@@ -17,6 +17,8 @@
 
 [📊 See the Serenity/JS test suite report →](https://serenity-js.github.io/serenity-js/)
 
+[![Dashboard view of the Serenity/JS HTML Report](https://serenity-js.org/images/reporting/html-reporter-dashboard.png)](https://serenity-js.github.io/serenity-js/)
+
 ## Features
 
 - **Single HTML file** — all JavaScript, CSS, and chart logic inlined in `index.html`; test data loaded from a companion `data.js` file. Works from `file://`, GitHub Pages, S3, or any static host
@@ -31,8 +33,10 @@
 ## Installation
 
 ```sh
-npm install --save-dev @serenity-js/core @serenity-js/html-reporter
+npm install --save-dev @serenity-js/core @serenity-js/web @serenity-js/html-reporter
 ```
+
+> `@serenity-js/web` is optional but recommended — it enables [Photographer](https://serenity-js.org/handbook/reporting/photographer/) to capture screenshots that the HTML Reporter embeds in the report.
 
 ## Quick Start
 
@@ -50,7 +54,7 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
         ['@serenity-js/playwright-test', {
             crew: [
                 ['@serenity-js/html-reporter', {
-                    outputDirectory: './reports/serenity',
+                    outputDirectory: './reports/serenity-js',
                     title: 'My Project',
                 }],
             ],
@@ -70,7 +74,7 @@ export const config = {
     serenity: {
         crew: [
             ['@serenity-js/html-reporter', {
-                outputDirectory: './reports/serenity',
+                outputDirectory: './reports/serenity-js',
                 title: 'My Project',
             }],
         ],
@@ -88,7 +92,7 @@ import { configure } from '@serenity-js/core';
 configure({
     crew: [
         ['@serenity-js/html-reporter', {
-            outputDirectory: './reports/serenity',
+            outputDirectory: './reports/serenity-js',
             title: 'My Project',
         }],
     ],
@@ -102,12 +106,14 @@ Learn more about using Serenity/JS with [Cucumber](https://serenity-js.org/handb
 After your tests complete, open the report directly or serve it locally:
 
 ```sh
-npx @serenity-js/html-reporter serve --dir ./reports/serenity --open
+npx @serenity-js/html-reporter serve --dir ./reports/serenity-js --open
 ```
 
 By default the server binds to `0.0.0.0` (all interfaces). Use `--host 127.0.0.1` to restrict access to localhost, or `--host ::` for IPv6.
 
 ## Configuration Options
+
+All options are optional. See the [`HtmlReporterConfig` API reference](https://serenity-js.org/api/html-reporter/interface/HtmlReporterConfig/) for full details.
 
 | Option              | Type     | Default                 | Description                                                   |
 |---------------------|----------|-------------------------|---------------------------------------------------------------|
@@ -119,7 +125,7 @@ By default the server binds to `0.0.0.0` (all interfaces). Use `--host 127.0.0.1
 | `projectName`       | `string` | auto-detected           | Project name shown in the System Context view (defaults to the closest `package.json` name) |
 | `testRunId`         | `string` | auto-detected           | Test run directory identifier (defaults to CI build number or ISO timestamp) |
 | `moduleId`          | `string` | auto-detected           | Module identifier for parallel CI job shards (defaults to working directory name when a CI build number is detected) |
-| `ci`                | `object` | auto-detected           | Override CI/CD context (`provider`, `buildNumber`, `branch`, `commit`, `jobUrl`, etc.) |
+| `ci`                | `object` | auto-detected           | Override CI/CD context (see fields below)                     |
 
 > **Note:** `consistencyWindow` is effectively capped at `maxHistory`. If you set `consistencyWindow: 10` but `maxHistory: 5`, the reporter uses the 5 available runs for detecting consistency issues.
 
@@ -129,16 +135,32 @@ The reporter auto-detects CI metadata from environment variables (GitHub Actions
 
 ```typescript
 ['@serenity-js/html-reporter', {
-    outputDirectory: './reports/serenity',
+    outputDirectory: './reports/serenity-js',
     ci: {
         provider: 'Jenkins',
         buildNumber: process.env.BUILD_NUMBER,
         branch: process.env.GIT_BRANCH,
         commit: process.env.GIT_COMMIT,
+        commitMessage: process.env.GIT_COMMIT_MESSAGE,
+        commitAuthor: process.env.GIT_AUTHOR_NAME,
         jobUrl: process.env.BUILD_URL,
+        repositoryUrl: process.env.GIT_URL,
     },
 }]
 ```
+
+All `ci` fields are optional:
+
+| Field             | Description                                                      |
+|-------------------|------------------------------------------------------------------|
+| `provider`        | CI provider name (e.g., `'GitHub Actions'`, `'Jenkins'`)         |
+| `buildNumber`     | Build or pipeline number                                         |
+| `branch`          | Git branch name                                                  |
+| `commit`          | Git commit SHA                                                   |
+| `commitMessage`   | Commit message                                                   |
+| `commitAuthor`    | Commit author name                                               |
+| `jobUrl`          | URL linking to the CI job                                        |
+| `repositoryUrl`   | URL of the source repository                                     |
 
 ## CLI
 
@@ -147,12 +169,29 @@ The package includes a CLI for aggregating results from multiple parallel jobs a
 ```sh
 # Aggregate results from parallel CI jobs into a single report
 npx @serenity-js/html-reporter aggregate \
-  --input "modules/*/reports/serenity/test-runs/**" \
-  --output ./reports/serenity \
+  --input "modules/*/reports/serenity-js/test-runs/**" \
+  --output ./reports/serenity-js \
   --title "My Project"
 
 # Serve the report locally
-npx @serenity-js/html-reporter serve --dir ./reports/serenity --open
+npx @serenity-js/html-reporter serve --dir ./reports/serenity-js --open
+```
+
+### How `--input` resolves patterns
+
+The `--input` option accepts one or more glob patterns (comma-separated). The CLI automatically locates `db.json` files within the matched directories:
+
+- If your pattern already ends with `db.json` or `db-*`, it's used as-is
+- Otherwise, the CLI appends `/**/db.json` and `/**/db-*.json` to find all test run data
+
+This means `--input "reports/*/test-runs/*"` and `--input "reports/*/test-runs/**/db.json"` produce the same result. The shorter form is recommended for readability.
+
+Multiple input sources can be combined with commas:
+
+```sh
+npx @serenity-js/html-reporter aggregate \
+  --input "ci-artifacts/*/test-runs/*,local-runs/test-runs/*" \
+  --output ./reports/serenity-js
 ```
 
 ## CI Integration
@@ -164,14 +203,17 @@ The pattern works with any CI provider:
 2. **Run** your test suite (the reporter writes to the output directory)
 3. **Deploy** the output to static hosting (GitHub Pages, GitLab Pages, S3, etc.)
 
-See the [Serenity/JS CI/CD integration guide](https://serenity-js.org/handbook/integration/) for provider-specific examples.
+For provider-specific setup instructions, see:
+- [GitHub Actions](https://serenity-js.org/handbook/integration/github-actions/)
+- [GitLab CI](https://serenity-js.org/handbook/integration/gitlab-ci/)
+- [Jenkins](https://serenity-js.org/handbook/integration/jenkins-ci/)
 
 ## Report Output Structure
 
 After a test run, the output directory contains:
 
 ```
-reports/serenity/
+reports/serenity-js/
 ├── index.html          ← Self-contained report viewer (JS + CSS inlined)
 ├── data.js             ← Aggregated test data loaded by index.html
 ├── screenshots/        ← Captured screenshots (referenced by data.js)
@@ -184,6 +226,12 @@ reports/serenity/
 The `test-runs/` directory is what enables execution history and trend analysis. Each run is stored independently so the reporter can aggregate them into the final `data.js`. Persist this entire directory between CI builds to retain history.
 
 The `index.html` file works standalone — open it directly from `file://` or serve it from any static host. It reads `data.js` via a relative `<script>` tag; no network requests are made at runtime.
+
+## Migrating from `@serenity-js/serenity-bdd`
+
+If you're currently using `@serenity-js/serenity-bdd` for HTML reporting, you can switch to `@serenity-js/html-reporter` for a simpler setup — no Java, no JAR downloads, and built-in trend analysis. Both reporters can run side by side during migration.
+
+See [Running both reporters together](https://serenity-js.org/handbook/reporting/html-reporter/#running-both-reporters-together) for a step-by-step migration guide.
 
 ## Documentation
 
