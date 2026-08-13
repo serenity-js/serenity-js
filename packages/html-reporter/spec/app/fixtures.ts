@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import type { Page } from '@playwright/test';
 import type { Answerable } from '@serenity-js/core';
 import { useFixtures } from '@serenity-js/playwright-test';
 import { By, PageElement } from '@serenity-js/web';
@@ -45,7 +46,7 @@ type InteractionObjectConstructor<IO> = new (rootElement: Answerable<PageElement
 type InteractionObjectFixture = <IO>(io: InteractionObjectConstructor<IO>, path: string, options?: InteractionObjectOptions) => Promise<IO>;
 
 // Implementation shared by both `mount` and `interactionObject` fixtures.
-function createMountFunction(page: import('@playwright/test').Page) {
+function createMountFunction(page: Page) {
     return async <IO>({ component, importPath, props = {}, data = {}, dataAsProps, chartJs = false, hash, theme = 'light', interactionObject }: MountOptions<IO>): Promise<IO> => {
         // View-level components receive data as props. Merge data fields into props unless explicitly disabled.
         const viewComponents = ['DashboardView', 'ScenariosView', 'ScenarioDetailView', 'CapabilitiesView', 'ConsistencyView', 'ErrorsView', 'TagsView', 'TestRunsView', 'TimelineView', 'SystemContextView'];
@@ -128,15 +129,14 @@ export const {
 } = useFixtures<CustomFixtures>({
     mount: async ({ page }, use) => {
         const mount = createMountFunction(page);
-
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- custom mount signature replaces Playwright's story-based mount
+         
         await use(mount as any);
     },
 
     interactionObject: async ({ page }, use) => {
         const mount = createMountFunction(page);
 
-        const interactionObjectFn: InteractionObjectFixture = async (io, path, options = {}) => {
+        const interactionObjectFunction: InteractionObjectFixture = async (io, path, options = {}) => {
             return mount({
                 component: io.name,
                 importPath: path,
@@ -145,6 +145,6 @@ export const {
             });
         };
 
-        await use(interactionObjectFn);
+        await use(interactionObjectFunction);
     },
 });

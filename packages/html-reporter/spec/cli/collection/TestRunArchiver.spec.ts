@@ -6,8 +6,8 @@ import { createFsFromVolume, Volume } from 'memfs';
 
 import { ArtifactWriter } from '../../../src/cli/collection/ArtifactWriter.js';
 import { RunDataWriter } from '../../../src/cli/collection/RunDataWriter.js';
-import type { RunData } from '../../../src/cli/model/RunData.js';
 import type { SystemContext } from '../../../src/cli/collection/SystemContextDetector.js';
+import type { RunData } from '../../../src/cli/model/RunData.js';
 
 test.describe('ArtifactWriter', () => {
 
