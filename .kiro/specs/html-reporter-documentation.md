@@ -28,6 +28,21 @@ Tracking document for all documentation work required to launch `@serenity-js/ht
 
 ### Must-have before announcement
 - [x] Update GitHub root README.md Quick Start section to show HTML Reporter config
+- [x] README — fix outputDirectory examples to match default (./reports/serenity-js)
+- [x] README — add @serenity-js/web to installation instructions
+- [x] README — expand ci config fields (all 8 fields documented)
+- [x] README — add --input pattern resolution explanation to CLI section
+- [x] README — add dashboard screenshot
+- [x] README — add CI provider links (GitHub Actions, GitLab CI, Jenkins)
+- [x] README — add migration section from @serenity-js/serenity-bdd
+- [x] Update html-reporter.mdx handbook guide — outputDirectory consistency, @serenity-js/web install, config table (testRunId/moduleId/ci), --input explanation, consistencyWindow note, serve default --dir
+- [x] Write GitHub Actions CI guide (handbook/integration/github-actions.mdx) — single-module, multi-module, trend history, Docker image
+- [x] Rewrite GitLab CI guide (handbook/integration/gitlab-ci.mdx) — HTML Reporter as primary, multi-module, JUnit, Serenity BDD as alternative
+- [x] Write Jenkins CI guide (handbook/integration/jenkins-ci.mdx) — Docker agent, HTML Publisher, CSP, parallel stages, trend history
+- [x] Update Docker image suffix from -noble to -resolute across all CI guides and Docker page
+- [x] Update package READMEs to recommend html-reporter (playwright-test, playwright, webdriverio-8, protractor, webdriverio, console-reporter)
+- [x] Add migration note to @serenity-js/serenity-bdd README
+- [x] Publish dashboard screenshot to main branch (static/images/reporting/html-reporter-dashboard.png)
 - [ ] Update project templates to use @serenity-js/html-reporter and link to live HTML reports
 - [ ] Publish blog post (verify version number matches actual release)
 
@@ -35,6 +50,9 @@ Tracking document for all documentation work required to launch `@serenity-js/ht
 - [ ] Add FAQ topics to handbook article (see section below)
 - [ ] Update homepage 'Report what really matters' section to mention HTML Reporter
 - [ ] Add @serenity-js/html-reporter to API docs generation pipeline
+- [ ] Update Reporting overview page (/handbook/reporting/) — add HTML Reporter as primary recommendation
+- [ ] Update API index page (/api/) — add @serenity-js/html-reporter under "Reporting"
+- [ ] Update WebdriverIO project setup wizard to install @serenity-js/html-reporter by default
 
 ### Post-merge cleanup
 - [ ] Remove `features/html-reporter` branch conditions from `.github/workflows/main.yaml` gh-pages deploy step — keep only `github.ref == 'refs/heads/main'`

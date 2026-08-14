@@ -57,6 +57,21 @@ Update the 6 least-popular templates. These serve as canaries to validate the mi
 
 Update the website so that docs are consistent before the most-used templates switch. See [Website Changes](#website-changes) below.
 
+**Status: Mostly complete.** The following have been done:
+- ✅ GitHub Actions guide written (single-module, multi-module, trend history, Docker)
+- ✅ GitLab CI guide rewritten (HTML Reporter primary, multi-module, JUnit, Serenity BDD alternative)
+- ✅ Jenkins CI guide written (Docker agent, HTML Publisher, CSP, parallel stages, trend history)
+- ✅ Docker page updated (-noble → -resolute suffix)
+- ✅ html-reporter.mdx updated (config table, install, --input, consistencyWindow note)
+- ✅ Package READMEs updated (playwright-test, playwright, webdriverio-8, protractor, webdriverio, console-reporter, serenity-bdd)
+
+**Remaining Phase 3 work:**
+- [ ] Update `getting-started/project-templates.mdx` (replace Serenity BDD feature bullet with HTML Reports)
+- [ ] Update test-runner handbook pages (playwright-test, webdriverio, cucumber, mocha, jasmine) reporting sections
+- [ ] Update tutorial (`your-first-web-scenario.mdx`) to show html-reporter setup + re-record GIFs
+- [ ] Add `@serenity-js/html-reporter` to site package.json for TypeDoc API doc generation
+- [ ] Update WebdriverIO project setup wizard to install @serenity-js/html-reporter by default
+
 ### Phase 4 — High-traffic (templates #10–#12, 22–32 stars)
 
 **Templates:**
@@ -242,37 +257,32 @@ Update each template's README:
 
 ### Pages to update
 
-| Page | Change |
-|------|--------|
-| `getting-started/project-templates.mdx` | Replace "Serenity BDD reports" feature bullet with "HTML Reports" for all templates. Update "View Reports" links if they point to gh-pages report URLs. |
-| `handbook/test-runners/playwright-test/reporting.mdx` | Rewrite to show `@serenity-js/html-reporter` as the recommended option. Move Serenity BDD to a "Legacy: Serenity BDD Reporter" section. |
-| `handbook/test-runners/webdriverio.mdx` | Update reporting config examples to use HTML Reporter as default. |
-| `handbook/test-runners/cucumber.mdx` | Same. |
-| `handbook/test-runners/mocha.mdx` | Same. |
-| `handbook/test-runners/jasmine.mdx` | Same. |
-| `handbook/tutorials/your-first-web-scenario.mdx` | Replace serenity-bdd setup with html-reporter (simpler setup, no Java, no failsafe). **Re-record GIF** — see [Tutorial GIF Re-recording](#tutorial-gif-re-recording) below. |
-| `handbook/integration/github-actions.mdx` | **Write the full guide** (currently a "Coming soon" placeholder). See [GitHub Actions Guide Spec](#github-actions-guide-spec) below. |
-| Site `package.json` | Add `@serenity-js/html-reporter` to the dependency list for TypeDoc API doc generation. |
+| Page | Change | Status |
+|------|--------|--------|
+| `getting-started/project-templates.mdx` | Replace "Serenity BDD reports" feature bullet with "HTML Reports" for all templates. Update "View Reports" links if they point to gh-pages report URLs. | ❌ |
+| `handbook/test-runners/playwright-test/reporting.mdx` | Rewrite to show `@serenity-js/html-reporter` as the recommended option. Move Serenity BDD to a "Legacy: Serenity BDD Reporter" section. | ❌ |
+| `handbook/test-runners/webdriverio.mdx` | Update reporting config examples to use HTML Reporter as default. | ❌ |
+| `handbook/test-runners/cucumber.mdx` | Same. | ❌ |
+| `handbook/test-runners/mocha.mdx` | Same. | ❌ |
+| `handbook/test-runners/jasmine.mdx` | Same. | ❌ |
+| `handbook/tutorials/your-first-web-scenario.mdx` | Replace serenity-bdd setup with html-reporter (simpler setup, no Java, no failsafe). **Re-record GIF** — see [Tutorial GIF Re-recording](#tutorial-gif-re-recording) below. | ❌ |
+| `handbook/integration/github-actions.mdx` | **Write the full guide** — single-module, multi-module, Docker image, GitHub Pages. | ✅ |
+| `handbook/integration/gitlab-ci.mdx` | **Rewrite** — HTML Reporter as primary, multi-module, JUnit, Serenity BDD as alternative. | ✅ |
+| `handbook/integration/jenkins-ci.mdx` | **Write the full guide** — Docker agent, HTML Publisher, CSP, parallel stages, trend history. | ✅ |
+| `handbook/integration/docker.mdx` | Update image suffix from -noble to -resolute. | ✅ |
+| `handbook/reporting/html-reporter.mdx` | Fix outputDirectory, add config options, --input explanation, @serenity-js/web install, consistencyWindow note. | ✅ |
+| Site `package.json` | Add `@serenity-js/html-reporter` to the dependency list for TypeDoc API doc generation. | ❌ |
 
 ### GitHub Actions Guide Spec
 
-The page at `handbook/integration/github-actions.mdx` is currently a placeholder. Write it as a complete guide covering:
+✅ **Completed.** The page at `handbook/integration/github-actions.mdx` has been written as a complete guide covering:
 
 1. **Prerequisites** — Node.js, the `ghcr.io/serenity-js/playwright` Docker image (recommended for CI), project configured with Serenity/JS
-2. **Single-job workflow** — full working `.github/workflows/test.yml` example:
-   - Checkout, Node setup, npm install
-   - Run tests (`npm test`) — report generated automatically by html-reporter
-   - Upload report as artifact (`actions/upload-artifact`)
-   - Deploy to GitHub Pages (optional)
-3. **Multi-job (parallel/sharded) workflow** — full working example:
-   - Multiple test jobs using `TestRunArchiver` (archiving only)
-   - Upload per-job artifacts
-   - Final aggregation job: download artifacts → `npx @serenity-js/html-reporter aggregate` → deploy
-4. **Viewing the report** — link to GitHub Pages deployment, download artifact, `npx @serenity-js/html-reporter serve --open`
-5. **Using the Serenity/JS Docker image** — reference `ghcr.io/serenity-js/playwright:v<version>-noble` as the recommended container, link to the [Docker page](/handbook/integration/docker/)
-6. **Configuration tips** — environment variables for `testRunId`/`moduleId` auto-detection (the reporter auto-detects `GITHUB_RUN_NUMBER`, `GITHUB_RUN_ATTEMPT`), caching node_modules, `if: always()` for report upload
-
-The guide should use `@serenity-js/html-reporter` exclusively (not serenity-bdd). Reference the Docker image as-is — Java will be removed from it separately.
+2. **Single-module workflow** — full working `.github/workflows/test.yml` example with Docker container, report upload, and GitHub Pages deployment with trend history
+3. **Multi-module (parallel) workflow** — admin-ui/customer-ui example using matrix strategy, `TestRunArchiver`, artifact upload, aggregation job, and GitHub Pages deploy
+4. **Controlling report history** — `maxHistory` option documentation
+5. **Using Serenity BDD Reporter** — brief callout noting Docker image includes Java, linking to Serenity BDD docs and migration guide
+6. **Learn more** — links to HTML Reporter handbook, Docker images, Project Templates, GitHub Pages docs
 
 ### Tutorial GIF Re-recording
 
@@ -372,7 +382,7 @@ For the full CI integration guide, see [GitHub Actions](/handbook/integration/gi
 
 ### Docker image note
 
-Keep referencing `ghcr.io/serenity-js/playwright:v<version>-noble` in all documentation and template workflows. Java will be removed from the image in a separate change — no action needed in this rollout other than not adding Java setup steps.
+All documentation and template workflows now reference `ghcr.io/serenity-js/playwright:v<version>-resolute`. Java remains in the image for backward compatibility with Serenity BDD users — no action needed in this rollout other than not adding Java setup steps.
 
 ---
 
