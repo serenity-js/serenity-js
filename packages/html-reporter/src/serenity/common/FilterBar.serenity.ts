@@ -6,7 +6,6 @@ import { Attribute, By, Click, PageElement, Text, Value } from '@serenity-js/web
 
 import { InteractionObject } from './InteractionObject.serenity.js';
 
-/** @package */
 export class FilterBar<NET> extends InteractionObject<NET> {
 
     private chips = () =>

@@ -2,7 +2,6 @@ import type { QuestionAdapter } from '@serenity-js/core';
 import type { PageElement } from '@serenity-js/web';
 import { Attribute, Text } from '@serenity-js/web';
 
-/** @package */
 export class OutcomeBadge<NET> {
 
     constructor(private readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {

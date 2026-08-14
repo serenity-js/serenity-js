@@ -3,7 +3,6 @@ import { By } from '@serenity-js/web';
 
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 
-/** @package */
 export class ErrorBlock<NET> extends InteractionObject<NET> {
 
     private errorName = () =>

@@ -11,7 +11,6 @@ import { Navigation } from '../common/Navigation.serenity.js';
 import { ResultCount } from '../common/ResultCount.serenity.js';
 import { SearchInput } from '../common/SearchInput.serenity.js';
 
-/** @package */
 export class CapabilitiesView<NET> extends InteractionObject<NET> {
 
     private static readonly treeNodeLabelSelector = By.css('.req-tree-label');

@@ -18,7 +18,6 @@ class HistoryDotOutcome {
         }).describedAs('history dot outcome');
 }
 
-/** @package */
 export class HistoryDots<NET> extends InteractionObject<NET> {
 
     private dots = () =>

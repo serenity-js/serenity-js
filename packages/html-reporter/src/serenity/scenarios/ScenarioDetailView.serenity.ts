@@ -8,7 +8,6 @@ import { Navigation } from '../common/Navigation.serenity.js';
 import { ErrorBlock } from '../errors/ErrorBlock.serenity.js';
 import { ActivityItem } from './ActivityItem.serenity.js';
 
-/** @package */
 export class ScenarioDetailView<NET> extends InteractionObject<NET> {
 
     // Structure — page elements

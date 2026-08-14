@@ -9,7 +9,6 @@ import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { KpiCard } from '../common/KpiCard.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
 
-/** @package */
 export class TimelineView<NET> extends InteractionObject<NET> {
 
     // Structure — child interaction objects

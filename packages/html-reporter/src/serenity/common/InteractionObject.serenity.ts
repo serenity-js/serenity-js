@@ -1,12 +1,10 @@
 import type { Answerable, Optional, QuestionAdapter } from '@serenity-js/core';
 import { PageElement, PageElements, type Selector } from '@serenity-js/web';
 
-/** @package */
 export interface InteractionObjectOptions {
     mobile?: boolean;
 }
 
-/** @package */
 export class InteractionObject<NET> implements Optional {
     protected readonly mobile: boolean;
 

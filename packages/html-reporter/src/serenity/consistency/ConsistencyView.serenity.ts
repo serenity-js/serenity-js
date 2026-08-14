@@ -14,7 +14,6 @@ import { ResultCount } from '../common/ResultCount.serenity.js';
 import { SearchInput } from '../common/SearchInput.serenity.js';
 import { ScenarioItem } from '../scenarios/ScenarioItem.serenity.js';
 
-/** @package */
 export class ConsistencyView<NET> extends InteractionObject<NET> {
 
     private static readonly scenarioNameSelector = By.css('.scenario-name');

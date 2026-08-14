@@ -11,7 +11,6 @@ import { Navigation } from '../common/Navigation.serenity.js';
 import { ResultCount } from '../common/ResultCount.serenity.js';
 import { SearchInput } from '../common/SearchInput.serenity.js';
 
-/** @package */
 export class TagsView<NET> extends InteractionObject<NET> {
 
     readonly searchInput = new SearchInput<NET>(this.child(By.css('[data-testid="search-input"]')));

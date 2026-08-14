@@ -8,7 +8,6 @@ import { link } from '../../navigation/link.js';
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
 
-/** @package */
 export class TestRunsView<NET> extends InteractionObject<NET> {
 
     // Structure — page elements

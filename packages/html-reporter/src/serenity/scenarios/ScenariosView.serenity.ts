@@ -13,7 +13,6 @@ import { ResultCount } from '../common/ResultCount.serenity.js';
 import { SearchInput } from '../common/SearchInput.serenity.js';
 import { ScenarioItem } from './ScenarioItem.serenity.js';
 
-/** @package */
 export class ScenariosView<NET> extends InteractionObject<NET> {
 
     private static readonly scenarioNameSelector = By.css('.scenario-name');
