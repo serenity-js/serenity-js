@@ -383,7 +383,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - name: Set up Node
         uses: ./.github/actions/setup-node
       - name: Download compiled libs
@@ -391,13 +391,13 @@ jobs:
         with:
           artifact-name: 'compiled-libs'
       - name: Restore historical test runs from GitHub Pages
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: gh-pages
           path: target/html-report
         continue-on-error: true
       - name: Download html-report data
-        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
         with:
           pattern: 'html-report-data-*'
           path: target/html-report-data
