@@ -8,6 +8,40 @@ import { link } from '../../navigation/link.js';
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
 
+/**
+ * Interaction object representing the **Test Runs** view in the HTML report.
+ *
+ * Shows historical test runs with a stacked bar trend chart, a run list,
+ * and a details panel that appears when a run is selected. The details panel
+ * shows run metadata, commit information, and a module table with outcome counts.
+ *
+ * ## Instantiation
+ *
+ * ```ts
+ * import { TestRunsView, Navigation } from '@serenity-js/html-reporter/serenity';
+ * import { By, PageElement } from '@serenity-js/web';
+ *
+ * const testRunsView = new TestRunsView(
+ *   PageElement.located(By.css('[data-testid="test-runs"]')).describedAs('test runs view'),
+ *   new Navigation(),
+ * );
+ * ```
+ *
+ * ## Usage in an integration test
+ *
+ * ```ts
+ * await actor.attemptsTo(
+ *   testRunsView.open(),
+ *   Ensure.that(testRunsView.runCount(), isGreaterThan(0)),
+ *   Ensure.that(testRunsView.hasTrendChart(), equals(true)),
+ *   testRunsView.selectRun(0),
+ *   Ensure.that(testRunsView.hasDetailsPanel(), equals(true)),
+ *   Ensure.that(testRunsView.moduleNames(), contain('playwright-web')),
+ * );
+ * ```
+ *
+ * @group Interaction Objects
+ */
 export class TestRunsView<NET> extends InteractionObject<NET> {
 
     // Structure — page elements
@@ -25,48 +59,152 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
 
     // Behaviour — questions
 
+    /**
+     * The full body text of the test runs view container.
+     *
+     * ## Example
+     *
+     * ```ts
+     * Ensure.that(testRunsView.bodyText(), includes('Test Runs'))
+     * ```
+     */
     bodyText = (): QuestionAdapter<string> =>
         Text.of(this.appContainer).describedAs('test runs view body text');
 
+    /**
+     * The number of test run rows currently displayed in the list.
+     *
+     * ## Example
+     *
+     * ```ts
+     * Ensure.that(testRunsView.runCount(), equals(5))
+     * ```
+     */
     runCount = (): Question<Promise<number>> =>
         this.runRows.count().describedAs('number of test run rows');
 
+    /**
+     * Whether the trend chart canvas element is present.
+     *
+     * ## Example
+     *
+     * ```ts
+     * Ensure.that(testRunsView.hasTrendChart(), equals(true))
+     * ```
+     */
     hasTrendChart = (): Question<Promise<boolean>> =>
         this.chartCanvas
             .isPresent()
             .describedAs('whether the test runs view has a trend chart');
 
+    /**
+     * Whether the run details panel is currently visible.
+     *
+     * The panel appears when a run is selected via the chart or the run list.
+     *
+     * ## Example
+     *
+     * ```ts
+     * await actor.attemptsTo(
+     *   testRunsView.selectRun(0),
+     *   Ensure.that(testRunsView.hasDetailsPanel(), equals(true)),
+     * );
+     * ```
+     */
     hasDetailsPanel = (): Question<Promise<boolean>> =>
         this.detailsPanel
             .isPresent()
             .describedAs('whether the run details panel is visible');
 
+    /**
+     * The title text of the run details panel (typically the run timestamp).
+     *
+     * ## Example
+     *
+     * ```ts
+     * Ensure.that(testRunsView.detailsPanelTitle(), includes('2024-'))
+     * ```
+     */
     detailsPanelTitle = (): QuestionAdapter<string> =>
         Text.of(this.detailsTitle).trim()
             .describedAs('run details panel title');
 
+    /**
+     * The full text content of the run details panel.
+     *
+     * ## Example
+     *
+     * ```ts
+     * Ensure.that(testRunsView.detailsPanelText(), includes('modules'))
+     * ```
+     */
     detailsPanelText = (): QuestionAdapter<string> =>
         Text.of(this.detailsPanel).trim()
             .describedAs('run details panel text');
 
+    /**
+     * The text of the call-to-action button in the run details panel.
+     *
+     * ## Example
+     *
+     * ```ts
+     * Ensure.that(testRunsView.detailsCtaText(), equals('View Test Run'))
+     * ```
+     */
     detailsCtaText = (): QuestionAdapter<string> =>
         Text.of(this.detailsCta).trim()
             .describedAs('run details CTA text');
 
+    /**
+     * The displayed commit link text (typically a short SHA).
+     *
+     * ## Example
+     *
+     * ```ts
+     * Ensure.that(testRunsView.commitLinkText(), equals('abc1234'))
+     * ```
+     */
     commitLinkText = (): QuestionAdapter<string> =>
         Text.of(this.commitLink).trim()
             .describedAs('commit link text');
 
+    /**
+     * The `href` attribute of the commit link.
+     *
+     * ## Example
+     *
+     * ```ts
+     * Ensure.that(testRunsView.commitLinkHref(), includes('/commit/abc1234'))
+     * ```
+     */
     commitLinkHref = (): QuestionAdapter<string> =>
         Attribute.called('href').of(this.commitLink)
             .describedAs('commit link href');
 
+    /**
+     * Whether the module table is present in the run details panel.
+     *
+     * ## Example
+     *
+     * ```ts
+     * Ensure.that(testRunsView.hasModuleTable(), equals(true))
+     * ```
+     */
     hasModuleTable = (): Question<Promise<boolean>> =>
         PageElement.located(By.css('.run-details-table'))
             .of(this.detailsPanel)
             .isPresent()
             .describedAs('whether the run details panel has a module table');
 
+    /**
+     * The module names displayed in the details panel's module table.
+     *
+     * ## Example
+     *
+     * ```ts
+     * Ensure.that(testRunsView.moduleNames(), contain('playwright-web'))
+     * ```
+     */
     moduleNames = (): Question<Promise<string[]>> =>
         PageElements.located(By.css('.run-details-table-module a'))
             .of(this.detailsPanel)
@@ -86,6 +224,20 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
 
     // Behaviour — tasks
 
+    /**
+     * Clicks the last bar in the trend chart canvas.
+     *
+     * Uses coordinate calculation to click the rightmost bar based on the number of runs.
+     *
+     * ## Example
+     *
+     * ```ts
+     * await actor.attemptsTo(
+     *   testRunsView.clickChart(),
+     *   Ensure.that(testRunsView.hasDetailsPanel(), equals(true)),
+     * );
+     * ```
+     */
     clickChart = (): Task =>
         Task.where('#actor clicks the trend chart',
             Interaction.where('#actor clicks the last bar in the chart', async actor => {
@@ -103,6 +255,21 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
             }),
         );
 
+    /**
+     * Clicks a specific bar in the trend chart canvas by its zero-based index.
+     *
+     * ## Example
+     *
+     * ```ts
+     * await actor.attemptsTo(
+     *   testRunsView.clickChartBar(2),
+     *   Ensure.that(testRunsView.hasDetailsPanel(), equals(true)),
+     * );
+     * ```
+     *
+     * @param barIndex
+     *  Zero-based index of the chart bar to click
+     */
     clickChartBar = (barIndex: number): Task =>
         Task.where(`#actor clicks bar ${barIndex} in the trend chart`,
             Interaction.where('#actor clicks the chart canvas', async actor => {
@@ -119,6 +286,21 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
             }),
         );
 
+    /**
+     * Selects a test run by clicking its row at the given zero-based index.
+     *
+     * ## Example
+     *
+     * ```ts
+     * await actor.attemptsTo(
+     *   testRunsView.selectRun(0),
+     *   Ensure.that(testRunsView.hasDetailsPanel(), equals(true)),
+     * );
+     * ```
+     *
+     * @param index
+     *  Zero-based index of the run row to click
+     */
     selectRun = (index: number): Task =>
         Task.where(`#actor selects test run ${index + 1}`,
             Click.on(this.runRows
@@ -127,16 +309,54 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
             ),
         );
 
+    /**
+     * Clicks the call-to-action button in the run details panel (e.g. "View Test Run").
+     *
+     * ## Example
+     *
+     * ```ts
+     * await actor.attemptsTo(
+     *   testRunsView.selectRun(0),
+     *   testRunsView.clickDetailsCtaButton(),
+     * );
+     * ```
+     */
     clickDetailsCtaButton = (): Task =>
         Task.where('#actor clicks the run details CTA button',
             Click.on(this.detailsCta),
         );
 
+    /**
+     * Dismisses the run details panel by pressing Escape.
+     *
+     * ## Example
+     *
+     * ```ts
+     * await actor.attemptsTo(
+     *   testRunsView.dismissDetailsPanel(),
+     *   Ensure.that(testRunsView.hasDetailsPanel(), equals(false)),
+     * );
+     * ```
+     */
     dismissDetailsPanel = (): Task =>
         Task.where('#actor dismisses the run details panel',
             Press.the(Key.Escape),
         );
 
+    /**
+     * Clicks a module name link in the details panel's module table.
+     *
+     * ## Example
+     *
+     * ```ts
+     * await actor.attemptsTo(
+     *   testRunsView.clickModuleName('playwright-web'),
+     * );
+     * ```
+     *
+     * @param moduleName
+     *  Substring to match against module name links
+     */
     clickModuleName = (moduleName: string): Task =>
         Task.where(`#actor clicks module "${moduleName}" in the details panel`,
             Click.on(
@@ -148,12 +368,54 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
             ),
         );
 
+    /**
+     * Clicks the "Passed" outcome count for a module in the details panel table.
+     *
+     * ## Example
+     *
+     * ```ts
+     * await actor.attemptsTo(
+     *   testRunsView.clickModulePassedCount('playwright-web'),
+     * );
+     * ```
+     *
+     * @param moduleName
+     *  Module name to locate the row
+     */
     clickModulePassedCount = (moduleName: string): Task =>
         this.clickModuleOutcomeCount(moduleName, 4, 'Passed');
 
+    /**
+     * Clicks the "Failed" outcome count for a module in the details panel table.
+     *
+     * ## Example
+     *
+     * ```ts
+     * await actor.attemptsTo(
+     *   testRunsView.clickModuleFailedCount('playwright-web'),
+     * );
+     * ```
+     *
+     * @param moduleName
+     *  Module name to locate the row
+     */
     clickModuleFailedCount = (moduleName: string): Task =>
         this.clickModuleOutcomeCount(moduleName, 5, 'Failed');
 
+    /**
+     * Clicks the "Skipped" outcome count for a module in the details panel table.
+     *
+     * ## Example
+     *
+     * ```ts
+     * await actor.attemptsTo(
+     *   testRunsView.clickModuleSkippedCount('playwright-web'),
+     * );
+     * ```
+     *
+     * @param moduleName
+     *  Module name to locate the row
+     */
     clickModuleSkippedCount = (moduleName: string): Task =>
         this.clickModuleOutcomeCount(moduleName, 6, 'Skipped');
 
@@ -227,6 +489,18 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
             });
         });
 
+    /**
+     * Navigates to the Test Runs view via the sidebar navigation.
+     *
+     * ## Example
+     *
+     * ```ts
+     * await actor.attemptsTo(
+     *   testRunsView.open(),
+     *   Ensure.that(testRunsView.runCount(), isGreaterThan(0)),
+     * );
+     * ```
+     */
     open = (): Task =>
         Task.where('#actor opens the Test Runs view',
             this.navigation.openView('Test Runs'),
