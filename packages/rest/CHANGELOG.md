@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.45.5](https://github.com/serenity-js/serenity-js/compare/v3.45.4...v3.45.5) (2026-08-14)
+
+**Note:** Version bump only for package @serenity-js/rest
+
+
+
+
+
 ## [3.45.4](https://github.com/serenity-js/serenity-js/compare/v3.45.3...v3.45.4) (2026-08-13)
 
 **Note:** Version bump only for package @serenity-js/rest

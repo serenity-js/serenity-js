@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.45.5](https://github.com/serenity-js/serenity-js/compare/v3.45.4...v3.45.5) (2026-08-14)
+
+### Bug Fixes
+
+* **deps:** update dependency marked to v18 ([af042b9](https://github.com/serenity-js/serenity-js/commit/af042b9f0ac9e64be628d1e42c49245b63f7b251))
+* **html-reporter:** add comprehensive API documentation for public types ([274d31b](https://github.com/serenity-js/serenity-js/commit/274d31b9b71c758440539183c9bb84ce70a453e9))
+* **html-reporter:** remove unnecessary [@package](https://github.com/package) from interaction objects ([4d43667](https://github.com/serenity-js/serenity-js/commit/4d43667917df7d84464ce9cdec3182662489b94c))
+
+
 ## [3.45.4](https://github.com/serenity-js/serenity-js/compare/v3.45.3...v3.45.4) (2026-08-13)
 
 ### Bug Fixes
