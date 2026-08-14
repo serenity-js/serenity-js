@@ -3,8 +3,7 @@
 ## Context
 
 The `@serenity-js/html-reporter` package exports interaction objects (Screenplay Pattern
-Page Object equivalents) for testing the HTML report UI. These are currently marked `@package`
-(internal) but could serve as:
+Page Object equivalents) for testing the HTML report UI. These could serve as:
 
 1. **A reference implementation** showing how to write interaction objects following
    the patterns in `.kiro/steering/idiomatic-screenplay-tests.md`
@@ -61,103 +60,66 @@ From `src/serenity.ts`:
 | `DashboardKpiCard` | KPI card specific to the dashboard view |
 | `ErrorBlock` | Error display block (message + stack trace) |
 
-## Requirements for Making Public
+## Completed Work
 
-### 1. Comprehensive JSDoc on each interaction object
+### JSDoc documentation (done)
 
-Each class needs:
-- What report component it represents (with screenshot reference if helpful)
-- How to instantiate it (what root element to pass, required constructor args)
-- Available **Questions** (what you can observe) — listed as a table or bullet list
-- Available **Tasks** (what actions you can perform) — listed as a table or bullet list
-- A complete usage example in a component test
+All 25 interaction object files have comprehensive JSDoc covering:
 
-Example:
-```typescript
-/**
- * Represents the Test Scenarios view in the HTML report.
- *
- * ## Questions (observable state)
- * - {@link ScenariosView.scenarioCount | scenarioCount()} — number of visible scenarios
- * - {@link ScenariosView.scenarioNames | scenarioNames()} — names of visible scenarios
- *
- * ## Tasks (user actions)
- * - {@link ScenariosView.open | open()} — navigates to the Scenarios view
- * - {@link ScenariosView.find | find(term)} — searches for scenarios by name
- * - {@link ScenariosView.selectFilter | selectFilter(label)} — activates a filter chip
- *
- * ## Example
- *
- * ```ts
- * const scenariosView = new ScenariosView(
- *   PageElement.located(By.css('[data-testid="scenarios-view"]'))
- * );
- *
- * await actor.attemptsTo(
- *   scenariosView.open(),
- *   scenariosView.find('checkout'),
- *   Ensure.that(scenariosView.scenarioCount(), equals(3)),
- * );
- * ```
- *
- * @group Interaction Objects
- */
-```
+- **Class-level:** philosophy, what the IO represents, instantiation, fixture wiring, integration test usage
+- **Method-level:** every public method has its own JSDoc with `## Example` section showing it in context
+- **`@group Interaction Objects`** on every class
+- **`@param`** annotations in multi-line format matching Serenity/JS conventions
+- **`{@link}`** cross-references between composed IOs
+- **Base class** documents the full pattern: philosophy (modelling consumer-observable state and actions declaratively), composition hierarchy, PEQL scoping, Optional interface, and a "create your own" example
 
-### 2. Base class documentation
+Verified: 362 component tests pass, `npx tsc --noEmit` clean.
 
-The `InteractionObject` base class needs documentation explaining:
-- The pattern (encapsulates a root element and provides scoped child lookups)
-- The contract: `rootElement`, `child()`, `children()`, `isPresent()`
-- How it implements `Optional` for presence assertions
-- How to extend it for custom interaction objects
-- Naming conventions (Questions = nouns, Tasks = verbs)
+### `@package` annotations removed (done)
 
-### 3. `@group` annotation
+The `src/serenity.ts` entrypoint is not included in the API docs configuration,
+so `@package` annotations are unnecessary and were removed.
 
-Use `@group Interaction Objects` for all classes in this category. This creates a distinct
-section in the API docs separate from the `Stage` group (crew members).
+## Remaining Work
 
-### 4. Handbook page or guide
+### 1. Expose in API docs
 
-A handbook page showing:
+Wire `src/serenity.ts` (or its individual exports) into the API documentation generation
+so that the `Interaction Objects` group appears on serenity-js.org/api/html-reporter/.
+
+### 2. Handbook page
+
+Write a handbook page (serenity-js.org) explaining:
 - Why interaction objects exist (encapsulation, reusability, composition)
 - The composition hierarchy (View → Widget → Item)
 - How to write a custom interaction object for your own app
 - How to use the HTML Reporter's interaction objects as a reference
 
-### 5. Public contract review
+### 3. Public contract review
 
-Before publishing, review whether:
-- `InteractionObjectOptions` (mobile flag) should be public — it's an implementation detail
-  of responsive testing. Consider making it constructor-only (not part of the type export).
-- The `Navigation` class should be a standalone export or only accessible via views.
-- Child interaction objects (e.g., `ScenariosView.filterBar`) should be `readonly` public
-  fields or accessible only via delegating methods.
-
-## Value Proposition
-
-- **Community reference** — demonstrates idiomatic Screenplay Pattern interaction objects
-  that teams can study and adapt for their own projects
-- **Extensibility** — enables teams customising the HTML report to write proper component tests
-- **Dogfooding** — the same patterns recommended in the handbook are used internally
-- **Living documentation** — the interaction objects ARE the documentation of the report's
-  observable behaviour
+Before publishing to the API docs, decide:
+- Should `InteractionObjectOptions` (mobile flag) be part of the public type export,
+  or should it remain constructor-only?
+- Should `Navigation` be a standalone export or only accessible via views?
+- Should child interaction objects (e.g., `ScenariosView.filterBar`) remain as `readonly`
+  public fields, or should they only be accessible via delegating methods?
 
 ## Acceptance Criteria
 
-- [ ] All exported interaction objects have comprehensive JSDoc
-- [ ] Usage examples compile and run correctly
+- [x] All exported interaction objects have comprehensive JSDoc
+- [x] Usage examples compile and run correctly
 - [ ] A handbook section explains the interaction object pattern
-- [ ] `@group Interaction Objects` annotations create a clear category in the API docs
-- [ ] The base `InteractionObject` class documents the contract
-- [ ] At least one complete "how to write your own" example in the handbook
-- [ ] Mobile-specific API (if exposed) is clearly documented
+- [x] `@group Interaction Objects` annotations create a clear category in the API docs
+- [x] The base `InteractionObject` class documents the contract
+- [x] At least one complete "how to write your own" example in the base class JSDoc
+- [x] Mobile-specific API (if exposed) is clearly documented
+- [ ] `src/serenity.ts` entrypoint wired into API docs generation
+- [ ] Public contract review completed
 
 ## Priority
 
-Non-blocking for initial release. Can be published in a follow-up minor version.
-The `@package` annotations prevent these from appearing in public API docs until ready.
+Non-blocking for initial release. Handbook page and API docs exposure can be published
+in a follow-up minor version.
 
 ## Related
 
