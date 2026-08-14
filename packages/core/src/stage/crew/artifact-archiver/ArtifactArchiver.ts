@@ -22,6 +22,11 @@ import { Hash } from './Hash.js';
 /**
  * Stores any artifacts emitted via [`ArtifactGenerated`](https://serenity-js.org/api/core-events/class/ArtifactGenerated/) events on the file system.
  *
+ * **Note:** When using [`@serenity-js/html-reporter`](https://serenity-js.org/api/html-reporter/), you do **not** need
+ * to register `ArtifactArchiver` separately — the HTML Reporter handles artifact storage internally.
+ * `ArtifactArchiver` is needed when using [`@serenity-js/serenity-bdd`](https://serenity-js.org/api/serenity-bdd/)
+ * or other reporters that require artifacts to be persisted to disk.
+ *
  * ## Registering Artifact Archiver programmatically
  *
  * ```ts

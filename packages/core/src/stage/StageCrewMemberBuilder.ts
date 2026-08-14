@@ -5,7 +5,8 @@ import type { StageCrewMemberBuilderDependencies } from './StageCrewMemberBuilde
  * Use a [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMemberBuilder/) to configure complex [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) objects.
  *
  * Useful when you're interested in implementing custom reporters with multiple configuration options.
- * See [`ConsoleReporter`](https://serenity-js.org/api/console-reporter/class/ConsoleReporter/) for an example.
+ * See [`ConsoleReporter`](https://serenity-js.org/api/console-reporter/class/ConsoleReporter/)
+ * and [`HtmlReporter`](https://serenity-js.org/api/html-reporter/class/HtmlReporter/) for examples.
  *
  * ## Learn more
  * - [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/)

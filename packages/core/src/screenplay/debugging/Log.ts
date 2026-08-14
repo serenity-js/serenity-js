@@ -13,7 +13,8 @@ import type { AnswersQuestions } from '../questions/index.js';
  * and answers to [answerables](https://serenity-js.org/api/core/#Answerable),
  * so that they can be sent to the [stage crew members](https://serenity-js.org/api/core/interface/StageCrewMember/)
  * and printed to the terminal by the [`ConsoleReporter`](https://serenity-js.org/api/console-reporter/class/ConsoleReporter/)
- * or attached to the HTML report by the [`SerenityBDDReporter`](https://serenity-js.org/api/serenity-bdd/class/SerenityBDDReporter/).
+ * or attached to the HTML report by the [`HtmlReporter`](https://serenity-js.org/api/html-reporter/class/HtmlReporter/)
+ * or the [`SerenityBDDReporter`](https://serenity-js.org/api/serenity-bdd/class/SerenityBDDReporter/).
  *
  * ## Logging static and `Answerable` values
  *
