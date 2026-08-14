@@ -3,6 +3,7 @@ import { Attribute, By } from '@serenity-js/web';
 
 import { InteractionObject } from './InteractionObject.serenity.js';
 
+/** @package */
 export class KpiCard<NET> extends InteractionObject<NET> {
 
     private labelElement = () =>

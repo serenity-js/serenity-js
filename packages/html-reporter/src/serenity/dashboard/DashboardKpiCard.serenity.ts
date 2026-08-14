@@ -4,6 +4,7 @@ import { Attribute, By, Click } from '@serenity-js/web';
 
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 
+/** @package */
 export class DashboardKpiCard<NET> extends InteractionObject<NET> {
 
     private labelElement = () =>

@@ -10,10 +10,77 @@ import { HtmlReportGenerator } from './HtmlReportGenerator.js';
 import { ReportTemplateWriter } from './reporting/index.js';
 
 /**
- * A {@link StageCrewMember} that produces a self-contained static HTML report.
- * Composes {@link TestRunArchiver} (data collection) and {@link HtmlReportGenerator} (report generation).
+ * A [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) that produces
+ * a self-contained static HTML report with trend analysis, consistency classification,
+ * and living documentation.
  *
- * ## Registering the HTML Reporter
+ * `HtmlReporter` handles the **full lifecycle** — it collects test data during the run
+ * (screenshots, activity trees, domain events) AND generates the aggregated HTML report
+ * when the test run finishes. Internally, it composes {@link TestRunArchiver} (data collection)
+ * and {@link HtmlReportGenerator} (report generation).
+ *
+ * For CI pipelines where data collection and report generation happen in separate steps,
+ * use {@link TestRunArchiver} and {@link HtmlReportGenerator} independently instead.
+ *
+ * ## Registering HTML Reporter with Playwright Test
+ *
+ * ```ts
+ * // playwright.config.ts
+ * import { defineConfig } from '@playwright/test';
+ * import type { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test';
+ *
+ * export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
+ *   reporter: [
+ *     ['line'],
+ *     ['@serenity-js/playwright-test', {
+ *       crew: [
+ *         ['@serenity-js/html-reporter', {
+ *           outputDirectory: './reports/serenity-js',
+ *           specDirectory: './tests',
+ *         }],
+ *       ],
+ *     }],
+ *   ],
+ * });
+ * ```
+ *
+ * ## Registering HTML Reporter with WebdriverIO
+ *
+ * ```ts
+ * // wdio.conf.ts
+ * import type { WebdriverIOConfig } from '@serenity-js/webdriverio';
+ *
+ * export const config: WebdriverIOConfig = {
+ *   framework: '@serenity-js/webdriverio',
+ *   serenity: {
+ *     crew: [
+ *       ['@serenity-js/html-reporter', {
+ *         outputDirectory: './reports/serenity-js',
+ *         specDirectory: './tests',
+ *       }],
+ *     ],
+ *   },
+ * };
+ * ```
+ *
+ * ## Registering HTML Reporter programmatically (Cucumber, Mocha, Jasmine)
+ *
+ * ```ts
+ * import { configure } from '@serenity-js/core';
+ *
+ * configure({
+ *   crew: [
+ *     ['@serenity-js/html-reporter', {
+ *       outputDirectory: './reports/serenity-js',
+ *       specDirectory: './tests',
+ *     }],
+ *   ],
+ * });
+ * ```
+ *
+ * ## Using string-based registration with defaults
+ *
+ * When no configuration is needed, register the reporter as a module path string:
  *
  * ```ts
  * import { configure } from '@serenity-js/core';
@@ -25,10 +92,48 @@ import { ReportTemplateWriter } from './reporting/index.js';
  * });
  * ```
  *
+ * ## Using `fromJSON` for programmatic registration
+ *
+ * The {@link HtmlReporter.fromJSON} static method creates a
+ * [`StageCrewMemberBuilder`](https://serenity-js.org/api/core/interface/StageCrewMemberBuilder/)
+ * from an {@link HtmlReporterConfig} object:
+ *
+ * ```ts
+ * import { configure } from '@serenity-js/core';
+ * import { HtmlReporter } from '@serenity-js/html-reporter';
+ *
+ * configure({
+ *   crew: [
+ *     HtmlReporter.fromJSON({
+ *       outputDirectory: './target/site/serenity',
+ *       specDirectory: './tests',
+ *       title: 'My Project — Acceptance Tests',
+ *     }),
+ *   ],
+ * });
+ * ```
+ *
+ * ## Learn more
+ *
+ * - {@link HtmlReporterConfig} — configuration options
+ * - {@link TestRunArchiver} — data collection only (for split CI workflows)
+ * - {@link HtmlReportGenerator} — report generation only (for post-hoc aggregation)
+ * - [HTML Reporter Handbook](https://serenity-js.org/handbook/reporting/html-reporter/)
+ *
  * @group Stage
  */
 export class HtmlReporter implements StageCrewMember {
 
+    /**
+     * Creates a {@link StageCrewMemberBuilder} that will instantiate the `HtmlReporter`
+     * with the provided {@link HtmlReporterConfig}.
+     *
+     * This is the programmatic equivalent of registering the reporter as a tuple:
+     * `['@serenity-js/html-reporter', config]`.
+     *
+     * @param config
+     *  Configuration options for the reporter. All properties are optional.
+     */
     static fromJSON(config: HtmlReporterConfig = {}): StageCrewMemberBuilder<HtmlReporter> {
         return new HtmlReporterBuilder(config);
     }

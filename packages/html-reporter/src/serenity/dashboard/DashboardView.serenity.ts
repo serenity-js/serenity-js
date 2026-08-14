@@ -8,6 +8,7 @@ import { Navigation } from '../common/Navigation.serenity.js';
 import { ConsistencyItem } from './ConsistencyItem.serenity.js';
 import { DashboardKpiCard } from './DashboardKpiCard.serenity.js';
 
+/** @package */
 export class DashboardView<NET> extends InteractionObject<NET> {
 
     private static readonly statusItemNameSelector = By.css('.status-item-name');

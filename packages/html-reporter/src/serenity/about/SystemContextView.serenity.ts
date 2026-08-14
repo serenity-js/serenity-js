@@ -17,6 +17,7 @@ class ContextItem {
         }).describedAs('context item');
 }
 
+/** @package */
 export class SystemContextView<NET> extends InteractionObject<NET> {
 
     constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {

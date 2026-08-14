@@ -1,6 +1,8 @@
 /**
  * Current schema version of the ReportData model.
  * Increment when making structural changes to the data.js format.
+ *
+ * @package
  */
 export const CURRENT_REPORT_DATA_SCHEMA_VERSION = 1;
 
@@ -10,6 +12,8 @@ export const CURRENT_REPORT_DATA_SCHEMA_VERSION = 1;
  *
  * Used by both the report template at runtime and by test factories
  * to keep mocks in sync with the real data structure.
+ *
+ * @package
  */
 export interface ReportData {
     schemaVersion: number;
@@ -25,6 +29,9 @@ export interface ReportData {
     specDirectory?: string;
 }
 
+/**
+ * @package
+ */
 export interface ReportSummary {
     title: string;
     totalScenarios: number;
@@ -35,6 +42,9 @@ export interface ReportSummary {
     testRunner: string;
 }
 
+/**
+ * @package
+ */
 export interface ReportOutcomes {
     passed: number;
     failed: number;
@@ -44,6 +54,9 @@ export interface ReportOutcomes {
     error: number;
 }
 
+/**
+ * @package
+ */
 export interface ReportScenario {
     id?: string;
     name: string;
@@ -65,16 +78,25 @@ export interface ReportScenario {
     video?: string;
 }
 
+/**
+ * @package
+ */
 export interface ReportSource {
     path: string;
     line?: number;
 }
 
+/**
+ * @package
+ */
 export interface ReportScenarioTag {
     type: string;
     name: string;
 }
 
+/**
+ * @package
+ */
 export interface ReportActivity {
     type?: string;
     name: string;
@@ -91,6 +113,9 @@ export interface ReportActivity {
     docString?: string;
 }
 
+/**
+ * @package
+ */
 export interface ReportRestQuery {
     method: string;
     url: string;
@@ -101,12 +126,18 @@ export interface ReportRestQuery {
     responseBody?: string;
 }
 
+/**
+ * @package
+ */
 export interface ReportDataEntry {
     title: string;
     contents: string;
     contentType?: string;
 }
 
+/**
+ * @package
+ */
 export interface ReportExecutionHistoryEntry {
     outcome: string;
     run: string;
@@ -119,12 +150,18 @@ export interface ReportExecutionHistoryEntry {
     retriedAndPassed?: boolean;
 }
 
+/**
+ * @package
+ */
 export interface ReportError {
     name: string;
     message: string;
     stack?: string;
 }
 
+/**
+ * @package
+ */
 export interface ReportAttempt {
     attemptNumber: number;
     outcome: string;
@@ -134,11 +171,17 @@ export interface ReportAttempt {
     video?: string;
 }
 
+/**
+ * @package
+ */
 export interface ReportScenarioOutline {
     template: string;
     parameters: ReportParameterSet[];
 }
 
+/**
+ * @package
+ */
 export interface ReportParameterSet {
     name?: string;
     description?: string;
@@ -148,6 +191,9 @@ export interface ReportParameterSet {
     values: Record<string, string>;
 }
 
+/**
+ * @package
+ */
 export interface ReportHistoryEntry {
     timestamp: string;
     duration: number;
@@ -170,6 +216,9 @@ export interface ReportHistoryEntry {
     }>;
 }
 
+/**
+ * @package
+ */
 export interface ReportHistoryScore {
     confidence: number;   // 0–100
     passRate: number;     // 0–100
@@ -177,6 +226,9 @@ export interface ReportHistoryScore {
     completeness: number; // 0–100
 }
 
+/**
+ * @package
+ */
 export interface ReportTag {
     type: string;
     name: string;
@@ -186,6 +238,9 @@ export interface ReportTag {
     skipped: number;
 }
 
+/**
+ * @package
+ */
 export interface ReportInconsistentTest {
     name: string;
     category: string;
@@ -196,6 +251,9 @@ export interface ReportInconsistentTest {
     labels: string[];
 }
 
+/**
+ * @package
+ */
 export interface ReportScenarioRef {
     name: string;
     category: string;
@@ -203,6 +261,9 @@ export interface ReportScenarioRef {
     tags?: ReportScenarioTag[];
 }
 
+/**
+ * @package
+ */
 export interface ReportSystemContext {
     nodeVersion: string;
     os: { name: string; version: string; arch: string };
@@ -215,6 +276,9 @@ export interface ReportSystemContext {
     environmentUnderTest?: string;
 }
 
+/**
+ * @package
+ */
 export interface ReportCIContext {
     provider: string;
     buildNumber: string;
@@ -231,6 +295,9 @@ export interface ReportCIContext {
     triggeredBy?: string;
 }
 
+/**
+ * @package
+ */
 export interface ReportCapabilityNode {
     type: 'directory' | 'file';
     name: string;
@@ -245,6 +312,9 @@ export interface ReportCapabilityNode {
     delta?: number;
 }
 
+/**
+ * @package
+ */
 export interface CapabilityScore {
     confidence: number;   // 0–100 composite
     passRate: number;     // 0–100

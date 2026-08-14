@@ -5,6 +5,7 @@ import { Attribute, By, Click, Text } from '@serenity-js/web';
 
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 
+/** @package */
 export class ScenarioItem<NET> extends InteractionObject<NET> {
 
     // Structure — page elements

@@ -5,12 +5,16 @@ import type { SystemContext } from '../collection/SystemContextDetector.js';
 /**
  * Current schema version of the RunData model.
  * Increment when making structural changes to the db.json format.
+ *
+ * @package
  */
 export const CURRENT_RUN_DATA_SCHEMA_VERSION = 1;
 
 /**
  * Branded type for ISO 8601 timestamp strings.
  * Prevents accidentally passing arbitrary strings where timestamps are expected.
+ *
+ * @package
  */
 export type ISOTimestamp = string & { readonly __brand: 'ISOTimestamp' };
 
@@ -20,6 +24,8 @@ export type ISOTimestamp = string & { readonly __brand: 'ISOTimestamp' };
  *
  * @param value - An ISO 8601 date-time string (e.g. `2024-06-15T14:30:00.000Z`)
  * @throws Error if the value does not match the expected format
+ *
+ * @package
  */
 export function isoTimestamp(value: string): ISOTimestamp {
     if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(value)) {
@@ -48,6 +54,9 @@ export interface RunData {
     modules?: Array<{ moduleId: string; startedAt: string; finishedAt?: string; outcome?: 'passed' | 'failed' | 'incomplete'; outcomes?: OutcomeCounts }>;
 }
 
+/**
+ * @package
+ */
 export interface OutcomeCounts {
     passed: number;
     failed: number;
@@ -95,8 +104,14 @@ interface OutlineSceneRecord extends BaseSceneRecord {
     retries?: never;
 }
 
+/**
+ * @package
+ */
 export type SceneRecord = SimpleSceneRecord | RetriedSceneRecord | OutlineSceneRecord;
 
+/**
+ * @package
+ */
 export interface ScenarioParameterSet {
     name: string;
     description?: string;
@@ -106,6 +121,9 @@ export interface ScenarioParameterSet {
     activities: ActivityRecord[];
 }
 
+/**
+ * @package
+ */
 export interface ActivityRecord {
     type: string;
     name: string;
@@ -120,6 +138,9 @@ export interface ActivityRecord {
     reportData?: ReportDataRecord[];
 }
 
+/**
+ * @package
+ */
 export interface RestQueryRecord {
     method: string;
     url: string;
@@ -130,23 +151,35 @@ export interface RestQueryRecord {
     responseBody?: string;
 }
 
+/**
+ * @package
+ */
 export interface ReportDataRecord {
     title: string;
     contents: string;
     contentType?: string;
 }
 
+/**
+ * @package
+ */
 export interface ErrorRecord {
     name: string;
     message: string;
     stack: string;
 }
 
+/**
+ * @package
+ */
 export interface TagRecord {
     type: string;
     name: string;
 }
 
+/**
+ * @package
+ */
 export interface AttemptRecord {
     attemptNumber: number;
     outcome: SerialisedOutcome;
@@ -156,11 +189,17 @@ export interface AttemptRecord {
     video?: string;
 }
 
+/**
+ * @package
+ */
 export interface ActorRecord {
     name: string;
     abilities: Array<{ name: string; details?: string }>;
 }
 
+/**
+ * @package
+ */
 export interface ArtifactReference {
     path: string;
     type: string;

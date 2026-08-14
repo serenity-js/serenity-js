@@ -4,6 +4,7 @@ import { Attribute, By, Click, Enter, Value } from '@serenity-js/web';
 
 import { InteractionObject } from './InteractionObject.serenity.js';
 
+/** @package */
 export class SearchInput<NET> extends InteractionObject<NET> {
 
     private inputField = () =>

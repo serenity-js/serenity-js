@@ -3,6 +3,7 @@ import type { Answerable, QuestionAdapter } from '@serenity-js/core';
 import { Check, notes, Task, the, Wait } from '@serenity-js/core';
 import { Attribute, By, Click, isVisible, Page, PageElement, PageElements, Text } from '@serenity-js/web';
 
+/** @package */
 export class Navigation {
     private static routeRegex = /^#\/([^?]+)/;
 

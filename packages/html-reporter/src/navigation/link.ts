@@ -137,25 +137,25 @@ export type OutcomeFilter = 'all' | 'passed' | 'failed' | 'skipped' | 'pending' 
  * 
  * Uses discriminated union types to ensure only valid parameters are accepted for each view.
  * 
- * @example
+ * ## Example
+ * 
+ * ```ts
  * // Navigate to test scenarios view
  * link({ view: 'tests' })
  * // → '/tests'
  * 
- * @example
  * // Filter scenarios by search
  * link({ view: 'tests', search: '@module:playwright-test' })
  * // → '/tests?search=%40module%3Aplaywright-test'
  * 
- * @example
  * // View scenario detail
  * link({ view: 'tests', path: 'auth.spec.ts:42', run: '8333', browser: 'chromium' })
  * // → '/tests/auth.spec.ts%3A42?run=8333&browser=chromium'
  * 
- * @example
  * // Navigate to capabilities with path
  * link({ view: 'capabilities', path: 'authentication/login' })
  * // → '/capabilities?path=authentication%2Flogin'
+ * ```
  * 
  * @param options - Link configuration with view type and parameters
  * @returns URL path with properly encoded path segments and query parameters
@@ -251,13 +251,15 @@ function buildQueryParameters(options: LinkOptions): URLSearchParams {
  * Convenience function for building test scenario list URLs.
  * More concise than writing `link({ view: 'tests', ... })`.
  * 
- * @example
+ * ## Example
+ * 
+ * ```ts
  * testsLink()
  * // → '/tests'
  * 
- * @example
  * testsLink({ run: '42', filter: 'failed' })
  * // → '/tests?run=42&filter=failed'
+ * ```
  * 
  * @param options - Optional TestsLink parameters (omit the 'view' field)
  * @returns URL path for tests view
@@ -270,13 +272,15 @@ export function testsLink(options: Omit<TestsLink, 'view'> = {}): string {
  * Convenience function for building scenario detail URLs.
  * Handles the common pattern of building IDs from source location.
  * 
- * @example
+ * ## Example
+ * 
+ * ```ts
  * scenarioLink({ path: 'auth.spec.ts', line: 42 })
  * // → '/tests/auth.spec.ts%3A42'
  * 
- * @example
  * scenarioLink({ path: 'auth.spec.ts', line: 42 }, { run: '8333', browser: 'chromium' })
  * // → '/tests/auth.spec.ts%3A42?run=8333&browser=chromium'
+ * ```
  * 
  * @param source - Source location with path and optional line number or name
  * @param options - Optional additional TestsLink parameters
@@ -297,9 +301,12 @@ export function scenarioLink(
 /**
  * Convenience function for building capability detail URLs.
  * 
- * @example
+ * ## Example
+ * 
+ * ```ts
  * capabilityLink('authentication/login')
  * // → '/capabilities?path=authentication%2Flogin'
+ * ```
  * 
  * @param path - Capability tree path
  * @returns URL path for capability detail

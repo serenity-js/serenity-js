@@ -4,13 +4,16 @@
  * 
  * Used for cleaning up stack traces and error messages for display.
  * 
+ * ## Example
+ * 
+ * ```ts
+ * stripAbsolutePaths('Error at /project/spec/auth.spec.ts:42', 'spec')
+ * // → 'Error at spec/auth.spec.ts:42'
+ * ```
+ * 
  * @param text - Error message or stack trace
  * @param specDirectory - Spec directory name
  * @returns Text with absolute paths stripped
- * 
- * @example
- * stripAbsolutePaths('Error at /project/spec/auth.spec.ts:42', 'spec')
- * // → 'Error at spec/auth.spec.ts:42'
  */
 export function stripAbsolutePaths(text: string, specDirectory?: string): string {
     if (!specDirectory || !text) return text;

@@ -11,6 +11,7 @@ import { Navigation } from '../common/Navigation.serenity.js';
 import { ResultCount } from '../common/ResultCount.serenity.js';
 import { SearchInput } from '../common/SearchInput.serenity.js';
 
+/** @package */
 export class CapabilitiesView<NET> extends InteractionObject<NET> {
 
     private static readonly treeNodeLabelSelector = By.css('.req-tree-label');
@@ -196,9 +197,12 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
      * @param path - Capability tree path (e.g., 'authentication/login')
      * @returns URL path with hash and query parameters
      * 
-     * @example
+     * ## Example
+     * 
+     * ```ts
      * view.capabilityDetailUrl('authentication/login')
      * // → '#/capabilities?path=authentication%2Flogin'
+     * ```
      */
     capabilityDetailUrl = (path: string): string =>
         '#' + link({ view: 'capabilities', path });

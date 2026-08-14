@@ -85,13 +85,16 @@ export function relativeLocationPath(location: { path: string; line: number; col
  * Strips the spec directory prefix from a file path for display purposes.
  * Uses a marker-based approach to find the spec directory anywhere in the path.
  * 
+ * ## Example
+ * 
+ * ```ts
+ * stripAbsolutePrefix('/project/spec/auth.spec.ts', 'spec')
+ * // → 'auth.spec.ts'
+ * ```
+ * 
  * @param filePath - Full file path
  * @param specDirectory - Spec directory name (e.g., "spec", "test")
  * @returns Relative path from spec directory
- * 
- * @example
- * stripAbsolutePrefix('/project/spec/auth.spec.ts', 'spec')
- * // → 'auth.spec.ts'
  * 
  * @package
  */

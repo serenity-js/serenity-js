@@ -6,6 +6,7 @@ import { By, Text } from '@serenity-js/web';
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
 
+/** @package */
 export class AboutView<NET> extends InteractionObject<NET> {
 
     constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {

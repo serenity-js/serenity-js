@@ -8,6 +8,7 @@ import { link } from '../../navigation/link.js';
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
 
+/** @package */
 export class TestRunsView<NET> extends InteractionObject<NET> {
 
     // Structure — page elements
@@ -193,20 +194,21 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
      * @param filter - Optional outcome filter ('passed', 'failed', 'skipped')
      * @returns URL path with hash and query parameters
      * 
-     * @example
+     * ## Example
+     * 
+     * ```ts
      * // With static values
      * view.moduleUrl('playwright-web', '42')
      * // → '#/tests?run=42&search=%40module%3Aplaywright-web'
      * 
-     * @example
      * // With outcome filter
      * view.moduleUrl('playwright-web', '42', 'failed')
      * // → '#/tests?run=42&search=%40module%3Aplaywright-web&filter=failed'
      * 
-     * @example
      * // With Question (idiomatic Screenplay)
      * view.moduleUrl('playwright-web', view.currentRunId(), 'passed')
      * // Actor resolves currentRunId() automatically
+     * ```
      */
     moduleUrl = (
         moduleName: Answerable<string>,

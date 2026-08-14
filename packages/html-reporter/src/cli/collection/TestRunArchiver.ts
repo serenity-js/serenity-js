@@ -40,22 +40,117 @@ interface ArchiverDependencies {
 }
 
 /**
- * A {@link StageCrewMember} that archives test run data (db.json + artifacts)
- * without generating the aggregated HTML report.
+ * A [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) that archives
+ * test run data (`db.json`) and screenshot artifacts to disk during the test run.
  *
- * Use this in CI pipelines where report generation is deferred to a separate step.
+ * Unlike {@link HtmlReporter}, this crew member does **not** generate the aggregated HTML report.
+ * It only persists the raw data. Use it in CI pipelines where each parallel job archives its
+ * own data, and a separate aggregation step (via {@link HtmlReportGenerator} or the CLI) combines
+ * all data into a single report.
  *
- * ## Usage
+ * ## When to use `TestRunArchiver` instead of `HtmlReporter`
+ *
+ * Use {@link HtmlReporter} (the default) when you want a single crew member to handle
+ * both data collection and report generation in the same process.
+ *
+ * Use `TestRunArchiver` when:
+ * - Tests run in parallel across multiple CI jobs or containers
+ * - Report generation should happen after all test jobs complete
+ * - You need to aggregate results from multiple shards into one report
+ *
+ * ## Split workflow for parallel CI jobs
+ *
+ * **Step 1:** Register `TestRunArchiver` in each parallel CI job:
  *
  * ```ts
  * import { configure } from '@serenity-js/core';
  *
  * configure({
  *   crew: [
- *     '@serenity-js/html-reporter:TestRunArchiver',
+ *     ['@serenity-js/html-reporter:TestRunArchiver', {
+ *       outputDirectory: './target/site/serenity',
+ *       testRunId: process.env.BUILD_NUMBER,
+ *       moduleId: 'api-tests',
+ *     }],
  *   ],
  * });
  * ```
+ *
+ * **Step 2:** After all jobs finish, aggregate and generate the report:
+ *
+ * ```sh
+ * npx @serenity-js/html-reporter aggregate \
+ *   --input "./target/site/serenity/test-runs/**" \
+ *   --output ./target/site/serenity \
+ *   --spec-directory ./tests
+ * ```
+ *
+ * ## Registering with Playwright Test
+ *
+ * ```ts
+ * // playwright.config.ts
+ * import { defineConfig } from '@playwright/test';
+ * import type { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test';
+ *
+ * export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
+ *   reporter: [
+ *     ['line'],
+ *     ['@serenity-js/playwright-test', {
+ *       crew: [
+ *         ['@serenity-js/html-reporter:TestRunArchiver', {
+ *           outputDirectory: './target/site/serenity',
+ *           testRunId: process.env.GITHUB_RUN_NUMBER,
+ *           moduleId: 'e2e-chrome',
+ *         }],
+ *       ],
+ *     }],
+ *   ],
+ * });
+ * ```
+ *
+ * ## Registering with WebdriverIO
+ *
+ * ```ts
+ * // wdio.conf.ts
+ * import type { WebdriverIOConfig } from '@serenity-js/webdriverio';
+ *
+ * export const config: WebdriverIOConfig = {
+ *   framework: '@serenity-js/webdriverio',
+ *   serenity: {
+ *     crew: [
+ *       ['@serenity-js/html-reporter:TestRunArchiver', {
+ *         outputDirectory: './target/site/serenity',
+ *         testRunId: process.env.BUILD_NUMBER,
+ *         moduleId: 'wdio-chrome',
+ *       }],
+ *     ],
+ *   },
+ * };
+ * ```
+ *
+ * ## Programmatic registration with `fromJSON`
+ *
+ * ```ts
+ * import { configure } from '@serenity-js/core';
+ * import { TestRunArchiver } from '@serenity-js/html-reporter';
+ *
+ * configure({
+ *   crew: [
+ *     TestRunArchiver.fromJSON({
+ *       outputDirectory: './target/site/serenity',
+ *       testRunId: process.env.BUILD_NUMBER,
+ *       moduleId: 'api-tests',
+ *     }),
+ *   ],
+ * });
+ * ```
+ *
+ * ## Learn more
+ *
+ * - {@link HtmlReporter} — all-in-one crew member (collection + generation)
+ * - {@link HtmlReportGenerator} — report generation only
+ * - {@link HtmlReporterConfig} — configuration options
+ * - [CI Integration Guide](https://serenity-js.org/handbook/reporting/html-reporter/#ci-integration)
  *
  * @group Stage
  */
@@ -75,6 +170,13 @@ export class TestRunArchiver implements StageCrewMember {
     private readonly moduleId?: string;
     private readonly attempt: number;
 
+    /**
+     * Creates a {@link StageCrewMemberBuilder} that will instantiate the `TestRunArchiver`
+     * with the provided {@link HtmlReporterConfig}.
+     *
+     * @param config
+     *  Configuration options for the archiver. All properties are optional.
+     */
     static fromJSON(config: HtmlReporterConfig = {}): StageCrewMemberBuilder<TestRunArchiver> {
         return new TestRunArchiverBuilder(config);
     }

@@ -3,6 +3,7 @@ import { By } from '@serenity-js/web';
 
 import { InteractionObject } from './InteractionObject.serenity.js';
 
+/** @package */
 export class RestQueryPanel<NET> extends InteractionObject<NET> {
 
     method = (): QuestionAdapter<string> =>

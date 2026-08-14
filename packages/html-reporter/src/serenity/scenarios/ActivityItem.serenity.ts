@@ -3,6 +3,7 @@ import { Attribute, By } from '@serenity-js/web';
 
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 
+/** @package */
 export class ActivityItem<NET> extends InteractionObject<NET> {
 
     private activityIcon = () =>

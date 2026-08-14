@@ -13,6 +13,7 @@ import { ResultCount } from '../common/ResultCount.serenity.js';
 import { SearchInput } from '../common/SearchInput.serenity.js';
 import { ScenarioItem } from './ScenarioItem.serenity.js';
 
+/** @package */
 export class ScenariosView<NET> extends InteractionObject<NET> {
 
     private static readonly scenarioNameSelector = By.css('.scenario-name');
@@ -134,13 +135,15 @@ export class ScenariosView<NET> extends InteractionObject<NET> {
      * @param runId - Optional test run ID
      * @returns URL path with hash and query parameters
      * 
-     * @example
+     * ## Example
+     * 
+     * ```ts
      * view.searchUrl('@module:playwright-web')
      * // → '#/tests?search=%40module%3Aplaywright-web'
      * 
-     * @example
      * view.searchUrl('@module:playwright-web', '42')
      * // → '#/tests?run=42&search=%40module%3Aplaywright-web'
+     * ```
      */
     searchUrl = (searchTerm: string, runId?: string): string =>
         '#' + link({ view: 'tests', run: runId, search: searchTerm });
@@ -152,13 +155,15 @@ export class ScenariosView<NET> extends InteractionObject<NET> {
      * @param runId - Optional test run ID
      * @returns URL path with hash and query parameters
      * 
-     * @example
+     * ## Example
+     * 
+     * ```ts
      * view.filterUrl('failed')
      * // → '#/tests?filter=failed'
      * 
-     * @example
      * view.filterUrl('passed', '42')
      * // → '#/tests?run=42&filter=passed'
+     * ```
      */
     filterUrl = (filter: OutcomeFilter, runId?: string): string =>
         '#' + link({ view: 'tests', run: runId, filter });
@@ -170,13 +175,15 @@ export class ScenariosView<NET> extends InteractionObject<NET> {
      * @param runId - Optional test run ID
      * @returns URL path with hash and query parameters
      * 
-     * @example
+     * ## Example
+     * 
+     * ```ts
      * view.scenarioDetailUrl({ path: 'auth.spec.ts', line: 42 })
      * // → '#/tests/auth.spec.ts%3A42'
      * 
-     * @example
      * view.scenarioDetailUrl({ path: 'auth.spec.ts', line: 42 }, '8333')
      * // → '#/tests/auth.spec.ts%3A42?run=8333'
+     * ```
      */
     scenarioDetailUrl = (scenario: { path: string; line?: number }, runId?: string): string => {
         const path = scenario.line !== undefined

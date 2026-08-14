@@ -15,21 +15,65 @@ import type { HtmlReporterConfig } from './HtmlReporterConfig.js';
 import { ReportTemplateWriter } from './reporting/index.js';
 
 /**
- * A {@link StageCrewMember} that aggregates test run data and generates
- * the HTML report (data.js + index.html).
+ * A [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) that aggregates
+ * archived test run data and generates the HTML report (`data.js` + `index.html`).
  *
- * Can also be used standalone (without being a crew member) via the
- * `serenity-js-html-reporter` CLI for post-hoc aggregation of test runs
- * from multiple sources.
+ * Unlike {@link HtmlReporter}, this crew member does **not** collect test data during the run.
+ * It only performs the aggregation and HTML generation step. Use it when data collection
+ * is handled separately by {@link TestRunArchiver} — for example, in CI pipelines where
+ * parallel jobs each archive their own data, and a final step aggregates everything into one report.
  *
- * ## Usage as a crew member
+ * The `serenity-js-html-reporter aggregate` CLI command uses `HtmlReportGenerator` internally.
+ *
+ * ## When to use `HtmlReportGenerator` instead of `HtmlReporter`
+ *
+ * Use {@link HtmlReporter} (the default) when you want a single crew member to handle
+ * both data collection and report generation in the same process.
+ *
+ * Use `HtmlReportGenerator` when:
+ * - Test data is archived separately (by {@link TestRunArchiver} or an external process)
+ * - Report generation runs in a dedicated post-processing step
+ * - You aggregate results from multiple CI jobs into a single report
+ *
+ * ## Registering as a crew member
  *
  * ```ts
  * import { configure } from '@serenity-js/core';
  *
  * configure({
  *   crew: [
- *     '@serenity-js/html-reporter:HtmlReportGenerator',
+ *     ['@serenity-js/html-reporter:HtmlReportGenerator', {
+ *       outputDirectory: './target/site/serenity',
+ *       specDirectory: './tests',
+ *     }],
+ *   ],
+ * });
+ * ```
+ *
+ * ## Standalone usage via CLI
+ *
+ * When test data has been archived by {@link TestRunArchiver} in prior CI steps,
+ * generate the report using the CLI:
+ *
+ * ```sh
+ * npx @serenity-js/html-reporter aggregate \
+ *   --input "./ci-artifacts/test-runs/**" \
+ *   --output ./target/site/serenity \
+ *   --spec-directory ./tests
+ * ```
+ *
+ * ## Programmatic registration with `fromJSON`
+ *
+ * ```ts
+ * import { configure } from '@serenity-js/core';
+ * import { HtmlReportGenerator } from '@serenity-js/html-reporter';
+ *
+ * configure({
+ *   crew: [
+ *     HtmlReportGenerator.fromJSON({
+ *       outputDirectory: './target/site/serenity',
+ *       specDirectory: './tests',
+ *     }),
  *   ],
  * });
  * ```
@@ -38,6 +82,13 @@ import { ReportTemplateWriter } from './reporting/index.js';
  */
 export class HtmlReportGenerator implements StageCrewMember {
 
+    /**
+     * Creates a {@link StageCrewMemberBuilder} that will instantiate the `HtmlReportGenerator`
+     * with the provided {@link HtmlReporterConfig}.
+     *
+     * @param config
+     *  Configuration options for the generator. All properties are optional.
+     */
     static fromJSON(config: HtmlReporterConfig = {}): StageCrewMemberBuilder<HtmlReportGenerator> {
         return new HtmlReportGeneratorBuilder(config);
     }
