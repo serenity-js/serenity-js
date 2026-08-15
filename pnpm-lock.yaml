@@ -18,8 +18,8 @@ importers:
         specifier: 19.8.1
         version: 19.8.1
       '@puppeteer/browsers':
-        specifier: 3.1.0
-        version: 3.1.0(proxy-agent@8.0.2(supports-color@8.1.1))(yauzl@3.4.0)
+        specifier: 3.2.0
+        version: 3.2.0(proxy-agent@8.0.2(supports-color@8.1.1))(yauzl@3.4.0)
       '@stylistic/eslint-plugin':
         specifier: 5.10.0
         version: 5.10.0(eslint@10.8.1(jiti@2.7.0)(supports-color@8.1.1))
@@ -5182,6 +5182,19 @@ packages:
       yauzl:
         optional: true
 
+  '@puppeteer/browsers@3.2.0':
+    resolution: {integrity: sha512-LlBrE8oqGfU7b1Nk2d5Q1SbuPhZxTj0cJEMDPEws28OjNMELlflekmPPuf4FnK03x0ZRjKaYwJElUcKK4kyqJA==}
+    engines: {node: '>=22.12.0'}
+    hasBin: true
+    peerDependencies:
+      proxy-agent: '>=8.0.1'
+      yauzl: ^3.4.0
+    peerDependenciesMeta:
+      proxy-agent:
+        optional: true
+      yauzl:
+        optional: true
+
   '@rolldown/binding-android-arm64@1.2.3':
     resolution: {integrity: sha512-zrJtHDcaZJ1Fp7xf4hNl+7seH9Cn/N5TwLYkhgXREtBwAd/jaqW3uqeHxpDugJLVICWg4eW44kOQEGJ1r6jCGw==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -9493,6 +9506,10 @@ packages:
 
   modern-tar@0.7.6:
     resolution: {integrity: sha512-sweCIVXzx1aIGTCdzcMlSZt1h8k5Tmk08VNAuRk3IU28XamGiOH5ypi11g6De2CH7PhYqSSnGy2A/EFhbWnVKg==}
+    engines: {node: '>=18.0.0'}
+
+  modern-tar@0.8.4:
+    resolution: {integrity: sha512-gN54ddmyzEg10orwZ2u4OOv+bjpMWdIl5jIkodK97bMq8QBSL5c0D7YX0lT1Ooz+99S7+PvFbnxzdjgHo1r41g==}
     engines: {node: '>=18.0.0'}
 
   morgan@1.11.0:
@@ -14142,9 +14159,9 @@ snapshots:
       proxy-agent: 8.0.2(supports-color@11.0.0)
       yauzl: 3.4.0
 
-  '@puppeteer/browsers@3.1.0(proxy-agent@8.0.2(supports-color@8.1.1))(yauzl@3.4.0)':
+  '@puppeteer/browsers@3.2.0(proxy-agent@8.0.2(supports-color@8.1.1))(yauzl@3.4.0)':
     dependencies:
-      modern-tar: 0.7.6
+      modern-tar: 0.8.4
       yargs: 18.1.0
     optionalDependencies:
       proxy-agent: 8.0.2(supports-color@8.1.1)
@@ -19401,6 +19418,8 @@ snapshots:
       yargs-unparser: 2.0.0
 
   modern-tar@0.7.6: {}
+
+  modern-tar@0.8.4: {}
 
   morgan@1.11.0(supports-color@5.5.0):
     dependencies:
