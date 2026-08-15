@@ -43,23 +43,33 @@ Tracking document for all documentation work required to launch `@serenity-js/ht
 - [x] Update package READMEs to recommend html-reporter (playwright-test, playwright, webdriverio-8, protractor, webdriverio, console-reporter)
 - [x] Add migration note to @serenity-js/serenity-bdd README
 - [x] Publish dashboard screenshot to main branch (static/images/reporting/html-reporter-dashboard.png)
+- [x] Publish handbook article to main (handbook/reporting/html-reporter/) with all screenshots
+- [x] Add @serenity-js/html-reporter to API docs generation pipeline (docusaurus.config.ts TypeDoc entry)
+- [x] Update Reporting overview page (/handbook/reporting/) — HTML Reporter listed first
+- [x] Update API index page (/api/) — add @serenity-js/html-reporter under "Reporting" (PackageJsonParser.ts)
+- [x] Split handbook config into runner-specific sections (Playwright, WebdriverIO, Cucumber, Mocha, Jasmine)
+- [x] Add "Viewing the report" section to handbook (serve, open from file://, .gitignore)
+- [x] Use npm2yarn for uninstall command in migration guide
+- [x] Add HTML Reporter tip to troubleshooting page (Java issues section)
+- [x] Add @serenity-js/html-reporter to troubleshooting version mismatch update command
+- [x] Rename CLI options to kebab-case (--spec-dir, --max-history, --consistency-window)
+- [x] Fix JSDoc examples (outputDirectory, runner-specific specDirectory, Learn more links)
+- [x] Replace @package with @internal in API docs
+- [ ] Publish CI guides to main (GitHub Actions, GitLab CI, Jenkins) — step 3 of release sequence
+- [ ] Publish getting-started updates + announcement banner — step 4 of release sequence
 - [ ] Update project templates to use @serenity-js/html-reporter and link to live HTML reports
 - [ ] Publish blog post (verify version number matches actual release)
 
-### Should-have (same week)
+### Should-have (same week as announcement)
 - [ ] Add FAQ topics to handbook article (see section below)
 - [ ] Update homepage 'Report what really matters' section to mention HTML Reporter
-- [ ] Add @serenity-js/html-reporter to API docs generation pipeline
-- [ ] Update Reporting overview page (/handbook/reporting/) — add HTML Reporter as primary recommendation
-- [ ] Update API index page (/api/) — add @serenity-js/html-reporter under "Reporting"
 - [ ] Update WebdriverIO project setup wizard to install @serenity-js/html-reporter by default
 
-### Post-merge cleanup
-- [ ] Remove `features/html-reporter` branch conditions from `.github/workflows/main.yaml` gh-pages deploy step — keep only `github.ref == 'refs/heads/main'`
-
 ### Can follow after (week 2+)
+- [ ] Update test-runner handbook pages (reporting sections) to show html-reporter as default
+- [ ] Update tutorial (your-first-web-scenario) — replace serenity-bdd setup, re-record GIFs
+- [ ] Update project templates page (getting-started/project-templates.mdx) — feature bullets and report links
 - [ ] Update architecture page package diagram to include @serenity-js/html-reporter
-- [ ] Add troubleshooting section: 'Java issues → Try the HTML Reporter'
 - [ ] Update screenshot in `examples/cucumber-reporting/features/reporting_results/readme.md` to reflect the new HTML Reporter UI
 
 ## FAQ topics to cover in handbook article
