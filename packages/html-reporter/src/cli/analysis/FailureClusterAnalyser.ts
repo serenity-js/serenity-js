@@ -9,7 +9,7 @@ import type { FailureCluster, FailureClusterScenario } from '../reporting/Report
  * line numbers, ports, timestamps, ANSI escape sequences) so that equivalent
  * errors from different machines/runs cluster together.
  *
- * @package
+ * @internal
  */
 export function fingerprintError(errorType: string, message: string): string {
     const normalised = normaliseMessage(message);
@@ -21,7 +21,7 @@ export function fingerprintError(errorType: string, message: string): string {
  * Groups failed scenarios by error fingerprint, producing a list of
  * {@link FailureCluster} objects ordered by scenario count descending.
  *
- * @package
+ * @internal
  */
 export function computeFailureClusters(scenarios: ReportScenario[], specDirectory?: string): FailureCluster[] {
     const failedScenarios = scenarios.filter(s =>

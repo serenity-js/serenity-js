@@ -179,6 +179,8 @@ npx @serenity-js/html-reporter aggregate \
   --title "My Project"
 ```
 
+See the [CI integration guide](https://serenity-js.org/handbook/reporting/html-reporter/#ci-integration) for complete single-job and multi-job workflow examples.
+
 ### Serving the report locally
 
 ```sh

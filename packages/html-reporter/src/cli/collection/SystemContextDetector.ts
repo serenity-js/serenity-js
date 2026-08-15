@@ -9,7 +9,7 @@ import type { CIDetector, RuntimeContext } from './CiDetector.js';
 /**
  * System context information included in the test run data.
  *
- * @package
+ * @internal
  */
 export interface SystemContext {
     nodeVersion: string;
@@ -24,7 +24,7 @@ export interface SystemContext {
 /**
  * Detects runtime environment information from Node.js APIs.
  *
- * @package
+ * @internal
  */
 export class SystemContextDetector {
 

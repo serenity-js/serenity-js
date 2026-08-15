@@ -14,7 +14,7 @@ import type {
  * Maps a SceneRecord to a ReportScenario with enriched data including
  * execution history across all runs.
  *
- * @package
+ * @internal
  */
 export function enrichSingleScenario(scene: SceneRecord, executionHistory: ReportExecutionHistoryEntry[]): ReportScenario {
     const enriched: ReportScenario = {
@@ -70,7 +70,7 @@ export function enrichSingleScenario(scene: SceneRecord, executionHistory: Repor
 /**
  * Builds the execution history for a scene across all available runs.
  *
- * @package
+ * @internal
  */
 export function buildExecutionHistory(scene: SceneRecord, allRuns: RunData[]): ReportExecutionHistoryEntry[] {
     const key = sceneIdentity(scene);
@@ -106,7 +106,7 @@ export function buildExecutionHistory(scene: SceneRecord, allRuns: RunData[]): R
  * Maps an ActivityRecord (with numeric outcome code) to a ReportActivity
  * (with string outcome display name). Recursively maps child activities.
  *
- * @package
+ * @internal
  */
 export function mapActivityOutcome(activity: ActivityRecord): ReportActivity {
     const mapped: ReportActivity = {

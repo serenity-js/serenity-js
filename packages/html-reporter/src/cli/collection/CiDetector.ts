@@ -24,7 +24,7 @@ export interface RuntimeContext {
  * Detects CI provider metadata from environment variables,
  * or provides sensible local defaults derived from git.
  *
- * @package
+ * @internal
  */
 export class CIDetector {
 

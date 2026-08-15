@@ -11,7 +11,7 @@ import { renderReadmeHtml } from './renderReadme.js';
 /**
  * Builds the capabilities tree from a test run and its history.
  *
- * @package
+ * @internal
  */
 export function buildCapabilities(
     run: RunData,

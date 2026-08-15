@@ -29,7 +29,7 @@ export interface AggregatorConfig {
 /**
  * Abstract base class for report aggregation. Provides shared snapshot generation logic.
  *
- * @package
+ * @internal
  */
 export abstract class ReportAggregator {
 

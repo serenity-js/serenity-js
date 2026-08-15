@@ -9,7 +9,7 @@ import type { TagRecord } from './RunData.js';
  * Without module discrimination, tests from different modules with the same source location
  * would be incorrectly merged as duplicates.
  *
- * @package
+ * @internal
  */
 export function tagDiscriminator(tags: TagRecord[]): string {
     const moduleTag = tags.find(t => t.type === 'module')?.name || '';
@@ -28,7 +28,7 @@ export function tagDiscriminator(tags: TagRecord[]): string {
  * - Module tag (distinguishes same test in different CI jobs)
  * - Browser, project, and platform tags (distinguishes multi-variant scenarios)
  *
- * @package
+ * @internal
  */
 export function sceneIdentity(scene: { source: { path: string; line: number }; name: string; tags: TagRecord[] }): string {
     const base = scene.source.line

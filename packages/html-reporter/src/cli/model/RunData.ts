@@ -6,7 +6,7 @@ import type { SystemContext } from '../collection/SystemContextDetector.js';
  * Current schema version of the RunData model.
  * Increment when making structural changes to the db.json format.
  *
- * @package
+ * @internal
  */
 export const CURRENT_RUN_DATA_SCHEMA_VERSION = 1;
 
@@ -14,7 +14,7 @@ export const CURRENT_RUN_DATA_SCHEMA_VERSION = 1;
  * Branded type for ISO 8601 timestamp strings.
  * Prevents accidentally passing arbitrary strings where timestamps are expected.
  *
- * @package
+ * @internal
  */
 export type ISOTimestamp = string & { readonly __brand: 'ISOTimestamp' };
 
@@ -25,7 +25,7 @@ export type ISOTimestamp = string & { readonly __brand: 'ISOTimestamp' };
  * @param value - An ISO 8601 date-time string (e.g. `2024-06-15T14:30:00.000Z`)
  * @throws Error if the value does not match the expected format
  *
- * @package
+ * @internal
  */
 export function isoTimestamp(value: string): ISOTimestamp {
     if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(value)) {
@@ -37,7 +37,7 @@ export function isoTimestamp(value: string): ISOTimestamp {
 /**
  * The data model for a single test run, serialised as db.json.
  *
- * @package
+ * @internal
  */
 export interface RunData {
     schemaVersion: number;
@@ -55,7 +55,7 @@ export interface RunData {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface OutcomeCounts {
     passed: number;
@@ -105,12 +105,12 @@ interface OutlineSceneRecord extends BaseSceneRecord {
 }
 
 /**
- * @package
+ * @internal
  */
 export type SceneRecord = SimpleSceneRecord | RetriedSceneRecord | OutlineSceneRecord;
 
 /**
- * @package
+ * @internal
  */
 export interface ScenarioParameterSet {
     name: string;
@@ -122,7 +122,7 @@ export interface ScenarioParameterSet {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ActivityRecord {
     type: string;
@@ -139,7 +139,7 @@ export interface ActivityRecord {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface RestQueryRecord {
     method: string;
@@ -152,7 +152,7 @@ export interface RestQueryRecord {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportDataRecord {
     title: string;
@@ -161,7 +161,7 @@ export interface ReportDataRecord {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ErrorRecord {
     name: string;
@@ -170,7 +170,7 @@ export interface ErrorRecord {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface TagRecord {
     type: string;
@@ -178,7 +178,7 @@ export interface TagRecord {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface AttemptRecord {
     attemptNumber: number;
@@ -190,7 +190,7 @@ export interface AttemptRecord {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ActorRecord {
     name: string;
@@ -198,7 +198,7 @@ export interface ActorRecord {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ArtifactReference {
     path: string;

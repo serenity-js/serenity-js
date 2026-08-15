@@ -3,6 +3,8 @@ import type { Cast } from './Cast.js';
 
 /**
  * Produces no-op actors with no special [`Ability`](https://serenity-js.org/api/core/class/Ability/)
+ *
+ * @group Stage
  */
 export class Extras implements Cast {
     prepare(actor: Actor): Actor {

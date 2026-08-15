@@ -11,7 +11,7 @@ import type { ConsistencyScenarioRef, ReportSummaryJson, SummaryCIContext, Summa
  * Writes a machine-readable `summary.json` alongside the HTML report
  * for consumption by CI/CD dashboards, badge generators, and other tools.
  *
- * @package
+ * @internal
  */
 export class SummaryJsonWriter {
     constructor(private readonly fileSystem: FileSystem) {
