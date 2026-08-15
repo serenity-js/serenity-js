@@ -7,7 +7,7 @@ import type { ActivityRecord } from '../model/RunData.js';
 /**
  * Handles an HTTPRequestResponse artifact by attaching REST query data to the activity record.
  *
- * @package
+ * @internal
  */
 export function handleHttpArtifact(activityRecord: ActivityRecord, event: ActivityRelatedArtifactGenerated): void {
     const data = event.artifact.map(value => value) as RequestAndResponse;
@@ -25,7 +25,7 @@ export function handleHttpArtifact(activityRecord: ActivityRecord, event: Activi
 /**
  * Handles a TextData artifact by appending report data to the activity record.
  *
- * @package
+ * @internal
  */
 export function handleTextArtifact(activityRecord: ActivityRecord, event: ActivityRelatedArtifactGenerated): void {
     const data = event.artifact.map(value => value) as { contentType: string; data: string };
@@ -40,7 +40,7 @@ export function handleTextArtifact(activityRecord: ActivityRecord, event: Activi
 /**
  * Handles a LogEntry artifact by appending report data to the activity record.
  *
- * @package
+ * @internal
  */
 export function handleLogArtifact(activityRecord: ActivityRecord, event: ActivityRelatedArtifactGenerated): void {
     const data = event.artifact.map(value => value) as { data: string };
@@ -51,7 +51,7 @@ export function handleLogArtifact(activityRecord: ActivityRecord, event: Activit
 /**
  * Handles a JSONData artifact by appending formatted JSON report data to the activity record.
  *
- * @package
+ * @internal
  */
 export function handleJsonArtifact(activityRecord: ActivityRecord, event: ActivityRelatedArtifactGenerated): void {
     const data = event.artifact.map(value => value);
@@ -62,7 +62,7 @@ export function handleJsonArtifact(activityRecord: ActivityRecord, event: Activi
 /**
  * Dispatches an artifact event to the appropriate handler based on artifact type.
  *
- * @package
+ * @internal
  */
 export function dispatchArtifact(activityRecord: ActivityRecord, event: ActivityRelatedArtifactGenerated): void {
     if (event.artifact instanceof HTTPRequestResponse) {
@@ -79,7 +79,7 @@ export function dispatchArtifact(activityRecord: ActivityRecord, event: Activity
 /**
  * Converts a headers object to a multi-line header string.
  *
- * @package
+ * @internal
  */
 export function mapToHeaderString(headers: Record<string, string | number | boolean>): string {
     return Object.entries(headers).map(([key, value]) => `${key}: ${value}`).join('\n');
@@ -88,7 +88,7 @@ export function mapToHeaderString(headers: Record<string, string | number | bool
 /**
  * Converts a response/request body to a string representation.
  *
- * @package
+ * @internal
  */
 export function bodyToString(data: unknown): string | undefined {
     if (data === null || data === undefined || data === '') {

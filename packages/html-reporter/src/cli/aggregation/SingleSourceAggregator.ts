@@ -10,7 +10,7 @@ import { ReportAggregator } from './ReportAggregator.js';
  * the aggregated data.js snapshot. Used in crew member mode where the reporter
  * writes artifacts directly to `test-runs/`.
  *
- * @package
+ * @internal
  */
 export class SingleSourceAggregator extends ReportAggregator {
 

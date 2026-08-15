@@ -3,7 +3,7 @@ import { z } from 'zod';
 /**
  * Zod schema for outcome counts — validates the required numeric fields.
  *
- * @package
+ * @internal
  */
 export const OutcomeCountsSchema = z.object({
     passed: z.number().int().min(0),
@@ -17,7 +17,7 @@ export const OutcomeCountsSchema = z.object({
 /**
  * Zod schema for tag records.
  *
- * @package
+ * @internal
  */
 export const TagRecordSchema = z.object({
     type: z.string(),
@@ -27,7 +27,7 @@ export const TagRecordSchema = z.object({
 /**
  * Zod schema for test runner info.
  *
- * @package
+ * @internal
  */
 export const TestRunnerSchema = z.object({
     name: z.string(),
@@ -37,7 +37,7 @@ export const TestRunnerSchema = z.object({
 /**
  * Zod schema for module records within a run.
  *
- * @package
+ * @internal
  */
 export const ModuleRecordSchema = z.object({
     moduleId: z.string(),
@@ -57,7 +57,7 @@ export const ModuleRecordSchema = z.object({
  *   typed as `Version` in the `RunData` interface — validating it deeply would require
  *   a separate "JSON shape" interface
  *
- * @package
+ * @internal
  */
 export const RunDataSchema = z.object({
     schemaVersion: z.number().int(),

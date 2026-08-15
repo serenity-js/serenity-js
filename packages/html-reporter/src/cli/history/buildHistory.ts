@@ -62,7 +62,7 @@ function buildOutcomeMap(runs: RunData[]): Map<string, string[]> {
 /**
  * Builds the execution history entries from all runs.
  *
- * @package
+ * @internal
  */
 export function buildHistory(allRuns: RunData[]): ReportHistoryEntry[] {
     return allRuns.map((run, index) => {
@@ -95,7 +95,7 @@ export function buildHistory(allRuns: RunData[]): ReportHistoryEntry[] {
 /**
  * Computes consistency percentage at a given point in the run history.
  *
- * @package
+ * @internal
  */
 export function computeConsistencyAtRun(runs: RunData[]): number {
     if (runs.length < 2) return 100;

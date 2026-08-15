@@ -150,7 +150,7 @@ execSync([
     '--input', `"${testRunsDirectory}/*"`,
     '--output', reportDirectory,
     '--title', '"Test Project"',
-    '--specRoot', specDirectory,
+    '--spec-dir', specDirectory,
 ].join(' '), { stdio: 'inherit' });
 
 console.log(`Generated historical run at ${previousTimestamp}`);

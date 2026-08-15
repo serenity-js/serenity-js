@@ -68,7 +68,7 @@ interface ArchiverDependencies {
  * configure({
  *   crew: [
  *     ['@serenity-js/html-reporter:TestRunArchiver', {
- *       outputDirectory: './target/site/serenity',
+ *       outputDirectory: './reports/serenity-js',
  *       testRunId: process.env.BUILD_NUMBER,
  *       moduleId: 'api-tests',
  *     }],
@@ -80,9 +80,9 @@ interface ArchiverDependencies {
  *
  * ```sh
  * npx @serenity-js/html-reporter aggregate \
- *   --input "./target/site/serenity/test-runs/**" \
- *   --output ./target/site/serenity \
- *   --spec-directory ./tests
+ *   --input "./reports/serenity-js/test-runs/**" \
+ *   --output ./reports/serenity-js \
+ *   --spec-dir ./spec
  * ```
  *
  * ## Registering with Playwright Test
@@ -98,7 +98,7 @@ interface ArchiverDependencies {
  *     ['@serenity-js/playwright-test', {
  *       crew: [
  *         ['@serenity-js/html-reporter:TestRunArchiver', {
- *           outputDirectory: './target/site/serenity',
+ *           outputDirectory: './reports/serenity-js',
  *           testRunId: process.env.GITHUB_RUN_NUMBER,
  *           moduleId: 'e2e-chrome',
  *         }],
@@ -119,7 +119,7 @@ interface ArchiverDependencies {
  *   serenity: {
  *     crew: [
  *       ['@serenity-js/html-reporter:TestRunArchiver', {
- *         outputDirectory: './target/site/serenity',
+ *         outputDirectory: './reports/serenity-js',
  *         testRunId: process.env.BUILD_NUMBER,
  *         moduleId: 'wdio-chrome',
  *       }],
@@ -137,7 +137,7 @@ interface ArchiverDependencies {
  * configure({
  *   crew: [
  *     TestRunArchiver.fromJSON({
- *       outputDirectory: './target/site/serenity',
+ *       outputDirectory: './reports/serenity-js',
  *       testRunId: process.env.BUILD_NUMBER,
  *       moduleId: 'api-tests',
  *     }),
@@ -318,7 +318,7 @@ export class TestRunArchiver implements StageCrewMember {
 }
 
 /**
- * @package
+ * @internal
  */
 export function detectTestRunId(): string | undefined {
     const CI_RUN_ID_ENV_VARS = [
@@ -337,7 +337,7 @@ export function detectTestRunId(): string | undefined {
 }
 
 /**
- * @package
+ * @internal
  */
 export function detectModuleId(): string | undefined {
     // When a CI testRunId is detected, derive moduleId from the working
@@ -350,7 +350,7 @@ export function detectModuleId(): string | undefined {
 }
 
 /**
- * @package
+ * @internal
  */
 export function detectAttemptNumber(): number {
     if (process.env.GITHUB_RUN_ATTEMPT) {
@@ -376,14 +376,14 @@ export function detectAttemptNumber(): number {
  * When multiple workers run in parallel, each writes to the same directory
  * but we need unique filenames to prevent race conditions.
  *
- * @package
+ * @internal
  */
 export function detectWorkerId(): string | undefined {
     return process.env.WDIO_WORKER_ID;
 }
 
 /**
- * @package
+ * @internal
  */
 class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> {
 

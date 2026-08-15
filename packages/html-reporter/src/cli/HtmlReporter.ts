@@ -30,13 +30,15 @@ import { ReportTemplateWriter } from './reporting/index.js';
  * import type { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test';
  *
  * export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
+ *   testDir: './spec',
+ *
  *   reporter: [
  *     ['line'],
  *     ['@serenity-js/playwright-test', {
  *       crew: [
  *         ['@serenity-js/html-reporter', {
  *           outputDirectory: './reports/serenity-js',
- *           specDirectory: './tests',
+ *           specDirectory: './spec',   // same as testDir
  *         }],
  *       ],
  *     }],
@@ -52,27 +54,63 @@ import { ReportTemplateWriter } from './reporting/index.js';
  *
  * export const config: WebdriverIOConfig = {
  *   framework: '@serenity-js/webdriverio',
+ *
  *   serenity: {
  *     crew: [
  *       ['@serenity-js/html-reporter', {
  *         outputDirectory: './reports/serenity-js',
- *         specDirectory: './tests',
+ *         specDirectory: './test/specs',   // root of your specs directory
  *       }],
  *     ],
  *   },
+ *
+ *   specs: ['./test/specs/**.spec.ts'],
  * };
  * ```
  *
- * ## Registering HTML Reporter programmatically (Cucumber, Mocha, Jasmine)
+ * ## Registering HTML Reporter with Cucumber
  *
  * ```ts
+ * // features/support/serenity.config.ts
  * import { configure } from '@serenity-js/core';
  *
  * configure({
  *   crew: [
  *     ['@serenity-js/html-reporter', {
  *       outputDirectory: './reports/serenity-js',
- *       specDirectory: './tests',
+ *       specDirectory: './features',   // root of your .feature files
+ *     }],
+ *   ],
+ * });
+ * ```
+ *
+ * ## Registering HTML Reporter with Mocha
+ *
+ * ```ts
+ * // spec/support/serenity.config.ts
+ * import { configure } from '@serenity-js/core';
+ *
+ * configure({
+ *   crew: [
+ *     ['@serenity-js/html-reporter', {
+ *       outputDirectory: './reports/serenity-js',
+ *       specDirectory: './spec',   // root of your .spec.ts files
+ *     }],
+ *   ],
+ * });
+ * ```
+ *
+ * ## Registering HTML Reporter with Jasmine
+ *
+ * ```ts
+ * // spec/helpers/serenity.config.ts
+ * import { configure } from '@serenity-js/core';
+ *
+ * configure({
+ *   crew: [
+ *     ['@serenity-js/html-reporter', {
+ *       outputDirectory: './reports/serenity-js',
+ *       specDirectory: './spec',   // root of your spec files
  *     }],
  *   ],
  * });
@@ -105,8 +143,8 @@ import { ReportTemplateWriter } from './reporting/index.js';
  * configure({
  *   crew: [
  *     HtmlReporter.fromJSON({
- *       outputDirectory: './target/site/serenity',
- *       specDirectory: './tests',
+ *       outputDirectory: './reports/serenity-js',
+ *       specDirectory: './spec',
  *       title: 'My Project — Acceptance Tests',
  *     }),
  *   ],
@@ -159,7 +197,7 @@ export class HtmlReporter implements StageCrewMember {
 }
 
 /**
- * @package
+ * @internal
  */
 class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
 

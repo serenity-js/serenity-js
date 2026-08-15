@@ -8,7 +8,7 @@ import { reportTemplate } from './template.js';
  *
  * The template is bundled at package compile time by scripts/bundle-template.mjs.
  *
- * @package
+ * @internal
  */
 export class ReportTemplateWriter {
     constructor(private readonly fileSystem: FileSystem) {

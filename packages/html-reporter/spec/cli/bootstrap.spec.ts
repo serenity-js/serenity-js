@@ -53,9 +53,9 @@ test.describe('html-reporter CLI', () => {
             expect(output).toContain('--input');
             expect(output).toContain('--output');
             expect(output).toContain('--title');
-            expect(output).toContain('--specRoot');
-            expect(output).toContain('--maxHistory');
-            expect(output).toContain('--consistencyWindow');
+            expect(output).toContain('--spec-dir');
+            expect(output).toContain('--max-history');
+            expect(output).toContain('--consistency-window');
         });
 
         test('marks --input as required', async () => {
@@ -68,7 +68,7 @@ test.describe('html-reporter CLI', () => {
             expect(output).toContain('./reports/serenity-js');
         });
 
-        test('shows default value for --consistencyWindow', async () => {
+        test('shows default value for --consistency-window', async () => {
             const { output } = await run(['aggregate', '--help']);
             expect(output).toContain('[default: 5]');
         });

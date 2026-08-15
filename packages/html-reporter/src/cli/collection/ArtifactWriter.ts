@@ -9,7 +9,7 @@ import { Photo } from '@serenity-js/core/model';
 /**
  * Writes artifacts (screenshots, videos, traces) immediately to the Test_Run_Directory.
  *
- * @package
+ * @internal
  */
 export class ArtifactWriter {
     private runDirectory: Path;

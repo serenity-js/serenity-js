@@ -96,7 +96,7 @@ export function relativeLocationPath(location: { path: string; line: number; col
  * @param specDirectory - Spec directory name (e.g., "spec", "test")
  * @returns Relative path from spec directory
  * 
- * @package
+ * @internal
  */
 function stripAbsolutePrefix(filePath: string, specDirectory?: string): string {
     if (!specDirectory) {

@@ -13,7 +13,7 @@ import type { SceneRecord } from '../model/RunData.js';
  * Multiple sceneIds in a merged queue represent different executions
  * (e.g. cross-browser or cross-browser retries).
  *
- * @package
+ * @internal
  */
 export function groupEventsBySceneId(events: Array<DomainEvent & { sceneId: CorrelationId }>): Map<string, Array<DomainEvent & { sceneId: CorrelationId }>> {
     const groups = new Map<string, Array<DomainEvent & { sceneId: CorrelationId }>>();
@@ -40,7 +40,7 @@ interface SceneEntry {
  * Groups entries by project tag, then determines whether multiple entries
  * represent scenario outline examples or retry attempts.
  *
- * @package
+ * @internal
  */
 export function resolveRetries(
     records: SceneEntry[],
@@ -78,7 +78,7 @@ export function resolveRetries(
 /**
  * Filters events to only those with a SceneStarts event.
  *
- * @package
+ * @internal
  */
 export function buildSceneRecords(
     eventsBySceneId: Map<string, Array<DomainEvent & { sceneId: CorrelationId }>>,

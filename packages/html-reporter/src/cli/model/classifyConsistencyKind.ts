@@ -8,7 +8,7 @@ export type ConsistencyKind = 'flaky' | 'inconsistent' | 'degraded' | 'recovered
  * - inconsistent: has failed before, last outcome is RETRIED_SUCCESS (surviving via retry)
  * - degraded: has failed before, last outcome is a failure
  *
- * @package
+ * @internal
  */
 export function classifyConsistencyKind(history: string[]): ConsistencyKind {
     const lastOutcome = history[history.length - 1];

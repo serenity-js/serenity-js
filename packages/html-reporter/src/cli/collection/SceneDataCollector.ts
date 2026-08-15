@@ -23,7 +23,7 @@ export interface CollectOptions {
 /**
  * Transforms DomainEventQueues into the RunData model.
  *
- * @package
+ * @internal
  */
 export class SceneDataCollector {
 

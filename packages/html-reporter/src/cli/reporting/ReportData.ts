@@ -2,7 +2,7 @@
  * Current schema version of the ReportData model.
  * Increment when making structural changes to the data.js format.
  *
- * @package
+ * @internal
  */
 export const CURRENT_REPORT_DATA_SCHEMA_VERSION = 1;
 
@@ -13,7 +13,7 @@ export const CURRENT_REPORT_DATA_SCHEMA_VERSION = 1;
  * Used by both the report template at runtime and by test factories
  * to keep mocks in sync with the real data structure.
  *
- * @package
+ * @internal
  */
 export interface ReportData {
     schemaVersion: number;
@@ -30,7 +30,7 @@ export interface ReportData {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportSummary {
     title: string;
@@ -43,7 +43,7 @@ export interface ReportSummary {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportOutcomes {
     passed: number;
@@ -55,7 +55,7 @@ export interface ReportOutcomes {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportScenario {
     id?: string;
@@ -79,7 +79,7 @@ export interface ReportScenario {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportSource {
     path: string;
@@ -87,7 +87,7 @@ export interface ReportSource {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportScenarioTag {
     type: string;
@@ -95,7 +95,7 @@ export interface ReportScenarioTag {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportActivity {
     type?: string;
@@ -114,7 +114,7 @@ export interface ReportActivity {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportRestQuery {
     method: string;
@@ -127,7 +127,7 @@ export interface ReportRestQuery {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportDataEntry {
     title: string;
@@ -136,7 +136,7 @@ export interface ReportDataEntry {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportExecutionHistoryEntry {
     outcome: string;
@@ -151,7 +151,7 @@ export interface ReportExecutionHistoryEntry {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportError {
     name: string;
@@ -160,7 +160,7 @@ export interface ReportError {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportAttempt {
     attemptNumber: number;
@@ -172,7 +172,7 @@ export interface ReportAttempt {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportScenarioOutline {
     template: string;
@@ -180,7 +180,7 @@ export interface ReportScenarioOutline {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportParameterSet {
     name?: string;
@@ -192,7 +192,7 @@ export interface ReportParameterSet {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportHistoryEntry {
     timestamp: string;
@@ -217,7 +217,7 @@ export interface ReportHistoryEntry {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportHistoryScore {
     confidence: number;   // 0–100
@@ -227,7 +227,7 @@ export interface ReportHistoryScore {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportTag {
     type: string;
@@ -239,7 +239,7 @@ export interface ReportTag {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportInconsistentTest {
     name: string;
@@ -252,7 +252,7 @@ export interface ReportInconsistentTest {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportScenarioRef {
     name: string;
@@ -262,7 +262,7 @@ export interface ReportScenarioRef {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportSystemContext {
     nodeVersion: string;
@@ -277,7 +277,7 @@ export interface ReportSystemContext {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportCIContext {
     provider: string;
@@ -296,7 +296,7 @@ export interface ReportCIContext {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface ReportCapabilityNode {
     type: 'directory' | 'file';
@@ -313,7 +313,7 @@ export interface ReportCapabilityNode {
 }
 
 /**
- * @package
+ * @internal
  */
 export interface CapabilityScore {
     confidence: number;   // 0–100 composite

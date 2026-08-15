@@ -13,7 +13,7 @@ import { sceneIdentity } from '../model/sceneIdentity.js';
  * Uses sceneIdentity to distinguish scenes from different modules that share the same
  * source location (e.g., webdriverio-8-web-devtools vs webdriverio-8-web-webdriverio).
  *
- * @package
+ * @internal
  */
 export function mergeAdditively(base: RunData, addition: RunData): RunData {
     const merged: RunData = { ...base };
@@ -84,7 +84,7 @@ export function mergeAdditively(base: RunData, addition: RunData): RunData {
  * Uses sceneIdentity to correctly match scenes across attempts, including
  * module discrimination.
  *
- * @package
+ * @internal
  */
 export function mergeAsRetry(earlier: RunData, later: RunData): RunData {
     const merged: RunData = { ...later };
@@ -130,7 +130,7 @@ export function mergeAsRetry(earlier: RunData, later: RunData): RunData {
 /**
  * Merges two SceneRecords into a single record with retry attempts.
  *
- * @package
+ * @internal
  */
 export function mergeSceneWithRetry(earlierScene: SceneRecord, laterScene: SceneRecord): SceneRecord {
     const existingAttempts = earlierScene.attempts || [];
@@ -149,7 +149,7 @@ export function mergeSceneWithRetry(earlierScene: SceneRecord, laterScene: Scene
 /**
  * Converts a SceneRecord to an AttemptRecord for inclusion in retry history.
  *
- * @package
+ * @internal
  */
 export function sceneToAttempt(scene: SceneRecord, attemptNumber: number): AttemptRecord {
     return {
@@ -165,7 +165,7 @@ export function sceneToAttempt(scene: SceneRecord, attemptNumber: number): Attem
 /**
  * Recomputes outcome counts from an array of scene records.
  *
- * @package
+ * @internal
  */
 export function computeMergedOutcomes(scenes: SceneRecord[]): OutcomeCounts {
     const outcomes: OutcomeCounts = { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 };

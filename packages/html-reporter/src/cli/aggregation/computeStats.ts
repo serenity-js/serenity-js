@@ -3,7 +3,7 @@ import { ExecutionSkipped, ExecutionSuccessful, ImplementationPending } from '@s
 import type { RunData } from '../model/RunData.js';
 
 /**
- * @package
+ * @internal
  */
 export function computeTagStats(run: RunData): Array<{ type: string; name: string; scenarioCount: number; passed: number; failed: number; skipped: number }> {
     const tagMap = new Map<string, { type: string; name: string; scenarioCount: number; passed: number; failed: number; skipped: number }>();
@@ -28,7 +28,7 @@ export function computeTagStats(run: RunData): Array<{ type: string; name: strin
 }
 
 /**
- * @package
+ * @internal
  */
 export function extractBrowsers(run: RunData): Array<{ name: string; version: string }> {
     const browsers = new Map<string, string>();
@@ -50,7 +50,7 @@ export function extractBrowsers(run: RunData): Array<{ name: string; version: st
 import type { ReportSystemContext } from '../reporting/ReportData.js';
 
 /**
- * @package
+ * @internal
  */
 export function buildSystemContext(latestRun: RunData): ReportSystemContext | undefined {
     if (!latestRun.systemContext) {

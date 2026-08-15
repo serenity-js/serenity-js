@@ -36,7 +36,7 @@
 npm install --save-dev @serenity-js/core @serenity-js/web @serenity-js/html-reporter
 ```
 
-> `@serenity-js/web` is optional but recommended — it enables [Photographer](https://serenity-js.org/handbook/reporting/photographer/) to capture screenshots that the HTML Reporter embeds in the report.
+**Note:** `@serenity-js/web` is optional but recommended — it enables [Photographer](https://serenity-js.org/handbook/reporting/photographer/) to capture screenshots that the HTML Reporter embeds in the report.
 
 ## Quick Start
 
@@ -164,16 +164,26 @@ All `ci` fields are optional:
 
 ## CLI
 
-The package includes a CLI for aggregating results from multiple parallel jobs and serving reports locally.
+The package includes a CLI for aggregating results from multiple parallel jobs and serving reports locally. Run `--help` to see all available commands and options:
 
 ```sh
-# Aggregate results from parallel CI jobs into a single report
+npx @serenity-js/html-reporter --help
+```
+
+### Aggregating results from parallel CI jobs
+
+```sh
 npx @serenity-js/html-reporter aggregate \
   --input "modules/*/reports/serenity-js/test-runs/**" \
   --output ./reports/serenity-js \
   --title "My Project"
+```
 
-# Serve the report locally
+See the [CI integration guide](https://serenity-js.org/handbook/reporting/html-reporter/#ci-integration) for complete single-job and multi-job workflow examples.
+
+### Serving the report locally
+
+```sh
 npx @serenity-js/html-reporter serve --dir ./reports/serenity-js --open
 ```
 

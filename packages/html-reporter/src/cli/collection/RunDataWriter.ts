@@ -10,7 +10,7 @@ import type { RunData } from '../model/RunData.js';
  * creates a worker-specific file like `db-0-5.json` instead of `db.json`.
  * This prevents race conditions when multiple workers write to the same directory.
  *
- * @package
+ * @internal
  */
 export class RunDataWriter {
     constructor(

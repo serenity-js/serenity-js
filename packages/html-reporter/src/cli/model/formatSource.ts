@@ -8,7 +8,7 @@
  * @param specDirectory - Spec directory name
  * @returns Formatted path (e.g., "auth.spec.ts:42")
  * 
- * @package
+ * @internal
  */
 export function formatSource(source: { path: string; line?: number }, specDirectory?: string): string {
     let path = source.path;

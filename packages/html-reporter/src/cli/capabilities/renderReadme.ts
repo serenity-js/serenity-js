@@ -8,7 +8,7 @@ import { link } from '../../navigation/link.js';
 import type { ReportCapabilityNode } from '../reporting/ReportData.js';
 
 /**
- * @package
+ * @internal
  */
 export function findReadme(directoryPath: Path, projectFileSystem: FileSystem): Path | undefined {
     try {
@@ -33,7 +33,7 @@ export function findReadme(directoryPath: Path, projectFileSystem: FileSystem): 
  * invokes the renderer function without preserving the call context.
  * Using the standalone function eliminates the binding dependency entirely.
  *
- * @package
+ * @internal
  */
 export function renderReadmeHtml(
     content: string,

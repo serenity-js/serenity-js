@@ -9,7 +9,7 @@ import type { RunData, TagRecord } from '../model/RunData.js';
  * A test is considered unstable if its outcomes vary (mixed pass/fail)
  * or if it required retries to pass.
  *
- * @package
+ * @internal
  */
 export function identifyUnstableTests(
     allRuns: RunData[],
@@ -67,7 +67,7 @@ export function identifyUnstableTests(
  * failing. A test is "recovered" when it was failing and now passes cleanly
  * (without retries).
  *
- * @package
+ * @internal
  */
 export function computeDegradedRecovered(allRuns: RunData[]): {
     newFailures: Array<{ name: string; category: string; source: { path: string; line: number }; tags?: TagRecord[] }>;

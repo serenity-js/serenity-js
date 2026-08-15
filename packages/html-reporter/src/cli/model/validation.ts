@@ -5,7 +5,7 @@ import { RunDataSchema } from './RunDataSchema.js';
 /**
  * Thrown when a db.json file cannot be parsed as valid RunData.
  *
- * @package
+ * @internal
  */
 export class InvalidRunDataError extends Error {
     constructor(
@@ -20,7 +20,7 @@ export class InvalidRunDataError extends Error {
 /**
  * Thrown when a db.json file uses a schema version newer than this reporter supports.
  *
- * @package
+ * @internal
  */
 export class IncompatibleSchemaError extends Error {
     constructor(
@@ -49,7 +49,7 @@ export class IncompatibleSchemaError extends Error {
  * @throws InvalidRunDataError when the object is missing required fields or has wrong types
  * @throws IncompatibleSchemaError when schemaVersion is higher than supported
  *
- * @package
+ * @internal
  */
 export function validateRunData(raw: unknown, sourcePath: string): RunData {
     // Pre-check: must be a JSON object (not null, array, or primitive)

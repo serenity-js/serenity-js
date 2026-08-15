@@ -34,7 +34,7 @@ export { errorFrom, outcomeCodeToLabel, serialiseOutcome } from './outcomeSerial
 /**
  * Builds a single SceneRecord from a sequence of domain events.
  *
- * @package
+ * @internal
  */
 export class SceneRecordBuilder {
     private name: string;

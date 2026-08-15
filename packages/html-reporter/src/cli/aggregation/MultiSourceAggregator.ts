@@ -13,7 +13,7 @@ import { mergeAdditively, mergeAsRetry } from './resolveRetries.js';
  * output directory, and produces the aggregated data.js snapshot. Used in CLI
  * aggregate mode.
  *
- * @package
+ * @internal
  */
 export class MultiSourceAggregator extends ReportAggregator {
 
