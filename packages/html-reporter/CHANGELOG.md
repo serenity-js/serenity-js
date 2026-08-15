@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.45.6](https://github.com/serenity-js/serenity-js/compare/v3.45.5...v3.45.6) (2026-08-15)
+
+### Bug Fixes
+
+* **html-reporter:** rename CLI options to kebab-case and fix JSDoc examples ([8b31daf](https://github.com/serenity-js/serenity-js/commit/8b31dafa2f722bd6f2f815242ae5614b91714fb1))
+
+
 ## [3.45.5](https://github.com/serenity-js/serenity-js/compare/v3.45.4...v3.45.5) (2026-08-14)
 
 ### Bug Fixes
