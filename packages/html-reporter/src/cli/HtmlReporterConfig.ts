@@ -15,7 +15,7 @@
  * configure({
  *   crew: [
  *     ['@serenity-js/html-reporter', {
- *       outputDirectory: './target/site/serenity',
+ *       outputDirectory: './reports/serenity-js',
  *       title: 'Checkout Service — Acceptance Tests',
  *     }],
  *   ],
@@ -30,8 +30,8 @@
  * configure({
  *   crew: [
  *     ['@serenity-js/html-reporter', {
- *       outputDirectory: './target/site/serenity',
- *       specDirectory: './tests',
+ *       outputDirectory: './reports/serenity-js',
+ *       specDirectory: './spec',
  *       title: 'My Project — Acceptance Tests',
  *       maxHistory: 20,
  *       consistencyWindow: 10,
@@ -48,7 +48,7 @@
  * configure({
  *   crew: [
  *     ['@serenity-js/html-reporter', {
- *       outputDirectory: './target/site/serenity',
+ *       outputDirectory: './reports/serenity-js',
  *       testRunId: process.env.BUILD_ID,
  *       moduleId: 'api-tests',
  *       ci: {
@@ -72,12 +72,20 @@
  * configure({
  *   crew: [
  *     HtmlReporter.fromJSON({
- *       outputDirectory: './target/site/serenity',
- *       specDirectory: './tests',
+ *       outputDirectory: './reports/serenity-js',
+ *       specDirectory: './spec',
  *     }),
  *   ],
  * });
  * ```
+ *
+ * ## Learn more
+ *
+ * - [Playwright Test configuration](https://serenity-js.org/handbook/test-runners/playwright-test/configuration/)
+ * - [WebdriverIO configuration](https://serenity-js.org/handbook/test-runners/webdriverio/#configuration)
+ * - [Cucumber configuration](https://serenity-js.org/handbook/test-runners/cucumber/#configuring-serenityjs)
+ * - [Mocha configuration](https://serenity-js.org/handbook/test-runners/mocha/#configuring-serenityjs)
+ * - [Jasmine configuration](https://serenity-js.org/handbook/test-runners/jasmine/#configuring-serenityjs)
  *
  * @group Stage
  */
@@ -98,6 +106,8 @@ export interface HtmlReporterConfig {
      * are rendered as living documentation alongside the corresponding capability node.
      *
      * When not specified, the Capabilities view is not generated.
+     *
+     * Learn more: [The requirements hierarchy](https://serenity-js.org/handbook/reporting/html-reporter/#the-requirements-hierarchy)
      */
     specDirectory?: string;
 

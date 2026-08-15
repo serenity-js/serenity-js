@@ -43,8 +43,8 @@ import { ReportTemplateWriter } from './reporting/index.js';
  * configure({
  *   crew: [
  *     ['@serenity-js/html-reporter:HtmlReportGenerator', {
- *       outputDirectory: './target/site/serenity',
- *       specDirectory: './tests',
+ *       outputDirectory: './reports/serenity-js',
+ *       specDirectory: './spec',
  *     }],
  *   ],
  * });
@@ -58,8 +58,8 @@ import { ReportTemplateWriter } from './reporting/index.js';
  * ```sh
  * npx @serenity-js/html-reporter aggregate \
  *   --input "./ci-artifacts/test-runs/**" \
- *   --output ./target/site/serenity \
- *   --spec-directory ./tests
+ *   --output ./reports/serenity-js \
+ *   --spec-dir ./spec
  * ```
  *
  * ## Programmatic registration with `fromJSON`
@@ -71,8 +71,8 @@ import { ReportTemplateWriter } from './reporting/index.js';
  * configure({
  *   crew: [
  *     HtmlReportGenerator.fromJSON({
- *       outputDirectory: './target/site/serenity',
- *       specDirectory: './tests',
+ *       outputDirectory: './reports/serenity-js',
+ *       specDirectory: './spec',
  *     }),
  *   ],
  * });
@@ -141,7 +141,7 @@ export class HtmlReportGenerator implements StageCrewMember {
 }
 
 /**
- * @package
+ * @internal
  */
 class HtmlReportGeneratorBuilder implements StageCrewMemberBuilder<HtmlReportGenerator> {
 

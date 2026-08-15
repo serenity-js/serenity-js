@@ -66,15 +66,15 @@ function createAggregator(outputDirectory, dbJsonPaths, options) {
     const outputFileSystem = new FileSystem(Path.from(outputDirectory));
     const projectFileSystem = new FileSystem(Path.from(process.cwd()));
 
-    const requirementsHierarchy = options.specRoot
-        ? new RequirementsHierarchy(projectFileSystem, Path.from(options.specRoot))
+    const requirementsHierarchy = options.specDir
+        ? new RequirementsHierarchy(projectFileSystem, Path.from(options.specDir))
         : new RequirementsHierarchy(projectFileSystem);
 
     return new MultiSourceAggregator(outputFileSystem, {
         consistencyWindow: options.consistencyWindow,
         maxHistory: options.maxHistory,
         title: options.title,
-        buildCapabilities: !!options.specRoot,
+        buildCapabilities: !!options.specDir,
     }, requirementsHierarchy, sourceFileSystem);
 }
 
@@ -175,21 +175,21 @@ export function bootstrap(argv, interceptor) {
                     type: 'string',
                     describe: 'Report title displayed in the header',
                 })
-                .option('specRoot', {
+                .option('spec-dir', {
                     type: 'string',
                     describe: 'Root directory for requirements hierarchy (enables capabilities view)',
                 })
-                .option('maxHistory', {
+                .option('max-history', {
                     type: 'number',
                     describe: 'Maximum number of test runs to keep (older runs are pruned)',
                 })
-                .option('consistencyWindow', {
+                .option('consistency-window', {
                     type: 'number',
                     default: 5,
                     describe: 'Number of recent runs used to detect consistency issues',
                 })
                 .example('$0 aggregate --input "reports/*/test-runs/*" --output ./reports --title "My Project"', '')
-                .example('$0 aggregate --input "ci-data/**/test-runs/*,local/test-runs/*" --output ./out --maxHistory 20', '');
+                .example('$0 aggregate --input "ci-data/**/test-runs/*,local/test-runs/*" --output ./out --max-history 20', '');
         }, aggregateHandler)
         .command('serve', 'Serve the generated HTML report on a local HTTP server', (builder) => {
             builder
