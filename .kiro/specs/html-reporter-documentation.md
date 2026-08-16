@@ -56,7 +56,17 @@ Tracking document for all documentation work required to launch `@serenity-js/ht
 - [x] Fix JSDoc examples (outputDirectory, runner-specific specDirectory, Learn more links)
 - [x] Replace @package with @internal in API docs
 - [ ] Publish CI guides to main (GitHub Actions, GitLab CI, Jenkins) — step 3 of release sequence
-- [ ] Publish getting-started updates + announcement banner — step 4 of release sequence
+- [x] Publish getting-started updates — step 4 of release sequence (merged to main, live on serenity-js.org)
+    - [x] Restructured "Why Serenity/JS" page around Why/What/How/Adoption (Golden Circle)
+    - [x] Updated Playwright, WebdriverIO, Cucumber, Electron guides to use html-reporter
+    - [x] Fixed stale output paths (reports/serenity-js)
+    - [x] Added back-links to "Why Serenity/JS" from all runner guides
+    - [x] Removed Java prerequisites from all guides
+    - [x] Simplified package.json scripts (no failsafe/rimraf/serenity-bdd run)
+    - [x] Updated FAQ "Do I need Java?" answers
+    - [x] Added "Go further" transition to reference projects sections
+    - [x] Added AI-amplifies-the-problem bullet to Level 0
+- [ ] Announcement banner (will be released with blog post)
 - [ ] Update project templates to use @serenity-js/html-reporter and link to live HTML reports
 - [ ] Publish blog post (verify version number matches actual release)
 

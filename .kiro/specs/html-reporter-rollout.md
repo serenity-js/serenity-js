@@ -64,13 +64,17 @@ Update the website so that docs are consistent before the most-used templates sw
 - ✅ Docker page updated (-noble → -resolute suffix)
 - ✅ html-reporter.mdx updated (config table, install, --input, consistencyWindow note)
 - ✅ Package READMEs updated (playwright-test, playwright, webdriverio-8, protractor, webdriverio, console-reporter, serenity-bdd)
+- ✅ Getting-started guides updated (Playwright, WebdriverIO, Cucumber, Electron) — live on serenity-js.org
+- ✅ "Why Serenity/JS" page restructured (Golden Circle: Why/What/How/Adoption)
+- ✅ Handbook landing "Insightful reporting" section updated
+- ✅ API docs pipeline configured (TypeDoc entry in docusaurus.config.ts)
+- ✅ Troubleshooting page updated
 
 **Remaining Phase 3 work:**
+- [ ] Publish CI guides to main (GitHub Actions, GitLab CI, Jenkins) — written, need cherry-pick PR
 - [ ] Update `getting-started/project-templates.mdx` (replace Serenity BDD feature bullet with HTML Reports)
 - [ ] Update test-runner handbook pages (playwright-test, webdriverio, cucumber, mocha, jasmine) reporting sections
 - [ ] Update tutorial (`your-first-web-scenario.mdx`) to show html-reporter setup + re-record GIFs
-- [ ] Add `@serenity-js/html-reporter` to site package.json for TypeDoc API doc generation
-- [ ] Update WebdriverIO project setup wizard to install @serenity-js/html-reporter by default
 
 ### Phase 4 — High-traffic (templates #10–#12, 22–32 stars)
 
@@ -78,6 +82,10 @@ Update the website so that docs are consistent before the most-used templates sw
 - `serenity-js-cucumber-webdriverio-template`
 - `serenity-js-playwright-test-template`
 - `serenity-js-cucumber-playwright-template`
+
+### Post Phase 4
+
+- [ ] Update WebdriverIO project setup wizard to install @serenity-js/html-reporter by default
 
 ---
 
