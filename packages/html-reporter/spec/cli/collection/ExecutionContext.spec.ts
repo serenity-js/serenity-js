@@ -1,3 +1,5 @@
+import * as path from 'node:path';
+
 import { expect, test } from '@playwright/test';
 
 import type { ExecutionContext } from '../../../src/cli/collection/ExecutionContext.js';
@@ -47,9 +49,7 @@ test.describe('AutoDiscoveredExecutionContext', () => {
 
         test('derives moduleId from working directory basename when CI is detected', () => {
             const context = new AutoDiscoveredExecutionContext({}, { GITHUB_RUN_NUMBER: '4142' });
-            // moduleId defaults to cwd basename when testRunId is detected
-            expect(context.moduleId).toBeDefined();
-            expect(context.moduleId).not.toBe('');
+            expect(context.moduleId).toBe(path.basename(process.cwd()));
         });
 
         test('returns undefined when no CI env vars are set', () => {
@@ -64,7 +64,7 @@ test.describe('AutoDiscoveredExecutionContext', () => {
 
         test('derives moduleId from working directory when testRunId is explicitly overridden', () => {
             const context = new AutoDiscoveredExecutionContext({ testRunId: 'my-run' }, {});
-            expect(context.moduleId).toBeDefined();
+            expect(context.moduleId).toBe(path.basename(process.cwd()));
         });
     });
 

@@ -1462,5 +1462,82 @@ test.describe('SingleSourceAggregator', () => {
             const data = readDataJs(filesystem);
             expect(data.history).toHaveLength(2);
         });
+
+        test('prunes module-level directories when maxHistory is exceeded', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '100': {
+                        'my-project-1': {
+                            'db.json': runData({
+                                startedAt: '2024-06-14T10:00:00.000Z',
+                                finishedAt: '2024-06-14T10:00:01.000Z',
+                                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                                scenes: [{ name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
+                                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                            }),
+                        },
+                    },
+                    '200': {
+                        'my-project-1': {
+                            'db.json': runData({
+                                startedAt: '2024-06-15T10:00:00.000Z',
+                                finishedAt: '2024-06-15T10:00:01.000Z',
+                                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                                scenes: [{ name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
+                                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                            }),
+                        },
+                    },
+                },
+            }, { maxHistory: 1 });
+
+            aggregator.aggregate();
+
+            // Older module directory should be pruned
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/100/my-project-1/db.json')).toBe(false);
+            // Newer module directory should remain
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/200/my-project-1/db.json')).toBe(true);
+        });
+
+        test('treats multiple modules in the same run as separate runs (latest wins)', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '4142': {
+                        'module-a-1': {
+                            'db.json': runData({
+                                startedAt: '2024-06-15T14:30:00.000Z',
+                                finishedAt: '2024-06-15T14:30:01.000Z',
+                                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                                scenes: [{ name: 'Test A', category: 'Suite A', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
+                                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                                testRunId: '4142', moduleId: 'module-a',
+                            }),
+                        },
+                        'module-b-1': {
+                            'db.json': runData({
+                                startedAt: '2024-06-15T14:30:00.000Z',
+                                finishedAt: '2024-06-15T14:30:02.000Z',
+                                outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                                scenes: [{ name: 'Test B', category: 'Suite B', outcome: { code: 4 }, duration: 200, startedAt: '2024-06-15T14:30:01.000Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [] }],
+                                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                                testRunId: '4142', moduleId: 'module-b',
+                            }),
+                        },
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+
+            expect(filesystem.existsSync('/reports/serenity-js/data.js')).toBe(true);
+            const data = readDataJs(filesystem);
+            // SingleSourceAggregator treats each db.json as a separate run;
+            // the latest (by sort order) provides scenarios for the snapshot.
+            // Multi-module merging is handled by MultiSourceAggregator (CLI aggregate).
+            expect(data.scenarios).toHaveLength(1);
+            expect(data.scenarios[0].name).toBe('Test B');
+            // Both appear in history as separate runs
+            expect(data.history).toHaveLength(2);
+        });
     });
 });
