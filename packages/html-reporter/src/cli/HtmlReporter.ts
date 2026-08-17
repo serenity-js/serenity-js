@@ -4,7 +4,7 @@ import { FileSystem, ModuleLoader, Path, RequirementsHierarchy } from '@serenity
 import { ensure, isDefined } from 'tiny-types';
 
 import { SingleSourceAggregator } from './aggregation/index.js';
-import { ExecutionContextDetector, TestRunArchiver } from './collection/index.js';
+import { AutoDiscoveredExecutionContext, TestRunArchiver } from './collection/index.js';
 import type { HtmlReporterConfig } from './HtmlReporterConfig.js';
 import { HtmlReportGenerator } from './HtmlReportGenerator.js';
 import { ReportTemplateWriter } from './reporting/index.js';
@@ -211,8 +211,7 @@ class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
         const outputFileSystem = new FileSystem(outputDirectory);
 
         // TestRunArchiver: detect context once, pass immutable value
-        const detector = new ExecutionContextDetector({ testRunId: this.config.testRunId, moduleId: this.config.moduleId, ci: this.config.ci });
-        const executionContext = detector.detect();
+        const executionContext = new AutoDiscoveredExecutionContext({ testRunId: this.config.testRunId, moduleId: this.config.moduleId, ci: this.config.ci });
         const archiver = new TestRunArchiver(outputFileSystem, executionContext, new ModuleLoader(process.cwd()), stage, { projectName: this.config.projectName });
 
         // HtmlReportGenerator dependencies

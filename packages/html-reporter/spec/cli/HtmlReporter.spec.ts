@@ -33,7 +33,7 @@ import { createFsFromVolume, Volume } from 'memfs';
 import pkg from '../../package.json' with { type: 'json' };
 import { SingleSourceAggregator } from '../../src/cli/aggregation/SingleSourceAggregator.js';
 import type { RuntimeContext } from '../../src/cli/collection/CiDetector.js';
-import { ExecutionContextDetector } from '../../src/cli/collection/ExecutionContext.js';
+import { AutoDiscoveredExecutionContext } from '../../src/cli/collection/ExecutionContext.js';
 import type { ExecutionContext } from '../../src/cli/collection/ExecutionContext.js';
 import { TestRunArchiver } from '../../src/cli/collection/TestRunArchiver.js';
 import { HtmlReporter } from '../../src/cli/HtmlReporter.js';
@@ -530,7 +530,7 @@ test.describe('HtmlReporter', () => {
                 [outputDirectory.value]: {},
             }, '/')) as unknown as typeof fs;
             const outputFileSystem = new FileSystem(outputDirectory, filesystem);
-            const executionContext = new ExecutionContextDetector({}, ciEnv).detect();
+            const executionContext = new AutoDiscoveredExecutionContext({}, ciEnv);
 
             const archiver = new TestRunArchiver(outputFileSystem, executionContext, new ModuleLoader(process.cwd()), stage);
             const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
@@ -562,7 +562,7 @@ test.describe('HtmlReporter', () => {
                 [outputDirectory.value]: {},
             }, '/')) as unknown as typeof fs;
             const outputFileSystem = new FileSystem(outputDirectory, filesystem);
-            const executionContext = new ExecutionContextDetector({}, localEnv).detect();
+            const executionContext = new AutoDiscoveredExecutionContext({}, localEnv);
 
             const archiver = new TestRunArchiver(outputFileSystem, executionContext, new ModuleLoader(process.cwd()), stage);
             const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
@@ -588,12 +588,12 @@ test.describe('HtmlReporter', () => {
         });
 
         test('detects WDIO_WORKER_ID when running in WebdriverIO parallel mode', () => {
-            const detector = new ExecutionContextDetector({}, { WDIO_WORKER_ID: '0-5' });
+            const detector = new AutoDiscoveredExecutionContext({}, { WDIO_WORKER_ID: '0-5' });
             expect(detector.workerId).toBe('0-5');
         });
 
         test('returns undefined when WDIO_WORKER_ID is not set', () => {
-            const detector = new ExecutionContextDetector({}, {});
+            const detector = new AutoDiscoveredExecutionContext({}, {});
             expect(detector.workerId).toBeUndefined();
         });
 
@@ -604,7 +604,7 @@ test.describe('HtmlReporter', () => {
                 [outputDirectory.value]: {},
             }, '/')) as unknown as typeof fs;
             const outputFileSystem = new FileSystem(outputDirectory, filesystem);
-            const executionContext = new ExecutionContextDetector({}, ciEnv).detect();
+            const executionContext = new AutoDiscoveredExecutionContext({}, ciEnv);
 
             const archiver = new TestRunArchiver(
                 outputFileSystem,

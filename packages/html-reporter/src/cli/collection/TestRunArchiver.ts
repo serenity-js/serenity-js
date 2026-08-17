@@ -20,7 +20,7 @@ import type { RunData } from '../model/RunData.js';
 import { CURRENT_RUN_DATA_SCHEMA_VERSION } from '../model/RunData.js';
 import { ArtifactWriter } from './ArtifactWriter.js';
 import type { ExecutionContext } from './ExecutionContext.js';
-import { ExecutionContextDetector } from './ExecutionContext.js';
+import { AutoDiscoveredExecutionContext } from './ExecutionContext.js';
 import { RunDataWriter } from './RunDataWriter.js';
 import { SceneDataCollector } from './SceneDataCollector.js';
 import { SystemContextDetector } from './SystemContextDetector.js';
@@ -312,9 +312,8 @@ class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> 
         const outputDirectory = Path.from(this.config.outputDirectory || './reports/serenity-js');
         const outputFileSystem = new FileSystem(outputDirectory);
 
-        const detector = new ExecutionContextDetector({ testRunId: this.config.testRunId, moduleId: this.config.moduleId, ci: this.config.ci });
-        const executionContext = detector.detect();
+        const detector = new AutoDiscoveredExecutionContext({ testRunId: this.config.testRunId, moduleId: this.config.moduleId, ci: this.config.ci });
 
-        return new TestRunArchiver(outputFileSystem, executionContext, new ModuleLoader(process.cwd()), stage, { projectName: this.config.projectName });
+        return new TestRunArchiver(outputFileSystem, detector, new ModuleLoader(process.cwd()), stage, { projectName: this.config.projectName });
     }
 }

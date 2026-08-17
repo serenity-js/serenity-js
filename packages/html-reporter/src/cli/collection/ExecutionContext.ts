@@ -29,59 +29,70 @@ export interface ExecutionContextOverrides {
 }
 
 /**
- * Detects CI execution context from environment variables and returns
- * an immutable {@link ExecutionContext} value via {@link detect}.
+ * Auto-discovers CI execution context from environment variables and provides
+ * it as an immutable {@link ExecutionContext} value via lazy cached getters.
  *
  * In production, reads from `process.env`. In tests, accepts a fake
  * environment object for deterministic assertions without global mutation.
  *
  * @internal
  */
-export class ExecutionContextDetector {
+export class AutoDiscoveredExecutionContext implements ExecutionContext {
 
-    readonly testRunId: string | undefined;
-    readonly moduleId: string | undefined;
-    readonly attempt: number;
-    readonly workerId: string | undefined;
+    private readonly overrides: ExecutionContextOverrides;
+    private readonly env: Record<string, string | undefined>;
 
-    private readonly ciDetector: CIDetector;
-    private readonly ciOverrides: Partial<RuntimeContext> | undefined;
+    private cachedTestRunId: string | undefined | null = null;
+    private cachedModuleId: string | undefined | null = null;
+    private cachedAttempt: number | undefined;
+    private cachedWorkerId: string | undefined | null = null;
     private cachedRuntimeContext: RuntimeContext | undefined;
 
     constructor(
         overrides: ExecutionContextOverrides = {},
-        private readonly env: Record<string, string | undefined> = process.env,
+        env: Record<string, string | undefined> = process.env,
     ) {
-        this.testRunId = overrides.testRunId || this.detectTestRunId();
-        this.moduleId = overrides.moduleId || (overrides.testRunId ? undefined : this.detectModuleId());
-        this.attempt = this.detectAttemptNumber();
-        this.workerId = this.detectWorkerId();
-        this.ciDetector = new CIDetector(this.env);
-        this.ciOverrides = overrides.ci;
+        this.overrides = overrides;
+        this.env = env;
+    }
+
+    get testRunId(): string | undefined {
+        if (this.cachedTestRunId === null) {
+            this.cachedTestRunId = this.overrides.testRunId || this.detectTestRunId();
+        }
+        return this.cachedTestRunId;
+    }
+
+    get moduleId(): string | undefined {
+        if (this.cachedModuleId === null) {
+            this.cachedModuleId = this.overrides.moduleId || (this.overrides.testRunId ? undefined : this.detectModuleId());
+        }
+        return this.cachedModuleId;
+    }
+
+    get attempt(): number {
+        if (this.cachedAttempt === undefined) {
+            this.cachedAttempt = this.detectAttemptNumber();
+        }
+        return this.cachedAttempt;
+    }
+
+    get workerId(): string | undefined {
+        if (this.cachedWorkerId === null) {
+            this.cachedWorkerId = this.detectWorkerId();
+        }
+        return this.cachedWorkerId;
     }
 
     get runtimeContext(): RuntimeContext {
         if (!this.cachedRuntimeContext) {
-            const detected = this.ciDetector.detect();
-            this.cachedRuntimeContext = this.ciOverrides
-                ? { ...detected, ...this.ciOverrides } as RuntimeContext
+            const ciDetector = new CIDetector(this.env);
+            const detected = ciDetector.detect();
+            this.cachedRuntimeContext = this.overrides.ci
+                ? { ...detected, ...this.overrides.ci } as RuntimeContext
                 : detected;
         }
         return this.cachedRuntimeContext;
-    }
-
-    /**
-     * Returns an immutable {@link ExecutionContext} value capturing all
-     * detected context at the point of invocation.
-     */
-    detect(): ExecutionContext {
-        return {
-            testRunId: this.testRunId,
-            moduleId: this.moduleId,
-            attempt: this.attempt,
-            workerId: this.workerId,
-            runtimeContext: this.runtimeContext,
-        };
     }
 
     private detectTestRunId(): string | undefined {
