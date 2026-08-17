@@ -79,7 +79,7 @@ Tracking document for all documentation work required to launch `@serenity-js/ht
 - [x] Update test-runner handbook pages (reporting sections) to show html-reporter as default (PR #193)
 - [ ] Update tutorial (your-first-web-scenario) — replace serenity-bdd setup, re-record GIFs
 - [ ] Update project templates page (getting-started/project-templates.mdx) — feature bullets and report links
-- [ ] Update architecture page package diagram to include @serenity-js/html-reporter
+- [x] Update architecture page package diagram to include @serenity-js/html-reporter
 - [ ] Update screenshot in `examples/cucumber-reporting/features/reporting_results/readme.md` to reflect the new HTML Reporter UI
 
 ## FAQ topics to cover in handbook article
