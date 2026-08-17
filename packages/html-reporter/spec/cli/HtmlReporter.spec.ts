@@ -37,7 +37,7 @@ import { CIDetector } from '../../src/cli/collection/CiDetector.js';
 import { RunDataWriter } from '../../src/cli/collection/RunDataWriter.js';
 import { SceneDataCollector } from '../../src/cli/collection/SceneDataCollector.js';
 import { SystemContextDetector } from '../../src/cli/collection/SystemContextDetector.js';
-import { detectModuleId, detectTestRunId, detectWorkerId, TestRunArchiver } from '../../src/cli/collection/TestRunArchiver.js';
+import { detectAttemptNumber, detectModuleId, detectTestRunId, detectWorkerId, TestRunArchiver } from '../../src/cli/collection/TestRunArchiver.js';
 import { HtmlReporter } from '../../src/cli/HtmlReporter.js';
 import { HtmlReportGenerator } from '../../src/cli/HtmlReportGenerator.js';
 import { ReportTemplateWriter } from '../../src/cli/reporting/ReportTemplateWriter.js';
@@ -528,123 +528,126 @@ test.describe('HtmlReporter', () => {
     test.describe('CI environment detection', () => {
 
         test('uses GITHUB_RUN_NUMBER as testRunId when not explicitly configured', () => {
-            const originalEnvironment = process.env.GITHUB_RUN_NUMBER;
-            process.env.GITHUB_RUN_NUMBER = '8265';
+            const ciEnv = { GITHUB_RUN_NUMBER: '8265' };
 
-            try {
-                const filesystem = createFsFromVolume(Volume.fromNestedJSON({
-                    [outputDirectory.value]: {},
-                }, '/')) as unknown as typeof fs;
-                const outputFileSystem = new FileSystem(outputDirectory, filesystem);
-                const artifactWriter = new ArtifactWriter(outputFileSystem);
-                const sceneDataCollector = new SceneDataCollector();
-                const runDataWriter = new RunDataWriter(outputFileSystem);
-                const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()));
+            const filesystem = createFsFromVolume(Volume.fromNestedJSON({
+                [outputDirectory.value]: {},
+            }, '/')) as unknown as typeof fs;
+            const outputFileSystem = new FileSystem(outputDirectory, filesystem);
+            const artifactWriter = new ArtifactWriter(outputFileSystem);
+            const sceneDataCollector = new SceneDataCollector();
+            const runDataWriter = new RunDataWriter(outputFileSystem);
+            const systemContextDetector = new SystemContextDetector(new CIDetector(ciEnv), new ModuleLoader(process.cwd()));
 
-                // Mimics HtmlReporterBuilder with no explicit testRunId
-                const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId: detectTestRunId(), moduleId: detectModuleId(), attempt: 1 }, stage);
-                const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
-                const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
-                const templateWriter = new ReportTemplateWriter(outputFileSystem);
-                const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
-                const reporter = new HtmlReporter(archiver, generator);
+            const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId: detectTestRunId(ciEnv), moduleId: detectModuleId(ciEnv), attempt: 1 }, stage);
+            const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
+            const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
+            const templateWriter = new ReportTemplateWriter(outputFileSystem);
+            const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
+            const reporter = new HtmlReporter(archiver, generator);
 
-                stage.assign(reporter);
+            stage.assign(reporter);
 
-                const sceneId = CorrelationId.create();
-                const time = new Timestamp(new Date('2024-06-15T14:30:00.000Z'));
-                const details = new ScenarioDetails(new Name('Test'), new Category('Suite'), new FileSystemLocation(Path.from('a.spec.ts'), 1));
+            const sceneId = CorrelationId.create();
+            const time = new Timestamp(new Date('2024-06-15T14:30:00.000Z'));
+            const details = new ScenarioDetails(new Name('Test'), new Category('Suite'), new FileSystemLocation(Path.from('a.spec.ts'), 1));
 
-                stage.announce(new TestRunStarts(time));
-                stage.announce(new SceneStarts(sceneId, details, time));
-                stage.announce(new SceneFinished(sceneId, details, new ExecutionSuccessful(), time));
-                stage.announce(new TestRunFinishes(time));
+            stage.announce(new TestRunStarts(time));
+            stage.announce(new SceneStarts(sceneId, details, time));
+            stage.announce(new SceneFinished(sceneId, details, new ExecutionSuccessful(), time));
+            stage.announce(new TestRunFinishes(time));
 
-                // Directory should be named with the build number, not a timestamp
-                const directories = filesystem.readdirSync('/reports/serenity-js/test-runs') as string[];
-                expect(directories.some(d => d === '8265')).toBe(true);
-            } finally {
-                if (originalEnvironment === undefined) {
-                    delete process.env.GITHUB_RUN_NUMBER;
-                } else {
-                    process.env.GITHUB_RUN_NUMBER = originalEnvironment;
-                }
-            }
+            // Directory should be named with the build number, not a timestamp
+            const directories = filesystem.readdirSync('/reports/serenity-js/test-runs') as string[];
+            expect(directories.some(d => d === '8265')).toBe(true);
         });
 
         test('falls back to ISO timestamp directory name when no CI env vars are set', () => {
-            const originalEnvironment = process.env.GITHUB_RUN_NUMBER;
-            delete process.env.GITHUB_RUN_NUMBER;
+            const localEnv = {};
 
-            try {
-                const filesystem = createFsFromVolume(Volume.fromNestedJSON({
-                    [outputDirectory.value]: {},
-                }, '/')) as unknown as typeof fs;
-                const outputFileSystem = new FileSystem(outputDirectory, filesystem);
-                const artifactWriter = new ArtifactWriter(outputFileSystem);
-                const sceneDataCollector = new SceneDataCollector();
-                const runDataWriter = new RunDataWriter(outputFileSystem);
-                const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()));
+            const filesystem = createFsFromVolume(Volume.fromNestedJSON({
+                [outputDirectory.value]: {},
+            }, '/')) as unknown as typeof fs;
+            const outputFileSystem = new FileSystem(outputDirectory, filesystem);
+            const artifactWriter = new ArtifactWriter(outputFileSystem);
+            const sceneDataCollector = new SceneDataCollector();
+            const runDataWriter = new RunDataWriter(outputFileSystem);
+            const systemContextDetector = new SystemContextDetector(new CIDetector(localEnv), new ModuleLoader(process.cwd()));
 
-                // Mimics HtmlReporterBuilder with no explicit testRunId and no env vars
-                const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId: detectTestRunId(), moduleId: detectModuleId(), attempt: 1 }, stage);
-                const rootFileSystem2 = new FileSystem(Path.from('/'), filesystem);
-                const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem2), () => undefined);
-                const templateWriter = new ReportTemplateWriter(outputFileSystem);
-                const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
-                const reporter = new HtmlReporter(archiver, generator);
+            const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId: detectTestRunId(localEnv), moduleId: detectModuleId(localEnv), attempt: 1 }, stage);
+            const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
+            const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
+            const templateWriter = new ReportTemplateWriter(outputFileSystem);
+            const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
+            const reporter = new HtmlReporter(archiver, generator);
 
-                stage.assign(reporter);
+            stage.assign(reporter);
 
-                const time = new Timestamp(new Date('2024-06-15T14:30:00.000Z'));
-                const sceneId = CorrelationId.create();
-                const details = new ScenarioDetails(new Name('Test'), new Category('Suite'), new FileSystemLocation(Path.from('a.spec.ts'), 1));
+            const time = new Timestamp(new Date('2024-06-15T14:30:00.000Z'));
+            const sceneId = CorrelationId.create();
+            const details = new ScenarioDetails(new Name('Test'), new Category('Suite'), new FileSystemLocation(Path.from('a.spec.ts'), 1));
 
-                stage.announce(new TestRunStarts(time));
-                stage.announce(new SceneStarts(sceneId, details, time));
-                stage.announce(new SceneFinished(sceneId, details, new ExecutionSuccessful(), time));
-                stage.announce(new TestRunFinishes(time));
+            stage.announce(new TestRunStarts(time));
+            stage.announce(new SceneStarts(sceneId, details, time));
+            stage.announce(new SceneFinished(sceneId, details, new ExecutionSuccessful(), time));
+            stage.announce(new TestRunFinishes(time));
 
-                // Directory should be named with a timestamp
-                const directories = filesystem.readdirSync('/reports/serenity-js/test-runs') as string[];
-                expect(directories.some(d => d.startsWith('2024-06-15'))).toBe(true);
-            } finally {
-                if (originalEnvironment === undefined) {
-                    delete process.env.GITHUB_RUN_NUMBER;
-                } else {
-                    process.env.GITHUB_RUN_NUMBER = originalEnvironment;
-                }
-            }
+            // Directory should be named with a timestamp
+            const directories = filesystem.readdirSync('/reports/serenity-js/test-runs') as string[];
+            expect(directories.some(d => d.startsWith('2024-06-15'))).toBe(true);
         });
 
         test('detects WDIO_WORKER_ID when running in WebdriverIO parallel mode', () => {
-            const originalWorkerId = process.env.WDIO_WORKER_ID;
-            process.env.WDIO_WORKER_ID = '0-5';
-
-            try {
-                expect(detectWorkerId()).toBe('0-5');
-            } finally {
-                if (originalWorkerId === undefined) {
-                    delete process.env.WDIO_WORKER_ID;
-                } else {
-                    process.env.WDIO_WORKER_ID = originalWorkerId;
-                }
-            }
+            expect(detectWorkerId({ WDIO_WORKER_ID: '0-5' })).toBe('0-5');
         });
 
         test('returns undefined when WDIO_WORKER_ID is not set', () => {
-            const originalWorkerId = process.env.WDIO_WORKER_ID;
-            delete process.env.WDIO_WORKER_ID;
+            expect(detectWorkerId({})).toBeUndefined();
+        });
 
-            try {
-                expect(detectWorkerId()).toBeUndefined();
-            } finally {
-                if (originalWorkerId === undefined) {
-                    delete process.env.WDIO_WORKER_ID;
-                } else {
-                    process.env.WDIO_WORKER_ID = originalWorkerId;
-                }
-            }
+        test('produces data.js when TestRunArchiver writes to a CI module-level path', () => {
+            const ciEnv = { GITHUB_RUN_NUMBER: '4142', GITHUB_RUN_ATTEMPT: '1' };
+
+            const filesystem = createFsFromVolume(Volume.fromNestedJSON({
+                [outputDirectory.value]: {},
+            }, '/')) as unknown as typeof fs;
+            const outputFileSystem = new FileSystem(outputDirectory, filesystem);
+            const artifactWriter = new ArtifactWriter(outputFileSystem);
+            const sceneDataCollector = new SceneDataCollector();
+            const runDataWriter = new RunDataWriter(outputFileSystem);
+            const systemContextDetector = new SystemContextDetector(new CIDetector(ciEnv), new ModuleLoader(process.cwd()));
+
+            const archiver = new TestRunArchiver(
+                { artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector },
+                { testRunId: detectTestRunId(ciEnv), moduleId: detectModuleId(ciEnv), attempt: detectAttemptNumber(ciEnv) },
+                stage,
+            );
+            const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
+            const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
+            const templateWriter = new ReportTemplateWriter(outputFileSystem);
+            const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
+            const reporter = new HtmlReporter(archiver, generator);
+
+            stage.assign(reporter);
+
+            const sceneId = CorrelationId.create();
+            const time = new Timestamp(new Date('2024-06-15T14:30:00.000Z'));
+            const details = new ScenarioDetails(new Name('Test'), new Category('Suite'), new FileSystemLocation(Path.from('a.spec.ts'), 1));
+
+            stage.announce(new TestRunStarts(time));
+            stage.announce(new SceneStarts(sceneId, details, time));
+            stage.announce(new SceneFinished(sceneId, details, new ExecutionSuccessful(), time));
+            stage.announce(new TestRunFinishes(time));
+
+            // Archiver writes to module-level path
+            expect(filesystem.existsSync('/reports/serenity-js/test-runs/4142')).toBe(true);
+
+            // Aggregator must find the module-level db.json and produce data.js
+            expect(filesystem.existsSync('/reports/serenity-js/data.js')).toBe(true);
+
+            const dataJs = filesystem.readFileSync('/reports/serenity-js/data.js', 'utf8') as string;
+            expect(dataJs).toContain('__SERENITY_REPORT_DATA__');
+            expect(dataJs).toContain('Test');
         });
     });
 });

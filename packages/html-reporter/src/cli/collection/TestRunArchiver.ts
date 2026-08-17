@@ -320,7 +320,7 @@ export class TestRunArchiver implements StageCrewMember {
 /**
  * @internal
  */
-export function detectTestRunId(): string | undefined {
+export function detectTestRunId(env: Record<string, string | undefined> = process.env): string | undefined {
     const CI_RUN_ID_ENV_VARS = [
         'GITHUB_RUN_NUMBER',
         'CI_PIPELINE_IID',      // GitLab CI
@@ -329,8 +329,8 @@ export function detectTestRunId(): string | undefined {
     ];
 
     for (const variableName of CI_RUN_ID_ENV_VARS) {
-        if (process.env[variableName]) {
-            return process.env[variableName];
+        if (env[variableName]) {
+            return env[variableName];
         }
     }
     return undefined;
@@ -339,11 +339,11 @@ export function detectTestRunId(): string | undefined {
 /**
  * @internal
  */
-export function detectModuleId(): string | undefined {
+export function detectModuleId(env: Record<string, string | undefined> = process.env): string | undefined {
     // When a CI testRunId is detected, derive moduleId from the working
     // directory basename. This ensures each parallel CI job writes to its
     // own subdirectory under test-runs/{buildId}/{moduleId}-{attempt}/.
-    if (detectTestRunId()) {
+    if (detectTestRunId(env)) {
         return path.basename(process.cwd());
     }
     return undefined;
@@ -352,17 +352,17 @@ export function detectModuleId(): string | undefined {
 /**
  * @internal
  */
-export function detectAttemptNumber(): number {
-    if (process.env.GITHUB_RUN_ATTEMPT) {
-        return parseInt(process.env.GITHUB_RUN_ATTEMPT, 10) || 1;
+export function detectAttemptNumber(env: Record<string, string | undefined> = process.env): number {
+    if (env.GITHUB_RUN_ATTEMPT) {
+        return parseInt(env.GITHUB_RUN_ATTEMPT, 10) || 1;
     }
-    if (process.env.CI_JOB_RETRY) {
+    if (env.CI_JOB_RETRY) {
         // GitLab: 0-based → convert to 1-based
-        return (parseInt(process.env.CI_JOB_RETRY, 10) || 0) + 1;
+        return (parseInt(env.CI_JOB_RETRY, 10) || 0) + 1;
     }
-    if (process.env.BUILD_RETRY_COUNT) {
+    if (env.BUILD_RETRY_COUNT) {
         // Jenkins: 0-based → convert to 1-based
-        return (parseInt(process.env.BUILD_RETRY_COUNT, 10) || 0) + 1;
+        return (parseInt(env.BUILD_RETRY_COUNT, 10) || 0) + 1;
     }
     return 1;
 }
@@ -378,8 +378,8 @@ export function detectAttemptNumber(): number {
  *
  * @internal
  */
-export function detectWorkerId(): string | undefined {
-    return process.env.WDIO_WORKER_ID;
+export function detectWorkerId(env: Record<string, string | undefined> = process.env): string | undefined {
+    return env.WDIO_WORKER_ID;
 }
 
 /**
