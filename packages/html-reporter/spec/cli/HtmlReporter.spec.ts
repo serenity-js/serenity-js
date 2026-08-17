@@ -33,11 +33,10 @@ import { createFsFromVolume, Volume } from 'memfs';
 import pkg from '../../package.json' with { type: 'json' };
 import { SingleSourceAggregator } from '../../src/cli/aggregation/SingleSourceAggregator.js';
 import { ArtifactWriter } from '../../src/cli/collection/ArtifactWriter.js';
-import { CIDetector } from '../../src/cli/collection/CiDetector.js';
+import { ExecutionContext } from '../../src/cli/collection/ExecutionContext.js';
 import { RunDataWriter } from '../../src/cli/collection/RunDataWriter.js';
 import { SceneDataCollector } from '../../src/cli/collection/SceneDataCollector.js';
 import { SystemContextDetector } from '../../src/cli/collection/SystemContextDetector.js';
-import { ExecutionContext } from '../../src/cli/collection/ExecutionContext.js';
 import { TestRunArchiver } from '../../src/cli/collection/TestRunArchiver.js';
 import { HtmlReporter } from '../../src/cli/HtmlReporter.js';
 import { HtmlReportGenerator } from '../../src/cli/HtmlReportGenerator.js';
@@ -74,7 +73,8 @@ test.describe('HtmlReporter', () => {
         const runDataWriter = new RunDataWriter(outputFileSystem);
         const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
-        const systemContextDetector = new SystemContextDetector(new CIDetector({}), new ModuleLoader(process.cwd()));
+        const executionContext = new ExecutionContext({}, {});
+        const systemContextDetector = new SystemContextDetector(executionContext, new ModuleLoader(process.cwd()));
 
         const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId: undefined, moduleId: undefined, attempt: 1 }, stage);
         const generator = new HtmlReportGenerator(aggregator, templateWriter);
@@ -174,7 +174,8 @@ test.describe('HtmlReporter', () => {
             const artifactWriter = new ArtifactWriter(outputFileSystem);
             const sceneDataCollector = new SceneDataCollector();
             const runDataWriter = new RunDataWriter(outputFileSystem);
-            const systemContextDetector = new SystemContextDetector(new CIDetector({}), new ModuleLoader(process.cwd()));
+            const executionContext = new ExecutionContext({}, {});
+            const systemContextDetector = new SystemContextDetector(executionContext, new ModuleLoader(process.cwd()));
 
             const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId: '100', moduleId: 'webdriverio-8-web-devtools', attempt: 1 }, stage);
             const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
@@ -306,7 +307,8 @@ test.describe('HtmlReporter', () => {
             const sceneDataCollector = new SceneDataCollector();
             const runDataWriter = new RunDataWriter(outputFileSystem);
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
-            const systemContextDetector = new SystemContextDetector(new CIDetector({}), new ModuleLoader(process.cwd()));
+            const executionContext = new ExecutionContext({}, {});
+            const systemContextDetector = new SystemContextDetector(executionContext, new ModuleLoader(process.cwd()));
             const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId: undefined, moduleId: undefined, attempt: 1 }, stage);
             const generator = new HtmlReportGenerator(aggregator, templateWriter);
             const reporter = new HtmlReporter(archiver, generator);
@@ -538,9 +540,10 @@ test.describe('HtmlReporter', () => {
             const artifactWriter = new ArtifactWriter(outputFileSystem);
             const sceneDataCollector = new SceneDataCollector();
             const runDataWriter = new RunDataWriter(outputFileSystem);
-            const systemContextDetector = new SystemContextDetector(new CIDetector(ciEnv), new ModuleLoader(process.cwd()));
+            const executionContext = new ExecutionContext({}, ciEnv);
+            const systemContextDetector = new SystemContextDetector(executionContext, new ModuleLoader(process.cwd()));
 
-            const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, new ExecutionContext({}, ciEnv), stage);
+            const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, executionContext, stage);
             const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
             const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
@@ -573,9 +576,10 @@ test.describe('HtmlReporter', () => {
             const artifactWriter = new ArtifactWriter(outputFileSystem);
             const sceneDataCollector = new SceneDataCollector();
             const runDataWriter = new RunDataWriter(outputFileSystem);
-            const systemContextDetector = new SystemContextDetector(new CIDetector(localEnv), new ModuleLoader(process.cwd()));
+            const executionContext = new ExecutionContext({}, localEnv);
+            const systemContextDetector = new SystemContextDetector(executionContext, new ModuleLoader(process.cwd()));
 
-            const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, new ExecutionContext({}, localEnv), stage);
+            const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, executionContext, stage);
             const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
             const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
@@ -618,11 +622,12 @@ test.describe('HtmlReporter', () => {
             const artifactWriter = new ArtifactWriter(outputFileSystem);
             const sceneDataCollector = new SceneDataCollector();
             const runDataWriter = new RunDataWriter(outputFileSystem);
-            const systemContextDetector = new SystemContextDetector(new CIDetector(ciEnv), new ModuleLoader(process.cwd()));
+            const executionContext = new ExecutionContext({}, ciEnv);
+            const systemContextDetector = new SystemContextDetector(executionContext, new ModuleLoader(process.cwd()));
 
             const archiver = new TestRunArchiver(
                 { artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector },
-                new ExecutionContext({}, ciEnv),
+                executionContext,
                 stage,
             );
             const rootFileSystem = new FileSystem(Path.from('/'), filesystem);

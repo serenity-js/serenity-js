@@ -19,7 +19,6 @@ import type { HtmlReporterConfig } from '../HtmlReporterConfig.js';
 import type { RunData } from '../model/RunData.js';
 import { CURRENT_RUN_DATA_SCHEMA_VERSION } from '../model/RunData.js';
 import { ArtifactWriter } from './ArtifactWriter.js';
-import { CIDetector } from './CiDetector.js';
 import { ExecutionContext } from './ExecutionContext.js';
 import { RunDataWriter } from './RunDataWriter.js';
 import { SceneDataCollector } from './SceneDataCollector.js';
@@ -324,11 +323,11 @@ class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> 
         const outputDirectory = Path.from(this.config.outputDirectory || './reports/serenity-js');
         const outputFileSystem = new FileSystem(outputDirectory);
 
-        const executionContext = new ExecutionContext({ testRunId: this.config.testRunId, moduleId: this.config.moduleId });
+        const executionContext = new ExecutionContext({ testRunId: this.config.testRunId, moduleId: this.config.moduleId, ci: this.config.ci });
         const artifactWriter = new ArtifactWriter(outputFileSystem);
         const sceneDataCollector = new SceneDataCollector();
         const runDataWriter = new RunDataWriter(outputFileSystem, executionContext.workerId);
-        const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()), { projectName: this.config.projectName, runtime: this.config.ci });
+        const systemContextDetector = new SystemContextDetector(executionContext, new ModuleLoader(process.cwd()), { projectName: this.config.projectName });
 
         return new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, executionContext, stage);
     }

@@ -4,7 +4,7 @@ import { FileSystem, ModuleLoader, Path, RequirementsHierarchy } from '@serenity
 import { ensure, isDefined } from 'tiny-types';
 
 import { SingleSourceAggregator } from './aggregation/index.js';
-import { ArtifactWriter, CIDetector, ExecutionContext, RunDataWriter, SceneDataCollector, SystemContextDetector, TestRunArchiver } from './collection/index.js';
+import { ArtifactWriter, ExecutionContext, RunDataWriter, SceneDataCollector, SystemContextDetector, TestRunArchiver } from './collection/index.js';
 import type { HtmlReporterConfig } from './HtmlReporterConfig.js';
 import { HtmlReportGenerator } from './HtmlReportGenerator.js';
 import { ReportTemplateWriter } from './reporting/index.js';
@@ -211,12 +211,11 @@ class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
         const outputFileSystem = new FileSystem(outputDirectory);
 
         // TestRunArchiver dependencies
+        const executionContext = new ExecutionContext({ testRunId: this.config.testRunId, moduleId: this.config.moduleId, ci: this.config.ci });
         const artifactWriter = new ArtifactWriter(outputFileSystem);
         const sceneDataCollector = new SceneDataCollector();
         const runDataWriter = new RunDataWriter(outputFileSystem);
-        const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()), { projectName: this.config.projectName, runtime: this.config.ci });
-
-        const executionContext = new ExecutionContext({ testRunId: this.config.testRunId, moduleId: this.config.moduleId });
+        const systemContextDetector = new SystemContextDetector(executionContext, new ModuleLoader(process.cwd()), { projectName: this.config.projectName });
 
         const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, executionContext, stage);
 

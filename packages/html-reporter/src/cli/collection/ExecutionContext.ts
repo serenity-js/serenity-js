@@ -1,5 +1,7 @@
 import * as path from 'node:path';
 
+import { CIDetector, type RuntimeContext } from './CiDetector.js';
+
 /**
  * Overrides for CI detection. When provided, these values take priority
  * over auto-detection from environment variables.
@@ -7,11 +9,12 @@ import * as path from 'node:path';
 export interface ExecutionContextOverrides {
     testRunId?: string;
     moduleId?: string;
+    ci?: Partial<RuntimeContext>;
 }
 
 /**
  * Encapsulates CI execution context detection: test run ID, module ID,
- * attempt number, and worker ID.
+ * attempt number, worker ID, and runtime context (CI provider metadata).
  *
  * In production, reads from `process.env`. In tests, accepts a fake
  * environment object for deterministic assertions without global mutation.
@@ -25,6 +28,10 @@ export class ExecutionContext {
     readonly attempt: number;
     readonly workerId: string | undefined;
 
+    private readonly ciDetector: CIDetector;
+    private readonly ciOverrides: Partial<RuntimeContext> | undefined;
+    private cachedRuntimeContext: RuntimeContext | undefined;
+
     constructor(
         overrides: ExecutionContextOverrides = {},
         private readonly env: Record<string, string | undefined> = process.env,
@@ -33,6 +40,18 @@ export class ExecutionContext {
         this.moduleId = overrides.moduleId || (overrides.testRunId ? undefined : this.detectModuleId());
         this.attempt = this.detectAttemptNumber();
         this.workerId = this.detectWorkerId();
+        this.ciDetector = new CIDetector(this.env);
+        this.ciOverrides = overrides.ci;
+    }
+
+    get runtimeContext(): RuntimeContext {
+        if (!this.cachedRuntimeContext) {
+            const detected = this.ciDetector.detect();
+            this.cachedRuntimeContext = this.ciOverrides
+                ? { ...detected, ...this.ciOverrides } as RuntimeContext
+                : detected;
+        }
+        return this.cachedRuntimeContext;
     }
 
     private detectTestRunId(): string | undefined {
