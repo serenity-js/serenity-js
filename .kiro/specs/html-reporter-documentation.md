@@ -55,7 +55,7 @@ Tracking document for all documentation work required to launch `@serenity-js/ht
 - [x] Rename CLI options to kebab-case (--spec-dir, --max-history, --consistency-window)
 - [x] Fix JSDoc examples (outputDirectory, runner-specific specDirectory, Learn more links)
 - [x] Replace @package with @internal in API docs
-- [ ] Publish CI guides to main (GitHub Actions, GitLab CI, Jenkins) — step 3 of release sequence
+- [x] Publish CI guides to main (GitHub Actions, GitLab CI, Jenkins) — PR merged
 - [x] Publish getting-started updates — step 4 of release sequence (merged to main, live on serenity-js.org)
     - [x] Restructured "Why Serenity/JS" page around Why/What/How/Adoption (Golden Circle)
     - [x] Updated Playwright, WebdriverIO, Cucumber, Electron guides to use html-reporter

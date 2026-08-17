@@ -71,7 +71,6 @@ Update the website so that docs are consistent before the most-used templates sw
 - ✅ Troubleshooting page updated
 
 **Remaining Phase 3 work:**
-- [ ] Publish CI guides to main (GitHub Actions, GitLab CI, Jenkins) — written, need cherry-pick PR
 - [ ] Update `getting-started/project-templates.mdx` (replace Serenity BDD feature bullet with HTML Reports)
 - [ ] Update tutorial (`your-first-web-scenario.mdx`) to show html-reporter setup + re-record GIFs
 
