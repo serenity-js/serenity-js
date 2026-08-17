@@ -76,7 +76,7 @@ Tracking document for all documentation work required to launch `@serenity-js/ht
 - [ ] Update WebdriverIO project setup wizard to install @serenity-js/html-reporter by default
 
 ### Can follow after (week 2+)
-- [ ] Update test-runner handbook pages (reporting sections) to show html-reporter as default
+- [x] Update test-runner handbook pages (reporting sections) to show html-reporter as default (PR #193)
 - [ ] Update tutorial (your-first-web-scenario) — replace serenity-bdd setup, re-record GIFs
 - [ ] Update project templates page (getting-started/project-templates.mdx) — feature bullets and report links
 - [ ] Update architecture page package diagram to include @serenity-js/html-reporter
