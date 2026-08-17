@@ -1313,6 +1313,43 @@ test.describe('SingleSourceAggregator', () => {
         });
     });
 
+    test.describe('empty input detection', () => {
+
+        test('warns when no test run directories are found', () => {
+            const warnings: string[] = [];
+            const filesystem = createMemFs({ [outputDirectory.value]: { 'test-runs': {} } });
+            const fileSystem = new FileSystem(outputDirectory, filesystem);
+            const hierarchy = new RequirementsHierarchy(new FileSystem(Path.from('/'), filesystem));
+            const aggregator = new SingleSourceAggregator(fileSystem, {
+                consistencyWindow: 5,
+                buildCapabilities: false,
+            }, hierarchy, (...args) => { warnings.push(args.join(' ')); });
+
+            aggregator.aggregate();
+
+            expect(filesystem.existsSync('/reports/serenity-js/data.js')).toBe(false);
+            expect(warnings.length).toBeGreaterThan(0);
+            expect(warnings[0]).toContain('No test run data found');
+        });
+
+        test('warns when test-runs directory does not exist', () => {
+            const warnings: string[] = [];
+            const filesystem = createMemFs({ [outputDirectory.value]: {} });
+            const fileSystem = new FileSystem(outputDirectory, filesystem);
+            const hierarchy = new RequirementsHierarchy(new FileSystem(Path.from('/'), filesystem));
+            const aggregator = new SingleSourceAggregator(fileSystem, {
+                consistencyWindow: 5,
+                buildCapabilities: false,
+            }, hierarchy, (...args) => { warnings.push(args.join(' ')); });
+
+            aggregator.aggregate();
+
+            expect(filesystem.existsSync('/reports/serenity-js/data.js')).toBe(false);
+            expect(warnings.length).toBeGreaterThan(0);
+            expect(warnings[0]).toContain('No test run data found');
+        });
+    });
+
     test.describe('CI module-level paths', () => {
 
         test('produces data.js when db.json is at test-runs/{buildId}/{moduleId}/db.json', () => {
