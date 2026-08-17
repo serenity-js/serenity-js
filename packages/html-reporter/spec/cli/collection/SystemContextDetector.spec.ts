@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { ModuleLoader } from '@serenity-js/core/io';
 
+import type { RuntimeContext } from '../../../src/cli/collection/CiDetector.js';
 import type { ExecutionContext } from '../../../src/cli/collection/ExecutionContext.js';
 import { ExecutionContextDetector } from '../../../src/cli/collection/ExecutionContext.js';
 import { SystemContextDetector } from '../../../src/cli/collection/SystemContextDetector.js';
@@ -9,13 +10,20 @@ test.describe('SystemContextDetector', () => {
 
     const moduleLoader = new ModuleLoader(process.cwd());
 
+    const defaultRuntimeContext: RuntimeContext = {
+        provider: 'localhost',
+        buildNumber: 'test',
+        branch: 'main',
+        commit: 'abc123',
+    };
+
     function localContext(overrides: Partial<ExecutionContext> = {}): ExecutionContext {
         return {
             testRunId: undefined,
             moduleId: undefined,
             attempt: 1,
             workerId: undefined,
-            runtimeContext: new ExecutionContextDetector({}, {}).runtimeContext,
+            runtimeContext: defaultRuntimeContext,
             ...overrides,
         };
     }

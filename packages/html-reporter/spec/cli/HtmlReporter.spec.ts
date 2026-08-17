@@ -32,6 +32,7 @@ import { createFsFromVolume, Volume } from 'memfs';
 
 import pkg from '../../package.json' with { type: 'json' };
 import { SingleSourceAggregator } from '../../src/cli/aggregation/SingleSourceAggregator.js';
+import type { RuntimeContext } from '../../src/cli/collection/CiDetector.js';
 import { ExecutionContextDetector } from '../../src/cli/collection/ExecutionContext.js';
 import type { ExecutionContext } from '../../src/cli/collection/ExecutionContext.js';
 import { TestRunArchiver } from '../../src/cli/collection/TestRunArchiver.js';
@@ -44,6 +45,13 @@ test.describe('HtmlReporter', () => {
     const outputDirectory = Path.from('/reports/serenity-js');
     const clock = new Clock();
     const interactionTimeout = Duration.ofSeconds(2);
+
+    const defaultRuntimeContext: RuntimeContext = {
+        provider: 'localhost',
+        buildNumber: 'test',
+        branch: 'main',
+        commit: 'abc123',
+    };
 
     class Extras implements Cast {
         prepare(actor) { return actor; }
@@ -65,7 +73,7 @@ test.describe('HtmlReporter', () => {
 
         const outputFileSystem = new FileSystem(outputDirectory, filesystem);
         const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
-        const executionContext: ExecutionContext = { testRunId: undefined, moduleId: undefined, attempt: 1, workerId: undefined, runtimeContext: new ExecutionContextDetector({}, {}).runtimeContext };
+        const executionContext: ExecutionContext = { testRunId: undefined, moduleId: undefined, attempt: 1, workerId: undefined, runtimeContext: defaultRuntimeContext };
         const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
 
@@ -164,7 +172,7 @@ test.describe('HtmlReporter', () => {
 
             const outputFileSystem = new FileSystem(outputDirectory, filesystem);
             const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
-            const executionContext: ExecutionContext = { testRunId: '100', moduleId: 'webdriverio-8-web-devtools', attempt: 1, workerId: undefined, runtimeContext: new ExecutionContextDetector({}, {}).runtimeContext };
+            const executionContext: ExecutionContext = { testRunId: '100', moduleId: 'webdriverio-8-web-devtools', attempt: 1, workerId: undefined, runtimeContext: defaultRuntimeContext };
 
             const archiver = new TestRunArchiver(outputFileSystem, executionContext, new ModuleLoader(process.cwd()), stage);
             const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
@@ -293,7 +301,7 @@ test.describe('HtmlReporter', () => {
             const outputFileSystem = new FileSystem(outputDirectory, reportFs);
             const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5, buildCapabilities: true }, hierarchy, () => undefined);
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
-            const executionContext: ExecutionContext = { testRunId: undefined, moduleId: undefined, attempt: 1, workerId: undefined, runtimeContext: new ExecutionContextDetector({}, {}).runtimeContext };
+            const executionContext: ExecutionContext = { testRunId: undefined, moduleId: undefined, attempt: 1, workerId: undefined, runtimeContext: defaultRuntimeContext };
             const archiver = new TestRunArchiver(outputFileSystem, executionContext, new ModuleLoader(process.cwd()), stage);
             const generator = new HtmlReportGenerator(aggregator, templateWriter);
             const reporter = new HtmlReporter(archiver, generator);
