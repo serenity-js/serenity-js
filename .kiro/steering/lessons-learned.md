@@ -319,3 +319,25 @@ WebdriverIO 9.30+ bundles `@wdio/xvfb` into `@wdio/local-runner` and auto-activa
 ### Renovate lock file drift on major version bumps
 
 Renovate can update `package.json` without regenerating `package-lock.json` correctly, especially for major version bumps that introduce new transitive dependencies (e.g. Cucumber 13 adding `@cucumber/pretty-formatter` and `@cucumber/query`). CI then fails with `npm ci` complaining about missing packages in the lock file. Fix: add `:lockFileMaintenance` to the Renovate `extends` array — this periodically regenerates the lock file and catches drift before it breaks CI.
+
+### Never place two callouts immediately adjacent to each other
+
+Two consecutive `:::tip` / `:::note` / `:::warning` blocks create visual clutter and neither gets read. Move one to a more relevant location, combine them into one callout, or separate them with prose.
+
+### DynamicCodeBlock template literals require `\\` for literal backslashes
+
+Inside a `DynamicCodeBlock` `{\`...\`}` template literal, a single `\` is interpreted as an escape character. Use `\\` to produce a literal `\` in the rendered output. This affects YAML multi-line commands (`\` line continuations) and Groovy `sh """..."""` blocks.
+
+### DynamicCodeBlock indentation: follow the pattern on main
+
+The `DynamicCodeBlock` component may strip leading whitespace. When writing YAML inside these blocks, follow the indentation pattern established by existing working examples on `main`. Test rendering on the deployed site (not just the dev server) to confirm correctness — the dev server may render differently.
+
+### Describe Serenity BDD Reporter as "multi-page HTML reports with narrative documentation"
+
+Never use "requirements-based living documentation" — it's meaningless jargon. When contrasting with the HTML Reporter, say "If your team already uses Serenity BDD or prefers its multi-page report format."
+
+### Use `<PlaywrightVersion />` for Docker image versions — never hardcode
+
+All Docker image references in documentation must use the `<PlaywrightVersion />` component inside a `DynamicCodeBlock` for dynamic version resolution. Never hardcode version numbers like `v1.62.1`.
+
+---
