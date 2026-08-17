@@ -29,10 +29,11 @@ Scenario Execution
 
 When a scenario fails, Serenity/JS automatically captures a screenshot:
 
-![Example failure screenshot](https://serenity-js.org/images/handbook/reporting/serenity-bdd-reporter.png)
+![Example failure screenshot](https://serenity-js.org/images/reporting/html-reporter-dashboard.png)
 
 ## Links
 
 - [Serenity/JS Reporting Handbook](https://serenity-js.org/handbook/reporting/)
-- [Configuring the HTML Reporter](https://serenity-js.org/api/html-reporter/)
+- [HTML Reporter Guide](https://serenity-js.org/handbook/reporting/html-reporter/)
+- [HTML Reporter API Reference](https://serenity-js.org/api/html-reporter/)
 - [GitHub Issues: Reporting](https://github.com/serenity-js/serenity-js/labels/reporting)
