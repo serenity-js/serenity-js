@@ -22,7 +22,6 @@ export class ExecutionRetriedTag extends Tag {
 }
 
 /**
- * @private
  * @param n
  */
 function nth(n): string {
