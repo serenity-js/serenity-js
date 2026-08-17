@@ -1,5 +1,3 @@
-import * as path from 'node:path';
-
 import type { Stage, StageCrewMember, StageCrewMemberBuilder, StageCrewMemberBuilderDependencies } from '@serenity-js/core';
 import { DomainEventQueues } from '@serenity-js/core';
 import type { DomainEvent } from '@serenity-js/core/events';
@@ -22,15 +20,10 @@ import type { RunData } from '../model/RunData.js';
 import { CURRENT_RUN_DATA_SCHEMA_VERSION } from '../model/RunData.js';
 import { ArtifactWriter } from './ArtifactWriter.js';
 import { CIDetector } from './CiDetector.js';
+import { ExecutionContext } from './ExecutionContext.js';
 import { RunDataWriter } from './RunDataWriter.js';
 import { SceneDataCollector } from './SceneDataCollector.js';
 import { SystemContextDetector } from './SystemContextDetector.js';
-
-interface ExecutionContext {
-    testRunId?: string;
-    moduleId?: string;
-    attempt?: number;
-}
 
 interface ArchiverDependencies {
     artifactWriter: ArtifactWriter;
@@ -183,7 +176,7 @@ export class TestRunArchiver implements StageCrewMember {
 
     constructor(
         deps: ArchiverDependencies,
-        executionContext: ExecutionContext = {},
+        executionContext: ExecutionContext = new ExecutionContext(),
         private stage?: Stage,
     ) {
         const { artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector } = deps;
@@ -197,7 +190,7 @@ export class TestRunArchiver implements StageCrewMember {
         this.systemContextDetector = systemContextDetector;
         this.testRunId = executionContext.testRunId;
         this.moduleId = executionContext.moduleId;
-        this.attempt = executionContext.attempt ?? 1;
+        this.attempt = executionContext.attempt;
     }
 
     assignedTo(stage: Stage): StageCrewMember {
@@ -320,71 +313,6 @@ export class TestRunArchiver implements StageCrewMember {
 /**
  * @internal
  */
-export function detectTestRunId(env: Record<string, string | undefined> = process.env): string | undefined {
-    const CI_RUN_ID_ENV_VARS = [
-        'GITHUB_RUN_NUMBER',
-        'CI_PIPELINE_IID',      // GitLab CI
-        'BUILD_NUMBER',         // Jenkins
-        'CIRCLE_BUILD_NUM',     // CircleCI
-    ];
-
-    for (const variableName of CI_RUN_ID_ENV_VARS) {
-        if (env[variableName]) {
-            return env[variableName];
-        }
-    }
-    return undefined;
-}
-
-/**
- * @internal
- */
-export function detectModuleId(env: Record<string, string | undefined> = process.env): string | undefined {
-    // When a CI testRunId is detected, derive moduleId from the working
-    // directory basename. This ensures each parallel CI job writes to its
-    // own subdirectory under test-runs/{buildId}/{moduleId}-{attempt}/.
-    if (detectTestRunId(env)) {
-        return path.basename(process.cwd());
-    }
-    return undefined;
-}
-
-/**
- * @internal
- */
-export function detectAttemptNumber(env: Record<string, string | undefined> = process.env): number {
-    if (env.GITHUB_RUN_ATTEMPT) {
-        return parseInt(env.GITHUB_RUN_ATTEMPT, 10) || 1;
-    }
-    if (env.CI_JOB_RETRY) {
-        // GitLab: 0-based → convert to 1-based
-        return (parseInt(env.CI_JOB_RETRY, 10) || 0) + 1;
-    }
-    if (env.BUILD_RETRY_COUNT) {
-        // Jenkins: 0-based → convert to 1-based
-        return (parseInt(env.BUILD_RETRY_COUNT, 10) || 0) + 1;
-    }
-    return 1;
-}
-
-/**
- * Detect WebdriverIO worker ID when running in parallel worker mode.
- *
- * WebdriverIO sets `WDIO_WORKER_ID` environment variable in each worker process.
- * Format is `{capability}-{spec}` like `0-5`.
- *
- * When multiple workers run in parallel, each writes to the same directory
- * but we need unique filenames to prevent race conditions.
- *
- * @internal
- */
-export function detectWorkerId(env: Record<string, string | undefined> = process.env): string | undefined {
-    return env.WDIO_WORKER_ID;
-}
-
-/**
- * @internal
- */
 class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> {
 
     constructor(private readonly config: HtmlReporterConfig) {
@@ -396,16 +324,12 @@ class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> 
         const outputDirectory = Path.from(this.config.outputDirectory || './reports/serenity-js');
         const outputFileSystem = new FileSystem(outputDirectory);
 
-        const workerId = detectWorkerId();
+        const executionContext = new ExecutionContext({ testRunId: this.config.testRunId, moduleId: this.config.moduleId });
         const artifactWriter = new ArtifactWriter(outputFileSystem);
         const sceneDataCollector = new SceneDataCollector();
-        const runDataWriter = new RunDataWriter(outputFileSystem, workerId);
+        const runDataWriter = new RunDataWriter(outputFileSystem, executionContext.workerId);
         const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()), { projectName: this.config.projectName, runtime: this.config.ci });
 
-        const attempt = detectAttemptNumber();
-        const testRunId = this.config.testRunId || detectTestRunId();
-        const moduleId = this.config.moduleId || (this.config.testRunId ? undefined : detectModuleId());
-
-        return new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId, moduleId, attempt }, stage);
+        return new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, executionContext, stage);
     }
 }

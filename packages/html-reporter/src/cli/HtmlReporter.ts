@@ -4,7 +4,7 @@ import { FileSystem, ModuleLoader, Path, RequirementsHierarchy } from '@serenity
 import { ensure, isDefined } from 'tiny-types';
 
 import { SingleSourceAggregator } from './aggregation/index.js';
-import { ArtifactWriter, CIDetector, detectAttemptNumber, detectModuleId, detectTestRunId, RunDataWriter, SceneDataCollector, SystemContextDetector, TestRunArchiver } from './collection/index.js';
+import { ArtifactWriter, CIDetector, ExecutionContext, RunDataWriter, SceneDataCollector, SystemContextDetector, TestRunArchiver } from './collection/index.js';
 import type { HtmlReporterConfig } from './HtmlReporterConfig.js';
 import { HtmlReportGenerator } from './HtmlReportGenerator.js';
 import { ReportTemplateWriter } from './reporting/index.js';
@@ -216,10 +216,9 @@ class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
         const runDataWriter = new RunDataWriter(outputFileSystem);
         const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()), { projectName: this.config.projectName, runtime: this.config.ci });
 
-        const testRunId = this.config.testRunId || detectTestRunId();
-        const moduleId = this.config.moduleId || (this.config.testRunId ? undefined : detectModuleId());
+        const executionContext = new ExecutionContext({ testRunId: this.config.testRunId, moduleId: this.config.moduleId });
 
-        const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId, moduleId, attempt: detectAttemptNumber() }, stage);
+        const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, executionContext, stage);
 
         // HtmlReportGenerator dependencies
         const projectFileSystem = new FileSystem(Path.from(process.cwd()));

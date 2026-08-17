@@ -37,7 +37,8 @@ import { CIDetector } from '../../src/cli/collection/CiDetector.js';
 import { RunDataWriter } from '../../src/cli/collection/RunDataWriter.js';
 import { SceneDataCollector } from '../../src/cli/collection/SceneDataCollector.js';
 import { SystemContextDetector } from '../../src/cli/collection/SystemContextDetector.js';
-import { detectAttemptNumber, detectModuleId, detectTestRunId, detectWorkerId, TestRunArchiver } from '../../src/cli/collection/TestRunArchiver.js';
+import { ExecutionContext } from '../../src/cli/collection/ExecutionContext.js';
+import { TestRunArchiver } from '../../src/cli/collection/TestRunArchiver.js';
 import { HtmlReporter } from '../../src/cli/HtmlReporter.js';
 import { HtmlReportGenerator } from '../../src/cli/HtmlReportGenerator.js';
 import { ReportTemplateWriter } from '../../src/cli/reporting/ReportTemplateWriter.js';
@@ -539,7 +540,7 @@ test.describe('HtmlReporter', () => {
             const runDataWriter = new RunDataWriter(outputFileSystem);
             const systemContextDetector = new SystemContextDetector(new CIDetector(ciEnv), new ModuleLoader(process.cwd()));
 
-            const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId: detectTestRunId(ciEnv), moduleId: detectModuleId(ciEnv), attempt: 1 }, stage);
+            const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, new ExecutionContext({}, ciEnv), stage);
             const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
             const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
@@ -574,7 +575,7 @@ test.describe('HtmlReporter', () => {
             const runDataWriter = new RunDataWriter(outputFileSystem);
             const systemContextDetector = new SystemContextDetector(new CIDetector(localEnv), new ModuleLoader(process.cwd()));
 
-            const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId: detectTestRunId(localEnv), moduleId: detectModuleId(localEnv), attempt: 1 }, stage);
+            const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, new ExecutionContext({}, localEnv), stage);
             const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
             const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
@@ -598,11 +599,13 @@ test.describe('HtmlReporter', () => {
         });
 
         test('detects WDIO_WORKER_ID when running in WebdriverIO parallel mode', () => {
-            expect(detectWorkerId({ WDIO_WORKER_ID: '0-5' })).toBe('0-5');
+            const context = new ExecutionContext({}, { WDIO_WORKER_ID: '0-5' });
+            expect(context.workerId).toBe('0-5');
         });
 
         test('returns undefined when WDIO_WORKER_ID is not set', () => {
-            expect(detectWorkerId({})).toBeUndefined();
+            const context = new ExecutionContext({}, {});
+            expect(context.workerId).toBeUndefined();
         });
 
         test('produces data.js when TestRunArchiver writes to a CI module-level path', () => {
@@ -619,7 +622,7 @@ test.describe('HtmlReporter', () => {
 
             const archiver = new TestRunArchiver(
                 { artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector },
-                { testRunId: detectTestRunId(ciEnv), moduleId: detectModuleId(ciEnv), attempt: detectAttemptNumber(ciEnv) },
+                new ExecutionContext({}, ciEnv),
                 stage,
             );
             const rootFileSystem = new FileSystem(Path.from('/'), filesystem);

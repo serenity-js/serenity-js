@@ -1,6 +1,7 @@
 export * from './artifactHandlers.js';
 export * from './ArtifactWriter.js';
 export * from './CiDetector.js';
+export * from './ExecutionContext.js';
 export * from './outcomeSerialisers.js';
 export * from './RunDataWriter.js';
 export * from './SceneDataCollector.js';
