@@ -1,15 +1,27 @@
 import { expect, test } from '@playwright/test';
 import { ModuleLoader } from '@serenity-js/core/io';
 
-import { ExecutionContext } from '../../../src/cli/collection/ExecutionContext.js';
+import type { ExecutionContext } from '../../../src/cli/collection/ExecutionContext.js';
+import { ExecutionContextDetector } from '../../../src/cli/collection/ExecutionContext.js';
 import { SystemContextDetector } from '../../../src/cli/collection/SystemContextDetector.js';
 
 test.describe('SystemContextDetector', () => {
 
     const moduleLoader = new ModuleLoader(process.cwd());
 
+    function localContext(overrides: Partial<ExecutionContext> = {}): ExecutionContext {
+        return {
+            testRunId: undefined,
+            moduleId: undefined,
+            attempt: 1,
+            workerId: undefined,
+            runtimeContext: new ExecutionContextDetector({}, {}).runtimeContext,
+            ...overrides,
+        };
+    }
+
     test('detects Node.js version', () => {
-        const executionContext = new ExecutionContext({}, {});
+        const executionContext = localContext();
         const detector = new SystemContextDetector(executionContext, moduleLoader);
 
         const context = detector.detect();
@@ -18,7 +30,7 @@ test.describe('SystemContextDetector', () => {
     });
 
     test('detects operating system info', () => {
-        const executionContext = new ExecutionContext({}, {});
+        const executionContext = localContext();
         const detector = new SystemContextDetector(executionContext, moduleLoader);
 
         const context = detector.detect();
@@ -32,7 +44,7 @@ test.describe('SystemContextDetector', () => {
     });
 
     test('detects Serenity/JS version as a Version object', () => {
-        const executionContext = new ExecutionContext({}, {});
+        const executionContext = localContext();
         const detector = new SystemContextDetector(executionContext, moduleLoader);
 
         const context = detector.detect();
@@ -41,7 +53,7 @@ test.describe('SystemContextDetector', () => {
     });
 
     test('detects package manager', () => {
-        const executionContext = new ExecutionContext({}, {});
+        const executionContext = localContext();
         const detector = new SystemContextDetector(executionContext, moduleLoader);
 
         const context = detector.detect();
@@ -51,7 +63,7 @@ test.describe('SystemContextDetector', () => {
     });
 
     test('detects project name from package.json', () => {
-        const executionContext = new ExecutionContext({}, {});
+        const executionContext = localContext();
         const detector = new SystemContextDetector(executionContext, moduleLoader);
 
         const context = detector.detect();
@@ -60,7 +72,7 @@ test.describe('SystemContextDetector', () => {
     });
 
     test('allows projectName to be overridden via config', () => {
-        const executionContext = new ExecutionContext({}, {});
+        const executionContext = localContext();
         const detector = new SystemContextDetector(executionContext, moduleLoader, { projectName: 'My Custom Project' });
 
         const context = detector.detect();
@@ -69,7 +81,7 @@ test.describe('SystemContextDetector', () => {
     });
 
     test('includes CI runtime context when running in CI', () => {
-        const executionContext = new ExecutionContext({}, {
+        const executionContext = new ExecutionContextDetector({}, {
             GITHUB_ACTIONS: 'true',
             GITHUB_RUN_NUMBER: '42',
             GITHUB_REF_NAME: 'main',
@@ -77,7 +89,7 @@ test.describe('SystemContextDetector', () => {
             GITHUB_SERVER_URL: 'https://github.com',
             GITHUB_REPOSITORY: 'org/repo',
             GITHUB_RUN_ID: '999',
-        });
+        }).detect();
         const detector = new SystemContextDetector(executionContext, moduleLoader);
 
         const context = detector.detect();
@@ -87,7 +99,7 @@ test.describe('SystemContextDetector', () => {
     });
 
     test('provides local runtime context when not running in CI', () => {
-        const executionContext = new ExecutionContext({}, {});
+        const executionContext = localContext();
         const detector = new SystemContextDetector(executionContext, moduleLoader);
 
         const context = detector.detect();
@@ -103,7 +115,7 @@ test.describe('SystemContextDetector', () => {
     });
 
     test('applies ci overrides from ExecutionContext', () => {
-        const executionContext = new ExecutionContext({
+        const executionContext = new ExecutionContextDetector({
             ci: { provider: 'Custom CI', buildNumber: '777' },
         }, {
             GITHUB_ACTIONS: 'true',
@@ -113,7 +125,7 @@ test.describe('SystemContextDetector', () => {
             GITHUB_SERVER_URL: 'https://github.com',
             GITHUB_REPOSITORY: 'org/repo',
             GITHUB_RUN_ID: '999',
-        });
+        }).detect();
         const detector = new SystemContextDetector(executionContext, moduleLoader);
 
         const context = detector.detect();

@@ -4,7 +4,7 @@ import { FileSystem, ModuleLoader, Path, RequirementsHierarchy } from '@serenity
 import { ensure, isDefined } from 'tiny-types';
 
 import { SingleSourceAggregator } from './aggregation/index.js';
-import { ArtifactWriter, ExecutionContext, RunDataWriter, SceneDataCollector, SystemContextDetector, TestRunArchiver } from './collection/index.js';
+import { ExecutionContextDetector, TestRunArchiver } from './collection/index.js';
 import type { HtmlReporterConfig } from './HtmlReporterConfig.js';
 import { HtmlReportGenerator } from './HtmlReportGenerator.js';
 import { ReportTemplateWriter } from './reporting/index.js';
@@ -210,14 +210,10 @@ class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
         const outputDirectory = Path.from(this.config.outputDirectory || './reports/serenity-js');
         const outputFileSystem = new FileSystem(outputDirectory);
 
-        // TestRunArchiver dependencies
-        const executionContext = new ExecutionContext({ testRunId: this.config.testRunId, moduleId: this.config.moduleId, ci: this.config.ci });
-        const artifactWriter = new ArtifactWriter(outputFileSystem);
-        const sceneDataCollector = new SceneDataCollector();
-        const runDataWriter = new RunDataWriter(outputFileSystem);
-        const systemContextDetector = new SystemContextDetector(executionContext, new ModuleLoader(process.cwd()), { projectName: this.config.projectName });
-
-        const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, executionContext, stage);
+        // TestRunArchiver: detect context once, pass immutable value
+        const detector = new ExecutionContextDetector({ testRunId: this.config.testRunId, moduleId: this.config.moduleId, ci: this.config.ci });
+        const executionContext = detector.detect();
+        const archiver = new TestRunArchiver(outputFileSystem, executionContext, new ModuleLoader(process.cwd()), stage, { projectName: this.config.projectName });
 
         // HtmlReportGenerator dependencies
         const projectFileSystem = new FileSystem(Path.from(process.cwd()));

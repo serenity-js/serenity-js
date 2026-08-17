@@ -3,6 +3,22 @@ import * as path from 'node:path';
 import { CIDetector, type RuntimeContext } from './CiDetector.js';
 
 /**
+ * Immutable execution context values for a test run.
+ * Consumed by {@link TestRunArchiver} and {@link SystemContextDetector}.
+ *
+ * In tests, construct as a plain object literal.
+ *
+ * @internal
+ */
+export interface ExecutionContext {
+    readonly testRunId: string | undefined;
+    readonly moduleId: string | undefined;
+    readonly attempt: number;
+    readonly workerId: string | undefined;
+    readonly runtimeContext: RuntimeContext;
+}
+
+/**
  * Overrides for CI detection. When provided, these values take priority
  * over auto-detection from environment variables.
  */
@@ -13,15 +29,15 @@ export interface ExecutionContextOverrides {
 }
 
 /**
- * Encapsulates CI execution context detection: test run ID, module ID,
- * attempt number, worker ID, and runtime context (CI provider metadata).
+ * Detects CI execution context from environment variables and returns
+ * an immutable {@link ExecutionContext} value via {@link detect}.
  *
  * In production, reads from `process.env`. In tests, accepts a fake
  * environment object for deterministic assertions without global mutation.
  *
  * @internal
  */
-export class ExecutionContext {
+export class ExecutionContextDetector {
 
     readonly testRunId: string | undefined;
     readonly moduleId: string | undefined;
@@ -52,6 +68,20 @@ export class ExecutionContext {
                 : detected;
         }
         return this.cachedRuntimeContext;
+    }
+
+    /**
+     * Returns an immutable {@link ExecutionContext} value capturing all
+     * detected context at the point of invocation.
+     */
+    detect(): ExecutionContext {
+        return {
+            testRunId: this.testRunId,
+            moduleId: this.moduleId,
+            attempt: this.attempt,
+            workerId: this.workerId,
+            runtimeContext: this.runtimeContext,
+        };
     }
 
     private detectTestRunId(): string | undefined {

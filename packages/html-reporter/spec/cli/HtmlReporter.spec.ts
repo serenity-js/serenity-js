@@ -32,11 +32,8 @@ import { createFsFromVolume, Volume } from 'memfs';
 
 import pkg from '../../package.json' with { type: 'json' };
 import { SingleSourceAggregator } from '../../src/cli/aggregation/SingleSourceAggregator.js';
-import { ArtifactWriter } from '../../src/cli/collection/ArtifactWriter.js';
-import { ExecutionContext } from '../../src/cli/collection/ExecutionContext.js';
-import { RunDataWriter } from '../../src/cli/collection/RunDataWriter.js';
-import { SceneDataCollector } from '../../src/cli/collection/SceneDataCollector.js';
-import { SystemContextDetector } from '../../src/cli/collection/SystemContextDetector.js';
+import { ExecutionContextDetector } from '../../src/cli/collection/ExecutionContext.js';
+import type { ExecutionContext } from '../../src/cli/collection/ExecutionContext.js';
 import { TestRunArchiver } from '../../src/cli/collection/TestRunArchiver.js';
 import { HtmlReporter } from '../../src/cli/HtmlReporter.js';
 import { HtmlReportGenerator } from '../../src/cli/HtmlReportGenerator.js';
@@ -68,15 +65,11 @@ test.describe('HtmlReporter', () => {
 
         const outputFileSystem = new FileSystem(outputDirectory, filesystem);
         const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
-        const artifactWriter = new ArtifactWriter(outputFileSystem);
-        const sceneDataCollector = new SceneDataCollector();
-        const runDataWriter = new RunDataWriter(outputFileSystem);
+        const executionContext: ExecutionContext = { testRunId: undefined, moduleId: undefined, attempt: 1, workerId: undefined, runtimeContext: new ExecutionContextDetector({}, {}).runtimeContext };
         const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
         const templateWriter = new ReportTemplateWriter(outputFileSystem);
-        const executionContext = new ExecutionContext({}, {});
-        const systemContextDetector = new SystemContextDetector(executionContext, new ModuleLoader(process.cwd()));
 
-        const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId: undefined, moduleId: undefined, attempt: 1 }, stage);
+        const archiver = new TestRunArchiver(outputFileSystem, executionContext, new ModuleLoader(process.cwd()), stage);
         const generator = new HtmlReportGenerator(aggregator, templateWriter);
         const reporter = new HtmlReporter(archiver, generator);
 
@@ -171,13 +164,9 @@ test.describe('HtmlReporter', () => {
 
             const outputFileSystem = new FileSystem(outputDirectory, filesystem);
             const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
-            const artifactWriter = new ArtifactWriter(outputFileSystem);
-            const sceneDataCollector = new SceneDataCollector();
-            const runDataWriter = new RunDataWriter(outputFileSystem);
-            const executionContext = new ExecutionContext({}, {});
-            const systemContextDetector = new SystemContextDetector(executionContext, new ModuleLoader(process.cwd()));
+            const executionContext: ExecutionContext = { testRunId: '100', moduleId: 'webdriverio-8-web-devtools', attempt: 1, workerId: undefined, runtimeContext: new ExecutionContextDetector({}, {}).runtimeContext };
 
-            const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId: '100', moduleId: 'webdriverio-8-web-devtools', attempt: 1 }, stage);
+            const archiver = new TestRunArchiver(outputFileSystem, executionContext, new ModuleLoader(process.cwd()), stage);
             const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
             const reporter = new HtmlReporter(archiver, new HtmlReportGenerator(aggregator, templateWriter));
@@ -303,13 +292,9 @@ test.describe('HtmlReporter', () => {
             }, '/')) as unknown as typeof fs;
             const outputFileSystem = new FileSystem(outputDirectory, reportFs);
             const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5, buildCapabilities: true }, hierarchy, () => undefined);
-            const artifactWriter = new ArtifactWriter(outputFileSystem);
-            const sceneDataCollector = new SceneDataCollector();
-            const runDataWriter = new RunDataWriter(outputFileSystem);
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
-            const executionContext = new ExecutionContext({}, {});
-            const systemContextDetector = new SystemContextDetector(executionContext, new ModuleLoader(process.cwd()));
-            const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId: undefined, moduleId: undefined, attempt: 1 }, stage);
+            const executionContext: ExecutionContext = { testRunId: undefined, moduleId: undefined, attempt: 1, workerId: undefined, runtimeContext: new ExecutionContextDetector({}, {}).runtimeContext };
+            const archiver = new TestRunArchiver(outputFileSystem, executionContext, new ModuleLoader(process.cwd()), stage);
             const generator = new HtmlReportGenerator(aggregator, templateWriter);
             const reporter = new HtmlReporter(archiver, generator);
 
@@ -537,13 +522,9 @@ test.describe('HtmlReporter', () => {
                 [outputDirectory.value]: {},
             }, '/')) as unknown as typeof fs;
             const outputFileSystem = new FileSystem(outputDirectory, filesystem);
-            const artifactWriter = new ArtifactWriter(outputFileSystem);
-            const sceneDataCollector = new SceneDataCollector();
-            const runDataWriter = new RunDataWriter(outputFileSystem);
-            const executionContext = new ExecutionContext({}, ciEnv);
-            const systemContextDetector = new SystemContextDetector(executionContext, new ModuleLoader(process.cwd()));
+            const executionContext = new ExecutionContextDetector({}, ciEnv).detect();
 
-            const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, executionContext, stage);
+            const archiver = new TestRunArchiver(outputFileSystem, executionContext, new ModuleLoader(process.cwd()), stage);
             const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
             const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
@@ -573,13 +554,9 @@ test.describe('HtmlReporter', () => {
                 [outputDirectory.value]: {},
             }, '/')) as unknown as typeof fs;
             const outputFileSystem = new FileSystem(outputDirectory, filesystem);
-            const artifactWriter = new ArtifactWriter(outputFileSystem);
-            const sceneDataCollector = new SceneDataCollector();
-            const runDataWriter = new RunDataWriter(outputFileSystem);
-            const executionContext = new ExecutionContext({}, localEnv);
-            const systemContextDetector = new SystemContextDetector(executionContext, new ModuleLoader(process.cwd()));
+            const executionContext = new ExecutionContextDetector({}, localEnv).detect();
 
-            const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, executionContext, stage);
+            const archiver = new TestRunArchiver(outputFileSystem, executionContext, new ModuleLoader(process.cwd()), stage);
             const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
             const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
@@ -603,13 +580,13 @@ test.describe('HtmlReporter', () => {
         });
 
         test('detects WDIO_WORKER_ID when running in WebdriverIO parallel mode', () => {
-            const context = new ExecutionContext({}, { WDIO_WORKER_ID: '0-5' });
-            expect(context.workerId).toBe('0-5');
+            const detector = new ExecutionContextDetector({}, { WDIO_WORKER_ID: '0-5' });
+            expect(detector.workerId).toBe('0-5');
         });
 
         test('returns undefined when WDIO_WORKER_ID is not set', () => {
-            const context = new ExecutionContext({}, {});
-            expect(context.workerId).toBeUndefined();
+            const detector = new ExecutionContextDetector({}, {});
+            expect(detector.workerId).toBeUndefined();
         });
 
         test('produces data.js when TestRunArchiver writes to a CI module-level path', () => {
@@ -619,15 +596,12 @@ test.describe('HtmlReporter', () => {
                 [outputDirectory.value]: {},
             }, '/')) as unknown as typeof fs;
             const outputFileSystem = new FileSystem(outputDirectory, filesystem);
-            const artifactWriter = new ArtifactWriter(outputFileSystem);
-            const sceneDataCollector = new SceneDataCollector();
-            const runDataWriter = new RunDataWriter(outputFileSystem);
-            const executionContext = new ExecutionContext({}, ciEnv);
-            const systemContextDetector = new SystemContextDetector(executionContext, new ModuleLoader(process.cwd()));
+            const executionContext = new ExecutionContextDetector({}, ciEnv).detect();
 
             const archiver = new TestRunArchiver(
-                { artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector },
+                outputFileSystem,
                 executionContext,
+                new ModuleLoader(process.cwd()),
                 stage,
             );
             const rootFileSystem = new FileSystem(Path.from('/'), filesystem);

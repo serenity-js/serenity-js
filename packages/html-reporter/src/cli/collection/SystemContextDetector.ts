@@ -4,8 +4,8 @@ import { join } from 'node:path';
 
 import type { ModuleLoader, Version } from '@serenity-js/core/io';
 
-import type { RuntimeContext } from './CiDetector.js';
 import type { ExecutionContext } from './ExecutionContext.js';
+import type { RuntimeContext } from './CiDetector.js';
 
 /**
  * System context information included in the test run data.

@@ -19,17 +19,11 @@ import type { HtmlReporterConfig } from '../HtmlReporterConfig.js';
 import type { RunData } from '../model/RunData.js';
 import { CURRENT_RUN_DATA_SCHEMA_VERSION } from '../model/RunData.js';
 import { ArtifactWriter } from './ArtifactWriter.js';
-import { ExecutionContext } from './ExecutionContext.js';
+import type { ExecutionContext } from './ExecutionContext.js';
+import { ExecutionContextDetector } from './ExecutionContext.js';
 import { RunDataWriter } from './RunDataWriter.js';
 import { SceneDataCollector } from './SceneDataCollector.js';
 import { SystemContextDetector } from './SystemContextDetector.js';
-
-interface ArchiverDependencies {
-    artifactWriter: ArtifactWriter;
-    sceneDataCollector: SceneDataCollector;
-    runDataWriter: RunDataWriter;
-    systemContextDetector: SystemContextDetector;
-}
 
 /**
  * A [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) that archives
@@ -158,9 +152,6 @@ export class TestRunArchiver implements StageCrewMember {
     private readonly sceneDataCollector: SceneDataCollector;
     private readonly runDataWriter: RunDataWriter;
     private readonly systemContextDetector: SystemContextDetector;
-    private readonly testRunId?: string;
-    private readonly moduleId?: string;
-    private readonly attempt: number;
 
     /**
      * Creates a {@link StageCrewMemberBuilder} that will instantiate the `TestRunArchiver`
@@ -174,22 +165,20 @@ export class TestRunArchiver implements StageCrewMember {
     }
 
     constructor(
-        deps: ArchiverDependencies,
-        executionContext: ExecutionContext = new ExecutionContext(),
+        outputFileSystem: FileSystem,
+        private readonly executionContext: ExecutionContext,
+        moduleLoader: ModuleLoader,
         private stage?: Stage,
+        overrides?: { projectName?: string },
     ) {
-        const { artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector } = deps;
-        ensure('artifactWriter', artifactWriter, isDefined());
-        ensure('sceneDataCollector', sceneDataCollector, isDefined());
-        ensure('runDataWriter', runDataWriter, isDefined());
-        ensure('systemContextDetector', systemContextDetector, isDefined());
-        this.artifactWriter = artifactWriter;
-        this.sceneDataCollector = sceneDataCollector;
-        this.runDataWriter = runDataWriter;
-        this.systemContextDetector = systemContextDetector;
-        this.testRunId = executionContext.testRunId;
-        this.moduleId = executionContext.moduleId;
-        this.attempt = executionContext.attempt;
+        ensure('outputFileSystem', outputFileSystem, isDefined());
+        ensure('executionContext', executionContext, isDefined());
+        ensure('moduleLoader', moduleLoader, isDefined());
+
+        this.artifactWriter = new ArtifactWriter(outputFileSystem);
+        this.sceneDataCollector = new SceneDataCollector();
+        this.runDataWriter = new RunDataWriter(outputFileSystem, executionContext.workerId);
+        this.systemContextDetector = new SystemContextDetector(executionContext, moduleLoader, overrides);
     }
 
     assignedTo(stage: Stage): StageCrewMember {
@@ -243,11 +232,11 @@ export class TestRunArchiver implements StageCrewMember {
         if (this.resolvedTestRunId) {
             placeholder.testRunId = this.resolvedTestRunId;
         }
-        if (this.moduleId) {
-            placeholder.moduleId = this.moduleId;
+        if (this.executionContext.moduleId) {
+            placeholder.moduleId = this.executionContext.moduleId;
         }
-        if (this.attempt) {
-            placeholder.attempt = this.attempt;
+        if (this.executionContext.attempt) {
+            placeholder.attempt = this.executionContext.attempt;
         }
 
         this.runDataWriter.write(placeholder, this.artifactWriter.getRunDirectory());
@@ -260,8 +249,8 @@ export class TestRunArchiver implements StageCrewMember {
         if (!this.testRunTimestamp) {
             this.testRunTimestamp = new Date().toISOString();
         }
-        this.resolvedTestRunId = this.testRunId || this.testRunTimestamp.replaceAll(':', '-');
-        this.artifactWriter.createRunDirectory(this.resolvedTestRunId, this.attempt, this.moduleId);
+        this.resolvedTestRunId = this.executionContext.testRunId || this.testRunTimestamp.replaceAll(':', '-');
+        this.artifactWriter.createRunDirectory(this.resolvedTestRunId, this.executionContext.attempt, this.executionContext.moduleId);
     }
 
     private archiveTestRun(): void {
@@ -283,11 +272,11 @@ export class TestRunArchiver implements StageCrewMember {
                 artifactPaths: this.artifactWriter.getArtifactPaths(),
                 systemContext: this.systemContextDetector.detect(),
                 sceneArtifactPaths: this.artifactWriter.getSceneArtifactPaths(),
-                moduleId: this.moduleId,
+                moduleId: this.executionContext.moduleId,
             });
 
             runData.testRunId = this.resolvedTestRunId;
-            runData.moduleId = this.moduleId;
+            runData.moduleId = this.executionContext.moduleId;
             runData.attempt = this.artifactWriter.getAttempt();
             this.runDataWriter.write(runData, this.artifactWriter.getRunDirectory());
 
@@ -323,12 +312,9 @@ class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> 
         const outputDirectory = Path.from(this.config.outputDirectory || './reports/serenity-js');
         const outputFileSystem = new FileSystem(outputDirectory);
 
-        const executionContext = new ExecutionContext({ testRunId: this.config.testRunId, moduleId: this.config.moduleId, ci: this.config.ci });
-        const artifactWriter = new ArtifactWriter(outputFileSystem);
-        const sceneDataCollector = new SceneDataCollector();
-        const runDataWriter = new RunDataWriter(outputFileSystem, executionContext.workerId);
-        const systemContextDetector = new SystemContextDetector(executionContext, new ModuleLoader(process.cwd()), { projectName: this.config.projectName });
+        const detector = new ExecutionContextDetector({ testRunId: this.config.testRunId, moduleId: this.config.moduleId, ci: this.config.ci });
+        const executionContext = detector.detect();
 
-        return new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, executionContext, stage);
+        return new TestRunArchiver(outputFileSystem, executionContext, new ModuleLoader(process.cwd()), stage, { projectName: this.config.projectName });
     }
 }
