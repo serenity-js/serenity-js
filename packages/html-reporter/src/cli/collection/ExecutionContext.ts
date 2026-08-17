@@ -45,7 +45,6 @@ export class AutoDiscoveredExecutionContext implements ExecutionContext {
     private cachedTestRunId: string | undefined | null = null;
     private cachedModuleId: string | undefined | null = null;
     private cachedAttempt: number | undefined;
-    private cachedWorkerId: string | undefined | null = null;
     private cachedRuntimeContext: RuntimeContext | undefined;
 
     constructor(
@@ -78,10 +77,7 @@ export class AutoDiscoveredExecutionContext implements ExecutionContext {
     }
 
     get workerId(): string | undefined {
-        if (this.cachedWorkerId === null) {
-            this.cachedWorkerId = this.detectWorkerId();
-        }
-        return this.cachedWorkerId;
+        return this.env.WDIO_WORKER_ID;
     }
 
     get runtimeContext(): RuntimeContext {
@@ -134,9 +130,5 @@ export class AutoDiscoveredExecutionContext implements ExecutionContext {
             return (parseInt(this.env.BUILD_RETRY_COUNT, 10) || 0) + 1;
         }
         return 1;
-    }
-
-    private detectWorkerId(): string | undefined {
-        return this.env.WDIO_WORKER_ID;
     }
 }
