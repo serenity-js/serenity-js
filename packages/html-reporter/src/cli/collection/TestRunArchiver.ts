@@ -1,4 +1,9 @@
-import type { Stage, StageCrewMember, StageCrewMemberBuilder, StageCrewMemberBuilderDependencies } from '@serenity-js/core';
+import type {
+    Stage,
+    StageCrewMember,
+    StageCrewMemberBuilder,
+    StageCrewMemberBuilderDependencies
+} from '@serenity-js/core';
 import { DomainEventQueues } from '@serenity-js/core';
 import type { DomainEvent } from '@serenity-js/core/events';
 import {
@@ -164,12 +169,21 @@ export class TestRunArchiver implements StageCrewMember {
         return new TestRunArchiverBuilder(config);
     }
 
+    /**
+     * @param outputFileSystem
+     *  File system rooted at the configured output directory
+     * @param executionContext
+     *  Detected CI execution context (test run ID, module ID, attempt, runtime metadata)
+     * @param moduleLoader
+     *  Module loader for resolving package versions and project metadata
+     * @param stage
+     *  Stage instance (set automatically via {@link assignedTo} when used as a crew member)
+     */
     constructor(
         outputFileSystem: FileSystem,
         private readonly executionContext: ExecutionContext,
         moduleLoader: ModuleLoader,
         private stage?: Stage,
-        overrides?: { projectName?: string },
     ) {
         ensure('outputFileSystem', outputFileSystem, isDefined());
         ensure('executionContext', executionContext, isDefined());
@@ -178,7 +192,7 @@ export class TestRunArchiver implements StageCrewMember {
         this.artifactWriter = new ArtifactWriter(outputFileSystem);
         this.sceneDataCollector = new SceneDataCollector();
         this.runDataWriter = new RunDataWriter(outputFileSystem, executionContext.workerId);
-        this.systemContextDetector = new SystemContextDetector(executionContext, moduleLoader, overrides);
+        this.systemContextDetector = new SystemContextDetector(executionContext, moduleLoader);
     }
 
     assignedTo(stage: Stage): StageCrewMember {
@@ -208,7 +222,7 @@ export class TestRunArchiver implements StageCrewMember {
             this.artifactWriter.write(event);
         }
 
-        if (event instanceof ArtifactGenerated && !(event instanceof ActivityRelatedArtifactGenerated)) {
+        if (event instanceof ArtifactGenerated && ! (event instanceof ActivityRelatedArtifactGenerated)) {
             this.ensureRunDirectoryExists();
             this.artifactWriter.writeSceneArtifact(event);
         }
@@ -246,7 +260,7 @@ export class TestRunArchiver implements StageCrewMember {
         if (this.resolvedTestRunId) {
             return;
         }
-        if (!this.testRunTimestamp) {
+        if (! this.testRunTimestamp) {
             this.testRunTimestamp = new Date().toISOString();
         }
         this.resolvedTestRunId = this.executionContext.testRunId || this.testRunTimestamp.replaceAll(':', '-');
@@ -284,7 +298,8 @@ export class TestRunArchiver implements StageCrewMember {
                 id,
                 this.stage.currentTime(),
             ));
-        } catch (error) {
+        }
+        catch (error) {
             this.stage.announce(new AsyncOperationFailed(
                 error as Error,
                 id,
@@ -312,8 +327,13 @@ class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> 
         const outputDirectory = Path.from(this.config.outputDirectory || './reports/serenity-js');
         const outputFileSystem = new FileSystem(outputDirectory);
 
-        const detector = new AutoDiscoveredExecutionContext({ testRunId: this.config.testRunId, moduleId: this.config.moduleId, ci: this.config.ci });
+        const executionContext = new AutoDiscoveredExecutionContext({
+            testRunId: this.config.testRunId,
+            moduleId: this.config.moduleId,
+            projectName: this.config.projectName,
+            ci: this.config.ci
+        });
 
-        return new TestRunArchiver(outputFileSystem, detector, new ModuleLoader(process.cwd()), stage, { projectName: this.config.projectName });
+        return new TestRunArchiver(outputFileSystem, executionContext, new ModuleLoader(process.cwd()), stage);
     }
 }

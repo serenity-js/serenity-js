@@ -1,8 +1,7 @@
 import { expect, test } from '@playwright/test';
 
-import { AutoDiscoveredExecutionContext } from '../../../src/cli/collection/ExecutionContext.js';
 import type { ExecutionContext } from '../../../src/cli/collection/ExecutionContext.js';
-import type { RuntimeContext } from '../../../src/cli/collection/CiDetector.js';
+import { AutoDiscoveredExecutionContext } from '../../../src/cli/collection/ExecutionContext.js';
 
 test.describe('AutoDiscoveredExecutionContext', () => {
 
@@ -63,11 +62,9 @@ test.describe('AutoDiscoveredExecutionContext', () => {
             expect(context.moduleId).toBe('api-tests');
         });
 
-        test('does not derive moduleId when testRunId is explicitly overridden', () => {
-            // When testRunId is explicit (user-provided), don't auto-derive moduleId
-            // because the user is managing their own directory structure
+        test('derives moduleId from working directory when testRunId is explicitly overridden', () => {
             const context = new AutoDiscoveredExecutionContext({ testRunId: 'my-run' }, {});
-            expect(context.moduleId).toBeUndefined();
+            expect(context.moduleId).toBeDefined();
         });
     });
 

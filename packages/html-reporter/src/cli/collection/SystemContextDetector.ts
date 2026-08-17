@@ -4,8 +4,8 @@ import { join } from 'node:path';
 
 import type { ModuleLoader, Version } from '@serenity-js/core/io';
 
-import type { ExecutionContext } from './ExecutionContext.js';
 import type { RuntimeContext } from './CiDetector.js';
+import type { ExecutionContext } from './ExecutionContext.js';
 
 /**
  * System context information included in the test run data.
@@ -32,7 +32,6 @@ export class SystemContextDetector {
     constructor(
         private readonly executionContext: ExecutionContext,
         private readonly moduleLoader: ModuleLoader,
-        private readonly overrides: { projectName?: string } = {},
     ) {
     }
 
@@ -46,7 +45,7 @@ export class SystemContextDetector {
             },
             serenityVersion: this.moduleLoader.versionOf('@serenity-js/core'),
             runtime: this.executionContext.runtimeContext,
-            projectName: this.overrides.projectName || this.detectProjectName(),
+            projectName: this.executionContext.projectName || this.detectProjectName(),
             packageManager: this.detectPackageManager(),
             environmentUnderTest: this.detectEnvironmentUnderTest(),
         };

@@ -211,8 +211,8 @@ class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
         const outputFileSystem = new FileSystem(outputDirectory);
 
         // TestRunArchiver: detect context once, pass immutable value
-        const executionContext = new AutoDiscoveredExecutionContext({ testRunId: this.config.testRunId, moduleId: this.config.moduleId, ci: this.config.ci });
-        const archiver = new TestRunArchiver(outputFileSystem, executionContext, new ModuleLoader(process.cwd()), stage, { projectName: this.config.projectName });
+        const executionContext = new AutoDiscoveredExecutionContext({ testRunId: this.config.testRunId, moduleId: this.config.moduleId, projectName: this.config.projectName, ci: this.config.ci });
+        const archiver = new TestRunArchiver(outputFileSystem, executionContext, new ModuleLoader(process.cwd()), stage);
 
         // HtmlReportGenerator dependencies
         const projectFileSystem = new FileSystem(Path.from(process.cwd()));

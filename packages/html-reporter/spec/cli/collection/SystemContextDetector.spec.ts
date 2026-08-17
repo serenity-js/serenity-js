@@ -23,6 +23,7 @@ test.describe('SystemContextDetector', () => {
             moduleId: undefined,
             attempt: 1,
             workerId: undefined,
+            projectName: undefined,
             runtimeContext: defaultRuntimeContext,
             ...overrides,
         };
@@ -80,8 +81,8 @@ test.describe('SystemContextDetector', () => {
     });
 
     test('allows projectName to be overridden via config', () => {
-        const executionContext = localContext();
-        const detector = new SystemContextDetector(executionContext, moduleLoader, { projectName: 'My Custom Project' });
+        const executionContext = localContext({ projectName: 'My Custom Project' });
+        const detector = new SystemContextDetector(executionContext, moduleLoader);
 
         const context = detector.detect();
 

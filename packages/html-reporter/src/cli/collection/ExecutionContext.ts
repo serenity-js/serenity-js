@@ -15,6 +15,7 @@ export interface ExecutionContext {
     readonly moduleId: string | undefined;
     readonly attempt: number;
     readonly workerId: string | undefined;
+    readonly projectName: string | undefined;
     readonly runtimeContext: RuntimeContext;
 }
 
@@ -25,12 +26,13 @@ export interface ExecutionContext {
 export interface ExecutionContextOverrides {
     testRunId?: string;
     moduleId?: string;
+    projectName?: string;
     ci?: Partial<RuntimeContext>;
 }
 
 /**
  * Auto-discovers CI execution context from environment variables and provides
- * it as an immutable {@link ExecutionContext} value via lazy cached getters.
+ * it as an {@link ExecutionContext} implementation.
  *
  * In production, reads from `process.env`. In tests, accepts a fake
  * environment object for deterministic assertions without global mutation.
@@ -42,9 +44,6 @@ export class AutoDiscoveredExecutionContext implements ExecutionContext {
     private readonly overrides: ExecutionContextOverrides;
     private readonly env: Record<string, string | undefined>;
 
-    private cachedTestRunId: string | undefined | null = null;
-    private cachedModuleId: string | undefined | null = null;
-    private cachedAttempt: number | undefined;
     private cachedRuntimeContext: RuntimeContext | undefined;
 
     constructor(
@@ -56,34 +55,46 @@ export class AutoDiscoveredExecutionContext implements ExecutionContext {
     }
 
     get testRunId(): string | undefined {
-        if (this.cachedTestRunId === null) {
-            this.cachedTestRunId = this.overrides.testRunId || this.detectTestRunId();
-        }
-        return this.cachedTestRunId;
+        return this.overrides.testRunId || this.detectCIRunId();
     }
 
     get moduleId(): string | undefined {
-        if (this.cachedModuleId === null) {
-            this.cachedModuleId = this.overrides.moduleId || (this.overrides.testRunId ? undefined : this.detectModuleId());
+        if (this.overrides.moduleId) {
+            return this.overrides.moduleId;
         }
-        return this.cachedModuleId;
+
+        // Derive from working directory whenever a testRunId exists
+        if (this.testRunId) {
+            return path.basename(process.cwd());
+        }
+
+        return undefined;
     }
 
     get attempt(): number {
-        if (!this.cachedAttempt) {
-            this.cachedAttempt = this.detectAttemptNumber();
+        if (this.env.GITHUB_RUN_ATTEMPT) {
+            return parseInt(this.env.GITHUB_RUN_ATTEMPT, 10) || 1;
         }
-        return this.cachedAttempt;
+        if (this.env.CI_JOB_RETRY) {
+            return (parseInt(this.env.CI_JOB_RETRY, 10) || 0) + 1;
+        }
+        if (this.env.BUILD_RETRY_COUNT) {
+            return (parseInt(this.env.BUILD_RETRY_COUNT, 10) || 0) + 1;
+        }
+        return 1;
     }
 
     get workerId(): string | undefined {
         return this.env.WDIO_WORKER_ID;
     }
 
+    get projectName(): string | undefined {
+        return this.overrides.projectName;
+    }
+
     get runtimeContext(): RuntimeContext {
         if (!this.cachedRuntimeContext) {
-            const ciDetector = new CIDetector(this.env);
-            const detected = ciDetector.detect();
+            const detected = new CIDetector(this.env).detect();
             this.cachedRuntimeContext = this.overrides.ci
                 ? { ...detected, ...this.overrides.ci } as RuntimeContext
                 : detected;
@@ -91,44 +102,10 @@ export class AutoDiscoveredExecutionContext implements ExecutionContext {
         return this.cachedRuntimeContext;
     }
 
-    private detectTestRunId(): string | undefined {
-        const CI_RUN_ID_ENV_VARS = [
-            'GITHUB_RUN_NUMBER',
-            'CI_PIPELINE_IID',      // GitLab CI
-            'BUILD_NUMBER',         // Jenkins
-            'CIRCLE_BUILD_NUM',     // CircleCI
-        ];
-
-        for (const variableName of CI_RUN_ID_ENV_VARS) {
-            if (this.env[variableName]) {
-                return this.env[variableName];
-            }
-        }
-        return undefined;
-    }
-
-    private detectModuleId(): string | undefined {
-        // When a CI testRunId is detected, derive moduleId from the working
-        // directory basename. This ensures each parallel CI job writes to its
-        // own subdirectory under test-runs/{buildId}/{moduleId}-{attempt}/.
-        if (this.detectTestRunId()) {
-            return path.basename(process.cwd());
-        }
-        return undefined;
-    }
-
-    private detectAttemptNumber(): number {
-        if (this.env.GITHUB_RUN_ATTEMPT) {
-            return parseInt(this.env.GITHUB_RUN_ATTEMPT, 10) || 1;
-        }
-        if (this.env.CI_JOB_RETRY) {
-            // GitLab: 0-based → convert to 1-based
-            return (parseInt(this.env.CI_JOB_RETRY, 10) || 0) + 1;
-        }
-        if (this.env.BUILD_RETRY_COUNT) {
-            // Jenkins: 0-based → convert to 1-based
-            return (parseInt(this.env.BUILD_RETRY_COUNT, 10) || 0) + 1;
-        }
-        return 1;
+    private detectCIRunId(): string | undefined {
+        return this.env.GITHUB_RUN_NUMBER
+            || this.env.CI_PIPELINE_IID
+            || this.env.BUILD_NUMBER
+            || this.env.CIRCLE_BUILD_NUM;
     }
 }
