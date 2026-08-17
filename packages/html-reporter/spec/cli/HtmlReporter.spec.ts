@@ -76,7 +76,7 @@ test.describe('HtmlReporter', () => {
         const systemContextDetector = new SystemContextDetector(new CIDetector({}), new ModuleLoader(process.cwd()));
 
         const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId: undefined, moduleId: undefined, attempt: 1 }, stage);
-        const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
+        const generator = new HtmlReportGenerator(aggregator, templateWriter);
         const reporter = new HtmlReporter(archiver, generator);
 
         return { reporter, filesystem };
@@ -178,7 +178,7 @@ test.describe('HtmlReporter', () => {
             const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId: '100', moduleId: 'webdriverio-8-web-devtools', attempt: 1 }, stage);
             const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
-            const reporter = new HtmlReporter(archiver, new HtmlReportGenerator(aggregator, templateWriter, stage));
+            const reporter = new HtmlReporter(archiver, new HtmlReportGenerator(aggregator, templateWriter));
 
             stage.assign(reporter);
 
@@ -307,7 +307,7 @@ test.describe('HtmlReporter', () => {
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
             const systemContextDetector = new SystemContextDetector(new CIDetector({}), new ModuleLoader(process.cwd()));
             const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId: undefined, moduleId: undefined, attempt: 1 }, stage);
-            const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
+            const generator = new HtmlReportGenerator(aggregator, templateWriter);
             const reporter = new HtmlReporter(archiver, generator);
 
             stage.assign(reporter);
@@ -543,7 +543,7 @@ test.describe('HtmlReporter', () => {
             const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
             const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
-            const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
+            const generator = new HtmlReportGenerator(aggregator, templateWriter);
             const reporter = new HtmlReporter(archiver, generator);
 
             stage.assign(reporter);
@@ -578,7 +578,7 @@ test.describe('HtmlReporter', () => {
             const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
             const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
-            const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
+            const generator = new HtmlReportGenerator(aggregator, templateWriter);
             const reporter = new HtmlReporter(archiver, generator);
 
             stage.assign(reporter);
@@ -625,7 +625,7 @@ test.describe('HtmlReporter', () => {
             const rootFileSystem = new FileSystem(Path.from('/'), filesystem);
             const aggregator = new SingleSourceAggregator(outputFileSystem, { consistencyWindow: 5 }, new RequirementsHierarchy(rootFileSystem), () => undefined);
             const templateWriter = new ReportTemplateWriter(outputFileSystem);
-            const generator = new HtmlReportGenerator(aggregator, templateWriter, stage);
+            const generator = new HtmlReportGenerator(aggregator, templateWriter);
             const reporter = new HtmlReporter(archiver, generator);
 
             stage.assign(reporter);
