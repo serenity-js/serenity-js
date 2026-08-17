@@ -71,7 +71,7 @@ Tracking document for all documentation work required to launch `@serenity-js/ht
 - [ ] Publish blog post (verify version number matches actual release)
 
 ### Should-have (same week as announcement)
-- [ ] Add FAQ topics to handbook article (see section below)
+- [x] Add FAQ topics to handbook article
 - [x] Update homepage 'Report what really matters' section to mention HTML Reporter
 - [ ] Update WebdriverIO project setup wizard to install @serenity-js/html-reporter by default
 
