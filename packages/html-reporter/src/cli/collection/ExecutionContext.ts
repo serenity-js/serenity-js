@@ -70,7 +70,7 @@ export class AutoDiscoveredExecutionContext implements ExecutionContext {
     }
 
     get attempt(): number {
-        if (this.cachedAttempt === undefined) {
+        if (!this.cachedAttempt) {
             this.cachedAttempt = this.detectAttemptNumber();
         }
         return this.cachedAttempt;
