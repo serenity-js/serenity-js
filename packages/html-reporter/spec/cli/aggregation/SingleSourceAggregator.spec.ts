@@ -1312,4 +1312,118 @@ test.describe('SingleSourceAggregator', () => {
             expect(incompleteModule.finishedAt).toBeUndefined();
         });
     });
+
+    test.describe('CI module-level paths', () => {
+
+        test('produces data.js when db.json is at test-runs/{buildId}/{moduleId}/db.json', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '4142': {
+                        'my-project-1': {
+                            'db.json': runData({
+                                startedAt: '2024-06-15T14:30:00.000Z',
+                                finishedAt: '2024-06-15T14:30:01.000Z',
+                                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                                scenes: [
+                                    { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                                ],
+                                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                                testRunId: '4142', moduleId: 'my-project-1',
+                            }),
+                        },
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+
+            expect(filesystem.existsSync('/reports/serenity-js/data.js')).toBe(true);
+            const data = readDataJs(filesystem);
+            expect(data.scenarios).toHaveLength(1);
+            expect(data.scenarios[0].name).toBe('Test A');
+        });
+
+        test('aggregates across multiple runs with module-level paths', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '4137': {
+                        'my-project-1': {
+                            'db.json': runData({
+                                startedAt: '2024-06-14T10:00:00.000Z',
+                                finishedAt: '2024-06-14T10:00:01.000Z',
+                                outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                                scenes: [
+                                    { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                                ],
+                                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                                testRunId: '4137', moduleId: 'my-project-1',
+                            }),
+                        },
+                    },
+                    '4142': {
+                        'my-project-1': {
+                            'db.json': runData({
+                                startedAt: '2024-06-15T14:30:00.000Z',
+                                finishedAt: '2024-06-15T14:30:01.000Z',
+                                outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                                scenes: [
+                                    { name: 'Test A', category: 'Suite', outcome: { code: 4 }, duration: 200, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                                ],
+                                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                                testRunId: '4142', moduleId: 'my-project-1',
+                            }),
+                        },
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+
+            expect(filesystem.existsSync('/reports/serenity-js/data.js')).toBe(true);
+            const data = readDataJs(filesystem);
+            expect(data.history).toHaveLength(2);
+            expect(data.scenarios).toHaveLength(1);
+            expect(data.scenarios[0].name).toBe('Test A');
+        });
+
+        test('mixes run-level and module-level paths in the same test-runs directory', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    // Older run from local (single-level path)
+                    '2024-06-14T10:00:00.000Z': {
+                        'db.json': runData({
+                            startedAt: '2024-06-14T10:00:00.000Z',
+                            finishedAt: '2024-06-14T10:00:01.000Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                            ],
+                            tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                        }),
+                    },
+                    // Newer run from CI (module-level path)
+                    '4142': {
+                        'my-project-1': {
+                            'db.json': runData({
+                                startedAt: '2024-06-15T14:30:00.000Z',
+                                finishedAt: '2024-06-15T14:30:01.000Z',
+                                outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                                scenes: [
+                                    { name: 'Test A', category: 'Suite', outcome: { code: 4 }, duration: 200, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                                ],
+                                tags: [], testRunner: { name: 'Mocha', version: '11.0.0' },
+                                testRunId: '4142', moduleId: 'my-project-1',
+                            }),
+                        },
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+
+            expect(filesystem.existsSync('/reports/serenity-js/data.js')).toBe(true);
+            const data = readDataJs(filesystem);
+            expect(data.history).toHaveLength(2);
+        });
+    });
 });
