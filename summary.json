@@ -1,6 +1,6 @@
 {
   "$schema": "https://serenity-js.org/schemas/report-summary.json",
-  "generated": "2026-08-18T08:53:11.574Z",
+  "generated": "2026-08-18T09:03:01.379Z",
   "title": "Serenity/JS Integration Tests",
   "schemaVersion": 1,
   "reportUrl": "./index.html",
@@ -13,18 +13,18 @@
     "timestamp": "2026-08-18T08:07:11.499Z",
     "label": "8541",
     "totals": {
-      "passed": 3554,
+      "passed": 3569,
       "failed": 0,
       "pending": 0,
       "skipped": 0,
       "compromised": 0,
       "error": 0
     },
-    "duration": 2538111
+    "duration": 3185115
   },
   "runs": 5,
   "delta": {
-    "passed": -15,
+    "passed": 0,
     "failed": 0,
     "pending": 0,
     "skipped": 0,
@@ -47,8 +47,18 @@
   "slowest": [
     {
       "name": "supports native cucumber formatters",
+      "source": "webdriverio-8-cucumber/spec/native_cucumber_formatters.spec.ts",
+      "duration": 19436
+    },
+    {
+      "name": "supports native cucumber formatters",
       "source": "webdriverio-cucumber/spec/native_cucumber_formatters.spec.ts",
       "duration": 14767
+    },
+    {
+      "name": "recognises a passing scenario",
+      "source": "webdriverio-8-cucumber/spec/passing_scenario.spec.ts",
+      "duration": 13751
     },
     {
       "name": "to(url) marks the test as compromised if the desired destination can't be reached",
@@ -56,19 +66,9 @@
       "duration": 13389
     },
     {
-      "name": "for pauses the actor flow for the length of an explicitly-set duration",
-      "source": "webdriverio-8-web/node_modules/@integration/web-specs/spec/screenplay/interactions/Wait.spec.ts",
-      "duration": 7085
-    },
-    {
-      "name": "for pauses the actor flow for the length of an explicitly-set duration",
-      "source": "webdriverio-8-web/node_modules/@integration/web-specs/spec/screenplay/interactions/Wait.spec.ts",
-      "duration": 6955
-    },
-    {
-      "name": "reports events that occur when a Screenplay Pattern scenario fails when discarding of an ability doesn't complete within a timeout",
-      "source": "playwright-test/spec/screenplay.spec.ts",
-      "duration": 6630
+      "name": "afterTest hook is invoked with correct result for a passing scenario",
+      "source": "webdriverio-8-mocha/spec/afterTest_hook.spec.ts",
+      "duration": 13312
     }
   ],
   "modules": [
@@ -341,6 +341,36 @@
       "duration": 1017,
       "startedAt": "2026-08-18T08:07:32.820Z",
       "finishedAt": "2026-08-18T08:07:33.837Z"
+    },
+    {
+      "id": "webdriverio-8-cucumber",
+      "outcome": "passed",
+      "tests": 2,
+      "passed": 2,
+      "failed": 0,
+      "duration": 33189,
+      "startedAt": "2026-08-18T08:56:48.918Z",
+      "finishedAt": "2026-08-18T08:57:22.107Z"
+    },
+    {
+      "id": "webdriverio-8-jasmine",
+      "outcome": "passed",
+      "tests": 6,
+      "passed": 6,
+      "failed": 0,
+      "duration": 76091,
+      "startedAt": "2026-08-18T08:57:27.756Z",
+      "finishedAt": "2026-08-18T08:58:43.847Z"
+    },
+    {
+      "id": "webdriverio-8-mocha",
+      "outcome": "passed",
+      "tests": 7,
+      "passed": 7,
+      "failed": 0,
+      "duration": 89507,
+      "startedAt": "2026-08-18T08:58:47.107Z",
+      "finishedAt": "2026-08-18T09:00:16.614Z"
     },
     {
       "id": "webdriverio-8-web-devtools",
