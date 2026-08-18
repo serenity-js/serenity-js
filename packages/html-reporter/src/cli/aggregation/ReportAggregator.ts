@@ -103,10 +103,33 @@ export abstract class ReportAggregator {
         }
 
         const entries = this.fileSystem.readdirSync(testRunsDirectory);
+
         return entries
-            .filter(entry => this.fileSystem.exists(testRunsDirectory.join(Path.from(entry)).join(Path.from('db.json'))))
-            .sort()
-            .map(entry => testRunsDirectory.join(Path.from(entry)));
+            .flatMap(entry => this.resolveDbJsonDirectories(testRunsDirectory.join(Path.from(entry))))
+            .sort((a, b) => a.value.localeCompare(b.value));
+    }
+
+    /**
+     * Resolves directories containing db.json at one or two levels:
+     * - Run-level: the directory itself contains db.json
+     * - Module-level: subdirectories contain db.json (CI multi-module layout)
+     */
+    private resolveDbJsonDirectories(entryPath: Path): Path[] {
+        if (this.fileSystem.exists(entryPath.join(Path.from('db.json')))) {
+            return [entryPath];
+        }
+
+        return this.safeReaddir(entryPath)
+            .map(sub => entryPath.join(Path.from(sub)))
+            .filter(subPath => this.fileSystem.exists(subPath.join(Path.from('db.json'))));
+    }
+
+    private safeReaddir(path: Path): string[] {
+        try {
+            return this.fileSystem.readdirSync(path);
+        } catch {
+            return [];
+        }
     }
 
     private buildSummary(latestRun: RunData): { title: string; totalScenarios: number; outcomes: typeof latestRun.outcomes; duration: number; startedAt: string; finishedAt: string; testRunner: string } {

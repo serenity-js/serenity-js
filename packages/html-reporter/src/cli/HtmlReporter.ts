@@ -4,7 +4,7 @@ import { FileSystem, ModuleLoader, Path, RequirementsHierarchy } from '@serenity
 import { ensure, isDefined } from 'tiny-types';
 
 import { SingleSourceAggregator } from './aggregation/index.js';
-import { ArtifactWriter, CIDetector, detectAttemptNumber, detectModuleId, detectTestRunId, RunDataWriter, SceneDataCollector, SystemContextDetector, TestRunArchiver } from './collection/index.js';
+import { AutoDiscoveredExecutionContext, TestRunArchiver } from './collection/index.js';
 import type { HtmlReporterConfig } from './HtmlReporterConfig.js';
 import { HtmlReportGenerator } from './HtmlReportGenerator.js';
 import { ReportTemplateWriter } from './reporting/index.js';
@@ -210,16 +210,9 @@ class HtmlReporterBuilder implements StageCrewMemberBuilder<HtmlReporter> {
         const outputDirectory = Path.from(this.config.outputDirectory || './reports/serenity-js');
         const outputFileSystem = new FileSystem(outputDirectory);
 
-        // TestRunArchiver dependencies
-        const artifactWriter = new ArtifactWriter(outputFileSystem);
-        const sceneDataCollector = new SceneDataCollector();
-        const runDataWriter = new RunDataWriter(outputFileSystem);
-        const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()), { projectName: this.config.projectName, runtime: this.config.ci });
-
-        const testRunId = this.config.testRunId || detectTestRunId();
-        const moduleId = this.config.moduleId || (this.config.testRunId ? undefined : detectModuleId());
-
-        const archiver = new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId, moduleId, attempt: detectAttemptNumber() }, stage);
+        // TestRunArchiver: detect context once, pass immutable value
+        const executionContext = new AutoDiscoveredExecutionContext({ testRunId: this.config.testRunId, moduleId: this.config.moduleId, projectName: this.config.projectName, ci: this.config.ci });
+        const archiver = new TestRunArchiver(outputFileSystem, executionContext, new ModuleLoader(process.cwd()), stage);
 
         // HtmlReportGenerator dependencies
         const projectFileSystem = new FileSystem(Path.from(process.cwd()));

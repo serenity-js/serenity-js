@@ -1,6 +1,9 @@
-import * as path from 'node:path';
-
-import type { Stage, StageCrewMember, StageCrewMemberBuilder, StageCrewMemberBuilderDependencies } from '@serenity-js/core';
+import type {
+    Stage,
+    StageCrewMember,
+    StageCrewMemberBuilder,
+    StageCrewMemberBuilderDependencies
+} from '@serenity-js/core';
 import { DomainEventQueues } from '@serenity-js/core';
 import type { DomainEvent } from '@serenity-js/core/events';
 import {
@@ -21,23 +24,11 @@ import type { HtmlReporterConfig } from '../HtmlReporterConfig.js';
 import type { RunData } from '../model/RunData.js';
 import { CURRENT_RUN_DATA_SCHEMA_VERSION } from '../model/RunData.js';
 import { ArtifactWriter } from './ArtifactWriter.js';
-import { CIDetector } from './CiDetector.js';
+import type { ExecutionContext } from './ExecutionContext.js';
+import { AutoDiscoveredExecutionContext } from './ExecutionContext.js';
 import { RunDataWriter } from './RunDataWriter.js';
 import { SceneDataCollector } from './SceneDataCollector.js';
 import { SystemContextDetector } from './SystemContextDetector.js';
-
-interface ExecutionContext {
-    testRunId?: string;
-    moduleId?: string;
-    attempt?: number;
-}
-
-interface ArchiverDependencies {
-    artifactWriter: ArtifactWriter;
-    sceneDataCollector: SceneDataCollector;
-    runDataWriter: RunDataWriter;
-    systemContextDetector: SystemContextDetector;
-}
 
 /**
  * A [`StageCrewMember`](https://serenity-js.org/api/core/interface/StageCrewMember/) that archives
@@ -166,9 +157,6 @@ export class TestRunArchiver implements StageCrewMember {
     private readonly sceneDataCollector: SceneDataCollector;
     private readonly runDataWriter: RunDataWriter;
     private readonly systemContextDetector: SystemContextDetector;
-    private readonly testRunId?: string;
-    private readonly moduleId?: string;
-    private readonly attempt: number;
 
     /**
      * Creates a {@link StageCrewMemberBuilder} that will instantiate the `TestRunArchiver`
@@ -181,23 +169,30 @@ export class TestRunArchiver implements StageCrewMember {
         return new TestRunArchiverBuilder(config);
     }
 
+    /**
+     * @param outputFileSystem
+     *  File system rooted at the configured output directory
+     * @param executionContext
+     *  Detected CI execution context (test run ID, module ID, attempt, runtime metadata)
+     * @param moduleLoader
+     *  Module loader for resolving package versions and project metadata
+     * @param stage
+     *  Stage instance (set automatically via {@link assignedTo} when used as a crew member)
+     */
     constructor(
-        deps: ArchiverDependencies,
-        executionContext: ExecutionContext = {},
+        outputFileSystem: FileSystem,
+        private readonly executionContext: ExecutionContext,
+        moduleLoader: ModuleLoader,
         private stage?: Stage,
     ) {
-        const { artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector } = deps;
-        ensure('artifactWriter', artifactWriter, isDefined());
-        ensure('sceneDataCollector', sceneDataCollector, isDefined());
-        ensure('runDataWriter', runDataWriter, isDefined());
-        ensure('systemContextDetector', systemContextDetector, isDefined());
-        this.artifactWriter = artifactWriter;
-        this.sceneDataCollector = sceneDataCollector;
-        this.runDataWriter = runDataWriter;
-        this.systemContextDetector = systemContextDetector;
-        this.testRunId = executionContext.testRunId;
-        this.moduleId = executionContext.moduleId;
-        this.attempt = executionContext.attempt ?? 1;
+        ensure('outputFileSystem', outputFileSystem, isDefined());
+        ensure('executionContext', executionContext, isDefined());
+        ensure('moduleLoader', moduleLoader, isDefined());
+
+        this.artifactWriter = new ArtifactWriter(outputFileSystem);
+        this.sceneDataCollector = new SceneDataCollector();
+        this.runDataWriter = new RunDataWriter(outputFileSystem, executionContext.workerId);
+        this.systemContextDetector = new SystemContextDetector(executionContext, moduleLoader);
     }
 
     assignedTo(stage: Stage): StageCrewMember {
@@ -227,7 +222,7 @@ export class TestRunArchiver implements StageCrewMember {
             this.artifactWriter.write(event);
         }
 
-        if (event instanceof ArtifactGenerated && !(event instanceof ActivityRelatedArtifactGenerated)) {
+        if (event instanceof ArtifactGenerated && ! (event instanceof ActivityRelatedArtifactGenerated)) {
             this.ensureRunDirectoryExists();
             this.artifactWriter.writeSceneArtifact(event);
         }
@@ -251,11 +246,11 @@ export class TestRunArchiver implements StageCrewMember {
         if (this.resolvedTestRunId) {
             placeholder.testRunId = this.resolvedTestRunId;
         }
-        if (this.moduleId) {
-            placeholder.moduleId = this.moduleId;
+        if (this.executionContext.moduleId) {
+            placeholder.moduleId = this.executionContext.moduleId;
         }
-        if (this.attempt) {
-            placeholder.attempt = this.attempt;
+        if (this.executionContext.attempt) {
+            placeholder.attempt = this.executionContext.attempt;
         }
 
         this.runDataWriter.write(placeholder, this.artifactWriter.getRunDirectory());
@@ -265,11 +260,11 @@ export class TestRunArchiver implements StageCrewMember {
         if (this.resolvedTestRunId) {
             return;
         }
-        if (!this.testRunTimestamp) {
+        if (! this.testRunTimestamp) {
             this.testRunTimestamp = new Date().toISOString();
         }
-        this.resolvedTestRunId = this.testRunId || this.testRunTimestamp.replaceAll(':', '-');
-        this.artifactWriter.createRunDirectory(this.resolvedTestRunId, this.attempt, this.moduleId);
+        this.resolvedTestRunId = this.executionContext.testRunId || this.testRunTimestamp.replaceAll(':', '-');
+        this.artifactWriter.createRunDirectory(this.resolvedTestRunId, this.executionContext.attempt, this.executionContext.moduleId);
     }
 
     private archiveTestRun(): void {
@@ -291,11 +286,11 @@ export class TestRunArchiver implements StageCrewMember {
                 artifactPaths: this.artifactWriter.getArtifactPaths(),
                 systemContext: this.systemContextDetector.detect(),
                 sceneArtifactPaths: this.artifactWriter.getSceneArtifactPaths(),
-                moduleId: this.moduleId,
+                moduleId: this.executionContext.moduleId,
             });
 
             runData.testRunId = this.resolvedTestRunId;
-            runData.moduleId = this.moduleId;
+            runData.moduleId = this.executionContext.moduleId;
             runData.attempt = this.artifactWriter.getAttempt();
             this.runDataWriter.write(runData, this.artifactWriter.getRunDirectory());
 
@@ -303,7 +298,8 @@ export class TestRunArchiver implements StageCrewMember {
                 id,
                 this.stage.currentTime(),
             ));
-        } catch (error) {
+        }
+        catch (error) {
             this.stage.announce(new AsyncOperationFailed(
                 error as Error,
                 id,
@@ -320,71 +316,6 @@ export class TestRunArchiver implements StageCrewMember {
 /**
  * @internal
  */
-export function detectTestRunId(): string | undefined {
-    const CI_RUN_ID_ENV_VARS = [
-        'GITHUB_RUN_NUMBER',
-        'CI_PIPELINE_IID',      // GitLab CI
-        'BUILD_NUMBER',         // Jenkins
-        'CIRCLE_BUILD_NUM',     // CircleCI
-    ];
-
-    for (const variableName of CI_RUN_ID_ENV_VARS) {
-        if (process.env[variableName]) {
-            return process.env[variableName];
-        }
-    }
-    return undefined;
-}
-
-/**
- * @internal
- */
-export function detectModuleId(): string | undefined {
-    // When a CI testRunId is detected, derive moduleId from the working
-    // directory basename. This ensures each parallel CI job writes to its
-    // own subdirectory under test-runs/{buildId}/{moduleId}-{attempt}/.
-    if (detectTestRunId()) {
-        return path.basename(process.cwd());
-    }
-    return undefined;
-}
-
-/**
- * @internal
- */
-export function detectAttemptNumber(): number {
-    if (process.env.GITHUB_RUN_ATTEMPT) {
-        return parseInt(process.env.GITHUB_RUN_ATTEMPT, 10) || 1;
-    }
-    if (process.env.CI_JOB_RETRY) {
-        // GitLab: 0-based → convert to 1-based
-        return (parseInt(process.env.CI_JOB_RETRY, 10) || 0) + 1;
-    }
-    if (process.env.BUILD_RETRY_COUNT) {
-        // Jenkins: 0-based → convert to 1-based
-        return (parseInt(process.env.BUILD_RETRY_COUNT, 10) || 0) + 1;
-    }
-    return 1;
-}
-
-/**
- * Detect WebdriverIO worker ID when running in parallel worker mode.
- *
- * WebdriverIO sets `WDIO_WORKER_ID` environment variable in each worker process.
- * Format is `{capability}-{spec}` like `0-5`.
- *
- * When multiple workers run in parallel, each writes to the same directory
- * but we need unique filenames to prevent race conditions.
- *
- * @internal
- */
-export function detectWorkerId(): string | undefined {
-    return process.env.WDIO_WORKER_ID;
-}
-
-/**
- * @internal
- */
 class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> {
 
     constructor(private readonly config: HtmlReporterConfig) {
@@ -396,16 +327,13 @@ class TestRunArchiverBuilder implements StageCrewMemberBuilder<TestRunArchiver> 
         const outputDirectory = Path.from(this.config.outputDirectory || './reports/serenity-js');
         const outputFileSystem = new FileSystem(outputDirectory);
 
-        const workerId = detectWorkerId();
-        const artifactWriter = new ArtifactWriter(outputFileSystem);
-        const sceneDataCollector = new SceneDataCollector();
-        const runDataWriter = new RunDataWriter(outputFileSystem, workerId);
-        const systemContextDetector = new SystemContextDetector(new CIDetector(process.env), new ModuleLoader(process.cwd()), { projectName: this.config.projectName, runtime: this.config.ci });
+        const executionContext = new AutoDiscoveredExecutionContext({
+            testRunId: this.config.testRunId,
+            moduleId: this.config.moduleId,
+            projectName: this.config.projectName,
+            ci: this.config.ci
+        });
 
-        const attempt = detectAttemptNumber();
-        const testRunId = this.config.testRunId || detectTestRunId();
-        const moduleId = this.config.moduleId || (this.config.testRunId ? undefined : detectModuleId());
-
-        return new TestRunArchiver({ artifactWriter, sceneDataCollector, runDataWriter, systemContextDetector }, { testRunId, moduleId, attempt }, stage);
+        return new TestRunArchiver(outputFileSystem, executionContext, new ModuleLoader(process.cwd()), stage);
     }
 }

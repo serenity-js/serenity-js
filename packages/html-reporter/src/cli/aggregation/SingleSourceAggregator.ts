@@ -25,6 +25,12 @@ export class SingleSourceAggregator extends ReportAggregator {
 
     aggregate(): void {
         const runDirectories = this.findRunDirectories();
+
+        if (runDirectories.length === 0) {
+            this.warn('[html-reporter] No test run data found in test-runs/ directory. The report will not include test results.');
+            return;
+        }
+
         this.pruneOldRuns(runDirectories);
         const allRuns = this.loadRuns(runDirectories);
         this.buildSnapshot(allRuns);

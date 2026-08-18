@@ -47,6 +47,12 @@
         "command": "bash -c 'pkill -f \"http-server.*808[0-9]\" 2>/dev/null || true'",
         "timeout_ms": 5000
       }
+    ],
+    "preToolUse": [
+      {
+        "matcher": "shell",
+        "command": ".kiro/hooks/require-feature-branch.sh"
+      }
     ]
   },
   "useLegacyMcpJson": false,
