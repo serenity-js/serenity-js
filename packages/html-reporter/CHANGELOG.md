@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.45.7](https://github.com/serenity-js/serenity-js/compare/v3.45.6...v3.45.7) (2026-08-18)
+
+### Bug Fixes
+
+* **html-reporter:** find db.json at module-level paths in SingleSourceAggregator ([492c0c6](https://github.com/serenity-js/serenity-js/commit/492c0c6687dff04cb5bb7b49baf8acf7bb77db5c))
+* **html-reporter:** warn when SingleSourceAggregator finds no test run data ([9b29c1f](https://github.com/serenity-js/serenity-js/commit/9b29c1fbd6d4f2bd6e32f4b6ca0d43accd346326))
+
+
 ## [3.45.6](https://github.com/serenity-js/serenity-js/compare/v3.45.5...v3.45.6) (2026-08-15)
 
 ### Bug Fixes
