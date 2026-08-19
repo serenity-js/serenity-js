@@ -263,8 +263,21 @@ export class TestRunArchiver implements StageCrewMember {
         if (! this.testRunTimestamp) {
             this.testRunTimestamp = new Date().toISOString();
         }
-        this.resolvedTestRunId = this.executionContext.testRunId || this.testRunTimestamp.replaceAll(':', '-');
+        this.resolvedTestRunId = this.executionContext.testRunId || this.deriveTestRunIdFromTimestamp();
         this.artifactWriter.createRunDirectory(this.resolvedTestRunId, this.executionContext.attempt, this.executionContext.moduleId);
+    }
+
+    /**
+     * Derives a testRunId from the test run timestamp. When running as a WebdriverIO
+     * parallel worker (WDIO_WORKER_ID is set), truncates to second precision so that
+     * all workers spawned within the same second share the same run directory.
+     */
+    private deriveTestRunIdFromTimestamp(): string {
+        const timestamp = this.executionContext.workerId
+            ? this.testRunTimestamp.replace(/\.\d{3}Z$/, '.000Z')
+            : this.testRunTimestamp;
+
+        return timestamp.replaceAll(':', '-');
     }
 
     private archiveTestRun(): void {
