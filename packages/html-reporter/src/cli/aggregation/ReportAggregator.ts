@@ -110,18 +110,27 @@ export abstract class ReportAggregator {
     }
 
     /**
-     * Resolves directories containing db.json at one or two levels:
-     * - Run-level: the directory itself contains db.json
-     * - Module-level: subdirectories contain db.json (CI multi-module layout)
+     * Resolves directories containing db.json or db-*.json at one or two levels:
+     * - Run-level: the directory itself contains db.json or db-{workerId}.json
+     * - Module-level: subdirectories contain db.json or db-{workerId}.json (CI multi-module layout)
      */
     private resolveDbJsonDirectories(entryPath: Path): Path[] {
-        if (this.fileSystem.exists(entryPath.join(Path.from('db.json')))) {
+        if (this.hasDbFiles(entryPath)) {
             return [entryPath];
         }
 
         return this.safeReaddir(entryPath)
             .map(sub => entryPath.join(Path.from(sub)))
-            .filter(subPath => this.fileSystem.exists(subPath.join(Path.from('db.json'))));
+            .filter(subPath => this.hasDbFiles(subPath));
+    }
+
+    private hasDbFiles(directoryPath: Path): boolean {
+        if (this.fileSystem.exists(directoryPath.join(Path.from('db.json')))) {
+            return true;
+        }
+
+        return this.safeReaddir(directoryPath)
+            .some(entry => /^db-[^/]+\.json$/.test(entry));
     }
 
     private safeReaddir(path: Path): string[] {

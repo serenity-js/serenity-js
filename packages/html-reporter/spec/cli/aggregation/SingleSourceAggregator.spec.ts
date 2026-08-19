@@ -1313,6 +1313,170 @@ test.describe('SingleSourceAggregator', () => {
         });
     });
 
+    test.describe('worker file discovery (WebdriverIO parallel workers)', () => {
+
+        test('aggregates data from worker-specific db-{workerId}.json files', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-15T14-30-00.000Z': {
+                        'db-0-0.json': runData({
+                            startedAt: '2024-06-15T14:30:00.000Z',
+                            finishedAt: '2024-06-15T14:30:01.000Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                            ],
+                            tags: [], testRunner: { name: 'Jasmine', version: '5.0.0' },
+                        }),
+                        'db-0-1.json': runData({
+                            startedAt: '2024-06-15T14:30:00.000Z',
+                            finishedAt: '2024-06-15T14:30:02.000Z',
+                            outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                { name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T14:30:00.100Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [] },
+                                { name: 'Test C', category: 'Suite', outcome: { code: 4 }, duration: 300, startedAt: '2024-06-15T14:30:00.400Z', source: { path: 'b.spec.ts', line: 5 }, tags: [], activities: [] },
+                            ],
+                            tags: [], testRunner: { name: 'Jasmine', version: '5.0.0' },
+                        }),
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+
+            expect(filesystem.existsSync('/reports/serenity-js/data.js')).toBe(true);
+            const data = readDataJs(filesystem);
+            expect(data.scenarios).toHaveLength(3);
+            expect(data.summary.totalScenarios).toBe(3);
+            expect(data.summary.outcomes.passed).toBe(2);
+            expect(data.summary.outcomes.failed).toBe(1);
+        });
+
+        test('discovers directories containing only worker files (no db.json)', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-15T14-30-00.000Z': {
+                        'db-0-0.json': runData({
+                            startedAt: '2024-06-15T14:30:00.000Z',
+                            finishedAt: '2024-06-15T14:30:01.000Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                            ],
+                            tags: [], testRunner: { name: 'Jasmine', version: '5.0.0' },
+                        }),
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+
+            expect(filesystem.existsSync('/reports/serenity-js/data.js')).toBe(true);
+            const data = readDataJs(filesystem);
+            expect(data.scenarios).toHaveLength(1);
+            expect(data.scenarios[0].name).toBe('Test A');
+        });
+
+        test('prefers db.json over worker files when both exist', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-15T14-30-00.000Z': {
+                        // db.json is the pre-merged result from a previous aggregation
+                        'db.json': runData({
+                            startedAt: '2024-06-15T14:30:00.000Z',
+                            finishedAt: '2024-06-15T14:30:02.000Z',
+                            outcomes: { passed: 2, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                                { name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T14:30:00.100Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [] },
+                            ],
+                            tags: [], testRunner: { name: 'Jasmine', version: '5.0.0' },
+                        }),
+                        // Worker files still on disk from the original run
+                        'db-0-0.json': runData({
+                            startedAt: '2024-06-15T14:30:00.000Z',
+                            finishedAt: '2024-06-15T14:30:01.000Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                            ],
+                            tags: [], testRunner: { name: 'Jasmine', version: '5.0.0' },
+                        }),
+                        'db-0-1.json': runData({
+                            startedAt: '2024-06-15T14:30:00.000Z',
+                            finishedAt: '2024-06-15T14:30:02.000Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                { name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 200, startedAt: '2024-06-15T14:30:00.100Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [] },
+                            ],
+                            tags: [], testRunner: { name: 'Jasmine', version: '5.0.0' },
+                        }),
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+
+            expect(filesystem.existsSync('/reports/serenity-js/data.js')).toBe(true);
+            const data = readDataJs(filesystem);
+            // Should use db.json (2 scenarios) — not re-merge worker files (which would also give 2, but double-counting is the risk)
+            expect(data.scenarios).toHaveLength(2);
+            expect(data.summary.totalScenarios).toBe(2);
+            expect(data.summary.outcomes.passed).toBe(2);
+        });
+
+        test('handles mixed layout: some dirs with db.json, others with worker files', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    // Older run: has a regular db.json (from a single-worker or non-WDIO run)
+                    '2024-06-14T10-00-00.000Z': {
+                        'db.json': runData({
+                            startedAt: '2024-06-14T10:00:00.000Z',
+                            finishedAt: '2024-06-14T10:00:01.000Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                { name: 'Test A', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-14T10:00:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                            ],
+                            tags: [], testRunner: { name: 'Jasmine', version: '5.0.0' },
+                        }),
+                    },
+                    // Newer run: has only worker files (parallel WDIO run)
+                    '2024-06-15T14-30-00.000Z': {
+                        'db-0-0.json': runData({
+                            startedAt: '2024-06-15T14:30:00.000Z',
+                            finishedAt: '2024-06-15T14:30:01.000Z',
+                            outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                { name: 'Test A', category: 'Suite', outcome: { code: 4 }, duration: 200, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] },
+                            ],
+                            tags: [], testRunner: { name: 'Jasmine', version: '5.0.0' },
+                        }),
+                        'db-0-1.json': runData({
+                            startedAt: '2024-06-15T14:30:00.000Z',
+                            finishedAt: '2024-06-15T14:30:02.000Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [
+                                { name: 'Test B', category: 'Suite', outcome: { code: 64 }, duration: 300, startedAt: '2024-06-15T14:30:00.100Z', source: { path: 'b.spec.ts', line: 1 }, tags: [], activities: [] },
+                            ],
+                            tags: [], testRunner: { name: 'Jasmine', version: '5.0.0' },
+                        }),
+                    },
+                },
+            });
+
+            aggregator.aggregate();
+
+            expect(filesystem.existsSync('/reports/serenity-js/data.js')).toBe(true);
+            const data = readDataJs(filesystem);
+            // History should include both runs
+            expect(data.history).toHaveLength(2);
+            // Latest run (worker files merged) provides scenarios
+            expect(data.scenarios).toHaveLength(2);
+            expect(data.summary.outcomes.passed).toBe(1);
+            expect(data.summary.outcomes.failed).toBe(1);
+        });
+    });
+
     test.describe('empty input detection', () => {
 
         test('warns when no test run directories are found', () => {

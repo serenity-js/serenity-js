@@ -251,7 +251,7 @@ export class ArtifactArchiver implements StageCrewMember {
 }
 
 /**
- * @private
+ * @internal
  * @param {string} name
  */
 function urlFriendly(name: string): string {
