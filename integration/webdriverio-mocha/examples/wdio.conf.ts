@@ -31,6 +31,7 @@ export const config: WebdriverIO.Config & WithSerenityConfig = {
     tsConfigPath: resolve(__dirname, './tsconfig.json'),
 
     runner: 'local',
+    autoXvfb: false,
 
     maxInstances: 1,
 

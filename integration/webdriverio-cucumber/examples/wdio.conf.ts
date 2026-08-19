@@ -37,6 +37,7 @@ export const config: WebdriverIO.Config & WithSerenityConfig = {
     ],
 
     runner: 'local',
+    autoXvfb: false,
 
     maxInstances: 1,
 

@@ -70,6 +70,7 @@ export const config: WebdriverIO.Config & WithSerenityConfig = {
     ],
 
     runner: 'local',
+    autoXvfb: false,
 
     waitforTimeout: 10_000,
     connectionRetryTimeout: 30_000,
