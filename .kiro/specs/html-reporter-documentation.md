@@ -1,5 +1,8 @@
 # HTML Reporter Documentation Rollout
 
+> **ARCHIVED** — Remaining items consolidated into `html-reporter-rollout.md` (Post-Rollout section).
+> This spec is retained for historical reference of completed work only.
+
 Tracking document for all documentation work required to launch `@serenity-js/html-reporter` as a first-class reporting option across the Serenity/JS ecosystem — website, README files, templates, and API docs.
 
 ## Completed

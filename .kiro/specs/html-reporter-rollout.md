@@ -39,18 +39,18 @@ Spec for migrating all Serenity/JS project templates from `@serenity-js/serenity
 Update the 6 least-popular templates. These serve as canaries to validate the migration pattern with minimal user impact.
 
 **Templates:**
-- `serenity-js-mocha-protractor-template`
-- `serenity-js-jasmine-webdriverio-template`
-- `serenity-js-mocha-template`
-- `serenity-js-jasmine-protractor-template`
-- `serenity-js-playwright-ct-react-template`
-- `serenity-js-playwright-ct-web-components-template`
+- ✅ `serenity-js-mocha-protractor-template`
+- ✅ `serenity-js-jasmine-webdriverio-template` (report generation requires [parallel aggregation fix](webdriverio-parallel-aggregation.md))
+- ✅ `serenity-js-mocha-template`
+- ✅ `serenity-js-jasmine-protractor-template`
+- ✅ `serenity-js-playwright-ct-react-template`
+- ✅ `serenity-js-playwright-ct-web-components-template`
 
 ### Phase 2 — Mid-tier (templates #7–#9, 8–12 stars)
 
 **Templates:**
-- `serenity-js-cucumber-protractor-template`
-- `serenity-js-cucumber-template`
+- ✅ `serenity-js-cucumber-protractor-template`
+- ✅ `serenity-js-cucumber-template`
 - `serenity-js-mocha-webdriverio-template`
 
 ### Phase 3 — Website Documentation Update
@@ -73,12 +73,14 @@ Update the website so that docs are consistent before the most-used templates sw
 **Remaining Phase 3 work:**
 - [ ] Update `getting-started/project-templates.mdx` (replace Serenity BDD feature bullet with HTML Reports)
 - [ ] Update tutorial (`your-first-web-scenario.mdx`) to show html-reporter setup + re-record GIFs
+- [ ] Fix `handbook/test-runners/webdriverio.mdx` install section (still lists serenity-bdd instead of html-reporter)
+- [ ] Fix `handbook/test-runners/playwright-test/installation.mdx` install section (same issue)
 
 ### Phase 4 — High-traffic (templates #10–#12, 22–32 stars)
 
 **Templates:**
 - `serenity-js-cucumber-webdriverio-template`
-- `serenity-js-playwright-test-template`
+- `serenity-js-playwright-test-template` — **create a `pre-html-reporter-migration` tag before migrating** (used as "before" state for a YouTube migration walkthrough video)
 - `serenity-js-cucumber-playwright-template`
 
 ### Post Phase 4
@@ -119,7 +121,7 @@ The `[...]` in the `failsafe` line is a literal `[...]` placeholder — it's npm
 ```json
 {
   "test": "<test-runner-command>",
-  "test:report": "npx @serenity-js/html-reporter serve --dir ./reports/serenity --open"
+  "test:report": "npx @serenity-js/html-reporter serve --dir ./reports/serenity-js --open"
 }
 ```
 
@@ -147,7 +149,7 @@ crew: [
 crew: [
     '@serenity-js/console-reporter',
     ['@serenity-js/html-reporter', {
-        outputDirectory: './reports/serenity',
+        outputDirectory: './reports/serenity-js',
         specDirectory: './features', // or './spec', './tests', './src' depending on template
     }],
 ]
@@ -204,19 +206,19 @@ jobs:
         if: always()
         with:
           name: serenity-report
-          path: reports/serenity
+          path: reports/serenity-js
           retention-days: 30
       - name: GitHub Pages
         if: always() && github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           branch: gh-pages
-          folder: reports/serenity
+          folder: reports/serenity-js
           clean: true
 ```
 
 **Key changes:**
-- `path`/`folder` changes from `target/site/serenity` to `reports/serenity`
+- `path`/`folder` changes from `target/site/serenity` to `reports/serenity-js`
 - No Java is needed so the container image could be lighter, but `ghcr.io/serenity-js/playwright` works fine regardless — don't change it to avoid unrelated breakage
 - No separate `test:report` step needed since the report is generated inline during `npm test`
 
@@ -232,14 +234,14 @@ jobs:
         if: always()
         with:
           name: serenity-report
-          path: reports/serenity
+          path: reports/serenity-js
           retention-days: 30
       - name: GitHub Pages
         if: always() && github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           branch: gh-pages
-          folder: reports/serenity
+          folder: reports/serenity-js
           clean: true
 ```
 
@@ -266,18 +268,18 @@ Update each template's README:
 | Page | Change | Status |
 |------|--------|--------|
 | `getting-started/project-templates.mdx` | Replace "Serenity BDD reports" feature bullet with "HTML Reports" for all templates. Update "View Reports" links if they point to gh-pages report URLs. | ❌ |
-| `handbook/test-runners/playwright-test/reporting.mdx` | Rewrite to show `@serenity-js/html-reporter` as the recommended option. Move Serenity BDD to a "Legacy: Serenity BDD Reporter" section. | ❌ |
-| `handbook/test-runners/webdriverio.mdx` | Update reporting config examples to use HTML Reporter as default. | ❌ |
-| `handbook/test-runners/cucumber.mdx` | Same. | ❌ |
-| `handbook/test-runners/mocha.mdx` | Same. | ❌ |
-| `handbook/test-runners/jasmine.mdx` | Same. | ❌ |
-| `handbook/tutorials/your-first-web-scenario.mdx` | Replace serenity-bdd setup with html-reporter (simpler setup, no Java, no failsafe). **Re-record GIF** — see [Tutorial GIF Re-recording](#tutorial-gif-re-recording) below. | ❌ |
+| `handbook/test-runners/playwright-test/reporting.mdx` | Rewrite to show `@serenity-js/html-reporter` as the recommended option. Move Serenity BDD to a "Legacy: Serenity BDD Reporter" section. | ✅ (html-reporter is primary, serenity-bdd is alternative) |
+| `handbook/test-runners/webdriverio.mdx` | Update reporting config examples to use HTML Reporter as default. | ⚠️ Config examples updated, but install section still lists serenity-bdd |
+| `handbook/test-runners/cucumber.mdx` | Same. | ✅ (html-reporter is primary in examples) |
+| `handbook/test-runners/mocha.mdx` | Same. | ✅ (html-reporter is primary in examples) |
+| `handbook/test-runners/jasmine.mdx` | Same. | ✅ (html-reporter is primary in examples) |
+| `handbook/tutorials/your-first-web-scenario.mdx` | Replace serenity-bdd setup with html-reporter (simpler setup, no Java, no failsafe). **Re-record GIF** — see [Tutorial GIF Re-recording](#tutorial-gif-re-recording) below. | ❌ (still uses serenity-bdd exclusively) |
 | `handbook/integration/github-actions.mdx` | **Write the full guide** — single-module, multi-module, Docker image, GitHub Pages. | ✅ |
 | `handbook/integration/gitlab-ci.mdx` | **Rewrite** — HTML Reporter as primary, multi-module, JUnit, Serenity BDD as alternative. | ✅ |
 | `handbook/integration/jenkins-ci.mdx` | **Write the full guide** — Docker agent, HTML Publisher, CSP, parallel stages, trend history. | ✅ |
 | `handbook/integration/docker.mdx` | Update image suffix from -noble to -resolute. | ✅ |
 | `handbook/reporting/html-reporter.mdx` | Fix outputDirectory, add config options, --input explanation, @serenity-js/web install, consistencyWindow note. | ✅ |
-| Site `package.json` | Add `@serenity-js/html-reporter` to the dependency list for TypeDoc API doc generation. | ❌ |
+| Site `package.json` | Add `@serenity-js/html-reporter` to the dependency list for TypeDoc API doc generation. | ✅ |
 
 ### GitHub Actions Guide Spec
 
@@ -367,12 +369,12 @@ If your CI pipeline has a separate report generation step or uses Java for `sere
   uses: actions/upload-artifact@v4
   with:
     name: serenity-report
-    path: reports/serenity
+    path: reports/serenity-js
 ```
 
 Changes:
 - Remove the Java setup step (no longer needed)
-- Update the artifact path from `target/site/serenity` to your configured `outputDirectory` (default: `reports/serenity`)
+- Update the artifact path from `target/site/serenity` to your configured `outputDirectory` (default: `reports/serenity-js`)
 - No separate report generation step — the report is produced inline during `npm test`
 
 If you deploy to GitHub Pages, update the deploy folder path to match:
@@ -380,7 +382,7 @@ If you deploy to GitHub Pages, update the deploy folder path to match:
 - name: Deploy to GitHub Pages
   uses: peaceiris/actions-gh-pages@v4
   with:
-    publish_dir: ./reports/serenity
+    publish_dir: ./reports/serenity-js
 ```
 
 For the full CI integration guide, see [GitHub Actions](/handbook/integration/github-actions/).
@@ -422,8 +424,8 @@ This removes the temporary `features/html-reporter` branch allowance that was ad
 After applying changes, verify:
 
 - [ ] `npm install` succeeds (no missing deps, no peer dep warnings)
-- [ ] `npm test` generates a report in `reports/serenity/`
-- [ ] `reports/serenity/index.html` opens in a browser and displays test results
+- [ ] `npm test` generates a report in `reports/serenity-js/`
+- [ ] `reports/serenity-js/index.html` opens in a browser and displays test results
 - [ ] `npm run test:report` starts a server and opens the report in the browser
 - [ ] GitHub Actions workflow passes on the main branch
 - [ ] GitHub Pages deployment publishes the new report (if enabled)
@@ -463,3 +465,26 @@ npm run test:report       # serve and open in browser
 - No `npm-failsafe` dance
 - No separate clean/generate steps
 - Report viewable with `npm run test:report` (just like `npx playwright show-report`)
+
+---
+
+## Post-Rollout (Announcement & Polish)
+
+Items merged from `html-reporter-documentation.md` (now archived). These are independent of template migrations and can be completed in any order.
+
+### Announcement
+
+- [ ] Publish announcement banner on serenity-js.org (released with blog post)
+- [ ] Publish blog post (verify version number matches actual release)
+
+### Documentation Polish
+
+- [ ] Add FAQ topics to handbook article:
+  - What if `data.js` gets too large?
+  - Can I use Git LFS for report data?
+  - What about test-run artifacts growing over time?
+  - What if I hit my GitHub Pages quota?
+  - Can I run the report locally without a server?
+  - What happens if a CI job crashes mid-run?
+  - What if I already have GitHub/GitLab Pages from another reporter?
+- [ ] Update screenshot in `examples/cucumber-reporting/features/reporting_results/readme.md` to reflect the new HTML Reporter UI
