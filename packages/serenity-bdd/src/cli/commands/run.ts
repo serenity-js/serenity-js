@@ -29,7 +29,7 @@ export = {
             describe: 'A relative path to the directory where the Serenity BDD report should be produced',
         },
         features: {
-            default:   cwd.relative(new RequirementsHierarchy(new FileSystem(cwd)).rootDirectory()),
+            default:   cwd.relative(new RequirementsHierarchy(new FileSystem(cwd)).rootDirectory()).value,
             describe: 'A relative path to the requirements hierarchy root directory, such as "./features" or "./spec"',
         },
         artifact: {
