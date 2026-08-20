@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.45.9](https://github.com/serenity-js/serenity-js/compare/v3.45.8...v3.45.9) (2026-08-20)
+
+### Bug Fixes
+
+* **html-reporter:** fall back to projectName for report title ([e7d7334](https://github.com/serenity-js/serenity-js/commit/e7d733416896b9a0c571c7b4308a7bc07a9f6911))
+* **html-reporter:** serialise ExecutionIgnored as failure in retry attempts ([1c3a63b](https://github.com/serenity-js/serenity-js/commit/1c3a63b94fffc14981310008c5d5762c58b411b2))
+
+
 ## [3.45.8](https://github.com/serenity-js/serenity-js/compare/v3.45.7...v3.45.8) (2026-08-20)
 
 ### Bug Fixes
