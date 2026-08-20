@@ -3,7 +3,7 @@ export interface Dictionary {
 }
 
 /**
- * @private
+ * @internal
  */
 export function caseInsensitive<T extends Dictionary>(dictionary: T): T & Dictionary {
     return new Proxy(dictionary, {
