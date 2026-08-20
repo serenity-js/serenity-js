@@ -32,12 +32,15 @@ COMPILE_SCOPE=all
 # webdriverio-web
 INTEGRATION_SCOPE=all
 
-.PHONY: all install clean lint test compile integration-test verify
+.PHONY: all install clean lint test compile integration-test verify setup
 all: install clean compile
 
 install:
 	corepack enable
 	pnpm install --frozen-lockfile
+
+setup:
+	pnpm setup
 
 update-pnpm:
 	corepack use pnpm@latest

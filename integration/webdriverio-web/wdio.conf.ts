@@ -70,6 +70,7 @@ export const config: WebdriverIO.Config & WithSerenityConfig = {
     ],
 
     runner: 'local',
+    autoXvfb: false,
 
     waitforTimeout: 10_000,
     connectionRetryTimeout: 30_000,
@@ -80,6 +81,7 @@ export const config: WebdriverIO.Config & WithSerenityConfig = {
             binary: binaries.chrome,
             excludeSwitches: [ 'enable-automation' ],
             args: [
+                'disable-dev-shm-usage',
                 'disable-web-security',
                 'allow-file-access-from-files',
                 'allow-file-access',

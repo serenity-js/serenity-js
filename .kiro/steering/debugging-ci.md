@@ -62,12 +62,13 @@ npx tsc --noEmit
 
 ### Browser Installation
 
-Browsers install automatically during `make install`. To reinstall manually:
+Browsers are installed separately from npm dependencies via `make setup` or `pnpm setup`. This is a one-off step — re-run it only when Playwright or Chrome versions are updated:
 
 ```bash
-pnpm postinstall:playwright    # Playwright browsers
-pnpm postinstall:protractor    # Chrome v129 for Protractor
-pnpm postinstall:webdriverio   # Chrome stable for WebdriverIO
+make setup                     # all browsers
+pnpm setup:playwright          # Playwright browsers + OS deps
+pnpm setup:protractor          # Chrome 129 + ChromeDriver (for Protractor tests)
+pnpm setup:webdriverio         # Chrome stable + ChromeDriver (for WebdriverIO tests)
 ```
 
 ### Dual CJS/ESM Builds

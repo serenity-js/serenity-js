@@ -24,10 +24,10 @@
     "testing"
   ],
   "scripts": {
-    "postinstall": "pnpm postinstall:protractor && pnpm postinstall:playwright && pnpm postinstall:webdriverio",
-    "postinstall:playwright": "npx playwright install --with-deps",
-    "postinstall:protractor": "npx tsx bin/install-browsers.ts chrome@129.0.6668.100 chromedriver@129.0.6668.100",
-    "postinstall:webdriverio": "npx tsx bin/install-browsers.ts chrome@stable chromedriver@stable",
+    "setup": "pnpm setup:protractor && pnpm setup:playwright && pnpm setup:webdriverio",
+    "setup:playwright": "npx playwright install --with-deps",
+    "setup:protractor": "npx tsx bin/install-browsers.ts chrome@129.0.6668.100 chromedriver@129.0.6668.100",
+    "setup:webdriverio": "npx tsx bin/install-browsers.ts chrome@stable chromedriver@stable",
     "clean": "rimraf target && lerna run clean",
     "cc": "nx reset",
     "lint": "eslint .",

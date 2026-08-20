@@ -23,3 +23,7 @@ runs:
     - name: Install dependencies
       shell: bash
       run: pnpm install --frozen-lockfile
+
+    - name: Install browsers
+      shell: bash
+      run: pnpm setup

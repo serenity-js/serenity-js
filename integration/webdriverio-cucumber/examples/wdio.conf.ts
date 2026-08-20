@@ -37,6 +37,7 @@ export const config: WebdriverIO.Config & WithSerenityConfig = {
     ],
 
     runner: 'local',
+    autoXvfb: false,
 
     maxInstances: 1,
 
@@ -48,6 +49,7 @@ export const config: WebdriverIO.Config & WithSerenityConfig = {
             args: [
                 'headless',
                 'no-sandbox',
+                'disable-dev-shm-usage',
                 'disable-gpu',
                 'window-size=1024x768',
             ],

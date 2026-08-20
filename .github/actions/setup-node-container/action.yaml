@@ -1,0 +1,49 @@
+name: 'Set up Node (container)'
+description: 'Sets up Node.js inside the pre-built Serenity/JS container (browsers already installed)'
+
+inputs:
+  install:
+    description: 'Whether to install npm dependencies'
+    required: false
+    default: 'true'
+  browsers:
+    description: 'Which browsers to install: none, protractor, webdriverio, all'
+    required: false
+    default: 'none'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Mark workspace as safe for git
+      shell: bash
+      run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+    - name: Install system tools
+      shell: bash
+      run: |
+        sudo apt-get update -qq
+        sudo apt-get install -y --no-install-recommends make p7zip-full xz-utils
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+
+    - name: Setup Node
+      uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+      with:
+        node-version: '24.x'
+        cache: 'pnpm'
+
+    - name: Install dependencies
+      if: inputs.install == 'true'
+      shell: bash
+      run: pnpm install --frozen-lockfile
+
+    - name: Install Protractor browsers
+      if: inputs.browsers == 'protractor' || inputs.browsers == 'all'
+      shell: bash
+      run: pnpm setup:protractor
+
+    - name: Install WebdriverIO browsers
+      if: inputs.browsers == 'webdriverio' || inputs.browsers == 'all'
+      shell: bash
+      run: pnpm setup:webdriverio
