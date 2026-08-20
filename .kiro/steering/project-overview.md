@@ -115,7 +115,8 @@ dependencies follow the dependency rule: abstractions never depend on concretion
 ## Build Commands
 
 ```bash
-make install                                    # Install deps + browsers
+make install                                    # Install npm deps (no browsers)
+make setup                                      # Install browsers (one-off, or after Playwright/Chrome update)
 make compile                                    # Compile all packages
 make COMPILE_SCOPE=libs compile                 # Compile library packages only
 make test                                       # Unit tests with coverage

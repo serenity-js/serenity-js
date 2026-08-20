@@ -81,6 +81,7 @@ export const config: WebdriverIO.Config & WithSerenityConfig = {
             binary: binaries.chrome,
             excludeSwitches: [ 'enable-automation' ],
             args: [
+                'disable-dev-shm-usage',
                 'disable-web-security',
                 'allow-file-access-from-files',
                 'allow-file-access',

@@ -41,6 +41,7 @@ export const config: WebdriverIOConfig = {
             args: [
                 'headless',
                 'no-sandbox',
+                'disable-dev-shm-usage',
                 'disable-gpu',
                 'window-size=1024x768',
             ],
