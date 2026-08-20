@@ -3,6 +3,7 @@ import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
+    ExecutionIgnored,
     ExecutionSkipped,
     ExecutionSuccessful,
     ImplementationPending
@@ -54,6 +55,7 @@ const outcomeCodeMap = [
     { type: ExecutionFailedWithAssertionError, code: ExecutionFailedWithAssertionError.Code },
     { type: ExecutionFailedWithError, code: ExecutionFailedWithError.Code },
     { type: ExecutionCompromised, code: ExecutionCompromised.Code },
+    { type: ExecutionIgnored, code: ExecutionIgnored.Code },
     { type: ExecutionSkipped, code: ExecutionSkipped.Code },
     { type: ImplementationPending, code: ImplementationPending.Code },
 ] as const;

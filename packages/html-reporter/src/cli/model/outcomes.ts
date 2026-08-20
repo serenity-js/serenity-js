@@ -2,6 +2,7 @@ import {
     ExecutionCompromised,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
+    ExecutionIgnored,
     ExecutionSkipped,
     ExecutionSuccessful,
     ImplementationPending,
@@ -15,6 +16,7 @@ export const VALID_OUTCOME_CODES = [
     ExecutionFailedWithAssertionError.Code,
     ExecutionFailedWithError.Code,
     ExecutionCompromised.Code,
+    ExecutionIgnored.Code,
     ImplementationPending.Code,
     ExecutionSkipped.Code,
 ] as const;
@@ -42,6 +44,7 @@ export const OUTCOME_CODE_DISPLAY_STRINGS: Record<number, string> = {
     [ExecutionFailedWithAssertionError.Code]: 'FAILURE',
     [ExecutionFailedWithError.Code]: 'ERROR',
     [ExecutionCompromised.Code]: 'COMPROMISED',
+    [ExecutionIgnored.Code]: 'FAILURE',
     [ImplementationPending.Code]: 'PENDING',
     [ExecutionSkipped.Code]: 'SKIPPED',
 };
