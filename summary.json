@@ -1,6 +1,6 @@
 {
   "$schema": "https://serenity-js.org/schemas/report-summary.json",
-  "generated": "2026-08-20T21:34:45.648Z",
+  "generated": "2026-08-20T22:22:13.481Z",
   "title": "Serenity/JS Integration Tests",
   "schemaVersion": 1,
   "reportUrl": "./index.html",
@@ -13,56 +13,36 @@
     "timestamp": "2026-08-20T21:20:58.563Z",
     "label": "8567",
     "totals": {
-      "passed": 3570,
-      "failed": 1,
+      "passed": 3571,
+      "failed": 0,
       "pending": 0,
       "skipped": 0,
       "compromised": 0,
       "error": 0
     },
-    "duration": 643629
+    "duration": 3490650
   },
   "runs": 5,
   "delta": {
-    "passed": -1,
-    "failed": 1,
+    "passed": 0,
+    "failed": 0,
     "pending": 0,
     "skipped": 0,
     "compromised": 0,
     "error": 0
   },
-  "failureClusters": [
-    {
-      "fingerprint": "AssertionError:Expected-the-text-of-heading-to-equal-\"Page-with-a-nested-iframe\"-Expectation:-equals('Page-with-a-nested-iframe')-Expected-string:-Page-with-a-nested-iframe-Received-object-{-error:-'no-such-ele",
-      "errorType": "AssertionError",
-      "message": "Expected the text of heading to equal \"Page with a nested iframe\"\n\nExpectation: equals('Page with a nested iframe')\n\nExpected string: Page with a nested iframe\nReceived object\n\n{\n  error: 'no such ele",
-      "scenarios": [
-        {
-          "name": "switchTo() when working with iframes and performing activities in the context of an iframe allows for a screenshot to be taken without affecting the browsing context",
-          "source": "webdriverio-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
-          "browser": "chrome 152.0.7977.54",
-          "failingStep": "Francesca ensures that the text of heading does equal \"Page with a nested iframe\""
-        }
-      ]
-    }
-  ],
+  "failureClusters": [],
   "consistency": {
-    "flaky": [],
-    "inconsistent": [],
-    "degraded": [
+    "flaky": [
       {
         "name": "switchTo() when working with iframes and performing activities in the context of an iframe allows for a screenshot to be taken without affecting the browsing context",
         "source": "webdriverio-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
         "browser": "chrome 152.0.7977.54",
-        "lastOutcome": "FAILURE"
-      },
-      {
-        "name": "switchTo() when working with iframes and performing activities in the context of an iframe allows for a screenshot to be taken without affecting the browsing context",
-        "source": "webdriverio-web/node_modules/@integration/web-specs/spec/screenplay/models/PageElement.spec.ts",
-        "browser": "chrome 152.0.7977.54",
-        "lastOutcome": "FAILURE"
+        "lastOutcome": "RETRIED_SUCCESS"
       }
     ],
+    "inconsistent": [],
+    "degraded": [],
     "recovered": []
   },
   "scores": {
@@ -452,12 +432,12 @@
     {
       "id": "webdriverio-web",
       "outcome": "failed",
-      "tests": 554,
-      "passed": 553,
+      "tests": 1108,
+      "passed": 1107,
       "failed": 1,
-      "duration": 166925,
+      "duration": 3461601,
       "startedAt": "2026-08-20T21:21:27.612Z",
-      "finishedAt": "2026-08-20T21:24:14.537Z"
+      "finishedAt": "2026-08-20T22:19:09.213Z"
     }
   ]
 }
