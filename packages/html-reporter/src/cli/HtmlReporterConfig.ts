@@ -113,7 +113,10 @@ export interface HtmlReporterConfig {
 
     /**
      * Custom title displayed in the report header.
-     * When not specified, the report uses the project name.
+     *
+     * Fallback order when not specified:
+     * 1. {@link projectName} (if set, or auto-detected from `package.json`)
+     * 2. Test runner name (e.g. "Playwright", "Mocha")
      */
     title?: string;
 
@@ -133,7 +136,9 @@ export interface HtmlReporterConfig {
     consistencyWindow?: number;
 
     /**
-     * Custom project name displayed in the report.
+     * Custom project name displayed in the report's System Context view,
+     * and used as the report {@link title} when `title` is not set.
+     *
      * When not specified, the name is read from the closest `package.json`.
      */
     projectName?: string;

@@ -118,11 +118,11 @@ All options are optional. See the [`HtmlReporterConfig` API reference](https://s
 | Option              | Type     | Default                 | Description                                                   |
 |---------------------|----------|-------------------------|---------------------------------------------------------------|
 | `outputDirectory`   | `string` | `./reports/serenity-js` | Where the report is generated                                 |
-| `title`             | `string` | —                       | Report title shown in the header                              |
+| `title`             | `string` | —                       | Report title shown in the header. Falls back to `projectName`, then test runner name. |
 | `specDirectory`     | `string` | auto-detected           | Root of your specs, used to build the [requirements hierarchy](https://serenity-js.org/handbook/reporting/html-reporter/#the-requirements-hierarchy)  |
 | `maxHistory`        | `number` | —                       | Maximum test runs to retain (older runs are pruned)           |
 | `consistencyWindow` | `number` | `5`                     | Number of recent runs used to detect flaky tests              |
-| `projectName`       | `string` | auto-detected           | Project name shown in the System Context view (defaults to the closest `package.json` name) |
+| `projectName`       | `string` | auto-detected           | Project name (from closest `package.json`). Used as `title` fallback and shown in System Context view. |
 | `testRunId`         | `string` | auto-detected           | Test run directory identifier (defaults to CI build number or ISO timestamp) |
 | `moduleId`          | `string` | auto-detected           | Module identifier for parallel CI job shards (defaults to working directory name when a CI build number is detected) |
 | `ci`                | `object` | auto-detected           | Override CI/CD context (see fields below)                     |
