@@ -149,7 +149,7 @@ export abstract class ReportAggregator {
         const testRunnerName = latestRun.testRunner?.name || 'unknown';
 
         return {
-            title: this.config.title || testRunnerName,
+            title: this.config.title || latestRun.systemContext?.projectName || testRunnerName,
             totalScenarios: latestRun.scenes.length,
             outcomes: latestRun.outcomes,
             duration,

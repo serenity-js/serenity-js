@@ -22,6 +22,7 @@ import {
     Description,
     ExecutionFailedWithAssertionError,
     ExecutionFailedWithError,
+    ExecutionIgnored,
     ExecutionSuccessful,
     HTTPRequestResponse,
     JSONData,
@@ -106,6 +107,70 @@ test.describe('SceneDataCollector', () => {
             expect(scene.attempts[1].activities).toHaveLength(1);
             expect(scene.attempts[1].activities[0].name).toBe('Tess ensures that 2 does equal 2');
             expect(scene.attempts[1].error).toBeUndefined();
+        });
+
+        test('records ExecutionIgnored attempts as failures when test consistently fails across retries', () => {
+            const collector = new SceneDataCollector();
+            const queues = new DomainEventQueues();
+
+            const details = new ScenarioDetails(
+                new Name('should fail consistently'),
+                new Category('Todo List App'),
+                new FileSystemLocation(Path.from('spec/failing.spec.ts'), 5, 1),
+            );
+            const sceneId = CorrelationId.create();
+
+            const t0 = new Timestamp(new Date('2024-01-01T00:00:00.000Z'));
+            const t1 = new Timestamp(new Date('2024-01-01T00:00:00.050Z'));
+            const t2 = new Timestamp(new Date('2024-01-01T00:00:00.100Z'));
+            const t3 = new Timestamp(new Date('2024-01-01T00:00:00.200Z'));
+            const t4 = new Timestamp(new Date('2024-01-01T00:00:00.250Z'));
+            const t5 = new Timestamp(new Date('2024-01-01T00:00:00.300Z'));
+            const t6 = new Timestamp(new Date('2024-01-01T00:00:00.400Z'));
+            const t7 = new Timestamp(new Date('2024-01-01T00:00:00.450Z'));
+            const t8 = new Timestamp(new Date('2024-01-01T00:00:00.500Z'));
+
+            // Attempt 1: fails, will be retried (ExecutionIgnored)
+            queues.enqueue(new SceneStarts(sceneId, details, t0));
+            queues.enqueue(new SceneTagged(sceneId, new ArbitraryTag('retried'), t0));
+            const act1 = CorrelationId.create();
+            const actDetails1 = new ActivityDetails(new Name('Alice ensures that 0 does equal 1'), new FileSystemLocation(Path.from('spec/failing.spec.ts'), 7, 1));
+            queues.enqueue(new InteractionStarts(sceneId, act1, actDetails1, t0));
+            queues.enqueue(new InteractionFinished(sceneId, act1, actDetails1, new ExecutionIgnored(new AssertionError('Expected 0 to equal 1')), t1));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionIgnored(new AssertionError('Expected 0 to equal 1')), t2));
+
+            // Attempt 2: fails, will be retried (ExecutionIgnored)
+            queues.enqueue(new SceneStarts(sceneId, details, t3));
+            queues.enqueue(new SceneTagged(sceneId, new ArbitraryTag('retried'), t3));
+            const act2 = CorrelationId.create();
+            const actDetails2 = new ActivityDetails(new Name('Alice ensures that 0 does equal 1'), new FileSystemLocation(Path.from('spec/failing.spec.ts'), 7, 1));
+            queues.enqueue(new InteractionStarts(sceneId, act2, actDetails2, t3));
+            queues.enqueue(new InteractionFinished(sceneId, act2, actDetails2, new ExecutionIgnored(new AssertionError('Expected 0 to equal 1')), t4));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionIgnored(new AssertionError('Expected 0 to equal 1')), t5));
+
+            // Attempt 3: final failure (ExecutionFailedWithAssertionError)
+            queues.enqueue(new SceneStarts(sceneId, details, t6));
+            queues.enqueue(new SceneTagged(sceneId, new ArbitraryTag('retried'), t6));
+            const act3 = CorrelationId.create();
+            const actDetails3 = new ActivityDetails(new Name('Alice ensures that 0 does equal 1'), new FileSystemLocation(Path.from('spec/failing.spec.ts'), 7, 1));
+            queues.enqueue(new InteractionStarts(sceneId, act3, actDetails3, t6));
+            queues.enqueue(new InteractionFinished(sceneId, act3, actDetails3, new ExecutionFailedWithAssertionError(new AssertionError('Expected 0 to equal 1')), t7));
+            queues.enqueue(new SceneFinished(sceneId, details, new ExecutionFailedWithAssertionError(new AssertionError('Expected 0 to equal 1')), t8));
+
+            const runData = collector.collect({ queues, testRunStartedAt: '2024-01-01T00:00:00.000Z', testRunnerName: 'Playwright', testRunnerVersion: '1.50.0', artifactPaths: new Map(), systemContext });
+
+            expect(runData.scenes).toHaveLength(1);
+            const scene = runData.scenes[0];
+
+            // Final outcome is FAILURE
+            expect(scene.outcome.code).toBe(ExecutionFailedWithAssertionError.Code);
+            expect(scene.retries).toBe(2);
+            expect(scene.attempts).toHaveLength(3);
+
+            // All three attempts should be recorded as failures, not successes
+            expect(scene.attempts[0].outcome.code).not.toBe(ExecutionSuccessful.Code);
+            expect(scene.attempts[1].outcome.code).not.toBe(ExecutionSuccessful.Code);
+            expect(scene.attempts[2].outcome.code).toBe(ExecutionFailedWithAssertionError.Code);
         });
 
         test('does not produce attempts for non-retried scenarios', () => {

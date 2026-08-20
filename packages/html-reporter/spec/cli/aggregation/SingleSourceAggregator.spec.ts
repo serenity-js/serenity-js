@@ -202,6 +202,32 @@ test.describe('SingleSourceAggregator', () => {
             expect(data.summary.title).toBe('My Project Report');
         });
 
+        test('falls back to projectName from systemContext when title is not configured', () => {
+            const { aggregator, filesystem } = createAggregator({
+                'test-runs': {
+                    '2024-06-15T14:30:00.000Z': {
+                        'db.json': runData({
+                            startedAt: '2024-06-15T14:30:00.000Z', finishedAt: '2024-06-15T14:30:00.100Z',
+                            outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+                            scenes: [{ name: 'Test', category: 'Suite', outcome: { code: 64 }, duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [] }],
+                            tags: [], testRunner: { name: 'Playwright', version: '1.62.0' },
+                            systemContext: {
+                                nodeVersion: 'v22.0.0',
+                                os: { name: 'darwin', version: '24.0.0', arch: 'arm64' },
+                                serenityVersion: '3.45.8',
+                                projectName: 'my-checkout-service',
+                            },
+                        }),
+                    },
+                },
+            }); // no title in config
+
+            aggregator.aggregate();
+
+            const data = readDataJs(filesystem);
+            expect(data.summary.title).toBe('my-checkout-service');
+        });
+
         test('includes system context from the latest run in the data snapshot', () => {
             const { aggregator, filesystem } = createAggregator({
                 'test-runs': {
