@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.45.8](https://github.com/serenity-js/serenity-js/compare/v3.45.7...v3.45.8) (2026-08-20)
+
+### Bug Fixes
+
+* **html-reporter:** discover and merge worker db-*.json files in SingleSourceAggregator ([e556402](https://github.com/serenity-js/serenity-js/commit/e55640222e98225146dd7f3a44fd4a8353d16d85))
+
+
 ## [3.45.7](https://github.com/serenity-js/serenity-js/compare/v3.45.6...v3.45.7) (2026-08-18)
 
 ### Bug Fixes

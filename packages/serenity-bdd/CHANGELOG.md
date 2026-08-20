@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.45.8](https://github.com/serenity-js/serenity-js/compare/v3.45.7...v3.45.8) (2026-08-20)
+
+### Bug Fixes
+
+* **serenity-bdd:** upgraded Serenity BDD to 5.3.11 ([9ff9ea8](https://github.com/serenity-js/serenity-js/commit/9ff9ea87f5a0f2ca68f67c002196ab02e7cd39e4)), closes [#3428](https://github.com/serenity-js/serenity-js/issues/3428)
+
+
 ## [3.45.7](https://github.com/serenity-js/serenity-js/compare/v3.45.6...v3.45.7) (2026-08-18)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd
