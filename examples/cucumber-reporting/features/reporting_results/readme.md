@@ -25,11 +25,13 @@ Scenario Execution
 └─────────────┘     └──────────────┘     └─────────────┘
 ```
 
-## Screenshot Capture
+## HTML Report
 
-When a scenario fails, Serenity/JS automatically captures a screenshot:
+Serenity/JS generates a self-contained HTML report with a dashboard showing pass rates, trends, and consistency analysis:
 
-![Example failure screenshot](https://serenity-js.org/images/reporting/html-reporter-dashboard.png)
+![Serenity/JS HTML Reporter dashboard](https://serenity-js.org/images/reporting/html-reporter-dashboard.png)
+
+When a scenario fails, Serenity/JS automatically captures a screenshot and embeds it in the scenario detail view.
 
 ## Links
 
