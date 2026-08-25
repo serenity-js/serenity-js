@@ -35,7 +35,6 @@ describe('Dark mode', () => {
         await mount({
             component: 'TagsView',
             importPath: './components/tags/TagsView',
-            props: { onNavigate: () => {} },
             data: minimalData({ tags: [{ type: 'feature', name: 'Login', scenarioCount: 2, passed: 2, failed: 0, skipped: 0 }] }),
         });
 
@@ -60,7 +59,6 @@ describe('Dark mode', () => {
         await mount({
             component: 'TimelineView',
             importPath: './components/timeline/TimelineView',
-            props: { onNavigate: () => {} },
             data: minimalData({
                 scenarios: [
                     { name: 'Test A', category: 'Suite', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [], executionHistory: [] },

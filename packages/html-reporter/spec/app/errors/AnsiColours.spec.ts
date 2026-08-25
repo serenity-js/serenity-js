@@ -38,7 +38,7 @@ describe('ANSI colour rendering in error messages', () => {
         await mount({
             component: 'ScenarioDetailView',
             importPath: './components/scenarios/ScenarioDetailView',
-            props: { scenarioId: 'spec/ansi.spec.ts:5', onNavigate: () => {} },
+            props: { scenarioId: 'spec/ansi.spec.ts:5' },
             data: scenarioWithAnsiError(),
         });
 
@@ -51,7 +51,7 @@ describe('ANSI colour rendering in error messages', () => {
         await mount({
             component: 'ScenarioDetailView',
             importPath: './components/scenarios/ScenarioDetailView',
-            props: { scenarioId: 'spec/ansi.spec.ts:5', onNavigate: () => {} },
+            props: { scenarioId: 'spec/ansi.spec.ts:5' },
             data: scenarioWithAnsiError(),
         });
 
@@ -64,7 +64,7 @@ describe('ANSI colour rendering in error messages', () => {
         await mount({
             component: 'ScenarioDetailView',
             importPath: './components/scenarios/ScenarioDetailView',
-            props: { scenarioId: 'spec/ansi.spec.ts:5', onNavigate: () => {} },
+            props: { scenarioId: 'spec/ansi.spec.ts:5' },
             data: scenarioWithAnsiError(),
         });
 
@@ -79,7 +79,7 @@ describe('ANSI colour rendering in error messages', () => {
         await mount({
             component: 'ScenarioDetailView',
             importPath: './components/scenarios/ScenarioDetailView',
-            props: { scenarioId: 'spec/ansi.spec.ts:5', onNavigate: () => {} },
+            props: { scenarioId: 'spec/ansi.spec.ts:5' },
             data: minimalData({
                 scenarios: [
                     {
@@ -111,7 +111,7 @@ describe('ANSI colour rendering in error messages', () => {
         await mount({
             component: 'ScenarioDetailView',
             importPath: './components/scenarios/ScenarioDetailView',
-            props: { scenarioId: 'spec/ansi.spec.ts:5', onNavigate: () => {} },
+            props: { scenarioId: 'spec/ansi.spec.ts:5' },
             data: minimalData({
                 scenarios: [
                     {
@@ -143,7 +143,7 @@ describe('ANSI colour rendering in error messages', () => {
         await mount({
             component: 'ScenarioDetailView',
             importPath: './components/scenarios/ScenarioDetailView',
-            props: { scenarioId: 'spec/ansi.spec.ts:5', onNavigate: () => {} },
+            props: { scenarioId: 'spec/ansi.spec.ts:5' },
             data: minimalData({
                 scenarios: [
                     {

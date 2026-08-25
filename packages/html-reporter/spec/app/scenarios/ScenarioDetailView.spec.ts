@@ -6,11 +6,9 @@ import { describe, it } from '../fixtures.js';
 
 describe('ScenarioDetailView interaction object', () => {
 
-    it('displays the scenario name', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ScenarioDetailView',
-            importPath: './components/scenarios/ScenarioDetailView',
-            props: { scenarioId: 'spec/a.spec.ts:Checkout flow', onNavigate: () => {} },
+    it('displays the scenario name', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
+            props: { scenarioId: 'spec/a.spec.ts:Checkout flow' },
             data: minimalData({
                 scenarios: [
                     {
@@ -21,7 +19,6 @@ describe('ScenarioDetailView interaction object', () => {
                     },
                 ],
             }),
-            interactionObject: ScenarioDetailView,
         });
 
         await actor.attemptsTo(
@@ -29,11 +26,9 @@ describe('ScenarioDetailView interaction object', () => {
         );
     });
 
-    it('shows error block when the scenario has an error', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ScenarioDetailView',
-            importPath: './components/scenarios/ScenarioDetailView',
-            props: { scenarioId: 'spec/b.spec.ts:5', onNavigate: () => {} },
+    it('shows error block when the scenario has an error', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
+            props: { scenarioId: 'spec/b.spec.ts:5' },
             data: minimalData({
                 scenarios: [
                     {
@@ -45,7 +40,6 @@ describe('ScenarioDetailView interaction object', () => {
                     },
                 ],
             }),
-            interactionObject: ScenarioDetailView,
         });
 
         await actor.attemptsTo(
@@ -55,11 +49,9 @@ describe('ScenarioDetailView interaction object', () => {
         );
     });
 
-    it('hides error block when the scenario has no error', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ScenarioDetailView',
-            importPath: './components/scenarios/ScenarioDetailView',
-            props: { scenarioId: 'spec/a.spec.ts:Passing test', onNavigate: () => {} },
+    it('hides error block when the scenario has no error', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
+            props: { scenarioId: 'spec/a.spec.ts:Passing test' },
             data: minimalData({
                 scenarios: [
                     {
@@ -70,7 +62,6 @@ describe('ScenarioDetailView interaction object', () => {
                     },
                 ],
             }),
-            interactionObject: ScenarioDetailView,
         });
 
         await actor.attemptsTo(
@@ -78,11 +69,9 @@ describe('ScenarioDetailView interaction object', () => {
         );
     });
 
-    it('can find an activity by name and read its outcome', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ScenarioDetailView',
-            importPath: './components/scenarios/ScenarioDetailView',
-            props: { scenarioId: 'spec/b.spec.ts:5', onNavigate: () => {} },
+    it('can find an activity by name and read its outcome', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
+            props: { scenarioId: 'spec/b.spec.ts:5' },
             data: minimalData({
                 scenarios: [
                     {
@@ -102,7 +91,6 @@ describe('ScenarioDetailView interaction object', () => {
                     },
                 ],
             }),
-            interactionObject: ScenarioDetailView,
         });
 
         await actor.attemptsTo(
@@ -110,11 +98,9 @@ describe('ScenarioDetailView interaction object', () => {
         );
     });
 
-    it('can count execution history dots', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ScenarioDetailView',
-            importPath: './components/scenarios/ScenarioDetailView',
-            props: { scenarioId: 'spec/b.spec.ts:5', onNavigate: () => {} },
+    it('can count execution history dots', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
+            props: { scenarioId: 'spec/b.spec.ts:5' },
             data: minimalData({
                 scenarios: [
                     {
@@ -137,7 +123,6 @@ describe('ScenarioDetailView interaction object', () => {
                     { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 0, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 400, slowest: 400, fastest: 400, average: 400 },
                 ],
             }),
-            interactionObject: ScenarioDetailView,
         });
 
         await actor.attemptsTo(
@@ -145,11 +130,9 @@ describe('ScenarioDetailView interaction object', () => {
         );
     });
 
-    it('counts screenshots in the photo strip', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ScenarioDetailView',
-            importPath: './components/scenarios/ScenarioDetailView',
-            props: { scenarioId: 'test-photos', onNavigate: () => {}, specDirectory: '' },
+    it('counts screenshots in the photo strip', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
+            props: { scenarioId: 'test-photos', specDirectory: '' },
             data: {
                 scenarios: [{
                     id: 'test-photos', name: 'Test with photos', category: 'Suite', outcome: 'FAILURE', duration: 400,
@@ -176,7 +159,6 @@ describe('ScenarioDetailView interaction object', () => {
                 ],
             },
             dataAsProps: true,
-            interactionObject: ScenarioDetailView,
         });
 
         await actor.attemptsTo(
@@ -187,11 +169,9 @@ describe('ScenarioDetailView interaction object', () => {
 
 describe('ScenarioDetailView — copy source location', () => {
 
-    it('has a copy source location button', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ScenarioDetailView',
-            importPath: './components/scenarios/ScenarioDetailView',
-            props: { scenarioId: 'spec/b.spec.ts:42', onNavigate: () => {} },
+    it('has a copy source location button', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
+            props: { scenarioId: 'spec/b.spec.ts:42' },
             data: minimalData({
                 scenarios: [
                     {
@@ -207,7 +187,6 @@ describe('ScenarioDetailView — copy source location', () => {
                     },
                 ],
             }),
-            interactionObject: ScenarioDetailView,
         });
 
         await actor.attemptsTo(
@@ -218,13 +197,10 @@ describe('ScenarioDetailView — copy source location', () => {
 
 describe('ScenarioDetailView — retry attempt switching', () => {
 
-    it('can switch between retry attempts', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ScenarioDetailView',
-            importPath: './components/scenarios/ScenarioDetailView',
-            props: { scenarioId: 'spec/retried.spec.ts:8', onNavigate: () => {} },
+    it('can switch between retry attempts', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
+            props: { scenarioId: 'spec/retried.spec.ts:8' },
             data: scenarioWithMixedRetryHistory(),
-            interactionObject: ScenarioDetailView,
         });
 
         await actor.attemptsTo(
@@ -304,13 +280,10 @@ describe('ScenarioDetailView — per-run retry tabs', () => {
 
     describe('when viewing the latest run (retried)', () => {
 
-        it('shows attempt tabs', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'ScenarioDetailView',
-                importPath: './components/scenarios/ScenarioDetailView',
-                props: { scenarioId: SCENARIO_ID, onNavigate: () => {} },
+        it('shows attempt tabs', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
+                props: { scenarioId: SCENARIO_ID },
                 data: scenarioWithMixedRetryHistory(),
-                interactionObject: ScenarioDetailView,
             });
 
             await actor.attemptsTo(
@@ -320,13 +293,10 @@ describe('ScenarioDetailView — per-run retry tabs', () => {
             );
         });
 
-        it('displays the scenario duration', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'ScenarioDetailView',
-                importPath: './components/scenarios/ScenarioDetailView',
-                props: { scenarioId: SCENARIO_ID, onNavigate: () => {} },
+        it('displays the scenario duration', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
+                props: { scenarioId: SCENARIO_ID },
                 data: scenarioWithMixedRetryHistory(),
-                interactionObject: ScenarioDetailView,
             });
 
             await actor.attemptsTo(
@@ -334,13 +304,10 @@ describe('ScenarioDetailView — per-run retry tabs', () => {
             );
         });
 
-        it('switches activity tree when clicking attempt tabs', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'ScenarioDetailView',
-                importPath: './components/scenarios/ScenarioDetailView',
-                props: { scenarioId: SCENARIO_ID, onNavigate: () => {} },
+        it('switches activity tree when clicking attempt tabs', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
+                props: { scenarioId: SCENARIO_ID },
                 data: scenarioWithMixedRetryHistory(),
-                interactionObject: ScenarioDetailView,
             });
 
             await actor.attemptsTo(
@@ -353,13 +320,10 @@ describe('ScenarioDetailView — per-run retry tabs', () => {
 
     describe('when viewing a historical run that was not retried', () => {
 
-        it('hides attempt tabs', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'ScenarioDetailView',
-                importPath: './components/scenarios/ScenarioDetailView',
-                props: { scenarioId: `${SCENARIO_ID}?run=${RUN_1_TIMESTAMP}`, onNavigate: () => {} },
+        it('hides attempt tabs', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
+                props: { scenarioId: `${SCENARIO_ID}?run=${RUN_1_TIMESTAMP}` },
                 data: scenarioWithMixedRetryHistory(),
-                interactionObject: ScenarioDetailView,
             });
 
             await actor.attemptsTo(
@@ -367,13 +331,10 @@ describe('ScenarioDetailView — per-run retry tabs', () => {
             );
         });
 
-        it('displays the historical run duration', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'ScenarioDetailView',
-                importPath: './components/scenarios/ScenarioDetailView',
-                props: { scenarioId: `${SCENARIO_ID}?run=${RUN_1_TIMESTAMP}`, onNavigate: () => {} },
+        it('displays the historical run duration', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
+                props: { scenarioId: `${SCENARIO_ID}?run=${RUN_1_TIMESTAMP}` },
                 data: scenarioWithMixedRetryHistory(),
-                interactionObject: ScenarioDetailView,
             });
 
             await actor.attemptsTo(
@@ -381,13 +342,10 @@ describe('ScenarioDetailView — per-run retry tabs', () => {
             );
         });
 
-        it('shows activities from the historical run', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'ScenarioDetailView',
-                importPath: './components/scenarios/ScenarioDetailView',
-                props: { scenarioId: `${SCENARIO_ID}?run=${RUN_1_TIMESTAMP}`, onNavigate: () => {} },
+        it('shows activities from the historical run', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
+                props: { scenarioId: `${SCENARIO_ID}?run=${RUN_1_TIMESTAMP}` },
                 data: scenarioWithMixedRetryHistory(),
-                interactionObject: ScenarioDetailView,
             });
 
             await actor.attemptsTo(
@@ -395,13 +353,10 @@ describe('ScenarioDetailView — per-run retry tabs', () => {
             );
         });
 
-        it('shows error block from the historical run', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'ScenarioDetailView',
-                importPath: './components/scenarios/ScenarioDetailView',
-                props: { scenarioId: `${SCENARIO_ID}?run=${RUN_1_TIMESTAMP}`, onNavigate: () => {} },
+        it('shows error block from the historical run', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
+                props: { scenarioId: `${SCENARIO_ID}?run=${RUN_1_TIMESTAMP}` },
                 data: scenarioWithMixedRetryHistory(),
-                interactionObject: ScenarioDetailView,
             });
 
             await actor.attemptsTo(

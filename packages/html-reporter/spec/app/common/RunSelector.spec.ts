@@ -24,17 +24,14 @@ describe('RunSelector', () => {
         await page.exposeFunction('__noop', () => { /* noop */ });
     });
 
-    it('renders a dropdown with run options', async ({ mount, actor }) => {
-        const runSelector = await mount({
-            component: 'RunSelector',
-            importPath: './components/common/RunSelector',
+    it('renders a dropdown with run options', async ({ interactionObject, actor }) => {
+        const runSelector = await interactionObject(RunSelector, './components/common/RunSelector', {
             props: {
                 activeTimestamp: '2024-06-15T14:30:00.000Z',
                 history: sampleHistory,
                 onRunChange: '__noop',
                 isHistorical: false,
             },
-            interactionObject: RunSelector,
         });
 
         await actor.attemptsTo(
@@ -42,10 +39,8 @@ describe('RunSelector', () => {
         );
     });
 
-    it('selects the active run', async ({ mount, actor }) => {
-        const runSelector = await mount({
-            component: 'RunSelector',
-            importPath: './components/common/RunSelector',
+    it('selects the active run', async ({ interactionObject, actor }) => {
+        const runSelector = await interactionObject(RunSelector, './components/common/RunSelector', {
             props: {
                 activeTimestamp: '2024-06-14T10:00:00.000Z',
                 history: sampleHistory,
@@ -53,7 +48,6 @@ describe('RunSelector', () => {
                 isHistorical: true,
                 showLatestHref: '#/tests',
             },
-            interactionObject: RunSelector,
         });
 
         await actor.attemptsTo(
@@ -61,17 +55,14 @@ describe('RunSelector', () => {
         );
     });
 
-    it('does not show "show latest" link when viewing latest run', async ({ mount, actor }) => {
-        const runSelector = await mount({
-            component: 'RunSelector',
-            importPath: './components/common/RunSelector',
+    it('does not show "show latest" link when viewing latest run', async ({ interactionObject, actor }) => {
+        const runSelector = await interactionObject(RunSelector, './components/common/RunSelector', {
             props: {
                 activeTimestamp: '2024-06-15T14:30:00.000Z',
                 history: sampleHistory,
                 onRunChange: '__noop',
                 isHistorical: false,
             },
-            interactionObject: RunSelector,
         });
 
         await actor.attemptsTo(
@@ -79,10 +70,8 @@ describe('RunSelector', () => {
         );
     });
 
-    it('shows "show latest" link when viewing a historical run', async ({ mount, actor }) => {
-        const runSelector = await mount({
-            component: 'RunSelector',
-            importPath: './components/common/RunSelector',
+    it('shows "show latest" link when viewing a historical run', async ({ interactionObject, actor }) => {
+        const runSelector = await interactionObject(RunSelector, './components/common/RunSelector', {
             props: {
                 activeTimestamp: '2024-06-14T10:00:00.000Z',
                 history: sampleHistory,
@@ -90,7 +79,6 @@ describe('RunSelector', () => {
                 isHistorical: true,
                 showLatestHref: '#/tests',
             },
-            interactionObject: RunSelector,
         });
 
         await actor.attemptsTo(
@@ -98,10 +86,8 @@ describe('RunSelector', () => {
         );
     });
 
-    it('"show latest" link has correct href', async ({ mount, actor }) => {
-        const runSelector = await mount({
-            component: 'RunSelector',
-            importPath: './components/common/RunSelector',
+    it('"show latest" link has correct href', async ({ interactionObject, actor }) => {
+        const runSelector = await interactionObject(RunSelector, './components/common/RunSelector', {
             props: {
                 activeTimestamp: '2024-06-14T10:00:00.000Z',
                 history: sampleHistory,
@@ -109,7 +95,6 @@ describe('RunSelector', () => {
                 isHistorical: true,
                 showLatestHref: '#/tests',
             },
-            interactionObject: RunSelector,
         });
 
         await actor.attemptsTo(
@@ -117,10 +102,8 @@ describe('RunSelector', () => {
         );
     });
 
-    it('indicates historical state', async ({ mount, actor }) => {
-        const runSelector = await mount({
-            component: 'RunSelector',
-            importPath: './components/common/RunSelector',
+    it('indicates historical state', async ({ interactionObject, actor }) => {
+        const runSelector = await interactionObject(RunSelector, './components/common/RunSelector', {
             props: {
                 activeTimestamp: '2024-06-14T10:00:00.000Z',
                 history: sampleHistory,
@@ -128,7 +111,6 @@ describe('RunSelector', () => {
                 isHistorical: true,
                 showLatestHref: '#/tests',
             },
-            interactionObject: RunSelector,
         });
 
         await actor.attemptsTo(
@@ -136,17 +118,14 @@ describe('RunSelector', () => {
         );
     });
 
-    it('indicates non-historical state', async ({ mount, actor }) => {
-        const runSelector = await mount({
-            component: 'RunSelector',
-            importPath: './components/common/RunSelector',
+    it('indicates non-historical state', async ({ interactionObject, actor }) => {
+        const runSelector = await interactionObject(RunSelector, './components/common/RunSelector', {
             props: {
                 activeTimestamp: '2024-06-15T14:30:00.000Z',
                 history: sampleHistory,
                 onRunChange: '__noop',
                 isHistorical: false,
             },
-            interactionObject: RunSelector,
         });
 
         await actor.attemptsTo(
@@ -157,10 +136,8 @@ describe('RunSelector', () => {
     /* Raw Playwright tests — verify implementation contracts (CSS classes, ARIA attributes) */
     describe('implementation contracts', () => {
 
-        it('applies historical CSS class when isHistorical is true', async ({ mount, page }) => {
-            await mount({
-                component: 'RunSelector',
-                importPath: './components/common/RunSelector',
+        it('applies historical CSS class when isHistorical is true', async ({ interactionObject, page }) => {
+            await interactionObject(RunSelector, './components/common/RunSelector', {
                 props: {
                     activeTimestamp: '2024-06-14T10:00:00.000Z',
                     history: sampleHistory,
@@ -168,7 +145,6 @@ describe('RunSelector', () => {
                     isHistorical: true,
                     showLatestHref: '#/tests',
                 },
-                interactionObject: RunSelector,
             });
 
             const wrapper = page.locator('.run-selector-row');
@@ -178,17 +154,14 @@ describe('RunSelector', () => {
             await expect(select).toHaveClass(/run-select--historical/);
         });
 
-        it('does not apply historical CSS class when isHistorical is false', async ({ mount, page }) => {
-            await mount({
-                component: 'RunSelector',
-                importPath: './components/common/RunSelector',
+        it('does not apply historical CSS class when isHistorical is false', async ({ interactionObject, page }) => {
+            await interactionObject(RunSelector, './components/common/RunSelector', {
                 props: {
                     activeTimestamp: '2024-06-15T14:30:00.000Z',
                     history: sampleHistory,
                     onRunChange: '__noop',
                     isHistorical: false,
                 },
-                interactionObject: RunSelector,
             });
 
             const wrapper = page.locator('.run-selector-row');
@@ -198,10 +171,8 @@ describe('RunSelector', () => {
             await expect(select).not.toHaveClass(/run-select--historical/);
         });
 
-        it('updates aria-label when historical', async ({ mount, page }) => {
-            await mount({
-                component: 'RunSelector',
-                importPath: './components/common/RunSelector',
+        it('updates aria-label when historical', async ({ interactionObject, page }) => {
+            await interactionObject(RunSelector, './components/common/RunSelector', {
                 props: {
                     activeTimestamp: '2024-06-14T10:00:00.000Z',
                     history: sampleHistory,
@@ -209,7 +180,6 @@ describe('RunSelector', () => {
                     isHistorical: true,
                     showLatestHref: '#/tests',
                 },
-                interactionObject: RunSelector,
             });
 
             const select = page.locator('select');
@@ -217,20 +187,17 @@ describe('RunSelector', () => {
         });
     });
 
-    it('invokes onRunChange when a different option is selected', async ({ mount, actor, page }) => {
+    it('invokes onRunChange when a different option is selected', async ({ interactionObject, actor, page }) => {
         const receivedValues: string[] = [];
         await page.exposeFunction('__onRunChange__', (value: string) => { receivedValues.push(value); });
 
-        await mount({
-            component: 'RunSelector',
-            importPath: './components/common/RunSelector',
+        await interactionObject(RunSelector, './components/common/RunSelector', {
             props: {
                 activeTimestamp: '2024-06-15T14:30:00.000Z',
                 history: sampleHistory,
                 onRunChange: '__onRunChange__',
                 isHistorical: false,
             },
-            interactionObject: RunSelector,
         });
 
         const select = page.locator('select');
@@ -239,13 +206,11 @@ describe('RunSelector', () => {
         expect(receivedValues.length).toBeGreaterThan(0);
     });
 
-    it('invokes onShowLatest callback when link is clicked', async ({ mount, page }) => {
+    it('invokes onShowLatest callback when link is clicked', async ({ interactionObject, page }) => {
         const callCount: number[] = [];
         await page.exposeFunction('__onShowLatest__', () => { callCount.push(1); });
 
-        await mount({
-            component: 'RunSelector',
-            importPath: './components/common/RunSelector',
+        await interactionObject(RunSelector, './components/common/RunSelector', {
             props: {
                 activeTimestamp: '2024-06-14T10:00:00.000Z',
                 history: sampleHistory,
@@ -253,7 +218,6 @@ describe('RunSelector', () => {
                 isHistorical: true,
                 onShowLatest: '__onShowLatest__',
             },
-            interactionObject: RunSelector,
         });
 
         const link = page.locator('.show-latest-link');

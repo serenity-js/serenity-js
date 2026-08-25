@@ -23,11 +23,11 @@ interface ScenarioDetailViewProps {
     history: ReportHistoryEntry[];
     specDirectory?: string;
     scenarioId: string;
-    onNavigate: (path: string) => void;
+    onNavigate?: (path: string) => void;
     onOpenSidebar?: () => void;
 }
 
-export function ScenarioDetailView({ scenarios, history, specDirectory, scenarioId, onNavigate, onOpenSidebar }: ScenarioDetailViewProps): ReturnType<typeof html> {
+export function ScenarioDetailView({ scenarios, history, specDirectory, scenarioId, onNavigate = () => {}, onOpenSidebar }: ScenarioDetailViewProps): ReturnType<typeof html> {
     const openSidebar = onOpenSidebar || (() => {});
     const detail = useScenarioDetail(scenarioId, scenarios, history);
 

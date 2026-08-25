@@ -73,13 +73,9 @@ function ungroupedErrorsData() {
 
 describe('ErrorsView', () => {
 
-    it('groups scenarios with identical error messages', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ErrorsView',
-            importPath: './components/errors/ErrorsView',
-            props: { onNavigate: () => {}, route: '#/errors' },
+    it('groups scenarios with identical error messages', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ErrorsView, './components/errors/ErrorsView', {
             data: errorsData(),
-            interactionObject: ErrorsView,
         });
 
         await actor.attemptsTo(
@@ -88,15 +84,12 @@ describe('ErrorsView', () => {
         );
     });
 
-    it('navigates to filtered scenarios view when clicking a grouped error', async ({ mount, page, actor }) => {
+    it('navigates to filtered scenarios view when clicking a grouped error', async ({ interactionObject, page, actor }) => {
         await page.addInitScript(() => { (window as any).__onNavigate__ = (path: string) => { (window as any).navigatedTo = path; }; });
 
-        const view = await mount({
-            component: 'ErrorsView',
-            importPath: './components/errors/ErrorsView',
+        const view = await interactionObject(ErrorsView, './components/errors/ErrorsView', {
             props: { onNavigate: '__onNavigate__', route: '#/errors' },
             data: errorsData(),
-            interactionObject: ErrorsView,
         });
 
         await actor.attemptsTo(
@@ -107,15 +100,12 @@ describe('ErrorsView', () => {
         );
     });
 
-    it('navigates to scenario detail when clicking a unique error', async ({ mount, page, actor }) => {
+    it('navigates to scenario detail when clicking a unique error', async ({ interactionObject, page, actor }) => {
         await page.addInitScript(() => { (window as any).__onNavigate__ = (path: string) => { (window as any).navigatedTo = path; }; });
 
-        const view = await mount({
-            component: 'ErrorsView',
-            importPath: './components/errors/ErrorsView',
+        const view = await interactionObject(ErrorsView, './components/errors/ErrorsView', {
             props: { onNavigate: '__onNavigate__', route: '#/errors' },
             data: errorsData(),
-            interactionObject: ErrorsView,
         });
 
         await actor.attemptsTo(
@@ -125,13 +115,9 @@ describe('ErrorsView', () => {
         );
     });
 
-    it('single error row does not show duplicate indicator', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ErrorsView',
-            importPath: './components/errors/ErrorsView',
-            props: { onNavigate: () => {}, route: '#/errors' },
+    it('single error row does not show duplicate indicator', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ErrorsView, './components/errors/ErrorsView', {
             data: errorsData(),
-            interactionObject: ErrorsView,
         });
 
         await actor.attemptsTo(
@@ -139,7 +125,7 @@ describe('ErrorsView', () => {
         );
     });
 
-    it('shows errors from a historical run when ?run= parameter is set', async ({ mount, actor }) => {
+    it('shows errors from a historical run when ?run= parameter is set', async ({ interactionObject, actor }) => {
         const data = minimalData({
             scenarios: [
                 {
@@ -170,12 +156,9 @@ describe('ErrorsView', () => {
             ],
         });
 
-        const view = await mount({
-            component: 'ErrorsView',
-            importPath: './components/errors/ErrorsView',
-            props: { onNavigate: () => {}, route: '#/errors?run=2024-06-14T10:00:00.000Z' },
+        const view = await interactionObject(ErrorsView, './components/errors/ErrorsView', {
+            props: { route: '#/errors?run=2024-06-14T10:00:00.000Z' },
             data,
-            interactionObject: ErrorsView,
         });
 
         await actor.attemptsTo(
@@ -184,7 +167,7 @@ describe('ErrorsView', () => {
         );
     });
 
-    it('shows "No Errors" when the selected historical run had no failures', async ({ mount, actor }) => {
+    it('shows "No Errors" when the selected historical run had no failures', async ({ interactionObject, actor }) => {
         const data = minimalData({
             scenarios: [
                 {
@@ -205,12 +188,9 @@ describe('ErrorsView', () => {
             ],
         });
 
-        const view = await mount({
-            component: 'ErrorsView',
-            importPath: './components/errors/ErrorsView',
-            props: { onNavigate: () => {}, route: '#/errors?run=2024-06-14T10:00:00.000Z' },
+        const view = await interactionObject(ErrorsView, './components/errors/ErrorsView', {
+            props: { route: '#/errors?run=2024-06-14T10:00:00.000Z' },
             data,
-            interactionObject: ErrorsView,
         });
 
         await actor.attemptsTo(
@@ -218,13 +198,9 @@ describe('ErrorsView', () => {
         );
     });
 
-    it('can find a scenario by name', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ErrorsView',
-            importPath: './components/errors/ErrorsView',
-            props: { onNavigate: () => {}, route: '/errors' },
+    it('can find a scenario by name', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ErrorsView, './components/errors/ErrorsView', {
             data: ungroupedErrorsData(),
-            interactionObject: ErrorsView,
         });
 
         await actor.attemptsTo(
@@ -232,13 +208,9 @@ describe('ErrorsView', () => {
         );
     });
 
-    it('can find a KPI card by its label', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ErrorsView',
-            importPath: './components/errors/ErrorsView',
-            props: { onNavigate: () => {}, route: '/errors' },
+    it('can find a KPI card by its label', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ErrorsView, './components/errors/ErrorsView', {
             data: ungroupedErrorsData(),
-            interactionObject: ErrorsView,
         });
 
         await actor.attemptsTo(
@@ -246,13 +218,9 @@ describe('ErrorsView', () => {
         );
     });
 
-    it('lists visible scenario names in the errors view', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ErrorsView',
-            importPath: './components/errors/ErrorsView',
-            props: { onNavigate: () => {}, route: '/errors' },
+    it('lists visible scenario names in the errors view', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ErrorsView, './components/errors/ErrorsView', {
             data: ungroupedErrorsData(),
-            interactionObject: ErrorsView,
         });
 
         await actor.attemptsTo(
@@ -263,13 +231,9 @@ describe('ErrorsView', () => {
 
 describe('ErrorsView search', () => {
 
-    it('narrows error list when searching by scenario name', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ErrorsView',
-            importPath: './components/errors/ErrorsView',
-            props: { onNavigate: () => {}, route: '/errors' },
+    it('narrows error list when searching by scenario name', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ErrorsView, './components/errors/ErrorsView', {
             data: errorsData(),
-            interactionObject: ErrorsView,
         });
 
         await actor.attemptsTo(
@@ -280,13 +244,9 @@ describe('ErrorsView search', () => {
         );
     });
 
-    it('narrows error list when searching by error message', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ErrorsView',
-            importPath: './components/errors/ErrorsView',
-            props: { onNavigate: () => {}, route: '/errors' },
+    it('narrows error list when searching by error message', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ErrorsView, './components/errors/ErrorsView', {
             data: errorsData(),
-            interactionObject: ErrorsView,
         });
 
         await actor.attemptsTo(
@@ -297,13 +257,9 @@ describe('ErrorsView search', () => {
         );
     });
 
-    it('shows all errors when search is cleared', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ErrorsView',
-            importPath: './components/errors/ErrorsView',
-            props: { onNavigate: () => {}, route: '/errors' },
+    it('shows all errors when search is cleared', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ErrorsView, './components/errors/ErrorsView', {
             data: errorsData(),
-            interactionObject: ErrorsView,
         });
 
         await actor.attemptsTo(

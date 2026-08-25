@@ -6,12 +6,9 @@ import { describe, it } from '../fixtures.js';
 
 describe('SystemContextView', () => {
 
-    it('displays the project name', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'SystemContextView',
-            importPath: './components/about/SystemContextView',
+    it('displays the project name', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(SystemContextView, './components/about/SystemContextView', {
             data: minimalData(),
-            interactionObject: SystemContextView,
         });
 
         await actor.attemptsTo(
@@ -19,12 +16,9 @@ describe('SystemContextView', () => {
         );
     });
 
-    it('displays the package manager', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'SystemContextView',
-            importPath: './components/about/SystemContextView',
+    it('displays the package manager', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(SystemContextView, './components/about/SystemContextView', {
             data: minimalData(),
-            interactionObject: SystemContextView,
         });
 
         await actor.attemptsTo(
@@ -32,12 +26,9 @@ describe('SystemContextView', () => {
         );
     });
 
-    it('displays the Node.js version', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'SystemContextView',
-            importPath: './components/about/SystemContextView',
+    it('displays the Node.js version', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(SystemContextView, './components/about/SystemContextView', {
             data: minimalData(),
-            interactionObject: SystemContextView,
         });
 
         await actor.attemptsTo(
@@ -45,12 +36,9 @@ describe('SystemContextView', () => {
         );
     });
 
-    it('displays the test runner name and version', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'SystemContextView',
-            importPath: './components/about/SystemContextView',
+    it('displays the test runner name and version', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(SystemContextView, './components/about/SystemContextView', {
             data: minimalData(),
-            interactionObject: SystemContextView,
         });
 
         await actor.attemptsTo(
@@ -59,12 +47,9 @@ describe('SystemContextView', () => {
         );
     });
 
-    it('displays the operating system', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'SystemContextView',
-            importPath: './components/about/SystemContextView',
+    it('displays the operating system', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(SystemContextView, './components/about/SystemContextView', {
             data: minimalData(),
-            interactionObject: SystemContextView,
         });
 
         await actor.attemptsTo(
@@ -72,12 +57,9 @@ describe('SystemContextView', () => {
         );
     });
 
-    it('displays the Serenity/JS version', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'SystemContextView',
-            importPath: './components/about/SystemContextView',
+    it('displays the Serenity/JS version', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(SystemContextView, './components/about/SystemContextView', {
             data: minimalData(),
-            interactionObject: SystemContextView,
         });
 
         await actor.attemptsTo(
@@ -85,12 +67,9 @@ describe('SystemContextView', () => {
         );
     });
 
-    it('displays CI/CD provider and build info', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'SystemContextView',
-            importPath: './components/about/SystemContextView',
+    it('displays CI/CD provider and build info', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(SystemContextView, './components/about/SystemContextView', {
             data: minimalData(),
-            interactionObject: SystemContextView,
         });
 
         await actor.attemptsTo(
@@ -101,12 +80,9 @@ describe('SystemContextView', () => {
         );
     });
 
-    it('displays the commit message', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'SystemContextView',
-            importPath: './components/about/SystemContextView',
+    it('displays the commit message', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(SystemContextView, './components/about/SystemContextView', {
             data: minimalData(),
-            interactionObject: SystemContextView,
         });
 
         await actor.attemptsTo(
@@ -114,10 +90,8 @@ describe('SystemContextView', () => {
         );
     });
 
-    it('displays browser information', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'SystemContextView',
-            importPath: './components/about/SystemContextView',
+    it('displays browser information', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(SystemContextView, './components/about/SystemContextView', {
             data: minimalData({
                 systemContext: {
                     nodeVersion: 'v22.0.0',
@@ -131,7 +105,6 @@ describe('SystemContextView', () => {
                     ci: null,
                 },
             }),
-            interactionObject: SystemContextView,
         });
 
         await actor.attemptsTo(
@@ -140,12 +113,9 @@ describe('SystemContextView', () => {
         );
     });
 
-    it('shows placeholder when systemContext is missing', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'SystemContextView',
-            importPath: './components/about/SystemContextView',
+    it('shows placeholder when systemContext is missing', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(SystemContextView, './components/about/SystemContextView', {
             data: { ...minimalData(), systemContext: undefined },
-            interactionObject: SystemContextView,
         });
 
         await actor.attemptsTo(
@@ -153,10 +123,8 @@ describe('SystemContextView', () => {
         );
     });
 
-    it('does not show CI section when ci is null', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'SystemContextView',
-            importPath: './components/about/SystemContextView',
+    it('does not show CI section when ci is null', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(SystemContextView, './components/about/SystemContextView', {
             data: minimalData({
                 systemContext: {
                     nodeVersion: 'v22.0.0',
@@ -167,7 +135,6 @@ describe('SystemContextView', () => {
                     ci: null,
                 },
             }),
-            interactionObject: SystemContextView,
         });
 
         await actor.attemptsTo(

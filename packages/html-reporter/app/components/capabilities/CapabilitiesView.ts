@@ -17,12 +17,12 @@ const html = htm.bind(h);
 
 interface CapabilitiesViewProps {
     capabilities?: ReportCapabilityNode;
-    onNavigate: (path: string) => void;
-    route: string;
+    onNavigate?: (path: string) => void;
+    route?: string;
     onOpenSidebar?: () => void;
 }
 
-export function CapabilitiesView({ capabilities, onNavigate, route, onOpenSidebar }: CapabilitiesViewProps): ReturnType<typeof html> {
+export function CapabilitiesView({ capabilities, onNavigate = () => {}, route = '', onOpenSidebar }: CapabilitiesViewProps): ReturnType<typeof html> {
     const openSidebar = onOpenSidebar || (() => {});
     const sheets = useMobileSheetState();
 

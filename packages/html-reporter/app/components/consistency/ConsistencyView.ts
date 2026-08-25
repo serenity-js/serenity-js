@@ -23,7 +23,7 @@ const html = htm.bind(h);
 interface ConsistencyViewProps {
     inconsistentTests: ReportInconsistentTest[];
     specDirectory?: string;
-    onNavigate: (path: string) => void;
+    onNavigate?: (path: string) => void;
     onOpenSidebar?: () => void;
 }
 
@@ -61,7 +61,7 @@ function sortTests(tests: ClassifiedTest[], sort: string): ClassifiedTest[] {
     return [...tests].sort((a, b) => naturalCompare(a.category || '', b.category || ''));
 }
 
-export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate, onOpenSidebar }: ConsistencyViewProps): ReturnType<typeof html> {
+export function ConsistencyView({ inconsistentTests, specDirectory, onNavigate = () => {}, onOpenSidebar }: ConsistencyViewProps): ReturnType<typeof html> {
     const openSidebar = onOpenSidebar || (() => {});
     const sheets = useMobileSheetState();
 

@@ -53,7 +53,6 @@ describe('Scenario-level 404', () => {
             data: minimalData(),
             props: {
                 scenarioId: 'nonexistent/path.spec.ts:999',
-                onNavigate: () => {},
             },
         });
 
@@ -67,7 +66,6 @@ describe('Scenario-level 404', () => {
             data: minimalData(),
             props: {
                 scenarioId: 'nonexistent/path.spec.ts:999',
-                onNavigate: () => {},
             },
         });
 
@@ -83,7 +81,6 @@ describe('Scenario-level 404', () => {
             data: minimalData(),
             props: {
                 scenarioId: 'nonexistent/path.spec.ts:999',
-                onNavigate: () => {},
             },
         });
 
@@ -99,7 +96,7 @@ describe('Invalid filter fallback', () => {
             component: 'ScenariosView',
             importPath: './components/scenarios/ScenariosView',
             data: minimalData(),
-            props: { onNavigate: () => {}, route: '/tests?filter=BOGUS' },
+            props: { route: '/tests?filter=BOGUS' },
         });
 
         // The "All" chip should be active (aria-pressed="true")
@@ -112,7 +109,7 @@ describe('Invalid filter fallback', () => {
             component: 'ScenariosView',
             importPath: './components/scenarios/ScenariosView',
             data: minimalData(),
-            props: { onNavigate: () => {}, route: '/tests?filter=INVALID_VALUE' },
+            props: { route: '/tests?filter=INVALID_VALUE' },
         });
 
         // All 4 scenarios from minimalData should be visible
@@ -125,7 +122,7 @@ describe('Invalid filter fallback', () => {
             component: 'ScenariosView',
             importPath: './components/scenarios/ScenariosView',
             data: minimalData(),
-            props: { onNavigate: () => {}, route: '/tests?filter=foo,bar,baz' },
+            props: { route: '/tests?filter=foo,bar,baz' },
         });
 
         const allChip = page.locator('.filter-chip').first();

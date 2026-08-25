@@ -10,14 +10,10 @@ const chartContainer = () => PageElement.located(By.css('.trend-chart-container'
 
 describe('TestRunsView', () => {
 
-    it('reports the number of test run rows', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'TestRunsView',
-            importPath: './components/test-runs/TestRunsView',
-            props: { onNavigate: () => {} },
+    it('reports the number of test run rows', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(TestRunsView, './components/test-runs/TestRunsView', {
             data: minimalData(),
             chartJs: true,
-            interactionObject: TestRunsView,
         });
 
         await actor.attemptsTo(
@@ -25,14 +21,10 @@ describe('TestRunsView', () => {
         );
     });
 
-    it('reports whether a trend chart is present', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'TestRunsView',
-            importPath: './components/test-runs/TestRunsView',
-            props: { onNavigate: () => {} },
+    it('reports whether a trend chart is present', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(TestRunsView, './components/test-runs/TestRunsView', {
             data: minimalData(),
             chartJs: true,
-            interactionObject: TestRunsView,
         });
 
         await actor.attemptsTo(
@@ -40,14 +32,10 @@ describe('TestRunsView', () => {
         );
     });
 
-    it('allows selecting a run entry', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'TestRunsView',
-            importPath: './components/test-runs/TestRunsView',
-            props: { onNavigate: () => {} },
+    it('allows selecting a run entry', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(TestRunsView, './components/test-runs/TestRunsView', {
             data: minimalData(),
             chartJs: true,
-            interactionObject: TestRunsView,
         });
 
         await actor.attemptsTo(
@@ -56,14 +44,10 @@ describe('TestRunsView', () => {
         // Test passes if the run was found and clicked without throwing
     });
 
-    it('renders trend chart and run list', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'TestRunsView',
-            importPath: './components/test-runs/TestRunsView',
-            props: { onNavigate: () => {} },
+    it('renders trend chart and run list', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(TestRunsView, './components/test-runs/TestRunsView', {
             data: minimalData(),
             chartJs: true,
-            interactionObject: TestRunsView,
         });
 
         await actor.attemptsTo(
@@ -72,11 +56,8 @@ describe('TestRunsView', () => {
         );
     });
 
-    it('shows a row for each run in history', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'TestRunsView',
-            importPath: './components/test-runs/TestRunsView',
-            props: { onNavigate: () => {} },
+    it('shows a row for each run in history', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(TestRunsView, './components/test-runs/TestRunsView', {
             data: minimalData({
                 history: [
                     { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 4, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 800, slowest: 300, fastest: 100, average: 200 },
@@ -85,7 +66,6 @@ describe('TestRunsView', () => {
                 ],
             }),
             chartJs: true,
-            interactionObject: TestRunsView,
         });
 
         await actor.attemptsTo(
@@ -93,11 +73,8 @@ describe('TestRunsView', () => {
         );
     });
 
-    it('renders a shortened commit hash linking to the full commit URL', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'TestRunsView',
-            importPath: './components/test-runs/TestRunsView',
-            props: { onNavigate: () => {} },
+    it('renders a shortened commit hash linking to the full commit URL', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(TestRunsView, './components/test-runs/TestRunsView', {
             data: minimalData({
                 history: [
                     {
@@ -111,7 +88,6 @@ describe('TestRunsView', () => {
                 ],
             }),
             chartJs: true,
-            interactionObject: TestRunsView,
         });
 
         await actor.attemptsTo(
@@ -122,14 +98,11 @@ describe('TestRunsView', () => {
 
     describe('chart selection interaction', () => {
 
-        it('does not show the details panel initially', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'TestRunsView',
-                importPath: './components/test-runs/TestRunsView',
-                props: { onNavigate: () => {} },
+        it('does not show the details panel initially', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(TestRunsView, './components/test-runs/TestRunsView', {
+    
                 data: minimalData(),
                 chartJs: true,
-                interactionObject: TestRunsView,
             });
 
             await actor.attemptsTo(
@@ -137,14 +110,11 @@ describe('TestRunsView', () => {
             );
         });
 
-        it('shows the details panel when a chart bar is clicked', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'TestRunsView',
-                importPath: './components/test-runs/TestRunsView',
-                props: { onNavigate: () => {} },
+        it('shows the details panel when a chart bar is clicked', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(TestRunsView, './components/test-runs/TestRunsView', {
+    
                 data: minimalData(),
                 chartJs: true,
-                interactionObject: TestRunsView,
             });
 
             await actor.attemptsTo(
@@ -153,14 +123,11 @@ describe('TestRunsView', () => {
             );
         });
 
-        it('shows run metrics in the details panel', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'TestRunsView',
-                importPath: './components/test-runs/TestRunsView',
-                props: { onNavigate: () => {} },
+        it('shows run metrics in the details panel', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(TestRunsView, './components/test-runs/TestRunsView', {
+    
                 data: minimalData(),
                 chartJs: true,
-                interactionObject: TestRunsView,
             });
 
             await actor.attemptsTo(
@@ -176,14 +143,11 @@ describe('TestRunsView', () => {
             );
         });
 
-        it('shows the CTA button in the details panel', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'TestRunsView',
-                importPath: './components/test-runs/TestRunsView',
-                props: { onNavigate: () => {} },
+        it('shows the CTA button in the details panel', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(TestRunsView, './components/test-runs/TestRunsView', {
+    
                 data: minimalData(),
                 chartJs: true,
-                interactionObject: TestRunsView,
             });
 
             await actor.attemptsTo(
@@ -192,20 +156,17 @@ describe('TestRunsView', () => {
             );
         });
 
-        it('navigates only when CTA button is clicked', async ({ mount, page, actor }) => {
+        it('navigates only when CTA button is clicked', async ({ interactionObject, page, actor }) => {
             await page.addInitScript(() => {
                 (window as any).__onNavigate__ = (path: string) => {
                     (window as any).navigatedTo = path;
                 };
             });
 
-            const view = await mount({
-                component: 'TestRunsView',
-                importPath: './components/test-runs/TestRunsView',
+            const view = await interactionObject(TestRunsView, './components/test-runs/TestRunsView', {
                 props: { onNavigate: '__onNavigate__' },
                 data: minimalData(),
                 chartJs: true,
-                interactionObject: TestRunsView,
             });
 
             // Click on the chart — should NOT navigate
@@ -227,14 +188,11 @@ describe('TestRunsView', () => {
             );
         });
 
-        it('dismisses the panel when Escape is pressed', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'TestRunsView',
-                importPath: './components/test-runs/TestRunsView',
-                props: { onNavigate: () => {} },
+        it('dismisses the panel when Escape is pressed', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(TestRunsView, './components/test-runs/TestRunsView', {
+    
                 data: minimalData(),
                 chartJs: true,
-                interactionObject: TestRunsView,
             });
 
             await actor.attemptsTo(
@@ -245,14 +203,11 @@ describe('TestRunsView', () => {
             );
         });
 
-        it('dismisses the panel when clicking outside', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'TestRunsView',
-                importPath: './components/test-runs/TestRunsView',
-                props: { onNavigate: () => {} },
+        it('dismisses the panel when clicking outside', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(TestRunsView, './components/test-runs/TestRunsView', {
+    
                 data: minimalData(),
                 chartJs: true,
-                interactionObject: TestRunsView,
             });
 
             await actor.attemptsTo(
@@ -268,16 +223,13 @@ describe('TestRunsView', () => {
        Uses ComputedStyle from @serenity-js/web rather than raw page.evaluate(). */
     describe('TestRunsView chart touch support', () => {
 
-        it('applies touch-action pan-y to the chart canvas for mobile panning', async ({ mount, page, actor }) => {
+        it('applies touch-action pan-y to the chart canvas for mobile panning', async ({ interactionObject, page, actor }) => {
             await page.setViewportSize({ width: 375, height: 667 });
 
-            await mount({
-                component: 'TestRunsView',
-                importPath: './components/test-runs/TestRunsView',
-                props: { onNavigate: () => {} },
+            await interactionObject(TestRunsView, './components/test-runs/TestRunsView', {
+    
                 data: minimalData(),
                 chartJs: true,
-                interactionObject: TestRunsView,
             });
 
             await actor.attemptsTo(
@@ -285,14 +237,11 @@ describe('TestRunsView', () => {
             );
         });
 
-        it('wraps the chart in a container with the trend-chart-container class', async ({ mount, actor }) => {
-            await mount({
-                component: 'TestRunsView',
-                importPath: './components/test-runs/TestRunsView',
-                props: { onNavigate: () => {} },
+        it('wraps the chart in a container with the trend-chart-container class', async ({ interactionObject, actor }) => {
+            await interactionObject(TestRunsView, './components/test-runs/TestRunsView', {
+    
                 data: minimalData(),
                 chartJs: true,
-                interactionObject: TestRunsView,
             });
 
             await actor.attemptsTo(
@@ -307,15 +256,12 @@ describe('TestRunsView', () => {
        chart labels render with light-theme colours on a dark background — invisible. */
     describe('TestRunsView chart theme initialisation', () => {
 
-        it('uses dark chart theme when data-theme is dark', async ({ mount, actor }) => {
-            await mount({
-                component: 'TestRunsView',
-                importPath: './components/test-runs/TestRunsView',
-                props: { onNavigate: () => {} },
+        it('uses dark chart theme when data-theme is dark', async ({ interactionObject, actor }) => {
+            await interactionObject(TestRunsView, './components/test-runs/TestRunsView', {
+    
                 data: minimalData(),
                 chartJs: true,
                 theme: 'dark',
-                interactionObject: TestRunsView,
             });
 
             await actor.attemptsTo(
@@ -323,15 +269,12 @@ describe('TestRunsView', () => {
             );
         });
 
-        it('uses light chart theme when data-theme is light', async ({ mount, actor }) => {
-            await mount({
-                component: 'TestRunsView',
-                importPath: './components/test-runs/TestRunsView',
-                props: { onNavigate: () => {} },
+        it('uses light chart theme when data-theme is light', async ({ interactionObject, actor }) => {
+            await interactionObject(TestRunsView, './components/test-runs/TestRunsView', {
+    
                 data: minimalData(),
                 chartJs: true,
                 theme: 'light',
-                interactionObject: TestRunsView,
             });
 
             await actor.attemptsTo(

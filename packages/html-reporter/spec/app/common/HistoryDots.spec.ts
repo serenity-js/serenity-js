@@ -5,10 +5,8 @@ import { describe, it } from '../fixtures.js';
 
 describe('HistoryDots', () => {
 
-    it('renders the correct number of dots', async ({ mount, actor }) => {
-        const historyDots = await mount({
-            component: 'HistoryDots',
-            importPath: './components/common/HistoryDots',
+    it('renders the correct number of dots', async ({ interactionObject, actor }) => {
+        const historyDots = await interactionObject(HistoryDots, './components/common/HistoryDots', {
             props: {
                 entries: [
                     { outcome: 'SUCCESS', label: 'Run 1' },
@@ -16,7 +14,6 @@ describe('HistoryDots', () => {
                     { outcome: 'SUCCESS', label: 'Run 3' },
                 ],
             },
-            interactionObject: HistoryDots,
         });
 
         await actor.attemptsTo(
@@ -24,10 +21,8 @@ describe('HistoryDots', () => {
         );
     });
 
-    it('reports the outcome type and title of each dot', async ({ mount, actor }) => {
-        const historyDots = await mount({
-            component: 'HistoryDots',
-            importPath: './components/common/HistoryDots',
+    it('reports the outcome type and title of each dot', async ({ interactionObject, actor }) => {
+        const historyDots = await interactionObject(HistoryDots, './components/common/HistoryDots', {
             props: {
                 entries: [
                     { outcome: 'SUCCESS', label: 'Run 1' },
@@ -35,7 +30,6 @@ describe('HistoryDots', () => {
                     { outcome: 'PENDING', label: 'Run 3' },
                 ],
             },
-            interactionObject: HistoryDots,
         });
 
         await actor.attemptsTo(
@@ -47,10 +41,8 @@ describe('HistoryDots', () => {
         );
     });
 
-    it('respects the max prop by showing only the last N entries', async ({ mount, actor }) => {
-        const historyDots = await mount({
-            component: 'HistoryDots',
-            importPath: './components/common/HistoryDots',
+    it('respects the max prop by showing only the last N entries', async ({ interactionObject, actor }) => {
+        const historyDots = await interactionObject(HistoryDots, './components/common/HistoryDots', {
             props: {
                 entries: [
                     { outcome: 'SUCCESS', label: 'Run 1' },
@@ -61,7 +53,6 @@ describe('HistoryDots', () => {
                 ],
                 max: 3,
             },
-            interactionObject: HistoryDots,
         });
 
         await actor.attemptsTo(
@@ -74,10 +65,8 @@ describe('HistoryDots', () => {
         );
     });
 
-    it('defaults to showing a maximum of 5 dots', async ({ mount, actor }) => {
-        const historyDots = await mount({
-            component: 'HistoryDots',
-            importPath: './components/common/HistoryDots',
+    it('defaults to showing a maximum of 5 dots', async ({ interactionObject, actor }) => {
+        const historyDots = await interactionObject(HistoryDots, './components/common/HistoryDots', {
             props: {
                 entries: [
                     { outcome: 'SUCCESS' },
@@ -89,7 +78,6 @@ describe('HistoryDots', () => {
                     { outcome: 'FAILURE' },
                 ],
             },
-            interactionObject: HistoryDots,
         });
 
         await actor.attemptsTo(
@@ -97,17 +85,14 @@ describe('HistoryDots', () => {
         );
     });
 
-    it('uses empty titles when labels are not provided', async ({ mount, actor }) => {
-        const historyDots = await mount({
-            component: 'HistoryDots',
-            importPath: './components/common/HistoryDots',
+    it('uses empty titles when labels are not provided', async ({ interactionObject, actor }) => {
+        const historyDots = await interactionObject(HistoryDots, './components/common/HistoryDots', {
             props: {
                 entries: [
                     { outcome: 'SUCCESS' },
                     { outcome: 'FAILURE' },
                 ],
             },
-            interactionObject: HistoryDots,
         });
 
         await actor.attemptsTo(

@@ -17,11 +17,11 @@ const html = htm.bind(h);
 
 interface TagsViewProps {
     tags: ReportTag[];
-    onNavigate: (path: string) => void;
+    onNavigate?: (path: string) => void;
     onOpenSidebar?: () => void;
 }
 
-export function TagsView({ tags, onNavigate, onOpenSidebar }: TagsViewProps): ReturnType<typeof html> {
+export function TagsView({ tags, onNavigate = () => {}, onOpenSidebar }: TagsViewProps): ReturnType<typeof html> {
     const openSidebar = onOpenSidebar || (() => {});
     const sheets = useMobileSheetState();
     const [search, setSearch] = useState('');

@@ -18,13 +18,9 @@ describe('DashboardView', () => {
         },
     });
 
-    it('displays the Confidence KPI card', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'DashboardView',
-            importPath: './components/dashboard/DashboardView',
-            props: { onNavigate: () => {} },
+    it('displays the Confidence KPI card', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(DashboardView, './components/dashboard/DashboardView', {
             data: dashboardData,
-            interactionObject: DashboardView,
         });
 
         await actor.attemptsTo(
@@ -32,13 +28,9 @@ describe('DashboardView', () => {
         );
     });
 
-    it('displays the Pass Rate KPI card with correct accessible label', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'DashboardView',
-            importPath: './components/dashboard/DashboardView',
-            props: { onNavigate: () => {} },
+    it('displays the Pass Rate KPI card with correct accessible label', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(DashboardView, './components/dashboard/DashboardView', {
             data: dashboardData,
-            interactionObject: DashboardView,
         });
 
         await actor.attemptsTo(
@@ -47,13 +39,9 @@ describe('DashboardView', () => {
         );
     });
 
-    it('displays the Consistency KPI card with correct accessible label', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'DashboardView',
-            importPath: './components/dashboard/DashboardView',
-            props: { onNavigate: () => {} },
+    it('displays the Consistency KPI card with correct accessible label', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(DashboardView, './components/dashboard/DashboardView', {
             data: dashboardData,
-            interactionObject: DashboardView,
         });
 
         await actor.attemptsTo(
@@ -62,13 +50,9 @@ describe('DashboardView', () => {
         );
     });
 
-    it('displays the Completeness KPI card with correct accessible label', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'DashboardView',
-            importPath: './components/dashboard/DashboardView',
-            props: { onNavigate: () => {} },
+    it('displays the Completeness KPI card with correct accessible label', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(DashboardView, './components/dashboard/DashboardView', {
             data: dashboardData,
-            interactionObject: DashboardView,
         });
 
         await actor.attemptsTo(
@@ -77,13 +61,9 @@ describe('DashboardView', () => {
         );
     });
 
-    it('can find a KPI card by its label', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'DashboardView',
-            importPath: './components/dashboard/DashboardView',
-            props: { onNavigate: () => {} },
+    it('can find a KPI card by its label', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(DashboardView, './components/dashboard/DashboardView', {
             data: dashboardData,
-            interactionObject: DashboardView,
         });
 
         await actor.attemptsTo(
@@ -91,13 +71,9 @@ describe('DashboardView', () => {
         );
     });
 
-    it('can read the subtitle of a KPI card found by label', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'DashboardView',
-            importPath: './components/dashboard/DashboardView',
-            props: { onNavigate: () => {} },
+    it('can read the subtitle of a KPI card found by label', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(DashboardView, './components/dashboard/DashboardView', {
             data: dashboardData,
-            interactionObject: DashboardView,
         });
 
         await actor.attemptsTo(
@@ -105,17 +81,13 @@ describe('DashboardView', () => {
         );
     });
 
-    it('lists scenario names in the consistency card', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'DashboardView',
-            importPath: './components/dashboard/DashboardView',
-            props: { onNavigate: () => {} },
+    it('lists scenario names in the consistency card', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(DashboardView, './components/dashboard/DashboardView', {
             data: minimalData({
                 newFailures: [
                     { name: 'Failing Test', category: 'Suite', source: { path: 'spec/a.spec.ts', line: 10 } },
                 ],
             }),
-            interactionObject: DashboardView,
         });
 
         await actor.attemptsTo(
@@ -123,13 +95,9 @@ describe('DashboardView', () => {
         );
     });
 
-    it('lists scenario names in the slowest tests card', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'DashboardView',
-            importPath: './components/dashboard/DashboardView',
-            props: { onNavigate: () => {} },
+    it('lists scenario names in the slowest tests card', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(DashboardView, './components/dashboard/DashboardView', {
             data: minimalData(),
-            interactionObject: DashboardView,
         });
 
         await actor.attemptsTo(
@@ -137,14 +105,10 @@ describe('DashboardView', () => {
         );
     });
 
-    it('reports whether a trend chart is present', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'DashboardView',
-            importPath: './components/dashboard/DashboardView',
-            props: { onNavigate: () => {} },
+    it('reports whether a trend chart is present', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(DashboardView, './components/dashboard/DashboardView', {
             data: dashboardData,
             chartJs: true,
-            interactionObject: DashboardView,
         });
 
         await actor.attemptsTo(
@@ -154,14 +118,10 @@ describe('DashboardView', () => {
 
     // Chart canvas click tests use raw Playwright because clicking canvas
     // coordinates requires pixel-level control that interaction objects can't provide.
-    it('shows the details panel when a chart bar is clicked', async ({ mount, page, actor }) => {
-        const view = await mount({
-            component: 'DashboardView',
-            importPath: './components/dashboard/DashboardView',
-            props: { onNavigate: () => {} },
+    it('shows the details panel when a chart bar is clicked', async ({ interactionObject, actor, page }) => {
+        const view = await interactionObject(DashboardView, './components/dashboard/DashboardView', {
             data: dashboardData,
             chartJs: true,
-            interactionObject: DashboardView,
         });
 
         // Click on the chart canvas in the center-right area (second bar of 2)
@@ -176,7 +136,7 @@ describe('DashboardView', () => {
         );
     });
 
-    it('shows the correct history dots for a degraded test when multiple scenarios share the same source location', async ({ mount, actor }) => {
+    it('shows the correct history dots for a degraded test when multiple scenarios share the same source location', async ({ interactionObject, actor }) => {
         const sharedSource = { path: 'spec/navigation/deep-linking.spec.ts', line: 32 };
 
         const multiBrowserData = minimalData({
@@ -215,12 +175,8 @@ describe('DashboardView', () => {
             ],
         });
 
-        const view = await mount({
-            component: 'DashboardView',
-            importPath: './components/dashboard/DashboardView',
-            props: { onNavigate: () => {} },
+        const view = await interactionObject(DashboardView, './components/dashboard/DashboardView', {
             data: multiBrowserData,
-            interactionObject: DashboardView,
         });
 
         await actor.attemptsTo(
@@ -231,7 +187,7 @@ describe('DashboardView', () => {
         );
     });
 
-    it('shows the correct history dots for a degraded test when multiple scenarios share the same file but have no line numbers', async ({ mount, actor }) => {
+    it('shows the correct history dots for a degraded test when multiple scenarios share the same file but have no line numbers', async ({ interactionObject, actor }) => {
         // This test reproduces the bug where scenarios in the same file without line numbers
         // would match the wrong scenario's history because the key-based lookup (path:line)
         // would match the first scenario in the file when line is undefined.
@@ -281,12 +237,8 @@ describe('DashboardView', () => {
             ],
         });
 
-        const view = await mount({
-            component: 'DashboardView',
-            importPath: './components/dashboard/DashboardView',
-            props: { onNavigate: () => {} },
+        const view = await interactionObject(DashboardView, './components/dashboard/DashboardView', {
             data: noLineNumberData,
-            interactionObject: DashboardView,
         });
 
         await actor.attemptsTo(
@@ -300,7 +252,7 @@ describe('DashboardView', () => {
         );
     });
 
-    it('does not exclude unstable tests from the consistency card when a different test in the same file is in newFailures', async ({ mount, actor }) => {
+    it('does not exclude unstable tests from the consistency card when a different test in the same file is in newFailures', async ({ interactionObject, actor }) => {
         // Two tests in the same file: one is newly degraded (in newFailures),
         // the other is independently unstable (in inconsistentTests).
         // The dedup filter should NOT exclude the second test just because it shares a source.path.
@@ -341,12 +293,8 @@ describe('DashboardView', () => {
             ],
         });
 
-        const view = await mount({
-            component: 'DashboardView',
-            importPath: './components/dashboard/DashboardView',
-            props: { onNavigate: () => {} },
+        const view = await interactionObject(DashboardView, './components/dashboard/DashboardView', {
             data,
-            interactionObject: DashboardView,
         });
 
         await actor.attemptsTo(

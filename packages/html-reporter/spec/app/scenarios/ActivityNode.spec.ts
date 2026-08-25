@@ -6,10 +6,8 @@ import { describe, it } from '../fixtures.js';
 
 describe('ActivityNode — HTTP exchange (restQuery)', () => {
 
-    it('renders a REST badge when restQuery is present', async ({ mount, actor }) => {
-        const node = await mount({
-            component: 'ActivityNode',
-            importPath: './components/scenarios/ActivityNode',
+    it('renders a REST badge when restQuery is present', async ({ interactionObject, actor }) => {
+        const node = await interactionObject(ActivityNode, './components/scenarios/ActivityNode', {
             data: minimalData(),
             props: {
                 activity: {
@@ -27,7 +25,6 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
                     },
                 },
             },
-            interactionObject: ActivityNode,
         });
 
         await actor.attemptsTo(
@@ -35,10 +32,8 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
         );
     });
 
-    it('displays method, URL, and status code', async ({ mount, actor }) => {
-        const node = await mount({
-            component: 'ActivityNode',
-            importPath: './components/scenarios/ActivityNode',
+    it('displays method, URL, and status code', async ({ interactionObject, actor }) => {
+        const node = await interactionObject(ActivityNode, './components/scenarios/ActivityNode', {
             data: minimalData(),
             props: {
                 activity: {
@@ -56,7 +51,6 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
                     },
                 },
             },
-            interactionObject: ActivityNode,
         });
 
         await actor.attemptsTo(
@@ -67,10 +61,8 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
         );
     });
 
-    it('displays request and response headers', async ({ mount, actor }) => {
-        const node = await mount({
-            component: 'ActivityNode',
-            importPath: './components/scenarios/ActivityNode',
+    it('displays request and response headers', async ({ interactionObject, actor }) => {
+        const node = await interactionObject(ActivityNode, './components/scenarios/ActivityNode', {
             data: minimalData(),
             props: {
                 activity: {
@@ -90,7 +82,6 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
                     },
                 },
             },
-            interactionObject: ActivityNode,
         });
 
         await actor.attemptsTo(
@@ -101,10 +92,8 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
         );
     });
 
-    it('displays request and response bodies', async ({ mount, actor }) => {
-        const node = await mount({
-            component: 'ActivityNode',
-            importPath: './components/scenarios/ActivityNode',
+    it('displays request and response bodies', async ({ interactionObject, actor }) => {
+        const node = await interactionObject(ActivityNode, './components/scenarios/ActivityNode', {
             data: minimalData(),
             props: {
                 activity: {
@@ -124,7 +113,6 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
                     },
                 },
             },
-            interactionObject: ActivityNode,
         });
 
         await actor.attemptsTo(
@@ -134,10 +122,8 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
         );
     });
 
-    it('does not render REST badge when restQuery is absent', async ({ mount, actor }) => {
-        const node = await mount({
-            component: 'ActivityNode',
-            importPath: './components/scenarios/ActivityNode',
+    it('does not render REST badge when restQuery is absent', async ({ interactionObject, actor }) => {
+        const node = await interactionObject(ActivityNode, './components/scenarios/ActivityNode', {
             data: minimalData(),
             props: {
                 activity: {
@@ -148,7 +134,6 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
                     children: [],
                 },
             },
-            interactionObject: ActivityNode,
         });
 
         await actor.attemptsTo(
@@ -159,10 +144,8 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
 
 describe('ActivityNode — report data attachments', () => {
 
-    it('renders a data attachment block for each reportData entry', async ({ mount, actor }) => {
-        const node = await mount({
-            component: 'ActivityNode',
-            importPath: './components/scenarios/ActivityNode',
+    it('renders a data attachment block for each reportData entry', async ({ interactionObject, actor }) => {
+        const node = await interactionObject(ActivityNode, './components/scenarios/ActivityNode', {
             data: minimalData(),
             props: {
                 activity: {
@@ -176,7 +159,6 @@ describe('ActivityNode — report data attachments', () => {
                     ],
                 },
             },
-            interactionObject: ActivityNode,
         });
 
         await actor.attemptsTo(
@@ -186,10 +168,8 @@ describe('ActivityNode — report data attachments', () => {
         );
     });
 
-    it('renders multiple data attachments', async ({ mount, actor }) => {
-        const node = await mount({
-            component: 'ActivityNode',
-            importPath: './components/scenarios/ActivityNode',
+    it('renders multiple data attachments', async ({ interactionObject, actor }) => {
+        const node = await interactionObject(ActivityNode, './components/scenarios/ActivityNode', {
             data: minimalData(),
             props: {
                 activity: {
@@ -204,7 +184,6 @@ describe('ActivityNode — report data attachments', () => {
                     ],
                 },
             },
-            interactionObject: ActivityNode,
         });
 
         await actor.attemptsTo(
@@ -214,10 +193,8 @@ describe('ActivityNode — report data attachments', () => {
         );
     });
 
-    it('does not render data blocks when reportData is absent', async ({ mount, actor }) => {
-        const node = await mount({
-            component: 'ActivityNode',
-            importPath: './components/scenarios/ActivityNode',
+    it('does not render data blocks when reportData is absent', async ({ interactionObject, actor }) => {
+        const node = await interactionObject(ActivityNode, './components/scenarios/ActivityNode', {
             data: minimalData(),
             props: {
                 activity: {
@@ -228,7 +205,6 @@ describe('ActivityNode — report data attachments', () => {
                     children: [],
                 },
             },
-            interactionObject: ActivityNode,
         });
 
         await actor.attemptsTo(

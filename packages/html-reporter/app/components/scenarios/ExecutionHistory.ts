@@ -11,7 +11,7 @@ export interface ExecutionHistoryProps {
     scenario: ReportScenario;
     runIndex: number | null;
     history: ReportHistoryEntry[];
-    onNavigate: (path: string) => void;
+    onNavigate?: (path: string) => void;
 }
 
 interface HistoryGroupItem {
@@ -76,7 +76,7 @@ function ExecutionHistoryItem({ item, activeIndex, scenario, onNavigate }: {
     `;
 }
 
-export function ExecutionHistory({ scenario, runIndex, history, onNavigate }: ExecutionHistoryProps): ReturnType<typeof html> | null {
+export function ExecutionHistory({ scenario, runIndex, history, onNavigate = () => {} }: ExecutionHistoryProps): ReturnType<typeof html> | null {
     const { ref: stripRef, fadeClass: stripFadeClass } = useScrollFade<HTMLDivElement>();
 
     if (!scenario.executionHistory || scenario.executionHistory.length === 0) return null;

@@ -9,12 +9,9 @@ describe('SearchInput', () => {
         await page.exposeFunction('__noop', () => { /* noop */ });
     });
 
-    it('displays the default placeholder', async ({ mount, actor }) => {
-        const searchInput = await mount({
-            component: 'SearchInput',
-            importPath: './components/common/SearchInput',
+    it('displays the default placeholder', async ({ interactionObject, actor }) => {
+        const searchInput = await interactionObject(SearchInput, './components/common/SearchInput', {
             props: { value: '', onInput: '__noop' },
-            interactionObject: SearchInput,
         });
 
         await actor.attemptsTo(
@@ -22,12 +19,9 @@ describe('SearchInput', () => {
         );
     });
 
-    it('displays a custom placeholder', async ({ mount, actor }) => {
-        const searchInput = await mount({
-            component: 'SearchInput',
-            importPath: './components/common/SearchInput',
+    it('displays a custom placeholder', async ({ interactionObject, actor }) => {
+        const searchInput = await interactionObject(SearchInput, './components/common/SearchInput', {
             props: { value: '', onInput: '__noop', placeholder: 'Find capabilities...' },
-            interactionObject: SearchInput,
         });
 
         await actor.attemptsTo(
@@ -35,12 +29,9 @@ describe('SearchInput', () => {
         );
     });
 
-    it('is not clearable when the value is empty', async ({ mount, actor }) => {
-        const searchInput = await mount({
-            component: 'SearchInput',
-            importPath: './components/common/SearchInput',
+    it('is not clearable when the value is empty', async ({ interactionObject, actor }) => {
+        const searchInput = await interactionObject(SearchInput, './components/common/SearchInput', {
             props: { value: '', onInput: '__noop' },
-            interactionObject: SearchInput,
         });
 
         await actor.attemptsTo(
@@ -48,12 +39,9 @@ describe('SearchInput', () => {
         );
     });
 
-    it('is clearable when the value is non-empty', async ({ mount, actor }) => {
-        const searchInput = await mount({
-            component: 'SearchInput',
-            importPath: './components/common/SearchInput',
+    it('is clearable when the value is non-empty', async ({ interactionObject, actor }) => {
+        const searchInput = await interactionObject(SearchInput, './components/common/SearchInput', {
             props: { value: 'hello', onInput: '__noop' },
-            interactionObject: SearchInput,
         });
 
         await actor.attemptsTo(
@@ -61,14 +49,11 @@ describe('SearchInput', () => {
         );
     });
 
-    it('allows typing a search term', async ({ mount, actor, page }) => {
+    it('allows typing a search term', async ({ interactionObject, actor, page }) => {
         await page.exposeFunction('__onInput__', () => { /* noop */ });
 
-        const searchInput = await mount({
-            component: 'SearchInput',
-            importPath: './components/common/SearchInput',
+        const searchInput = await interactionObject(SearchInput, './components/common/SearchInput', {
             props: { value: '', onInput: '__onInput__' },
-            interactionObject: SearchInput,
         });
 
         await actor.attemptsTo(
@@ -77,15 +62,12 @@ describe('SearchInput', () => {
         );
     });
 
-    it('triggers onInput callback when typing', async ({ mount, actor, page }) => {
+    it('triggers onInput callback when typing', async ({ interactionObject, actor, page }) => {
         const receivedValues: string[] = [];
         await page.exposeFunction('__onInput__', (value: string) => { receivedValues.push(value); });
 
-        const searchInput = await mount({
-            component: 'SearchInput',
-            importPath: './components/common/SearchInput',
+        const searchInput = await interactionObject(SearchInput, './components/common/SearchInput', {
             props: { value: '', onInput: '__onInput__' },
-            interactionObject: SearchInput,
         });
 
         await actor.attemptsTo(
@@ -94,15 +76,12 @@ describe('SearchInput', () => {
         );
     });
 
-    it('triggers onInput with empty string when cleared', async ({ mount, actor, page }) => {
+    it('triggers onInput with empty string when cleared', async ({ interactionObject, actor, page }) => {
         const receivedValues: string[] = [];
         await page.exposeFunction('__onInput__', (value: string) => { receivedValues.push(value); });
 
-        const searchInput = await mount({
-            component: 'SearchInput',
-            importPath: './components/common/SearchInput',
+        const searchInput = await interactionObject(SearchInput, './components/common/SearchInput', {
             props: { value: 'something', onInput: '__onInput__' },
-            interactionObject: SearchInput,
         });
 
         await actor.attemptsTo(
@@ -111,12 +90,9 @@ describe('SearchInput', () => {
         );
     });
 
-    it('uses the placeholder as the label by default', async ({ mount, actor }) => {
-        const searchInput = await mount({
-            component: 'SearchInput',
-            importPath: './components/common/SearchInput',
+    it('uses the placeholder as the label by default', async ({ interactionObject, actor }) => {
+        const searchInput = await interactionObject(SearchInput, './components/common/SearchInput', {
             props: { value: '', onInput: '__noop' },
-            interactionObject: SearchInput,
         });
 
         await actor.attemptsTo(
@@ -124,12 +100,9 @@ describe('SearchInput', () => {
         );
     });
 
-    it('strips trailing ellipsis from placeholder for the label', async ({ mount, actor }) => {
-        const searchInput = await mount({
-            component: 'SearchInput',
-            importPath: './components/common/SearchInput',
+    it('strips trailing ellipsis from placeholder for the label', async ({ interactionObject, actor }) => {
+        const searchInput = await interactionObject(SearchInput, './components/common/SearchInput', {
             props: { value: '', onInput: '__noop', placeholder: 'Find capabilities...' },
-            interactionObject: SearchInput,
         });
 
         await actor.attemptsTo(
@@ -137,12 +110,9 @@ describe('SearchInput', () => {
         );
     });
 
-    it('uses a custom label when provided', async ({ mount, actor }) => {
-        const searchInput = await mount({
-            component: 'SearchInput',
-            importPath: './components/common/SearchInput',
+    it('uses a custom label when provided', async ({ interactionObject, actor }) => {
+        const searchInput = await interactionObject(SearchInput, './components/common/SearchInput', {
             props: { value: '', onInput: '__noop', ariaLabel: 'Search everything' },
-            interactionObject: SearchInput,
         });
 
         await actor.attemptsTo(

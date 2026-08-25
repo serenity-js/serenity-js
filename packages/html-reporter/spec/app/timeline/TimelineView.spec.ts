@@ -45,13 +45,9 @@ describe('TimelineView', () => {
         },
     });
 
-    it('displays KPI cards with timing information', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'TimelineView',
-            importPath: './components/timeline/TimelineView',
-            props: { onNavigate: () => {} },
+    it('displays KPI cards with timing information', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(TimelineView, './components/timeline/TimelineView', {
             data: timelineData,
-            interactionObject: TimelineView,
         });
 
         await actor.attemptsTo(
@@ -62,13 +58,9 @@ describe('TimelineView', () => {
         );
     });
 
-    it('shows All filter as active by default', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'TimelineView',
-            importPath: './components/timeline/TimelineView',
-            props: { onNavigate: () => {} },
+    it('shows All filter as active by default', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(TimelineView, './components/timeline/TimelineView', {
             data: timelineData,
-            interactionObject: TimelineView,
         });
 
         await actor.attemptsTo(
@@ -76,13 +68,9 @@ describe('TimelineView', () => {
         );
     });
 
-    it('displays filter chips for outcome categories', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'TimelineView',
-            importPath: './components/timeline/TimelineView',
-            props: { onNavigate: () => {} },
+    it('displays filter chips for outcome categories', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(TimelineView, './components/timeline/TimelineView', {
             data: timelineData,
-            interactionObject: TimelineView,
         });
 
         await actor.attemptsTo(
@@ -90,13 +78,9 @@ describe('TimelineView', () => {
         );
     });
 
-    it('shows the Total KPI card with scenario count', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'TimelineView',
-            importPath: './components/timeline/TimelineView',
-            props: { onNavigate: () => {} },
+    it('shows the Total KPI card with scenario count', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(TimelineView, './components/timeline/TimelineView', {
             data: timelineData,
-            interactionObject: TimelineView,
         });
 
         await actor.attemptsTo(
@@ -104,13 +88,9 @@ describe('TimelineView', () => {
         );
     });
 
-    it('can find a KPI card by its label', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'TimelineView',
-            importPath: './components/timeline/TimelineView',
-            props: { onNavigate: () => {} },
+    it('can find a KPI card by its label', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(TimelineView, './components/timeline/TimelineView', {
             data: timelineData,
-            interactionObject: TimelineView,
         });
 
         await actor.attemptsTo(
@@ -118,13 +98,9 @@ describe('TimelineView', () => {
         );
     });
 
-    it('reports the number of scenarios in the timeline', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'TimelineView',
-            importPath: './components/timeline/TimelineView',
-            props: { onNavigate: () => {} },
+    it('reports the number of scenarios in the timeline', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(TimelineView, './components/timeline/TimelineView', {
             data: timelineData,
-            interactionObject: TimelineView,
         });
 
         await actor.attemptsTo(

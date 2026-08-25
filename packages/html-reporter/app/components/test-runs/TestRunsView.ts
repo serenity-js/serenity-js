@@ -10,11 +10,11 @@ const html = htm.bind(h);
 
 interface TestRunsViewProps {
     history: ReportHistoryEntry[];
-    onNavigate: (path: string) => void;
+    onNavigate?: (path: string) => void;
     onOpenSidebar?: () => void;
 }
 
-export function TestRunsView({ history, onNavigate, onOpenSidebar }: TestRunsViewProps): ReturnType<typeof html> {
+export function TestRunsView({ history, onNavigate = () => {}, onOpenSidebar }: TestRunsViewProps): ReturnType<typeof html> {
     const openSidebar = onOpenSidebar || (() => {});
     const runs: ReportHistoryEntry[] = [...history].reverse();
     return html`

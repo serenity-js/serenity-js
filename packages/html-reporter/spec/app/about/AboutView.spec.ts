@@ -5,24 +5,16 @@ import { describe, it } from '../fixtures.js';
 
 describe('AboutView', () => {
 
-    it('renders the about content', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'AboutView',
-            importPath: './components/about/AboutView',
-            interactionObject: AboutView,
-        });
+    it('renders the about content', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(AboutView, './components/about/AboutView');
 
         await actor.attemptsTo(
             Ensure.that(view, isPresent()),
         );
     });
 
-    it('displays confidence scoring explanation', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'AboutView',
-            importPath: './components/about/AboutView',
-            interactionObject: AboutView,
-        });
+    it('displays confidence scoring explanation', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(AboutView, './components/about/AboutView');
 
         await actor.attemptsTo(
             Ensure.that(view.bodyText(), includes('Confidence scoring')),
@@ -32,12 +24,8 @@ describe('AboutView', () => {
         );
     });
 
-    it('displays glossary section', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'AboutView',
-            importPath: './components/about/AboutView',
-            interactionObject: AboutView,
-        });
+    it('displays glossary section', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(AboutView, './components/about/AboutView');
 
         await actor.attemptsTo(
             Ensure.that(view.bodyText(), includes('Glossary')),
@@ -47,12 +35,8 @@ describe('AboutView', () => {
         );
     });
 
-    it('links to serenity-js.org', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'AboutView',
-            importPath: './components/about/AboutView',
-            interactionObject: AboutView,
-        });
+    it('links to serenity-js.org', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(AboutView, './components/about/AboutView');
 
         await actor.attemptsTo(
             Ensure.that(view.hasLinkTo('https://serenity-js.org'), equals(true)),

@@ -49,13 +49,10 @@ const SCENARIO_ID = 'spec/retry.spec.ts:10';
 
 describe('Deep linking — ScenarioDetailView attempts', () => {
 
-    it('pre-selects attempt from ?attempt= URL parameter', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ScenarioDetailView',
-            importPath: './components/scenarios/ScenarioDetailView',
+    it('pre-selects attempt from ?attempt= URL parameter', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
             props: { scenarioId: `${SCENARIO_ID}?attempt=2`, onNavigate: '__noop' },
             data: retriedScenarioData(),
-            interactionObject: ScenarioDetailView,
         });
 
         await actor.attemptsTo(
@@ -64,13 +61,10 @@ describe('Deep linking — ScenarioDetailView attempts', () => {
         );
     });
 
-    it('defaults to first attempt when no ?attempt= parameter', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ScenarioDetailView',
-            importPath: './components/scenarios/ScenarioDetailView',
+    it('defaults to first attempt when no ?attempt= parameter', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
             props: { scenarioId: SCENARIO_ID, onNavigate: '__noop' },
             data: retriedScenarioData(),
-            interactionObject: ScenarioDetailView,
         });
 
         await actor.attemptsTo(
@@ -79,13 +73,10 @@ describe('Deep linking — ScenarioDetailView attempts', () => {
         );
     });
 
-    it('updates URL hash with ?attempt= when clicking an attempt tab', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ScenarioDetailView',
-            importPath: './components/scenarios/ScenarioDetailView',
+    it('updates URL hash with ?attempt= when clicking an attempt tab', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
             props: { scenarioId: SCENARIO_ID, onNavigate: '__noop' },
             data: retriedScenarioData(),
-            interactionObject: ScenarioDetailView,
         });
 
         await actor.attemptsTo(
@@ -95,13 +86,10 @@ describe('Deep linking — ScenarioDetailView attempts', () => {
         );
     });
 
-    it('shows the correct video for the selected attempt', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ScenarioDetailView',
-            importPath: './components/scenarios/ScenarioDetailView',
+    it('shows the correct video for the selected attempt', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
             props: { scenarioId: `${SCENARIO_ID}?attempt=2`, onNavigate: '__noop' },
             data: retriedScenarioData(),
-            interactionObject: ScenarioDetailView,
         });
 
         await actor.attemptsTo(
@@ -109,7 +97,7 @@ describe('Deep linking — ScenarioDetailView attempts', () => {
         );
     });
 
-    it('hides video section for attempts that have no recording', async ({ mount, actor }) => {
+    it('hides video section for attempts that have no recording', async ({ interactionObject, actor }) => {
         const attemptsWithPartialVideo = [
             { attemptNumber: 1, outcome: 'FAILURE', duration: 200, activities: [{ name: 'step 1', outcome: 'FAILURE', duration: 200, children: [] }], error: { name: 'Error', message: 'attempt 1 failed' } },
             { attemptNumber: 2, outcome: 'FAILURE', duration: 180, activities: [{ name: 'step 2', outcome: 'FAILURE', duration: 180, children: [] }], error: { name: 'Error', message: 'attempt 2 failed' }, video: 'test-runs/run-1/video-retry.webm' },
@@ -135,12 +123,9 @@ describe('Deep linking — ScenarioDetailView attempts', () => {
             }],
         });
 
-        const view = await mount({
-            component: 'ScenarioDetailView',
-            importPath: './components/scenarios/ScenarioDetailView',
+        const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
             props: { scenarioId: `${SCENARIO_ID}?attempt=1`, onNavigate: '__noop' },
             data,
-            interactionObject: ScenarioDetailView,
         });
 
         await actor.attemptsTo(
@@ -165,14 +150,11 @@ describe('Deep linking — PhotoStrip', () => {
         }],
     });
 
-    it('updates URL hash with ?photo= when clicking a photo thumbnail', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ScenarioDetailView',
-            importPath: './components/scenarios/ScenarioDetailView',
+    it('updates URL hash with ?photo= when clicking a photo thumbnail', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
             props: { scenarioId: 'spec/photos.spec.ts:5', onNavigate: '__noop' },
             data: photoData,
             hash: '/tests/spec/photos.spec.ts:5',
-            interactionObject: ScenarioDetailView,
         });
 
         await actor.attemptsTo(
@@ -215,19 +197,16 @@ describe('Deep linking — cross-project scenario identity', () => {
         ],
     });
 
-    it('navigates to the correct project variant when clicking a scenario row', async ({ mount, actor, page }) => {
+    it('navigates to the correct project variant when clicking a scenario row', async ({ interactionObject, actor, page }) => {
         await page.addInitScript(() => {
             (window as any).__onNavigate__ = (path: string) => {
                 (window as any).navigatedTo = path;
             };
         });
 
-        const view = await mount({
-            component: 'ScenariosView',
-            importPath: './components/scenarios/ScenariosView',
+        const view = await interactionObject(ScenariosView, './components/scenarios/ScenariosView', {
             props: { onNavigate: '__onNavigate__', route: '/tests' },
             data: crossProjectData,
-            interactionObject: ScenariosView,
         });
 
         // Click the mobile (failed) scenario row
@@ -239,13 +218,10 @@ describe('Deep linking — cross-project scenario identity', () => {
         );
     });
 
-    it('resolves the mobile variant from URL params with project discriminator', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ScenarioDetailView',
-            importPath: './components/scenarios/ScenarioDetailView',
+    it('resolves the mobile variant from URL params with project discriminator', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
             props: { scenarioId: 'spec/checkout.spec.ts:10?browser=chromium+149.0.7827.55&project=mobile&platform=darwin+24.5.0', onNavigate: '__noop' },
             data: crossProjectData,
-            interactionObject: ScenarioDetailView,
         });
 
         await actor.attemptsTo(
@@ -254,13 +230,10 @@ describe('Deep linking — cross-project scenario identity', () => {
         );
     });
 
-    it('resolves the desktop variant when project=desktop is specified', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ScenarioDetailView',
-            importPath: './components/scenarios/ScenarioDetailView',
+    it('resolves the desktop variant when project=desktop is specified', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenarioDetailView, './components/scenarios/ScenarioDetailView', {
             props: { scenarioId: 'spec/checkout.spec.ts:10?browser=chromium+149.0.7827.55&project=desktop&platform=darwin+24.5.0', onNavigate: '__noop' },
             data: crossProjectData,
-            interactionObject: ScenarioDetailView,
         });
 
         await actor.attemptsTo(
