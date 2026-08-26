@@ -1,4 +1,4 @@
-import { contain, Ensure, equals, includes, not } from '@serenity-js/assertions';
+import { contain, Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
 import { ExecuteScript, LastScriptExecution } from '@serenity-js/web';
 
 import { ErrorsView } from '../../../src/serenity/errors/ErrorsView.serenity.js';
@@ -204,7 +204,7 @@ describe('ErrorsView', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(view.scenarioCalled('Login fails').isPresent(), equals(true)),
+            Ensure.that(view.scenarioCalled('Login fails'), isPresent()),
         );
     });
 

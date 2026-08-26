@@ -1,4 +1,4 @@
-import { contain, Ensure, equals, includes, not } from '@serenity-js/assertions';
+import { contain, Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
 import { ExecuteScript, LastScriptExecution } from '@serenity-js/web';
 
 import { PhotoStrip } from '../../../src/serenity/scenarios/PhotoStrip.serenity.js';
@@ -65,7 +65,7 @@ describe('PhotoStrip', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(view.isPresent(), equals(false)),
+            Ensure.that(view, not(isPresent())),
         );
     });
 
@@ -81,7 +81,7 @@ describe('PhotoStrip', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(view.isPresent(), equals(false)),
+            Ensure.that(view, not(isPresent())),
         );
     });
 

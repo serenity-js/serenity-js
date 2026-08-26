@@ -1,4 +1,4 @@
-import { Ensure, equals, includes, not } from '@serenity-js/assertions';
+import { Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
 import { ExecuteScript, LastScriptExecution } from '@serenity-js/web';
 
 import { ExecutionHistory } from '../../../src/serenity/scenarios/ExecutionHistory.serenity.js';
@@ -31,7 +31,7 @@ describe('ExecutionHistory', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(view.isPresent(), equals(false)),
+            Ensure.that(view, not(isPresent())),
         );
     });
 

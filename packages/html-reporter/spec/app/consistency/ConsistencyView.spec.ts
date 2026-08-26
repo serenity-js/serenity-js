@@ -1,4 +1,4 @@
-import { contain, Ensure, equals, includes } from '@serenity-js/assertions';
+import { contain, Ensure, equals, includes, isPresent } from '@serenity-js/assertions';
 
 import { ConsistencyView } from '../../../src/serenity/consistency/ConsistencyView.serenity.js';
 import { minimalData } from '../data-factories.js';
@@ -35,7 +35,7 @@ describe('ConsistencyView scenario access', () => {
         });
 
         await actor.attemptsTo(
-            Ensure.that(view.scenarioCalled('Flaky Test A').isPresent(), equals(true)),
+            Ensure.that(view.scenarioCalled('Flaky Test A'), isPresent()),
         );
     });
 

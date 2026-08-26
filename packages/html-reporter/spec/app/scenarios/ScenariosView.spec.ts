@@ -1,4 +1,4 @@
-import { contain, Ensure, equals, includes } from '@serenity-js/assertions';
+import { contain, Ensure, equals, includes, isPresent } from '@serenity-js/assertions';
 
 import { ScenariosView } from '../../../src/serenity/scenarios/ScenariosView.serenity.js';
 import { minimalData } from '../data-factories.js';
@@ -45,7 +45,7 @@ describe('ScenariosView scenario access', () => {
 
         await actor.attemptsTo(
             view.filterBar.selectFilter('Failed'),
-            Ensure.that(view.scenarioCalled('Test D').isPresent(), equals(true)),
+            Ensure.that(view.scenarioCalled('Test D'), isPresent()),
         );
     });
 });
