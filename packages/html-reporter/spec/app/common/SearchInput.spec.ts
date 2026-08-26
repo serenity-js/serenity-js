@@ -57,7 +57,7 @@ describe('SearchInput', () => {
         });
 
         await actor.attemptsTo(
-            searchInput.enter('hello'),
+            searchInput.searchFor('hello'),
             Ensure.that(searchInput.value(), equals('hello')),
         );
     });
@@ -71,7 +71,7 @@ describe('SearchInput', () => {
         });
 
         await actor.attemptsTo(
-            searchInput.enter('a'),
+            searchInput.searchFor('a'),
             Ensure.that(receivedValues, contain('a')),
         );
     });

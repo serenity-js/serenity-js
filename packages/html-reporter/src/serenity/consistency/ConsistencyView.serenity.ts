@@ -211,11 +211,11 @@ export class ConsistencyView<NET> extends InteractionObject<NET> {
         this.mobile
             ? Task.where(the`#actor searches for ${searchTerm}`,
                 this.openFilterSheet(),
-                this.mobileSearchInput.enter(searchTerm),
+                this.mobileSearchInput.searchFor(searchTerm),
                 this.closeFilterSheet(),
             )
             : Task.where(the`#actor searches for ${searchTerm}`,
-                this.searchInput.enter(searchTerm),
+                this.searchInput.searchFor(searchTerm),
             );
 
     /**

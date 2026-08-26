@@ -80,7 +80,7 @@ describe('CapabilitiesView interaction object', () => {
         });
 
         await actor.attemptsTo(
-            view.searchInput.enter('passing'),
+            view.searchInput.searchFor('passing'),
             Ensure.that(view.resultCount.text(), includes('Showing 1 of 3 capabilities')),
             Ensure.that(view.treeNodeLabels(), contain('passing-feature')),
             Ensure.that(view.treeNodeLabels(), not(contain('failing-feature'))),
@@ -103,7 +103,7 @@ describe('CapabilitiesView interaction object', () => {
         });
 
         await actor.attemptsTo(
-            view.searchInput.enter('test'),
+            view.searchInput.searchFor('test'),
             Ensure.that(view.searchInput.isClearable(), equals(true)),
         );
     });
