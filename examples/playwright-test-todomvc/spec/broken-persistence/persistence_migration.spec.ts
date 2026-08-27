@@ -1,4 +1,4 @@
-import { Ensure, equals, isFalse, isTrue, property } from '@serenity-js/assertions';
+import { Ensure, equals, isFalse, isPresent, isTrue, property } from '@serenity-js/assertions';
 
 import { describe, it } from '../fixtures';
 import { testData } from '../test-data';
@@ -39,7 +39,7 @@ describe('Persistence API Migration', () => {
                 todoApp.recordItem(testData.items[0]),
 
                 // New schema includes a 'lastModified' ISO timestamp
-                Ensure.that(todoApp.persistedItems()[0], property('lastModified', equals(testData.items[0]))),
+                Ensure.that(todoApp.persistedItems()[0], property('lastModified', isPresent())),
             );
         });
 
@@ -51,7 +51,7 @@ describe('Persistence API Migration', () => {
 
                 // New schema should update 'lastModified' on state change
                 Ensure.that(todoApp.persistedItems()[1], property('done', isTrue())),
-                Ensure.that(todoApp.persistedItems()[1], property('lastModified', equals(testData.items[1]))),
+                Ensure.that(todoApp.persistedItems()[1], property('lastModified', isPresent())),
             );
         });
     });

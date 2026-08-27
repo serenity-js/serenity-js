@@ -17,7 +17,7 @@ export interface ErrorRowProps {
 
 export function ErrorRow({ scenario: s, duplicateCount, specDirectory, onNavigate }: ErrorRowProps): ReturnType<typeof html> {
     const clickTarget = duplicateCount > 1
-        ? link({ view: 'tests', search: `"${s.error ? s.error.message : s.outcome}"` })
+        ? link({ view: 'tests', search: `"${(s.error ? s.error.message : s.outcome).replace(/"/g, '\\"')}"` })
         : scenarioUrl(s);
 
     return html`
