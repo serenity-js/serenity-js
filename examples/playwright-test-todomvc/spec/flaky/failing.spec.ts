@@ -1,5 +1,6 @@
 import { TestCompromisedError } from '@serenity-js/core';
-import { describe, it } from '@serenity-js/playwright-test';
+
+import { describe, it } from '../fixtures';
 
 describe('Flaky', () => {
 

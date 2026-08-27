@@ -39,9 +39,10 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
         ['html', { open: 'never', outputFolder: './reports/playwright' }],
         [ '@serenity-js/playwright-test', {
             crew: [
-                [ '@serenity-js/serenity-bdd', { reporter: { includeAbilityDetails: true } } ],
+                // [ '@serenity-js/serenity-bdd', { reporter: { includeAbilityDetails: true } } ],
                 // '@serenity-js/console-reporter',
-                [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+                // [ '@serenity-js/core:ArtifactArchiver', { outputDirectory: 'target/site/serenity' } ],
+
                 [ '@serenity-js/html-reporter', {
                     outputDirectory: 'reports/serenity-js',
                     title: 'My Playwright Test Project',

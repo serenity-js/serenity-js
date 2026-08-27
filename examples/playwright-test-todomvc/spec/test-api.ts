@@ -1,7 +1,9 @@
-import { Notepad,TakeNotes } from '@serenity-js/core';
+import { Notepad, TakeNotes } from '@serenity-js/core';
 import { useFixtures } from '@serenity-js/playwright-test';
+import { By, PageElement } from '@serenity-js/web';
 
 import { testData } from './test-data';
+import { TodoApp } from './todo-list-app/TodoApp';
 
 export interface MyNotes {
     initialItems: string[];
@@ -12,8 +14,8 @@ export const {
     describe,
     it,
     test,
-} = useFixtures({
-    
+} = useFixtures<{ todoApp: TodoApp }>({
+
     // The `actor` fixture is provided by the `@serenity-js/playwright-test` module.
     // You can override it to provide additional abilities to the Actor,
     // or to configure the Actor's initial state.
@@ -27,5 +29,11 @@ export const {
                 }))
             )
         );
+    },
+
+    todoApp: async ({}, use) => {
+        const rootElement = PageElement.located(By.css('.todoapp'))
+            .describedAs('todo app');
+        await use(new TodoApp(rootElement));
     },
 });

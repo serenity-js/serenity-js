@@ -21,11 +21,9 @@
     "access": "private"
   },
   "scripts": {
-    "clean": "rimraf target",
-    "test:update-serenity": "serenity-bdd update --ignoreSSL",
-    "test:acceptance": "playwright test --config playwright.config.ts",
-    "test:report": "serenity-bdd run --shortFilenames=false --log=debug --features=spec",
-    "test": "failsafe clean test:update-serenity test:acceptance test:report",
+    "clean": "rimraf reports",
+    "test": "playwright test --config playwright.config.ts",
+    "test:report": "npx html-reporter serve --dir ./reports/serenity-js --open",
     "test:chromium": "playwright test --config playwright.config.ts --project chromium",
     "test:firefox": "playwright test --config playwright.config.ts --project firefox",
     "test:webkit": "playwright test --config playwright.config.ts --project webkit"
