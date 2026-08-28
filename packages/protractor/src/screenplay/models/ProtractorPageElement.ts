@@ -1,5 +1,5 @@
 import { LogicError } from '@serenity-js/core';
-import type { SwitchableOrigin } from '@serenity-js/web';
+import type { Selector, SwitchableOrigin } from '@serenity-js/web';
 import { PageElement, SelectOption } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/scripts';
 import type { ElementFinder} from 'protractor';
@@ -21,6 +21,15 @@ export class ProtractorPageElement extends PageElement<ElementFinder> {
 
     closestTo(child: ProtractorPageElement): ProtractorPageElement {
         return new ProtractorPageElement(this.locator.closestTo(child.locator));
+    }
+
+    element(selector: Selector): PageElement<ElementFinder> {
+        return new ProtractorPageElement(this.locator.createChildLocator(selector));
+    }
+
+    async elements(selector: Selector): Promise<Array<PageElement<ElementFinder>>> {
+        const childLocator = this.locator.createChildLocator(selector) as ProtractorLocator;
+        return childLocator.allElements();
     }
 
     async clearValue(): Promise<void> {

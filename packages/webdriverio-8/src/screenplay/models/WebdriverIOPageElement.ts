@@ -1,7 +1,7 @@
 import 'webdriverio';
 
 import { LogicError } from '@serenity-js/core';
-import type { SwitchableOrigin } from '@serenity-js/web';
+import type { Selector, SwitchableOrigin } from '@serenity-js/web';
 import { Key, PageElement, SelectOption } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/scripts';
 
@@ -20,6 +20,15 @@ export class WebdriverIOPageElement extends PageElement<WebdriverIO.Element> {
 
     closestTo(child: WebdriverIOPageElement): WebdriverIOPageElement {
         return new WebdriverIOPageElement(this.locator.closestTo(child.locator))
+    }
+
+    element(selector: Selector): PageElement<WebdriverIO.Element> {
+        return new WebdriverIOPageElement(this.locator.createChildLocator(selector));
+    }
+
+    async elements(selector: Selector): Promise<Array<PageElement<WebdriverIO.Element>>> {
+        const childLocator = this.locator.createChildLocator(selector) as WebdriverIOLocator;
+        return childLocator.allElements();
     }
 
     async clearValue(): Promise<void> {

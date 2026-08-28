@@ -97,6 +97,24 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
     abstract of(parentElement: PageElement<Native_Element_Type>): PageElement<Native_Element_Type>;
 
     /**
+     * Locates a single descendant element matching the given selector,
+     * scoped within this element.
+     *
+     * @param selector
+     *  The selector to locate the child element
+     */
+    abstract element(selector: Selector): PageElement<Native_Element_Type>;
+
+    /**
+     * Locates all descendant elements matching the given selector,
+     * scoped within this element.
+     *
+     * @param selector
+     *  The selector to locate the child elements
+     */
+    abstract elements(selector: Selector): Promise<Array<PageElement<Native_Element_Type>>>;
+
+    /**
      * Traverses the element and its parents, heading toward the document root,
      * until it finds a parent [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) that matches its associated CSS selector.
      *

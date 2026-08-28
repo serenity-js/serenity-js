@@ -1,5 +1,5 @@
 import { LogicError } from '@serenity-js/core';
-import type { SwitchableOrigin } from '@serenity-js/web';
+import type { Selector, SwitchableOrigin } from '@serenity-js/web';
 import { PageElement, SelectOption } from '@serenity-js/web';
 import * as scripts from '@serenity-js/web/scripts';
 import type * as playwright from 'playwright-core';
@@ -19,6 +19,15 @@ export class PlaywrightPageElement extends PageElement<playwright.Locator> {
 
     closestTo(child: PageElement<playwright.Locator>): PageElement<playwright.Locator> {
         return new PlaywrightPageElement(this.locator.closestTo(child.locator));
+    }
+
+    element(selector: Selector): PageElement<playwright.Locator> {
+        return new PlaywrightPageElement(this.locator.createChildLocator(selector));
+    }
+
+    async elements(selector: Selector): Promise<Array<PageElement<playwright.Locator>>> {
+        const childLocator = this.locator.createChildLocator(selector) as PlaywrightLocator;
+        return childLocator.allElements();
     }
 
     async enterValue(value: string | number | Array<string | number>): Promise<void> {
