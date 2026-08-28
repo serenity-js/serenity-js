@@ -314,3 +314,24 @@ export function scenarioLink(
 export function capabilityLink(path: string): string {
     return link({ view: 'capabilities', path });
 }
+
+/**
+ * Wraps a value in double quotes for use as a quoted search term, escaping any
+ * embedded double quotes so that {@link parseSearchTokens} can parse it back correctly.
+ * 
+ * ## Example
+ * 
+ * ```ts
+ * quotedSearchTerm('auth.spec.ts')
+ * // → '"auth.spec.ts"'
+ * 
+ * quotedSearchTerm('equals "buy cheese"')
+ * // → '"equals \\"buy cheese\\""'
+ * ```
+ * 
+ * @param value - The raw search value to wrap
+ * @returns A quoted, escaped search term suitable for use as a `search` parameter in {@link link}
+ */
+export function quotedSearchTerm(value: string): string {
+    return `"${value.replace(/"/g, '\\"')}"`;
+}

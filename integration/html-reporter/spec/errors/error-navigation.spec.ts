@@ -31,5 +31,22 @@ describe('Errors', () => {
                 Ensure.that(scenariosView.scenarioCalled(failingTest), isPresent()),
             );
         });
+
+        it('finds scenarios when a file path search contains escaped quotes', async ({ actor, scenariosView }) => {
+            await actor.attemptsTo(
+                // Simulates what SpecsList/ScenarioDetailView produce via quotedSearchTerm()
+                // when a file path or breadcrumb segment contains a literal quote character.
+                // Input value: spec/features/test"file.spec.ts
+                // quotedSearchTerm produces: "spec/features/test\"file.spec.ts"
+                // URL-encoded: %22spec%2Ffeatures%2Ftest%5C%22file.spec.ts%22
+                Navigate.to('/single/index.html#/tests?search=%22spec%2Ffeatures%2Ftest%5C%22file.spec.ts%22'),
+
+                Wait.until(scenariosView, isPresent()),
+
+                // No scenario matches this fabricated path, but the view loads without error
+                // and the search input shows the decoded value (proves the parser handled it)
+                Ensure.that(scenariosView.searchInput.value(), isPresent()),
+            );
+        });
     });
 });

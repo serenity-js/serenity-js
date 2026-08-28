@@ -5,7 +5,7 @@ import type { ReportHistoryEntry, ReportScenario } from '../../../src/cli/report
 import { useScenarioDetail } from '../../hooks/useScenarioDetail.js';
 import { useScrollFade } from '../../hooks/useScrollFade.js';
 import { formatRunLabel, scenarioUrl } from '../../utils/index.js';
-import { link } from '../../utils/link.js';
+import { link, quotedSearchTerm } from '../../utils/link.js';
 import { HistoricalBanner } from '../common/HistoricalBanner.js';
 import { ViewTopbar } from '../common/ViewTopbar.js';
 import { ErrorBlock } from '../errors/ErrorBlock.js';
@@ -87,7 +87,7 @@ function Breadcrumb({ scenario, runIndex, history, onNavigate }: { scenario: Rep
         <a onClick=${() => onNavigate(backUrl)}>Test Scenarios</a>
         ${scenario.category.split(' › ').map((segment) => html`
           <span>›</span>
-          <a onClick=${() => onNavigate(link({ view: 'tests', search: `"${segment}"` }))}>${segment}</a>
+          <a onClick=${() => onNavigate(link({ view: 'tests', search: quotedSearchTerm(segment) }))}>${segment}</a>
         `)}
         <span>›</span>
         <span>${scenario.name}</span>

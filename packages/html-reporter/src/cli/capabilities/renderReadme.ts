@@ -4,7 +4,7 @@ import type { FileSystem } from '@serenity-js/core/io';
 import { Path } from '@serenity-js/core/io';
 import { Marked, parseInline } from 'marked';
 
-import { link } from '../../navigation/link.js';
+import { link, quotedSearchTerm } from '../../navigation/link.js';
 import type { ReportCapabilityNode } from '../reporting/ReportData.js';
 
 /**
@@ -128,7 +128,7 @@ function buildInternalLink(
     }
 
     if (/\.(spec|test)\.(ts|js|mjs|cjs)$/.test(resolved)) {
-        return `<a href="#${link({ view: 'tests', search: `"${withoutTrailingSlash}"` })}"${titleAttribute}>${text}</a>`;
+        return `<a href="#${link({ view: 'tests', search: quotedSearchTerm(withoutTrailingSlash) })}"${titleAttribute}>${text}</a>`;
     }
 
     return `<a href="${href}"${titleAttribute}>${text}</a>`;

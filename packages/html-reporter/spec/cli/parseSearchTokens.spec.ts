@@ -32,4 +32,10 @@ test.describe('parseSearchTokens', () => {
         const result = parseSearchTokens(input);
         expect(result).toEqual(['@browser:chromium', 'has property "done"']);
     });
+
+    test('parses a file path containing escaped quotes', () => {
+        const input = '"spec/features/test\\"file.spec.ts"';
+        const result = parseSearchTokens(input);
+        expect(result).toEqual(['spec/features/test"file.spec.ts']);
+    });
 });

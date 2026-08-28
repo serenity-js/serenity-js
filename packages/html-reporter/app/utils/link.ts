@@ -23,6 +23,7 @@ export type {
 export {
     capabilityLink,
     link,
+    quotedSearchTerm,
     scenarioLink,
     testsLink,
 } from '../../src/navigation/link.js';
