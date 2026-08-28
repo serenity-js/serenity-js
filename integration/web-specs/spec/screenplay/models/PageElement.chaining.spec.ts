@@ -1,6 +1,6 @@
 import 'mocha';
 
-import { Ensure, contain, equals, includes } from '@serenity-js/assertions';
+import { Ensure, equals, includes } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
 import { By, Navigate, PageElement, Text } from '@serenity-js/web';
 

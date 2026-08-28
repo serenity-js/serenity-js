@@ -2,7 +2,6 @@ import type { Answerable, AnswersQuestions, ChainableMetaQuestion, UsesAbilities
 import { MetaList, Question, the } from '@serenity-js/core';
 
 import type { PageElement } from './PageElement.js';
-import { PageElementsLocator } from './PageElementsLocator.js';
 import type { Selector } from './selectors/index.js';
 
 /**
