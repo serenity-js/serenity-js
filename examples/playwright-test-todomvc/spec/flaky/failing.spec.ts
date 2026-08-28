@@ -4,7 +4,7 @@ import { GetRequest, LastResponse, Send } from '@serenity-js/rest';
 import { describe, it } from '../fixtures';
 import { testData } from '../test-data';
 
-describe('Flaky', () => {
+describe('Failing', () => {
 
     describe('Todo List App', () => {
 
