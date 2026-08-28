@@ -1,6 +1,7 @@
 export * from './ArgumentDehydrator.js';
 export * from './BrowserCapabilities.js';
 export * from './BrowsingSession.js';
+export * from './ChainedElementQuestion.js';
 export * from './Cookie.js';
 export * from './CookieData.js';
 export * from './dialogs/index.js';
