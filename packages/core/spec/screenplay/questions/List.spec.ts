@@ -191,6 +191,75 @@ describe('List', () => {
         });
     });
 
+    describe('when filtering with a single-arg .where(expectation)', () => {
+
+        it('returns only those items that match the expectation directly', async () => {
+            const items = [ 1, 2, 3, 4, 5 ];
+
+            const list = List.of(items);
+
+            const result = await list
+                .where(isGreaterThan(2))
+                .answeredBy(Fiona);
+
+            expect(result).to.deep.equal([ 3, 4, 5 ]);
+        });
+
+        it('composes with the two-arg .where() form', async () => {
+            const items = [ 1, 2, 3, 4, 5 ];
+
+            const list = List.of(items);
+
+            const result = await list
+                .where(isGreaterThan(2))
+                .where(Value, isLessThan(5))
+                .answeredBy(Fiona);
+
+            expect(result).to.deep.equal([ 3, 4 ]);
+        });
+
+        it('returns an empty list when no items match', async () => {
+            const items = [ 1, 2, 3 ];
+
+            const list = List.of(items);
+
+            const result = await list
+                .where(isGreaterThan(10))
+                .answeredBy(Fiona);
+
+            expect(result).to.deep.equal([]);
+        });
+
+        it('describes the filter applied', () => {
+            const items = [ 1, 2, 3, 4, 5 ];
+
+            const list = List.of(items);
+
+            const result = list
+                .where(isGreaterThan(2))
+                .first();
+
+            expect(result.toString()).to.equal(
+                'the first of [ 1, 2, 3, 4, 5 ] where it does have value greater than 2'
+            );
+        });
+
+        it('describes multiple single-arg filters', () => {
+            const items = [ 1, 2, 3, 4, 5 ];
+
+            const list = List.of(items);
+
+            const result = list
+                .where(isGreaterThan(2))
+                .where(isLessThan(5))
+                .first();
+
+            expect(result.toString()).to.equal(
+                'the first of [ 1, 2, 3, 4, 5 ] where it does have value greater than 2 and it does have value less than 5'
+            );
+        });
+    });
+
     describe('when mapping items of a collection', () => {
         const accounts: Account[] = [
             { id: 1, name: 'Alice' },
@@ -348,7 +417,7 @@ describe('List', () => {
             const location = activity.instantiationLocation();
 
             expect(location.path.basename()).to.equal('List.spec.ts');
-            expect(location.line).to.equal(347);
+            expect(location.line).to.equal(416);
             expect(location.column).to.equal(18);
         });
     });

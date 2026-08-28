@@ -41,6 +41,10 @@ export abstract class List<Item_Type> extends Question<Promise<Array<Item_Type>>
         question: MetaQuestion<Item_Type, Question<Promise<Mapped_Item_Type> | Mapped_Item_Type>>
     ): List<Mapped_Item_Type>;
 
+    abstract where(
+        expectation: Expectation<Item_Type>
+    ): List<Item_Type>;
+
     abstract where<Answer_Type>(
         question: MetaQuestion<Item_Type, Question<Promise<Answer_Type> | Answer_Type>>,
         expectation: Expectation<Answer_Type>
@@ -98,10 +102,16 @@ class ArrayList<Item_Type> extends List<Item_Type> {
         );
     }
 
-    override where<Answer_Type>(
-        question: MetaQuestion<Item_Type, Question<Promise<Answer_Type> | Answer_Type>>,
-        expectation: Expectation<Answer_Type>
-    ): List<Item_Type> {
+    override where(expectation: Expectation<Item_Type>): List<Item_Type>;
+    override where<Answer_Type>(question: MetaQuestion<Item_Type, Question<Promise<Answer_Type> | Answer_Type>>, expectation: Expectation<Answer_Type>): List<Item_Type>;
+    override where<Answer_Type>(...args: unknown[]): List<Item_Type> {
+        if (args.length === 1) {
+            return new ArrayList<Item_Type>(
+                new WhereIdentity(this.collection, args[0] as Expectation<Item_Type>, this.toString())
+            ) as this;
+        }
+
+        const [question, expectation] = args as [MetaQuestion<Item_Type, Question<Promise<Answer_Type> | Answer_Type>>, Expectation<Answer_Type>];
         return new ArrayList<Item_Type>(
             new Where(this.collection, question, expectation, this.toString())
         ) as this;
@@ -207,10 +217,16 @@ export class MetaList<Supported_Context_Type, Item_Type>
         );
     }
 
-    override where<Answer_Type>(
-        question: MetaQuestion<Item_Type, Question<Promise<Answer_Type> | Answer_Type>>,
-        expectation: Expectation<Answer_Type>
-    ): MetaList<Supported_Context_Type, Item_Type> {
+    override where(expectation: Expectation<Item_Type>): MetaList<Supported_Context_Type, Item_Type>;
+    override where<Answer_Type>(question: MetaQuestion<Item_Type, Question<Promise<Answer_Type> | Answer_Type>>, expectation: Expectation<Answer_Type>): MetaList<Supported_Context_Type, Item_Type>;
+    override where<Answer_Type>(...args: unknown[]): MetaList<Supported_Context_Type, Item_Type> {
+        if (args.length === 1) {
+            return new MetaList<Supported_Context_Type, Item_Type>(
+                new MetaWhereIdentity(this.collection, args[0] as Expectation<Item_Type>, this.toString())
+            ) as this;
+        }
+
+        const [question, expectation] = args as [MetaQuestion<Item_Type, Question<Promise<Answer_Type> | Answer_Type>>, Expectation<Answer_Type>];
         return new MetaList<Supported_Context_Type, Item_Type>(
             new MetaWhere(this.collection, question, expectation, this.toString())
         ) as this;
@@ -324,6 +340,56 @@ class MetaWhere<Supported_Context_Type, Item_Type, Answer_Type>
         return new MetaWhere<Supported_Context_Type, Item_Type, Answer_Type>(
             (this.collection as Answerable<Array<Item_Type>> & ChainableMetaQuestion<Supported_Context_Type, Question<Promise<Array<Item_Type>>> | Question<Array<Item_Type>>>).of(context),
             this.question,
+            this.expectation,
+            this.toString()
+        );
+    }
+}
+
+/**
+ * @package
+ */
+class WhereIdentity<Item_Type>
+    extends Question<Promise<Array<Item_Type>>>
+{
+    constructor(
+        protected readonly collection: Answerable<Array<Item_Type>>,
+        protected readonly expectation: Expectation<Item_Type>,
+        originalSubject: string,
+    ) {
+        const prefix = collection instanceof Where || collection instanceof WhereIdentity
+            ? ' and'
+            : ' where';
+
+        super(originalSubject + prefix + d` it does ${ expectation }`);
+    }
+
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<Item_Type>> {
+        const collection = await actor.answer(this.collection);
+        const results: Item_Type[] = [];
+
+        for (const item of collection) {
+            const expectationOutcome = await actor.answer(this.expectation.isMetFor(item));
+
+            if (expectationOutcome instanceof ExpectationMet) {
+                results.push(item);
+            }
+        }
+
+        return results;
+    }
+}
+
+/**
+ * @package
+ */
+class MetaWhereIdentity<Supported_Context_Type, Item_Type>
+    extends WhereIdentity<Item_Type>
+    implements ChainableMetaQuestion<Supported_Context_Type, Question<Promise<Array<Item_Type>>> | Question<Array<Item_Type>>>
+{
+    of(context: Answerable<Supported_Context_Type>): MetaWhereIdentity<Supported_Context_Type, Item_Type> {
+        return new MetaWhereIdentity<Supported_Context_Type, Item_Type>(
+            (this.collection as Answerable<Array<Item_Type>> & ChainableMetaQuestion<Supported_Context_Type, Question<Promise<Array<Item_Type>>> | Question<Array<Item_Type>>>).of(context),
             this.expectation,
             this.toString()
         );
