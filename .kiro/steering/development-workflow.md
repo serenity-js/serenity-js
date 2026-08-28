@@ -188,6 +188,14 @@ See the Pre-Commit Checklist below for the full list.
 - Never fabricate observations or claim to have seen something you inferred
 - **Never project certainty when you have doubts.** If you are unsure whether something will work — especially irreversible operations like publishing, deploying, or deleting — say "I'm not certain" upfront. Phrasing like "that's fine" or "this should work" when you're guessing can lead to costly mistakes. State what you know, what you're inferring, and what you cannot verify.
 
+### Test Failures Are Your Responsibility
+
+- **Never dismiss test failures as "pre-existing."** The main branch CI is always green. If tests fail after your changes, your changes are the prime suspect.
+- **Never check out `main` to "prove" failures exist independently.** Compiled output bleeds across branches in a monorepo — local `main` runs are unreliable. CI is the source of truth.
+- **Investigate before classifying.** Read the error → trace it to the assertion → understand what changed → fix it. Do not glance at the error, decide it's unrelated, and move on.
+- **Never push with failing tests.** The push comes after 0 failures. If tests fail, fix them first. If a failure is genuinely unrelated to your changes, explain exactly why with evidence (the specific assertion, why your change cannot affect it, what does affect it).
+- **Never report work as complete while tests fail.** "558 passing, 3 pre-existing failures" is not an acceptable status report. The only acceptable status is "all tests pass" or "N tests fail because [specific traced cause], fixing now."
+
 ## Clarification Policy
 
 If requirements are unclear, ask before writing tests. One clear question is better than a wrong assumption.
