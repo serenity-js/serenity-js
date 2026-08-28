@@ -105,6 +105,10 @@ export class PlaywrightLocator extends Locator<playwright.Locator, string> {
         return new PlaywrightLocator(this, child.selector);
     }
 
+    createChildLocator(selector: Selector): PlaywrightLocator {
+        return new PlaywrightLocator(this, selector);
+    }
+
     element(): PageElement<playwright.Locator> {
         return new PlaywrightPageElement(this);
     }

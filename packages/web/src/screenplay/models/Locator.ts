@@ -51,6 +51,14 @@ export abstract class Locator<Native_Element_Type, Native_Selector_Type = any>
     abstract locate(child: Locator<Native_Element_Type>): Locator<Native_Element_Type>;
 
     /**
+     * Creates a child locator scoped within this locator's element, using the given selector.
+     *
+     * @param selector
+     *  The selector to locate the child element(s)
+     */
+    abstract createChildLocator(selector: Selector): Locator<Native_Element_Type>;
+
+    /**
      * Expresses [`ByCss`](https://serenity-js.org/api/web/class/ByCss/), [`ById`](https://serenity-js.org/api/web/class/ById/), or [`ByTagName`](https://serenity-js.org/api/web/class/ByTagName/) as a [`ByCss`](https://serenity-js.org/api/web/class/ByCss/) selector.
      *
      * @throws LogicError

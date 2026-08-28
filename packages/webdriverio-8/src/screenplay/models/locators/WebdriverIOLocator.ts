@@ -110,6 +110,10 @@ export class WebdriverIOLocator extends Locator<WebdriverIO.Element, string> {
         return new WebdriverIOLocator(this, child.selector, this.errorHandler);
     }
 
+    createChildLocator(selector: Selector): WebdriverIOLocator {
+        return new WebdriverIOLocator(this, selector, this.errorHandler);
+    }
+
     element(): PageElement<WebdriverIO.Element> {
         return new WebdriverIOPageElement(this);
     }

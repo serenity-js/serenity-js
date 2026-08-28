@@ -74,6 +74,10 @@ export class ProtractorLocator extends Locator<protractor.ElementFinder, protrac
         return new ProtractorLocator(this, child.selector, this.errorHandler);
     }
 
+    createChildLocator(selector: Selector): ProtractorLocator {
+        return new ProtractorLocator(this, selector, this.errorHandler);
+    }
+
     element(): PageElement<protractor.ElementFinder> {
         return new ProtractorPageElement(this);
     }
