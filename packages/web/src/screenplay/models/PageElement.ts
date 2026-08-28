@@ -31,12 +31,20 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
     }
 
     static located<NET>(selector: Answerable<Selector>): MetaQuestionAdapter<PageElement<NET>, PageElement<NET>> {
-        return Question.about(the`page element located ${ selector }`, async actor => {
-            const bySelector  = await actor.answer(selector);
-            const currentPage = await BrowseTheWeb.as<BrowseTheWeb<NET>>(actor).currentPage();
+        return Question.about(the`page element located ${ selector }`,
+            async actor => {
+                const bySelector  = await actor.answer(selector);
+                const currentPage = await BrowseTheWeb.as<BrowseTheWeb<NET>>(actor).currentPage();
 
-            return currentPage.locate(bySelector);
-        });
+                return currentPage.locate(bySelector);
+            },
+            (parent: Answerable<PageElement<NET>>) =>
+                Question.about(the`page element located ${ selector } of ${ parent }`, async actor => {
+                    const bySelector = await actor.answer(selector);
+                    const parentElement = await actor.answer(parent);
+                    return parentElement.element(bySelector);
+                })
+        );
     }
 
     static of<NET>(
