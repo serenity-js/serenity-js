@@ -72,7 +72,7 @@ describe('isActive', function () {
                 | Expectation: isPresent\\(\\)
                 |
                 | Expected boolean:\\s+true
-                | Received Proxy<QuestionStatement>
+                | Received Proxy<MetaQuestionStatement>
                 | 
                 | [A-Za-z]+PageElement {
                 |   locator: [A-Za-z]+Locator {
