@@ -310,6 +310,14 @@ Don't duplicate content between them. `resources` in the agent definition provid
 
 ---
 
+## Serenity/JS Core — Implementation Gotchas
+
+### Adding `metaQuestionBody` to `Question.about()` changes the proxy inspect output
+
+When you pass a third argument (metaQuestionBody) to `Question.about()`, the underlying statement becomes a `MetaQuestionStatement` instead of a `QuestionStatement`. This changes `util.inspect` output of the proxy from `Proxy<QuestionStatement>` to `Proxy<MetaQuestionStatement>`. Any integration test that asserts on error messages containing the inspect representation will fail. Search for `Proxy<QuestionStatement>` in `integration/web-specs/spec/expectations/` when making such changes.
+
+---
+
 ## Serenity/JS Templates — CI Gotchas
 
 ### `@wdio/xvfb` auto-detection breaks IPC in Docker containers

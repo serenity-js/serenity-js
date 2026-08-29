@@ -1,6 +1,32 @@
 # Fluent Page Element Chaining and Identity Filtering
 
-## Status: Design
+## Status: Implementation Complete — Pending Review
+
+## Decisions Made
+
+1. **Naming:** `.element()` / `.elements()` — mirrors `PageElement` / `PageElements` class names.
+2. **Return type of `.elements()`:** `MetaList<PageElement>` via proxy forwarding (enables full PEQL).
+3. **Single-arg `.where()` scope:** Accepts any `Expectation<Item_Type>` — works for non-web Lists too.
+4. **InteractionObject deprecation:** Not now. `child()` / `children()` remain as slightly shorter aliases; InteractionObject provides other value (mobile branching, Optional interface, composition patterns).
+
+## What's Implemented
+
+- Single-arg `.where(expectation)` on `List`, `ArrayList`, `MetaList` (core)
+- `Locator.createChildLocator(selector)` on all 4 adapters
+- `PageElement.element(selector)` / `.elements(selector)` on all 4 adapters
+- `ChainedElementQuestion` / `ChainedElementsLocator` for `.of()` composability
+- `PageElement.located()` wired with `metaQuestionBody` for proper `.of()` support
+- 10 integration tests (playwright-web), 5 unit tests (core)
+- All 561 integration tests passing
+
+## What Remains
+
+- Integration tests for single-arg `.where(isVisible())` in a browser (needs visible/hidden elements in fixture)
+- Deep chain test: `element → elements → where → first → elements → first`
+- `Wait.until()` integration test with chained elements
+- WebdriverIO integration test verification
+- PEQL handbook page update
+- API docs for new methods
 
 ## Problem
 
@@ -355,20 +381,6 @@ The interaction object handbook page should be written **after** this ships, so 
 7. **`@serenity-js/webdriverio`** — Same for WebdriverIO
 8. **Tests** — unit + integration tests per the plan above
 9. **Documentation** — update PEQL handbook page, add examples
-
-## Open Questions
-
-1. **Naming: `.element()` / `.elements()` vs `.child()` / `.children()` vs `.locate()` / `.locateAll()`?**
-   Recommendation: `.element()` / `.elements()` — mirrors the class names `PageElement` / `PageElements`, reads naturally, avoids DOM-specific terminology.
-
-2. **Should `.elements()` on `QuestionAdapter<PageElement>` return `MetaList` or `PageElements`?**
-   It should return whatever type enables full PEQL (`.where()`, `.first()`, `.eachMappedTo()`). `MetaList<PageElement>` is the existing type for this.
-
-3. **Should the single-arg `.where()` accept any `Expectation<Item_Type>` or only web-specific ones?**
-   Any `Expectation<Item_Type>` — this makes it useful for non-web Lists too (e.g., filtering API response arrays).
-
-4. **Should `InteractionObject.child()` / `children()` be deprecated in favour of `this.rootElement.element()` / `.elements()`?**
-   Not immediately. They're slightly shorter and the base class provides other value. Revisit after shipping.
 
 ## Future Considerations
 
