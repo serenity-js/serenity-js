@@ -32,15 +32,11 @@ describe('ScenariosView mobile', () => {
         ],
     });
 
-    it('keeps tags on a single row without wrapping on mobile viewport', async ({ mount, page, actor }) => {
+    it('keeps tags on a single row without wrapping on mobile viewport', async ({ interactionObject, page, actor }) => {
         await page.setViewportSize({ width: 390, height: 844 });
 
-        await mount({
-            component: 'ScenariosView',
-            importPath: './components/scenarios/ScenariosView',
-            props: { onNavigate: () => {}, route: '/tests' },
+        await interactionObject(ScenariosView, './components/scenarios/ScenariosView', {
             data: scenarioWithManyTags,
-            interactionObject: ScenariosView,
         });
 
         // The tags container should not exceed one line height

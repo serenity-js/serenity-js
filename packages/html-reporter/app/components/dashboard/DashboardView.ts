@@ -98,11 +98,11 @@ interface DashboardViewProps {
     inconsistentTests: ReportInconsistentTest[];
     capabilities?: ReportCapabilityNode;
     systemContext?: ReportSystemContext;
-    onNavigate: (path: string) => void;
+    onNavigate?: (path: string) => void;
     onOpenSidebar?: () => void;
 }
 
-export function DashboardView({ summary, history, scenarios, newFailures: allNewFailures, newPasses: allNewPasses, inconsistentTests: allInconsistentTests, capabilities, systemContext, onNavigate, onOpenSidebar }: DashboardViewProps): ReturnType<typeof html> {
+export function DashboardView({ summary, history, scenarios, newFailures: allNewFailures, newPasses: allNewPasses, inconsistentTests: allInconsistentTests, capabilities, systemContext, onNavigate = () => {}, onOpenSidebar }: DashboardViewProps): ReturnType<typeof html> {
     const openSidebar = onOpenSidebar || (() => {});
     const scores = computeDashboardScores(summary, history, capabilities);
 

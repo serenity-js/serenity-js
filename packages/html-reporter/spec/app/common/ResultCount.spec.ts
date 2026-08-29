@@ -5,12 +5,9 @@ import { describe, it } from '../fixtures.js';
 
 describe('ResultCount', () => {
 
-    it('displays "Showing X of Y label" when showing fewer than total', async ({ mount, actor }) => {
-        const resultCount = await mount({
-            component: 'ResultCount',
-            importPath: './components/common/ResultCount',
+    it('displays "Showing X of Y label" when showing fewer than total', async ({ interactionObject, actor }) => {
+        const resultCount = await interactionObject(ResultCount, './components/common/ResultCount', {
             props: { showing: 5, total: 20, label: 'test scenarios' },
-            interactionObject: ResultCount,
         });
 
         await actor.attemptsTo(
@@ -18,12 +15,9 @@ describe('ResultCount', () => {
         );
     });
 
-    it('displays "Showing X of X label" when showing equals total', async ({ mount, actor }) => {
-        const resultCount = await mount({
-            component: 'ResultCount',
-            importPath: './components/common/ResultCount',
+    it('displays "Showing X of X label" when showing equals total', async ({ interactionObject, actor }) => {
+        const resultCount = await interactionObject(ResultCount, './components/common/ResultCount', {
             props: { showing: 20, total: 20, label: 'test scenarios' },
-            interactionObject: ResultCount,
         });
 
         await actor.attemptsTo(
@@ -31,12 +25,9 @@ describe('ResultCount', () => {
         );
     });
 
-    it('handles singular counts', async ({ mount, actor }) => {
-        const resultCount = await mount({
-            component: 'ResultCount',
-            importPath: './components/common/ResultCount',
+    it('handles singular counts', async ({ interactionObject, actor }) => {
+        const resultCount = await interactionObject(ResultCount, './components/common/ResultCount', {
             props: { showing: 1, total: 1, label: 'test' },
-            interactionObject: ResultCount,
         });
 
         await actor.attemptsTo(
@@ -44,12 +35,9 @@ describe('ResultCount', () => {
         );
     });
 
-    it('shows filtered count with capabilities label', async ({ mount, actor }) => {
-        const resultCount = await mount({
-            component: 'ResultCount',
-            importPath: './components/common/ResultCount',
+    it('shows filtered count with capabilities label', async ({ interactionObject, actor }) => {
+        const resultCount = await interactionObject(ResultCount, './components/common/ResultCount', {
             props: { showing: 3, total: 15, label: 'capabilities' },
-            interactionObject: ResultCount,
         });
 
         await actor.attemptsTo(

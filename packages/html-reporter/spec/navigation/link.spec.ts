@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 
-import { capabilityLink, link, scenarioLink, testsLink } from '../../app/utils/link.js';
+import { capabilityLink, link, quotedSearchTerm, scenarioLink, testsLink } from '../../app/utils/link.js';
+import { parseSearchTokens } from '../../app/utils/tag-search.js';
 
 test.describe('link() — type-safe URL builder', () => {
 
@@ -311,5 +312,39 @@ test.describe('capabilityLink() — convenience function', () => {
     test('encodes slashes in path', () => {
         const url = capabilityLink('features/auth/oauth');
         expect(url).toContain('features%2Fauth%2Foauth');
+    });
+});
+
+test.describe('quotedSearchTerm() — escapes embedded quotes for search', () => {
+
+    test('wraps a simple value in double quotes', () => {
+        expect(quotedSearchTerm('auth.spec.ts')).toBe('"auth.spec.ts"');
+    });
+
+    test('wraps a value with spaces in double quotes', () => {
+        expect(quotedSearchTerm('my test file.spec.ts')).toBe('"my test file.spec.ts"');
+    });
+
+    test('escapes embedded double quotes', () => {
+        expect(quotedSearchTerm('equals "buy cheese"')).toBe('"equals \\"buy cheese\\""');
+    });
+
+    test('escapes multiple embedded double quotes', () => {
+        expect(quotedSearchTerm('a "b" and "c"')).toBe('"a \\"b\\" and \\"c\\""');
+    });
+
+    test('handles a value with no special characters', () => {
+        expect(quotedSearchTerm('features/auth/login.spec.ts')).toBe('"features/auth/login.spec.ts"');
+    });
+
+    test('handles an empty string', () => {
+        expect(quotedSearchTerm('')).toBe('""');
+    });
+
+    test('produces a token that parseSearchTokens can round-trip', () => {
+        const original = 'file with "quotes" inside.spec.ts';
+        const quoted = quotedSearchTerm(original);
+        const parsed = parseSearchTokens(quoted);
+        expect(parsed).toEqual([original]);
     });
 });

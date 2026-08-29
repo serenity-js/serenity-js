@@ -52,13 +52,13 @@ function matchesTagToken(tags: ReportScenarioTag[], token: string): boolean {
 
 export function parseSearchTokens(query: string): string[] {
     const tokens: string[] = [];
-    const regex = /@[^:\s]+:"[^"]*"|@\S+|"[^"]+"|(\S+)/g;
+    const regex = /@[^:\s]+:"(?:[^"\\]|\\.)*"|@\S+|"(?:[^"\\]|\\.)*"|(\S+)/g;
     let match;
     while ((match = regex.exec(query)) !== null) {
         let token = match[0];
-        // For non-@ tokens, strip surrounding quotes
+        // For non-@ tokens, strip surrounding quotes and unescape inner quotes
         if (!token.startsWith('@') && token.startsWith('"') && token.endsWith('"')) {
-            token = token.slice(1, -1);
+            token = token.slice(1, -1).replace(/\\"/g, '"');
         }
         if (token) tokens.push(token);
     }

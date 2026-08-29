@@ -1,4 +1,4 @@
-import { Ensure, equals, includes, isGreaterThan, isLessThan } from '@serenity-js/assertions';
+import { Ensure, equals, includes, isGreaterThan, isLessThan, isPresent } from '@serenity-js/assertions';
 
 import { describe, it } from '../../src';
 import { failingTest } from '../../src/scenarios';
@@ -31,7 +31,7 @@ describe('Test Scenarios', () => {
                 scenariosView.selectFilter('Failed'),
                 scenariosView.find('expired card'),
 
-                Ensure.that(scenariosView.scenarioCalled(failingTest).isPresent(), equals(true)),
+                Ensure.that(scenariosView.scenarioCalled(failingTest), isPresent()),
                 Ensure.that(scenariosView.scenarioCalled(failingTest).outcome(), equals('FAILURE')),
                 Ensure.that(scenariosView.scenarioCalled(failingTest).sourceLocation(), includes('checkout.spec.ts')),
             );

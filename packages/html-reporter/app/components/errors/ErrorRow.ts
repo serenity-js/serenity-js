@@ -3,7 +3,7 @@ import { h } from 'preact';
 
 import type { ReportScenario } from '../../../src/cli/reporting/ReportData.js';
 import { formatDuration, outcomeClass, relativeSourcePath, scenarioUrl, stripAbsolutePaths, stripAnsi } from '../../utils/index.js';
-import { link } from '../../utils/link.js';
+import { link, quotedSearchTerm } from '../../utils/link.js';
 import { OutcomeBadge } from '../common/OutcomeBadge.js';
 
 const html = htm.bind(h);
@@ -17,7 +17,7 @@ export interface ErrorRowProps {
 
 export function ErrorRow({ scenario: s, duplicateCount, specDirectory, onNavigate }: ErrorRowProps): ReturnType<typeof html> {
     const clickTarget = duplicateCount > 1
-        ? link({ view: 'tests', search: `"${s.error ? s.error.message : s.outcome}"` })
+        ? link({ view: 'tests', search: quotedSearchTerm(s.error ? s.error.message : s.outcome) })
         : scenarioUrl(s);
 
     return html`

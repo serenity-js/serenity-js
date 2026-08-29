@@ -19,12 +19,12 @@ const html = htm.bind(h);
 interface TimelineViewProps {
     scenarios: ReportScenario[];
     summary: ReportSummary;
-    onNavigate: (path: string) => void;
+    onNavigate?: (path: string) => void;
     route?: string;
     onOpenSidebar?: () => void;
 }
 
-export function TimelineView({ scenarios: allScenarios, summary, onNavigate, route = '', onOpenSidebar }: TimelineViewProps): ReturnType<typeof html> {
+export function TimelineView({ scenarios: allScenarios, summary, onNavigate = () => {}, route = '', onOpenSidebar }: TimelineViewProps): ReturnType<typeof html> {
     const openSidebar = onOpenSidebar || (() => {});
     const sheets = useMobileSheetState();
     const initialSort = useMemo(() => {

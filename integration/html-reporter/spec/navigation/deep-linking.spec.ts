@@ -1,4 +1,4 @@
-import { Ensure, equals } from '@serenity-js/assertions';
+import { Ensure, equals, isPresent } from '@serenity-js/assertions';
 import { notes, Wait } from '@serenity-js/core';
 import { Attribute, By, Navigate, Page, PageElement } from '@serenity-js/web';
 
@@ -25,7 +25,7 @@ describe('Navigation', () => {
                 Navigate.to(notes().get('sharedUrl')),
 
                 // The filtered view is restored
-                Ensure.that(scenariosView.scenarioCalled(failingTest).isPresent(), equals(true)),
+                Ensure.that(scenariosView.scenarioCalled(failingTest), isPresent()),
             );
         });
 

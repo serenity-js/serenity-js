@@ -8,10 +8,8 @@ describe('HistoricalBanner', () => {
 
     describe('user-observable behaviour', () => {
 
-        it('renders the banner with label and runLabel', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'HistoricalBanner',
-                importPath: './components/common/HistoricalBanner',
+        it('renders the banner with label and runLabel', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(HistoricalBanner, './components/common/HistoricalBanner', {
                 props: {
                     label: 'Viewing results from:',
                     runLabel: 'Run #42 — 15 Jun 2024',
@@ -19,7 +17,6 @@ describe('HistoricalBanner', () => {
                 },
                 data: minimalData(),
                 dataAsProps: false,
-                interactionObject: HistoricalBanner,
             });
 
             await actor.attemptsTo(
@@ -28,10 +25,8 @@ describe('HistoricalBanner', () => {
             );
         });
 
-        it('renders the runLabel in a strong element', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'HistoricalBanner',
-                importPath: './components/common/HistoricalBanner',
+        it('renders the runLabel in a strong element', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(HistoricalBanner, './components/common/HistoricalBanner', {
                 props: {
                     label: 'Viewing results from:',
                     runLabel: 'Run #42 — 15 Jun 2024',
@@ -39,7 +34,6 @@ describe('HistoricalBanner', () => {
                 },
                 data: minimalData(),
                 dataAsProps: false,
-                interactionObject: HistoricalBanner,
             });
 
             await actor.attemptsTo(
@@ -47,10 +41,8 @@ describe('HistoricalBanner', () => {
             );
         });
 
-        it('renders subtitle when provided', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'HistoricalBanner',
-                importPath: './components/common/HistoricalBanner',
+        it('renders subtitle when provided', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(HistoricalBanner, './components/common/HistoricalBanner', {
                 props: {
                     label: 'Viewing results from:',
                     runLabel: 'Run #42',
@@ -59,7 +51,6 @@ describe('HistoricalBanner', () => {
                 },
                 data: minimalData(),
                 dataAsProps: false,
-                interactionObject: HistoricalBanner,
             });
 
             await actor.attemptsTo(
@@ -67,10 +58,8 @@ describe('HistoricalBanner', () => {
             );
         });
 
-        it('does not render subtitle when not provided', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'HistoricalBanner',
-                importPath: './components/common/HistoricalBanner',
+        it('does not render subtitle when not provided', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(HistoricalBanner, './components/common/HistoricalBanner', {
                 props: {
                     label: 'Viewing errors from:',
                     runLabel: 'Run #42',
@@ -78,7 +67,6 @@ describe('HistoricalBanner', () => {
                 },
                 data: minimalData(),
                 dataAsProps: false,
-                interactionObject: HistoricalBanner,
             });
 
             await actor.attemptsTo(
@@ -86,10 +74,8 @@ describe('HistoricalBanner', () => {
             );
         });
 
-        it('renders "show latest" link with correct text', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'HistoricalBanner',
-                importPath: './components/common/HistoricalBanner',
+        it('renders "show latest" link with correct text', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(HistoricalBanner, './components/common/HistoricalBanner', {
                 props: {
                     label: 'Viewing results from:',
                     runLabel: 'Run #42',
@@ -97,7 +83,6 @@ describe('HistoricalBanner', () => {
                 },
                 data: minimalData(),
                 dataAsProps: false,
-                interactionObject: HistoricalBanner,
             });
 
             await actor.attemptsTo(
@@ -105,10 +90,8 @@ describe('HistoricalBanner', () => {
             );
         });
 
-        it('renders "show latest" link with href when showLatestHref provided', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'HistoricalBanner',
-                importPath: './components/common/HistoricalBanner',
+        it('renders "show latest" link with href when showLatestHref provided', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(HistoricalBanner, './components/common/HistoricalBanner', {
                 props: {
                     label: 'Viewing results from:',
                     runLabel: 'Run #42',
@@ -117,7 +100,6 @@ describe('HistoricalBanner', () => {
                 },
                 data: minimalData(),
                 dataAsProps: false,
-                interactionObject: HistoricalBanner,
             });
 
             await actor.attemptsTo(

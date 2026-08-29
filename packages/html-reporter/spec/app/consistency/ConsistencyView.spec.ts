@@ -1,4 +1,4 @@
-import { contain, Ensure, equals, includes } from '@serenity-js/assertions';
+import { contain, Ensure, equals, includes, isPresent } from '@serenity-js/assertions';
 
 import { ConsistencyView } from '../../../src/serenity/consistency/ConsistencyView.serenity.js';
 import { minimalData } from '../data-factories.js';
@@ -29,27 +29,19 @@ describe('ConsistencyView scenario access', () => {
         ],
     });
 
-    it('can find a scenario by name and check it is present', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ConsistencyView',
-            importPath: './components/consistency/ConsistencyView',
-            props: { onNavigate: () => {}, route: '/consistency' },
+    it('can find a scenario by name and check it is present', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ConsistencyView, './components/consistency/ConsistencyView', {
             data: consistencyData,
-            interactionObject: ConsistencyView,
         });
 
         await actor.attemptsTo(
-            Ensure.that(view.scenarioCalled('Flaky Test A').isPresent(), equals(true)),
+            Ensure.that(view.scenarioCalled('Flaky Test A'), isPresent()),
         );
     });
 
-    it('lists visible scenario names', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ConsistencyView',
-            importPath: './components/consistency/ConsistencyView',
-            props: { onNavigate: () => {}, route: '/consistency' },
+    it('lists visible scenario names', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ConsistencyView, './components/consistency/ConsistencyView', {
             data: consistencyData,
-            interactionObject: ConsistencyView,
         });
 
         await actor.attemptsTo(
@@ -101,13 +93,9 @@ describe('ConsistencyView', () => {
         ],
     });
 
-    it('shows "All" filter as active by default', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ConsistencyView',
-            importPath: './components/consistency/ConsistencyView',
-            props: { onNavigate: () => {} },
+    it('shows "All" filter as active by default', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ConsistencyView, './components/consistency/ConsistencyView', {
             data: inconsistentTestData,
-            interactionObject: ConsistencyView,
         });
 
         await actor.attemptsTo(
@@ -116,13 +104,9 @@ describe('ConsistencyView', () => {
         );
     });
 
-    it('displays filter chips with correct labels', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ConsistencyView',
-            importPath: './components/consistency/ConsistencyView',
-            props: { onNavigate: () => {} },
+    it('displays filter chips with correct labels', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ConsistencyView, './components/consistency/ConsistencyView', {
             data: inconsistentTestData,
-            interactionObject: ConsistencyView,
         });
 
         await actor.attemptsTo(
@@ -130,13 +114,9 @@ describe('ConsistencyView', () => {
         );
     });
 
-    it('flaky filter shows only tests that never genuinely failed', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ConsistencyView',
-            importPath: './components/consistency/ConsistencyView',
-            props: { onNavigate: () => {} },
+    it('flaky filter shows only tests that never genuinely failed', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ConsistencyView, './components/consistency/ConsistencyView', {
             data: inconsistentTestData,
-            interactionObject: ConsistencyView,
         });
 
         await actor.attemptsTo(
@@ -145,13 +125,9 @@ describe('ConsistencyView', () => {
         );
     });
 
-    it('inconsistent filter excludes flaky-only tests', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ConsistencyView',
-            importPath: './components/consistency/ConsistencyView',
-            props: { onNavigate: () => {} },
+    it('inconsistent filter excludes flaky-only tests', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ConsistencyView, './components/consistency/ConsistencyView', {
             data: inconsistentTestData,
-            interactionObject: ConsistencyView,
         });
 
         await actor.attemptsTo(
@@ -160,13 +136,9 @@ describe('ConsistencyView', () => {
         );
     });
 
-    it('classifies [SUCCESS, FAILURE] as degraded', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ConsistencyView',
-            importPath: './components/consistency/ConsistencyView',
-            props: { onNavigate: () => {} },
+    it('classifies [SUCCESS, FAILURE] as degraded', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ConsistencyView, './components/consistency/ConsistencyView', {
             data: inconsistentTestData,
-            interactionObject: ConsistencyView,
         });
 
         await actor.attemptsTo(
@@ -175,13 +147,9 @@ describe('ConsistencyView', () => {
         );
     });
 
-    it('classifies [FAILURE, SUCCESS] as recovered (clean pass)', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ConsistencyView',
-            importPath: './components/consistency/ConsistencyView',
-            props: { onNavigate: () => {} },
+    it('classifies [FAILURE, SUCCESS] as recovered (clean pass)', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ConsistencyView, './components/consistency/ConsistencyView', {
             data: inconsistentTestData,
-            interactionObject: ConsistencyView,
         });
 
         await actor.attemptsTo(
@@ -190,11 +158,8 @@ describe('ConsistencyView', () => {
         );
     });
 
-    it('classifies [FAILURE, RETRIED_SUCCESS] as inconsistent, not flaky', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ConsistencyView',
-            importPath: './components/consistency/ConsistencyView',
-            props: { onNavigate: () => {} },
+    it('classifies [FAILURE, RETRIED_SUCCESS] as inconsistent, not flaky', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ConsistencyView, './components/consistency/ConsistencyView', {
             data: minimalData({
                 inconsistentTests: [
                     {
@@ -208,7 +173,6 @@ describe('ConsistencyView', () => {
                     },
                 ],
             }),
-            interactionObject: ConsistencyView,
         });
 
         await actor.attemptsTo(
@@ -217,13 +181,9 @@ describe('ConsistencyView', () => {
         );
     });
 
-    it('shows placeholder when no inconsistent tests', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'ConsistencyView',
-            importPath: './components/consistency/ConsistencyView',
-            props: { onNavigate: () => {} },
+    it('shows placeholder when no inconsistent tests', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ConsistencyView, './components/consistency/ConsistencyView', {
             data: minimalData({ inconsistentTests: [] }),
-            interactionObject: ConsistencyView,
         });
 
         await actor.attemptsTo(

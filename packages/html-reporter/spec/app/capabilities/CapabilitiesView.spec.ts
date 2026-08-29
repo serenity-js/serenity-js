@@ -44,13 +44,9 @@ function capabilitiesData() {
 
 describe('CapabilitiesView interaction object', () => {
 
-    it('displays filter chips with health category labels', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
+    it('displays filter chips with health category labels', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
             data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
-            interactionObject: CapabilitiesView,
         });
 
         await actor.attemptsTo(
@@ -58,13 +54,9 @@ describe('CapabilitiesView interaction object', () => {
         );
     });
 
-    it('shows "All" filter as active by default', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
+    it('shows "All" filter as active by default', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
             data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
-            interactionObject: CapabilitiesView,
         });
 
         await actor.attemptsTo(
@@ -72,13 +64,9 @@ describe('CapabilitiesView interaction object', () => {
         );
     });
 
-    it('search input uses "Find capabilities..." placeholder', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
+    it('search input uses "Find capabilities..." placeholder', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
             data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
-            interactionObject: CapabilitiesView,
         });
 
         await actor.attemptsTo(
@@ -86,30 +74,22 @@ describe('CapabilitiesView interaction object', () => {
         );
     });
 
-    it('search filters the tree and shows result count', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
+    it('search filters the tree and shows result count', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
             data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
-            interactionObject: CapabilitiesView,
         });
 
         await actor.attemptsTo(
-            view.searchInput.enter('passing'),
+            view.searchInput.searchFor('passing'),
             Ensure.that(view.resultCount.text(), includes('Showing 1 of 3 capabilities')),
             Ensure.that(view.treeNodeLabels(), contain('passing-feature')),
             Ensure.that(view.treeNodeLabels(), not(contain('failing-feature'))),
         );
     });
 
-    it('does not show clear button when search is empty', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
+    it('does not show clear button when search is empty', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
             data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
-            interactionObject: CapabilitiesView,
         });
 
         await actor.attemptsTo(
@@ -117,17 +97,13 @@ describe('CapabilitiesView interaction object', () => {
         );
     });
 
-    it('shows clear button when search has text', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
+    it('shows clear button when search has text', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
             data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
-            interactionObject: CapabilitiesView,
         });
 
         await actor.attemptsTo(
-            view.searchInput.enter('test'),
+            view.searchInput.searchFor('test'),
             Ensure.that(view.searchInput.isClearable(), equals(true)),
         );
     });
@@ -137,13 +113,10 @@ describe('CapabilitiesView', () => {
 
     describe('detail panel — documentation-first', () => {
 
-        it('shows README prominently (not collapsible, not hidden)', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'CapabilitiesView',
-                importPath: './components/capabilities/CapabilitiesView',
+        it('shows README prominently (not collapsible, not hidden)', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
                 data: capabilitiesData(),
-                props: { onNavigate: () => undefined, route: '#/capabilities' },
-                interactionObject: CapabilitiesView,
+    
             });
 
             await actor.attemptsTo(
@@ -152,13 +125,10 @@ describe('CapabilitiesView', () => {
             );
         });
 
-        it('shows title, health header, and README for a selected capability', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'CapabilitiesView',
-                importPath: './components/capabilities/CapabilitiesView',
+        it('shows title, health header, and README for a selected capability', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
                 data: capabilitiesData(),
-                props: { onNavigate: () => undefined, route: '#/capabilities' },
-                interactionObject: CapabilitiesView,
+    
             });
 
             await actor.attemptsTo(
@@ -172,13 +142,10 @@ describe('CapabilitiesView', () => {
 
     describe('left panel — navigation', () => {
 
-        it('filter bar uses the shared filter-bar styling with confidence categories', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'CapabilitiesView',
-                importPath: './components/capabilities/CapabilitiesView',
+        it('filter bar uses the shared filter-bar styling with confidence categories', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
                 data: capabilitiesData(),
-                props: { onNavigate: () => undefined, route: '#/capabilities' },
-                interactionObject: CapabilitiesView,
+    
             });
 
             await actor.attemptsTo(
@@ -190,13 +157,10 @@ describe('CapabilitiesView', () => {
 
     describe('detail header — single source of truth', () => {
 
-        it('shows confidence prominently in the detail panel header', async ({ mount, actor }) => {
-            const view = await mount({
-                component: 'CapabilitiesView',
-                importPath: './components/capabilities/CapabilitiesView',
+        it('shows confidence prominently in the detail panel header', async ({ interactionObject, actor }) => {
+            const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
                 data: capabilitiesData(),
-                props: { onNavigate: () => undefined, route: '#/capabilities' },
-                interactionObject: CapabilitiesView,
+    
             });
 
             await actor.attemptsTo(
@@ -206,13 +170,9 @@ describe('CapabilitiesView', () => {
         });
     });
 
-    it('shows empty state when capabilities data is missing', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
+    it('shows empty state when capabilities data is missing', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
             data: minimalData({ capabilities: null }),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
-            interactionObject: CapabilitiesView,
         });
 
         await actor.attemptsTo(
@@ -220,10 +180,8 @@ describe('CapabilitiesView', () => {
         );
     });
 
-    it('filter bar and search are hidden when there is only 1 capability', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
+    it('filter bar and search are hidden when there is only 1 capability', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
             data: minimalData({
                 capabilities: {
                     name: 'spec',
@@ -241,8 +199,7 @@ describe('CapabilitiesView', () => {
                     ],
                 },
             }),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
-            interactionObject: CapabilitiesView,
+
         });
 
         await actor.attemptsTo(
@@ -254,13 +211,9 @@ describe('CapabilitiesView', () => {
 
 describe('CapabilitiesView sort control', () => {
 
-    it('displays a sort dropdown with options: Name, Confidence, Scenarios', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
+    it('displays a sort dropdown with options: Name, Confidence, Scenarios', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
             data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
-            interactionObject: CapabilitiesView,
         });
 
         await actor.attemptsTo(
@@ -268,13 +221,9 @@ describe('CapabilitiesView sort control', () => {
         );
     });
 
-    it('defaults to sorting by name', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
+    it('defaults to sorting by name', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
             data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
-            interactionObject: CapabilitiesView,
         });
 
         await actor.attemptsTo(
@@ -282,13 +231,9 @@ describe('CapabilitiesView sort control', () => {
         );
     });
 
-    it('sorts tree nodes by confidence ascending (worst first) when Confidence is selected', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
+    it('sorts tree nodes by confidence ascending (worst first) when Confidence is selected', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
             data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
-            interactionObject: CapabilitiesView,
         });
 
         await actor.attemptsTo(
@@ -305,13 +250,9 @@ describe('CapabilitiesView sort control', () => {
         );
     });
 
-    it('sorts tree nodes by scenario count descending when Scenarios is selected', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
+    it('sorts tree nodes by scenario count descending when Scenarios is selected', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
             data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
-            interactionObject: CapabilitiesView,
         });
 
         await actor.attemptsTo(
@@ -327,13 +268,9 @@ describe('CapabilitiesView sort control', () => {
 
 describe('CapabilitiesView search and filter bar', () => {
 
-    it('search input is above the filter bar (matching ScenariosView pattern)', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
+    it('search input is above the filter bar (matching ScenariosView pattern)', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
             data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
-            interactionObject: CapabilitiesView,
         });
 
         await actor.attemptsTo(
@@ -357,7 +294,6 @@ describe('CapabilitiesView accessibility', () => {
             component: 'CapabilitiesView',
             importPath: './components/capabilities/CapabilitiesView',
             data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
         });
 
         const outcomeBars = page.locator('.req-tree-bars[role="img"]');
@@ -377,7 +313,6 @@ describe('CapabilitiesView accessibility', () => {
             component: 'CapabilitiesView',
             importPath: './components/capabilities/CapabilitiesView',
             data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
         });
 
         const hiddenSummaries = page.locator('.req-tree-bars .visually-hidden');
@@ -393,7 +328,6 @@ describe('CapabilitiesView accessibility', () => {
             component: 'CapabilitiesView',
             importPath: './components/capabilities/CapabilitiesView',
             data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
         });
 
         const treeNodes = page.locator('.req-tree-node[tabindex]');
@@ -415,7 +349,6 @@ describe('CapabilitiesView accessibility', () => {
             component: 'CapabilitiesView',
             importPath: './components/capabilities/CapabilitiesView',
             data: capabilitiesData(),
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
         });
 
         // Focus the first tree node
@@ -470,13 +403,10 @@ describe('CapabilitiesView detail panel interaction object', () => {
         });
     }
 
-    it('shows the confidence score of the selected capability', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
+    it('shows the confidence score of the selected capability', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
+
             data: detailPanelData(),
-            interactionObject: CapabilitiesView,
         });
 
         await actor.attemptsTo(
@@ -484,13 +414,10 @@ describe('CapabilitiesView detail panel interaction object', () => {
         );
     });
 
-    it('shows the scenario count of the selected capability', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
+    it('shows the scenario count of the selected capability', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
+
             data: detailPanelData(),
-            interactionObject: CapabilitiesView,
         });
 
         await actor.attemptsTo(
@@ -498,13 +425,10 @@ describe('CapabilitiesView detail panel interaction object', () => {
         );
     });
 
-    it('lists child capability names', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
+    it('lists child capability names', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
+
             data: detailPanelData(),
-            interactionObject: CapabilitiesView,
         });
 
         await actor.attemptsTo(
@@ -512,13 +436,10 @@ describe('CapabilitiesView detail panel interaction object', () => {
         );
     });
 
-    it('allows selecting a capability from the tree', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
+    it('allows selecting a capability from the tree', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
+
             data: detailPanelData(),
-            interactionObject: CapabilitiesView,
         });
 
         await actor.attemptsTo(
@@ -528,11 +449,9 @@ describe('CapabilitiesView detail panel interaction object', () => {
         );
     });
 
-    it('can read the href of a link in the README', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'CapabilitiesView',
-            importPath: './components/capabilities/CapabilitiesView',
-            props: { onNavigate: () => undefined, route: '#/capabilities' },
+    it('can read the href of a link in the README', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(CapabilitiesView, './components/capabilities/CapabilitiesView', {
+
             data: minimalData({
                 capabilities: {
                     name: 'specs', type: 'directory', displayName: 'specs',
@@ -543,7 +462,6 @@ describe('CapabilitiesView detail panel interaction object', () => {
                     ],
                 },
             }),
-            interactionObject: CapabilitiesView,
         });
 
         await actor.attemptsTo(

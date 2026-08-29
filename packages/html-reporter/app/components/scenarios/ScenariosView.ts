@@ -24,12 +24,12 @@ interface ScenariosViewProps {
     history: ReportHistoryEntry[];
     summary: ReportSummary;
     specDirectory?: string;
-    onNavigate: (path: string) => void;
-    route: string;
+    onNavigate?: (path: string) => void;
+    route?: string;
     onOpenSidebar?: () => void;
 }
 
-export function ScenariosView({ scenarios: allScenarios, history, summary, specDirectory, onNavigate, route, onOpenSidebar }: ScenariosViewProps): ReturnType<typeof html> {
+export function ScenariosView({ scenarios: allScenarios, history, summary, specDirectory, onNavigate = () => {}, route = '', onOpenSidebar }: ScenariosViewProps): ReturnType<typeof html> {
     const openSidebar = onOpenSidebar || (() => {});
     const sheets = useMobileSheetState();
 

@@ -20,6 +20,10 @@ Do not introduce new UI elements (filter chips, views, buttons, panels, sections
 
 ## HTML Reporter — Implementation Gotchas
 
+### `serialiseOutcome` defaults to `ExecutionSuccessful` for unrecognised types
+
+`outcomeSerialisers.ts` has an `outcomeCodeMap` that maps outcome class → code. If a new outcome type is added to `@serenity-js/core` (or an existing one like `ExecutionIgnored` is overlooked), the fallback `return { code: ExecutionSuccessful.Code }` silently records failures as successes. When adding outcome types to core, always update `outcomeCodeMap`, `VALID_OUTCOME_CODES`, and `OUTCOME_CODE_DISPLAY_STRINGS` in the html-reporter.
+
 ### `history` prop shadows `window.history` in html-reporter components
 
 Inside a component that receives a `history: ReportHistoryEntry[]` prop, bare `history.replaceState(...)` resolves to the **prop** (an array), not `window.history`. Always use `window.history.replaceState(...)` explicitly.
@@ -319,6 +323,18 @@ When you pass a third argument (metaQuestionBody) to `Question.about()`, the und
 ---
 
 ## Serenity/JS Templates — CI Gotchas
+
+### Template migrations must update ALL touchpoints in one PR
+
+A template migration (e.g., switching reporter) touches many files. Missing any one requires a follow-up PR. The full checklist:
+- `package.json` (deps + scripts)
+- Config file (crew configuration)
+- `.gitignore`
+- `.github/workflows/*.yml`
+- `.devcontainer/devcontainer.json`
+- `README.md` (prerequisites, report paths, scripts docs, troubleshooting, documentation links)
+
+Review the README last — it's the most commonly missed because it's prose, not code.
 
 ### `@wdio/xvfb` auto-detection breaks IPC in Docker containers
 

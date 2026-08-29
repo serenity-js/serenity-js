@@ -10,4 +10,5 @@ This test suite verifies the [TodoMVC](https://todo-app.serenity-js.org) applica
 - **Bulk operations** — marking all items complete, clearing completed items
 - **Persistence** — verifying todos survive page reload via local storage
 - **Routing** — filtering views (All, Active, Completed) via URL hash
-- **Retries and flaky tests** — demonstrating how Serenity/JS reports retried and intermittently failing scenarios
+- **Using notes** — demonstrating how actors remember information during a test
+- **Flaky and retried tests** — demonstrating how Serenity/JS reports retried and intermittently failing scenarios

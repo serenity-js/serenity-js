@@ -25,8 +25,8 @@ interface ErrorsViewProps {
     scenarios: ReportScenario[];
     history: ReportHistoryEntry[];
     specDirectory?: string;
-    onNavigate: (path: string) => void;
-    route: string;
+    onNavigate?: (path: string) => void;
+    route?: string;
     onOpenSidebar?: () => void;
 }
 
@@ -63,7 +63,7 @@ function computeErrorScenarios(allScenarios: ReportScenario[], runIndex: number 
     return result;
 }
 
-export function ErrorsView({ scenarios: allScenarios, history, specDirectory, onNavigate, route, onOpenSidebar }: ErrorsViewProps): ReturnType<typeof html> {
+export function ErrorsView({ scenarios: allScenarios, history, specDirectory, onNavigate = () => {}, route = '', onOpenSidebar }: ErrorsViewProps): ReturnType<typeof html> {
     const openSidebar = onOpenSidebar || (() => {});
     const sheets = useMobileSheetState();
     const [search, setSearch] = useState('');

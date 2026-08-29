@@ -5,14 +5,11 @@ import { describe, it } from '../fixtures.js';
 
 describe('ErrorBlock', () => {
 
-    it('displays the error name', async ({ mount, actor }) => {
-        const errorBlock = await mount({
-            component: 'ErrorBlock',
-            importPath: './components/errors/ErrorBlock',
+    it('displays the error name', async ({ interactionObject, actor }) => {
+        const errorBlock = await interactionObject(ErrorBlock, './components/errors/ErrorBlock', {
             props: {
                 error: { name: 'AssertionError', message: 'expected true to be false', stack: 'at test.spec.ts:5:10' },
             },
-            interactionObject: ErrorBlock,
         });
 
         await actor.attemptsTo(
@@ -20,14 +17,11 @@ describe('ErrorBlock', () => {
         );
     });
 
-    it('displays the error message with ANSI colour rendering', async ({ mount, actor }) => {
-        const errorBlock = await mount({
-            component: 'ErrorBlock',
-            importPath: './components/errors/ErrorBlock',
+    it('displays the error message with ANSI colour rendering', async ({ interactionObject, actor }) => {
+        const errorBlock = await interactionObject(ErrorBlock, './components/errors/ErrorBlock', {
             props: {
                 error: { name: 'Error', message: 'Expected value to equal 42', stack: '' },
             },
-            interactionObject: ErrorBlock,
         });
 
         await actor.attemptsTo(
@@ -35,14 +29,11 @@ describe('ErrorBlock', () => {
         );
     });
 
-    it('displays the stack trace', async ({ mount, actor }) => {
-        const errorBlock = await mount({
-            component: 'ErrorBlock',
-            importPath: './components/errors/ErrorBlock',
+    it('displays the stack trace', async ({ interactionObject, actor }) => {
+        const errorBlock = await interactionObject(ErrorBlock, './components/errors/ErrorBlock', {
             props: {
                 error: { name: 'Error', message: 'fail', stack: 'at Object.<anonymous> (test.spec.ts:10:5)' },
             },
-            interactionObject: ErrorBlock,
         });
 
         await actor.attemptsTo(
@@ -50,15 +41,12 @@ describe('ErrorBlock', () => {
         );
     });
 
-    it('shows error location when provided', async ({ mount, actor }) => {
-        const errorBlock = await mount({
-            component: 'ErrorBlock',
-            importPath: './components/errors/ErrorBlock',
+    it('shows error location when provided', async ({ interactionObject, actor }) => {
+        const errorBlock = await interactionObject(ErrorBlock, './components/errors/ErrorBlock', {
             props: {
                 error: { name: 'Error', message: 'fail', stack: '' },
                 errorLocation: { path: 'src/app.ts', line: 42, column: 5 },
             },
-            interactionObject: ErrorBlock,
         });
 
         await actor.attemptsTo(

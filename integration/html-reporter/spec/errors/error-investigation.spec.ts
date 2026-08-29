@@ -1,4 +1,4 @@
-import { Ensure, equals, includes, isLessThan, not } from '@serenity-js/assertions';
+import { Ensure, includes, isLessThan, isPresent, not } from '@serenity-js/assertions';
 
 import { describe, it } from '../../src';
 import { failingTest, timeoutTest } from '../../src/scenarios';
@@ -11,8 +11,8 @@ describe('Errors', () => {
             await actor.attemptsTo(
                 errorsView.open(),
 
-                Ensure.that(errorsView.scenarioCalled(timeoutTest).isPresent(), equals(true)),
-                Ensure.that(errorsView.scenarioCalled(failingTest).isPresent(), equals(true)),
+                Ensure.that(errorsView.scenarioCalled(timeoutTest), isPresent()),
+                Ensure.that(errorsView.scenarioCalled(failingTest), isPresent()),
             );
         });
 
@@ -32,7 +32,7 @@ describe('Errors', () => {
                 errorsView.find('expired card'),
 
                 Ensure.that(errorsView.resultCountText(), includes('of')),
-                Ensure.that(errorsView.scenarioCalled(failingTest).isPresent(), equals(true)),
+                Ensure.that(errorsView.scenarioCalled(failingTest), isPresent()),
                 Ensure.that(errorsView.scenarioNames(), not(includes(timeoutTest))),
             );
         });
@@ -42,7 +42,7 @@ describe('Errors', () => {
                 errorsView.open(),
                 errorsView.find('timeout'),
 
-                Ensure.that(errorsView.scenarioCalled(timeoutTest).isPresent(), equals(true)),
+                Ensure.that(errorsView.scenarioCalled(timeoutTest), isPresent()),
                 Ensure.that(errorsView.errorGroupCount(), isLessThan(7)),
             );
         });

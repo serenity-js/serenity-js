@@ -5,10 +5,8 @@ import { describe, it } from '../fixtures.js';
 
 describe('FilterBar', () => {
 
-    it('displays all filter chip labels', async ({ mount, actor }) => {
-        const filterBar = await mount({
-            component: 'FilterBar',
-            importPath: './components/common/FilterBar',
+    it('displays all filter chip labels', async ({ interactionObject, actor }) => {
+        const filterBar = await interactionObject(FilterBar, './components/common/FilterBar', {
             props: {
                 filters: [
                     { key: 'all', label: 'All', count: 10 },
@@ -19,7 +17,6 @@ describe('FilterBar', () => {
                 activeFilter: 'all',
                 onFilter: '__noop',
             },
-            interactionObject: FilterBar,
         });
 
         await actor.attemptsTo(
@@ -27,10 +24,8 @@ describe('FilterBar', () => {
         );
     });
 
-    it('reports active filter via aria-pressed', async ({ mount, actor }) => {
-        const filterBar = await mount({
-            component: 'FilterBar',
-            importPath: './components/common/FilterBar',
+    it('reports active filter via aria-pressed', async ({ interactionObject, actor }) => {
+        const filterBar = await interactionObject(FilterBar, './components/common/FilterBar', {
             props: {
                 filters: [
                     { key: 'all', label: 'All', count: 10 },
@@ -41,7 +36,6 @@ describe('FilterBar', () => {
                 activeFilter: 'failed',
                 onFilter: '__noop',
             },
-            interactionObject: FilterBar,
         });
 
         await actor.attemptsTo(
@@ -49,10 +43,8 @@ describe('FilterBar', () => {
         );
     });
 
-    it('reports multiple active filters when multi-selected', async ({ mount, actor }) => {
-        const filterBar = await mount({
-            component: 'FilterBar',
-            importPath: './components/common/FilterBar',
+    it('reports multiple active filters when multi-selected', async ({ interactionObject, actor }) => {
+        const filterBar = await interactionObject(FilterBar, './components/common/FilterBar', {
             props: {
                 filters: [
                     { key: 'all', label: 'All', count: 10 },
@@ -63,7 +55,6 @@ describe('FilterBar', () => {
                 activeFilter: 'failed,skipped',
                 onFilter: '__noop',
             },
-            interactionObject: FilterBar,
         });
 
         await actor.attemptsTo(
@@ -72,10 +63,8 @@ describe('FilterBar', () => {
         );
     });
 
-    it('reports selected sort option', async ({ mount, actor }) => {
-        const filterBar = await mount({
-            component: 'FilterBar',
-            importPath: './components/common/FilterBar',
+    it('reports selected sort option', async ({ interactionObject, actor }) => {
+        const filterBar = await interactionObject(FilterBar, './components/common/FilterBar', {
             props: {
                 filters: [
                     { key: 'all', label: 'All', count: 5 },
@@ -89,7 +78,6 @@ describe('FilterBar', () => {
                 ],
                 activeSort: 'duration',
             },
-            interactionObject: FilterBar,
         });
 
         await actor.attemptsTo(
@@ -97,10 +85,8 @@ describe('FilterBar', () => {
         );
     });
 
-    it('shows "All" as active when no specific filter is selected', async ({ mount, actor }) => {
-        const filterBar = await mount({
-            component: 'FilterBar',
-            importPath: './components/common/FilterBar',
+    it('shows "All" as active when no specific filter is selected', async ({ interactionObject, actor }) => {
+        const filterBar = await interactionObject(FilterBar, './components/common/FilterBar', {
             props: {
                 filters: [
                     { key: 'all', label: 'All', count: 5 },
@@ -110,7 +96,6 @@ describe('FilterBar', () => {
                 activeFilter: 'all',
                 onFilter: '__noop',
             },
-            interactionObject: FilterBar,
         });
 
         await actor.attemptsTo(

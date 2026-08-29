@@ -113,7 +113,7 @@ Before publishing to the API docs, decide:
 - [x] The base `InteractionObject` class documents the contract
 - [x] At least one complete "how to write your own" example in the base class JSDoc
 - [x] Mobile-specific API (if exposed) is clearly documented
-- [ ] `src/serenity.ts` entrypoint wired into API docs generation
+- [x] `src/serenity.ts` entrypoint wired into API docs generation (live at serenity-js.org/api/html-reporter-serenity/)
 - [ ] Public contract review completed
 
 ## Priority

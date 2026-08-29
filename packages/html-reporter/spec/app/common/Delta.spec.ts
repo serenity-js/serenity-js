@@ -6,13 +6,10 @@ import { describe, it } from '../fixtures.js';
 
 describe('Delta', () => {
 
-    it('renders nothing when previous is undefined', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'Delta',
-            importPath: './components/common/charts/Delta',
+    it('renders nothing when previous is undefined', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(Delta, './components/common/charts/Delta', {
             props: { current: 80, previous: undefined },
             data: minimalData(),
-            interactionObject: Delta,
         });
 
         await actor.attemptsTo(
@@ -20,13 +17,10 @@ describe('Delta', () => {
         );
     });
 
-    it('shows "no change" when current equals previous', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'Delta',
-            importPath: './components/common/charts/Delta',
+    it('shows "no change" when current equals previous', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(Delta, './components/common/charts/Delta', {
             props: { current: 75, previous: 75 },
             data: minimalData(),
-            interactionObject: Delta,
         });
 
         await actor.attemptsTo(
@@ -35,13 +29,10 @@ describe('Delta', () => {
         );
     });
 
-    it('shows upward arrow with positive class when value increases', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'Delta',
-            importPath: './components/common/charts/Delta',
+    it('shows upward arrow with positive class when value increases', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(Delta, './components/common/charts/Delta', {
             props: { current: 85, previous: 70 },
             data: minimalData(),
-            interactionObject: Delta,
         });
 
         await actor.attemptsTo(
@@ -50,13 +41,10 @@ describe('Delta', () => {
         );
     });
 
-    it('shows downward arrow with negative class when value decreases', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'Delta',
-            importPath: './components/common/charts/Delta',
+    it('shows downward arrow with negative class when value decreases', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(Delta, './components/common/charts/Delta', {
             props: { current: 60, previous: 80 },
             data: minimalData(),
-            interactionObject: Delta,
         });
 
         await actor.attemptsTo(
@@ -65,13 +53,10 @@ describe('Delta', () => {
         );
     });
 
-    it('inverts polarity when invert is true (increase = negative)', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'Delta',
-            importPath: './components/common/charts/Delta',
+    it('inverts polarity when invert is true (increase = negative)', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(Delta, './components/common/charts/Delta', {
             props: { current: 5, previous: 2, invert: true },
             data: minimalData(),
-            interactionObject: Delta,
         });
 
         await actor.attemptsTo(
@@ -80,13 +65,10 @@ describe('Delta', () => {
         );
     });
 
-    it('inverts polarity when invert is true (decrease = positive)', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'Delta',
-            importPath: './components/common/charts/Delta',
+    it('inverts polarity when invert is true (decrease = positive)', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(Delta, './components/common/charts/Delta', {
             props: { current: 1, previous: 4, invert: true },
             data: minimalData(),
-            interactionObject: Delta,
         });
 
         await actor.attemptsTo(
@@ -95,13 +77,10 @@ describe('Delta', () => {
         );
     });
 
-    it('appends suffix to the displayed value', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'Delta',
-            importPath: './components/common/charts/Delta',
+    it('appends suffix to the displayed value', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(Delta, './components/common/charts/Delta', {
             props: { current: 90, previous: 85, suffix: '%' },
             data: minimalData(),
-            interactionObject: Delta,
         });
 
         await actor.attemptsTo(
@@ -110,13 +89,10 @@ describe('Delta', () => {
         );
     });
 
-    it('displays absolute difference regardless of direction', async ({ mount, actor }) => {
-        const view = await mount({
-            component: 'Delta',
-            importPath: './components/common/charts/Delta',
+    it('displays absolute difference regardless of direction', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(Delta, './components/common/charts/Delta', {
             props: { current: 10, previous: 25 },
             data: minimalData(),
-            interactionObject: Delta,
         });
 
         await actor.attemptsTo(

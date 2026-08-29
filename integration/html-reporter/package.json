@@ -26,7 +26,8 @@
     "example:multi-worker": "npx tsx examples/generate-multiworker-data.ts",
     "example": "failsafe example:clean example:single example:single:history example:multi-module example:multi-worker || true",
     "pretest": "npm run clean && npm run example",
-    "test": "c8 playwright test"
+    "test": "c8 playwright test",
+    "test:report": "npx html-reporter serve --dir ./target/html-report --open"
   },
   "repository": {
     "type": "git",

@@ -5,10 +5,8 @@ import { describe, it } from '../fixtures.js';
 
 describe('RestQueryPanel', () => {
 
-    it('displays the HTTP method', async ({ mount, actor }) => {
-        const panel = await mount({
-            component: 'RestQueryPanel',
-            importPath: './components/common/RestQueryPanel',
+    it('displays the HTTP method', async ({ interactionObject, actor }) => {
+        const panel = await interactionObject(RestQueryPanel, './components/common/RestQueryPanel', {
             props: {
                 restQuery: {
                     method: 'GET',
@@ -20,7 +18,6 @@ describe('RestQueryPanel', () => {
                     responseBody: '{"users": []}',
                 },
             },
-            interactionObject: RestQueryPanel,
         });
 
         await actor.attemptsTo(
@@ -28,10 +25,8 @@ describe('RestQueryPanel', () => {
         );
     });
 
-    it('displays the request URL', async ({ mount, actor }) => {
-        const panel = await mount({
-            component: 'RestQueryPanel',
-            importPath: './components/common/RestQueryPanel',
+    it('displays the request URL', async ({ interactionObject, actor }) => {
+        const panel = await interactionObject(RestQueryPanel, './components/common/RestQueryPanel', {
             props: {
                 restQuery: {
                     method: 'POST',
@@ -43,7 +38,6 @@ describe('RestQueryPanel', () => {
                     responseBody: '',
                 },
             },
-            interactionObject: RestQueryPanel,
         });
 
         await actor.attemptsTo(
@@ -51,10 +45,8 @@ describe('RestQueryPanel', () => {
         );
     });
 
-    it('displays the response status code', async ({ mount, actor }) => {
-        const panel = await mount({
-            component: 'RestQueryPanel',
-            importPath: './components/common/RestQueryPanel',
+    it('displays the response status code', async ({ interactionObject, actor }) => {
+        const panel = await interactionObject(RestQueryPanel, './components/common/RestQueryPanel', {
             props: {
                 restQuery: {
                     method: 'DELETE',
@@ -66,7 +58,6 @@ describe('RestQueryPanel', () => {
                     responseBody: 'Not Found',
                 },
             },
-            interactionObject: RestQueryPanel,
         });
 
         await actor.attemptsTo(

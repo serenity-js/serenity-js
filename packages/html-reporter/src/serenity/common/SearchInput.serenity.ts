@@ -28,7 +28,7 @@ import { InteractionObject } from './InteractionObject.serenity.js';
  *
  * ```ts
  * await actor.attemptsTo(
- *   searchInput.enter('checkout'),
+ *   searchInput.searchFor('checkout'),
  *   Ensure.that(searchInput.value(), equals('checkout')),
  *   Ensure.that(searchInput.isClearable(), equals(true)),
  *
@@ -59,7 +59,7 @@ export class SearchInput<NET> extends InteractionObject<NET> {
      *
      * ```ts
      * await actor.attemptsTo(
-     *   searchInput.enter('checkout'),
+     *   searchInput.searchFor('checkout'),
      *   Ensure.that(searchInput.value(), equals('checkout')),
      * );
      * ```
@@ -109,7 +109,7 @@ export class SearchInput<NET> extends InteractionObject<NET> {
      *
      * ```ts
      * await actor.attemptsTo(
-     *   searchInput.enter('checkout'),
+     *   searchInput.searchFor('checkout'),
      *   Ensure.that(searchInput.isClearable(), equals(true)),
      *
      *   searchInput.clear(),
@@ -129,7 +129,7 @@ export class SearchInput<NET> extends InteractionObject<NET> {
      *
      * ```ts
      * await actor.attemptsTo(
-     *   searchInput.enter('expired card'),
+     *   searchInput.searchFor('expired card'),
      *   Ensure.that(searchInput.value(), equals('expired card')),
      * );
      * ```
@@ -137,7 +137,7 @@ export class SearchInput<NET> extends InteractionObject<NET> {
      * @param searchTerm
      *  Text to type into the search field
      */
-    enter = (searchTerm: Answerable<string>): Task =>
+    searchFor = (searchTerm: Answerable<string>): Task =>
         Task.where(the`#actor searches for ${ searchTerm }`,
             Enter.theValue(searchTerm).into(this.inputField()),
         );
@@ -149,7 +149,7 @@ export class SearchInput<NET> extends InteractionObject<NET> {
      *
      * ```ts
      * await actor.attemptsTo(
-     *   searchInput.enter('checkout'),
+     *   searchInput.searchFor('checkout'),
      *   searchInput.clear(),
      *   Ensure.that(searchInput.value(), equals('')),
      * );

@@ -3,7 +3,7 @@ import { h } from 'preact';
 
 import type { ReportCapabilityNode } from '../../../src/cli/reporting/ReportData.js';
 import { naturalCompare } from '../../utils/index.js';
-import { link } from '../../utils/link.js';
+import { link, quotedSearchTerm } from '../../utils/link.js';
 import { SegmentedBar } from '../common/charts/SegmentedBar.js';
 import { icons } from '../common/icons.js';
 import { computeNodeScore, confidenceColor, findNodeByPath } from './CapabilityTree.js';
@@ -55,7 +55,7 @@ export function SpecsList({ segmentPath, directories, files, capabilities, onSel
                 const childScore = computeNodeScore(child);
                 const filePath = segmentPath + '/' + child.name;
                 return html`
-                    <div class="req-detail-file-card clickable" onClick=${() => onNavigate(link({ view: 'tests', search: `"${filePath}"` }))}>
+                    <div class="req-detail-file-card clickable" onClick=${() => onNavigate(link({ view: 'tests', search: quotedSearchTerm(filePath) }))}>
                         <span class="req-detail-child-icon">${icons.file}</span>
                         <span class="req-detail-child-name">${child.displayName || child.name}</span>
                         <span class="req-detail-child-health">

@@ -8,13 +8,10 @@ describe('SegmentedBar', () => {
 
     describe('user-observable behaviour', () => {
 
-        it('renders nothing when all outcomes are zero', async ({ mount, actor }) => {
-            const bar = await mount({
-                component: 'SegmentedBar',
-                importPath: './components/common/charts/SegmentedBar',
+        it('renders nothing when all outcomes are zero', async ({ interactionObject, actor }) => {
+            const bar = await interactionObject(SegmentedBar, './components/common/charts/SegmentedBar', {
                 props: { outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 } },
                 data: minimalData(),
-                interactionObject: SegmentedBar,
             });
 
             await actor.attemptsTo(
@@ -22,13 +19,10 @@ describe('SegmentedBar', () => {
             );
         });
 
-        it('renders a bar with correct aria-label describing the outcome counts', async ({ mount, actor }) => {
-            const bar = await mount({
-                component: 'SegmentedBar',
-                importPath: './components/common/charts/SegmentedBar',
+        it('renders a bar with correct aria-label describing the outcome counts', async ({ interactionObject, actor }) => {
+            const bar = await interactionObject(SegmentedBar, './components/common/charts/SegmentedBar', {
                 props: { outcomes: { passed: 5, failed: 2, pending: 1, skipped: 0, compromised: 0, error: 0 } },
                 data: minimalData(),
-                interactionObject: SegmentedBar,
             });
 
             await actor.attemptsTo(
@@ -36,13 +30,10 @@ describe('SegmentedBar', () => {
             );
         });
 
-        it('combines failed, error, and compromised into one failure segment', async ({ mount, actor }) => {
-            const bar = await mount({
-                component: 'SegmentedBar',
-                importPath: './components/common/charts/SegmentedBar',
+        it('combines failed, error, and compromised into one failure segment', async ({ interactionObject, actor }) => {
+            const bar = await interactionObject(SegmentedBar, './components/common/charts/SegmentedBar', {
                 props: { outcomes: { passed: 4, failed: 1, pending: 0, skipped: 0, compromised: 1, error: 1 } },
                 data: minimalData(),
-                interactionObject: SegmentedBar,
             });
 
             await actor.attemptsTo(
@@ -51,13 +42,10 @@ describe('SegmentedBar', () => {
             );
         });
 
-        it('combines pending and skipped into one skipped segment', async ({ mount, actor }) => {
-            const bar = await mount({
-                component: 'SegmentedBar',
-                importPath: './components/common/charts/SegmentedBar',
+        it('combines pending and skipped into one skipped segment', async ({ interactionObject, actor }) => {
+            const bar = await interactionObject(SegmentedBar, './components/common/charts/SegmentedBar', {
                 props: { outcomes: { passed: 2, failed: 0, pending: 3, skipped: 1, compromised: 0, error: 0 } },
                 data: minimalData(),
-                interactionObject: SegmentedBar,
             });
 
             await actor.attemptsTo(
@@ -65,13 +53,10 @@ describe('SegmentedBar', () => {
             );
         });
 
-        it('shows only a passed segment when there are no failures or skips', async ({ mount, actor }) => {
-            const bar = await mount({
-                component: 'SegmentedBar',
-                importPath: './components/common/charts/SegmentedBar',
+        it('shows only a passed segment when there are no failures or skips', async ({ interactionObject, actor }) => {
+            const bar = await interactionObject(SegmentedBar, './components/common/charts/SegmentedBar', {
                 props: { outcomes: { passed: 10, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 } },
                 data: minimalData(),
-                interactionObject: SegmentedBar,
             });
 
             await actor.attemptsTo(
@@ -79,13 +64,10 @@ describe('SegmentedBar', () => {
             );
         });
 
-        it('includes a visually-hidden text summary for screen readers', async ({ mount, actor }) => {
-            const bar = await mount({
-                component: 'SegmentedBar',
-                importPath: './components/common/charts/SegmentedBar',
+        it('includes a visually-hidden text summary for screen readers', async ({ interactionObject, actor }) => {
+            const bar = await interactionObject(SegmentedBar, './components/common/charts/SegmentedBar', {
                 props: { outcomes: { passed: 5, failed: 2, pending: 1, skipped: 0, compromised: 0, error: 0 } },
                 data: minimalData(),
-                interactionObject: SegmentedBar,
             });
 
             await actor.attemptsTo(
