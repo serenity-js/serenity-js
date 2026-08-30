@@ -7,19 +7,19 @@ import { InteractionObject } from '../common/InteractionObject.serenity.js';
 export class Lightbox<NET> extends InteractionObject<NET> {
 
     private captionElement = () =>
-        this.child(By.css('.lightbox-caption'))
+        this.rootElement.element(By.css('.lightbox-caption'))
             .describedAs('lightbox caption');
 
     private prevButton = () =>
-        this.child(By.css('.lightbox-prev'))
+        this.rootElement.element(By.css('.lightbox-prev'))
             .describedAs('lightbox previous button');
 
     private nextButton = () =>
-        this.child(By.css('.lightbox-next'))
+        this.rootElement.element(By.css('.lightbox-next'))
             .describedAs('lightbox next button');
 
     isOpen = (): Answerable<boolean> =>
-        this.rootElement.isPresent();
+        this.isPresent();
 
     caption = (): QuestionAdapter<string> =>
         this.captionElement().text().trim()
@@ -72,7 +72,7 @@ export class PhotoStrip<NET> extends InteractionObject<NET> {
 
     readonly lightbox: Lightbox<unknown>;
 
-    constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
+    constructor(rootElement: Answerable<PageElement<NET>>) {
         super(rootElement);
         this.lightbox = new Lightbox(
             PageElement.located(By.css('.lightbox-overlay')).describedAs('lightbox overlay'),
@@ -80,19 +80,19 @@ export class PhotoStrip<NET> extends InteractionObject<NET> {
     }
 
     private titleElement = () =>
-        this.child(By.css('.card-title'))
+        this.rootElement.element(By.css('.card-title'))
             .describedAs('photo strip title');
 
     private thumbnails = () =>
-        this.children(By.css('.photo-strip-item'))
+        this.rootElement.elements(By.css('.photo-strip-item'))
             .describedAs('photo strip thumbnails');
 
     private thumbnailImages = () =>
-        this.children(By.css('.photo-strip-item img'))
+        this.rootElement.elements(By.css('.photo-strip-item img'))
             .describedAs('photo strip thumbnail images');
 
     private captions_ = () =>
-        this.children(By.css('.photo-strip-caption'))
+        this.rootElement.elements(By.css('.photo-strip-caption'))
             .describedAs('photo strip captions');
 
     title = (): QuestionAdapter<string> =>

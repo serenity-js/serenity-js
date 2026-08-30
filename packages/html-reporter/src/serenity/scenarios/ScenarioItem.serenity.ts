@@ -38,9 +38,9 @@ import { InteractionObject } from '../common/InteractionObject.serenity.js';
 export class ScenarioItem<NET> extends InteractionObject<NET> {
 
     // Structure — page elements
-    private readonly scenarioNameElement = this.child(By.css('.scenario-name')).describedAs('scenario name element');
-    private readonly outcomeBadge = this.child(By.css('[data-testid="outcome-badge"]')).describedAs('outcome badge');
-    private readonly tagChips = this.children(By.css('.tag-chip, .badge-link')).describedAs('tag chips');
+    private readonly scenarioNameElement = this.rootElement.element(By.css('.scenario-name')).describedAs('scenario name element');
+    private readonly outcomeBadge = this.rootElement.element(By.css('[data-testid="outcome-badge"]')).describedAs('outcome badge');
+    private readonly tagChips = this.rootElement.elements(By.css('.tag-chip, .badge-link')).describedAs('tag chips');
 
     // Behaviour — questions
 
@@ -83,7 +83,7 @@ export class ScenarioItem<NET> extends InteractionObject<NET> {
      * ```
      */
     sourceLocation = (): QuestionAdapter<string> =>
-        this.child(By.css('.scenario-source')).text().trim()
+        this.rootElement.element(By.css('.scenario-source')).text().trim()
             .describedAs('scenario source location');
 
     /**
@@ -99,7 +99,7 @@ export class ScenarioItem<NET> extends InteractionObject<NET> {
      * ```
      */
     errorPreview = (): QuestionAdapter<string> =>
-        this.child(By.css('.scenario-error-preview')).text().trim()
+        this.rootElement.element(By.css('.scenario-error-preview')).text().trim()
             .describedAs('scenario error preview');
 
     /**
@@ -133,7 +133,7 @@ export class ScenarioItem<NET> extends InteractionObject<NET> {
      * ```
      */
     tagChipLabels = (): Question<Promise<string[]>> =>
-        this.children(By.css('.tag-chip'))
+        this.rootElement.elements(By.css('.tag-chip'))
             .eachMappedTo(Text)
             .describedAs('tag chip labels');
 

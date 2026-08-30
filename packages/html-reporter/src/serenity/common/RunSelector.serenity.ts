@@ -7,11 +7,11 @@ import { InteractionObject } from './InteractionObject.serenity.js';
 export class RunSelector<NET> extends InteractionObject<NET> {
 
     private selectElement = () =>
-        this.child(By.css('select'))
+        this.rootElement.element(By.css('select'))
             .describedAs('run selector dropdown');
 
     private showLatestLink = () =>
-        this.child(By.css('.show-latest-link'))
+        this.rootElement.element(By.css('.show-latest-link'))
             .describedAs('show latest link');
 
     selectedRun = (): QuestionAdapter<string> =>

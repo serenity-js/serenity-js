@@ -113,7 +113,7 @@ export class Attribute<Native_Element_Type>
 
     protected constructor(
         private readonly name: Answerable<string>,
-        private readonly element?: QuestionAdapter<PageElement> | PageElement,
+        private readonly element?: Answerable<PageElement>,
     ) {
         super(element
             ? the`${ name } attribute of ${ element }`
@@ -129,7 +129,7 @@ export class Attribute<Native_Element_Type>
      *
      * @param pageElement
      */
-    of(pageElement: QuestionAdapter<PageElement<Native_Element_Type>> | PageElement<Native_Element_Type>): MetaQuestionAdapter<PageElement<Native_Element_Type>, string> {
+    of(pageElement: Answerable<PageElement<Native_Element_Type>>): MetaQuestionAdapter<PageElement<Native_Element_Type>, string> {
         return Question.createAdapter(
             new Attribute(
                 this.name,

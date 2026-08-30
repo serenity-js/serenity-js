@@ -59,26 +59,26 @@ export class ConsistencyView<NET> extends InteractionObject<NET> {
     private static readonly scenarioNameSelector = By.css('.scenario-name');
 
     // Structure — child interaction objects
-    readonly searchInput = new SearchInput<NET>(this.child(By.css('[data-testid="search-input"]')));
-    readonly filterBar = new FilterBar<NET>(this.child(By.css('[data-testid="filter-bar"]')));
-    readonly resultCount = new ResultCount<NET>(this.child(By.css('[data-testid="result-count"]')));
-    readonly historyDots = new HistoryDots<NET>(this.child(By.css('[data-testid="history-dots"]')));
+    readonly searchInput = new SearchInput<NET>(this.rootElement.element(By.css('[data-testid="search-input"]')));
+    readonly filterBar = new FilterBar<NET>(this.rootElement.element(By.css('[data-testid="filter-bar"]')));
+    readonly resultCount = new ResultCount<NET>(this.rootElement.element(By.css('[data-testid="result-count"]')));
+    readonly historyDots = new HistoryDots<NET>(this.rootElement.element(By.css('[data-testid="history-dots"]')));
 
     // Structure — mobile child interaction objects
     private readonly mobileSearchInput = new SearchInput<NET>(
-        this.child(By.css('[data-testid="bottom-sheet"] [data-testid="search-input"]'))
+        this.rootElement.element(By.css('[data-testid="bottom-sheet"] [data-testid="search-input"]'))
     );
 
     private readonly mobileFilterBar = new FilterBar<NET>(
-        this.child(By.css('[data-testid="bottom-sheet"] [data-testid="filter-bar"]'))
+        this.rootElement.element(By.css('[data-testid="bottom-sheet"] [data-testid="filter-bar"]'))
     );
 
     // Structure — page elements
-    private readonly scenarioItems = this.children(By.css('.scenario-item')).describedAs('consistency scenario items');
-    private readonly scenarioNameElements = this.children(ConsistencyView.scenarioNameSelector).describedAs('consistency scenario names');
+    private readonly scenarioItems = this.rootElement.elements(By.css('.scenario-item')).describedAs('consistency scenario items');
+    private readonly scenarioNameElements = this.rootElement.elements(ConsistencyView.scenarioNameSelector).describedAs('consistency scenario names');
 
     constructor(
-        rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>,
+        rootElement: Answerable<PageElement<NET>>,
         private readonly navigation: Navigation = new Navigation(),
         options?: InteractionObjectOptions,
     ) {
@@ -88,11 +88,11 @@ export class ConsistencyView<NET> extends InteractionObject<NET> {
     // Mobile helpers
 
     private filterSheetTrigger = () =>
-        this.child(By.css('[aria-label="Search and filter"]'))
+        this.rootElement.element(By.css('[aria-label="Search and filter"]'))
             .describedAs('filter sheet trigger');
 
     private bottomSheetClose = () =>
-        this.child(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
+        this.rootElement.element(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
             .describedAs('bottom sheet close button');
 
     private openFilterSheet = (): Task =>

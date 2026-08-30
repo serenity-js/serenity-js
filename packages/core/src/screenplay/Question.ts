@@ -160,11 +160,43 @@ export abstract class Question<T> extends Describable {
      *   Question.about(`the ${ name } env variable`, actor => process.env[name])
      * ```
      *
+     * #### Defining a question with extensions
+     *
+     * When the third argument is an **object**, its entries are added as methods
+     * to the returned adapter, allowing it to expose domain-specific behaviour
+     * that the generic proxy wouldn't provide.
+     *
+     * If the extensions include `of`, it defines rescoping behaviour and all
+     * extensions are automatically propagated to the rescoped result.
+     * Extension methods receive `this` bound to the proxy target,
+     * so `actor.answer(this)` resolves the current question.
+     *
+     * ```ts
+     * const Config = (path: string) =>
+     *   Question.about(`config at ${ path }`, actor => readConfig(path), {
+     *     of: (scope: string) =>
+     *       Question.about(`config at ${ path }`, actor => readConfig(`${ scope }/${ path }`)),
+     *     keys: function () {
+     *       return Question.about(`keys of ${ this }`, async actor => {
+     *         const config = await actor.answer(this);
+     *         return Object.keys(config);
+     *       });
+     *     },
+     *   })
+     *
+     * // keys() is available on the adapter and after .of() rescoping:
+     * Config('database').keys()
+     * Config('database').of('production').keys()
+     * ```
+     *
+     * When the third argument is a **function**, it defines `.of()` rescoping only —
+     * the original form, equivalent to `{ of: thatFunction }`.
+     *
      * @param description
      * @param body
-     * @param [metaQuestionBody]
+     * @param [metaQuestionBodyOrExtensions]
      */
-    static about<Answer_Type, Supported_Context_Type>(
+    static about<Answer_Type, Supported_Context_Type extends Answerable<any>>(
         description: Answerable<string>,
         body: (actor: AnswersQuestions & UsesAbilities) => Promise<Answer_Type> | Answer_Type,
         metaQuestionBody: (answerable: Answerable<Supported_Context_Type>) => Question<Promise<Answer_Type>> | Question<Answer_Type>,
@@ -172,20 +204,67 @@ export abstract class Question<T> extends Describable {
 
     static about<Answer_Type>(
         description: Answerable<string>,
+        body: (actor: AnswersQuestions & UsesAbilities) => Promise<Answer_Type> | Answer_Type,
+        extensions: Record<string, (...args: any[]) => any>,
+    ): QuestionAdapter<Awaited<Answer_Type>>
+
+    static about<Answer_Type>(
+        description: Answerable<string>,
         body: (actor: AnswersQuestions & UsesAbilities) => Promise<Answer_Type> | Answer_Type
     ): QuestionAdapter<Awaited<Answer_Type>>
 
-    static about<Answer_Type, Supported_Context_Type extends Answerable<any>>(
+    static about<Answer_Type>(
         description: Answerable<string>,
         body: (actor: AnswersQuestions & UsesAbilities) => Promise<Answer_Type> | Answer_Type,
-        metaQuestionBody?: (answerable: Supported_Context_Type) => QuestionAdapter<Answer_Type>,
+        metaQuestionBodyOrExtensions?: ((answerable: any) => any) | Record<string, (...args: any[]) => any>,
     ): any
     {
-        const statement = typeof metaQuestionBody === 'function'
-            ? new MetaQuestionStatement(description, body, metaQuestionBody)
-            : new QuestionStatement(description, body);
+        // Third argument is a function → legacy MetaQuestionStatement with .of()
+        if (typeof metaQuestionBodyOrExtensions === 'function') {
+            const statement = new MetaQuestionStatement(description, body, metaQuestionBodyOrExtensions);
+            return Question.createAdapter(statement);
+        }
+
+        const statement = new QuestionStatement(description, body);
+
+        // Third argument is an extensions object → apply methods to the statement
+        if (metaQuestionBodyOrExtensions && typeof metaQuestionBodyOrExtensions === 'object') {
+            Question.applyExtensions(statement, metaQuestionBodyOrExtensions);
+        }
 
         return Question.createAdapter(statement);
+    }
+
+    /**
+     * Applies extension methods to a statement instance.
+     *
+     * Extension methods are added directly to the statement so the proxy's
+     * `if (key in target)` check finds them before the generic fallback.
+     *
+     * If the extensions include `of`, it is wrapped to:
+     * - produce a description of the form `${this} of ${parent}`
+     * - propagate all extensions to the rescoped adapter
+     */
+    private static applyExtensions(
+        statement: QuestionStatement<any>,
+        extensions: Record<string, (...args: any[]) => any>,
+    ): void {
+        for (const [key, fn] of Object.entries(extensions)) {
+            if (key === 'of') {
+                // Wrap .of() to handle description and extension propagation
+                (statement as any).of = function (this: QuestionStatement<any>, answerable: any) {
+                    return Question.about(
+                        the`${ this } of ${ answerable }`,
+                        actor => actor.answer(fn.call(undefined, answerable)),
+                        extensions,
+                    );
+                };
+            } else {
+                (statement as any)[key] = function (this: any, ...args: any[]) {
+                    return fn.apply(this, args);
+                };
+            }
+        }
     }
 
     /**
@@ -376,7 +455,27 @@ export abstract class Question<T> extends Describable {
         return new MetaQuestionAboutValue<Answer_Type>();
     }
 
-    protected static createAdapter<AT>(statement: Question<AT>): QuestionAdapter<Awaited<AT>> {
+    /**
+     * Wraps a {@link Question} in a {@link QuestionAdapter} proxy.
+     *
+     * The proxy intercepts property access on the resolved answer type,
+     * allowing the result to be used as both a {@link Question} and a transparent
+     * wrapper over the answer's own methods and properties.
+     *
+     * Methods defined directly on the `statement` object (such as `.isPresent()`,
+     * `.describedAs()`, or custom methods on {@link Question} subclasses) take priority
+     * over proxied methods from the resolved answer type.
+     *
+     * Use this method when creating custom {@link Question} subclasses that need
+     * to expose domain-specific methods through the proxy. For example,
+     * `@serenity-js/web` uses this to make `.element()` and `.elements()` available
+     * on `PageElement.located()` results.
+     *
+     * @param statement
+     *
+     * @group Questions
+     */
+    static createAdapter<AT>(statement: Question<AT>): QuestionAdapter<Awaited<AT>> {
         function getStatement() {
             return statement;
         }
@@ -397,7 +496,7 @@ export abstract class Question<T> extends Describable {
                 const target = currentStatement();
 
                 if (key === util.inspect.custom) {
-                    return target[util.inspect.custom].bind(target);
+                    return target[util.inspect.custom]?.bind(target);
                 }
 
                 if (key === Symbol.toPrimitive) {

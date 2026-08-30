@@ -1,7 +1,6 @@
-import type { Question, QuestionAdapter } from '@serenity-js/core';
+import type { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
 import { Task } from '@serenity-js/core';
-import type { PageElement } from '@serenity-js/web';
-import { By, Text } from '@serenity-js/web';
+import { By, type PageElement, Text } from '@serenity-js/web';
 
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
@@ -37,7 +36,7 @@ import { Navigation } from '../common/Navigation.serenity.js';
  */
 export class AboutView<NET> extends InteractionObject<NET> {
 
-    constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
+    constructor(rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
         super(rootElement);
     }
 
@@ -66,7 +65,7 @@ export class AboutView<NET> extends InteractionObject<NET> {
      *  The exact `href` value to check for
      */
     hasLinkTo = (url: string): Question<Promise<boolean>> =>
-        this.child(By.css(`a[href="${url}"]`))
+        this.rootElement.element(By.css(`a[href="${url}"]`))
             .isPresent()
             .describedAs(`whether the about view has a link to ${url}`);
 

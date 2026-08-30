@@ -1,5 +1,5 @@
-import type { Answerable, Optional, QuestionAdapter } from '@serenity-js/core';
-import { PageElement, PageElements, type Selector } from '@serenity-js/web';
+import type { Answerable, Optional } from '@serenity-js/core';
+import { PageElement, type PageElementAdapter } from '@serenity-js/web';
 
 /**
  * Options for configuring an {@link InteractionObject}.
@@ -46,13 +46,13 @@ export interface InteractionObjectOptions {
  * ## Declarative element access
  *
  * Interaction objects use the Page Element Query Language (PEQL) to locate elements
- * **relative to a root element**. The `child()` and `children()` methods scope all lookups
+ * **relative to a root element**. The `root.element()` and `root.elements()` methods scope all lookups
  * within the interaction object's root, preventing selector collisions between components.
  *
  * ```ts
- * // All selectors are scoped to this.rootElement — never global
- * private readonly title = this.child(By.css('.title')).describedAs('widget title');
- * private readonly items = this.children(By.css('.item')).describedAs('list items');
+ * // All selectors are scoped to this.root — never global
+ * private readonly title = this.rootElement.element(By.css('.title')).describedAs('widget title');
+ * private readonly items = this.rootElement.elements(By.css('.item')).describedAs('list items');
  * ```
  *
  * ## Composition
@@ -65,12 +65,12 @@ export interface InteractionObjectOptions {
  *         └── each scopes its own locators within the parent's root element
  * ```
  *
- * Child interaction objects are constructed with a scoped root element via `this.child(...)`:
+ * Child interaction objects are constructed with a scoped root element via `this.rootElement.element(...)`:
  *
  * ```ts
  * export class ScenariosView<NET> extends InteractionObject<NET> {
- *   readonly filterBar = new FilterBar(this.child(By.css('[data-testid="filter-bar"]')));
- *   readonly searchInput = new SearchInput(this.child(By.css('[data-testid="search-input"]')));
+ *   readonly filterBar = new FilterBar(this.rootElement.element(By.css('[data-testid="filter-bar"]')));
+ *   readonly searchInput = new SearchInput(this.rootElement.element(By.css('[data-testid="search-input"]')));
  * }
  * ```
  *
@@ -99,22 +99,22 @@ export interface InteractionObjectOptions {
  *
  *   // Questions — what the user observes
  *   label = (): QuestionAdapter<string> =>
- *     this.child(By.css('.todo-label')).text().trim()
+ *     this.rootElement.element(By.css('.todo-label')).text().trim()
  *       .describedAs('todo item label');
  *
  *   isCompleted = (): QuestionAdapter<string> =>
- *     Attribute.called('aria-checked').of(this.child(By.css('.checkbox')))
+ *     Attribute.called('aria-checked').of(this.rootElement.element(By.css('.checkbox')))
  *       .describedAs('whether todo is completed');
  *
  *   // Tasks — what the user does
  *   toggle = (): Task =>
  *     Task.where('#actor toggles the todo item',
- *       Click.on(this.child(By.css('.checkbox'))),
+ *       Click.on(this.rootElement.element(By.css('.checkbox'))),
  *     );
  *
  *   delete = (): Task =>
  *     Task.where('#actor deletes the todo item',
- *       Click.on(this.child(By.css('.delete-button'))),
+ *       Click.on(this.rootElement.element(By.css('.delete-button'))),
  *     );
  * }
  * ```
@@ -138,11 +138,13 @@ export interface InteractionObjectOptions {
  */
 export class InteractionObject<NET> implements Optional {
     protected readonly mobile: boolean;
+    protected readonly rootElement: PageElementAdapter<NET>;
 
     constructor(
-        protected readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>,
+        rootElement: Answerable<PageElement<NET>>,
         options?: InteractionObjectOptions,
     ) {
+        this.rootElement = PageElement.createAdapter(rootElement);
         this.mobile = options?.mobile ?? false;
     }
 
@@ -159,65 +161,5 @@ export class InteractionObject<NET> implements Optional {
      */
     isPresent(): Answerable<boolean> {
         return this.rootElement.isPresent();
-    }
-
-    /**
-     * Locates a single child element within this interaction object's root.
-     *
-     * All locators are scoped to `this.rootElement`, so selectors only match
-     * elements inside this component — never globally.
-     *
-     * ## Example
-     *
-     * ```ts
-     * private readonly title = this.child(By.css('.card-title'))
-     *   .describedAs('card title');
-     *
-     * // Use in a Question
-     * cardTitle = (): QuestionAdapter<string> =>
-     *   this.title.text().trim().describedAs('card title text');
-     * ```
-     *
-     * @param selector
-     *  CSS, XPath, or other selector to locate the child element
-     */
-    protected child(selector: Answerable<Selector>): QuestionAdapter<PageElement> {
-        return PageElement
-            .located(selector)
-            .of(this.rootElement);
-    }
-
-    /**
-     * Locates multiple child elements within this interaction object's root.
-     *
-     * Returns a PEQL collection that supports `.where()`, `.eachMappedTo()`,
-     * `.first()`, `.last()`, `.count()`, and other collection operations.
-     *
-     * ## Example
-     *
-     * ```ts
-     * private readonly items = this.children(By.css('.list-item'))
-     *   .describedAs('list items');
-     *
-     * // Count items
-     * itemCount = (): Question<Promise<number>> =>
-     *   this.items.count().describedAs('number of items');
-     *
-     * // Extract text from all items
-     * itemNames = (): Question<Promise<string[]>> =>
-     *   this.items.eachMappedTo(Text).describedAs('item names');
-     *
-     * // Filter then access
-     * itemCalled = (name: string) =>
-     *   this.items.where(Text, includes(name)).first();
-     * ```
-     *
-     * @param selector
-     *  CSS, XPath, or other selector to locate the child elements
-     */
-    protected children(selector: Answerable<Selector>): ReturnType<typeof PageElements.located> {
-        return PageElements
-            .located(selector)
-            .of(this.rootElement);
     }
 }

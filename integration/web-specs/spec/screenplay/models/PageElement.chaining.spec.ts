@@ -147,5 +147,146 @@ describe('PageElement', () => {
                     ),
                 ));
         });
+
+        describe('PEQL operations on .elements() results', () => {
+
+            // These tests verify that .elements() called on a PageElement.located()
+            // result returns a MetaList that preserves PEQL operations (.count(),
+            // .first(), .where(), .eachMappedTo()) at both the type and runtime level.
+
+            const parentWithMultipleChildren = () =>
+                PageElement.located(By.css('[data-test-id="filter-locator-pattern"] [data-test-id="parent-2"]'));
+
+            describe('.count()', () => {
+
+                it('counts the child elements within a parent', () =>
+                    actorCalled('Peggy').attemptsTo(
+                        Ensure.that(
+                            parentWithMultipleChildren()
+                                .elements(By.css('.child'))
+                                .count(),
+                            equals(2),
+                        ),
+                    ));
+            });
+
+            describe('.first()', () => {
+
+                it('retrieves the first child element', () =>
+                    actorCalled('Peggy').attemptsTo(
+                        Ensure.that(
+                            Text.of(
+                                parentWithMultipleChildren()
+                                    .elements(By.css('.child'))
+                                    .first()
+                            ),
+                            equals('tea'),
+                        ),
+                    ));
+            });
+
+            describe('.where()', () => {
+
+                it('filters children by text content', () =>
+                    actorCalled('Peggy').attemptsTo(
+                        Ensure.that(
+                            Text.of(
+                                parentWithMultipleChildren()
+                                    .elements(By.css('.child'))
+                                    .where(Text, includes('cof'))
+                                    .first()
+                            ),
+                            equals('coffee'),
+                        ),
+                    ));
+            });
+
+            describe('.eachMappedTo()', () => {
+
+                it('maps each child element to its text content', () =>
+                    actorCalled('Peggy').attemptsTo(
+                        Ensure.that(
+                            parentWithMultipleChildren()
+                                .elements(By.css('.child'))
+                                .eachMappedTo(Text),
+                            equals(['tea', 'coffee']),
+                        ),
+                    ));
+            });
+
+            describe('chaining multiple PEQL operations', () => {
+
+                const filterSection = () =>
+                    PageElement.located(By.css('[data-test-id="filter-locator-pattern"] [data-test-id="parent-1"]'));
+
+                it('filters and counts matching children', () =>
+                    actorCalled('Peggy').attemptsTo(
+                        Ensure.that(
+                            filterSection()
+                                .elements(By.css('.child'))
+                                .where(Text, includes('tea'))
+                                .count(),
+                            equals(1),
+                        ),
+                    ));
+
+                it('maps filtered children to text', () =>
+                    actorCalled('Peggy').attemptsTo(
+                        Ensure.that(
+                            filterSection()
+                                .elements(By.css('.child'))
+                                .where(Text, includes('tea'))
+                                .eachMappedTo(Text),
+                            equals(['tea']),
+                        ),
+                    ));
+            });
+
+            describe('deep chaining: elements → where → first → elements', () => {
+
+                const filterLocatorPattern = () =>
+                    PageElement.located(By.css('[data-test-id="filter-locator-pattern"]'));
+
+                it('chains .elements().where().first().elements().eachMappedTo()', () =>
+                    actorCalled('Peggy').attemptsTo(
+                        Ensure.that(
+                            filterLocatorPattern()
+                                .elements(By.css('.parent'))
+                                .where(Text, includes('tea'))
+                                .first()
+                                .elements(By.css('.child'))
+                                .eachMappedTo(Text),
+                            equals(['tea', 'juice']),
+                        ),
+                    ));
+
+                it('chains .elements().first().elements().count()', () =>
+                    actorCalled('Peggy').attemptsTo(
+                        Ensure.that(
+                            filterLocatorPattern()
+                                .elements(By.css('.parent'))
+                                .first()
+                                .elements(By.css('.child'))
+                                .count(),
+                            equals(2),
+                        ),
+                    ));
+
+                it('chains .elements().first().elements().where().first()', () =>
+                    actorCalled('Peggy').attemptsTo(
+                        Ensure.that(
+                            Text.of(
+                                filterLocatorPattern()
+                                    .elements(By.css('.parent'))
+                                    .first()
+                                    .elements(By.css('.child'))
+                                    .where(Text, includes('juice'))
+                                    .first()
+                            ),
+                            equals('juice'),
+                        ),
+                    ));
+            });
+        });
     });
 });

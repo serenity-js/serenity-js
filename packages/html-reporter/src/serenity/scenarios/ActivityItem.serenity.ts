@@ -28,7 +28,7 @@ import { InteractionObject } from '../common/InteractionObject.serenity.js';
 export class ActivityItem<NET> extends InteractionObject<NET> {
 
     private activityIcon = () =>
-        this.child(By.css('.activity-icon'))
+        this.rootElement.element(By.css('.activity-icon'))
             .describedAs('activity icon');
 
     /**
@@ -41,7 +41,7 @@ export class ActivityItem<NET> extends InteractionObject<NET> {
      * ```
      */
     name = (): QuestionAdapter<string> =>
-        this.child(By.css('.activity-name')).text().trim()
+        this.rootElement.element(By.css('.activity-name')).text().trim()
             .describedAs('activity name');
 
     /**

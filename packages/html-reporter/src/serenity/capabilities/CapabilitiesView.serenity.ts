@@ -57,37 +57,37 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
     private static readonly treeNodeLabelSelector = By.css('.req-tree-label');
 
     // Structure — child interaction objects
-    readonly searchInput = new SearchInput<NET>(this.child(By.css('[data-testid="search-input"]')));
-    readonly filterBar = new FilterBar<NET>(this.child(By.css('[data-testid="filter-bar"]')));
-    readonly resultCount = new ResultCount<NET>(this.child(By.css('[data-testid="result-count"]')));
+    readonly searchInput = new SearchInput<NET>(this.rootElement.element(By.css('[data-testid="search-input"]')));
+    readonly filterBar = new FilterBar<NET>(this.rootElement.element(By.css('[data-testid="filter-bar"]')));
+    readonly resultCount = new ResultCount<NET>(this.rootElement.element(By.css('[data-testid="result-count"]')));
 
     // Mobile child IOs (inside bottom sheet)
     private readonly mobileSearchInput = new SearchInput<NET>(
-        this.child(By.css('[data-testid="bottom-sheet"] [data-testid="search-input"]'))
+        this.rootElement.element(By.css('[data-testid="bottom-sheet"] [data-testid="search-input"]'))
     );
     private readonly mobileFilterBar = new FilterBar<NET>(
-        this.child(By.css('[data-testid="bottom-sheet"] [data-testid="filter-bar"]'))
+        this.rootElement.element(By.css('[data-testid="bottom-sheet"] [data-testid="filter-bar"]'))
     );
 
     // Structure — page elements
-    private readonly readmeLinks = this.children(By.css('.readme-content a')).describedAs('README links');
-    private readonly detailConfidence = this.child(By.css('.req-detail-confidence')).describedAs('detail panel confidence score');
-    private readonly detailConfidenceLabel = this.child(By.css('.req-detail-confidence-label')).describedAs('detail panel confidence label');
-    private readonly detailScenarioCount = this.child(By.css('.req-detail-scenario-count')).describedAs('detail panel scenario count');
-    private readonly childNames = this.children(By.css('.req-detail-child-name')).describedAs('child capability names');
-    private readonly treeNodes = this.children(By.css('.req-tree-node')).describedAs('tree nodes');
-    private readonly readmeSection = this.child(By.css('.readme-content')).describedAs('README section');
-    private readonly collapsibleReadme = this.children(By.css('details .readme-content')).describedAs('collapsible README sections');
-    private readonly sortSelectElement = this.child(By.css('.sort-select')).describedAs('sort dropdown');
-    private readonly detailTitleElement = this.child(By.css('.req-detail-title')).describedAs('detail title');
+    private readonly readmeLinks = this.rootElement.elements(By.css('.readme-content a')).describedAs('README links');
+    private readonly detailConfidence = this.rootElement.element(By.css('.req-detail-confidence')).describedAs('detail panel confidence score');
+    private readonly detailConfidenceLabel = this.rootElement.element(By.css('.req-detail-confidence-label')).describedAs('detail panel confidence label');
+    private readonly detailScenarioCount = this.rootElement.element(By.css('.req-detail-scenario-count')).describedAs('detail panel scenario count');
+    private readonly childNames = this.rootElement.elements(By.css('.req-detail-child-name')).describedAs('child capability names');
+    private readonly treeNodes = this.rootElement.elements(By.css('.req-tree-node')).describedAs('tree nodes');
+    private readonly readmeSection = this.rootElement.element(By.css('.readme-content')).describedAs('README section');
+    private readonly collapsibleReadme = this.rootElement.elements(By.css('details .readme-content')).describedAs('collapsible README sections');
+    private readonly sortSelectElement = this.rootElement.element(By.css('.sort-select')).describedAs('sort dropdown');
+    private readonly detailTitleElement = this.rootElement.element(By.css('.req-detail-title')).describedAs('detail title');
 
     // Mobile helpers
     private treeSheetTrigger = () =>
-        this.child(By.css('[aria-label="Browse capabilities"]'))
+        this.rootElement.element(By.css('[aria-label="Browse capabilities"]'))
             .describedAs('tree sheet trigger');
 
     private bottomSheetClose = () =>
-        this.child(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
+        this.rootElement.element(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
             .describedAs('bottom sheet close button');
 
     private openTreeSheet = (): Task =>
@@ -100,7 +100,7 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
             Click.on(this.bottomSheetClose()),
         );
 
-    constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation(), options?: InteractionObjectOptions) {
+    constructor(rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation(), options?: InteractionObjectOptions) {
         super(rootElement, options);
     }
 
@@ -440,7 +440,7 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
         this.mobile
             ? Task.where(the`#actor sorts by ${option}`,
                 this.openTreeSheet(),
-                Select.value(option).from(this.child(By.css('[data-testid="bottom-sheet"] .sort-select')).describedAs('mobile sort dropdown')),
+                Select.value(option).from(this.rootElement.element(By.css('[data-testid="bottom-sheet"] .sort-select')).describedAs('mobile sort dropdown')),
                 this.closeTreeSheet(),
             )
             : Task.where(the`#actor sorts by ${option}`,

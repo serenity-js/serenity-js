@@ -53,7 +53,7 @@ class HistoryDotOutcome {
  * import { By } from '@serenity-js/web';
  *
  * export class ScenarioItem<NET> extends InteractionObject<NET> {
- *   readonly historyDots = new HistoryDots(this.child(By.css('[data-testid="history-dots"]')));
+ *   readonly historyDots = new HistoryDots(this.rootElement.element(By.css('[data-testid="history-dots"]')));
  * }
  * ```
  *
@@ -72,7 +72,7 @@ class HistoryDotOutcome {
 export class HistoryDots<NET> extends InteractionObject<NET> {
 
     private dots = () =>
-        this.children(By.css('.history-dot'))
+        this.rootElement.elements(By.css('.history-dot'))
             .describedAs('history dots');
 
     /**

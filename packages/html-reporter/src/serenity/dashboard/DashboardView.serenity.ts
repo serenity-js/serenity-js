@@ -1,5 +1,5 @@
 import { includes } from '@serenity-js/assertions';
-import type { Question, QuestionAdapter } from '@serenity-js/core';
+import type { Answerable, Question } from '@serenity-js/core';
 import { Task } from '@serenity-js/core';
 import { Attribute, By, PageElement, PageElements, Text } from '@serenity-js/web';
 
@@ -49,11 +49,11 @@ export class DashboardView<NET> extends InteractionObject<NET> {
     private static readonly statusItemNameSelector = By.css('.status-item-name');
 
     // Structure — page elements
-    private readonly kpiCards = this.children(By.css('[data-testid="dashboard-kpi-card"]')).describedAs('dashboard KPI cards');
-    private readonly consistencyItems = this.children(By.css('[data-testid="dashboard-consistency-card"] .status-item')).describedAs('dashboard consistency items');
-    private readonly statusItemNames = this.children(By.css('[data-testid="dashboard-consistency-card"] .status-item-name')).describedAs('dashboard consistency item names');
+    private readonly kpiCards = this.rootElement.elements(By.css('[data-testid="dashboard-kpi-card"]')).describedAs('dashboard KPI cards');
+    private readonly consistencyItems = this.rootElement.elements(By.css('[data-testid="dashboard-consistency-card"] .status-item')).describedAs('dashboard consistency items');
+    private readonly statusItemNames = this.rootElement.elements(By.css('[data-testid="dashboard-consistency-card"] .status-item-name')).describedAs('dashboard consistency item names');
 
-    constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
+    constructor(rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
         super(rootElement);
     }
 
@@ -177,7 +177,7 @@ export class DashboardView<NET> extends InteractionObject<NET> {
      * ```
      */
     slowestTestNames = (): Question<Promise<string[]>> =>
-        this.children(By.css('[data-testid="dashboard-slowest-card"] .status-item-name'))
+        this.rootElement.elements(By.css('[data-testid="dashboard-slowest-card"] .status-item-name'))
             .eachMappedTo(Text)
             .describedAs('dashboard slowest test names');
 
@@ -193,7 +193,7 @@ export class DashboardView<NET> extends InteractionObject<NET> {
      * ```
      */
     hasTrendChart = (): Question<Promise<boolean>> =>
-        this.child(By.css('.dashboard-trend-card canvas'))
+        this.rootElement.element(By.css('.dashboard-trend-card canvas'))
             .isPresent()
             .describedAs('whether the dashboard has a trend chart');
 

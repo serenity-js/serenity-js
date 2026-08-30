@@ -3,7 +3,6 @@ import type {
     AnswersQuestions,
     MetaQuestion,
     MetaQuestionAdapter,
-    QuestionAdapter,
     UsesAbilities
 } from '@serenity-js/core';
 import { d, LogicError, Question } from '@serenity-js/core';
@@ -119,7 +118,7 @@ export class ComputedStyle<Native_Element_Type>
 
     protected constructor(
         private readonly name: Answerable<string>,
-        private readonly element?: QuestionAdapter<PageElement<Native_Element_Type>> | PageElement<Native_Element_Type>,
+        private readonly element?: Answerable<PageElement<Native_Element_Type>>,
         private readonly pseudoElement?: Answerable<string>,
     ) {
         super([
@@ -155,7 +154,7 @@ export class ComputedStyle<Native_Element_Type>
      *
      * @param pageElement
      */
-    of(pageElement: QuestionAdapter<PageElement<Native_Element_Type>> | PageElement<Native_Element_Type>): MetaQuestionAdapter<PageElement<Native_Element_Type>, string> {
+    of(pageElement: Answerable<PageElement<Native_Element_Type>>): MetaQuestionAdapter<PageElement<Native_Element_Type>, string> {
         return Question.createAdapter(
             new ComputedStyle<Native_Element_Type>(
                 this.name,

@@ -20,7 +20,7 @@ import { InteractionObject } from './InteractionObject.serenity.js';
  * import { By } from '@serenity-js/web';
  *
  * export class MyView<NET> extends InteractionObject<NET> {
- *   readonly searchInput = new SearchInput(this.child(By.css('[data-testid="search-input"]')));
+ *   readonly searchInput = new SearchInput(this.rootElement.element(By.css('[data-testid="search-input"]')));
  * }
  * ```
  *
@@ -42,11 +42,11 @@ import { InteractionObject } from './InteractionObject.serenity.js';
 export class SearchInput<NET> extends InteractionObject<NET> {
 
     private inputField = () =>
-        this.child(By.css('.search-input'))
+        this.rootElement.element(By.css('.search-input'))
             .describedAs('search input field');
 
     private clearButton = () =>
-        this.child(By.css('.btn-clear'))
+        this.rootElement.element(By.css('.btn-clear'))
             .describedAs('clear search button');
 
     /**

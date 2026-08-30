@@ -1,5 +1,5 @@
-import type { Answerable, MetaQuestion, MetaQuestionAdapter, Optional , QuestionAdapter} from '@serenity-js/core';
-import { Question, the } from '@serenity-js/core';
+import type { Answerable, AnswersQuestions, ChainableMetaQuestion, Expectation, Interaction, MetaQuestion, MetaQuestionAdapter, Optional, QuestionAdapter, QuestionAdapterFieldDecorator, UsesAbilities } from '@serenity-js/core';
+import { d, ListItemNotFoundError, MetaList, Question, the } from '@serenity-js/core';
 import { ensure, isDefined } from 'tiny-types';
 
 import { BrowseTheWeb } from '../abilities/index.js';
@@ -30,33 +30,49 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
         });
     }
 
-    static located<NET>(selector: Answerable<Selector>): MetaQuestionAdapter<PageElement<NET>, PageElement<NET>> {
+    static located<NET>(selector: Answerable<Selector>): PageElementAdapter<NET> {
         return Question.about(the`page element located ${ selector }`,
             async actor => {
-                const bySelector  = await actor.answer(selector);
+                const bySelector = await actor.answer(selector);
                 const currentPage = await BrowseTheWeb.as<BrowseTheWeb<NET>>(actor).currentPage();
-
                 return currentPage.locate(bySelector);
             },
-            (parent: Answerable<PageElement<NET>>) =>
-                Question.about(the`page element located ${ selector } of ${ parent }`, async actor => {
-                    const bySelector = await actor.answer(selector);
-                    const parentElement = await actor.answer(parent);
-                    return parentElement.element(bySelector);
-                })
-        );
+            pageElementExtensions<NET>(selector),
+        ) as unknown as PageElementAdapter<NET>;
+    }
+
+    /**
+     * Wraps any {@link Answerable}<{@link PageElement}> in a {@link PageElementAdapter},
+     * providing `.element()` and `.elements()` for scoped child element lookups.
+     *
+     * Used by {@link InteractionObject} to ensure the root element supports
+     * fluent child element access regardless of how it was constructed.
+     *
+     * @param element
+     */
+    static createAdapter<NET>(element: Answerable<PageElement<NET>>): PageElementAdapter<NET> {
+        return Question.about(`${ element }`,
+            async actor => actor.answer(element),
+            pageElementExtensions<NET>(),
+        ) as unknown as PageElementAdapter<NET>;
     }
 
     static of<NET>(
-        childElement: MetaQuestionAdapter<PageElement<NET>, PageElement<NET>> | PageElement<NET>,
+        childElement: Answerable<PageElement<NET>>,
         parentElement: Answerable<PageElement<NET>>
     ): MetaQuestionAdapter<PageElement<NET>, PageElement<NET>> {
-        return Question.about(the`${ childElement } of ${ parentElement }`, async actor => {
-            const parent = await actor.answer(parentElement);
-            const child = childElement.of(parent)
+        return Question.about(the`${ childElement } of ${ parentElement }`,
+            async actor => {
+                const parent = await actor.answer(parentElement);
+                const child = (childElement as any).of
+                    ? (childElement as any).of(parent)
+                    : childElement;
 
-            return actor.answer(child);
-        });
+                return actor.answer(child) as Promise<PageElement<NET>>;
+            },
+            (context: Answerable<PageElement<NET>>) =>
+                PageElement.of(childElement, context),
+        );
     }
 
     /**
@@ -292,4 +308,195 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
      * Otherwise, resolves to `false`.
      */
     abstract isVisible(): Promise<boolean>;
+}
+
+/**
+ * The return type of {@link PageElement.located} and related fluent chaining methods.
+ *
+ * Equivalent to {@link QuestionAdapter}<{@link PageElement}> but with correct return types
+ * for `.of()`, `.element()`, and `.elements()`:
+ *
+ * - `.of(parent)` returns `PageElementAdapter` (not plain `QuestionAdapter<PageElement>`)
+ * - `.element(selector)` returns `PageElementAdapter` (not `QuestionAdapter<PageElement>`)
+ * - `.elements(selector)` returns {@link PageElementList} with full PEQL support
+ *   (`.where()`, `.first()`, `.count()`, `.eachMappedTo()`, etc.)
+ *
+ * @group Models
+ */
+export type PageElementAdapter<NET> =
+    & Question<Promise<PageElement<NET>>>
+    & Interaction
+    & { isPresent(): Question<Promise<boolean>> }
+    & Omit<QuestionAdapterFieldDecorator<PageElement<NET>>, 'of' | 'element' | 'elements'>
+    & {
+        of(parent: Answerable<PageElement<NET>>): PageElementAdapter<NET>;
+        element(selector: Answerable<Selector>): PageElementAdapter<NET>;
+        elements(selector: Answerable<Selector>): PageElementList<NET>;
+    };
+
+/**
+ * Creates the extensions bag for {@link PageElement.located} and {@link PageElement.createAdapter}.
+ *
+ * The `.of()` extension rescopes the element within a parent.
+ * The `.element()` extension locates a single child element (returns a {@link PageElementAdapter}).
+ * The `.elements()` extension locates multiple children (returns a {@link PageElementList}).
+ *
+ * Extensions auto-propagate through `.of()` — a rescoped element retains
+ * `.element()` and `.elements()`.
+ *
+ * @param selector - When provided, `.of()` uses it to locate the element within the parent.
+ *                   When omitted (e.g. for {@link PageElement.createAdapter}), `.of()` is not available.
+ * @package
+ */
+function pageElementExtensions<NET>(selector?: Answerable<Selector>): Record<string, (...args: any[]) => any> {
+    const extensions: Record<string, (...args: any[]) => any> = {
+        element(this: Question<Promise<PageElement<NET>>>, childSelector: Answerable<Selector>) {
+            const parent = this;
+            return Question.about(the`${ parent }.element(${ childSelector })`,
+                async actor => {
+                    const parentElement = await actor.answer(parent);
+                    const resolved = await actor.answer(childSelector);
+                    return parentElement.element(resolved);
+                },
+                pageElementExtensions<NET>(),
+            ) as unknown as PageElementAdapter<NET>;
+        },
+
+        elements(this: Question<Promise<PageElement<NET>>>, childSelector: Answerable<Selector>) {
+            const parent = this;
+            return new PageElementList<NET>(
+                new PageElementsLocator<NET>(parent, childSelector),
+            );
+        },
+    };
+
+    if (selector !== undefined) {
+        extensions.of = (parent: Answerable<PageElement<NET>>) =>
+            Question.about(the`page element located ${ selector } of ${ parent }`,
+                async actor => {
+                    const bySelector = await actor.answer(selector);
+                    const parentElement = await actor.answer(parent);
+                    return parentElement.element(bySelector);
+                },
+            );
+    }
+
+    return extensions;
+}
+
+/**
+ * A {@link MetaList} of {@link PageElement PageElements} whose `.first()`,
+ * `.last()`, and `.nth()` return {@link PageElementAdapter} instead of
+ * plain `MetaQuestionAdapter`, preserving `.element()` and `.elements()`
+ * for continued fluent chaining.
+ *
+ * @group Models
+ */
+export class PageElementList<Native_Element_Type = any>
+    extends MetaList<PageElement<Native_Element_Type>, PageElement<Native_Element_Type>>
+{
+    override of(context: Answerable<PageElement<Native_Element_Type>>): PageElementList<Native_Element_Type> {
+        return new PageElementList<Native_Element_Type>(
+            this.collection.of(context),
+        ).describedAs(this.toString() + d` of ${ context }`) as PageElementList<Native_Element_Type>;
+    }
+
+    override where(expectation: Expectation<PageElement<Native_Element_Type>>): PageElementList<Native_Element_Type>;
+    override where<Answer_Type>(question: MetaQuestion<PageElement<Native_Element_Type>, Question<Promise<Answer_Type> | Answer_Type>>, expectation: Expectation<Answer_Type>): PageElementList<Native_Element_Type>;
+    override where(...args: unknown[]): PageElementList<Native_Element_Type> {
+        const baseResult = args.length === 1
+            ? super.where(args[0] as Expectation<PageElement<Native_Element_Type>>)
+            : super.where(args[0] as any, args[1] as any);
+        // super.where() returns new MetaList with the filtered collection.
+        // Re-wrap in PageElementList to preserve first()/last()/nth() overrides.
+        // TypeScript doesn't allow protected member access on a base-class instance
+        // returned from a method, so we use 'as any' to reach the collection.
+        return new PageElementList<Native_Element_Type>(
+            (baseResult as any).collection,
+        ).describedAs(baseResult.toString()) as PageElementList<Native_Element_Type>;
+    }
+
+    override first(): PageElementAdapter<Native_Element_Type> & MetaQuestionAdapter<PageElement<Native_Element_Type>, PageElement<Native_Element_Type>> {
+        const list = this;
+        return Question.about(
+            `the first of ${ this.toString() }`,
+            async actor => {
+                const items = await list.answeredBy(actor);
+                if (items.length === 0) {
+                    throw new ListItemNotFoundError(d`Can't retrieve the first item from a list with 0 items: ${ items }`);
+                }
+                return items[0];
+            },
+            pageElementExtensions<Native_Element_Type>(),
+        ) as unknown as PageElementAdapter<Native_Element_Type> & MetaQuestionAdapter<PageElement<Native_Element_Type>, PageElement<Native_Element_Type>>;
+    }
+
+    override last(): PageElementAdapter<Native_Element_Type> & MetaQuestionAdapter<PageElement<Native_Element_Type>, PageElement<Native_Element_Type>> {
+        const list = this;
+        return Question.about(
+            `the last of ${ this.toString() }`,
+            async actor => {
+                const items = await list.answeredBy(actor);
+                if (items.length === 0) {
+                    throw new ListItemNotFoundError(d`Can't retrieve the last item from a list with 0 items: ${ items }`);
+                }
+                return items.at(-1) as PageElement<Native_Element_Type>;
+            },
+            pageElementExtensions<Native_Element_Type>(),
+        ) as unknown as PageElementAdapter<Native_Element_Type> & MetaQuestionAdapter<PageElement<Native_Element_Type>, PageElement<Native_Element_Type>>;
+    }
+
+    override nth(index: number): PageElementAdapter<Native_Element_Type> & MetaQuestionAdapter<PageElement<Native_Element_Type>, PageElement<Native_Element_Type>> {
+        const list = this;
+        return Question.about(
+            `the ${ ordinal(index + 1) } of ${ this.toString() }`,
+            async actor => {
+                const items = await list.answeredBy(actor);
+                if (index < 0 || index >= items.length) {
+                    throw new ListItemNotFoundError(
+                        `Can't retrieve the ${ ordinal(index + 1) } item from a list with ${ items.length } items: ` + d`${ items }`,
+                    );
+                }
+                return items[index];
+            },
+            pageElementExtensions<Native_Element_Type>(),
+        ) as unknown as PageElementAdapter<Native_Element_Type> & MetaQuestionAdapter<PageElement<Native_Element_Type>, PageElement<Native_Element_Type>>;
+    }
+}
+
+function ordinal(n: number): string {
+    const suffixes = ['th', 'st', 'nd', 'rd'];
+    const v = n % 100;
+    return n + (suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0]);
+}
+
+/**
+ * Locates multiple child elements within a parent element,
+ * preserving `.of()` composability.
+ *
+ * @package
+ */
+class PageElementsLocator<Native_Element_Type = any>
+    extends Question<Promise<Array<PageElement<Native_Element_Type>>>>
+    implements ChainableMetaQuestion<PageElement<Native_Element_Type>, Question<Promise<Array<PageElement<Native_Element_Type>>>>>
+{
+    constructor(
+        private readonly parent: Answerable<PageElement<Native_Element_Type>>,
+        private readonly selector: Answerable<Selector>,
+    ) {
+        super(the`${ parent }.elements(${ selector })`);
+    }
+
+    of(context: Answerable<PageElement<Native_Element_Type>>): PageElementsLocator<Native_Element_Type> {
+        return new PageElementsLocator<Native_Element_Type>(
+            (this.parent as any).of(context),
+            this.selector,
+        );
+    }
+
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<PageElement<Native_Element_Type>>> {
+        const parentElement = await actor.answer(this.parent);
+        const selector = await actor.answer(this.selector);
+        return parentElement.elements(selector);
+    }
 }

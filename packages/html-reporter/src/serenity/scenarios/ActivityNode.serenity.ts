@@ -1,7 +1,6 @@
-import type { Question, QuestionAdapter } from '@serenity-js/core';
+import type { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
 import { Task } from '@serenity-js/core';
-import type { PageElement } from '@serenity-js/web';
-import { By, Click, Text } from '@serenity-js/web';
+import { By, Click, type PageElement, Text } from '@serenity-js/web';
 
 import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { RestQueryPanel } from '../common/RestQueryPanel.serenity.js';
@@ -9,20 +8,20 @@ import { RestQueryPanel } from '../common/RestQueryPanel.serenity.js';
 export class ActivityNode<NET> extends InteractionObject<NET> {
 
     private restBadge = () =>
-        this.child(By.css('.rest-badge'))
+        this.rootElement.element(By.css('.rest-badge'))
             .describedAs('REST badge');
 
     private restQueryPanelElement = () =>
-        this.child(By.css('[data-testid="rest-query-panel"]'))
+        this.rootElement.element(By.css('[data-testid="rest-query-panel"]'))
             .describedAs('REST query panel');
 
     private reportDataBlocks = () =>
-        this.children(By.css('.report-data-block'))
+        this.rootElement.elements(By.css('.report-data-block'))
             .describedAs('report data blocks');
 
     readonly restPanel: RestQueryPanel<NET>;
 
-    constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
+    constructor(rootElement: Answerable<PageElement<NET>>) {
         super(rootElement);
         this.restPanel = new RestQueryPanel(this.restQueryPanelElement());
     }

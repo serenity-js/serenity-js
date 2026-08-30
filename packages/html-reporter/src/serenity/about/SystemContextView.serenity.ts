@@ -1,5 +1,5 @@
 import { equals } from '@serenity-js/assertions';
-import type { QuestionAdapter } from '@serenity-js/core';
+import type { Answerable, QuestionAdapter } from '@serenity-js/core';
 import { Question, Task } from '@serenity-js/core';
 import { By, PageElement, Text } from '@serenity-js/web';
 
@@ -54,12 +54,12 @@ class ContextItem {
  */
 export class SystemContextView<NET> extends InteractionObject<NET> {
 
-    constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
+    constructor(rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
         super(rootElement);
     }
 
     private contextItemElements = () =>
-        this.children(By.css('.context-item'))
+        this.rootElement.elements(By.css('.context-item'))
             .describedAs('context items');
 
     private itemCalled = (name: string) =>
@@ -199,7 +199,7 @@ export class SystemContextView<NET> extends InteractionObject<NET> {
      * ```
      */
     commitMessage = (): QuestionAdapter<string> =>
-        this.child(By.css('.context-commit-msg'))
+        this.rootElement.element(By.css('.context-commit-msg'))
             .text()
             .trim()
             .describedAs('commit message');

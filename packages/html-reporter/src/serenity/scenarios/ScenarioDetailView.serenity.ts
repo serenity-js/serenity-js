@@ -1,5 +1,5 @@
 import { includes } from '@serenity-js/assertions';
-import type { Question, QuestionAdapter } from '@serenity-js/core';
+import type { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
 import { Task } from '@serenity-js/core';
 import { Attribute, By, Click, PageElement, Text } from '@serenity-js/web';
 
@@ -46,11 +46,11 @@ import { ActivityItem } from './ActivityItem.serenity.js';
 export class ScenarioDetailView<NET> extends InteractionObject<NET> {
 
     // Structure — page elements
-    private readonly errorBlockElement = this.child(By.css('[data-testid="error-block"]')).describedAs('error block');
-    private readonly copyButton = this.child(By.css('.copy-btn')).describedAs('copy source location button');
-    private readonly retryTabs = this.children(By.css('.retry-tab')).describedAs('retry tabs');
+    private readonly errorBlockElement = this.rootElement.element(By.css('[data-testid="error-block"]')).describedAs('error block');
+    private readonly copyButton = this.rootElement.element(By.css('.copy-btn')).describedAs('copy source location button');
+    private readonly retryTabs = this.rootElement.elements(By.css('.retry-tab')).describedAs('retry tabs');
 
-    constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
+    constructor(rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
         super(rootElement);
     }
 
@@ -66,7 +66,7 @@ export class ScenarioDetailView<NET> extends InteractionObject<NET> {
      * ```
      */
     scenarioName = (): QuestionAdapter<string> =>
-        this.child(By.css('.scenario-detail-title')).text().trim()
+        this.rootElement.element(By.css('.scenario-detail-title')).text().trim()
             .describedAs('scenario name');
 
     /**
@@ -79,7 +79,7 @@ export class ScenarioDetailView<NET> extends InteractionObject<NET> {
      * ```
      */
     sourcePath = (): QuestionAdapter<string> =>
-        this.child(By.css('.scenario-source')).text().trim()
+        this.rootElement.element(By.css('.scenario-source')).text().trim()
             .describedAs('scenario source path');
 
     /**
@@ -135,7 +135,7 @@ export class ScenarioDetailView<NET> extends InteractionObject<NET> {
      * ```
      */
     breadcrumbText = (): QuestionAdapter<string> =>
-        this.child(By.css('.breadcrumb')).text().trim()
+        this.rootElement.element(By.css('.breadcrumb')).text().trim()
             .describedAs('breadcrumb text');
 
     /**
@@ -157,7 +157,7 @@ export class ScenarioDetailView<NET> extends InteractionObject<NET> {
      *  Substring to match against activity names in the tree
      */
     activityCalled = (name: string): ActivityItem<NET> => {
-        const matchingRow = this.children(By.css('.activity-row'))
+        const matchingRow = this.rootElement.elements(By.css('.activity-row'))
             .where(Text.of(PageElement.located(By.css('.activity-name'))), includes(name))
             .first()
             .describedAs(`activity called "${name}"`);
@@ -176,7 +176,7 @@ export class ScenarioDetailView<NET> extends InteractionObject<NET> {
      * ```
      */
     executionHistoryDotCount = (): Question<Promise<number>> =>
-        this.children(By.css('.exec-history-dot'))
+        this.rootElement.elements(By.css('.exec-history-dot'))
             .count()
             .describedAs('execution history dot count');
 
@@ -190,7 +190,7 @@ export class ScenarioDetailView<NET> extends InteractionObject<NET> {
      * ```
      */
     photoStripCount = (): QuestionAdapter<number> =>
-        this.children(By.css('.photo-strip-item')).count()
+        this.rootElement.elements(By.css('.photo-strip-item')).count()
             .describedAs('photo strip count');
 
     /**
@@ -218,7 +218,7 @@ export class ScenarioDetailView<NET> extends InteractionObject<NET> {
      * ```
      */
     activeAttemptLabel = (): QuestionAdapter<string> =>
-        this.children(By.css('.retry-tab.active')).first().text().trim()
+        this.rootElement.elements(By.css('.retry-tab.active')).first().text().trim()
             .describedAs('active attempt tab label');
 
     /**
@@ -231,7 +231,7 @@ export class ScenarioDetailView<NET> extends InteractionObject<NET> {
      * ```
      */
     videoSource = (): QuestionAdapter<string> =>
-        Attribute.called('src').of(this.child(By.css('video source')))
+        Attribute.called('src').of(this.rootElement.element(By.css('video source')))
             .describedAs('video source URL');
 
     /**
@@ -244,7 +244,7 @@ export class ScenarioDetailView<NET> extends InteractionObject<NET> {
      * ```
      */
     hasVideo = (): Question<Promise<boolean>> =>
-        this.child(By.css('video')).isPresent()
+        this.rootElement.element(By.css('video')).isPresent()
             .describedAs('whether video is present');
 
     /**
@@ -257,7 +257,7 @@ export class ScenarioDetailView<NET> extends InteractionObject<NET> {
      * ```
      */
     metaText = (): QuestionAdapter<string> =>
-        this.child(By.css('.scenario-detail-meta')).text().trim()
+        this.rootElement.element(By.css('.scenario-detail-meta')).text().trim()
             .describedAs('scenario detail meta text');
 
     /**
@@ -270,7 +270,7 @@ export class ScenarioDetailView<NET> extends InteractionObject<NET> {
      * ```
      */
     activityTreeText = (): QuestionAdapter<string> =>
-        this.child(By.css('.activity-tree')).text().trim()
+        this.rootElement.element(By.css('.activity-tree')).text().trim()
             .describedAs('activity tree text');
 
     /**
@@ -334,7 +334,7 @@ export class ScenarioDetailView<NET> extends InteractionObject<NET> {
     openPhotoAt = (index: number): Task =>
         Task.where(`#actor opens photo at index ${ index }`,
             Click.on(
-                this.children(By.css('.photo-strip-item img'))
+                this.rootElement.elements(By.css('.photo-strip-item img'))
                     .nth(index)
                     .describedAs(`photo thumbnail #${ index }`)
             ),

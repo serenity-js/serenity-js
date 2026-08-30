@@ -34,15 +34,15 @@ import { InteractionObject } from '../common/InteractionObject.serenity.js';
 export class DashboardKpiCard<NET> extends InteractionObject<NET> {
 
     private labelElement = () =>
-        this.child(By.css('.kpi-label'))
+        this.rootElement.element(By.css('.kpi-label'))
             .describedAs('dashboard KPI card label');
 
     private valueElement = () =>
-        this.child(By.css('.kpi-value'))
+        this.rootElement.element(By.css('.kpi-value'))
             .describedAs('dashboard KPI card value');
 
     private subtitleElement = () =>
-        this.child(By.css('.kpi-subtitle'))
+        this.rootElement.element(By.css('.kpi-subtitle'))
             .describedAs('dashboard KPI card subtitle');
 
     /**

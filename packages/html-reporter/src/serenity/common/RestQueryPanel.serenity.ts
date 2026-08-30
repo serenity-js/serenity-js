@@ -18,7 +18,7 @@ import { InteractionObject } from './InteractionObject.serenity.js';
  * import { By } from '@serenity-js/web';
  *
  * export class ActivityItem<NET> extends InteractionObject<NET> {
- *   readonly restPanel = new RestQueryPanel(this.child(By.css('[data-testid="rest-panel"]')));
+ *   readonly restPanel = new RestQueryPanel(this.rootElement.element(By.css('[data-testid="rest-panel"]')));
  * }
  * ```
  *
@@ -48,7 +48,7 @@ export class RestQueryPanel<NET> extends InteractionObject<NET> {
      * ```
      */
     method = (): QuestionAdapter<string> =>
-        this.child(By.css('[data-testid="rest-method"]')).text().trim()
+        this.rootElement.element(By.css('[data-testid="rest-method"]')).text().trim()
             .describedAs('REST query HTTP method');
 
     /**
@@ -63,7 +63,7 @@ export class RestQueryPanel<NET> extends InteractionObject<NET> {
      * ```
      */
     url = (): QuestionAdapter<string> =>
-        this.child(By.css('[data-testid="rest-url"]')).text().trim()
+        this.rootElement.element(By.css('[data-testid="rest-url"]')).text().trim()
             .describedAs('REST query URL');
 
     /**
@@ -78,6 +78,6 @@ export class RestQueryPanel<NET> extends InteractionObject<NET> {
      * ```
      */
     statusCode = (): QuestionAdapter<string> =>
-        this.child(By.css('[data-testid="rest-status"]')).text().trim()
+        this.rootElement.element(By.css('[data-testid="rest-status"]')).text().trim()
             .describedAs('REST query status code');
 }

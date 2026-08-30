@@ -45,15 +45,15 @@ import { Navigation } from '../common/Navigation.serenity.js';
 export class TestRunsView<NET> extends InteractionObject<NET> {
 
     // Structure — page elements
-    private readonly chartCanvas = this.child(By.css('canvas')).describedAs('trend chart canvas');
+    private readonly chartCanvas = this.rootElement.element(By.css('canvas')).describedAs('trend chart canvas');
     private readonly appContainer = PageElement.located(By.css('#app')).describedAs('test runs view container');
-    private readonly runRows = this.children(By.css('.scenario-list .scenario-item')).describedAs('test run rows');
-    private readonly commitLink = this.child(By.css('a[href*="/commit/"]')).describedAs('commit link');
+    private readonly runRows = this.rootElement.elements(By.css('.scenario-list .scenario-item')).describedAs('test run rows');
+    private readonly commitLink = this.rootElement.element(By.css('a[href*="/commit/"]')).describedAs('commit link');
     private readonly detailsPanel = PageElement.located(By.css('[data-testid="run-details-panel"]')).describedAs('run details panel');
     private readonly detailsCta = PageElement.located(By.css('[data-testid="run-details-cta"]')).describedAs('run details CTA button');
     private readonly detailsTitle = PageElement.located(By.css('.run-details-title')).describedAs('run details title');
 
-    constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
+    constructor(rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
         super(rootElement);
     }
 

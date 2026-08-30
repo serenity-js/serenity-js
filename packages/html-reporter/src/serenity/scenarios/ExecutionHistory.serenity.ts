@@ -30,13 +30,13 @@ class ExecutionHistoryDotOutcome {
 export class ExecutionHistory<NET> extends InteractionObject<NET> {
 
     // Structure — page elements
-    private readonly titleElement = this.child(By.css('.card-title')).describedAs('execution history title');
-    private readonly summaryElement = this.child(By.css('.exec-history-summary')).describedAs('execution history summary');
-    private readonly dots = this.children(DOT_SELECTOR).describedAs('execution history dots');
-    private readonly items = this.children(By.css('.exec-history-item')).describedAs('execution history items');
-    private readonly activeItems = this.children(By.css('.exec-history-item--active')).describedAs('active execution history items');
-    private readonly dateHeaders = this.children(By.css('.exec-history-date')).describedAs('execution history date headers');
-    private readonly labelElements = this.children(By.css('.exec-history-label')).describedAs('execution history labels');
+    private readonly titleElement = this.rootElement.element(By.css('.card-title')).describedAs('execution history title');
+    private readonly summaryElement = this.rootElement.element(By.css('.exec-history-summary')).describedAs('execution history summary');
+    private readonly dots = this.rootElement.elements(DOT_SELECTOR).describedAs('execution history dots');
+    private readonly items = this.rootElement.elements(By.css('.exec-history-item')).describedAs('execution history items');
+    private readonly activeItems = this.rootElement.elements(By.css('.exec-history-item--active')).describedAs('active execution history items');
+    private readonly dateHeaders = this.rootElement.elements(By.css('.exec-history-date')).describedAs('execution history date headers');
+    private readonly labelElements = this.rootElement.elements(By.css('.exec-history-label')).describedAs('execution history labels');
 
     // Behaviour — questions
 

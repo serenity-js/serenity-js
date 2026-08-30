@@ -593,6 +593,126 @@ describe('Question', () => {
                 });
             });
         });
+
+        describe('creates an adapter with extensions, which', () => {
+
+            // Realistic example: a UI component question with child access.
+            // Similar to how PageElement.located() provides .element() and .elements()
+            // for scoped child lookups within a parent element.
+
+            interface Component {
+                name: string;
+                children: Component[];
+                toString(): string;
+            }
+
+            const app: Component = {
+                name: 'app', toString: () => 'app',
+                children: [
+                    {
+                        name: 'sidebar', toString: () => 'sidebar',
+                        children: [
+                            { name: 'nav', toString: () => 'nav', children: [] },
+                            { name: 'logo', toString: () => 'logo', children: [] },
+                        ],
+                    },
+                    {
+                        name: 'main', toString: () => 'main',
+                        children: [
+                            { name: 'heading', toString: () => 'heading', children: [] },
+                            { name: 'content', toString: () => 'content', children: [] },
+                        ],
+                    },
+                ],
+            };
+
+            function componentExtensions(componentName: string): Record<string, (...args: any[]) => any> {
+                return {
+                    of: (parent: Component) =>
+                        Question.about(
+                            `${ componentName } of ${ parent }`,
+                            () => parent.children.find(c => c.name === componentName),
+                        ),
+                    child: function (this: Question<Component>, childName: string) {
+                        const parent = this;
+                        return Question.about(
+                            `${ childName } of ${ parent }`,
+                            async (a: Actor) => {
+                                const resolved = await a.answer(parent);
+                                return resolved.children.find((c: Component) => c.name === childName);
+                            },
+                            componentExtensions(childName),
+                        );
+                    },
+                    childNames: function (this: Question<Component>) {
+                        const parent = this;
+                        return Question.about(
+                            `child names of ${ parent }`,
+                            async (a: Actor) => {
+                                const resolved = await a.answer(parent);
+                                return resolved.children.map((c: Component) => c.name);
+                            },
+                        );
+                    },
+                };
+            }
+
+            function component(name: string) {
+                return Question.about(
+                    name,
+                    () => app.children.find(c => c.name === name),
+                    componentExtensions(name),
+                );
+            }
+
+            describe('exposes extension methods through the proxy', () => {
+
+                it('makes extension methods available on the adapter', async () => {
+                    const result = await actor.answer(
+                        (component('sidebar') as any).childNames()
+                    );
+
+                    expect(result).to.deep.equal(['nav', 'logo']);
+                });
+
+                it('allows chaining extension methods', async () => {
+                    const result = await actor.answer(
+                        (component('main') as any).child('heading').childNames()
+                    );
+
+                    expect(result).to.deep.equal([]);
+                });
+
+                it('propagates extensions through .of()', async () => {
+                    const sidebar = component('sidebar');
+
+                    // .child() works on the original adapter
+                    const nav = await actor.answer((sidebar as any).child('nav'));
+                    expect(nav.name).to.equal('nav');
+
+                    // .of() rescopes — and the result still has .child()
+                    const main = (sidebar as any).of(app);
+                    const mainResult = await actor.answer(main);
+                    expect(mainResult.name).to.equal('sidebar');
+
+                    // .of().of() — extensions survive multiple levels of rescoping
+                    const rescoped = main.of(app);
+                    const rescopedResult = await actor.answer(rescoped);
+                    expect(rescopedResult.name).to.equal('sidebar');
+
+                    // .child() still works after .of().of()
+                    const childNames = await actor.answer(rescoped.childNames());
+                    expect(childNames).to.deep.equal(['nav', 'logo']);
+                });
+
+                it('preserves description set via .describedAs()', () => {
+                    const sidebar = component('sidebar').describedAs('the sidebar');
+
+                    expect((sidebar as any).of(app).toString())
+                        .to.equal('the sidebar of app');
+                });
+            });
+        });
     });
 });
 

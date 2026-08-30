@@ -1,6 +1,5 @@
-import type { QuestionAdapter } from '@serenity-js/core';
-import type { PageElement } from '@serenity-js/web';
-import { Attribute, Text } from '@serenity-js/web';
+import type { Answerable, QuestionAdapter } from '@serenity-js/core';
+import { Attribute, type PageElement, Text } from '@serenity-js/web';
 
 /**
  * Interaction object representing an outcome badge icon showing the execution result
@@ -22,7 +21,7 @@ import { Attribute, Text } from '@serenity-js/web';
  * import { By } from '@serenity-js/web';
  *
  * export class ScenarioItem<NET> extends InteractionObject<NET> {
- *   readonly badge = new OutcomeBadge(this.child(By.css('[data-testid="outcome-badge"]')));
+ *   readonly badge = new OutcomeBadge(this.rootElement.element(By.css('[data-testid="outcome-badge"]')));
  * }
  * ```
  *
@@ -39,7 +38,7 @@ import { Attribute, Text } from '@serenity-js/web';
  */
 export class OutcomeBadge<NET> {
 
-    constructor(private readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
+    constructor(private readonly rootElement: Answerable<PageElement<NET>>) {
     }
 
     /**

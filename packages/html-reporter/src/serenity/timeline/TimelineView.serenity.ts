@@ -1,5 +1,5 @@
 import { includes } from '@serenity-js/assertions';
-import type { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
+import type { Answerable, Question } from '@serenity-js/core';
 import { Task, the } from '@serenity-js/core';
 import { By, Click, PageElement, Text } from '@serenity-js/web';
 
@@ -51,18 +51,18 @@ import { Navigation } from '../common/Navigation.serenity.js';
 export class TimelineView<NET> extends InteractionObject<NET> {
 
     // Structure — child interaction objects
-    readonly filterBar = new FilterBar<NET>(this.child(By.css('[data-testid="filter-bar"]')));
+    readonly filterBar = new FilterBar<NET>(this.rootElement.element(By.css('[data-testid="filter-bar"]')));
 
     // Structure — mobile child interaction objects
     private readonly mobileFilterBar = new FilterBar<NET>(
-        this.child(By.css('[data-testid="bottom-sheet"] [data-testid="filter-bar"]'))
+        this.rootElement.element(By.css('[data-testid="bottom-sheet"] [data-testid="filter-bar"]'))
     );
 
     // Structure — page elements
-    private readonly kpiCards = this.children(By.css('[data-testid="kpi-card"]')).describedAs('timeline KPI cards');
+    private readonly kpiCards = this.rootElement.elements(By.css('[data-testid="kpi-card"]')).describedAs('timeline KPI cards');
 
     constructor(
-        rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>,
+        rootElement: Answerable<PageElement<NET>>,
         private readonly navigation: Navigation = new Navigation(),
         options?: InteractionObjectOptions,
     ) {
@@ -72,11 +72,11 @@ export class TimelineView<NET> extends InteractionObject<NET> {
     // Mobile helpers
 
     private filterSheetTrigger = () =>
-        this.child(By.css('[aria-label="Search and filter"]'))
+        this.rootElement.element(By.css('[aria-label="Search and filter"]'))
             .describedAs('filter sheet trigger');
 
     private bottomSheetClose = () =>
-        this.child(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
+        this.rootElement.element(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
             .describedAs('bottom sheet close button');
 
     private openFilterSheet = (): Task =>
@@ -151,7 +151,7 @@ export class TimelineView<NET> extends InteractionObject<NET> {
      * ```
      */
     scenarioCount = (): Question<Promise<number>> =>
-        this.children(By.css('.timeline-row')).count()
+        this.rootElement.elements(By.css('.timeline-row')).count()
             .describedAs('timeline scenario count');
 
     // Behaviour — tasks

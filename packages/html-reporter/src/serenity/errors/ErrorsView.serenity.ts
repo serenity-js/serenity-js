@@ -55,30 +55,30 @@ export class ErrorsView<NET> extends InteractionObject<NET> {
     private static readonly scenarioNameSelector = By.css('.scenario-name');
 
     // Structure — child interaction objects
-    readonly searchInput = new SearchInput<NET>(this.child(By.css('[data-testid="search-input"]')));
-    readonly resultCount = new ResultCount<NET>(this.child(By.css('[data-testid="result-count"]')));
+    readonly searchInput = new SearchInput<NET>(this.rootElement.element(By.css('[data-testid="search-input"]')));
+    readonly resultCount = new ResultCount<NET>(this.rootElement.element(By.css('[data-testid="result-count"]')));
 
     // Structure — mobile child interaction objects
     private readonly mobileSearchInput = new SearchInput<NET>(
-        this.child(By.css('[data-testid="bottom-sheet"] [data-testid="search-input"]'))
+        this.rootElement.element(By.css('[data-testid="bottom-sheet"] [data-testid="search-input"]'))
     );
 
     // Structure — page elements
-    private readonly kpiCards = this.children(By.css('[data-testid="kpi-card"]')).describedAs('errors KPI cards');
-    private readonly mobileKpiCards = this.children(By.css('[data-testid="bottom-sheet"] [data-testid="kpi-card"]')).describedAs('mobile errors KPI cards');
-    private readonly scenarioItems = this.children(By.css('.scenario-item')).describedAs('errors scenario items');
-    private readonly scenarioNameElements = this.children(ErrorsView.scenarioNameSelector).describedAs('errors scenario names');
+    private readonly kpiCards = this.rootElement.elements(By.css('[data-testid="kpi-card"]')).describedAs('errors KPI cards');
+    private readonly mobileKpiCards = this.rootElement.elements(By.css('[data-testid="bottom-sheet"] [data-testid="kpi-card"]')).describedAs('mobile errors KPI cards');
+    private readonly scenarioItems = this.rootElement.elements(By.css('.scenario-item')).describedAs('errors scenario items');
+    private readonly scenarioNameElements = this.rootElement.elements(ErrorsView.scenarioNameSelector).describedAs('errors scenario names');
 
     private filterSheetTrigger = () =>
-        this.child(By.css('[aria-label="Search and filter"]'))
+        this.rootElement.element(By.css('[aria-label="Search and filter"]'))
             .describedAs('filter sheet trigger');
 
     private statsSheetTrigger = () =>
-        this.child(By.css('[aria-label="Error statistics"]'))
+        this.rootElement.element(By.css('[aria-label="Error statistics"]'))
             .describedAs('stats sheet trigger');
 
     private bottomSheetClose = () =>
-        this.child(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
+        this.rootElement.element(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
             .describedAs('bottom sheet close button');
 
     private openFilterSheet = (): Task =>
@@ -130,7 +130,7 @@ export class ErrorsView<NET> extends InteractionObject<NET> {
                 .andIfSo(Click.on(this.bottomSheetClose())),
         );
 
-    constructor(rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>, private readonly navigation: Navigation = new Navigation(), options?: InteractionObjectOptions) {
+    constructor(rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation(), options?: InteractionObjectOptions) {
         super(rootElement, options);
     }
 

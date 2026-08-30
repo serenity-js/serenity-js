@@ -35,7 +35,7 @@ describe('isPresent', function () {
             | Expectation: isPresent\\(\\) 
             |
             | Expected boolean:\\s+true
-            | Received Proxy<MetaQuestionStatement>
+            | Received Proxy<QuestionStatement>
             |
             | [A-Za-z]+PageElement {
             |   locator: [A-Za-z]+Locator {
@@ -56,7 +56,7 @@ describe('isPresent', function () {
             | Expectation: isPresent\\(\\) 
             |
             | Expected boolean:\\s+true
-            | Received Proxy<MetaQuestionStatement>
+            | Received Proxy<QuestionStatement>
             |
             | [A-Za-z]+PageElement {
             |   locator: [A-Za-z]+Locator {

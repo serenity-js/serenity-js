@@ -7,15 +7,15 @@ import { InteractionObject } from './InteractionObject.serenity.js';
 export class HistoricalBanner<NET> extends InteractionObject<NET> {
 
     private strongElement = () =>
-        this.child(By.css('strong'))
+        this.rootElement.element(By.css('strong'))
             .describedAs('run label');
 
     private subtitleElement = () =>
-        this.child(By.css('.historical-banner-subtitle'))
+        this.rootElement.element(By.css('.historical-banner-subtitle'))
             .describedAs('subtitle');
 
     private showLatestLink = () =>
-        this.child(By.css('a.link-underline'))
+        this.rootElement.element(By.css('a.link-underline'))
             .describedAs('show latest link');
 
     text = (): QuestionAdapter<string> =>
@@ -27,7 +27,7 @@ export class HistoricalBanner<NET> extends InteractionObject<NET> {
             .describedAs('run label text');
 
     subtitle = (): QuestionAdapter<string> =>
-        Text.of(this.child(By.css('span'))).trim()
+        Text.of(this.rootElement.element(By.css('span'))).trim()
             .describedAs('banner subtitle area');
 
     showLatestLinkText = (): QuestionAdapter<string> =>

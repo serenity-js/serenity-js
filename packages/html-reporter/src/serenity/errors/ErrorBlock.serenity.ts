@@ -29,15 +29,15 @@ import { InteractionObject } from '../common/InteractionObject.serenity.js';
 export class ErrorBlock<NET> extends InteractionObject<NET> {
 
     private errorName = () =>
-        this.child(By.css('.error-name'))
+        this.rootElement.element(By.css('.error-name'))
             .describedAs('error name');
 
     private errorMessage = () =>
-        this.child(By.css('.error-message'))
+        this.rootElement.element(By.css('.error-message'))
             .describedAs('error message');
 
     private errorStack = () =>
-        this.child(By.css('.error-stack'))
+        this.rootElement.element(By.css('.error-stack'))
             .describedAs('error stack trace');
 
     /**
@@ -89,7 +89,7 @@ export class ErrorBlock<NET> extends InteractionObject<NET> {
      * ```
      */
     hasLocation = (): Question<Promise<boolean>> =>
-        this.child(By.css('.copy-location'))
+        this.rootElement.element(By.css('.copy-location'))
             .isPresent()
             .describedAs('whether error block shows a source location');
 }

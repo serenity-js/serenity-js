@@ -6,11 +6,11 @@ import { InteractionObject } from './InteractionObject.serenity.js';
 export class SegmentedBar<NET> extends InteractionObject<NET> {
 
     private hiddenText = () =>
-        this.child(By.css('.visually-hidden'))
+        this.rootElement.element(By.css('.visually-hidden'))
             .describedAs('visually-hidden text');
 
     private segments = () =>
-        this.children(By.css('[aria-hidden="true"]'))
+        this.rootElement.elements(By.css('[aria-hidden="true"]'))
             .describedAs('bar segments');
 
     accessibleLabel = (): QuestionAdapter<string> =>

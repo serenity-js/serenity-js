@@ -1,6 +1,5 @@
-import type { QuestionAdapter } from '@serenity-js/core';
-import type { PageElement } from '@serenity-js/web';
-import { Text } from '@serenity-js/web';
+import type { Answerable, QuestionAdapter } from '@serenity-js/core';
+import { type PageElement, Text } from '@serenity-js/web';
 
 /**
  * Simple interaction object representing the displayed result count
@@ -20,7 +19,7 @@ import { Text } from '@serenity-js/web';
  * import { By } from '@serenity-js/web';
  *
  * export class MyView<NET> extends InteractionObject<NET> {
- *   readonly resultCount = new ResultCount(this.child(By.css('[data-testid="result-count"]')));
+ *   readonly resultCount = new ResultCount(this.rootElement.element(By.css('[data-testid="result-count"]')));
  * }
  * ```
  *
@@ -36,7 +35,7 @@ import { Text } from '@serenity-js/web';
  */
 export class ResultCount<NET> {
 
-    constructor(private readonly rootElement: PageElement<NET> | QuestionAdapter<PageElement<NET>>) {
+    constructor(private readonly rootElement: Answerable<PageElement<NET>>) {
     }
 
     /**
