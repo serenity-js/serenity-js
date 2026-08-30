@@ -221,6 +221,19 @@ Examples of good clarifying questions:
 
 ## Pre-Commit Checklist
 
+Only create commits when the user explicitly asks. If unclear, ask first.
+
+Prefer new commits over `--amend`. Only amend your own unpushed commits when explicitly asked or incorporating pre-commit hook changes. Before every `git commit` or `git commit --amend`, run this check first:
+
+```bash
+git log --oneline origin/$(git branch --show-current)..HEAD
+```
+
+If the output is empty, the last commit is already pushed — **do not amend**. Create a new commit.
+
+- [ ] Git safety check passed (see above)
+- [ ] Commit type verified: if all changed files are in `examples/`, `integration/`, `spec/`, or `.kiro/`, the type MUST be `test` or `docs` — never `feat` or `fix`
+- [ ] No `BREAKING CHANGE` footer or `!` suffix without explicit maintainer approval
 - [ ] Every new feature has a failing test written first
 - [ ] Tests describe behaviour, not implementation details
 - [ ] Edge cases are covered with explicit examples
