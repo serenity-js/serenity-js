@@ -500,47 +500,19 @@ export abstract class Question<T> extends Describable {
                 }
 
                 if (key === Symbol.toPrimitive) {
-                    return (_hint: 'number' | 'string' | 'default') => {
-                        return target.toString();
-                    };
+                    return (_hint: 'number' | 'string' | 'default') => target.toString();
                 }
 
                 if (key in target) {
-
-                    const field = Reflect.get(target, key);
-
-                    const isFunction = typeof field == 'function'
-                    const mustAllowProxyChaining = isFunction
-                        && target instanceof QuestionStatement
-                        && key === 'describedAs';   // `describedAs` returns `this`, which must be bound to proxy itself to allow proxy chaining
-
-                    if (mustAllowProxyChaining) {
-                        // see https://javascript.info/proxy#proxy-limitations
-                        return field.bind(receiver)
-                    }
-
-                    return isFunction
-                        ? field.bind(target)
-                        : field;
+                    return Question.getOwnField(target, key, receiver);
                 }
 
+                // Prevent the proxy from being treated as a thenable
                 if (key === 'then') {
                     return;
                 }
 
-                return Question.about(Question.staticFieldDescription(target, key), async (actor: AnswersQuestions & UsesAbilities) => {
-                    const answer = await actor.answer(target as Answerable<AT>);
-
-                    if (!isDefined(answer)) {
-                        return undefined;
-                    }
-
-                    const field = answer[key];
-
-                    return typeof field === 'function'
-                        ? field.bind(answer)
-                        : field;
-                }).describedAs(Question.formattedValue());
+                return Question.getAnswerField(target, key);
             },
 
             set(currentStatement: () => Question<AT>, key: string | symbol, value: any, receiver: any): boolean {
@@ -571,6 +543,49 @@ export abstract class Question<T> extends Describable {
                 return Reflect.getPrototypeOf(currentStatement());
             },
         }) as any;
+    }
+
+    /**
+     * Returns a field that exists directly on the proxy target (the Question statement).
+     * Methods are bound to the target, except `describedAs` which is bound to the
+     * proxy receiver to allow chaining (e.g. `question.describedAs('x').text()`).
+     */
+    private static getOwnField<AT>(target: Question<AT>, key: string | symbol, receiver: any): any {
+        const field = Reflect.get(target, key);
+
+        if (typeof field !== 'function') {
+            return field;
+        }
+
+        // describedAs returns `this`, which must be the proxy (receiver) so that
+        // further method calls chain through the proxy rather than the raw target.
+        // See https://javascript.info/proxy#proxy-limitations
+        const mustBindToProxy = target instanceof QuestionStatement && key === 'describedAs';
+
+        return mustBindToProxy
+            ? field.bind(receiver)
+            : field.bind(target);
+    }
+
+    /**
+     * Creates a proxy-forwarded accessor for a property of the resolved answer.
+     * Used when the key doesn't exist on the target — the proxy resolves the
+     * question first, then accesses the key on the answer value.
+     */
+    private static getAnswerField<AT>(target: Question<AT>, key: string | symbol): QuestionAdapter<any> {
+        return Question.about(Question.staticFieldDescription(target, key), async (actor: AnswersQuestions & UsesAbilities) => {
+            const answer = await actor.answer(target as Answerable<AT>);
+
+            if (!isDefined(answer)) {
+                return undefined;
+            }
+
+            const field = answer[key];
+
+            return typeof field === 'function'
+                ? field.bind(answer)
+                : field;
+        }).describedAs(Question.formattedValue());
     }
 
     private static staticFieldDescription<AT>(target: Question<AT>, key: string | symbol): string {

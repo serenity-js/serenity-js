@@ -30,6 +30,39 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
         });
     }
 
+    /**
+     * Locates a single Web element by {@link Selector}.
+     *
+     * The returned adapter supports fluent child element access:
+     * - `.element(selector)` — locates a single child element within this element
+     * - `.elements(selector)` — locates all matching children, returning a
+     *   {@link PageElementList} with full PEQL support (`.where()`, `.first()`,
+     *   `.count()`, `.eachMappedTo()`, etc.)
+     * - `.of(parent)` — rescopes this element within a different parent
+     *
+     * #### Example
+     *
+     * ```ts
+     * import { By, PageElement, Text } from '@serenity-js/web'
+     * import { Ensure, equals, includes } from '@serenity-js/assertions'
+     *
+     * const todoList = PageElement.located(By.css('.todo-list'))
+     *   .describedAs('todo list')
+     *
+     * await actor.attemptsTo(
+     *   Ensure.that(
+     *     todoList.elements(By.css('.item'))
+     *       .where(Text, includes('cheese'))
+     *       .count(),
+     *     equals(1),
+     *   ),
+     * )
+     * ```
+     *
+     * @param selector
+     *
+     * @group Models
+     */
     static located<NET>(selector: Answerable<Selector>): PageElementAdapter<NET> {
         return Question.about(the`page element located ${ selector }`,
             async actor => {

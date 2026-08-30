@@ -31,6 +31,12 @@ Enforced by `commitlint` via Husky. Invalid commits are rejected.
 
 Breaking changes (`feat!` or `BREAKING CHANGE` footer) trigger a major version bump.
 
+## Test-Only Changes
+
+Changes that touch only `examples/`, `integration/`, or `spec/` directories must use `test` as the commit type — never `feat` or `fix`. These files are not published and should not trigger version bumps.
+
+The only exception is when test changes are part of the same commit as the production code they verify (e.g., `feat(web): add shadow DOM support` that includes both `src/` and `spec/` changes).
+
 ## ⚠️ CRITICAL: BREAKING CHANGE Usage
 
 **NEVER use `BREAKING CHANGE` in a commit footer unless explicitly approved by the maintainer.**
