@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.46.0](https://github.com/serenity-js/serenity-js/compare/v3.45.9...v3.46.0) (2026-08-30)
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v1.20.0 ([39823bf](https://github.com/serenity-js/serenity-js/commit/39823bf9ede13a76e7792c9de8cbdca0b40dc1cd))
+* **deps:** update html reporter dependencies ([031589a](https://github.com/serenity-js/serenity-js/commit/031589aaa7e08e0f1af2ea24bc1f33ecacc0b33b))
+* **deps:** update webdriverio dependencies ([26cc429](https://github.com/serenity-js/serenity-js/commit/26cc4295160bc85995b5923853097a5e95de567a))
+* **deps:** update webdriverio dependencies to ^9.31.4 ([b73d087](https://github.com/serenity-js/serenity-js/commit/b73d0878d5d8f2529231fc79ff56ab65ab4a0e87))
+* **html-reporter:** centralise quoted search term escaping via quotedSearchTerm() ([4e19a7b](https://github.com/serenity-js/serenity-js/commit/4e19a7b7eb0e80b8e260390739413a0652da8242))
+* **html-reporter:** handle double quotes in error search navigation ([be46d42](https://github.com/serenity-js/serenity-js/commit/be46d426f0e103fa665f6c9b9a728bf0cf61b0e8))
+
+### Features
+
+* **core:** add single-arg .where(expectation) overload for identity filtering ([4181376](https://github.com/serenity-js/serenity-js/commit/41813765fbccafc8fbae649f87debff7e6d690e0)), closes [#1339](https://github.com/serenity-js/serenity-js/issues/1339)
+* **examples:** add broken-persistence scenarios for error clustering demo ([d625241](https://github.com/serenity-js/serenity-js/commit/d625241defa6e7ca500cdadfdfa14275f4eefa3f))
+* **web:** add Locator.createChildLocator(selector) abstract method ([11fbeed](https://github.com/serenity-js/serenity-js/commit/11fbeede67b705ecc47339b78d8a223562d04fba)), closes [#1339](https://github.com/serenity-js/serenity-js/issues/1339)
+* **web:** add PageElement.element(selector) and PageElement.elements(selector) ([ea5eef1](https://github.com/serenity-js/serenity-js/commit/ea5eef1f966368601c53a5e7622ddcc103c32518)), closes [#1339](https://github.com/serenity-js/serenity-js/issues/1339)
+* **web:** fluent .element() and .elements() on PageElement.located() ([405ba4d](https://github.com/serenity-js/serenity-js/commit/405ba4dcb44b1a35e461d2a0076d190593789ff2))
+* **web:** implement ChainedElementQuestion and ChainedElementsLocator ([c912aae](https://github.com/serenity-js/serenity-js/commit/c912aae2808d8018e0e345f132ce2ae5f5dbec50)), closes [#1339](https://github.com/serenity-js/serenity-js/issues/1339)
+* **web:** wire PageElement.located() with metaQuestionBody for proper .of() support ([6421799](https://github.com/serenity-js/serenity-js/commit/642179931e009191f17b545794d93bf9a4faddd1)), closes [#1339](https://github.com/serenity-js/serenity-js/issues/1339)
+
+
 ## [3.45.9](https://github.com/serenity-js/serenity-js/compare/v3.45.8...v3.45.9) (2026-08-20)
 
 ### Bug Fixes

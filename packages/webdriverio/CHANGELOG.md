@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.46.0](https://github.com/serenity-js/serenity-js/compare/v3.45.9...v3.46.0) (2026-08-30)
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v1.20.0 ([39823bf](https://github.com/serenity-js/serenity-js/commit/39823bf9ede13a76e7792c9de8cbdca0b40dc1cd))
+* **deps:** update webdriverio dependencies ([26cc429](https://github.com/serenity-js/serenity-js/commit/26cc4295160bc85995b5923853097a5e95de567a))
+* **deps:** update webdriverio dependencies to ^9.31.4 ([b73d087](https://github.com/serenity-js/serenity-js/commit/b73d0878d5d8f2529231fc79ff56ab65ab4a0e87))
+
+### Features
+
+* **web:** add Locator.createChildLocator(selector) abstract method ([11fbeed](https://github.com/serenity-js/serenity-js/commit/11fbeede67b705ecc47339b78d8a223562d04fba)), closes [#1339](https://github.com/serenity-js/serenity-js/issues/1339)
+* **web:** add PageElement.element(selector) and PageElement.elements(selector) ([ea5eef1](https://github.com/serenity-js/serenity-js/commit/ea5eef1f966368601c53a5e7622ddcc103c32518)), closes [#1339](https://github.com/serenity-js/serenity-js/issues/1339)
+
+
 ## [3.45.9](https://github.com/serenity-js/serenity-js/compare/v3.45.8...v3.45.9) (2026-08-20)
 
 **Note:** Version bump only for package @serenity-js/webdriverio

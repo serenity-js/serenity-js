@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.46.0](https://github.com/serenity-js/serenity-js/compare/v3.45.9...v3.46.0) (2026-08-30)
+
+### Bug Fixes
+
+* **deps:** update html reporter dependencies ([031589a](https://github.com/serenity-js/serenity-js/commit/031589aaa7e08e0f1af2ea24bc1f33ecacc0b33b))
+* **html-reporter:** centralise quoted search term escaping via quotedSearchTerm() ([4e19a7b](https://github.com/serenity-js/serenity-js/commit/4e19a7b7eb0e80b8e260390739413a0652da8242))
+* **html-reporter:** handle double quotes in error search navigation ([be46d42](https://github.com/serenity-js/serenity-js/commit/be46d426f0e103fa665f6c9b9a728bf0cf61b0e8))
+
+### Features
+
+* **web:** fluent .element() and .elements() on PageElement.located() ([405ba4d](https://github.com/serenity-js/serenity-js/commit/405ba4dcb44b1a35e461d2a0076d190593789ff2))
+
+
 ## [3.45.9](https://github.com/serenity-js/serenity-js/compare/v3.45.8...v3.45.9) (2026-08-20)
 
 ### Bug Fixes

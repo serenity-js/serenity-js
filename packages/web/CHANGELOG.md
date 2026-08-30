@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.46.0](https://github.com/serenity-js/serenity-js/compare/v3.45.9...v3.46.0) (2026-08-30)
+
+### Features
+
+* **web:** add Locator.createChildLocator(selector) abstract method ([11fbeed](https://github.com/serenity-js/serenity-js/commit/11fbeede67b705ecc47339b78d8a223562d04fba)), closes [#1339](https://github.com/serenity-js/serenity-js/issues/1339)
+* **web:** add PageElement.element(selector) and PageElement.elements(selector) ([ea5eef1](https://github.com/serenity-js/serenity-js/commit/ea5eef1f966368601c53a5e7622ddcc103c32518)), closes [#1339](https://github.com/serenity-js/serenity-js/issues/1339)
+* **web:** fluent .element() and .elements() on PageElement.located() ([405ba4d](https://github.com/serenity-js/serenity-js/commit/405ba4dcb44b1a35e461d2a0076d190593789ff2))
+* **web:** implement ChainedElementQuestion and ChainedElementsLocator ([c912aae](https://github.com/serenity-js/serenity-js/commit/c912aae2808d8018e0e345f132ce2ae5f5dbec50)), closes [#1339](https://github.com/serenity-js/serenity-js/issues/1339)
+* **web:** wire PageElement.located() with metaQuestionBody for proper .of() support ([6421799](https://github.com/serenity-js/serenity-js/commit/642179931e009191f17b545794d93bf9a4faddd1)), closes [#1339](https://github.com/serenity-js/serenity-js/issues/1339)
+
+
 ## [3.45.9](https://github.com/serenity-js/serenity-js/compare/v3.45.8...v3.45.9) (2026-08-20)
 
 **Note:** Version bump only for package @serenity-js/web

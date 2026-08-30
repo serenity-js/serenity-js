@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.46.0](https://github.com/serenity-js/serenity-js/compare/v3.45.9...v3.46.0) (2026-08-30)
+
+### Features
+
+* **core:** add single-arg .where(expectation) overload for identity filtering ([4181376](https://github.com/serenity-js/serenity-js/commit/41813765fbccafc8fbae649f87debff7e6d690e0)), closes [#1339](https://github.com/serenity-js/serenity-js/issues/1339)
+* **web:** fluent .element() and .elements() on PageElement.located() ([405ba4d](https://github.com/serenity-js/serenity-js/commit/405ba4dcb44b1a35e461d2a0076d190593789ff2))
+
+
 ## [3.45.9](https://github.com/serenity-js/serenity-js/compare/v3.45.8...v3.45.9) (2026-08-20)
 
 **Note:** Version bump only for package @serenity-js/core

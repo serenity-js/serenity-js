@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.46.0](https://github.com/serenity-js/serenity-js/compare/v3.45.9...v3.46.0) (2026-08-30)
+
+### Features
+
+* **web:** add Locator.createChildLocator(selector) abstract method ([11fbeed](https://github.com/serenity-js/serenity-js/commit/11fbeede67b705ecc47339b78d8a223562d04fba)), closes [#1339](https://github.com/serenity-js/serenity-js/issues/1339)
+* **web:** add PageElement.element(selector) and PageElement.elements(selector) ([ea5eef1](https://github.com/serenity-js/serenity-js/commit/ea5eef1f966368601c53a5e7622ddcc103c32518)), closes [#1339](https://github.com/serenity-js/serenity-js/issues/1339)
+
+
 ## [3.45.9](https://github.com/serenity-js/serenity-js/compare/v3.45.8...v3.45.9) (2026-08-20)
 
 **Note:** Version bump only for package @serenity-js/playwright
