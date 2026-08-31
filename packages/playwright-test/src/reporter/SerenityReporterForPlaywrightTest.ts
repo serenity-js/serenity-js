@@ -3,9 +3,13 @@ import type { FullResult, Reporter, Suite, TestCase, TestError, TestResult, } fr
 import type { ClassDescription, StageCrewMember, StageCrewMemberBuilder } from '@serenity-js/core';
 import { Clock, Duration, Serenity, Timestamp } from '@serenity-js/core';
 import type { OutputStream } from '@serenity-js/core/adapter';
-import { TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/events';
-import { ExecutionFailedWithError, ExecutionSuccessful, } from '@serenity-js/core/model';
+import { type DomainEvent, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/events';
+import { type CorrelationId, ExecutionFailedWithError, ExecutionSuccessful, } from '@serenity-js/core/model';
 
+import { WorkerEventStreamer } from '../api/WorkerEventStreamer.js';
+import { PlaywrightSceneId } from '../events/index.js';
+import { LiveEventsCoordinator } from './LiveEventsCoordinator.js';
+import { LiveEventsServer } from './LiveEventsServer.js';
 import { PlaywrightErrorParser } from './PlaywrightErrorParser.js';
 import { PlaywrightEventBuffer } from './PlaywrightEventBuffer.js';
 import { PlaywrightTestSceneIdFactory } from './PlaywrightTestSceneIdFactory.js';
@@ -40,6 +44,26 @@ export interface SerenityReporterForPlaywrightTestConfig {
      * - [`SerenityConfig.outputStream`](https://serenity-js.org/api/core/class/SerenityConfig/#outputStream)
      */
     outputStream?: OutputStream;
+
+    /**
+     * When enabled, [Serenity/JS domain events](https://serenity-js.org/api/core-events/class/DomainEvent/) that occur in Playwright Test worker processes
+     * are streamed to the reporter process over a WebSocket connection and announced to the [stage crew members](https://serenity-js.org/api/core/interface/StageCrewMember/)
+     * as the scenario executes, rather than when the test is finished.
+     *
+     * This allows crew members to report progress of long-running scenarios in real time,
+     * for example to drive live dashboards or notify external services.
+     *
+     * Events that can't be delivered live, such as those recorded before a worker crashed,
+     * are announced when the test is finished, and each event is announced exactly once.
+     *
+     * Note that with parallel workers, events from concurrently executing scenarios are announced
+     * as they arrive, so crew members receive events from different scenes interleaved
+     * and should correlate them by their `sceneId`.
+     *
+     * Defaults to `false`, in which case all the events for a given scenario are announced together
+     * when the test is finished.
+     */
+    liveEvents?: boolean;
 }
 
 /**
@@ -57,6 +81,9 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     private readonly eventBuffer: PlaywrightEventBuffer = new PlaywrightEventBuffer();
     private readonly suiteTestCounts = new Map<Suite, number>();
 
+    private liveEventsServer?: LiveEventsServer;
+    private liveEventsCoordinator?: LiveEventsCoordinator;
+
     /**
      * @param config
      */
@@ -69,6 +96,24 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
             this.sceneIdFactory,
         )
         this.serenity.configure(config);
+
+        if (config.liveEvents) {
+            this.liveEventsCoordinator = new LiveEventsCoordinator(
+                (...events) => this.serenity.announce(...events),
+            );
+
+            this.liveEventsServer = new LiveEventsServer();
+            this.liveEventsServer.onEvent(event => this.liveEventsCoordinator.onStreamedEvent(event));
+            this.liveEventsServer.start()
+                .then(serverUrl => {
+                    process.env[WorkerEventStreamer.environmentVariableName] = serverUrl;
+                })
+                .catch(error => {
+                    console.warn(`[SerenityReporterForPlaywrightTest] Couldn't start the live events server, so events will be announced when each test is finished. ${ error }`);
+                    this.liveEventsServer = undefined;
+                    this.liveEventsCoordinator = undefined;
+                });
+        }
     }
 
     onBegin(config: FullConfig, suite: Suite): void {
@@ -91,7 +136,9 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
     }
 
     onTestBegin(test: TestCase, result: TestResult): void {
-        this.eventBuffer.appendTestStart(test, result);
+        const sceneStartEvents = this.eventBuffer.appendTestStart(test, result);
+
+        this.liveEventsCoordinator?.sceneStarted(this.sceneId(test, result), sceneStartEvents);
     }
 
     // TODO might be nice to support that by emitting TestStepStarted / Finished
@@ -120,11 +167,25 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
             const events = this.eventBuffer.flush(test, result);
 
-            this.serenity.announce(...events);
+            this.serenity.announce(...this.notYetAnnounced(events));
+
+            this.liveEventsCoordinator?.sceneFinished(this.sceneId(test, result));
         }
         else {
             this.eventBuffer.deferAppendingSceneFinishedEvent(test, result);
+
+            this.liveEventsCoordinator?.sceneFinishedButDeferred(this.sceneId(test, result));
         }
+    }
+
+    private sceneId(test: TestCase, result: TestResult): CorrelationId {
+        return PlaywrightSceneId.from(test.parent.project()?.name, test, result);
+    }
+
+    private notYetAnnounced(events: DomainEvent[]): DomainEvent[] {
+        return this.liveEventsCoordinator
+            ? this.liveEventsCoordinator.notYetAnnounced(events)
+            : events;
     }
 
     private countPendingAfterAllHooks(test: TestCase): number {
@@ -153,10 +214,15 @@ export class SerenityReporterForPlaywrightTest implements Reporter {
 
     async onEnd(fullResult: FullResult): Promise<void> {
 
+        if (this.liveEventsServer) {
+            await this.liveEventsServer.stop();
+            delete process.env[WorkerEventStreamer.environmentVariableName];
+        }
+
         const deferredEvents = this.eventBuffer.flushAllDeferred();
 
         this.serenity.announce(
-            ...deferredEvents,
+            ...this.notYetAnnounced(deferredEvents),
         );
 
         const fullDuration = Duration.ofMilliseconds(Math.round(fullResult.duration));
