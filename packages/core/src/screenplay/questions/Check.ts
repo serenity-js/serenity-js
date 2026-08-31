@@ -3,6 +3,7 @@ import type { PerformsActivities } from '../activities/index.js';
 import type { Activity } from '../Activity.js';
 import type { Answerable } from '../Answerable.js';
 import type { AnswersQuestions } from '../questions/index.js';
+import type { IsHidden } from '../reporting/index.js';
 import { Task } from '../Task.js';
 import type { Expectation } from './Expectation.js';
 import { ExpectationMet } from './expectations/index.js';
@@ -46,7 +47,7 @@ import { ExpectationMet } from './expectations/index.js';
  *
  * @group Activities
  */
-export class Check<Actual> extends Task {
+export class Check<Actual> extends Task implements IsHidden {
 
     static whether<Actual_Type>(actual: Answerable<Actual_Type>, expectation: Expectation<Actual_Type>): { andIfSo: (...activities: Activity[]) => Check<Actual_Type> } {
         return {
@@ -81,5 +82,15 @@ export class Check<Actual> extends Task {
         return outcome instanceof ExpectationMet
             ? actor.attemptsTo(...this.activities)
             : actor.attemptsTo(...this.alternativeActivities);
+    }
+
+    /**
+     * A [`Check`](https://serenity-js.org/api/core/class/Check/) is a flow-control statement, so its own step
+     * is omitted from the report; the activities it decides to perform are still reported.
+     *
+     * This mirrors Serenity BDD (Java), where `ConditionalPerformable` implements `IsHidden`.
+     */
+    isHidden(): boolean {
+        return true;
     }
 }

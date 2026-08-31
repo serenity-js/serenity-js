@@ -18,6 +18,7 @@ import type { PerformsActivities } from '../activities/PerformsActivities.js';
 import type { Activity } from '../Activity.js';
 import { Interaction } from '../Interaction.js';
 import type { AnswersQuestions } from '../questions/index.js';
+import { isHidden, isSilent } from '../reporting/index.js';
 import { Ability } from './Ability.js';
 import type { UsesAbilities } from './UsesAbilities.js';
 
@@ -31,6 +32,13 @@ import type { UsesAbilities } from './UsesAbilities.js';
  * @group Abilities
  */
 export class PerformActivities extends Ability {
+
+    /**
+     * Depth of the currently executing {@apilink IsSilent} activity subtree.
+     * While greater than zero, no activities are reported.
+     */
+    #silentActivityDepth = 0;
+
     constructor(
         protected readonly actor: AnswersQuestions & UsesAbilities & PerformsActivities & { name: string },
         protected readonly stage: EmitsDomainEvents,
@@ -47,35 +55,51 @@ export class PerformActivities extends Ability {
             ? [ InteractionStarts, InteractionFinished ]
             : [ TaskStarts, TaskFinished ];
 
+        const silent   = isSilent(activity);
+        const reported = ! isHidden(activity) && ! silent && this.#silentActivityDepth === 0;
+
+        if (silent) {
+            this.#silentActivityDepth++;
+        }
+
         try {
-            this.stage.announce(
-                new activityStarts(
-                    sceneId,
-                    activityId,
-                    details,
-                    this.stage.currentTime()
-                )
-            );
+            if (reported) {
+                this.stage.announce(
+                    new activityStarts(
+                        sceneId,
+                        activityId,
+                        details,
+                        this.stage.currentTime()
+                    )
+                );
+            }
 
             await activity.performAs(this.actor);
 
             const name = await activity.describedBy(this.actor);
 
-            this.stage.announce(
-                new activityFinished(
-                    sceneId,
-                    activityId,
-                    this.detailsOf(name, activity.instantiationLocation()),
-                    new ExecutionSuccessful(),
-                    this.stage.currentTime()
-                )
-            );
+            if (reported) {
+                this.stage.announce(
+                    new activityFinished(
+                        sceneId,
+                        activityId,
+                        this.detailsOf(name, activity.instantiationLocation()),
+                        new ExecutionSuccessful(),
+                        this.stage.currentTime()
+                    )
+                );
+            }
         }
         catch (error) {
-            this.stage.announce(new activityFinished(sceneId, activityId, details, this.outcomeFor(error), this.stage.currentTime()));
+            if (reported) {
+                this.stage.announce(new activityFinished(sceneId, activityId, details, this.outcomeFor(error), this.stage.currentTime()));
+            }
             throw error;
         }
         finally {
+            if (silent) {
+                this.#silentActivityDepth--;
+            }
             await this.stage.waitForNextCue();
         }
     }

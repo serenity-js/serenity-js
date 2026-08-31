@@ -12,6 +12,7 @@ export * from './Optional.js';
 export * from './Question.js';
 export * from './questions/index.js';
 export * from './RecursivelyAnswered.js';
+export * from './reporting/index.js';
 export * from './SerialisedActor.js';
 export * from './Task.js';
 export * from './time/index.js';
