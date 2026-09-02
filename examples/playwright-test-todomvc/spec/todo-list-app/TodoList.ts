@@ -9,7 +9,7 @@ import { TodoItem } from './TodoItem';
 export class TodoList extends InteractionObject {
 
     items = () =>
-        this.children(By.css('li'))
+        this.rootElement.elements(By.css('li'))
             .describedAs('displayed items');
 
     // Questions

@@ -7,14 +7,14 @@ import { InteractionObject } from './InteractionObject';
 export class Footer extends InteractionObject {
 
     private clearCompletedButton = () =>
-        this.child(By.css('.clear-completed'))
+        this.rootElement.element(By.css('.clear-completed'))
             .describedAs('clear completed button');
 
     // Questions
 
     outstandingItemsCount = () =>
         Text.of(
-            this.child(By.css('.todo-count strong')),
+            this.rootElement.element(By.css('.todo-count strong')),
         ).as(Number).describedAs('number of items left');
 
     clearCompletedButtonText = (): QuestionAdapter<string> =>

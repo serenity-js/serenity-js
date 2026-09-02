@@ -32,15 +32,15 @@ export class TodoItem extends InteractionObject {
     // Private elements
 
     private labelElement = () =>
-        this.child(By.css('label'))
+        this.rootElement.element(By.css('label'))
             .describedAs('label');
 
     private toggleButton = () =>
-        this.child(By.css('input.toggle'))
+        this.rootElement.element(By.css('input.toggle'))
             .describedAs('toggle button');
 
     private destroyButton = () =>
-        this.child(By.css('button.destroy'))
+        this.rootElement.element(By.css('button.destroy'))
             .describedAs('destroy button');
 
     private editorField = () =>

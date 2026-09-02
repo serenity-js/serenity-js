@@ -19,21 +19,21 @@ export interface PersistedTodoItem {
 export class TodoApp extends InteractionObject {
 
     readonly todoList = new TodoList(
-        this.child(By.css('.todo-list')).describedAs('todo list'),
+        this.rootElement.element(By.css('.todo-list')).describedAs('todo list'),
     );
 
     readonly footer = new Footer(
-        this.child(By.css('.footer')).describedAs('footer'),
+        this.rootElement.element(By.css('.footer')).describedAs('footer'),
     );
 
     // Private elements
 
     private newTodoInput = () =>
-        this.child(By.css('.new-todo'))
+        this.rootElement.element(By.css('.new-todo'))
             .describedAs('"What needs to be done?" input box');
 
     private mainSection = () =>
-        this.child(By.css('.main'))
+        this.rootElement.element(By.css('.main'))
             .describedAs('main section');
 
     private toggleAllButton = () =>
