@@ -35,6 +35,11 @@ Derived from the Serenity/JS blog and BDD in Action, Second Edition.
 - Frame code as the answer to a question. The text asks; the code block answers.
 - Minimal viable example. Strip to essentials.
 - Code follows prose, never leads. A sentence explains what the reader is about to see.
+- Before/after comparisons must show the same goal with both approaches — not different outcomes.
+- Extract duplicated selectors or repeated expressions into named fields or variables.
+- Show conversion/wrapping logic only where it's needed (the entry point), not in every class.
+- Omit generic type parameters (e.g. `<unknown>`) when they add noise without aiding comprehension.
+- No inline code in section headings — use plain English.
 
 ## Tone
 
@@ -42,6 +47,8 @@ Derived from the Serenity/JS blog and BDD in Action, Second Edition.
 - Pedagogical without being patronising — teach by making the reader feel smart.
 - Conversational register in blogs (contractions, direct address, shorter paragraphs).
 - Respectful disagreement — signal it explicitly, acknowledge the other position first.
+- When introducing a new pattern, frame it as an extension of what works — not a fix for what's broken.
+- Never gatekeep ("familiarise yourself with X before reading on"). Link to related material and let the reader decide when they need it.
 
 ## Rhetorical devices
 
