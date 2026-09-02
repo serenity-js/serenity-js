@@ -78,7 +78,7 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
      * Wraps any {@link Answerable}<{@link PageElement}> in a {@link PageElementAdapter},
      * providing `.element()` and `.elements()` for scoped child element lookups.
      *
-     * Used by interaction objects to ensure the root element supports
+     * Used by {@link InteractionObject} to ensure the root element supports
      * fluent child element access regardless of how it was constructed.
      *
      * @param element
