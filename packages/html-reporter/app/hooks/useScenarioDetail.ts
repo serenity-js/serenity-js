@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
-import type { ReportActivity, ReportAttempt, ReportError, ReportExecutionHistoryEntry, ReportHistoryEntry, ReportScenario } from '../../src/cli/reporting/ReportData.js';
+import type { ReportActivity, ReportAttempt, ReportError, ReportExecutionHistoryEntry, ReportHistoryEntry, ReportScenario, ReportScenarioTag } from '../../src/cli/reporting/ReportData.js';
 import { resolveRunIndex, useHashHistory } from '../utils/index.js';
 
 export interface ScenarioDetailState {
@@ -111,25 +111,26 @@ function findMatchingScenario(
 ): ReportScenario | null {
     const decoded = decodeURIComponent(cleanId);
 
+    const matchesTag = (tags: ReportScenarioTag[], type: string, value: string | null): boolean =>
+        !value || tags.some(t => t.type === type && t.name === value);
+
     const candidates = scenarios.filter(s => {
         const tags = s.tags || [];
-        if (browserString && !tags.some(t => t.type === 'browser' && t.name === browserString)) return false;
-        if (projectString && !tags.some(t => t.type === 'project' && t.name === projectString)) return false;
-        if (platformString && !tags.some(t => t.type === 'platform' && t.name === platformString)) return false;
-        return true;
+        return matchesTag(tags, 'browser', browserString)
+            && matchesTag(tags, 'project', projectString)
+            && matchesTag(tags, 'platform', platformString);
     });
 
     // First: try exact match on collision-aware id
-    const exactMatch = candidates.find(s => s.id === decoded);
-    if (exactMatch) return exactMatch;
-
     // Fallback: match by source key (backward compatible with old bookmarked URLs)
-    return candidates.find(s => {
-        const sourceKey = s.source.line
-            ? s.source.path + ':' + s.source.line
-            : s.source.path + ':' + s.name;
-        return sourceKey === decoded;
-    }) || null;
+    return candidates.find(s => s.id === decoded)
+        ?? candidates.find(s => {
+            const sourceKey = s.source.line
+                ? s.source.path + ':' + s.source.line
+                : s.source.path + ':' + s.name;
+            return sourceKey === decoded;
+        })
+        ?? null;
 }
 
 function resolveScenarioViewData(scenario: ReportScenario, runIndex: number | null, activeAttempt: number, history: ReportHistoryEntry[]) {

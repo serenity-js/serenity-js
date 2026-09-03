@@ -75,6 +75,25 @@ export function sceneIdentityWithinRun(scenes: SceneShape[]): (scene: SceneShape
 }
 
 /**
+ * Computes a match score and tiebreaker for two scenes.
+ * Score counts matching fields (0–3); tiebreaker encodes which fields matched
+ * so that path+name (6) > path+line (5) > line+name (3).
+ */
+function matchScore(
+    a: SceneShape,
+    b: SceneShape,
+): { score: number; tiebreaker: number } {
+    const pathMatch = a.source.path === b.source.path;
+    const lineMatch = a.source.line === b.source.line;
+    const nameMatch = a.name === b.name;
+
+    return {
+        score: +pathMatch + +lineMatch + +nameMatch,
+        tiebreaker: (pathMatch ? 4 : 0) + (nameMatch ? 2 : 0) + (lineMatch ? 1 : 0),
+    };
+}
+
+/**
  * Finds the best-matching candidate for a scene using 2-of-3 fuzzy matching
  * on path, line, and name. Used for cross-run history matching where a test
  * may have been renamed (path+line still match) or moved within a file
@@ -107,20 +126,9 @@ export function findHistoricalMatch<T extends SceneShape>(
             continue;
         }
 
-        const pathMatch = candidate.source.path === scene.source.path;
-        const lineMatch = candidate.source.line === scene.source.line;
-        const nameMatch = candidate.name === scene.name;
+        const { score, tiebreaker } = matchScore(scene, candidate);
 
-        const score = (pathMatch ? 1 : 0) + (lineMatch ? 1 : 0) + (nameMatch ? 1 : 0);
-
-        if (score < 2) {
-            continue;
-        }
-
-        // Tiebreaker: path+name (6) > path+line (5) > line+name (3)
-        const tiebreaker = (pathMatch ? 4 : 0) + (nameMatch ? 2 : 0) + (lineMatch ? 1 : 0);
-
-        if (score > bestScore || (score === bestScore && tiebreaker > bestTiebreaker)) {
+        if (score >= 2 && (score > bestScore || (score === bestScore && tiebreaker > bestTiebreaker))) {
             bestScore = score;
             bestTiebreaker = tiebreaker;
             bestMatch = candidate;
