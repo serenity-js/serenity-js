@@ -2343,9 +2343,6 @@ importers:
       c8:
         specifier: 12.0.0
         version: 12.0.0
-      chromedriver:
-        specifier: 148.0.4
-        version: 148.0.4(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0)
       mocha:
         specifier: 11.8.0
         version: 11.8.0
@@ -14299,7 +14296,8 @@ snapshots:
 
   '@teppeis/multimaps@3.0.0': {}
 
-  '@testim/chrome-version@1.1.4': {}
+  '@testim/chrome-version@1.1.4':
+    optional: true
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
 
@@ -15135,7 +15133,8 @@ snapshots:
 
   agent-base@7.1.4: {}
 
-  agent-base@9.0.0: {}
+  agent-base@9.0.0:
+    optional: true
 
   aggregate-error@3.1.0:
     dependencies:
@@ -15815,6 +15814,7 @@ snapshots:
       - debug
       - kerberos
       - supports-color
+    optional: true
 
   chromium-bidi@0.5.8(devtools-protocol@0.0.1232444):
     dependencies:
@@ -16017,7 +16017,8 @@ snapshots:
       array-ify: 1.0.0
       dot-prop: 5.3.0
 
-  compare-versions@6.1.1: {}
+  compare-versions@6.1.1:
+    optional: true
 
   compress-commons@6.0.2:
     dependencies:
@@ -16488,7 +16489,8 @@ snapshots:
 
   data-uri-to-buffer@6.0.2: {}
 
-  data-uri-to-buffer@8.0.0: {}
+  data-uri-to-buffer@8.0.0:
+    optional: true
 
   debug@2.6.9(supports-color@11.0.0):
     dependencies:
@@ -16615,6 +16617,7 @@ snapshots:
       escodegen: 2.1.0
       esprima: 4.0.1
       quickjs-wasi: 2.2.0
+    optional: true
 
   del@2.2.2:
     dependencies:
@@ -17691,6 +17694,7 @@ snapshots:
       debug: 4.4.3(supports-color@11.0.0)
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   get-uri@8.0.1(supports-color@8.1.1):
     dependencies:
@@ -18010,6 +18014,7 @@ snapshots:
     transitivePeerDependencies:
       - kerberos
       - supports-color
+    optional: true
 
   http-proxy-agent@9.1.0(supports-color@8.1.1):
     dependencies:
@@ -18110,6 +18115,7 @@ snapshots:
     transitivePeerDependencies:
       - kerberos
       - supports-color
+    optional: true
 
   https-proxy-agent@9.1.0(supports-color@8.1.1):
     dependencies:
@@ -19894,6 +19900,7 @@ snapshots:
     transitivePeerDependencies:
       - kerberos
       - supports-color
+    optional: true
 
   pac-proxy-agent@9.1.0(supports-color@8.1.1):
     dependencies:
@@ -19920,6 +19927,7 @@ snapshots:
       degenerator: 7.0.1(quickjs-wasi@2.2.0)
       netmask: 2.1.1
       quickjs-wasi: 2.2.0
+    optional: true
 
   package-json-from-dist@1.0.1: {}
 
@@ -20246,7 +20254,8 @@ snapshots:
       forwarded: 0.2.0
       ipaddr.js: 1.9.1
 
-  proxy-agent-negotiate@1.1.0: {}
+  proxy-agent-negotiate@1.1.0:
+    optional: true
 
   proxy-agent@6.3.1(supports-color@11.0.0):
     dependencies:
@@ -20287,6 +20296,7 @@ snapshots:
     transitivePeerDependencies:
       - kerberos
       - supports-color
+    optional: true
 
   proxy-agent@8.0.2(supports-color@8.1.1):
     dependencies:
@@ -20384,7 +20394,8 @@ snapshots:
 
   quick-lru@5.1.1: {}
 
-  quickjs-wasi@2.2.0: {}
+  quickjs-wasi@2.2.0:
+    optional: true
 
   quote-js-string@0.1.0: {}
 
@@ -21041,6 +21052,7 @@ snapshots:
       socks: 2.8.9
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   socks-proxy-agent@10.1.0(supports-color@8.1.1):
     dependencies:
