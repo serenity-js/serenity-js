@@ -4,7 +4,7 @@ import { useMemo } from 'preact/hooks';
 
 import type { ReportCapabilityNode, ReportHistoryEntry, ReportInconsistentTest, ReportScenario, ReportScenarioRef, ReportSummary, ReportSystemContext } from '../../../src/cli/reporting/ReportData.js';
 import { computeDashboardScores } from '../../utils/computeDashboardScores.js';
-import { sceneIdentity, tagDiscriminator } from '../../utils/navigation.js';
+import { findHistoricalMatch, sceneIdentity } from '../../utils/navigation.js';
 import { classifyConsistencyKind } from '../../utils/selectors.js';
 import { TrendChart } from '../common/charts/TrendChart.js';
 import { ViewTopbar } from '../common/ViewTopbar.js';
@@ -43,38 +43,7 @@ function confidenceSubtitle({ confidence, previousConfidence, totalScenarios, ru
 
 function createHistoryLookup(scenarios: ReportScenario[]): (t: ReportScenarioRef) => Array<{ outcome: string }> {
     return (t: ReportScenarioRef) => {
-        const hasLine = t.source.line !== undefined;
-        const key = t.source.path + ':' + (t.source.line || '');
-        const discriminator = tagDiscriminator(t.tags);
-
-        let match: ReportScenario | undefined;
-
-        if (discriminator) {
-            // With discriminator: try key first (only if line exists), then name+path
-            if (hasLine) {
-                match = scenarios.find(s =>
-                    s.source.path + ':' + (s.source.line || '') === key &&
-                    tagDiscriminator(s.tags) === discriminator
-                );
-            }
-            match ??= scenarios.find(s =>
-                s.name === t.name &&
-                s.source.path === t.source.path &&
-                tagDiscriminator(s.tags) === discriminator
-            );
-        } else {
-            // Without discriminator: try key first (only if line exists), then name+path
-            if (hasLine) {
-                match = scenarios.find(s =>
-                    s.source.path + ':' + (s.source.line || '') === key
-                );
-            }
-            match ??= scenarios.find(s =>
-                s.name === t.name &&
-                s.source.path === t.source.path
-            );
-        }
-
+        const match = findHistoricalMatch(t, scenarios);
         return match?.executionHistory?.slice(-5) ?? [];
     };
 }

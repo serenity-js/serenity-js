@@ -12,7 +12,7 @@ describe('Test Scenarios', () => {
                 scenariosView.open(),
 
                 Ensure.that(scenariosView.scenarioCount(), isGreaterThan(0)),
-                Ensure.that(scenariosView.scenarioCount(), isLessThan(24)),
+                Ensure.that(scenariosView.scenarioCount(), isLessThan(30)),
             );
         });
 

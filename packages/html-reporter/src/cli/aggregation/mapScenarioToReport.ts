@@ -1,7 +1,7 @@
 import { ExecutionSuccessful } from '@serenity-js/core/model';
 import { marked } from 'marked';
 
-import { resolveRunLabel, sceneIdentity } from '../model/index.js';
+import { findHistoricalMatch, resolveRunLabel } from '../model/index.js';
 import { outcomeCodeToDisplayString } from '../model/outcomes.js';
 import type { ActivityRecord, RunData, SceneRecord } from '../model/RunData.js';
 import type {
@@ -70,12 +70,15 @@ export function enrichSingleScenario(scene: SceneRecord, executionHistory: Repor
 /**
  * Builds the execution history for a scene across all available runs.
  *
+ * When multiple scenes in a historical run share the same base identity
+ * (e.g., dynamically-generated tests at the same source line), the scene
+ * name is used as a secondary disambiguator to match the correct entry.
+ *
  * @internal
  */
 export function buildExecutionHistory(scene: SceneRecord, allRuns: RunData[]): ReportExecutionHistoryEntry[] {
-    const key = sceneIdentity(scene);
     return allRuns.map(run => {
-        const match = run.scenes.find(s => sceneIdentity(s) === key);
+        const match = findHistoricalMatch(scene, run.scenes);
         if (!match) return undefined;
         const entry: ReportExecutionHistoryEntry = {
             outcome: outcomeCodeToDisplayString(match.outcome.code),

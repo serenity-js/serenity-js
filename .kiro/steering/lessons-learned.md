@@ -68,6 +68,22 @@ The helper lives in `SummaryJsonWriter.ts`. If needed elsewhere, extract to a sh
 
 `z.string().datetime()` is deprecated in Zod 4. Use `z.iso.datetime()` — produces identical JSON Schema output but avoids deprecation warnings.
 
+### Cross-run history matching uses `findHistoricalMatch`, not `sceneIdentity`
+
+`sceneIdentity()` produces exact `path:line` keys for **within-run** navigation identity (URLs, scenario detail routing). `findHistoricalMatch()` uses 2-of-3 fuzzy matching (path, line, name) for **cross-run** history — resilient to both renames and moves within a file. New code that correlates the same test across different runs must use `findHistoricalMatch` (or `groupOutcomesByScene` for bulk grouping), never `sceneIdentity`.
+
+### `groupOutcomesByScene` is the shared cross-run grouping primitive
+
+Both consistency scoring (`computeConsistencyAtRun`) and unstable test detection (`identifyUnstableTests`) delegate to `groupOutcomesByScene` in `model/groupScenes.ts`. New cross-run analysis should use it rather than rolling its own grouping loop. It returns `SceneOutcomeGroup[]` with `representative`, `outcomes`, and `labels`.
+
+### `effectiveOutcome` centralises the retried-pass classification
+
+A retried pass is classified as `RETRIED_SUCCESS` (distinct from `SUCCESS`) for consistency analysis. This logic lives in `effectiveOutcome()` in `model/outcomes.ts`. Do not inline the `retries > 0 && outcome === SUCCESS` ternary — call `effectiveOutcome(scene)` instead.
+
+### Client-side code reuses server-side matching via `app/utils/navigation.ts` adapters
+
+`findHistoricalMatch`, `sceneIdentity`, and `tagDiscriminator` from `cli/model/sceneIdentity.ts` are wrapped in `app/utils/navigation.ts` with client-friendly signatures (optional `line`, optional `tags`). Browser-side code imports from the adapter, not from the server module directly.
+
 ---
 
 ## HTML Reporter — CSS & Layout

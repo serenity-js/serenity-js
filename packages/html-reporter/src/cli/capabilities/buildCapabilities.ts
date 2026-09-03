@@ -4,7 +4,7 @@ import { Path } from '@serenity-js/core/io';
 import { scoreCapability, scoreDirectory } from '../analysis/CapabilityConfidenceScorer.js';
 import { mapOutcomeToKey, outcomeCodeToDisplayString } from '../model/outcomes.js';
 import type { RunData, SceneRecord } from '../model/RunData.js';
-import { sceneIdentity } from '../model/sceneIdentity.js';
+import { findHistoricalMatch } from '../model/sceneIdentity.js';
 import type { ReportCapabilityNode, ReportOutcomes } from '../reporting/ReportData.js';
 import { renderReadmeHtml } from './renderReadme.js';
 
@@ -73,14 +73,15 @@ function processSceneForCapabilities(
     const currentDirectory = ensureDirectoryChain(directories, root, nodeMap);
     const fileNode = ensureFileNode(segments, fileName, currentDirectory, nodeMap);
 
-    const outcomeKey = mapOutcomeToKey(outcomeCodeToDisplayString(scene.outcome.code)) as keyof ReportOutcomes;
+    const outcomeDisplay = outcomeCodeToDisplayString(scene.outcome.code);
+    const outcomeKey = mapOutcomeToKey(outcomeDisplay) as keyof ReportOutcomes;
 
     fileNode.scenarioCount++;
     fileNode.outcomes[outcomeKey]++;
 
     const executionHistory = buildExecutionHistory(scene, allRuns);
 
-    fileNode.scenarios.push({ name: scene.name, outcome: outcomeCodeToDisplayString(scene.outcome.code), executionHistory });
+    fileNode.scenarios.push({ name: scene.name, outcome: outcomeDisplay, executionHistory });
     if (scene.narrative && !fileNode.narrative) {
         fileNode.narrative = scene.narrative;
     }
@@ -122,9 +123,8 @@ function ensureFileNode(
 }
 
 function buildExecutionHistory(scene: SceneRecord, allRuns: RunData[]): string[] {
-    const scenarioKey = sceneIdentity(scene);
     return allRuns.map(r => {
-        const match = r.scenes.find(s => sceneIdentity(s) === scenarioKey);
+        const match = findHistoricalMatch(scene, r.scenes);
         return match ? outcomeCodeToDisplayString(match.outcome.code) : undefined;
     }).filter(Boolean) as string[];
 }

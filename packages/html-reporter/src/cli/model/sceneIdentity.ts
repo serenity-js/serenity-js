@@ -37,3 +37,95 @@ export function sceneIdentity(scene: { source: { path: string; line: number }; n
     const discriminator = tagDiscriminator(scene.tags);
     return discriminator ? `${ base }@${ discriminator }` : base;
 }
+
+type SceneShape = { source: { path: string; line: number }; name: string; tags: TagRecord[] };
+
+/**
+ * Creates a collision-aware identity function for scenes within a single run.
+ *
+ * When multiple scenes share the same `path:line` (and the same tag discriminator),
+ * such as tests generated dynamically via a `for` loop, the standard `sceneIdentity`
+ * produces identical keys for distinct tests. This function detects those collisions
+ * and appends the scenario name to disambiguate.
+ *
+ * Non-colliding scenes retain their original `path:line` identity, preserving
+ * backwards-compatible history matching for renamed tests.
+ *
+ * @param scenes - All scenes in the run
+ * @returns A function that produces a unique identity for each scene
+ *
+ * @internal
+ */
+export function sceneIdentityWithinRun(scenes: SceneShape[]): (scene: SceneShape) => string {
+    const baseIdentityCounts = new Map<string, number>();
+    for (const scene of scenes) {
+        const base = sceneIdentity(scene);
+        baseIdentityCounts.set(base, (baseIdentityCounts.get(base) || 0) + 1);
+    }
+
+    return (scene: SceneShape): string => {
+        const base = sceneIdentity(scene);
+        if (baseIdentityCounts.get(base) > 1 && scene.source.line) {
+            const discriminator = tagDiscriminator(scene.tags);
+            const nameQualified = `${ scene.source.path }:${ scene.source.line }:${ scene.name }`;
+            return discriminator ? `${ nameQualified }@${ discriminator }` : nameQualified;
+        }
+        return base;
+    };
+}
+
+/**
+ * Finds the best-matching candidate for a scene using 2-of-3 fuzzy matching
+ * on path, line, and name. Used for cross-run history matching where a test
+ * may have been renamed (path+line still match) or moved within a file
+ * (path+name still match).
+ *
+ * The tag discriminator (module, browser, project, platform) is a hard gate:
+ * candidates with a different discriminator are excluded before scoring.
+ *
+ * When multiple candidates score equally, tiebreaking prefers:
+ *   3/3 > path+name (6) > path+line (5) > line+name (3)
+ *
+ * @param scene      - The scene to find a historical match for
+ * @param candidates - All scenes from a historical run
+ * @returns The best-matching candidate, or `undefined` if no candidate scores ≥ 2
+ *
+ * @internal
+ */
+export function findHistoricalMatch<T extends SceneShape>(
+    scene: SceneShape,
+    candidates: T[],
+): T | undefined {
+    const sceneDiscriminator = tagDiscriminator(scene.tags);
+
+    let bestMatch: T | undefined;
+    let bestScore = 0;
+    let bestTiebreaker = 0;
+
+    for (const candidate of candidates) {
+        if (tagDiscriminator(candidate.tags) !== sceneDiscriminator) {
+            continue;
+        }
+
+        const pathMatch = candidate.source.path === scene.source.path;
+        const lineMatch = candidate.source.line === scene.source.line;
+        const nameMatch = candidate.name === scene.name;
+
+        const score = (pathMatch ? 1 : 0) + (lineMatch ? 1 : 0) + (nameMatch ? 1 : 0);
+
+        if (score < 2) {
+            continue;
+        }
+
+        // Tiebreaker: path+name (6) > path+line (5) > line+name (3)
+        const tiebreaker = (pathMatch ? 4 : 0) + (nameMatch ? 2 : 0) + (lineMatch ? 1 : 0);
+
+        if (score > bestScore || (score === bestScore && tiebreaker > bestTiebreaker)) {
+            bestScore = score;
+            bestTiebreaker = tiebreaker;
+            bestMatch = candidate;
+        }
+    }
+
+    return bestMatch;
+}

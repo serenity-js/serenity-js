@@ -1,4 +1,4 @@
-import { sceneIdentity as serverSceneIdentity, tagDiscriminator as serverTagDiscriminator } from '../../src/cli/model/sceneIdentity.js';
+import { findHistoricalMatch as serverFindHistoricalMatch, sceneIdentity as serverSceneIdentity, tagDiscriminator as serverTagDiscriminator } from '../../src/cli/model/sceneIdentity.js';
 import type { ReportScenarioTag, ReportSource } from '../../src/cli/reporting/ReportData.js';
 import { link } from './link.js';
 
@@ -12,6 +12,28 @@ import { link } from './link.js';
 export function tagDiscriminator(tags?: ReportScenarioTag[]): string {
     if (!tags) return '';
     return serverTagDiscriminator(tags);
+}
+
+/**
+ * Finds the best-matching candidate for a scenario using 2-of-3 fuzzy matching.
+ * Delegates to the server-side implementation, adapting the client-side types
+ * where `line` and `tags` may be optional.
+ */
+export function findHistoricalMatch<T extends { source: { path: string; line?: number }; name: string; tags?: Array<{ type: string; name: string }> }>(
+    scene: { source: { path: string; line?: number }; name: string; tags?: Array<{ type: string; name: string }> },
+    candidates: T[],
+): T | undefined {
+    const adapt = (s: { source: { path: string; line?: number }; name: string; tags?: Array<{ type: string; name: string }> }) => ({
+        source: { path: s.source.path, line: s.source.line as number },
+        name: s.name,
+        tags: s.tags || [],
+    });
+
+    // Build adapted candidates alongside originals so we can return the original
+    const adapted = candidates.map(c => adapt(c));
+    const match = serverFindHistoricalMatch(adapt(scene), adapted);
+    if (!match) return undefined;
+    return candidates[adapted.indexOf(match)];
 }
 
 /**
@@ -112,10 +134,11 @@ function stripAbsolutePrefix(filePath: string, specDirectory?: string): string {
     return filePath;
 }
 
-export function scenarioUrl(scenario: { source: ReportSource; name: string; tags?: ReportScenarioTag[] }, run?: number | string | null, history?: Array<{ timestamp: string }>): string {
-    const id = scenario.source.line
-        ? scenario.source.path + ':' + scenario.source.line
-        : scenario.source.path + ':' + scenario.name;
+export function scenarioUrl(scenario: { id?: string; source: ReportSource; name: string; tags?: ReportScenarioTag[] }, run?: number | string | null, history?: Array<{ timestamp: string }>): string {
+    const id = scenario.id
+        || (scenario.source.line
+            ? scenario.source.path + ':' + scenario.source.line
+            : scenario.source.path + ':' + scenario.name);
     
     // Determine run ID
     let runId: string | undefined;

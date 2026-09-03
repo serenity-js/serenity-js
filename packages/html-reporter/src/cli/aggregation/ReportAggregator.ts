@@ -6,6 +6,7 @@ import { buildHistory } from '../history/buildHistory.js';
 import {
     IncompatibleSchemaError,
     InvalidRunDataError,
+    sceneIdentityWithinRun,
     validateRunData
 } from '../model/index.js';
 import type { RunData } from '../model/RunData.js';
@@ -160,9 +161,12 @@ export abstract class ReportAggregator {
     }
 
     private enrichScenarios(latestRun: RunData, allRuns: RunData[]): ReportScenario[] {
+        const identity = sceneIdentityWithinRun(latestRun.scenes);
         return latestRun.scenes.map(scene => {
             const executionHistory = buildExecutionHistory(scene, allRuns);
-            return enrichSingleScenario(scene, executionHistory);
+            const enriched = enrichSingleScenario(scene, executionHistory);
+            enriched.id = identity(scene);
+            return enriched;
         });
     }
 

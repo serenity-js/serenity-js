@@ -109,17 +109,26 @@ function parseScenarioParameters(scenarioId: string) {
 function findMatchingScenario(
     scenarios: ReportScenario[], cleanId: string, projectString: string | null, browserString: string | null, platformString: string | null,
 ): ReportScenario | null {
-    return scenarios.find(s => {
-        const sourceKey = s.source.line
-            ? s.source.path + ':' + s.source.line
-            : s.source.path + ':' + s.name;
-        const idMatch = sourceKey === decodeURIComponent(cleanId) || s.id === cleanId;
-        if (!idMatch) return false;
+    const decoded = decodeURIComponent(cleanId);
+
+    const candidates = scenarios.filter(s => {
         const tags = s.tags || [];
         if (browserString && !tags.some(t => t.type === 'browser' && t.name === browserString)) return false;
         if (projectString && !tags.some(t => t.type === 'project' && t.name === projectString)) return false;
         if (platformString && !tags.some(t => t.type === 'platform' && t.name === platformString)) return false;
         return true;
+    });
+
+    // First: try exact match on collision-aware id
+    const exactMatch = candidates.find(s => s.id === decoded);
+    if (exactMatch) return exactMatch;
+
+    // Fallback: match by source key (backward compatible with old bookmarked URLs)
+    return candidates.find(s => {
+        const sourceKey = s.source.line
+            ? s.source.path + ':' + s.source.line
+            : s.source.path + ':' + s.name;
+        return sourceKey === decoded;
     }) || null;
 }
 

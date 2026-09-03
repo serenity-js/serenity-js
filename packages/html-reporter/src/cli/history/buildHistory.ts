@@ -1,9 +1,6 @@
-import { ExecutionSuccessful } from '@serenity-js/core/model';
-
-import { outcomeCodeToDisplayString } from '../model/outcomes.js';
+import { groupOutcomesByScene } from '../model/groupScenes.js';
 import { resolveRunLabel } from '../model/resolveRunLabel.js';
 import type { RunData } from '../model/RunData.js';
-import { sceneIdentity } from '../model/sceneIdentity.js';
 import type { ReportHistoryEntry } from '../reporting/ReportData.js';
 
 interface DurationStats {
@@ -41,22 +38,6 @@ function extractCiMetadata(run: RunData): CiMetadata {
 function computeRunScore(passRate: number, completeness: number, consistency: number): ReportHistoryEntry['score'] {
     const confidence = Math.round(completeness * 0.3 + passRate * 0.35 + consistency * 0.35);
     return { confidence, passRate, consistency, completeness };
-}
-
-function buildOutcomeMap(runs: RunData[]): Map<string, string[]> {
-    const testOutcomes = new Map<string, string[]>();
-    for (const run of runs) {
-        for (const scene of run.scenes) {
-            const identity = sceneIdentity(scene);
-            if (!testOutcomes.has(identity)) testOutcomes.set(identity, []);
-
-            const effectiveOutcome = (scene.retries > 0 && scene.outcome.code === ExecutionSuccessful.Code)
-                ? 'RETRIED_SUCCESS'
-                : outcomeCodeToDisplayString(scene.outcome.code);
-            testOutcomes.get(identity).push(effectiveOutcome);
-        }
-    }
-    return testOutcomes;
 }
 
 /**
@@ -100,15 +81,15 @@ export function buildHistory(allRuns: RunData[]): ReportHistoryEntry[] {
 export function computeConsistencyAtRun(runs: RunData[]): number {
     if (runs.length < 2) return 100;
 
-    const testOutcomes = buildOutcomeMap(runs);
+    const groups = groupOutcomesByScene(runs);
 
     let totalTests = 0;
     let stableTests = 0;
-    for (const [, outcomes] of testOutcomes) {
-        if (outcomes.length >= 2) {
+    for (const group of groups) {
+        if (group.outcomes.length >= 2) {
             totalTests++;
-            const uniqueOutcomes = new Set(outcomes);
-            if (uniqueOutcomes.size === 1 && !outcomes.includes('RETRIED_SUCCESS')) stableTests++;
+            const uniqueOutcomes = new Set(group.outcomes);
+            if (uniqueOutcomes.size === 1 && !group.outcomes.includes('RETRIED_SUCCESS')) stableTests++;
         }
     }
     return totalTests > 0 ? Math.round((stableTests / totalTests) * 100) : 100;
