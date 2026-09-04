@@ -112,16 +112,29 @@ function browserName(tag: string | null): string | null {
     return spaceIndex === -1 ? tag : tag.slice(0, spaceIndex);
 }
 
+function filterByTags(scenarios: ReportScenario[], browserString: string | null, projectString: string | null, platformString: string | null, relaxBrowser: boolean): ReportScenario[] {
+    const matchesTag = (tags: ReportScenarioTag[], type: string, value: string | null): boolean =>
+        !value || tags.some(t => t.type === type && t.name === value);
+
+    const matchesBrowser = (tags: ReportScenarioTag[], value: string | null): boolean => {
+        if (!value) return true;
+        return relaxBrowser
+            ? tags.some(t => t.type === 'browser' && browserName(t.name) === browserName(value))
+            : tags.some(t => t.type === 'browser' && t.name === value);
+    };
+
+    return scenarios.filter(s => {
+        const tags = s.tags || [];
+        return matchesBrowser(tags, browserString)
+            && matchesTag(tags, 'project', projectString)
+            && matchesTag(tags, 'platform', platformString);
+    });
+}
+
 function findMatchingScenario(
     scenarios: ReportScenario[], cleanId: string, projectString: string | null, browserString: string | null, platformString: string | null,
 ): ReportScenario | null {
     const decoded = decodeURIComponent(cleanId);
-
-    const matchesTag = (tags: ReportScenarioTag[], type: string, value: string | null): boolean =>
-        !value || tags.some(t => t.type === type && t.name === value);
-
-    const matchesBrowserName = (tags: ReportScenarioTag[], value: string | null): boolean =>
-        !value || tags.some(t => t.type === 'browser' && browserName(t.name) === browserName(value));
 
     const findById = (candidates: ReportScenario[]): ReportScenario | undefined =>
         candidates.find(s => s.id === decoded)
@@ -132,33 +145,16 @@ function findMatchingScenario(
             return sourceKey === decoded;
         });
 
-    // Try exact tag match first
-    const exactCandidates = scenarios.filter(s => {
-        const tags = s.tags || [];
-        return matchesTag(tags, 'browser', browserString)
-            && matchesTag(tags, 'project', projectString)
-            && matchesTag(tags, 'platform', platformString);
-    });
+    // Try exact tag match first, then fall back to browser-name-only matching
+    // to handle version drift between CI runs, bookmarked URLs, and consistency card links
+    const exactCandidates = filterByTags(scenarios, browserString, projectString, platformString, false);
+    const relaxedCandidates = browserString
+        ? filterByTags(scenarios, browserString, projectString, platformString, true)
+        : [];
 
-    const exactMatch = findById(exactCandidates);
-    if (exactMatch) {
-        return exactMatch;
-    }
-
-    // Fallback: match browser by name only (e.g. "chromium" matches "chromium 152.0.7977.82")
-    // Handles browser version drift between CI runs, bookmarked URLs, and consistency card links
-    if (browserString) {
-        const relaxedCandidates = scenarios.filter(s => {
-            const tags = s.tags || [];
-            return matchesBrowserName(tags, browserString)
-                && matchesTag(tags, 'project', projectString)
-                && matchesTag(tags, 'platform', platformString);
-        });
-
-        return findById(relaxedCandidates) ?? null;
-    }
-
-    return null;
+    return findById(exactCandidates)
+        ?? findById(relaxedCandidates)
+        ?? null;
 }
 
 function resolveScenarioViewData(scenario: ReportScenario, runIndex: number | null, activeAttempt: number, history: ReportHistoryEntry[]) {
