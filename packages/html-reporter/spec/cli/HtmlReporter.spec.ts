@@ -37,8 +37,7 @@ import {
 } from '@serenity-js/core/model';
 import { createFsFromVolume, Volume } from 'memfs';
 
-import corePkg from '../../../core/package.json' with { type: 'json' };
-import pkg from '../../package.json' with { type: 'json' };
+import corePackage from '../../../core/package.json' with { type: 'json' };
 import { SingleSourceAggregator } from '../../src/cli/aggregation/SingleSourceAggregator.js';
 import type { RuntimeContext } from '../../src/cli/collection/CiDetector.js';
 import type { ExecutionContext } from '../../src/cli/collection/ExecutionContext.js';
@@ -319,7 +318,7 @@ test.describe('HtmlReporter', () => {
             expect(content).toHaveProperty('systemContext');
             expect(content.systemContext).toHaveProperty('nodeVersion', process.version);
             expect(content.systemContext.os).toHaveProperty('arch');
-            expect(content.systemContext).toHaveProperty('serenityVersion', corePkg.version);
+            expect(content.systemContext).toHaveProperty('serenityVersion', corePackage.version);
             expect(content.systemContext.runtime).toHaveProperty('provider');
         });
 
