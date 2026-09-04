@@ -106,6 +106,12 @@ function parseScenarioParameters(scenarioId: string) {
     };
 }
 
+function browserName(tag: string | null): string | null {
+    if (!tag) return null;
+    const spaceIndex = tag.indexOf(' ');
+    return spaceIndex === -1 ? tag : tag.slice(0, spaceIndex);
+}
+
 function findMatchingScenario(
     scenarios: ReportScenario[], cleanId: string, projectString: string | null, browserString: string | null, platformString: string | null,
 ): ReportScenario | null {
@@ -114,23 +120,45 @@ function findMatchingScenario(
     const matchesTag = (tags: ReportScenarioTag[], type: string, value: string | null): boolean =>
         !value || tags.some(t => t.type === type && t.name === value);
 
-    const candidates = scenarios.filter(s => {
+    const matchesBrowserName = (tags: ReportScenarioTag[], value: string | null): boolean =>
+        !value || tags.some(t => t.type === 'browser' && browserName(t.name) === browserName(value));
+
+    const findById = (candidates: ReportScenario[]): ReportScenario | undefined =>
+        candidates.find(s => s.id === decoded)
+        ?? candidates.find(s => {
+            const sourceKey = s.source.line
+                ? s.source.path + ':' + s.source.line
+                : s.source.path + ':' + s.name;
+            return sourceKey === decoded;
+        });
+
+    // Try exact tag match first
+    const exactCandidates = scenarios.filter(s => {
         const tags = s.tags || [];
         return matchesTag(tags, 'browser', browserString)
             && matchesTag(tags, 'project', projectString)
             && matchesTag(tags, 'platform', platformString);
     });
 
-    // First: try exact match on collision-aware id
-    // Fallback: match by source key (backward compatible with old bookmarked URLs)
-    return candidates.find(s => s.id === decoded)
-        ?? candidates.find(s => {
-            const sourceKey = s.source.line
-                ? s.source.path + ':' + s.source.line
-                : s.source.path + ':' + s.name;
-            return sourceKey === decoded;
-        })
-        ?? null;
+    const exactMatch = findById(exactCandidates);
+    if (exactMatch) {
+        return exactMatch;
+    }
+
+    // Fallback: match browser by name only (e.g. "chromium" matches "chromium 152.0.7977.82")
+    // Handles browser version drift between CI runs, bookmarked URLs, and consistency card links
+    if (browserString) {
+        const relaxedCandidates = scenarios.filter(s => {
+            const tags = s.tags || [];
+            return matchesBrowserName(tags, browserString)
+                && matchesTag(tags, 'project', projectString)
+                && matchesTag(tags, 'platform', platformString);
+        });
+
+        return findById(relaxedCandidates) ?? null;
+    }
+
+    return null;
 }
 
 function resolveScenarioViewData(scenario: ReportScenario, runIndex: number | null, activeAttempt: number, history: ReportHistoryEntry[]) {
