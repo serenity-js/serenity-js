@@ -1,7 +1,7 @@
 import { ExecutionSuccessful } from '@serenity-js/core/model';
 
-import { resolveRunLabel, sceneIdentity } from '../model/index.js';
-import { outcomeCodeToDisplayString } from '../model/outcomes.js';
+import { groupOutcomesByScene } from '../model/groupScenes.js';
+import { findHistoricalMatch } from '../model/index.js';
 import type { RunData, TagRecord } from '../model/RunData.js';
 
 /**
@@ -16,44 +16,22 @@ export function identifyUnstableTests(
     consistencyWindow: number,
 ): Array<{ name: string; category: string; source: { path: string; line: number }; tags: TagRecord[]; inconsistencyRate: number; history: string[]; labels: string[] }> {
     const recentRuns = allRuns.slice(-consistencyWindow);
+    const groups = groupOutcomesByScene(recentRuns);
 
-    // Collect outcomes per test identity (name@path@project)
-    // Including the project tag ensures different browser/OS variations are tracked separately
-    const testOutcomes = new Map<string, { name: string; category: string; source: { path: string; line: number }; tags: TagRecord[]; outcomes: string[]; labels: string[] }>();
-
-    for (const run of recentRuns) {
-        const runLabel = resolveRunLabel(run);
-        for (const scene of run.scenes) {
-            const identity = sceneIdentity(scene);
-            if (!testOutcomes.has(identity)) {
-                testOutcomes.set(identity, { name: scene.name, category: scene.category, source: scene.source, tags: scene.tags, outcomes: [], labels: [] });
-            }
-            const entry = testOutcomes.get(identity);
-
-            // A retried pass counts as a distinct outcome signal
-            const effectiveOutcome = (scene.retries > 0 && scene.outcome.code === ExecutionSuccessful.Code)
-                ? 'RETRIED_SUCCESS'
-                : outcomeCodeToDisplayString(scene.outcome.code);
-            entry.outcomes.push(effectiveOutcome);
-            entry.labels.push(runLabel);
-        }
-    }
-
-    // Find tests with mixed outcomes or any retried success
     const unstable: Array<{ name: string; category: string; source: { path: string; line: number }; tags: TagRecord[]; inconsistencyRate: number; history: string[]; labels: string[] }> = [];
 
-    for (const [, test] of testOutcomes) {
-        const uniqueOutcomes = new Set(test.outcomes);
-        if (uniqueOutcomes.size > 1 || test.outcomes.includes('RETRIED_SUCCESS')) {
-            const failures = test.outcomes.filter(o => o !== 'SUCCESS').length;
+    for (const group of groups) {
+        const uniqueOutcomes = new Set(group.outcomes);
+        if (uniqueOutcomes.size > 1 || group.outcomes.includes('RETRIED_SUCCESS')) {
+            const failures = group.outcomes.filter(o => o !== 'SUCCESS').length;
             unstable.push({
-                name: test.name,
-                category: test.category,
-                source: test.source,
-                tags: test.tags,
-                inconsistencyRate: failures / test.outcomes.length,
-                history: test.outcomes,
-                labels: test.labels,
+                name: group.representative.name,
+                category: group.representative.category,
+                source: group.representative.source,
+                tags: group.representative.tags,
+                inconsistencyRate: failures / group.outcomes.length,
+                history: group.outcomes,
+                labels: group.labels,
             });
         }
     }
@@ -82,13 +60,11 @@ export function computeDegradedRecovered(allRuns: RunData[]): {
 
     const latestRun = allRuns[allRuns.length - 1];
     const previousRun = allRuns[allRuns.length - 2];
-    const previousOutcomes = new Map(previousRun.scenes.map(s => [sceneIdentity(s), s.outcome.code]));
 
     for (const scene of latestRun.scenes) {
-        const key = sceneIdentity(scene);
-        const previousCode = previousOutcomes.get(key);
-        if (previousCode !== undefined) {
-            const previousSuccess = previousCode === ExecutionSuccessful.Code;
+        const match = findHistoricalMatch(scene, previousRun.scenes);
+        if (match) {
+            const previousSuccess = match.outcome.code === ExecutionSuccessful.Code;
             const currentSuccess = scene.outcome.code === ExecutionSuccessful.Code;
             const currentRetried = scene.retries > 0 && currentSuccess;
             if (previousSuccess && !currentSuccess) {

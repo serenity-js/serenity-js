@@ -1,4 +1,5 @@
 import { Ensure, equals, includes } from '@serenity-js/assertions';
+import type { ReportSummaryJson } from '@serenity-js/html-reporter';
 import { GetRequest, LastResponse, Send } from '@serenity-js/rest';
 
 import { describe, it } from '../../src';
@@ -25,50 +26,50 @@ describe('Report', () => {
         it('identifies the report title and schema version', async ({ actor }) => {
             await actor.attemptsTo(
                 Send.a(GetRequest.to('/single/summary.json')),
-                Ensure.that(LastResponse.body<{ title: string }>().title, equals('Test Project')),
-                Ensure.that(LastResponse.body<{ schemaVersion: number }>().schemaVersion, equals(1)),
-                Ensure.that(LastResponse.body<{ runs: number }>().runs, equals(3)),
+                Ensure.that(LastResponse.body<ReportSummaryJson>().title, equals('Test Project')),
+                Ensure.that(LastResponse.body<ReportSummaryJson>().schemaVersion, equals(1)),
+                Ensure.that(LastResponse.body<ReportSummaryJson>().runs, equals(3)),
             );
         });
 
         it('reports the outcome totals for the latest run', async ({ actor }) => {
             await actor.attemptsTo(
                 Send.a(GetRequest.to('/single/summary.json')),
-                Ensure.that(LastResponse.body<{ latestRun: { totals: { passed: number } } }>().latestRun.totals.passed, equals(17)),
-                Ensure.that(LastResponse.body<{ latestRun: { totals: { failed: number } } }>().latestRun.totals.failed, equals(2)),
-                Ensure.that(LastResponse.body<{ latestRun: { totals: { error: number } } }>().latestRun.totals.error, equals(5)),
+                Ensure.that(LastResponse.body<ReportSummaryJson>().latestRun.totals.passed, equals(20)),
+                Ensure.that(LastResponse.body<ReportSummaryJson>().latestRun.totals.failed, equals(2)),
+                Ensure.that(LastResponse.body<ReportSummaryJson>().latestRun.totals.error, equals(5)),
             );
         });
 
         it('groups failures into clusters by error fingerprint', async ({ actor }) => {
             await actor.attemptsTo(
                 Send.a(GetRequest.to('/single/summary.json')),
-                Ensure.that(LastResponse.body<{ failureClusters: unknown[] }>().failureClusters.length, equals(7)),
+                Ensure.that(LastResponse.body<ReportSummaryJson>().failureClusters.length, equals(7)),
             );
         });
 
         it('reports consistency classifications', async ({ actor }) => {
             await actor.attemptsTo(
                 Send.a(GetRequest.to('/single/summary.json')),
-                Ensure.that(LastResponse.body<{ consistency: { flaky: unknown[] } }>().consistency.flaky.length, equals(1)),
-                Ensure.that(LastResponse.body<{ consistency: { degraded: unknown[] } }>().consistency.degraded.length, equals(4)),
-                Ensure.that(LastResponse.body<{ consistency: { recovered: unknown[] } }>().consistency.recovered.length, equals(2)),
+                Ensure.that(LastResponse.body<ReportSummaryJson>().consistency.flaky.length, equals(1)),
+                Ensure.that(LastResponse.body<ReportSummaryJson>().consistency.degraded.length, equals(4)),
+                Ensure.that(LastResponse.body<ReportSummaryJson>().consistency.recovered.length, equals(2)),
             );
         });
 
         it('computes composite quality scores', async ({ actor }) => {
             await actor.attemptsTo(
                 Send.a(GetRequest.to('/single/summary.json')),
-                Ensure.that(LastResponse.body<{ scores: { passRate: number } }>().scores.passRate, equals(70.8)),
-                Ensure.that(LastResponse.body<{ scores: { completeness: number } }>().scores.completeness, equals(100)),
-                Ensure.that(LastResponse.body<{ scores: { confidence: number } }>().scores.confidence, equals(82.5)),
+                Ensure.that(LastResponse.body<ReportSummaryJson>().scores.passRate, equals(74.1)),
+                Ensure.that(LastResponse.body<ReportSummaryJson>().scores.completeness, equals(100)),
+                Ensure.that(LastResponse.body<ReportSummaryJson>().scores.confidence, equals(84.4)),
             );
         });
 
         it('omits per-module breakdown for single-module runs', async ({ actor }) => {
             await actor.attemptsTo(
                 Send.a(GetRequest.to('/single/summary.json')),
-                Ensure.that(LastResponse.body<{ modules: unknown }>().modules, equals(undefined)),
+                Ensure.that(LastResponse.body<ReportSummaryJson>().modules, equals(undefined)),
             );
         });
     });

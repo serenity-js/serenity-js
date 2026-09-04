@@ -1,5 +1,6 @@
 export * from './classifyConsistencyKind.js';
 export * from './formatSource.js';
+export * from './groupScenes.js';
 export * from './outcomes.js';
 export * from './resolveRunLabel.js';
 export * from './RunData.js';

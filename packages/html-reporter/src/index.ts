@@ -25,6 +25,7 @@ export type {
     ReportSystemContext,
     ReportTag,
 } from './cli/reporting/ReportData.js';
+export type { ReportSummaryJson } from './cli/reporting/ReportSummaryJson.js';
 
 export default function create(config: HtmlReporterConfig = {}): StageCrewMemberBuilder<HtmlReporter> {
     return HtmlReporter.fromJSON(config);

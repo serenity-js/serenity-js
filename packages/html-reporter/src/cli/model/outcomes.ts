@@ -69,3 +69,15 @@ export function mapOutcomeToKey(outcome: string): string {
     const map: Record<string, string> = { SUCCESS: 'passed', FAILURE: 'failed', ERROR: 'error', COMPROMISED: 'compromised', PENDING: 'pending', SKIPPED: 'skipped' };
     return map[outcome] || 'error';
 }
+
+/**
+ * Computes the effective outcome label for a scene, treating a retried pass
+ * as a distinct `RETRIED_SUCCESS` signal rather than a plain success.
+ *
+ * @internal
+ */
+export function effectiveOutcome(scene: { retries?: number; outcome: { code: number } }): string {
+    return (scene.retries && scene.retries > 0 && scene.outcome.code === ExecutionSuccessful.Code)
+        ? 'RETRIED_SUCCESS'
+        : outcomeCodeToDisplayString(scene.outcome.code);
+}
