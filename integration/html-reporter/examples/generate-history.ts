@@ -32,6 +32,42 @@ const latestDatabasePath = isModuleBased
 
 const latestDatabase = JSON.parse(readFileSync(latestDatabasePath, 'utf8'));
 
+// Override scene durations with deterministic values so the "slowest tests"
+// ranking is stable across machines. Real Playwright execution times vary by
+// ~100ms between runs, which causes the top-5 list to shuffle non-deterministically.
+const sceneDurations: Record<string, number> = {
+    'Login should log in with valid credentials':                   5000,
+    'Login should reject invalid credentials':                      4500,
+    'Payment should display payment confirmation':                  4000,
+    'Cart should update item quantity':                             3500,
+    'Order Summary should apply a discount code':                   3000,
+    // ── everything below here stays out of the top 5 ──
+    'Order Summary should display the order total':                 500,
+    'Payment should reject an expired card':                        480,
+    'Payment should process a credit card payment':                 460,
+    'Password Reset should send a password reset email':            440,
+    'Password Reset should validate the reset token':               420,
+    'Login should display a timeout error when the server is slow': 400,
+    'Cart should add an item to the cart':                          380,
+    'Cart should remove an item from the cart':                     360,
+    'Completion should complete an item':                           340,
+    'Display should display items':                                 320,
+    'Display should add a new item':                                300,
+    'Display should filter items':                                  280,
+    'Persistence should persist items':                             260,
+    'Persistence should sync across tabs':                          240,
+    'Editing should edit an item':                                  220,
+};
+
+for (const scene of latestDatabase.scenes) {
+    if (sceneDurations[scene.name] !== undefined) {
+        scene.duration = sceneDurations[scene.name];
+    }
+}
+
+// Write back the patched durations so the aggregator reads deterministic data
+writeFileSync(latestDatabasePath, JSON.stringify(latestDatabase, undefined, 2), 'utf8');
+
 // Create a historical run (1 day earlier) with inverted outcomes:
 // - "should complete an item" was PASSING (now it fails → degraded)
 // - "should persist items" was FAILING (now it passes → recovered)
