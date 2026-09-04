@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.46.1](https://github.com/serenity-js/serenity-js/compare/v3.46.0...v3.46.1) (2026-09-04)
+
+### Bug Fixes
+
+* **deps:** update dependency zod to v4.5.4 ([7a96d85](https://github.com/serenity-js/serenity-js/commit/7a96d854546d58b30db1efe0fc36b52a1f961cc7))
+* **html-reporter:** use fuzzy matching for cross-run history ([98190d4](https://github.com/serenity-js/serenity-js/commit/98190d45d705d822f3a6321108642e586a79bf01))
+
+
 # [3.46.0](https://github.com/serenity-js/serenity-js/compare/v3.45.9...v3.46.0) (2026-08-30)
 
 ### Bug Fixes
