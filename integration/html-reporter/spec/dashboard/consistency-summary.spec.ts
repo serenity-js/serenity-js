@@ -1,4 +1,4 @@
-import { and, contain, Ensure } from '@serenity-js/assertions';
+import { and, contain, Ensure, equals } from '@serenity-js/assertions';
 
 import { describe, it } from '../../src';
 import { degradedTest, failingTest } from '../../src/scenarios';
@@ -24,7 +24,13 @@ describe('Dashboard', () => {
 
         it('shows the slowest tests by execution duration', async ({ actor, dashboardView }) => {
             await actor.attemptsTo(
-                Ensure.that(dashboardView.slowestTestNames(), contain('Login should log in with valid credentials')),
+                Ensure.that(dashboardView.slowestTestNames(), equals([
+                    'Login should log in with valid credentials',
+                    'Login should reject invalid credentials',
+                    'Payment should display payment confirmation',
+                    'Cart should update item quantity',
+                    'Order Summary should apply a discount code',
+                ])),
             );
         });
     });
