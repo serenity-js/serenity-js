@@ -18,8 +18,8 @@ importers:
         specifier: 19.8.1
         version: 19.8.1
       '@puppeteer/browsers':
-        specifier: 3.2.1
-        version: 3.2.1(proxy-agent@8.0.2(supports-color@8.1.1))(yauzl@3.4.0)
+        specifier: 3.2.2
+        version: 3.2.2(proxy-agent@8.0.2(supports-color@8.1.1))(yauzl@3.4.0)
       '@stylistic/eslint-plugin':
         specifier: 5.10.0
         version: 5.10.0(eslint@10.9.1(jiti@2.7.0)(supports-color@8.1.1))
@@ -5168,6 +5168,19 @@ packages:
 
   '@puppeteer/browsers@3.2.1':
     resolution: {integrity: sha512-KDz+3qDRdBAlRlMjmKyj6dEs33YHTk/xRHEENSXq6TNnhgoU15ruSHtEBeVF6OZ9tBDY55Se4P0nFMNsipzU9A==}
+    engines: {node: '>=22.12.0'}
+    hasBin: true
+    peerDependencies:
+      proxy-agent: '>=8.0.1'
+      yauzl: ^3.4.0
+    peerDependenciesMeta:
+      proxy-agent:
+        optional: true
+      yauzl:
+        optional: true
+
+  '@puppeteer/browsers@3.2.2':
+    resolution: {integrity: sha512-q2BU4YfO9h/Wt7IcWPcggpOOqLk2Tbs1hDwolvKZrweRjy751OJBKMN9zO5bfD0pzU7X/tvKw/exQds4pM/LOg==}
     engines: {node: '>=22.12.0'}
     hasBin: true
     peerDependencies:
@@ -14122,7 +14135,7 @@ snapshots:
       proxy-agent: 8.0.2(supports-color@11.0.0)
       yauzl: 3.4.0
 
-  '@puppeteer/browsers@3.2.1(proxy-agent@8.0.2(supports-color@8.1.1))(yauzl@3.4.0)':
+  '@puppeteer/browsers@3.2.2(proxy-agent@8.0.2(supports-color@8.1.1))(yauzl@3.4.0)':
     dependencies:
       modern-tar: 0.8.4
       yargs: 18.1.0
