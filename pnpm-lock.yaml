@@ -3664,8 +3664,8 @@ importers:
         specifier: 1.2.0
         version: 1.2.0
       puppeteer-core:
-        specifier: 25.9.0
-        version: 25.9.0(proxy-agent@8.0.2(supports-color@11.0.0))(yauzl@3.4.0)
+        specifier: 25.10.0
+        version: 25.10.0(proxy-agent@8.0.2(supports-color@11.0.0))(yauzl@3.4.0)
       start-server-and-test:
         specifier: 3.0.12
         version: 3.0.12(supports-color@11.0.0)
@@ -5168,6 +5168,19 @@ packages:
 
   '@puppeteer/browsers@3.2.1':
     resolution: {integrity: sha512-KDz+3qDRdBAlRlMjmKyj6dEs33YHTk/xRHEENSXq6TNnhgoU15ruSHtEBeVF6OZ9tBDY55Se4P0nFMNsipzU9A==}
+    engines: {node: '>=22.12.0'}
+    hasBin: true
+    peerDependencies:
+      proxy-agent: '>=8.0.1'
+      yauzl: ^3.4.0
+    peerDependenciesMeta:
+      proxy-agent:
+        optional: true
+      yauzl:
+        optional: true
+
+  '@puppeteer/browsers@3.2.2':
+    resolution: {integrity: sha512-q2BU4YfO9h/Wt7IcWPcggpOOqLk2Tbs1hDwolvKZrweRjy751OJBKMN9zO5bfD0pzU7X/tvKw/exQds4pM/LOg==}
     engines: {node: '>=22.12.0'}
     hasBin: true
     peerDependencies:
@@ -10244,8 +10257,8 @@ packages:
     resolution: {integrity: sha512-ArbnyA3U5SGHokEvkfWjW+O8hOxV1RSJxOgriX/3A4xZRqixt9ZFHD0yPgZQF05Qj0oAqi8H/7stDorjoHY90Q==}
     engines: {node: '>=16.13.2'}
 
-  puppeteer-core@25.9.0:
-    resolution: {integrity: sha512-U61rCwSMha62CA/Opy6tCx2Fx+ck7ouiKnbpEApzSoLYMoEu9F71nuFpHL55vmIt33/GYm6eKZVhH2ev0nAIeg==}
+  puppeteer-core@25.10.0:
+    resolution: {integrity: sha512-Hy5eMQshOEMil4JUUx03h5pw1HYkYCso1RG/gcpPlFSd4cYPOcopxcXEAxpLPOkOPJb9LIJtwxuj66bSdvknFg==}
     engines: {node: '>=22.12.0'}
 
   q@1.4.1:
@@ -11680,8 +11693,8 @@ packages:
   web-worker@1.5.0:
     resolution: {integrity: sha512-RiMReJrTAiA+mBjGONMnjVDP2u3p9R1vkcGz6gDIrOMT3oGuYwX2WRMYI9ipkphSuE5XKEhydbhNEJh4NY9mlw==}
 
-  webdriver-bidi-protocol@0.4.2:
-    resolution: {integrity: sha512-VSV+fzfChirL3e7jay2yUC7B4HQCGtEWEg/MSSQbK+qWbqeGlRLlXTzPpYr3XGUvbpDHumWZBJxgesg4N7dbtA==}
+  webdriver-bidi-protocol@0.4.3:
+    resolution: {integrity: sha512-uuN0goWfxP22B7J/uAgBpOYNPttC+XVseYE+rSY5+rQ+YBeVz/VORw8WbmLVcqW78zNg5A4qnjNXYUWR3il2ig==}
 
   webdriver-js-extender@2.1.0:
     resolution: {integrity: sha512-lcUKrjbBfCK6MNsh7xaY2UAUmZwe+/ib03AjVOpFobX4O7+83BUveSrLfU0Qsyb1DaKJdQRbuU+kM9aZ6QUhiQ==}
@@ -14114,20 +14127,20 @@ snapshots:
       - react-native-b4a
       - supports-color
 
-  '@puppeteer/browsers@3.2.1(proxy-agent@8.0.2(supports-color@11.0.0))(yauzl@3.4.0)':
-    dependencies:
-      modern-tar: 0.8.4
-      yargs: 18.1.0
-    optionalDependencies:
-      proxy-agent: 8.0.2(supports-color@11.0.0)
-      yauzl: 3.4.0
-
   '@puppeteer/browsers@3.2.1(proxy-agent@8.0.2(supports-color@8.1.1))(yauzl@3.4.0)':
     dependencies:
       modern-tar: 0.8.4
       yargs: 18.1.0
     optionalDependencies:
       proxy-agent: 8.0.2(supports-color@8.1.1)
+      yauzl: 3.4.0
+
+  '@puppeteer/browsers@3.2.2(proxy-agent@8.0.2(supports-color@11.0.0))(yauzl@3.4.0)':
+    dependencies:
+      modern-tar: 0.8.4
+      yargs: 18.1.0
+    optionalDependencies:
+      proxy-agent: 8.0.2(supports-color@11.0.0)
       yauzl: 3.4.0
 
   '@rolldown/binding-android-arm64@1.2.3':
@@ -20357,13 +20370,13 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  puppeteer-core@25.9.0(proxy-agent@8.0.2(supports-color@11.0.0))(yauzl@3.4.0):
+  puppeteer-core@25.10.0(proxy-agent@8.0.2(supports-color@11.0.0))(yauzl@3.4.0):
     dependencies:
-      '@puppeteer/browsers': 3.2.1(proxy-agent@8.0.2(supports-color@11.0.0))(yauzl@3.4.0)
+      '@puppeteer/browsers': 3.2.2(proxy-agent@8.0.2(supports-color@11.0.0))(yauzl@3.4.0)
       chromium-bidi: 17.0.2(devtools-protocol@0.0.1666840)
       devtools-protocol: 0.0.1666840
       typed-query-selector: 2.12.2
-      webdriver-bidi-protocol: 0.4.2
+      webdriver-bidi-protocol: 0.4.3
       ws: 8.21.3
     transitivePeerDependencies:
       - bufferutil
@@ -21893,7 +21906,7 @@ snapshots:
 
   web-worker@1.5.0: {}
 
-  webdriver-bidi-protocol@0.4.2: {}
+  webdriver-bidi-protocol@0.4.3: {}
 
   webdriver-js-extender@2.1.0:
     dependencies:
