@@ -59,7 +59,7 @@ export abstract class Activity extends Describable {
         const error = new Error('Caller location marker');
         Error.stackTraceLimit = originalStackTraceLimit;
 
-        const nonSerenityNodeModulePattern = new RegExp(`node_modules` + `\\` + path.sep + `(?!@serenity-js`+ `\\` + path.sep +`)`);
+        const nonSerenityNodeModulePattern = new RegExp(`node_modules` + `[/\\\\]` + `(?!@serenity-js` + `[/\\\\]` + `)`);
 
         const frames = this.errorStackParser.parse(error);
         const userLandFrames = frames.filter(frame => ! (
@@ -73,7 +73,7 @@ export abstract class Activity extends Describable {
         const invocationFrame = userLandFrames[index] || frames.at(-1);
 
         return new FileSystemLocation(
-            Path.from(invocationFrame.fileName?.replace(/^file:/, '')),
+            Path.from(invocationFrame.fileName?.replace(/^file:\/\/\/([a-zA-Z]:)/, '$1').replace(/^file:\/\//, '')),
             invocationFrame.lineNumber,
             invocationFrame.columnNumber,
         );
