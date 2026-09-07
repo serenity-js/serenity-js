@@ -5,7 +5,7 @@ import { h } from 'preact';
 import { createPortal } from 'preact/compat';
 
 Chart.register(zoomPlugin);
-import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'preact/hooks';
 
 import type { ReportHistoryEntry } from '../../../../src/cli/reporting/ReportData.js';
 import { usePanState } from '../../../hooks/usePanState.js';
@@ -67,7 +67,7 @@ function useThemeObserver(): string {
 }
 
 function useEscapeDismiss(selectedRun: SelectedRun | null, clearSelection: () => void): void {
-    useEffect(() => {
+    useLayoutEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape' && selectedRun) {
                 clearSelection();
