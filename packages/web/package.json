@@ -75,7 +75,7 @@
   "scripts": {
     "clean": "rimraf target",
     "test": "c8 npm run test:no-coverage",
-    "test:no-coverage": "mocha --config .mocharc.yml --spec='spec/**/*.spec.*'",
+    "test:no-coverage": "mocha",
     "compile:clean": "rimraf lib esm",
     "compile:esm": "tsc --project tsconfig-esm.build.json",
     "compile:cjs-package": "node -e \"require('fs').mkdirSync('lib', { recursive: true }); require('fs').writeFileSync('lib/package.json', JSON.stringify({ type: 'commonjs' }))\"",

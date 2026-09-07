@@ -122,8 +122,6 @@
   ],
   "scripts": {
     "clean": "rimraf target",
-    "~test": "c8 npm run test:no-coverage",
-    "~test:no-coverage": "playwright test",
     "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs-package && npm run compile:cjs",
     "compile:clean": "rimraf lib esm",
     "compile:esm": "tsc --project tsconfig-esm.build.json",
