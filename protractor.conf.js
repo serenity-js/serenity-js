@@ -25,7 +25,8 @@ module.exports = {
 
     // specs: [ ],  // set in module-specific protractor.conf.js files
 
-    framework: 'mocha',
+    framework: 'custom',
+    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
     mochaOpts: {
         timeout: 60_000,
         // ts-node is already loaded by nyc when protractor is executed via npm test

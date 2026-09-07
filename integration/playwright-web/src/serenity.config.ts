@@ -1,4 +1,4 @@
-import { TestRunnerTagger } from '@integration/testing-tools';
+import { DotReporter, TestRunnerTagger } from '@integration/testing-tools';
 import { ArtifactArchiver, configure, Duration, engage, NoOpDiffFormatter } from '@serenity-js/core';
 import { TestRunArchiver } from '@serenity-js/html-reporter';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
@@ -11,6 +11,7 @@ let browser: playwright.Browser;
 configure({
     diffFormatter: new NoOpDiffFormatter(),
     crew: [
+        new DotReporter(),
         new TestRunnerTagger('playwright'),
         ArtifactArchiver.storingArtifactsAt(`${ process.cwd() }/target/site/serenity`),
         // Photographer.whoWill(TakePhotosOfFailures),
