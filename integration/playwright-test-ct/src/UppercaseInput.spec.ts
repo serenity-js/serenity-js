@@ -1,11 +1,8 @@
-import { test as componentTest } from '@playwright/experimental-ct-react';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { expect, useBase } from '@serenity-js/playwright-test';
+import { expect, useFixtures } from '@serenity-js/playwright-test';
 import { Attribute, By, ByDeepCss, Click, Enter, PageElement, Text, Value } from '@serenity-js/web';
 
-import UppercaseInput from './UppercaseInput';
-
-const { it, describe } = useBase(componentTest).useFixtures<{ emailAddress: string }>({
+const { it, describe } = useFixtures<{ emailAddress: string }>({
     emailAddress: ({ actor }, use) => {
         use(`${ actor.name.toLowerCase() }@example.org`)
     }
@@ -14,7 +11,7 @@ const { it, describe } = useBase(componentTest).useFixtures<{ emailAddress: stri
 describe('Serenity/JS with Playwright Test CT', () => {
 
     it('works with native Playwright component tests', async ({ mount }) => {
-        const nativeComponent = await mount(<UppercaseInput/>);
+        const nativeComponent = await mount('UppercaseInput/Default');
 
         const input = nativeComponent.locator('input');
         const output = nativeComponent.locator('.output');
@@ -32,38 +29,38 @@ describe('Serenity/JS with Playwright Test CT', () => {
     describe('PageElement', () => {
 
         it('recognises instantiation location', async ({ actor, mount }) => {
-            const nativeComponent = await mount(<UppercaseInput/>);
+            const nativeComponent = await mount('UppercaseInput/Default');
             const component = PageElement.from(nativeComponent);
 
             const location = Click.on(component).instantiationLocation();
 
-            expect(location.path.value).toMatch(/component-testing.spec.tsx$/);
-            expect(location.line).toEqual(38);
+            expect(location.path.value).toMatch(/UppercaseInput.spec.ts$/);
+            expect(location.line).toEqual(35);
             expect(location.column).toEqual(36);
         });
 
         it('can wrap a native component', async ({ actor, mount }) => {
-            const nativeComponent = await mount(<UppercaseInput/>);
+            const nativeComponent = await mount('UppercaseInput/Default');
 
             const component = PageElement.from(nativeComponent);
 
             const selector = await actor.answer(component.locator.selector)
             expect(selector).toBeInstanceOf(ByDeepCss);
-            expect((selector as ByDeepCss).value).toEqual('#root >> internal:control=component');
+            expect((selector as ByDeepCss).value).toEqual('#root');
         });
 
         it('allows for chaining PageElements with wrapped native elements using .of()', async ({ actor, mount }) => {
-            const nativeComponent = await mount(<UppercaseInput/>);
+            const nativeComponent = await mount('UppercaseInput/Default');
 
             const component = PageElement.from(nativeComponent);
             const input = PageElement.located(By.css('input')).of(component);
 
             const nativeInput = await actor.answer(input.nativeElement())
-            expect((nativeInput as any)._selector).toEqual('#root >> internal:control=component >> css=input');
+            expect((nativeInput as any)._selector).toEqual('#root >> css=input');
         });
 
         it('should find a parent element of a child element using .closestTo()', async ({ actor, mount }) => {
-            const nativeComponent = await mount(<UppercaseInput/>);
+            const nativeComponent = await mount('UppercaseInput/Default');
 
             const component = PageElement.from(nativeComponent);
             const input = PageElement.located(By.css('input')).of(component);
@@ -77,8 +74,7 @@ describe('Serenity/JS with Playwright Test CT', () => {
 
             const nativeOutput = await actor.answer(outputElement.nativeElement());
 
-            // expect((nativeOutput as any)._selector).toEqual('#root >> internal:control=component >> :light(input) >> _sjs_closest=.output');
-            expect((nativeOutput as any)._selector).toEqual('#root >> internal:control=component >> css=input >> _sjs_closest=.example-input >> css=.output');
+            expect((nativeOutput as any)._selector).toEqual('#root >> css=input >> _sjs_closest=.example-input >> css=.output');
 
             await actor.attemptsTo(
                 Ensure.that(Attribute.called('class').of(outputElement), equals('output')),
@@ -86,7 +82,7 @@ describe('Serenity/JS with Playwright Test CT', () => {
         });
 
         it('enables interactions with native components', async ({ actor, mount }) => {
-            const nativeComponent = await mount(<UppercaseInput/>);
+            const nativeComponent = await mount('UppercaseInput/Default');
 
             const component = PageElement.from(nativeComponent);
             const input = PageElement.located(By.css('input')).of(component);

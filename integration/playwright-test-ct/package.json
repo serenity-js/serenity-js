@@ -14,7 +14,7 @@
     "access": "private"
   },
   "scripts": {
-    "clean": "rimraf playwright-report playwright/.cache",
+    "clean": "rimraf playwright-report test-results",
     "test": "playwright test --config playwright-ct.config.ts"
   },
   "repository": {
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@integration/testing-tools": "workspace:*",
-    "@playwright/experimental-ct-react": "1.62.1",
+    "@playwright/test": "1.63.0",
     "@serenity-js/assertions": "workspace:*",
     "@serenity-js/core": "workspace:*",
     "@serenity-js/playwright": "workspace:*",
@@ -42,6 +42,8 @@
   "devDependencies": {
     "@serenity-js/html-reporter": "workspace:*",
     "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.7"
+    "@types/react-dom": "19.2.7",
+    "@vitejs/plugin-react": "6.1.1",
+    "vite": "8.2.2"
   }
 }
