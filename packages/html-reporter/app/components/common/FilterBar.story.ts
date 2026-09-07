@@ -1,3 +1,6 @@
 import { FilterBar, type FilterBarProps } from './FilterBar.js';
 
-export const Default = (props: FilterBarProps): ReturnType<typeof FilterBar> => FilterBar(props);
+const noop = (): void => { /* no-op */ };
+
+export const Default = ({ onFilter = noop, ...props }: FilterBarProps): ReturnType<typeof FilterBar> =>
+    FilterBar({ onFilter, ...props });

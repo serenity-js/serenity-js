@@ -15,7 +15,6 @@ describe('FilterBar', () => {
                     { key: 'skipped', label: 'Skipped', count: 1 },
                 ],
                 activeFilter: 'all',
-                onFilter: '__noop',
             },
         });
 
@@ -34,7 +33,6 @@ describe('FilterBar', () => {
                     { key: 'skipped', label: 'Skipped', count: 1 },
                 ],
                 activeFilter: 'failed',
-                onFilter: '__noop',
             },
         });
 
@@ -53,7 +51,6 @@ describe('FilterBar', () => {
                     { key: 'skipped', label: 'Skipped', count: 1 },
                 ],
                 activeFilter: 'failed,skipped',
-                onFilter: '__noop',
             },
         });
 
@@ -71,7 +68,6 @@ describe('FilterBar', () => {
                     { key: 'passed', label: 'Passed', count: 5 },
                 ],
                 activeFilter: 'all',
-                onFilter: '__noop',
                 sortOptions: [
                     { key: 'name', label: 'Name' },
                     { key: 'duration', label: 'Duration' },
@@ -94,7 +90,6 @@ describe('FilterBar', () => {
                     { key: 'failed', label: 'Failed', count: 2 },
                 ],
                 activeFilter: 'all',
-                onFilter: '__noop',
             },
         });
 

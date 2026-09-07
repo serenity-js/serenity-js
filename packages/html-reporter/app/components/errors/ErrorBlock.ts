@@ -7,7 +7,7 @@ import { icons } from '../common/icons.js';
 
 const html = htm.bind(h);
 
-interface ErrorBlockProps {
+export interface ErrorBlockProps {
     error: ReportError;
     errorLocation?: { path: string; line: number; column: number } | null;
     specDirectory?: string;

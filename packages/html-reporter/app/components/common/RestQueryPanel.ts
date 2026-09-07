@@ -5,7 +5,7 @@ import type { ReportActivity } from '../../../src/cli/reporting/ReportData.js';
 
 const html = htm.bind(h);
 
-interface RestQueryPanelProps {
+export interface RestQueryPanelProps {
     restQuery: NonNullable<ReportActivity['restQuery']>;
 }
 

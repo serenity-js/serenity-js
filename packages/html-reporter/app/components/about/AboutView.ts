@@ -5,7 +5,7 @@ import { ViewTopbar } from '../common/ViewTopbar.js';
 
 const html = htm.bind(h);
 
-interface AboutViewProps {
+export interface AboutViewProps {
     onOpenSidebar?: () => void;
 }
 

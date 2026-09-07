@@ -43,8 +43,13 @@ interface MountParameters {
         document.documentElement.setAttribute('data-theme', String(props.theme));
     }
 
+    // Remove fixture-level keys that aren't component props
+    const componentProps = { ...props };
+    delete componentProps.data;
+    delete componentProps.theme;
+
     const container = document.getElementById('root')!;
-    render(html`<${Story} ...${props} />`, container);
+    render(html`<${Story} ...${componentProps} />`, container);
 
     (window as any).__COMPONENT_RENDERED__ = true;
 };
