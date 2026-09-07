@@ -25,10 +25,6 @@ exports.config = {
         require: [
             'ts-node/register',
         ],
-        reporter: 'mocha-multi',
-        reporterOptions: {
-            dot: '-',
-            json: 'target/results.json',
-        },
+        reporter: 'dot',
     },
 };

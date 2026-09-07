@@ -2,8 +2,7 @@ check-leaks: false
 color: true
 diff: true
 full-trace: true
-reporter: mocha-multi
-reporter-options: '../../packages/mocha=-,dot=-'
+reporter: '../../packages/mocha'
 require:
   - 'ts-node/register'
   - 'src/serenity.config.ts'
