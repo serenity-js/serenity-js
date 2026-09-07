@@ -11,16 +11,9 @@ export default defineConfig({
             name: 'unit',
             testDir: './spec',
             testMatch: ['**/*.spec.ts'],
-            testIgnore: ['**/app/**'],
         },
         {
             name: 'components',
-            testDir: './spec',
-            testMatch: ['**/app/**/*.spec.ts'],
-            use: { browserName: 'chromium', headless: true },
-        },
-        {
-            name: 'stories',
             testDir: './app/components',
             testMatch: ['**/*.story.spec.ts'],
             use: {
