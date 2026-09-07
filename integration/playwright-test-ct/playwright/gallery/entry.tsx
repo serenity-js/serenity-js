@@ -6,7 +6,7 @@ const id = (f: string) => f.replace(/^(\.\.\/)+src\//, '').replace(/\.story\.\w+
 
 async function resolve(storyId: string) {
     const separator = storyId.lastIndexOf('/');
-    const [path, name] = [storyId.slice(0, separator), storyId.slice(separator + 1)];
+    const [ path, name ] = [ storyId.slice(0, separator), storyId.slice(separator + 1) ];
     const file = Object.keys(stories).find(f => id(f) === path || id(f).endsWith('/' + path));
     const module_ = (file && await stories[file]()) as Record<string, any> | undefined;
     return module_?.[name] ?? module_?.default;
@@ -17,7 +17,7 @@ let root: Root | undefined;
 
 (window as any).mount = async ({ story, props }: { story: string; props?: Record<string, any> }) => {
     const Story = await resolve(story);
-    if (!Story) {
+    if (! Story) {
         throw new Error(`Unknown story: ${ story }`);
     }
     root ??= createRoot(rootElement);

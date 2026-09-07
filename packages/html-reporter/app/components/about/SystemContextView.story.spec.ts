@@ -7,9 +7,9 @@ import { SystemContextView } from '../../../src/serenity/about/SystemContextView
 describe('SystemContextView', () => {
 
     it('displays the project name', async ({ interactionObject, actor }) => {
-        const data = minimalData();
+        const props = minimalData();
         const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -18,9 +18,9 @@ describe('SystemContextView', () => {
     });
 
     it('displays the package manager', async ({ interactionObject, actor }) => {
-        const data = minimalData();
+        const props = minimalData();
         const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -29,9 +29,9 @@ describe('SystemContextView', () => {
     });
 
     it('displays the Node.js version', async ({ interactionObject, actor }) => {
-        const data = minimalData();
+        const props = minimalData();
         const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -40,9 +40,9 @@ describe('SystemContextView', () => {
     });
 
     it('displays the test runner name and version', async ({ interactionObject, actor }) => {
-        const data = minimalData();
+        const props = minimalData();
         const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -52,9 +52,9 @@ describe('SystemContextView', () => {
     });
 
     it('displays the operating system', async ({ interactionObject, actor }) => {
-        const data = minimalData();
+        const props = minimalData();
         const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -63,9 +63,9 @@ describe('SystemContextView', () => {
     });
 
     it('displays the Serenity/JS version', async ({ interactionObject, actor }) => {
-        const data = minimalData();
+        const props = minimalData();
         const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -74,9 +74,9 @@ describe('SystemContextView', () => {
     });
 
     it('displays CI/CD provider and build info', async ({ interactionObject, actor }) => {
-        const data = minimalData();
+        const props = minimalData();
         const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -88,9 +88,9 @@ describe('SystemContextView', () => {
     });
 
     it('displays the commit message', async ({ interactionObject, actor }) => {
-        const data = minimalData();
+        const props = minimalData();
         const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -99,7 +99,7 @@ describe('SystemContextView', () => {
     });
 
     it('displays browser information', async ({ interactionObject, actor }) => {
-        const data = minimalData({
+        const props = minimalData({
             systemContext: {
                 nodeVersion: 'v22.0.0',
                 os: { name: 'linux', version: '6.0', arch: 'x64' },
@@ -113,7 +113,7 @@ describe('SystemContextView', () => {
             },
         });
         const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -123,9 +123,9 @@ describe('SystemContextView', () => {
     });
 
     it('shows placeholder when systemContext is missing', async ({ interactionObject, actor }) => {
-        const data = { ...minimalData(), systemContext: undefined };
+        const props = { ...minimalData(), systemContext: undefined };
         const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -134,7 +134,7 @@ describe('SystemContextView', () => {
     });
 
     it('does not show CI section when ci is null', async ({ interactionObject, actor }) => {
-        const data = minimalData({
+        const props = minimalData({
             systemContext: {
                 nodeVersion: 'v22.0.0',
                 os: { name: 'darwin', version: '24.0.0', arch: 'arm64' },
@@ -145,7 +145,7 @@ describe('SystemContextView', () => {
             },
         });
         const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(

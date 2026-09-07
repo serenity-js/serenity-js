@@ -37,7 +37,6 @@ const treeData = minimalData({
 const treeCardProps = {
     scenario: treeData.scenarios[0],
     currentActivities: treeData.scenarios[0].activities,
-    data: treeData,
 };
 
 const treeCardStory = 'components/scenarios/ActivityTreeCard/Default';

@@ -412,7 +412,6 @@ describe('ExecutionHistory', () => {
 
         const view = await interactionObject(ExecutionHistory, executionHistoryStory, {
             props: retriedScenarioProps,
-            data: retriedHistoryData,
         });
 
         await actor.attemptsTo(

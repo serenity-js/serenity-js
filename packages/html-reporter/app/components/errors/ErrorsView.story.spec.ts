@@ -68,9 +68,9 @@ const historicalRunRoute = '#/errors?run=2024-06-14T10:00:00.000Z';
 describe('ErrorsView', () => {
 
     it('groups scenarios with identical error messages', async ({ interactionObject, actor }) => {
-        const data = errorsData();
+        const props = errorsData();
         const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -80,9 +80,9 @@ describe('ErrorsView', () => {
     });
 
     it('navigates to filtered scenarios view when clicking a grouped error', async ({ interactionObject, actor }) => {
-        const data = errorsData();
+        const props = errorsData();
         const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/WithNavigation', {
-            data, props: { ...data, route: '#/errors' },
+            props: { ...props, route: '#/errors' },
         });
 
         await actor.attemptsTo(
@@ -93,9 +93,9 @@ describe('ErrorsView', () => {
     });
 
     it('navigates to scenario detail when clicking a unique error', async ({ interactionObject, actor }) => {
-        const data = errorsData();
+        const props = errorsData();
         const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/WithNavigation', {
-            data, props: { ...data, route: '#/errors' },
+            props: { ...props, route: '#/errors' },
         });
 
         await actor.attemptsTo(
@@ -105,9 +105,9 @@ describe('ErrorsView', () => {
     });
 
     it('single error row does not show duplicate indicator', async ({ interactionObject, actor }) => {
-        const data = errorsData();
+        const props = errorsData();
         const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -116,7 +116,7 @@ describe('ErrorsView', () => {
     });
 
     it('shows errors from a historical run when ?run= parameter is set', async ({ interactionObject, actor }) => {
-        const data = minimalData({
+        const props = minimalData({
             scenarios: [
                 {
                     name: 'Scenario A (passes now)', category: 'Suite', outcome: 'SUCCESS', duration: 100,
@@ -144,7 +144,7 @@ describe('ErrorsView', () => {
         });
 
         const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            data, props: { ...data, route: historicalRunRoute },
+            props: { ...props, route: historicalRunRoute },
         });
 
         await actor.attemptsTo(
@@ -154,7 +154,7 @@ describe('ErrorsView', () => {
     });
 
     it('shows "No Errors" when the selected historical run had no failures', async ({ interactionObject, actor }) => {
-        const data = minimalData({
+        const props = minimalData({
             scenarios: [
                 {
                     name: 'Scenario that fails now', category: 'Suite', outcome: 'FAILURE', duration: 200,
@@ -175,7 +175,7 @@ describe('ErrorsView', () => {
         });
 
         const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            data, props: { ...data, route: historicalRunRoute },
+            props: { ...props, route: historicalRunRoute },
         });
 
         await actor.attemptsTo(
@@ -184,9 +184,9 @@ describe('ErrorsView', () => {
     });
 
     it('can find a scenario by name', async ({ interactionObject, actor }) => {
-        const data = ungroupedErrorsData();
+        const props = ungroupedErrorsData();
         const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -195,9 +195,9 @@ describe('ErrorsView', () => {
     });
 
     it('can find a KPI card by its label', async ({ interactionObject, actor }) => {
-        const data = ungroupedErrorsData();
+        const props = ungroupedErrorsData();
         const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -206,9 +206,9 @@ describe('ErrorsView', () => {
     });
 
     it('lists visible scenario names in the errors view', async ({ interactionObject, actor }) => {
-        const data = ungroupedErrorsData();
+        const props = ungroupedErrorsData();
         const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -220,9 +220,9 @@ describe('ErrorsView', () => {
 describe('ErrorsView search', () => {
 
     it('narrows error list when searching by scenario name', async ({ interactionObject, actor }) => {
-        const data = errorsData();
+        const props = errorsData();
         const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -234,9 +234,9 @@ describe('ErrorsView search', () => {
     });
 
     it('narrows error list when searching by error message', async ({ interactionObject, actor }) => {
-        const data = errorsData();
+        const props = errorsData();
         const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -248,9 +248,9 @@ describe('ErrorsView search', () => {
     });
 
     it('shows all errors when search is cleared', async ({ interactionObject, actor }) => {
-        const data = errorsData();
+        const props = errorsData();
         const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(

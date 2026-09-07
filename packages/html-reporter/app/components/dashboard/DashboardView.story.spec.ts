@@ -20,7 +20,7 @@ describe('DashboardView', () => {
 
     it('displays the Confidence KPI card', async ({ interactionObject, actor }) => {
         const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            data: dashboardData, props: dashboardData,
+            props: dashboardData,
         });
 
         await actor.attemptsTo(
@@ -30,7 +30,7 @@ describe('DashboardView', () => {
 
     it('displays the Pass Rate KPI card with correct accessible label', async ({ interactionObject, actor }) => {
         const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            data: dashboardData, props: dashboardData,
+            props: dashboardData,
         });
 
         await actor.attemptsTo(
@@ -41,7 +41,7 @@ describe('DashboardView', () => {
 
     it('displays the Consistency KPI card with correct accessible label', async ({ interactionObject, actor }) => {
         const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            data: dashboardData, props: dashboardData,
+            props: dashboardData,
         });
 
         await actor.attemptsTo(
@@ -52,7 +52,7 @@ describe('DashboardView', () => {
 
     it('displays the Completeness KPI card with correct accessible label', async ({ interactionObject, actor }) => {
         const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            data: dashboardData, props: dashboardData,
+            props: dashboardData,
         });
 
         await actor.attemptsTo(
@@ -63,7 +63,7 @@ describe('DashboardView', () => {
 
     it('can find a KPI card by its label', async ({ interactionObject, actor }) => {
         const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            data: dashboardData, props: dashboardData,
+            props: dashboardData,
         });
 
         await actor.attemptsTo(
@@ -73,7 +73,7 @@ describe('DashboardView', () => {
 
     it('can read the subtitle of a KPI card found by label', async ({ interactionObject, actor }) => {
         const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            data: dashboardData, props: dashboardData,
+            props: dashboardData,
         });
 
         await actor.attemptsTo(
@@ -89,7 +89,7 @@ describe('DashboardView', () => {
         });
 
         const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            data, props: data,
+            props: data,
         });
 
         await actor.attemptsTo(
@@ -101,7 +101,7 @@ describe('DashboardView', () => {
         const data = minimalData();
 
         const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            data, props: data,
+            props: data,
         });
 
         await actor.attemptsTo(
@@ -111,7 +111,7 @@ describe('DashboardView', () => {
 
     it('reports whether a trend chart is present', async ({ interactionObject, actor }) => {
         const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            data: dashboardData, props: dashboardData,
+            props: dashboardData,
         });
 
         await actor.attemptsTo(
@@ -123,7 +123,7 @@ describe('DashboardView', () => {
     // coordinates requires pixel-level control that interaction objects can't provide.
     it('shows the details panel when a chart bar is clicked', async ({ interactionObject, actor, page }) => {
         const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            data: dashboardData, props: dashboardData,
+            props: dashboardData,
         });
 
         // Click on the chart canvas in the center-right area (second bar of 2)
@@ -178,7 +178,7 @@ describe('DashboardView', () => {
         });
 
         const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            data: multiBrowserData, props: multiBrowserData,
+            props: multiBrowserData,
         });
 
         await actor.attemptsTo(
@@ -240,7 +240,7 @@ describe('DashboardView', () => {
         });
 
         const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            data: noLineNumberData, props: noLineNumberData,
+            props: noLineNumberData,
         });
 
         await actor.attemptsTo(
@@ -296,7 +296,7 @@ describe('DashboardView', () => {
         });
 
         const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            data, props: data,
+            props: data,
         });
 
         await actor.attemptsTo(

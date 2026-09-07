@@ -54,7 +54,6 @@ describe('Deep linking — ScenarioDetailView attempts', () => {
         const data = retriedScenarioData();
         const view = await interactionObject(ScenarioDetailView, 'components/scenarios/ScenarioDetailView/Default', {
             props: { ...data, scenarioId: `${SCENARIO_ID}?attempt=2` },
-            data,
         });
 
         await actor.attemptsTo(
@@ -67,7 +66,6 @@ describe('Deep linking — ScenarioDetailView attempts', () => {
         const data = retriedScenarioData();
         const view = await interactionObject(ScenarioDetailView, 'components/scenarios/ScenarioDetailView/Default', {
             props: { ...data, scenarioId: SCENARIO_ID },
-            data,
         });
 
         await actor.attemptsTo(
@@ -80,7 +78,6 @@ describe('Deep linking — ScenarioDetailView attempts', () => {
         const data = retriedScenarioData();
         const view = await interactionObject(ScenarioDetailView, 'components/scenarios/ScenarioDetailView/Default', {
             props: { ...data, scenarioId: SCENARIO_ID },
-            data,
         });
 
         await actor.attemptsTo(
@@ -94,7 +91,6 @@ describe('Deep linking — ScenarioDetailView attempts', () => {
         const data = retriedScenarioData();
         const view = await interactionObject(ScenarioDetailView, 'components/scenarios/ScenarioDetailView/Default', {
             props: { ...data, scenarioId: `${SCENARIO_ID}?attempt=2` },
-            data,
         });
 
         await actor.attemptsTo(
@@ -130,7 +126,6 @@ describe('Deep linking — ScenarioDetailView attempts', () => {
 
         const view = await interactionObject(ScenarioDetailView, 'components/scenarios/ScenarioDetailView/Default', {
             props: { ...data, scenarioId: `${SCENARIO_ID}?attempt=1` },
-            data,
         });
 
         await actor.attemptsTo(
@@ -158,7 +153,6 @@ describe('Deep linking — PhotoStrip', () => {
     it('updates URL hash with ?photo= when clicking a photo thumbnail', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenarioDetailView, 'components/scenarios/ScenarioDetailView/Default', {
             props: { ...photoData, scenarioId: 'spec/photos.spec.ts:5' },
-            data: photoData,
         });
 
         await actor.attemptsTo(
@@ -204,7 +198,6 @@ describe('Deep linking — cross-project scenario identity', () => {
     it('navigates to the correct project variant when clicking a scenario row', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/WithNavigation', {
             props: { ...crossProjectData, route: '/tests' },
-            data: crossProjectData,
         });
 
         await actor.attemptsTo(
@@ -220,7 +213,6 @@ describe('Deep linking — cross-project scenario identity', () => {
     it('resolves the mobile variant from URL params with project discriminator', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenarioDetailView, 'components/scenarios/ScenarioDetailView/Default', {
             props: { ...crossProjectData, scenarioId: 'spec/checkout.spec.ts:10?browser=chromium+149.0.7827.55&project=mobile&platform=darwin+24.5.0' },
-            data: crossProjectData,
         });
 
         await actor.attemptsTo(
@@ -232,7 +224,6 @@ describe('Deep linking — cross-project scenario identity', () => {
     it('resolves the desktop variant when project=desktop is specified', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenarioDetailView, 'components/scenarios/ScenarioDetailView/Default', {
             props: { ...crossProjectData, scenarioId: 'spec/checkout.spec.ts:10?browser=chromium+149.0.7827.55&project=desktop&platform=darwin+24.5.0' },
-            data: crossProjectData,
         });
 
         await actor.attemptsTo(

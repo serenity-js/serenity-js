@@ -45,9 +45,9 @@ function capabilitiesData() {
 describe('CapabilitiesView interaction object', () => {
 
     it('displays filter chips with health category labels', async ({ interactionObject, actor }) => {
-        const data = capabilitiesData();
+        const props = capabilitiesData();
         const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -56,9 +56,9 @@ describe('CapabilitiesView interaction object', () => {
     });
 
     it('shows "All" filter as active by default', async ({ interactionObject, actor }) => {
-        const data = capabilitiesData();
+        const props = capabilitiesData();
         const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -67,9 +67,9 @@ describe('CapabilitiesView interaction object', () => {
     });
 
     it('search input uses "Find capabilities..." placeholder', async ({ interactionObject, actor }) => {
-        const data = capabilitiesData();
+        const props = capabilitiesData();
         const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -78,9 +78,9 @@ describe('CapabilitiesView interaction object', () => {
     });
 
     it('search filters the tree and shows result count', async ({ interactionObject, actor }) => {
-        const data = capabilitiesData();
+        const props = capabilitiesData();
         const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -92,9 +92,9 @@ describe('CapabilitiesView interaction object', () => {
     });
 
     it('does not show clear button when search is empty', async ({ interactionObject, actor }) => {
-        const data = capabilitiesData();
+        const props = capabilitiesData();
         const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -103,9 +103,9 @@ describe('CapabilitiesView interaction object', () => {
     });
 
     it('shows clear button when search has text', async ({ interactionObject, actor }) => {
-        const data = capabilitiesData();
+        const props = capabilitiesData();
         const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -120,9 +120,9 @@ describe('CapabilitiesView', () => {
     describe('detail panel — documentation-first', () => {
 
         it('shows README prominently (not collapsible, not hidden)', async ({ interactionObject, actor }) => {
-            const data = capabilitiesData();
+            const props = capabilitiesData();
             const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-                data, props: data,
+                props,
             });
 
             await actor.attemptsTo(
@@ -132,9 +132,9 @@ describe('CapabilitiesView', () => {
         });
 
         it('shows title, health header, and README for a selected capability', async ({ interactionObject, actor }) => {
-            const data = capabilitiesData();
+            const props = capabilitiesData();
             const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-                data, props: data,
+                props,
             });
 
             await actor.attemptsTo(
@@ -149,9 +149,9 @@ describe('CapabilitiesView', () => {
     describe('left panel — navigation', () => {
 
         it('filter bar uses the shared filter-bar styling with confidence categories', async ({ interactionObject, actor }) => {
-            const data = capabilitiesData();
+            const props = capabilitiesData();
             const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-                data, props: data,
+                props,
             });
 
             await actor.attemptsTo(
@@ -164,9 +164,9 @@ describe('CapabilitiesView', () => {
     describe('detail header — single source of truth', () => {
 
         it('shows confidence prominently in the detail panel header', async ({ interactionObject, actor }) => {
-            const data = capabilitiesData();
+            const props = capabilitiesData();
             const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-                data, props: data,
+                props,
             });
 
             await actor.attemptsTo(
@@ -177,9 +177,9 @@ describe('CapabilitiesView', () => {
     });
 
     it('shows empty state when capabilities data is missing', async ({ interactionObject, actor }) => {
-        const data = minimalData({ capabilities: null });
+        const props = minimalData({ capabilities: null });
         const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -188,7 +188,7 @@ describe('CapabilitiesView', () => {
     });
 
     it('filter bar and search are hidden when there is only 1 capability', async ({ interactionObject, actor }) => {
-        const data = minimalData({
+        const props = minimalData({
             capabilities: {
                 name: 'spec',
                 type: 'directory',
@@ -206,7 +206,7 @@ describe('CapabilitiesView', () => {
             },
         });
         const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -219,9 +219,9 @@ describe('CapabilitiesView', () => {
 describe('CapabilitiesView sort control', () => {
 
     it('displays a sort dropdown with options: Name, Confidence, Scenarios', async ({ interactionObject, actor }) => {
-        const data = capabilitiesData();
+        const props = capabilitiesData();
         const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -230,9 +230,9 @@ describe('CapabilitiesView sort control', () => {
     });
 
     it('defaults to sorting by name', async ({ interactionObject, actor }) => {
-        const data = capabilitiesData();
+        const props = capabilitiesData();
         const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -241,9 +241,9 @@ describe('CapabilitiesView sort control', () => {
     });
 
     it('sorts tree nodes by confidence ascending (worst first) when Confidence is selected', async ({ interactionObject, actor }) => {
-        const data = capabilitiesData();
+        const props = capabilitiesData();
         const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -260,9 +260,9 @@ describe('CapabilitiesView sort control', () => {
     });
 
     it('sorts tree nodes by scenario count descending when Scenarios is selected', async ({ interactionObject, actor }) => {
-        const data = capabilitiesData();
+        const props = capabilitiesData();
         const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -278,9 +278,9 @@ describe('CapabilitiesView sort control', () => {
 describe('CapabilitiesView search and filter bar', () => {
 
     it('search input is above the filter bar (matching ScenariosView pattern)', async ({ interactionObject, actor }) => {
-        const data = capabilitiesData();
+        const props = capabilitiesData();
         const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -293,8 +293,8 @@ describe('CapabilitiesView search and filter bar', () => {
 describe('CapabilitiesView accessibility', () => {
 
     it('outcome bars have role="img" and aria-label for screen readers', async ({ mount, page }) => {
-        const data = capabilitiesData();
-        await mount('components/capabilities/CapabilitiesView/Default', { ...data, data });
+        const props = capabilitiesData();
+        await mount('components/capabilities/CapabilitiesView/Default', { ...props });
 
         const outcomeBars = page.locator('.req-tree-bars[role="img"]');
         const count = await outcomeBars.count();
@@ -308,8 +308,8 @@ describe('CapabilitiesView accessibility', () => {
     });
 
     it('outcome bars include visually-hidden text summary', async ({ mount, page }) => {
-        const data = capabilitiesData();
-        await mount('components/capabilities/CapabilitiesView/Default', { ...data, data });
+        const props = capabilitiesData();
+        await mount('components/capabilities/CapabilitiesView/Default', { ...props });
 
         const hiddenSummaries = page.locator('.req-tree-bars .visually-hidden');
         const count = await hiddenSummaries.count();
@@ -320,8 +320,8 @@ describe('CapabilitiesView accessibility', () => {
     });
 
     it('tree nodes use roving tabindex pattern', async ({ mount, page }) => {
-        const data = capabilitiesData();
-        await mount('components/capabilities/CapabilitiesView/Default', { ...data, data });
+        const props = capabilitiesData();
+        await mount('components/capabilities/CapabilitiesView/Default', { ...props });
 
         const treeNodes = page.locator('.req-tree-node[tabindex]');
         const count = await treeNodes.count();
@@ -336,8 +336,8 @@ describe('CapabilitiesView accessibility', () => {
     });
 
     it('tree supports arrow key navigation', async ({ mount, page }) => {
-        const data = capabilitiesData();
-        await mount('components/capabilities/CapabilitiesView/Default', { ...data, data });
+        const props = capabilitiesData();
+        await mount('components/capabilities/CapabilitiesView/Default', { ...props });
 
         const firstNode = page.locator('.req-tree-node[tabindex="0"]');
         await firstNode.focus();
@@ -389,9 +389,9 @@ describe('CapabilitiesView detail panel interaction object', () => {
     }
 
     it('shows the confidence score of the selected capability', async ({ interactionObject, actor }) => {
-        const data = detailPanelData();
+        const props = detailPanelData();
         const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -400,9 +400,9 @@ describe('CapabilitiesView detail panel interaction object', () => {
     });
 
     it('shows the scenario count of the selected capability', async ({ interactionObject, actor }) => {
-        const data = detailPanelData();
+        const props = detailPanelData();
         const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -411,9 +411,9 @@ describe('CapabilitiesView detail panel interaction object', () => {
     });
 
     it('lists child capability names', async ({ interactionObject, actor }) => {
-        const data = detailPanelData();
+        const props = detailPanelData();
         const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -422,9 +422,9 @@ describe('CapabilitiesView detail panel interaction object', () => {
     });
 
     it('allows selecting a capability from the tree', async ({ interactionObject, actor }) => {
-        const data = detailPanelData();
+        const props = detailPanelData();
         const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -435,7 +435,7 @@ describe('CapabilitiesView detail panel interaction object', () => {
     });
 
     it('can read the href of a link in the README', async ({ interactionObject, actor }) => {
-        const data = minimalData({
+        const props = minimalData({
             capabilities: {
                 name: 'specs', type: 'directory', displayName: 'specs',
                 outcomes: { passed: 1, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -446,7 +446,7 @@ describe('CapabilitiesView detail panel interaction object', () => {
             },
         });
         const view = await interactionObject(CapabilitiesView, 'components/capabilities/CapabilitiesView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(

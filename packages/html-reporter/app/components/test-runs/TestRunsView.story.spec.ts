@@ -12,9 +12,9 @@ const navigatedTo = () => PageElement.located(By.css('[data-testid="navigated-to
 describe('TestRunsView', () => {
 
     it('reports the number of test run rows', async ({ interactionObject, actor }) => {
-        const data = minimalData();
+        const props = minimalData();
         const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -23,9 +23,9 @@ describe('TestRunsView', () => {
     });
 
     it('reports whether a trend chart is present', async ({ interactionObject, actor }) => {
-        const data = minimalData();
+        const props = minimalData();
         const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -34,9 +34,9 @@ describe('TestRunsView', () => {
     });
 
     it('allows selecting a run entry', async ({ interactionObject, actor }) => {
-        const data = minimalData();
+        const props = minimalData();
         const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -46,9 +46,9 @@ describe('TestRunsView', () => {
     });
 
     it('renders trend chart and run list', async ({ interactionObject, actor }) => {
-        const data = minimalData();
+        const props = minimalData();
         const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -58,7 +58,7 @@ describe('TestRunsView', () => {
     });
 
     it('shows a row for each run in history', async ({ interactionObject, actor }) => {
-        const data = minimalData({
+        const props = minimalData({
             history: [
                 { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 4, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 800, slowest: 300, fastest: 100, average: 200 },
                 { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 3, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 1000, slowest: 400, fastest: 100, average: 250 },
@@ -67,7 +67,7 @@ describe('TestRunsView', () => {
         });
 
         const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -76,7 +76,7 @@ describe('TestRunsView', () => {
     });
 
     it('renders a shortened commit hash linking to the full commit URL', async ({ interactionObject, actor }) => {
-        const data = minimalData({
+        const props = minimalData({
             history: [
                 {
                     timestamp: '2024-06-15T14:30:00.000Z', label: '#42',
@@ -90,7 +90,7 @@ describe('TestRunsView', () => {
         });
 
         const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-            data, props: data,
+            props,
         });
 
         await actor.attemptsTo(
@@ -102,9 +102,9 @@ describe('TestRunsView', () => {
     describe('chart selection interaction', () => {
 
         it('does not show the details panel initially', async ({ interactionObject, actor }) => {
-            const data = minimalData();
+            const props = minimalData();
             const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                data, props: data,
+                props,
             });
 
             await actor.attemptsTo(
@@ -113,9 +113,9 @@ describe('TestRunsView', () => {
         });
 
         it('shows the details panel when a chart bar is clicked', async ({ interactionObject, actor }) => {
-            const data = minimalData();
+            const props = minimalData();
             const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                data, props: data,
+                props,
             });
 
             await actor.attemptsTo(
@@ -125,9 +125,9 @@ describe('TestRunsView', () => {
         });
 
         it('shows run metrics in the details panel', async ({ interactionObject, actor }) => {
-            const data = minimalData();
+            const props = minimalData();
             const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                data, props: data,
+                props,
             });
 
             await actor.attemptsTo(
@@ -144,9 +144,9 @@ describe('TestRunsView', () => {
         });
 
         it('shows the CTA button in the details panel', async ({ interactionObject, actor }) => {
-            const data = minimalData();
+            const props = minimalData();
             const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                data, props: data,
+                props,
             });
 
             await actor.attemptsTo(
@@ -156,9 +156,9 @@ describe('TestRunsView', () => {
         });
 
         it('navigates only when CTA button is clicked', async ({ interactionObject, actor }) => {
-            const data = minimalData();
+            const props = minimalData();
             const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/WithNavigation', {
-                data, props: data,
+                props,
             });
 
             // Click on the chart — should NOT navigate
@@ -179,9 +179,9 @@ describe('TestRunsView', () => {
         });
 
         it('dismisses the panel when Escape is pressed', async ({ interactionObject, actor }) => {
-            const data = minimalData();
+            const props = minimalData();
             const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                data, props: data,
+                props,
             });
 
             await actor.attemptsTo(
@@ -193,9 +193,9 @@ describe('TestRunsView', () => {
         });
 
         it('dismisses the panel when clicking outside', async ({ interactionObject, actor }) => {
-            const data = minimalData();
+            const props = minimalData();
             const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                data, props: data,
+                props,
             });
 
             await actor.attemptsTo(
@@ -214,9 +214,9 @@ describe('TestRunsView', () => {
         it('applies touch-action pan-y to the chart canvas for mobile panning', async ({ interactionObject, page, actor }) => {
             await page.setViewportSize({ width: 375, height: 667 });
 
-            const data = minimalData();
+            const props = minimalData();
             await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                data, props: data,
+                props,
             });
 
             await actor.attemptsTo(
@@ -225,9 +225,9 @@ describe('TestRunsView', () => {
         });
 
         it('wraps the chart in a container with the trend-chart-container class', async ({ interactionObject, actor }) => {
-            const data = minimalData();
+            const props = minimalData();
             await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                data, props: data,
+                props,
             });
 
             await actor.attemptsTo(
@@ -243,9 +243,9 @@ describe('TestRunsView', () => {
     describe('TestRunsView chart theme initialisation', () => {
 
         it('uses dark chart theme when data-theme is dark', async ({ interactionObject, actor }) => {
-            const data = minimalData();
+            const props = minimalData();
             await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                data, props: data,
+                props,
                 theme: 'dark',
             });
 
@@ -255,9 +255,9 @@ describe('TestRunsView', () => {
         });
 
         it('uses light chart theme when data-theme is light', async ({ interactionObject, actor }) => {
-            const data = minimalData();
+            const props = minimalData();
             await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                data, props: data,
+                props,
                 theme: 'light',
             });
 

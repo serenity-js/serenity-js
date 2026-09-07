@@ -25,10 +25,9 @@ describe('Dark mode', () => {
     });
 
     it('TagsView renders with dark theme', async ({ mount, page }) => {
-        const data = minimalData({ tags: [{ type: 'feature', name: 'Login', scenarioCount: 2, passed: 2, failed: 0, skipped: 0 }] });
+        const props = minimalData({ tags: [{ type: 'feature', name: 'Login', scenarioCount: 2, passed: 2, failed: 0, skipped: 0 }] });
         await mount('components/tags/TagsView/Default', {
-            ...data,
-            data,
+            ...props,
             theme: 'dark',
         });
 
@@ -37,10 +36,9 @@ describe('Dark mode', () => {
     });
 
     it('SystemContextView renders with dark theme', async ({ mount, page }) => {
-        const data = minimalData();
+        const props = minimalData();
         await mount('components/about/SystemContextView/Default', {
-            ...data,
-            data,
+            ...props,
             theme: 'dark',
         });
 
@@ -49,14 +47,13 @@ describe('Dark mode', () => {
     });
 
     it('TimelineView renders with dark theme', async ({ mount, page }) => {
-        const data = minimalData({
+        const props = minimalData({
             scenarios: [
                 { name: 'Test A', category: 'Suite', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'a.spec.ts', line: 1 }, tags: [], activities: [], executionHistory: [] },
             ],
         });
         await mount('components/timeline/TimelineView/Default', {
-            ...data,
-            data,
+            ...props,
             theme: 'dark',
         });
 

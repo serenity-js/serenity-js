@@ -104,7 +104,6 @@ describe('ScenariosView tag search', () => {
     it('@browser matches any scenario with a browser tag', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...dataWithTags, route: '/tests?search=' + encodeURIComponent('@browser') },
-            data: dataWithTags,
         });
 
         await actor.attemptsTo(
@@ -115,7 +114,6 @@ describe('ScenariosView tag search', () => {
     it('@browser:chromium matches scenarios with browser tag containing chromium', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...dataWithTags, route: '/tests?search=' + encodeURIComponent('@browser:chromium') },
-            data: dataWithTags,
         });
 
         await actor.attemptsTo(
@@ -126,7 +124,6 @@ describe('ScenariosView tag search', () => {
     it('@browser:"chromium 149" matches scenarios with browser tag containing "chromium 149"', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...dataWithTags, route: '/tests?search=' + encodeURIComponent('@browser:"chromium 149"') },
-            data: dataWithTags,
         });
 
         await actor.attemptsTo(
@@ -137,7 +134,6 @@ describe('ScenariosView tag search', () => {
     it('@browser:149 matches scenarios with browser tag containing 149 (substring)', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...dataWithTags, route: '/tests?search=' + encodeURIComponent('@browser:149') },
-            data: dataWithTags,
         });
 
         await actor.attemptsTo(
@@ -148,7 +144,6 @@ describe('ScenariosView tag search', () => {
     it('@browse does NOT match type browser (exact type match required)', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...dataWithTags, route: '/tests?search=' + encodeURIComponent('@browse') },
-            data: dataWithTags,
         });
 
         await actor.attemptsTo(
@@ -159,7 +154,6 @@ describe('ScenariosView tag search', () => {
     it('@showcase matches scenarios with a tag of type "tag" whose name contains "showcase"', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...dataWithTagTypeTags, route: '/tests?search=' + encodeURIComponent('@showcase') },
-            data: dataWithTagTypeTags,
         });
 
         await actor.attemptsTo(
@@ -171,7 +165,6 @@ describe('ScenariosView tag search', () => {
     it('@smoke matches scenarios with a tag of type "tag" whose name contains "smoke"', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...dataWithTagTypeTags, route: '/tests?search=' + encodeURIComponent('@smoke') },
-            data: dataWithTagTypeTags,
         });
 
         await actor.attemptsTo(
@@ -183,7 +176,6 @@ describe('ScenariosView tag search', () => {
     it('@retried matches scenarios with a tag of type "tag" whose name contains "retried"', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...dataWithTagTypeTags, route: '/tests?search=' + encodeURIComponent('@retried') },
-            data: dataWithTagTypeTags,
         });
 
         await actor.attemptsTo(
@@ -195,7 +187,6 @@ describe('ScenariosView tag search', () => {
     it('@browser still matches any scenario with a browser tag (known type, not treated as @tag:browser)', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...dataWithTagTypeTags, route: '/tests?search=' + encodeURIComponent('@browser') },
-            data: dataWithTagTypeTags,
         });
 
         await actor.attemptsTo(
@@ -206,7 +197,6 @@ describe('ScenariosView tag search', () => {
     it('@feature still matches any scenario with a feature tag (known type)', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...dataWithTagTypeTags, route: '/tests?search=' + encodeURIComponent('@feature') },
-            data: dataWithTagTypeTags,
         });
 
         await actor.attemptsTo(
@@ -218,7 +208,6 @@ describe('ScenariosView tag search', () => {
     it('@tag:showcase also matches (explicit form equivalent to @showcase)', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...dataWithTagTypeTags, route: '/tests?search=' + encodeURIComponent('@tag:showcase') },
-            data: dataWithTagTypeTags,
         });
 
         await actor.attemptsTo(
@@ -230,7 +219,6 @@ describe('ScenariosView tag search', () => {
     it('multiple @ tokens are ANDed: @browser:chromium @project:mobile', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...dataWithTags, route: '/tests?search=' + encodeURIComponent('@browser:chromium @project:mobile') },
-            data: dataWithTags,
         });
 
         await actor.attemptsTo(
@@ -241,7 +229,6 @@ describe('ScenariosView tag search', () => {
     it('mixed search: checkout @project:mobile matches text AND tag', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...dataWithTags, route: '/tests?search=' + encodeURIComponent('checkout @project:mobile') },
-            data: dataWithTags,
         });
 
         await actor.attemptsTo(
@@ -272,7 +259,6 @@ describe('ScenariosView tag search', () => {
         });
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...dataWithSpacedType, route: '/tests?search=' + encodeURIComponent('"@External Tests:Manual"') },
-            data: dataWithSpacedType,
         });
 
         await actor.attemptsTo(
@@ -313,7 +299,7 @@ describe('ScenariosView tag chip interaction', () => {
 
     it('clicking a tag chip adds @type:value to the search field', async ({ interactionObject, actor, page }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data: dataWithTags, props: dataWithTags,
+            props: dataWithTags,
         });
 
         await page.locator('.tag-chip').filter({ hasText: 'mobile' }).click();
@@ -325,7 +311,7 @@ describe('ScenariosView tag chip interaction', () => {
 
     it('clicking a browser badge adds @browser:"value" to the search field', async ({ interactionObject, actor, page }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data: dataWithTags, props: dataWithTags,
+            props: dataWithTags,
         });
 
         await page.locator('.badge-link').filter({ hasText: 'chromium' }).first().click();
@@ -338,7 +324,6 @@ describe('ScenariosView tag chip interaction', () => {
     it('clicking a tag chip that is already in search removes it (toggle off)', async ({ interactionObject, actor, page }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...dataWithTags, route: '/tests?search=' + encodeURIComponent('@project:mobile') },
-            data: dataWithTags,
         });
 
         await page.locator('.tag-chip').filter({ hasText: 'mobile' }).click();
@@ -351,7 +336,6 @@ describe('ScenariosView tag chip interaction', () => {
     it('tag chip has active class when its token is in the search', async ({ mount, page }) => {
         await mount('components/scenarios/ScenariosView/Default', {
             ...dataWithTags,
-            data: dataWithTags,
             route: '/tests?search=' + encodeURIComponent('@project:mobile'),
         });
 
@@ -367,7 +351,6 @@ describe('ScenariosView tag chip interaction', () => {
     it('tag chip does not navigate to scenario detail when clicked', async ({ mount, page }) => {
         await mount('components/scenarios/ScenariosView/WithNavigation', {
             ...dataWithTags,
-            data: dataWithTags,
             route: '/tests',
         });
 
@@ -381,7 +364,7 @@ describe('ScenariosView tag chip interaction', () => {
 
     it('clicking tag chip filters the scenario list', async ({ interactionObject, actor, page }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data: dataWithTags, props: dataWithTags,
+            props: dataWithTags,
         });
 
         await actor.attemptsTo(
@@ -398,22 +381,6 @@ describe('ScenariosView tag chip interaction', () => {
 
     it('deduplicates tag chips with the same name but different types', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data: minimalData({
-                scenarios: [
-                    {
-                        name: 'Capability test', category: 'Capabilities', outcome: 'SUCCESS', duration: 100,
-                        startedAt: '2024-06-15T14:30:00.000Z',
-                        source: { path: 'spec/cap.spec.ts', line: 5 },
-                        tags: [
-                            { type: 'feature', name: 'Capabilities' },
-                            { type: 'capability', name: 'Capabilities' },
-                            { type: 'project', name: 'desktop' },
-                        ],
-                        activities: [],
-                        executionHistory: [],
-                    },
-                ],
-            }),
             props: minimalData({
                 scenarios: [
                     {
@@ -453,7 +420,7 @@ describe('ScenariosView tag chip interaction', () => {
             ],
         });
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data: showcaseData, props: showcaseData,
+            props: showcaseData,
         });
 
         await page.locator('.tag-chip').filter({ hasText: 'showcase' }).click();
@@ -480,7 +447,6 @@ describe('ScenariosView tag chip interaction', () => {
         });
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...showcaseData, route: '/tests?search=' + encodeURIComponent('@showcase') },
-            data: showcaseData,
         });
 
         await page.locator('.tag-chip').filter({ hasText: 'showcase' }).click();

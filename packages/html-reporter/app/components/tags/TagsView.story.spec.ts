@@ -13,7 +13,7 @@ const mixedTags = [
 
 function tagsViewData(tags: typeof mixedTags) {
     const data = minimalData({ tags });
-    return { data, props: data };
+    return { props: data };
 }
 
 describe('TagsView', () => {
@@ -181,7 +181,7 @@ describe('TagsView', () => {
                 { type: 'feature', name: 'Low', scenarioCount: 10, passed: 3, failed: 7, skipped: 0 },
             ],
         });
-        await mount('components/tags/TagsView/Default', { ...data, data });
+        await mount('components/tags/TagsView/Default', { ...data });
 
         const highCard = page.locator('.tag-card', { hasText: 'High' });
         const lowCard = page.locator('.tag-card', { hasText: 'Low' });

@@ -31,7 +31,7 @@ describe('ConsistencyView scenario access', () => {
 
     it('can find a scenario by name and check it is present', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            data: consistencyData, props: consistencyData,
+            props: consistencyData,
         });
 
         await actor.attemptsTo(
@@ -41,7 +41,7 @@ describe('ConsistencyView scenario access', () => {
 
     it('lists visible scenario names', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            data: consistencyData, props: consistencyData,
+            props: consistencyData,
         });
 
         await actor.attemptsTo(
@@ -95,7 +95,7 @@ describe('ConsistencyView', () => {
 
     it('shows "All" filter as active by default', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            data: inconsistentTestData, props: inconsistentTestData,
+            props: inconsistentTestData,
         });
 
         await actor.attemptsTo(
@@ -106,7 +106,7 @@ describe('ConsistencyView', () => {
 
     it('displays filter chips with correct labels', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            data: inconsistentTestData, props: inconsistentTestData,
+            props: inconsistentTestData,
         });
 
         await actor.attemptsTo(
@@ -116,7 +116,7 @@ describe('ConsistencyView', () => {
 
     it('flaky filter shows only tests that never genuinely failed', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            data: inconsistentTestData, props: inconsistentTestData,
+            props: inconsistentTestData,
         });
 
         await actor.attemptsTo(
@@ -127,7 +127,7 @@ describe('ConsistencyView', () => {
 
     it('inconsistent filter excludes flaky-only tests', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            data: inconsistentTestData, props: inconsistentTestData,
+            props: inconsistentTestData,
         });
 
         await actor.attemptsTo(
@@ -138,7 +138,7 @@ describe('ConsistencyView', () => {
 
     it('classifies [SUCCESS, FAILURE] as degraded', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            data: inconsistentTestData, props: inconsistentTestData,
+            props: inconsistentTestData,
         });
 
         await actor.attemptsTo(
@@ -149,7 +149,7 @@ describe('ConsistencyView', () => {
 
     it('classifies [FAILURE, SUCCESS] as recovered (clean pass)', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            data: inconsistentTestData, props: inconsistentTestData,
+            props: inconsistentTestData,
         });
 
         await actor.attemptsTo(
@@ -173,7 +173,7 @@ describe('ConsistencyView', () => {
             ],
         });
         const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            data, props: data,
+            props: data,
         });
 
         await actor.attemptsTo(
@@ -185,7 +185,7 @@ describe('ConsistencyView', () => {
     it('shows placeholder when no inconsistent tests', async ({ interactionObject, actor }) => {
         const data = minimalData({ inconsistentTests: [] });
         const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            data, props: data,
+            props: data,
         });
 
         await actor.attemptsTo(

@@ -10,7 +10,7 @@ describe('ScenariosView scenario access', () => {
 
     it('can find a scenario by name and read its outcome', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data, props: data,
+            props: data,
         });
 
         await actor.attemptsTo(
@@ -20,7 +20,7 @@ describe('ScenariosView scenario access', () => {
 
     it('can find a scenario by name and read its source location', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data, props: data,
+            props: data,
         });
 
         await actor.attemptsTo(
@@ -30,7 +30,7 @@ describe('ScenariosView scenario access', () => {
 
     it('lists all visible scenario names', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data, props: data,
+            props: data,
         });
 
         await actor.attemptsTo(
@@ -40,7 +40,7 @@ describe('ScenariosView scenario access', () => {
 
     it('can check if a scenario is present after filtering', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data, props: data,
+            props: data,
         });
 
         await actor.attemptsTo(
@@ -56,7 +56,7 @@ describe('ScenariosView interaction object', () => {
 
     it('displays filter chips with outcome labels', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data, props: data,
+            props: data,
         });
 
         await actor.attemptsTo(
@@ -66,7 +66,7 @@ describe('ScenariosView interaction object', () => {
 
     it('shows all scenarios initially', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data, props: data,
+            props: data,
         });
 
         await actor.attemptsTo(
@@ -76,7 +76,7 @@ describe('ScenariosView interaction object', () => {
 
     it('narrows results when searching', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data, props: data,
+            props: data,
         });
 
         await actor.attemptsTo(
@@ -88,7 +88,7 @@ describe('ScenariosView interaction object', () => {
 
     it('filters by selecting a filter chip', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data, props: data,
+            props: data,
         });
 
         await actor.attemptsTo(
@@ -100,7 +100,7 @@ describe('ScenariosView interaction object', () => {
 
     it('shows "All" filter as active by default', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data, props: data,
+            props: data,
         });
 
         await actor.attemptsTo(
@@ -122,7 +122,7 @@ describe('ScenariosView category sort', () => {
             ],
         });
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data: sortData, props: sortData,
+            props: sortData,
         });
 
         await actor.attemptsTo(
@@ -146,7 +146,7 @@ describe('ScenariosView category sort', () => {
             ],
         });
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data: groupData, props: groupData,
+            props: groupData,
         });
 
         await actor.attemptsTo(
@@ -167,7 +167,6 @@ describe('ScenariosView deep linking', () => {
     it('filters by search param in route', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...data, route: '/tests?search=%22Test+D%22' },
-            data,
         });
 
         await actor.attemptsTo(
@@ -179,7 +178,6 @@ describe('ScenariosView deep linking', () => {
     it('filters by outcome filter param in route', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...data, route: '/tests?filter=failed' },
-            data,
         });
 
         await actor.attemptsTo(
@@ -191,7 +189,6 @@ describe('ScenariosView deep linking', () => {
     it('applies both search and filter params', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...data, route: '/tests?search=Suite&filter=passed' },
-            data,
         });
 
         await actor.attemptsTo(
@@ -202,7 +199,7 @@ describe('ScenariosView deep linking', () => {
 
     it('shows all scenarios with no params', async ({ interactionObject, actor }) => {
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data, props: data,
+            props: data,
         });
 
         await actor.attemptsTo(
@@ -219,7 +216,6 @@ describe('ScenariosView deep linking', () => {
         });
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
             props: { ...histData, route: '/tests?run=2024-06-14T10:00:00.000Z' },
-            data: histData,
         });
 
         await actor.attemptsTo(
@@ -249,7 +245,7 @@ describe('ScenariosView scenario navigation', () => {
             ],
         });
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data: navData, props: navData,
+            props: navData,
         });
 
         await actor.attemptsTo(
@@ -273,7 +269,7 @@ describe('ScenariosView scenario navigation', () => {
             ],
         });
         const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            data: lineData, props: lineData,
+            props: lineData,
         });
 
         await actor.attemptsTo(
@@ -286,7 +282,7 @@ describe('ScenariosView accessibility', () => {
 
     it('filter result count has aria-live polite region', async ({ mount, page }) => {
         const data = minimalData();
-        await mount('components/scenarios/ScenariosView/Default', { ...data, data });
+        await mount('components/scenarios/ScenariosView/Default', data);
 
         await page.locator('.filter-chip:has-text("Failed")').click();
 

@@ -30,7 +30,7 @@ function scenarioWithError(error: { name: string; message: string; stack: string
             ...overrides,
         }],
     });
-    return { ...data, data, scenarioId: scenarioDetailId };
+    return { ...data, scenarioId: scenarioDetailId };
 }
 
 function scenarioWithAnsiError() {

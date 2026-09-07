@@ -36,7 +36,6 @@ describe('ScenariosView mobile', () => {
 
         await mount('components/scenarios/ScenariosView/Default', {
             ...scenarioWithManyTags,
-            data: scenarioWithManyTags,
         });
 
         const tagsElement = page.locator('.scenario-tags').first();
@@ -52,7 +51,6 @@ describe('ScenariosView mobile', () => {
 
         await mount('components/scenarios/ScenariosView/WithNavigation', {
             ...scenarioWithManyTags,
-            data: scenarioWithManyTags,
             route: '/tests',
         });
 
