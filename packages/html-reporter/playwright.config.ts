@@ -4,24 +4,25 @@ const galleryUrl = 'http://localhost:3200/playwright/gallery/index.html';
 
 export default defineConfig({
     tsconfig: './tsconfig.spec.json',
-    testDir: './spec',
     timeout: 30_000,
     retries: 0,
     projects: [
         {
             name: 'unit',
+            testDir: './spec',
             testMatch: ['**/*.spec.ts'],
             testIgnore: ['**/app/**'],
         },
         {
             name: 'components',
+            testDir: './spec',
             testMatch: ['**/app/**/*.spec.ts'],
-            testIgnore: ['**/app/**/*.story.spec.ts'],
             use: { browserName: 'chromium', headless: true },
         },
         {
             name: 'stories',
-            testMatch: ['**/app/**/*.story.spec.ts'],
+            testDir: './app/components',
+            testMatch: ['**/*.story.spec.ts'],
             use: {
                 browserName: 'chromium',
                 headless: true,

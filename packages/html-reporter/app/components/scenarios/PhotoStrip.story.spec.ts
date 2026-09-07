@@ -1,9 +1,9 @@
 import { contain, Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
 import { ExecuteScript, LastScriptExecution } from '@serenity-js/web';
 
+import { minimalData } from '../../../spec/app/data-factories.js';
+import { describe, it } from '../../../spec/app/story-fixtures.js';
 import { PhotoStrip } from '../../../src/serenity/scenarios/PhotoStrip.serenity.js';
-import { minimalData } from '../data-factories.js';
-import { describe, it } from '../story-fixtures.js';
 
 function activitiesWithPhotos() {
     return [

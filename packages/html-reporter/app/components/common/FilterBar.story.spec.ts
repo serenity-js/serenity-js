@@ -1,7 +1,7 @@
 import { contain, Ensure, equals } from '@serenity-js/assertions';
 
+import { describe, it } from '../../../spec/app/story-fixtures.js';
 import { FilterBar } from '../../../src/serenity/common/FilterBar.serenity.js';
-import { describe, it } from '../story-fixtures.js';
 
 describe('FilterBar', () => {
 

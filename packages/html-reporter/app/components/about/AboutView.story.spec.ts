@@ -1,7 +1,7 @@
 import { Ensure, equals, includes, isPresent } from '@serenity-js/assertions';
 
+import { describe, it } from '../../../spec/app/story-fixtures.js';
 import { AboutView } from '../../../src/serenity/about/AboutView.serenity.js';
-import { describe, it } from '../story-fixtures.js';
 
 describe('AboutView', () => {
 

@@ -1,7 +1,7 @@
 import { Ensure, equals } from '@serenity-js/assertions';
 
+import { describe, it } from '../../../spec/app/story-fixtures.js';
 import { RestQueryPanel } from '../../../src/serenity/common/RestQueryPanel.serenity.js';
-import { describe, it } from '../story-fixtures.js';
 
 describe('RestQueryPanel', () => {
 

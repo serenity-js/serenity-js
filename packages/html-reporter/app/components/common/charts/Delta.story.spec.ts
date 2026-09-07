@@ -1,8 +1,8 @@
 import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
 
-import { Delta } from '../../../src/serenity/common/Delta.serenity.js';
-import { minimalData } from '../data-factories.js';
-import { describe, it } from '../story-fixtures.js';
+import { minimalData } from '../../../../spec/app/data-factories.js';
+import { describe, it } from '../../../../spec/app/story-fixtures.js';
+import { Delta } from '../../../../src/serenity/common/Delta.serenity.js';
 
 describe('Delta', () => {
 

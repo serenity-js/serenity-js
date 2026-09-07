@@ -1,9 +1,9 @@
 import { Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
 import { By, PageElement, Value } from '@serenity-js/web';
 
+import { minimalData } from '../../../spec/app/data-factories.js';
+import { describe, it } from '../../../spec/app/story-fixtures.js';
 import { ExecutionHistory } from '../../../src/serenity/scenarios/ExecutionHistory.serenity.js';
-import { minimalData } from '../data-factories.js';
-import { describe, it } from '../story-fixtures.js';
 
 const navigatedTo = () => PageElement.located(By.css('[data-testid="navigated-to"]')).describedAs('navigated-to field');
 

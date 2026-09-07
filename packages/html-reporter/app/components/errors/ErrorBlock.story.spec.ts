@@ -1,7 +1,7 @@
 import { Ensure, equals, includes } from '@serenity-js/assertions';
 
+import { describe, it } from '../../../spec/app/story-fixtures.js';
 import { ErrorBlock } from '../../../src/serenity/errors/ErrorBlock.serenity.js';
-import { describe, it } from '../story-fixtures.js';
 
 describe('ErrorBlock', () => {
 

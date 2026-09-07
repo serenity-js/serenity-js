@@ -1,8 +1,8 @@
 import { contain, Ensure, equals, includes } from '@serenity-js/assertions';
 
+import { minimalData } from '../../../spec/app/data-factories.js';
+import { describe, it } from '../../../spec/app/story-fixtures.js';
 import { TimelineView } from '../../../src/serenity/timeline/TimelineView.serenity.js';
-import { minimalData } from '../data-factories.js';
-import { describe, it } from '../story-fixtures.js';
 
 describe('TimelineView', () => {
 

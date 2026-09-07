@@ -1,7 +1,7 @@
 import { Ensure, equals } from '@serenity-js/assertions';
 
+import { describe, it } from '../../../spec/app/story-fixtures.js';
 import { KpiCard } from '../../../src/serenity/common/KpiCard.serenity.js';
-import { describe, it } from '../story-fixtures.js';
 
 describe('KpiCard', () => {
 

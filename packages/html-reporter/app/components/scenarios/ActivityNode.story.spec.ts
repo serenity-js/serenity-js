@@ -1,8 +1,8 @@
 import { Ensure, equals, includes, isFalse, isTrue } from '@serenity-js/assertions';
 
+import { minimalData } from '../../../spec/app/data-factories.js';
+import { describe, it } from '../../../spec/app/story-fixtures.js';
 import { ActivityNode } from '../../../src/serenity/scenarios/ActivityNode.serenity.js';
-import { minimalData } from '../data-factories.js';
-import { describe, it } from '../story-fixtures.js';
 
 describe('ActivityNode — HTTP exchange (restQuery)', () => {
 

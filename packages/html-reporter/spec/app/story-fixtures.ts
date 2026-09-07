@@ -5,7 +5,8 @@ import { By, PageElement } from '@serenity-js/web';
 type InteractionObjectConstructor<IO> = new (rootElement: Answerable<PageElement>) => IO;
 
 export interface StoryMountOptions {
-    props?: Record<string, unknown>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    props?: Record<string, any>;
     data?: unknown;
     theme?: 'light' | 'dark';
 }
