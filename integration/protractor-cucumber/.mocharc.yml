@@ -2,8 +2,7 @@ check-leaks: false
 color: true
 diff: true
 full-trace: true
-reporter: mocha-multi
-reporter-options: 'mocha-multi=.mocha-reporters.json'
+reporter: '../../packages/mocha'
 require:
   - 'ts-node/register'
   - './setup.ts'

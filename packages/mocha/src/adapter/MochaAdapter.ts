@@ -46,7 +46,10 @@ export class MochaAdapter implements TestRunnerAdapter {
      * @param pathsToScenarios
      */
     async load(pathsToScenarios: string[]): Promise<void> {
-        const _Mocha = this.loader.require('mocha');
+        const mochaModule = this.loader.require('mocha');
+        const _Mocha = typeof mochaModule === 'function'
+            ? mochaModule
+            : mochaModule.default || mochaModule.Mocha;
 
         this.mocha = new _Mocha({
             ...this.config,

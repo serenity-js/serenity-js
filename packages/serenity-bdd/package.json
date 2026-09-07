@@ -37,7 +37,7 @@
   "scripts": {
     "clean": "rimraf target",
     "test": "c8 npm run test:no-coverage",
-    "test:no-coverage": "mocha --config ../../.mocharc.yml --spec='spec/**/*.spec.*'",
+    "test:no-coverage": "mocha",
     "compile": "rimraf lib && tsc --project tsconfig.build.json",
     "postcompile": "npm run populate-cache",
     "populate-cache": "node ./bin/serenity-bdd update --ignoreSSL --cacheDir './cache'"
@@ -73,9 +73,8 @@
     "@types/progress": "2.0.7",
     "c8": "12.0.0",
     "if-env": "1.0.4",
-    "memfs": "4.68.1",
-    "mocha": "11.8.0",
-    "mocha-multi": "1.1.7",
+    "memfs": "4.70.0",
+    "mocha": "12.0.0",
     "ts-node": "10.9.2",
     "typescript": "5.9.3"
   }
