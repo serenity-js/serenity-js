@@ -55,7 +55,7 @@
   "scripts": {
     "clean": "rimraf target",
     "test": "c8 npm run test:no-coverage",
-    "test:no-coverage": "mocha --config .mocharc.yml --spec='spec/**/*.spec.*'",
+    "test:no-coverage": "mocha",
     "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs-package && npm run compile:cjs",
     "compile:clean": "rimraf lib esm",
     "compile:esm": "tsc --project tsconfig-esm.build.json",
@@ -89,8 +89,7 @@
     "@types/mocha": "10.0.10",
     "axios-mock-adapter": "2.1.0",
     "c8": "12.0.0",
-    "mocha": "11.8.0",
-    "mocha-multi": "1.1.7",
+    "mocha": "12.0.0",
     "tsx": "4.23.13",
     "typescript": "5.9.3"
   }

@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 
-import type { ReportActivity, ReportAttempt, ReportError, ReportExecutionHistoryEntry, ReportHistoryEntry, ReportScenario, ReportScenarioTag } from '../../src/cli/reporting/ReportData.js';
+import type { ReportActivity, ReportAttempt, ReportError, ReportExecutionHistoryEntry, ReportHistoryEntry, ReportScenario } from '../../src/cli/reporting/ReportData.js';
 import { resolveRunIndex, useHashHistory } from '../utils/index.js';
+import { findMatchingScenario, parseScenarioParameters } from './scenarioMatchingStrategies.js';
 
 export interface ScenarioDetailState {
     scenario: ReportScenario | null;
@@ -91,46 +92,6 @@ export function useScenarioDetail(scenarioId: string, scenarios: ReportScenario[
         scenario, runIndex, activeAttempt, setActiveAttempt,
         ...viewData,
     };
-}
-
-function parseScenarioParameters(scenarioId: string) {
-    const cleanId = scenarioId.split('?')[0];
-    const params = scenarioId.includes('?') ? new URLSearchParams(scenarioId.split('?')[1]) : null;
-    return {
-        cleanId,
-        runString: params?.get('run') ?? null,
-        attemptString: params?.get('attempt') ?? null,
-        projectString: params?.get('project') ?? null,
-        browserString: params?.get('browser') ?? null,
-        platformString: params?.get('platform') ?? null,
-    };
-}
-
-function findMatchingScenario(
-    scenarios: ReportScenario[], cleanId: string, projectString: string | null, browserString: string | null, platformString: string | null,
-): ReportScenario | null {
-    const decoded = decodeURIComponent(cleanId);
-
-    const matchesTag = (tags: ReportScenarioTag[], type: string, value: string | null): boolean =>
-        !value || tags.some(t => t.type === type && t.name === value);
-
-    const candidates = scenarios.filter(s => {
-        const tags = s.tags || [];
-        return matchesTag(tags, 'browser', browserString)
-            && matchesTag(tags, 'project', projectString)
-            && matchesTag(tags, 'platform', platformString);
-    });
-
-    // First: try exact match on collision-aware id
-    // Fallback: match by source key (backward compatible with old bookmarked URLs)
-    return candidates.find(s => s.id === decoded)
-        ?? candidates.find(s => {
-            const sourceKey = s.source.line
-                ? s.source.path + ':' + s.source.line
-                : s.source.path + ':' + s.name;
-            return sourceKey === decoded;
-        })
-        ?? null;
 }
 
 function resolveScenarioViewData(scenario: ReportScenario, runIndex: number | null, activeAttempt: number, history: ReportHistoryEntry[]) {
