@@ -46,7 +46,6 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
 
     // Structure — page elements
     private readonly chartCanvas = this.rootElement.element(By.css('canvas')).describedAs('trend chart canvas');
-    private readonly appContainer = PageElement.located(By.css('#app')).describedAs('test runs view container');
     private readonly runRows = this.rootElement.elements(By.css('.scenario-list .scenario-item')).describedAs('test run rows');
     private readonly commitLink = this.rootElement.element(By.css('a[href*="/commit/"]')).describedAs('commit link');
     private readonly detailsPanel = PageElement.located(By.css('[data-testid="run-details-panel"]')).describedAs('run details panel');
@@ -69,7 +68,7 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
      * ```
      */
     bodyText = (): QuestionAdapter<string> =>
-        Text.of(this.appContainer).describedAs('test runs view body text');
+        Text.of(this.rootElement).describedAs('test runs view body text');
 
     /**
      * The number of test run rows currently displayed in the list.

@@ -43,10 +43,16 @@ interface MountParameters {
         document.documentElement.setAttribute('data-theme', String(props.theme));
     }
 
+    // Set URL hash if provided (for hash-based routing tests)
+    if (props?.hash) {
+        window.location.hash = String(props.hash);
+    }
+
     // Remove fixture-level keys that aren't component props
     const componentProps = { ...props };
     delete componentProps.data;
     delete componentProps.theme;
+    delete componentProps.hash;
 
     const container = document.getElementById('root')!;
     render(html`<${Story} ...${componentProps} />`, container);

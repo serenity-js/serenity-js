@@ -7,34 +7,36 @@ import { ErrorsView } from '../../../src/serenity/errors/ErrorsView.serenity.js'
 
 const navigatedTo = () => PageElement.located(By.css('[data-testid="navigated-to"]')).describedAs('navigated-to field');
 
+const loginFails = {
+    name: 'Login fails', category: 'Auth', outcome: 'FAILURE', duration: 50,
+    startedAt: '2024-06-15T14:30:00.000Z',
+    source: { path: 'spec/auth.spec.ts', line: 10 },
+    tags: [], activities: [],
+    executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
+    error: { name: 'AssertionError', message: 'expected true to equal false' },
+};
+
+const signupFails = {
+    name: 'Signup fails', category: 'Auth', outcome: 'FAILURE', duration: 60,
+    startedAt: '2024-06-15T14:30:00.100Z',
+    source: { path: 'spec/auth.spec.ts', line: 20 },
+    tags: [], activities: [],
+    executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
+    error: { name: 'AssertionError', message: 'expected true to equal false' },
+};
+
+const timeoutTest = {
+    name: 'Timeout test', category: 'Suite', outcome: 'FAILURE', duration: 5000,
+    startedAt: '2024-06-15T14:30:00.200Z',
+    source: { path: 'spec/slow.spec.ts', line: 5 },
+    tags: [], activities: [],
+    executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
+    error: { name: 'Error', message: 'timed out after 5000ms' },
+};
+
 function errorsData() {
     return minimalData({
-        scenarios: [
-            {
-                name: 'Login fails', category: 'Auth', outcome: 'FAILURE', duration: 50,
-                startedAt: '2024-06-15T14:30:00.000Z',
-                source: { path: 'spec/auth.spec.ts', line: 10 },
-                tags: [], activities: [],
-                executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
-                error: { name: 'AssertionError', message: 'expected true to equal false' },
-            },
-            {
-                name: 'Signup fails', category: 'Auth', outcome: 'FAILURE', duration: 60,
-                startedAt: '2024-06-15T14:30:00.100Z',
-                source: { path: 'spec/auth.spec.ts', line: 20 },
-                tags: [], activities: [],
-                executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
-                error: { name: 'AssertionError', message: 'expected true to equal false' },
-            },
-            {
-                name: 'Timeout test', category: 'Suite', outcome: 'FAILURE', duration: 5000,
-                startedAt: '2024-06-15T14:30:00.200Z',
-                source: { path: 'spec/slow.spec.ts', line: 5 },
-                tags: [], activities: [],
-                executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
-                error: { name: 'Error', message: 'timed out after 5000ms' },
-            },
-        ],
+        scenarios: [loginFails, signupFails, timeoutTest],
         summary: {
             title: 'Test', totalScenarios: 3,
             outcomes: { passed: 0, failed: 3, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -46,24 +48,7 @@ function errorsData() {
 
 function ungroupedErrorsData() {
     return minimalData({
-        scenarios: [
-            {
-                name: 'Login fails', category: 'Auth', outcome: 'FAILURE', duration: 50,
-                startedAt: '2024-06-15T14:30:00.000Z',
-                source: { path: 'spec/auth.spec.ts', line: 10 },
-                tags: [], activities: [],
-                executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
-                error: { name: 'AssertionError', message: 'expected true to equal false' },
-            },
-            {
-                name: 'Timeout test', category: 'Suite', outcome: 'FAILURE', duration: 5000,
-                startedAt: '2024-06-15T14:30:00.200Z',
-                source: { path: 'spec/slow.spec.ts', line: 5 },
-                tags: [], activities: [],
-                executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
-                error: { name: 'Error', message: 'timed out after 5000ms' },
-            },
-        ],
+        scenarios: [loginFails, timeoutTest],
         summary: {
             title: 'Test', totalScenarios: 2,
             outcomes: { passed: 0, failed: 2, pending: 0, skipped: 0, compromised: 0, error: 0 },
@@ -72,6 +57,13 @@ function ungroupedErrorsData() {
         },
     });
 }
+
+const twoRunHistory = [
+    { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 100, average: 150 },
+    { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 100, average: 150 },
+];
+
+const historicalRunRoute = '#/errors?run=2024-06-14T10:00:00.000Z';
 
 describe('ErrorsView', () => {
 
@@ -148,14 +140,11 @@ describe('ErrorsView', () => {
                     error: { name: 'Error', message: 'latest failure in run 42' },
                 },
             ],
-            history: [
-                { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 100, average: 150 },
-                { timestamp: '2024-06-15T14:30:00.000Z', label: '#42', outcomes: { passed: 1, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 200, slowest: 200, fastest: 100, average: 150 },
-            ],
+            history: twoRunHistory,
         });
 
         const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            data, props: { ...data, route: '#/errors?run=2024-06-14T10:00:00.000Z' },
+            data, props: { ...data, route: historicalRunRoute },
         });
 
         await actor.attemptsTo(
@@ -186,7 +175,7 @@ describe('ErrorsView', () => {
         });
 
         const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            data, props: { ...data, route: '#/errors?run=2024-06-14T10:00:00.000Z' },
+            data, props: { ...data, route: historicalRunRoute },
         });
 
         await actor.attemptsTo(

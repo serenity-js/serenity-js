@@ -1,0 +1,267 @@
+import { contain, Ensure, equals, includes, not } from '@serenity-js/assertions';
+import { By, PageElement, Value } from '@serenity-js/web';
+
+import { minimalData } from '../../../spec/app/data-factories.js';
+import { describe, expect, it } from '../../../spec/app/story-fixtures.js';
+import { TagsView } from '../../../src/serenity/tags/TagsView.serenity.js';
+
+describe('TagsView', () => {
+
+    it('reports the number of tag cards', async ({ interactionObject, actor }) => {
+        const data = minimalData({
+            tags: [
+                { type: 'feature', name: 'Login', scenarioCount: 3, passed: 3, failed: 0, skipped: 0 },
+                { type: 'feature', name: 'Checkout', scenarioCount: 2, passed: 1, failed: 1, skipped: 0 },
+                { type: 'tag', name: 'smoke', scenarioCount: 4, passed: 4, failed: 0, skipped: 0 },
+            ],
+        });
+        const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', {
+            data, props: data,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.tagCount(), equals(3)),
+        );
+    });
+
+    it('renders tag cards grouped by type', async ({ interactionObject, actor }) => {
+        const data = minimalData({
+            tags: [
+                { type: 'feature', name: 'Login', scenarioCount: 3, passed: 3, failed: 0, skipped: 0 },
+                { type: 'feature', name: 'Checkout', scenarioCount: 2, passed: 1, failed: 1, skipped: 0 },
+                { type: 'tag', name: 'smoke', scenarioCount: 4, passed: 4, failed: 0, skipped: 0 },
+            ],
+        });
+        const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', {
+            data, props: data,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.groupHeadings(), contain('FEATURE (2)')),
+            Ensure.that(view.groupHeadings(), contain('TAG (1)')),
+            Ensure.that(view.tagNames(), contain('Login')),
+            Ensure.that(view.tagNames(), contain('Checkout')),
+            Ensure.that(view.tagNames(), contain('smoke')),
+        );
+    });
+
+    it('displays pass rate percentage for each tag', async ({ interactionObject, actor }) => {
+        const data = minimalData({
+            tags: [
+                { type: 'feature', name: 'Login', scenarioCount: 4, passed: 3, failed: 1, skipped: 0 },
+            ],
+        });
+        const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', {
+            data, props: data,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.tagCardText('Login'), includes('75%')),
+            Ensure.that(view.tagCardText('Login'), includes('4 scenarios')),
+        );
+    });
+
+    it('navigates to filtered scenarios using @type:"name" format on tag click', async ({ interactionObject, actor }) => {
+        const data = minimalData({
+            tags: [{ type: 'feature', name: 'Login', scenarioCount: 2, passed: 2, failed: 0, skipped: 0 }],
+        });
+        const view = await interactionObject(TagsView, 'components/tags/TagsView/WithNavigation', {
+            data, props: data,
+        });
+
+        await actor.attemptsTo(
+            view.selectTag('Login'),
+            Ensure.that(
+                Value.of(PageElement.located(By.css('[data-testid="navigated-to"]'))),
+                includes('@feature:Login'),
+            ),
+        );
+    });
+
+    it('navigates using shorthand @name format for tags of type "tag"', async ({ interactionObject, actor }) => {
+        const data = minimalData({
+            tags: [{ type: 'tag', name: 'smoke', scenarioCount: 3, passed: 3, failed: 0, skipped: 0 }],
+        });
+        const view = await interactionObject(TagsView, 'components/tags/TagsView/WithNavigation', {
+            data, props: data,
+        });
+
+        await actor.attemptsTo(
+            view.selectTag('smoke'),
+            Ensure.that(
+                Value.of(PageElement.located(By.css('[data-testid="navigated-to"]'))),
+                includes('@smoke'),
+            ),
+        );
+    });
+
+    it('double-quotes the entire tag token when the type contains a space', async ({ interactionObject, actor }) => {
+        const data = minimalData({
+            tags: [{ type: 'External Tests', name: 'Manual', scenarioCount: 3, passed: 0, failed: 3, skipped: 0 }],
+        });
+        const view = await interactionObject(TagsView, 'components/tags/TagsView/WithNavigation', {
+            data, props: data,
+        });
+
+        await actor.attemptsTo(
+            view.selectTag('Manual'),
+            Ensure.that(
+                Value.of(PageElement.located(By.css('[data-testid="navigated-to"]'))),
+                includes('"@External Tests:Manual"'),
+            ),
+        );
+    });
+
+    describe('search', () => {
+
+        it('filters tag cards by name', async ({ interactionObject, actor }) => {
+            const data = minimalData({
+                tags: [
+                    { type: 'feature', name: 'Login', scenarioCount: 3, passed: 3, failed: 0, skipped: 0 },
+                    { type: 'feature', name: 'Checkout', scenarioCount: 2, passed: 1, failed: 1, skipped: 0 },
+                    { type: 'tag', name: 'smoke', scenarioCount: 4, passed: 4, failed: 0, skipped: 0 },
+                ],
+            });
+            const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', {
+                data, props: data,
+            });
+
+            await actor.attemptsTo(
+                view.find('Login'),
+                Ensure.that(view.tagCount(), equals(1)),
+                Ensure.that(view.tagNames(), equals(['Login'])),
+            );
+        });
+
+        it('is case-insensitive', async ({ interactionObject, actor }) => {
+            const data = minimalData({
+                tags: [
+                    { type: 'feature', name: 'Login', scenarioCount: 3, passed: 3, failed: 0, skipped: 0 },
+                    { type: 'feature', name: 'Checkout', scenarioCount: 2, passed: 1, failed: 1, skipped: 0 },
+                ],
+            });
+            const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', {
+                data, props: data,
+            });
+
+            await actor.attemptsTo(
+                view.find('login'),
+                Ensure.that(view.tagCount(), equals(1)),
+                Ensure.that(view.tagNames(), equals(['Login'])),
+            );
+        });
+
+        it('shows a result count when filtering reduces the list', async ({ interactionObject, actor }) => {
+            const data = minimalData({
+                tags: [
+                    { type: 'feature', name: 'Login', scenarioCount: 3, passed: 3, failed: 0, skipped: 0 },
+                    { type: 'feature', name: 'Checkout', scenarioCount: 2, passed: 1, failed: 1, skipped: 0 },
+                    { type: 'tag', name: 'smoke', scenarioCount: 4, passed: 4, failed: 0, skipped: 0 },
+                ],
+            });
+            const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', {
+                data, props: data,
+            });
+
+            await actor.attemptsTo(
+                view.find('Login'),
+                Ensure.that(view.resultCountText(), includes('1 of 3')),
+            );
+        });
+    });
+
+    describe('outcome filter', () => {
+
+        it('shows all tags by default', async ({ interactionObject, actor }) => {
+            const data = minimalData({
+                tags: [
+                    { type: 'feature', name: 'Login', scenarioCount: 3, passed: 3, failed: 0, skipped: 0 },
+                    { type: 'feature', name: 'Checkout', scenarioCount: 2, passed: 1, failed: 1, skipped: 0 },
+                    { type: 'tag', name: 'smoke', scenarioCount: 4, passed: 4, failed: 0, skipped: 0 },
+                ],
+            });
+            const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', {
+                data, props: data,
+            });
+
+            await actor.attemptsTo(
+                Ensure.that(view.tagCount(), equals(3)),
+            );
+        });
+
+        it('filters to show only tags with 100% pass rate when Passed is selected', async ({ interactionObject, actor }) => {
+            const data = minimalData({
+                tags: [
+                    { type: 'feature', name: 'Login', scenarioCount: 3, passed: 3, failed: 0, skipped: 0 },
+                    { type: 'feature', name: 'Checkout', scenarioCount: 2, passed: 1, failed: 1, skipped: 0 },
+                    { type: 'tag', name: 'smoke', scenarioCount: 4, passed: 4, failed: 0, skipped: 0 },
+                ],
+            });
+            const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', {
+                data, props: data,
+            });
+
+            await actor.attemptsTo(
+                view.selectFilter('Passed'),
+                Ensure.that(view.tagCount(), equals(2)),
+                Ensure.that(view.tagNames(), contain('Login')),
+                Ensure.that(view.tagNames(), contain('smoke')),
+                Ensure.that(view.tagNames(), not(contain('Checkout'))),
+            );
+        });
+
+        it('filters to show only tags with failures when Failed is selected', async ({ interactionObject, actor }) => {
+            const data = minimalData({
+                tags: [
+                    { type: 'feature', name: 'Login', scenarioCount: 3, passed: 3, failed: 0, skipped: 0 },
+                    { type: 'feature', name: 'Checkout', scenarioCount: 2, passed: 1, failed: 1, skipped: 0 },
+                    { type: 'tag', name: 'smoke', scenarioCount: 4, passed: 4, failed: 0, skipped: 0 },
+                ],
+            });
+            const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', {
+                data, props: data,
+            });
+
+            await actor.attemptsTo(
+                view.selectFilter('Failed'),
+                Ensure.that(view.tagCount(), equals(1)),
+                Ensure.that(view.tagNames(), equals(['Checkout'])),
+            );
+        });
+
+        it('combines search and outcome filter', async ({ interactionObject, actor }) => {
+            const data = minimalData({
+                tags: [
+                    { type: 'feature', name: 'Login', scenarioCount: 3, passed: 3, failed: 0, skipped: 0 },
+                    { type: 'feature', name: 'Login Mobile', scenarioCount: 2, passed: 1, failed: 1, skipped: 0 },
+                    { type: 'tag', name: 'smoke', scenarioCount: 4, passed: 4, failed: 0, skipped: 0 },
+                ],
+            });
+            const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', {
+                data, props: data,
+            });
+
+            await actor.attemptsTo(
+                view.find('Login'),
+                view.selectFilter('Failed'),
+                Ensure.that(view.tagCount(), equals(1)),
+                Ensure.that(view.tagNames(), equals(['Login Mobile'])),
+            );
+        });
+    });
+
+    it('displays correct pass rate colors', async ({ mount, page }) => {
+        const data = minimalData({
+            tags: [
+                { type: 'feature', name: 'High', scenarioCount: 10, passed: 9, failed: 1, skipped: 0 },
+                { type: 'feature', name: 'Low', scenarioCount: 10, passed: 3, failed: 7, skipped: 0 },
+            ],
+        });
+        await mount('components/tags/TagsView/Default', { ...data, data });
+
+        const highCard = page.locator('.tag-card', { hasText: 'High' });
+        const lowCard = page.locator('.tag-card', { hasText: 'Low' });
+        await expect(highCard).toContainText('90%');
+        await expect(lowCard).toContainText('30%');
+    });
+});

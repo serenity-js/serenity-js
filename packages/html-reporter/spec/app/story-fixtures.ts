@@ -9,6 +9,7 @@ export interface StoryMountOptions {
     props?: Record<string, any>;
     data?: unknown;
     theme?: 'light' | 'dark';
+    hash?: string;
 }
 
 /**
@@ -46,12 +47,13 @@ export const {
 
     interactionObject: async ({ mount }, use) => {
         async function mountStory<IO>(io: InteractionObjectConstructor<IO>, storyPath: string, options: StoryMountOptions = {}): Promise<IO> {
-            const { props = {}, data, theme } = options;
+            const { props = {}, data, theme, hash } = options;
 
             const mountProps = {
                 ...props,
                 ...(data !== undefined && { data }),
                 ...(theme !== undefined && { theme }),
+                ...(hash !== undefined && { hash }),
             };
 
             await mount(storyPath, Object.keys(mountProps).length > 0 ? mountProps : undefined);

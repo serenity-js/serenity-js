@@ -1,0 +1,298 @@
+import { contain, Ensure, equals, includes, isPresent } from '@serenity-js/assertions';
+
+import { minimalData } from '../../../spec/app/data-factories.js';
+import { describe, expect, it } from '../../../spec/app/story-fixtures.js';
+import { ScenariosView } from '../../../src/serenity/scenarios/ScenariosView.serenity.js';
+
+describe('ScenariosView scenario access', () => {
+
+    const data = minimalData();
+
+    it('can find a scenario by name and read its outcome', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
+            data, props: data,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCalled('Test D').outcome(), equals('FAILURE')),
+        );
+    });
+
+    it('can find a scenario by name and read its source location', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
+            data, props: data,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCalled('Test D').sourceLocation(), includes('b.spec.ts')),
+        );
+    });
+
+    it('lists all visible scenario names', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
+            data, props: data,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioNames(), contain('Test D')),
+        );
+    });
+
+    it('can check if a scenario is present after filtering', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
+            data, props: data,
+        });
+
+        await actor.attemptsTo(
+            view.filterBar.selectFilter('Failed'),
+            Ensure.that(view.scenarioCalled('Test D'), isPresent()),
+        );
+    });
+});
+
+describe('ScenariosView interaction object', () => {
+
+    const data = minimalData();
+
+    it('displays filter chips with outcome labels', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
+            data, props: data,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.filterBar.filterLabels(), equals(['All', 'Passed', 'Failed', 'Skipped'])),
+        );
+    });
+
+    it('shows all scenarios initially', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
+            data, props: data,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCount(), equals(4)),
+        );
+    });
+
+    it('narrows results when searching', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
+            data, props: data,
+        });
+
+        await actor.attemptsTo(
+            view.find('Test D'),
+            Ensure.that(view.resultCount.text(), includes('1')),
+            Ensure.that(view.scenarioCount(), equals(1)),
+        );
+    });
+
+    it('filters by selecting a filter chip', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
+            data, props: data,
+        });
+
+        await actor.attemptsTo(
+            view.filterBar.selectFilter('Failed'),
+            Ensure.that(view.resultCount.text(), includes('1')),
+            Ensure.that(view.scenarioCount(), equals(1)),
+        );
+    });
+
+    it('shows "All" filter as active by default', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
+            data, props: data,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.filterBar.activeFilters(), contain('All')),
+        );
+    });
+});
+
+describe('ScenariosView category sort', () => {
+
+    it('orders scenarios alphabetically by name within each category', async ({ interactionObject, actor }) => {
+        const sortData = minimalData({
+            scenarios: [
+                { name: 'Zebra test', category: 'Auth', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'spec/auth.spec.ts', line: 1 }, tags: [], activities: [], executionHistory: [] },
+                { name: 'Alpha test', category: 'Auth', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.100Z', source: { path: 'spec/auth.spec.ts', line: 5 }, tags: [], activities: [], executionHistory: [] },
+                { name: 'Middle test', category: 'Auth', outcome: 'FAILURE', duration: 100, startedAt: '2024-06-15T14:30:00.200Z', source: { path: 'spec/auth.spec.ts', line: 10 }, tags: [], activities: [], executionHistory: [], error: { name: 'Error', message: 'failed' } },
+                { name: 'Beta checkout', category: 'Checkout', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.300Z', source: { path: 'spec/checkout.spec.ts', line: 1 }, tags: [], activities: [], executionHistory: [] },
+                { name: 'Alpha checkout', category: 'Checkout', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.400Z', source: { path: 'spec/checkout.spec.ts', line: 5 }, tags: [], activities: [], executionHistory: [] },
+            ],
+        });
+        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
+            data: sortData, props: sortData,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioNames(), equals([
+                'Alpha test',
+                'Middle test',
+                'Zebra test',
+                'Alpha checkout',
+                'Beta checkout',
+            ])),
+        );
+    });
+
+    it('groups same-named scenarios from different projects together within a category', async ({ interactionObject, actor }) => {
+        const groupData = minimalData({
+            scenarios: [
+                { name: 'should complete checkout', category: 'Checkout', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'spec/checkout.spec.ts', line: 10 }, tags: [{ type: 'project', name: 'desktop' }], activities: [], executionHistory: [] },
+                { name: 'should add to cart', category: 'Checkout', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.100Z', source: { path: 'spec/checkout.spec.ts', line: 20 }, tags: [{ type: 'project', name: 'desktop' }], activities: [], executionHistory: [] },
+                { name: 'should complete checkout', category: 'Checkout', outcome: 'FAILURE', duration: 200, startedAt: '2024-06-15T14:30:00.200Z', source: { path: 'spec/checkout.spec.ts', line: 10 }, tags: [{ type: 'project', name: 'mobile' }], activities: [], executionHistory: [], error: { name: 'Error', message: 'mobile broken' } },
+                { name: 'should add to cart', category: 'Checkout', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.300Z', source: { path: 'spec/checkout.spec.ts', line: 20 }, tags: [{ type: 'project', name: 'mobile' }], activities: [], executionHistory: [] },
+            ],
+        });
+        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
+            data: groupData, props: groupData,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioNames(), equals([
+                'should add to cart',
+                'should add to cart',
+                'should complete checkout',
+                'should complete checkout',
+            ])),
+        );
+    });
+});
+
+describe('ScenariosView deep linking', () => {
+
+    const data = minimalData();
+
+    it('filters by search param in route', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
+            props: { ...data, route: '/tests?search=%22Test+D%22' },
+            data,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.resultCount.text(), includes('Showing 1 of 4')),
+            Ensure.that(view.scenarioCount(), equals(1)),
+        );
+    });
+
+    it('filters by outcome filter param in route', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
+            props: { ...data, route: '/tests?filter=failed' },
+            data,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.resultCount.text(), includes('Showing 1 of 4')),
+            Ensure.that(view.scenarioCount(), equals(1)),
+        );
+    });
+
+    it('applies both search and filter params', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
+            props: { ...data, route: '/tests?search=Suite&filter=passed' },
+            data,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.resultCount.text(), includes('Showing 2 of 4')),
+            Ensure.that(view.scenarioCount(), equals(2)),
+        );
+    });
+
+    it('shows all scenarios with no params', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
+            data, props: data,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCount(), equals(4)),
+        );
+    });
+
+    it('filters by run param showing only matching run', async ({ interactionObject, actor }) => {
+        const histData = minimalData({
+            history: [
+                { timestamp: '2024-06-14T10:00:00.000Z', label: 'build 41', outcomes: { passed: 4, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 800, slowest: 300, fastest: 100, average: 200 },
+                { timestamp: '2024-06-15T14:30:00.000Z', label: 'build 42', outcomes: { passed: 3, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 1000, slowest: 400, fastest: 100, average: 250 },
+            ],
+        });
+        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
+            props: { ...histData, route: '/tests?run=2024-06-14T10:00:00.000Z' },
+            data: histData,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.runSelectorIsPresent(), equals(true)),
+        );
+    });
+});
+
+describe('ScenariosView scenario navigation', () => {
+
+    it('scenarios in the same file without line numbers are both listed distinctly', async ({ interactionObject, actor }) => {
+        const navData = minimalData({
+            scenarios: [
+                {
+                    name: 'first scenario', category: 'Suite', outcome: 'SUCCESS', duration: 100,
+                    startedAt: '2024-06-15T14:30:00.000Z',
+                    source: { path: 'spec/shared.spec.ts' },
+                    tags: [], activities: [], executionHistory: [],
+                },
+                {
+                    name: 'second scenario', category: 'Suite', outcome: 'FAILURE', duration: 200,
+                    startedAt: '2024-06-15T14:30:00.100Z',
+                    source: { path: 'spec/shared.spec.ts' },
+                    tags: [], activities: [], executionHistory: [],
+                    error: { name: 'AssertionError', message: 'Expected true to be false', stack: '' },
+                },
+            ],
+        });
+        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
+            data: navData, props: navData,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCount(), equals(2)),
+            Ensure.that(view.scenarioNames(), contain('first scenario')),
+            Ensure.that(view.scenarioNames(), contain('second scenario')),
+            Ensure.that(view.scenarioCalled('first scenario').sourceLocation(), includes('shared.spec.ts')),
+            Ensure.that(view.scenarioCalled('second scenario').sourceLocation(), includes('shared.spec.ts')),
+        );
+    });
+
+    it('displays line number in source path when available', async ({ interactionObject, actor }) => {
+        const lineData = minimalData({
+            scenarios: [
+                {
+                    name: 'test with line', category: 'Suite', outcome: 'SUCCESS', duration: 100,
+                    startedAt: '2024-06-15T14:30:00.000Z',
+                    source: { path: 'spec/a.spec.ts', line: 42 },
+                    tags: [], activities: [], executionHistory: [],
+                },
+            ],
+        });
+        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
+            data: lineData, props: lineData,
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(view.scenarioCalled('test with line').sourceLocation(), includes('a.spec.ts:42')),
+        );
+    });
+});
+
+describe('ScenariosView accessibility', () => {
+
+    it('filter result count has aria-live polite region', async ({ mount, page }) => {
+        const data = minimalData();
+        await mount('components/scenarios/ScenariosView/Default', { ...data, data });
+
+        await page.locator('.filter-chip:has-text("Failed")').click();
+
+        const liveRegion = page.locator('[aria-live="polite"]');
+        await expect(liveRegion).toBeVisible();
+        await expect(liveRegion).toHaveAttribute('aria-atomic', 'true');
+        await expect(liveRegion).toContainText('Showing');
+    });
+});
