@@ -6,13 +6,14 @@
 import { minimalData } from '../../../spec/app/data-factories.js';
 import { describe, expect, it } from '../../../spec/app/story-fixtures.js';
 
+const themeRadioGroupSelector = '[role="radiogroup"][aria-label="Theme preference"] [role="radio"]';
+
 describe('ThemeToggle — roving tabindex', () => {
 
     it('only the active radio has tabindex="0"', async ({ mount, page }) => {
-        const data = minimalData();
-        await mount('components/common/App/Default', { data });
+        await mount('components/common/App/Default', { data: minimalData() });
 
-        const radios = page.locator('[role="radiogroup"][aria-label="Theme preference"] [role="radio"]');
+        const radios = page.locator(themeRadioGroupSelector);
         await expect(radios).toHaveCount(3);
 
         const checked = page.locator('[role="radiogroup"] [role="radio"][aria-checked="true"]');
@@ -23,10 +24,9 @@ describe('ThemeToggle — roving tabindex', () => {
     });
 
     it('ArrowRight moves selection and focus to next option', async ({ mount, page }) => {
-        const data = minimalData();
-        await mount('components/common/App/Default', { data });
+        await mount('components/common/App/Default', { data: minimalData() });
 
-        const radios = page.locator('[role="radiogroup"][aria-label="Theme preference"] [role="radio"]');
+        const radios = page.locator(themeRadioGroupSelector);
         const firstRadio = radios.first();
 
         await firstRadio.click();
@@ -40,10 +40,9 @@ describe('ThemeToggle — roving tabindex', () => {
     });
 
     it('ArrowLeft wraps from first to last option', async ({ mount, page }) => {
-        const data = minimalData();
-        await mount('components/common/App/Default', { data });
+        await mount('components/common/App/Default', { data: minimalData() });
 
-        const radios = page.locator('[role="radiogroup"][aria-label="Theme preference"] [role="radio"]');
+        const radios = page.locator(themeRadioGroupSelector);
         const firstRadio = radios.first();
 
         await firstRadio.click();

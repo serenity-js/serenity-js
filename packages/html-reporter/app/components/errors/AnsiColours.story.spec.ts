@@ -7,40 +7,52 @@
 import { minimalData } from '../../../spec/app/data-factories.js';
 import { describe, expect, it } from '../../../spec/app/story-fixtures.js';
 
-function scenarioWithAnsiError() {
-    return minimalData({
-        scenarios: [
-            {
-                name: 'Coloured error test',
-                category: 'Suite',
-                outcome: 'FAILURE',
-                duration: 200,
-                startedAt: '2024-06-15T14:30:00.000Z',
-                source: { path: 'spec/ansi.spec.ts', line: 5 },
-                tags: [],
-                activities: [
-                    { name: 'Ensure value equals expected', outcome: 'FAILURE', duration: 50, children: [] },
-                ],
-                executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
-                error: {
-                    name: 'AssertionError',
-                    message: '\u001b[32mExpected number: 2\u001b[39m\n\u001b[31mReceived number: 0\u001b[39m',
-                    stack: 'at Object.<anonymous> (spec/ansi.spec.ts:5:24)',
-                },
-            },
-        ],
+const baseScenarioFields = {
+    category: 'Suite',
+    outcome: 'FAILURE',
+    duration: 200,
+    startedAt: '2024-06-15T14:30:00.000Z',
+    source: { path: 'spec/ansi.spec.ts', line: 5 },
+    tags: [],
+};
+
+const scenarioDetailStory = 'components/scenarios/ScenarioDetailView/Default';
+const scenarioDetailId = 'spec/ansi.spec.ts:5';
+
+function scenarioWithError(error: { name: string; message: string; stack: string }, overrides: Record<string, unknown> = {}) {
+    const data = minimalData({
+        scenarios: [{
+            ...baseScenarioFields,
+            name: 'Error test',
+            activities: [],
+            executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
+            error,
+            ...overrides,
+        }],
     });
+    return { ...data, data, scenarioId: scenarioDetailId };
+}
+
+function scenarioWithAnsiError() {
+    return scenarioWithError(
+        {
+            name: 'AssertionError',
+            message: '\u001b[32mExpected number: 2\u001b[39m\n\u001b[31mReceived number: 0\u001b[39m',
+            stack: 'at Object.<anonymous> (spec/ansi.spec.ts:5:24)',
+        },
+        {
+            name: 'Coloured error test',
+            activities: [
+                { name: 'Ensure value equals expected', outcome: 'FAILURE', duration: 50, children: [] },
+            ],
+        },
+    );
 }
 
 describe('ANSI colour rendering in error messages', () => {
 
     it('renders ANSI green text with a green colour class', async ({ mount, page }) => {
-        const data = scenarioWithAnsiError();
-        await mount('components/scenarios/ScenarioDetailView/Default', {
-            ...data,
-            data,
-            scenarioId: 'spec/ansi.spec.ts:5',
-        });
+        await mount(scenarioDetailStory, scenarioWithAnsiError());
 
         const greenSpan = page.locator('.error-message .ansi-green');
         await expect(greenSpan).toBeVisible();
@@ -48,12 +60,7 @@ describe('ANSI colour rendering in error messages', () => {
     });
 
     it('renders ANSI red text with a red colour class', async ({ mount, page }) => {
-        const data = scenarioWithAnsiError();
-        await mount('components/scenarios/ScenarioDetailView/Default', {
-            ...data,
-            data,
-            scenarioId: 'spec/ansi.spec.ts:5',
-        });
+        await mount(scenarioDetailStory, scenarioWithAnsiError());
 
         const redSpan = page.locator('.error-message .ansi-red');
         await expect(redSpan).toBeVisible();
@@ -61,12 +68,7 @@ describe('ANSI colour rendering in error messages', () => {
     });
 
     it('strips ANSI escape sequences from plain text portions', async ({ mount, page }) => {
-        const data = scenarioWithAnsiError();
-        await mount('components/scenarios/ScenarioDetailView/Default', {
-            ...data,
-            data,
-            scenarioId: 'spec/ansi.spec.ts:5',
-        });
+        await mount(scenarioDetailStory, scenarioWithAnsiError());
 
         const messageText = await page.locator('.error-message').textContent();
         expect(messageText).not.toContain('\u001b');
@@ -75,31 +77,14 @@ describe('ANSI colour rendering in error messages', () => {
     });
 
     it('renders ANSI colours in the error stack trace', async ({ mount, page }) => {
-        const data = minimalData({
-            scenarios: [
-                {
-                    name: 'Stack colour test',
-                    category: 'Suite',
-                    outcome: 'FAILURE',
-                    duration: 200,
-                    startedAt: '2024-06-15T14:30:00.000Z',
-                    source: { path: 'spec/ansi.spec.ts', line: 5 },
-                    tags: [],
-                    activities: [],
-                    executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
-                    error: {
-                        name: 'Error',
-                        message: 'simple message',
-                        stack: '\u001b[2mat Object.<anonymous> (spec/ansi.spec.ts:5:24)\u001b[22m',
-                    },
-                },
-            ],
-        });
-        await mount('components/scenarios/ScenarioDetailView/Default', {
-            ...data,
-            data,
-            scenarioId: 'spec/ansi.spec.ts:5',
-        });
+        await mount(scenarioDetailStory, scenarioWithError(
+            {
+                name: 'Error',
+                message: 'simple message',
+                stack: '\u001b[2mat Object.<anonymous> (spec/ansi.spec.ts:5:24)\u001b[22m',
+            },
+            { name: 'Stack colour test' },
+        ));
 
         const dimSpan = page.locator('.error-stack .ansi-dim');
         await expect(dimSpan).toBeVisible();
@@ -107,31 +92,14 @@ describe('ANSI colour rendering in error messages', () => {
     });
 
     it('handles bold ANSI codes', async ({ mount, page }) => {
-        const data = minimalData({
-            scenarios: [
-                {
-                    name: 'Bold test',
-                    category: 'Suite',
-                    outcome: 'FAILURE',
-                    duration: 100,
-                    startedAt: '2024-06-15T14:30:00.000Z',
-                    source: { path: 'spec/ansi.spec.ts', line: 5 },
-                    tags: [],
-                    activities: [],
-                    executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
-                    error: {
-                        name: 'Error',
-                        message: '\u001b[1mBold text\u001b[22m normal text',
-                        stack: '',
-                    },
-                },
-            ],
-        });
-        await mount('components/scenarios/ScenarioDetailView/Default', {
-            ...data,
-            data,
-            scenarioId: 'spec/ansi.spec.ts:5',
-        });
+        await mount(scenarioDetailStory, scenarioWithError(
+            {
+                name: 'Error',
+                message: '\u001b[1mBold text\u001b[22m normal text',
+                stack: '',
+            },
+            { name: 'Bold test', duration: 100 },
+        ));
 
         const boldSpan = page.locator('.error-message .ansi-bold');
         await expect(boldSpan).toBeVisible();
@@ -139,31 +107,14 @@ describe('ANSI colour rendering in error messages', () => {
     });
 
     it('passes through text without ANSI codes unchanged', async ({ mount, page }) => {
-        const data = minimalData({
-            scenarios: [
-                {
-                    name: 'No ANSI test',
-                    category: 'Suite',
-                    outcome: 'FAILURE',
-                    duration: 100,
-                    startedAt: '2024-06-15T14:30:00.000Z',
-                    source: { path: 'spec/ansi.spec.ts', line: 5 },
-                    tags: [],
-                    activities: [],
-                    executionHistory: [{ outcome: 'FAILURE', run: '#42' }],
-                    error: {
-                        name: 'Error',
-                        message: 'Plain error with no colour codes',
-                        stack: 'at file.ts:1:1',
-                    },
-                },
-            ],
-        });
-        await mount('components/scenarios/ScenarioDetailView/Default', {
-            ...data,
-            data,
-            scenarioId: 'spec/ansi.spec.ts:5',
-        });
+        await mount(scenarioDetailStory, scenarioWithError(
+            {
+                name: 'Error',
+                message: 'Plain error with no colour codes',
+                stack: 'at file.ts:1:1',
+            },
+            { name: 'No ANSI test', duration: 100 },
+        ));
 
         await expect(page.locator('.error-message')).toHaveText('Plain error with no colour codes');
         await expect(page.locator('.error-stack')).toContainText('at file.ts:1:1');

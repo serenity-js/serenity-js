@@ -4,25 +4,43 @@ import { minimalData } from '../../../spec/app/data-factories.js';
 import { describe, it } from '../../../spec/app/story-fixtures.js';
 import { ActivityNode } from '../../../src/serenity/scenarios/ActivityNode.serenity.js';
 
+const activityNodeStory = 'components/scenarios/ActivityNode/Default';
+
+const baseActivity = {
+    type: 'Interaction',
+    outcome: 'SUCCESS',
+    duration: 50,
+    children: [],
+};
+
+const headRequestQuery = {
+    method: 'HEAD',
+    url: 'https://todo-app.serenity-js.org/',
+    requestHeaders: 'Accept: application/json\nUser-Agent: axios/1.17.0',
+    statusCode: 200,
+    responseHeaders: 'content-type: text/html\nserver: GitHub.com',
+};
+
+const postRequestQuery = {
+    method: 'POST',
+    url: 'https://api.example.com/todos',
+    requestHeaders: 'Content-Type: application/json\nAuthorization: Bearer token123',
+    requestBody: '{\n    "title": "Buy milk"\n}',
+    statusCode: 201,
+    responseHeaders: 'content-type: application/json',
+    responseBody: '{\n    "id": 1,\n    "title": "Buy milk"\n}',
+};
+
 describe('ActivityNode — HTTP exchange (restQuery)', () => {
 
     it('renders a REST badge when restQuery is present', async ({ interactionObject, actor }) => {
-        const node = await interactionObject(ActivityNode, 'components/scenarios/ActivityNode/Default', {
+        const node = await interactionObject(ActivityNode, activityNodeStory, {
             data: minimalData(),
             props: {
                 activity: {
-                    type: 'Interaction',
+                    ...baseActivity,
                     name: 'Tess sends a HEAD request to "/"',
-                    outcome: 'SUCCESS',
-                    duration: 50,
-                    children: [],
-                    restQuery: {
-                        method: 'HEAD',
-                        url: 'https://todo-app.serenity-js.org/',
-                        requestHeaders: 'Accept: application/json\nUser-Agent: axios/1.17.0',
-                        statusCode: 200,
-                        responseHeaders: 'content-type: text/html\nserver: GitHub.com',
-                    },
+                    restQuery: headRequestQuery,
                 },
             },
         });
@@ -33,20 +51,15 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
     });
 
     it('displays method, URL, and status code', async ({ interactionObject, actor }) => {
-        const node = await interactionObject(ActivityNode, 'components/scenarios/ActivityNode/Default', {
+        const node = await interactionObject(ActivityNode, activityNodeStory, {
             data: minimalData(),
             props: {
                 activity: {
-                    type: 'Interaction',
+                    ...baseActivity,
                     name: 'Tess sends a HEAD request to "/"',
-                    outcome: 'SUCCESS',
-                    duration: 50,
-                    children: [],
                     restQuery: {
-                        method: 'HEAD',
-                        url: 'https://todo-app.serenity-js.org/',
+                        ...headRequestQuery,
                         requestHeaders: 'Accept: application/json',
-                        statusCode: 200,
                         responseHeaders: 'content-type: text/html',
                     },
                 },
@@ -62,24 +75,14 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
     });
 
     it('displays request and response headers', async ({ interactionObject, actor }) => {
-        const node = await interactionObject(ActivityNode, 'components/scenarios/ActivityNode/Default', {
+        const node = await interactionObject(ActivityNode, activityNodeStory, {
             data: minimalData(),
             props: {
                 activity: {
-                    type: 'Interaction',
+                    ...baseActivity,
                     name: 'Tess sends a POST request to "/todos"',
-                    outcome: 'SUCCESS',
                     duration: 100,
-                    children: [],
-                    restQuery: {
-                        method: 'POST',
-                        url: 'https://api.example.com/todos',
-                        requestHeaders: 'Content-Type: application/json\nAuthorization: Bearer token123',
-                        requestBody: '{\n    "title": "Buy milk"\n}',
-                        statusCode: 201,
-                        responseHeaders: 'content-type: application/json',
-                        responseBody: '{\n    "id": 1,\n    "title": "Buy milk"\n}',
-                    },
+                    restQuery: postRequestQuery,
                 },
             },
         });
@@ -93,24 +96,14 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
     });
 
     it('displays request and response bodies', async ({ interactionObject, actor }) => {
-        const node = await interactionObject(ActivityNode, 'components/scenarios/ActivityNode/Default', {
+        const node = await interactionObject(ActivityNode, activityNodeStory, {
             data: minimalData(),
             props: {
                 activity: {
-                    type: 'Interaction',
+                    ...baseActivity,
                     name: 'Tess sends a POST request to "/todos"',
-                    outcome: 'SUCCESS',
                     duration: 100,
-                    children: [],
-                    restQuery: {
-                        method: 'POST',
-                        url: 'https://api.example.com/todos',
-                        requestHeaders: 'Content-Type: application/json',
-                        requestBody: '{\n    "title": "Buy milk"\n}',
-                        statusCode: 201,
-                        responseHeaders: 'content-type: application/json',
-                        responseBody: '{\n    "id": 1,\n    "title": "Buy milk"\n}',
-                    },
+                    restQuery: postRequestQuery,
                 },
             },
         });
@@ -123,15 +116,12 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
     });
 
     it('does not render REST badge when restQuery is absent', async ({ interactionObject, actor }) => {
-        const node = await interactionObject(ActivityNode, 'components/scenarios/ActivityNode/Default', {
+        const node = await interactionObject(ActivityNode, activityNodeStory, {
             data: minimalData(),
             props: {
                 activity: {
-                    type: 'Interaction',
+                    ...baseActivity,
                     name: 'Tess navigates to "/index.html"',
-                    outcome: 'SUCCESS',
-                    duration: 50,
-                    children: [],
                 },
             },
         });
@@ -145,15 +135,12 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
 describe('ActivityNode — report data attachments', () => {
 
     it('renders a data attachment block for each reportData entry', async ({ interactionObject, actor }) => {
-        const node = await interactionObject(ActivityNode, 'components/scenarios/ActivityNode/Default', {
+        const node = await interactionObject(ActivityNode, activityNodeStory, {
             data: minimalData(),
             props: {
                 activity: {
-                    type: 'Interaction',
+                    ...baseActivity,
                     name: 'Tess logs the current items',
-                    outcome: 'SUCCESS',
-                    duration: 50,
-                    children: [],
                     reportData: [
                         { title: 'current items', contents: '["buy milk", "feed cat"]' },
                     ],
@@ -169,15 +156,12 @@ describe('ActivityNode — report data attachments', () => {
     });
 
     it('renders multiple data attachments', async ({ interactionObject, actor }) => {
-        const node = await interactionObject(ActivityNode, 'components/scenarios/ActivityNode/Default', {
+        const node = await interactionObject(ActivityNode, activityNodeStory, {
             data: minimalData(),
             props: {
                 activity: {
-                    type: 'Interaction',
+                    ...baseActivity,
                     name: 'Tess debugs the state',
-                    outcome: 'SUCCESS',
-                    duration: 50,
-                    children: [],
                     reportData: [
                         { title: 'request', contents: 'GET /api/items' },
                         { title: 'response', contents: '200 OK' },
@@ -194,15 +178,12 @@ describe('ActivityNode — report data attachments', () => {
     });
 
     it('does not render data blocks when reportData is absent', async ({ interactionObject, actor }) => {
-        const node = await interactionObject(ActivityNode, 'components/scenarios/ActivityNode/Default', {
+        const node = await interactionObject(ActivityNode, activityNodeStory, {
             data: minimalData(),
             props: {
                 activity: {
-                    type: 'Interaction',
+                    ...baseActivity,
                     name: 'Tess navigates to "/index.html"',
-                    outcome: 'SUCCESS',
-                    duration: 50,
-                    children: [],
                 },
             },
         });

@@ -34,25 +34,25 @@ const treeData = minimalData({
     }],
 });
 
+const treeCardProps = {
+    scenario: treeData.scenarios[0],
+    currentActivities: treeData.scenarios[0].activities,
+    data: treeData,
+};
+
+const treeCardStory = 'components/scenarios/ActivityTreeCard/Default';
+
 describe('ActivityTree — ARIA semantics', () => {
 
     it('tree container has role="tree" and aria-label', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const tree = page.locator('[role="tree"]');
         await expect(tree).toHaveAttribute('aria-label', 'Activity tree');
     });
 
     it('top-level activities have role="treeitem" with aria-level="1"', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const topItems = page.locator('[role="tree"] > [role="treeitem"]');
         await expect(topItems).toHaveCount(2);
@@ -61,33 +61,21 @@ describe('ActivityTree — ARIA semantics', () => {
     });
 
     it('passing task is initially collapsed (aria-expanded="false")', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const firstItem = page.locator('[role="tree"] > [role="treeitem"]').first();
         await expect(firstItem).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('failing task is auto-expanded (aria-expanded="true")', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const secondItem = page.locator('[role="tree"] > [role="treeitem"]').nth(1);
         await expect(secondItem).toHaveAttribute('aria-expanded', 'true');
     });
 
     it('nested children have incremented aria-level', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const nestedItems = page.locator('[role="tree"] > [role="treeitem"]:nth-child(2) [role="group"] > [role="treeitem"]');
         await expect(nestedItems).toHaveCount(2);
@@ -96,33 +84,21 @@ describe('ActivityTree — ARIA semantics', () => {
     });
 
     it('expanded children are wrapped in role="group"', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const groups = page.locator('[role="tree"] > [role="treeitem"] > [role="group"]');
         await expect(groups).toHaveCount(1);
     });
 
     it('first treeitem has tabindex="0" (roving tabindex entry point)', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const firstItem = page.locator('[role="tree"] > [role="treeitem"]').first();
         await expect(firstItem).toHaveAttribute('tabindex', '0');
     });
 
     it('non-first treeitems have tabindex="-1"', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const secondItem = page.locator('[role="tree"] > [role="treeitem"]').nth(1);
         await expect(secondItem).toHaveAttribute('tabindex', '-1');
@@ -132,11 +108,7 @@ describe('ActivityTree — ARIA semantics', () => {
     });
 
     it('treeitems expose aria-setsize and aria-posinset', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const topItems = page.locator('[role="tree"] > [role="treeitem"]');
         await expect(topItems.first()).toHaveAttribute('aria-setsize', '2');
@@ -149,11 +121,7 @@ describe('ActivityTree — ARIA semantics', () => {
 describe('ActivityTree — keyboard navigation', () => {
 
     it('ArrowDown moves focus to the next visible treeitem', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const firstItem = page.locator('[role="tree"] > [role="treeitem"]').first();
         await firstItem.focus();
@@ -164,11 +132,7 @@ describe('ActivityTree — keyboard navigation', () => {
     });
 
     it('ArrowUp moves focus to the previous visible treeitem', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const secondItem = page.locator('[role="tree"] > [role="treeitem"]').nth(1);
         await secondItem.focus();
@@ -179,11 +143,7 @@ describe('ActivityTree — keyboard navigation', () => {
     });
 
     it('ArrowRight expands a collapsed node', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const firstItem = page.locator('[role="tree"] > [role="treeitem"]').first();
         await expect(firstItem).toHaveAttribute('aria-expanded', 'false');
@@ -195,11 +155,7 @@ describe('ActivityTree — keyboard navigation', () => {
     });
 
     it('ArrowRight on an expanded node moves focus to first child', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const secondItem = page.locator('[role="tree"] > [role="treeitem"]').nth(1);
         await secondItem.focus();
@@ -210,11 +166,7 @@ describe('ActivityTree — keyboard navigation', () => {
     });
 
     it('ArrowLeft collapses an expanded node', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const secondItem = page.locator('[role="tree"] > [role="treeitem"]').nth(1);
         await expect(secondItem).toHaveAttribute('aria-expanded', 'true');
@@ -226,11 +178,7 @@ describe('ActivityTree — keyboard navigation', () => {
     });
 
     it('ArrowLeft on a collapsed child moves focus to parent', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const firstChild = page.locator('[role="tree"] > [role="treeitem"]:nth-child(2) [role="group"] > [role="treeitem"]').first();
         await firstChild.focus();
@@ -241,11 +189,7 @@ describe('ActivityTree — keyboard navigation', () => {
     });
 
     it('Home moves focus to the first treeitem', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const secondItem = page.locator('[role="tree"] > [role="treeitem"]').nth(1);
         await secondItem.focus();
@@ -256,11 +200,7 @@ describe('ActivityTree — keyboard navigation', () => {
     });
 
     it('End moves focus to the last visible treeitem', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const firstItem = page.locator('[role="tree"] > [role="treeitem"]').first();
         await firstItem.focus();
@@ -271,11 +211,7 @@ describe('ActivityTree — keyboard navigation', () => {
     });
 
     it('Enter toggles expansion of a node with children', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const firstItem = page.locator('[role="tree"] > [role="treeitem"]').first();
         await expect(firstItem).toHaveAttribute('aria-expanded', 'false');
@@ -287,11 +223,7 @@ describe('ActivityTree — keyboard navigation', () => {
     });
 
     it('Space toggles expansion of a node with children', async ({ mount, page }) => {
-        await mount('components/scenarios/ActivityTreeCard/Default', {
-            scenario: treeData.scenarios[0],
-            currentActivities: treeData.scenarios[0].activities,
-            data: treeData,
-        });
+        await mount(treeCardStory, treeCardProps);
 
         const secondItem = page.locator('[role="tree"] > [role="treeitem"]').nth(1);
         await expect(secondItem).toHaveAttribute('aria-expanded', 'true');
