@@ -1,6 +1,6 @@
 import htm from 'htm';
 import { h } from 'preact';
-import { useEffect, useRef } from 'preact/hooks';
+import { useEffect, useLayoutEffect, useRef } from 'preact/hooks';
 
 import { formatDuration } from '../../utils/index.js';
 import type { PhotoEntry } from './collectPhotos.js';
@@ -58,7 +58,7 @@ export function Lightbox({ photos, currentIndex, onNavigate }: LightboxProps): R
 
     const isOpen = currentIndex >= 0 && currentIndex < photos.length;
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (isOpen) {
             const scrollY = window.scrollY;
             document.body.style.position = 'fixed';
