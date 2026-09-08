@@ -51,6 +51,16 @@ function activitiesWithPhotos() {
     ];
 }
 
+function mountPhotoStrip(interactionObject: Parameters<Parameters<typeof it>[1]>[0]['interactionObject']) {
+    return interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
+        props: {
+            activities: activitiesWithPhotos(),
+            scenarioStartedAt: '2024-06-15T14:30:00.000Z',
+        },
+        data: minimalData(),
+    });
+}
+
 describe('PhotoStrip', () => {
 
     it('renders nothing when no .png artifacts exist', async ({ interactionObject, actor }) => {
@@ -86,13 +96,7 @@ describe('PhotoStrip', () => {
     });
 
     it('displays the correct photo count in the title', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: activitiesWithPhotos(),
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
-            data: minimalData(),
-        });
+        const view = await mountPhotoStrip(interactionObject);
 
         // 3 photos: screenshot-1.png, nested-screenshot.png, screenshot-2.png
         await actor.attemptsTo(
@@ -101,13 +105,7 @@ describe('PhotoStrip', () => {
     });
 
     it('renders a thumbnail for each screenshot', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: activitiesWithPhotos(),
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
-            data: minimalData(),
-        });
+        const view = await mountPhotoStrip(interactionObject);
 
         await actor.attemptsTo(
             Ensure.that(view.photoCount(), equals(3)),
@@ -115,13 +113,7 @@ describe('PhotoStrip', () => {
     });
 
     it('displays the activity name as caption for each photo', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: activitiesWithPhotos(),
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
-            data: minimalData(),
-        });
+        const view = await mountPhotoStrip(interactionObject);
 
         await actor.attemptsTo(
             Ensure.that(view.captions(), contain('Navigate to login page')),
@@ -129,13 +121,7 @@ describe('PhotoStrip', () => {
     });
 
     it('collects photos from nested child activities', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: activitiesWithPhotos(),
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
-            data: minimalData(),
-        });
+        const view = await mountPhotoStrip(interactionObject);
 
         // The nested "Enter username" activity has a screenshot
         await actor.attemptsTo(
@@ -144,13 +130,7 @@ describe('PhotoStrip', () => {
     });
 
     it('excludes non-.png artifacts', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: activitiesWithPhotos(),
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
-            data: minimalData(),
-        });
+        const view = await mountPhotoStrip(interactionObject);
 
         // The .json artifact from "Click submit" should not appear
         await actor.attemptsTo(
@@ -159,13 +139,7 @@ describe('PhotoStrip', () => {
     });
 
     it('opens lightbox when clicking a thumbnail', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: activitiesWithPhotos(),
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
-            data: minimalData(),
-        });
+        const view = await mountPhotoStrip(interactionObject);
 
         await actor.attemptsTo(
             view.openPhoto(0),
@@ -175,13 +149,7 @@ describe('PhotoStrip', () => {
     });
 
     it('lightbox navigates forward with ArrowRight', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: activitiesWithPhotos(),
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
-            data: minimalData(),
-        });
+        const view = await mountPhotoStrip(interactionObject);
 
         await actor.attemptsTo(
             view.openPhoto(0),
@@ -192,13 +160,7 @@ describe('PhotoStrip', () => {
     });
 
     it('lightbox navigates backward with ArrowLeft', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: activitiesWithPhotos(),
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
-            data: minimalData(),
-        });
+        const view = await mountPhotoStrip(interactionObject);
 
         await actor.attemptsTo(
             view.openPhoto(1),
@@ -209,13 +171,7 @@ describe('PhotoStrip', () => {
     });
 
     it('lightbox closes on Escape', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: activitiesWithPhotos(),
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
-            data: minimalData(),
-        });
+        const view = await mountPhotoStrip(interactionObject);
 
         await actor.attemptsTo(
             view.openPhoto(0),
@@ -226,13 +182,7 @@ describe('PhotoStrip', () => {
     });
 
     it('lightbox closes when clicking the overlay background', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: activitiesWithPhotos(),
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
-            data: minimalData(),
-        });
+        const view = await mountPhotoStrip(interactionObject);
 
         await actor.attemptsTo(
             view.openPhoto(0),
@@ -243,13 +193,7 @@ describe('PhotoStrip', () => {
     });
 
     it('lightbox shows counter indicating position (e.g., 1/3)', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: activitiesWithPhotos(),
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
-            data: minimalData(),
-        });
+        const view = await mountPhotoStrip(interactionObject);
 
         await actor.attemptsTo(
             view.openPhoto(0),
@@ -258,13 +202,7 @@ describe('PhotoStrip', () => {
     });
 
     it('lightbox hides previous nav button on first photo', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: activitiesWithPhotos(),
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
-            data: minimalData(),
-        });
+        const view = await mountPhotoStrip(interactionObject);
 
         await actor.attemptsTo(
             view.openPhoto(0),
@@ -274,13 +212,7 @@ describe('PhotoStrip', () => {
     });
 
     it('lightbox hides next nav button on last photo', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: activitiesWithPhotos(),
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
-            data: minimalData(),
-        });
+        const view = await mountPhotoStrip(interactionObject);
 
         await actor.attemptsTo(
             view.openPhoto(2),
@@ -290,13 +222,7 @@ describe('PhotoStrip', () => {
     });
 
     it('clicking the next button navigates to the next photo', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: activitiesWithPhotos(),
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
-            data: minimalData(),
-        });
+        const view = await mountPhotoStrip(interactionObject);
 
         await actor.attemptsTo(
             view.openPhoto(0),
@@ -307,13 +233,7 @@ describe('PhotoStrip', () => {
     });
 
     it('clicking the previous button navigates to the previous photo', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: activitiesWithPhotos(),
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
-            data: minimalData(),
-        });
+        const view = await mountPhotoStrip(interactionObject);
 
         await actor.attemptsTo(
             view.openPhoto(1),
@@ -324,13 +244,7 @@ describe('PhotoStrip', () => {
     });
 
     it('locks body scroll when lightbox is open', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: activitiesWithPhotos(),
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
-            data: minimalData(),
-        });
+        const view = await mountPhotoStrip(interactionObject);
 
         await actor.attemptsTo(
             view.openPhoto(0),
@@ -342,13 +256,7 @@ describe('PhotoStrip', () => {
     });
 
     it('restores body scroll when lightbox is closed', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: activitiesWithPhotos(),
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
-            data: minimalData(),
-        });
+        const view = await mountPhotoStrip(interactionObject);
 
         await actor.attemptsTo(
             view.openPhoto(0),

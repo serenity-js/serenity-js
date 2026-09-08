@@ -41,15 +41,46 @@ function scenarioWithHistory(executionHistory: Array<{ outcome: string; run: str
     };
 }
 
+interface MountOptions {
+    executionHistory: Array<{ outcome: string; run: string; timestamp?: string; retriedAndPassed?: boolean; retries?: number }>;
+    runIndex?: number | null;
+    history?: ReturnType<typeof historyEntry>[];
+    data?: ReturnType<typeof minimalData>;
+    story?: string;
+    scenario?: Record<string, unknown>;
+}
+
+function mountExecutionHistory(
+    interactionObject: (io: typeof ExecutionHistory, story: string, options: { props: Record<string, unknown>; data: unknown }) => Promise<InstanceType<typeof ExecutionHistory>>,
+    options: MountOptions,
+) {
+    const {
+        executionHistory,
+        runIndex = null,
+        history,
+        data = minimalData(),
+        story = executionHistoryStory,
+        scenario: scenarioOverrides,
+    } = options;
+
+    const scenario = scenarioOverrides
+        ? { ...baseScenarioFields, ...scenarioOverrides, executionHistory }
+        : scenarioWithHistory(executionHistory);
+
+    const props: Record<string, unknown> = { scenario, runIndex };
+
+    if (history !== undefined) {
+        props.history = history;
+    }
+
+    return interactionObject(ExecutionHistory, story, { props, data });
+}
+
 describe('ExecutionHistory', () => {
 
     it('renders nothing when executionHistory is empty', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ExecutionHistory, executionHistoryStory, {
-            props: {
-                scenario: scenarioWithHistory([]),
-                runIndex: null,
-            },
-            data: minimalData(),
+        const view = await mountExecutionHistory(interactionObject, {
+            executionHistory: [],
         });
 
         await actor.attemptsTo(
@@ -58,16 +89,11 @@ describe('ExecutionHistory', () => {
     });
 
     it('displays the section title "Execution History"', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ExecutionHistory, executionHistoryStory, {
-            props: {
-                scenario: scenarioWithHistory([
-                    { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
-                    { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T14:30:00.000Z' },
-                ]),
-                runIndex: null,
-
-            },
-            data: minimalData(),
+        const view = await mountExecutionHistory(interactionObject, {
+            executionHistory: [
+                { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
+                { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T14:30:00.000Z' },
+            ],
         });
 
         await actor.attemptsTo(
@@ -76,16 +102,12 @@ describe('ExecutionHistory', () => {
     });
 
     it('shows "X of Y passing" summary', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ExecutionHistory, executionHistoryStory, {
-            props: {
-                scenario: scenarioWithHistory([
-                    { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
-                    { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T10:00:00.000Z' },
-                    { outcome: 'SUCCESS', run: '#43', timestamp: '2024-06-16T10:00:00.000Z' },
-                ]),
-                runIndex: null,
-
-            },
+        const view = await mountExecutionHistory(interactionObject, {
+            executionHistory: [
+                { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
+                { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T10:00:00.000Z' },
+                { outcome: 'SUCCESS', run: '#43', timestamp: '2024-06-16T10:00:00.000Z' },
+            ],
             data: minimalData({
                 history: [
                     historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#41', passed: 1 }),
@@ -101,17 +123,13 @@ describe('ExecutionHistory', () => {
     });
 
     it('computes consistency as percentage of non-flipping transitions', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ExecutionHistory, executionHistoryStory, {
-            props: {
-                scenario: scenarioWithHistory([
-                    { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
-                    { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T10:00:00.000Z' },
-                    { outcome: 'SUCCESS', run: '#43', timestamp: '2024-06-16T10:00:00.000Z' },
-                    { outcome: 'SUCCESS', run: '#44', timestamp: '2024-06-17T10:00:00.000Z' },
-                ]),
-                runIndex: null,
-
-            },
+        const view = await mountExecutionHistory(interactionObject, {
+            executionHistory: [
+                { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
+                { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T10:00:00.000Z' },
+                { outcome: 'SUCCESS', run: '#43', timestamp: '2024-06-16T10:00:00.000Z' },
+                { outcome: 'SUCCESS', run: '#44', timestamp: '2024-06-17T10:00:00.000Z' },
+            ],
             data: minimalData({
                 history: [
                     historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#41', passed: 1 }),
@@ -128,14 +146,10 @@ describe('ExecutionHistory', () => {
     });
 
     it('shows 100% consistency when there is only one run', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ExecutionHistory, executionHistoryStory, {
-            props: {
-                scenario: scenarioWithHistory([
-                    { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
-                ]),
-                runIndex: null,
-
-            },
+        const view = await mountExecutionHistory(interactionObject, {
+            executionHistory: [
+                { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
+            ],
             data: minimalData({
                 history: [
                     historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#41', passed: 1 }),
@@ -149,16 +163,12 @@ describe('ExecutionHistory', () => {
     });
 
     it('shows 100% consistency when all runs have the same outcome', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ExecutionHistory, executionHistoryStory, {
-            props: {
-                scenario: scenarioWithHistory([
-                    { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
-                    { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T10:00:00.000Z' },
-                    { outcome: 'SUCCESS', run: '#43', timestamp: '2024-06-16T10:00:00.000Z' },
-                ]),
-                runIndex: null,
-
-            },
+        const view = await mountExecutionHistory(interactionObject, {
+            executionHistory: [
+                { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
+                { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T10:00:00.000Z' },
+                { outcome: 'SUCCESS', run: '#43', timestamp: '2024-06-16T10:00:00.000Z' },
+            ],
             data: minimalData({
                 history: [
                     historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#41', passed: 1 }),
@@ -174,16 +184,11 @@ describe('ExecutionHistory', () => {
     });
 
     it('renders a dot for each run in the execution history', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ExecutionHistory, executionHistoryStory, {
-            props: {
-                scenario: scenarioWithHistory([
-                    { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
-                    { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T14:30:00.000Z' },
-                ]),
-                runIndex: null,
-
-            },
-            data: minimalData(),
+        const view = await mountExecutionHistory(interactionObject, {
+            executionHistory: [
+                { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
+                { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T14:30:00.000Z' },
+            ],
         });
 
         await actor.attemptsTo(
@@ -192,16 +197,11 @@ describe('ExecutionHistory', () => {
     });
 
     it('highlights the latest run as active when runIndex is null', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ExecutionHistory, executionHistoryStory, {
-            props: {
-                scenario: scenarioWithHistory([
-                    { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
-                    { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T14:30:00.000Z' },
-                ]),
-                runIndex: null,
-
-            },
-            data: minimalData(),
+        const view = await mountExecutionHistory(interactionObject, {
+            executionHistory: [
+                { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
+                { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T14:30:00.000Z' },
+            ],
         });
 
         await actor.attemptsTo(
@@ -210,20 +210,16 @@ describe('ExecutionHistory', () => {
     });
 
     it('highlights the specified runIndex as active', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ExecutionHistory, executionHistoryStory, {
-            props: {
-                scenario: scenarioWithHistory([
-                    { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
-                    { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T14:30:00.000Z' },
-                ]),
-                runIndex: 0,
-                history: [
-                    historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#41', passed: 1 }),
-                    historyEntry({ timestamp: '2024-06-15T14:30:00.000Z', label: '#42', failed: 1 }),
-                ],
-
-            },
-            data: minimalData(),
+        const view = await mountExecutionHistory(interactionObject, {
+            executionHistory: [
+                { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
+                { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T14:30:00.000Z' },
+            ],
+            runIndex: 0,
+            history: [
+                historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#41', passed: 1 }),
+                historyEntry({ timestamp: '2024-06-15T14:30:00.000Z', label: '#42', failed: 1 }),
+            ],
         });
 
         await actor.attemptsTo(
@@ -232,16 +228,12 @@ describe('ExecutionHistory', () => {
     });
 
     it('groups runs by date', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ExecutionHistory, executionHistoryStory, {
-            props: {
-                scenario: scenarioWithHistory([
-                    { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
-                    { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-14T14:00:00.000Z' },
-                    { outcome: 'FAILURE', run: '#43', timestamp: '2024-06-15T10:00:00.000Z' },
-                ]),
-                runIndex: null,
-
-            },
+        const view = await mountExecutionHistory(interactionObject, {
+            executionHistory: [
+                { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
+                { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-14T14:00:00.000Z' },
+                { outcome: 'FAILURE', run: '#43', timestamp: '2024-06-15T10:00:00.000Z' },
+            ],
             data: minimalData({
                 history: [
                     historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#41', passed: 1 }),
@@ -257,14 +249,10 @@ describe('ExecutionHistory', () => {
     });
 
     it('uses run labels for non-ISO run identifiers', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ExecutionHistory, executionHistoryStory, {
-            props: {
-                scenario: scenarioWithHistory([
-                    { outcome: 'SUCCESS', run: 'build-41', timestamp: '2024-06-14T10:00:00.000Z' },
-                ]),
-                runIndex: null,
-
-            },
+        const view = await mountExecutionHistory(interactionObject, {
+            executionHistory: [
+                { outcome: 'SUCCESS', run: 'build-41', timestamp: '2024-06-14T10:00:00.000Z' },
+            ],
             data: minimalData({
                 history: [
                     historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: 'build-41', passed: 1 }),
@@ -278,26 +266,22 @@ describe('ExecutionHistory', () => {
     });
 
     it('navigates to the correct URL when clicking a historical run for a scenario with a browser tag', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ExecutionHistory, 'components/scenarios/ExecutionHistory/WithNavigation', {
-            props: {
-                scenario: {
-                    ...baseScenarioFields,
-                    outcome: 'SUCCESS',
-                    tags: [{ type: 'browser', name: 'chrome 129.0.6668.100' }],
-                    executionHistory: [
-                        { outcome: 'SUCCESS', run: '#8213', timestamp: '2024-06-14T08:00:00.000Z' },
-                        { outcome: 'SUCCESS', run: '#8214', timestamp: '2024-06-14T10:00:00.000Z' },
-                        { outcome: 'SUCCESS', run: '#8219', timestamp: '2024-06-15T14:30:00.000Z' },
-                    ],
-                },
-                runIndex: null,
-                history: [
-                    historyEntry({ timestamp: '2024-06-14T08:00:00.000Z', label: '#8213', passed: 1 }),
-                    historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#8214', passed: 1 }),
-                    historyEntry({ timestamp: '2024-06-15T14:30:00.000Z', label: '#8219', passed: 1 }),
-                ],
+        const view = await mountExecutionHistory(interactionObject, {
+            executionHistory: [
+                { outcome: 'SUCCESS', run: '#8213', timestamp: '2024-06-14T08:00:00.000Z' },
+                { outcome: 'SUCCESS', run: '#8214', timestamp: '2024-06-14T10:00:00.000Z' },
+                { outcome: 'SUCCESS', run: '#8219', timestamp: '2024-06-15T14:30:00.000Z' },
+            ],
+            story: 'components/scenarios/ExecutionHistory/WithNavigation',
+            scenario: {
+                outcome: 'SUCCESS',
+                tags: [{ type: 'browser', name: 'chrome 129.0.6668.100' }],
             },
-            data: minimalData(),
+            history: [
+                historyEntry({ timestamp: '2024-06-14T08:00:00.000Z', label: '#8213', passed: 1 }),
+                historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#8214', passed: 1 }),
+                historyEntry({ timestamp: '2024-06-15T14:30:00.000Z', label: '#8219', passed: 1 }),
+            ],
         });
 
         await actor.attemptsTo(
@@ -308,25 +292,21 @@ describe('ExecutionHistory', () => {
     });
 
     it('navigates using the entry timestamp even when the scenario does not appear in every global run', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ExecutionHistory, 'components/scenarios/ExecutionHistory/WithNavigation', {
-            props: {
-                scenario: {
-                    ...baseScenarioFields,
-                    outcome: 'SUCCESS',
-                    tags: [{ type: 'browser', name: 'chrome 129.0.6668.100' }],
-                    executionHistory: [
-                        { outcome: 'SUCCESS', run: '#8214', timestamp: '2024-06-14T10:00:00.000Z' },
-                        { outcome: 'SUCCESS', run: '#8219', timestamp: '2024-06-15T14:30:00.000Z' },
-                    ],
-                },
-                runIndex: null,
-                history: [
-                    historyEntry({ timestamp: '2024-06-14T08:00:00.000Z', label: '#8213', passed: 1 }),
-                    historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#8214', passed: 1 }),
-                    historyEntry({ timestamp: '2024-06-15T14:30:00.000Z', label: '#8219', passed: 1 }),
-                ],
+        const view = await mountExecutionHistory(interactionObject, {
+            executionHistory: [
+                { outcome: 'SUCCESS', run: '#8214', timestamp: '2024-06-14T10:00:00.000Z' },
+                { outcome: 'SUCCESS', run: '#8219', timestamp: '2024-06-15T14:30:00.000Z' },
+            ],
+            story: 'components/scenarios/ExecutionHistory/WithNavigation',
+            scenario: {
+                outcome: 'SUCCESS',
+                tags: [{ type: 'browser', name: 'chrome 129.0.6668.100' }],
             },
-            data: minimalData(),
+            history: [
+                historyEntry({ timestamp: '2024-06-14T08:00:00.000Z', label: '#8213', passed: 1 }),
+                historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#8214', passed: 1 }),
+                historyEntry({ timestamp: '2024-06-15T14:30:00.000Z', label: '#8219', passed: 1 }),
+            ],
         });
 
         await actor.attemptsTo(
@@ -337,24 +317,21 @@ describe('ExecutionHistory', () => {
     });
 
     it('only considers runs up to the active runIndex for the summary', async ({ interactionObject, actor }) => {
-        const history = [
+        const historyEntries = [
             historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#41', passed: 1 }),
             historyEntry({ timestamp: '2024-06-15T10:00:00.000Z', label: '#42', passed: 1 }),
             historyEntry({ timestamp: '2024-06-16T10:00:00.000Z', label: '#43', failed: 1 }),
         ];
 
-        const view = await interactionObject(ExecutionHistory, executionHistoryStory, {
-            props: {
-                scenario: scenarioWithHistory([
-                    { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
-                    { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T10:00:00.000Z' },
-                    { outcome: 'FAILURE', run: '#43', timestamp: '2024-06-16T10:00:00.000Z' },
-                ]),
-                runIndex: 1,
-                history,
-
-            },
-            data: minimalData({ history }),
+        const view = await mountExecutionHistory(interactionObject, {
+            executionHistory: [
+                { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
+                { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T10:00:00.000Z' },
+                { outcome: 'FAILURE', run: '#43', timestamp: '2024-06-16T10:00:00.000Z' },
+            ],
+            runIndex: 1,
+            history: historyEntries,
+            data: minimalData({ history: historyEntries }),
         });
 
         await actor.attemptsTo(
@@ -363,19 +340,14 @@ describe('ExecutionHistory', () => {
     });
 
     it('renders a retried-success dot with the correct outcome type when retriedAndPassed is true', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ExecutionHistory, executionHistoryStory, {
-            props: {
-                scenario: {
-                    ...baseScenarioFields,
-                    outcome: 'SUCCESS',
-                    duration: 500,
-                    executionHistory: [
-                        { outcome: 'FAILURE', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
-                        { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T14:30:00.000Z', retriedAndPassed: true, retries: 1 },
-                    ],
-                },
-                runIndex: null,
-
+        const view = await mountExecutionHistory(interactionObject, {
+            executionHistory: [
+                { outcome: 'FAILURE', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
+                { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T14:30:00.000Z', retriedAndPassed: true, retries: 1 },
+            ],
+            scenario: {
+                outcome: 'SUCCESS',
+                duration: 500,
             },
             data: minimalData({
                 history: [
@@ -393,26 +365,19 @@ describe('ExecutionHistory', () => {
     });
 
     it('shows "Passed on retry" tooltip for retried-success dots', async ({ interactionObject, actor }) => {
-        const retriedScenarioProps = {
+        const view = await mountExecutionHistory(interactionObject, {
+            executionHistory: [
+                { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T14:30:00.000Z', retriedAndPassed: true, retries: 1 },
+            ],
             scenario: {
-                ...baseScenarioFields,
                 outcome: 'SUCCESS',
                 duration: 500,
-                executionHistory: [
-                    { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T14:30:00.000Z', retriedAndPassed: true, retries: 1 },
-                ],
             },
-            runIndex: null,
-        };
-        const retriedHistoryData = minimalData({
-            history: [
-                historyEntry({ timestamp: '2024-06-15T14:30:00.000Z', label: '#42', passed: 1 }),
-            ],
-        });
-
-        const view = await interactionObject(ExecutionHistory, executionHistoryStory, {
-            props: retriedScenarioProps,
-            data: retriedHistoryData,
+            data: minimalData({
+                history: [
+                    historyEntry({ timestamp: '2024-06-15T14:30:00.000Z', label: '#42', passed: 1 }),
+                ],
+            }),
         });
 
         await actor.attemptsTo(
@@ -421,18 +386,13 @@ describe('ExecutionHistory', () => {
     });
 
     it('renders retry icon in retried-success dots', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ExecutionHistory, executionHistoryStory, {
-            props: {
-                scenario: {
-                    ...baseScenarioFields,
-                    outcome: 'SUCCESS',
-                    duration: 500,
-                    executionHistory: [
-                        { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T14:30:00.000Z', retriedAndPassed: true, retries: 1 },
-                    ],
-                },
-                runIndex: null,
-
+        const view = await mountExecutionHistory(interactionObject, {
+            executionHistory: [
+                { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T14:30:00.000Z', retriedAndPassed: true, retries: 1 },
+            ],
+            scenario: {
+                outcome: 'SUCCESS',
+                duration: 500,
             },
             data: minimalData({
                 history: [
