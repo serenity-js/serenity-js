@@ -1,6 +1,6 @@
 import htm from 'htm';
 import { h } from 'preact';
-import { useEffect, useLayoutEffect, useRef } from 'preact/hooks';
+import { useLayoutEffect, useRef } from 'preact/hooks';
 
 import { formatDuration } from '../../utils/index.js';
 import type { PhotoEntry } from './collectPhotos.js';

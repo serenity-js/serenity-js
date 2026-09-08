@@ -25,9 +25,9 @@ interface TimelineViewProps {
 }
 
 export function TimelineView({
-                                 scenarios: allScenarios, summary, onNavigate = () => {
+    scenarios: allScenarios, summary, onNavigate = () => {
     }, route = '', onOpenSidebar
-                             }: TimelineViewProps): ReturnType<typeof html> {
+}: TimelineViewProps): ReturnType<typeof html> {
     const openSidebar = onOpenSidebar || (() => {
     });
     const sheets = useMobileSheetState();

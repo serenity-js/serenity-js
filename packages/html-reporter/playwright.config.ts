@@ -15,7 +15,7 @@ export default defineConfig({
         {
             name: 'components',
             testDir: './app/components',
-            testMatch: ['**/*.story.spec.ts'],
+            testMatch: ['**/*.spec.ts'],
             use: {
                 browserName: 'chromium',
                 headless: true,
