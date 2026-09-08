@@ -232,12 +232,15 @@ pkill -f 'http-server.*8080'; pkill -f 'http-server.*8090'; sleep 2
 
 ### Prefer the `interactionObject` fixture over `mount` for IO-based component tests
 
-The `interactionObject` fixture avoids the type collision with Playwright's built-in `mount` and is more concise:
+The html-reporter's `interactionObject` fixture (in `spec/app/story-fixtures.ts`) avoids the type collision with Playwright's built-in `mount` and is more concise. This is specific to the html-reporter's component test setup — user-facing projects should use the built-in `story` fixture from `@serenity-js/playwright-test` instead (see `story("path").as(IOClass)` pattern).
 
 ```typescript
-// ✓ Preferred — type-safe, derives component name from IO class
+// ✓ html-reporter component tests — uses custom interactionObject fixture
 const view = await interactionObject(AboutView, './components/about/AboutView');
 const view = await interactionObject(DashboardView, './components/dashboard/DashboardView', { data: reportData });
+
+// ✓ User-facing component tests — uses built-in story fixture
+const card = story('components/UserCard/Default', { name: 'Alice' }).as(UserCard);
 
 // Still available for non-IO tests (DarkMode, ThemeToggle, ARIA, etc.)
 await mount({ component: 'FilterBar', importPath: './components/common/FilterBar', props: { ... } });
@@ -317,6 +320,23 @@ Integration tests serve reports from `examples/reports/`. After `npm run compile
 
 `.kiro/hooks/` defines `PostFileSave` hooks that run in the IDE. The `write` tool does **not** trigger them. Run hook commands manually after file writes (e.g., `npx eslint <changed-files>`).
 
+### Never bypass commit signing
+
+If `git commit` fails with an SSH passphrase error, do NOT use `-c commit.gpgsign=false`. Instead, set `SSH_AUTH_SOCK` from macOS keychain:
+
+```bash
+SSH_AUTH_SOCK=$(launchctl getenv SSH_AUTH_SOCK) git commit -S -m '...'
+```
+
+The key is in the macOS keychain; `launchctl getenv SSH_AUTH_SOCK` retrieves the socket. Bypassing signing creates unsigned commits that require force-pushing to fix.
+
+### Investigate lint errors before fixing them mechanically
+
+An unused variable may indicate a deeper issue — a missing function call, an incomplete test, or dead code. Before renaming to `_unused` or deleting:
+1. Read the surrounding context to understand the intent
+2. Check if the value was supposed to be passed somewhere (e.g., `data` prop not wired up)
+3. Fix the root cause, not the symptom
+
 ---
 
 ## Agent Design
@@ -335,6 +355,30 @@ Don't duplicate content between them. `resources` in the agent definition provid
 ### Adding `metaQuestionBody` to `Question.about()` changes the proxy inspect output
 
 When you pass a third argument (metaQuestionBody) to `Question.about()`, the underlying statement becomes a `MetaQuestionStatement` instead of a `QuestionStatement`. This changes `util.inspect` output of the proxy from `Proxy<QuestionStatement>` to `Proxy<MetaQuestionStatement>`. Any integration test that asserts on error messages containing the inspect representation will fail. Search for `Proxy<QuestionStatement>` in `integration/web-specs/spec/expectations/` when making such changes.
+
+### QuestionAdapter proxy `apply` trap must unwrap Screenplay return types
+
+When a proxy-forwarded method call returns a `Question` or `Task` (e.g., an Interaction Object method returning `QuestionAdapter<string>` or `Task`), the `apply` trap must unwrap it — resolve Questions via `actor.answer()` and perform Activities via `performAs()`. Without this, the proxy double-wraps the result in another `QuestionAdapter`, causing `Ensure.that()` to receive a proxy object instead of the resolved value.
+
+This was not needed before `.as(Constructor)` because proxy forwarding only targeted primitives (`string`, `number`, `Array`) whose methods return plain values.
+
+### `AnswerQuestions.answer()` does not recursively unwrap Promise<Question>
+
+When `actor.answer()` receives a Promise, it returns the Promise as-is — it does not check whether the resolved value is itself a Question. This means double-wrapped `QuestionAdapter<QuestionAdapter<T>>` won't resolve correctly through `actor.answer()` alone. The unwrapping must happen at the source (the proxy `apply` trap), not in the resolution pipeline.
+
+### `Question` is not PromiseLike — `Awaited` does not unwrap `QuestionAdapter`
+
+`Question<T>` extends `Describable`, not `PromiseLike`. Therefore `Awaited<QuestionAdapter<string>>` does NOT collapse to `string` — it stays as `QuestionAdapter<string>`. The `UnwrapQuestionResult` conditional type was needed in `QuestionAdapterFieldDecorator` to prevent `QuestionAdapter<QuestionAdapter<T>>` at the type level.
+
+### Detecting ES6 classes: use `mapping.prototype`, not error message matching
+
+ES6 classes throw `TypeError: Class constructor X cannot be invoked without 'new'` when called as a function. Matching the error message string is fragile across V8 versions. Instead, check `mapping.prototype` — arrow functions don't have one, so a `TypeError` from a function with a `prototype` strongly indicates a class.
+
+The function-first order matters: `Number(42)` returns a primitive, but `new Number(42)` returns a wrapper object. Call as function first, fall back to `new`.
+
+### `PageElement.createAdapter()` wraps any `Answerable<PageElement>` with proper child element access
+
+When an Interaction Object receives an `Answerable<PageElement>` (which could be a resolved `PageElement` or a deferred `QuestionAdapter<PageElement>`), use `PageElement.createAdapter()` to wrap it. This provides `.element()` and `.elements()` methods for scoped child lookups regardless of whether the root is resolved or deferred. Never use `as any` casts to access `.element()` on an `Answerable<PageElement>`.
 
 ---
 

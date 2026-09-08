@@ -148,6 +148,7 @@ import { Ability } from './abilities';
 - Type aliases: PascalCase; generics use `_Type` suffix (e.g., `Answer_Type`)
 - Files: kebab-case, PascalCase, or camelCase (all permitted)
 - Test files: `*.spec.ts`
+- Interaction Object files: `*.serenity.ts` (class name without `IO` suffix: `UserCard`, not `UserCardIO`)
 - Step definitions: `*.steps.ts`
 - Constants: camelCase or SCREAMING_SNAKE_CASE
 
