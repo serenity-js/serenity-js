@@ -1,15 +1,18 @@
+import type { Locator } from '@playwright/test';
 import type {
     Ability,
     Actor,
     Cast,
     ClassDescription,
     Duration,
+    QuestionAdapter,
     Serenity,
     StageCrewMember,
     StageCrewMemberBuilder
 } from '@serenity-js/core';
 import type { ExtraBrowserContextOptions } from '@serenity-js/playwright';
 import type { AxiosRequestConfigDefaults } from '@serenity-js/rest';
+import type { PageElement } from '@serenity-js/web';
 import { type AxiosInstance } from 'axios';
 
 /**
@@ -396,6 +399,46 @@ export interface SerenityFixtures {
      * - [`extraHTTPHeaders`](https://playwright.dev/docs/api/class-testoptions#test-options-extra-http-headers)
      */
     axios: AxiosInstance | AxiosRequestConfigDefaults;
+
+    /**
+     * Mounts a component story using Playwright's built-in [`mount`](https://playwright.dev/docs/api/class-fixtures#fixtures-mount) fixture
+     * and returns a [`PageElement`](https://serenity-js.org/api/web/class/PageElement/) representing the mounted component.
+     *
+     * Requires a [story gallery](https://playwright.dev/docs/test-components) served at [`baseURL`](https://playwright.dev/docs/api/class-testoptions#test-options-base-url).
+     *
+     * Use [`.as(IOClass)`](https://serenity-js.org/api/core/class/QuestionStatement/#as) to wrap the result
+     * in a Serenity/JS Interaction Object:
+     *
+     * #### Example
+     *
+     * ```typescript
+     * import { Ensure, equals } from '@serenity-js/assertions'
+     * import { describe, it } from '@serenity-js/playwright-test'
+     * import { UserCard } from './UserCard.io'
+     *
+     * describe('UserCard', () => {
+     *
+     *   it('displays the user name', async ({ story, actor }) => {
+     *     const card = story('components/UserCard/Default', {
+     *       name: 'Alice',
+     *     }).as(UserCard)
+     *
+     *     await actor.attemptsTo(
+     *       Ensure.that(card.name(), equals('Alice')),
+     *     )
+     *   })
+     * })
+     * ```
+     *
+     * @param storyPath - Story identifier following Playwright's path convention, e.g. `'components/UserCard/Default'`.
+     * @param props - Optional serializable props to pass to the story.
+     *
+     * #### Learn more
+     * - [Component testing with Playwright Test](https://serenity-js.org/handbook/test-runners/playwright-test/component-testing/)
+     * - [Playwright component testing](https://playwright.dev/docs/test-components)
+     */
+     
+    story: (storyPath: string, props?: Record<string, any>) => QuestionAdapter<PageElement<Locator>>;
 }
 
 /**

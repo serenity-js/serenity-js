@@ -5,6 +5,7 @@ import process from 'node:process';
 import type {
     Expect,
     Fixtures,
+    Locator,
     PlaywrightTestArgs,
     PlaywrightTestOptions,
     PlaywrightWorkerArgs,
@@ -15,12 +16,13 @@ import type {
 } from '@playwright/test';
 import { mergeTests, test as playwrightBaseTest } from '@playwright/test';
 import type { DiffFormatter } from '@serenity-js/core';
-import { AnsiDiffFormatter, Cast, Clock, Duration, Serenity, TakeNotes } from '@serenity-js/core';
+import { AnsiDiffFormatter, Cast, Clock, Duration, Question, Serenity, TakeNotes } from '@serenity-js/core';
 import { SceneFinishes, SceneTagged } from '@serenity-js/core/events';
 import { BrowserTag, ExecutionSuccessful, PlatformTag } from '@serenity-js/core/model';
 import { ActorLifecycleManager } from '@serenity-js/core/stage';
 import { BrowseTheWebWithPlaywright, SerenitySelectorEngines } from '@serenity-js/playwright';
 import { CallAnApi } from '@serenity-js/rest';
+import type { PageElement} from '@serenity-js/web';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { ensure, isFunction, property } from 'tiny-types';
 
@@ -329,13 +331,31 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
     actor: async ({ actorCalled, defaultActorName }, use) => {
         await use(actorCalled(defaultActorName));
     },
+
+    story: async ({ mount }, use) => {
+         
+        function storyFixture(storyPath: string, props?: Record<string, any>) {
+            let mounted: PageElement<Locator> | undefined;
+            return Question.about(`story ${ storyPath }`, async actor => {
+                if (! mounted) {
+                    const locator = await mount(storyPath, props);
+                    const currentPage = await BrowseTheWebWithPlaywright.as(actor).currentPage();
+                    mounted = currentPage.createPageElement(locator);
+                }
+                return mounted;
+            });
+        }
+
+        await use(storyFixture);
+    },
 };
 
 /**
  * Serenity/JS BDD-style test API created by [`useBase`](https://serenity-js.org/api/playwright-test/function/useBase/).
  */
 export type TestApi<TestArgs extends object, WorkerArgs extends object> =
-    Pick<TestType<TestArgs, WorkerArgs>, 'describe' | 'beforeAll' | 'beforeEach' | 'afterEach' | 'afterAll' | 'expect'> &
+    Pick<TestType<TestArgs, WorkerArgs>, 'describe' | 'beforeAll' | 'beforeEach' | 'afterEach' | 'afterAll' | 'expect'>
+    &
     {
         /**
          * Creates a Serenity/JS BDD-style test API around the default Playwright [base test](https://playwright.dev/docs/test-fixtures)

@@ -2,6 +2,8 @@ import { Ensure, equals } from '@serenity-js/assertions';
 import { expect, useFixtures } from '@serenity-js/playwright-test';
 import { Attribute, By, ByDeepCss, Click, Enter, PageElement, Text, Value } from '@serenity-js/web';
 
+import { UppercaseInput } from './UppercaseInput.serenity';
+
 const { it, describe } = useFixtures<{ emailAddress: string }>({
     emailAddress: ({ actor }, use) => {
         use(`${ actor.name.toLowerCase() }@example.org`)
@@ -22,6 +24,16 @@ describe('Serenity/JS with Playwright Test CT', () => {
         await expect(output).toHaveText('HELLO');
     });
 
+    it('passes props to the story via native mount', async ({ mount }) => {
+        const nativeComponent = await mount('UppercaseInput/WithInitialValue', { initialValue: 'Hello' });
+
+        const input = nativeComponent.locator('input');
+        const output = nativeComponent.locator('.output');
+
+        await expect(input).toHaveValue('Hello');
+        await expect(output).toHaveText('HELLO');
+    });
+
     it('works with custom fixtures', ({ emailAddress }) => {
         expect(emailAddress).toEqual('serena@example.org');
     });
@@ -35,7 +47,7 @@ describe('Serenity/JS with Playwright Test CT', () => {
             const location = Click.on(component).instantiationLocation();
 
             expect(location.path.value).toMatch(/UppercaseInput.spec.ts$/);
-            expect(location.line).toEqual(35);
+            expect(location.line).toEqual(47);
             expect(location.column).toEqual(36);
         });
 
@@ -93,6 +105,37 @@ describe('Serenity/JS with Playwright Test CT', () => {
                 Enter.theValue('Hello').into(input),
                 Ensure.that(Value.of(input), equals('Hello')),
                 Ensure.that(Text.of(output), equals('HELLO')),
+            );
+        });
+    });
+
+    describe('story fixture', () => {
+
+        it('mounts a story and constructs an interaction object via .as(Constructor)', async ({ story, actor }) => {
+            const input = story('UppercaseInput/Default').as(UppercaseInput);
+
+            await actor.attemptsTo(
+                Ensure.that(input.inputValue(), equals('')),
+                Ensure.that(input.outputText(), equals('')),
+            );
+        });
+
+        it('passes props to the story', async ({ story, actor }) => {
+            const input = story('UppercaseInput/WithInitialValue', { initialValue: 'Hello' }).as(UppercaseInput);
+
+            await actor.attemptsTo(
+                Ensure.that(input.inputValue(), equals('Hello')),
+                Ensure.that(input.outputText(), equals('HELLO')),
+            );
+        });
+
+        it('supports Screenplay interactions on the interaction object', async ({ story, actor }) => {
+            const input = story('UppercaseInput/Default').as(UppercaseInput);
+
+            await actor.attemptsTo(
+                input.enterText('world'),
+                Ensure.that(input.inputValue(), equals('world')),
+                Ensure.that(input.outputText(), equals('WORLD')),
             );
         });
     });
