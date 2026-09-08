@@ -2,11 +2,11 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import type { Answerable, QuestionAdapter, RecursivelyAnswered } from '../../src';
-import { actorCalled, LogicError } from '../../src';
-import type { Actor, WithAnswerableProperties } from '../../src/screenplay';
-import { Question } from '../../src/screenplay';
-import { expect } from '../expect';
+import type { Answerable, QuestionAdapter, RecursivelyAnswered } from '../../src/index.js';
+import { actorCalled, LogicError } from '../../src/index.js';
+import type { Actor, WithAnswerableProperties } from '../../src/screenplay/index.js';
+import { Question } from '../../src/screenplay/index.js';
+import { expect } from '../expect.js';
 
 describe('Question', () => {
 
@@ -176,6 +176,39 @@ describe('Question', () => {
 
                     expect(result).to.deep.equal([ 1, 2, 3 ]);
                     expect(subject).to.equal('<<list of strings>>.as(numbers)');
+                });
+            });
+
+            describe('as() with constructors', () => {
+
+                it('can be mapped to an instance of a class using a constructor', async () => {
+                    class Wrapper {
+                        constructor(public readonly value: string) {}
+                    }
+
+                    const input = q('some answer', p('hello'));
+                    const question = input.as(Wrapper);
+
+                    const result = await question.answeredBy(Quentin);
+                    const subject = question.toString();
+
+                    expect(result).to.be.instanceOf(Wrapper);
+                    expect(result.value).to.equal('hello');
+                    expect(subject).to.equal('<<some answer>>.as(Wrapper)');
+                });
+
+                it('can be mapped to an instance of a class with a sync value', async () => {
+                    class Wrapper {
+                        constructor(public readonly value: string) {}
+                    }
+
+                    const input = q('some answer', 'world');
+                    const question = input.as(Wrapper);
+
+                    const result = await question.answeredBy(Quentin);
+
+                    expect(result).to.be.instanceOf(Wrapper);
+                    expect(result.value).to.equal('world');
                 });
             });
 
