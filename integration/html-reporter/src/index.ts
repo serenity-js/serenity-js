@@ -23,6 +23,7 @@ interface TestFixtures {
     consistencyView: ConsistencyView<unknown>;
     dashboardView: DashboardView<unknown>;
     errorsView: ErrorsView<unknown>;
+    interactionObjectOptions: InteractionObjectOptions;
     isShowcase: boolean;
     scenarioDetailView: ScenarioDetailView<unknown>;
     scenariosView: ScenariosView<unknown>;
@@ -46,6 +47,15 @@ export const {
 } = useFixtures<TestFixtures, WorkerFixtures>({
     isShowcase: async ({ }, use, info) => {
         await use(info.tags.includes('@showcase'));
+    },
+
+    interactionObjectOptions: async ({ page }, use) => {
+        const viewport = page.viewportSize();
+        const isMobile = viewport.width <= 768;
+
+        await use({
+            mobile: isMobile
+        });
     },
 
     crew: async ({ crew }, use, info) => {
@@ -74,18 +84,14 @@ export const {
         await use(new AboutView(rootElement, navigation));
     },
 
-    capabilitiesView: async ({ page, navigation }, use) => {
-        const viewport = page.viewportSize();
-        const options: InteractionObjectOptions = { mobile: viewport ? viewport.width <= 768 : false };
+    capabilitiesView: async ({ interactionObjectOptions, navigation }, use) => {
         const rootElement = PageElement.located(By.css('[data-testid="capabilities"]')).describedAs('capabilities view');
-        await use(new CapabilitiesView(rootElement, navigation, options));
+        await use(new CapabilitiesView(rootElement, navigation, interactionObjectOptions));
     },
 
-    consistencyView: async ({ page, navigation }, use) => {
-        const viewport = page.viewportSize();
-        const options: InteractionObjectOptions = { mobile: viewport ? viewport.width <= 768 : false };
+    consistencyView: async ({ interactionObjectOptions, navigation }, use) => {
         const rootElement = PageElement.located(By.css('[data-testid="consistency"]')).describedAs('consistency view');
-        await use(new ConsistencyView(rootElement, navigation, options));
+        await use(new ConsistencyView(rootElement, navigation, interactionObjectOptions));
     },
 
     dashboardView: async ({ navigation }, use) => {
@@ -93,11 +99,9 @@ export const {
         await use(new DashboardView(rootElement, navigation));
     },
 
-    errorsView: async ({ page, navigation }, use) => {
-        const viewport = page.viewportSize();
-        const options: InteractionObjectOptions = { mobile: viewport ? viewport.width <= 768 : false };
+    errorsView: async ({ interactionObjectOptions, navigation }, use) => {
         const rootElement = PageElement.located(By.css('[data-testid="errors"]')).describedAs('errors view');
-        await use(new ErrorsView(rootElement, navigation, options));
+        await use(new ErrorsView(rootElement, navigation, interactionObjectOptions));
     },
 
     scenarioDetailView: async ({ navigation }, use) => {
@@ -105,11 +109,9 @@ export const {
         await use(new ScenarioDetailView(rootElement, navigation));
     },
 
-    scenariosView: async ({ page, navigation }, use) => {
-        const viewport = page.viewportSize();
-        const options: InteractionObjectOptions = { mobile: viewport ? viewport.width <= 768 : false };
+    scenariosView: async ({ interactionObjectOptions, navigation }, use) => {
         const rootElement = PageElement.located(By.css('[data-testid="tests"]')).describedAs('scenarios view');
-        await use(new ScenariosView(rootElement, navigation, options));
+        await use(new ScenariosView(rootElement, navigation, interactionObjectOptions));
     },
 
     systemContextView: async ({ navigation }, use) => {
@@ -117,11 +119,9 @@ export const {
         await use(new SystemContextView(rootElement, navigation));
     },
 
-    tagsView: async ({ page, navigation }, use) => {
-        const viewport = page.viewportSize();
-        const options: InteractionObjectOptions = { mobile: viewport ? viewport.width <= 768 : false };
+    tagsView: async ({ interactionObjectOptions, navigation }, use) => {
         const rootElement = PageElement.located(By.css('[data-testid="tags"]')).describedAs('tags view');
-        await use(new TagsView(rootElement, navigation, options));
+        await use(new TagsView(rootElement, navigation, interactionObjectOptions));
     },
 
     testRunsView: async ({ navigation }, use) => {
@@ -129,10 +129,8 @@ export const {
         await use(new TestRunsView(rootElement, navigation));
     },
 
-    timelineView: async ({ page, navigation }, use) => {
-        const viewport = page.viewportSize();
-        const options: InteractionObjectOptions = { mobile: viewport ? viewport.width <= 768 : false };
+    timelineView: async ({ interactionObjectOptions, navigation }, use) => {
         const rootElement = PageElement.located(By.css('[data-testid="timeline"]')).describedAs('timeline view');
-        await use(new TimelineView(rootElement, navigation, options));
+        await use(new TimelineView(rootElement, navigation, interactionObjectOptions));
     },
 });
