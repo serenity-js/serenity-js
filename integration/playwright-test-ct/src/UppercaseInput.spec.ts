@@ -111,6 +111,14 @@ describe('Serenity/JS with Playwright Test CT', () => {
 
     describe('story fixture', () => {
 
+        it('returns the component root element, not the gallery container', async ({ story, actor }) => {
+            const componentRoot = story('UppercaseInput/Default');
+
+            await actor.attemptsTo(
+                Ensure.that(Attribute.called('class').of(componentRoot), equals('example-input')),
+            );
+        });
+
         it('mounts a story and constructs an interaction object via .as(Constructor)', async ({ story, actor }) => {
             const input = story('UppercaseInput/Default').as(UppercaseInput);
 

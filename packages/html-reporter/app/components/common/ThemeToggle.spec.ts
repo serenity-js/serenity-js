@@ -3,8 +3,9 @@
  * These tests verify implementation contracts (tabindex roving, arrow key focus)
  * and use raw Playwright rather than interaction objects per project conventions.
  */
+import { describe, expect, it } from '@serenity-js/playwright-test';
+
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, expect, it } from '../../../spec/app/story-fixtures.js';
 
 const themeRadioGroupSelector = '[role="radiogroup"][aria-label="Theme preference"] [role="radio"]';
 

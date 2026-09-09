@@ -1,66 +1,66 @@
 import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
+import { describe, expect, it } from '@serenity-js/playwright-test';
 
-import { describe, expect, it } from '../../../../spec/app/story-fixtures.js';
 import { SegmentedBar } from '../../../../src/serenity/common/SegmentedBar.serenity.js';
 
 describe('SegmentedBar', () => {
 
     describe('user-observable behaviour', () => {
 
-        it('renders nothing when all outcomes are zero', async ({ interactionObject, actor }) => {
-            const bar = await interactionObject(SegmentedBar, 'components/common/charts/SegmentedBar/Default', {
-                props: { outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 } },
-            });
+        it('renders nothing when all outcomes are zero', async ({ story, actor }) => {
+            const bar = story('components/common/charts/SegmentedBar/Default', {
+                outcomes: { passed: 0, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+            }).as(SegmentedBar);
 
             await actor.attemptsTo(
                 Ensure.that(bar, not(isPresent())),
             );
         });
 
-        it('renders a bar with correct aria-label describing the outcome counts', async ({ interactionObject, actor }) => {
-            const bar = await interactionObject(SegmentedBar, 'components/common/charts/SegmentedBar/Default', {
-                props: { outcomes: { passed: 5, failed: 2, pending: 1, skipped: 0, compromised: 0, error: 0 } },
-            });
+        it('renders a bar with correct aria-label describing the outcome counts', async ({ story, actor }) => {
+            const bar = story('components/common/charts/SegmentedBar/Default', {
+                outcomes: { passed: 5, failed: 2, pending: 1, skipped: 0, compromised: 0, error: 0 },
+            }).as(SegmentedBar);
 
             await actor.attemptsTo(
                 Ensure.that(bar.accessibleLabel(), equals('5 passed, 2 failed, 1 skipped')),
             );
         });
 
-        it('combines failed, error, and compromised into one failure segment', async ({ interactionObject, actor }) => {
-            const bar = await interactionObject(SegmentedBar, 'components/common/charts/SegmentedBar/Default', {
-                props: { outcomes: { passed: 4, failed: 1, pending: 0, skipped: 0, compromised: 1, error: 1 } },
-            });
+        it('combines failed, error, and compromised into one failure segment', async ({ story, actor }) => {
+            const bar = story('components/common/charts/SegmentedBar/Default', {
+                outcomes: { passed: 4, failed: 1, pending: 0, skipped: 0, compromised: 1, error: 1 },
+            }).as(SegmentedBar);
 
             await actor.attemptsTo(
                 Ensure.that(bar.accessibleLabel(), equals('4 passed, 3 failed, 0 skipped')),
             );
         });
 
-        it('combines pending and skipped into one skipped segment', async ({ interactionObject, actor }) => {
-            const bar = await interactionObject(SegmentedBar, 'components/common/charts/SegmentedBar/Default', {
-                props: { outcomes: { passed: 2, failed: 0, pending: 3, skipped: 1, compromised: 0, error: 0 } },
-            });
+        it('combines pending and skipped into one skipped segment', async ({ story, actor }) => {
+            const bar = story('components/common/charts/SegmentedBar/Default', {
+                outcomes: { passed: 2, failed: 0, pending: 3, skipped: 1, compromised: 0, error: 0 },
+            }).as(SegmentedBar);
 
             await actor.attemptsTo(
                 Ensure.that(bar.accessibleLabel(), equals('2 passed, 0 failed, 4 skipped')),
             );
         });
 
-        it('shows only a passed segment when there are no failures or skips', async ({ interactionObject, actor }) => {
-            const bar = await interactionObject(SegmentedBar, 'components/common/charts/SegmentedBar/Default', {
-                props: { outcomes: { passed: 10, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 } },
-            });
+        it('shows only a passed segment when there are no failures or skips', async ({ story, actor }) => {
+            const bar = story('components/common/charts/SegmentedBar/Default', {
+                outcomes: { passed: 10, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 },
+            }).as(SegmentedBar);
 
             await actor.attemptsTo(
                 Ensure.that(bar.segmentCount(), equals(1)),
             );
         });
 
-        it('includes a visually-hidden text summary for screen readers', async ({ interactionObject, actor }) => {
-            const bar = await interactionObject(SegmentedBar, 'components/common/charts/SegmentedBar/Default', {
-                props: { outcomes: { passed: 5, failed: 2, pending: 1, skipped: 0, compromised: 0, error: 0 } },
-            });
+        it('includes a visually-hidden text summary for screen readers', async ({ story, actor }) => {
+            const bar = story('components/common/charts/SegmentedBar/Default', {
+                outcomes: { passed: 5, failed: 2, pending: 1, skipped: 0, compromised: 0, error: 0 },
+            }).as(SegmentedBar);
 
             await actor.attemptsTo(
                 Ensure.that(bar.accessibleText(), equals('5 passed, 2 failed, 1 skipped')),

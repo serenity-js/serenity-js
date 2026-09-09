@@ -437,7 +437,6 @@ export interface SerenityFixtures {
      * - [Component testing with Playwright Test](https://serenity-js.org/handbook/test-runners/playwright-test/component-testing/)
      * - [Playwright component testing](https://playwright.dev/docs/test-components)
      */
-     
     story: (storyPath: string, props?: Record<string, any>) => QuestionAdapter<PageElement<Locator>>;
 }
 

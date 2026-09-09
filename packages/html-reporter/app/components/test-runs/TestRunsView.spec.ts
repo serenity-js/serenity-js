@@ -1,8 +1,8 @@
 import { and, Ensure, equals, includes } from '@serenity-js/assertions';
+import { describe, it } from '@serenity-js/playwright-test';
 import { Attribute, By, Click, ComputedStyle, isVisible, PageElement, Value } from '@serenity-js/web';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, it } from '../../../spec/app/story-fixtures.js';
 import { TestRunsView } from '../../../src/serenity/test-runs/TestRunsView.serenity.js';
 
 const chartCanvas = () => PageElement.located(By.css('.trend-chart-container canvas')).describedAs('chart canvas');
@@ -11,33 +11,27 @@ const navigatedTo = () => PageElement.located(By.css('[data-testid="navigated-to
 
 describe('TestRunsView', () => {
 
-    it('reports the number of test run rows', async ({ interactionObject, actor }) => {
+    it('reports the number of test run rows', async ({ story, actor }) => {
         const props = minimalData();
-        const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-            props,
-        });
+        const view = story('components/test-runs/TestRunsView/Default', props).as(TestRunsView);
 
         await actor.attemptsTo(
             Ensure.that(view.runCount(), equals(2)),
         );
     });
 
-    it('reports whether a trend chart is present', async ({ interactionObject, actor }) => {
+    it('reports whether a trend chart is present', async ({ story, actor }) => {
         const props = minimalData();
-        const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-            props,
-        });
+        const view = story('components/test-runs/TestRunsView/Default', props).as(TestRunsView);
 
         await actor.attemptsTo(
             Ensure.that(view.hasTrendChart(), equals(true)),
         );
     });
 
-    it('allows selecting a run entry', async ({ interactionObject, actor }) => {
+    it('allows selecting a run entry', async ({ story, actor }) => {
         const props = minimalData();
-        const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-            props,
-        });
+        const view = story('components/test-runs/TestRunsView/Default', props).as(TestRunsView);
 
         await actor.attemptsTo(
             view.selectRun(0),
@@ -45,11 +39,9 @@ describe('TestRunsView', () => {
         // Test passes if the run was found and clicked without throwing
     });
 
-    it('renders trend chart and run list', async ({ interactionObject, actor }) => {
+    it('renders trend chart and run list', async ({ story, actor }) => {
         const props = minimalData();
-        const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-            props,
-        });
+        const view = story('components/test-runs/TestRunsView/Default', props).as(TestRunsView);
 
         await actor.attemptsTo(
             Ensure.that(view.bodyText(), includes('TREND')),
@@ -57,7 +49,7 @@ describe('TestRunsView', () => {
         );
     });
 
-    it('shows a row for each run in history', async ({ interactionObject, actor }) => {
+    it('shows a row for each run in history', async ({ story, actor }) => {
         const props = minimalData({
             history: [
                 { timestamp: '2024-06-14T10:00:00.000Z', label: '#41', outcomes: { passed: 4, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 800, slowest: 300, fastest: 100, average: 200 },
@@ -66,16 +58,14 @@ describe('TestRunsView', () => {
             ],
         });
 
-        const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-            props,
-        });
+        const view = story('components/test-runs/TestRunsView/Default', props).as(TestRunsView);
 
         await actor.attemptsTo(
             Ensure.that(view.runCount(), equals(3)),
         );
     });
 
-    it('renders a shortened commit hash linking to the full commit URL', async ({ interactionObject, actor }) => {
+    it('renders a shortened commit hash linking to the full commit URL', async ({ story, actor }) => {
         const props = minimalData({
             history: [
                 {
@@ -89,9 +79,7 @@ describe('TestRunsView', () => {
             ],
         });
 
-        const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-            props,
-        });
+        const view = story('components/test-runs/TestRunsView/Default', props).as(TestRunsView);
 
         await actor.attemptsTo(
             Ensure.that(view.commitLinkText(), equals('abc1234')),
@@ -101,22 +89,18 @@ describe('TestRunsView', () => {
 
     describe('chart selection interaction', () => {
 
-        it('does not show the details panel initially', async ({ interactionObject, actor }) => {
+        it('does not show the details panel initially', async ({ story, actor }) => {
             const props = minimalData();
-            const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                props,
-            });
+            const view = story('components/test-runs/TestRunsView/Default', props).as(TestRunsView);
 
             await actor.attemptsTo(
                 Ensure.that(view.hasDetailsPanel(), equals(false)),
             );
         });
 
-        it('shows the details panel when a chart bar is clicked', async ({ interactionObject, actor }) => {
+        it('shows the details panel when a chart bar is clicked', async ({ story, actor }) => {
             const props = minimalData();
-            const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                props,
-            });
+            const view = story('components/test-runs/TestRunsView/Default', props).as(TestRunsView);
 
             await actor.attemptsTo(
                 view.clickChart(),
@@ -124,11 +108,9 @@ describe('TestRunsView', () => {
             );
         });
 
-        it('shows run metrics in the details panel', async ({ interactionObject, actor }) => {
+        it('shows run metrics in the details panel', async ({ story, actor }) => {
             const props = minimalData();
-            const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                props,
-            });
+            const view = story('components/test-runs/TestRunsView/Default', props).as(TestRunsView);
 
             await actor.attemptsTo(
                 view.clickChart(),
@@ -143,11 +125,9 @@ describe('TestRunsView', () => {
             );
         });
 
-        it('shows the CTA button in the details panel', async ({ interactionObject, actor }) => {
+        it('shows the CTA button in the details panel', async ({ story, actor }) => {
             const props = minimalData();
-            const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                props,
-            });
+            const view = story('components/test-runs/TestRunsView/Default', props).as(TestRunsView);
 
             await actor.attemptsTo(
                 view.clickChart(),
@@ -155,11 +135,9 @@ describe('TestRunsView', () => {
             );
         });
 
-        it('navigates only when CTA button is clicked', async ({ interactionObject, actor }) => {
+        it('navigates only when CTA button is clicked', async ({ story, actor }) => {
             const props = minimalData();
-            const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/WithNavigation', {
-                props,
-            });
+            const view = story('components/test-runs/TestRunsView/WithNavigation', props).as(TestRunsView);
 
             // Click on the chart — should NOT navigate
             await actor.attemptsTo(
@@ -178,11 +156,9 @@ describe('TestRunsView', () => {
             );
         });
 
-        it('dismisses the panel when Escape is pressed', async ({ interactionObject, actor }) => {
+        it('dismisses the panel when Escape is pressed', async ({ story, actor }) => {
             const props = minimalData();
-            const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                props,
-            });
+            const view = story('components/test-runs/TestRunsView/Default', props).as(TestRunsView);
 
             await actor.attemptsTo(
                 view.clickChart(),
@@ -192,11 +168,9 @@ describe('TestRunsView', () => {
             );
         });
 
-        it('dismisses the panel when clicking outside', async ({ interactionObject, actor }) => {
+        it('dismisses the panel when clicking outside', async ({ story, actor }) => {
             const props = minimalData();
-            const view = await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                props,
-            });
+            const view = story('components/test-runs/TestRunsView/Default', props).as(TestRunsView);
 
             await actor.attemptsTo(
                 view.clickChart(),
@@ -211,24 +185,20 @@ describe('TestRunsView', () => {
        Uses ComputedStyle from @serenity-js/web rather than raw page.evaluate(). */
     describe('TestRunsView chart touch support', () => {
 
-        it('applies touch-action pan-y to the chart canvas for mobile panning', async ({ interactionObject, page, actor }) => {
+        it('applies touch-action pan-y to the chart canvas for mobile panning', async ({ story, page, actor }) => {
             await page.setViewportSize({ width: 375, height: 667 });
 
             const props = minimalData();
-            await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                props,
-            });
+            await actor.answer(story('components/test-runs/TestRunsView/Default', props).as(TestRunsView));
 
             await actor.attemptsTo(
                 Ensure.that(ComputedStyle.called('touch-action').of(chartCanvas()), equals('pan-y')),
             );
         });
 
-        it('wraps the chart in a container with the trend-chart-container class', async ({ interactionObject, actor }) => {
+        it('wraps the chart in a container with the trend-chart-container class', async ({ story, actor }) => {
             const props = minimalData();
-            await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                props,
-            });
+            await actor.answer(story('components/test-runs/TestRunsView/Default', props).as(TestRunsView));
 
             await actor.attemptsTo(
                 Ensure.that(chartContainer(), isVisible()),
@@ -242,24 +212,18 @@ describe('TestRunsView', () => {
        chart labels render with light-theme colours on a dark background — invisible. */
     describe('TestRunsView chart theme initialisation', () => {
 
-        it('uses dark chart theme when data-theme is dark', async ({ interactionObject, actor }) => {
+        it('uses dark chart theme when data-theme is dark', async ({ story, actor }) => {
             const props = minimalData();
-            await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                props,
-                theme: 'dark',
-            });
+            await actor.answer(story('components/test-runs/TestRunsView/Default', { ...props, theme: 'dark' }).as(TestRunsView));
 
             await actor.attemptsTo(
                 Ensure.that(Attribute.called('data-chart-theme').of(chartContainer()), equals('dark')),
             );
         });
 
-        it('uses light chart theme when data-theme is light', async ({ interactionObject, actor }) => {
+        it('uses light chart theme when data-theme is light', async ({ story, actor }) => {
             const props = minimalData();
-            await interactionObject(TestRunsView, 'components/test-runs/TestRunsView/Default', {
-                props,
-                theme: 'light',
-            });
+            await actor.answer(story('components/test-runs/TestRunsView/Default', { ...props, theme: 'light' }).as(TestRunsView));
 
             await actor.attemptsTo(
                 Ensure.that(Attribute.called('data-chart-theme').of(chartContainer()), equals('light')),

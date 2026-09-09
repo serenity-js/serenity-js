@@ -1,7 +1,7 @@
 import { contain, Ensure, equals, includes, isPresent } from '@serenity-js/assertions';
+import { describe, it } from '@serenity-js/playwright-test';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, it } from '../../../spec/app/story-fixtures.js';
 import { ConsistencyView } from '../../../src/serenity/consistency/ConsistencyView.serenity.js';
 
 describe('ConsistencyView scenario access', () => {
@@ -29,20 +29,16 @@ describe('ConsistencyView scenario access', () => {
         ],
     });
 
-    it('can find a scenario by name and check it is present', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            props: consistencyData,
-        });
+    it('can find a scenario by name and check it is present', async ({ story, actor }) => {
+        const view = story('components/consistency/ConsistencyView/Default', consistencyData).as(ConsistencyView);
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioCalled('Flaky Test A'), isPresent()),
         );
     });
 
-    it('lists visible scenario names', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            props: consistencyData,
-        });
+    it('lists visible scenario names', async ({ story, actor }) => {
+        const view = story('components/consistency/ConsistencyView/Default', consistencyData).as(ConsistencyView);
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioNames(), contain('Flaky Test A')),
@@ -93,10 +89,8 @@ describe('ConsistencyView', () => {
         ],
     });
 
-    it('shows "All" filter as active by default', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            props: inconsistentTestData,
-        });
+    it('shows "All" filter as active by default', async ({ story, actor }) => {
+        const view = story('components/consistency/ConsistencyView/Default', inconsistentTestData).as(ConsistencyView);
 
         await actor.attemptsTo(
             Ensure.that(view.filterBar.activeFilters(), contain('All')),
@@ -104,20 +98,16 @@ describe('ConsistencyView', () => {
         );
     });
 
-    it('displays filter chips with correct labels', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            props: inconsistentTestData,
-        });
+    it('displays filter chips with correct labels', async ({ story, actor }) => {
+        const view = story('components/consistency/ConsistencyView/Default', inconsistentTestData).as(ConsistencyView);
 
         await actor.attemptsTo(
             Ensure.that(view.filterBar.filterLabels(), equals(['All', 'Flaky', 'Inconsistent', 'Degraded', 'Recovered'])),
         );
     });
 
-    it('flaky filter shows only tests that never genuinely failed', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            props: inconsistentTestData,
-        });
+    it('flaky filter shows only tests that never genuinely failed', async ({ story, actor }) => {
+        const view = story('components/consistency/ConsistencyView/Default', inconsistentTestData).as(ConsistencyView);
 
         await actor.attemptsTo(
             view.filterBar.selectFilter('Flaky'),
@@ -125,10 +115,8 @@ describe('ConsistencyView', () => {
         );
     });
 
-    it('inconsistent filter excludes flaky-only tests', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            props: inconsistentTestData,
-        });
+    it('inconsistent filter excludes flaky-only tests', async ({ story, actor }) => {
+        const view = story('components/consistency/ConsistencyView/Default', inconsistentTestData).as(ConsistencyView);
 
         await actor.attemptsTo(
             view.filterBar.selectFilter('Inconsistent'),
@@ -136,10 +124,8 @@ describe('ConsistencyView', () => {
         );
     });
 
-    it('classifies [SUCCESS, FAILURE] as degraded', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            props: inconsistentTestData,
-        });
+    it('classifies [SUCCESS, FAILURE] as degraded', async ({ story, actor }) => {
+        const view = story('components/consistency/ConsistencyView/Default', inconsistentTestData).as(ConsistencyView);
 
         await actor.attemptsTo(
             view.filterBar.selectFilter('Degraded'),
@@ -147,10 +133,8 @@ describe('ConsistencyView', () => {
         );
     });
 
-    it('classifies [FAILURE, SUCCESS] as recovered (clean pass)', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            props: inconsistentTestData,
-        });
+    it('classifies [FAILURE, SUCCESS] as recovered (clean pass)', async ({ story, actor }) => {
+        const view = story('components/consistency/ConsistencyView/Default', inconsistentTestData).as(ConsistencyView);
 
         await actor.attemptsTo(
             view.filterBar.selectFilter('Recovered'),
@@ -158,7 +142,7 @@ describe('ConsistencyView', () => {
         );
     });
 
-    it('classifies [FAILURE, RETRIED_SUCCESS] as inconsistent, not flaky', async ({ interactionObject, actor }) => {
+    it('classifies [FAILURE, RETRIED_SUCCESS] as inconsistent, not flaky', async ({ story, actor }) => {
         const data = minimalData({
             inconsistentTests: [
                 {
@@ -172,9 +156,7 @@ describe('ConsistencyView', () => {
                 },
             ],
         });
-        const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            props: data,
-        });
+        const view = story('components/consistency/ConsistencyView/Default', data).as(ConsistencyView);
 
         await actor.attemptsTo(
             Ensure.that(view.filterBar.filterLabels(), contain('Flaky')),
@@ -182,11 +164,9 @@ describe('ConsistencyView', () => {
         );
     });
 
-    it('shows placeholder when no inconsistent tests', async ({ interactionObject, actor }) => {
+    it('shows placeholder when no inconsistent tests', async ({ story, actor }) => {
         const data = minimalData({ inconsistentTests: [] });
-        const view = await interactionObject(ConsistencyView, 'components/consistency/ConsistencyView/Default', {
-            props: data,
-        });
+        const view = story('components/consistency/ConsistencyView/Default', data).as(ConsistencyView);
 
         await actor.attemptsTo(
             Ensure.that(view.bodyText(), includes('All Tests Consistent')),

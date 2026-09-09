@@ -3,8 +3,9 @@
  * correctly on theme toggle (data-theme="dark" vs "light"). This tests the theming
  * infrastructure — computed styles, not user-observable behaviour.
  */
+import { describe, expect, it } from '@serenity-js/playwright-test';
+
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, expect, it } from '../../../spec/app/story-fixtures.js';
 
 describe('Dark mode', () => {
 

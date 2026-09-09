@@ -4,8 +4,9 @@
  * class names and structure. This is a rendering contract — not user-observable
  * behaviour in the interaction object sense.
  */
+import { describe, expect, it } from '@serenity-js/playwright-test';
+
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, expect, it } from '../../../spec/app/story-fixtures.js';
 
 const baseScenarioFields = {
     category: 'Suite',

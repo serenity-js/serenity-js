@@ -338,9 +338,13 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
             let mounted: PageElement<Locator> | undefined;
             return Question.about(`story ${ storyPath }`, async actor => {
                 if (! mounted) {
-                    const locator = await mount(storyPath, props);
+                    // Playwright's mount returns a Locator for the gallery
+                    // container (#root). Scope to its first child to get the
+                    // component's own root element.
+                    const galleryRoot = await mount(storyPath, props);
+                    const componentRoot = galleryRoot.locator(':scope > *');
                     const currentPage = await BrowseTheWebWithPlaywright.as(actor).currentPage();
-                    mounted = currentPage.createPageElement(locator);
+                    mounted = currentPage.createPageElement(componentRoot);
                 }
                 return mounted;
             });

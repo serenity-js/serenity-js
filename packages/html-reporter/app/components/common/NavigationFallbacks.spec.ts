@@ -3,8 +3,9 @@
  * These test structural/navigation contracts and use raw Playwright locators
  * since they exercise the App component's routing which is not wrapped in an IO.
  */
+import { describe, expect, it } from '@serenity-js/playwright-test';
+
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, expect, it } from '../../../spec/app/story-fixtures.js';
 
 describe('Route-level 404', () => {
 

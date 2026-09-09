@@ -1,19 +1,17 @@
 import { Ensure, equals, includes, not } from '@serenity-js/assertions';
+import { describe, expect, it } from '@serenity-js/playwright-test';
 
-import { describe, expect, it } from '../../../spec/app/story-fixtures.js';
 import { HistoricalBanner } from '../../../src/serenity/common/HistoricalBanner.serenity.js';
 
 describe('HistoricalBanner', () => {
 
     describe('user-observable behaviour', () => {
 
-        it('renders the banner with label and runLabel', async ({ interactionObject, actor }) => {
-            const view = await interactionObject(HistoricalBanner, 'components/common/HistoricalBanner/Default', {
-                props: {
-                    label: 'Viewing results from:',
-                    runLabel: 'Run #42 — 15 Jun 2024',
-                },
-            });
+        it('renders the banner with label and runLabel', async ({ story, actor }) => {
+            const view = story('components/common/HistoricalBanner/Default', {
+                label: 'Viewing results from:',
+                runLabel: 'Run #42 — 15 Jun 2024',
+            }).as(HistoricalBanner);
 
             await actor.attemptsTo(
                 Ensure.that(view.text(), includes('Viewing results from:')),
@@ -21,67 +19,57 @@ describe('HistoricalBanner', () => {
             );
         });
 
-        it('renders the runLabel in a strong element', async ({ interactionObject, actor }) => {
-            const view = await interactionObject(HistoricalBanner, 'components/common/HistoricalBanner/Default', {
-                props: {
-                    label: 'Viewing results from:',
-                    runLabel: 'Run #42 — 15 Jun 2024',
-                },
-            });
+        it('renders the runLabel in a strong element', async ({ story, actor }) => {
+            const view = story('components/common/HistoricalBanner/Default', {
+                label: 'Viewing results from:',
+                runLabel: 'Run #42 — 15 Jun 2024',
+            }).as(HistoricalBanner);
 
             await actor.attemptsTo(
                 Ensure.that(view.runLabel(), equals('Run #42 — 15 Jun 2024')),
             );
         });
 
-        it('renders subtitle when provided', async ({ interactionObject, actor }) => {
-            const view = await interactionObject(HistoricalBanner, 'components/common/HistoricalBanner/Default', {
-                props: {
-                    label: 'Viewing results from:',
-                    runLabel: 'Run #42',
-                    subtitle: '— 2m 30s',
-                },
-            });
+        it('renders subtitle when provided', async ({ story, actor }) => {
+            const view = story('components/common/HistoricalBanner/Default', {
+                label: 'Viewing results from:',
+                runLabel: 'Run #42',
+                subtitle: '— 2m 30s',
+            }).as(HistoricalBanner);
 
             await actor.attemptsTo(
                 Ensure.that(view.subtitle(), includes('— 2m 30s')),
             );
         });
 
-        it('does not render subtitle when not provided', async ({ interactionObject, actor }) => {
-            const view = await interactionObject(HistoricalBanner, 'components/common/HistoricalBanner/Default', {
-                props: {
-                    label: 'Viewing errors from:',
-                    runLabel: 'Run #42',
-                },
-            });
+        it('does not render subtitle when not provided', async ({ story, actor }) => {
+            const view = story('components/common/HistoricalBanner/Default', {
+                label: 'Viewing errors from:',
+                runLabel: 'Run #42',
+            }).as(HistoricalBanner);
 
             await actor.attemptsTo(
                 Ensure.that(view.subtitle(), not(includes('—'))),
             );
         });
 
-        it('renders "show latest" link with correct text', async ({ interactionObject, actor }) => {
-            const view = await interactionObject(HistoricalBanner, 'components/common/HistoricalBanner/Default', {
-                props: {
-                    label: 'Viewing results from:',
-                    runLabel: 'Run #42',
-                },
-            });
+        it('renders "show latest" link with correct text', async ({ story, actor }) => {
+            const view = story('components/common/HistoricalBanner/Default', {
+                label: 'Viewing results from:',
+                runLabel: 'Run #42',
+            }).as(HistoricalBanner);
 
             await actor.attemptsTo(
                 Ensure.that(view.showLatestLinkText(), equals('show latest')),
             );
         });
 
-        it('renders "show latest" link with href when showLatestHref provided', async ({ interactionObject, actor }) => {
-            const view = await interactionObject(HistoricalBanner, 'components/common/HistoricalBanner/Default', {
-                props: {
-                    label: 'Viewing results from:',
-                    runLabel: 'Run #42',
-                    showLatestHref: '#/tests',
-                },
-            });
+        it('renders "show latest" link with href when showLatestHref provided', async ({ story, actor }) => {
+            const view = story('components/common/HistoricalBanner/Default', {
+                label: 'Viewing results from:',
+                runLabel: 'Run #42',
+                showLatestHref: '#/tests',
+            }).as(HistoricalBanner);
 
             await actor.attemptsTo(
                 Ensure.that(view.showLatestLinkHref(), equals('#/tests')),
