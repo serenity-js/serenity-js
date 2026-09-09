@@ -1,6 +1,6 @@
 import type { Answerable } from '@serenity-js/core';
 import { useFixtures } from '@serenity-js/playwright-test';
-import { By, PageElement } from '@serenity-js/web';
+import type { PageElement } from '@serenity-js/web';
 
 type InteractionObjectConstructor<IO> = new (rootElement: Answerable<PageElement>) => IO;
 
@@ -58,13 +58,9 @@ export const {
                 ...(hash !== undefined && { hash }),
             };
 
-            // Mount the story via the built-in story fixture. The story fixture
-            // returns a PageElement for #root; scope to the first child to get
-            // the component's own root element (matching the old #root > * selector).
-            const storyRoot = story(storyPath, Object.keys(mountProps).length > 0 ? mountProps : undefined);
-            const componentRoot = storyRoot.element(By.css(':scope > *')).describedAs('mounted component');
+            const storyElement = story(storyPath, Object.keys(mountProps).length > 0 ? mountProps : undefined);
 
-            return actor.answer(componentRoot.as(io));
+            return actor.answer(storyElement.as(io));
         }
 
         await use(mountStory);
