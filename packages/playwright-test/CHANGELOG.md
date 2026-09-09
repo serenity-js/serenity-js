@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.47.0](https://github.com/serenity-js/serenity-js/compare/v3.46.1...v3.47.0) (2026-09-09)
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to ~1.63.0 ([54cde6f](https://github.com/serenity-js/serenity-js/commit/54cde6f25ec340cd156e6c122ce2ef79675baf87))
+* **playwright-test:** story fixture returns the component root, not the gallery container ([d342725](https://github.com/serenity-js/serenity-js/commit/d342725542980361c33fc1893aa555a624191c14)), closes [#root](https://github.com/serenity-js/serenity-js/issues/root)
+* **playwright-test:** story fixture returns the component root, not the gallery container ([a95a271](https://github.com/serenity-js/serenity-js/commit/a95a27140074371c3a7e8893ccaa5abe7c3f9d06)), closes [#root](https://github.com/serenity-js/serenity-js/issues/root)
+
+### Features
+
+* **playwright-test:** add story fixture for component testing ([59947fd](https://github.com/serenity-js/serenity-js/commit/59947fd2e6acad2ee3717652fe10d35b382f01cd))
+
+
 ## [3.46.1](https://github.com/serenity-js/serenity-js/compare/v3.46.0...v3.46.1) (2026-09-04)
 
 **Note:** Version bump only for package @serenity-js/playwright-test

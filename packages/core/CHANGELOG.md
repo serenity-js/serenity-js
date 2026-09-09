@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.47.0](https://github.com/serenity-js/serenity-js/compare/v3.46.1...v3.47.0) (2026-09-09)
+
+### Bug Fixes
+
+* **core:** handle file:/// URLs in stack traces on Windows ([7a78a1c](https://github.com/serenity-js/serenity-js/commit/7a78a1c2c710784ea6a2c7c5825c6fdf9ed76c83))
+
+### Features
+
+* **core:** support constructor mapping and Screenplay-typed returns in Question.as() ([1220926](https://github.com/serenity-js/serenity-js/commit/1220926b9d12913c04508a166ab5fedff773a382))
+
+
 # [3.46.0](https://github.com/serenity-js/serenity-js/compare/v3.45.9...v3.46.0) (2026-08-30)
 
 ### Features

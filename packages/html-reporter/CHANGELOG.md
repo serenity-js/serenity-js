@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.47.0](https://github.com/serenity-js/serenity-js/compare/v3.46.1...v3.47.0) (2026-09-09)
+
+### Bug Fixes
+
+* **deps:** update playwright dependencies to ~1.63.0 ([54cde6f](https://github.com/serenity-js/serenity-js/commit/54cde6f25ec340cd156e6c122ce2ef79675baf87))
+* **html-reporter:** resolve scenario when URL has stale browser version ([334f9bc](https://github.com/serenity-js/serenity-js/commit/334f9bcf60d4385ca56116f6020a391ff7800ffa))
+* **html-reporter:** use useLayoutEffect for Escape key handler ([0b309c9](https://github.com/serenity-js/serenity-js/commit/0b309c9fbc1fce3096f1f5697161181a58932c08))
+* **html-reporter:** use useLayoutEffect for lightbox scroll lock ([a63196e](https://github.com/serenity-js/serenity-js/commit/a63196e5ddadb4ccac4918f2f2db445de01b4c26))
+* **playwright-test:** story fixture returns the component root, not the gallery container ([a95a271](https://github.com/serenity-js/serenity-js/commit/a95a27140074371c3a7e8893ccaa5abe7c3f9d06)), closes [#root](https://github.com/serenity-js/serenity-js/issues/root)
+
+
 ## [3.46.1](https://github.com/serenity-js/serenity-js/compare/v3.46.0...v3.46.1) (2026-09-04)
 
 ### Bug Fixes
