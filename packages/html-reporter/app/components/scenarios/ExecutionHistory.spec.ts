@@ -1,8 +1,8 @@
 import { Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
+import { describe, it } from '@serenity-js/playwright-test';
 import { By, PageElement, Value } from '@serenity-js/web';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, it } from '@serenity-js/playwright-test';
 import { ExecutionHistory } from '../../../src/serenity/scenarios/ExecutionHistory.serenity.js';
 
 const navigatedTo = () => PageElement.located(By.css('[data-testid="navigated-to"]')).describedAs('navigated-to field');
@@ -51,7 +51,7 @@ interface MountOptions {
 }
 
 function mountExecutionHistory(
-    storyFn: (path: string, props?: Record<string, unknown>) => { as: <T>(io: new (...args: any[]) => T) => any },
+    storyFunction: (path: string, props?: Record<string, unknown>) => { as: <T>(io: new (...args: any[]) => T) => any },
     options: MountOptions,
 ) {
     const {
@@ -84,7 +84,7 @@ function mountExecutionHistory(
             })),
     });
 
-    return storyFn(story, { ...props, data }).as(ExecutionHistory);
+    return storyFunction(story, { ...props, data }).as(ExecutionHistory);
 }
 
 describe('ExecutionHistory', () => {

@@ -1,8 +1,8 @@
 import { contain, Ensure, equals, includes, not } from '@serenity-js/assertions';
+import { describe, expect, it } from '@serenity-js/playwright-test';
 import { By, PageElement, Value } from '@serenity-js/web';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, expect, it } from '@serenity-js/playwright-test';
 import { TagsView } from '../../../src/serenity/tags/TagsView.serenity.js';
 
 const mixedTags = [

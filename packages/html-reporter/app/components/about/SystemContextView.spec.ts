@@ -1,7 +1,7 @@
 import { Ensure, equals, includes } from '@serenity-js/assertions';
+import { describe, it } from '@serenity-js/playwright-test';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, it } from '@serenity-js/playwright-test';
 import { SystemContextView } from '../../../src/serenity/about/SystemContextView.serenity.js';
 
 describe('SystemContextView', () => {

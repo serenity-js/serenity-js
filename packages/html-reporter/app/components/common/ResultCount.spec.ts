@@ -1,6 +1,6 @@
 import { Ensure, equals } from '@serenity-js/assertions';
-
 import { describe, it } from '@serenity-js/playwright-test';
+
 import { ResultCount } from '../../../src/serenity/common/ResultCount.serenity.js';
 
 describe('ResultCount', () => {

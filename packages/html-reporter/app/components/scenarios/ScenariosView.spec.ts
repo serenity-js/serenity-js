@@ -1,7 +1,7 @@
 import { contain, Ensure, equals, includes, isPresent } from '@serenity-js/assertions';
+import { describe, expect, it } from '@serenity-js/playwright-test';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, expect, it } from '@serenity-js/playwright-test';
 import { ScenariosView } from '../../../src/serenity/scenarios/ScenariosView.serenity.js';
 
 describe('ScenariosView scenario access', () => {

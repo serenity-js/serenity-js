@@ -1,9 +1,9 @@
 import { Ensure, equals, includes } from '@serenity-js/assertions';
+import { describe, it } from '@serenity-js/playwright-test';
 import { By, PageElement, Value } from '@serenity-js/web';
 import { ExecuteScript, LastScriptExecution } from '@serenity-js/web';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, it } from '@serenity-js/playwright-test';
 import { ScenarioDetailView } from '../../../src/serenity/scenarios/ScenarioDetailView.serenity.js';
 import { ScenariosView } from '../../../src/serenity/scenarios/ScenariosView.serenity.js';
 

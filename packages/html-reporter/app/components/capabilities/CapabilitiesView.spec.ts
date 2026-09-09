@@ -1,7 +1,7 @@
 import { contain, Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
+import { describe, expect, it } from '@serenity-js/playwright-test';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, expect, it } from '@serenity-js/playwright-test';
 import { CapabilitiesView } from '../../../src/serenity/capabilities/CapabilitiesView.serenity.js';
 
 function capabilitiesData() {

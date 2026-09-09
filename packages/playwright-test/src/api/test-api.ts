@@ -333,7 +333,7 @@ export const fixtures: Fixtures<SerenityFixtures & SerenityInternalFixtures, Ser
     },
 
     story: async ({ mount }, use) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         function storyFixture(storyPath: string, props?: Record<string, any>) {
             let mounted: PageElement<Locator> | undefined;
             return Question.about(`story ${ storyPath }`, async actor => {

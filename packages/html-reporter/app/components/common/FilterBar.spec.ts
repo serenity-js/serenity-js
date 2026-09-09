@@ -1,6 +1,6 @@
 import { contain, Ensure, equals } from '@serenity-js/assertions';
-
 import { describe, it } from '@serenity-js/playwright-test';
+
 import { FilterBar } from '../../../src/serenity/common/FilterBar.serenity.js';
 
 describe('FilterBar', () => {

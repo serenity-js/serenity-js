@@ -1,8 +1,8 @@
 import { contain, Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
+import { describe, it } from '@serenity-js/playwright-test';
 import { ExecuteScript, LastScriptExecution } from '@serenity-js/web';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, it } from '@serenity-js/playwright-test';
 import { PhotoStrip } from '../../../src/serenity/scenarios/PhotoStrip.serenity.js';
 
 function activitiesWithPhotos() {
@@ -51,8 +51,8 @@ function activitiesWithPhotos() {
     ];
 }
 
-function mountPhotoStrip(storyFn: (path: string, props?: Record<string, unknown>) => { as: <T>(io: new (...args: any[]) => T) => any }) {
-    return storyFn('components/scenarios/PhotoStrip/Default', {
+function mountPhotoStrip(storyFunction: (path: string, props?: Record<string, unknown>) => { as: <T>(io: new (...args: any[]) => T) => any }) {
+    return storyFunction('components/scenarios/PhotoStrip/Default', {
         activities: activitiesWithPhotos(),
         scenarioStartedAt: '2024-06-15T14:30:00.000Z',
         data: minimalData(),

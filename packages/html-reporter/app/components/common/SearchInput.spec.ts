@@ -1,7 +1,7 @@
 import { Ensure, equals, isFalse, isTrue } from '@serenity-js/assertions';
+import { describe, it } from '@serenity-js/playwright-test';
 import { By, PageElement, Value } from '@serenity-js/web';
 
-import { describe, it } from '@serenity-js/playwright-test';
 import { SearchInput } from '../../../src/serenity/common/SearchInput.serenity.js';
 
 describe('SearchInput', () => {

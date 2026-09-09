@@ -1,6 +1,6 @@
 import { Ensure, equals, includes } from '@serenity-js/assertions';
-
 import { describe, it } from '@serenity-js/playwright-test';
+
 import { ErrorBlock } from '../../../src/serenity/errors/ErrorBlock.serenity.js';
 
 describe('ErrorBlock', () => {

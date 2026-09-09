@@ -1,8 +1,8 @@
 import { and, Ensure, equals, includes } from '@serenity-js/assertions';
+import { describe, it } from '@serenity-js/playwright-test';
 import { Attribute, By, Click, ComputedStyle, isVisible, PageElement, Value } from '@serenity-js/web';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, it } from '@serenity-js/playwright-test';
 import { TestRunsView } from '../../../src/serenity/test-runs/TestRunsView.serenity.js';
 
 const chartCanvas = () => PageElement.located(By.css('.trend-chart-container canvas')).describedAs('chart canvas');

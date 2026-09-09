@@ -1,7 +1,7 @@
 import { Ensure, equals, includes, isFalse, isTrue } from '@serenity-js/assertions';
+import { describe, it } from '@serenity-js/playwright-test';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, it } from '@serenity-js/playwright-test';
 import { ActivityNode } from '../../../src/serenity/scenarios/ActivityNode.serenity.js';
 
 const activityNodeStory = 'components/scenarios/ActivityNode/Default';

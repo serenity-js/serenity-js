@@ -1,6 +1,6 @@
 import { Ensure, equals, includes, not } from '@serenity-js/assertions';
-
 import { describe, expect, it } from '@serenity-js/playwright-test';
+
 import { HistoricalBanner } from '../../../src/serenity/common/HistoricalBanner.serenity.js';
 
 describe('HistoricalBanner', () => {

@@ -1,5 +1,6 @@
-import { minimalData } from '../../../spec/app/data-factories.js';
 import { describe, expect, it } from '@serenity-js/playwright-test';
+
+import { minimalData } from '../../../spec/app/data-factories.js';
 
 /*
  * Implementation contracts: these tests verify CSS layout behaviour (single-row tags,

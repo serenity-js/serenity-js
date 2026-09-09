@@ -1,6 +1,6 @@
 import { Ensure, equals } from '@serenity-js/assertions';
-
 import { describe, it } from '@serenity-js/playwright-test';
+
 import { RestQueryPanel } from '../../../src/serenity/common/RestQueryPanel.serenity.js';
 
 describe('RestQueryPanel', () => {

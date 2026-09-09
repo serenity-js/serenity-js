@@ -1,7 +1,7 @@
-import { contain, Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
+import { contain, Ensure, equals, includes, isPresent } from '@serenity-js/assertions';
+import { describe, it } from '@serenity-js/playwright-test';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, it } from '@serenity-js/playwright-test';
 import { ConsistencyView } from '../../../src/serenity/consistency/ConsistencyView.serenity.js';
 
 describe('ConsistencyView scenario access', () => {

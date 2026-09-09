@@ -1,7 +1,7 @@
 import { contain, Ensure, equals } from '@serenity-js/assertions';
+import { describe, expect, it } from '@serenity-js/playwright-test';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, expect, it } from '@serenity-js/playwright-test';
 import { ScenariosView } from '../../../src/serenity/scenarios/ScenariosView.serenity.js';
 
 describe('ScenariosView tag search', () => {
@@ -351,21 +351,21 @@ describe('ScenariosView tag chip interaction', () => {
 
     it('deduplicates tag chips with the same name but different types', async ({ story, actor }) => {
         const view = story('components/scenarios/ScenariosView/Default', { ...minimalData({
-                scenarios: [
-                    {
-                        name: 'Capability test', category: 'Capabilities', outcome: 'SUCCESS', duration: 100,
-                        startedAt: '2024-06-15T14:30:00.000Z',
-                        source: { path: 'spec/cap.spec.ts', line: 5 },
-                        tags: [
-                            { type: 'feature', name: 'Capabilities' },
-                            { type: 'capability', name: 'Capabilities' },
-                            { type: 'project', name: 'desktop' },
-                        ],
-                        activities: [],
-                        executionHistory: [],
-                    },
-                ],
-            }) }).as(ScenariosView);
+            scenarios: [
+                {
+                    name: 'Capability test', category: 'Capabilities', outcome: 'SUCCESS', duration: 100,
+                    startedAt: '2024-06-15T14:30:00.000Z',
+                    source: { path: 'spec/cap.spec.ts', line: 5 },
+                    tags: [
+                        { type: 'feature', name: 'Capabilities' },
+                        { type: 'capability', name: 'Capabilities' },
+                        { type: 'project', name: 'desktop' },
+                    ],
+                    activities: [],
+                    executionHistory: [],
+                },
+            ],
+        }) }).as(ScenariosView);
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioCalled('Capability test').tagChipLabels(), equals(['Capabilities', 'desktop'])),

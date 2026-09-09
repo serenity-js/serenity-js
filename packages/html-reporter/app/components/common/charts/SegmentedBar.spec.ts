@@ -1,6 +1,6 @@
 import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
-
 import { describe, expect, it } from '@serenity-js/playwright-test';
+
 import { SegmentedBar } from '../../../../src/serenity/common/SegmentedBar.serenity.js';
 
 describe('SegmentedBar', () => {

@@ -1,6 +1,6 @@
 import { Ensure, equals } from '@serenity-js/assertions';
-
 import { describe, it } from '@serenity-js/playwright-test';
+
 import { KpiCard } from '../../../src/serenity/common/KpiCard.serenity.js';
 
 describe('KpiCard', () => {

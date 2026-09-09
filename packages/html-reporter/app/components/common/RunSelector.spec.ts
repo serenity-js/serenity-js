@@ -1,6 +1,6 @@
 import { Ensure, equals, isFalse, isTrue } from '@serenity-js/assertions';
-
 import { describe, expect, it } from '@serenity-js/playwright-test';
+
 import { RunSelector } from '../../../src/serenity/common/RunSelector.serenity.js';
 
 const sampleHistory = [

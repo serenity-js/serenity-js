@@ -1,6 +1,6 @@
 import { Ensure, equals } from '@serenity-js/assertions';
-
 import { describe, it } from '@serenity-js/playwright-test';
+
 import { HistoryDots } from '../../../src/serenity/common/HistoryDots.serenity.js';
 
 describe('HistoryDots', () => {
