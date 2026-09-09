@@ -58,7 +58,6 @@ function mountExecutionHistory(
         executionHistory,
         runIndex = null,
         history,
-        data = minimalData(),
         story = executionHistoryStory,
         scenario: scenarioOverrides,
     } = options;
@@ -72,6 +71,18 @@ function mountExecutionHistory(
     if (history !== undefined) {
         props.history = history;
     }
+
+    // Auto-generate data from executionHistory when not explicitly provided.
+    // Each entry maps to a historyEntry with passed/failed derived from outcome.
+    const data = options.data ?? minimalData({
+        history: executionHistory
+            .filter(entry => entry.timestamp)
+            .map(entry => historyEntry({
+                timestamp: entry.timestamp,
+                label: entry.run,
+                ...(entry.outcome === 'SUCCESS' ? { passed: 1 } : { failed: 1 }),
+            })),
+    });
 
     return interactionObject(ExecutionHistory, story, { props, data });
 }
@@ -108,13 +119,6 @@ describe('ExecutionHistory', () => {
                 { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T10:00:00.000Z' },
                 { outcome: 'SUCCESS', run: '#43', timestamp: '2024-06-16T10:00:00.000Z' },
             ],
-            data: minimalData({
-                history: [
-                    historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#41', passed: 1 }),
-                    historyEntry({ timestamp: '2024-06-15T10:00:00.000Z', label: '#42', failed: 1 }),
-                    historyEntry({ timestamp: '2024-06-16T10:00:00.000Z', label: '#43', passed: 1 }),
-                ],
-            }),
         });
 
         await actor.attemptsTo(
@@ -130,14 +134,6 @@ describe('ExecutionHistory', () => {
                 { outcome: 'SUCCESS', run: '#43', timestamp: '2024-06-16T10:00:00.000Z' },
                 { outcome: 'SUCCESS', run: '#44', timestamp: '2024-06-17T10:00:00.000Z' },
             ],
-            data: minimalData({
-                history: [
-                    historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#41', passed: 1 }),
-                    historyEntry({ timestamp: '2024-06-15T10:00:00.000Z', label: '#42', failed: 1 }),
-                    historyEntry({ timestamp: '2024-06-16T10:00:00.000Z', label: '#43', passed: 1 }),
-                    historyEntry({ timestamp: '2024-06-17T10:00:00.000Z', label: '#44', passed: 1 }),
-                ],
-            }),
         });
 
         await actor.attemptsTo(
@@ -150,11 +146,6 @@ describe('ExecutionHistory', () => {
             executionHistory: [
                 { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
             ],
-            data: minimalData({
-                history: [
-                    historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#41', passed: 1 }),
-                ],
-            }),
         });
 
         await actor.attemptsTo(
@@ -169,13 +160,6 @@ describe('ExecutionHistory', () => {
                 { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T10:00:00.000Z' },
                 { outcome: 'SUCCESS', run: '#43', timestamp: '2024-06-16T10:00:00.000Z' },
             ],
-            data: minimalData({
-                history: [
-                    historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#41', passed: 1 }),
-                    historyEntry({ timestamp: '2024-06-15T10:00:00.000Z', label: '#42', passed: 1 }),
-                    historyEntry({ timestamp: '2024-06-16T10:00:00.000Z', label: '#43', passed: 1 }),
-                ],
-            }),
         });
 
         await actor.attemptsTo(
@@ -234,13 +218,6 @@ describe('ExecutionHistory', () => {
                 { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-14T14:00:00.000Z' },
                 { outcome: 'FAILURE', run: '#43', timestamp: '2024-06-15T10:00:00.000Z' },
             ],
-            data: minimalData({
-                history: [
-                    historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#41', passed: 1 }),
-                    historyEntry({ timestamp: '2024-06-14T14:00:00.000Z', label: '#42', passed: 1 }),
-                    historyEntry({ timestamp: '2024-06-15T10:00:00.000Z', label: '#43', failed: 1 }),
-                ],
-            }),
         });
 
         await actor.attemptsTo(
@@ -253,11 +230,6 @@ describe('ExecutionHistory', () => {
             executionHistory: [
                 { outcome: 'SUCCESS', run: 'build-41', timestamp: '2024-06-14T10:00:00.000Z' },
             ],
-            data: minimalData({
-                history: [
-                    historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: 'build-41', passed: 1 }),
-                ],
-            }),
         });
 
         await actor.attemptsTo(
@@ -331,7 +303,6 @@ describe('ExecutionHistory', () => {
             ],
             runIndex: 1,
             history: historyEntries,
-            data: minimalData({ history: historyEntries }),
         });
 
         await actor.attemptsTo(
@@ -349,12 +320,6 @@ describe('ExecutionHistory', () => {
                 outcome: 'SUCCESS',
                 duration: 500,
             },
-            data: minimalData({
-                history: [
-                    historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#41', failed: 1 }),
-                    historyEntry({ timestamp: '2024-06-15T14:30:00.000Z', label: '#42', passed: 1 }),
-                ],
-            }),
         });
 
         await actor.attemptsTo(
@@ -373,11 +338,6 @@ describe('ExecutionHistory', () => {
                 outcome: 'SUCCESS',
                 duration: 500,
             },
-            data: minimalData({
-                history: [
-                    historyEntry({ timestamp: '2024-06-15T14:30:00.000Z', label: '#42', passed: 1 }),
-                ],
-            }),
         });
 
         await actor.attemptsTo(
@@ -394,11 +354,6 @@ describe('ExecutionHistory', () => {
                 outcome: 'SUCCESS',
                 duration: 500,
             },
-            data: minimalData({
-                history: [
-                    historyEntry({ timestamp: '2024-06-15T14:30:00.000Z', label: '#42', passed: 1 }),
-                ],
-            }),
         });
 
         await actor.attemptsTo(
