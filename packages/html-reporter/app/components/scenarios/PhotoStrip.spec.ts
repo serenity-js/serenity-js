@@ -2,7 +2,7 @@ import { contain, Ensure, equals, includes, isPresent, not } from '@serenity-js/
 import { ExecuteScript, LastScriptExecution } from '@serenity-js/web';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, it } from '../../../spec/app/story-fixtures.js';
+import { describe, it } from '@serenity-js/playwright-test';
 import { PhotoStrip } from '../../../src/serenity/scenarios/PhotoStrip.serenity.js';
 
 function activitiesWithPhotos() {
@@ -51,52 +51,46 @@ function activitiesWithPhotos() {
     ];
 }
 
-function mountPhotoStrip(interactionObject: Parameters<Parameters<typeof it>[1]>[0]['interactionObject']) {
-    return interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-        props: {
-            activities: activitiesWithPhotos(),
-            scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-        },
+function mountPhotoStrip(storyFn: (path: string, props?: Record<string, unknown>) => { as: <T>(io: new (...args: any[]) => T) => any }) {
+    return storyFn('components/scenarios/PhotoStrip/Default', {
+        activities: activitiesWithPhotos(),
+        scenarioStartedAt: '2024-06-15T14:30:00.000Z',
         data: minimalData(),
-    });
+    }).as(PhotoStrip);
 }
 
 describe('PhotoStrip', () => {
 
-    it('renders nothing when no .png artifacts exist', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: [
-                    { name: 'step 1', outcome: 'SUCCESS', duration: 100, children: [], artifacts: [] },
-                ],
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
+    it('renders nothing when no .png artifacts exist', async ({ story, actor }) => {
+        const view = story('components/scenarios/PhotoStrip/Default', {
+            activities: [
+                { name: 'step 1', outcome: 'SUCCESS', duration: 100, children: [], artifacts: [] },
+            ],
+            scenarioStartedAt: '2024-06-15T14:30:00.000Z',
             data: minimalData(),
-        });
+        }).as(PhotoStrip);
 
         await actor.attemptsTo(
             Ensure.that(view, not(isPresent())),
         );
     });
 
-    it('renders nothing when activities have no artifacts at all', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(PhotoStrip, 'components/scenarios/PhotoStrip/Default', {
-            props: {
-                activities: [
-                    { name: 'step 1', outcome: 'SUCCESS', duration: 100, children: [] },
-                ],
-                scenarioStartedAt: '2024-06-15T14:30:00.000Z',
-            },
+    it('renders nothing when activities have no artifacts at all', async ({ story, actor }) => {
+        const view = story('components/scenarios/PhotoStrip/Default', {
+            activities: [
+                { name: 'step 1', outcome: 'SUCCESS', duration: 100, children: [] },
+            ],
+            scenarioStartedAt: '2024-06-15T14:30:00.000Z',
             data: minimalData(),
-        });
+        }).as(PhotoStrip);
 
         await actor.attemptsTo(
             Ensure.that(view, not(isPresent())),
         );
     });
 
-    it('displays the correct photo count in the title', async ({ interactionObject, actor }) => {
-        const view = await mountPhotoStrip(interactionObject);
+    it('displays the correct photo count in the title', async ({ story, actor }) => {
+        const view = mountPhotoStrip(story);
 
         // 3 photos: screenshot-1.png, nested-screenshot.png, screenshot-2.png
         await actor.attemptsTo(
@@ -104,24 +98,24 @@ describe('PhotoStrip', () => {
         );
     });
 
-    it('renders a thumbnail for each screenshot', async ({ interactionObject, actor }) => {
-        const view = await mountPhotoStrip(interactionObject);
+    it('renders a thumbnail for each screenshot', async ({ story, actor }) => {
+        const view = mountPhotoStrip(story);
 
         await actor.attemptsTo(
             Ensure.that(view.photoCount(), equals(3)),
         );
     });
 
-    it('displays the activity name as caption for each photo', async ({ interactionObject, actor }) => {
-        const view = await mountPhotoStrip(interactionObject);
+    it('displays the activity name as caption for each photo', async ({ story, actor }) => {
+        const view = mountPhotoStrip(story);
 
         await actor.attemptsTo(
             Ensure.that(view.captions(), contain('Navigate to login page')),
         );
     });
 
-    it('collects photos from nested child activities', async ({ interactionObject, actor }) => {
-        const view = await mountPhotoStrip(interactionObject);
+    it('collects photos from nested child activities', async ({ story, actor }) => {
+        const view = mountPhotoStrip(story);
 
         // The nested "Enter username" activity has a screenshot
         await actor.attemptsTo(
@@ -129,8 +123,8 @@ describe('PhotoStrip', () => {
         );
     });
 
-    it('excludes non-.png artifacts', async ({ interactionObject, actor }) => {
-        const view = await mountPhotoStrip(interactionObject);
+    it('excludes non-.png artifacts', async ({ story, actor }) => {
+        const view = mountPhotoStrip(story);
 
         // The .json artifact from "Click submit" should not appear
         await actor.attemptsTo(
@@ -138,8 +132,8 @@ describe('PhotoStrip', () => {
         );
     });
 
-    it('opens lightbox when clicking a thumbnail', async ({ interactionObject, actor }) => {
-        const view = await mountPhotoStrip(interactionObject);
+    it('opens lightbox when clicking a thumbnail', async ({ story, actor }) => {
+        const view = mountPhotoStrip(story);
 
         await actor.attemptsTo(
             view.openPhoto(0),
@@ -148,8 +142,8 @@ describe('PhotoStrip', () => {
         );
     });
 
-    it('lightbox navigates forward with ArrowRight', async ({ interactionObject, actor }) => {
-        const view = await mountPhotoStrip(interactionObject);
+    it('lightbox navigates forward with ArrowRight', async ({ story, actor }) => {
+        const view = mountPhotoStrip(story);
 
         await actor.attemptsTo(
             view.openPhoto(0),
@@ -159,8 +153,8 @@ describe('PhotoStrip', () => {
         );
     });
 
-    it('lightbox navigates backward with ArrowLeft', async ({ interactionObject, actor }) => {
-        const view = await mountPhotoStrip(interactionObject);
+    it('lightbox navigates backward with ArrowLeft', async ({ story, actor }) => {
+        const view = mountPhotoStrip(story);
 
         await actor.attemptsTo(
             view.openPhoto(1),
@@ -170,8 +164,8 @@ describe('PhotoStrip', () => {
         );
     });
 
-    it('lightbox closes on Escape', async ({ interactionObject, actor }) => {
-        const view = await mountPhotoStrip(interactionObject);
+    it('lightbox closes on Escape', async ({ story, actor }) => {
+        const view = mountPhotoStrip(story);
 
         await actor.attemptsTo(
             view.openPhoto(0),
@@ -181,8 +175,8 @@ describe('PhotoStrip', () => {
         );
     });
 
-    it('lightbox closes when clicking the overlay background', async ({ interactionObject, actor }) => {
-        const view = await mountPhotoStrip(interactionObject);
+    it('lightbox closes when clicking the overlay background', async ({ story, actor }) => {
+        const view = mountPhotoStrip(story);
 
         await actor.attemptsTo(
             view.openPhoto(0),
@@ -192,8 +186,8 @@ describe('PhotoStrip', () => {
         );
     });
 
-    it('lightbox shows counter indicating position (e.g., 1/3)', async ({ interactionObject, actor }) => {
-        const view = await mountPhotoStrip(interactionObject);
+    it('lightbox shows counter indicating position (e.g., 1/3)', async ({ story, actor }) => {
+        const view = mountPhotoStrip(story);
 
         await actor.attemptsTo(
             view.openPhoto(0),
@@ -201,8 +195,8 @@ describe('PhotoStrip', () => {
         );
     });
 
-    it('lightbox hides previous nav button on first photo', async ({ interactionObject, actor }) => {
-        const view = await mountPhotoStrip(interactionObject);
+    it('lightbox hides previous nav button on first photo', async ({ story, actor }) => {
+        const view = mountPhotoStrip(story);
 
         await actor.attemptsTo(
             view.openPhoto(0),
@@ -211,8 +205,8 @@ describe('PhotoStrip', () => {
         );
     });
 
-    it('lightbox hides next nav button on last photo', async ({ interactionObject, actor }) => {
-        const view = await mountPhotoStrip(interactionObject);
+    it('lightbox hides next nav button on last photo', async ({ story, actor }) => {
+        const view = mountPhotoStrip(story);
 
         await actor.attemptsTo(
             view.openPhoto(2),
@@ -221,8 +215,8 @@ describe('PhotoStrip', () => {
         );
     });
 
-    it('clicking the next button navigates to the next photo', async ({ interactionObject, actor }) => {
-        const view = await mountPhotoStrip(interactionObject);
+    it('clicking the next button navigates to the next photo', async ({ story, actor }) => {
+        const view = mountPhotoStrip(story);
 
         await actor.attemptsTo(
             view.openPhoto(0),
@@ -232,8 +226,8 @@ describe('PhotoStrip', () => {
         );
     });
 
-    it('clicking the previous button navigates to the previous photo', async ({ interactionObject, actor }) => {
-        const view = await mountPhotoStrip(interactionObject);
+    it('clicking the previous button navigates to the previous photo', async ({ story, actor }) => {
+        const view = mountPhotoStrip(story);
 
         await actor.attemptsTo(
             view.openPhoto(1),
@@ -243,8 +237,8 @@ describe('PhotoStrip', () => {
         );
     });
 
-    it('locks body scroll when lightbox is open', async ({ interactionObject, actor }) => {
-        const view = await mountPhotoStrip(interactionObject);
+    it('locks body scroll when lightbox is open', async ({ story, actor }) => {
+        const view = mountPhotoStrip(story);
 
         await actor.attemptsTo(
             view.openPhoto(0),
@@ -255,8 +249,8 @@ describe('PhotoStrip', () => {
         );
     });
 
-    it('restores body scroll when lightbox is closed', async ({ interactionObject, actor }) => {
-        const view = await mountPhotoStrip(interactionObject);
+    it('restores body scroll when lightbox is closed', async ({ story, actor }) => {
+        const view = mountPhotoStrip(story);
 
         await actor.attemptsTo(
             view.openPhoto(0),

@@ -1,6 +1,6 @@
 import { Ensure, equals, isFalse, isTrue } from '@serenity-js/assertions';
 
-import { describe, expect, it } from '../../../spec/app/story-fixtures.js';
+import { describe, expect, it } from '@serenity-js/playwright-test';
 import { RunSelector } from '../../../src/serenity/common/RunSelector.serenity.js';
 
 const sampleHistory = [
@@ -33,70 +33,56 @@ const historicalRunProps = {
 
 describe('RunSelector', () => {
 
-    it('renders a dropdown with run options', async ({ interactionObject, actor }) => {
-        const runSelector = await interactionObject(RunSelector, 'components/common/RunSelector/Default', {
-            props: latestRunProps,
-        });
+    it('renders a dropdown with run options', async ({ story, actor }) => {
+        const runSelector = story('components/common/RunSelector/Default', latestRunProps).as(RunSelector);
 
         await actor.attemptsTo(
             Ensure.that(runSelector.selectedRun(), equals('2024-06-15T14:30:00.000Z')),
         );
     });
 
-    it('selects the active run', async ({ interactionObject, actor }) => {
-        const runSelector = await interactionObject(RunSelector, 'components/common/RunSelector/Default', {
-            props: historicalRunProps,
-        });
+    it('selects the active run', async ({ story, actor }) => {
+        const runSelector = story('components/common/RunSelector/Default', historicalRunProps).as(RunSelector);
 
         await actor.attemptsTo(
             Ensure.that(runSelector.selectedRun(), equals('2024-06-14T10:00:00.000Z')),
         );
     });
 
-    it('does not show "show latest" link when viewing latest run', async ({ interactionObject, actor }) => {
-        const runSelector = await interactionObject(RunSelector, 'components/common/RunSelector/Default', {
-            props: latestRunProps,
-        });
+    it('does not show "show latest" link when viewing latest run', async ({ story, actor }) => {
+        const runSelector = story('components/common/RunSelector/Default', latestRunProps).as(RunSelector);
 
         await actor.attemptsTo(
             Ensure.that(runSelector.showLatestIsPresent(), isFalse()),
         );
     });
 
-    it('shows "show latest" link when viewing a historical run', async ({ interactionObject, actor }) => {
-        const runSelector = await interactionObject(RunSelector, 'components/common/RunSelector/Default', {
-            props: historicalRunProps,
-        });
+    it('shows "show latest" link when viewing a historical run', async ({ story, actor }) => {
+        const runSelector = story('components/common/RunSelector/Default', historicalRunProps).as(RunSelector);
 
         await actor.attemptsTo(
             Ensure.that(runSelector.showLatestLinkText(), equals('show latest')),
         );
     });
 
-    it('"show latest" link has correct href', async ({ interactionObject, actor }) => {
-        const runSelector = await interactionObject(RunSelector, 'components/common/RunSelector/Default', {
-            props: historicalRunProps,
-        });
+    it('"show latest" link has correct href', async ({ story, actor }) => {
+        const runSelector = story('components/common/RunSelector/Default', historicalRunProps).as(RunSelector);
 
         await actor.attemptsTo(
             Ensure.that(runSelector.showLatestLinkHref(), equals('#/tests')),
         );
     });
 
-    it('indicates historical state', async ({ interactionObject, actor }) => {
-        const runSelector = await interactionObject(RunSelector, 'components/common/RunSelector/Default', {
-            props: historicalRunProps,
-        });
+    it('indicates historical state', async ({ story, actor }) => {
+        const runSelector = story('components/common/RunSelector/Default', historicalRunProps).as(RunSelector);
 
         await actor.attemptsTo(
             Ensure.that(runSelector.isHistorical(), isTrue()),
         );
     });
 
-    it('indicates non-historical state', async ({ interactionObject, actor }) => {
-        const runSelector = await interactionObject(RunSelector, 'components/common/RunSelector/Default', {
-            props: latestRunProps,
-        });
+    it('indicates non-historical state', async ({ story, actor }) => {
+        const runSelector = story('components/common/RunSelector/Default', latestRunProps).as(RunSelector);
 
         await actor.attemptsTo(
             Ensure.that(runSelector.isHistorical(), isFalse()),

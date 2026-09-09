@@ -2,7 +2,7 @@ import { contain, Ensure, equals, includes, isPresent, not } from '@serenity-js/
 import { By, PageElement, Value } from '@serenity-js/web';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, it } from '../../../spec/app/story-fixtures.js';
+import { describe, it } from '@serenity-js/playwright-test';
 import { ErrorsView } from '../../../src/serenity/errors/ErrorsView.serenity.js';
 
 const navigatedTo = () => PageElement.located(By.css('[data-testid="navigated-to"]')).describedAs('navigated-to field');
@@ -67,11 +67,9 @@ const historicalRunRoute = '#/errors?run=2024-06-14T10:00:00.000Z';
 
 describe('ErrorsView', () => {
 
-    it('groups scenarios with identical error messages', async ({ interactionObject, actor }) => {
+    it('groups scenarios with identical error messages', async ({ story, actor }) => {
         const props = errorsData();
-        const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            props,
-        });
+        const view = story('components/errors/ErrorsView/Default', props).as(ErrorsView);
 
         await actor.attemptsTo(
             Ensure.that(view.bodyText(), includes('(×2)')),
@@ -79,11 +77,9 @@ describe('ErrorsView', () => {
         );
     });
 
-    it('navigates to filtered scenarios view when clicking a grouped error', async ({ interactionObject, actor }) => {
+    it('navigates to filtered scenarios view when clicking a grouped error', async ({ story, actor }) => {
         const props = errorsData();
-        const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/WithNavigation', {
-            props: { ...props, route: '#/errors' },
-        });
+        const view = story('components/errors/ErrorsView/WithNavigation', { ...props, route: '#/errors' }).as(ErrorsView);
 
         await actor.attemptsTo(
             view.clickFirstErrorGroup(),
@@ -92,11 +88,9 @@ describe('ErrorsView', () => {
         );
     });
 
-    it('navigates to scenario detail when clicking a unique error', async ({ interactionObject, actor }) => {
+    it('navigates to scenario detail when clicking a unique error', async ({ story, actor }) => {
         const props = errorsData();
-        const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/WithNavigation', {
-            props: { ...props, route: '#/errors' },
-        });
+        const view = story('components/errors/ErrorsView/WithNavigation', { ...props, route: '#/errors' }).as(ErrorsView);
 
         await actor.attemptsTo(
             view.clickErrorGroupContaining('timed out'),
@@ -104,18 +98,16 @@ describe('ErrorsView', () => {
         );
     });
 
-    it('single error row does not show duplicate indicator', async ({ interactionObject, actor }) => {
+    it('single error row does not show duplicate indicator', async ({ story, actor }) => {
         const props = errorsData();
-        const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            props,
-        });
+        const view = story('components/errors/ErrorsView/Default', props).as(ErrorsView);
 
         await actor.attemptsTo(
             Ensure.that(view.errorGroupTextFor('Timeout test'), not(includes('×'))),
         );
     });
 
-    it('shows errors from a historical run when ?run= parameter is set', async ({ interactionObject, actor }) => {
+    it('shows errors from a historical run when ?run= parameter is set', async ({ story, actor }) => {
         const props = minimalData({
             scenarios: [
                 {
@@ -143,9 +135,7 @@ describe('ErrorsView', () => {
             history: twoRunHistory,
         });
 
-        const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            props: { ...props, route: historicalRunRoute },
-        });
+        const view = story('components/errors/ErrorsView/Default', { ...props, route: historicalRunRoute }).as(ErrorsView);
 
         await actor.attemptsTo(
             Ensure.that(view.bodyText(), includes('historical failure in run 41')),
@@ -153,7 +143,7 @@ describe('ErrorsView', () => {
         );
     });
 
-    it('shows "No Errors" when the selected historical run had no failures', async ({ interactionObject, actor }) => {
+    it('shows "No Errors" when the selected historical run had no failures', async ({ story, actor }) => {
         const props = minimalData({
             scenarios: [
                 {
@@ -174,42 +164,34 @@ describe('ErrorsView', () => {
             ],
         });
 
-        const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            props: { ...props, route: historicalRunRoute },
-        });
+        const view = story('components/errors/ErrorsView/Default', { ...props, route: historicalRunRoute }).as(ErrorsView);
 
         await actor.attemptsTo(
             Ensure.that(view.bodyText(), includes('No Errors')),
         );
     });
 
-    it('can find a scenario by name', async ({ interactionObject, actor }) => {
+    it('can find a scenario by name', async ({ story, actor }) => {
         const props = ungroupedErrorsData();
-        const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            props,
-        });
+        const view = story('components/errors/ErrorsView/Default', props).as(ErrorsView);
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioCalled('Login fails'), isPresent()),
         );
     });
 
-    it('can find a KPI card by its label', async ({ interactionObject, actor }) => {
+    it('can find a KPI card by its label', async ({ story, actor }) => {
         const props = ungroupedErrorsData();
-        const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            props,
-        });
+        const view = story('components/errors/ErrorsView/Default', props).as(ErrorsView);
 
         await actor.attemptsTo(
             Ensure.that(view.kpiCardCalled('Errors').accessibleLabel(), includes('Errors')),
         );
     });
 
-    it('lists visible scenario names in the errors view', async ({ interactionObject, actor }) => {
+    it('lists visible scenario names in the errors view', async ({ story, actor }) => {
         const props = ungroupedErrorsData();
-        const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            props,
-        });
+        const view = story('components/errors/ErrorsView/Default', props).as(ErrorsView);
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioNames(), contain('Login fails')),
@@ -219,11 +201,9 @@ describe('ErrorsView', () => {
 
 describe('ErrorsView search', () => {
 
-    it('narrows error list when searching by scenario name', async ({ interactionObject, actor }) => {
+    it('narrows error list when searching by scenario name', async ({ story, actor }) => {
         const props = errorsData();
-        const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            props,
-        });
+        const view = story('components/errors/ErrorsView/Default', props).as(ErrorsView);
 
         await actor.attemptsTo(
             view.find('Login'),
@@ -233,11 +213,9 @@ describe('ErrorsView search', () => {
         );
     });
 
-    it('narrows error list when searching by error message', async ({ interactionObject, actor }) => {
+    it('narrows error list when searching by error message', async ({ story, actor }) => {
         const props = errorsData();
-        const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            props,
-        });
+        const view = story('components/errors/ErrorsView/Default', props).as(ErrorsView);
 
         await actor.attemptsTo(
             view.find('timed out'),
@@ -247,11 +225,9 @@ describe('ErrorsView search', () => {
         );
     });
 
-    it('shows all errors when search is cleared', async ({ interactionObject, actor }) => {
+    it('shows all errors when search is cleared', async ({ story, actor }) => {
         const props = errorsData();
-        const view = await interactionObject(ErrorsView, 'components/errors/ErrorsView/Default', {
-            props,
-        });
+        const view = story('components/errors/ErrorsView/Default', props).as(ErrorsView);
 
         await actor.attemptsTo(
             view.find('Login'),

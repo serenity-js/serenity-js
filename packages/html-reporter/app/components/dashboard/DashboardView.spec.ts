@@ -1,7 +1,7 @@
 import { contain, Ensure, equals, includes } from '@serenity-js/assertions';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, it } from '../../../spec/app/story-fixtures.js';
+import { describe, it } from '@serenity-js/playwright-test';
 import { DashboardView } from '../../../src/serenity/dashboard/DashboardView.serenity.js';
 
 describe('DashboardView', () => {
@@ -18,20 +18,16 @@ describe('DashboardView', () => {
         },
     });
 
-    it('displays the Confidence KPI card', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            props: dashboardData,
-        });
+    it('displays the Confidence KPI card', async ({ story, actor }) => {
+        const view = story('components/dashboard/DashboardView/Default', dashboardData).as(DashboardView);
 
         await actor.attemptsTo(
             Ensure.that(view.kpiCardAt(0).label(), equals('CONFIDENCE')),
         );
     });
 
-    it('displays the Pass Rate KPI card with correct accessible label', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            props: dashboardData,
-        });
+    it('displays the Pass Rate KPI card with correct accessible label', async ({ story, actor }) => {
+        const view = story('components/dashboard/DashboardView/Default', dashboardData).as(DashboardView);
 
         await actor.attemptsTo(
             Ensure.that(view.kpiCardAt(1).label(), equals('PASS RATE')),
@@ -39,10 +35,8 @@ describe('DashboardView', () => {
         );
     });
 
-    it('displays the Consistency KPI card with correct accessible label', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            props: dashboardData,
-        });
+    it('displays the Consistency KPI card with correct accessible label', async ({ story, actor }) => {
+        const view = story('components/dashboard/DashboardView/Default', dashboardData).as(DashboardView);
 
         await actor.attemptsTo(
             Ensure.that(view.kpiCardAt(2).label(), equals('CONSISTENCY')),
@@ -50,10 +44,8 @@ describe('DashboardView', () => {
         );
     });
 
-    it('displays the Completeness KPI card with correct accessible label', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            props: dashboardData,
-        });
+    it('displays the Completeness KPI card with correct accessible label', async ({ story, actor }) => {
+        const view = story('components/dashboard/DashboardView/Default', dashboardData).as(DashboardView);
 
         await actor.attemptsTo(
             Ensure.that(view.kpiCardAt(3).label(), equals('COMPLETENESS')),
@@ -61,58 +53,48 @@ describe('DashboardView', () => {
         );
     });
 
-    it('can find a KPI card by its label', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            props: dashboardData,
-        });
+    it('can find a KPI card by its label', async ({ story, actor }) => {
+        const view = story('components/dashboard/DashboardView/Default', dashboardData).as(DashboardView);
 
         await actor.attemptsTo(
             Ensure.that(view.kpiCardCalled('Pass Rate').value(), includes('75')),
         );
     });
 
-    it('can read the subtitle of a KPI card found by label', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            props: dashboardData,
-        });
+    it('can read the subtitle of a KPI card found by label', async ({ story, actor }) => {
+        const view = story('components/dashboard/DashboardView/Default', dashboardData).as(DashboardView);
 
         await actor.attemptsTo(
             Ensure.that(view.kpiCardCalled('Pass Rate').subtitle(), includes('passing')),
         );
     });
 
-    it('lists scenario names in the consistency card', async ({ interactionObject, actor }) => {
+    it('lists scenario names in the consistency card', async ({ story, actor }) => {
         const data = minimalData({
             newFailures: [
                 { name: 'Failing Test', category: 'Suite', source: { path: 'spec/a.spec.ts', line: 10 } },
             ],
         });
 
-        const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            props: data,
-        });
+        const view = story('components/dashboard/DashboardView/Default', data).as(DashboardView);
 
         await actor.attemptsTo(
             Ensure.that(view.consistencyCardScenarioNames(), contain('Failing Test')),
         );
     });
 
-    it('lists scenario names in the slowest tests card', async ({ interactionObject, actor }) => {
+    it('lists scenario names in the slowest tests card', async ({ story, actor }) => {
         const data = minimalData();
 
-        const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            props: data,
-        });
+        const view = story('components/dashboard/DashboardView/Default', data).as(DashboardView);
 
         await actor.attemptsTo(
             Ensure.that(view.slowestTestNames(), contain('Test D')),
         );
     });
 
-    it('reports whether a trend chart is present', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            props: dashboardData,
-        });
+    it('reports whether a trend chart is present', async ({ story, actor }) => {
+        const view = story('components/dashboard/DashboardView/Default', dashboardData).as(DashboardView);
 
         await actor.attemptsTo(
             Ensure.that(view.hasTrendChart(), equals(true)),
@@ -121,10 +103,11 @@ describe('DashboardView', () => {
 
     // Chart canvas click tests use raw Playwright because clicking canvas
     // coordinates requires pixel-level control that interaction objects can't provide.
-    it('shows the details panel when a chart bar is clicked', async ({ interactionObject, actor, page }) => {
-        const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            props: dashboardData,
-        });
+    it('shows the details panel when a chart bar is clicked', async ({ story, actor, page }) => {
+        const view = story('components/dashboard/DashboardView/Default', dashboardData).as(DashboardView);
+
+        // Ensure the view is mounted by resolving it
+        await actor.answer(view);
 
         // Click on the chart canvas in the center-right area (second bar of 2)
         const canvas = page.locator('canvas');
@@ -138,7 +121,7 @@ describe('DashboardView', () => {
         );
     });
 
-    it('shows the correct history dots for a degraded test when multiple scenarios share the same source location', async ({ interactionObject, actor }) => {
+    it('shows the correct history dots for a degraded test when multiple scenarios share the same source location', async ({ story, actor }) => {
         const sharedSource = { path: 'spec/navigation/deep-linking.spec.ts', line: 32 };
 
         const multiBrowserData = minimalData({
@@ -177,9 +160,7 @@ describe('DashboardView', () => {
             ],
         });
 
-        const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            props: multiBrowserData,
-        });
+        const view = story('components/dashboard/DashboardView/Default', multiBrowserData).as(DashboardView);
 
         await actor.attemptsTo(
             Ensure.that(view.consistencyCardScenarioNames(), contain('Deep Linking toggles themes')),
@@ -189,7 +170,7 @@ describe('DashboardView', () => {
         );
     });
 
-    it('shows the correct history dots for a degraded test when multiple scenarios share the same file but have no line numbers', async ({ interactionObject, actor }) => {
+    it('shows the correct history dots for a degraded test when multiple scenarios share the same file but have no line numbers', async ({ story, actor }) => {
         // This test reproduces the bug where scenarios in the same file without line numbers
         // would match the wrong scenario's history because the key-based lookup (path:line)
         // would match the first scenario in the file when line is undefined.
@@ -239,9 +220,7 @@ describe('DashboardView', () => {
             ],
         });
 
-        const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            props: noLineNumberData,
-        });
+        const view = story('components/dashboard/DashboardView/Default', noLineNumberData).as(DashboardView);
 
         await actor.attemptsTo(
             Ensure.that(view.consistencyCardScenarioNames(), contain('Electron clicking on elements allows the actor to click')),
@@ -254,7 +233,7 @@ describe('DashboardView', () => {
         );
     });
 
-    it('does not exclude unstable tests from the consistency card when a different test in the same file is in newFailures', async ({ interactionObject, actor }) => {
+    it('does not exclude unstable tests from the consistency card when a different test in the same file is in newFailures', async ({ story, actor }) => {
         // Two tests in the same file: one is newly degraded (in newFailures),
         // the other is independently unstable (in inconsistentTests).
         // The dedup filter should NOT exclude the second test just because it shares a source.path.
@@ -295,9 +274,7 @@ describe('DashboardView', () => {
             ],
         });
 
-        const view = await interactionObject(DashboardView, 'components/dashboard/DashboardView/Default', {
-            props: data,
-        });
+        const view = story('components/dashboard/DashboardView/Default', data).as(DashboardView);
 
         await actor.attemptsTo(
             // Both tests should appear in the consistency card

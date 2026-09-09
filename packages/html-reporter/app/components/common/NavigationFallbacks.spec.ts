@@ -4,7 +4,7 @@
  * since they exercise the App component's routing which is not wrapped in an IO.
  */
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, expect, it } from '../../../spec/app/story-fixtures.js';
+import { describe, expect, it } from '@serenity-js/playwright-test';
 
 describe('Route-level 404', () => {
 

@@ -1,47 +1,39 @@
 import { contain, Ensure, equals, includes, isPresent } from '@serenity-js/assertions';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, expect, it } from '../../../spec/app/story-fixtures.js';
+import { describe, expect, it } from '@serenity-js/playwright-test';
 import { ScenariosView } from '../../../src/serenity/scenarios/ScenariosView.serenity.js';
 
 describe('ScenariosView scenario access', () => {
 
     const data = minimalData();
 
-    it('can find a scenario by name and read its outcome', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            props: data,
-        });
+    it('can find a scenario by name and read its outcome', async ({ story, actor }) => {
+        const view = story('components/scenarios/ScenariosView/Default', data).as(ScenariosView);
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioCalled('Test D').outcome(), equals('FAILURE')),
         );
     });
 
-    it('can find a scenario by name and read its source location', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            props: data,
-        });
+    it('can find a scenario by name and read its source location', async ({ story, actor }) => {
+        const view = story('components/scenarios/ScenariosView/Default', data).as(ScenariosView);
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioCalled('Test D').sourceLocation(), includes('b.spec.ts')),
         );
     });
 
-    it('lists all visible scenario names', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            props: data,
-        });
+    it('lists all visible scenario names', async ({ story, actor }) => {
+        const view = story('components/scenarios/ScenariosView/Default', data).as(ScenariosView);
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioNames(), contain('Test D')),
         );
     });
 
-    it('can check if a scenario is present after filtering', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            props: data,
-        });
+    it('can check if a scenario is present after filtering', async ({ story, actor }) => {
+        const view = story('components/scenarios/ScenariosView/Default', data).as(ScenariosView);
 
         await actor.attemptsTo(
             view.filterBar.selectFilter('Failed'),
@@ -54,30 +46,24 @@ describe('ScenariosView interaction object', () => {
 
     const data = minimalData();
 
-    it('displays filter chips with outcome labels', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            props: data,
-        });
+    it('displays filter chips with outcome labels', async ({ story, actor }) => {
+        const view = story('components/scenarios/ScenariosView/Default', data).as(ScenariosView);
 
         await actor.attemptsTo(
             Ensure.that(view.filterBar.filterLabels(), equals(['All', 'Passed', 'Failed', 'Skipped'])),
         );
     });
 
-    it('shows all scenarios initially', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            props: data,
-        });
+    it('shows all scenarios initially', async ({ story, actor }) => {
+        const view = story('components/scenarios/ScenariosView/Default', data).as(ScenariosView);
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioCount(), equals(4)),
         );
     });
 
-    it('narrows results when searching', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            props: data,
-        });
+    it('narrows results when searching', async ({ story, actor }) => {
+        const view = story('components/scenarios/ScenariosView/Default', data).as(ScenariosView);
 
         await actor.attemptsTo(
             view.find('Test D'),
@@ -86,10 +72,8 @@ describe('ScenariosView interaction object', () => {
         );
     });
 
-    it('filters by selecting a filter chip', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            props: data,
-        });
+    it('filters by selecting a filter chip', async ({ story, actor }) => {
+        const view = story('components/scenarios/ScenariosView/Default', data).as(ScenariosView);
 
         await actor.attemptsTo(
             view.filterBar.selectFilter('Failed'),
@@ -98,10 +82,8 @@ describe('ScenariosView interaction object', () => {
         );
     });
 
-    it('shows "All" filter as active by default', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            props: data,
-        });
+    it('shows "All" filter as active by default', async ({ story, actor }) => {
+        const view = story('components/scenarios/ScenariosView/Default', data).as(ScenariosView);
 
         await actor.attemptsTo(
             Ensure.that(view.filterBar.activeFilters(), contain('All')),
@@ -111,7 +93,7 @@ describe('ScenariosView interaction object', () => {
 
 describe('ScenariosView category sort', () => {
 
-    it('orders scenarios alphabetically by name within each category', async ({ interactionObject, actor }) => {
+    it('orders scenarios alphabetically by name within each category', async ({ story, actor }) => {
         const sortData = minimalData({
             scenarios: [
                 { name: 'Zebra test', category: 'Auth', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'spec/auth.spec.ts', line: 1 }, tags: [], activities: [], executionHistory: [] },
@@ -121,9 +103,7 @@ describe('ScenariosView category sort', () => {
                 { name: 'Alpha checkout', category: 'Checkout', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.400Z', source: { path: 'spec/checkout.spec.ts', line: 5 }, tags: [], activities: [], executionHistory: [] },
             ],
         });
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            props: sortData,
-        });
+        const view = story('components/scenarios/ScenariosView/Default', sortData).as(ScenariosView);
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioNames(), equals([
@@ -136,7 +116,7 @@ describe('ScenariosView category sort', () => {
         );
     });
 
-    it('groups same-named scenarios from different projects together within a category', async ({ interactionObject, actor }) => {
+    it('groups same-named scenarios from different projects together within a category', async ({ story, actor }) => {
         const groupData = minimalData({
             scenarios: [
                 { name: 'should complete checkout', category: 'Checkout', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.000Z', source: { path: 'spec/checkout.spec.ts', line: 10 }, tags: [{ type: 'project', name: 'desktop' }], activities: [], executionHistory: [] },
@@ -145,9 +125,7 @@ describe('ScenariosView category sort', () => {
                 { name: 'should add to cart', category: 'Checkout', outcome: 'SUCCESS', duration: 100, startedAt: '2024-06-15T14:30:00.300Z', source: { path: 'spec/checkout.spec.ts', line: 20 }, tags: [{ type: 'project', name: 'mobile' }], activities: [], executionHistory: [] },
             ],
         });
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            props: groupData,
-        });
+        const view = story('components/scenarios/ScenariosView/Default', groupData).as(ScenariosView);
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioNames(), equals([
@@ -164,10 +142,8 @@ describe('ScenariosView deep linking', () => {
 
     const data = minimalData();
 
-    it('filters by search param in route', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            props: { ...data, route: '/tests?search=%22Test+D%22' },
-        });
+    it('filters by search param in route', async ({ story, actor }) => {
+        const view = story('components/scenarios/ScenariosView/Default', { ...data, route: '/tests?search=%22Test+D%22' }).as(ScenariosView);
 
         await actor.attemptsTo(
             Ensure.that(view.resultCount.text(), includes('Showing 1 of 4')),
@@ -175,10 +151,8 @@ describe('ScenariosView deep linking', () => {
         );
     });
 
-    it('filters by outcome filter param in route', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            props: { ...data, route: '/tests?filter=failed' },
-        });
+    it('filters by outcome filter param in route', async ({ story, actor }) => {
+        const view = story('components/scenarios/ScenariosView/Default', { ...data, route: '/tests?filter=failed' }).as(ScenariosView);
 
         await actor.attemptsTo(
             Ensure.that(view.resultCount.text(), includes('Showing 1 of 4')),
@@ -186,10 +160,8 @@ describe('ScenariosView deep linking', () => {
         );
     });
 
-    it('applies both search and filter params', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            props: { ...data, route: '/tests?search=Suite&filter=passed' },
-        });
+    it('applies both search and filter params', async ({ story, actor }) => {
+        const view = story('components/scenarios/ScenariosView/Default', { ...data, route: '/tests?search=Suite&filter=passed' }).as(ScenariosView);
 
         await actor.attemptsTo(
             Ensure.that(view.resultCount.text(), includes('Showing 2 of 4')),
@@ -197,26 +169,22 @@ describe('ScenariosView deep linking', () => {
         );
     });
 
-    it('shows all scenarios with no params', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            props: data,
-        });
+    it('shows all scenarios with no params', async ({ story, actor }) => {
+        const view = story('components/scenarios/ScenariosView/Default', data).as(ScenariosView);
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioCount(), equals(4)),
         );
     });
 
-    it('filters by run param showing only matching run', async ({ interactionObject, actor }) => {
+    it('filters by run param showing only matching run', async ({ story, actor }) => {
         const histData = minimalData({
             history: [
                 { timestamp: '2024-06-14T10:00:00.000Z', label: 'build 41', outcomes: { passed: 4, failed: 0, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 800, slowest: 300, fastest: 100, average: 200 },
                 { timestamp: '2024-06-15T14:30:00.000Z', label: 'build 42', outcomes: { passed: 3, failed: 1, pending: 0, skipped: 0, compromised: 0, error: 0 }, duration: 1000, slowest: 400, fastest: 100, average: 250 },
             ],
         });
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            props: { ...histData, route: '/tests?run=2024-06-14T10:00:00.000Z' },
-        });
+        const view = story('components/scenarios/ScenariosView/Default', { ...histData, route: '/tests?run=2024-06-14T10:00:00.000Z' }).as(ScenariosView);
 
         await actor.attemptsTo(
             Ensure.that(view.runSelectorIsPresent(), equals(true)),
@@ -226,7 +194,7 @@ describe('ScenariosView deep linking', () => {
 
 describe('ScenariosView scenario navigation', () => {
 
-    it('scenarios in the same file without line numbers are both listed distinctly', async ({ interactionObject, actor }) => {
+    it('scenarios in the same file without line numbers are both listed distinctly', async ({ story, actor }) => {
         const navData = minimalData({
             scenarios: [
                 {
@@ -244,9 +212,7 @@ describe('ScenariosView scenario navigation', () => {
                 },
             ],
         });
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            props: navData,
-        });
+        const view = story('components/scenarios/ScenariosView/Default', navData).as(ScenariosView);
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioCount(), equals(2)),
@@ -257,7 +223,7 @@ describe('ScenariosView scenario navigation', () => {
         );
     });
 
-    it('displays line number in source path when available', async ({ interactionObject, actor }) => {
+    it('displays line number in source path when available', async ({ story, actor }) => {
         const lineData = minimalData({
             scenarios: [
                 {
@@ -268,9 +234,7 @@ describe('ScenariosView scenario navigation', () => {
                 },
             ],
         });
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/Default', {
-            props: lineData,
-        });
+        const view = story('components/scenarios/ScenariosView/Default', lineData).as(ScenariosView);
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioCalled('test with line').sourceLocation(), includes('a.spec.ts:42')),

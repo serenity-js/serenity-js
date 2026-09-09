@@ -1,27 +1,27 @@
 import { Ensure, equals, isPresent, not } from '@serenity-js/assertions';
 
 import { minimalData } from '../../../../spec/app/data-factories.js';
-import { describe, it } from '../../../../spec/app/story-fixtures.js';
+import { describe, it } from '@serenity-js/playwright-test';
 import { Delta } from '../../../../src/serenity/common/Delta.serenity.js';
 
 describe('Delta', () => {
 
-    it('renders nothing when previous is undefined', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(Delta, 'components/common/charts/Delta/Default', {
-            props: { current: 80, previous: undefined },
+    it('renders nothing when previous is undefined', async ({ story, actor }) => {
+        const view = story('components/common/charts/Delta/Default', {
+            current: 80, previous: undefined,
             data: minimalData(),
-        });
+        }).as(Delta);
 
         await actor.attemptsTo(
             Ensure.that(view, not(isPresent())),
         );
     });
 
-    it('shows "no change" when current equals previous', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(Delta, 'components/common/charts/Delta/Default', {
-            props: { current: 75, previous: 75 },
+    it('shows "no change" when current equals previous', async ({ story, actor }) => {
+        const view = story('components/common/charts/Delta/Default', {
+            current: 75, previous: 75,
             data: minimalData(),
-        });
+        }).as(Delta);
 
         await actor.attemptsTo(
             Ensure.that(view.text(), equals('— no change')),
@@ -29,11 +29,11 @@ describe('Delta', () => {
         );
     });
 
-    it('shows upward arrow with positive class when value increases', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(Delta, 'components/common/charts/Delta/Default', {
-            props: { current: 85, previous: 70 },
+    it('shows upward arrow with positive class when value increases', async ({ story, actor }) => {
+        const view = story('components/common/charts/Delta/Default', {
+            current: 85, previous: 70,
             data: minimalData(),
-        });
+        }).as(Delta);
 
         await actor.attemptsTo(
             Ensure.that(view.text(), equals('↑ 15')),
@@ -41,11 +41,11 @@ describe('Delta', () => {
         );
     });
 
-    it('shows downward arrow with negative class when value decreases', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(Delta, 'components/common/charts/Delta/Default', {
-            props: { current: 60, previous: 80 },
+    it('shows downward arrow with negative class when value decreases', async ({ story, actor }) => {
+        const view = story('components/common/charts/Delta/Default', {
+            current: 60, previous: 80,
             data: minimalData(),
-        });
+        }).as(Delta);
 
         await actor.attemptsTo(
             Ensure.that(view.text(), equals('↓ 20')),
@@ -53,11 +53,11 @@ describe('Delta', () => {
         );
     });
 
-    it('inverts polarity when invert is true (increase = negative)', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(Delta, 'components/common/charts/Delta/Default', {
-            props: { current: 5, previous: 2, invert: true },
+    it('inverts polarity when invert is true (increase = negative)', async ({ story, actor }) => {
+        const view = story('components/common/charts/Delta/Default', {
+            current: 5, previous: 2, invert: true,
             data: minimalData(),
-        });
+        }).as(Delta);
 
         await actor.attemptsTo(
             Ensure.that(view.text(), equals('↓ 3')),
@@ -65,11 +65,11 @@ describe('Delta', () => {
         );
     });
 
-    it('inverts polarity when invert is true (decrease = positive)', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(Delta, 'components/common/charts/Delta/Default', {
-            props: { current: 1, previous: 4, invert: true },
+    it('inverts polarity when invert is true (decrease = positive)', async ({ story, actor }) => {
+        const view = story('components/common/charts/Delta/Default', {
+            current: 1, previous: 4, invert: true,
             data: minimalData(),
-        });
+        }).as(Delta);
 
         await actor.attemptsTo(
             Ensure.that(view.text(), equals('↑ 3')),
@@ -77,11 +77,11 @@ describe('Delta', () => {
         );
     });
 
-    it('appends suffix to the displayed value', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(Delta, 'components/common/charts/Delta/Default', {
-            props: { current: 90, previous: 85, suffix: '%' },
+    it('appends suffix to the displayed value', async ({ story, actor }) => {
+        const view = story('components/common/charts/Delta/Default', {
+            current: 90, previous: 85, suffix: '%',
             data: minimalData(),
-        });
+        }).as(Delta);
 
         await actor.attemptsTo(
             Ensure.that(view.text(), equals('↑ 5%')),
@@ -89,11 +89,11 @@ describe('Delta', () => {
         );
     });
 
-    it('displays absolute difference regardless of direction', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(Delta, 'components/common/charts/Delta/Default', {
-            props: { current: 10, previous: 25 },
+    it('displays absolute difference regardless of direction', async ({ story, actor }) => {
+        const view = story('components/common/charts/Delta/Default', {
+            current: 10, previous: 25,
             data: minimalData(),
-        });
+        }).as(Delta);
 
         await actor.attemptsTo(
             Ensure.that(view.text(), equals('↓ 15')),

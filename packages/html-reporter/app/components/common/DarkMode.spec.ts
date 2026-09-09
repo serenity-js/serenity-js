@@ -4,7 +4,7 @@
  * infrastructure — computed styles, not user-observable behaviour.
  */
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, expect, it } from '../../../spec/app/story-fixtures.js';
+import { describe, expect, it } from '@serenity-js/playwright-test';
 
 describe('Dark mode', () => {
 

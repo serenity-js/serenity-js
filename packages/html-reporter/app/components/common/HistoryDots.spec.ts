@@ -1,36 +1,32 @@
 import { Ensure, equals } from '@serenity-js/assertions';
 
-import { describe, it } from '../../../spec/app/story-fixtures.js';
+import { describe, it } from '@serenity-js/playwright-test';
 import { HistoryDots } from '../../../src/serenity/common/HistoryDots.serenity.js';
 
 describe('HistoryDots', () => {
 
-    it('renders the correct number of dots', async ({ interactionObject, actor }) => {
-        const historyDots = await interactionObject(HistoryDots, 'components/common/HistoryDots/Default', {
-            props: {
-                entries: [
-                    { outcome: 'SUCCESS', label: 'Run 1' },
-                    { outcome: 'FAILURE', label: 'Run 2' },
-                    { outcome: 'SUCCESS', label: 'Run 3' },
-                ],
-            },
-        });
+    it('renders the correct number of dots', async ({ story, actor }) => {
+        const historyDots = story('components/common/HistoryDots/Default', {
+            entries: [
+                { outcome: 'SUCCESS', label: 'Run 1' },
+                { outcome: 'FAILURE', label: 'Run 2' },
+                { outcome: 'SUCCESS', label: 'Run 3' },
+            ],
+        }).as(HistoryDots);
 
         await actor.attemptsTo(
             Ensure.that(historyDots.count(), equals(3)),
         );
     });
 
-    it('reports the outcome type and title of each dot', async ({ interactionObject, actor }) => {
-        const historyDots = await interactionObject(HistoryDots, 'components/common/HistoryDots/Default', {
-            props: {
-                entries: [
-                    { outcome: 'SUCCESS', label: 'Run 1' },
-                    { outcome: 'FAILURE', label: 'Run 2' },
-                    { outcome: 'PENDING', label: 'Run 3' },
-                ],
-            },
-        });
+    it('reports the outcome type and title of each dot', async ({ story, actor }) => {
+        const historyDots = story('components/common/HistoryDots/Default', {
+            entries: [
+                { outcome: 'SUCCESS', label: 'Run 1' },
+                { outcome: 'FAILURE', label: 'Run 2' },
+                { outcome: 'PENDING', label: 'Run 3' },
+            ],
+        }).as(HistoryDots);
 
         await actor.attemptsTo(
             Ensure.that(historyDots.outcomes(), equals([
@@ -41,19 +37,17 @@ describe('HistoryDots', () => {
         );
     });
 
-    it('respects the max prop by showing only the last N entries', async ({ interactionObject, actor }) => {
-        const historyDots = await interactionObject(HistoryDots, 'components/common/HistoryDots/Default', {
-            props: {
-                entries: [
-                    { outcome: 'SUCCESS', label: 'Run 1' },
-                    { outcome: 'FAILURE', label: 'Run 2' },
-                    { outcome: 'PENDING', label: 'Run 3' },
-                    { outcome: 'SUCCESS', label: 'Run 4' },
-                    { outcome: 'FAILURE', label: 'Run 5' },
-                ],
-                max: 3,
-            },
-        });
+    it('respects the max prop by showing only the last N entries', async ({ story, actor }) => {
+        const historyDots = story('components/common/HistoryDots/Default', {
+            entries: [
+                { outcome: 'SUCCESS', label: 'Run 1' },
+                { outcome: 'FAILURE', label: 'Run 2' },
+                { outcome: 'PENDING', label: 'Run 3' },
+                { outcome: 'SUCCESS', label: 'Run 4' },
+                { outcome: 'FAILURE', label: 'Run 5' },
+            ],
+            max: 3,
+        }).as(HistoryDots);
 
         await actor.attemptsTo(
             Ensure.that(historyDots.count(), equals(3)),
@@ -65,35 +59,31 @@ describe('HistoryDots', () => {
         );
     });
 
-    it('defaults to showing a maximum of 5 dots', async ({ interactionObject, actor }) => {
-        const historyDots = await interactionObject(HistoryDots, 'components/common/HistoryDots/Default', {
-            props: {
-                entries: [
-                    { outcome: 'SUCCESS' },
-                    { outcome: 'FAILURE' },
-                    { outcome: 'PENDING' },
-                    { outcome: 'SKIPPED' },
-                    { outcome: 'ERROR' },
-                    { outcome: 'SUCCESS' },
-                    { outcome: 'FAILURE' },
-                ],
-            },
-        });
+    it('defaults to showing a maximum of 5 dots', async ({ story, actor }) => {
+        const historyDots = story('components/common/HistoryDots/Default', {
+            entries: [
+                { outcome: 'SUCCESS' },
+                { outcome: 'FAILURE' },
+                { outcome: 'PENDING' },
+                { outcome: 'SKIPPED' },
+                { outcome: 'ERROR' },
+                { outcome: 'SUCCESS' },
+                { outcome: 'FAILURE' },
+            ],
+        }).as(HistoryDots);
 
         await actor.attemptsTo(
             Ensure.that(historyDots.count(), equals(5)),
         );
     });
 
-    it('uses empty titles when labels are not provided', async ({ interactionObject, actor }) => {
-        const historyDots = await interactionObject(HistoryDots, 'components/common/HistoryDots/Default', {
-            props: {
-                entries: [
-                    { outcome: 'SUCCESS' },
-                    { outcome: 'FAILURE' },
-                ],
-            },
-        });
+    it('uses empty titles when labels are not provided', async ({ story, actor }) => {
+        const historyDots = story('components/common/HistoryDots/Default', {
+            entries: [
+                { outcome: 'SUCCESS' },
+                { outcome: 'FAILURE' },
+            ],
+        }).as(HistoryDots);
 
         await actor.attemptsTo(
             Ensure.that(historyDots.outcomes(), equals([

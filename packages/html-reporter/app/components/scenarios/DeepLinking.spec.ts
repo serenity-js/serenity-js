@@ -3,7 +3,7 @@ import { By, PageElement, Value } from '@serenity-js/web';
 import { ExecuteScript, LastScriptExecution } from '@serenity-js/web';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, it } from '../../../spec/app/story-fixtures.js';
+import { describe, it } from '@serenity-js/playwright-test';
 import { ScenarioDetailView } from '../../../src/serenity/scenarios/ScenarioDetailView.serenity.js';
 import { ScenariosView } from '../../../src/serenity/scenarios/ScenariosView.serenity.js';
 
@@ -50,11 +50,9 @@ const SCENARIO_ID = 'spec/retry.spec.ts:10';
 
 describe('Deep linking — ScenarioDetailView attempts', () => {
 
-    it('pre-selects attempt from ?attempt= URL parameter', async ({ interactionObject, actor }) => {
+    it('pre-selects attempt from ?attempt= URL parameter', async ({ story, actor }) => {
         const data = retriedScenarioData();
-        const view = await interactionObject(ScenarioDetailView, 'components/scenarios/ScenarioDetailView/Default', {
-            props: { ...data, scenarioId: `${SCENARIO_ID}?attempt=2` },
-        });
+        const view = story('components/scenarios/ScenarioDetailView/Default', { ...data, scenarioId: `${SCENARIO_ID}?attempt=2` }).as(ScenarioDetailView);
 
         await actor.attemptsTo(
             Ensure.that(view.retryTabCount(), equals(3)),
@@ -62,11 +60,9 @@ describe('Deep linking — ScenarioDetailView attempts', () => {
         );
     });
 
-    it('defaults to first attempt when no ?attempt= parameter', async ({ interactionObject, actor }) => {
+    it('defaults to first attempt when no ?attempt= parameter', async ({ story, actor }) => {
         const data = retriedScenarioData();
-        const view = await interactionObject(ScenarioDetailView, 'components/scenarios/ScenarioDetailView/Default', {
-            props: { ...data, scenarioId: SCENARIO_ID },
-        });
+        const view = story('components/scenarios/ScenarioDetailView/Default', { ...data, scenarioId: SCENARIO_ID }).as(ScenarioDetailView);
 
         await actor.attemptsTo(
             Ensure.that(view.retryTabCount(), equals(3)),
@@ -74,11 +70,9 @@ describe('Deep linking — ScenarioDetailView attempts', () => {
         );
     });
 
-    it('updates URL hash with ?attempt= when clicking an attempt tab', async ({ interactionObject, actor }) => {
+    it('updates URL hash with ?attempt= when clicking an attempt tab', async ({ story, actor }) => {
         const data = retriedScenarioData();
-        const view = await interactionObject(ScenarioDetailView, 'components/scenarios/ScenarioDetailView/Default', {
-            props: { ...data, scenarioId: SCENARIO_ID },
-        });
+        const view = story('components/scenarios/ScenarioDetailView/Default', { ...data, scenarioId: SCENARIO_ID }).as(ScenarioDetailView);
 
         await actor.attemptsTo(
             view.switchToAttempt(3),
@@ -87,18 +81,16 @@ describe('Deep linking — ScenarioDetailView attempts', () => {
         );
     });
 
-    it('shows the correct video for the selected attempt', async ({ interactionObject, actor }) => {
+    it('shows the correct video for the selected attempt', async ({ story, actor }) => {
         const data = retriedScenarioData();
-        const view = await interactionObject(ScenarioDetailView, 'components/scenarios/ScenarioDetailView/Default', {
-            props: { ...data, scenarioId: `${SCENARIO_ID}?attempt=2` },
-        });
+        const view = story('components/scenarios/ScenarioDetailView/Default', { ...data, scenarioId: `${SCENARIO_ID}?attempt=2` }).as(ScenarioDetailView);
 
         await actor.attemptsTo(
             Ensure.that(view.videoSource(), equals('test-runs/run-1/video-2.webm')),
         );
     });
 
-    it('hides video section for attempts that have no recording', async ({ interactionObject, actor }) => {
+    it('hides video section for attempts that have no recording', async ({ story, actor }) => {
         const attemptsWithPartialVideo = [
             { attemptNumber: 1, outcome: 'FAILURE', duration: 200, activities: [{ name: 'step 1', outcome: 'FAILURE', duration: 200, children: [] }], error: { name: 'Error', message: 'attempt 1 failed' } },
             { attemptNumber: 2, outcome: 'FAILURE', duration: 180, activities: [{ name: 'step 2', outcome: 'FAILURE', duration: 180, children: [] }], error: { name: 'Error', message: 'attempt 2 failed' }, video: 'test-runs/run-1/video-retry.webm' },
@@ -124,9 +116,7 @@ describe('Deep linking — ScenarioDetailView attempts', () => {
             }],
         });
 
-        const view = await interactionObject(ScenarioDetailView, 'components/scenarios/ScenarioDetailView/Default', {
-            props: { ...data, scenarioId: `${SCENARIO_ID}?attempt=1` },
-        });
+        const view = story('components/scenarios/ScenarioDetailView/Default', { ...data, scenarioId: `${SCENARIO_ID}?attempt=1` }).as(ScenarioDetailView);
 
         await actor.attemptsTo(
             Ensure.that(view.hasVideo(), equals(false)),
@@ -150,10 +140,8 @@ describe('Deep linking — PhotoStrip', () => {
         }],
     });
 
-    it('updates URL hash with ?photo= when clicking a photo thumbnail', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ScenarioDetailView, 'components/scenarios/ScenarioDetailView/Default', {
-            props: { ...photoData, scenarioId: 'spec/photos.spec.ts:5' },
-        });
+    it('updates URL hash with ?photo= when clicking a photo thumbnail', async ({ story, actor }) => {
+        const view = story('components/scenarios/ScenarioDetailView/Default', { ...photoData, scenarioId: 'spec/photos.spec.ts:5' }).as(ScenarioDetailView);
 
         await actor.attemptsTo(
             view.openPhotoAt(0),
@@ -195,10 +183,8 @@ describe('Deep linking — cross-project scenario identity', () => {
         ],
     });
 
-    it('navigates to the correct project variant when clicking a scenario row', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ScenariosView, 'components/scenarios/ScenariosView/WithNavigation', {
-            props: { ...crossProjectData, route: '/tests' },
-        });
+    it('navigates to the correct project variant when clicking a scenario row', async ({ story, actor }) => {
+        const view = story('components/scenarios/ScenariosView/WithNavigation', { ...crossProjectData, route: '/tests' }).as(ScenariosView);
 
         await actor.attemptsTo(
             view.filterBar.selectFilter('Failed'),
@@ -210,10 +196,8 @@ describe('Deep linking — cross-project scenario identity', () => {
         );
     });
 
-    it('resolves the mobile variant from URL params with project discriminator', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ScenarioDetailView, 'components/scenarios/ScenarioDetailView/Default', {
-            props: { ...crossProjectData, scenarioId: 'spec/checkout.spec.ts:10?browser=chromium+149.0.7827.55&project=mobile&platform=darwin+24.5.0' },
-        });
+    it('resolves the mobile variant from URL params with project discriminator', async ({ story, actor }) => {
+        const view = story('components/scenarios/ScenarioDetailView/Default', { ...crossProjectData, scenarioId: 'spec/checkout.spec.ts:10?browser=chromium+149.0.7827.55&project=mobile&platform=darwin+24.5.0' }).as(ScenarioDetailView);
 
         await actor.attemptsTo(
             Ensure.that(view.activityTreeText(), includes('mobile step')),
@@ -221,10 +205,8 @@ describe('Deep linking — cross-project scenario identity', () => {
         );
     });
 
-    it('resolves the desktop variant when project=desktop is specified', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(ScenarioDetailView, 'components/scenarios/ScenarioDetailView/Default', {
-            props: { ...crossProjectData, scenarioId: 'spec/checkout.spec.ts:10?browser=chromium+149.0.7827.55&project=desktop&platform=darwin+24.5.0' },
-        });
+    it('resolves the desktop variant when project=desktop is specified', async ({ story, actor }) => {
+        const view = story('components/scenarios/ScenarioDetailView/Default', { ...crossProjectData, scenarioId: 'spec/checkout.spec.ts:10?browser=chromium+149.0.7827.55&project=desktop&platform=darwin+24.5.0' }).as(ScenarioDetailView);
 
         await actor.attemptsTo(
             Ensure.that(view.activityTreeText(), includes('desktop step')),

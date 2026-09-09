@@ -1,7 +1,7 @@
 import { contain, Ensure, equals, includes } from '@serenity-js/assertions';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, it } from '../../../spec/app/story-fixtures.js';
+import { describe, it } from '@serenity-js/playwright-test';
 import { TimelineView } from '../../../src/serenity/timeline/TimelineView.serenity.js';
 
 describe('TimelineView', () => {
@@ -45,10 +45,8 @@ describe('TimelineView', () => {
         },
     });
 
-    it('displays KPI cards with timing information', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(TimelineView, 'components/timeline/TimelineView/Default', {
-            props: timelineData,
-        });
+    it('displays KPI cards with timing information', async ({ story, actor }) => {
+        const view = story('components/timeline/TimelineView/Default', timelineData).as(TimelineView);
 
         await actor.attemptsTo(
             Ensure.that(view.kpiCardAt(0).label(), equals('SLOWEST')),
@@ -58,50 +56,40 @@ describe('TimelineView', () => {
         );
     });
 
-    it('shows All filter as active by default', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(TimelineView, 'components/timeline/TimelineView/Default', {
-            props: timelineData,
-        });
+    it('shows All filter as active by default', async ({ story, actor }) => {
+        const view = story('components/timeline/TimelineView/Default', timelineData).as(TimelineView);
 
         await actor.attemptsTo(
             Ensure.that(view.filterBar.activeFilters(), contain('All')),
         );
     });
 
-    it('displays filter chips for outcome categories', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(TimelineView, 'components/timeline/TimelineView/Default', {
-            props: timelineData,
-        });
+    it('displays filter chips for outcome categories', async ({ story, actor }) => {
+        const view = story('components/timeline/TimelineView/Default', timelineData).as(TimelineView);
 
         await actor.attemptsTo(
             Ensure.that(view.filterBar.filterLabels(), equals(['All', 'Passed', 'Failed', 'Skipped'])),
         );
     });
 
-    it('shows the Total KPI card with scenario count', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(TimelineView, 'components/timeline/TimelineView/Default', {
-            props: timelineData,
-        });
+    it('shows the Total KPI card with scenario count', async ({ story, actor }) => {
+        const view = story('components/timeline/TimelineView/Default', timelineData).as(TimelineView);
 
         await actor.attemptsTo(
             Ensure.that(view.kpiCardAt(3).subtitle(), includes('3 scenarios')),
         );
     });
 
-    it('can find a KPI card by its label', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(TimelineView, 'components/timeline/TimelineView/Default', {
-            props: timelineData,
-        });
+    it('can find a KPI card by its label', async ({ story, actor }) => {
+        const view = story('components/timeline/TimelineView/Default', timelineData).as(TimelineView);
 
         await actor.attemptsTo(
             Ensure.that(view.kpiCardCalled('Slowest').accessibleLabel(), includes('Slowest')),
         );
     });
 
-    it('reports the number of scenarios in the timeline', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(TimelineView, 'components/timeline/TimelineView/Default', {
-            props: timelineData,
-        });
+    it('reports the number of scenarios in the timeline', async ({ story, actor }) => {
+        const view = story('components/timeline/TimelineView/Default', timelineData).as(TimelineView);
 
         await actor.attemptsTo(
             Ensure.that(view.scenarioCount(), equals(3)),

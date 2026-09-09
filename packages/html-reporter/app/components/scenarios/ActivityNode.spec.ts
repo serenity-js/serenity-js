@@ -1,7 +1,7 @@
 import { Ensure, equals, includes, isFalse, isTrue } from '@serenity-js/assertions';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, it } from '../../../spec/app/story-fixtures.js';
+import { describe, it } from '@serenity-js/playwright-test';
 import { ActivityNode } from '../../../src/serenity/scenarios/ActivityNode.serenity.js';
 
 const activityNodeStory = 'components/scenarios/ActivityNode/Default';
@@ -33,38 +33,34 @@ const postRequestQuery = {
 
 describe('ActivityNode — HTTP exchange (restQuery)', () => {
 
-    it('renders a REST badge when restQuery is present', async ({ interactionObject, actor }) => {
-        const node = await interactionObject(ActivityNode, activityNodeStory, {
+    it('renders a REST badge when restQuery is present', async ({ story, actor }) => {
+        const node = story(activityNodeStory, {
             data: minimalData(),
-            props: {
-                activity: {
-                    ...baseActivity,
-                    name: 'Tess sends a HEAD request to "/"',
-                    restQuery: headRequestQuery,
-                },
+            activity: {
+                ...baseActivity,
+                name: 'Tess sends a HEAD request to "/"',
+                restQuery: headRequestQuery,
             },
-        });
+        }).as(ActivityNode);
 
         await actor.attemptsTo(
             Ensure.that(node.hasRestBadge(), isTrue()),
         );
     });
 
-    it('displays method, URL, and status code', async ({ interactionObject, actor }) => {
-        const node = await interactionObject(ActivityNode, activityNodeStory, {
+    it('displays method, URL, and status code', async ({ story, actor }) => {
+        const node = story(activityNodeStory, {
             data: minimalData(),
-            props: {
-                activity: {
-                    ...baseActivity,
-                    name: 'Tess sends a HEAD request to "/"',
-                    restQuery: {
-                        ...headRequestQuery,
-                        requestHeaders: 'Accept: application/json',
-                        responseHeaders: 'content-type: text/html',
-                    },
+            activity: {
+                ...baseActivity,
+                name: 'Tess sends a HEAD request to "/"',
+                restQuery: {
+                    ...headRequestQuery,
+                    requestHeaders: 'Accept: application/json',
+                    responseHeaders: 'content-type: text/html',
                 },
             },
-        });
+        }).as(ActivityNode);
 
         await actor.attemptsTo(
             node.expandRestPanel(),
@@ -74,18 +70,16 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
         );
     });
 
-    it('displays request and response headers', async ({ interactionObject, actor }) => {
-        const node = await interactionObject(ActivityNode, activityNodeStory, {
+    it('displays request and response headers', async ({ story, actor }) => {
+        const node = story(activityNodeStory, {
             data: minimalData(),
-            props: {
-                activity: {
-                    ...baseActivity,
-                    name: 'Tess sends a POST request to "/todos"',
-                    duration: 100,
-                    restQuery: postRequestQuery,
-                },
+            activity: {
+                ...baseActivity,
+                name: 'Tess sends a POST request to "/todos"',
+                duration: 100,
+                restQuery: postRequestQuery,
             },
-        });
+        }).as(ActivityNode);
 
         await actor.attemptsTo(
             node.expandRestPanel(),
@@ -95,18 +89,16 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
         );
     });
 
-    it('displays request and response bodies', async ({ interactionObject, actor }) => {
-        const node = await interactionObject(ActivityNode, activityNodeStory, {
+    it('displays request and response bodies', async ({ story, actor }) => {
+        const node = story(activityNodeStory, {
             data: minimalData(),
-            props: {
-                activity: {
-                    ...baseActivity,
-                    name: 'Tess sends a POST request to "/todos"',
-                    duration: 100,
-                    restQuery: postRequestQuery,
-                },
+            activity: {
+                ...baseActivity,
+                name: 'Tess sends a POST request to "/todos"',
+                duration: 100,
+                restQuery: postRequestQuery,
             },
-        });
+        }).as(ActivityNode);
 
         await actor.attemptsTo(
             node.expandRestPanel(),
@@ -115,16 +107,14 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
         );
     });
 
-    it('does not render REST badge when restQuery is absent', async ({ interactionObject, actor }) => {
-        const node = await interactionObject(ActivityNode, activityNodeStory, {
+    it('does not render REST badge when restQuery is absent', async ({ story, actor }) => {
+        const node = story(activityNodeStory, {
             data: minimalData(),
-            props: {
-                activity: {
-                    ...baseActivity,
-                    name: 'Tess navigates to "/index.html"',
-                },
+            activity: {
+                ...baseActivity,
+                name: 'Tess navigates to "/index.html"',
             },
-        });
+        }).as(ActivityNode);
 
         await actor.attemptsTo(
             Ensure.that(node.hasRestBadge(), isFalse()),
@@ -134,19 +124,17 @@ describe('ActivityNode — HTTP exchange (restQuery)', () => {
 
 describe('ActivityNode — report data attachments', () => {
 
-    it('renders a data attachment block for each reportData entry', async ({ interactionObject, actor }) => {
-        const node = await interactionObject(ActivityNode, activityNodeStory, {
+    it('renders a data attachment block for each reportData entry', async ({ story, actor }) => {
+        const node = story(activityNodeStory, {
             data: minimalData(),
-            props: {
-                activity: {
-                    ...baseActivity,
-                    name: 'Tess logs the current items',
-                    reportData: [
-                        { title: 'current items', contents: '["buy milk", "feed cat"]' },
-                    ],
-                },
+            activity: {
+                ...baseActivity,
+                name: 'Tess logs the current items',
+                reportData: [
+                    { title: 'current items', contents: '["buy milk", "feed cat"]' },
+                ],
             },
-        });
+        }).as(ActivityNode);
 
         await actor.attemptsTo(
             Ensure.that(node.reportDataCount(), equals(1)),
@@ -155,20 +143,18 @@ describe('ActivityNode — report data attachments', () => {
         );
     });
 
-    it('renders multiple data attachments', async ({ interactionObject, actor }) => {
-        const node = await interactionObject(ActivityNode, activityNodeStory, {
+    it('renders multiple data attachments', async ({ story, actor }) => {
+        const node = story(activityNodeStory, {
             data: minimalData(),
-            props: {
-                activity: {
-                    ...baseActivity,
-                    name: 'Tess debugs the state',
-                    reportData: [
-                        { title: 'request', contents: 'GET /api/items' },
-                        { title: 'response', contents: '200 OK' },
-                    ],
-                },
+            activity: {
+                ...baseActivity,
+                name: 'Tess debugs the state',
+                reportData: [
+                    { title: 'request', contents: 'GET /api/items' },
+                    { title: 'response', contents: '200 OK' },
+                ],
             },
-        });
+        }).as(ActivityNode);
 
         await actor.attemptsTo(
             Ensure.that(node.reportDataCount(), equals(2)),
@@ -177,16 +163,14 @@ describe('ActivityNode — report data attachments', () => {
         );
     });
 
-    it('does not render data blocks when reportData is absent', async ({ interactionObject, actor }) => {
-        const node = await interactionObject(ActivityNode, activityNodeStory, {
+    it('does not render data blocks when reportData is absent', async ({ story, actor }) => {
+        const node = story(activityNodeStory, {
             data: minimalData(),
-            props: {
-                activity: {
-                    ...baseActivity,
-                    name: 'Tess navigates to "/index.html"',
-                },
+            activity: {
+                ...baseActivity,
+                name: 'Tess navigates to "/index.html"',
             },
-        });
+        }).as(ActivityNode);
 
         await actor.attemptsTo(
             Ensure.that(node.reportDataCount(), equals(0)),

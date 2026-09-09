@@ -2,7 +2,7 @@ import { contain, Ensure, equals, includes, not } from '@serenity-js/assertions'
 import { By, PageElement, Value } from '@serenity-js/web';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, expect, it } from '../../../spec/app/story-fixtures.js';
+import { describe, expect, it } from '@serenity-js/playwright-test';
 import { TagsView } from '../../../src/serenity/tags/TagsView.serenity.js';
 
 const mixedTags = [
@@ -12,22 +12,21 @@ const mixedTags = [
 ];
 
 function tagsViewData(tags: typeof mixedTags) {
-    const data = minimalData({ tags });
-    return { props: data };
+    return minimalData({ tags });
 }
 
 describe('TagsView', () => {
 
-    it('reports the number of tag cards', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', tagsViewData(mixedTags));
+    it('reports the number of tag cards', async ({ story, actor }) => {
+        const view = story('components/tags/TagsView/Default', tagsViewData(mixedTags)).as(TagsView);
 
         await actor.attemptsTo(
             Ensure.that(view.tagCount(), equals(3)),
         );
     });
 
-    it('renders tag cards grouped by type', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', tagsViewData(mixedTags));
+    it('renders tag cards grouped by type', async ({ story, actor }) => {
+        const view = story('components/tags/TagsView/Default', tagsViewData(mixedTags)).as(TagsView);
 
         await actor.attemptsTo(
             Ensure.that(view.groupHeadings(), contain('FEATURE (2)')),
@@ -38,10 +37,10 @@ describe('TagsView', () => {
         );
     });
 
-    it('displays pass rate percentage for each tag', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', tagsViewData([
+    it('displays pass rate percentage for each tag', async ({ story, actor }) => {
+        const view = story('components/tags/TagsView/Default', tagsViewData([
             { type: 'feature', name: 'Login', scenarioCount: 4, passed: 3, failed: 1, skipped: 0 },
-        ]));
+        ])).as(TagsView);
 
         await actor.attemptsTo(
             Ensure.that(view.tagCardText('Login'), includes('75%')),
@@ -49,10 +48,10 @@ describe('TagsView', () => {
         );
     });
 
-    it('navigates to filtered scenarios using @type:"name" format on tag click', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(TagsView, 'components/tags/TagsView/WithNavigation', tagsViewData([
+    it('navigates to filtered scenarios using @type:"name" format on tag click', async ({ story, actor }) => {
+        const view = story('components/tags/TagsView/WithNavigation', tagsViewData([
             { type: 'feature', name: 'Login', scenarioCount: 2, passed: 2, failed: 0, skipped: 0 },
-        ]));
+        ])).as(TagsView);
 
         await actor.attemptsTo(
             view.selectTag('Login'),
@@ -63,10 +62,10 @@ describe('TagsView', () => {
         );
     });
 
-    it('navigates using shorthand @name format for tags of type "tag"', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(TagsView, 'components/tags/TagsView/WithNavigation', tagsViewData([
+    it('navigates using shorthand @name format for tags of type "tag"', async ({ story, actor }) => {
+        const view = story('components/tags/TagsView/WithNavigation', tagsViewData([
             { type: 'tag', name: 'smoke', scenarioCount: 3, passed: 3, failed: 0, skipped: 0 },
-        ]));
+        ])).as(TagsView);
 
         await actor.attemptsTo(
             view.selectTag('smoke'),
@@ -77,10 +76,10 @@ describe('TagsView', () => {
         );
     });
 
-    it('double-quotes the entire tag token when the type contains a space', async ({ interactionObject, actor }) => {
-        const view = await interactionObject(TagsView, 'components/tags/TagsView/WithNavigation', tagsViewData([
+    it('double-quotes the entire tag token when the type contains a space', async ({ story, actor }) => {
+        const view = story('components/tags/TagsView/WithNavigation', tagsViewData([
             { type: 'External Tests', name: 'Manual', scenarioCount: 3, passed: 0, failed: 3, skipped: 0 },
-        ]));
+        ])).as(TagsView);
 
         await actor.attemptsTo(
             view.selectTag('Manual'),
@@ -93,8 +92,8 @@ describe('TagsView', () => {
 
     describe('search', () => {
 
-        it('filters tag cards by name', async ({ interactionObject, actor }) => {
-            const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', tagsViewData(mixedTags));
+        it('filters tag cards by name', async ({ story, actor }) => {
+            const view = story('components/tags/TagsView/Default', tagsViewData(mixedTags)).as(TagsView);
 
             await actor.attemptsTo(
                 view.find('Login'),
@@ -103,11 +102,11 @@ describe('TagsView', () => {
             );
         });
 
-        it('is case-insensitive', async ({ interactionObject, actor }) => {
-            const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', tagsViewData([
+        it('is case-insensitive', async ({ story, actor }) => {
+            const view = story('components/tags/TagsView/Default', tagsViewData([
                 { type: 'feature', name: 'Login', scenarioCount: 3, passed: 3, failed: 0, skipped: 0 },
                 { type: 'feature', name: 'Checkout', scenarioCount: 2, passed: 1, failed: 1, skipped: 0 },
-            ]));
+            ])).as(TagsView);
 
             await actor.attemptsTo(
                 view.find('login'),
@@ -116,8 +115,8 @@ describe('TagsView', () => {
             );
         });
 
-        it('shows a result count when filtering reduces the list', async ({ interactionObject, actor }) => {
-            const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', tagsViewData(mixedTags));
+        it('shows a result count when filtering reduces the list', async ({ story, actor }) => {
+            const view = story('components/tags/TagsView/Default', tagsViewData(mixedTags)).as(TagsView);
 
             await actor.attemptsTo(
                 view.find('Login'),
@@ -128,16 +127,16 @@ describe('TagsView', () => {
 
     describe('outcome filter', () => {
 
-        it('shows all tags by default', async ({ interactionObject, actor }) => {
-            const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', tagsViewData(mixedTags));
+        it('shows all tags by default', async ({ story, actor }) => {
+            const view = story('components/tags/TagsView/Default', tagsViewData(mixedTags)).as(TagsView);
 
             await actor.attemptsTo(
                 Ensure.that(view.tagCount(), equals(3)),
             );
         });
 
-        it('filters to show only tags with 100% pass rate when Passed is selected', async ({ interactionObject, actor }) => {
-            const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', tagsViewData(mixedTags));
+        it('filters to show only tags with 100% pass rate when Passed is selected', async ({ story, actor }) => {
+            const view = story('components/tags/TagsView/Default', tagsViewData(mixedTags)).as(TagsView);
 
             await actor.attemptsTo(
                 view.selectFilter('Passed'),
@@ -148,8 +147,8 @@ describe('TagsView', () => {
             );
         });
 
-        it('filters to show only tags with failures when Failed is selected', async ({ interactionObject, actor }) => {
-            const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', tagsViewData(mixedTags));
+        it('filters to show only tags with failures when Failed is selected', async ({ story, actor }) => {
+            const view = story('components/tags/TagsView/Default', tagsViewData(mixedTags)).as(TagsView);
 
             await actor.attemptsTo(
                 view.selectFilter('Failed'),
@@ -158,12 +157,12 @@ describe('TagsView', () => {
             );
         });
 
-        it('combines search and outcome filter', async ({ interactionObject, actor }) => {
-            const view = await interactionObject(TagsView, 'components/tags/TagsView/Default', tagsViewData([
+        it('combines search and outcome filter', async ({ story, actor }) => {
+            const view = story('components/tags/TagsView/Default', tagsViewData([
                 { type: 'feature', name: 'Login', scenarioCount: 3, passed: 3, failed: 0, skipped: 0 },
                 { type: 'feature', name: 'Login Mobile', scenarioCount: 2, passed: 1, failed: 1, skipped: 0 },
                 { type: 'tag', name: 'smoke', scenarioCount: 4, passed: 4, failed: 0, skipped: 0 },
-            ]));
+            ])).as(TagsView);
 
             await actor.attemptsTo(
                 view.find('Login'),

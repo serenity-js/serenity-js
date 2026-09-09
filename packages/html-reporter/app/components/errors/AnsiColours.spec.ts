@@ -5,7 +5,7 @@
  * behaviour in the interaction object sense.
  */
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, expect, it } from '../../../spec/app/story-fixtures.js';
+import { describe, expect, it } from '@serenity-js/playwright-test';
 
 const baseScenarioFields = {
     category: 'Suite',

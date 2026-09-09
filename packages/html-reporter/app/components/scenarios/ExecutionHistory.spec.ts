@@ -2,7 +2,7 @@ import { Ensure, equals, includes, isPresent, not } from '@serenity-js/assertion
 import { By, PageElement, Value } from '@serenity-js/web';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, it } from '../../../spec/app/story-fixtures.js';
+import { describe, it } from '@serenity-js/playwright-test';
 import { ExecutionHistory } from '../../../src/serenity/scenarios/ExecutionHistory.serenity.js';
 
 const navigatedTo = () => PageElement.located(By.css('[data-testid="navigated-to"]')).describedAs('navigated-to field');
@@ -51,7 +51,7 @@ interface MountOptions {
 }
 
 function mountExecutionHistory(
-    interactionObject: (io: typeof ExecutionHistory, story: string, options: { props: Record<string, unknown>; data: unknown }) => Promise<InstanceType<typeof ExecutionHistory>>,
+    storyFn: (path: string, props?: Record<string, unknown>) => { as: <T>(io: new (...args: any[]) => T) => any },
     options: MountOptions,
 ) {
     const {
@@ -78,19 +78,19 @@ function mountExecutionHistory(
         history: executionHistory
             .filter(entry => entry.timestamp)
             .map(entry => historyEntry({
-                timestamp: entry.timestamp,
+                timestamp: entry.timestamp!,
                 label: entry.run,
                 ...(entry.outcome === 'SUCCESS' ? { passed: 1 } : { failed: 1 }),
             })),
     });
 
-    return interactionObject(ExecutionHistory, story, { props, data });
+    return storyFn(story, { ...props, data }).as(ExecutionHistory);
 }
 
 describe('ExecutionHistory', () => {
 
-    it('renders nothing when executionHistory is empty', async ({ interactionObject, actor }) => {
-        const view = await mountExecutionHistory(interactionObject, {
+    it('renders nothing when executionHistory is empty', async ({ story, actor }) => {
+        const view = mountExecutionHistory(story, {
             executionHistory: [],
         });
 
@@ -99,8 +99,8 @@ describe('ExecutionHistory', () => {
         );
     });
 
-    it('displays the section title "Execution History"', async ({ interactionObject, actor }) => {
-        const view = await mountExecutionHistory(interactionObject, {
+    it('displays the section title "Execution History"', async ({ story, actor }) => {
+        const view = mountExecutionHistory(story, {
             executionHistory: [
                 { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
                 { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T14:30:00.000Z' },
@@ -112,8 +112,8 @@ describe('ExecutionHistory', () => {
         );
     });
 
-    it('shows "X of Y passing" summary', async ({ interactionObject, actor }) => {
-        const view = await mountExecutionHistory(interactionObject, {
+    it('shows "X of Y passing" summary', async ({ story, actor }) => {
+        const view = mountExecutionHistory(story, {
             executionHistory: [
                 { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
                 { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T10:00:00.000Z' },
@@ -126,8 +126,8 @@ describe('ExecutionHistory', () => {
         );
     });
 
-    it('computes consistency as percentage of non-flipping transitions', async ({ interactionObject, actor }) => {
-        const view = await mountExecutionHistory(interactionObject, {
+    it('computes consistency as percentage of non-flipping transitions', async ({ story, actor }) => {
+        const view = mountExecutionHistory(story, {
             executionHistory: [
                 { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
                 { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T10:00:00.000Z' },
@@ -141,8 +141,8 @@ describe('ExecutionHistory', () => {
         );
     });
 
-    it('shows 100% consistency when there is only one run', async ({ interactionObject, actor }) => {
-        const view = await mountExecutionHistory(interactionObject, {
+    it('shows 100% consistency when there is only one run', async ({ story, actor }) => {
+        const view = mountExecutionHistory(story, {
             executionHistory: [
                 { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
             ],
@@ -153,8 +153,8 @@ describe('ExecutionHistory', () => {
         );
     });
 
-    it('shows 100% consistency when all runs have the same outcome', async ({ interactionObject, actor }) => {
-        const view = await mountExecutionHistory(interactionObject, {
+    it('shows 100% consistency when all runs have the same outcome', async ({ story, actor }) => {
+        const view = mountExecutionHistory(story, {
             executionHistory: [
                 { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
                 { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T10:00:00.000Z' },
@@ -167,8 +167,8 @@ describe('ExecutionHistory', () => {
         );
     });
 
-    it('renders a dot for each run in the execution history', async ({ interactionObject, actor }) => {
-        const view = await mountExecutionHistory(interactionObject, {
+    it('renders a dot for each run in the execution history', async ({ story, actor }) => {
+        const view = mountExecutionHistory(story, {
             executionHistory: [
                 { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
                 { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T14:30:00.000Z' },
@@ -180,8 +180,8 @@ describe('ExecutionHistory', () => {
         );
     });
 
-    it('highlights the latest run as active when runIndex is null', async ({ interactionObject, actor }) => {
-        const view = await mountExecutionHistory(interactionObject, {
+    it('highlights the latest run as active when runIndex is null', async ({ story, actor }) => {
+        const view = mountExecutionHistory(story, {
             executionHistory: [
                 { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
                 { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T14:30:00.000Z' },
@@ -193,8 +193,8 @@ describe('ExecutionHistory', () => {
         );
     });
 
-    it('highlights the specified runIndex as active', async ({ interactionObject, actor }) => {
-        const view = await mountExecutionHistory(interactionObject, {
+    it('highlights the specified runIndex as active', async ({ story, actor }) => {
+        const view = mountExecutionHistory(story, {
             executionHistory: [
                 { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
                 { outcome: 'FAILURE', run: '#42', timestamp: '2024-06-15T14:30:00.000Z' },
@@ -211,8 +211,8 @@ describe('ExecutionHistory', () => {
         );
     });
 
-    it('groups runs by date', async ({ interactionObject, actor }) => {
-        const view = await mountExecutionHistory(interactionObject, {
+    it('groups runs by date', async ({ story, actor }) => {
+        const view = mountExecutionHistory(story, {
             executionHistory: [
                 { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
                 { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-14T14:00:00.000Z' },
@@ -225,8 +225,8 @@ describe('ExecutionHistory', () => {
         );
     });
 
-    it('uses run labels for non-ISO run identifiers', async ({ interactionObject, actor }) => {
-        const view = await mountExecutionHistory(interactionObject, {
+    it('uses run labels for non-ISO run identifiers', async ({ story, actor }) => {
+        const view = mountExecutionHistory(story, {
             executionHistory: [
                 { outcome: 'SUCCESS', run: 'build-41', timestamp: '2024-06-14T10:00:00.000Z' },
             ],
@@ -237,8 +237,8 @@ describe('ExecutionHistory', () => {
         );
     });
 
-    it('navigates to the correct URL when clicking a historical run for a scenario with a browser tag', async ({ interactionObject, actor }) => {
-        const view = await mountExecutionHistory(interactionObject, {
+    it('navigates to the correct URL when clicking a historical run for a scenario with a browser tag', async ({ story, actor }) => {
+        const view = mountExecutionHistory(story, {
             executionHistory: [
                 { outcome: 'SUCCESS', run: '#8213', timestamp: '2024-06-14T08:00:00.000Z' },
                 { outcome: 'SUCCESS', run: '#8214', timestamp: '2024-06-14T10:00:00.000Z' },
@@ -263,8 +263,8 @@ describe('ExecutionHistory', () => {
         );
     });
 
-    it('navigates using the entry timestamp even when the scenario does not appear in every global run', async ({ interactionObject, actor }) => {
-        const view = await mountExecutionHistory(interactionObject, {
+    it('navigates using the entry timestamp even when the scenario does not appear in every global run', async ({ story, actor }) => {
+        const view = mountExecutionHistory(story, {
             executionHistory: [
                 { outcome: 'SUCCESS', run: '#8214', timestamp: '2024-06-14T10:00:00.000Z' },
                 { outcome: 'SUCCESS', run: '#8219', timestamp: '2024-06-15T14:30:00.000Z' },
@@ -288,14 +288,14 @@ describe('ExecutionHistory', () => {
         );
     });
 
-    it('only considers runs up to the active runIndex for the summary', async ({ interactionObject, actor }) => {
+    it('only considers runs up to the active runIndex for the summary', async ({ story, actor }) => {
         const historyEntries = [
             historyEntry({ timestamp: '2024-06-14T10:00:00.000Z', label: '#41', passed: 1 }),
             historyEntry({ timestamp: '2024-06-15T10:00:00.000Z', label: '#42', passed: 1 }),
             historyEntry({ timestamp: '2024-06-16T10:00:00.000Z', label: '#43', failed: 1 }),
         ];
 
-        const view = await mountExecutionHistory(interactionObject, {
+        const view = mountExecutionHistory(story, {
             executionHistory: [
                 { outcome: 'SUCCESS', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
                 { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T10:00:00.000Z' },
@@ -310,8 +310,8 @@ describe('ExecutionHistory', () => {
         );
     });
 
-    it('renders a retried-success dot with the correct outcome type when retriedAndPassed is true', async ({ interactionObject, actor }) => {
-        const view = await mountExecutionHistory(interactionObject, {
+    it('renders a retried-success dot with the correct outcome type when retriedAndPassed is true', async ({ story, actor }) => {
+        const view = mountExecutionHistory(story, {
             executionHistory: [
                 { outcome: 'FAILURE', run: '#41', timestamp: '2024-06-14T10:00:00.000Z' },
                 { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T14:30:00.000Z', retriedAndPassed: true, retries: 1 },
@@ -329,8 +329,8 @@ describe('ExecutionHistory', () => {
         );
     });
 
-    it('shows "Passed on retry" tooltip and retry icon for retried-success dots', async ({ interactionObject, actor }) => {
-        const view = await mountExecutionHistory(interactionObject, {
+    it('shows "Passed on retry" tooltip and retry icon for retried-success dots', async ({ story, actor }) => {
+        const view = mountExecutionHistory(story, {
             executionHistory: [
                 { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T14:30:00.000Z', retriedAndPassed: true, retries: 1 },
             ],

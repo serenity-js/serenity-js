@@ -1,49 +1,41 @@
 import { Ensure, equals, includes } from '@serenity-js/assertions';
 
 import { minimalData } from '../../../spec/app/data-factories.js';
-import { describe, it } from '../../../spec/app/story-fixtures.js';
+import { describe, it } from '@serenity-js/playwright-test';
 import { SystemContextView } from '../../../src/serenity/about/SystemContextView.serenity.js';
 
 describe('SystemContextView', () => {
 
-    it('displays the project name', async ({ interactionObject, actor }) => {
+    it('displays the project name', async ({ story, actor }) => {
         const props = minimalData();
-        const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            props,
-        });
+        const view = story('components/about/SystemContextView/Default', props).as(SystemContextView);
 
         await actor.attemptsTo(
             Ensure.that(view.projectName(), equals('@serenity-js/test-project')),
         );
     });
 
-    it('displays the package manager', async ({ interactionObject, actor }) => {
+    it('displays the package manager', async ({ story, actor }) => {
         const props = minimalData();
-        const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            props,
-        });
+        const view = story('components/about/SystemContextView/Default', props).as(SystemContextView);
 
         await actor.attemptsTo(
             Ensure.that(view.packageManager(), equals('pnpm')),
         );
     });
 
-    it('displays the Node.js version', async ({ interactionObject, actor }) => {
+    it('displays the Node.js version', async ({ story, actor }) => {
         const props = minimalData();
-        const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            props,
-        });
+        const view = story('components/about/SystemContextView/Default', props).as(SystemContextView);
 
         await actor.attemptsTo(
             Ensure.that(view.nodeVersion(), equals('v22.0.0')),
         );
     });
 
-    it('displays the test runner name and version', async ({ interactionObject, actor }) => {
+    it('displays the test runner name and version', async ({ story, actor }) => {
         const props = minimalData();
-        const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            props,
-        });
+        const view = story('components/about/SystemContextView/Default', props).as(SystemContextView);
 
         await actor.attemptsTo(
             Ensure.that(view.testRunner(), includes('Playwright')),
@@ -51,33 +43,27 @@ describe('SystemContextView', () => {
         );
     });
 
-    it('displays the operating system', async ({ interactionObject, actor }) => {
+    it('displays the operating system', async ({ story, actor }) => {
         const props = minimalData();
-        const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            props,
-        });
+        const view = story('components/about/SystemContextView/Default', props).as(SystemContextView);
 
         await actor.attemptsTo(
             Ensure.that(view.operatingSystem(), includes('darwin')),
         );
     });
 
-    it('displays the Serenity/JS version', async ({ interactionObject, actor }) => {
+    it('displays the Serenity/JS version', async ({ story, actor }) => {
         const props = minimalData();
-        const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            props,
-        });
+        const view = story('components/about/SystemContextView/Default', props).as(SystemContextView);
 
         await actor.attemptsTo(
             Ensure.that(view.serenityVersion(), equals('v3.44.0')),
         );
     });
 
-    it('displays CI/CD provider and build info', async ({ interactionObject, actor }) => {
+    it('displays CI/CD provider and build info', async ({ story, actor }) => {
         const props = minimalData();
-        const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            props,
-        });
+        const view = story('components/about/SystemContextView/Default', props).as(SystemContextView);
 
         await actor.attemptsTo(
             Ensure.that(view.ciProvider(), includes('GitHub Actions')),
@@ -87,18 +73,16 @@ describe('SystemContextView', () => {
         );
     });
 
-    it('displays the commit message', async ({ interactionObject, actor }) => {
+    it('displays the commit message', async ({ story, actor }) => {
         const props = minimalData();
-        const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            props,
-        });
+        const view = story('components/about/SystemContextView/Default', props).as(SystemContextView);
 
         await actor.attemptsTo(
             Ensure.that(view.commitMessage(), includes('resolve unstable test')),
         );
     });
 
-    it('displays browser information', async ({ interactionObject, actor }) => {
+    it('displays browser information', async ({ story, actor }) => {
         const props = minimalData({
             systemContext: {
                 nodeVersion: 'v22.0.0',
@@ -112,9 +96,7 @@ describe('SystemContextView', () => {
                 ci: null,
             },
         });
-        const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            props,
-        });
+        const view = story('components/about/SystemContextView/Default', props).as(SystemContextView);
 
         await actor.attemptsTo(
             Ensure.that(view.browser('CHROMIUM'), includes('126.0.1')),
@@ -122,18 +104,16 @@ describe('SystemContextView', () => {
         );
     });
 
-    it('shows placeholder when systemContext is missing', async ({ interactionObject, actor }) => {
+    it('shows placeholder when systemContext is missing', async ({ story, actor }) => {
         const props = { ...minimalData(), systemContext: undefined };
-        const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            props,
-        });
+        const view = story('components/about/SystemContextView/Default', props).as(SystemContextView);
 
         await actor.attemptsTo(
             Ensure.that(view.bodyText(), includes('not yet available')),
         );
     });
 
-    it('does not show CI section when ci is null', async ({ interactionObject, actor }) => {
+    it('does not show CI section when ci is null', async ({ story, actor }) => {
         const props = minimalData({
             systemContext: {
                 nodeVersion: 'v22.0.0',
@@ -144,9 +124,7 @@ describe('SystemContextView', () => {
                 ci: null,
             },
         });
-        const view = await interactionObject(SystemContextView, 'components/about/SystemContextView/Default', {
-            props,
-        });
+        const view = story('components/about/SystemContextView/Default', props).as(SystemContextView);
 
         await actor.attemptsTo(
             Ensure.that(view.testRunner(), includes('Mocha')),
