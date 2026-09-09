@@ -656,14 +656,45 @@ export abstract class Question<T> extends Describable {
     }
 
     /**
-     * Maps this question to one of a different type.
+     * Maps this question's resolved answer to a {@link QuestionAdapter} of a different type.
+     *
+     * Provide a function to transform the resolved answer:
      *
      * ```ts
-     * Question.about('number returned as string', actor => '42')   // returns: QuestionAdapter<string>
-     *   .as(Number)                                                // returns: QuestionAdapter<number>
+     * import { Question } from '@serenity-js/core'
+     *
+     * const number = Question.about('number returned as text', () => '42')
+     *   .as(Number)
+     *
+     * const name = Question.about('name with whitespace', () => ' Alice ')
+     *   .as(value => value.trim())
+     *
+     * const firstValue = Question.about('available values', () => ['first', 'second'])
+     *   .as(values => values[0])
      * ```
      *
+     * Alternatively, provide a constructor. When you call `.as(MyClass)`, Serenity/JS passes the resolved answer as
+     * `MyClass`'s sole constructor argument.
+     * This is particularly useful when wrapping a mounted UI component in an Interaction Object for component testing:
+     *
+     * ```ts
+     * const card = story('components/UserCard/Default', { name: 'Alice' }).as(UserCard)
+     * ```
+     *
+     * To distinguish a mapping function from a constructor, Serenity/JS calls the mapping as a function first. If that
+     * throws a `TypeError` and the mapping has a `prototype` (indicating an ES6 class), Serenity/JS retries with `new`.
+     * This preserves the primitive result of `Number(42)`, rather than producing a `Number` wrapper object.
+     *
+     * #### Learn more
+     * - [Component testing with Playwright Test](https://serenity-js.org/handbook/test-runners/playwright-test/component-testing/)
+     *
      * @param mapping
+     *  A function that transforms the resolved answer, or a constructor that receives it as its sole argument.
+     *
+     * @returns
+     *  A {@link QuestionAdapter} that resolves to the mapped answer.
+     *
+     * @group Screenplay Pattern
      */
     public as<O>(mapping: (answer: Awaited<T>) => Promise<O> | O): QuestionAdapter<O>;
     public as<O>(mapping: new (answer: Awaited<T>) => O): QuestionAdapter<O>;
@@ -787,6 +818,7 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
         return this;
     }
 
+    /** {@inheritDoc Question.as} */
     as<O>(mapping: (answer: Awaited<Answer_Type>) => (Promise<O> | O)): QuestionAdapter<O>;
     as<O>(mapping: new (answer: Awaited<Answer_Type>) => O): QuestionAdapter<O>;
     as<O>(mapping: ((answer: Awaited<Answer_Type>) => (Promise<O> | O)) | (new (answer: Awaited<Answer_Type>) => O)): QuestionAdapter<O> {
