@@ -14,8 +14,9 @@ export interface StoryMountOptions {
 /**
  * Story-based `interactionObject` fixture.
  *
- * Uses Playwright's built-in `mount` fixture to render a story from the gallery,
- * then wraps the mounted component in the given Serenity/JS Interaction Object.
+ * Uses the built-in `story` fixture from `@serenity-js/playwright-test` to mount
+ * a story from the gallery, then wraps the mounted component in the given
+ * Serenity/JS Interaction Object via `.as(Constructor)`.
  *
  * The `storyPath` follows Playwright's path-like convention for story identifiers:
  * `<path under app/ without .story.ts>/<ExportName>`, e.g.
@@ -44,10 +45,12 @@ export const {
     afterEach,
 } = useFixtures<StoryFixtures>({
 
-    interactionObject: async ({ mount }, use) => {
+    interactionObject: async ({ story, actor }, use) => {
         async function mountStory<IO>(io: InteractionObjectConstructor<IO>, storyPath: string, options: StoryMountOptions = {}): Promise<IO> {
             const { props = {}, data, theme, hash } = options;
 
+            // The gallery entry handles data, theme, and hash as special keys
+            // within the props object — see playwright/gallery/entry.ts.
             const mountProps = {
                 ...props,
                 ...(data !== undefined && { data }),
@@ -55,10 +58,13 @@ export const {
                 ...(hash !== undefined && { hash }),
             };
 
-            await mount(storyPath, Object.keys(mountProps).length > 0 ? mountProps : undefined);
+            // Mount the story via the built-in story fixture. The story fixture
+            // returns a PageElement for #root; scope to the first child to get
+            // the component's own root element (matching the old #root > * selector).
+            const storyRoot = story(storyPath, Object.keys(mountProps).length > 0 ? mountProps : undefined);
+            const componentRoot = storyRoot.element(By.css(':scope > *')).describedAs('mounted component');
 
-            const rootElement = PageElement.located(By.css('#root > *')).describedAs('mounted component');
-            return new io(rootElement);
+            return actor.answer(componentRoot.as(io));
         }
 
         await use(mountStory);
