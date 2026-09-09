@@ -330,6 +330,14 @@ SSH_AUTH_SOCK=$(launchctl getenv SSH_AUTH_SOCK) git commit -S -m '...'
 
 The key is in the macOS keychain; `launchctl getenv SSH_AUTH_SOCK` retrieves the socket. Bypassing signing creates unsigned commits that require force-pushing to fix.
 
+### Verify Docker image tags exist before updating CI
+
+Always check the container registry before committing a Docker image tag bump. A tag that doesn't exist in ghcr.io blocks the entire CI pipeline with `manifest unknown`. Verify at:
+- https://github.com/serenity-js/serenity-js-docker/pkgs/container/playwright
+- Or: `docker manifest inspect ghcr.io/serenity-js/playwright:<tag>`
+
+The Serenity Docker image tag format is `v{playwright-version}-{ubuntu-codename}` (e.g., `v1.63.0-resolute`). There is no commit hash in the tag.
+
 ### Investigate lint errors before fixing them mechanically
 
 An unused variable may indicate a deeper issue — a missing function call, an incomplete test, or dead code. Before renaming to `_unused` or deleting:
