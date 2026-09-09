@@ -1,0 +1,47 @@
+import { Ensure, equals } from '@serenity-js/assertions';
+
+import { describe, it } from '../../../spec/app/story-fixtures.js';
+import { ResultCount } from '../../../src/serenity/common/ResultCount.serenity.js';
+
+describe('ResultCount', () => {
+
+    it('displays "Showing X of Y label" when showing fewer than total', async ({ interactionObject, actor }) => {
+        const resultCount = await interactionObject(ResultCount, 'components/common/ResultCount/Default', {
+            props: { showing: 5, total: 20, label: 'test scenarios' },
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(resultCount.text(), equals('Showing 5 of 20 test scenarios')),
+        );
+    });
+
+    it('displays "Showing X of X label" when showing equals total', async ({ interactionObject, actor }) => {
+        const resultCount = await interactionObject(ResultCount, 'components/common/ResultCount/Default', {
+            props: { showing: 20, total: 20, label: 'test scenarios' },
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(resultCount.text(), equals('Showing 20 of 20 test scenarios')),
+        );
+    });
+
+    it('handles singular counts', async ({ interactionObject, actor }) => {
+        const resultCount = await interactionObject(ResultCount, 'components/common/ResultCount/Default', {
+            props: { showing: 1, total: 1, label: 'test' },
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(resultCount.text(), equals('Showing 1 of 1 test')),
+        );
+    });
+
+    it('shows filtered count with capabilities label', async ({ interactionObject, actor }) => {
+        const resultCount = await interactionObject(ResultCount, 'components/common/ResultCount/Default', {
+            props: { showing: 3, total: 15, label: 'capabilities' },
+        });
+
+        await actor.attemptsTo(
+            Ensure.that(resultCount.text(), equals('Showing 3 of 15 capabilities')),
+        );
+    });
+});

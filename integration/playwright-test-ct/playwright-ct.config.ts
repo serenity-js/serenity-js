@@ -1,7 +1,9 @@
 import path from 'node:path';
 
-import { defineConfig, devices } from '@playwright/experimental-ct-react';
+import { defineConfig, devices } from '@playwright/test';
 import { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test';
+
+const galleryUrl = 'http://localhost:3100/playwright/gallery/index.html';
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -37,10 +39,17 @@ export default defineConfig<SerenityFixtures, SerenityWorkerFixtures>({
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: 'on-first-retry',
 
-        /* Port to use for Playwright component endpoint. */
-        ctPort: 3100,
-
         headless: true,
+
+        baseURL: galleryUrl,
+        serviceWorkers: 'block',
+        reuseContext: true,
+    },
+
+    webServer: {
+        command: 'npx vite --port 3100 --strictPort',
+        url: galleryUrl,
+        reuseExistingServer: !process.env.CI,
     },
 
     /* Configure projects for major browsers */

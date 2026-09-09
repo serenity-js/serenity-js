@@ -1,0 +1,45 @@
+import { Ensure, equals, includes, isPresent } from '@serenity-js/assertions';
+
+import { describe, it } from '../../../spec/app/story-fixtures.js';
+import { AboutView } from '../../../src/serenity/about/AboutView.serenity.js';
+
+describe('AboutView', () => {
+
+    it('renders the about content', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(AboutView, 'components/about/AboutView/Default');
+
+        await actor.attemptsTo(
+            Ensure.that(view, isPresent()),
+        );
+    });
+
+    it('displays confidence scoring explanation', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(AboutView, 'components/about/AboutView/Default');
+
+        await actor.attemptsTo(
+            Ensure.that(view.bodyText(), includes('Confidence scoring')),
+            Ensure.that(view.bodyText(), includes('Pass Rate')),
+            Ensure.that(view.bodyText(), includes('Consistency')),
+            Ensure.that(view.bodyText(), includes('Completeness')),
+        );
+    });
+
+    it('displays glossary section', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(AboutView, 'components/about/AboutView/Default');
+
+        await actor.attemptsTo(
+            Ensure.that(view.bodyText(), includes('Glossary')),
+            Ensure.that(view.bodyText(), includes('Actor')),
+            Ensure.that(view.bodyText(), includes('Ability')),
+            Ensure.that(view.bodyText(), includes('Task')),
+        );
+    });
+
+    it('links to serenity-js.org', async ({ interactionObject, actor }) => {
+        const view = await interactionObject(AboutView, 'components/about/AboutView/Default');
+
+        await actor.attemptsTo(
+            Ensure.that(view.hasLinkTo('https://serenity-js.org'), equals(true)),
+        );
+    });
+});

@@ -533,9 +533,19 @@ export abstract class Question<T> extends Describable {
 
                     const field = await actor.answer(target);
 
-                    return typeof field === 'function'
+                    const result = typeof field === 'function'
                         ? field(...params)
                         : field;
+
+                    if (Question.isAQuestion(result)) {
+                        return actor.answer(result);
+                    }
+
+                    if (result && typeof result.performAs === 'function') {
+                        return result.performAs(actor);
+                    }
+
+                    return result;
                 });
             },
 
@@ -655,10 +665,12 @@ export abstract class Question<T> extends Describable {
      *
      * @param mapping
      */
-    public as<O>(mapping: (answer: Awaited<T>) => Promise<O> | O): QuestionAdapter<O> {
+    public as<O>(mapping: (answer: Awaited<T>) => Promise<O> | O): QuestionAdapter<O>;
+    public as<O>(mapping: new (answer: Awaited<T>) => O): QuestionAdapter<O>;
+    public as<O>(mapping: ((answer: Awaited<T>) => Promise<O> | O) | (new (answer: Awaited<T>) => O)): QuestionAdapter<O> {
         return Question.about<O>(f`${ this }.as(${ mapping })`, async actor => {
             const answer = (await actor.answer(this)) as Awaited<T>;
-            return mapping(answer);
+            return applyMapping(mapping, answer);
         });
     }
 }
@@ -670,6 +682,17 @@ declare global {
 }
 
 /* eslint-disable @stylistic/indent */
+
+/**
+ * Unwraps a return type that is already a {@link Question}:
+ * - `QuestionAdapter<string>` → `string`   (avoids `QuestionAdapter<QuestionAdapter<string>>`)
+ * - `string` → `string`                    (no change)
+ * - `Promise<number>` → `number`           (standard `Awaited` behaviour)
+ * - `Task` → `Task`                        (not a Question, passes through)
+ *
+ * @group Questions
+ */
+type UnwrapQuestionResult<R> = R extends Question<Promise<infer Inner>> ? Inner : Awaited<R>;
 
 /**
  * Describes an object recursively wrapped in [`QuestionAdapter`](https://serenity-js.org/api/core/#QuestionAdapter) proxies, so that:
@@ -686,10 +709,10 @@ export type QuestionAdapterFieldDecorator<Original_Type> = {
             ? Field extends 'replace' | 'replaceAll'
                 ? (searchValue: Answerable<string | RegExp>, replaceValue: Answerable<string>) => QuestionAdapter<string>
                 : (...args: { [P in keyof OriginalParameters]: Answerable<Awaited<OriginalParameters[P]>> }) =>
-                    QuestionAdapter<Awaited<OriginalMethodResult>>
+                    QuestionAdapter<UnwrapQuestionResult<OriginalMethodResult>>
             // is it an object? wrap each field
             : Original_Type[Field] extends number | bigint | boolean | string | symbol | object
-                ? QuestionAdapter<Awaited<Original_Type[Field]>>
+                ? QuestionAdapter<UnwrapQuestionResult<Original_Type[Field]>>
                 : any;
 };
 /* eslint-enable @stylistic/indent */
@@ -764,7 +787,9 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
         return this;
     }
 
-    as<O>(mapping: (answer: Awaited<Answer_Type>) => (Promise<O> | O)): QuestionAdapter<O> {
+    as<O>(mapping: (answer: Awaited<Answer_Type>) => (Promise<O> | O)): QuestionAdapter<O>;
+    as<O>(mapping: new (answer: Awaited<Answer_Type>) => O): QuestionAdapter<O>;
+    as<O>(mapping: ((answer: Awaited<Answer_Type>) => (Promise<O> | O)) | (new (answer: Awaited<Answer_Type>) => O)): QuestionAdapter<O> {
         return Question.about<O>(f`${ this }.as(${ mapping })`, async actor => {
             const answer = await actor.answer(this);
 
@@ -772,7 +797,7 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
                 return undefined;
             }
 
-            return mapping(answer);
+            return applyMapping(mapping, answer);
         });
     }
 }
@@ -839,6 +864,33 @@ class IsPresent<T> extends Question<Promise<boolean>> {
 function isDefined<T>(value: T): boolean {
     return value !== undefined
         && value !== null;
+}
+
+/**
+ * Invokes a mapping as a function or constructor.
+ *
+ * Tries calling as a function first, then falls back to `new`.
+ *
+ * This order matters: built-ins like Number and String are callable
+ * both ways, but `Number(42)` returns a primitive while
+ * `new Number(42)` returns a wrapper object. Calling as a function
+ * first preserves the correct behaviour for these common mappings.
+ *
+ * ES6 classes throw a TypeError when called without `new`. We detect
+ * this by checking `mapping.prototype` (arrow functions don't have one)
+ * rather than matching the engine's error message, which could change
+ * across Node/V8 versions.
+ */
+function applyMapping<I, O>(mapping: ((answer: I) => Promise<O> | O) | (new (answer: I) => O), answer: I): Promise<O> | O {
+    try {
+        return (mapping as (answer: I) => Promise<O> | O)(answer);
+    }
+    catch (error) {
+        if (error instanceof TypeError && mapping.prototype) {
+            return new (mapping as new (answer: I) => O)(answer);
+        }
+        throw error;
+    }
 }
 
 /**
