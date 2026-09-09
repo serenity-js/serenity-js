@@ -329,7 +329,7 @@ describe('ExecutionHistory', () => {
         );
     });
 
-    it('shows "Passed on retry" tooltip for retried-success dots', async ({ interactionObject, actor }) => {
+    it('shows "Passed on retry" tooltip and retry icon for retried-success dots', async ({ interactionObject, actor }) => {
         const view = await mountExecutionHistory(interactionObject, {
             executionHistory: [
                 { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T14:30:00.000Z', retriedAndPassed: true, retries: 1 },
@@ -342,21 +342,6 @@ describe('ExecutionHistory', () => {
 
         await actor.attemptsTo(
             Ensure.that(view.dotOutcomes().as(outcomes => outcomes[0].title), includes('Passed on retry (attempt 2 of 2)')),
-        );
-    });
-
-    it('renders retry icon in retried-success dots', async ({ interactionObject, actor }) => {
-        const view = await mountExecutionHistory(interactionObject, {
-            executionHistory: [
-                { outcome: 'SUCCESS', run: '#42', timestamp: '2024-06-15T14:30:00.000Z', retriedAndPassed: true, retries: 1 },
-            ],
-            scenario: {
-                outcome: 'SUCCESS',
-                duration: 500,
-            },
-        });
-
-        await actor.attemptsTo(
             Ensure.that(view.dotOutcomes().as(outcomes => outcomes[0].icon), equals('↻')),
         );
     });
