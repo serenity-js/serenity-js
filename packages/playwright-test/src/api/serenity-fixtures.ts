@@ -414,7 +414,7 @@ export interface SerenityFixtures {
      * ```typescript
      * import { Ensure, equals } from '@serenity-js/assertions'
      * import { describe, it } from '@serenity-js/playwright-test'
-     * import { UserCard } from './UserCard.io'
+     * import { UserCard } from './UserCard.serenity'
      *
      * describe('UserCard', () => {
      *
@@ -434,7 +434,7 @@ export interface SerenityFixtures {
      * @param props - Optional serializable props to pass to the story.
      *
      * #### Learn more
-     * - [Component testing with Playwright Test](https://serenity-js.org/handbook/test-runners/playwright-test/component-testing/)
+     * - [Component testing with Serenity/JS and Playwright Test](https://serenity-js.org/handbook/test-runners/playwright-test/component-testing/)
      * - [Playwright component testing](https://playwright.dev/docs/test-components)
      */
     story: (storyPath: string, props?: Record<string, any>) => QuestionAdapter<PageElement<Locator>>;

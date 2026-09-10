@@ -22,7 +22,7 @@ template/components/*.ts      ← Preact components under test
 An interaction object is a class that receives the mounted component's root element
 and exposes Questions (for reading state) and Tasks (for performing actions):
 
-```typescript
+```ts
 // src/SearchInput.serenity.ts
 import type { Answerable, QuestionAdapter } from '@serenity-js/core';
 import { Task, the } from '@serenity-js/core';
@@ -67,7 +67,7 @@ export class SearchInput<NET> {
 
 ## Writing a Component Test
 
-```typescript
+```ts
 // spec/components/SearchInput.spec.ts
 import { Ensure, equals, isFalse } from '@serenity-js/assertions';
 
@@ -117,7 +117,7 @@ The `mount` fixture handles:
 3. Navigating Playwright to the page
 4. Instantiating the interaction object with a `PageElement` pointing to the rendered component
 
-```typescript
+```ts
 const searchInput = await mount<SearchInput<unknown>>({
     component: 'SearchInput',          // Export name from the template module
     importPath: './components/SearchInput', // Import path relative to template/
