@@ -44,7 +44,7 @@ Add the reporter to your Serenity/JS crew configuration.
 
 ### Playwright Test
 
-```typescript
+```ts
 // playwright.config.ts
 import { defineConfig } from '@playwright/test';
 import type { SerenityFixtures, SerenityWorkerFixtures } from '@serenity-js/playwright-test';
@@ -67,7 +67,7 @@ Learn more about using [Serenity/JS with Playwright Test](https://serenity-js.or
 
 ### WebdriverIO
 
-```typescript
+```ts
 // wdio.conf.ts
 export const config = {
     framework: '@serenity-js/webdriverio',
@@ -86,7 +86,7 @@ Learn more about using [Serenity/JS with WebdriverIO](https://serenity-js.org/ha
 
 ### Cucumber, Mocha, or Jasmine
 
-```typescript
+```ts
 import { configure } from '@serenity-js/core';
 
 configure({
@@ -133,7 +133,7 @@ All options are optional. See the [`HtmlReporterConfig` API reference](https://s
 
 The reporter auto-detects CI metadata from environment variables (GitHub Actions, GitLab CI, Jenkins, CircleCI). Use the `ci` option when running outside CI or when auto-detection doesn't match your setup:
 
-```typescript
+```ts
 ['@serenity-js/html-reporter', {
     outputDirectory: './reports/serenity-js',
     ci: {

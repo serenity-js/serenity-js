@@ -78,10 +78,31 @@ export abstract class PageElement<Native_Element_Type = any> implements Optional
      * Wraps any {@link Answerable}<{@link PageElement}> in a {@link PageElementAdapter},
      * providing `.element()` and `.elements()` for scoped child element lookups.
      *
-     * Used by {@link InteractionObject} to ensure the root element supports
-     * fluent child element access regardless of how it was constructed.
+     * Use this in Interaction Object constructors to ensure the root element supports
+     * fluent child element access regardless of whether it was constructed from a resolved
+     * {@link PageElement} (via the [`story` fixture](https://serenity-js.org/handbook/test-runners/playwright-test/component-testing/))
+     * or a deferred {@link QuestionAdapter}<{@link PageElement}> (via `PageElement.located()`):
+     *
+     * ```ts
+     * import type { Answerable } from '@serenity-js/core'
+     * import { By, PageElement } from '@serenity-js/web'
+     *
+     * class UserCard {
+     *     private readonly rootElement;
+     *
+     *     constructor(rootElement: Answerable<PageElement>) {
+     *         this.rootElement = PageElement.createAdapter(rootElement);
+     *     }
+     *
+     *     name = () =>
+     *         this.rootElement.element(By.css('.name')).text()
+     *             .describedAs('user name');
+     * }
+     * ```
      *
      * @param element
+     *
+     * @group Models
      */
     static createAdapter<NET>(element: Answerable<PageElement<NET>>): PageElementAdapter<NET> {
         return Question.about(`${ element }`,
