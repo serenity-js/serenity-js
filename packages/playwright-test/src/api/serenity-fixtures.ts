@@ -406,7 +406,7 @@ export interface SerenityFixtures {
      *
      * Requires a [story gallery](https://playwright.dev/docs/test-components) served at [`baseURL`](https://playwright.dev/docs/api/class-testoptions#test-options-base-url).
      *
-     * Use [`.as(IOClass)`](https://serenity-js.org/api/core/class/QuestionStatement/#as) to wrap the result
+     * Use [`.as(IOClass)`](https://serenity-js.org/api/core/class/Question/#as) to wrap the result
      * in a Serenity/JS Interaction Object:
      *
      * #### Example
