@@ -125,6 +125,36 @@ export class Actor implements PerformsActivities,
     }
 
     /**
+     * Checks whether the actor has an [`Ability`](https://serenity-js.org/api/core/class/Ability/) of `abilityType`,
+     * or one that extends `abilityType`, without throwing if the ability is not available.
+     *
+     * This is useful when the behaviour of an [`Interaction`](https://serenity-js.org/api/core/class/Interaction/)
+     * or [`Question`](https://serenity-js.org/api/core/class/Question/) should vary depending on the abilities an actor has,
+     * for example to drive the system under test through different interfaces.
+     *
+     * ```ts
+     * import { Interaction } from '@serenity-js/core'
+     * import { BrowseTheWeb } from '@serenity-js/web'
+     * import { CallAnApi } from '@serenity-js/rest'
+     *
+     * const LogOut = () =>
+     *   Interaction.where(`#actor logs out`, async actor => {
+     *     if (actor.hasAbilityTo(BrowseTheWeb)) {
+     *       // drive the log out via the web UI
+     *     } else {
+     *       // drive the log out via the API
+     *     }
+     *   })
+     * ```
+     *
+     * @param abilityType
+     *  The type of ability to check for, e.g. [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) or [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi/)
+     */
+    hasAbilityTo<T extends Ability>(abilityType: AbilityType<T>): boolean {
+        return this.findAbilityTo(abilityType) !== undefined;
+    }
+
+    /**
      * Instructs the actor to attempt to perform a number of [activities](https://serenity-js.org/api/core/class/Activity/),
      * so either [tasks](https://serenity-js.org/api/core/class/Task/) or [interactions](https://serenity-js.org/api/core/class/Interaction/)),
      * one by one.

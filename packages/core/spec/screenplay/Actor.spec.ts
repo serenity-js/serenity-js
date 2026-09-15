@@ -149,6 +149,37 @@ describe('Actor', () => {
                 .to.throw(ConfigurationError, `Ben can PerformActivities, AnswerQuestions, DoSomethingElse. They can't, however, PlayAGuitar yet. Did you give them the ability to do so?`);
         });
 
+        describe('checking whether they have an ability', () => {
+
+            it('confirms an ability the actor has been given', () => {
+                const ben = actor('Ben').whoCan(PlayAGuitar.suchAs(guitar));
+
+                expect(ben.hasAbilityTo(PlayAGuitar)).to.equal(true);
+            });
+
+            it('denies an ability the actor has not been given', () => {
+                const ben = actor('Ben').whoCan(new DoSomethingElse());
+
+                expect(ben.hasAbilityTo(PlayAGuitar)).to.equal(false);
+            });
+
+            it('does not throw when the ability is missing', () => {
+                const ben = actor('Ben');
+
+                expect(() => ben.hasAbilityTo(PlayAGuitar)).to.not.throw();
+            });
+
+            it('confirms a generic ability type the actor has via a more specialised ability', () => {
+                abstract class MakePhoneCalls extends Ability {}
+                class UseMobilePhone extends MakePhoneCalls {}
+
+                const ben = actor('Ben').whoCan(new UseMobilePhone());
+
+                expect(ben.hasAbilityTo(MakePhoneCalls)).to.equal(true);
+                expect(ben.hasAbilityTo(UseMobilePhone)).to.equal(true);
+            });
+        });
+
         describe('that are abstract', () => {
 
             class NotAnAbility {}

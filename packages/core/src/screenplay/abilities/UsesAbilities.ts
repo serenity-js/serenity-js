@@ -21,4 +21,13 @@ export interface UsesAbilities {
      *  The type of ability to look up, e.g. [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) or [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi/)
      */
     abilityTo<T extends Ability>(doSomething: AbilityType<T>): T;
+
+    /**
+     * Checks whether the [actor](https://serenity-js.org/api/core/class/Actor/) has an [`Ability`](https://serenity-js.org/api/core/class/Ability/) to do something,
+     * or one that extends it, without throwing if the ability is not available.
+     *
+     * @param doSomething
+     *  The type of ability to check for, e.g. [`BrowseTheWeb`](https://serenity-js.org/api/web/class/BrowseTheWeb/) or [`CallAnApi`](https://serenity-js.org/api/rest/class/CallAnApi/)
+     */
+    hasAbilityTo<T extends Ability>(doSomething: AbilityType<T>): boolean;
 }
