@@ -92,7 +92,7 @@ jobs:
       - name: Set up Node
         uses: ./.github/actions/setup-node
         with:
-          node-version: 22.x
+          node-version: 22.23.2
       - name: Download compiled libs
         uses: ./.github/actions/download-compressed-artifact
         with:
