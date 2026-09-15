@@ -10,6 +10,7 @@ import type { PerformsActivities } from './activities/index.js';
 import type { Activity } from './Activity.js';
 import type { Answerable } from './Answerable.js';
 import type { CollectsArtifacts } from './artifacts/index.js';
+import type { HasName } from './HasName.js';
 import type { AnswersQuestions } from './questions/index.js';
 import type { SerialisedActor } from './SerialisedActor.js';
 import type { TellsTime, Timestamp } from './time/index.js';
@@ -78,6 +79,7 @@ export class Actor implements PerformsActivities,
     CanHaveAbilities<Actor>,
     AnswersQuestions,
     CollectsArtifacts,
+    HasName,
     TellsTime
 {
     /**

@@ -54,6 +54,18 @@ describe('Interaction', () => {
         expect(location.column).to.equal(26);
     });
 
+    it('gives the interaction access to the actor name without casting', async () => {
+        let recordedName: string;
+
+        await Ivonne.attemptsTo(
+            Interaction.where(`#actor records their name`, actor => {
+                recordedName = actor.name;
+            }),
+        );
+
+        expect(recordedName).to.equal('Ivonne');
+    });
+
     describe('when defining an interaction', () => {
 
         it('provides a convenient factory method for synchronous interactions', async () => {

@@ -2,6 +2,7 @@ import type { UsesAbilities } from './abilities/index.js';
 import { Activity } from './Activity.js';
 import type { Answerable } from './Answerable.js';
 import type { CollectsArtifacts } from './artifacts/index.js';
+import type { HasName } from './HasName.js';
 import type { AnswersQuestions } from './questions/index.js';
 
 /**
@@ -78,7 +79,7 @@ export abstract class Interaction extends Activity {
      */
     static where(
         description: Answerable<string>,
-        interaction: (actor: UsesAbilities & AnswersQuestions & CollectsArtifacts) => Promise<void> | void,
+        interaction: (actor: UsesAbilities & AnswersQuestions & CollectsArtifacts & HasName) => Promise<void> | void,
     ): Interaction {
         return new DynamicallyGeneratedInteraction(description, interaction);
     }
@@ -103,12 +104,12 @@ export abstract class Interaction extends Activity {
 class DynamicallyGeneratedInteraction extends Interaction {
     constructor(
         description: Answerable<string>,
-        private readonly interaction: (actor: UsesAbilities & AnswersQuestions & CollectsArtifacts) => Promise<void> | void,
+        private readonly interaction: (actor: UsesAbilities & AnswersQuestions & CollectsArtifacts & HasName) => Promise<void> | void,
     ) {
         super(description, Interaction.callerLocation(4));
     }
 
-    performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts): Promise<void> {
+    performAs(actor: UsesAbilities & AnswersQuestions & CollectsArtifacts & HasName): Promise<void> {
         try {
             return Promise.resolve(this.interaction(actor));
         } catch (error) {

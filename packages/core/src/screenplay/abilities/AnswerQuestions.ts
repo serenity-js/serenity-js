@@ -1,5 +1,6 @@
 import { ValueInspector } from '../../io/index.js';
 import type { Answerable } from '../Answerable.js';
+import type { HasName } from '../HasName.js';
 import { Question } from '../Question.js';
 import type { AnswersQuestions } from '../questions/index.js';
 import { Ability } from './Ability.js';
@@ -15,7 +16,7 @@ import type { UsesAbilities } from './UsesAbilities.js';
  * @group Abilities
  */
 export class AnswerQuestions extends Ability {
-    constructor(protected readonly actor: AnswersQuestions & UsesAbilities) {
+    constructor(protected readonly actor: AnswersQuestions & UsesAbilities & HasName) {
         super();
     }
 

@@ -6,6 +6,7 @@ export * from './Answerable.js';
 export * from './Answered.js';
 export * from './artifacts/index.js';    // todo: move artifacts from model package
 export * from './debugging/index.js';
+export * from './HasName.js';
 export * from './Interaction.js';
 export * from './notes/index.js';
 export * from './Optional.js';

@@ -8,6 +8,7 @@ import type { FileSystemLocation } from '../io/index.js';
 import { asyncMap, f, inspectedObject, ValueInspector } from '../io/index.js';
 import type { UsesAbilities } from './abilities/index.js';
 import type { Answerable } from './Answerable.js';
+import type { HasName } from './HasName.js';
 import { Interaction } from './Interaction.js';
 import type { Optional } from './Optional.js';
 import type { AnswersQuestions } from './questions/AnswersQuestions.js';
@@ -42,7 +43,7 @@ import type { WithAnswerableProperties } from './WithAnswerableProperties.js';
  *  import { Ensure, equals } from '@serenity-js/assertions'
  *
  *  const LastItemOf = <T>(list: T[]): Question<T> =>
- *    Question.about('last item from the list', (actor: AnswersQuestions & UsesAbilities) => {
+ *    Question.about('last item from the list', (actor: AnswersQuestions & UsesAbilities & HasName) => {
  *      return list[list.length - 1]
  *    });
  *
@@ -198,24 +199,24 @@ export abstract class Question<T> extends Describable {
      */
     static about<Answer_Type, Supported_Context_Type extends Answerable<any>>(
         description: Answerable<string>,
-        body: (actor: AnswersQuestions & UsesAbilities) => Promise<Answer_Type> | Answer_Type,
+        body: (actor: AnswersQuestions & UsesAbilities & HasName) => Promise<Answer_Type> | Answer_Type,
         metaQuestionBody: (answerable: Answerable<Supported_Context_Type>) => Question<Promise<Answer_Type>> | Question<Answer_Type>,
     ): MetaQuestionAdapter<Supported_Context_Type, Awaited<Answer_Type>>
 
     static about<Answer_Type>(
         description: Answerable<string>,
-        body: (actor: AnswersQuestions & UsesAbilities) => Promise<Answer_Type> | Answer_Type,
+        body: (actor: AnswersQuestions & UsesAbilities & HasName) => Promise<Answer_Type> | Answer_Type,
         extensions: Record<string, (...args: any[]) => any>,
     ): QuestionAdapter<Awaited<Answer_Type>>
 
     static about<Answer_Type>(
         description: Answerable<string>,
-        body: (actor: AnswersQuestions & UsesAbilities) => Promise<Answer_Type> | Answer_Type
+        body: (actor: AnswersQuestions & UsesAbilities & HasName) => Promise<Answer_Type> | Answer_Type
     ): QuestionAdapter<Awaited<Answer_Type>>
 
     static about<Answer_Type>(
         description: Answerable<string>,
-        body: (actor: AnswersQuestions & UsesAbilities) => Promise<Answer_Type> | Answer_Type,
+        body: (actor: AnswersQuestions & UsesAbilities & HasName) => Promise<Answer_Type> | Answer_Type,
         metaQuestionBodyOrExtensions?: ((answerable: any) => any) | Record<string, (...args: any[]) => any>,
     ): any
     {
@@ -361,7 +362,7 @@ export abstract class Question<T> extends Describable {
 
         const description = source.length === 0
             ? '[ ]'
-            : Question.about(formatter.format(source), async (actor: AnswersQuestions & UsesAbilities & { name: string }) => {
+            : Question.about(formatter.format(source), async (actor: AnswersQuestions & UsesAbilities & HasName) => {
                 const descriptions = await asyncMap(source, item =>
                     item instanceof Describable
                         ? item.describedBy(actor)
@@ -583,7 +584,7 @@ export abstract class Question<T> extends Describable {
      * question first, then accesses the key on the answer value.
      */
     private static getAnswerField<AT>(target: Question<AT>, key: string | symbol): QuestionAdapter<any> {
-        return Question.about(Question.staticFieldDescription(target, key), async (actor: AnswersQuestions & UsesAbilities) => {
+        return Question.about(Question.staticFieldDescription(target, key), async (actor: AnswersQuestions & UsesAbilities & HasName) => {
             const answer = await actor.answer(target as Answerable<AT>);
 
             if (!isDefined(answer)) {
@@ -634,7 +635,7 @@ export abstract class Question<T> extends Describable {
      * Instructs the provided [`Actor`](https://serenity-js.org/api/core/class/Actor/) to use their [abilities](https://serenity-js.org/api/core/class/Ability/)
      * to answer this question.
      */
-    abstract answeredBy(actor: AnswersQuestions & UsesAbilities): T;
+    abstract answeredBy(actor: AnswersQuestions & UsesAbilities & HasName): T;
 
     /**
      * Changes the description of this object, as returned by [`Describable.describedBy`](https://serenity-js.org/api/core/class/Describable/#describedBy)
@@ -781,7 +782,7 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
 
     constructor(
         subject: Answerable<string>,
-        private readonly body: (actor: AnswersQuestions & UsesAbilities, ...Parameters) => Promise<Answer_Type> | Answer_Type,
+        private readonly body: (actor: AnswersQuestions & UsesAbilities & HasName, ...Parameters) => Promise<Answer_Type> | Answer_Type,
         location: FileSystemLocation = QuestionStatement.callerLocation(4),
     ) {
         super(subject, location);
@@ -795,12 +796,12 @@ class QuestionStatement<Answer_Type> extends Interaction implements Question<Pro
         return new IsPresent(this);
     }
 
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Answer_Type> {
+    async answeredBy(actor: AnswersQuestions & UsesAbilities & HasName): Promise<Answer_Type> {
         this.answer = await this.body(actor);
         return this.answer;
     }
 
-    async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
+    async performAs(actor: UsesAbilities & AnswersQuestions & HasName): Promise<void> {
         await this.body(actor);
     }
 
@@ -843,7 +844,7 @@ class MetaQuestionStatement<Answer_Type, Supported_Context_Type extends Answerab
 {
     constructor(
         subject: Answerable<string>,
-        body: (actor: AnswersQuestions & UsesAbilities, ...Parameters) => Promise<Answer_Type> | Answer_Type,
+        body: (actor: AnswersQuestions & UsesAbilities & HasName, ...Parameters) => Promise<Answer_Type> | Answer_Type,
         private readonly metaQuestionBody: (answerable: Answerable<Supported_Context_Type>) => QuestionAdapter<Answer_Type>,
     ) {
         super(subject, body);
@@ -866,7 +867,7 @@ class IsPresent<T> extends Question<Promise<boolean>> {
         super(f`${question}.isPresent()`);
     }
 
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<boolean> {
+    async answeredBy(actor: AnswersQuestions & UsesAbilities & HasName): Promise<boolean> {
         try {
             const answer = await actor.answer(this.question);
 
@@ -986,7 +987,7 @@ class QuestionAboutValue<Answer_Type>
         super(QuestionAboutFormattedValue.of(context).toString());
     }
 
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Answer_Type> {
+    async answeredBy(actor: AnswersQuestions & UsesAbilities & HasName): Promise<Answer_Type> {
         return await actor.answer(this.context);
     }
 }
@@ -1033,13 +1034,13 @@ class QuestionAboutFormattedValue<Supported_Context_Type>
         super(description);
     }
 
-    async answeredBy(actor: AnswersQuestions & UsesAbilities & { name: string }): Promise<string> {
+    async answeredBy(actor: AnswersQuestions & UsesAbilities & HasName): Promise<string> {
         const answer = await actor.answer(this.context);
 
         return this.formatter.format(answer);
     }
 
-    override async describedBy(actor: AnswersQuestions & UsesAbilities & { name: string }): Promise<string> {
+    override async describedBy(actor: AnswersQuestions & UsesAbilities & HasName): Promise<string> {
         const unanswered = ! this.context
             || ! this.context['answer']
             || Unanswered.isUnanswered((this.context as any).answer);

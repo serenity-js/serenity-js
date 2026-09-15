@@ -1,6 +1,7 @@
 import { asyncMap, ValueInspector } from '../../io/index.js';
 import type { UsesAbilities } from '../abilities/index.js';
 import type { Answerable } from '../Answerable.js';
+import type { HasName } from '../HasName.js';
 import type { MetaQuestionAdapter, QuestionAdapter } from '../Question.js';
 import { Question } from '../Question.js';
 import type { AnswersQuestions } from './AnswersQuestions.js';
@@ -267,14 +268,14 @@ function createParameterToDescriptionMapper(options?: DescriptionFormattingOptio
 }
 
 function createParameterValueToDescriptionMapper(options?: DescriptionFormattingOptions) {
-    return async (actor: AnswersQuestions & UsesAbilities & { name: string }, parameter: any) =>
+    return async (actor: AnswersQuestions & UsesAbilities & HasName, parameter: any) =>
         parameter instanceof Describable
             ? parameter.describedBy(actor)
             : actor.answer(Question.formattedValue(options).of(parameter))
 }
 
 function createParameterValueMapper() {
-    return async (actor: AnswersQuestions & UsesAbilities & { name: string }, parameter: Answerable<string | number>) =>
+    return async (actor: AnswersQuestions & UsesAbilities & HasName, parameter: Answerable<string | number>) =>
         actor.answer(parameter)
 }
 
@@ -282,12 +283,12 @@ function templateToQuestion(
     templates: TemplateStringsArray,
     parameters: Array<any>,
     descriptionMapper: (parameter: any) => string,
-    valueMapper: (actor: AnswersQuestions & UsesAbilities & { name: string }, parameter: any) => Promise<any> | any,
+    valueMapper: (actor: AnswersQuestions & UsesAbilities & HasName, parameter: any) => Promise<any> | any,
 ) {
     const description = interpolate(templates, parameters.map(parameter => descriptionMapper(parameter)));
 
     return Question.about<string, any>(description,
-        async (actor: AnswersQuestions & UsesAbilities & { name: string }) => {
+        async (actor: AnswersQuestions & UsesAbilities & HasName) => {
             const descriptions = await asyncMap(parameters, parameter => valueMapper(actor, parameter));
 
             return interpolate(templates, descriptions);

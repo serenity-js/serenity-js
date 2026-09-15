@@ -16,6 +16,7 @@ import {
 } from '../../model/index.js';
 import type { PerformsActivities } from '../activities/PerformsActivities.js';
 import type { Activity } from '../Activity.js';
+import type { HasName } from '../HasName.js';
 import { Interaction } from '../Interaction.js';
 import type { AnswersQuestions } from '../questions/index.js';
 import { Ability } from './Ability.js';
@@ -32,7 +33,7 @@ import type { UsesAbilities } from './UsesAbilities.js';
  */
 export class PerformActivities extends Ability {
     constructor(
-        protected readonly actor: AnswersQuestions & UsesAbilities & PerformsActivities & { name: string },
+        protected readonly actor: AnswersQuestions & UsesAbilities & PerformsActivities & HasName,
         protected readonly stage: EmitsDomainEvents,
     ) {
         super();

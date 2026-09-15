@@ -3,6 +3,7 @@ import type { JSONObject } from 'tiny-types';
 import { asyncMap } from '../../io/index.js';
 import type { UsesAbilities } from '../abilities/index.js';
 import type { Answerable } from '../Answerable.js';
+import type { HasName } from '../HasName.js';
 import { Interaction } from '../Interaction.js';
 import type { QuestionAdapter } from '../Question.js';
 import { Question } from '../Question.js';
@@ -328,7 +329,7 @@ class DescriptionOfNotes<Notes extends Record<any, any>>
         super(`#actor takes notes: ${ Object.keys(notes).join(', ') }`);
     }
 
-    async answeredBy(actor: AnswersQuestions & UsesAbilities & { name: string }): Promise<string> {
+    async answeredBy(actor: AnswersQuestions & UsesAbilities & HasName): Promise<string> {
         const noteNames = Object.keys(this.notes);
         const maxWidth  = noteNames.reduce((max, name) => Math.max(max, name.length), 0);
 
@@ -345,7 +346,7 @@ class DescriptionOfNotes<Notes extends Record<any, any>>
         ].join('\n');
     }
 
-    async describedBy(actor: AnswersQuestions & UsesAbilities & { name: string }): Promise<string> {
+    async describedBy(actor: AnswersQuestions & UsesAbilities & HasName): Promise<string> {
         return this.answeredBy(actor);
     }
 }
@@ -359,7 +360,7 @@ class NumberOfNotes extends Question<Promise<number>> {
         return TakeNotes.as(actor).notepad.size();
     }
 
-    async describedBy(actor: AnswersQuestions & UsesAbilities & { name: string }): Promise<string> {
+    async describedBy(actor: AnswersQuestions & UsesAbilities & HasName): Promise<string> {
         const count = await this.answeredBy(actor);
 
         return count === 1

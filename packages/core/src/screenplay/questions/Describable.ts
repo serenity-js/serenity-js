@@ -1,6 +1,7 @@
 import { ValueInspector } from '../../io/reflection/index.js';
 import type { UsesAbilities } from '../abilities/UsesAbilities.js';
 import type { Answerable } from '../Answerable.js';
+import type { HasName } from '../HasName.js';
 import type { AnswersQuestions } from './AnswersQuestions.js';
 
 const descriptionField = Symbol('description');
@@ -21,7 +22,7 @@ export abstract class Describable {
      *
      * @param actor
      */
-    async describedBy(actor: AnswersQuestions & UsesAbilities & { name: string }): Promise<string> {
+    async describedBy(actor: AnswersQuestions & UsesAbilities & HasName): Promise<string> {
         const description = await actor.answer(this[descriptionField]);
 
         return description.replaceAll('#actor', actor.name);
