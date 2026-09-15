@@ -405,7 +405,7 @@ export abstract class Ability {
         return false;
     }
 
-    protected constructor() {
+    constructor() {
         (this as any)[Ability.TYPE_BRAND] = true;
     }
 
