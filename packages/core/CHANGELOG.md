@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.48.0](https://github.com/serenity-js/serenity-js/compare/v3.47.2...v3.48.0) (2026-09-15)
+
+### Features
+
+* **core:** expose the actor name to interactions and questions ([14930a9](https://github.com/serenity-js/serenity-js/commit/14930a975d2708045e935ace0bce313526c090cf)), closes [#3525](https://github.com/serenity-js/serenity-js/issues/3525)
+* **core:** let actors check whether they have an ability ([8584d08](https://github.com/serenity-js/serenity-js/commit/8584d0879e6f352f63ab65a346b8ee0d60365942)), closes [#3524](https://github.com/serenity-js/serenity-js/issues/3524)
+* **core:** make the Ability constructor public ([8c7e74c](https://github.com/serenity-js/serenity-js/commit/8c7e74c6597d79bc3ffa54ee582a5a84bb5e64d6))
+
+
 ## [3.47.2](https://github.com/serenity-js/serenity-js/compare/v3.47.1...v3.47.2) (2026-09-10)
 
 **Note:** Version bump only for package @serenity-js/core

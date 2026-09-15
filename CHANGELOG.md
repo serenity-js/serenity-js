@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.48.0](https://github.com/serenity-js/serenity-js/compare/v3.47.2...v3.48.0) (2026-09-15)
+
+### Bug Fixes
+
+* **deps:** update dependency morgan to v1.12.1 ([3103e7a](https://github.com/serenity-js/serenity-js/commit/3103e7afc3252b98dcd75e8788b618199cbfa5c1))
+* **deps:** update html reporter dependencies ([32fa34d](https://github.com/serenity-js/serenity-js/commit/32fa34dfacea1998003e8ba1e57e4cab1b3b2437))
+* **deps:** update react monorepo to v19.3.0 ([a0e7788](https://github.com/serenity-js/serenity-js/commit/a0e77889f87b207c10038076a008d3ed166d372b))
+* **deps:** update webdriverio dependencies to ^9.31.7 ([c1244e0](https://github.com/serenity-js/serenity-js/commit/c1244e066cf0ca859986eb202b1e4f5b652ad966))
+
+### Features
+
+* **core:** expose the actor name to interactions and questions ([14930a9](https://github.com/serenity-js/serenity-js/commit/14930a975d2708045e935ace0bce313526c090cf)), closes [#3525](https://github.com/serenity-js/serenity-js/issues/3525)
+* **core:** let actors check whether they have an ability ([8584d08](https://github.com/serenity-js/serenity-js/commit/8584d0879e6f352f63ab65a346b8ee0d60365942)), closes [#3524](https://github.com/serenity-js/serenity-js/issues/3524)
+* **core:** make the Ability constructor public ([8c7e74c](https://github.com/serenity-js/serenity-js/commit/8c7e74c6597d79bc3ffa54ee582a5a84bb5e64d6))
+
+
 ## [3.47.2](https://github.com/serenity-js/serenity-js/compare/v3.47.1...v3.47.2) (2026-09-10)
 
 **Note:** Version bump only for package serenity-js-monorepo
