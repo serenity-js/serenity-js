@@ -231,6 +231,7 @@ import type { UsesAbilities } from './UsesAbilities.js';
  *   // Abilities can hold state, for example: the client of a given interface,
  *   // additional configuration, or the result of the last interaction with a given interface.
  *   protected constructor(private readonly phone: Phone) {
+ *      super();
  *   }
  *
  *   // Abilities expose methods that enable Interactions to call the system under test,
@@ -249,7 +250,8 @@ import type { UsesAbilities } from './UsesAbilities.js';
  * // A custom interaction using the actor's ability:
  * const Call = (phoneNumber: Answerable<string>) =>
  *   Interaction.where(the`#actor calls ${ phoneNumber }`, async actor => {
- *     await MakePhoneCalls.as(actor).dial(phoneNumber)
+ *     const phoneNumberValue = await actor.answer(phoneNumber);
+ *     await MakePhoneCalls.as(actor).dial(phoneNumberValue);
  *   })
  * ```
  *
