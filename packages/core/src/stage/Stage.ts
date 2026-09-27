@@ -50,6 +50,17 @@ export class Stage implements EmitsDomainEvents {
 
     private currentScene: CorrelationId = Stage.unknownSceneId;
 
+    /**
+     * Tracks the actor dismissal triggered by the most recently announced
+     * SceneFinishes/TestRunFinishes event, if any.
+     *
+     * dismissActorsIn is invoked without awaiting it, since announce() is synchronous.
+     * waitForNextCue() awaits this promise directly, rather than inferring completion
+     * from the StageManager's work-in-progress registry, so that it reliably waits for
+     * a dismissal that's in flight but hasn't yet had a chance to register itself there.
+     */
+    private pendingDismissal: Promise<void> = Promise.resolve();
+
     private readonly actorLifecycleManager: ActorLifecycleManager
 
     /**
@@ -197,12 +208,12 @@ export class Stage implements EmitsDomainEvents {
         this.manager.notifyOf(event);
 
         if (event instanceof SceneFinishes) {
-            this.dismissActorsIn('foreground');
+            this.pendingDismissal = this.pendingDismissal.then(() => this.dismissActorsIn('foreground'));
             this.actorLifecycleManager.switchFocus('background');
         }
 
         if (event instanceof TestRunFinishes) {
-            this.dismissActorsIn('background');
+            this.pendingDismissal = this.pendingDismissal.then(() => this.dismissActorsIn('background'));
         }
     }
 
@@ -329,7 +340,7 @@ export class Stage implements EmitsDomainEvents {
      * with the next test, or finish execution.
      */
     waitForNextCue(): Promise<void> {
-        return this.manager.waitForNextCue();
+        return this.pendingDismissal.then(() => this.manager.waitForNextCue());
     }
 
     createError<RE extends RuntimeError>(errorType: new (...args: any[]) => RE, options: ErrorOptions): RE {

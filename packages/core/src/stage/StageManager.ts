@@ -35,6 +35,10 @@ export class StageManager {
     }
 
     waitForAsyncOperationsToComplete(): Promise<void> {
+        if (this.wip.hasAllOperationsCompleted()) {
+            return Promise.resolve();
+        }
+
         return new Promise((resolve, reject) => {
 
             const timeout = setTimeout(() => {

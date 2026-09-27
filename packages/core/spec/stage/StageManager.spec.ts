@@ -51,6 +51,17 @@ describe('StageManager', () => {
         return expect(stageManager.waitForNextCue()).to.be.fulfilled;
     });
 
+    it('resolves waitForNextCue quickly when there is no work in progress', async () => {
+
+        const stageManager = new StageManager(Duration.ofMilliseconds(250), new Clock());
+
+        const startedAt = Date.now();
+
+        await stageManager.waitForNextCue();
+
+        expect(Date.now() - startedAt).to.be.lessThan(10);
+    });
+
     it('provides details should the work in progress fail to complete', () => {
 
         const timeout       = Duration.ofMilliseconds(50);
