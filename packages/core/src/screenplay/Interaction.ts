@@ -6,6 +6,11 @@ import type { HasName } from './HasName.js';
 import type { AnswersQuestions } from './questions/index.js';
 
 /**
+ * Must match the key declared in `Activity.ts`.
+ */
+const activityType: unique symbol = Symbol.for('@serenity-js/core/ActivityType');
+
+/**
  * **Interactions** are low-level [activities](https://serenity-js.org/api/core/class/Activity/) that encapsulate
  * a handful of instructions for an [actor](https://serenity-js.org/api/core/class/Actor/) on how to use their [abilities](https://serenity-js.org/api/core/class/Ability/)
  * to perform an individual interaction with the given interface of the system under test.
@@ -69,6 +74,12 @@ import type { AnswersQuestions } from './questions/index.js';
  * @group Screenplay Pattern
  */
 export abstract class Interaction extends Activity {
+
+    /**
+     * Brand used by `Activity[Symbol.hasInstance]` to recognise interactions
+     * created by another copy of `@serenity-js/core`.
+     */
+    private static readonly [activityType] = '@serenity-js/core/Interaction';
 
     /**
      * @param description

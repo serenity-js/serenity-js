@@ -32,6 +32,15 @@ export function fileUrlToPath(fileName: string): string {
 }
 
 /**
+ * Key of the static brand that identifies `Activity`, `Interaction` and `Task` classes
+ * across copies of `@serenity-js/core` loaded from the CJS and ESM builds.
+ *
+ * `Symbol.for` returns the same symbol across module copies, so the key must match
+ * the one declared in `Interaction.ts` and `Task.ts`.
+ */
+const activityType: unique symbol = Symbol.for('@serenity-js/core/ActivityType');
+
+/**
  * **Activities** represents [tasks](https://serenity-js.org/api/core/class/Task/) and [interactions](https://serenity-js.org/api/core/class/Interaction/) to be performed by an [actor](https://serenity-js.org/api/core/class/Actor/).
  *
  * Learn more about:
@@ -43,6 +52,47 @@ export function fileUrlToPath(fileName: string): string {
  * @group Screenplay Pattern
  */
 export abstract class Activity extends Describable {
+
+    private static readonly [activityType] = '@serenity-js/core/Activity';
+
+    /**
+     * Custom `instanceof` check that recognises activities created by another copy of `@serenity-js/core`.
+     *
+     * This addresses the dual-package hazard, where the same class loaded from both the CJS and ESM builds
+     * results in two distinct constructor functions. For example, `Navigate` loaded via `require('@serenity-js/web')`
+     * extends the CJS `Interaction`, while the actor performing it might have been created by the ESM build.
+     *
+     * Checks against `Activity`, `Interaction` and `Task` match any instance whose prototype chain contains
+     * a class with the same brand. Checks against any other subclasses retain the native `instanceof` semantics.
+     *
+     * See https://github.com/serenity-js/serenity-js/issues/3535
+     *
+     * @param instance
+     */
+    static [Symbol.hasInstance](instance: unknown): boolean {
+        if (Function.prototype[Symbol.hasInstance].call(this, instance)) {
+            return true;
+        }
+
+        if (! Object.hasOwn(this, activityType) || instance === null || typeof instance !== 'object') {
+            return false;
+        }
+
+        const expectedType = this[activityType];
+
+        let prototype = Object.getPrototypeOf(instance);
+        while (prototype !== null) {
+            const constructor = prototype.constructor;
+
+            if (typeof constructor === 'function' && Object.hasOwn(constructor, activityType) && constructor[activityType] === expectedType) {
+                return true;
+            }
+
+            prototype = Object.getPrototypeOf(prototype);
+        }
+
+        return false;
+    }
 
     private static errorStackParser = new ErrorStackParser();
     readonly #location: FileSystemLocation;
