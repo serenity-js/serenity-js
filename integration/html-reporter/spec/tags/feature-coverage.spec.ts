@@ -12,13 +12,13 @@ describe('Tags', () => {
                 tagsView.open(),
                 tagsView.selectTag('Todo List'),
 
-                Ensure.that(Page.current().url().href, includes('#/tests')),
-                Ensure.that(Page.current().url().href, includes('search=')),
-                Ensure.that(Page.current().url().href, includes('%40feature')),
+                Ensure.eventually(Page.current().url().href, includes('#/tests')),
+                Ensure.eventually(Page.current().url().href, includes('search=')),
+                Ensure.eventually(Page.current().url().href, includes('%40feature')),
 
                 // The scenarios view shows only the matching scenarios
-                Ensure.that(scenariosView.scenarioCount(), isGreaterThan(0)),
-                Ensure.that(scenariosView.scenarioNames(), contain('Display should display items')),
+                Ensure.eventually(scenariosView.scenarioCount(), isGreaterThan(0)),
+                Ensure.eventually(scenariosView.scenarioNames(), contain('Display should display items')),
             );
         });
 
@@ -29,11 +29,11 @@ describe('Tags', () => {
 
                 tagsView.selectTag('retried'),
 
-                Ensure.that(Page.current().url().href, includes('#/tests')),
-                Ensure.that(Page.current().url().href, includes(encodeURIComponent('@retried'))),
+                Ensure.eventually(Page.current().url().href, includes('#/tests')),
+                Ensure.eventually(Page.current().url().href, includes(encodeURIComponent('@retried'))),
 
                 // The scenarios view shows only the matching scenario
-                Ensure.that(scenariosView.scenarioCount(), isGreaterThan(0)),
+                Ensure.eventually(scenariosView.scenarioCount(), isGreaterThan(0)),
             );
         });
 
@@ -45,13 +45,13 @@ describe('Tags', () => {
                 tagsView.selectTag('Manual'),
 
                 // The URL should contain the double-quoted form: "@External Tests:Manual"
-                Ensure.that(Page.current().url().href, includes('#/tests')),
-                Ensure.that(Page.current().url().href, includes('%22%40External')),
+                Ensure.eventually(Page.current().url().href, includes('#/tests')),
+                Ensure.eventually(Page.current().url().href, includes('%22%40External')),
 
                 // The scenarios view shows only the manually-tagged scenarios
-                Ensure.that(scenariosView.scenarioCount(), isGreaterThan(0)),
-                Ensure.that(scenariosView.scenarioNames(), contain('should verify accessibility')),
-                Ensure.that(scenariosView.scenarioNames(), contain('should verify print layout')),
+                Ensure.eventually(scenariosView.scenarioCount(), isGreaterThan(0)),
+                Ensure.eventually(scenariosView.scenarioNames(), contain('should verify accessibility')),
+                Ensure.eventually(scenariosView.scenarioNames(), contain('should verify print layout')),
             );
         });
     });

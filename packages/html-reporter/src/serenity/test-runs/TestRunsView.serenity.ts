@@ -382,7 +382,7 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
      *  Module name to locate the row
      */
     clickModulePassedCount = (moduleName: string): Task =>
-        this.clickModuleOutcomeCount(moduleName, 4, 'Passed');
+        this.clickModuleOutcomeCount(moduleName, 'passed');
 
     /**
      * Clicks the "Failed" outcome count for a module in the details panel table.
@@ -399,7 +399,7 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
      *  Module name to locate the row
      */
     clickModuleFailedCount = (moduleName: string): Task =>
-        this.clickModuleOutcomeCount(moduleName, 5, 'Failed');
+        this.clickModuleOutcomeCount(moduleName, 'failed');
 
     /**
      * Clicks the "Skipped" outcome count for a module in the details panel table.
@@ -416,29 +416,25 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
      *  Module name to locate the row
      */
     clickModuleSkippedCount = (moduleName: string): Task =>
-        this.clickModuleOutcomeCount(moduleName, 6, 'Skipped');
+        this.clickModuleOutcomeCount(moduleName, 'skipped');
 
     /**
      * Helper to click an outcome count button in the module table.
      * The column layout is: Module (1) | Outcome (2) | Tests (3) | Passed (4) | Failed (5) | Skipped (6)
      */
-    private clickModuleOutcomeCount(moduleName: string, column: number, outcomeLabel: string): Task {
-        return Task.where(`#actor clicks the ${outcomeLabel} count for module "${moduleName}"`,
-            Interaction.where(`#actor finds and clicks the ${outcomeLabel} count`, async actor => {
-                const moduleRows = PageElements.located(By.css('.run-details-table-row'))
-                    .of(this.detailsPanel);
+    private clickModuleOutcomeCount(moduleName: string, filter: 'passed' | 'failed' | 'skipped'): Task {
+        const targetRow = PageElements.located(By.css('.run-details-table-row'))
+            .of(this.detailsPanel)
+            .where(Text, includes(moduleName))
+            .first()
+            .describedAs(`details row for module "${ moduleName }"`);
 
-                const targetRow = moduleRows
-                    .where(Text, includes(moduleName))
-                    .first();
+        const countButton = PageElement.located(By.css(`.count-link[data-filter="${ filter }"]`))
+            .of(targetRow)
+            .describedAs(`${ filter } count button for ${ moduleName }`);
 
-                const countButton = PageElement.located(By.css(`td:nth-child(${column}) .count-link`))
-                    .of(targetRow)
-                    .describedAs(`${outcomeLabel} count button for ${moduleName}`);
-
-                const element = await actor.answer(countButton);
-                await element.click();
-            }),
+        return Task.where(`#actor clicks the ${ filter } count for module "${ moduleName }"`,
+            Click.on(countButton),
         );
     }
 

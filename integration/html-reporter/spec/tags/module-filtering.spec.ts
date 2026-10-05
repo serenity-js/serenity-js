@@ -84,10 +84,10 @@ describe('Module Tagging', () => {
                 scenariosView.selectFilter('Failed'),
 
                 // Should show only the 2 failed playwright-web scenarios
-                Ensure.that(scenariosView.resultCountText(), includes('2')),
+                Ensure.eventually(scenariosView.resultCountText(), includes('2')),
 
                 // URL should have both filters
-                Ensure.that(Page.current().url().href, includes('filter=failed')),
+                Ensure.eventually(Page.current().url().href, includes('filter=failed')),
             );
         });
 

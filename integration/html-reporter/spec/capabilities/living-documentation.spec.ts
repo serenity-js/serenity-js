@@ -22,8 +22,8 @@ describe('Capabilities', () => {
                 capabilitiesView.open(),
                 capabilitiesView.followReadmeLink('End-to-End Flows'),
 
-                Ensure.that(Page.current().url().href, includes('#/capabilities?path=e2e')),
-                Ensure.that(capabilitiesView.scenarioCount(), includes('1')),
+                Ensure.eventually(Page.current().url().href, includes('#/capabilities?path=e2e')),
+                Ensure.eventually(capabilitiesView.scenarioCount(), includes('1')),
             );
         });
 
