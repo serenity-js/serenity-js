@@ -50,17 +50,6 @@ export class Stage implements EmitsDomainEvents {
 
     private currentScene: CorrelationId = Stage.unknownSceneId;
 
-    /**
-     * Tracks the actor dismissal triggered by the most recently announced
-     * SceneFinishes/TestRunFinishes event, if any.
-     *
-     * dismissActorsIn is invoked without awaiting it, since announce() is synchronous.
-     * waitForNextCue() awaits this promise directly, rather than inferring completion
-     * from the StageManager's work-in-progress registry, so that it reliably waits for
-     * a dismissal that's in flight but hasn't yet had a chance to register itself there.
-     */
-    private pendingDismissal: Promise<void> = Promise.resolve();
-
     private readonly actorLifecycleManager: ActorLifecycleManager
 
     /**
@@ -208,12 +197,12 @@ export class Stage implements EmitsDomainEvents {
         this.manager.notifyOf(event);
 
         if (event instanceof SceneFinishes) {
-            this.pendingDismissal = this.pendingDismissal.then(() => this.dismissActorsIn('foreground'));
+            this.dismissActorsIn('foreground');
             this.actorLifecycleManager.switchFocus('background');
         }
 
         if (event instanceof TestRunFinishes) {
-            this.pendingDismissal = this.pendingDismissal.then(() => this.dismissActorsIn('background'));
+            this.dismissActorsIn('background');
         }
     }
 
@@ -232,11 +221,11 @@ export class Stage implements EmitsDomainEvents {
 
         this.actorLifecycleManager.clearSpotlightIfIn(focus);
 
-        // Wait for the Photographer to finish taking any screenshots
-        await this.manager.waitForAsyncOperationsToComplete();
-
         const actorsToDismiss = new Map<Actor, CorrelationId>(actors.map(actor => [ actor, CorrelationId.create() ]));
 
+        // Register the exit attempts before the first `await`, so that they're recorded
+        // while `announce` is still running. This way, `waitForNextCue` invoked right after `announce`
+        // waits for the actors to exit the stage, and reports them if they fail to do so within the cue timeout.
         for (const [ actor, correlationId ] of actorsToDismiss) {
             this.announce(new ActorStageExitAttempted(
                 correlationId,
@@ -244,6 +233,10 @@ export class Stage implements EmitsDomainEvents {
                 this.currentTime(),
             ));
         }
+
+        // Wait for the Photographer to finish taking any screenshots.
+        // Exit attempts can only complete after this wait is over, so we must not wait for them.
+        await this.manager.waitForAsyncOperationsToComplete({ except: Array.from(actorsToDismiss.values()) });
 
         // Try to dismiss each actor
         for (const [ actor, correlationId ] of actorsToDismiss) {
@@ -340,7 +333,7 @@ export class Stage implements EmitsDomainEvents {
      * with the next test, or finish execution.
      */
     waitForNextCue(): Promise<void> {
-        return this.pendingDismissal.then(() => this.manager.waitForNextCue());
+        return this.manager.waitForNextCue();
     }
 
     createError<RE extends RuntimeError>(errorType: new (...args: any[]) => RE, options: ErrorOptions): RE {

@@ -203,6 +203,88 @@ describe('Stage', () => {
             });
         });
 
+        describe('when dismissing actors at the end of a scene', () => {
+
+            class DiscardableAbility extends Ability implements Discardable {
+                public discarded = false;
+
+                constructor(private readonly discardDelay: Duration) {
+                    super();
+                }
+
+                discard(): Promise<void> {
+                    return new Promise(resolve => setTimeout(() => {
+                        this.discarded = true;
+                        resolve();
+                    }, this.discardDelay.inMilliseconds()));
+                }
+            }
+
+            class NeverEndingDiscard extends Ability implements Discardable {
+                discard(): Promise<void> {
+                    return new Promise(() => {
+                        // never resolves, like a browser session that fails to close
+                    });
+                }
+            }
+
+            class ActorsWho implements Cast {
+                constructor(private readonly ability: Ability) {
+                }
+
+                prepare(actor: Actor): Actor {
+                    return actor.whoCan(this.ability);
+                }
+            }
+
+            it('waits for the actors to exit the stage, even when waitForNextCue is called immediately after SceneFinishes', async () => {
+                const ability = new DiscardableAbility(Duration.ofMilliseconds(50));
+                const stage = new Stage(new ActorsWho(ability), new StageManager(Duration.ofSeconds(1), clock), new ErrorFactory(), clock, interactionTimeout);
+
+                stage.announce(new SceneStarts(sceneId, scenario, stage.currentTime()));
+                stage.actor('Alice');
+                stage.announce(new SceneFinishes(sceneId, new ExecutionSuccessful(), stage.currentTime()));
+
+                await stage.waitForNextCue();
+
+                expect(ability.discarded).to.equal(true);
+            });
+
+            it('does not wait for the cue timeout before dismissing the actors', async () => {
+                const timers = sinon.useFakeTimers({ toFake: [ 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval' ] });
+
+                try {
+                    const ability = new DiscardableAbility(Duration.ofMilliseconds(0));
+                    const stage = new Stage(new ActorsWho(ability), new StageManager(Duration.ofSeconds(5), clock), new ErrorFactory(), clock, interactionTimeout);
+
+                    stage.announce(new SceneStarts(sceneId, scenario, stage.currentTime()));
+                    stage.actor('Alice');
+                    stage.announce(new SceneFinishes(sceneId, new ExecutionSuccessful(), stage.currentTime()));
+
+                    // advance the clock by just enough to cover the discard delay and a single polling interval
+                    await timers.tickAsync(10);
+
+                    expect(ability.discarded).to.equal(true);
+                }
+                finally {
+                    timers.restore();
+                }
+            });
+
+            it('complains when an actor fails to exit the stage within the cue timeout', async () => {
+                const stage = new Stage(new ActorsWho(new NeverEndingDiscard()), new StageManager(Duration.ofMilliseconds(50), clock), new ErrorFactory(), clock, interactionTimeout);
+
+                stage.announce(new SceneStarts(sceneId, scenario, stage.currentTime()));
+                stage.actor('Alice');
+                stage.announce(new SceneFinishes(sceneId, new ExecutionSuccessful(), stage.currentTime()));
+
+                await expect(stage.waitForNextCue()).to.be.rejectedWith(
+                    Error,
+                    /1 async operation has failed to complete within a 50ms cue timeout:\n.*\[Stage] Actor Alice exits the stage/,
+                );
+            });
+        });
+
         describe('performing across multiple scenes', () => {
 
             it('dismisses actors instantiated before SceneStarts when TestRunFinishes', async () => {

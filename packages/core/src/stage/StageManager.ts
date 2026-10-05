@@ -34,8 +34,22 @@ export class StageManager {
         this.subscribers.forEach(crewMember => crewMember.notifyOf(event));
     }
 
-    waitForAsyncOperationsToComplete(): Promise<void> {
-        if (this.wip.hasAllOperationsCompleted()) {
+    /**
+     * Returns a promise that resolves when all the async operations in progress have completed,
+     * or when the cue timeout expires, whichever happens first.
+     *
+     * Resolves immediately when there are no operations in progress.
+     *
+     * @param options
+     * @param options.except
+     *  Correlation ids of async operations not to wait for.
+     *  Useful when the caller has registered async operations that can only complete after this wait is over,
+     *  for example, when actors exiting the stage need to wait for any screenshots to be taken first.
+     */
+    waitForAsyncOperationsToComplete(options: { except: CorrelationId[] } = { except: [] }): Promise<void> {
+        const excludedOperations = options.except;
+
+        if (this.wip.hasAllOperationsCompletedExcept(excludedOperations)) {
             return Promise.resolve();
         }
 
@@ -48,7 +62,7 @@ export class StageManager {
             }, this.cueTimeout.inMilliseconds());
 
             const interval = setInterval(() => {
-                if (this.wip.hasAllOperationsCompleted()) {
+                if (this.wip.hasAllOperationsCompletedExcept(excludedOperations)) {
                     clearTimeout(timeout);
                     clearInterval(interval);
 
@@ -121,8 +135,14 @@ class WIP {
         }
     }
 
-    hasAllOperationsCompleted(): boolean {
-        return this.wip.size === 0;
+    hasAllOperationsCompletedExcept(excludedOperations: CorrelationId[]): boolean {
+        for (const correlationId of this.wip.keys()) {
+            if (! excludedOperations.some(excluded => excluded.equals(correlationId))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     hasActiveOperations(): boolean {
