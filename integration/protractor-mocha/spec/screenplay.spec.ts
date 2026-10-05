@@ -62,12 +62,14 @@ describe('Serenity/JS with Protractor and Mocha', function () {
                     expect(event.description).to.equal(new Description('Invoking ProtractorRunner.afterEach...'))
                     asyncHooksId = event.correlationId;
                 })
-                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(asyncHooksId))
+                // The actor's exit attempt is registered as soon as the scene finishes,
+                // but the actor is dismissed only after the afterEach hook has completed
                 .next(ActorStageExitAttempted,  event => {
                     expect(event.name).to.equal(new Name('Stage'))
                     expect(event.description).to.equal(new Description('Actor Mocha exits the stage'))
                     asyncDismissActorId = event.correlationId;
                 })
+                .next(AsyncOperationCompleted,  event => expect(event.correlationId).to.equal(asyncHooksId))
                 .next(ActorStageExitCompleted,  event => expect(event.correlationId).to.equal(asyncDismissActorId))
                 .next(SceneFinished,            event => {
                     expect(event.sceneId).to.equal(currentSceneId);
