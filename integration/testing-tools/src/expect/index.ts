@@ -9,5 +9,6 @@ chai.use(sinonChai);
 chai.use(assertions);
 
 import 'chai-as-promised';
+import 'sinon-chai';
 
 export const expect = chai.expect;
