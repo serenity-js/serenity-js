@@ -1,5 +1,5 @@
 import { includes, isTrue } from '@serenity-js/assertions';
-import type { Activity, Answerable, QuestionAdapter } from '@serenity-js/core';
+import type { Answerable, QuestionAdapter } from '@serenity-js/core';
 import { Question, Task, the, Wait } from '@serenity-js/core';
 import { Attribute, By, Click, PageElement, PageElements, Select, Text, Value } from '@serenity-js/web';
 
@@ -11,6 +11,7 @@ import { Navigation } from '../common/Navigation.serenity.js';
 import { ResultCount } from '../common/ResultCount.serenity.js';
 import { SearchInput } from '../common/SearchInput.serenity.js';
 import { UrlViewState } from '../common/UrlViewState.serenity.js';
+import { ViewControls } from '../common/ViewControls.serenity.js';
 
 /**
  * Interaction object representing the **Capabilities** view in the HTML report.
@@ -85,33 +86,12 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
     private readonly sortSelectElement = this.rootElement.element(By.css('.sort-select')).describedAs('sort dropdown');
     private readonly detailTitleElement = this.rootElement.element(By.css('.req-detail-title')).describedAs('detail title');
 
-    // Mobile helpers
-    private treeSheetTrigger = () =>
-        this.rootElement.element(By.css('[aria-label="Browse capabilities"]'))
-            .describedAs('tree sheet trigger');
-
-    private bottomSheetClose = () =>
-        this.rootElement.element(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
-            .describedAs('bottom sheet close button');
-
-    private openTreeSheet = (): Task =>
-        Task.where('#actor opens the capabilities tree sheet',
-            Click.on(this.treeSheetTrigger()),
-        );
-
-    private closeTreeSheet = (): Task =>
-        Task.where('#actor closes the capabilities tree sheet',
-            Click.on(this.bottomSheetClose()),
-        );
-
-    /**
-     * On mobile, the search input, filters and sort dropdown live in the tree bottom sheet,
-     * so the activities need to be performed while the sheet is open.
-     */
-    private inTreeSheetOnMobile = (...activities: Activity[]): Activity[] =>
-        this.mobile
-            ? [ this.openTreeSheet(), ...activities, this.closeTreeSheet() ]
-            : activities;
+    // Controls shown inline on wider screens, and in a bottom sheet on mobile
+    private readonly viewControls = new ViewControls<NET>(
+        this.rootElement.element(By.css('[aria-label="Browse capabilities"]')).describedAs('tree sheet trigger'),
+        this.rootElement.element(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close')).describedAs('bottom sheet close button'),
+        this.mobile,
+    );
 
     constructor(rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation(), options?: InteractionObjectOptions) {
         super(rootElement, options);
@@ -374,10 +354,10 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
      *  The filter chip label to activate
      */
     selectFilter = (label: Answerable<string>): Task => {
-        const filterBar = this.mobile ? this.mobileFilterBar : this.filterBar;
+        const filterBar = this.viewControls.pick(this.filterBar, this.mobileFilterBar);
 
         return Task.where(the`#actor selects the ${ label } filter`,
-            ...this.inTreeSheetOnMobile(
+            ...this.viewControls.within(
                 filterBar.selectFilter(label),
                 this.urlState.waitUntilEquals('filter', filterBar.filterKey(label)),
             ),
@@ -401,10 +381,10 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
      *  Text to search for (matches capability names)
      */
     find = (searchTerm: Answerable<string>): Task => {
-        const searchInput = this.mobile ? this.mobileSearchInput : this.searchInput;
+        const searchInput = this.viewControls.pick(this.searchInput, this.mobileSearchInput);
 
         return Task.where(the`#actor searches for ${ searchTerm }`,
-            ...this.inTreeSheetOnMobile(
+            ...this.viewControls.within(
                 searchInput.searchFor(searchTerm),
                 this.urlState.waitUntilEquals('search', searchTerm),
             ),
@@ -470,12 +450,13 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
      *  The sort option value to select
      */
     selectSort = (option: Answerable<string>): Task => {
-        const sortDropdown = this.mobile
-            ? this.rootElement.element(By.css('[data-testid="bottom-sheet"] .sort-select')).describedAs('mobile sort dropdown')
-            : this.sortSelectElement;
+        const sortDropdown = this.viewControls.pick(
+            this.sortSelectElement,
+            this.rootElement.element(By.css('[data-testid="bottom-sheet"] .sort-select')).describedAs('mobile sort dropdown'),
+        );
 
         return Task.where(the`#actor sorts by ${ option }`,
-            ...this.inTreeSheetOnMobile(
+            ...this.viewControls.within(
                 Select.value(option).from(sortDropdown),
                 this.urlState.waitUntilEquals('sort', option),
             ),

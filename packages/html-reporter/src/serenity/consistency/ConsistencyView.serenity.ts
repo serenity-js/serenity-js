@@ -2,7 +2,7 @@ import { includes } from '@serenity-js/assertions';
 import type { Answerable, Question } from '@serenity-js/core';
 import type { QuestionAdapter } from '@serenity-js/core';
 import { Task, the } from '@serenity-js/core';
-import { By, Click, PageElement, Text } from '@serenity-js/web';
+import { By, PageElement, Text } from '@serenity-js/web';
 
 import { FilterBar } from '../common/FilterBar.serenity.js';
 import { HistoryDots } from '../common/HistoryDots.serenity.js';
@@ -12,6 +12,7 @@ import { Navigation } from '../common/Navigation.serenity.js';
 import { OutcomeBadge } from '../common/OutcomeBadge.serenity.js';
 import { ResultCount } from '../common/ResultCount.serenity.js';
 import { SearchInput } from '../common/SearchInput.serenity.js';
+import { ViewControls } from '../common/ViewControls.serenity.js';
 import { ScenarioItem } from '../scenarios/ScenarioItem.serenity.js';
 
 /**
@@ -85,25 +86,12 @@ export class ConsistencyView<NET> extends InteractionObject<NET> {
         super(rootElement, options);
     }
 
-    // Mobile helpers
-
-    private filterSheetTrigger = () =>
-        this.rootElement.element(By.css('[aria-label="Search and filter"]'))
-            .describedAs('filter sheet trigger');
-
-    private bottomSheetClose = () =>
-        this.rootElement.element(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
-            .describedAs('bottom sheet close button');
-
-    private openFilterSheet = (): Task =>
-        Task.where('#actor opens the filter sheet',
-            Click.on(this.filterSheetTrigger()),
-        );
-
-    private closeFilterSheet = (): Task =>
-        Task.where('#actor closes the filter sheet',
-            Click.on(this.bottomSheetClose()),
-        );
+    // Controls shown inline on wider screens, and in a bottom sheet on mobile
+    private readonly viewControls = new ViewControls<NET>(
+        this.rootElement.element(By.css('[aria-label="Search and filter"]')).describedAs('filter sheet trigger'),
+        this.rootElement.element(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close')).describedAs('bottom sheet close button'),
+        this.mobile,
+    );
 
     // Behaviour — questions (what the user observes)
 
@@ -207,16 +195,15 @@ export class ConsistencyView<NET> extends InteractionObject<NET> {
      * @param searchTerm
      *  Text to search for (matches scenario names)
      */
-    find = (searchTerm: Answerable<string>): Task =>
-        this.mobile
-            ? Task.where(the`#actor searches for ${searchTerm}`,
-                this.openFilterSheet(),
-                this.mobileSearchInput.searchFor(searchTerm),
-                this.closeFilterSheet(),
-            )
-            : Task.where(the`#actor searches for ${searchTerm}`,
-                this.searchInput.searchFor(searchTerm),
-            );
+    find = (searchTerm: Answerable<string>): Task => {
+        const searchInput = this.viewControls.pick(this.searchInput, this.mobileSearchInput);
+
+        return Task.where(the`#actor searches for ${ searchTerm }`,
+            ...this.viewControls.within(
+                searchInput.searchFor(searchTerm),
+            ),
+        );
+    };
 
     /**
      * Activates a filter chip by label (e.g. `'Flaky'`, `'Degraded'`, `'Recovered'`).
@@ -235,14 +222,15 @@ export class ConsistencyView<NET> extends InteractionObject<NET> {
      * @param label
      *  The filter chip label to activate
      */
-    selectFilter = (label: Answerable<string>): Task =>
-        this.mobile
-            ? Task.where(the`#actor selects the ${label} filter`,
-                this.openFilterSheet(),
-                this.mobileFilterBar.selectFilter(label),
-                this.closeFilterSheet(),
-            )
-            : this.filterBar.selectFilter(label);
+    selectFilter = (label: Answerable<string>): Task => {
+        const filterBar = this.viewControls.pick(this.filterBar, this.mobileFilterBar);
+
+        return Task.where(the`#actor selects the ${ label } filter`,
+            ...this.viewControls.within(
+                filterBar.selectFilter(label),
+            ),
+        );
+    };
 
     /**
      * Navigates to the Consistency view via the sidebar navigation.
