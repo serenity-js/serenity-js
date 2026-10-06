@@ -1,4 +1,4 @@
-import { Ensure, equals, includes } from '@serenity-js/assertions';
+import { Ensure, equals, includes, isPresent } from '@serenity-js/assertions';
 import { Page } from '@serenity-js/web';
 
 import { describe, it } from '../../src';
@@ -25,7 +25,7 @@ describe('Test Runs', () => {
                 testRunsView.clickChartBar(0),
 
                 // Verify the details panel shows module information
-                Ensure.that(testRunsView.hasDetailsPanel(), equals(true)),
+                Ensure.that(testRunsView.detailsPanel, isPresent()),
                 Ensure.that(testRunsView.detailsPanelText(), includes('passing-module')),
                 Ensure.that(testRunsView.detailsPanelText(), includes('failing-module')),
                 Ensure.that(testRunsView.detailsPanelText(), includes('crashed-module')),
@@ -55,7 +55,7 @@ describe('Test Runs', () => {
                 testRunsView.open(),
                 testRunsView.clickChart(),
 
-                Ensure.that(testRunsView.hasDetailsPanel(), equals(true)),
+                Ensure.that(testRunsView.detailsPanel, isPresent()),
                 Ensure.that(testRunsView.detailsPanelText(), includes('PASSED')),
                 Ensure.that(testRunsView.detailsPanelText(), includes('FAILED')),
             );
@@ -66,7 +66,7 @@ describe('Test Runs', () => {
                 testRunsView.open(),
                 testRunsView.clickChart(),
 
-                Ensure.that(testRunsView.hasDetailsPanel(), equals(true)),
+                Ensure.that(testRunsView.detailsPanel, isPresent()),
 
                 testRunsView.clickDetailsCtaButton(),
 

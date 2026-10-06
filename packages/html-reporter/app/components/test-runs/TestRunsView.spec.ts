@@ -1,4 +1,4 @@
-import { and, Ensure, equals, includes } from '@serenity-js/assertions';
+import { and, Ensure, equals, includes, isPresent, not } from '@serenity-js/assertions';
 import { describe, it } from '@serenity-js/playwright-test';
 import { Attribute, By, Click, ComputedStyle, isVisible, PageElement, Value } from '@serenity-js/web';
 
@@ -94,7 +94,7 @@ describe('TestRunsView', () => {
             const view = story('components/test-runs/TestRunsView/Default', props).as(TestRunsView);
 
             await actor.attemptsTo(
-                Ensure.that(view.hasDetailsPanel(), equals(false)),
+                Ensure.that(view.detailsPanel, not(isPresent())),
             );
         });
 
@@ -104,7 +104,7 @@ describe('TestRunsView', () => {
 
             await actor.attemptsTo(
                 view.clickChart(),
-                Ensure.that(view.hasDetailsPanel(), equals(true)),
+                Ensure.that(view.detailsPanel, isPresent()),
             );
         });
 
@@ -162,9 +162,9 @@ describe('TestRunsView', () => {
 
             await actor.attemptsTo(
                 view.clickChart(),
-                Ensure.that(view.hasDetailsPanel(), equals(true)),
+                Ensure.that(view.detailsPanel, isPresent()),
                 view.dismissDetailsPanel(),
-                Ensure.that(view.hasDetailsPanel(), equals(false)),
+                Ensure.that(view.detailsPanel, not(isPresent())),
             );
         });
 
@@ -174,9 +174,9 @@ describe('TestRunsView', () => {
 
             await actor.attemptsTo(
                 view.clickChart(),
-                Ensure.that(view.hasDetailsPanel(), equals(true)),
+                Ensure.that(view.detailsPanel, isPresent()),
                 Click.on(PageElement.located(By.css('body')).describedAs('page body')),
-                Ensure.that(view.hasDetailsPanel(), equals(false)),
+                Ensure.that(view.detailsPanel, not(isPresent())),
             );
         });
     });

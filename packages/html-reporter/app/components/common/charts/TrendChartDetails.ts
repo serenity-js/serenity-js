@@ -49,7 +49,7 @@ export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }
     const hasModules = modules.length > 1;
 
     return html`
-        <div class="run-details-panel" ref=${panelRef} data-testid="run-details-panel">
+        <div class="run-details-panel" ref=${panelRef} data-testid="run-details-panel" data-run-id=${selectedRun.runId}>
           <div class="run-details-header">
             <div class="run-details-title">${selectedRun.label}</div>
             <button class="run-details-close" onClick=${onClose} aria-label="Close details panel">✕</button>
