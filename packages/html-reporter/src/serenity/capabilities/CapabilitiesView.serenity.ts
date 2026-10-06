@@ -1,7 +1,7 @@
-import { includes } from '@serenity-js/assertions';
-import type { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
-import { Task, the } from '@serenity-js/core';
-import { Attribute, By, Click, PageElement, PageElements, Select, Text, Value } from '@serenity-js/web';
+import { equals, includes } from '@serenity-js/assertions';
+import type { Activity, Answerable, QuestionAdapter } from '@serenity-js/core';
+import { Question, Task, the, Wait } from '@serenity-js/core';
+import { Attribute, By, Click, Page, PageElement, PageElements, Select, Text, Value } from '@serenity-js/web';
 
 import { link } from '../../navigation/link.js';
 import { FilterBar } from '../common/FilterBar.serenity.js';
@@ -99,6 +99,15 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
         Task.where('#actor closes the capabilities tree sheet',
             Click.on(this.bottomSheetClose()),
         );
+
+    /**
+     * On mobile, the search input, filters and sort dropdown live in the tree bottom sheet,
+     * so the activities need to be performed while the sheet is open.
+     */
+    private inTreeSheetOnMobile = (...activities: Activity[]): Activity[] =>
+        this.mobile
+            ? [ this.openTreeSheet(), ...activities, this.closeTreeSheet() ]
+            : activities;
 
     constructor(rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation(), options?: InteractionObjectOptions) {
         super(rootElement, options);
@@ -360,14 +369,16 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
      * @param label
      *  The filter chip label to activate
      */
-    selectFilter = (label: Answerable<string>): Task =>
-        this.mobile
-            ? Task.where(the`#actor selects the ${label} filter`,
-                this.openTreeSheet(),
-                this.mobileFilterBar.selectFilter(label),
-                this.closeTreeSheet(),
-            )
-            : this.filterBar.selectFilter(label);
+    selectFilter = (label: Answerable<string>): Task => {
+        const filterBar = this.mobile ? this.mobileFilterBar : this.filterBar;
+
+        return Task.where(the`#actor selects the ${ label } filter`,
+            ...this.inTreeSheetOnMobile(
+                filterBar.selectFilter(label),
+                this.waitUntilUrlReflects('filter', filterBar.filterKey(label)),
+            ),
+        );
+    };
 
     /**
      * Searches for capabilities by entering text into the search input.
@@ -385,16 +396,15 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
      * @param searchTerm
      *  Text to search for (matches capability names)
      */
-    find = (searchTerm: Answerable<string>): Task =>
-        this.mobile
-            ? Task.where(the`#actor searches for ${searchTerm}`,
-                this.openTreeSheet(),
-                this.mobileSearchInput.searchFor(searchTerm),
-                this.closeTreeSheet(),
-            )
-            : Task.where(the`#actor searches for ${searchTerm}`,
-                this.searchInput.searchFor(searchTerm),
-            );
+    find = (searchTerm: Answerable<string>): Task => {
+        const searchInput = this.mobile ? this.mobileSearchInput : this.searchInput;
+
+        return Task.where(the`#actor searches for ${ searchTerm }`,
+            ...this.inTreeSheetOnMobile(
+                searchInput.searchFor(searchTerm),
+            ),
+        );
+    };
 
     /**
      * Clicks a link within the README content section.
@@ -436,16 +446,37 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
      * @param option
      *  The sort option value to select
      */
-    selectSort = (option: Answerable<string>): Task =>
-        this.mobile
-            ? Task.where(the`#actor sorts by ${option}`,
-                this.openTreeSheet(),
-                Select.value(option).from(this.rootElement.element(By.css('[data-testid="bottom-sheet"] .sort-select')).describedAs('mobile sort dropdown')),
-                this.closeTreeSheet(),
-            )
-            : Task.where(the`#actor sorts by ${option}`,
-                Select.value(option).from(this.sortSelectElement),
-            );
+    selectSort = (option: Answerable<string>): Task => {
+        const sortDropdown = this.mobile
+            ? this.rootElement.element(By.css('[data-testid="bottom-sheet"] .sort-select')).describedAs('mobile sort dropdown')
+            : this.sortSelectElement;
+
+        return Task.where(the`#actor sorts by ${ option }`,
+            ...this.inTreeSheetOnMobile(
+                Select.value(option).from(sortDropdown),
+                this.waitUntilUrlReflects('sort', option),
+            ),
+        );
+    };
+
+    /**
+     * Waits until the view has synced the given state parameter to the URL.
+     * The view omits parameters set to their default values from the URL.
+     */
+    private waitUntilUrlReflects = (parameter: 'filter' | 'sort', expectedValue: Answerable<string>): Task =>
+        Task.where(the`#actor waits for the URL to reflect the ${ parameter } parameter`,
+            Wait.until(
+                Question.about<string>(the`${ parameter } parameter of the current URL`, async actor => {
+                    const href = await actor.answer(Page.current().url().href);
+                    const query = href.split('?')[1] ?? '';
+
+                    return new URLSearchParams(query).get(parameter) ?? CapabilitiesView.defaultUrlParameters[parameter];
+                }),
+                equals(expectedValue),
+            ),
+        );
+
+    private static readonly defaultUrlParameters = { filter: 'all', sort: 'name' } as const;
 
     // URL helpers — type-safe navigation URLs using the same link() function as components
 

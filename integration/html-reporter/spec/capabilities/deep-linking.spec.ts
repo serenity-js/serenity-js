@@ -1,5 +1,5 @@
 import { Ensure, equals, includes } from '@serenity-js/assertions';
-import { notes, Wait } from '@serenity-js/core';
+import { notes } from '@serenity-js/core';
 import { Navigate, Page } from '@serenity-js/web';
 
 import { describe, it } from '../../src';
@@ -13,8 +13,7 @@ describe('Capabilities', () => {
                 capabilitiesView.open(),
                 capabilitiesView.selectFilter('Healthy'),
 
-                // Capture the URL with filter state, once the view has synced it to the URL
-                Wait.until(Page.current().url().href, includes('filter=healthy')),
+                // Capture the URL with filter state
                 notes().set('filteredUrl', Page.current().url().href),
 
                 // Navigate away and back via the captured URL
@@ -31,8 +30,6 @@ describe('Capabilities', () => {
                 capabilitiesView.open(),
                 capabilitiesView.selectSort('confidence'),
 
-                // Capture the URL with sort state, once the view has synced it to the URL
-                Wait.until(Page.current().url().href, includes('sort=confidence')),
                 notes().set('sortedUrl', Page.current().url().href),
 
                 Navigate.to('/single/index.html'),
