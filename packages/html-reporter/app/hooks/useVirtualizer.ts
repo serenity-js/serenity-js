@@ -18,6 +18,10 @@ export function useVirtualizer(options: UseVirtualizerOptions): Virtualizer<HTML
     const [, rerender] = useState(0);
     const resolvedOptions: FullVirtualizerOptions<HTMLElement, Element> = {
         ...options,
+        // Until the virtualiser measures the scroll container after mounting,
+        // assume it's as large as the viewport, so that the first render already includes
+        // the rows that will be visible, rather than rendering an empty list first.
+        initialRect: { width: window.innerWidth, height: window.innerHeight },
         observeElementRect,
         observeElementOffset,
         scrollToFn: elementScroll,
