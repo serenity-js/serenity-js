@@ -194,7 +194,7 @@ const performanceModule = createModule({
     ],
 });
 
-// Module 12: mocha-contract (API contract tests, all passing)
+// Module 12: mocha-contract (API contract tests, passing, with one skipped scenario)
 const contractModule = createModule({
     testRunId: '42',
     moduleId: 'mocha-contract',
@@ -206,6 +206,7 @@ const contractModule = createModule({
         { name: 'User schema should match OpenAPI spec', category: 'Contracts', source: { path: 'mocha-contract/user-schema.spec.ts', line: 5 }, features: ['Contracts'], duration: 400 },
         { name: 'Order schema should match OpenAPI spec', category: 'Contracts', source: { path: 'mocha-contract/order-schema.spec.ts', line: 5 }, features: ['Contracts'], duration: 350 },
         { name: 'Payment response should match schema', category: 'Contracts', source: { path: 'mocha-contract/payment-schema.spec.ts', line: 5 }, features: ['Contracts'], duration: 380 },
+        { name: 'Refund response should match schema', category: 'Contracts', source: { path: 'mocha-contract/refund-schema.spec.ts', line: 5 }, features: ['Contracts'], duration: 0, skipped: true },
     ],
 });
 

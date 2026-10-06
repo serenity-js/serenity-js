@@ -17,6 +17,7 @@ export interface SceneDefinition {
     name: string;
     category: string;
     passed?: boolean;           // defaults to true
+    skipped?: boolean;          // defaults to false, takes precedence over `passed`
     duration?: number;          // defaults to 1000ms
     source: { path: string; line: number };
     features?: string[];        // creates feature tags automatically
@@ -71,6 +72,7 @@ interface RunData {
 
 const OUTCOME_SUCCESS = 64;
 const OUTCOME_FAILURE = 4;
+const OUTCOME_SKIPPED = 32;
 
 // -----------------------------------------------------------------------------
 // Generators
@@ -96,12 +98,15 @@ export function createSystemContext(buildNumber: string, overrides: Partial<Syst
  */
 export function createScene(baseTimestamp: string, moduleId: string, definition: SceneDefinition): Scene {
     const passed = definition.passed ?? true;
+    const outcomeCode = definition.skipped
+        ? OUTCOME_SKIPPED
+        : (passed ? OUTCOME_SUCCESS : OUTCOME_FAILURE);
     const featureTags = (definition.features ?? []).map(name => ({ type: 'feature', name }));
 
     return {
         name: definition.name,
         category: definition.category,
-        outcome: { code: passed ? OUTCOME_SUCCESS : OUTCOME_FAILURE },
+        outcome: { code: outcomeCode },
         duration: definition.duration ?? 1000,
         startedAt: baseTimestamp,
         source: definition.source,
@@ -131,6 +136,7 @@ export function createModule(definition: ModuleDefinition): RunData {
 
     const passed = scenes.filter(s => s.outcome.code === OUTCOME_SUCCESS).length;
     const failed = scenes.filter(s => s.outcome.code === OUTCOME_FAILURE).length;
+    const skipped = scenes.filter(s => s.outcome.code === OUTCOME_SKIPPED).length;
 
     // Collect unique feature tags from all scenes
     const featureNames = new Set<string>();
@@ -149,7 +155,7 @@ export function createModule(definition: ModuleDefinition): RunData {
         moduleId: definition.moduleId,
         startedAt: definition.startedAt,
         finishedAt: definition.finishedAt,
-        outcomes: { passed, failed, pending: 0, skipped: 0, compromised: 0, error: 0 },
+        outcomes: { passed, failed, pending: 0, skipped, compromised: 0, error: 0 },
         scenes,
         tags: [...featureTags, { type: 'module', name: definition.moduleId }],
         testRunner: definition.testRunner,
