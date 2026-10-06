@@ -1,4 +1,5 @@
-import { contain, Ensure, includes, isGreaterThan, not } from '@serenity-js/assertions';
+import { contain, Ensure, includes, isGreaterThan, isPresent, not } from '@serenity-js/assertions';
+import { Wait } from '@serenity-js/core';
 import { Page } from '@serenity-js/web';
 
 import { describe, it } from '../../src';
@@ -11,14 +12,15 @@ describe('Tags', () => {
             await actor.attemptsTo(
                 tagsView.open(),
                 tagsView.selectTag('Todo List'),
+                Wait.until(scenariosView, isPresent()),
 
-                Ensure.eventually(Page.current().url().href, includes('#/tests')),
-                Ensure.eventually(Page.current().url().href, includes('search=')),
-                Ensure.eventually(Page.current().url().href, includes('%40feature')),
+                Ensure.that(Page.current().url().href, includes('#/tests')),
+                Ensure.that(Page.current().url().href, includes('search=')),
+                Ensure.that(Page.current().url().href, includes('%40feature')),
 
                 // The scenarios view shows only the matching scenarios
-                Ensure.eventually(scenariosView.scenarioCount(), isGreaterThan(0)),
-                Ensure.eventually(scenariosView.scenarioNames(), contain('Display should display items')),
+                Ensure.that(scenariosView.scenarioCount(), isGreaterThan(0)),
+                Ensure.that(scenariosView.scenarioNames(), contain('Display should display items')),
             );
         });
 
@@ -28,12 +30,13 @@ describe('Tags', () => {
                 tagsView.find('retried'),
 
                 tagsView.selectTag('retried'),
+                Wait.until(scenariosView, isPresent()),
 
-                Ensure.eventually(Page.current().url().href, includes('#/tests')),
-                Ensure.eventually(Page.current().url().href, includes(encodeURIComponent('@retried'))),
+                Ensure.that(Page.current().url().href, includes('#/tests')),
+                Ensure.that(Page.current().url().href, includes(encodeURIComponent('@retried'))),
 
                 // The scenarios view shows only the matching scenario
-                Ensure.eventually(scenariosView.scenarioCount(), isGreaterThan(0)),
+                Ensure.that(scenariosView.scenarioCount(), isGreaterThan(0)),
             );
         });
 
@@ -43,15 +46,16 @@ describe('Tags', () => {
                 tagsView.find('Manual'),
 
                 tagsView.selectTag('Manual'),
+                Wait.until(scenariosView, isPresent()),
 
                 // The URL should contain the double-quoted form: "@External Tests:Manual"
-                Ensure.eventually(Page.current().url().href, includes('#/tests')),
-                Ensure.eventually(Page.current().url().href, includes('%22%40External')),
+                Ensure.that(Page.current().url().href, includes('#/tests')),
+                Ensure.that(Page.current().url().href, includes('%22%40External')),
 
                 // The scenarios view shows only the manually-tagged scenarios
-                Ensure.eventually(scenariosView.scenarioCount(), isGreaterThan(0)),
-                Ensure.eventually(scenariosView.scenarioNames(), contain('should verify accessibility')),
-                Ensure.eventually(scenariosView.scenarioNames(), contain('should verify print layout')),
+                Ensure.that(scenariosView.scenarioCount(), isGreaterThan(0)),
+                Ensure.that(scenariosView.scenarioNames(), contain('should verify accessibility')),
+                Ensure.that(scenariosView.scenarioNames(), contain('should verify print layout')),
             );
         });
     });

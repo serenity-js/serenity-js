@@ -1,5 +1,5 @@
 import { includes } from '@serenity-js/assertions';
-import type { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
+import type { Activity, Answerable, Question, QuestionAdapter } from '@serenity-js/core';
 import { Task, the } from '@serenity-js/core';
 import { By, Click, PageElement, PageElements, Text, Value } from '@serenity-js/web';
 
@@ -11,6 +11,7 @@ import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
 import { ResultCount } from '../common/ResultCount.serenity.js';
 import { SearchInput } from '../common/SearchInput.serenity.js';
+import { UrlViewState } from '../common/UrlViewState.serenity.js';
 import { ScenarioItem } from './ScenarioItem.serenity.js';
 
 /**
@@ -122,6 +123,17 @@ export class ScenariosView<NET> extends InteractionObject<NET> {
             Click.on(this.bottomSheetClose()),
         );
 
+    /**
+     * On mobile, the search input and filters live in the filter bottom sheet,
+     * so the activities need to be performed while the sheet is open.
+     */
+    private inFilterSheetOnMobile = (...activities: Activity[]): Activity[] =>
+        this.mobile
+            ? [ this.openFilterSheet(), ...activities, this.closeFilterSheet() ]
+            : activities;
+
+    private readonly urlState = new UrlViewState({ search: '', filter: 'all', sort: 'category' });
+
     // Behaviour — questions
 
     /**
@@ -206,16 +218,16 @@ export class ScenariosView<NET> extends InteractionObject<NET> {
      * @param searchTerm
      *  Text to search for (matches scenario names)
      */
-    find = (searchTerm: Answerable<string>): Task =>
-        this.mobile
-            ? Task.where(the`#actor searches for ${searchTerm}`,
-                this.openFilterSheet(),
-                this.mobileSearchInput.searchFor(searchTerm),
-                this.closeFilterSheet(),
-            )
-            : Task.where(the`#actor searches for ${searchTerm}`,
-                this.searchInput.searchFor(searchTerm),
-            );
+    find = (searchTerm: Answerable<string>): Task => {
+        const searchInput = this.mobile ? this.mobileSearchInput : this.searchInput;
+
+        return Task.where(the`#actor searches for ${ searchTerm }`,
+            ...this.inFilterSheetOnMobile(
+                searchInput.searchFor(searchTerm),
+                this.urlState.waitUntilEquals('search', searchTerm),
+            ),
+        );
+    };
 
     /**
      * Activates a filter chip by label (e.g. `'Failed'`, `'Passed'`, `'Pending'`).
@@ -234,14 +246,16 @@ export class ScenariosView<NET> extends InteractionObject<NET> {
      * @param label
      *  The filter chip label to activate
      */
-    selectFilter = (label: Answerable<string>): Task =>
-        this.mobile
-            ? Task.where(the`#actor selects the ${label} filter`,
-                this.openFilterSheet(),
-                this.mobileFilterBar.selectFilter(label),
-                this.closeFilterSheet(),
-            )
-            : this.filterBar.selectFilter(label);
+    selectFilter = (label: Answerable<string>): Task => {
+        const filterBar = this.mobile ? this.mobileFilterBar : this.filterBar;
+
+        return Task.where(the`#actor selects the ${ label } filter`,
+            ...this.inFilterSheetOnMobile(
+                filterBar.selectFilter(label),
+                this.urlState.waitUntilContains('filter', filterBar.filterKey(label)),
+            ),
+        );
+    };
 
     /**
      * The displayed result count text (e.g. `'7 of 23 scenarios'`).

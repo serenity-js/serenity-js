@@ -38,7 +38,7 @@ export function DetailPanel({ node, segmentPath, capabilities, onNavigate, onSel
     };
 
     return html`
-        <div class="req-detail-panel">
+        <div class="req-detail-panel" data-path=${segmentPath}>
             <!-- Requirement header: single source of truth -->
             <div class="req-detail-header">
                 <h2 class="req-detail-title">${displayNode.displayName || displayNode.name}</h2>

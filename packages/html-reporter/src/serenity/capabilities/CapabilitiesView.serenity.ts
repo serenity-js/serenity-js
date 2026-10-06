@@ -1,7 +1,7 @@
-import { equals, includes } from '@serenity-js/assertions';
+import { includes, isTrue } from '@serenity-js/assertions';
 import type { Activity, Answerable, QuestionAdapter } from '@serenity-js/core';
 import { Question, Task, the, Wait } from '@serenity-js/core';
-import { Attribute, By, Click, Page, PageElement, PageElements, Select, Text, Value } from '@serenity-js/web';
+import { Attribute, By, Click, PageElement, PageElements, Select, Text, Value } from '@serenity-js/web';
 
 import { link } from '../../navigation/link.js';
 import { FilterBar } from '../common/FilterBar.serenity.js';
@@ -10,6 +10,7 @@ import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
 import { ResultCount } from '../common/ResultCount.serenity.js';
 import { SearchInput } from '../common/SearchInput.serenity.js';
+import { UrlViewState } from '../common/UrlViewState.serenity.js';
 
 /**
  * Interaction object representing the **Capabilities** view in the HTML report.
@@ -73,6 +74,9 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
     private readonly readmeLinks = this.rootElement.elements(By.css('.readme-content a')).describedAs('README links');
     private readonly detailConfidence = this.rootElement.element(By.css('.req-detail-confidence')).describedAs('detail panel confidence score');
     private readonly detailConfidenceLabel = this.rootElement.element(By.css('.req-detail-confidence-label')).describedAs('detail panel confidence label');
+    private readonly detailPanelPath = Attribute.called('data-path').of(this.rootElement.element(By.css('.req-detail-panel')))
+        .describedAs('path of the capability shown in the detail panel');
+    private readonly urlState = new UrlViewState({ search: '', filter: 'all', sort: 'name', path: '' });
     private readonly detailScenarioCount = this.rootElement.element(By.css('.req-detail-scenario-count')).describedAs('detail panel scenario count');
     private readonly childNames = this.rootElement.elements(By.css('.req-detail-child-name')).describedAs('child capability names');
     private readonly treeNodes = this.rootElement.elements(By.css('.req-tree-node')).describedAs('tree nodes');
@@ -375,7 +379,7 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
         return Task.where(the`#actor selects the ${ label } filter`,
             ...this.inTreeSheetOnMobile(
                 filterBar.selectFilter(label),
-                this.waitUntilUrlReflects('filter', filterBar.filterKey(label)),
+                this.urlState.waitUntilEquals('filter', filterBar.filterKey(label)),
             ),
         );
     };
@@ -402,6 +406,7 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
         return Task.where(the`#actor searches for ${ searchTerm }`,
             ...this.inTreeSheetOnMobile(
                 searchInput.searchFor(searchTerm),
+                this.urlState.waitUntilEquals('search', searchTerm),
             ),
         );
     };
@@ -427,7 +432,25 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
                 .first()
                 .describedAs(the`README link ${linkText}`)
             ),
+            Wait.until(this.showsCapabilitySelectedInUrl(), isTrue()),
         );
+
+    /**
+     * README links either point to another capability, which the view selects after the URL changes,
+     * or to another view, such as the list of scenarios in a spec file.
+     */
+    private showsCapabilitySelectedInUrl = (): QuestionAdapter<boolean> =>
+        Question.about('whether the capabilities view shows the capability selected in the URL', async actor => {
+            const viewIsPresent = await actor.answer(this.isPresent());
+            if (! viewIsPresent) {
+                return true;    // navigated to another view
+            }
+
+            const shownPath = await actor.answer(this.detailPanelPath);
+            const selectedPath = await actor.answer(this.urlState.parameter('path'));
+
+            return shownPath === selectedPath;
+        });
 
     /**
      * Selects a sort option from the sort dropdown.
@@ -454,29 +477,10 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
         return Task.where(the`#actor sorts by ${ option }`,
             ...this.inTreeSheetOnMobile(
                 Select.value(option).from(sortDropdown),
-                this.waitUntilUrlReflects('sort', option),
+                this.urlState.waitUntilEquals('sort', option),
             ),
         );
     };
-
-    /**
-     * Waits until the view has synced the given state parameter to the URL.
-     * The view omits parameters set to their default values from the URL.
-     */
-    private waitUntilUrlReflects = (parameter: 'filter' | 'sort', expectedValue: Answerable<string>): Task =>
-        Task.where(the`#actor waits for the URL to reflect the ${ parameter } parameter`,
-            Wait.until(
-                Question.about<string>(the`${ parameter } parameter of the current URL`, async actor => {
-                    const href = await actor.answer(Page.current().url().href);
-                    const query = href.split('?')[1] ?? '';
-
-                    return new URLSearchParams(query).get(parameter) ?? CapabilitiesView.defaultUrlParameters[parameter];
-                }),
-                equals(expectedValue),
-            ),
-        );
-
-    private static readonly defaultUrlParameters = { filter: 'all', sort: 'name' } as const;
 
     // URL helpers — type-safe navigation URLs using the same link() function as components
 
