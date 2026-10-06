@@ -280,7 +280,7 @@ export class ScenariosView<NET> extends InteractionObject<NET> {
     activeFilters = (): Question<Promise<string[]>> =>
         PageElements.located(By.css('.filter-chip[aria-pressed="true"]'))
             .of(this.rootElement)
-            .eachMappedTo(Text)
+            .eachMappedTo(Text.of(PageElement.located(By.css('.chip-label'))))
             .describedAs('active filter labels');
 
     private readonly runSelectorElement = this.rootElement.element(By.css('select[aria-label^="Select test run"]'))
