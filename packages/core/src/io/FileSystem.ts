@@ -38,7 +38,11 @@ export class FileSystem {
     public readFileSync(relativeOrAbsolutePathToFile: Path, options?: { encoding?: null | undefined; flag?: string | undefined; }): Buffer
     public readFileSync(relativeOrAbsolutePathToFile: Path, options: { encoding: BufferEncoding; flag?: string | undefined; } | NodeJS.BufferEncoding): string
     public readFileSync(relativeOrAbsolutePathToFile: Path, options?: (NodeFS.ObjectEncodingOptions & { flag?: string | undefined; }) | NodeJS.BufferEncoding): string | Buffer {
-        return this.fs.readFileSync(this.resolve(relativeOrAbsolutePathToFile).value, options);
+        const resolvedPath = this.resolve(relativeOrAbsolutePathToFile).value;
+
+        return typeof options === 'string'
+            ? this.fs.readFileSync(resolvedPath, options)
+            : this.fs.readFileSync(resolvedPath, options ?? undefined);
     }
 
     public async writeFile(relativeOrAbsolutePathToFile: Path, data: string | NodeJS.ArrayBufferView, options?: NodeFS.WriteFileOptions): Promise<Path> {
