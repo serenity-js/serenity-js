@@ -2,7 +2,7 @@ import htm from 'htm';
 import { h } from 'preact';
 
 import type { ReportHistoryEntry } from '../../../src/cli/reporting/ReportData.js';
-import { computeRunMetrics, normaliseRepoUrl } from '../../utils/computeRunMetrics.js';
+import { computeRunMetrics, normaliseRepositoryUrl } from '../../utils/computeRunMetrics.js';
 import { formatDuration, formatRunLabel, formatTimestamp, scoreColor } from '../../utils/index.js';
 import { link } from '../../utils/link.js';
 import { GitLink } from '../common/GitLink.js';
@@ -17,7 +17,7 @@ interface TestRunRowProps {
 
 export function TestRunRow({ run, onNavigate }: TestRunRowProps): ReturnType<typeof html> {
     const { confidence, failedCount, skippedCount, passedPct, failedPct, skippedPct } = computeRunMetrics(run);
-    const repoUrl = normaliseRepoUrl(run.repositoryUrl);
+    const repositoryUrl = normaliseRepositoryUrl(run.repositoryUrl);
     const labelIsTimestamp = /^\d{4}-\d{2}-\d{2}T/.test(run.label);
 
     return html`
@@ -27,7 +27,7 @@ export function TestRunRow({ run, onNavigate }: TestRunRowProps): ReturnType<typ
           <div class="scenario-meta">
             ${labelIsTimestamp ? null : html`<span>${formatTimestamp(run.timestamp)}</span><span>·</span>`}
             <span>${formatDuration(run.duration)}</span>
-            ${run.commit ? html`<${GitLink} icon=${icons.commit} label=${run.commit.slice(0, 7)} href=${repoUrl ? repoUrl + '/commit/' + run.commit : ''} mono=${true} />` : null}
+            ${run.commit ? html`<${GitLink} icon=${icons.commit} label=${run.commit.slice(0, 7)} href=${repositoryUrl ? repositoryUrl + '/commit/' + run.commit : ''} mono=${true} />` : null}
           </div>
           <div class="run-outcomes-line">
             <span style="font-size:var(--font-sm);font-weight:600;color:${scoreColor(confidence) || 'var(--text-primary)'}" title="Confidence: ${confidence}%">◐${confidence}%</span>

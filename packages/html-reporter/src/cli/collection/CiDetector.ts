@@ -53,7 +53,7 @@ export class CIDetector {
 
     private detectGitHub(): RuntimeContext {
         const prNumber = this.env.GITHUB_EVENT_NAME === 'pull_request' ? this.env.GITHUB_REF_NAME?.split('/')[0] : undefined;
-        const repoUrl = `${ this.env.GITHUB_SERVER_URL }/${ this.env.GITHUB_REPOSITORY }`;
+        const repositoryUrl = `${ this.env.GITHUB_SERVER_URL }/${ this.env.GITHUB_REPOSITORY }`;
         const branch = this.env.GITHUB_HEAD_REF || this.env.GITHUB_REF_NAME;
         return {
             provider: 'GitHub Actions',
@@ -62,12 +62,12 @@ export class CIDetector {
             commit: this.env.GITHUB_SHA,
             commitMessage: this.git('log -1 --pretty=%s'),
             commitAuthor: this.git('log -1 --pretty=%an'),
-            jobUrl: `${ repoUrl }/actions/runs/${ this.env.GITHUB_RUN_ID }`,
+            jobUrl: `${ repositoryUrl }/actions/runs/${ this.env.GITHUB_RUN_ID }`,
             workflow: this.env.GITHUB_WORKFLOW,
-            repositoryUrl: repoUrl,
+            repositoryUrl,
             baseBranch: this.env.GITHUB_BASE_REF || undefined,
             pullRequestNumber: prNumber,
-            pullRequestUrl: prNumber ? `${ repoUrl }/pull/${ prNumber }` : undefined,
+            pullRequestUrl: prNumber ? `${ repositoryUrl }/pull/${ prNumber }` : undefined,
             triggeredBy: this.env.GITHUB_ACTOR,
         };
     }

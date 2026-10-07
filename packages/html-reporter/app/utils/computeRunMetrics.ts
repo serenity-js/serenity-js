@@ -28,7 +28,7 @@ export function computeRunMetrics(run: ReportHistoryEntry): RunMetrics {
     };
 }
 
-export function normaliseRepoUrl(repositoryUrl: string | undefined): string {
+export function normaliseRepositoryUrl(repositoryUrl: string | undefined): string {
     if (!repositoryUrl) return '';
     return repositoryUrl.replace(/\.git$/, '').replace(/^git@([^:]+):/, 'https://$1/');
 }
