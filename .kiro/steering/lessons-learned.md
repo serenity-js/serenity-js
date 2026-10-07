@@ -1,3 +1,8 @@
+---
+inclusion: fileMatch
+fileMatchPattern: "**/html-reporter/**"
+---
+
 # Lessons Learned
 
 Niche patterns and temporary rules discovered during development. Durable conventions are graduated
@@ -133,10 +138,6 @@ Trade-off: address bar stays permanently expanded on mobile.
 
 ## HTML Reporter — Preact Patterns
 
-### htm tagged template return type
-
-Use `ReturnType<typeof html>` as the return type for exported component functions. Do NOT use `VNode` or `VNode<any>`.
-
 ### Preact components that conditionally render nothing: guard at the call site
 
 Don't put `if (condition) return null` inside a component. Let the parent decide whether to render it.
@@ -256,13 +257,34 @@ The `component` name is derived from `io.name`. The `path` is the esbuild import
 
 `SceneRecord` is a discriminated union: `SimpleSceneRecord` (no retries), `RetriedSceneRecord` (has retries + attempts), `OutlineSceneRecord` (has scenarioOutline). Including `retries: 0` in a test helper makes TypeScript try to match `RetriedSceneRecord` which then requires `attempts`. Omit `retries` entirely for simple test scenes.
 
-### Regenerating a served html-report requires re-aggregation, not just compile
+### Recompiling doesn't update the example reports the integration tests serve
 
-`npm run compile` rebuilds the template.js bundle, but the served report uses the old embedded template until you re-run aggregation (e.g., `npx failsafe example:clean example:test example:add-history` in `integration/html-reporter/`).
+`npm run compile` rebuilds the `template.js` bundle, but the reports in `integration/html-reporter/examples/reports/` embed the old template until they're regenerated. `npm test` regenerates them via its `pretest` script (`npm run example`); targeted `npx playwright test` runs don't, so after recompiling their results are invalid.
 
 ### Moving elements outside a `data-testid` container breaks interaction objects
 
 Before restructuring: check which `data-testid` attributes exist and which tests use them as scoping ancestors. If you move a child element outside, the `data-testid` must move to a wrapper encompassing both.
+
+### Use `UrlViewState` and `ViewControls` in view interaction objects
+
+- `UrlViewState<Parameter>` (`src/serenity/common/`) reads the state a view syncs to the URL, falling back to the view's defaults for parameters the view omits. Each view declares its own parameters and defaults: `new UrlViewState({ search: '', filter: 'all', sort: 'name' })`. Tasks use `waitUntilEquals` / `waitUntilContains` to wait for their outcome.
+- `ViewControls` handles controls shown inline on wider screens and in a bottom sheet on mobile: `pick(inline, inSheet)` and `within(...activities)`. Don't check `this.mobile` in views. The Errors view's stats sheet is separate, as KPI cards aren't controls.
+
+### Filter chips: use `data-filter` for keys and `.chip-label` for labels
+
+Chip labels don't always match the keys used in the URL ("At Risk" vs `at-risk`) — read the key from `data-filter`, e.g. via `FilterBar.filterKey(label)`. The chip's full text includes its count (`'Passed\n0'`), so read labels from `.chip-label`.
+
+### Virtualised lists render rows in their first render
+
+`useVirtualizer` sets `initialRect` to the viewport size, so the first render already includes the visible rows. Without it, views briefly render an empty list, and tests read zero rows straight after a view appears.
+
+### Effects that subscribe to events must re-sync after subscribing
+
+`App` re-reads the route straight after adding its `hashchange` listener. Anything that changes between the initial render and the subscription (e.g. navigating to a deep link right after the report loads) is otherwise lost.
+
+### The report lists the latest run's scenarios only
+
+Historical runs are reachable through each scenario's execution history, so scenarios that only existed in an older run can't be listed (#3546). In the `single` example report, run 40 is synthetic, and its scenarios exist in no other run — use the `multi-module` report for tests that navigate from a module table to the list of scenarios.
 
 ---
 
@@ -298,122 +320,3 @@ When a hook or component needs to construct a navigation URL, extend the `LinkOp
 
 ---
 
-## Working Style — Agent-Specific
-
-### Component rewrites can silently drop functionality
-
-When delegating a component rewrite to a sub-agent, existing functionality can be silently lost if:
-1. The rewrite prompt doesn't explicitly list ALL existing behaviours to preserve
-2. No component test covers the specific behaviour
-
-**Prevention:** Before rewriting a component, enumerate its observable behaviours and verify each has a test. If a behaviour isn't tested, add the test FIRST, then rewrite.
-
-### Verify with `npm test` (package script), not bare commands
-
-Always use `npm test` for final verification — it runs pretest hooks, all test suites, and coverage. Bare `npx playwright test` skips these and can pass against stale output. The urge to skip a step is the signal the step is needed.
-
-### Regenerate integration test reports after recompiling
-
-Integration tests serve reports from `examples/reports/`. After `npm run compile` updates the template, the served reports are stale until regenerated: `npm run example:clean && npm run example`.
-
-### Kiro hooks do not fire automatically from the write tool
-
-`.kiro/hooks/` defines `PostFileSave` hooks that run in the IDE. The `write` tool does **not** trigger them. Run hook commands manually after file writes (e.g., `npx eslint <changed-files>`).
-
-### Never bypass commit signing
-
-If `git commit` fails with an SSH passphrase error, do NOT use `-c commit.gpgsign=false`. Instead, set `SSH_AUTH_SOCK` from macOS keychain:
-
-```bash
-SSH_AUTH_SOCK=$(launchctl getenv SSH_AUTH_SOCK) git commit -S -m '...'
-```
-
-The key is in the macOS keychain; `launchctl getenv SSH_AUTH_SOCK` retrieves the socket. Bypassing signing creates unsigned commits that require force-pushing to fix.
-
-### Verify Docker image tags exist before updating CI
-
-Always check the container registry before committing a Docker image tag bump. A tag that doesn't exist in ghcr.io blocks the entire CI pipeline with `manifest unknown`. Verify at:
-- https://github.com/serenity-js/serenity-js-docker/pkgs/container/playwright
-- Or: `docker manifest inspect ghcr.io/serenity-js/playwright:<tag>`
-
-The Serenity Docker image tag format is `v{playwright-version}-{ubuntu-codename}` (e.g., `v1.63.0-resolute`). There is no commit hash in the tag.
-
-### Investigate lint errors before fixing them mechanically
-
-An unused variable may indicate a deeper issue — a missing function call, an incomplete test, or dead code. Before renaming to `_unused` or deleting:
-1. Read the surrounding context to understand the intent
-2. Check if the value was supposed to be passed somewhere (e.g., `data` prop not wired up)
-3. Fix the root cause, not the symptom
-
----
-
-## Agent Design
-
-### Agent definition design: system prompt vs prompt template separation
-
-- **System prompt** — identity, knowledge, constraints (every invocation)
-- **Prompt template** — task-specific workflow (single invocation)
-
-Don't duplicate content between them. `resources` in the agent definition provide deep context without bloating the prompt.
-
----
-
-## Serenity/JS Core — Implementation Gotchas
-
-### Adding `metaQuestionBody` to `Question.about()` changes the proxy inspect output
-
-When you pass a third argument (metaQuestionBody) to `Question.about()`, the underlying statement becomes a `MetaQuestionStatement` instead of a `QuestionStatement`. This changes `util.inspect` output of the proxy from `Proxy<QuestionStatement>` to `Proxy<MetaQuestionStatement>`. Any integration test that asserts on error messages containing the inspect representation will fail. Search for `Proxy<QuestionStatement>` in `integration/web-specs/spec/expectations/` when making such changes.
-
-### QuestionAdapter proxy `apply` trap must unwrap Screenplay return types
-
-When a proxy-forwarded method call returns a `Question` or `Task` (e.g., an Interaction Object method returning `QuestionAdapter<string>` or `Task`), the `apply` trap must unwrap it — resolve Questions via `actor.answer()` and perform Activities via `performAs()`. Without this, the proxy double-wraps the result in another `QuestionAdapter`, causing `Ensure.that()` to receive a proxy object instead of the resolved value.
-
-This was not needed before `.as(Constructor)` because proxy forwarding only targeted primitives (`string`, `number`, `Array`) whose methods return plain values.
-
-### `AnswerQuestions.answer()` does not recursively unwrap Promise<Question>
-
-When `actor.answer()` receives a Promise, it returns the Promise as-is — it does not check whether the resolved value is itself a Question. This means double-wrapped `QuestionAdapter<QuestionAdapter<T>>` won't resolve correctly through `actor.answer()` alone. The unwrapping must happen at the source (the proxy `apply` trap), not in the resolution pipeline.
-
-### `Question` is not PromiseLike — `Awaited` does not unwrap `QuestionAdapter`
-
-`Question<T>` extends `Describable`, not `PromiseLike`. Therefore `Awaited<QuestionAdapter<string>>` does NOT collapse to `string` — it stays as `QuestionAdapter<string>`. The `UnwrapQuestionResult` conditional type was needed in `QuestionAdapterFieldDecorator` to prevent `QuestionAdapter<QuestionAdapter<T>>` at the type level.
-
-### Detecting ES6 classes: use `mapping.prototype`, not error message matching
-
-ES6 classes throw `TypeError: Class constructor X cannot be invoked without 'new'` when called as a function. Matching the error message string is fragile across V8 versions. Instead, check `mapping.prototype` — arrow functions don't have one, so a `TypeError` from a function with a `prototype` strongly indicates a class.
-
-The function-first order matters: `Number(42)` returns a primitive, but `new Number(42)` returns a wrapper object. Call as function first, fall back to `new`.
-
-### `PageElement.createAdapter()` wraps any `Answerable<PageElement>` with proper child element access
-
-When an Interaction Object receives an `Answerable<PageElement>` (which could be a resolved `PageElement` or a deferred `QuestionAdapter<PageElement>`), use `PageElement.createAdapter()` to wrap it. This provides `.element()` and `.elements()` methods for scoped child lookups regardless of whether the root is resolved or deferred. Never use `as any` casts to access `.element()` on an `Answerable<PageElement>`.
-
----
-
-## Serenity/JS Templates — CI Gotchas
-
-### Template migrations must update ALL touchpoints in one PR
-
-A template migration (e.g., switching reporter) touches many files. Missing any one requires a follow-up PR. The full checklist:
-- `package.json` (deps + scripts)
-- Config file (crew configuration)
-- `.gitignore`
-- `.github/workflows/*.yml`
-- `.devcontainer/devcontainer.json`
-- `README.md` (prerequisites, report paths, scripts docs, troubleshooting, documentation links)
-
-Review the README last — it's the most commonly missed because it's prose, not code.
-
-### `@wdio/xvfb` auto-detection breaks IPC in Docker containers
-
-WebdriverIO 9.30+ bundles `@wdio/xvfb` into `@wdio/local-runner` and auto-activates it when it detects `--headless` Chrome *and* `xvfb-run` is available in PATH. In Docker containers (like the `ghcr.io/serenity-js/playwright` image), `xvfb-run` is present but wrapping the worker process with it breaks Node's IPC channel (`EINVAL` on `process.send()`). Fix: set `autoXvfb: false` in `wdio.conf.ts`.
-
-### Renovate lock file drift on major version bumps
-
-Renovate can update `package.json` without regenerating `package-lock.json` correctly, especially for major version bumps that introduce new transitive dependencies (e.g. Cucumber 13 adding `@cucumber/pretty-formatter` and `@cucumber/query`). CI then fails with `npm ci` complaining about missing packages in the lock file. Fix: add `:lockFileMaintenance` to the Renovate `extends` array — this periodically regenerates the lock file and catches drift before it breaks CI.
-
-### Never place two callouts immediately adjacent to each other
-
-Two consecutive `:::tip` / `:::note` / `:::warning` blocks create visual clutter and neither gets read. Move one to a more relevant location, combine them into one callout, or separate them with prose.
-
----
