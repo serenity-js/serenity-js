@@ -35,6 +35,12 @@ module.exports.scopes = {
             'eslint',
         ];
     },
+    agents() {
+        return [
+            // AI agent definitions, steering docs and specs in .kiro/
+            'agents',
+        ];
+    },
     reservedForAutomatedCommits() {
         return [
             // Reserved for semantic release
@@ -47,6 +53,7 @@ module.exports.scopes = {
             ...this.documentation(),
             ...this.dependencies(),
             ...this.ci(),
+            ...this.agents(),
             ...this.reservedForAutomatedCommits()
         ]
     }
