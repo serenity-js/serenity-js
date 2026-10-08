@@ -73,7 +73,7 @@ jobs:
       - name: Test
         run: make test
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0
+        uses: qltysh/qlty-action/coverage@c9b09987143d1e4ac955f4803c7bea742102feb5 # v2.4.0
         with:
           oidc: true
           command: publish
@@ -173,7 +173,7 @@ jobs:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target/site/serenity"'
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0
+        uses: qltysh/qlty-action/coverage@c9b09987143d1e4ac955f4803c7bea742102feb5 # v2.4.0
         with:
           oidc: true
           command: publish
@@ -230,7 +230,7 @@ jobs:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target/site/serenity"'
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0
+        uses: qltysh/qlty-action/coverage@c9b09987143d1e4ac955f4803c7bea742102feb5 # v2.4.0
         with:
           oidc: true
           command: publish
@@ -290,7 +290,7 @@ jobs:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target"'
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0
+        uses: qltysh/qlty-action/coverage@c9b09987143d1e4ac955f4803c7bea742102feb5 # v2.4.0
         with:
           oidc: true
           command: publish
@@ -352,7 +352,7 @@ jobs:
           retention-days: 3
           if-no-files-found: ignore
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0
+        uses: qltysh/qlty-action/coverage@c9b09987143d1e4ac955f4803c7bea742102feb5 # v2.4.0
         with:
           oidc: true
           command: publish
@@ -381,7 +381,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0
+        uses: qltysh/qlty-action/coverage@c9b09987143d1e4ac955f4803c7bea742102feb5 # v2.4.0
         with:
           oidc: true
           command: complete
