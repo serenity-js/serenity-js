@@ -24,7 +24,9 @@
     "test": "cross-env PORT=8080 failsafe clean test:acceptance test:report",
     "test:acceptance": "start-server-and-test start 'http://localhost:8080' test:acceptance:run",
     "start": "npx web-specs-start",
-    "test:acceptance:run": "cross-env-shell c8 --reports-dir=\"./target/coverage/\" wdio wdio.conf.ts",
+    "test:acceptance:run": "failsafe test:acceptance:run:default test:acceptance:run:type-only-imports",
+    "test:acceptance:run:default": "cross-env-shell c8 --reports-dir=\"./target/coverage/\" wdio wdio.conf.ts",
+    "test:acceptance:run:type-only-imports": "wdio type-only-imports/wdio.conf.ts",
     "test:report": "serenity-bdd run"
   },
   "repository": {

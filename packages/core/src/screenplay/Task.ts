@@ -4,6 +4,11 @@ import { Activity } from './Activity.js';
 import type { Answerable } from './Answerable.js';
 
 /**
+ * Must match the key declared in `Activity.ts`.
+ */
+const activityType: unique symbol = Symbol.for('@serenity-js/core/ActivityType');
+
+/**
  * **Tasks** model **[sequences of activities](https://serenity-js.org/api/core/class/Activity/)**
  * and help you capture meaningful steps of an [actor](https://serenity-js.org/api/core/class/Actor/) workflow
  * in your domain.
@@ -173,6 +178,12 @@ import type { Answerable } from './Answerable.js';
  * @group Screenplay Pattern
  */
 export abstract class Task extends Activity {
+
+    /**
+     * Brand used by `Activity[Symbol.hasInstance]` to recognise tasks
+     * created by another copy of `@serenity-js/core`.
+     */
+    private static readonly [activityType] = '@serenity-js/core/Task';
 
     /**
      * A factory method that makes defining custom tasks more convenient.
