@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.48.1](https://github.com/serenity-js/serenity-js/compare/v3.48.0...v3.48.1) (2026-10-08)
+
+### Bug Fixes
+
+* **core:** narrow readFileSync options to match @types/node overloads ([a028883](https://github.com/serenity-js/serenity-js/commit/a02888376017463086a803ae2d832d6f01705224))
+* **deps:** update dependency lru-cache to v11.5.3 ([477c3f1](https://github.com/serenity-js/serenity-js/commit/477c3f1a6c14f720d2931c41762c45f02bad3ca6))
+* **deps:** update html reporter dependencies ([4ccad85](https://github.com/serenity-js/serenity-js/commit/4ccad85593668758128c9b5ea12cd6a51337e25c))
+* **deps:** update webdriverio dependencies to ^9.32.0 ([b38a2f5](https://github.com/serenity-js/serenity-js/commit/b38a2f50a41f869df82b9f81e51464ce3e0909e2))
+
+
 # [3.48.0](https://github.com/serenity-js/serenity-js/compare/v3.47.2...v3.48.0) (2026-09-15)
 
 ### Bug Fixes
