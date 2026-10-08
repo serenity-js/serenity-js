@@ -14,7 +14,6 @@ import {
 } from '@serenity-js/core';
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest';
-import { AxiosError } from 'axios';
 import * as http from 'http';
 import { afterEach, before, describe, it } from 'mocha';
 import { createProxy, ProxyServer } from 'proxy';
@@ -279,7 +278,7 @@ describe('Serenity/JS REST', function () {
             ).
             to.be.rejectedWith(TestCompromisedError, `The API call has failed: GET ${ serverUrl }`).
             then((error: TestCompromisedError) => {
-                expect(error.cause).to.be.instanceOf(AxiosError);
+                expect(error.cause).to.have.property('isAxiosError', true);
                 expect(error.cause.name).to.equal('ConfigurationError');
                 expect(error.cause.message).to.equal(`Unsupported protocol for proxy URL: invalid://127.0.0.1`);
             });
