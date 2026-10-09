@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.48.2](https://github.com/serenity-js/serenity-js/compare/v3.48.1...v3.48.2) (2026-10-09)
+
+### Bug Fixes
+
+* **core:** recognise activities across CJS and ESM copies of @serenity-js/core ([d17cfc5](https://github.com/serenity-js/serenity-js/commit/d17cfc51689f681a271cf08647355a103c850e07)), closes [#3535](https://github.com/serenity-js/serenity-js/issues/3535)
+
+
 ## [3.48.1](https://github.com/serenity-js/serenity-js/compare/v3.48.0...v3.48.1) (2026-10-08)
 
 ### Bug Fixes
