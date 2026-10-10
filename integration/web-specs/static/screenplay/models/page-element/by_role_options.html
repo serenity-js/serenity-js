@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Serenity/JS By.role() options examples</title>
+</head>
+<body>
+
+<section aria-label="Toolbar">
+    <button>Save</button>
+    <button>Save draft</button>
+    <button>Say "hello"</button>
+    <button>Back\slash</button>
+    <button aria-pressed="true">Bold</button>
+    <button aria-pressed="false">Italic</button>
+    <button aria-expanded="true">Expanded menu</button>
+    <button aria-expanded="false">Collapsed menu</button>
+    <button disabled>Disabled action</button>
+</section>
+
+<div role="dialog" aria-label="Settings">
+    <button>Save</button>
+    <button>Cancel</button>
+</div>
+
+<form aria-label="Preferences">
+    <label><input type="checkbox" checked /> Newsletter</label>
+    <label><input type="checkbox" /> Offers</label>
+</form>
+
+<div role="tablist">
+    <div role="tab" aria-selected="true">First tab</div>
+    <div role="tab" aria-selected="false">Second tab</div>
+</div>
+
+<h1>Main heading</h1>
+<h3>Sub heading</h3>
+
+<button style="display: none">Hidden action</button>
+
+</body>
+</html>

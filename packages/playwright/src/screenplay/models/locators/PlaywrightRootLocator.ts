@@ -26,7 +26,7 @@ export class PlaywrightRootLocator extends RootLocator<playwright.Locator> {
         return true;
     }
 
-    nativeElement(): Promise<Pick<playwright.Locator, 'locator'>> {
+    nativeElement(): Promise<Pick<playwright.Locator, 'locator' | 'getByRole'>> {
         return promised(this.currentFrame);
     }
 
