@@ -525,12 +525,11 @@ jobs:
             echo "::error::'$TAG' is not a release tag, expected something like v3.49.0"
             exit 1
           fi
-      # The release tag might predate the retry script, so keep the copy from this workflow's commit
+      # The release tag might predate the retry script, so keep the copy from this workflow's commit.
+      # This checkout must not be sparse: actions/checkout leaves sparse checkout enabled in the workspace,
+      # so the release checkout below would then contain the retry script only.
       - name: Check out release tools
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-        with:
-          sparse-checkout: bin/lerna-publish-with-retry.sh
-          sparse-checkout-cone-mode: false
       - name: Keep release tools
         shell: bash
         run: cp bin/lerna-publish-with-retry.sh "$RUNNER_TEMP/"
