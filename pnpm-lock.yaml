@@ -3400,17 +3400,17 @@ importers:
         specifier: workspace:*
         version: link:../core
       agent-base:
-        specifier: 7.1.4
-        version: 7.1.4
+        specifier: 9.0.0
+        version: 9.0.0
       axios:
         specifier: 1.20.0
         version: 1.20.0(debug@4.4.3(supports-color@11.0.0))(supports-color@11.0.0)
       http-proxy-agent:
-        specifier: 7.0.2
-        version: 7.0.2(supports-color@11.0.0)
+        specifier: 9.1.0
+        version: 9.1.0(supports-color@11.0.0)
       https-proxy-agent:
-        specifier: 7.0.6
-        version: 7.0.6(supports-color@11.0.0)
+        specifier: 9.1.0
+        version: 9.1.0(supports-color@11.0.0)
       lru-cache:
         specifier: 11.5.3
         version: 11.5.3
@@ -5934,6 +5934,10 @@ packages:
     resolution: {integrity: sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==}
     engines: {node: '>= 14'}
 
+  agent-base@9.0.0:
+    resolution: {integrity: sha512-TQf59BsZnytt8GdJKLPfUZ54g/iaUL2OWDSFCCvMOhsHduDQxO8xC4PNeyIkVcA5KwL2phPSv0douC0fgWzmnA==}
+    engines: {node: '>= 20'}
+
   aggregate-error@3.1.0:
     resolution: {integrity: sha512-4I7Td01quW/RpocfNayFdFVk1qSuoh0E7JrbRJ16nH01HhKFQ88INq9Sd+nd72zqRySlr9BmDA8xlEJ6vJMrYA==}
     engines: {node: '>=8'}
@@ -8239,6 +8243,10 @@ packages:
     resolution: {integrity: sha512-T1gkAiYYDWYx3V5Bmyu7HcfcvL7mUrTWiM6yOfa3PIphViJ/gFPbvidQ+veqSOHci/PxBcDabeUNCzpOODJZig==}
     engines: {node: '>= 14'}
 
+  http-proxy-agent@9.1.0:
+    resolution: {integrity: sha512-2NxoveTT58mjYT4n3RPTEfCZGLMbidoO8XEieXfpSYxu+PQJ1qpx4ypwH6N+uF9twBPIvRRgvkvW5HUTYWENig==}
+    engines: {node: '>= 20'}
+
   http-proxy@1.18.1:
     resolution: {integrity: sha512-7mz/721AbnJwIVbnaSv1Cz3Am0ZLT/UBwkC92VlxhXv/k/BBQfM2fXElQNC27BVGr0uwUpplYPQM9LnaBMR5NQ==}
     engines: {node: '>=8.0.0'}
@@ -8275,6 +8283,10 @@ packages:
   https-proxy-agent@7.0.6:
     resolution: {integrity: sha512-vK9P5/iUfdl95AI+JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==}
     engines: {node: '>= 14'}
+
+  https-proxy-agent@9.1.0:
+    resolution: {integrity: sha512-ag87y7cJJ9/3+GxFr8Oy4O5faDsGRGnBGsJj/YjOSsSx/5eadKLYTMPlzuR6obgoCDDm0abAAZitXXQkMOPSpA==}
+    engines: {node: '>= 20'}
 
   human-signals@2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
@@ -10096,6 +10108,15 @@ packages:
   proxy-addr@2.0.8:
     resolution: {integrity: sha512-5nnx0yGyVUcY6t9RnWcARWtwT9F1D8O9rt08htPvnd49W1IgZtmLkhu9WfMzQj1cFxjHIO6connUNVW5k7AVyQ==}
     engines: {node: '>= 0.10'}
+
+  proxy-agent-negotiate@1.1.0:
+    resolution: {integrity: sha512-N8IBcM3UgCVzz2L2Lqv8DVntDnnC8/hiV4nEDUPkqq72TPUgYWjQc+bdZlBPZK9LzPAvOY//gAt0S0DApoOXWQ==}
+    engines: {node: '>= 20'}
+    peerDependencies:
+      kerberos: ^2.0.0
+    peerDependenciesMeta:
+      kerberos:
+        optional: true
 
   proxy-agent@6.3.1:
     resolution: {integrity: sha512-Rb5RVBy1iyqOtNl15Cw/llpeLH8bsb37gM1FUfKQ+Wck6xHlbAhWGUFiTRHtkjqGTA5pSHz6+0hrPW/oECihPQ==}
@@ -14990,6 +15011,8 @@ snapshots:
 
   agent-base@7.1.4: {}
 
+  agent-base@9.0.0: {}
+
   aggregate-error@3.1.0:
     dependencies:
       clean-stack: 2.2.0
@@ -15182,6 +15205,16 @@ snapshots:
   axios@1.20.0(debug@4.4.3(supports-color@11.0.0))(supports-color@11.0.0):
     dependencies:
       follow-redirects: 1.16.1(debug@4.4.3(supports-color@11.0.0))
+      form-data: 4.0.6
+      https-proxy-agent: 5.0.1(supports-color@11.0.0)
+      proxy-from-env: 2.1.0
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+
+  axios@1.20.0(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0):
+    dependencies:
+      follow-redirects: 1.16.1(debug@4.4.3(supports-color@7.2.0))
       form-data: 4.0.6
       https-proxy-agent: 5.0.1(supports-color@11.0.0)
       proxy-from-env: 2.1.0
@@ -17336,6 +17369,10 @@ snapshots:
     optionalDependencies:
       debug: 4.4.3(supports-color@11.0.0)
 
+  follow-redirects@1.16.1(debug@4.4.3(supports-color@7.2.0)):
+    optionalDependencies:
+      debug: 4.4.3(supports-color@7.2.0)
+
   follow-redirects@1.16.1(debug@4.4.3(supports-color@8.1.1)):
     optionalDependencies:
       debug: 4.4.3(supports-color@8.1.1)
@@ -17805,6 +17842,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  http-proxy-agent@9.1.0(supports-color@11.0.0):
+    dependencies:
+      agent-base: 9.0.0
+      debug: 4.4.3(supports-color@11.0.0)
+      proxy-agent-negotiate: 1.1.0
+    transitivePeerDependencies:
+      - kerberos
+      - supports-color
+
   http-proxy@1.18.1(debug@4.4.3(supports-color@11.0.0)):
     dependencies:
       eventemitter3: 4.0.7
@@ -17891,6 +17937,15 @@ snapshots:
       agent-base: 7.1.4
       debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
+      - supports-color
+
+  https-proxy-agent@9.1.0(supports-color@11.0.0):
+    dependencies:
+      agent-base: 9.0.0
+      debug: 4.4.3(supports-color@11.0.0)
+      proxy-agent-negotiate: 1.1.0
+    transitivePeerDependencies:
+      - kerberos
       - supports-color
 
   human-signals@2.1.0: {}
@@ -19938,6 +19993,8 @@ snapshots:
       forwarded: 0.2.0
       ipaddr.js: 1.9.1
 
+  proxy-agent-negotiate@1.1.0: {}
+
   proxy-agent@6.3.1(supports-color@11.0.0):
     dependencies:
       agent-base: 7.1.4
@@ -20834,7 +20891,7 @@ snapshots:
       execa: 5.1.1
       lazy-ass: 2.0.3
       tree-kill: 1.2.2
-      wait-on: 9.1.0(debug@4.4.3(supports-color@11.0.0))(supports-color@11.0.0)
+      wait-on: 9.1.0(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -21470,9 +21527,9 @@ snapshots:
       tsx: 4.23.15
       yaml: 2.9.1
 
-  wait-on@9.1.0(debug@4.4.3(supports-color@11.0.0))(supports-color@11.0.0):
+  wait-on@9.1.0(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0):
     dependencies:
-      axios: 1.20.0(debug@4.4.3(supports-color@11.0.0))(supports-color@11.0.0)
+      axios: 1.20.0(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0)
       joi: 18.2.9
       lodash: 4.18.1
       minimist: 1.2.8
