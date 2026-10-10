@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [ main ]
     types: [ opened, synchronize ]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to publish the missing packages of, e.g. v3.49.0'
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -14,6 +20,7 @@ jobs:
 
   lint:
     name: 'Lint'
+    if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-26.04
     container:
       image: ghcr.io/serenity-js/playwright:v1.64.0-resolute
@@ -27,6 +34,7 @@ jobs:
 
   compile:
     name: 'Compile'
+    if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-26.04
     container:
       image: ghcr.io/serenity-js/playwright:v1.64.0-resolute
@@ -481,10 +489,59 @@ jobs:
       - name: Decompress Libs
         run: 7z x -aoa compiled-libs.zip
 
-      - name: Publish artifacts
-        run: pnpm lerna:publish
+      - name: Version packages
+        run: pnpm lerna:version
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # Publishing is separate from versioning, so that a failed publish can be retried,
+      # in this job or later via workflow_dispatch, without creating a new version.
+      - name: Publish artifacts
+        shell: bash
+        run: bin/lerna-publish-with-retry.sh 3
+
       - name: Print versions
         run: pnpm version:print >> $GITHUB_STEP_SUMMARY
+
+  # Publishes the packages of an existing release that didn't make it to npm,
+  # for example after an intermittent registry or transparency log failure.
+  # Run it from the Actions tab: "Main" → "Run workflow" → tag, e.g. v3.49.0
+  artifacts-republish:
+    name: 'NPM: publish missing artifacts'
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: ubuntu-26.04
+    container:
+      image: ghcr.io/serenity-js/playwright:v1.64.0-resolute
+    steps:
+      - name: Validate tag
+        shell: bash
+        env:
+          TAG: ${{ inputs.tag }}
+        run: |
+          if [[ ! "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::'$TAG' is not a release tag, expected something like v3.49.0"
+            exit 1
+          fi
+      # The release tag might predate the retry script, so keep the copy from this workflow's commit
+      - name: Check out release tools
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          sparse-checkout: bin/lerna-publish-with-retry.sh
+          sparse-checkout-cone-mode: false
+      - name: Keep release tools
+        shell: bash
+        run: cp bin/lerna-publish-with-retry.sh "$RUNNER_TEMP/"
+      - name: Check out the release
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: refs/tags/${{ inputs.tag }}
+      - name: Set up Node
+        uses: ./.github/actions/setup-node-container
+      - name: Compile
+        run: make COMPILE_SCOPE=libs compile
+      - name: Publish missing artifacts
+        shell: bash
+        run: '"$RUNNER_TEMP/lerna-publish-with-retry.sh" 3'
