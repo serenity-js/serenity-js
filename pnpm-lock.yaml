@@ -244,9 +244,12 @@ importers:
       mocha-testdata:
         specifier: 1.2.0
         version: 1.2.0
+      nx:
+        specifier: 23.2.1
+        version: 23.2.1
       playwright:
-        specifier: 1.63.0
-        version: 1.63.0
+        specifier: 1.64.0
+        version: 1.64.0
       rimraf:
         specifier: 6.1.3
         version: 6.1.3
@@ -555,8 +558,8 @@ importers:
   examples/playwright-test-todomvc:
     devDependencies:
       '@playwright/test':
-        specifier: 1.63.0
-        version: 1.63.0
+        specifier: 1.64.0
+        version: 1.64.0
       '@serenity-js/assertions':
         specifier: workspace:*
         version: link:../../packages/assertions
@@ -1641,8 +1644,8 @@ importers:
   integration/html-reporter:
     devDependencies:
       '@playwright/test':
-        specifier: 1.63.0
-        version: 1.63.0
+        specifier: 1.64.0
+        version: 1.64.0
       '@serenity-js/assertions':
         specifier: workspace:*
         version: link:../../packages/assertions
@@ -1674,8 +1677,8 @@ importers:
         specifier: 1.4.0
         version: 1.4.0
       playwright:
-        specifier: 1.63.0
-        version: 1.63.0
+        specifier: 1.64.0
+        version: 1.64.0
       tsx:
         specifier: 4.23.15
         version: 4.23.15
@@ -1866,8 +1869,8 @@ importers:
         specifier: 1.4.0
         version: 1.4.0
       playwright:
-        specifier: 1.63.0
-        version: 1.63.0
+        specifier: 1.64.0
+        version: 1.64.0
       ts-node:
         specifier: 10.9.2
         version: 10.9.2(@types/node@24.19.1)(typescript@5.9.3)
@@ -1887,8 +1890,8 @@ importers:
         specifier: workspace:*
         version: link:../testing-tools
       '@playwright/test':
-        specifier: 1.63.0
-        version: 1.63.0
+        specifier: 1.64.0
+        version: 1.64.0
       '@serenity-js/assertions':
         specifier: workspace:*
         version: link:../../packages/assertions
@@ -1942,8 +1945,8 @@ importers:
         specifier: workspace:*
         version: link:../testing-tools
       '@playwright/test':
-        specifier: 1.63.0
-        version: 1.63.0
+        specifier: 1.64.0
+        version: 1.64.0
       '@serenity-js/assertions':
         specifier: workspace:*
         version: link:../../packages/assertions
@@ -2039,8 +2042,8 @@ importers:
         specifier: 1.4.0
         version: 1.4.0
       playwright:
-        specifier: 1.63.0
-        version: 1.63.0
+        specifier: 1.64.0
+        version: 1.64.0
       start-server-and-test:
         specifier: 3.0.12
         version: 3.0.12(supports-color@8.1.1)
@@ -3025,8 +3028,8 @@ importers:
         version: 4.6.5
     devDependencies:
       '@playwright/test':
-        specifier: 1.63.0
-        version: 1.63.0
+        specifier: 1.64.0
+        version: 1.64.0
       '@serenity-js/assertions':
         specifier: workspace:*
         version: link:../assertions
@@ -3242,8 +3245,8 @@ importers:
         specifier: 12.0.3
         version: 12.0.3
       playwright-core:
-        specifier: 1.63.0
-        version: 1.63.0
+        specifier: 1.64.0
+        version: 1.64.0
       sinon:
         specifier: 20.0.0
         version: 20.0.0
@@ -3285,8 +3288,8 @@ importers:
         specifier: workspace:*
         version: link:../../integration/testing-tools
       '@playwright/test':
-        specifier: 1.63.0
-        version: 1.63.0
+        specifier: 1.64.0
+        version: 1.64.0
       '@types/chai':
         specifier: 4.3.20
         version: 4.3.20
@@ -3551,13 +3554,13 @@ importers:
         version: link:../core
       '@serenity-js/cucumber':
         specifier: ^3.0.0
-        version: 3.48.2(@cucumber/cucumber@13.2.1)(cucumber@6.0.7)
+        version: link:../cucumber
       '@serenity-js/jasmine':
         specifier: ^3.0.0
-        version: 3.48.2(jasmine@6.3.0)
+        version: link:../jasmine
       '@serenity-js/mocha':
         specifier: ^3.0.0
-        version: 3.48.2(mocha@12.0.3)
+        version: link:../mocha
       '@serenity-js/rest':
         specifier: workspace:*
         version: link:../rest
@@ -3624,13 +3627,13 @@ importers:
         version: link:../core
       '@serenity-js/cucumber':
         specifier: ^3.0.0
-        version: 3.48.2(@cucumber/cucumber@13.2.1)(cucumber@6.0.7)
+        version: link:../cucumber
       '@serenity-js/jasmine':
         specifier: ^3.0.0
-        version: 3.48.2(jasmine@6.3.0)
+        version: link:../jasmine
       '@serenity-js/mocha':
         specifier: ^3.0.0
-        version: 3.48.2(mocha@12.0.3)
+        version: link:../mocha
       '@serenity-js/rest':
         specifier: workspace:*
         version: link:../rest
@@ -3918,9 +3921,6 @@ packages:
   '@cucumber/ci-environment@13.0.0':
     resolution: {integrity: sha512-cs+3NzfNkGbcmHPddjEv4TKFiBpZRQ6WJEEufB9mw+ExS22V/4R/zpDSEG+fsJ/iSNCd6A2sATdY8PFOyY3YnA==}
 
-  '@cucumber/ci-environment@14.0.0':
-    resolution: {integrity: sha512-CJbjPPGuk1fArPRVKB6FU2q9FHxOQOeq7IEJcB2NLNhOhV97uazLxvwD5ucAJb/flky+czOLhvaYaRAF6l5QYQ==}
-
   '@cucumber/ci-environment@15.0.0':
     resolution: {integrity: sha512-9zIy0YIn7Tkws4pNJElf/kOnPy/6yxWZPWH6eMNW8s/BsV3d10+Xs1yjp2HwEMPElnrFEVHQlUs4XGQ1M3q2Nw==}
 
@@ -3955,9 +3955,6 @@ packages:
   '@cucumber/cucumber-expressions@19.0.0':
     resolution: {integrity: sha512-4FKoOQh2Uf6F6/Ln+1OxuK8LkTg6PyAqekhf2Ix8zqV2M54sH+m7XNJNLhOFOAW/t9nxzRbw2CcvXbCLjcvHZg==}
 
-  '@cucumber/cucumber-expressions@20.0.0':
-    resolution: {integrity: sha512-t2FBLKuU0U1nP5FM8pHiVonYcXVm07fvXr/H9osdvrjcLXSWc5OCbOOqV/k5S56w/YndPv1Sv2/m/x1KBYvIlA==}
-
   '@cucumber/cucumber-expressions@20.1.0':
     resolution: {integrity: sha512-KXQJChHTyHdg6HI7fHy3zpjfoS205vV1B/aJQKB82VFgMGbdVdiaSy7sTtap/5Q787anLmZt25Tg0FqQ2n4fqw==}
 
@@ -3974,11 +3971,6 @@ packages:
   '@cucumber/cucumber@12.9.0':
     resolution: {integrity: sha512-QbgEo/DcKFMRGL+yULh8Kw6peEfdPJjhYjpKp0dYc+6Dv1Bmp6hvxIdTi2CIinYBCXhvCZzNO1Ct/n6Dk1yAtA==}
     engines: {node: 20 || 22 || >=24}
-    hasBin: true
-
-  '@cucumber/cucumber@13.2.1':
-    resolution: {integrity: sha512-Km3mLbZKOE/TlR9ExGWcG7PwOG1ArMt/R6BexrMhGA8pLGaLCWYISTHStpftLuuhVKvVd3RO5M/pfARKyvcyWg==}
-    engines: {node: 22 || 24 || >=26}
     hasBin: true
 
   '@cucumber/cucumber@13.3.0':
@@ -4038,10 +4030,6 @@ packages:
     resolution: {integrity: sha512-LJ+s4+TepHTgdKWDR4zbPyT7rQjmYIcukTwNbwNwgqr6i8Gjcmzf6NmtbYDA19m1ZFg6kWbFsmHnj37ZuX+kZA==}
     hasBin: true
 
-  '@cucumber/gherkin-utils@12.0.1':
-    resolution: {integrity: sha512-vImHbmTzvGcZP4SFSbx7P6janHZN+BqGWXc3EIQ7UeYMeDzwV9ybSlRfpECV340pxKYZyMTtuSCP3CDXfuWCQw==}
-    hasBin: true
-
   '@cucumber/gherkin-utils@12.0.2':
     resolution: {integrity: sha512-e678WQqU3zJnZ3GW4D7O4/mrD3vku0iUYJPz7cuLNw3jcK81dvbt5iYa5l3tfT9z2rxE5ObFPUbTkDN7zFwqjw==}
     hasBin: true
@@ -4089,12 +4077,6 @@ packages:
   '@cucumber/gherkin@38.0.0':
     resolution: {integrity: sha512-duEXK+KDfQUzu3vsSzXjkxQ2tirF5PRsc1Xrts6THKHJO6mjw4RjM8RV+vliuDasmhhrmdLcOcM7d9nurNTJKw==}
 
-  '@cucumber/gherkin@41.0.0':
-    resolution: {integrity: sha512-pKGx1EzNjtWbpw74kEevKDMj71dF3ZSaFJpLYuWVvRZKe+Cwoq5iEkuMaELIg1jxIu8jH/A2HPMpMR8UBvdG0w==}
-
-  '@cucumber/gherkin@42.0.0':
-    resolution: {integrity: sha512-kBcv+NV4FGQYX6NIsSCjsjaX8MsRdEH559BQ9xEFPgkLQX/Z//JZrY94fpjxW6quo4V5kxlzFiiVC5xouF9Akg==}
-
   '@cucumber/gherkin@42.0.1':
     resolution: {integrity: sha512-Kqg0ULhWqbXp/a1c04ND4sS4KTlIL831tQ0NhZLXWdEhT6LiNsZ5LFRzy/lBy7QQpcKhroKp/i3C2WdEnRBKNg==}
 
@@ -4132,11 +4114,6 @@ packages:
     peerDependencies:
       '@cucumber/messages': '>=18'
 
-  '@cucumber/html-formatter@24.1.0':
-    resolution: {integrity: sha512-5TBLnBT+tIvtamw/jtblBVgzQ2/ckd+md8I0rwkEk29vFMCF68jNwhyONGq6leUYMq4kVF+KdFhE8xGrSc3kJw==}
-    peerDependencies:
-      '@cucumber/messages': '>=18'
-
   '@cucumber/html-formatter@24.2.0':
     resolution: {integrity: sha512-6Y5ijKyFeNiaMdcYna/fo1Bluzebm8L+vSAyuymIt7Dxu5Fq1sDYMGqR1rYeuNdJmXyu/YRtGLOsrZdCJCQGIg==}
     peerDependencies:
@@ -4144,11 +4121,6 @@ packages:
 
   '@cucumber/junit-xml-formatter@0.13.3':
     resolution: {integrity: sha512-w9ujOxiuKDtU6fLzJz+wp4Sgp5Xu6ba7ls00LHJccVmQU0Ba7zs+AHnv3iIgPjKZAQe1w8x93dr8Gaubh7Vqkg==}
-    peerDependencies:
-      '@cucumber/messages': '*'
-
-  '@cucumber/junit-xml-formatter@0.14.0':
-    resolution: {integrity: sha512-uDuJySsUr1b1VEAERC+YywvVhygBgYIAMyfSMzLZ3LrourudaWZIhfTND4uLNkRZZQcPr6IYv+qj5TP8RTJJ+g==}
     peerDependencies:
       '@cucumber/messages': '*'
 
@@ -4207,12 +4179,6 @@ packages:
   '@cucumber/messages@32.3.1':
     resolution: {integrity: sha512-yNQq1KoXRYaEKrWMFmpUQX7TdeQuU9jeGgJAZ3dArTsC/T4NpJ6DnqaJIIgwPnz/wtQIQTNX7/h0rOuF5xY4qQ==}
 
-  '@cucumber/messages@33.0.4':
-    resolution: {integrity: sha512-i6P1a0bnmhecOHfvIW0rhMxv/gMKfBKwDMxmD9/Uo1HSqpQ17ocHms1JwWW6uTMLAopqqWlcz7l6Pax+qUOTzg==}
-
-  '@cucumber/messages@34.2.0':
-    resolution: {integrity: sha512-6X6T1TApmbQNqxC0Oh3GcnLU+gfE5fp+cEXE/ml6+Ldx76Q6BDmkgM5vagSSDXP+vetPV2Fb0kWVeP7QIR6+Aw==}
-
   '@cucumber/messages@34.2.1':
     resolution: {integrity: sha512-aj2iCAG9ZOpMVcMxcgShifv5fbR96b7SMgdWcPXXh2QbFp7OEcAnQ5MC5YfWUDSDasmw7FU5NJEsOrXdTQOU1A==}
 
@@ -4220,11 +4186,6 @@ packages:
     resolution: {integrity: sha512-A1lU4VVP0aUWdOTmpdzvXOyEYuPtBDI0xYwYJnmoMDplzxMdhcHk86lyyvYDoMoPzzq6OkOE3isuosvUU4X7IQ==}
     peerDependencies:
       '@cucumber/cucumber': '>=7.0.0'
-      '@cucumber/messages': '*'
-
-  '@cucumber/pretty-formatter@4.0.0':
-    resolution: {integrity: sha512-vWKHUfjMphtbeHHlQBZ1gQzPL3/HE/O2dNnpBqEOIDwvhp7tKvqSe8kscp2H7pArbxN6euEpR5JbstJdzo3iyg==}
-    peerDependencies:
       '@cucumber/messages': '*'
 
   '@cucumber/pretty-formatter@4.1.0':
@@ -4242,18 +4203,10 @@ packages:
     peerDependencies:
       '@cucumber/messages': '*'
 
-  '@cucumber/query@16.0.0':
-    resolution: {integrity: sha512-CtGBHLc92y1RNogXGOFVF7so+XdLR5rVuJGsS6nH7yLeayyYhdV8lYW/LG8R05cm4irG/RO6Wn5I2CAgxMhmwQ==}
-    peerDependencies:
-      '@cucumber/messages': '*'
-
   '@cucumber/query@16.1.1':
     resolution: {integrity: sha512-SBaP4Lc7xv55jY78Q8raoxvbBIPGhQKrui/Tq+l6jYBl1alV0TG1sW8TRtk9W7RQl27nVJo9DyyvASp374L9Tg==}
     peerDependencies:
       '@cucumber/messages': '*'
-
-  '@cucumber/tag-expressions@11.0.0':
-    resolution: {integrity: sha512-7Uo6dYST8xZbHwwemXCt7Kv80Yh/SE85DyOed1/FTwxRXs3NYVOCm6e/h8DxlhTGIpD6rYXfpY3nHnIXAFMBlw==}
 
   '@cucumber/tag-expressions@11.0.1':
     resolution: {integrity: sha512-x0AssM2HKLoxw8gSeAsYo0QK9wImODYBNDO423/K1Pfk2vwA/MdecRS1ky5i3Rl84kohaG0uUXhIBR+HTu/Qjg==}
@@ -5209,8 +5162,8 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@playwright/test@1.63.0':
-    resolution: {integrity: sha512-oxMK4vllB9RK5NQ2l1pq1IfOf2AvnEuj/vYGDj0H2nMtmtZpKtCwt/l00GEO6xjGfpBNAvjovvYdCm50dRQkpQ==}
+  '@playwright/test@1.64.0':
+    resolution: {integrity: sha512-oTN9FNYuN6bqQMwiho6jJKLCG2/QOYCixGXuCjRmzOq23eODeukuY2XiAVoVpAECbuezMt1MHQjAiQxK8F+Y+g==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -5341,34 +5294,6 @@ packages:
 
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
-
-  '@serenity-js/core@3.48.2':
-    resolution: {integrity: sha512-ZbmG6CoGTqqNW9XYmjgivJ4ZhUP/uwln5IO/OR5S1qjVLD1c5617WuW+bY25Jn3TB7X3SmvF918tV2yZWuTsuQ==}
-    engines: {node: ^22.22.2 || ^24.15.0}
-
-  '@serenity-js/cucumber@3.48.2':
-    resolution: {integrity: sha512-ToMqW8B15cH2dwvWWaK5d7NKZAHGb9sR0BPz6IAjvwWxnbBKAKiDE/GqlW9VL1L93iu5s0gC5kyHVdqcI7Rp3Q==}
-    engines: {node: ^22.22.2 || ^24.15.0}
-    peerDependencies:
-      '@cucumber/cucumber': ^7.3.2 || ^8.5.0 || ^9.1.0 || ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0
-      cucumber: ^1.3.3 || ^2.3.1 || ^3.2.1 || ^4.2.1 || ^5.0.0 || ^6.0.0
-    peerDependenciesMeta:
-      '@cucumber/cucumber':
-        optional: true
-      cucumber:
-        optional: true
-
-  '@serenity-js/jasmine@3.48.2':
-    resolution: {integrity: sha512-87Dr7hccCFpBKTfM078Vf6y9oLSOIDxQ3fTq+yl+liJ0KMeAeSJN3qXcm39iGGSw1YWwiM7Oj+xRqXUUJ1bk8A==}
-    engines: {node: ^22.22.2 || ^24.15.0}
-    peerDependencies:
-      jasmine: ^5.13.0 || ^6.0.0
-
-  '@serenity-js/mocha@3.48.2':
-    resolution: {integrity: sha512-QIYiDtuilrBBfklgUJncSvlP9AAOmEHDUxD2wVA35L5cfSQEI/s9THCjRwRUm1EpSxvfmzkFNNkPvyTC7xDQYg==}
-    engines: {node: ^22.22.2 || ^24.15.0}
-    peerDependencies:
-      mocha: ^10.8.2 || ^11.0.1 || ^12.0.0
 
   '@sideway/address@4.1.5':
     resolution: {integrity: sha512-IqO/DUQHUkPeixNQ8n0JA6102hT9CmaljNTPmQ1u8MEhBo/R4Q8eKLN/vGZxuebwOroDB4cbpjheD4+/sKFK4Q==}
@@ -10058,13 +9983,13 @@ packages:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
 
-  playwright-core@1.63.0:
-    resolution: {integrity: sha512-rYCsBF/M5HjUch52bbtVONEFjv6Xu8sm8h72dNlR5bzIE1fvC/bxgspzkjSfU+MweEMmPM8KJebG6nnyxo5mCg==}
+  playwright-core@1.64.0:
+    resolution: {integrity: sha512-T9r+MZkTECl2+oUcZ26YgZzTrYidTsIhYYkJix+6iDOymOb1FB2RLLSOxRGnZGv5DStt+aduIVbt+E8WygXYpg==}
     engines: {node: '>=20'}
     hasBin: true
 
-  playwright@1.63.0:
-    resolution: {integrity: sha512-+7ziBLidS4NaNCdt57SUDT+wYmmd5fmiQejUic/kb+YsYSCPyOOE9sebzMjNmQrsnNpDJqd4WHvV/8lfKfUDUg==}
+  playwright@1.64.0:
+    resolution: {integrity: sha512-kVzTnYFYEyQ9RGzBjNCd2+yEqWmVbxl3AHPynv3qQ6JTjv4a+kwRcnqQwIpuP3NnrnIrE/Q6wWAIAvMfIE2/Yg==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -12285,8 +12210,6 @@ snapshots:
 
   '@cucumber/ci-environment@13.0.0': {}
 
-  '@cucumber/ci-environment@14.0.0': {}
-
   '@cucumber/ci-environment@15.0.0': {}
 
   '@cucumber/ci-environment@9.1.0': {}
@@ -12322,10 +12245,6 @@ snapshots:
       regexp-match-indices: 1.0.2
 
   '@cucumber/cucumber-expressions@19.0.0':
-    dependencies:
-      regexp-match-indices: 1.0.2
-
-  '@cucumber/cucumber-expressions@20.0.0':
     dependencies:
       regexp-match-indices: 1.0.2
 
@@ -12458,41 +12377,6 @@ snapshots:
       string-argv: 0.3.1
       supports-color: 8.1.1
       type-fest: 4.41.0
-      util-arity: 1.1.0
-      yaml: 2.9.1
-      yup: 1.7.1
-
-  '@cucumber/cucumber@13.2.1':
-    dependencies:
-      '@cucumber/ci-environment': 14.0.0
-      '@cucumber/cucumber-expressions': 20.0.0
-      '@cucumber/gherkin': 42.0.0
-      '@cucumber/gherkin-streams': 7.0.1(@cucumber/gherkin@42.0.0)(@cucumber/message-streams@5.0.1(@cucumber/messages@34.2.0))(@cucumber/messages@34.2.0)
-      '@cucumber/gherkin-utils': 12.0.1
-      '@cucumber/html-formatter': 24.1.0(@cucumber/messages@34.2.0)
-      '@cucumber/junit-xml-formatter': 0.14.0(@cucumber/messages@34.2.0)
-      '@cucumber/message-streams': 5.0.1(@cucumber/messages@34.2.0)
-      '@cucumber/messages': 34.2.0
-      '@cucumber/pretty-formatter': 4.0.0(@cucumber/messages@34.2.0)
-      '@cucumber/tag-expressions': 11.0.0
-      assertion-error-formatter: 3.0.0
-      cli-table3: 0.6.5
-      commander: 15.0.0
-      debug: 4.4.3(supports-color@11.0.0)
-      error-stack-parser: 2.1.4
-      figures: 6.1.0
-      has-ansi: 6.0.2
-      indent-string: 5.0.0
-      is-installed-globally: 1.0.1
-      knuth-shuffle-seeded: 1.0.6
-      lodash.merge: 4.6.2
-      lodash.mergewith: 4.6.2
-      luxon: 3.7.2
-      read-package-up: 12.0.0
-      semver: 7.8.5
-      string-argv: 0.3.2
-      supports-color: 11.0.0
-      type-fest: 5.10.0
       util-arity: 1.1.0
       yaml: 2.9.1
       yup: 1.7.1
@@ -12751,14 +12635,6 @@ snapshots:
       commander: 14.0.0
       source-map-support: 0.5.21
 
-  '@cucumber/gherkin-streams@7.0.1(@cucumber/gherkin@42.0.0)(@cucumber/message-streams@5.0.1(@cucumber/messages@34.2.0))(@cucumber/messages@34.2.0)':
-    dependencies:
-      '@cucumber/gherkin': 42.0.0
-      '@cucumber/message-streams': 5.0.1(@cucumber/messages@34.2.0)
-      '@cucumber/messages': 34.2.0
-      commander: 15.0.0
-      source-map-support: 0.5.21
-
   '@cucumber/gherkin-streams@7.0.1(@cucumber/gherkin@42.0.1)(@cucumber/message-streams@5.0.1(@cucumber/messages@34.2.1))(@cucumber/messages@34.2.1)':
     dependencies:
       '@cucumber/gherkin': 42.0.1
@@ -12773,14 +12649,6 @@ snapshots:
       '@cucumber/messages': 32.3.1
       '@teppeis/multimaps': 3.0.0
       commander: 14.0.2
-      source-map-support: 0.5.21
-
-  '@cucumber/gherkin-utils@12.0.1':
-    dependencies:
-      '@cucumber/gherkin': 41.0.0
-      '@cucumber/messages': 33.0.4
-      '@teppeis/multimaps': 3.0.0
-      commander: 15.0.0
       source-map-support: 0.5.21
 
   '@cucumber/gherkin-utils@12.0.2':
@@ -12858,14 +12726,6 @@ snapshots:
     dependencies:
       '@cucumber/messages': 32.3.1
 
-  '@cucumber/gherkin@41.0.0':
-    dependencies:
-      '@cucumber/messages': 33.0.4
-
-  '@cucumber/gherkin@42.0.0':
-    dependencies:
-      '@cucumber/messages': 34.2.1
-
   '@cucumber/gherkin@42.0.1':
     dependencies:
       '@cucumber/messages': 34.2.1
@@ -12900,10 +12760,6 @@ snapshots:
     dependencies:
       '@cucumber/messages': 32.3.1
 
-  '@cucumber/html-formatter@24.1.0(@cucumber/messages@34.2.0)':
-    dependencies:
-      '@cucumber/messages': 34.2.0
-
   '@cucumber/html-formatter@24.2.0(@cucumber/messages@34.2.1)':
     dependencies:
       '@cucumber/messages': 34.2.1
@@ -12912,14 +12768,6 @@ snapshots:
     dependencies:
       '@cucumber/messages': 32.3.1
       '@cucumber/query': 15.0.1(@cucumber/messages@32.3.1)
-      '@teppeis/multimaps': 3.0.0
-      luxon: 3.7.2
-      xmlbuilder: 15.1.1
-
-  '@cucumber/junit-xml-formatter@0.14.0(@cucumber/messages@34.2.0)':
-    dependencies:
-      '@cucumber/messages': 34.2.0
-      '@cucumber/query': 16.1.1(@cucumber/messages@34.2.0)
       '@teppeis/multimaps': 3.0.0
       luxon: 3.7.2
       xmlbuilder: 15.1.1
@@ -12968,11 +12816,6 @@ snapshots:
     dependencies:
       '@cucumber/messages': 32.3.1
       mime: 3.0.0
-
-  '@cucumber/message-streams@5.0.1(@cucumber/messages@34.2.0)':
-    dependencies:
-      '@cucumber/messages': 34.2.0
-      mime: 4.1.0
 
   '@cucumber/message-streams@5.0.1(@cucumber/messages@34.2.1)':
     dependencies:
@@ -13040,10 +12883,6 @@ snapshots:
       class-transformer: 0.5.1
       reflect-metadata: 0.2.2
 
-  '@cucumber/messages@33.0.4': {}
-
-  '@cucumber/messages@34.2.0': {}
-
   '@cucumber/messages@34.2.1': {}
 
   '@cucumber/pretty-formatter@1.0.1(@cucumber/cucumber@12.9.0)(@cucumber/messages@32.3.1)':
@@ -13054,12 +12893,6 @@ snapshots:
       cli-table3: 0.6.5
       figures: 3.2.0
       ts-dedent: 2.3.0
-
-  '@cucumber/pretty-formatter@4.0.0(@cucumber/messages@34.2.0)':
-    dependencies:
-      '@cucumber/messages': 34.2.0
-      '@cucumber/query': 16.0.0(@cucumber/messages@34.2.0)
-      luxon: 3.7.2
 
   '@cucumber/pretty-formatter@4.1.0(@cucumber/messages@34.2.1)':
     dependencies:
@@ -13079,25 +12912,11 @@ snapshots:
       '@teppeis/multimaps': 3.0.0
       lodash.sortby: 4.7.0
 
-  '@cucumber/query@16.0.0(@cucumber/messages@34.2.0)':
-    dependencies:
-      '@cucumber/messages': 34.2.0
-      '@teppeis/multimaps': 3.0.0
-      lodash.sortby: 4.7.0
-
-  '@cucumber/query@16.1.1(@cucumber/messages@34.2.0)':
-    dependencies:
-      '@cucumber/messages': 34.2.0
-      '@teppeis/multimaps': 3.0.0
-      lodash.sortby: 4.7.0
-
   '@cucumber/query@16.1.1(@cucumber/messages@34.2.1)':
     dependencies:
       '@cucumber/messages': 34.2.1
       '@teppeis/multimaps': 3.0.0
       lodash.sortby: 4.7.0
-
-  '@cucumber/tag-expressions@11.0.0': {}
 
   '@cucumber/tag-expressions@11.0.1': {}
 
@@ -14119,9 +13938,9 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@playwright/test@1.63.0':
+  '@playwright/test@1.64.0':
     dependencies:
-      playwright: 1.63.0
+      playwright: 1.64.0
 
   '@promptbook/utils@0.69.5':
     dependencies:
@@ -14212,41 +14031,6 @@ snapshots:
   '@rolldown/pluginutils@1.0.1': {}
 
   '@sec-ant/readable-stream@0.4.1': {}
-
-  '@serenity-js/core@3.48.2':
-    dependencies:
-      '@paralleldrive/cuid2': 2.3.1
-      chalk: 4.1.2
-      diff: 8.0.4
-      error-stack-parser: 2.1.4
-      fast-glob: 3.3.3
-      filenamify: 4.3.0
-      graceful-fs: 4.2.11
-      semver: 7.8.5
-      tiny-types: 2.0.5
-      upath: 3.0.8
-      validate-npm-package-name: 8.0.0
-
-  '@serenity-js/cucumber@3.48.2(@cucumber/cucumber@13.2.1)(cucumber@6.0.7)':
-    dependencies:
-      '@cucumber/gherkin': 42.0.1
-      '@cucumber/messages': 34.2.1
-      '@serenity-js/core': 3.48.2
-      cli-table3: 0.6.5
-      tiny-types: 2.0.5
-    optionalDependencies:
-      '@cucumber/cucumber': 13.2.1
-      cucumber: 6.0.7
-
-  '@serenity-js/jasmine@3.48.2(jasmine@6.3.0)':
-    dependencies:
-      '@serenity-js/core': 3.48.2
-      jasmine: 6.3.0
-
-  '@serenity-js/mocha@3.48.2(mocha@12.0.3)':
-    dependencies:
-      '@serenity-js/core': 3.48.2
-      mocha: 12.0.3
 
   '@sideway/address@4.1.5':
     dependencies:
@@ -15398,16 +15182,6 @@ snapshots:
   axios@1.20.0(debug@4.4.3(supports-color@11.0.0))(supports-color@11.0.0):
     dependencies:
       follow-redirects: 1.16.1(debug@4.4.3(supports-color@11.0.0))
-      form-data: 4.0.6
-      https-proxy-agent: 5.0.1(supports-color@11.0.0)
-      proxy-from-env: 2.1.0
-    transitivePeerDependencies:
-      - debug
-      - supports-color
-
-  axios@1.20.0(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0):
-    dependencies:
-      follow-redirects: 1.16.1(debug@4.4.3(supports-color@7.2.0))
       form-data: 4.0.6
       https-proxy-agent: 5.0.1(supports-color@11.0.0)
       proxy-from-env: 2.1.0
@@ -17562,10 +17336,6 @@ snapshots:
     optionalDependencies:
       debug: 4.4.3(supports-color@11.0.0)
 
-  follow-redirects@1.16.1(debug@4.4.3(supports-color@7.2.0)):
-    optionalDependencies:
-      debug: 4.4.3(supports-color@7.2.0)
-
   follow-redirects@1.16.1(debug@4.4.3(supports-color@8.1.1)):
     optionalDependencies:
       debug: 4.4.3(supports-color@8.1.1)
@@ -19220,7 +18990,7 @@ snapshots:
 
   minimatch@10.2.5:
     dependencies:
-      brace-expansion: 5.0.12
+      brace-expansion: 5.0.9
 
   minimatch@10.2.6:
     dependencies:
@@ -20059,11 +19829,11 @@ snapshots:
     dependencies:
       find-up: 4.1.0
 
-  playwright-core@1.63.0: {}
+  playwright-core@1.64.0: {}
 
-  playwright@1.63.0:
+  playwright@1.64.0:
     dependencies:
-      playwright-core: 1.63.0
+      playwright-core: 1.64.0
 
   pluralize@8.0.0: {}
 
@@ -21064,7 +20834,7 @@ snapshots:
       execa: 5.1.1
       lazy-ass: 2.0.3
       tree-kill: 1.2.2
-      wait-on: 9.1.0(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0)
+      wait-on: 9.1.0(debug@4.4.3(supports-color@11.0.0))(supports-color@11.0.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -21700,9 +21470,9 @@ snapshots:
       tsx: 4.23.15
       yaml: 2.9.1
 
-  wait-on@9.1.0(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0):
+  wait-on@9.1.0(debug@4.4.3(supports-color@11.0.0))(supports-color@11.0.0):
     dependencies:
-      axios: 1.20.0(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0)
+      axios: 1.20.0(debug@4.4.3(supports-color@11.0.0))(supports-color@11.0.0)
       joi: 18.2.9
       lodash: 4.18.1
       minimist: 1.2.8
