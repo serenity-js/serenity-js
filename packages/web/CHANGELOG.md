@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.49.0](https://github.com/serenity-js/serenity-js/compare/v3.48.2...v3.49.0) (2026-10-10)
+
+### Features
+
+* **web:** interactions wait for list items to become available ([3baae88](https://github.com/serenity-js/serenity-js/commit/3baae88352c95d268263ff7f10fe7611ebacc7ac))
+
+
 ## [3.48.2](https://github.com/serenity-js/serenity-js/compare/v3.48.1...v3.48.2) (2026-10-09)
 
 **Note:** Version bump only for package @serenity-js/web

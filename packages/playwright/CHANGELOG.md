@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.49.0](https://github.com/serenity-js/serenity-js/compare/v3.48.2...v3.49.0) (2026-10-10)
+
+### Bug Fixes
+
+* **deps:** update playwright-core to ~1.64.0 ([681f8a6](https://github.com/serenity-js/serenity-js/commit/681f8a6bd5155322bc73c7a1b6513549d353d994))
+* **playwright:** locate elements by role using native getByRole ([18bd6a0](https://github.com/serenity-js/serenity-js/commit/18bd6a09c331c9f770c856491465966b4f014254))
+
+
 ## [3.48.2](https://github.com/serenity-js/serenity-js/compare/v3.48.1...v3.48.2) (2026-10-09)
 
 **Note:** Version bump only for package @serenity-js/playwright

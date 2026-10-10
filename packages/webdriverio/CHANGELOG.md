@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.49.0](https://github.com/serenity-js/serenity-js/compare/v3.48.2...v3.49.0) (2026-10-10)
+
+### Bug Fixes
+
+* **webdriverio:** avoid race condition when switching to a parent frame in BiDi sessions ([d6a2379](https://github.com/serenity-js/serenity-js/commit/d6a237947a6793145bae9fd0bff20d591a9a1e63)), closes [#3543](https://github.com/serenity-js/serenity-js/issues/3543)
+
+
 ## [3.48.2](https://github.com/serenity-js/serenity-js/compare/v3.48.1...v3.48.2) (2026-10-09)
 
 **Note:** Version bump only for package @serenity-js/webdriverio

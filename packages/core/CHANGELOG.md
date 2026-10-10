@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.49.0](https://github.com/serenity-js/serenity-js/compare/v3.48.2...v3.49.0) (2026-10-10)
+
+### Performance Improvements
+
+* **core:** avoid unnecessary 10ms polling delay after each activity ([fec0faa](https://github.com/serenity-js/serenity-js/commit/fec0faae13cb7c346af98a9dfd4dd51594eed1e3))
+* **core:** register actor exit attempts before waiting for other async operations ([ec4557b](https://github.com/serenity-js/serenity-js/commit/ec4557b6bc7be8da3d9b87ea94a9a72ddb53a6de)), closes [#3543](https://github.com/serenity-js/serenity-js/issues/3543)
+
+
 ## [3.48.2](https://github.com/serenity-js/serenity-js/compare/v3.48.1...v3.48.2) (2026-10-09)
 
 ### Bug Fixes

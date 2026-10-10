@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.49.0](https://github.com/serenity-js/serenity-js/compare/v3.48.2...v3.49.0) (2026-10-10)
+
+### Bug Fixes
+
+* **deps:** update dependency @cucumber/cucumber to v13.3.0 ([1b1a32e](https://github.com/serenity-js/serenity-js/commit/1b1a32e3d4011b3dbeccd653511a18b920955bcb))
+* **deps:** update dependency marked to v18.1.0 ([f2d8cff](https://github.com/serenity-js/serenity-js/commit/f2d8cff00a119f3c3a614470adfdb680524c6017))
+* **deps:** update dependency yargs to v18.2.0 ([1c47631](https://github.com/serenity-js/serenity-js/commit/1c476317b1c4f268a77fc3eabfb1b36b6a45859e))
+* **deps:** update playwright dependencies to ~1.64.0 ([693f35c](https://github.com/serenity-js/serenity-js/commit/693f35ce03a5e65dbe32b779bfbd99ccc2dcfa1e))
+* **deps:** update playwright-core to ~1.64.0 ([681f8a6](https://github.com/serenity-js/serenity-js/commit/681f8a6bd5155322bc73c7a1b6513549d353d994))
+* **html-reporter:** apply deep links that arrive straight after the report loads ([8166f13](https://github.com/serenity-js/serenity-js/commit/8166f13ef103aaa5665a52ddb9e8009356fc7d94))
+* **html-reporter:** interaction objects wait for the view to reflect state changes ([be49472](https://github.com/serenity-js/serenity-js/commit/be49472aef55f6b7d6751b04c4139254e1bd42fb)), closes [#3543](https://github.com/serenity-js/serenity-js/issues/3543)
+* **html-reporter:** read the labels of active filters without their counts ([59c5b76](https://github.com/serenity-js/serenity-js/commit/59c5b7669a13eb63bb0cc2ee42cc07ab1d9a2f0d))
+* **html-reporter:** render the visible rows of virtualised lists in the first render ([e7fd6e2](https://github.com/serenity-js/serenity-js/commit/e7fd6e21f4e1c7cf552340946b62e37101174860))
+* **html-reporter:** wait for the capabilities view to sync filter and sort to the URL ([0f6c4d7](https://github.com/serenity-js/serenity-js/commit/0f6c4d70e2cd826b34f8fc8cd00a09c7dd403457)), closes [#3543](https://github.com/serenity-js/serenity-js/issues/3543)
+* **html-reporter:** wait for view updates instead of relying on activity timing ([5df0a6f](https://github.com/serenity-js/serenity-js/commit/5df0a6faf3d836a830ae08ace93b144b6b44111f)), closes [#3543](https://github.com/serenity-js/serenity-js/issues/3543)
+* **playwright:** locate elements by role using native getByRole ([18bd6a0](https://github.com/serenity-js/serenity-js/commit/18bd6a09c331c9f770c856491465966b4f014254))
+* **webdriverio:** avoid race condition when switching to a parent frame in BiDi sessions ([d6a2379](https://github.com/serenity-js/serenity-js/commit/d6a237947a6793145bae9fd0bff20d591a9a1e63)), closes [#3543](https://github.com/serenity-js/serenity-js/issues/3543)
+
+### Features
+
+* **html-reporter:** expose the details panel, module table and selected run of the test runs view ([fdb5b45](https://github.com/serenity-js/serenity-js/commit/fdb5b45b6b80e400f3fba2ccb27af7eb0607c71f))
+* **web:** interactions wait for list items to become available ([3baae88](https://github.com/serenity-js/serenity-js/commit/3baae88352c95d268263ff7f10fe7611ebacc7ac))
+
+### Performance Improvements
+
+* **core:** avoid unnecessary 10ms polling delay after each activity ([fec0faa](https://github.com/serenity-js/serenity-js/commit/fec0faae13cb7c346af98a9dfd4dd51594eed1e3))
+* **core:** register actor exit attempts before waiting for other async operations ([ec4557b](https://github.com/serenity-js/serenity-js/commit/ec4557b6bc7be8da3d9b87ea94a9a72ddb53a6de)), closes [#3543](https://github.com/serenity-js/serenity-js/issues/3543)
+
+
 ## [3.48.2](https://github.com/serenity-js/serenity-js/compare/v3.48.1...v3.48.2) (2026-10-09)
 
 ### Bug Fixes

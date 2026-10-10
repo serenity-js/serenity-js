@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.49.0](https://github.com/serenity-js/serenity-js/compare/v3.48.2...v3.49.0) (2026-10-10)
+
+### Bug Fixes
+
+* **deps:** update dependency marked to v18.1.0 ([f2d8cff](https://github.com/serenity-js/serenity-js/commit/f2d8cff00a119f3c3a614470adfdb680524c6017))
+* **deps:** update dependency yargs to v18.2.0 ([1c47631](https://github.com/serenity-js/serenity-js/commit/1c476317b1c4f268a77fc3eabfb1b36b6a45859e))
+* **deps:** update playwright dependencies to ~1.64.0 ([693f35c](https://github.com/serenity-js/serenity-js/commit/693f35ce03a5e65dbe32b779bfbd99ccc2dcfa1e))
+* **html-reporter:** apply deep links that arrive straight after the report loads ([8166f13](https://github.com/serenity-js/serenity-js/commit/8166f13ef103aaa5665a52ddb9e8009356fc7d94))
+* **html-reporter:** interaction objects wait for the view to reflect state changes ([be49472](https://github.com/serenity-js/serenity-js/commit/be49472aef55f6b7d6751b04c4139254e1bd42fb)), closes [#3543](https://github.com/serenity-js/serenity-js/issues/3543)
+* **html-reporter:** read the labels of active filters without their counts ([59c5b76](https://github.com/serenity-js/serenity-js/commit/59c5b7669a13eb63bb0cc2ee42cc07ab1d9a2f0d))
+* **html-reporter:** render the visible rows of virtualised lists in the first render ([e7fd6e2](https://github.com/serenity-js/serenity-js/commit/e7fd6e21f4e1c7cf552340946b62e37101174860))
+* **html-reporter:** wait for the capabilities view to sync filter and sort to the URL ([0f6c4d7](https://github.com/serenity-js/serenity-js/commit/0f6c4d70e2cd826b34f8fc8cd00a09c7dd403457)), closes [#3543](https://github.com/serenity-js/serenity-js/issues/3543)
+* **html-reporter:** wait for view updates instead of relying on activity timing ([5df0a6f](https://github.com/serenity-js/serenity-js/commit/5df0a6faf3d836a830ae08ace93b144b6b44111f)), closes [#3543](https://github.com/serenity-js/serenity-js/issues/3543)
+
+### Features
+
+* **html-reporter:** expose the details panel, module table and selected run of the test runs view ([fdb5b45](https://github.com/serenity-js/serenity-js/commit/fdb5b45b6b80e400f3fba2ccb27af7eb0607c71f))
+
+
 ## [3.48.2](https://github.com/serenity-js/serenity-js/compare/v3.48.1...v3.48.2) (2026-10-09)
 
 **Note:** Version bump only for package @serenity-js/html-reporter

@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.49.0](https://github.com/serenity-js/serenity-js/compare/v3.48.2...v3.49.0) (2026-10-10)
+
+### Bug Fixes
+
+* **deps:** update dependency yargs to v18.2.0 ([1c47631](https://github.com/serenity-js/serenity-js/commit/1c476317b1c4f268a77fc3eabfb1b36b6a45859e))
+
+
 ## [3.48.2](https://github.com/serenity-js/serenity-js/compare/v3.48.1...v3.48.2) (2026-10-09)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd
