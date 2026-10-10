@@ -1632,8 +1632,8 @@ importers:
         specifier: 24.19.1
         version: 24.19.1
       electron:
-        specifier: 44.6.0
-        version: 44.6.0(supports-color@8.1.1)
+        specifier: 44.7.0
+        version: 44.7.0(supports-color@8.1.1)
       rimraf:
         specifier: 6.1.3
         version: 6.1.3
@@ -1860,8 +1860,8 @@ importers:
         specifier: 10.1.0
         version: 10.1.0
       electron:
-        specifier: 44.6.0
-        version: 44.6.0(supports-color@11.0.0)
+        specifier: 44.7.0
+        version: 44.7.0(supports-color@11.0.0)
       mocha:
         specifier: 12.0.3
         version: 12.0.3
@@ -7328,8 +7328,8 @@ packages:
   electron-to-chromium@1.5.447:
     resolution: {integrity: sha512-vhYiRwTPq7tvwplP6fOFVRJxfZifavlr6tK8FD1EO5RxRuvZ9qdQM0lr1mvNBeDe1s2XrfL3n5BBwvigXJ7KuA==}
 
-  electron@44.6.0:
-    resolution: {integrity: sha512-qjzKZ82yTsAoo0Q/gqdy4PEMQkzYpukZqIduaHWZYHapFhK9wgWwU4YId60xHmwTCraqF4AfVCm05o90dZJKMQ==}
+  electron@44.7.0:
+    resolution: {integrity: sha512-aUq9/zLAAFYc+a9gy6cd0C3Y/N/RmovLCD8TV8LhIzNhuND6HEgsu96jJz9cbAxvckSPv+Trf2PKEjktoZgFkw==}
     engines: {node: '>= 22.12.0'}
     hasBin: true
 
@@ -15189,6 +15189,16 @@ snapshots:
       - debug
       - supports-color
 
+  axios@1.20.0(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0):
+    dependencies:
+      follow-redirects: 1.16.1(debug@4.4.3(supports-color@7.2.0))
+      form-data: 4.0.6
+      https-proxy-agent: 5.0.1(supports-color@11.0.0)
+      proxy-from-env: 2.1.0
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+
   axios@1.20.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1):
     dependencies:
       follow-redirects: 1.16.1(debug@4.4.3(supports-color@8.1.1))
@@ -16617,7 +16627,7 @@ snapshots:
 
   electron-to-chromium@1.5.447: {}
 
-  electron@44.6.0(supports-color@11.0.0):
+  electron@44.7.0(supports-color@11.0.0):
     dependencies:
       '@electron-internal/extract-zip': 1.0.5
       '@electron/get': 5.1.0(supports-color@11.0.0)
@@ -16625,7 +16635,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@44.6.0(supports-color@8.1.1):
+  electron@44.7.0(supports-color@8.1.1):
     dependencies:
       '@electron-internal/extract-zip': 1.0.5
       '@electron/get': 5.1.0(supports-color@8.1.1)
@@ -17335,6 +17345,10 @@ snapshots:
   follow-redirects@1.16.1(debug@4.4.3(supports-color@11.0.0)):
     optionalDependencies:
       debug: 4.4.3(supports-color@11.0.0)
+
+  follow-redirects@1.16.1(debug@4.4.3(supports-color@7.2.0)):
+    optionalDependencies:
+      debug: 4.4.3(supports-color@7.2.0)
 
   follow-redirects@1.16.1(debug@4.4.3(supports-color@8.1.1)):
     optionalDependencies:
@@ -20834,7 +20848,7 @@ snapshots:
       execa: 5.1.1
       lazy-ass: 2.0.3
       tree-kill: 1.2.2
-      wait-on: 9.1.0(debug@4.4.3(supports-color@11.0.0))(supports-color@11.0.0)
+      wait-on: 9.1.0(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -21470,9 +21484,9 @@ snapshots:
       tsx: 4.23.15
       yaml: 2.9.1
 
-  wait-on@9.1.0(debug@4.4.3(supports-color@11.0.0))(supports-color@11.0.0):
+  wait-on@9.1.0(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0):
     dependencies:
-      axios: 1.20.0(debug@4.4.3(supports-color@11.0.0))(supports-color@11.0.0)
+      axios: 1.20.0(debug@4.4.3(supports-color@7.2.0))(supports-color@11.0.0)
       joi: 18.2.9
       lodash: 4.18.1
       minimist: 1.2.8
