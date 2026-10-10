@@ -95,13 +95,13 @@ This eliminates constructor parameters that only exist to shuttle dependencies b
 
 ## TypeScript Configuration
 
-Target ES2023 with CommonJS modules:
+Target ES2023. The shared options in `tsconfig.options.json` use Node.js module resolution:
 
 ```json
 {
   "target": "es2023",
-  "module": "CommonJS",
-  "moduleResolution": "node",
+  "module": "Node20",
+  "moduleResolution": "Node16",
   "declaration": true,
   "declarationMap": true,
   "sourceMap": true,
@@ -109,7 +109,8 @@ Target ES2023 with CommonJS modules:
 }
 ```
 
-Some packages (jasmine, webdriverio) also produce ESM builds with separate tsconfig files.
+Packages produce two builds: ESM in `esm/` (`tsconfig-esm.build.json`) and CommonJS in `lib/` (`tsconfig-cjs.build.json`, `"module": "CommonJS"`).
+Relative imports in `src/` therefore need explicit `.js` extensions. See `web-testing.md` → "Dual-package hazard" for the consequences of shipping both builds.
 
 ## Code Style
 

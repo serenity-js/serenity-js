@@ -148,6 +148,8 @@ Classification logic lives in `classifyConsistencyKind()` in `utils/selectors.ts
 Always use `sceneIdentity(scene)` — never inline `source.path + ':' + source.line`. Client-side lookups must include
 `tagDiscriminator` (browser/project/platform tags) to distinguish multi-variant scenarios.
 
+`sceneIdentity` identifies a scenario **within** a run. To correlate the same test **across** runs, use `findHistoricalMatch` (or `groupOutcomesByScene` for bulk grouping), which tolerates renames and moves — see `lessons-learned.md`.
+
 Source line numbers are not always available (e.g. Protractor/Mocha adapters). When building identifiers from `source.path + ':' + source.line`, handle `undefined` line — use the scenario name as a disambiguation fallback.
 
 ### Error Fingerprinting

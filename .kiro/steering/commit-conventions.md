@@ -92,9 +92,9 @@ Scope is **required**. Valid scopes are derived from `.cz-allowed-scopes.js`:
 **Packages** (auto-detected from `packages/*/`):
 
 ```
-assertions, console-reporter, core, cucumber, jasmine, local-server,
-mocha, playwright, playwright-test, protractor, rest, serenity-bdd,
-web, webdriverio, webdriverio-8
+assertions, console-reporter, core, cucumber, html-reporter, jasmine,
+local-server, mocha, playwright, playwright-test, protractor, rest,
+serenity-bdd, web, webdriverio, webdriverio-8
 ```
 
 **Other**:
@@ -108,6 +108,8 @@ gitpod         # Gitpod configuration
 lerna          # Lerna configuration
 renovate       # Renovate bot config
 qlty           # Qlty.sh configuration
+codefactor     # CodeFactor configuration
+agents         # AI agent definitions, steering docs and specs in .kiro/
 eslint         # ESLint configuration
 release        # Reserved for automated releases
 ```

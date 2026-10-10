@@ -10,17 +10,25 @@ These steering docs encode Serenity/JS engineering conventions that are not obvi
 |------|---------|-----------|
 | `project-overview.md` | Architecture, DDD philosophy, packages, tech stack | Always |
 | `coding-standards.md` | Value objects, Good Citizen rule, style, backwards compatibility | Always |
-| `development-workflow.md` | BDD/TDD process, engineering principles | Always |
-| `testing-patterns.md` | Executable specifications, test frameworks, Screenplay testing | Always |
-| `screenplay-pattern.md` | Implementing Abilities, Interactions, Tasks, Questions | Always |
-| `html-reporter-ux.md` | UX principles, personas, navigation model, evidence presentation, accessibility | Conditional: html-reporter files |
-| `web-testing.md` | PEQL, dependency inversion, browser packages | Conditional: web/playwright/webdriverio files |
-| `test-runner-adapters.md` | Adapter pattern, domain events, creating adapters | Conditional: cucumber/mocha/jasmine/playwright-test files |
-| `debugging-ci.md` | Running tests, CI pipeline, troubleshooting | Always |
+| `development-workflow.md` | BDD/TDD process, engineering principles, verification, agent working style | Always |
+| `testing-patterns.md` | Executable specifications, unit test frameworks, Screenplay testing | Always |
+| `screenplay-pattern.md` | Implementing Abilities, Interactions, Tasks, Questions; core implementation gotchas | Always |
+| `debugging-ci.md` | Running tests, CI pipeline, troubleshooting, project template CI gotchas | Always |
 | `commit-conventions.md` | Conventional commits, scopes, release process | Always |
-| `steering-maintenance.md` | This file — meta-guidance | Always |
-| `lessons-learned.md` | Niche patterns, temporary rules, implementation gotchas | Conditional: html-reporter files |
 | `documentation-standards.md` | Writing and publishing docs on serenity-js.org | Always |
+| `writing-voice.md` | Jan Molak's writing voice for user-facing text: docs, blog posts, READMEs, JSDoc | Always |
+| `steering-maintenance.md` | This file — meta-guidance | Always |
+| `idiomatic-screenplay-tests.md` | Writing tests and interaction objects: PEQL idioms, task outcomes, anti-patterns | Conditional: `*.spec.ts`, `*.serenity.ts` files |
+| `web-testing.md` | PEQL, dependency inversion, browser packages, what retries, web/WebdriverIO gotchas | Conditional: web/playwright/webdriverio/protractor files |
+| `test-runner-adapters.md` | Adapter pattern, domain events, creating adapters | Conditional: cucumber/mocha/jasmine/playwright-test files |
+| `html-reporter-architecture.md` | HTML reporter architecture, data flow, component patterns | Conditional: html-reporter files |
+| `html-reporter-ux.md` | UX principles, personas, navigation model, evidence presentation, accessibility | Conditional: html-reporter files |
+| `lessons-learned.md` | HTML reporter gotchas and temporary rules not yet graduated into a main doc | Conditional: html-reporter files |
+
+Gotchas live next to the conventions they relate to, in an "Implementation Gotchas" section of the doc that loads
+for that code, so that they're in context when they matter: core in `screenplay-pattern.md`, web and browser
+packages in `web-testing.md`, agent-specific gotchas in `development-workflow.md`. `lessons-learned.md` only
+loads for html-reporter files, so don't add gotchas for other packages there.
 
 ## When to Update
 

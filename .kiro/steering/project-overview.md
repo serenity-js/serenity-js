@@ -86,6 +86,7 @@ pnpm + Lerna + Nx monorepo:
 | `@serenity-js/serenity-bdd`     | Serenity BDD reporting integration                                   |
 | `@serenity-js/console-reporter` | Console output reporter                                              |
 | `@serenity-js/local-server`     | Local HTTP server ability for testing                                |
+| `@serenity-js/html-reporter`    | Self-contained HTML report with trends and consistency analysis      |
 
 ### Package Boundaries
 
@@ -97,13 +98,13 @@ dependencies follow the dependency rule: abstractions never depend on concretion
 @serenity-js/web            ← depends on core only
 @serenity-js/assertions     ← depends on core only
 @serenity-js/playwright     ← depends on core + web
-@serenity-js/playwright-test ← depends on core + web + playwright
+@serenity-js/playwright-test ← depends on core + web + playwright + rest
 ```
 
 ## Technology Stack
 
-- **Language**: TypeScript (ES2023 target, CommonJS modules)
-- **Package Manager**: pnpm (v10.26.0+)
+- **Language**: TypeScript (ES2023 target, dual ESM and CommonJS builds)
+- **Package Manager**: pnpm 11 (version pinned in `package.json#packageManager`)
 - **Monorepo Orchestration**: Lerna + Nx
 - **Unit Testing**: Mocha + Chai + Sinon
 - **Parameterised Tests**: mocha-testdata

@@ -1,3 +1,8 @@
+---
+inclusion: fileMatch
+fileMatchPattern: "**/*.spec.ts,**/*.serenity.ts"
+---
+
 # Writing Idiomatic Serenity/JS Tests
 
 This document captures patterns for writing expressive, maintainable Serenity/JS tests using the Screenplay Pattern.
@@ -399,6 +404,42 @@ Ensure.that(view.isFilterBarVisible(), equals(true)),
 Ensure.that(view.isSearchVisible(), equals(false)),
 ```
 
+### 11. Tasks wait for their own outcome
+
+A task that changes what the user sees completes only once the change is visible. Put the wait
+inside the task, so that tests can verify the outcome with a plain `Ensure.that()` straight afterwards:
+
+```typescript
+// ✓ Idiomatic — the task waits until the view has synced the filter to the URL
+selectFilter = (label: Answerable<string>): Task =>
+    Task.where(the`#actor selects the ${ label } filter`,
+        this.filterBar.selectFilter(label),
+        this.urlState.waitUntilEquals('filter', this.filterBar.filterKey(label)),
+    );
+
+await actor.attemptsTo(
+    capabilitiesView.selectFilter('Healthy'),
+    Ensure.that(Page.current().url().href, includes('filter=healthy')),
+);
+
+// ✗ Avoid — every test needs to know how long the task takes to complete
+await actor.attemptsTo(
+    capabilitiesView.selectFilter('Healthy'),
+    Wait.until(Page.current().url().href, includes('filter=healthy')),
+);
+```
+
+Two exceptions:
+
+- **Tasks that navigate to another view** can't know when the destination view is ready, and
+  component tests stub the navigation. The test waits for the destination view instead:
+  `Wait.until(scenariosView, isPresent())`.
+- **Shared widgets**, such as `FilterBar`, must not wait for view-level effects, such as the URL,
+  as component tests render them without a view that syncs its state. The view's task adds the wait.
+
+Never rely on timing for a check straight after a task. `Ensure.that()` evaluates its question once;
+Serenity/JS doesn't pause between activities.
+
 ## When `Question.about()` IS appropriate
 
 Use `Question.about()` when the extraction logic genuinely cannot be expressed with PEQL:
@@ -515,3 +556,5 @@ validates exactly the API that integration tests depend on.
 | Negative method names (`isNotCollapsible`) | Double negatives harm readability  | Positive name + assert `equals(false)`: `isCollapsible()` |
 | `hasX()` boolean when content is available | Proves existence but not correctness | Assert on the actual content: `detailTitle()`, `confidence()` |
 | Naming a method `isVisible()` when it calls `.isPresent()` | Misleads about what's checked; child lookups flake on Windows | Use `...IsPresent()` for DOM existence, or rely on the `Optional` interface |
+| `Wait.until(...)` in a test after a task that changes the view | Leaks the task's timing into every test | Make the task wait for its own outcome |
+| `Ensure.that(...)` that only passes because the view updated in time | Breaks as soon as activities run faster | Task waits for its outcome; tests wait for the destination view after navigation |

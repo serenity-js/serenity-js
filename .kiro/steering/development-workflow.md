@@ -196,6 +196,20 @@ See the Pre-Commit Checklist below for the full list.
 - **Never push with failing tests.** The push comes after 0 failures. If tests fail, fix them first. If a failure is genuinely unrelated to your changes, explain exactly why with evidence (the specific assertion, why your change cannot affect it, what does affect it).
 - **Never report work as complete while tests fail.** "558 passing, 3 pre-existing failures" is not an acceptable status report. The only acceptable status is "all tests pass" or "N tests fail because [specific traced cause], fixing now."
 
+### Changes to Event Order or Timing Need Every Suite That Asserts On Them
+
+A change that affects the order or timing of domain events, or how long activities and `waitForNextCue()` take,
+can break tests far from the package you changed. Before pushing:
+
+1. Find every suite that asserts on the affected events, e.g. `grep -rln "ActorStageExit\|AsyncOperation" integration/*/spec`
+2. Run all of them, not just the one closest to the change. `PickEvent.next()` only moves forward,
+   so a reordered event fails assertions in suites that otherwise look unrelated
+3. Timing changes expose tests that relied on delays between activities: run the full integration suites
+   of the packages that render UIs (e.g. `html-reporter`) and switch browsing contexts (`webdriverio-web`, `playwright-web`)
+
+Removing a 10ms delay after each activity once broke the Protractor event-order assertions,
+30 html-reporter tests and the WebdriverIO iframe tests — none of them in the package that changed.
+
 ## Clarification Policy
 
 If requirements are unclear, ask before writing tests. One clear question is better than a wrong assumption.
@@ -241,3 +255,59 @@ If the output is empty, the last commit is already pushed — **do not amend**. 
 - [ ] Integration tests pass if applicable (`make INTEGRATION_SCOPE=<module> integration-test`)
 - [ ] ESLint passes on all modified files (`npx eslint <files>`)
 - [ ] No implementation code exists without corresponding tests
+
+## Agent Working Style
+
+Gotchas specific to AI agents working in this repository.
+
+### Component rewrites can silently drop functionality
+
+When delegating a component rewrite to a sub-agent, existing functionality can be silently lost if:
+1. The rewrite prompt doesn't explicitly list ALL existing behaviours to preserve
+2. No component test covers the specific behaviour
+
+**Prevention:** Before rewriting a component, enumerate its observable behaviours and verify each has a test. If a behaviour isn't tested, add the test FIRST, then rewrite.
+
+### Kiro hooks do not fire automatically from the write tool
+
+`.kiro/hooks/` defines `PostFileSave` hooks that run in the IDE. The `write` tool does **not** trigger them. Run hook commands manually after file writes (e.g., `npx eslint <changed-files>`).
+
+### Never bypass commit signing
+
+If `git commit` fails with an SSH passphrase error, do NOT use `-c commit.gpgsign=false`. Instead, set `SSH_AUTH_SOCK` from macOS keychain:
+
+```bash
+SSH_AUTH_SOCK=$(launchctl getenv SSH_AUTH_SOCK) git commit -S -m '...'
+```
+
+The key is in the macOS keychain; `launchctl getenv SSH_AUTH_SOCK` retrieves the socket. Bypassing signing creates unsigned commits that require force-pushing to fix.
+
+### Verify Docker image tags exist before updating CI
+
+Always check the container registry before committing a Docker image tag bump. A tag that doesn't exist in ghcr.io blocks the entire CI pipeline with `manifest unknown`. Verify at:
+- https://github.com/serenity-js/serenity-js-docker/pkgs/container/playwright
+- Or: `docker manifest inspect ghcr.io/serenity-js/playwright:<tag>`
+
+The Serenity Docker image tag format is `v{playwright-version}-{ubuntu-codename}` (e.g., `v1.63.0-resolute`). There is no commit hash in the tag.
+
+### Investigate lint errors before fixing them mechanically
+
+An unused variable may indicate a deeper issue — a missing function call, an incomplete test, or dead code. Before renaming to `_unused` or deleting:
+1. Read the surrounding context to understand the intent
+2. Check if the value was supposed to be passed somewhere (e.g., `data` prop not wired up)
+3. Fix the root cause, not the symptom
+
+### Shell edits on macOS: `sed` has no `\b`
+
+BSD `sed` silently ignores `\b` word boundaries, so a "rename" can change nothing without any error. Use `perl -pi -e 's/\bold\b/new/g'`, and check the result with `grep`.
+
+### commitlint rejects subjects starting with a PascalCase word
+
+`feat(html-reporter): TestRunsView exposes …` fails the `subject-case` rule. Start the subject with a lower-case verb and mention the class later: `feat(html-reporter): expose … of the test runs view`.
+
+### Agent definitions: system prompt vs prompt template
+
+- **System prompt** — identity, knowledge, constraints (every invocation)
+- **Prompt template** — task-specific workflow (single invocation)
+
+Don't duplicate content between them. `resources` in the agent definition provide deep context without bloating the prompt.
