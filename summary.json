@@ -1,30 +1,30 @@
 {
   "$schema": "https://serenity-js.org/schemas/report-summary.json",
-  "generated": "2026-10-10T14:34:16.247Z",
+  "generated": "2026-10-10T21:59:35.671Z",
   "title": "Serenity/JS Integration Tests",
   "schemaVersion": 1,
   "reportUrl": "./index.html",
   "ci": {
-    "commit": "e55226faa77dbdbcddbb9dc6a576027a474a06ac",
+    "commit": "bba38117d04259aaae845310a22165e508363c00",
     "branch": "main",
-    "jobUrl": "https://github.com/serenity-js/serenity-js/actions/runs/38058592878"
+    "jobUrl": "https://github.com/serenity-js/serenity-js/actions/runs/38088620675"
   },
   "latestRun": {
-    "timestamp": "2026-10-10T14:16:24.217Z",
-    "label": "8860",
+    "timestamp": "2026-10-10T21:47:29.368Z",
+    "label": "8876",
     "totals": {
-      "passed": 3696,
+      "passed": 3710,
       "failed": 0,
       "pending": 0,
       "skipped": 0,
       "compromised": 0,
       "error": 0
     },
-    "duration": 768326
+    "duration": 503027
   },
   "runs": 5,
   "delta": {
-    "passed": 0,
+    "passed": 14,
     "failed": 0,
     "pending": 0,
     "skipped": 0,
@@ -52,29 +52,29 @@
   },
   "slowest": [
     {
-      "name": "produces data.js containing all scenarios from multiple workers",
-      "source": "webdriverio-8-mocha/spec/html_reporter_parallel.spec.ts",
-      "duration": 20565
+      "name": "to(url) marks the test as compromised if the desired destination can't be reached",
+      "source": "webdriverio-8-web/node_modules/@integration/web-specs/spec/screenplay/interactions/Navigate.spec.ts",
+      "duration": 18495
     },
     {
-      "name": "recognises a passing scenario",
-      "source": "webdriverio-8-cucumber/spec/passing_scenario.spec.ts",
-      "duration": 19715
+      "name": "produces data.js containing all scenarios from multiple workers",
+      "source": "webdriverio-8-mocha/spec/html_reporter_parallel.spec.ts",
+      "duration": 18115
     },
     {
       "name": "supports native cucumber formatters",
       "source": "webdriverio-8-cucumber/spec/native_cucumber_formatters.spec.ts",
-      "duration": 19702
+      "duration": 15402
     },
     {
-      "name": "to(url) marks the test as compromised if the desired destination can't be reached",
-      "source": "webdriverio-8-web/node_modules/@integration/web-specs/spec/screenplay/interactions/Navigate.spec.ts",
-      "duration": 19644
+      "name": "recognises a passing scenario",
+      "source": "webdriverio-8-cucumber/spec/passing_scenario.spec.ts",
+      "duration": 15160
     },
     {
-      "name": "afterTest hook is invoked with correct result for a passing scenario",
-      "source": "webdriverio-8-mocha/spec/afterTest_hook.spec.ts",
-      "duration": 19232
+      "name": "recognises a failing scenario",
+      "source": "webdriverio-8-mocha/spec/failing_scenario.spec.ts",
+      "duration": 14956
     }
   ],
   "modules": [
@@ -84,9 +84,9 @@
       "tests": 20,
       "passed": 20,
       "failed": 0,
-      "duration": 4832,
-      "startedAt": "2026-10-10T14:23:18.613Z",
-      "finishedAt": "2026-10-10T14:23:23.445Z"
+      "duration": 9059,
+      "startedAt": "2026-10-10T21:47:36.596Z",
+      "finishedAt": "2026-10-10T21:47:45.655Z"
     },
     {
       "id": "cucumber-2",
@@ -94,9 +94,9 @@
       "tests": 20,
       "passed": 20,
       "failed": 0,
-      "duration": 6176,
-      "startedAt": "2026-10-10T14:25:05.116Z",
-      "finishedAt": "2026-10-10T14:25:11.292Z"
+      "duration": 9954,
+      "startedAt": "2026-10-10T21:47:29.368Z",
+      "finishedAt": "2026-10-10T21:47:39.322Z"
     },
     {
       "id": "cucumber-3",
@@ -104,9 +104,9 @@
       "tests": 20,
       "passed": 20,
       "failed": 0,
-      "duration": 8936,
-      "startedAt": "2026-10-10T14:26:41.062Z",
-      "finishedAt": "2026-10-10T14:26:49.998Z"
+      "duration": 9760,
+      "startedAt": "2026-10-10T21:49:26.399Z",
+      "finishedAt": "2026-10-10T21:49:36.159Z"
     },
     {
       "id": "cucumber-4",
@@ -114,9 +114,9 @@
       "tests": 20,
       "passed": 20,
       "failed": 0,
-      "duration": 8731,
-      "startedAt": "2026-10-10T14:19:21.069Z",
-      "finishedAt": "2026-10-10T14:19:29.800Z"
+      "duration": 9113,
+      "startedAt": "2026-10-10T21:49:28.146Z",
+      "finishedAt": "2026-10-10T21:49:37.259Z"
     },
     {
       "id": "cucumber-5",
@@ -124,9 +124,9 @@
       "tests": 20,
       "passed": 20,
       "failed": 0,
-      "duration": 10377,
-      "startedAt": "2026-10-10T14:17:44.312Z",
-      "finishedAt": "2026-10-10T14:17:54.689Z"
+      "duration": 8604,
+      "startedAt": "2026-10-10T21:49:39.797Z",
+      "finishedAt": "2026-10-10T21:49:48.401Z"
     },
     {
       "id": "cucumber-6",
@@ -134,9 +134,9 @@
       "tests": 20,
       "passed": 20,
       "failed": 0,
-      "duration": 7176,
-      "startedAt": "2026-10-10T14:19:05.813Z",
-      "finishedAt": "2026-10-10T14:19:12.989Z"
+      "duration": 11653,
+      "startedAt": "2026-10-10T21:47:31.468Z",
+      "finishedAt": "2026-10-10T21:47:43.121Z"
     },
     {
       "id": "cucumber-7",
@@ -144,9 +144,9 @@
       "tests": 26,
       "passed": 26,
       "failed": 0,
-      "duration": 8553,
-      "startedAt": "2026-10-10T14:20:02.393Z",
-      "finishedAt": "2026-10-10T14:20:10.946Z"
+      "duration": 11427,
+      "startedAt": "2026-10-10T21:49:40.193Z",
+      "finishedAt": "2026-10-10T21:49:51.620Z"
     },
     {
       "id": "cucumber-8-javascript-api",
@@ -154,9 +154,9 @@
       "tests": 27,
       "passed": 27,
       "failed": 0,
-      "duration": 16930,
-      "startedAt": "2026-10-10T14:18:56.426Z",
-      "finishedAt": "2026-10-10T14:19:13.356Z"
+      "duration": 9854,
+      "startedAt": "2026-10-10T21:49:32.457Z",
+      "finishedAt": "2026-10-10T21:49:42.311Z"
     },
     {
       "id": "cucumber-8-legacy-api",
@@ -164,9 +164,9 @@
       "tests": 27,
       "passed": 27,
       "failed": 0,
-      "duration": 15911,
-      "startedAt": "2026-10-10T14:19:20.060Z",
-      "finishedAt": "2026-10-10T14:19:35.971Z"
+      "duration": 9309,
+      "startedAt": "2026-10-10T21:49:46.626Z",
+      "finishedAt": "2026-10-10T21:49:55.935Z"
     },
     {
       "id": "cucumber-9",
@@ -174,9 +174,9 @@
       "tests": 27,
       "passed": 27,
       "failed": 0,
-      "duration": 16117,
-      "startedAt": "2026-10-10T14:17:57.905Z",
-      "finishedAt": "2026-10-10T14:18:14.022Z"
+      "duration": 15658,
+      "startedAt": "2026-10-10T21:49:30.172Z",
+      "finishedAt": "2026-10-10T21:49:45.830Z"
     },
     {
       "id": "cucumber-10",
@@ -184,9 +184,9 @@
       "tests": 27,
       "passed": 27,
       "failed": 0,
-      "duration": 20326,
-      "startedAt": "2026-10-10T14:17:30.381Z",
-      "finishedAt": "2026-10-10T14:17:50.707Z"
+      "duration": 11250,
+      "startedAt": "2026-10-10T21:47:31.711Z",
+      "finishedAt": "2026-10-10T21:47:42.961Z"
     },
     {
       "id": "cucumber-11",
@@ -194,9 +194,9 @@
       "tests": 27,
       "passed": 27,
       "failed": 0,
-      "duration": 19799,
-      "startedAt": "2026-10-10T14:22:09.111Z",
-      "finishedAt": "2026-10-10T14:22:28.910Z"
+      "duration": 19902,
+      "startedAt": "2026-10-10T21:47:36.515Z",
+      "finishedAt": "2026-10-10T21:47:56.417Z"
     },
     {
       "id": "cucumber-12",
@@ -204,9 +204,9 @@
       "tests": 27,
       "passed": 27,
       "failed": 0,
-      "duration": 15305,
-      "startedAt": "2026-10-10T14:17:28.007Z",
-      "finishedAt": "2026-10-10T14:17:43.312Z"
+      "duration": 15839,
+      "startedAt": "2026-10-10T21:47:56.235Z",
+      "finishedAt": "2026-10-10T21:48:12.074Z"
     },
     {
       "id": "cucumber-13",
@@ -214,19 +214,19 @@
       "tests": 27,
       "passed": 27,
       "failed": 0,
-      "duration": 21282,
-      "startedAt": "2026-10-10T14:28:51.261Z",
-      "finishedAt": "2026-10-10T14:29:12.543Z"
+      "duration": 19124,
+      "startedAt": "2026-10-10T21:50:41.368Z",
+      "finishedAt": "2026-10-10T21:51:00.492Z"
     },
     {
       "id": "html-reporter",
       "outcome": "passed",
-      "tests": 279,
-      "passed": 279,
+      "tests": 276,
+      "passed": 276,
       "failed": 0,
-      "duration": 237867,
-      "startedAt": "2026-10-10T14:17:01.769Z",
-      "finishedAt": "2026-10-10T14:20:59.636Z"
+      "duration": 219613,
+      "startedAt": "2026-10-10T21:47:56.217Z",
+      "finishedAt": "2026-10-10T21:51:35.830Z"
     },
     {
       "id": "jasmine",
@@ -234,9 +234,9 @@
       "tests": 20,
       "passed": 20,
       "failed": 0,
-      "duration": 6226,
-      "startedAt": "2026-10-10T14:28:00.317Z",
-      "finishedAt": "2026-10-10T14:28:06.543Z"
+      "duration": 6213,
+      "startedAt": "2026-10-10T21:49:41.979Z",
+      "finishedAt": "2026-10-10T21:49:48.192Z"
     },
     {
       "id": "jasmine-5",
@@ -244,9 +244,9 @@
       "tests": 20,
       "passed": 20,
       "failed": 0,
-      "duration": 9203,
-      "startedAt": "2026-10-10T14:23:19.378Z",
-      "finishedAt": "2026-10-10T14:23:28.581Z"
+      "duration": 8998,
+      "startedAt": "2026-10-10T21:49:29.560Z",
+      "finishedAt": "2026-10-10T21:49:38.558Z"
     },
     {
       "id": "mocha",
@@ -254,9 +254,9 @@
       "tests": 21,
       "passed": 21,
       "failed": 0,
-      "duration": 7579,
-      "startedAt": "2026-10-10T14:29:01.998Z",
-      "finishedAt": "2026-10-10T14:29:09.577Z"
+      "duration": 7326,
+      "startedAt": "2026-10-10T21:50:57.182Z",
+      "finishedAt": "2026-10-10T21:51:04.508Z"
     },
     {
       "id": "playwright-electron",
@@ -264,9 +264,9 @@
       "tests": 24,
       "passed": 24,
       "failed": 0,
-      "duration": 3085,
-      "startedAt": "2026-10-10T14:17:57.770Z",
-      "finishedAt": "2026-10-10T14:18:00.855Z"
+      "duration": 2788,
+      "startedAt": "2026-10-10T21:47:51.656Z",
+      "finishedAt": "2026-10-10T21:47:54.444Z"
     },
     {
       "id": "playwright-test",
@@ -274,9 +274,9 @@
       "tests": 68,
       "passed": 68,
       "failed": 0,
-      "duration": 156869,
-      "startedAt": "2026-10-10T14:16:24.217Z",
-      "finishedAt": "2026-10-10T14:19:01.086Z"
+      "duration": 149047,
+      "startedAt": "2026-10-10T21:47:31.457Z",
+      "finishedAt": "2026-10-10T21:50:00.504Z"
     },
     {
       "id": "playwright-test-ct",
@@ -284,19 +284,19 @@
       "tests": 12,
       "passed": 12,
       "failed": 0,
-      "duration": 2079,
-      "startedAt": "2026-10-10T14:16:25.982Z",
-      "finishedAt": "2026-10-10T14:16:28.061Z"
+      "duration": 2141,
+      "startedAt": "2026-10-10T21:47:52.592Z",
+      "finishedAt": "2026-10-10T21:47:54.733Z"
     },
     {
       "id": "playwright-web",
       "outcome": "passed",
-      "tests": 570,
-      "passed": 570,
+      "tests": 587,
+      "passed": 587,
       "failed": 0,
-      "duration": 110583,
-      "startedAt": "2026-10-10T14:17:16.976Z",
-      "finishedAt": "2026-10-10T14:19:07.559Z"
+      "duration": 83706,
+      "startedAt": "2026-10-10T21:47:57.588Z",
+      "finishedAt": "2026-10-10T21:49:21.294Z"
     },
     {
       "id": "protractor-cucumber",
@@ -304,9 +304,9 @@
       "tests": 3,
       "passed": 3,
       "failed": 0,
-      "duration": 4440,
-      "startedAt": "2026-10-10T14:16:58.627Z",
-      "finishedAt": "2026-10-10T14:17:03.067Z"
+      "duration": 3853,
+      "startedAt": "2026-10-10T21:47:46.334Z",
+      "finishedAt": "2026-10-10T21:47:50.187Z"
     },
     {
       "id": "protractor-jasmine",
@@ -314,9 +314,9 @@
       "tests": 7,
       "passed": 7,
       "failed": 0,
-      "duration": 9970,
-      "startedAt": "2026-10-10T14:17:10.566Z",
-      "finishedAt": "2026-10-10T14:17:20.536Z"
+      "duration": 6357,
+      "startedAt": "2026-10-10T21:47:54.300Z",
+      "finishedAt": "2026-10-10T21:48:00.657Z"
     },
     {
       "id": "protractor-mocha",
@@ -324,9 +324,9 @@
       "tests": 8,
       "passed": 8,
       "failed": 0,
-      "duration": 10707,
-      "startedAt": "2026-10-10T14:17:27.970Z",
-      "finishedAt": "2026-10-10T14:17:38.677Z"
+      "duration": 7139,
+      "startedAt": "2026-10-10T21:48:04.716Z",
+      "finishedAt": "2026-10-10T21:48:11.855Z"
     },
     {
       "id": "protractor-web",
@@ -334,9 +334,9 @@
       "tests": 568,
       "passed": 568,
       "failed": 0,
-      "duration": 108896,
-      "startedAt": "2026-10-10T14:27:22.221Z",
-      "finishedAt": "2026-10-10T14:29:11.117Z"
+      "duration": 84108,
+      "startedAt": "2026-10-10T21:47:56.901Z",
+      "finishedAt": "2026-10-10T21:49:21.009Z"
     },
     {
       "id": "rest",
@@ -344,9 +344,9 @@
       "tests": 7,
       "passed": 7,
       "failed": 0,
-      "duration": 961,
-      "startedAt": "2026-10-10T14:19:21.302Z",
-      "finishedAt": "2026-10-10T14:19:22.263Z"
+      "duration": 266,
+      "startedAt": "2026-10-10T21:51:13.917Z",
+      "finishedAt": "2026-10-10T21:51:14.183Z"
     },
     {
       "id": "webdriverio-8-cucumber",
@@ -354,9 +354,9 @@
       "tests": 2,
       "passed": 2,
       "failed": 0,
-      "duration": 39419,
-      "startedAt": "2026-10-10T14:16:37.486Z",
-      "finishedAt": "2026-10-10T14:17:16.905Z"
+      "duration": 30564,
+      "startedAt": "2026-10-10T21:48:01.959Z",
+      "finishedAt": "2026-10-10T21:48:32.523Z"
     },
     {
       "id": "webdriverio-8-jasmine",
@@ -364,9 +364,9 @@
       "tests": 6,
       "passed": 6,
       "failed": 0,
-      "duration": 112253,
-      "startedAt": "2026-10-10T14:17:24.656Z",
-      "finishedAt": "2026-10-10T14:19:16.909Z"
+      "duration": 86814,
+      "startedAt": "2026-10-10T21:48:38.706Z",
+      "finishedAt": "2026-10-10T21:50:05.520Z"
     },
     {
       "id": "webdriverio-8-mocha",
@@ -374,9 +374,9 @@
       "tests": 8,
       "passed": 8,
       "failed": 0,
-      "duration": 152440,
-      "startedAt": "2026-10-10T14:19:20.807Z",
-      "finishedAt": "2026-10-10T14:21:53.247Z"
+      "duration": 121204,
+      "startedAt": "2026-10-10T21:50:08.917Z",
+      "finishedAt": "2026-10-10T21:52:10.121Z"
     },
     {
       "id": "webdriverio-8-web-devtools",
@@ -384,9 +384,9 @@
       "tests": 574,
       "passed": 574,
       "failed": 0,
-      "duration": 196281,
-      "startedAt": "2026-10-10T14:16:55.261Z",
-      "finishedAt": "2026-10-10T14:20:11.542Z"
+      "duration": 316053,
+      "startedAt": "2026-10-10T21:48:25.001Z",
+      "finishedAt": "2026-10-10T21:53:41.054Z"
     },
     {
       "id": "webdriverio-8-web-webdriver",
@@ -394,9 +394,9 @@
       "tests": 574,
       "passed": 574,
       "failed": 0,
-      "duration": 326656,
-      "startedAt": "2026-10-10T14:20:19.103Z",
-      "finishedAt": "2026-10-10T14:25:45.759Z"
+      "duration": 315358,
+      "startedAt": "2026-10-10T21:50:37.037Z",
+      "finishedAt": "2026-10-10T21:55:52.395Z"
     },
     {
       "id": "webdriverio-cucumber",
@@ -404,9 +404,9 @@
       "tests": 2,
       "passed": 2,
       "failed": 0,
-      "duration": 8704,
-      "startedAt": "2026-10-10T14:16:37.136Z",
-      "finishedAt": "2026-10-10T14:16:45.840Z"
+      "duration": 8111,
+      "startedAt": "2026-10-10T21:47:47.556Z",
+      "finishedAt": "2026-10-10T21:47:55.667Z"
     },
     {
       "id": "webdriverio-jasmine",
@@ -414,9 +414,9 @@
       "tests": 7,
       "passed": 7,
       "failed": 0,
-      "duration": 26044,
-      "startedAt": "2026-10-10T14:16:50.265Z",
-      "finishedAt": "2026-10-10T14:17:16.309Z"
+      "duration": 24232,
+      "startedAt": "2026-10-10T21:47:59.810Z",
+      "finishedAt": "2026-10-10T21:48:24.042Z"
     },
     {
       "id": "webdriverio-mocha",
@@ -424,9 +424,9 @@
       "tests": 8,
       "passed": 8,
       "failed": 0,
-      "duration": 27480,
-      "startedAt": "2026-10-10T14:17:18.545Z",
-      "finishedAt": "2026-10-10T14:17:46.025Z"
+      "duration": 26878,
+      "startedAt": "2026-10-10T21:48:26.129Z",
+      "finishedAt": "2026-10-10T21:48:53.007Z"
     },
     {
       "id": "webdriverio-web",
@@ -434,9 +434,9 @@
       "tests": 573,
       "passed": 573,
       "failed": 0,
-      "duration": 172538,
-      "startedAt": "2026-10-10T14:16:57.914Z",
-      "finishedAt": "2026-10-10T14:19:50.452Z"
+      "duration": 172646,
+      "startedAt": "2026-10-10T21:48:00.339Z",
+      "finishedAt": "2026-10-10T21:50:52.985Z"
     }
   ]
 }
