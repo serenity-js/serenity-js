@@ -288,7 +288,7 @@ Always check the container registry before committing a Docker image tag bump. A
 - https://github.com/serenity-js/serenity-js-docker/pkgs/container/playwright
 - Or: `docker manifest inspect ghcr.io/serenity-js/playwright:<tag>`
 
-The Serenity Docker image tag format is `v{playwright-version}-{ubuntu-codename}` (e.g., `v1.63.0-resolute`). There is no commit hash in the tag.
+The Serenity Docker image tag format is `v{playwright-version}-{ubuntu-codename}` (e.g., `v1.64.0-resolute`). There is no commit hash in the tag.
 
 ### Investigate lint errors before fixing them mechanically
 
