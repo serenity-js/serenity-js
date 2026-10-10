@@ -1,4 +1,5 @@
-import { describe, it } from 'mocha';
+import { afterEach, beforeEach, describe, it } from 'mocha';
+import * as sinon from 'sinon';
 
 import { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '../../src/events';
 import { CorrelationId, Description, Name } from '../../src/model';
@@ -50,6 +51,107 @@ describe('StageManager', () => {
 
         return expect(stageManager.waitForNextCue()).to.be.fulfilled;
     });
+
+    it('resolves waitForNextCue without polling when there is no work in progress', async () => {
+
+        const timers = sinon.useFakeTimers({ toFake: [ 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval' ] });
+
+        try {
+            const stageManager = new StageManager(Duration.ofMilliseconds(250), new Clock());
+
+            const cue = settlementOf(stageManager.waitForNextCue());
+
+            // flush pending promise callbacks without advancing the clock
+            await timers.tickAsync(0);
+
+            expect(cue.settled).to.equal(true);
+        }
+        finally {
+            timers.restore();
+        }
+    });
+
+    describe('when waiting for async operations to complete', () => {
+
+        let timers: sinon.SinonFakeTimers;
+
+        beforeEach(() => {
+            timers = sinon.useFakeTimers({ toFake: [ 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval' ] });
+        });
+
+        afterEach(() => {
+            timers.restore();
+        });
+
+        it('ignores the operations it has been asked to exclude', async () => {
+            const stageManager = new StageManager(Duration.ofSeconds(5), new Clock());
+
+            const excludedOperation = CorrelationId.create();
+            const otherOperation = CorrelationId.create();
+
+            stageManager.notifyOf(new AsyncOperationAttempted(new Name('Stage'), new Description('Actor Alice exits the stage'), excludedOperation));
+            stageManager.notifyOf(new AsyncOperationAttempted(new Name('Photographer'), new Description('Taking a photo...'), otherOperation));
+
+            const wait = settlementOf(stageManager.waitForAsyncOperationsToComplete({ except: [ excludedOperation ] }));
+
+            await timers.tickAsync(50);
+
+            expect(wait.settled, 'should wait for operations that are not excluded').to.equal(false);
+
+            stageManager.notifyOf(new AsyncOperationCompleted(otherOperation));
+
+            await timers.tickAsync(50);
+
+            expect(wait.settled, 'should not wait for the excluded operation').to.equal(true);
+        });
+
+        it('waits for all the operations when none are excluded', async () => {
+            const stageManager = new StageManager(Duration.ofSeconds(5), new Clock());
+
+            const operation = CorrelationId.create();
+
+            stageManager.notifyOf(new AsyncOperationAttempted(new Name('Photographer'), new Description('Taking a photo...'), operation));
+
+            const wait = settlementOf(stageManager.waitForAsyncOperationsToComplete());
+
+            await timers.tickAsync(50);
+
+            expect(wait.settled).to.equal(false);
+
+            stageManager.notifyOf(new AsyncOperationCompleted(operation));
+
+            await timers.tickAsync(50);
+
+            expect(wait.settled).to.equal(true);
+        });
+
+        it('resolves once the cue timeout expires, even if some operations are still in progress', async () => {
+            const stageManager = new StageManager(Duration.ofMilliseconds(250), new Clock());
+
+            stageManager.notifyOf(new AsyncOperationAttempted(new Name('Photographer'), new Description('Taking a photo...'), CorrelationId.create()));
+
+            const wait = settlementOf(stageManager.waitForAsyncOperationsToComplete());
+
+            await timers.tickAsync(249);
+
+            expect(wait.settled).to.equal(false);
+
+            await timers.tickAsync(1);
+
+            expect(wait.settled).to.equal(true);
+        });
+    });
+
+    function settlementOf(promise: Promise<void>): { settled: boolean } {
+        const result = { settled: false };
+
+        promise.then(
+            () => { result.settled = true },
+            () => { result.settled = true },
+        );
+
+        return result;
+    }
 
     it('provides details should the work in progress fail to complete', () => {
 

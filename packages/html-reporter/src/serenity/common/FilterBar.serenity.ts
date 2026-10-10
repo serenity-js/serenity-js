@@ -113,12 +113,33 @@ export class FilterBar<NET> extends InteractionObject<NET> {
      */
     selectFilter = (label: Answerable<string>): Task =>
         Task.where(the`#actor selects the ${label} filter`,
-            Click.on(this.chips()
-                .where(Text.of(this.chipLabel()), includes(label))
-                .first()
-                .describedAs(the`filter chip ${label}`)
-            ),
+            Click.on(this.chipCalled(label)),
         );
+
+    /**
+     * The key of the filter chip with the given label, as used in the `filter` URL parameter
+     * (e.g. `'at-risk'` for the `'At Risk'` chip).
+     *
+     * ## Example
+     *
+     * ```ts
+     * await actor.attemptsTo(
+     *   Ensure.that(filterBar.filterKey('At Risk'), equals('at-risk')),
+     * );
+     * ```
+     *
+     * @param label
+     *  The filter chip label (e.g. `'Failed'`, `'At Risk'`)
+     */
+    filterKey = (label: Answerable<string>): QuestionAdapter<string> =>
+        Attribute.called('data-filter').of(this.chipCalled(label))
+            .describedAs(the`key of the ${label} filter`);
+
+    private chipCalled = (label: Answerable<string>) =>
+        this.chips()
+            .where(Text.of(this.chipLabel()), includes(label))
+            .first()
+            .describedAs(the`filter chip ${label}`);
 
     /**
      * The current value of the sort dropdown (e.g. `'name'`, `'duration'`, `'outcome'`).

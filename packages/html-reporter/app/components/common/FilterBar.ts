@@ -39,6 +39,7 @@ interface FilterChipProps {
 function FilterChip({ filter, isActive, onClick }: FilterChipProps): ReturnType<typeof html> {
     return html`
       <button class="filter-chip ${filter.className || filter.key} ${isActive ? 'active' : ''}"
+              data-filter=${filter.key}
               onClick=${onClick}
               aria-pressed=${isActive}>
           <span class="chip-label">${filter.label}</span>

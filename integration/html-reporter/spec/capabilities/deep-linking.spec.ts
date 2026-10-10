@@ -21,7 +21,7 @@ describe('Capabilities', () => {
                 Navigate.to(notes().get('filteredUrl')),
 
                 // Verify the filter is restored
-                Ensure.that(capabilitiesView.filterBar.activeFilters(), equals(['Healthy'])),
+                Ensure.eventually(capabilitiesView.filterBar.activeFilters(), equals(['Healthy'])),
             );
         });
 
@@ -35,7 +35,7 @@ describe('Capabilities', () => {
                 Navigate.to('/single/index.html'),
                 Navigate.to(notes().get('sortedUrl')),
 
-                Ensure.that(capabilitiesView.selectedSort(), equals('confidence')),
+                Ensure.eventually(capabilitiesView.selectedSort(), equals('confidence')),
             );
         });
 

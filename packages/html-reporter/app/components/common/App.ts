@@ -94,6 +94,11 @@ export function App(): ReturnType<typeof html> {
         const onHash = () => setRoute(hashNav.getRoute());
         window.addEventListener('hashchange', onHash);
         window.addEventListener('popstate', onHash);
+
+        // The hash might have changed between the initial render and subscribing to the events above,
+        // for example when the page navigates to a deep link straight after loading
+        onHash();
+
         return () => {
             window.removeEventListener('hashchange', onHash);
             window.removeEventListener('popstate', onHash);

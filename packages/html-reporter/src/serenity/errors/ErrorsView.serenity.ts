@@ -9,6 +9,7 @@ import { KpiCard } from '../common/KpiCard.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
 import { ResultCount } from '../common/ResultCount.serenity.js';
 import { SearchInput } from '../common/SearchInput.serenity.js';
+import { ViewControls } from '../common/ViewControls.serenity.js';
 import { ScenarioItem } from '../scenarios/ScenarioItem.serenity.js';
 
 /**
@@ -69,10 +70,6 @@ export class ErrorsView<NET> extends InteractionObject<NET> {
     private readonly scenarioItems = this.rootElement.elements(By.css('.scenario-item')).describedAs('errors scenario items');
     private readonly scenarioNameElements = this.rootElement.elements(ErrorsView.scenarioNameSelector).describedAs('errors scenario names');
 
-    private filterSheetTrigger = () =>
-        this.rootElement.element(By.css('[aria-label="Search and filter"]'))
-            .describedAs('filter sheet trigger');
-
     private statsSheetTrigger = () =>
         this.rootElement.element(By.css('[aria-label="Error statistics"]'))
             .describedAs('stats sheet trigger');
@@ -81,15 +78,11 @@ export class ErrorsView<NET> extends InteractionObject<NET> {
         this.rootElement.element(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
             .describedAs('bottom sheet close button');
 
-    private openFilterSheet = (): Task =>
-        Task.where('#actor opens the filter sheet',
-            Click.on(this.filterSheetTrigger()),
-        );
-
-    private closeFilterSheet = (): Task =>
-        Task.where('#actor closes the filter sheet',
-            Click.on(this.bottomSheetClose()),
-        );
+    private readonly viewControls = new ViewControls<NET>(
+        this.rootElement.element(By.css('[aria-label="Search and filter"]')).describedAs('filter sheet trigger'),
+        this.rootElement.element(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close')).describedAs('bottom sheet close button'),
+        this.mobile,
+    );
 
     /**
      * Opens the error statistics bottom sheet (mobile viewport).
@@ -274,16 +267,15 @@ export class ErrorsView<NET> extends InteractionObject<NET> {
      * @param searchTerm
      *  Text to search for (matches error messages and scenario names)
      */
-    find = (searchTerm: Answerable<string>): Task =>
-        this.mobile
-            ? Task.where(the`#actor searches for ${searchTerm}`,
-                this.openFilterSheet(),
-                this.mobileSearchInput.searchFor(searchTerm),
-                this.closeFilterSheet(),
-            )
-            : Task.where(the`#actor searches for ${searchTerm}`,
-                this.searchInput.searchFor(searchTerm),
-            );
+    find = (searchTerm: Answerable<string>): Task => {
+        const searchInput = this.viewControls.pick(this.searchInput, this.mobileSearchInput);
+
+        return Task.where(the`#actor searches for ${ searchTerm }`,
+            ...this.viewControls.within(
+                searchInput.searchFor(searchTerm),
+            ),
+        );
+    };
 
     /**
      * The displayed result count text (e.g. `'3 of 5 error groups'`).

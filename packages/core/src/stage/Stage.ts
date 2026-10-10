@@ -221,11 +221,11 @@ export class Stage implements EmitsDomainEvents {
 
         this.actorLifecycleManager.clearSpotlightIfIn(focus);
 
-        // Wait for the Photographer to finish taking any screenshots
-        await this.manager.waitForAsyncOperationsToComplete();
-
         const actorsToDismiss = new Map<Actor, CorrelationId>(actors.map(actor => [ actor, CorrelationId.create() ]));
 
+        // Register the exit attempts before the first `await`, so that they're recorded
+        // while `announce` is still running. This way, `waitForNextCue` invoked right after `announce`
+        // waits for the actors to exit the stage, and reports them if they fail to do so within the cue timeout.
         for (const [ actor, correlationId ] of actorsToDismiss) {
             this.announce(new ActorStageExitAttempted(
                 correlationId,
@@ -233,6 +233,10 @@ export class Stage implements EmitsDomainEvents {
                 this.currentTime(),
             ));
         }
+
+        // Wait for the Photographer to finish taking any screenshots.
+        // Exit attempts can only complete after this wait is over, so we must not wait for them.
+        await this.manager.waitForAsyncOperationsToComplete({ except: Array.from(actorsToDismiss.values()) });
 
         // Try to dismiss each actor
         for (const [ actor, correlationId ] of actorsToDismiss) {

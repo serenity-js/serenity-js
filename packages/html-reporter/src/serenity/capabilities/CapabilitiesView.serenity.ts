@@ -1,6 +1,6 @@
-import { includes } from '@serenity-js/assertions';
-import type { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
-import { Task, the } from '@serenity-js/core';
+import { includes, isTrue } from '@serenity-js/assertions';
+import type { Answerable, QuestionAdapter } from '@serenity-js/core';
+import { Question, Task, the, Wait } from '@serenity-js/core';
 import { Attribute, By, Click, PageElement, PageElements, Select, Text, Value } from '@serenity-js/web';
 
 import { link } from '../../navigation/link.js';
@@ -10,6 +10,8 @@ import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
 import { ResultCount } from '../common/ResultCount.serenity.js';
 import { SearchInput } from '../common/SearchInput.serenity.js';
+import { UrlViewState } from '../common/UrlViewState.serenity.js';
+import { ViewControls } from '../common/ViewControls.serenity.js';
 
 /**
  * Interaction object representing the **Capabilities** view in the HTML report.
@@ -73,6 +75,9 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
     private readonly readmeLinks = this.rootElement.elements(By.css('.readme-content a')).describedAs('README links');
     private readonly detailConfidence = this.rootElement.element(By.css('.req-detail-confidence')).describedAs('detail panel confidence score');
     private readonly detailConfidenceLabel = this.rootElement.element(By.css('.req-detail-confidence-label')).describedAs('detail panel confidence label');
+    private readonly detailPanelPath = Attribute.called('data-path').of(this.rootElement.element(By.css('.req-detail-panel')))
+        .describedAs('path of the capability shown in the detail panel');
+    private readonly urlState = new UrlViewState({ search: '', filter: 'all', sort: 'name', path: '' });
     private readonly detailScenarioCount = this.rootElement.element(By.css('.req-detail-scenario-count')).describedAs('detail panel scenario count');
     private readonly childNames = this.rootElement.elements(By.css('.req-detail-child-name')).describedAs('child capability names');
     private readonly treeNodes = this.rootElement.elements(By.css('.req-tree-node')).describedAs('tree nodes');
@@ -81,24 +86,12 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
     private readonly sortSelectElement = this.rootElement.element(By.css('.sort-select')).describedAs('sort dropdown');
     private readonly detailTitleElement = this.rootElement.element(By.css('.req-detail-title')).describedAs('detail title');
 
-    // Mobile helpers
-    private treeSheetTrigger = () =>
-        this.rootElement.element(By.css('[aria-label="Browse capabilities"]'))
-            .describedAs('tree sheet trigger');
-
-    private bottomSheetClose = () =>
-        this.rootElement.element(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
-            .describedAs('bottom sheet close button');
-
-    private openTreeSheet = (): Task =>
-        Task.where('#actor opens the capabilities tree sheet',
-            Click.on(this.treeSheetTrigger()),
-        );
-
-    private closeTreeSheet = (): Task =>
-        Task.where('#actor closes the capabilities tree sheet',
-            Click.on(this.bottomSheetClose()),
-        );
+    // Controls shown inline on wider screens, and in a bottom sheet on mobile
+    private readonly viewControls = new ViewControls<NET>(
+        this.rootElement.element(By.css('[aria-label="Browse capabilities"]')).describedAs('tree sheet trigger'),
+        this.rootElement.element(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close')).describedAs('bottom sheet close button'),
+        this.mobile,
+    );
 
     constructor(rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation(), options?: InteractionObjectOptions) {
         super(rootElement, options);
@@ -360,14 +353,16 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
      * @param label
      *  The filter chip label to activate
      */
-    selectFilter = (label: Answerable<string>): Task =>
-        this.mobile
-            ? Task.where(the`#actor selects the ${label} filter`,
-                this.openTreeSheet(),
-                this.mobileFilterBar.selectFilter(label),
-                this.closeTreeSheet(),
-            )
-            : this.filterBar.selectFilter(label);
+    selectFilter = (label: Answerable<string>): Task => {
+        const filterBar = this.viewControls.pick(this.filterBar, this.mobileFilterBar);
+
+        return Task.where(the`#actor selects the ${ label } filter`,
+            ...this.viewControls.within(
+                filterBar.selectFilter(label),
+                this.urlState.waitUntilEquals('filter', filterBar.filterKey(label)),
+            ),
+        );
+    };
 
     /**
      * Searches for capabilities by entering text into the search input.
@@ -385,16 +380,16 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
      * @param searchTerm
      *  Text to search for (matches capability names)
      */
-    find = (searchTerm: Answerable<string>): Task =>
-        this.mobile
-            ? Task.where(the`#actor searches for ${searchTerm}`,
-                this.openTreeSheet(),
-                this.mobileSearchInput.searchFor(searchTerm),
-                this.closeTreeSheet(),
-            )
-            : Task.where(the`#actor searches for ${searchTerm}`,
-                this.searchInput.searchFor(searchTerm),
-            );
+    find = (searchTerm: Answerable<string>): Task => {
+        const searchInput = this.viewControls.pick(this.searchInput, this.mobileSearchInput);
+
+        return Task.where(the`#actor searches for ${ searchTerm }`,
+            ...this.viewControls.within(
+                searchInput.searchFor(searchTerm),
+                this.urlState.waitUntilEquals('search', searchTerm),
+            ),
+        );
+    };
 
     /**
      * Clicks a link within the README content section.
@@ -417,7 +412,25 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
                 .first()
                 .describedAs(the`README link ${linkText}`)
             ),
+            Wait.until(this.showsCapabilitySelectedInUrl(), isTrue()),
         );
+
+    /**
+     * README links either point to another capability, which the view selects after the URL changes,
+     * or to another view, such as the list of scenarios in a spec file.
+     */
+    private showsCapabilitySelectedInUrl = (): QuestionAdapter<boolean> =>
+        Question.about('whether the capabilities view shows the capability selected in the URL', async actor => {
+            const viewIsPresent = await actor.answer(this.isPresent());
+            if (! viewIsPresent) {
+                return true;    // navigated to another view
+            }
+
+            const shownPath = await actor.answer(this.detailPanelPath);
+            const selectedPath = await actor.answer(this.urlState.parameter('path'));
+
+            return shownPath === selectedPath;
+        });
 
     /**
      * Selects a sort option from the sort dropdown.
@@ -436,16 +449,19 @@ export class CapabilitiesView<NET> extends InteractionObject<NET> {
      * @param option
      *  The sort option value to select
      */
-    selectSort = (option: Answerable<string>): Task =>
-        this.mobile
-            ? Task.where(the`#actor sorts by ${option}`,
-                this.openTreeSheet(),
-                Select.value(option).from(this.rootElement.element(By.css('[data-testid="bottom-sheet"] .sort-select')).describedAs('mobile sort dropdown')),
-                this.closeTreeSheet(),
-            )
-            : Task.where(the`#actor sorts by ${option}`,
-                Select.value(option).from(this.sortSelectElement),
-            );
+    selectSort = (option: Answerable<string>): Task => {
+        const sortDropdown = this.viewControls.pick(
+            this.sortSelectElement,
+            this.rootElement.element(By.css('[data-testid="bottom-sheet"] .sort-select')).describedAs('mobile sort dropdown'),
+        );
+
+        return Task.where(the`#actor sorts by ${ option }`,
+            ...this.viewControls.within(
+                Select.value(option).from(sortDropdown),
+                this.urlState.waitUntilEquals('sort', option),
+            ),
+        );
+    };
 
     // URL helpers — type-safe navigation URLs using the same link() function as components
 

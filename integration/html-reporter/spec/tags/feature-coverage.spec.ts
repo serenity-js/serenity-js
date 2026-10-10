@@ -1,4 +1,5 @@
-import { contain, Ensure, includes, isGreaterThan, not } from '@serenity-js/assertions';
+import { contain, Ensure, includes, isGreaterThan, isPresent, not } from '@serenity-js/assertions';
+import { Wait } from '@serenity-js/core';
 import { Page } from '@serenity-js/web';
 
 import { describe, it } from '../../src';
@@ -11,6 +12,7 @@ describe('Tags', () => {
             await actor.attemptsTo(
                 tagsView.open(),
                 tagsView.selectTag('Todo List'),
+                Wait.until(scenariosView, isPresent()),
 
                 Ensure.that(Page.current().url().href, includes('#/tests')),
                 Ensure.that(Page.current().url().href, includes('search=')),
@@ -28,6 +30,7 @@ describe('Tags', () => {
                 tagsView.find('retried'),
 
                 tagsView.selectTag('retried'),
+                Wait.until(scenariosView, isPresent()),
 
                 Ensure.that(Page.current().url().href, includes('#/tests')),
                 Ensure.that(Page.current().url().href, includes(encodeURIComponent('@retried'))),
@@ -43,6 +46,7 @@ describe('Tags', () => {
                 tagsView.find('Manual'),
 
                 tagsView.selectTag('Manual'),
+                Wait.until(scenariosView, isPresent()),
 
                 // The URL should contain the double-quoted form: "@External Tests:Manual"
                 Ensure.that(Page.current().url().href, includes('#/tests')),

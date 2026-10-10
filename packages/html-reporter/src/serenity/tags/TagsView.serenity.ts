@@ -9,6 +9,7 @@ import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
 import { ResultCount } from '../common/ResultCount.serenity.js';
 import { SearchInput } from '../common/SearchInput.serenity.js';
+import { ViewControls } from '../common/ViewControls.serenity.js';
 
 /**
  * Interaction object representing the **Tags** view in the HTML report.
@@ -72,25 +73,12 @@ export class TagsView<NET> extends InteractionObject<NET> {
         super(rootElement, options);
     }
 
-    // Mobile helpers
-
-    private filterSheetTrigger = () =>
-        this.rootElement.element(By.css('[aria-label="Search and filter"]'))
-            .describedAs('filter sheet trigger');
-
-    private bottomSheetClose = () =>
-        this.rootElement.element(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
-            .describedAs('bottom sheet close button');
-
-    private openFilterSheet = (): Task =>
-        Task.where('#actor opens the filter sheet',
-            Click.on(this.filterSheetTrigger()),
-        );
-
-    private closeFilterSheet = (): Task =>
-        Task.where('#actor closes the filter sheet',
-            Click.on(this.bottomSheetClose()),
-        );
+    // Controls shown inline on wider screens, and in a bottom sheet on mobile
+    private readonly viewControls = new ViewControls<NET>(
+        this.rootElement.element(By.css('[aria-label="Search and filter"]')).describedAs('filter sheet trigger'),
+        this.rootElement.element(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close')).describedAs('bottom sheet close button'),
+        this.mobile,
+    );
 
     // Behaviour — questions
 
@@ -202,16 +190,15 @@ export class TagsView<NET> extends InteractionObject<NET> {
      * @param searchTerm
      *  Text to search for (matches tag names)
      */
-    find = (searchTerm: Answerable<string>): Task =>
-        this.mobile
-            ? Task.where(the`#actor searches for ${searchTerm}`,
-                this.openFilterSheet(),
-                this.mobileSearchInput.searchFor(searchTerm),
-                this.closeFilterSheet(),
-            )
-            : Task.where(the`#actor searches for ${searchTerm}`,
-                this.searchInput.searchFor(searchTerm),
-            );
+    find = (searchTerm: Answerable<string>): Task => {
+        const searchInput = this.viewControls.pick(this.searchInput, this.mobileSearchInput);
+
+        return Task.where(the`#actor searches for ${ searchTerm }`,
+            ...this.viewControls.within(
+                searchInput.searchFor(searchTerm),
+            ),
+        );
+    };
 
     /**
      * Activates a filter chip by label (e.g. `'Feature'`, `'Issue'`).
@@ -230,14 +217,15 @@ export class TagsView<NET> extends InteractionObject<NET> {
      * @param label
      *  The filter chip label to activate
      */
-    selectFilter = (label: Answerable<string>): Task =>
-        this.mobile
-            ? Task.where(the`#actor selects the ${label} filter`,
-                this.openFilterSheet(),
-                this.mobileFilterBar.selectFilter(label),
-                this.closeFilterSheet(),
-            )
-            : this.filterBar.selectFilter(label);
+    selectFilter = (label: Answerable<string>): Task => {
+        const filterBar = this.viewControls.pick(this.filterBar, this.mobileFilterBar);
+
+        return Task.where(the`#actor selects the ${ label } filter`,
+            ...this.viewControls.within(
+                filterBar.selectFilter(label),
+            ),
+        );
+    };
 
     /**
      * The displayed result count text.

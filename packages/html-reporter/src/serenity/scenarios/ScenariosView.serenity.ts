@@ -1,7 +1,7 @@
 import { includes } from '@serenity-js/assertions';
 import type { Answerable, Question, QuestionAdapter } from '@serenity-js/core';
 import { Task, the } from '@serenity-js/core';
-import { By, Click, PageElement, PageElements, Text, Value } from '@serenity-js/web';
+import { By, PageElement, PageElements, Text, Value } from '@serenity-js/web';
 
 import type { OutcomeFilter } from '../../navigation/link.js';
 import { link } from '../../navigation/link.js';
@@ -11,6 +11,8 @@ import { InteractionObject } from '../common/InteractionObject.serenity.js';
 import { Navigation } from '../common/Navigation.serenity.js';
 import { ResultCount } from '../common/ResultCount.serenity.js';
 import { SearchInput } from '../common/SearchInput.serenity.js';
+import { UrlViewState } from '../common/UrlViewState.serenity.js';
+import { ViewControls } from '../common/ViewControls.serenity.js';
 import { ScenarioItem } from './ScenarioItem.serenity.js';
 
 /**
@@ -102,25 +104,14 @@ export class ScenariosView<NET> extends InteractionObject<NET> {
         super(rootElement, options);
     }
 
-    // Mobile helpers
+    // Controls shown inline on wider screens, and in a bottom sheet on mobile
+    private readonly viewControls = new ViewControls<NET>(
+        this.rootElement.element(By.css('[aria-label="Search and filter"]')).describedAs('filter sheet trigger'),
+        this.rootElement.element(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close')).describedAs('bottom sheet close button'),
+        this.mobile,
+    );
 
-    private filterSheetTrigger = () =>
-        this.rootElement.element(By.css('[aria-label="Search and filter"]'))
-            .describedAs('filter sheet trigger');
-
-    private bottomSheetClose = () =>
-        this.rootElement.element(By.css('[data-testid="bottom-sheet"] .bottom-sheet-close'))
-            .describedAs('bottom sheet close button');
-
-    private openFilterSheet = (): Task =>
-        Task.where('#actor opens the filter sheet',
-            Click.on(this.filterSheetTrigger()),
-        );
-
-    private closeFilterSheet = (): Task =>
-        Task.where('#actor closes the filter sheet',
-            Click.on(this.bottomSheetClose()),
-        );
+    private readonly urlState = new UrlViewState({ search: '', filter: 'all', sort: 'category' });
 
     // Behaviour — questions
 
@@ -206,16 +197,16 @@ export class ScenariosView<NET> extends InteractionObject<NET> {
      * @param searchTerm
      *  Text to search for (matches scenario names)
      */
-    find = (searchTerm: Answerable<string>): Task =>
-        this.mobile
-            ? Task.where(the`#actor searches for ${searchTerm}`,
-                this.openFilterSheet(),
-                this.mobileSearchInput.searchFor(searchTerm),
-                this.closeFilterSheet(),
-            )
-            : Task.where(the`#actor searches for ${searchTerm}`,
-                this.searchInput.searchFor(searchTerm),
-            );
+    find = (searchTerm: Answerable<string>): Task => {
+        const searchInput = this.viewControls.pick(this.searchInput, this.mobileSearchInput);
+
+        return Task.where(the`#actor searches for ${ searchTerm }`,
+            ...this.viewControls.within(
+                searchInput.searchFor(searchTerm),
+                this.urlState.waitUntilEquals('search', searchTerm),
+            ),
+        );
+    };
 
     /**
      * Activates a filter chip by label (e.g. `'Failed'`, `'Passed'`, `'Pending'`).
@@ -234,14 +225,16 @@ export class ScenariosView<NET> extends InteractionObject<NET> {
      * @param label
      *  The filter chip label to activate
      */
-    selectFilter = (label: Answerable<string>): Task =>
-        this.mobile
-            ? Task.where(the`#actor selects the ${label} filter`,
-                this.openFilterSheet(),
-                this.mobileFilterBar.selectFilter(label),
-                this.closeFilterSheet(),
-            )
-            : this.filterBar.selectFilter(label);
+    selectFilter = (label: Answerable<string>): Task => {
+        const filterBar = this.viewControls.pick(this.filterBar, this.mobileFilterBar);
+
+        return Task.where(the`#actor selects the ${ label } filter`,
+            ...this.viewControls.within(
+                filterBar.selectFilter(label),
+                this.urlState.waitUntilContains('filter', filterBar.filterKey(label)),
+            ),
+        );
+    };
 
     /**
      * The displayed result count text (e.g. `'7 of 23 scenarios'`).
@@ -287,7 +280,7 @@ export class ScenariosView<NET> extends InteractionObject<NET> {
     activeFilters = (): Question<Promise<string[]>> =>
         PageElements.located(By.css('.filter-chip[aria-pressed="true"]'))
             .of(this.rootElement)
-            .eachMappedTo(Text)
+            .eachMappedTo(Text.of(PageElement.located(By.css('.chip-label'))))
             .describedAs('active filter labels');
 
     private readonly runSelectorElement = this.rootElement.element(By.css('select[aria-label^="Select test run"]'))

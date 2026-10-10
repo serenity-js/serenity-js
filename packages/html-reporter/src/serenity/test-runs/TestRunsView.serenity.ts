@@ -35,7 +35,7 @@ import { Navigation } from '../common/Navigation.serenity.js';
  *   Ensure.that(testRunsView.runCount(), isGreaterThan(0)),
  *   Ensure.that(testRunsView.hasTrendChart(), equals(true)),
  *   testRunsView.selectRun(0),
- *   Ensure.that(testRunsView.hasDetailsPanel(), equals(true)),
+ *   Ensure.that(testRunsView.detailsPanel, isPresent()),
  *   Ensure.that(testRunsView.moduleNames(), contain('playwright-web')),
  * );
  * ```
@@ -48,9 +48,38 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
     private readonly chartCanvas = this.rootElement.element(By.css('canvas')).describedAs('trend chart canvas');
     private readonly runRows = this.rootElement.elements(By.css('.scenario-list .scenario-item')).describedAs('test run rows');
     private readonly commitLink = this.rootElement.element(By.css('a[href*="/commit/"]')).describedAs('commit link');
-    private readonly detailsPanel = PageElement.located(By.css('[data-testid="run-details-panel"]')).describedAs('run details panel');
+    private readonly detailsPanelElement = PageElement.located(By.css('[data-testid="run-details-panel"]')).describedAs('run details panel');
+    private readonly moduleTableElement = PageElement.located(By.css('.run-details-table')).of(this.detailsPanelElement).describedAs('module table in the run details panel');
     private readonly detailsCta = PageElement.located(By.css('[data-testid="run-details-cta"]')).describedAs('run details CTA button');
     private readonly detailsTitle = PageElement.located(By.css('.run-details-title')).describedAs('run details title');
+
+    /**
+     * The run details panel, which appears when a run is selected via the chart or the run list.
+     *
+     * ## Example
+     *
+     * ```ts
+     * await actor.attemptsTo(
+     *   testRunsView.selectRun(0),
+     *   Ensure.that(testRunsView.detailsPanel, isPresent()),
+     * );
+     * ```
+     */
+    readonly detailsPanel = new InteractionObject(this.detailsPanelElement);
+
+    /**
+     * The table of modules in the run details panel, shown for runs with multiple modules.
+     *
+     * ## Example
+     *
+     * ```ts
+     * await actor.attemptsTo(
+     *   testRunsView.clickChartBar(0),
+     *   Ensure.that(testRunsView.moduleTable, isPresent()),
+     * );
+     * ```
+     */
+    readonly moduleTable = new InteractionObject(this.moduleTableElement);
 
     constructor(rootElement: Answerable<PageElement<NET>>, private readonly navigation: Navigation = new Navigation()) {
         super(rootElement);
@@ -109,9 +138,20 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
      *   Ensure.that(testRunsView.hasDetailsPanel(), equals(true)),
      * );
      * ```
+     *
+     * @deprecated Use {@link TestRunsView.detailsPanel} with the `isPresent()` expectation instead.
+     *
+     * ## Migration
+     *
+     * ```ts
+     * // Before
+     * Ensure.that(testRunsView.hasDetailsPanel(), equals(true))
+     * // After
+     * Ensure.that(testRunsView.detailsPanel, isPresent())
+     * ```
      */
     hasDetailsPanel = (): Question<Promise<boolean>> =>
-        this.detailsPanel
+        this.detailsPanelElement
             .isPresent()
             .describedAs('whether the run details panel is visible');
 
@@ -138,7 +178,7 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
      * ```
      */
     detailsPanelText = (): QuestionAdapter<string> =>
-        Text.of(this.detailsPanel).trim()
+        Text.of(this.detailsPanelElement).trim()
             .describedAs('run details panel text');
 
     /**
@@ -188,10 +228,20 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
      * ```ts
      * Ensure.that(testRunsView.hasModuleTable(), equals(true))
      * ```
+     *
+     * @deprecated Use {@link TestRunsView.moduleTable} with the `isPresent()` expectation instead.
+     *
+     * ## Migration
+     *
+     * ```ts
+     * // Before
+     * Ensure.that(testRunsView.hasModuleTable(), equals(true))
+     * // After
+     * Ensure.that(testRunsView.moduleTable, isPresent())
+     * ```
      */
     hasModuleTable = (): Question<Promise<boolean>> =>
-        PageElement.located(By.css('.run-details-table'))
-            .of(this.detailsPanel)
+        this.moduleTableElement
             .isPresent()
             .describedAs('whether the run details panel has a module table');
 
@@ -206,9 +256,29 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
      */
     moduleNames = (): Question<Promise<string[]>> =>
         PageElements.located(By.css('.run-details-table-module a'))
-            .of(this.detailsPanel)
+            .of(this.detailsPanelElement)
             .eachMappedTo(Text)
             .describedAs('module names in the table');
+
+    /**
+     * The ID of the run shown in the run details panel, i.e. the run selected via the chart or the run list.
+     *
+     * Use it to verify that the views you navigate to from the details panel show the selected run.
+     *
+     * ## Example
+     *
+     * ```ts
+     * await actor.attemptsTo(
+     *   testRunsView.clickChartBar(0),
+     *   notes().set('selectedRun', testRunsView.selectedRunId()),
+     *   testRunsView.clickModuleName('playwright-web'),
+     *   Ensure.that(Page.current().url().hash, includes(notes().get('selectedRun'))),
+     * );
+     * ```
+     */
+    selectedRunId = (): QuestionAdapter<string> =>
+        Attribute.called('data-run-id').of(this.detailsPanelElement)
+            .describedAs('ID of the selected run');
 
     /**
      * Returns the current run ID from the URL's hash parameters.
@@ -360,7 +430,7 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
         Task.where(`#actor clicks module "${moduleName}" in the details panel`,
             Click.on(
                 PageElements.located(By.css('.run-details-table-module a'))
-                    .of(this.detailsPanel)
+                    .of(this.detailsPanelElement)
                     .where(Text, includes(moduleName))
                     .first()
                     .describedAs(`module link "${moduleName}"`)
@@ -382,7 +452,7 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
      *  Module name to locate the row
      */
     clickModulePassedCount = (moduleName: string): Task =>
-        this.clickModuleOutcomeCount(moduleName, 4, 'Passed');
+        this.clickModuleOutcomeCount(moduleName, 'passed');
 
     /**
      * Clicks the "Failed" outcome count for a module in the details panel table.
@@ -399,7 +469,7 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
      *  Module name to locate the row
      */
     clickModuleFailedCount = (moduleName: string): Task =>
-        this.clickModuleOutcomeCount(moduleName, 5, 'Failed');
+        this.clickModuleOutcomeCount(moduleName, 'failed');
 
     /**
      * Clicks the "Skipped" outcome count for a module in the details panel table.
@@ -416,29 +486,25 @@ export class TestRunsView<NET> extends InteractionObject<NET> {
      *  Module name to locate the row
      */
     clickModuleSkippedCount = (moduleName: string): Task =>
-        this.clickModuleOutcomeCount(moduleName, 6, 'Skipped');
+        this.clickModuleOutcomeCount(moduleName, 'skipped');
 
     /**
      * Helper to click an outcome count button in the module table.
      * The column layout is: Module (1) | Outcome (2) | Tests (3) | Passed (4) | Failed (5) | Skipped (6)
      */
-    private clickModuleOutcomeCount(moduleName: string, column: number, outcomeLabel: string): Task {
-        return Task.where(`#actor clicks the ${outcomeLabel} count for module "${moduleName}"`,
-            Interaction.where(`#actor finds and clicks the ${outcomeLabel} count`, async actor => {
-                const moduleRows = PageElements.located(By.css('.run-details-table-row'))
-                    .of(this.detailsPanel);
+    private clickModuleOutcomeCount(moduleName: string, filter: 'passed' | 'failed' | 'skipped'): Task {
+        const targetRow = PageElements.located(By.css('.run-details-table-row'))
+            .of(this.detailsPanelElement)
+            .where(Text, includes(moduleName))
+            .first()
+            .describedAs(`details row for module "${ moduleName }"`);
 
-                const targetRow = moduleRows
-                    .where(Text, includes(moduleName))
-                    .first();
+        const countButton = PageElement.located(By.css(`.count-link[data-filter="${ filter }"]`))
+            .of(targetRow)
+            .describedAs(`${ filter } count button for ${ moduleName }`);
 
-                const countButton = PageElement.located(By.css(`td:nth-child(${column}) .count-link`))
-                    .of(targetRow)
-                    .describedAs(`${outcomeLabel} count button for ${moduleName}`);
-
-                const element = await actor.answer(countButton);
-                await element.click();
-            }),
+        return Task.where(`#actor clicks the ${ filter } count for module "${ moduleName }"`,
+            Click.on(countButton),
         );
     }
 

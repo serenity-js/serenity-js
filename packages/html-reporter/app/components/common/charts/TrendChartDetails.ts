@@ -49,7 +49,7 @@ export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }
     const hasModules = modules.length > 1;
 
     return html`
-        <div class="run-details-panel" ref=${panelRef} data-testid="run-details-panel">
+        <div class="run-details-panel" ref=${panelRef} data-testid="run-details-panel" data-run-id=${selectedRun.runId}>
           <div class="run-details-header">
             <div class="run-details-title">${selectedRun.label}</div>
             <button class="run-details-close" onClick=${onClose} aria-label="Close details panel">✕</button>
@@ -91,6 +91,7 @@ export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }
                           ${m.outcome === 'incomplete' ? '—' : html`
                             <button 
                               class="count-link"
+                              data-filter="passed"
                               onClick=${() => onNavigate(buildModuleOutcomeUrl(selectedRun.runId, m.moduleId, 'passed'))}
                               aria-label=${`View ${m.outcomes?.passed || 0} passed tests from ${m.moduleId}`}
                             >
@@ -102,6 +103,7 @@ export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }
                           ${m.outcome === 'incomplete' ? '—' : html`
                             <button 
                               class="count-link"
+                              data-filter="failed"
                               onClick=${() => onNavigate(buildModuleOutcomeUrl(selectedRun.runId, m.moduleId, 'failed'))}
                               aria-label=${`View ${moduleFailedCount(m)} failed tests from ${m.moduleId}`}
                             >
@@ -113,6 +115,7 @@ export function TrendChartDetails({ selectedRun, panelRef, onClose, onNavigate }
                           ${m.outcome === 'incomplete' ? '—' : html`
                             <button 
                               class="count-link"
+                              data-filter="skipped"
                               onClick=${() => onNavigate(buildModuleOutcomeUrl(selectedRun.runId, m.moduleId, 'skipped'))}
                               aria-label=${`View ${moduleSkippedCount(m)} skipped tests from ${m.moduleId}`}
                             >

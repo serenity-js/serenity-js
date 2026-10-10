@@ -1,4 +1,5 @@
-import { Ensure, equals, includes, isGreaterThan } from '@serenity-js/assertions';
+import { Ensure, equals, includes, isGreaterThan, isPresent } from '@serenity-js/assertions';
+import { Wait } from '@serenity-js/core';
 import { Page } from '@serenity-js/web';
 
 import { describe, it } from '../../src';
@@ -11,6 +12,7 @@ describe('Capabilities', () => {
             await actor.attemptsTo(
                 capabilitiesView.open(),
                 capabilitiesView.followReadmeLink('Authentication'),
+                Wait.until(scenariosView, isPresent()),
 
                 Ensure.that(Page.current().url().href, includes('#/tests?search=')),
                 Ensure.that(scenariosView.scenarioCount(), isGreaterThan(0)),
