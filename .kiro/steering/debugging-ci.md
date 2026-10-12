@@ -45,6 +45,39 @@ If builds behave unexpectedly after switching branches or making structural chan
 make cc    # clears Nx cache
 ```
 
+Nx keeps its task cache in a per-user directory outside the repo (`~/.nx/<workspace-id>/cache`).
+`make cc` only clears it when the root `nx` dev dependency matches the version Lerna runs, so keep them aligned.
+
+### Compiled output missing after a cached build
+
+If `lib/` or `esm/` is missing although the log says `[existing outputs match the cache, left as is]` or `[local cache]`,
+the cache hit restored nothing. Nx only restores the `outputs` declared in `nx.json`, and they must be relative to the project:
+`{projectRoot}/lib`, never `{projectRoot}/packages/<name>/lib`. Packages whose `clean` script deletes `lib`/`esm`
+(e.g. html-reporter) are the first to break.
+
+Check the outputs in `nx.json`, then rebuild without the cache:
+
+```bash
+NX_SKIP_NX_CACHE=true make compile
+```
+
+### Type errors between two copies of a dependency
+
+An error like `Type 'Page' from playwright-core@1.64.0 is not assignable to type 'Page' from playwright-core@1.63.0`
+means two versions of the same package are installed. It usually comes from an upgrade that changed some of
+the related packages but not all of them. For Playwright, `playwright`, `@playwright/test` and `playwright-core`
+must be on the same version. Check with `grep -n "^  playwright-core@" pnpm-lock.yaml`.
+
+### Lockfile changes
+
+Read every lockfile diff line by line; a passing install doesn't make it correct.
+
+- `pnpm install` and `pnpm install --fix-lockfile` can quietly re-resolve unrelated transitive dependencies,
+  sometimes to *older* versions. Revert those hunks and confirm with `pnpm install --frozen-lockfile`.
+- `ERR_PNPM_LOCKFILE_MISSING_DEPENDENCY` after a merge means the merge kept references to entries that one side
+  removed. Run `pnpm install --fix-lockfile`, then review the diff as above.
+- Leave full lockfile rebuilds to Renovate's lock file maintenance, so that they arrive as a reviewable PR.
+
 ### Missing Module Errors
 
 Packages must compile in dependency order. Nx handles this, but if you see resolution errors:
@@ -97,7 +130,21 @@ GitHub Actions workflow order:
 3. **test** — Unit tests (parallel across Node versions and OS)
 4. **integration** — Integration tests (parallel by module)
 5. **coverage** — Aggregate coverage
-6. **publish** — npm publish (main branch only)
+6. **publish** — `lerna version`, then `lerna publish from-package` with retries (main branch only)
+
+### Recovering a failed npm publish
+
+Don't re-run the publish job: `lerna version` has already pushed the release commit and tag, so a re-run fails with `EBEHIND`.
+
+1. Check what's actually missing using the registry, not npmjs.com, which can disagree with it:
+   `npm view @serenity-js/<package>@<version> version --prefer-online`
+2. Wait before acting. Large packages (e.g. `@serenity-js/serenity-bdd`, ~60 MB) have taken about an hour to appear
+   after a successful publish. The package's provenance attestation names the CI run that published it.
+3. Run the **Main** workflow manually (`workflow_dispatch`) with the release tag, e.g. `v3.49.0`.
+   It publishes only the versions missing from the registry, using the same trusted-publisher identity as a release,
+   and keeps the `latest` dist-tag on the newest release.
+
+Sigstore `TLOG_CREATE_ENTRY_ERROR (409)` errors during provenance signing are transient; the publish step retries them.
 
 ### Investigating CI Failures
 
@@ -190,6 +237,11 @@ Review the README last — it's the most commonly missed because it's prose, not
 ### `@wdio/xvfb` auto-detection breaks IPC in Docker containers
 
 WebdriverIO 9.30+ bundles `@wdio/xvfb` into `@wdio/local-runner` and auto-activates it when it detects `--headless` Chrome *and* `xvfb-run` is available in PATH. In Docker containers (like the `ghcr.io/serenity-js/playwright` image), `xvfb-run` is present but wrapping the worker process with it breaks Node's IPC channel (`EINVAL` on `process.send()`). Fix: set `autoXvfb: false` in `wdio.conf.ts`.
+
+### Sparse checkouts persist between `actions/checkout` steps
+
+`actions/checkout` leaves sparse checkout enabled in the workspace, so a later full checkout in the same job
+contains only the sparse paths. Never use a sparse checkout before another checkout in the same job.
 
 ### Renovate lock file drift on major version bumps
 
