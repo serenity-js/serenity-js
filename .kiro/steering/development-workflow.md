@@ -305,6 +305,13 @@ BSD `sed` silently ignores `\b` word boundaries, so a "rename" can change nothin
 
 `feat(html-reporter): TestRunsView exposes …` fails the `subject-case` rule. Start the subject with a lower-case verb and mention the class later: `feat(html-reporter): expose … of the test runs view`.
 
+### Branches created from `origin/main` track `origin/main`
+
+`git switch -c <branch> origin/main` makes the new branch track `origin/main`, so a plain `git push` fails with
+"The upstream branch of your current branch does not match". Create it with `git switch --no-track -c <branch> origin/main`
+and push the first time with `git push -u origin <branch>`. Branch from `origin/main`, not local `main`,
+which may contain unpushed merges.
+
 ### Agent definitions: system prompt vs prompt template
 
 - **System prompt** — identity, knowledge, constraints (every invocation)

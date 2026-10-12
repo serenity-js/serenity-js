@@ -168,7 +168,9 @@ await actor.attemptsTo(
 | Questions, `Ensure.that()`, `Check.whether()` | Evaluate once |
 | `Ensure.eventually()`, `Wait.until()` | Retry until the expectation is met or the timeout expires |
 
-Custom interactions should compose the built-in ones, e.g. `Task.where(..., Click.on(element))`.
+The retry lives in `PageElementInteraction.resolve()`, so custom interactions get it by extending `PageElementInteraction`
+and resolving their target with `this.resolve(actor, element)`, or by composing the built-in ones,
+e.g. `Task.where(..., Click.on(element))`.
 An `Interaction.where()` that calls `actor.answer(element)` and then `element.click()` bypasses the retry.
 
 ## Web Questions
@@ -239,8 +241,23 @@ In BiDi sessions, WebdriverIO updates its current browsing context in an un-awai
 so commands issued straight after `browser.switchToParentFrame()` can run in the frame the browser has just left.
 `WebdriverIORootLocator` works around it by tracking the frames it entered and re-entering the frames above
 the current one with `browser.switchFrame()`, which updates the context before it resolves.
-Don't replace this with a plain `switchToParentFrame()` call until the upstream fix is released
-(reproduction and fix: `jan-molak/webdriverio`, branch `repro/switch-to-parent-frame-race`).
+Don't replace this with a plain `switchToParentFrame()` call until the upstream fix,
+[webdriverio/webdriverio#15948](https://github.com/webdriverio/webdriverio/pull/15948), is released.
+
+### Playwright: use its locator APIs, not copies of its selector internals
+
+Playwright's public selector engines don't always match its locator methods. The `role=` engine matches a non-exact
+`name` against the whole accessible name, while `getByRole()` matches a case-insensitive substring.
+Copying Playwright's internal selector utilities to build selector strings ties us to an engine with different semantics,
+and the copy drifts as Playwright changes. Call the locator method on the parent instead,
+e.g. `parent.getByRole(role, options)` in `PlaywrightLocator`.
+
+### `By.role()` behaves differently with WebdriverIO
+
+`@serenity-js/webdriverio` maps `By.role()` to `aria/<name>`, which matches the name exactly and ignores the role,
+or to `[role=<role>]` when there's no string name. RegExp names and ARIA state options are ignored.
+Shared specs in `integration/web-specs` must only use `By.role()` options that both tools support;
+put Playwright-only examples in `integration/playwright-web/spec`. Parity is tracked in #3563.
 
 ### Dual-package hazard: `instanceof` across CJS and ESM copies
 
