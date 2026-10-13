@@ -492,11 +492,11 @@ importers:
         specifier: 4.3.20
         version: 4.3.20
       '@types/jasmine':
-        specifier: 6.0.0
-        version: 6.0.0
+        specifier: 7.0.0
+        version: 7.0.0
       jasmine:
-        specifier: 6.3.0
-        version: 6.3.0
+        specifier: 7.0.0
+        version: 7.0.0
       npm-failsafe:
         specifier: 1.4.0
         version: 1.4.0
@@ -690,14 +690,14 @@ importers:
         specifier: 5.0.6
         version: 5.0.6
       '@types/jasmine':
-        specifier: 6.0.0
-        version: 6.0.0
+        specifier: 7.0.0
+        version: 7.0.0
       express:
         specifier: 5.2.1
         version: 5.2.1(supports-color@11.0.0)
       jasmine:
-        specifier: 6.3.0
-        version: 6.3.0
+        specifier: 7.0.0
+        version: 7.0.0
       npm-failsafe:
         specifier: 1.4.0
         version: 1.4.0
@@ -744,11 +744,11 @@ importers:
         specifier: 4.3.20
         version: 4.3.20
       '@types/jasmine':
-        specifier: 6.0.0
-        version: 6.0.0
+        specifier: 7.0.0
+        version: 7.0.0
       jasmine:
-        specifier: 6.3.0
-        version: 6.3.0
+        specifier: 7.0.0
+        version: 7.0.0
       npm-failsafe:
         specifier: 1.4.0
         version: 1.4.0
@@ -897,8 +897,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/webdriverio
       '@types/jasmine':
-        specifier: 6.0.0
-        version: 6.0.0
+        specifier: 7.0.0
+        version: 7.0.0
       '@wdio/cli':
         specifier: 9.32.0
         version: 9.32.0(@types/node@24.19.1)(expect-webdriverio@6.1.0)(supports-color@11.0.0)
@@ -915,8 +915,8 @@ importers:
         specifier: 9.32.0
         version: 9.32.0
       jasmine:
-        specifier: 6.3.0
-        version: 6.3.0
+        specifier: 7.0.0
+        version: 7.0.0
       npm-failsafe:
         specifier: 1.4.0
         version: 1.4.0
@@ -5507,8 +5507,8 @@ packages:
   '@types/istanbul-reports@3.0.4':
     resolution: {integrity: sha512-pk2B1NWalF9toCRu6gjBzR69syFjP4Od8WRAX+0mmf9lAjCRicLOWc+ZrxZHx/0XRjotgkF9t6iaMJ+aXcOdZQ==}
 
-  '@types/jasmine@6.0.0':
-    resolution: {integrity: sha512-18lgGsLmEh3VJk9eZ5wAjTISxdqzl6YOwu8UdMpolajN57QOCNbl+AbHUd+Yu9ItrsFdB+c8LSZSGNg8nHaguw==}
+  '@types/jasmine@7.0.0':
+    resolution: {integrity: sha512-6yNx9BsBSKiXO2yqLXs/GZDuD58Gkn6Ty26254FFOuw6B4XU5Xq8mAR0xFy8zHgAhqQd++y41fSJ8BdwrWXhqQ==}
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
@@ -8679,6 +8679,9 @@ packages:
   jasmine-core@6.3.0:
     resolution: {integrity: sha512-eMm5qBovNjNoGOcgE/W207+wrcK5zrQv0Rg/rWGboUJUmZp0dFCpHTyjpuDAfCwRCqg7f9U2q2jtv/aUuzdCQg==}
 
+  jasmine-core@7.0.2:
+    resolution: {integrity: sha512-YMVijt84KPQQFm1db1AQAxTXfq0k3wU06OkepLViljURFqiRQ7EYYX2eUAshhUv9fA9t1E2N65GrdqvupA9VPQ==}
+
   jasmine@2.8.0:
     resolution: {integrity: sha512-KbdGQTf5jbZgltoHs31XGiChAPumMSY64OZMWLNYnEnMfG5uwGBhffePwuskexjT+/Jea/gU3qAU8344hNohSw==}
     hasBin: true
@@ -8689,6 +8692,10 @@ packages:
 
   jasmine@6.3.0:
     resolution: {integrity: sha512-u6L7yYtrtS1JALlp7f4k7Wz7o7ZKXauSKKkXc0L3qUkKrdaxYvNiMHhHp5gtTuVZZXVihXRxS7bWwDBX1wJ7EQ==}
+    hasBin: true
+
+  jasmine@7.0.0:
+    resolution: {integrity: sha512-rnjiyg1LAhFZMoyU8ei/Wqyvti5oCzFhW7ZtkD6o+CSx3LpU9aYurPrh5BKyX3coGvmdEVYPC2HYh1rrBvZoWg==}
     hasBin: true
 
   jasminewd2@2.2.0:
@@ -14234,7 +14241,7 @@ snapshots:
     dependencies:
       '@types/istanbul-lib-report': 3.0.3
 
-  '@types/jasmine@6.0.0': {}
+  '@types/jasmine@7.0.0': {}
 
   '@types/json-schema@7.0.15': {}
 
@@ -18206,6 +18213,8 @@ snapshots:
 
   jasmine-core@6.3.0: {}
 
+  jasmine-core@7.0.2: {}
+
   jasmine@2.8.0:
     dependencies:
       exit: 0.1.2
@@ -18222,6 +18231,12 @@ snapshots:
       '@jasminejs/reporters': 1.1.0
       glob: 13.0.6
       jasmine-core: 6.3.0
+
+  jasmine@7.0.0:
+    dependencies:
+      '@jasminejs/reporters': 1.1.0
+      glob: 13.0.6
+      jasmine-core: 7.0.2
 
   jasminewd2@2.2.0: {}
 
