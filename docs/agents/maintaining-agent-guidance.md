@@ -45,7 +45,7 @@ a shared file either loads in every session or, more often, isn't there when it'
 its area loads exactly when an agent works on that area.
 
 1. **Add it to the Gotchas of the area it concerns**, in the same pull request as the change that taught it.
-   The HTML reporter's are in `references/gotchas.md` of its skill; elsewhere, use an "Implementation Gotchas"
+   The HTML reporter's are in its skill's [references/gotchas.md](../../.agents/contributing-skills/serenity-js-contributing-html-reporter/references/gotchas.md); elsewhere, use an "Implementation Gotchas"
    section of the skill or document.
 2. **If no skill covers the area, that's the signal to create one.** There's no general inbox.
 3. **Write the rule in the heading, then why.** "`isPresent()` and `isVisible()` aren't interchangeable",

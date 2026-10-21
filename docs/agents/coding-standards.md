@@ -110,7 +110,7 @@ Target ES2023. The shared options in `tsconfig.options.json` use Node.js module 
 ```
 
 Packages produce two builds: ESM in `esm/` (`tsconfig-esm.build.json`) and CommonJS in `lib/` (`tsconfig-cjs.build.json`, `"module": "CommonJS"`).
-Relative imports in `src/` therefore need explicit `.js` extensions. See `web-testing.md` → "Dual-package hazard" for the consequences of shipping both builds.
+Relative imports in `src/` therefore need explicit `.js` extensions. See [the dual-package hazard](../../.agents/contributing-skills/serenity-js-contributing-core-internals/SKILL.md#instanceof-checks-must-survive-the-dual-package-hazard) for the consequences of shipping both builds.
 
 ## Code Style
 
@@ -276,7 +276,7 @@ oldMethod(param: string): void {
 }
 ```
 
-See `commit-conventions.md` for detailed lists of what constitutes (and does not constitute) a breaking change.
+See [commit-conventions.md](commit-conventions.md#what-constitutes-a-breaking-change) for detailed lists of what constitutes (and does not constitute) a breaking change.
 
 ## Type Precision
 

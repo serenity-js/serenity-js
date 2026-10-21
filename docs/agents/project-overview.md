@@ -40,7 +40,7 @@ Serenity/JS applies DDD within its own codebase:
 
 ### Composition Over Inheritance
 
-Favour delegation and composition over deep class hierarchies. See `coding-standards.md` for detailed patterns and examples.
+Favour delegation and composition over deep class hierarchies. See [coding-standards.md](coding-standards.md#composition-over-inheritance) for detailed patterns and examples.
 
 Key applications:
 - Tasks compose Activities (not extend them)

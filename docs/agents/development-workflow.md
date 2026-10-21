@@ -65,7 +65,7 @@ make COMPILE_SCOPE=libs compile
 make INTEGRATION_SCOPE=playwright-test integration-test
 ```
 
-See `debugging-ci.md` for full command variations, troubleshooting, and CI reproduction steps.
+See the [serenity-js-contributing-debugging-ci](../../.agents/contributing-skills/serenity-js-contributing-debugging-ci/SKILL.md) skill for full command variations, troubleshooting, and CI reproduction steps.
 
 Integration tests are required when:
 - Adding or modifying test runner adapter behaviour
