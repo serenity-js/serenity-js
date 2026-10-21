@@ -35,9 +35,14 @@ function sourceRoots(root: string): string[] {
     return [ path.join(root, '.agents', 'contributing-skills'), ...packageSkills ];
 }
 
-function isWithin(directory: string, candidate: string): boolean {
-    const relative = path.relative(directory, candidate);
-    return relative !== '' && ! relative.startsWith('..') && ! path.isAbsolute(relative);
+/**
+ * Whether a link points into one of the places this script links skills from,
+ * including packages and skills that no longer exist.
+ */
+function isSkillSource(root: string, target: string): boolean {
+    const [ first, second, third ] = path.relative(root, target).split(path.sep);
+    return (first === '.agents' && second === 'contributing-skills')
+        || (first === 'packages' && second !== undefined && third === 'skills');
 }
 
 export function findSkills(root: string): Skill[] {
@@ -75,7 +80,6 @@ export function linkSkills(root: string, options: { platform?: NodeJS.Platform }
         throw new Error(`Skill names must be unique: ${ duplicates.join('; ') }`);
     }
 
-    const roots = sourceRoots(root);
     const report: LinkReport = { added: [], removed: [] };
 
     for (const skillDirectory of SKILL_DIRECTORIES) {
@@ -94,7 +98,7 @@ export function linkSkills(root: string, options: { platform?: NodeJS.Platform }
                 continue;
             }
             const target = readlinkSync(link);
-            const linkedByUs = roots.some(sourceRoot => isWithin(sourceRoot, path.resolve(directory, target)));
+            const linkedByUs = isSkillSource(root, path.resolve(directory, target));
             if (linkedByUs && path.resolve(directory, target) !== path.resolve(directory, wanted.get(entry) ?? '')) {
                 rmSync(link);
                 if (! wanted.has(entry)) {

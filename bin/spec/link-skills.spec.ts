@@ -125,6 +125,34 @@ describe('link-skills', () => {
             .to.equal(path.join('..', '..', 'packages', 'core', 'skills', 'serenity-js-example'));
     });
 
+    it('removes the links of skills whose package is gone', () => {
+        const removedPackage = path.join(root, 'packages/removed');
+        skill('packages/removed/skills/serenity-js-removed');
+        linkSkills(root);
+        rmSync(removedPackage, { recursive: true });
+
+        const report = linkSkills(root);
+
+        expect(report.removed).to.deep.equal([
+            '.agents/skills/serenity-js-removed',
+            '.claude/skills/serenity-js-removed',
+            '.kiro/skills/serenity-js-removed',
+        ]);
+    });
+
+    it('replaces a link to a skill that moved out of a package that is gone', () => {
+        skill('packages/old/skills/serenity-js-example');
+        linkSkills(root);
+        rmSync(path.join(root, 'packages/old'), { recursive: true });
+        skill('packages/new/skills/serenity-js-example');
+
+        const report = linkSkills(root, { platform: 'darwin' });
+
+        expect(report.added).to.have.length(3);
+        expect(linkTarget('.claude/skills', 'serenity-js-example'))
+            .to.equal(path.join('..', '..', 'packages', 'new', 'skills', 'serenity-js-example'));
+    });
+
     it('leaves alone the skills it did not link, such as those installed by pnpm', () => {
         const installed = path.join(root, 'node_modules/some-package/skills/some-skill');
         mkdirSync(installed, { recursive: true });
