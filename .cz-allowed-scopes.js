@@ -37,7 +37,7 @@ module.exports.scopes = {
     },
     agents() {
         return [
-            // AI agent definitions, steering docs and specs in .kiro/
+            // Agent guidance: AGENTS.md, CLAUDE.md, docs/agents/, .agents/contributing-skills/ and bin/link-skills.ts
             'agents',
         ];
     },

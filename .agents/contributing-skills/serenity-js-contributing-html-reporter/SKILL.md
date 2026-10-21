@@ -6,7 +6,8 @@ description: "Architecture, data flow, UX principles and known gotchas of @seren
 # HTML Reporter — Implementation Architecture
 
 Architectural decisions, component patterns, data flow, and constraints for the `@serenity-js/html-reporter` module.
-Complements `html-reporter-ux.md` (which covers design principles, personas, and accessibility).
+Complements [references/ux.md](references/ux.md), which covers design principles, personas and accessibility.
+Before changing the report, read the gotchas for the area you're changing in [references/gotchas.md](references/gotchas.md).
 
 ## Stack & Runtime Constraints
 

@@ -1,12 +1,7 @@
-# Lessons Learned
+# HTML Reporter Gotchas
 
-Niche patterns and temporary rules discovered during development. Durable conventions are graduated
-into the relevant steering doc (see `steering-maintenance.md` for the document map).
-
-Items here are either:
-- Too specific to warrant space in a general steering doc
-- Temporary (tied to a current phase that will end)
-- Not yet mature enough to formalise
+What the code doesn't make obvious, learned while working on the HTML reporter: temporary rules, quirks and the
+mistakes they prevent. To add or retire one, see [Capturing what you learn](../../../../docs/agents/maintaining-agent-guidance.md#capturing-what-you-learn).
 
 ---
 

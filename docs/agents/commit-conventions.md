@@ -109,7 +109,7 @@ lerna          # Lerna configuration
 renovate       # Renovate bot config
 qlty           # Qlty.sh configuration
 codefactor     # CodeFactor configuration
-agents         # AI agent definitions, steering docs and specs in .kiro/
+agents         # Agent guidance: AGENTS.md, CLAUDE.md, docs/agents/, .agents/contributing-skills/ and bin/link-skills.ts
 eslint         # ESLint configuration
 release        # Reserved for automated releases
 ```
