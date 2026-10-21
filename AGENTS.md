@@ -29,7 +29,7 @@ make COMPILE_SCOPE=libs compile                  # Compile the library packages
 make test                                        # Unit tests of every package, with coverage
 pnpm test                                        # In packages/<name>: that package's unit tests
 make INTEGRATION_SCOPE=<module> integration-test # One integration suite, e.g. playwright-web, cucumber-1
-make lint                                        # ESLint, and the links and skills of the agent guidance
+make lint                                        # ESLint, including the links in the agent guidance
 make cc                                          # Clear the Nx cache when the build behaves strangely
 ```
 

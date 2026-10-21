@@ -113,9 +113,9 @@ describe('link-skills', () => {
     });
 
     it('replaces a link that points to a skill that moved', () => {
-        skill('.agents/contributing-skills/serenity-js-example');
+        skill('packages/web/skills/serenity-js-example');
         linkSkills(root);
-        rmSync(path.join(root, '.agents/contributing-skills'), { recursive: true });
+        rmSync(path.join(root, 'packages/web/skills'), { recursive: true });
         skill('packages/core/skills/serenity-js-example');
 
         const report = linkSkills(root, { platform: 'darwin' });
@@ -166,10 +166,69 @@ describe('link-skills', () => {
         expect(existsSync(path.join(root, '.claude/skills/pnpm-some-package-some-skill'))).to.equal(true);
     });
 
-    it('refuses to link two skills with the same name', () => {
-        skill('.agents/contributing-skills/serenity-js-example');
-        skill('packages/core/skills/serenity-js-example');
+    describe('refuses to link', () => {
 
-        expect(() => linkSkills(root)).to.throw(/serenity-js-example.*\.agents\/contributing-skills.*packages\/core\/skills/s);
+        function frontmatter(directory: string, content: string): void {
+            mkdirSync(path.join(root, directory), { recursive: true });
+            writeFileSync(path.join(root, directory, 'SKILL.md'), content);
+        }
+
+        function problems(): string {
+            try {
+                linkSkills(root);
+            }
+            catch (error) {
+                return (error as Error).message;
+            }
+            throw new Error('linkSkills should have refused to link the skills');
+        }
+
+        it('two skills with the same name', () => {
+            skill('packages/core/skills/serenity-js-example');
+            skill('packages/web/skills/serenity-js-example');
+
+            expect(problems()).to.include('packages/web/skills/serenity-js-example/SKILL.md: serenity-js-example is also the name of packages/core/skills/serenity-js-example');
+        });
+
+        it('a skill whose name differs from its directory', () => {
+            frontmatter('.agents/contributing-skills/serenity-js-contributing-example', '---\nname: serenity-js-contributing-other\ndescription: "Use when …"\n---\n');
+
+            expect(problems()).to.include('.agents/contributing-skills/serenity-js-contributing-example/SKILL.md: name is serenity-js-contributing-other, but the directory is serenity-js-contributing-example');
+        });
+
+        it('a skill without frontmatter, a name or a description', () => {
+            frontmatter('.agents/contributing-skills/serenity-js-contributing-a', '# No frontmatter\n');
+            frontmatter('.agents/contributing-skills/serenity-js-contributing-b', '---\nname: serenity-js-contributing-b\n---\n');
+
+            const message = problems();
+
+            expect(message).to.include('.agents/contributing-skills/serenity-js-contributing-a/SKILL.md: has no frontmatter with a name and description');
+            expect(message).to.include('.agents/contributing-skills/serenity-js-contributing-b/SKILL.md: has no description');
+        });
+
+        it('contributor skills not prefixed with serenity-js-contributing-, and package skills not prefixed with serenity-js-', () => {
+            skill('.agents/contributing-skills/serenity-js-example');
+            skill('packages/core/skills/writing-tasks');
+
+            const message = problems();
+
+            expect(message).to.include('.agents/contributing-skills/serenity-js-example/SKILL.md: contributor skill names start with serenity-js-contributing-');
+            expect(message).to.include('packages/core/skills/writing-tasks/SKILL.md: skill names start with serenity-js-');
+        });
+
+        it('a package skill that uses the contributor prefix', () => {
+            skill('packages/core/skills/serenity-js-contributing-example');
+
+            expect(problems()).to.include('packages/core/skills/serenity-js-contributing-example/SKILL.md: serenity-js-contributing- is reserved for contributor skills in .agents/contributing-skills');
+        });
+
+        it('anything, until every problem is fixed', () => {
+            skill('.agents/contributing-skills/serenity-js-contributing-fine');
+            skill('packages/core/skills/writing-tasks');
+
+            problems();
+
+            expect(existsSync(path.join(root, '.claude/skills/serenity-js-contributing-fine'))).to.equal(false);
+        });
     });
 });

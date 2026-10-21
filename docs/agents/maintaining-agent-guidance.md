@@ -26,17 +26,18 @@ every skill in `.agents/contributing-skills/` and `packages/*/skills/` into `.ag
 `.kiro/skills/`. Those directories are generated and gitignored, so each skill has one source.
 
 Run `pnpm link-skills` after adding, renaming or removing a skill. It adds the missing links and removes the
-ones whose source is gone. On Windows, the links are directory junctions, which need no extra permissions.
+ones whose source is gone. It links nothing until every skill follows the rules below, and CI runs it too. On Windows, the links are directory junctions, which need no extra permissions.
 
 ## Writing a skill
 
-- **The directory name is the skill's `name`.** Contributor skills start with `serenity-js-contributing-`, and
-  framework skills with `serenity-js-`.
+- **The directory name is the skill's `name`.** Names are unique across the repository. Contributor skills
+  start with `serenity-js-contributing-`, and framework skills with `serenity-js-`.
 - **The `description` decides when the skill loads.** Say what the skill covers, then when to use it:
   "Use when changing packages/web, …". Name the task, not just the package.
 - **`SKILL.md` stays focused.** Move detail an agent only sometimes needs into `references/*.md`, and tell the
   reader in `SKILL.md` when to read each one.
-- **Links are relative**, and `pnpm lint` checks that every one of them resolves.
+- **Links are relative**, and `pnpm lint` checks that every one of them resolves, including links to headings,
+  in `AGENTS.md`, `docs/agents/` and the skills.
 
 ## Capturing what you learn
 
