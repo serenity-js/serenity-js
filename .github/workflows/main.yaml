@@ -81,12 +81,9 @@ jobs:
       - name: Test
         run: make test
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@c9b09987143d1e4ac955f4803c7bea742102feb5 # v2.4.0
+        uses: ./.github/actions/qlty
         with:
-          oidc: true
-          command: publish
           files: packages/*/target/coverage/lcov.info
-          incomplete: true
 
   test-linux-node-lts-maintenance:
     name: 'Test: Linux, LTS-1'
@@ -181,12 +178,9 @@ jobs:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target/site/serenity"'
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@c9b09987143d1e4ac955f4803c7bea742102feb5 # v2.4.0
+        uses: ./.github/actions/qlty
         with:
-          oidc: true
-          command: publish
           files: integration/*/target/coverage/lcov.info
-          incomplete: true
 
   test-integration-protractor:
     name: 'Integration: Protractor'
@@ -238,12 +232,9 @@ jobs:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target/site/serenity"'
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@c9b09987143d1e4ac955f4803c7bea742102feb5 # v2.4.0
+        uses: ./.github/actions/qlty
         with:
-          oidc: true
-          command: publish
           files: integration/*/target/coverage/lcov.info
-          incomplete: true
 
   test-integration-webdriverio:
     name: 'Integration: WebdriverIO'
@@ -298,12 +289,9 @@ jobs:
           artifact-name: 'test-integration-reports-${{ matrix.module }}'
           artifact-path: 'package.json "integration/*/target"'
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@c9b09987143d1e4ac955f4803c7bea742102feb5 # v2.4.0
+        uses: ./.github/actions/qlty
         with:
-          oidc: true
-          command: publish
           files: integration/*/target/coverage/lcov.info
-          incomplete: true
 
   test-integration:
     name: 'Integration'
@@ -360,12 +348,9 @@ jobs:
           retention-days: 3
           if-no-files-found: ignore
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@c9b09987143d1e4ac955f4803c7bea742102feb5 # v2.4.0
+        uses: ./.github/actions/qlty
         with:
-          oidc: true
-          command: publish
           files: integration/*/target/coverage/lcov.info
-          incomplete: true
 
   #
   # Reporting
@@ -389,9 +374,8 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Qlty
-        uses: qltysh/qlty-action/coverage@c9b09987143d1e4ac955f4803c7bea742102feb5 # v2.4.0
+        uses: ./.github/actions/qlty
         with:
-          oidc: true
           command: complete
 
   #

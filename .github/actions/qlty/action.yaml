@@ -1,0 +1,34 @@
+name: 'Qlty'
+description: 'Publishes code coverage reports to Qlty, or tells Qlty that every report of a build has been published'
+
+inputs:
+  command:
+    description: "'publish' to upload the reports matching 'files', 'complete' once every job of a build has published its reports"
+    type: string
+    required: false
+    default: 'publish'
+  files:
+    description: "Glob pattern of the LCOV reports to publish, e.g. packages/*/target/coverage/lcov.info. Required by 'publish'"
+    type: string
+    required: false
+
+# Fork pull requests get no OIDC token, so they can't authenticate with Qlty and skip both commands
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Publish coverage
+      if: inputs.command == 'publish' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+      uses: qltysh/qlty-action/coverage@c9b09987143d1e4ac955f4803c7bea742102feb5 # v2.4.0
+      with:
+        oidc: true
+        command: publish
+        files: ${{ inputs.files }}
+        incomplete: true
+
+    - name: Complete coverage
+      if: inputs.command == 'complete' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+      uses: qltysh/qlty-action/coverage@c9b09987143d1e4ac955f4803c7bea742102feb5 # v2.4.0
+      with:
+        oidc: true
+        command: complete
