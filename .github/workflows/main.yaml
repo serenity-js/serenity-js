@@ -31,6 +31,8 @@ jobs:
         uses: ./.github/actions/setup-node-container
       - name: Lint
         run: make lint
+      - name: Test the repository tools
+        run: pnpm test:tools
 
   compile:
     name: 'Compile'
