@@ -197,7 +197,7 @@ When a component renders repeated items with consistent internal structure, mode
 
 ### ListItemNotFoundError and isPresent() — known limitation
 
-`.first()` on an empty filtered list throws during description resolution. `Ensure.that(question, not(isPresent()))` doesn't work with `.first()` on potentially empty lists. Tracked in `.kiro/specs/list-item-not-found-error-handling.md`.
+`.first()` on an empty filtered list throws during description resolution. `Ensure.that(question, not(isPresent()))` doesn't work with `.first()` on potentially empty lists.
 
 ### `isPresent()` vs `isVisible()` for conditional interactions
 
