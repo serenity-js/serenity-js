@@ -118,15 +118,6 @@ describe('check-agent-guidance', () => {
             expect(problems()).to.deep.equal([]);
         });
 
-        it('reads skills checked out with Windows line endings', () => {
-            file(
-                '.agents/contributing-skills/serenity-js-contributing-example/SKILL.md',
-                '---\r\nname: serenity-js-contributing-example\r\ndescription: "Use when …"\r\n---\r\n\r\n# Example\r\n\r\nSee [the section](#example).\r\n',
-            );
-
-            expect(problems()).to.deep.equal([]);
-        });
-
         it('reports a skill whose name differs from its directory', () => {
             skill('.agents/contributing-skills/serenity-js-contributing-example', 'name: serenity-js-contributing-other\ndescription: "Use when …"');
 

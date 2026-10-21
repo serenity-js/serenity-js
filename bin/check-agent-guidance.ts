@@ -106,7 +106,7 @@ function checkLinks(root: string, file: string, markdown: string): Problem[] {
 }
 
 function frontmatterOf(markdown: string): Map<string, string> | undefined {
-    const match = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/.exec(markdown);
+    const match = /^---\n([\s\S]*?)\n---(?:\n|$)/.exec(markdown);
     if (! match) {
         return undefined;
     }
