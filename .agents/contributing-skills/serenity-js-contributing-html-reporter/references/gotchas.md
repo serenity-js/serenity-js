@@ -1,8 +1,3 @@
----
-inclusion: fileMatch
-fileMatchPattern: "**/html-reporter/**"
----
-
 # Lessons Learned
 
 Niche patterns and temporary rules discovered during development. Durable conventions are graduated

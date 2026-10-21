@@ -1,6 +1,6 @@
 ---
-inclusion: fileMatch
-fileMatchPattern: "**/html-reporter/**"
+name: serenity-js-contributing-html-reporter
+description: "Architecture, data flow, UX principles and known gotchas of @serenity-js/html-reporter. Use when changing packages/html-reporter or the html-reporter integration tests, or reviewing a change to the report's UI."
 ---
 
 # HTML Reporter — Implementation Architecture

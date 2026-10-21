@@ -1,8 +1,3 @@
----
-inclusion: fileMatch
-fileMatchPattern: "**/web/**,**/playwright/**,**/webdriverio/**,**/protractor/**"
----
-
 # Web Testing in Serenity/JS
 
 ## Architecture: Dependency Inversion

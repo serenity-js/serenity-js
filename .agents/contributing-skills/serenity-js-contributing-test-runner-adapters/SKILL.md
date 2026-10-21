@@ -1,6 +1,6 @@
 ---
-inclusion: fileMatch
-fileMatchPattern: "**/cucumber/**,**/mocha/**,**/jasmine/**,**/playwright-test/**"
+name: serenity-js-contributing-test-runner-adapters
+description: "How the Serenity/JS adapters translate Cucumber, Mocha, Jasmine and Playwright Test lifecycles into domain events. Use when changing packages/cucumber, mocha, jasmine or playwright-test, or their integration tests."
 ---
 
 # Test Runner Adapters in Serenity/JS

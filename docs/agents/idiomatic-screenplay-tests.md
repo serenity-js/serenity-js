@@ -1,8 +1,3 @@
----
-inclusion: fileMatch
-fileMatchPattern: "**/*.spec.ts,**/*.serenity.ts"
----
-
 # Writing Idiomatic Serenity/JS Tests
 
 This document captures patterns for writing expressive, maintainable Serenity/JS tests using the Screenplay Pattern.

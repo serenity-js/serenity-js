@@ -1,8 +1,3 @@
----
-inclusion: fileMatch
-fileMatchPattern: "**/html-reporter/**"
----
-
 # HTML Reporter UX Principles
 
 ## Purpose
