@@ -1,3 +1,8 @@
+---
+name: serenity-js-contributing-documentation
+description: "Writing and publishing documentation on serenity-js.org: workflow, Docusaurus components, content conventions and style. Use when changing the Serenity/JS Handbook or other pages of the website."
+---
+
 # Documentation Standards
 
 Standards and conventions for writing and publishing documentation on the Serenity/JS website (serenity-js.org).

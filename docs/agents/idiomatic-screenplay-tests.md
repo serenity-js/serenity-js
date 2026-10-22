@@ -1,13 +1,8 @@
----
-inclusion: fileMatch
-fileMatchPattern: "**/*.spec.ts,**/*.serenity.ts"
----
-
 # Writing Idiomatic Serenity/JS Tests
 
 This document captures patterns for writing expressive, maintainable Serenity/JS tests using the Screenplay Pattern.
 It focuses on the **test-writing** side — how to compose interactions, questions, and assertions idiomatically — rather
-than how to implement new Screenplay Pattern components (covered in `screenplay-pattern.md`).
+than how to implement new Screenplay Pattern components (covered in [screenplay-pattern.md](screenplay-pattern.md)).
 
 ## Principles
 

@@ -1,3 +1,8 @@
+---
+name: serenity-js-contributing-debugging-ci
+description: "Running tests locally, fixing common build issues and investigating CI failures in the Serenity/JS monorepo and its project templates. Use when a build, test or CI job fails, or a change doesn't show up in the integration tests."
+---
+
 # Debugging and CI
 
 ## Running Tests Locally

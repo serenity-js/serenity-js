@@ -65,7 +65,7 @@ make COMPILE_SCOPE=libs compile
 make INTEGRATION_SCOPE=playwright-test integration-test
 ```
 
-See `debugging-ci.md` for full command variations, troubleshooting, and CI reproduction steps.
+See the [serenity-js-contributing-debugging-ci](../../.agents/contributing-skills/serenity-js-contributing-debugging-ci/SKILL.md) skill for full command variations, troubleshooting, and CI reproduction steps.
 
 Integration tests are required when:
 - Adding or modifying test runner adapter behaviour
@@ -246,7 +246,7 @@ git log --oneline origin/$(git branch --show-current)..HEAD
 If the output is empty, the last commit is already pushed — **do not amend**. Create a new commit.
 
 - [ ] Git safety check passed (see above)
-- [ ] Commit type verified: if all changed files are in `examples/`, `integration/`, `spec/`, or `.kiro/`, the type MUST be `test` or `docs` — never `feat` or `fix`
+- [ ] Commit type verified: if all changed files are in `examples/`, `integration/`, `spec/`, `docs/agents/` or `.agents/`, the type MUST be `test` or `docs` — never `feat` or `fix`
 - [ ] No `BREAKING CHANGE` footer or `!` suffix without explicit maintainer approval
 - [ ] Every new feature has a failing test written first
 - [ ] Tests describe behaviour, not implementation details
@@ -267,20 +267,6 @@ When delegating a component rewrite to a sub-agent, existing functionality can b
 2. No component test covers the specific behaviour
 
 **Prevention:** Before rewriting a component, enumerate its observable behaviours and verify each has a test. If a behaviour isn't tested, add the test FIRST, then rewrite.
-
-### Kiro hooks do not fire automatically from the write tool
-
-`.kiro/hooks/` defines `PostFileSave` hooks that run in the IDE. The `write` tool does **not** trigger them. Run hook commands manually after file writes (e.g., `npx eslint <changed-files>`).
-
-### Never bypass commit signing
-
-If `git commit` fails with an SSH passphrase error, do NOT use `-c commit.gpgsign=false`. Instead, set `SSH_AUTH_SOCK` from macOS keychain:
-
-```bash
-SSH_AUTH_SOCK=$(launchctl getenv SSH_AUTH_SOCK) git commit -S -m '...'
-```
-
-The key is in the macOS keychain; `launchctl getenv SSH_AUTH_SOCK` retrieves the socket. Bypassing signing creates unsigned commits that require force-pushing to fix.
 
 ### Verify Docker image tags exist before updating CI
 
@@ -304,10 +290,3 @@ BSD `sed` silently ignores `\b` word boundaries, so a "rename" can change nothin
 ### commitlint rejects subjects starting with a PascalCase word
 
 `feat(html-reporter): TestRunsView exposes …` fails the `subject-case` rule. Start the subject with a lower-case verb and mention the class later: `feat(html-reporter): expose … of the test runs view`.
-
-### Agent definitions: system prompt vs prompt template
-
-- **System prompt** — identity, knowledge, constraints (every invocation)
-- **Prompt template** — task-specific workflow (single invocation)
-
-Don't duplicate content between them. `resources` in the agent definition provide deep context without bloating the prompt.

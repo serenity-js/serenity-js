@@ -1,12 +1,13 @@
 ---
-inclusion: fileMatch
-fileMatchPattern: "**/html-reporter/**"
+name: serenity-js-contributing-html-reporter
+description: "Architecture, data flow, UX principles and known gotchas of @serenity-js/html-reporter. Use when changing packages/html-reporter or the html-reporter integration tests, or reviewing a change to the report's UI."
 ---
 
 # HTML Reporter — Implementation Architecture
 
 Architectural decisions, component patterns, data flow, and constraints for the `@serenity-js/html-reporter` module.
-Complements `html-reporter-ux.md` (which covers design principles, personas, and accessibility).
+Complements [references/ux.md](references/ux.md), which covers design principles, personas and accessibility.
+Before changing the report, read the gotchas for the area you're changing in [references/gotchas.md](references/gotchas.md).
 
 ## Stack & Runtime Constraints
 
@@ -148,7 +149,7 @@ Classification logic lives in `classifyConsistencyKind()` in `utils/selectors.ts
 Always use `sceneIdentity(scene)` — never inline `source.path + ':' + source.line`. Client-side lookups must include
 `tagDiscriminator` (browser/project/platform tags) to distinguish multi-variant scenarios.
 
-`sceneIdentity` identifies a scenario **within** a run. To correlate the same test **across** runs, use `findHistoricalMatch` (or `groupOutcomesByScene` for bulk grouping), which tolerates renames and moves — see `lessons-learned.md`.
+`sceneIdentity` identifies a scenario **within** a run. To correlate the same test **across** runs, use `findHistoricalMatch` (or `groupOutcomesByScene` for bulk grouping), which tolerates renames and moves — see [Cross-run history matching](references/gotchas.md#cross-run-history-matching-uses-findhistoricalmatch-not-sceneidentity).
 
 Source line numbers are not always available (e.g. Protractor/Mocha adapters). When building identifiers from `source.path + ':' + source.line`, handle `undefined` line — use the scenario name as a disambiguation fallback.
 

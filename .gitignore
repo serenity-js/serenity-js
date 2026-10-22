@@ -38,6 +38,7 @@ tsconfig.tsbuildinfo
 # Config
 .env
 
-# Kiro
-!.kiro/scratch/.gitkeep
-.kiro/scratch/
+# Agent skills, linked by `pnpm link-skills` from .agents/contributing-skills and packages/*/skills
+.agents/skills/
+.claude/skills/
+.kiro/skills/

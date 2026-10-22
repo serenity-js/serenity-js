@@ -1,17 +1,7 @@
----
-inclusion: fileMatch
-fileMatchPattern: "**/html-reporter/**"
----
+# HTML Reporter Gotchas
 
-# Lessons Learned
-
-Niche patterns and temporary rules discovered during development. Durable conventions are graduated
-into the relevant steering doc (see `steering-maintenance.md` for the document map).
-
-Items here are either:
-- Too specific to warrant space in a general steering doc
-- Temporary (tied to a current phase that will end)
-- Not yet mature enough to formalise
+What the code doesn't make obvious, learned while working on the HTML reporter: temporary rules, quirks and the
+mistakes they prevent. To add or retire one, see [Capturing what you learn](../../../../docs/agents/maintaining-agent-guidance.md#capturing-what-you-learn).
 
 ---
 
@@ -207,7 +197,7 @@ When a component renders repeated items with consistent internal structure, mode
 
 ### ListItemNotFoundError and isPresent() — known limitation
 
-`.first()` on an empty filtered list throws during description resolution. `Ensure.that(question, not(isPresent()))` doesn't work with `.first()` on potentially empty lists. Tracked in `.kiro/specs/list-item-not-found-error-handling.md`.
+`.first()` on an empty filtered list throws during description resolution. `Ensure.that(question, not(isPresent()))` doesn't work with `.first()` on potentially empty lists.
 
 ### `isPresent()` vs `isVisible()` for conditional interactions
 

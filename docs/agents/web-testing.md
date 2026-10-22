@@ -1,8 +1,3 @@
----
-inclusion: fileMatch
-fileMatchPattern: "**/web/**,**/playwright/**,**/webdriverio/**,**/protractor/**"
----
-
 # Web Testing in Serenity/JS
 
 ## Architecture: Dependency Inversion
@@ -195,64 +190,3 @@ await actor.attemptsTo(
     Ensure.that(checkbox(), isSelected()),
 );
 ```
-
-## Adding Browser-Specific Features
-
-When implementing a new web capability:
-
-1. **Does the abstraction belong in `@serenity-js/web`?** — if the capability applies across all browsers, define the abstract interface there
-2. **Implement in each browser package** — provide concrete implementations that satisfy the contract
-3. **Browser-specific only?** — if a capability is unique to one browser (e.g., Playwright-specific tracing), keep it in that browser's package
-
-```typescript
-// 1. Abstract contract in @serenity-js/web
-export abstract class Page {
-    abstract newMethod(): Promise<Result>;
-}
-
-// 2. Concrete implementation in @serenity-js/playwright
-export class PlaywrightPage extends Page {
-    async newMethod(): Promise<Result> {
-        return this.page.playwrightSpecificMethod();
-    }
-}
-```
-
-## Integration Tests
-
-```bash
-make INTEGRATION_SCOPE=playwright-web integration-test
-make INTEGRATION_SCOPE=webdriverio-web integration-test
-```
-
-Shared web specifications live in `integration/web-specs/`. Browser-specific tests live in `integration/<browser>-web/`.
-
-## Implementation Gotchas
-
-### `PageElement.createAdapter()` wraps any `Answerable<PageElement>` with proper child element access
-
-When an Interaction Object receives an `Answerable<PageElement>` (which could be a resolved `PageElement` or a deferred `QuestionAdapter<PageElement>`), use `PageElement.createAdapter()` to wrap it. This provides `.element()` and `.elements()` methods for scoped child lookups regardless of whether the root is resolved or deferred. Never use `as any` casts to access `.element()` on an `Answerable<PageElement>`.
-
-### WebdriverIO 9 BiDi: `switchToParentFrame()` resolves before the frame changes
-
-In BiDi sessions, WebdriverIO updates its current browsing context in an un-awaited `"command"` event listener,
-so commands issued straight after `browser.switchToParentFrame()` can run in the frame the browser has just left.
-`WebdriverIORootLocator` works around it by tracking the frames it entered and re-entering the frames above
-the current one with `browser.switchFrame()`, which updates the context before it resolves.
-Don't replace this with a plain `switchToParentFrame()` call until the upstream fix is released
-(reproduction and fix: `jan-molak/webdriverio`, branch `repro/switch-to-parent-frame-race`).
-
-### Dual-package hazard: `instanceof` across CJS and ESM copies
-
-Serenity/JS packages ship both CJS (`lib/`) and ESM (`esm/`) builds, and a single process can load both,
-e.g. when WebdriverIO `import()`s the framework adapter while specs compiled to CommonJS `require()` the CJS build.
-Classes checked with `instanceof` across packages must recognise instances created by the other copy:
-
-- `Activity` (and so `Interaction` and `Task`), `Ability`, `Outcome` and `RuntimeError` implement `Symbol.hasInstance` with a `Symbol.for` type brand
-- TinyType subclasses, including all domain events, get the same from `tiny-types`
-- New classes that are checked with `instanceof` across package boundaries need a brand too
-
-Unit-test cross-copy behaviour by loading a second copy of the module graph with tsx's `tsImport()`
-(see `packages/core/spec/screenplay/Activity.spec.ts`). Integration reproductions need a `wdio.conf.ts`
-with type-only imports — importing runtime values in the config loads the CJS copy first and hides the problem
-(see `integration/webdriverio-mocha/examples/wdio.type-only-imports.conf.ts`).

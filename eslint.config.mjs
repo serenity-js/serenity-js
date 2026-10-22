@@ -1,4 +1,6 @@
+import markdown from '@eslint/markdown';
 import stylisticPlugin from '@stylistic/eslint-plugin';
+import eslintPluginMarkdownLinks from 'eslint-plugin-markdown-links';
 import eslintPluginMocha from 'eslint-plugin-mocha';
 import eslintPluginSimpleImportSort from 'eslint-plugin-simple-import-sort';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
@@ -189,6 +191,29 @@ export default tseslint.config(
                 allowHigherOrderFunctions: true,
             }],
             '@typescript-eslint/consistent-type-imports': 'error',
+        },
+    },
+
+    // Agent guidance: every relative link resolves, including links to headings
+    {
+        files: [
+            'AGENTS.md',
+            'CLAUDE.md',
+            'docs/agents/**/*.md',
+            '.agents/contributing-skills/**/*.md',
+            'packages/*/skills/**/*.md',
+        ],
+        plugins: {
+            markdown,
+            'markdown-links': eslintPluginMarkdownLinks,
+        },
+        language: 'markdown/gfm',
+        languageOptions: {
+            frontmatter: 'yaml',
+        },
+        rules: {
+            'markdown/no-missing-link-fragments': 'error',
+            'markdown-links/no-missing-path': 'error',
         },
     },
 );
