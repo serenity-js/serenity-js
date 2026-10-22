@@ -4,7 +4,7 @@ import path from 'node:path';
 
 import { expect } from 'chai';
 
-import { findSkills, linkSkills, SKILL_DIRECTORIES } from '../link-skills';
+import { displayPath, findSkills, linkSkills, parseArguments, SKILL_DIRECTORIES } from '../link-skills';
 
 describe('link-skills', () => {
 
@@ -164,6 +164,91 @@ describe('link-skills', () => {
         expect(report).to.deep.equal({ added: [], removed: [] });
         expect(existsSync(path.join(root, '.claude/skills/my-own-skill'))).to.equal(true);
         expect(existsSync(path.join(root, '.claude/skills/pnpm-some-package-some-skill'))).to.equal(true);
+    });
+
+    describe('given target directories', () => {
+
+        let workspace: string;
+
+        beforeEach(() => {
+            // a workspace that holds the repository as serenity-js, next to a directory of its own skills
+            workspace = root;
+            root = path.join(workspace, 'serenity-js');
+            mkdirSync(root);
+        });
+
+        afterEach(() => {
+            root = workspace;
+        });
+
+        it('links into those directories instead, even outside the repository', () => {
+            skill('.agents/contributing-skills/serenity-js-contributing-example');
+            const target = path.join(workspace, '.kiro/skills');
+
+            const report = linkSkills(root, { platform: 'darwin', targets: [ target ] });
+
+            expect(readlinkSync(path.join(target, 'serenity-js-contributing-example')))
+                .to.equal(path.join('..', '..', 'serenity-js', '.agents', 'contributing-skills', 'serenity-js-contributing-example'));
+            expect(report.added).to.deep.equal([ path.join('..', '.kiro', 'skills', 'serenity-js-contributing-example') ]);
+            for (const directory of SKILL_DIRECTORIES) {
+                expect(existsSync(path.join(root, directory)), directory).to.equal(false);
+            }
+        });
+
+        it('leaves alone the skills already there that it did not link', () => {
+            skill('.agents/contributing-skills/serenity-js-contributing-example');
+            const target = path.join(workspace, '.kiro/skills');
+            const teamSkill = path.join(target, 'change-project-templates');
+            mkdirSync(teamSkill, { recursive: true });
+            writeFileSync(path.join(teamSkill, 'SKILL.md'), '---\nname: change-project-templates\ndescription: "Team"\n---\n');
+
+            linkSkills(root, { targets: [ target ] });
+
+            expect(lstatSync(teamSkill).isDirectory()).to.equal(true);
+        });
+
+        it('removes the links of skills whose source is gone', () => {
+            const source = skill('.agents/contributing-skills/serenity-js-contributing-example');
+            const target = path.join(workspace, '.kiro/skills');
+            linkSkills(root, { targets: [ target ] });
+            rmSync(source, { recursive: true });
+
+            const report = linkSkills(root, { targets: [ target ] });
+
+            expect(report.removed).to.deep.equal([ path.join('..', '.kiro', 'skills', 'serenity-js-contributing-example') ]);
+        });
+    });
+
+    describe('parseArguments', () => {
+
+        it('links into the default directories without arguments', () => {
+            expect(parseArguments([], '/work')).to.deep.equal({ targets: undefined });
+        });
+
+        it('takes one or more --target directories, relative to the working directory', () => {
+            expect(parseArguments([ '--target', '../.kiro/skills', '--target', '/abs/skills' ], '/work/serenity-js'))
+                .to.deep.equal({ targets: [ '/work/.kiro/skills', '/abs/skills' ] });
+        });
+
+        it('rejects anything else', () => {
+            expect(() => parseArguments([ '--target' ], '/work')).to.throw('usage: link-skills [--target <directory>]...');
+            expect(() => parseArguments([ '--force' ], '/work')).to.throw('usage: link-skills [--target <directory>]...');
+        });
+
+        it('rejects an option where a directory is required', () => {
+            expect(() => parseArguments([ '--target', '--target' ], '/work')).to.throw('usage: link-skills [--target <directory>]...');
+        });
+    });
+
+    describe('displayPath', () => {
+
+        it('shows a skill directory relative to the repository', () => {
+            expect(displayPath('/work/serenity-js', '/work/.kiro/skills/a-skill', path.posix)).to.equal('../.kiro/skills/a-skill');
+        });
+
+        it('shows the full path of a skill directory on another Windows drive, which no relative path reaches', () => {
+            expect(displayPath('C:\\repo', 'D:\\skills\\a-skill', path.win32)).to.equal('D:\\skills\\a-skill');
+        });
     });
 
     describe('refuses to link', () => {
