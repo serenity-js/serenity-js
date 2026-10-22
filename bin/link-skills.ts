@@ -2,10 +2,12 @@
  * Links the skills in this repository into the directories where agents look for them,
  * so that each skill has one source and the links reflect the current branch.
  *
- * Usage: pnpm link-skills (also the root package's postinstall script, which pnpm runs when it installs or changes dependencies)
+ * Usage: pnpm link-skills [--target <directory>]...
+ *        (also the root package's postinstall script, which pnpm runs when it installs or changes dependencies)
  *
  * - Sources: `.agents/contributing-skills/<name>/` and `packages/<package>/skills/<name>/`, each with a `SKILL.md`
- * - Targets: `.agents/skills/`, `.claude/skills/` and `.kiro/skills/`, which are gitignored
+ * - Targets: `.agents/skills/`, `.claude/skills/` and `.kiro/skills/`, which are gitignored,
+ *   or the directories given with `--target`, relative to the working directory, which may be outside the repository
  * - Links are relative symlinks, or directory junctions on Windows, which need no extra permissions
  * - Links whose source is gone are removed. Anything else in the target directories, like skills linked by pnpm, is left alone
  * - Nothing is linked unless every skill has a description and a unique name that matches its directory, prefixed with
@@ -183,8 +185,23 @@ function sync(root: string, skillDirectory: string, wanted: Link[], platform: No
     };
 }
 
-export function linkSkills(root: string, options: { platform?: NodeJS.Platform } = {}): LinkReport {
+const USAGE = 'usage: link-skills [--target <directory>]...';
+
+/** The command-line arguments: no arguments, or `--target <directory>` one or more times. */
+export function parseArguments(argv: string[], cwd: string): { targets?: string[] } {
+    if (argv.length === 0) {
+        return { targets: undefined };
+    }
+    if (argv.length % 2 !== 0 || argv.some((argument, index) => index % 2 === 0 && argument !== '--target')) {
+        throw new Error(USAGE);
+    }
+    return { targets: argv.filter((_, index) => index % 2 === 1).map(directory => path.resolve(cwd, directory)) };
+}
+
+export function linkSkills(root: string, options: { platform?: NodeJS.Platform, targets?: string[] } = {}): LinkReport {
     const platform = options.platform ?? process.platform;
+    // skill directories relative to the repository, e.g. `.kiro/skills`, or `../.kiro/skills` for one outside it
+    const skillDirectories = options.targets?.map(target => path.relative(root, path.resolve(root, target))) ?? SKILL_DIRECTORIES;
     const skills = findSkills(root);
 
     const problems = problemsWith(root, skills);
@@ -192,7 +209,7 @@ export function linkSkills(root: string, options: { platform?: NodeJS.Platform }
         throw new Error(`nothing linked, until these skills are fixed:\n${ problems.map(problem => `  ${ problem }`).join('\n') }`);
     }
 
-    const reports = SKILL_DIRECTORIES.map(skillDirectory =>
+    const reports = skillDirectories.map(skillDirectory =>
         sync(root, skillDirectory, wantedLinks(root, skillDirectory, skills, platform), platform),
     );
 
@@ -205,9 +222,10 @@ export function linkSkills(root: string, options: { platform?: NodeJS.Platform }
 if (require.main === module) {
     try {
         const root = path.resolve(__dirname, '..');
-        const { added, removed } = linkSkills(root);
+        const { targets } = parseArguments(process.argv.slice(2), process.cwd());
+        const { added, removed } = linkSkills(root, { targets });
         const skills = findSkills(root).length;
-        console.log(`link-skills: ${ skills } skill(s) linked into ${ SKILL_DIRECTORIES.join(', ') }; ${ added.length } link(s) added, ${ removed.length } removed`);
+        console.log(`link-skills: ${ skills } skill(s) linked into ${ (targets ?? SKILL_DIRECTORIES).join(', ') }; ${ added.length } link(s) added, ${ removed.length } removed`);
     }
     catch (error) {
         console.error(`link-skills: ${ (error as Error).message }`);
