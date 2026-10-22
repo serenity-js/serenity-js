@@ -19,9 +19,12 @@ export const SKILL_DIRECTORIES = [ '.agents/skills', '.claude/skills', '.kiro/sk
 const CONTRIBUTOR_PREFIX = 'serenity-js-contributing-';
 const PACKAGE_PREFIX = 'serenity-js-';
 
+type SkillKind = 'contributor' | 'package';
+
 export interface Skill {
     name: string;
     source: string;
+    kind: SkillKind;
 }
 
 export interface LinkReport {
@@ -29,15 +32,35 @@ export interface LinkReport {
     removed: string[];
 }
 
-function sourceRoots(root: string): string[] {
-    const packages = path.join(root, 'packages');
-    const packageSkills = existsSync(packages)
-        ? readdirSync(packages, { withFileTypes: true })
-            .filter(entry => entry.isDirectory())
-            .map(entry => path.join(packages, entry.name, 'skills'))
-        : [];
+interface Link {
+    /** Where the link is, relative to the repository root, e.g. `.claude/skills/<name>` */
+    path: string;
+    /** What the link points to, as written into the link */
+    target: string;
+}
 
-    return [ path.join(root, '.agents', 'contributing-skills'), ...packageSkills ];
+// ---------------------------------------------------------------------------------------------------------------------
+// Finding skills
+
+function subdirectoriesOf(directory: string): string[] {
+    return existsSync(directory)
+        ? readdirSync(directory, { withFileTypes: true }).filter(entry => entry.isDirectory()).map(entry => entry.name)
+        : [];
+}
+
+function skillsIn(directory: string, kind: SkillKind): Skill[] {
+    return subdirectoriesOf(directory)
+        .map(name => ({ name, source: path.join(directory, name), kind }))
+        .filter(skill => existsSync(path.join(skill.source, 'SKILL.md')));
+}
+
+export function findSkills(root: string): Skill[] {
+    const packages = path.join(root, 'packages');
+
+    return [
+        ...skillsIn(path.join(root, '.agents', 'contributing-skills'), 'contributor'),
+        ...subdirectoriesOf(packages).flatMap(name => skillsIn(path.join(packages, name, 'skills'), 'package')),
+    ].sort((a, b) => a.name.localeCompare(b.name));
 }
 
 /**
@@ -50,80 +73,114 @@ function isSkillSource(root: string, target: string): boolean {
         || (first === 'packages' && second !== undefined && third === 'skills');
 }
 
-export function findSkills(root: string): Skill[] {
-    const skills: Skill[] = [];
-
-    for (const sourceRoot of sourceRoots(root).filter(directory => existsSync(directory))) {
-        for (const entry of readdirSync(sourceRoot, { withFileTypes: true })) {
-            const source = path.join(sourceRoot, entry.name);
-            if (entry.isDirectory() && existsSync(path.join(source, 'SKILL.md'))) {
-                skills.push({ name: entry.name, source });
-            }
-        }
-    }
-
-    return skills.sort((a, b) => a.name.localeCompare(b.name));
-}
+// ---------------------------------------------------------------------------------------------------------------------
+// Checking skills
 
 function frontmatterOf(markdown: string): Map<string, string> | undefined {
     const match = /^---\n([\s\S]*?)\n---(?:\n|$)/.exec(markdown);
-    if (! match) {
-        return undefined;
-    }
-    const fields = new Map<string, string>();
-    for (const [ , key, value ] of match[1].matchAll(/^([\w-]+):\s*(.*)$/gm)) {
-        fields.set(key, value.trim().replace(/^(["'])(.*)\1$/, '$2'));
-    }
-    return fields;
+    return match ? new Map(
+        [ ...match[1].matchAll(/^([\w-]+):\s*(.*)$/gm) ]
+            .map(([ , key, value ]) => [ key, value.trim().replace(/^(["'])(.*)\1$/, '$2') ]),
+    ) : undefined;
 }
 
-/** Problems with the skills' frontmatter, as `<path to SKILL.md>: <problem>`. */
-export function problemsWith(root: string, skills: Skill[]): string[] {
-    const problems: string[] = [];
-    const firstSkillNamed = new Map<string, string>();
+type Rule = (skill: Skill, name: string, frontmatter: Map<string, string>) => string | undefined;
 
-    for (const { name: directory, source } of skills) {
-        const file = path.relative(root, path.join(source, 'SKILL.md')).split(path.sep).join('/');
-        const report = (message: string) => problems.push(`${ file }: ${ message }`);
-        const contributor = isContributorSkill(root, source);
-        const frontmatter = frontmatterOf(readFileSync(path.join(source, 'SKILL.md'), 'utf8'));
-        const name = frontmatter?.get('name');
+const rules: Rule[] = [
+    (_, __, frontmatter) =>
+        frontmatter.get('description') ? undefined : 'has no description',
+    (skill, name) =>
+        name === skill.name ? undefined : `name is ${ name }, but the directory is ${ skill.name }`,
+    (skill, name) =>
+        skill.kind === 'contributor' && ! name.startsWith(CONTRIBUTOR_PREFIX)
+            ? `contributor skill names start with ${ CONTRIBUTOR_PREFIX }` : undefined,
+    (skill, name) =>
+        skill.kind === 'package' && ! name.startsWith(PACKAGE_PREFIX)
+            ? `skill names start with ${ PACKAGE_PREFIX }` : undefined,
+    (skill, name) =>
+        skill.kind === 'package' && name.startsWith(CONTRIBUTOR_PREFIX)
+            ? `${ CONTRIBUTOR_PREFIX } is reserved for contributor skills in .agents/contributing-skills` : undefined,
+];
 
-        if (! frontmatter || ! name) {
-            report('has no frontmatter with a name and description');
-            continue;
-        }
-        if (! frontmatter.get('description')) {
-            report('has no description');
-        }
-        if (name !== directory) {
-            report(`name is ${ name }, but the directory is ${ directory }`);
-        }
-        if (contributor && ! name.startsWith(CONTRIBUTOR_PREFIX)) {
-            report(`contributor skill names start with ${ CONTRIBUTOR_PREFIX }`);
-        }
-        if (! contributor && ! name.startsWith(PACKAGE_PREFIX)) {
-            report(`skill names start with ${ PACKAGE_PREFIX }`);
-        }
-        if (! contributor && name.startsWith(CONTRIBUTOR_PREFIX)) {
-            report(`${ CONTRIBUTOR_PREFIX } is reserved for contributor skills in .agents/contributing-skills`);
-        }
+function posix(root: string, absolutePath: string): string {
+    return path.relative(root, absolutePath).split(path.sep).join('/');
+}
 
-        const first = firstSkillNamed.get(name);
+function problemsWithFrontmatter(skill: Skill): string[] {
+    const frontmatter = frontmatterOf(readFileSync(path.join(skill.source, 'SKILL.md'), 'utf8'));
+    const name = frontmatter?.get('name');
+
+    return frontmatter && name
+        ? rules.map(rule => rule(skill, name, frontmatter)).filter(problem => problem !== undefined)
+        : [ 'has no frontmatter with a name and description' ];
+}
+
+function problemsWithUniqueness(root: string, skills: Skill[]): Map<Skill, string> {
+    const firstWithName = new Map<string, Skill>();
+    const problems = new Map<Skill, string>();
+
+    for (const skill of skills) {
+        const first = firstWithName.get(skill.name);
         if (first) {
-            report(`${ name } is also the name of ${ first }`);
+            problems.set(skill, `${ skill.name } is also the name of ${ posix(root, first.source) }`);
         }
-        else {
-            firstSkillNamed.set(name, path.relative(root, source).split(path.sep).join('/'));
-        }
+        firstWithName.set(skill.name, first ?? skill);
     }
 
     return problems;
 }
 
-function isContributorSkill(root: string, source: string): boolean {
-    const [ first, second ] = path.relative(root, source).split(path.sep);
-    return first === '.agents' && second === 'contributing-skills';
+/** Problems with the skills' frontmatter, as `<path to SKILL.md>: <problem>`. */
+export function problemsWith(root: string, skills: Skill[]): string[] {
+    const duplicates = problemsWithUniqueness(root, skills);
+
+    return skills.flatMap(skill =>
+        [ ...problemsWithFrontmatter(skill), duplicates.get(skill) ]
+            .filter(problem => problem !== undefined)
+            .map(problem => `${ posix(root, path.join(skill.source, 'SKILL.md')) }: ${ problem }`),
+    );
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Linking skills
+
+function wantedLinks(root: string, skillDirectory: string, skills: Skill[], platform: NodeJS.Platform): Link[] {
+    const directory = path.join(root, skillDirectory);
+    return skills.map(skill => ({
+        path: path.join(skillDirectory, skill.name),
+        target: platform === 'win32' ? skill.source : path.relative(directory, skill.source),
+    }));
+}
+
+/** The links in a skill directory that this script created, leaving out anything else, like pnpm's. */
+function existingLinks(root: string, skillDirectory: string): Link[] {
+    const directory = path.join(root, skillDirectory);
+    return readdirSync(directory)
+        .map(entry => path.join(skillDirectory, entry))
+        .filter(link => lstatSync(path.join(root, link)).isSymbolicLink())
+        .map(link => ({ path: link, target: readlinkSync(path.join(root, link)) }))
+        .filter(link => isSkillSource(root, path.resolve(directory, link.target)));
+}
+
+function resolve(root: string, link: Link): string {
+    return path.resolve(root, path.dirname(link.path), link.target);
+}
+
+function sync(root: string, skillDirectory: string, wanted: Link[], platform: NodeJS.Platform): LinkReport {
+    mkdirSync(path.join(root, skillDirectory), { recursive: true });
+
+    const wantedByPath = new Map(wanted.map(link => [ link.path, link ]));
+    const outdated = existingLinks(root, skillDirectory)
+        .filter(link => ! wantedByPath.has(link.path) || resolve(root, link) !== resolve(root, wantedByPath.get(link.path)!));
+    outdated.forEach(link => rmSync(path.join(root, link.path)));
+
+    const missing = wanted.filter(link => ! lstatSync(path.join(root, link.path), { throwIfNoEntry: false }));
+    missing.forEach(link => symlinkSync(link.target, path.join(root, link.path), platform === 'win32' ? 'junction' : 'dir'));
+
+    return {
+        added: missing.map(link => link.path),
+        removed: outdated.filter(link => ! wantedByPath.has(link.path)).map(link => link.path),
+    };
 }
 
 export function linkSkills(root: string, options: { platform?: NodeJS.Platform } = {}): LinkReport {
@@ -135,44 +192,14 @@ export function linkSkills(root: string, options: { platform?: NodeJS.Platform }
         throw new Error(`nothing linked, until these skills are fixed:\n${ problems.map(problem => `  ${ problem }`).join('\n') }`);
     }
 
-    const report: LinkReport = { added: [], removed: [] };
+    const reports = SKILL_DIRECTORIES.map(skillDirectory =>
+        sync(root, skillDirectory, wantedLinks(root, skillDirectory, skills, platform), platform),
+    );
 
-    for (const skillDirectory of SKILL_DIRECTORIES) {
-        const directory = path.join(root, skillDirectory);
-        mkdirSync(directory, { recursive: true });
-
-        const wanted = new Map(skills.map(skill => [
-            skill.name,
-            platform === 'win32' ? skill.source : path.relative(directory, skill.source),
-        ]));
-
-        // Remove the links this script created whose skill is gone or has moved
-        for (const entry of readdirSync(directory)) {
-            const link = path.join(directory, entry);
-            if (! lstatSync(link).isSymbolicLink()) {
-                continue;
-            }
-            const target = readlinkSync(link);
-            const linkedByUs = isSkillSource(root, path.resolve(directory, target));
-            if (linkedByUs && path.resolve(directory, target) !== path.resolve(directory, wanted.get(entry) ?? '')) {
-                rmSync(link);
-                if (! wanted.has(entry)) {
-                    report.removed.push(path.join(skillDirectory, entry));
-                }
-            }
-        }
-
-        for (const [ name, target ] of wanted) {
-            const link = path.join(directory, name);
-            if (lstatSync(link, { throwIfNoEntry: false })) {
-                continue;
-            }
-            symlinkSync(target, link, platform === 'win32' ? 'junction' : 'dir');
-            report.added.push(path.join(skillDirectory, name));
-        }
-    }
-
-    return report;
+    return {
+        added: reports.flatMap(report => report.added),
+        removed: reports.flatMap(report => report.removed),
+    };
 }
 
 if (require.main === module) {
