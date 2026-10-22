@@ -89,6 +89,7 @@
     "lerna:test:version": "lerna version --no-git-tag-version --no-push",
     "lerna:test:publish": "lerna publish --no-git-tag-version --no-push",
     "version:print": "npx tsx bin/print-versions.ts",
+    "postinstall": "pnpm link-skills",
     "prepare": "husky",
     "report:html": "node packages/html-reporter/bin/html-reporter.mjs"
   },

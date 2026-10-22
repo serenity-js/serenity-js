@@ -13,7 +13,7 @@ These instructions are for agents and contributors changing the framework. How t
 | `integration/` | Integration tests for each test runner and browser integration; `web-specs/` holds the shared web specs |
 | `examples/` | Example projects |
 | `docs/agents/` | Detailed guidance for agents, linked below |
-| `.agents/contributing-skills/` | Contributor skills, linked into your agent's skill directory by `make install` |
+| `.agents/contributing-skills/` | Contributor skills, linked into your agent's skill directory by `pnpm install` |
 | `bin/` | Repository tools |
 
 It's a pnpm workspace orchestrated by Lerna and Nx. Packages depend on abstractions, never on concretions:
@@ -23,7 +23,7 @@ integrations depend on `core` and `web`. All packages share one version, release
 ## Commands
 
 ```bash
-make install                                     # Install dependencies and link the agent skills
+make install                                     # Install dependencies; pnpm install then links the agent skills
 make setup                                       # Install browsers (once, and after Playwright or Chrome updates)
 make COMPILE_SCOPE=libs compile                  # Compile the library packages
 make test                                        # Unit tests of every package, with coverage
@@ -83,7 +83,7 @@ Read the documents that match your task. They're not loaded automatically.
 
 ## Contributor skills
 
-After `make install`, your agent loads these when your task matches their description. Without a skill-aware
+After `pnpm install`, your agent loads these when your task matches their description. Without a skill-aware
 agent, read them in `.agents/contributing-skills/<name>/SKILL.md`.
 
 | Skill | Covers |

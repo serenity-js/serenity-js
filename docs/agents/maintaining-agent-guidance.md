@@ -21,12 +21,16 @@ Every fact lives in one place. If two documents need it, one of them links to th
 
 ## How skills reach your agent
 
-Agents only discover skills in their own skill directories. `make install` runs `bin/link-skills.ts`, which links
+Agents only discover skills in their own skill directories. The root package's `postinstall` script runs
+`bin/link-skills.ts` whenever `pnpm install` installs or changes dependencies, as in a fresh clone or in CI. It links
 every skill in `.agents/contributing-skills/` and `packages/*/skills/` into `.agents/skills/`, `.claude/skills/` and
 `.kiro/skills/`. Those directories are generated and gitignored, so each skill has one source.
 
-Run `pnpm link-skills` after adding, renaming or removing a skill. It adds the missing links and removes the
-ones whose source is gone. It links nothing until every skill follows the rules below, and CI runs it too. On Windows, the links are directory junctions, which need no extra permissions.
+pnpm skips `postinstall` when the dependencies are already up to date, so run `pnpm link-skills` yourself after
+adding, renaming or removing a skill, or switching to a branch that does. It adds the missing links and removes the
+ones whose source is gone. It links nothing until every skill follows the rules below, so a broken skill also fails
+`pnpm install` in a fresh clone or in CI. On Windows, the links are directory junctions, which need no extra
+permissions.
 
 ## Writing a skill
 

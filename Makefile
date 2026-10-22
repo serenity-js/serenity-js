@@ -38,7 +38,6 @@ all: install clean compile
 install:
 	corepack enable
 	pnpm install --frozen-lockfile
-	pnpm link-skills
 
 setup:
 	pnpm setup

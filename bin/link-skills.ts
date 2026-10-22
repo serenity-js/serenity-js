@@ -2,7 +2,7 @@
  * Links the skills in this repository into the directories where agents look for them,
  * so that each skill has one source and the links reflect the current branch.
  *
- * Usage: pnpm link-skills (run by `make install`)
+ * Usage: pnpm link-skills (also the root package's postinstall script, which pnpm runs when it installs or changes dependencies)
  *
  * - Sources: `.agents/contributing-skills/<name>/` and `packages/<package>/skills/<name>/`, each with a `SKILL.md`
  * - Targets: `.agents/skills/`, `.claude/skills/` and `.kiro/skills/`, which are gitignored

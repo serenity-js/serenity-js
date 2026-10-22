@@ -31,8 +31,6 @@ jobs:
         uses: ./.github/actions/setup-node-container
       - name: Lint
         run: make lint
-      - name: Check the agent skills
-        run: pnpm link-skills
       - name: Test the repository tools
         run: pnpm test:tools
 
