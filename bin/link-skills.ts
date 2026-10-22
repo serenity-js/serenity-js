@@ -35,7 +35,7 @@ export interface LinkReport {
 }
 
 interface Link {
-    /** Where the link is, relative to the repository root, e.g. `.claude/skills/<name>` */
+    /** Where the link is, as an absolute path, e.g. `<repository>/.claude/skills/<name>` */
     path: string;
     /** What the link points to, as written into the link */
     target: string;
@@ -146,42 +146,49 @@ export function problemsWith(root: string, skills: Skill[]): string[] {
 // ---------------------------------------------------------------------------------------------------------------------
 // Linking skills
 
-function wantedLinks(root: string, skillDirectory: string, skills: Skill[], platform: NodeJS.Platform): Link[] {
-    const directory = path.join(root, skillDirectory);
+/**
+ * How a path in a skill directory is reported: relative to the repository, e.g. `.kiro/skills/<name>`,
+ * or as it is when no relative path reaches it, as for a directory on another Windows drive.
+ */
+export function displayPath(root: string, absolutePath: string, paths: path.PlatformPath = path): string {
+    const relative = paths.relative(root, absolutePath);
+    return paths.isAbsolute(relative) ? absolutePath : relative;
+}
+
+function wantedLinks(directory: string, skills: Skill[], platform: NodeJS.Platform): Link[] {
     return skills.map(skill => ({
-        path: path.join(skillDirectory, skill.name),
+        path: path.join(directory, skill.name),
         target: platform === 'win32' ? skill.source : path.relative(directory, skill.source),
     }));
 }
 
 /** The links in a skill directory that this script created, leaving out anything else, like pnpm's. */
-function existingLinks(root: string, skillDirectory: string): Link[] {
-    const directory = path.join(root, skillDirectory);
+function existingLinks(root: string, directory: string): Link[] {
     return readdirSync(directory)
-        .map(entry => path.join(skillDirectory, entry))
-        .filter(link => lstatSync(path.join(root, link)).isSymbolicLink())
-        .map(link => ({ path: link, target: readlinkSync(path.join(root, link)) }))
-        .filter(link => isSkillSource(root, path.resolve(directory, link.target)));
+        .map(entry => path.join(directory, entry))
+        .filter(link => lstatSync(link).isSymbolicLink())
+        .map(link => ({ path: link, target: readlinkSync(link) }))
+        .filter(link => isSkillSource(root, resolve(link)));
 }
 
-function resolve(root: string, link: Link): string {
-    return path.resolve(root, path.dirname(link.path), link.target);
+function resolve(link: Link): string {
+    return path.resolve(path.dirname(link.path), link.target);
 }
 
-function sync(root: string, skillDirectory: string, wanted: Link[], platform: NodeJS.Platform): LinkReport {
-    mkdirSync(path.join(root, skillDirectory), { recursive: true });
+function sync(root: string, directory: string, wanted: Link[], platform: NodeJS.Platform): LinkReport {
+    mkdirSync(directory, { recursive: true });
 
     const wantedByPath = new Map(wanted.map(link => [ link.path, link ]));
-    const outdated = existingLinks(root, skillDirectory)
-        .filter(link => ! wantedByPath.has(link.path) || resolve(root, link) !== resolve(root, wantedByPath.get(link.path)!));
-    outdated.forEach(link => rmSync(path.join(root, link.path)));
+    const outdated = existingLinks(root, directory)
+        .filter(link => ! wantedByPath.has(link.path) || resolve(link) !== resolve(wantedByPath.get(link.path)!));
+    outdated.forEach(link => rmSync(link.path));
 
-    const missing = wanted.filter(link => ! lstatSync(path.join(root, link.path), { throwIfNoEntry: false }));
-    missing.forEach(link => symlinkSync(link.target, path.join(root, link.path), platform === 'win32' ? 'junction' : 'dir'));
+    const missing = wanted.filter(link => ! lstatSync(link.path, { throwIfNoEntry: false }));
+    missing.forEach(link => symlinkSync(link.target, link.path, platform === 'win32' ? 'junction' : 'dir'));
 
     return {
-        added: missing.map(link => link.path),
-        removed: outdated.filter(link => ! wantedByPath.has(link.path)).map(link => link.path),
+        added: missing.map(link => displayPath(root, link.path)),
+        removed: outdated.filter(link => ! wantedByPath.has(link.path)).map(link => displayPath(root, link.path)),
     };
 }
 
@@ -192,7 +199,8 @@ export function parseArguments(argv: string[], cwd: string): { targets?: string[
     if (argv.length === 0) {
         return { targets: undefined };
     }
-    if (argv.length % 2 !== 0 || argv.some((argument, index) => index % 2 === 0 && argument !== '--target')) {
+    const isValid = (argument: string, index: number) => index % 2 === 0 ? argument === '--target' : ! argument.startsWith('--');
+    if (argv.length % 2 !== 0 || ! argv.every(isValid)) {
         throw new Error(USAGE);
     }
     return { targets: argv.filter((_, index) => index % 2 === 1).map(directory => path.resolve(cwd, directory)) };
@@ -200,8 +208,7 @@ export function parseArguments(argv: string[], cwd: string): { targets?: string[
 
 export function linkSkills(root: string, options: { platform?: NodeJS.Platform, targets?: string[] } = {}): LinkReport {
     const platform = options.platform ?? process.platform;
-    // skill directories relative to the repository, e.g. `.kiro/skills`, or `../.kiro/skills` for one outside it
-    const skillDirectories = options.targets?.map(target => path.relative(root, path.resolve(root, target))) ?? SKILL_DIRECTORIES;
+    const directories = (options.targets ?? SKILL_DIRECTORIES).map(directory => path.resolve(root, directory));
     const skills = findSkills(root);
 
     const problems = problemsWith(root, skills);
@@ -209,9 +216,7 @@ export function linkSkills(root: string, options: { platform?: NodeJS.Platform, 
         throw new Error(`nothing linked, until these skills are fixed:\n${ problems.map(problem => `  ${ problem }`).join('\n') }`);
     }
 
-    const reports = skillDirectories.map(skillDirectory =>
-        sync(root, skillDirectory, wantedLinks(root, skillDirectory, skills, platform), platform),
-    );
+    const reports = directories.map(directory => sync(root, directory, wantedLinks(directory, skills, platform), platform));
 
     return {
         added: reports.flatMap(report => report.added),

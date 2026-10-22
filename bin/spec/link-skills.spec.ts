@@ -4,7 +4,7 @@ import path from 'node:path';
 
 import { expect } from 'chai';
 
-import { findSkills, linkSkills, parseArguments, SKILL_DIRECTORIES } from '../link-skills';
+import { displayPath, findSkills, linkSkills, parseArguments, SKILL_DIRECTORIES } from '../link-skills';
 
 describe('link-skills', () => {
 
@@ -233,6 +233,21 @@ describe('link-skills', () => {
         it('rejects anything else', () => {
             expect(() => parseArguments([ '--target' ], '/work')).to.throw('usage: link-skills [--target <directory>]...');
             expect(() => parseArguments([ '--force' ], '/work')).to.throw('usage: link-skills [--target <directory>]...');
+        });
+
+        it('rejects an option where a directory is required', () => {
+            expect(() => parseArguments([ '--target', '--target' ], '/work')).to.throw('usage: link-skills [--target <directory>]...');
+        });
+    });
+
+    describe('displayPath', () => {
+
+        it('shows a skill directory relative to the repository', () => {
+            expect(displayPath('/work/serenity-js', '/work/.kiro/skills/a-skill', path.posix)).to.equal('../.kiro/skills/a-skill');
+        });
+
+        it('shows the full path of a skill directory on another Windows drive, which no relative path reaches', () => {
+            expect(displayPath('C:\\repo', 'D:\\skills\\a-skill', path.win32)).to.equal('D:\\skills\\a-skill');
         });
     });
 
