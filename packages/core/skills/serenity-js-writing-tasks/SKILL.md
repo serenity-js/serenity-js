@@ -14,13 +14,11 @@ speaks the language of the domain rather than of the user interface.
 Name the function after the goal, and list the activities that achieve it:
 
 ```typescript
-import { Task, the } from '@serenity-js/core'
+import { Activity, Task, the } from '@serenity-js/core'
 
-const EnterCredentials = (username: string) =>
-    Task.where(the`#actor enters the credentials of ${ username }`)
-
-const SubmitTheSignInForm = () =>
-    Task.where(the`#actor submits the sign-in form`)
+// activities your project already has, e.g. built from the interactions of a web integration
+declare const EnterCredentials: (username: string) => Activity
+declare const SubmitTheSignInForm: () => Activity
 
 export const SignIn = (username: string) =>
     Task.where(the`#actor signs in as ${ username }`,
@@ -118,18 +116,12 @@ A task that changes what the user sees is only done once the change has happened
 a test can check the outcome straight afterwards, without knowing how long the task takes:
 
 ```typescript
-import { Duration, Expectation, Question, Task, the, Wait } from '@serenity-js/core'
+import { Activity, Duration, Expectation, QuestionAdapter, Task, the, Wait } from '@serenity-js/core'
 
-const basketSize = () =>
-    Question.about('the number of items in the basket', async actor => 1)
-
-const isAtLeast = Expectation.define(
-    'isAtLeast', 'have a value of at least',
-    (actual: number, expected: number) => actual >= expected,
-)
-
-const AddToBasket = (product: string) =>
-    Task.where(the`#actor clicks on add to basket for ${ product }`)
+// what your project already has: an activity, a question about the system and an expectation
+declare const AddToBasket: (product: string) => Activity
+declare const basketSize: () => QuestionAdapter<number>
+declare const isAtLeast: (expected: number) => Expectation<number>
 
 export const AddOneToBasket = (product: string) =>
     Task.where(the`#actor adds ${ product } to the basket`,
@@ -138,8 +130,8 @@ export const AddOneToBasket = (product: string) =>
     )
 ```
 
-In a real project, the question and the expectation usually come from the web integration and from
-`@serenity-js/assertions`, for example an element's text and `equals`. The principle is the same: Serenity/JS
+The question and the expectation usually come from the web integration and from `@serenity-js/assertions`, for
+example an element's text and `equals`. The principle is the same: Serenity/JS
 doesn't pause between activities, so a check straight after a task that doesn't wait relies on timing.
 
 The exception is a task that navigates to another page or view. It can't know when the destination is ready, so the
