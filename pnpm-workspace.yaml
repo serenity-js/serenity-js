@@ -49,3 +49,5 @@ trustPolicyExclude:
   - "@wdio/logger@9.18.0" # dep of edgedriver
   - "ua-parser-js@1.0.41" # dep of wdio8
 blockExoticSubdeps: true
+patchedDependencies:
+  typescript-docs-verifier@3.0.2: patches/typescript-docs-verifier@3.0.2.patch
