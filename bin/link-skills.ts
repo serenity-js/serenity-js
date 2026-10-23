@@ -132,12 +132,48 @@ function problemsWithUniqueness(root: string, skills: Skill[]): Map<Skill, strin
     return problems;
 }
 
-/** Problems with the skills' frontmatter, as `<path to SKILL.md>: <problem>`. */
+function packageManifestOf(skill: Skill): { name: string, dependsOn: Set<string> } | undefined {
+    const manifestPath = path.join(skill.source, '..', '..', 'package.json');
+    if (skill.kind !== 'package' || ! existsSync(manifestPath)) {
+        return undefined;
+    }
+    const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+    const dependsOn = new Set(Object.keys({ ...manifest.dependencies, ...manifest.peerDependencies }));
+    return { name: manifest.name, dependsOn };
+}
+
+/**
+ * Package skills refer to other skills by name, as relative links break once the packages are installed.
+ * A skill may only refer to skills of its own package, or of a package that package depends on.
+ */
+function problemsWithReferences(root: string, skills: Skill[]): Map<Skill, string[]> {
+    const packageOf = new Map(skills.map(skill => [ skill.name, packageManifestOf(skill)?.name ]));
+    const problems = new Map<Skill, string[]>();
+
+    for (const skill of skills) {
+        const manifest = packageManifestOf(skill);
+        const mentioned = new Set(readFileSync(path.join(skill.source, 'SKILL.md'), 'utf8').match(/\bserenity-js-[\da-z-]+/g) ?? []);
+        const outOfReach = manifest
+            ? [ ...mentioned ].filter(name => name !== skill.name).filter(name => {
+                const owner = packageOf.get(name);
+                return owner !== undefined && owner !== manifest.name && ! manifest.dependsOn.has(owner);
+            })
+            : [];
+        problems.set(skill, outOfReach.map(name =>
+            `refers to ${ name }, a skill of ${ packageOf.get(name) }, which ${ manifest!.name } does not depend on`,
+        ));
+    }
+
+    return problems;
+}
+
+/** Problems with the skills' frontmatter and references, as `<path to SKILL.md>: <problem>`. */
 export function problemsWith(root: string, skills: Skill[]): string[] {
     const duplicates = problemsWithUniqueness(root, skills);
+    const references = problemsWithReferences(root, skills);
 
     return skills.flatMap(skill =>
-        [ ...problemsWithFrontmatter(skill), duplicates.get(skill) ]
+        [ ...problemsWithFrontmatter(skill), duplicates.get(skill), ...references.get(skill) ?? [] ]
             .filter(problem => problem !== undefined)
             .map(problem => `${ posix(root, path.join(skill.source, 'SKILL.md')) }: ${ problem }`),
     );
