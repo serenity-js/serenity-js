@@ -132,51 +132,92 @@ function problemsWithUniqueness(root: string, skills: Skill[]): Map<Skill, strin
     return problems;
 }
 
-function packageManifestOf(skill: Skill): { name: string, dependsOn: Set<string> } | undefined {
+interface PackageManifest {
+    name: string;
+    dependsOn: Set<string>;
+    /** The package's `test:skills` script, which type-checks the examples in the skills it lists */
+    testSkills: string;
+}
+
+function packageManifestOf(skill: Skill): PackageManifest | undefined {
     const manifestPath = path.join(skill.source, '..', '..', 'package.json');
     if (skill.kind !== 'package' || ! existsSync(manifestPath)) {
         return undefined;
     }
     const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
     const dependsOn = new Set(Object.keys({ ...manifest.dependencies, ...manifest.peerDependencies }));
-    return { name: manifest.name, dependsOn };
+    return { name: manifest.name, dependsOn, testSkills: manifest.scripts?.['test:skills'] ?? '' };
+}
+
+function markdownFilesOf(skill: Skill): string[] {
+    return readdirSync(skill.source, { recursive: true, encoding: 'utf8' })
+        .filter(file => file.endsWith('.md'))
+        .sort()
+        .map(file => path.join(skill.source, file));
+}
+
+/** Who publishes each skill: the name of its package, or `undefined` for contributor skills, which aren't published. */
+function publishersOf(skills: Skill[]): Map<string, string | undefined> {
+    return new Map(skills.map(skill => [ skill.name, packageManifestOf(skill)?.name ]));
+}
+
+function referenceProblem(skill: Skill, manifest: PackageManifest, name: string, publishers: Map<string, string | undefined>): string | undefined {
+    if (name === skill.name || ! publishers.has(name)) {
+        return undefined;   // the skill itself, or a name that isn't a skill
+    }
+    const publisher = publishers.get(name);
+    if (publisher === undefined) {
+        return `refers to ${ name }, a contributor skill, which is not published with the package`;
+    }
+    return publisher === manifest.name || manifest.dependsOn.has(publisher)
+        ? undefined
+        : `refers to ${ name }, a skill of ${ publisher }, which ${ manifest.name } does not depend on`;
 }
 
 /**
  * Package skills refer to other skills by name, as relative links break once the packages are installed.
- * A skill may only refer to skills of its own package, or of a package that package depends on.
+ * A skill, and its supporting files, may only refer to skills of its own package, or of a package it depends on.
  */
-function problemsWithReferences(root: string, skills: Skill[]): Map<Skill, string[]> {
-    const packageOf = new Map(skills.map(skill => [ skill.name, packageManifestOf(skill)?.name ]));
-    const problems = new Map<Skill, string[]>();
+function problemsWithReferences(root: string, skills: Skill[]): string[] {
+    const publishers = publishersOf(skills);
 
-    for (const skill of skills) {
+    return skills.flatMap(skill => {
         const manifest = packageManifestOf(skill);
-        const mentioned = new Set(readFileSync(path.join(skill.source, 'SKILL.md'), 'utf8').match(/\bserenity-js-[\da-z-]+/g) ?? []);
-        const outOfReach = manifest
-            ? [ ...mentioned ].filter(name => name !== skill.name).filter(name => {
-                const owner = packageOf.get(name);
-                return owner !== undefined && owner !== manifest.name && ! manifest.dependsOn.has(owner);
+        return manifest
+            ? markdownFilesOf(skill).flatMap(file => {
+                const mentioned = new Set(readFileSync(file, 'utf8').match(/\bserenity-js-[\da-z-]+/g) ?? []);
+                return [ ...mentioned ]
+                    .map(name => referenceProblem(skill, manifest, name, publishers))
+                    .filter(problem => problem !== undefined)
+                    .map(problem => `${ posix(root, file) }: ${ problem }`);
             })
             : [];
-        problems.set(skill, outOfReach.map(name =>
-            `refers to ${ name }, a skill of ${ packageOf.get(name) }, which ${ manifest!.name } does not depend on`,
-        ));
-    }
-
-    return problems;
+    });
 }
 
-/** Problems with the skills' frontmatter and references, as `<path to SKILL.md>: <problem>`. */
+/** Package skills whose examples aren't type-checked, because the package's `test:skills` script doesn't list them. */
+function problemsWithExampleChecks(root: string, skills: Skill[]): string[] {
+    return skills.flatMap(skill => {
+        const manifest = packageManifestOf(skill);
+        return manifest && ! manifest.testSkills.split(/\s+/).includes(`skills/${ skill.name }/SKILL.md`)
+            ? [ `${ posix(root, path.join(skill.source, 'SKILL.md')) }: isn't checked by the test:skills script of ${ manifest.name }, which lists each skill to type-check its examples` ]
+            : [];
+    });
+}
+
+/** Problems with the skills' frontmatter, references and example checks, as `<path to file>: <problem>`. */
 export function problemsWith(root: string, skills: Skill[]): string[] {
     const duplicates = problemsWithUniqueness(root, skills);
-    const references = problemsWithReferences(root, skills);
 
-    return skills.flatMap(skill =>
-        [ ...problemsWithFrontmatter(skill), duplicates.get(skill), ...references.get(skill) ?? [] ]
-            .filter(problem => problem !== undefined)
-            .map(problem => `${ posix(root, path.join(skill.source, 'SKILL.md')) }: ${ problem }`),
-    );
+    return [
+        ...skills.flatMap(skill =>
+            [ ...problemsWithFrontmatter(skill), duplicates.get(skill) ]
+                .filter(problem => problem !== undefined)
+                .map(problem => `${ posix(root, path.join(skill.source, 'SKILL.md')) }: ${ problem }`),
+        ),
+        ...problemsWithReferences(root, skills),
+        ...problemsWithExampleChecks(root, skills),
+    ];
 }
 
 // ---------------------------------------------------------------------------------------------------------------------

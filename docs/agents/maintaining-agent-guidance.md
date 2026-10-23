@@ -58,8 +58,9 @@ projects, so they follow a few more rules:
   that import what they use, and declare what they don't show.
 - **They're released with the package.** A new skill is `feat(<package>)` and a change to one is `fix(<package>)`;
   see [commit-conventions.md](commit-conventions.md#skill-changes).
-- **A package with skills runs the check.** When you add the first skill to a package, add its `test:skills`
-  script, like `@serenity-js/core`'s, and run it from `test:no-coverage`.
+- **Every skill is listed in its package's `test:skills` script**, which `test:no-coverage` runs, like
+  `@serenity-js/core`'s. List each `SKILL.md` by path, rather than with a glob, which Windows shells don't expand;
+  `link-skills` refuses a skill the script doesn't list.
 
 ## Capturing what you learn
 
