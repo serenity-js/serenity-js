@@ -43,6 +43,24 @@ permissions.
 - **Links are relative**, and `pnpm lint` checks that every one of them resolves, including links to headings,
   in `AGENTS.md`, `docs/agents/` and the skills.
 
+## Writing a skill a package ships
+
+Framework skills, in `packages/<package>/skills/<name>/`, are published with the package and installed into users'
+projects, so they follow a few more rules:
+
+- **They're for users of the package.** Describe how to use its public API, not how it's implemented; that belongs
+  in a contributor skill.
+- **Refer to other skills by name, not by link.** Relative links between packages break once the packages are
+  installed. A skill may only refer to skills of its own package, or of a package it depends on, and `link-skills`
+  checks that.
+- **Every TypeScript example compiles.** The package's `test:skills` script, part of its `test`, type-checks each
+  `typescript` code block on its own against the compiled package, with `typescript-docs-verifier`. Write examples
+  that import what they use, and declare what they don't show.
+- **They're released with the package.** A new skill is `feat(<package>)` and a change to one is `fix(<package>)`;
+  see [commit-conventions.md](commit-conventions.md#skill-changes).
+- **A package with skills runs the check.** When you add the first skill to a package, add its `test:skills`
+  script, like `@serenity-js/core`'s, and run it from `test:no-coverage`.
+
 ## Capturing what you learn
 
 When something non-obvious costs you time, record it where the next person will be when it matters. A lesson in
