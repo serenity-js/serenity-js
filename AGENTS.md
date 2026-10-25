@@ -56,7 +56,8 @@ don't silence errors you don't understand with casts or try/catch.
 - **Keep public APIs backwards compatible.** Add, don't remove: deprecate instead, and give new parameters defaults. Never add `BREAKING CHANGE` or `!` to a
   commit without the maintainers' approval: it triggers a major release of every package.
 - **Use the right commit type.** `feat` and `fix` release the packages. Changes only to `spec/`, `integration/`,
-  `examples/`, `docs/agents/` or `.agents/` are `test` or `docs`.
+  `examples/`, `docs/agents/` or `.agents/` are `test` or `docs`. Skills in `packages/<package>/skills/` are part
+  of the package's public API: a new skill is `feat(<package>)`, a change to one is `fix(<package>)`.
 - **Follow the Screenplay Pattern** in the framework's own code and tests: Actors use Abilities to perform
   Interactions and Tasks, and answer Questions. Compose; don't inherit, except from abstract contracts.
 - **Model with value objects.** Domain types are immutable `tiny-types`, validated when they're created, and never
@@ -94,3 +95,7 @@ agent, read them in `.agents/contributing-skills/<name>/SKILL.md`.
 | `serenity-js-contributing-html-reporter` | `@serenity-js/html-reporter`: architecture, UX principles and gotchas |
 | `serenity-js-contributing-debugging-ci` | Failing builds, tests and CI jobs, here and in the project templates |
 | `serenity-js-contributing-documentation` | Writing and publishing documentation on serenity-js.org |
+
+Packages also ship skills for their users, in `packages/<package>/skills/`, such as `serenity-js-writing-tasks` in
+`@serenity-js/core`. They're linked the same way, and they describe how the package's API is meant to be used, so
+read them before changing that API.
