@@ -293,8 +293,8 @@ importers:
         specifier: 2.3.0
         version: 2.3.0(supports-color@5.5.0)
       express:
-        specifier: 5.2.1
-        version: 5.2.1(supports-color@5.5.0)
+        specifier: 5.3.0
+        version: 5.3.0(supports-color@5.5.0)
       morgan:
         specifier: 1.12.1
         version: 1.12.1(supports-color@5.5.0)
@@ -453,8 +453,8 @@ importers:
         specifier: 10.0.10
         version: 10.0.10
       express:
-        specifier: 5.2.1
-        version: 5.2.1(supports-color@11.0.0)
+        specifier: 5.3.0
+        version: 5.3.0(supports-color@11.0.0)
       npm-failsafe:
         specifier: 1.4.0
         version: 1.4.0
@@ -642,8 +642,8 @@ importers:
         specifier: 5.0.6
         version: 5.0.6
       express:
-        specifier: 5.2.1
-        version: 5.2.1(supports-color@11.0.0)
+        specifier: 5.3.0
+        version: 5.3.0(supports-color@11.0.0)
       npm-failsafe:
         specifier: 1.4.0
         version: 1.4.0
@@ -699,8 +699,8 @@ importers:
         specifier: 6.0.0
         version: 6.0.0
       express:
-        specifier: 5.2.1
-        version: 5.2.1(supports-color@11.0.0)
+        specifier: 5.3.0
+        version: 5.3.0(supports-color@11.0.0)
       jasmine:
         specifier: 6.3.0
         version: 6.3.0
@@ -810,8 +810,8 @@ importers:
         specifier: 10.0.10
         version: 10.0.10
       express:
-        specifier: 5.2.1
-        version: 5.2.1(supports-color@11.0.0)
+        specifier: 5.3.0
+        version: 5.3.0(supports-color@11.0.0)
       mocha:
         specifier: 12.0.3
         version: 12.0.3
@@ -2341,8 +2341,8 @@ importers:
   integration/web-specs:
     dependencies:
       express:
-        specifier: 5.2.1
-        version: 5.2.1(supports-color@11.0.0)
+        specifier: 5.3.0
+        version: 5.3.0(supports-color@11.0.0)
     devDependencies:
       '@integration/testing-tools':
         specifier: workspace:*
@@ -3159,8 +3159,8 @@ importers:
         specifier: 12.0.0
         version: 12.0.0
       express:
-        specifier: 5.2.1
-        version: 5.2.1(supports-color@11.0.0)
+        specifier: 5.3.0
+        version: 5.3.0(supports-color@11.0.0)
       koa:
         specifier: 3.2.1
         version: 3.2.1
@@ -3379,8 +3379,8 @@ importers:
         specifier: 10.1.0
         version: 10.1.0
       express:
-        specifier: 5.2.1
-        version: 5.2.1(supports-color@11.0.0)
+        specifier: 5.3.0
+        version: 5.3.0(supports-color@11.0.0)
       html-minifier:
         specifier: 4.0.0
         version: 4.0.0
@@ -6867,8 +6867,8 @@ packages:
     resolution: {integrity: sha512-oIXISMynqSqm241k6kcQ5UwttDILMK4BiurCfGEREw6+X9jkkpEe5T9FZaApyLGGOnFuyMWZpdolTXMtvEJ08Q==}
     engines: {node: '>=18'}
 
-  content-disposition@1.1.0:
-    resolution: {integrity: sha512-5jRCH9Z/+DRP7rkvY83B+yGIGX96OYdJmzngqnw2SBSxqCFPd0w2km3s5iawpGX8krnwSGmF0FW5Nhr0Hfai3g==}
+  content-disposition@2.0.1:
+    resolution: {integrity: sha512-e+H0ZXHSWYrENhQzw1LPuP4oF5MzVKmDU6d3hxlvaPEYLLg62MxtQNPRx4SYSuYJSBUgnQIG4HIN2tEtNv7Dog==}
     engines: {node: '>=18'}
 
   content-type@1.0.5:
@@ -7804,8 +7804,8 @@ packages:
   exponential-backoff@3.1.3:
     resolution: {integrity: sha512-ZgEeZXj30q+I0EN+CbSSpIyPaJ5HVQD18Z1m+u1FXbAeT94mr1zw50q4q6jiiC447Nl/YTcIYSAftiGqetwXCA==}
 
-  express@5.2.1:
-    resolution: {integrity: sha512-hIS4idWWai69NezIdRt2xFVofaF4j+6INOpJlVOLDO8zXGpUVEVzIYk12UUi2JzjEzWL3IOAxcTubgz9Po0yXw==}
+  express@5.3.0:
+    resolution: {integrity: sha512-qCqy1xSoaugxOD4IVHb1ZWdkvCF2W3aE2okKouWj8VwJ+ztskSiXoBnCSJqfKT+cVPJhuJqe9YLbY425+Zh00g==}
     engines: {node: '>= 18'}
 
   ext@1.7.0:
@@ -16287,7 +16287,7 @@ snapshots:
 
   content-disposition@1.0.1: {}
 
-  content-disposition@1.1.0: {}
+  content-disposition@2.0.1: {}
 
   content-type@1.0.5: {}
 
@@ -17478,12 +17478,12 @@ snapshots:
 
   exponential-backoff@3.1.3: {}
 
-  express@5.2.1(supports-color@11.0.0):
+  express@5.3.0(supports-color@11.0.0):
     dependencies:
       accepts: 2.0.0
       body-parser: 2.3.0(supports-color@11.0.0)
-      content-disposition: 1.1.0
-      content-type: 1.0.5
+      content-disposition: 2.0.1
+      content-type: 2.1.0
       cookie: 0.7.2
       cookie-signature: 1.2.2
       debug: 4.4.3(supports-color@11.0.0)
@@ -17511,12 +17511,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  express@5.2.1(supports-color@5.5.0):
+  express@5.3.0(supports-color@5.5.0):
     dependencies:
       accepts: 2.0.0
       body-parser: 2.3.0(supports-color@5.5.0)
-      content-disposition: 1.1.0
-      content-type: 1.0.5
+      content-disposition: 2.0.1
+      content-type: 2.1.0
       cookie: 0.7.2
       cookie-signature: 1.2.2
       debug: 4.4.3(supports-color@5.5.0)
