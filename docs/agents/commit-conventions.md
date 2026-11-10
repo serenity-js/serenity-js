@@ -37,6 +37,17 @@ Changes that touch only `examples/`, `integration/`, or `spec/` directories must
 
 The only exception is when test changes are part of the same commit as the production code they verify (e.g., `feat(web): add shadow DOM support` that includes both `src/` and `spec/` changes).
 
+## Skill Changes
+
+The skills in `packages/<package>/skills/` are part of the package's public API, and are published with it, so a
+change to them releases the package:
+
+- A new skill is `feat(<package>)`, e.g. `feat(core): add a skill for writing tasks`
+- A change to a skill is `fix(<package>)`, e.g. `fix(core): show Answerable parameters in the writing tasks skill`
+
+commitlint rejects any other type for a commit that only changes package skills. Contributor skills, in
+`.agents/contributing-skills/`, aren't published, so they follow the rules for the rest of the agent guidance.
+
 ## ⚠️ CRITICAL: BREAKING CHANGE Usage
 
 **NEVER use `BREAKING CHANGE` in a commit footer unless explicitly approved by the maintainer.**

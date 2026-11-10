@@ -1,0 +1,27 @@
+diff --git a/dist/src/LocalImportSubstituter.js b/dist/src/LocalImportSubstituter.js
+index 9497741f5e361829aadb5aa354384d8c812d9d27..06a632937318356aab6b2ed27e74f8cffe5e80ad 100644
+--- a/dist/src/LocalImportSubstituter.js
++++ b/dist/src/LocalImportSubstituter.js
+@@ -79,13 +79,15 @@ class ExportResolver {
+         }
+         const [exportPrefix, exportSuffix = ""] = matchingExportPath.split("*");
+         const internalPath = lookupPath.substring(exportPrefix.length, lookupPath.length - exportSuffix.length);
+-        const subpathEntry = typeof matchingSubpath === "string"
+-            ? matchingSubpath
+-            : (matchingSubpath["node-addons"] ??
+-                matchingSubpath.node ??
+-                matchingSubpath.import ??
+-                matchingSubpath.require ??
+-                matchingSubpath.default);
++        // conditions can be nested, e.g. { import: { types, default }, require: { types, default } }
++        const pick = (entry) => typeof entry === "string" || !entry
++            ? entry
++            : pick(entry["node-addons"] ??
++                entry.node ??
++                entry.import ??
++                entry.require ??
++                entry.default);
++        const subpathEntry = pick(matchingSubpath);
+         if (subpathEntry) {
+             const [internalPrefix, internalSuffix = ""] = subpathEntry.split("*");
+             return `${internalPrefix}${internalPath}${internalSuffix}`;
