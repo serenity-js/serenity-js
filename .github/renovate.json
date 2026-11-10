@@ -135,6 +135,21 @@
       ]
     },
     {
+      "description": "Update the Serenity/JS Playwright Docker image together with Playwright. GHCR provides no release timestamps, so the image could never pass a minimum release age",
+      "groupName": "Playwright dependencies",
+      "labels": [
+        "@serenity-js/playwright",
+        "@serenity-js/web"
+      ],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "ghcr.io/serenity-js/playwright"
+      ],
+      "minimumReleaseAge": null
+    },
+    {
       "groupName": "Protractor dependencies",
       "labels": [
         "@serenity-js/protractor",
