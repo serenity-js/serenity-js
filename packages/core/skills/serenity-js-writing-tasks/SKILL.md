@@ -30,10 +30,10 @@ export const SignIn = (username: string) =>
 An actor performs it like any other activity:
 
 ```typescript
-import { actorCalled, Task, the } from '@serenity-js/core'
+import { actorCalled, Task } from '@serenity-js/core'
 
-const SignIn = (username: string) =>
-    Task.where(the`#actor signs in as ${ username }`)
+// the task above
+declare const SignIn: (username: string) => Task
 
 await actorCalled('Alice').attemptsTo(
     SignIn('alice@example.org'),
@@ -53,10 +53,16 @@ The description appears in the test report, so it should read as a sentence abou
 `#actor` becomes the actor's name, and every interpolated value is described in the report as the actor sees it:
 
 ```typescript
-import { Answerable, Task, the } from '@serenity-js/core'
+import { Activity, Answerable, Task, the } from '@serenity-js/core'
+
+declare const ChooseQuantity: (quantity: Answerable<number>) => Activity
+declare const PutInBasket: (product: Answerable<string>) => Activity
 
 export const AddToBasket = (quantity: Answerable<number>, product: Answerable<string>) =>
-    Task.where(the`#actor adds ${ quantity } of ${ product } to the basket`)
+    Task.where(the`#actor adds ${ quantity } of ${ product } to the basket`,
+        ChooseQuantity(quantity),
+        PutInBasket(product),
+    )
 ```
 
 Use the `the` tag rather than a plain template string. It formats each value for the report, quoting strings, for
@@ -64,10 +70,16 @@ example, and describes questions in the context of the actor performing the task
 even when a parameter is only known at that point:
 
 ```typescript
-import { actorCalled, Task, the } from '@serenity-js/core'
+import { Activity, actorCalled, Task, the } from '@serenity-js/core'
+
+declare const EnterPhoneNumber: (phoneNumber: string) => Activity
+declare const PressCall: () => Activity
 
 const Dial = (phoneNumber: string) =>
-    Task.where(the`#actor dials ${ phoneNumber }`)
+    Task.where(the`#actor dials ${ phoneNumber }`,
+        EnterPhoneNumber(phoneNumber),
+        PressCall(),
+    )
 
 await actorCalled('Alice').attemptsTo(
     Dial('(555) 123-4567'),     // reported as: Alice dials "(555) 123-4567"
@@ -80,10 +92,16 @@ Type the parameters as `Answerable<T>` rather than `T`, so that a task accepts a
 the system, for example a value the actor noted earlier:
 
 ```typescript
-import { Answerable, notes, Task, the } from '@serenity-js/core'
+import { Activity, Answerable, notes, Task, the } from '@serenity-js/core'
+
+declare const ChooseOrder: (orderNumber: Answerable<string>) => Activity
+declare const ConfirmPayment: () => Activity
 
 const PayFor = (orderNumber: Answerable<string>) =>
-    Task.where(the`#actor pays for order ${ orderNumber }`)
+    Task.where(the`#actor pays for order ${ orderNumber }`,
+        ChooseOrder(orderNumber),
+        ConfirmPayment(),
+    )
 
 export const PayForTheLastOrder = () =>
     PayFor(notes<{ orderNumber: string }>().get('orderNumber'))
@@ -118,17 +136,23 @@ a test can check the outcome straight afterwards, without knowing how long the t
 ```typescript
 import { Activity, Duration, Expectation, QuestionAdapter, Task, the, Wait } from '@serenity-js/core'
 
-// what your project already has: an activity, a question about the system and an expectation
-declare const AddToBasket: (product: string) => Activity
-declare const basketSize: () => QuestionAdapter<number>
-declare const isAtLeast: (expected: number) => Expectation<number>
+// what your project already has: activities, a question about the system and an expectation
+declare const ChooseQuantity: (quantity: number) => Activity
+declare const PutInBasket: (product: string) => Activity
+declare const quantityInBasketOf: (product: string) => QuestionAdapter<number>
+declare const equals: (expected: number) => Expectation<number>
 
-export const AddOneToBasket = (product: string) =>
-    Task.where(the`#actor adds ${ product } to the basket`,
-        AddToBasket(product),
-        Wait.upTo(Duration.ofSeconds(5)).until(basketSize(), isAtLeast(1)),
+export const AddToBasket = (quantity: number, product: string) =>
+    Task.where(the`#actor adds ${ quantity } of ${ product } to the basket`,
+        ChooseQuantity(quantity),
+        PutInBasket(product),
+        Wait.upTo(Duration.ofSeconds(5)).until(quantityInBasketOf(product), equals(quantity)),
     )
 ```
+
+Wait for an outcome that only this task produces. Here, the task adds a product that isn't in the basket yet, so it
+waits for that product's quantity. A condition that may already hold before the task starts, such as "the basket
+isn't empty", lets the wait finish straight away, before the change has happened.
 
 The question and the expectation usually come from the web integration and from `@serenity-js/assertions`, for
 example an element's text and `equals`. The principle is the same: Serenity/JS
