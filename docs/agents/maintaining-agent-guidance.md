@@ -55,8 +55,9 @@ projects, so they follow a few more rules:
   skills of its own package, or of a package it depends on. `link-skills` checks both, and refuses relative links
   to other skills' files.
 - **Every TypeScript example compiles.** The package's `test:skills` script, part of its `test`, type-checks each
-  `typescript` code block on its own against the compiled package, with `typescript-docs-verifier`. Write examples
-  that import what they use, and declare what they don't show.
+  `typescript`, `ts` and `tsx` code block on its own against the compiled package, with `typescript-docs-verifier`.
+  Write examples that import what they use, and declare what they don't show. Tag a fragment that can't compile on
+  its own with another language, such as `text`.
 - **They're released with the package.** A new skill is `feat(<package>)` and a change to one is `fix(<package>)`;
   see [commit-conventions.md](commit-conventions.md#skill-changes).
 - **Every skill is listed in its package's `test:skills` script**, which `test:no-coverage` runs, like
