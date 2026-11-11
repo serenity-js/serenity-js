@@ -308,6 +308,35 @@ describe('link-skills', () => {
             expect(() => linkSkills(root)).not.to.throw();
         });
 
+        it("a package skill with a relative link to a dependency's skill, rather than its name", () => {
+            packageJson('packages/core', { name: '@serenity-js/core', scripts: { 'test:skills': 'typescript-docs-verifier --input-files skills/serenity-js-writing-tasks/SKILL.md' } });
+            packageJson('packages/web', { name: '@serenity-js/web', dependencies: { '@serenity-js/core': '3.0.0' }, scripts: { 'test:skills': 'typescript-docs-verifier --input-files skills/serenity-js-locating-elements/SKILL.md' } });
+            skill('packages/core/skills/serenity-js-writing-tasks');
+            frontmatter('packages/web/skills/serenity-js-locating-elements',
+                '---\nname: serenity-js-locating-elements\ndescription: "Use when …"\n---\n\nSee [serenity-js-writing-tasks](../../../core/skills/serenity-js-writing-tasks/SKILL.md#describe-it-with-the).\n');
+
+            expect(problems()).to.include('packages/web/skills/serenity-js-locating-elements/SKILL.md: links to ../../../core/skills/serenity-js-writing-tasks/SKILL.md#describe-it-with-the, a file of another skill, which agents may not reach once the skills are installed: refer to the skill by name instead');
+        });
+
+        it('a package skill with a relative link to another skill of the same package', () => {
+            packageJson('packages/core', { name: '@serenity-js/core', scripts: { 'test:skills': 'typescript-docs-verifier --input-files skills/serenity-js-writing-tasks/SKILL.md skills/serenity-js-writing-questions/SKILL.md' } });
+            skill('packages/core/skills/serenity-js-writing-questions');
+            frontmatter('packages/core/skills/serenity-js-writing-tasks',
+                '---\nname: serenity-js-writing-tasks\ndescription: "Use when …"\n---\n\nSee [questions][q].\n\n[q]: ../serenity-js-writing-questions/SKILL.md\n');
+
+            expect(problems()).to.include('packages/core/skills/serenity-js-writing-tasks/SKILL.md: links to ../serenity-js-writing-questions/SKILL.md, a file of another skill');
+        });
+
+        it("nothing because of links to the skill's own supporting files, or to web pages", () => {
+            packageJson('packages/core', { name: '@serenity-js/core', scripts: { 'test:skills': 'typescript-docs-verifier --input-files skills/serenity-js-writing-tasks/SKILL.md' } });
+            frontmatter('packages/core/skills/serenity-js-writing-tasks',
+                '---\nname: serenity-js-writing-tasks\ndescription: "Use when …"\n---\n\nSee [more](references/more.md), [the API](https://serenity-js.org/api/core/) and [below](#avoid).\n');
+            mkdirSync(path.join(root, 'packages/core/skills/serenity-js-writing-tasks/references'));
+            writeFileSync(path.join(root, 'packages/core/skills/serenity-js-writing-tasks/references/more.md'), 'Back to [the skill](../SKILL.md).\n');
+
+            expect(() => linkSkills(root)).not.to.throw();
+        });
+
         it("a package skill whose examples the package's test:skills script does not check", () => {
             packageJson('packages/core', { name: '@serenity-js/core', scripts: { 'test:skills': 'typescript-docs-verifier --input-files skills/serenity-js-a/SKILL.md' } });
             skill('packages/core/skills/serenity-js-a');

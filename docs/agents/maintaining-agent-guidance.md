@@ -50,9 +50,10 @@ projects, so they follow a few more rules:
 
 - **They're for users of the package.** Describe how to use its public API, not how it's implemented; that belongs
   in a contributor skill.
-- **Refer to other skills by name, not by link.** Relative links between packages break once the packages are
-  installed. A skill may only refer to skills of its own package, or of a package it depends on, and `link-skills`
-  checks that.
+- **Refer to other skills by name, not by link.** Agents reach installed skills through links in their skill
+  directories, so a relative link to another skill's files may lead outside the project. A skill may only refer to
+  skills of its own package, or of a package it depends on. `link-skills` checks both, and refuses relative links
+  to other skills' files.
 - **Every TypeScript example compiles.** The package's `test:skills` script, part of its `test`, type-checks each
   `typescript` code block on its own against the compiled package, with `typescript-docs-verifier`. Write examples
   that import what they use, and declare what they don't show.
