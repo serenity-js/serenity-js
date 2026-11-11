@@ -5,9 +5,73 @@ description: "Writing Screenplay Pattern tasks with Serenity/JS: composing activ
 
 # Writing Screenplay tasks
 
-A task is something an actor does to achieve a goal in the business domain: sign in, place an order, submit a
-claim. It's made of other activities, either interactions with the system or other tasks, and it's how a test
-speaks the language of the domain rather than of the user interface.
+A task is something an actor does to achieve a goal in the business domain: call the bank, report a lost card,
+place an order. It's made of other activities, either interactions with the system or other tasks, and it's how a
+test speaks the language of the domain rather than of the user interface.
+
+## Where tasks fit
+
+In the Screenplay Pattern, an actor uses **abilities** to perform **interactions** and to answer **questions**,
+and **tasks** compose interactions and other tasks into goals:
+
+```typescript
+import { Ability, actorCalled, Answerable, Interaction, Question, Task, the } from '@serenity-js/core'
+
+// an ability wraps the client of one of the system's interfaces, here a phone
+interface Phone {
+    dial(phoneNumber: string): Promise<void>
+    press(key: string): Promise<void>
+    connectedNumber(): Promise<string>
+}
+declare const phone: Phone
+
+class MakePhoneCalls extends Ability {
+    static using(phone: Phone): MakePhoneCalls {
+        return new MakePhoneCalls(phone)
+    }
+
+    constructor(private readonly phone: Phone) {
+        super()
+    }
+
+    dial(phoneNumber: string): Promise<void> { return this.phone.dial(phoneNumber) }
+    press(key: string): Promise<void> { return this.phone.press(key) }
+    connectedNumber(): Promise<string> { return this.phone.connectedNumber() }
+}
+
+// interactions do one thing with the system, using the ability
+const Dial = (phoneNumber: Answerable<string>) =>
+    Interaction.where(the`#actor dials ${ phoneNumber }`, async actor => {
+        await MakePhoneCalls.as(actor).dial(await actor.answer(phoneNumber))
+    })
+
+const Press = (key: Answerable<string>) =>
+    Interaction.where(the`#actor presses ${ key }`, async actor => {
+        await MakePhoneCalls.as(actor).press(await actor.answer(key))
+    })
+
+// questions find out about the system, using the ability
+const ConnectedNumber = () =>
+    Question.about('the connected number', actor => MakePhoneCalls.as(actor).connectedNumber())
+
+// tasks compose interactions and other tasks into a goal of the business domain
+const ReportALostCard = () =>
+    Task.where(the`#actor reports a lost card`,
+        Dial('0800 123 456'),
+        Press('2'),
+    )
+
+await actorCalled('Alice')
+    .whoCan(MakePhoneCalls.using(phone))
+    .attemptsTo(
+        ReportALostCard(),
+    )
+```
+
+Most projects get their abilities, and many interactions and questions, from the Serenity/JS integrations, such as
+`BrowseTheWeb` and `Click` from `@serenity-js/web`. The serenity-js-writing-interactions-and-abilities skill covers
+writing your own, and the serenity-js-writing-questions skill covers questions. The rest of this skill uses the
+interactions and the question above.
 
 ## Write a task as a function that returns `Task.where`
 
@@ -16,14 +80,19 @@ Name the function after the goal, and list the activities that achieve it:
 ```typescript
 import { Activity, Task, the } from '@serenity-js/core'
 
-// activities your project already has, e.g. built from the interactions of a web integration
-declare const EnterCredentials: (username: string) => Activity
-declare const SubmitTheSignInForm: () => Activity
+// the interactions from "Where tasks fit"
+declare const Dial: (phoneNumber: string) => Activity
+declare const Press: (key: string) => Activity
 
-export const SignIn = (username: string) =>
-    Task.where(the`#actor signs in as ${ username }`,
-        EnterCredentials(username),
-        SubmitTheSignInForm(),
+export const CallTheBank = () =>
+    Task.where(the`#actor calls the bank`,
+        Dial('0800 123 456'),
+    )
+
+export const ReportALostCard = () =>
+    Task.where(the`#actor reports a lost card`,
+        CallTheBank(),
+        Press('2'),
     )
 ```
 
@@ -33,17 +102,18 @@ An actor performs it like any other activity:
 import { actorCalled, Task } from '@serenity-js/core'
 
 // the task above
-declare const SignIn: (username: string) => Task
+declare const ReportALostCard: () => Task
 
 await actorCalled('Alice').attemptsTo(
-    SignIn('alice@example.org'),
+    ReportALostCard(),
 )
 ```
 
-- **Name it after the goal, not the steps.** `SignIn`, `PlaceOrder`, `SubmitClaim`, not `ClickTheLoginButton`.
+- **Name it after the goal, not the steps.** `ReportALostCard`, `PlaceOrder`, `SubmitClaim`, not
+  `DialAndPressTwo`.
 - **One task, one goal.** If the description needs an "and", it's probably two tasks.
 - **Compose, don't repeat.** A task is built from existing interactions and tasks. If two tasks share steps,
-  extract those steps into a task of their own and use it in both.
+  extract those steps into a task of their own and use it in both, as `CallTheBank` is.
 - **Prefer functions to classes.** Don't extend `Task`: `Task.where` gives you the reporting, the description and the
   composition for free.
 
@@ -53,38 +123,23 @@ The description appears in the test report, so it should read as a sentence abou
 `#actor` becomes the actor's name, and every interpolated value is described in the report as the actor sees it:
 
 ```typescript
-import { Activity, Answerable, Task, the } from '@serenity-js/core'
+import { Activity, actorCalled, Answerable, Task, the } from '@serenity-js/core'
 
-declare const ChooseQuantity: (quantity: Answerable<number>) => Activity
-declare const PutInBasket: (product: Answerable<string>) => Activity
+declare const Dial: (phoneNumber: Answerable<string>) => Activity
 
-export const AddToBasket = (quantity: Answerable<number>, product: Answerable<string>) =>
-    Task.where(the`#actor adds ${ quantity } of ${ product } to the basket`,
-        ChooseQuantity(quantity),
-        PutInBasket(product),
+const CallTheBank = (phoneNumber: Answerable<string>) =>
+    Task.where(the`#actor calls the bank on ${ phoneNumber }`,
+        Dial(phoneNumber),
     )
+
+await actorCalled('Alice').attemptsTo(
+    CallTheBank('0800 123 456'),     // reported as: Alice calls the bank on "0800 123 456"
+)
 ```
 
 Use the `the` tag rather than a plain template string. It formats each value for the report, quoting strings, for
 example, and describes questions in the context of the actor performing the task, so the description is correct
-even when a parameter is only known at that point:
-
-```typescript
-import { Activity, actorCalled, Task, the } from '@serenity-js/core'
-
-declare const EnterPhoneNumber: (phoneNumber: string) => Activity
-declare const PressCall: () => Activity
-
-const Dial = (phoneNumber: string) =>
-    Task.where(the`#actor dials ${ phoneNumber }`,
-        EnterPhoneNumber(phoneNumber),
-        PressCall(),
-    )
-
-await actorCalled('Alice').attemptsTo(
-    Dial('(555) 123-4567'),     // reported as: Alice dials "(555) 123-4567"
-)
-```
+even when a parameter is only known at that point.
 
 ## Accept `Answerable` parameters
 
@@ -92,23 +147,23 @@ Type the parameters as `Answerable<T>` rather than `T`, so that a task accepts a
 the system, for example a value the actor noted earlier:
 
 ```typescript
-import { Activity, Answerable, notes, Task, the } from '@serenity-js/core'
+import { Activity, Answerable, Masked, notes, Task, the } from '@serenity-js/core'
 
-declare const ChooseOrder: (orderNumber: Answerable<string>) => Activity
-declare const ConfirmPayment: () => Activity
+declare const Press: (key: Answerable<string>) => Activity
 
-const PayFor = (orderNumber: Answerable<string>) =>
-    Task.where(the`#actor pays for order ${ orderNumber }`,
-        ChooseOrder(orderNumber),
-        ConfirmPayment(),
+const EnterTheCardNumber = (cardNumber: Answerable<string>) =>
+    Task.where(the`#actor enters card number ${ cardNumber }`,
+        Press(cardNumber),
+        Press('#'),
     )
 
-export const PayForTheLastOrder = () =>
-    PayFor(notes<{ orderNumber: string }>().get('orderNumber'))
+export const EnterTheCardNumberOnRecord = () =>
+    EnterTheCardNumber(Masked.valueOf(notes<{ cardNumber: string }>().get('cardNumber')))
+    // reported as: Alice enters card number [a masked value]
 ```
 
 Don't call `actor.answer()` to get at a value inside a task. Pass the `Answerable` on to the activities that use it;
-they answer it at the right moment.
+they answer it at the right moment. Wrap a value the report shouldn't show in `Masked.valueOf`.
 
 ## Leave a task pending until you can implement it
 
@@ -118,11 +173,11 @@ domain, and implement the steps later:
 ```typescript
 import { actorCalled, Task, the } from '@serenity-js/core'
 
-const ReviewTheOrder = () =>
-    Task.where(the`#actor reviews the order`)
+const DisputeACharge = () =>
+    Task.where(the`#actor disputes a charge`)
 
 await actorCalled('Alice').attemptsTo(
-    ReviewTheOrder(),
+    DisputeACharge(),
 )
 ```
 
@@ -136,27 +191,22 @@ a test can check the outcome straight afterwards, without knowing how long the t
 ```typescript
 import { Activity, Duration, Expectation, QuestionAdapter, Task, the, Wait } from '@serenity-js/core'
 
-// what your project already has: activities, a question about the system and an expectation
-declare const ChooseQuantity: (quantity: number) => Activity
-declare const PutInBasket: (product: string) => Activity
-declare const quantityInBasketOf: (product: string) => QuestionAdapter<number>
-declare const equals: (expected: number) => Expectation<number>
+// the interaction and the question from "Where tasks fit", and an expectation from @serenity-js/assertions
+declare const Dial: (phoneNumber: string) => Activity
+declare const ConnectedNumber: () => QuestionAdapter<string>
+declare const equals: (expected: string) => Expectation<string>
 
-export const AddToBasket = (quantity: number, product: string) =>
-    Task.where(the`#actor adds ${ quantity } of ${ product } to the basket`,
-        ChooseQuantity(quantity),
-        PutInBasket(product),
-        Wait.upTo(Duration.ofSeconds(5)).until(quantityInBasketOf(product), equals(quantity)),
+export const CallTheBank = () =>
+    Task.where(the`#actor calls the bank`,
+        Dial('0800 123 456'),
+        Wait.upTo(Duration.ofSeconds(5)).until(ConnectedNumber(), equals('0800 123 456')),
     )
 ```
 
-Wait for an outcome that only this task produces. Here, the task adds a product that isn't in the basket yet, so it
-waits for that product's quantity. A condition that may already hold before the task starts, such as "the basket
-isn't empty", lets the wait finish straight away, before the change has happened.
-
-The question and the expectation usually come from the web integration and from `@serenity-js/assertions`, for
-example an element's text and `equals`. The principle is the same: Serenity/JS
-doesn't pause between activities, so a check straight after a task that doesn't wait relies on timing.
+Wait for an outcome that only this task produces: here, a connection to the number it dialled. A condition that
+may already hold before the task starts, such as "a call is in progress", lets the wait finish straight away,
+before the change has happened. Serenity/JS doesn't pause between activities, so a check straight after a task
+that doesn't wait relies on timing.
 
 The exception is a task that navigates to another page or view. It can't know when the destination is ready, so the
 test waits for the destination instead.
