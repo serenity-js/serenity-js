@@ -21,3 +21,5 @@ jobs:
         uses: ./.github/actions/setup-node
       - name: Check commit messages
         run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose >> $GITHUB_STEP_SUMMARY
+      - name: Check that commits changing package skills release the package
+        run: node --import tsx bin/check-skill-commits.ts ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}
