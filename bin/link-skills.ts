@@ -135,8 +135,6 @@ function problemsWithUniqueness(root: string, skills: Skill[]): Map<Skill, strin
 interface PackageManifest {
     name: string;
     dependsOn: Set<string>;
-    /** The package's `test:skills` script, which type-checks the examples in the skills it lists */
-    testSkills: string;
 }
 
 function packageManifestOf(skill: Skill): PackageManifest | undefined {
@@ -146,7 +144,7 @@ function packageManifestOf(skill: Skill): PackageManifest | undefined {
     }
     const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
     const dependsOn = new Set(Object.keys({ ...manifest.dependencies, ...manifest.peerDependencies }));
-    return { name: manifest.name, dependsOn, testSkills: manifest.scripts?.['test:skills'] ?? '' };
+    return { name: manifest.name, dependsOn };
 }
 
 function markdownFilesOf(skill: Skill): string[] {
@@ -175,7 +173,7 @@ function referenceProblem(skill: Skill, manifest: PackageManifest, name: string,
 }
 
 /**
- * Package skills refer to other skills by name, as relative links break once the packages are installed.
+ * Package skills refer to other skills by name, and `problemsWithLinks` rejects links to their files.
  * A skill, and its supporting files, may only refer to skills of its own package, or of a package it depends on.
  */
 function problemsWithReferences(root: string, skills: Skill[]): string[] {
@@ -195,17 +193,38 @@ function problemsWithReferences(root: string, skills: Skill[]): string[] {
     });
 }
 
-/** Package skills whose examples aren't type-checked, because the package's `test:skills` script doesn't list them. */
-function problemsWithExampleChecks(root: string, skills: Skill[]): string[] {
-    return skills.flatMap(skill => {
-        const manifest = packageManifestOf(skill);
-        return manifest && ! manifest.testSkills.split(/\s+/).includes(`skills/${ skill.name }/SKILL.md`)
-            ? [ `${ posix(root, path.join(skill.source, 'SKILL.md')) }: isn't checked by the test:skills script of ${ manifest.name }, which lists each skill to type-check its examples` ]
-            : [];
-    });
+/** The destinations of a Markdown file's inline links, `[text](destination "title")`, and link definitions, `[label]: destination`. */
+function linkDestinationsIn(markdown: string): string[] {
+    const inline = [ ...markdown.matchAll(/]\(\s*<?([^\s)>]+)/g) ];
+    const definitions = [ ...markdown.matchAll(/^ {0,3}\[[^\]]+]:\s*<?(\S+?)>?(?:\s|$)/gm) ];
+    return [ ...inline, ...definitions ].map(([ , destination ]) => destination);
 }
 
-/** Problems with the skills' frontmatter, references and example checks, as `<path to file>: <problem>`. */
+function isRelative(destination: string): boolean {
+    return ! /^[a-z][\d+.a-z-]*:/i.test(destination) && ! destination.startsWith('#') && ! destination.startsWith('/');
+}
+
+/**
+ * Package skills that link to the files of other skills. Agents reach installed skills through links in their skill
+ * directories, and one that resolves `..` from the link rather than from the package lands outside the project,
+ * so skills refer to each other by name.
+ */
+function problemsWithLinks(root: string, skills: Skill[]): string[] {
+    return skills
+        .filter(skill => skill.kind === 'package')
+        .flatMap(skill => markdownFilesOf(skill).flatMap(file =>
+            linkDestinationsIn(readFileSync(file, 'utf8'))
+                .filter(isRelative)
+                .filter(destination => {
+                    const target = path.resolve(path.dirname(file), destination.replace(/[#?].*$/, ''));
+                    const inOwnSkill = ! path.relative(skill.source, target).startsWith('..');
+                    return ! inOwnSkill && isSkillSource(root, target);
+                })
+                .map(destination => `${ posix(root, file) }: links to ${ destination }, a file of another skill, which agents may not reach once the skills are installed: refer to the skill by name instead`),
+        ));
+}
+
+/** Problems with the skills' frontmatter, references and links, as `<path to file>: <problem>`. */
 export function problemsWith(root: string, skills: Skill[]): string[] {
     const duplicates = problemsWithUniqueness(root, skills);
 
@@ -216,7 +235,7 @@ export function problemsWith(root: string, skills: Skill[]): string[] {
                 .map(problem => `${ posix(root, path.join(skill.source, 'SKILL.md')) }: ${ problem }`),
         ),
         ...problemsWithReferences(root, skills),
-        ...problemsWithExampleChecks(root, skills),
+        ...problemsWithLinks(root, skills),
     ];
 }
 

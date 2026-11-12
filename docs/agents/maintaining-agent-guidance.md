@@ -50,17 +50,23 @@ projects, so they follow a few more rules:
 
 - **They're for users of the package.** Describe how to use its public API, not how it's implemented; that belongs
   in a contributor skill.
-- **Refer to other skills by name, not by link.** Relative links between packages break once the packages are
-  installed. A skill may only refer to skills of its own package, or of a package it depends on, and `link-skills`
-  checks that.
+- **Refer to other skills by name, not by link.** Agents reach installed skills through links in their skill
+  directories, so a relative link to another skill's files may lead outside the project. A skill may only refer to
+  skills of its own package, or of a package it depends on. `link-skills` checks both, and refuses relative links
+  to other skills' files.
 - **Every TypeScript example compiles.** The package's `test:skills` script, part of its `test`, type-checks each
-  `typescript` code block on its own against the compiled package, with `typescript-docs-verifier`. Write examples
-  that import what they use, and declare what they don't show.
+  `typescript`, `ts` and `tsx` code block on its own against the compiled package, with `typescript-docs-verifier`,
+  in `SKILL.md` and in the skill's supporting files alike. Write examples that import what they use, and declare
+  what they don't show. Tag a fragment that can't compile on its own with another language, such as `text`.
 - **They're released with the package.** A new skill is `feat(<package>)` and a change to one is `fix(<package>)`;
   see [commit-conventions.md](commit-conventions.md#skill-changes).
-- **Every skill is listed in its package's `test:skills` script**, which `test:no-coverage` runs, like
-  `@serenity-js/core`'s. List each `SKILL.md` by path, rather than with a glob, which Windows shells don't expand;
-  `link-skills` refuses a skill the script doesn't list.
+- **A package with skills runs the shared script.** Its `test:skills` script is
+  `node --import tsx ../../bin/test-skills.ts`, which `test:no-coverage` runs, like `@serenity-js/core`'s. The script
+  finds every Markdown file under the package's `skills/`, so new skills and supporting files need no change to it.
+- **A package with skills tests that they're published.** Like `@serenity-js/core`'s `spec/skills.spec.ts`, a spec
+  checks that `npm pack` includes every file under `skills/`, so a `files` field or an `.npmignore` can't drop them.
+  On Windows, `npm` is `npm.cmd`, which Node only starts with a shell, so call it with
+  `execFileSync('npm', [ ... ], { shell: process.platform === 'win32' })`, and only with constant arguments.
 
 ## Capturing what you learn
 
