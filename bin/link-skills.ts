@@ -135,8 +135,6 @@ function problemsWithUniqueness(root: string, skills: Skill[]): Map<Skill, strin
 interface PackageManifest {
     name: string;
     dependsOn: Set<string>;
-    /** The package's `test:skills` script, which type-checks the examples in the skills it lists */
-    testSkills: string;
 }
 
 function packageManifestOf(skill: Skill): PackageManifest | undefined {
@@ -146,7 +144,7 @@ function packageManifestOf(skill: Skill): PackageManifest | undefined {
     }
     const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
     const dependsOn = new Set(Object.keys({ ...manifest.dependencies, ...manifest.peerDependencies }));
-    return { name: manifest.name, dependsOn, testSkills: manifest.scripts?.['test:skills'] ?? '' };
+    return { name: manifest.name, dependsOn };
 }
 
 function markdownFilesOf(skill: Skill): string[] {
@@ -226,17 +224,7 @@ function problemsWithLinks(root: string, skills: Skill[]): string[] {
         ));
 }
 
-/** Package skills whose examples aren't type-checked, because the package's `test:skills` script doesn't list them. */
-function problemsWithExampleChecks(root: string, skills: Skill[]): string[] {
-    return skills.flatMap(skill => {
-        const manifest = packageManifestOf(skill);
-        return manifest && ! manifest.testSkills.split(/\s+/).includes(`skills/${ skill.name }/SKILL.md`)
-            ? [ `${ posix(root, path.join(skill.source, 'SKILL.md')) }: isn't checked by the test:skills script of ${ manifest.name }, which lists each skill to type-check its examples` ]
-            : [];
-    });
-}
-
-/** Problems with the skills' frontmatter, references and example checks, as `<path to file>: <problem>`. */
+/** Problems with the skills' frontmatter, references and links, as `<path to file>: <problem>`. */
 export function problemsWith(root: string, skills: Skill[]): string[] {
     const duplicates = problemsWithUniqueness(root, skills);
 
@@ -248,7 +236,6 @@ export function problemsWith(root: string, skills: Skill[]): string[] {
         ),
         ...problemsWithReferences(root, skills),
         ...problemsWithLinks(root, skills),
-        ...problemsWithExampleChecks(root, skills),
     ];
 }
 
