@@ -10,6 +10,10 @@ import type { UsesAbilities } from './UsesAbilities.js';
  * ```ts
  * import { Ability, Answerable, actorCalled, Interaction, the } from '@serenity-js/core';
  *
+ * interface Phone {
+ *   dial(phoneNumber: string): Promise<void>;
+ * }
+ *
  * class MakePhoneCalls extends Ability {
  *   static using(phone: Phone) {
  *     return new MakePhoneCalls(phone);
@@ -21,13 +25,14 @@ import type { UsesAbilities } from './UsesAbilities.js';
  *
  *   // some method that allows us to interact with the external interface of the system under test
  *   dial(phoneNumber: string): Promise<void> {
- *     // ...
+ *     return this.phone.dial(phoneNumber);
  *   }
  * }
  *
  * const Call = (phoneNumber: Answerable<string>) =>
  *   Interaction.where(the`#actor calls ${ phoneNumber }`, async actor => {
- *     await MakePhoneCalls.as(actor).dial(phoneNumber)
+ *     const phoneNumberValue = await actor.answer(phoneNumber);
+ *     await MakePhoneCalls.as(actor).dial(phoneNumberValue)
  *   });
  *
  * await actorCalled('Connie')
