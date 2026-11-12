@@ -65,6 +65,8 @@ projects, so they follow a few more rules:
   finds every Markdown file under the package's `skills/`, so new skills and supporting files need no change to it.
 - **A package with skills tests that they're published.** Like `@serenity-js/core`'s `spec/skills.spec.ts`, a spec
   checks that `npm pack` includes every file under `skills/`, so a `files` field or an `.npmignore` can't drop them.
+  On Windows, `npm` is `npm.cmd`, which Node only starts with a shell, so call it with
+  `execFileSync('npm', [ ... ], { shell: process.platform === 'win32' })`, and only with constant arguments.
 
 ## Capturing what you learn
 

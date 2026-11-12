@@ -20,7 +20,12 @@ describe('The skills of @serenity-js/core', function () {
     }
 
     function filesInTarball(): string[] {
-        const [ tarball ] = JSON.parse(execFileSync('npm', [ 'pack', '--dry-run', '--json', '--ignore-scripts' ], { cwd: packageRoot, encoding: 'utf8' }));
+        // on Windows, npm is npm.cmd, which Node only starts with a shell; the arguments are constants, so that's safe
+        const [ tarball ] = JSON.parse(execFileSync('npm', [ 'pack', '--dry-run', '--json', '--ignore-scripts' ], {
+            cwd: packageRoot,
+            encoding: 'utf8',
+            shell: process.platform === 'win32',
+        }));
         return (tarball.files as Array<{ path: string }>).map(file => file.path);
     }
 
