@@ -230,7 +230,7 @@ import type { UsesAbilities } from './UsesAbilities.js';
  *
  *   // Abilities can hold state, for example: the client of a given interface,
  *   // additional configuration, or the result of the last interaction with a given interface.
- *   protected constructor(private readonly phone: Phone) {
+ *   constructor(private readonly phone: Phone) {
  *      super();
  *   }
  *

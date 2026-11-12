@@ -15,7 +15,8 @@ import type { UsesAbilities } from './UsesAbilities.js';
  *     return new MakePhoneCalls(phone);
  *   }
  *
- *   protected constructor(private readonly phone: Phone) {
+ *   constructor(private readonly phone: Phone) {
+ *     super();
  *   }
  *
  *   // some method that allows us to interact with the external interface of the system under test
