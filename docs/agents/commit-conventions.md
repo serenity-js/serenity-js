@@ -123,7 +123,7 @@ lerna          # Lerna configuration
 renovate       # Renovate bot config
 qlty           # Qlty.sh configuration
 codefactor     # CodeFactor configuration
-agents         # Agent guidance: AGENTS.md, CLAUDE.md, docs/agents/, .agents/contributing-skills/, bin/link-skills.ts and bin/check-skill-commits.ts
+agents         # Agent guidance: AGENTS.md, CLAUDE.md, docs/agents/, .agents/contributing-skills/, bin/link-skills.ts, bin/check-skill-commits.ts and bin/test-skills.ts
 eslint         # ESLint configuration
 release        # Reserved for automated releases
 ```

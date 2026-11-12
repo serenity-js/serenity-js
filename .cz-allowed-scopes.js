@@ -37,7 +37,7 @@ module.exports.scopes = {
     },
     agents() {
         return [
-            // Agent guidance: AGENTS.md, CLAUDE.md, docs/agents/, .agents/contributing-skills/, bin/link-skills.ts and bin/check-skill-commits.ts
+            // Agent guidance: AGENTS.md, CLAUDE.md, docs/agents/, .agents/contributing-skills/, bin/link-skills.ts, bin/check-skill-commits.ts and bin/test-skills.ts
             'agents',
         ];
     },
