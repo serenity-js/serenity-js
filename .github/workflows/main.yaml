@@ -23,7 +23,7 @@ jobs:
     if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-26.04
     container:
-      image: ghcr.io/serenity-js/playwright:v1.64.0-resolute
+      image: ghcr.io/serenity-js/playwright:v1.65.0-resolute
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -39,7 +39,7 @@ jobs:
     if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-26.04
     container:
-      image: ghcr.io/serenity-js/playwright:v1.64.0-resolute
+      image: ghcr.io/serenity-js/playwright:v1.65.0-resolute
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -64,7 +64,7 @@ jobs:
       - compile
     runs-on: ubuntu-26.04
     container:
-      image: ghcr.io/serenity-js/playwright:v1.64.0-resolute
+      image: ghcr.io/serenity-js/playwright:v1.65.0-resolute
     permissions:
       checks: write
       contents: read
@@ -136,7 +136,7 @@ jobs:
       - compile
     runs-on: ubuntu-26.04
     container:
-      image: ghcr.io/serenity-js/playwright:v1.64.0-resolute
+      image: ghcr.io/serenity-js/playwright:v1.65.0-resolute
     permissions:
       checks: write
       contents: read
@@ -191,7 +191,7 @@ jobs:
       - compile
     runs-on: ubuntu-26.04
     container:
-      image: ghcr.io/serenity-js/playwright:v1.64.0-resolute
+      image: ghcr.io/serenity-js/playwright:v1.65.0-resolute
     permissions:
       checks: write
       contents: read
@@ -245,7 +245,7 @@ jobs:
       - compile
     runs-on: ubuntu-26.04
     container:
-      image: ghcr.io/serenity-js/playwright:v1.64.0-resolute
+      image: ghcr.io/serenity-js/playwright:v1.65.0-resolute
     permissions:
       checks: write
       contents: read
@@ -302,7 +302,7 @@ jobs:
       - compile
     runs-on: ubuntu-26.04
     container:
-      image: ghcr.io/serenity-js/playwright:v1.64.0-resolute
+      image: ghcr.io/serenity-js/playwright:v1.65.0-resolute
     permissions:
       checks: write
       contents: read
@@ -396,7 +396,7 @@ jobs:
       - test-integration-webdriverio
     runs-on: ubuntu-26.04
     container:
-      image: ghcr.io/serenity-js/playwright:v1.64.0-resolute
+      image: ghcr.io/serenity-js/playwright:v1.65.0-resolute
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -447,7 +447,7 @@ jobs:
       id-token: write
     runs-on: ubuntu-26.04
     container:
-      image: ghcr.io/serenity-js/playwright:v1.64.0-resolute
+      image: ghcr.io/serenity-js/playwright:v1.65.0-resolute
     needs:
       - test-linux-node-lts-active
       - test-linux-node-lts-maintenance
@@ -500,7 +500,7 @@ jobs:
       id-token: write
     runs-on: ubuntu-26.04
     container:
-      image: ghcr.io/serenity-js/playwright:v1.64.0-resolute
+      image: ghcr.io/serenity-js/playwright:v1.65.0-resolute
     steps:
       - name: Validate tag
         shell: bash
