@@ -110,14 +110,45 @@ export const Press = (key: Answerable<string>) =>
     })
 ```
 
-- **One interaction, one action.** `Dial` and `Press`, not `DialAndChooseAnOption`. Several actions that achieve
-  a goal together are a task.
+- **One interaction, one action, through one ability.** `Dial` and `Press`, not `DialAndChooseAnOption`. Several
+  actions that achieve a goal together are a task.
+- **Use the interactions the Serenity/JS modules provide** before writing your own, such as `Click` from
+  `@serenity-js/web` or `Send` from `@serenity-js/rest`.
 - **Name it after the action, in the vocabulary of the interface**: `Dial`, `Click`, `Send`, `Navigate`.
 - **Accept `Answerable` parameters, and answer them here.** An interaction is where a value meets the client, so
   it's the place to call `actor.answer()`: a test can then pass a static value or a question about the system.
 - **Describe it with the `the` tag**, so that the report shows what the actor did: "Alice presses "2"".
 - **Use a class only for a fluent API**, like `Send.a(request)` in `@serenity-js/rest`. A function that returns
   `Interaction.where` covers everything else.
+
+An interaction may take two closely related steps, even through more than one ability, when they're one action
+from the actor's point of view. Saving a file means checking that its directory is writable, then writing it:
+
+```typescript
+import { Ability, Answerable, Interaction, the } from '@serenity-js/core'
+
+declare class UseFileSystem extends Ability {
+    isWritable(directory: string): Promise<boolean>
+    writeFile(directory: string, name: string, contents: string): Promise<void>
+}
+
+export const SaveAFile = (directory: Answerable<string>, name: Answerable<string>, contents: Answerable<string>) =>
+    Interaction.where(the`#actor saves ${ name } in ${ directory }`, async actor => {
+        const path = await actor.answer(directory)
+        const fileName = await actor.answer(name)
+        const text = await actor.answer(contents)
+        const fileSystem = UseFileSystem.as(actor)
+
+        if (! await fileSystem.isWritable(path)) {
+            throw new Error(`${ path } isn't writable`)
+        }
+
+        await fileSystem.writeFile(path, fileName, text)
+    })
+```
+
+If the steps make sense apart, so that a test might take one without the other, they're two interactions, composed
+in a task.
 
 ## Initialise and discard the resources the ability uses
 
