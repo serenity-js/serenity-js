@@ -30,10 +30,36 @@ export const ConnectedNumber = () =>
     )
 ```
 
-- **Name it after the information**, as a noun: `ConnectedNumber`, `Text`, `LastResponse`.
+- **Name it after the information, as a noun**: `ConnectedNumber`, `Text`, `LastResponse`. Name a question with
+  a yes-or-no answer `isX()`, as in `isConnected()`. Leave "the" out of the name, `ConnectedNumber`, not
+  `TheConnectedNumber`. The description keeps it: "the connected number".
 - **Write it as a function** that returns `Question.about`, so each use gets a fresh question.
 - **Describe it for the report.** The description appears wherever the question is used, as in
   "Alice ensures that the connected number does equal "(555) 123-4567"".
+
+Group the questions about the same thing under one object, together with the tasks about it, so that a test reads
+`Line.connectedNumber()` and `Line.isConnected()`:
+
+```typescript
+import { Ability, Question } from '@serenity-js/core'
+
+declare class MakePhoneCalls extends Ability {
+    connectedNumber(): Promise<string>
+    isConnected(): Promise<boolean>
+}
+
+export const Line = {
+    connectedNumber: () =>
+        Question.about('the connected number', actor =>
+            MakePhoneCalls.as(actor).connectedNumber()
+        ),
+
+    isConnected: () =>
+        Question.about('whether the line is connected', actor =>
+            MakePhoneCalls.as(actor).isConnected()
+        ),
+}
+```
 
 ## Transform answers instead of writing new questions
 

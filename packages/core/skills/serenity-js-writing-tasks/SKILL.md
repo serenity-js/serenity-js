@@ -105,14 +105,14 @@ import { Activity, Task, the } from '@serenity-js/core'
 declare const Dial: (phoneNumber: string) => Activity
 declare const Press: (key: string) => Activity
 
-export const CallTheBank = () =>
+export const CallBank = () =>
     Task.where(the`#actor calls the bank`,
         Dial('0800 123 456'),
     )
 
 export const ReportALostCard = () =>
     Task.where(the`#actor reports a lost card`,
-        CallTheBank(),
+        CallBank(),
         Press('2'),
     )
 ```
@@ -131,10 +131,11 @@ await actorCalled('Alice').attemptsTo(
 ```
 
 - **Name it after the goal, not the steps.** `ReportALostCard`, `PlaceOrder`, `SubmitClaim`, not
-  `DialAndPressTwo`.
+  `DialAndPressTwo`. Leave "the" out of the name, `CallBank`, not `CallTheBank`. The description keeps it, so
+  that it reads as a sentence: "Alice calls the bank".
 - **One task, one goal.** If the description needs an "and", it's probably two tasks.
 - **Compose, don't repeat.** A task is built from existing interactions and tasks. If two tasks share steps,
-  extract those steps into a task of their own and use it in both, as `CallTheBank` is.
+  extract those steps into a task of their own and use it in both, as `CallBank` is.
 - **Prefer functions to classes.** Don't extend `Task`: `Task.where` gives you the reporting, the description and the
   composition for free.
 
@@ -148,13 +149,13 @@ import { Activity, actorCalled, Answerable, Task, the } from '@serenity-js/core'
 
 declare const Dial: (phoneNumber: Answerable<string>) => Activity
 
-const CallTheBank = (phoneNumber: Answerable<string>) =>
+const CallBank = (phoneNumber: Answerable<string>) =>
     Task.where(the`#actor calls the bank on ${ phoneNumber }`,
         Dial(phoneNumber),
     )
 
 await actorCalled('Alice').attemptsTo(
-    CallTheBank('0800 123 456'),     // reported as: Alice calls the bank on "0800 123 456"
+    CallBank('0800 123 456'),     // reported as: Alice calls the bank on "0800 123 456"
 )
 ```
 
@@ -172,14 +173,14 @@ import { Activity, Answerable, Masked, notes, Task, the } from '@serenity-js/cor
 
 declare const Press: (key: Answerable<string>) => Activity
 
-const EnterTheCardNumber = (cardNumber: Answerable<string>) =>
+const EnterCardNumber = (cardNumber: Answerable<string>) =>
     Task.where(the`#actor enters card number ${ cardNumber }`,
         Press(cardNumber),
         Press('#'),
     )
 
-export const EnterTheCardNumberOnRecord = () =>
-    EnterTheCardNumber(Masked.valueOf(notes<{ cardNumber: string }>().get('cardNumber')))
+export const EnterCardNumberOnRecord = () =>
+    EnterCardNumber(Masked.valueOf(notes<{ cardNumber: string }>().get('cardNumber')))
     // reported as: Alice enters card number [a masked value]
 ```
 
@@ -217,7 +218,7 @@ declare const Dial: (phoneNumber: string) => Activity
 declare const ConnectedNumber: () => QuestionAdapter<string>
 declare const equals: (expected: string) => Expectation<string>
 
-export const CallTheBank = () =>
+export const CallBank = () =>
     Task.where(the`#actor calls the bank`,
         Dial('0800 123 456'),
         Wait.upTo(Duration.ofSeconds(5)).until(ConnectedNumber(), equals('0800 123 456')),
