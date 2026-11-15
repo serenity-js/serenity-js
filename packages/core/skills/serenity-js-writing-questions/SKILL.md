@@ -167,7 +167,8 @@ await actorCalled(Role.Cardholder).attemptsTo(
 Use `Log.the`, not `console.log`, so that the value reaches every reporter, next to the activity it belongs to.
 
 Then run the scenario with a `StreamReporter` in the crew, which writes every event of the run to a file, one JSON
-object per line:
+object per line. Put the file where the project already keeps its reports, such as `reports/`, so that it's
+ignored like the rest of them:
 
 ```typescript
 import { configure, StreamReporter } from '@serenity-js/core'
@@ -175,13 +176,13 @@ import * as fs from 'fs'
 
 configure({
     crew: [
-        new StreamReporter(fs.createWriteStream('target/events.ndjson')),
+        new StreamReporter(fs.createWriteStream('reports/events.ndjson')),
     ],
 })
 ```
 
 In a test runner's configuration, the same crew member is
-`[ '@serenity-js/core:StreamReporter', { outputFile: 'target/events.ndjson' } ]`. Where the crew is configured
+`[ '@serenity-js/core:StreamReporter', { outputFile: 'reports/events.ndjson' } ]`. Where the crew is configured
 depends on the test runner; the skill of your runner's Serenity/JS package says where. Create the directory first:
 `StreamReporter` doesn't, and without it writes nothing, and says nothing about it.
 
