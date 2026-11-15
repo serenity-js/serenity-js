@@ -35,7 +35,7 @@ export const ConnectedNumber = () =>
   `TheConnectedNumber`. The description keeps it: "the connected number".
 - **Write it as a function** that returns `Question.about`, so each use gets a fresh question.
 - **Describe it for the report.** The description appears wherever the question is used, as in
-  "Alice ensures that the connected number does equal "(555) 123-4567"".
+  "Alice, the cardholder ensures that the connected number does equal "(555) 123-4567"".
 
 Group the questions about the same thing under one object, together with the tasks about it, so that a test reads
 `Line.connectedNumber()` and `Line.isConnected()`:
@@ -156,9 +156,12 @@ breakpoint in its callback:
 ```typescript
 import { actorCalled, Debug, Log, QuestionAdapter } from '@serenity-js/core'
 
+// your project's actor names, as the serenity-js-writing-tasks skill describes them
+declare enum Role { Cardholder = 'Alice, the cardholder' }
+
 declare const ConnectedNumber: () => QuestionAdapter<string>
 
-await actorCalled('Alice').attemptsTo(
+await actorCalled(Role.Cardholder).attemptsTo(
     Log.the(ConnectedNumber()),
     Debug.values((results, connectedNumber) => {
         // set a breakpoint here to see the connected number, or the error that answering it failed with

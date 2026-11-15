@@ -29,6 +29,9 @@ interface does:
 ```typescript
 import { Ability, actorCalled } from '@serenity-js/core'
 
+// your project's actor names, as the serenity-js-writing-tasks skill describes them
+declare enum Role { Cardholder = 'Alice, the cardholder' }
+
 // the client your project uses to reach the system under test
 interface Phone {
     dial(phoneNumber: string): Promise<void>
@@ -59,7 +62,7 @@ export class MakePhoneCalls extends Ability {
     }
 }
 
-actorCalled('Alice').whoCan(MakePhoneCalls.using(phone))
+actorCalled(Role.Cardholder).whoCan(MakePhoneCalls.using(phone))
 ```
 
 - **Name it after what it enables**, as in "Alice can make phone calls": `MakePhoneCalls`, `BrowseTheWeb`,
@@ -120,7 +123,7 @@ export const Press = (key: Answerable<string>) =>
   it's the place to call `actor.answer()`: a test can then pass a static value or a question about the system.
   Answer each parameter into a constant of its own, `const number = await actor.answer(phoneNumber)`, with
   `async` and `await` rather than a chain of `then` calls, so that each step reads in the order it happens.
-- **Describe it with the `the` tag**, so that the report shows what the actor did: "Alice presses "2"".
+- **Describe it with the `the` tag**, so that the report shows what the actor did: "Alice, the cardholder presses "2"".
 - **Use a class only for a fluent API**, like `Send.a(request)` in `@serenity-js/rest`. A function that returns
   `Interaction.where` covers everything else.
 
@@ -196,7 +199,7 @@ export class MakePhoneCalls extends Ability implements Initialisable, Discardabl
 
 - **The actor calls `initialise()` in `attemptsTo`**, whenever `isInitialised()` returns `false`, so the
   resource is ready before the first interaction. If it fails, the scenario is reported as compromised:
-  "Alice couldn't initialise the ability to MakePhoneCalls".
+  "Alice, the cardholder couldn't initialise the ability to MakePhoneCalls".
 - **The actor calls `discard()` when it's dismissed**: when the scenario finishes, or, for an actor that was
   created outside any scenario, when the test run finishes.
 

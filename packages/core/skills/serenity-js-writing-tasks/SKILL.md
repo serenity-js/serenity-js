@@ -63,32 +63,22 @@ const ReportALostCard = () =>
         Press('2'),
     )
 
-await actorCalled('Alice')
+// an actor performs them, under the name of a persona who plays a role
+enum Role {
+    Cardholder = 'Alice, the cardholder',
+}
+
+await actorCalled(Role.Cardholder)
     .whoCan(MakePhoneCalls.using(phone))
     .attemptsTo(
-        ReportALostCard(),
+        ReportALostCard(),      // reported as: Alice, the cardholder reports a lost card
     )
 ```
 
 `actorCalled` returns the actor with the name you give it. Always `await` what `attemptsTo` returns: it settles once
 the actor has performed every activity, or one of them has failed. Name actors after the role they play, and keep
-the names in an enum or constants, so that every scenario calls the same actor the same way:
-
-```typescript
-import { actorCalled, Task } from '@serenity-js/core'
-
-// the task above
-declare const ReportALostCard: () => Task
-
-export enum Role {
-    Cardholder = 'Cardholder',
-    BankClerk = 'Bank clerk',
-}
-
-await actorCalled(Role.Cardholder).attemptsTo(
-    ReportALostCard(),      // reported as: Cardholder reports a lost card
-)
-```
+the names in an enum or constants, as `Role` does: its keys are the roles, and its values the personas who play
+them, so that every scenario calls the same actor the same way, and the report says who did what.
 
 Most projects get their abilities, and many interactions and questions, from the Serenity/JS integrations, such as
 `BrowseTheWeb` and `Click` from `@serenity-js/web`. The serenity-js-writing-interactions-and-abilities skill covers
@@ -123,17 +113,20 @@ An actor performs it like any other activity:
 ```typescript
 import { actorCalled, Task } from '@serenity-js/core'
 
+// the actors' names, from "Where tasks fit"
+declare enum Role { Cardholder = 'Alice, the cardholder' }
+
 // the task above
 declare const ReportALostCard: () => Task
 
-await actorCalled('Alice').attemptsTo(
+await actorCalled(Role.Cardholder).attemptsTo(
     ReportALostCard(),
 )
 ```
 
 - **Name it after the goal, not the steps.** `ReportALostCard`, `PlaceOrder`, `SubmitClaim`, not
   `DialAndPressTwo`. Leave "the" out of the name, `CallBank`, not `CallTheBank`. The description keeps it, so
-  that it reads as a sentence: "Alice calls the bank".
+  that it reads as a sentence: "Alice, the cardholder calls the bank".
 - **One task, one goal.** If the description needs an "and", it's probably two tasks.
 - **Compose, don't repeat.** A task is built from existing interactions and tasks. If two tasks share steps,
   extract those steps into a task of their own and use it in both, as `CallBank` is.
@@ -148,6 +141,9 @@ The description appears in the test report, so it should read as a sentence abou
 ```typescript
 import { Activity, actorCalled, Answerable, Task, the } from '@serenity-js/core'
 
+// the actors' names, from "Where tasks fit"
+declare enum Role { Cardholder = 'Alice, the cardholder' }
+
 declare const Dial: (phoneNumber: Answerable<string>) => Activity
 
 const CallBank = (phoneNumber: Answerable<string>) =>
@@ -155,8 +151,8 @@ const CallBank = (phoneNumber: Answerable<string>) =>
         Dial(phoneNumber),
     )
 
-await actorCalled('Alice').attemptsTo(
-    CallBank('0800 123 456'),     // reported as: Alice calls the bank on "0800 123 456"
+await actorCalled(Role.Cardholder).attemptsTo(
+    CallBank('0800 123 456'),     // reported as: Alice, the cardholder calls the bank on "0800 123 456"
 )
 ```
 
@@ -182,7 +178,7 @@ const EnterCardNumber = (cardNumber: Answerable<string>) =>
 
 export const EnterCardNumberOnRecord = () =>
     EnterCardNumber(Masked.valueOf(notes<{ cardNumber: string }>().get('cardNumber')))
-    // reported as: Alice enters card number [a masked value]
+    // reported as: Alice, the cardholder enters card number [a masked value]
 ```
 
 Don't call `actor.answer()` to get at a value inside a task. Pass the `Answerable` on to the activities that use it;
@@ -222,10 +218,13 @@ domain, and implement the steps later:
 ```typescript
 import { actorCalled, Task, the } from '@serenity-js/core'
 
+// the actors' names, from "Where tasks fit"
+declare enum Role { Cardholder = 'Alice, the cardholder' }
+
 const DisputeACharge = () =>
     Task.where(the`#actor disputes a charge`)
 
-await actorCalled('Alice').attemptsTo(
+await actorCalled(Role.Cardholder).attemptsTo(
     DisputeACharge(),
 )
 ```
@@ -296,6 +295,9 @@ Where tasks and questions live, and how they're grouped, follows from how much o
 ```typescript
 import { Activity, actorCalled, Answerable, QuestionAdapter, Task, the } from '@serenity-js/core'
 
+// the actors' names, from "Where tasks fit"
+declare enum Role { Cardholder = 'Alice, the cardholder' }
+
 // the interactions and the question from "Where tasks fit"
 declare const Dial: (phoneNumber: Answerable<string>) => Activity
 declare const Press: (key: Answerable<string>) => Activity
@@ -323,7 +325,7 @@ export class Helpline {
 
 const bank = new Helpline('0800 123 456')
 
-await actorCalled('Alice').attemptsTo(
+await actorCalled(Role.Cardholder).attemptsTo(
     bank.call(),
     bank.chooseOption('2'),
 )
