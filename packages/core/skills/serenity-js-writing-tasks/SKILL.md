@@ -68,6 +68,25 @@ await actorCalled('Alice')
     )
 ```
 
+`actorCalled` returns the actor with the name you give it. Name actors after the role they play, and keep the names
+in an enum or constants, so that every scenario calls the same actor the same way:
+
+```typescript
+import { actorCalled, Task } from '@serenity-js/core'
+
+// the task above
+declare const ReportALostCard: () => Task
+
+export enum Role {
+    Cardholder = 'Cardholder',
+    BankClerk = 'Bank clerk',
+}
+
+await actorCalled(Role.Cardholder).attemptsTo(
+    ReportALostCard(),      // reported as: Cardholder reports a lost card
+)
+```
+
 Most projects get their abilities, and many interactions and questions, from the Serenity/JS integrations, such as
 `BrowseTheWeb` and `Click` from `@serenity-js/web`. The serenity-js-writing-interactions-and-abilities skill covers
 writing your own, and the serenity-js-writing-questions skill covers questions. The rest of this skill uses the
