@@ -146,6 +146,26 @@ export const isAPremiumRateNumber = Expectation.define(
 `Ensure.that(ConnectedNumber(), isAPremiumRateNumber())` in a test, or
 `Wait.until(ConnectedNumber(), isAPremiumRateNumber())` in a task, then describe the comparison in the report.
 
+## See an answer with `Log.the`, or in a debugger with `Debug.values`
+
+To find out what a question answers while a scenario runs, have the actor log it with `Log.the`, rather than
+calling `console.log`. The answer goes to the reporters, so it appears in the terminal and in the report, next to
+the activity that produced it. To look at an answer in your IDE's debugger, use `Debug.values`, and set a
+breakpoint in its callback:
+
+```typescript
+import { actorCalled, Debug, Log, QuestionAdapter } from '@serenity-js/core'
+
+declare const ConnectedNumber: () => QuestionAdapter<string>
+
+await actorCalled('Alice').attemptsTo(
+    Log.the(ConnectedNumber()),
+    Debug.values((results, connectedNumber) => {
+        // set a breakpoint here to see the connected number, or the error that answering it failed with
+    }, ConnectedNumber()),
+)
+```
+
 ## Avoid
 
 - **Side effects in a question**, such as dialling a number to find out whether the line is free. A question can
