@@ -1,6 +1,6 @@
 ---
 name: serenity-js-writing-questions
-description: "Writing Screenplay Pattern questions with Serenity/JS: retrieving information with Question.about, using the actor's abilities, naming and grouping questions, transforming answers through QuestionAdapter, composing questions, questions about part of something with .of(), custom expectations with Expectation.define, and seeing answers with Log.the and Debug.values. Use when a test or a task needs information about the system under test."
+description: "Writing Screenplay Pattern questions with Serenity/JS: retrieving information with Question.about, using the actor's abilities, naming and grouping questions, transforming answers through QuestionAdapter, composing questions, questions about part of something with .of(), custom expectations with Expectation.define, and debugging a scenario with Log.the and StreamReporter. Use when a test or a task needs information about the system under test."
 ---
 
 # Writing Screenplay questions
@@ -146,15 +146,13 @@ export const isAPremiumRateNumber = Expectation.define(
 `Ensure.that(ConnectedNumber(), isAPremiumRateNumber())` in a test, or
 `Wait.until(ConnectedNumber(), isAPremiumRateNumber())` in a task, then describe the comparison in the report.
 
-## See an answer with `Log.the`, or in a debugger with `Debug.values`
+## Debug a scenario with `Log.the` and `StreamReporter`
 
-To find out what a question answers while a scenario runs, have the actor log it with `Log.the`, rather than
-calling `console.log`. The answer goes to the reporters, so it appears in the terminal and in the report, next to
-the activity that produced it. To look at an answer in your IDE's debugger, use `Debug.values`, and set a
-breakpoint in its callback:
+To find out what a question answers while a scenario runs, have the actor log it with `Log.the`, where you need
+the value:
 
 ```typescript
-import { actorCalled, Debug, Log, QuestionAdapter } from '@serenity-js/core'
+import { actorCalled, Log, QuestionAdapter } from '@serenity-js/core'
 
 // your project's actor names, as the serenity-js-writing-tasks skill describes them
 declare enum Role { Cardholder = 'Alice, the cardholder' }
@@ -163,11 +161,49 @@ declare const ConnectedNumber: () => QuestionAdapter<string>
 
 await actorCalled(Role.Cardholder).attemptsTo(
     Log.the(ConnectedNumber()),
-    Debug.values((results, connectedNumber) => {
-        // set a breakpoint here to see the connected number, or the error that answering it failed with
-    }, ConnectedNumber()),
 )
 ```
+
+Use `Log.the`, not `console.log`, so that the value reaches every reporter, next to the activity it belongs to.
+
+Then run the scenario with a `StreamReporter` in the crew, which writes every event of the run to a file, one JSON
+object per line:
+
+```typescript
+import { configure, StreamReporter } from '@serenity-js/core'
+import * as fs from 'fs'
+
+configure({
+    crew: [
+        new StreamReporter(fs.createWriteStream('target/events.ndjson')),
+    ],
+})
+```
+
+In a test runner's configuration, the same crew member is
+`[ '@serenity-js/core:StreamReporter', { outputFile: 'target/events.ndjson' } ]`. Where the crew is configured
+depends on the test runner; the skill of your runner's Serenity/JS package says where. Create the directory first:
+`StreamReporter` doesn't, and without it writes nothing, and says nothing about it.
+
+Each line has the event's `type` and the `event` itself. Three kinds tell you what happened. These are from a
+scenario that sends a request, logs the response's body and checks it, with the paths and the stack trace
+shortened:
+
+```json
+{"type":"InteractionFinished","event":{"activityId":"ije3ta43nf9ccrjd6lz0kwyc","details":{"name":"Alice, the analyst sends a GET request to '/v4'","location":{"column":18,"line":11,"path":"spec/log_demo.spec.ts"}},"outcome":{"code":64},"sceneId":"bjzm19csteojlk9biivtmlev","timestamp":"2026-11-15T22:52:17.604Z"}}
+{"type":"ActivityRelatedArtifactGenerated","event":{"activityId":"tl2nenv72s9dkl223cdk0ji8","artifact":{"type":"LogEntry","base64EncodedValue":"eyJkYXRhIjoiNCJ9"},"name":"the body of the last response","sceneId":"bjzm19csteojlk9biivtmlev","timestamp":"2026-11-15T22:52:17.605Z"}}
+{"type":"InteractionFinished","event":{"activityId":"o3nkqj7iajlvlaabe4cott79","details":{"name":"Alice, the analyst ensures that the body of the last response does equal 5","location":{"column":20,"line":13,"path":"spec/log_demo.spec.ts"}},"outcome":{"code":4,"error":"{\"message\":\"Expected the body of the last response to equal 5\\n\\nExpectation: equals(5)\\n\\nExpected number: 5\\nReceived number: 4…\",\"name\":\"AssertionError\",\"stack\":\"AssertionError: …\"}"},"sceneId":"bjzm19csteojlk9biivtmlev","timestamp":"2026-11-15T22:52:17.605Z"}}
+```
+
+- **`InteractionFinished`**, and `TaskFinished` for a task, says how each activity ended. `outcome.code` 64 is
+  success, 4 a failed assertion, 2 an error, and 1 a compromised scenario; a failure's `outcome.error` holds the
+  error, serialised, with its message and stack.
+- **`ActivityRelatedArtifactGenerated` with an artifact of type `LogEntry`** is what `Log.the` produced. Its `name`
+  is the description of what was logged, and its `base64EncodedValue` decodes to the value, here `{"data":"4"}`.
+- **`activityId`** ties an artifact to the activity that produced it, and **`sceneId`** both to the scenario.
+
+Debugging like this is temporary. Before you finish, remove the `StreamReporter` and the `Log.the` calls you added,
+so that the project's configuration is as it was.
 
 ## Avoid
 
