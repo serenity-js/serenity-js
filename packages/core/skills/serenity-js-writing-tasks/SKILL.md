@@ -281,6 +281,57 @@ export const CallHelpline = () =>
     )
 ```
 
+## Grow the structure as the project needs it
+
+Where tasks and questions live, and how they're grouped, follows from how much of the system the tests cover:
+
+- **Follow the structure the project already uses**, even where you'd have started differently.
+- **With nothing to follow, start with the simplest structure that fits**: tasks and questions as standalone
+  functions, as in this skill.
+- **Group them under one object once you'd write a second question or task about the same thing**, as the
+  serenity-js-writing-questions skill does with `Line.connectedNumber()` and `Line.isConnected()`.
+- **Use an interaction object once something has state and behaviour that more than one scenario uses**: a class
+  whose fields hold the state, and whose methods return the tasks and questions about it:
+
+```typescript
+import { Activity, actorCalled, Answerable, QuestionAdapter, Task, the } from '@serenity-js/core'
+
+// the interactions and the question from "Where tasks fit"
+declare const Dial: (phoneNumber: Answerable<string>) => Activity
+declare const Press: (key: Answerable<string>) => Activity
+declare const ConnectedNumber: () => QuestionAdapter<string>
+
+export class Helpline {
+    constructor(private readonly phoneNumber: string) {
+    }
+
+    call = () =>
+        Task.where(the`#actor calls the helpline on ${ this.phoneNumber }`,
+            Dial(this.phoneNumber),
+        )
+
+    chooseOption = (option: Answerable<string>) =>
+        Task.where(the`#actor chooses option ${ option }`,
+            Press(option),
+        )
+
+    isConnected = () =>
+        ConnectedNumber()
+            .as(connectedNumber => connectedNumber === this.phoneNumber)
+            .describedAs('whether the helpline is connected')
+}
+
+const bank = new Helpline('0800 123 456')
+
+await actorCalled('Alice').attemptsTo(
+    bank.call(),
+    bank.chooseOption('2'),
+)
+```
+
+Restructure only the code your change touches. When the rest of the project would be easier to work with in
+another structure, suggest it in your report, rather than moving code the change doesn't need.
+
 ## Avoid
 
 - **Extending `Task`** with a class and a `performAs` method, when `Task.where` composes the same activities
