@@ -70,9 +70,9 @@ await actorCalled('Alice')
     )
 ```
 
-`actorCalled` returns the actor with the name you give it. Name actors after the role they play, and keep the names
-in an enum or constants, so that every scenario calls the same actor the same way. Always `await` what
-`attemptsTo` returns: it settles once the actor has performed every activity, or one of them has failed.
+`actorCalled` returns the actor with the name you give it. Always `await` what `attemptsTo` returns: it settles once
+the actor has performed every activity, or one of them has failed. Name actors after the role they play, and keep
+the names in an enum or constants, so that every scenario calls the same actor the same way:
 
 ```typescript
 import { actorCalled, Task } from '@serenity-js/core'
