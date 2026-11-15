@@ -106,7 +106,8 @@ declare class MakePhoneCalls extends Ability {
 
 export const Press = (key: Answerable<string>) =>
     Interaction.where(the`#actor presses ${ key }`, async actor => {
-        await MakePhoneCalls.as(actor).press(await actor.answer(key))
+        const pressed = await actor.answer(key)
+        await MakePhoneCalls.as(actor).press(pressed)
     })
 ```
 
@@ -117,6 +118,8 @@ export const Press = (key: Answerable<string>) =>
 - **Name it after the action, in the vocabulary of the interface**: `Dial`, `Click`, `Send`, `Navigate`.
 - **Accept `Answerable` parameters, and answer them here.** An interaction is where a value meets the client, so
   it's the place to call `actor.answer()`: a test can then pass a static value or a question about the system.
+  Answer each parameter into a constant of its own, `const number = await actor.answer(phoneNumber)`, with
+  `async` and `await` rather than a chain of `then` calls, so that each step reads in the order it happens.
 - **Describe it with the `the` tag**, so that the report shows what the actor did: "Alice presses "2"".
 - **Use a class only for a fluent API**, like `Send.a(request)` in `@serenity-js/rest`. A function that returns
   `Interaction.where` covers everything else.

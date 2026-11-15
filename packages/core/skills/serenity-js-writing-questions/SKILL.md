@@ -72,7 +72,7 @@ const longestCall = () =>
 - **Use `.as()` to map an answer**, with a function, or with a constructor such as `Number`.
 - **Use `.describedAs()`** to give the result a description that says what it means.
 - **Answer other questions inside `Question.about`** for anything the adapter doesn't cover, as `longestCall`
-  does.
+  does: into a constant, with `await`, rather than in a chain of `then` calls.
 
 ## Ask about part of something with `.of()`
 
@@ -90,9 +90,10 @@ export const Voicemails = () =>
     Question.about('voicemails',
         actor => MakePhoneCalls.as(actor).voicemails(),
         (line: Answerable<string>) =>
-            Question.about('voicemails', async actor =>
-                MakePhoneCalls.as(actor).voicemails(await actor.answer(line))
-            ),
+            Question.about('voicemails', async actor => {
+                const phoneLine = await actor.answer(line)
+                return MakePhoneCalls.as(actor).voicemails(phoneLine)
+            }),
     )
 
 Voicemails().of('the work line')    // described as: voicemails of "the work line"

@@ -42,12 +42,14 @@ class MakePhoneCalls extends Ability {
 // interactions do one thing with the system, using the ability
 const Dial = (phoneNumber: Answerable<string>) =>
     Interaction.where(the`#actor dials ${ phoneNumber }`, async actor => {
-        await MakePhoneCalls.as(actor).dial(await actor.answer(phoneNumber))
+        const number = await actor.answer(phoneNumber)
+        await MakePhoneCalls.as(actor).dial(number)
     })
 
 const Press = (key: Answerable<string>) =>
     Interaction.where(the`#actor presses ${ key }`, async actor => {
-        await MakePhoneCalls.as(actor).press(await actor.answer(key))
+        const pressed = await actor.answer(key)
+        await MakePhoneCalls.as(actor).press(pressed)
     })
 
 // questions find out about the system, using the ability
