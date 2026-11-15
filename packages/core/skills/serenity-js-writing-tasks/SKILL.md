@@ -260,6 +260,27 @@ that doesn't wait relies on timing.
 The exception is a task that navigates to another page or view. It can't know when the destination is ready, so the
 test waits for the destination instead.
 
+Wait with `Wait.until`, never with `setTimeout` or a pause of a fixed length, such as `Wait.for`. A fixed pause
+makes the scenario slow when the system is fast, and fail when it's slow. `Wait.until` asks its question every
+500 milliseconds, for up to the `interactionTimeout` of the Serenity/JS configuration, which is 5 seconds by default.
+Change either for one wait, with `Wait.upTo(…)` and `.pollingEvery(…)`:
+
+```typescript
+import { Activity, Duration, Expectation, QuestionAdapter, Task, the, Wait } from '@serenity-js/core'
+
+declare const Dial: (phoneNumber: string) => Activity
+declare const ConnectedNumber: () => QuestionAdapter<string>
+declare const equals: (expected: string) => Expectation<string>
+
+export const CallHelpline = () =>
+    Task.where(the`#actor calls the helpline`,
+        Dial('0800 999 999'),
+        Wait.upTo(Duration.ofSeconds(30))
+            .until(ConnectedNumber(), equals('0800 999 999'))
+            .pollingEvery(Duration.ofSeconds(1)),
+    )
+```
+
 ## Avoid
 
 - **Extending `Task`** with a class and a `performAs` method, when `Task.where` composes the same activities
