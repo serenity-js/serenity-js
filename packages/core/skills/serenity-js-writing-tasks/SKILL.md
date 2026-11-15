@@ -71,7 +71,8 @@ await actorCalled('Alice')
 ```
 
 `actorCalled` returns the actor with the name you give it. Name actors after the role they play, and keep the names
-in an enum or constants, so that every scenario calls the same actor the same way:
+in an enum or constants, so that every scenario calls the same actor the same way. Always `await` what
+`attemptsTo` returns: it settles once the actor has performed every activity, or one of them has failed.
 
 ```typescript
 import { actorCalled, Task } from '@serenity-js/core'
@@ -186,6 +187,32 @@ export const EnterCardNumberOnRecord = () =>
 
 Don't call `actor.answer()` to get at a value inside a task. Pass the `Answerable` on to the activities that use it;
 they answer it at the right moment. Wrap a value the report shouldn't show in `Masked.valueOf`.
+
+## Repeat activities with `List.of(…).forEach`
+
+To perform the same activities for each item of a list, give the list to `List.of`, and perform them in its
+`forEach`, which gives you the actor and the current item:
+
+```typescript
+import { Activity, Answerable, List, Task, the } from '@serenity-js/core'
+
+// the task above
+declare const EnterCardNumber: (cardNumber: Answerable<string>) => Activity
+
+export const ReportLostCards = (cardNumbers: Answerable<string[]>) =>
+    Task.where(the`#actor reports lost cards ${ cardNumbers }`,
+        List.of(cardNumbers).forEach(({ actor, item }) =>
+            actor.attemptsTo(
+                EnterCardNumber(item),
+            )
+        ),
+    )
+```
+
+`forEach` answers the list when the actor performs the task, and performs the activities for one item after
+another. Never loop with `Array.forEach` and an `async` callback: it doesn't wait for the callback's promises, so
+the activities overlap, the task finishes before they do, and a failure in one of them is an unhandled rejection
+rather than the scenario's failure.
 
 ## Leave a task pending until you can implement it
 
