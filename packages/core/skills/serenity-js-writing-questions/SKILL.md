@@ -1,6 +1,6 @@
 ---
 name: serenity-js-writing-questions
-description: "Writing Screenplay Pattern questions with Serenity/JS: retrieving information with Question.about, using the actor's abilities, transforming answers through QuestionAdapter, composing questions, questions about part of something with .of(), and custom expectations with Expectation.define. Use when a test or a task needs information about the system under test."
+description: "Writing Screenplay Pattern questions with Serenity/JS: retrieving information with Question.about, using the actor's abilities, naming and grouping questions, transforming answers through QuestionAdapter, composing questions, questions about part of something with .of(), custom expectations with Expectation.define, and seeing answers with Log.the and Debug.values. Use when a test or a task needs information about the system under test."
 ---
 
 # Writing Screenplay questions

@@ -1,6 +1,6 @@
 ---
 name: serenity-js-writing-tasks
-description: "Writing Screenplay Pattern tasks with Serenity/JS: composing activities into business-level tasks with Task.where, describing them with the, passing parameters, pending tasks, and tasks that wait for their own outcome. Use when adding or changing a task, or a test step that does more than one thing."
+description: "Writing Screenplay Pattern tasks with Serenity/JS: composing activities into business-level tasks with Task.where, describing them with the, passing parameters, naming actors, repeating activities with List.of().forEach, pending tasks, tasks that wait for their own outcome with Wait.until, and growing the structure of tasks and questions as a project needs it. Use when adding or changing a task, or a test step that does more than one thing."
 ---
 
 # Writing Screenplay tasks
