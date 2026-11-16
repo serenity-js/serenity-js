@@ -284,7 +284,33 @@ export const CallHelpline = () =>
 
 Where tasks and questions live, and how they're grouped, follows from how much of the system the tests cover:
 
-- **Follow the structure the project already uses**, even where you'd have started differently.
+- **Follow the project's conventions**, even where you'd have started differently: its file layout, its naming
+  style, and where it configures its actors.
+- **Don't copy its poor abstractions.** A task named after its mechanics, or one that mixes business steps with
+  key presses, isn't a convention to follow. Write yours from the domain, and improve the ones your change touches:
+
+```typescript
+import { Activity, Task, the } from '@serenity-js/core'
+
+// the tasks above, and an interaction from "Where tasks fit"
+declare const CallBank: () => Activity
+declare const Press: (key: string) => Activity
+
+// what the project has: a task named after the keys it presses
+export const DialAndPressTwo = () =>
+    Task.where(the`#actor dials and presses 2`,
+        CallBank(),
+        Press('2'),
+    )
+
+// what your change needs: named from the domain, rather than DialAndPressThree
+export const ReportAStolenCard = () =>
+    Task.where(the`#actor reports a stolen card`,
+        CallBank(),
+        Press('3'),
+    )
+```
+
 - **With nothing to follow, start with the simplest structure that fits**: tasks and questions as standalone
   functions, as in this skill.
 - **Group them under one object once you'd write a second question or task about the same thing**, as the
@@ -331,8 +357,9 @@ await actorCalled(Role.Cardholder).attemptsTo(
 )
 ```
 
-Restructure only the code your change touches. When the rest of the project would be easier to work with in
-another structure, suggest it in your report, rather than moving code the change doesn't need.
+Restructure, and improve abstractions, only in the code your change touches. When the rest of the project would be
+easier to work with in another structure, or with better abstractions, suggest it in your report, rather than
+changing code the change doesn't need.
 
 ## Avoid
 
