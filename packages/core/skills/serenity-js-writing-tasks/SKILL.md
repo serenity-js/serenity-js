@@ -361,6 +361,89 @@ Restructure, and improve abstractions, only in the code your change touches. Whe
 easier to work with in another structure, or with better abstractions, suggest it in your report, rather than
 changing code the change doesn't need.
 
+## Refactor what's there
+
+Tests that grew without the Screenplay Pattern, or with too little of it, show the same signs. Look for these, and
+refactor each to what replaces it:
+
+- **A scenario that's a long list of built-in interactions** becomes tasks named for the business steps they
+  achieve.
+- **A task that's a long list of low-level interactions** becomes smaller tasks, each at one level of abstraction,
+  composed into the larger one.
+- **Tasks named after their mechanics**, such as `PostThenGet`, get names from the domain, such as
+  `SubmitCalculation`.
+- **The same request built, or the same value read, in several places** becomes a function that builds or reads
+  it, or a group of them under one object, as the serenity-js-writing-questions skill does with `Line`.
+- **A scenario that waits for what an earlier step caused** gets the wait moved into the task that caused it.
+- **`setTimeout`, `console.log`, or `Array.forEach` with an `async` callback** become `Wait.until`, `Log.the`, and
+  `List.of(…).forEach`.
+
+Here's a task that has most of these signs:
+
+```typescript
+import { Activity, Answerable, Interaction, Task, the } from '@serenity-js/core'
+
+// the interactions from "Where tasks fit"
+declare const Dial: (phoneNumber: Answerable<string>) => Activity
+declare const Press: (key: Answerable<string>) => Activity
+
+export const DialThenPressKeys = (cardNumber: Answerable<string>) =>
+    Task.where(the`#actor dials and presses keys`,
+        Dial('0800 123 456'),
+        Interaction.where(the`#actor waits`, () => new Promise<void>(resolve => setTimeout(resolve, 2000))),
+        Press('2'),
+        Press(cardNumber),
+        Press('#'),
+    )
+```
+
+And here it is refactored: named from the domain, made of tasks at one level of abstraction, and waiting for the
+bank to answer rather than for two seconds:
+
+```typescript
+import { Activity, Answerable, Expectation, QuestionAdapter, Task, the, Wait } from '@serenity-js/core'
+
+// the interactions and the question from "Where tasks fit", and an expectation from @serenity-js/assertions
+declare const Dial: (phoneNumber: Answerable<string>) => Activity
+declare const Press: (key: Answerable<string>) => Activity
+declare const ConnectedNumber: () => QuestionAdapter<string>
+declare const equals: (expected: string) => Expectation<string>
+
+const CallBank = () =>
+    Task.where(the`#actor calls the bank`,
+        Dial('0800 123 456'),
+        Wait.until(ConnectedNumber(), equals('0800 123 456')),
+    )
+
+const ChooseToReportALostCard = () =>
+    Task.where(the`#actor chooses to report a lost card`,
+        Press('2'),
+    )
+
+const EnterCardNumber = (cardNumber: Answerable<string>) =>
+    Task.where(the`#actor enters card number ${ cardNumber }`,
+        Press(cardNumber),
+        Press('#'),
+    )
+
+export const ReportALostCard = (cardNumber: Answerable<string>) =>
+    Task.where(the`#actor reports a lost card`,
+        CallBank(),
+        ChooseToReportALostCard(),
+        EnterCardNumber(cardNumber),
+    )
+```
+
+Refactor in small steps, with the scenarios to tell you when a step went wrong:
+
+- **Run the scenarios first, and see them pass.** A refactoring that starts from a failing scenario can't tell you
+  whether it broke anything.
+- **Change one thing at a time**, and run the scenarios again after each step.
+- **Keep what the scenarios verify the same.** Activity descriptions appear in the reports, so treat a changed
+  description as a deliberate rename, as "dials and presses keys" becoming "reports a lost card" is.
+- **When you were asked for something else, refactor only what your change touches**, and suggest the rest in your
+  report.
+
 ## Avoid
 
 - **Extending `Task`** with a class and a `performAs` method, when `Task.where` composes the same activities
