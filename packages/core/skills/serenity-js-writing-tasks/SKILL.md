@@ -187,6 +187,11 @@ its own: `const number = await actor.answer(phoneNumber)`, as `Dial` does in "Wh
 `Task.where` doesn't use the values itself, so it passes its parameters on to the activities that do, and they
 answer them when the actor performs them. Wrap a value the report shouldn't show in `Masked.valueOf`.
 
+The rule covers the constructors of interaction objects too, such as `Helpline` in "Grow the structure as the project
+needs it". They're often created from another question, as in `new Helpline(Customer.preferredNumber())`, or from a
+page element, as the handbook's `TodoList` is, with an `Answerable<PageElement>`. Their methods answer the
+constructor's parameters where they use them, as `Helpline`'s `isConnected` does.
+
 ## Repeat activities with `List.of(…).forEach`
 
 To perform the same activities for each item of a list, give the list to `List.of`, and perform them in its
@@ -328,7 +333,7 @@ export const ReportAStolenCard = () =>
   whose fields hold the state, and whose methods return the tasks and questions about it:
 
 ```typescript
-import { Activity, actorCalled, Answerable, QuestionAdapter, Task, the } from '@serenity-js/core'
+import { Activity, actorCalled, Answerable, Question, QuestionAdapter, Task, the } from '@serenity-js/core'
 
 // the actors' names, from "Where tasks fit"
 declare enum Role { Cardholder = 'Alice, the cardholder' }
@@ -339,7 +344,7 @@ declare const Press: (key: Answerable<string>) => Activity
 declare const ConnectedNumber: () => QuestionAdapter<string>
 
 export class Helpline {
-    constructor(private readonly phoneNumber: string) {
+    constructor(private readonly phoneNumber: Answerable<string>) {
     }
 
     call = () =>
@@ -353,9 +358,11 @@ export class Helpline {
         )
 
     isConnected = () =>
-        ConnectedNumber()
-            .as(connectedNumber => connectedNumber === this.phoneNumber)
-            .describedAs('whether the helpline is connected')
+        Question.about('whether the helpline is connected', async actor => {
+            const connectedNumber = await actor.answer(ConnectedNumber())
+            const helplineNumber = await actor.answer(this.phoneNumber)
+            return connectedNumber === helplineNumber
+        })
 }
 
 const bank = new Helpline('0800 123 456')
