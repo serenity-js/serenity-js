@@ -90,11 +90,11 @@ interactions and the question above.
 Name the function after the goal, and list the activities that achieve it:
 
 ```typescript
-import { Activity, Task, the } from '@serenity-js/core'
+import { Activity, Answerable, Task, the } from '@serenity-js/core'
 
 // the interactions from "Where tasks fit"
-declare const Dial: (phoneNumber: string) => Activity
-declare const Press: (key: string) => Activity
+declare const Dial: (phoneNumber: Answerable<string>) => Activity
+declare const Press: (key: Answerable<string>) => Activity
 
 export const CallBank = () =>
     Task.where(the`#actor calls the bank`,
@@ -162,8 +162,9 @@ even when a parameter is only known at that point.
 
 ## Accept `Answerable` parameters
 
-Type the parameters as `Answerable<T>` rather than `T`, so that a task accepts a static value or a question about
-the system, for example a value the actor noted earlier:
+Type every parameter of a task, an interaction or a question as `Answerable<T>` rather than `T`. A caller can then
+pass a question about the system, such as a value the actor noted earlier, or a page element located with PEQL, as
+easily as a static value, and combine it with other questions:
 
 ```typescript
 import { Activity, Answerable, Masked, notes, Task, the } from '@serenity-js/core'
@@ -181,8 +182,10 @@ export const EnterCardNumberOnRecord = () =>
     // reported as: Alice, the cardholder enters card number [a masked value]
 ```
 
-Don't call `actor.answer()` to get at a value inside a task. Pass the `Answerable` on to the activities that use it;
-they answer it at the right moment. Wrap a value the report shouldn't show in `Masked.valueOf`.
+Answer each parameter where its value is used, in the interaction or the question that needs it, into a constant of
+its own: `const number = await actor.answer(phoneNumber)`, as `Dial` does in "Where tasks fit". A task built with
+`Task.where` doesn't use the values itself, so it passes its parameters on to the activities that do, and they
+answer them when the actor performs them. Wrap a value the report shouldn't show in `Masked.valueOf`.
 
 ## Repeat activities with `List.of(…).forEach`
 
@@ -237,12 +240,12 @@ A task that changes what the user sees is only done once the change has happened
 a test can check the outcome straight afterwards, without knowing how long the task takes:
 
 ```typescript
-import { Activity, Duration, Expectation, QuestionAdapter, Task, the, Wait } from '@serenity-js/core'
+import { Activity, Answerable, Duration, Expectation, QuestionAdapter, Task, the, Wait } from '@serenity-js/core'
 
 // the interaction and the question from "Where tasks fit", and an expectation from @serenity-js/assertions
-declare const Dial: (phoneNumber: string) => Activity
+declare const Dial: (phoneNumber: Answerable<string>) => Activity
 declare const ConnectedNumber: () => QuestionAdapter<string>
-declare const equals: (expected: string) => Expectation<string>
+declare const equals: (expected: Answerable<string>) => Expectation<string>
 
 export const CallBank = () =>
     Task.where(the`#actor calls the bank`,
@@ -265,11 +268,11 @@ makes the scenario slow when the system is fast, and fail when it's slow. `Wait.
 Change either for one wait, with `Wait.upTo(…)` and `.pollingEvery(…)`:
 
 ```typescript
-import { Activity, Duration, Expectation, QuestionAdapter, Task, the, Wait } from '@serenity-js/core'
+import { Activity, Answerable, Duration, Expectation, QuestionAdapter, Task, the, Wait } from '@serenity-js/core'
 
-declare const Dial: (phoneNumber: string) => Activity
+declare const Dial: (phoneNumber: Answerable<string>) => Activity
 declare const ConnectedNumber: () => QuestionAdapter<string>
-declare const equals: (expected: string) => Expectation<string>
+declare const equals: (expected: Answerable<string>) => Expectation<string>
 
 export const CallHelpline = () =>
     Task.where(the`#actor calls the helpline`,
@@ -290,11 +293,11 @@ Where tasks and questions live, and how they're grouped, follows from how much o
   key presses, isn't a convention to follow. Write yours from the domain, and improve the ones your change touches:
 
 ```typescript
-import { Activity, Task, the } from '@serenity-js/core'
+import { Activity, Answerable, Task, the } from '@serenity-js/core'
 
 // the tasks above, and an interaction from "Where tasks fit"
 declare const CallBank: () => Activity
-declare const Press: (key: string) => Activity
+declare const Press: (key: Answerable<string>) => Activity
 
 // what the project has: a task named after the keys it presses
 export const DialAndPressTwo = () =>
@@ -407,7 +410,7 @@ import { Activity, Answerable, Expectation, QuestionAdapter, Task, the, Wait } f
 declare const Dial: (phoneNumber: Answerable<string>) => Activity
 declare const Press: (key: Answerable<string>) => Activity
 declare const ConnectedNumber: () => QuestionAdapter<string>
-declare const equals: (expected: string) => Expectation<string>
+declare const equals: (expected: Answerable<string>) => Expectation<string>
 
 const CallBank = () =>
     Task.where(the`#actor calls the bank`,

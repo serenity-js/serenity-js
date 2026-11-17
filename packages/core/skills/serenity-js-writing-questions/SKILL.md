@@ -34,6 +34,8 @@ export const ConnectedNumber = () =>
   a yes-or-no answer `isX()`, as in `isConnected()`. Leave "the" out of the name, `ConnectedNumber`, not
   `TheConnectedNumber`. The description keeps it: "the connected number".
 - **Write it as a function** that returns `Question.about`, so each use gets a fresh question.
+- **Accept `Answerable` parameters, and answer them inside `Question.about`**, into a constant of their own, as
+  `Voicemails` does below, so that a test can pass a static value or another question.
 - **Describe it for the report.** The description appears wherever the question is used, as in
   "Alice, the cardholder ensures that the connected number does equal "(555) 123-4567"".
 
@@ -74,14 +76,16 @@ interface Call {
     durationInSeconds: number
 }
 
+// the questions above, and one about the calls the phone has made
+declare const ConnectedNumber: () => QuestionAdapter<string>
 declare const CallHistory: () => QuestionAdapter<Call[]>
 
 const numberOfCalls = () =>
     CallHistory().length
         .describedAs('the number of calls')
 
-const areaCode = (phoneNumber: QuestionAdapter<string>) =>
-    phoneNumber
+const areaCode = () =>
+    ConnectedNumber()
         .slice(1, 4)
         .as(Number)
         .describedAs('the area code')
