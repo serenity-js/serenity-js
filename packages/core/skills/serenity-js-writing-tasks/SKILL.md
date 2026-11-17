@@ -289,6 +289,12 @@ Where tasks and questions live, and how they're grouped, follows from how much o
 
 - **Follow the project's conventions**, even where you'd have started differently: its file layout, its naming
   style, and where it configures its actors.
+- **Don't introduce a second way of doing what the project already does.** Two styles side by side make the code
+  harder to read than either would on its own. Either follow the project's convention and suggest the new one in
+  your report, or apply the new one consistently, across the project, and say so in your report. If the project
+  names its actors with plain strings, such as `'Apisitt'`, either keep calling `actorCalled('Apisitt')`, or extract
+  a shared `Role` enum, in `src/Role.ts` for example, and use it in every spec. Never a `Role` enum in one spec next
+  to plain names in the others.
 - **Don't copy its poor abstractions.** A task named after its mechanics, or one that mixes business steps with
   key presses, isn't a convention to follow. Write yours from the domain, and improve the ones your change touches:
 
@@ -360,9 +366,9 @@ await actorCalled(Role.Cardholder).attemptsTo(
 )
 ```
 
-Restructure, and improve abstractions, only in the code your change touches. When the rest of the project would be
-easier to work with in another structure, or with better abstractions, suggest it in your report, rather than
-changing code the change doesn't need.
+Restructure, and improve abstractions, only in the code your change touches, unless you're applying a new convention
+across the project, as above. When the rest of the project would be easier to work with in another structure, or
+with better abstractions, suggest it in your report, rather than changing code the change doesn't need.
 
 ## Refactor what's there
 
@@ -444,6 +450,9 @@ Refactor in small steps, with the scenarios to tell you when a step went wrong:
 - **Change one thing at a time**, and run the scenarios again after each step.
 - **Keep what the scenarios verify the same.** Activity descriptions appear in the reports, so treat a changed
   description as a deliberate rename, as "dials and presses keys" becoming "reports a lost card" is.
+- **Apply a new convention everywhere, or not at all.** Refactoring one spec to a shared `Role` enum, while the
+  others still name their actors with plain strings, leaves the project with two ways of doing one thing. Either
+  move every spec to the new convention, and say so in your report, or keep the project's, and suggest the new one.
 - **When you were asked for something else, refactor only what your change touches**, and suggest the rest in your
   report.
 
