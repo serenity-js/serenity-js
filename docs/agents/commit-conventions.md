@@ -45,8 +45,11 @@ change to them releases the package:
 - A new skill is `feat(<package>)`, e.g. `feat(core): add a skill for writing tasks`
 - A change to a skill is `fix(<package>)`, e.g. `fix(core): show Answerable parameters in the writing tasks skill`
 
-commitlint rejects any other type for a commit that only changes package skills. Contributor skills, in
-`.agents/contributing-skills/`, aren't published, so they follow the rules for the rest of the agent guidance.
+commitlint rejects any other type for a commit that only changes package skills, in the `commit-msg` hook. The hook
+only sees what's staged, so the pull request's commit check runs `bin/check-skill-commits.ts` on every commit in the
+pull request too, and also requires the scope to name each package whose skills the commit changes. Contributor
+skills, in `.agents/contributing-skills/`, aren't published, so they follow the rules for the rest of the agent
+guidance.
 
 ## ⚠️ CRITICAL: BREAKING CHANGE Usage
 
@@ -120,7 +123,7 @@ lerna          # Lerna configuration
 renovate       # Renovate bot config
 qlty           # Qlty.sh configuration
 codefactor     # CodeFactor configuration
-agents         # Agent guidance: AGENTS.md, CLAUDE.md, docs/agents/, .agents/contributing-skills/ and bin/link-skills.ts
+agents         # Agent guidance: AGENTS.md, CLAUDE.md, docs/agents/, .agents/contributing-skills/, bin/link-skills.ts, bin/check-skill-commits.ts and bin/test-skills.ts
 eslint         # ESLint configuration
 release        # Reserved for automated releases
 ```

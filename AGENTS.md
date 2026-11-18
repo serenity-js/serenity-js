@@ -66,6 +66,17 @@ don't silence errors you don't understand with casts or try/catch.
 - **Record what you learn.** When something non-obvious costs you time, add it to the gotchas of the skill or
   document for that area, in the same pull request. See [Capturing what you learn](docs/agents/maintaining-agent-guidance.md#capturing-what-you-learn).
 
+## Working with a person
+
+When you work for someone, in their clone, you act as them: what you commit and publish carries their name.
+
+- **Use their identity and remotes as they are.** Don't change git config, remotes, credentials or signing settings.
+- **Work on a branch.** Never commit to, push to or merge into `main`.
+- **Don't get around a hook that refuses.** Fix the cause, or tell them what it reported. Never skip hooks with
+  `--no-verify` or any other way.
+- **Don't push, open pull requests or comment on GitHub unless they ask.**
+- **Ask before anything that's hard to undo,** such as force-pushing, rewriting published history or deleting branches.
+
 ## Guidance to read before you start
 
 Read the documents that match your task. They're not loaded automatically.
