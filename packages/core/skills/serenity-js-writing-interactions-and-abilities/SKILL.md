@@ -21,6 +21,43 @@ on top of those.
 
 Write an ability only for an interface no integration covers, such as a phone line, a message queue or a database.
 
+**Use the system under test through the interfaces it offers**, as its users and the systems around it do: its web
+pages, its HTTP API, its phone lines, the files it reads and writes. Test code doesn't change the system to suit
+itself: it doesn't import the system's modules, expose their internals, or add client code to the system. The client
+is the test's own, and the ability wraps it:
+
+```typescript
+import { Ability, actorCalled } from '@serenity-js/core'
+
+// your project's actor names, as the serenity-js-writing-tasks skill describes them
+declare enum Role { Cardholder = 'Alice, the cardholder' }
+
+// a client of the interface the system offers its callers, its phone lines, at the address the test environment gives
+interface PhoneLine {
+    dial(phoneNumber: string): Promise<void>
+}
+declare function connectTo(address: string): PhoneLine
+
+export class MakePhoneCalls extends Ability {
+    static at(address: string): MakePhoneCalls {
+        return new MakePhoneCalls(connectTo(address))
+    }
+
+    constructor(private readonly line: PhoneLine) {
+        super()
+    }
+
+    dial(phoneNumber: string): Promise<void> {
+        return this.line.dial(phoneNumber)
+    }
+}
+
+actorCalled(Role.Cardholder).whoCan(MakePhoneCalls.at(process.env.EXCHANGE_ADDRESS ?? 'sip:exchange.test'))
+```
+
+When the system has no interface for what a test needs, that's a question for its developers, not a change for the
+test to make.
+
 ## Wrap the client in an ability
 
 Extend `Ability`, take the client in a static `using` method, and give the ability methods named after what the
@@ -231,6 +268,8 @@ tests work with either. That's how `BrowseTheWeb` works with both `BrowseTheWebW
 - **Using the client in a test**, through a getter on the ability. Tests that use interactions and questions keep
   working when the client changes. Reach for the client only for an API no interaction offers, and accept that
   the test now depends on it
+- **Changing the system under test to suit the test**, by importing its modules, exposing its internals, or adding
+  client code to it. Reach it through its interfaces, with a client of the test's own
 - **Interactions that perform other activities.** Composing activities is what tasks are for
 - **Retrieving information in an interaction.** Information is what questions are for; the
   serenity-js-writing-questions skill covers those
