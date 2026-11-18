@@ -294,8 +294,10 @@ Pending tasks are visible in the report, so they double as a list of what's left
 
 ## Make a task wait for its own outcome
 
-A task that changes what the user sees is only done once the change has happened. Put the wait in the task, so that
-a test can check the outcome straight afterwards, without knowing how long the task takes:
+**A task waits for the outcome it causes, so that its callers don't have to.** A task that changes what the user
+sees is only done once the change has happened. Put the wait inside the task, with `Wait.until`, or with
+`Ensure.eventually` when the wait is also the task's check, so that a test can check the outcome straight
+afterwards, without knowing how long the task takes:
 
 ```typescript
 import { Activity, Answerable, Duration, Expectation, QuestionAdapter, Task, the, Wait } from '@serenity-js/core'
@@ -311,6 +313,27 @@ export const CallBank = () =>
         Wait.upTo(Duration.ofSeconds(5)).until(ConnectedNumber(), equals('0800 123 456')),
     )
 ```
+
+`Ensure.eventually`, from `@serenity-js/assertions`, keeps asking until the answer meets the expectation, like
+`Wait.until`, and fails the task, with what it last saw, when the outcome doesn't arrive in time:
+
+```typescript
+import { Activity, Answerable, Expectation, QuestionAdapter, Task, the } from '@serenity-js/core'
+
+declare const Dial: (phoneNumber: Answerable<string>) => Activity
+declare const ConnectedNumber: () => QuestionAdapter<string>
+declare const Ensure: { eventually: <T>(actual: Answerable<T>, expectation: Expectation<T>) => Activity }
+declare const equals: (expected: Answerable<string>) => Expectation<string>
+
+export const CallBank = () =>
+    Task.where(the`#actor calls the bank`,
+        Dial('0800 123 456'),
+        Ensure.eventually(ConnectedNumber(), equals('0800 123 456')),
+    )
+```
+
+A scenario that waits for what a task caused, with a `Wait.until` or an `Ensure.eventually` after the task, makes
+every caller of the task repeat the wait. Move the wait into the task.
 
 Wait for an outcome that only this task produces: here, a connection to the number it dialled. A condition that
 may already hold before the task starts, such as "a call is in progress", lets the wait finish straight away,
@@ -622,3 +645,4 @@ Refactor in small steps, with the scenarios to tell you when a step went wrong:
   from `@serenity-js/core`, which reports the decision too
 - **Repeating the steps of an existing task** in another one, instead of reusing it
 - **Descriptions without `#actor`**, which read as instructions rather than as what happened
+- **Waiting in the scenario for an outcome a task caused.** The task waits for it, so its callers don't have to
