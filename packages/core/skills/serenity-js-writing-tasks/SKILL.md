@@ -378,6 +378,32 @@ export const CallBank = () =>
     )
 ```
 
+Keep the two levels of checks apart:
+
+- **The scenario checks the outcome of the workflow, at the business level**: the card is blocked, not the status of
+  the request that blocked it.
+- **Transport checks belong in the task that makes the request**, or in a custom expectation: the status, the
+  content type, the absence of errors.
+- **Don't mix the two in one task or expectation.** A task that takes the expected value, such as "calls the bank
+  and expects to reach the lost cards department", hides the scenario's check inside one of its steps.
+
+```typescript
+import { Activity, actorCalled, Answerable, Expectation, QuestionAdapter } from '@serenity-js/core'
+
+// the actors' names from "Where tasks fit", a task that checks its calls went through, a question about the card,
+// and Ensure and equals from @serenity-js/assertions
+declare enum Role { Cardholder = 'Alice, the cardholder' }
+declare const ReportALostCard: () => Activity
+declare const CardStatus: () => QuestionAdapter<string>
+declare const Ensure: { that: <T>(actual: Answerable<T>, expectation: Expectation<T>) => Activity }
+declare const equals: (expected: Answerable<string>) => Expectation<string>
+
+await actorCalled(Role.Cardholder).attemptsTo(
+    ReportALostCard(),
+    Ensure.that(CardStatus(), equals('blocked')),
+)
+```
+
 ## Grow the structure as the project needs it
 
 Where tasks and questions live, and how they're grouped, follows from how much of the system the tests cover:
