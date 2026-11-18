@@ -187,6 +187,59 @@ its own: `const number = await actor.answer(phoneNumber)`, as `Dial` does in "Wh
 `Task.where` doesn't use the values itself, so it passes its parameters on to the activities that do, and they
 answer them when the actor performs them. Wrap a value the report shouldn't show in `Masked.valueOf`.
 
+**Never put an `Answerable` in an array or an object literal you pass on as data**, as in `{ to: phoneNumber, text }`.
+`actor.answer()` answers a question or a promise only at the top level, so the activity gets the question itself,
+not its answer. Wrap the data in `Question.fromObject`, which answers every property, arrays of them included, or in
+`Question.fromArray` for a list, or answer each parameter into a constant inside a `Question.about` that builds the
+data:
+
+```typescript
+import { Ability, Answerable, Interaction, Question, Task, the } from '@serenity-js/core'
+
+interface TextMessage {
+    to: string
+    text: string
+}
+
+// an ability that sends messages and starts conference calls, and interactions that answer the data they're given
+declare class UsePhoneNetwork extends Ability {
+    send(message: TextMessage): Promise<void>
+    conference(phoneNumbers: string[]): Promise<void>
+}
+
+const Send = (message: Answerable<TextMessage>) =>
+    Interaction.where(the`#actor sends ${ message }`, async actor => {
+        const answered = await actor.answer(message)
+        await UsePhoneNetwork.as(actor).send(answered)
+    })
+
+const StartConferenceCall = (phoneNumbers: Answerable<string[]>) =>
+    Interaction.where(the`#actor starts a conference call with ${ phoneNumbers }`, async actor => {
+        const numbers = await actor.answer(phoneNumbers)
+        await UsePhoneNetwork.as(actor).conference(numbers)
+    })
+
+// Question.fromObject answers the text, wherever it comes from
+export const TextBank = (text: Answerable<string>) =>
+    Task.where(the`#actor texts the bank ${ text }`,
+        Send(Question.fromObject<TextMessage>({ to: '0800 123 456', text })),
+    )
+
+// Question.fromArray answers each item of a list
+export const CallBothBranches = (branch: Answerable<string>, otherBranch: Answerable<string>) =>
+    Task.where(the`#actor calls ${ branch } and ${ otherBranch } together`,
+        StartConferenceCall(Question.fromArray([ branch, otherBranch ])),
+    )
+
+// a Question.about answers each parameter into a constant of its own, and builds the data from them
+export const MessageTo = (phoneNumber: Answerable<string>, text: Answerable<string>) =>
+    Question.about<TextMessage>('the message', async actor => {
+        const to = await actor.answer(phoneNumber)
+        const answered = await actor.answer(text)
+        return { to, text: answered }
+    })
+```
+
 The rule covers the constructors of interaction objects too, such as `Helpline` in "Grow the structure as the project
 needs it". They're often created from another question, as in `new Helpline(Customer.preferredNumber())`, or from a
 page element, as the handbook's `TodoList` is, with an `Answerable<PageElement>`. Their methods answer the
