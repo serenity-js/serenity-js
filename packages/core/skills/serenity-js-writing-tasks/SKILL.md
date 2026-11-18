@@ -475,7 +475,10 @@ it('blocks a card reported lost', () =>
   `Line.connectedNumber()` and `Line.isConnected()`. When several places would repeat the same combined check, define
   a custom expectation instead, as `wentThrough` does in "Make a task check that it did what it should".
 - **Use an interaction object once something has state and behaviour that more than one scenario uses**: a class
-  whose fields hold the state, and whose methods return the tasks and questions about it:
+  whose fields hold the state, and whose methods return the tasks and questions about it. Any object that groups
+  tasks and questions is an interaction object, so name it like one: a noun for the object, `Helpline`, verbs for
+  its tasks, `call()` and `chooseOption()`, and nouns for its questions, `connectedNumber()`, or `isX()` for a
+  yes-or-no answer:
 
 ```typescript
 import { Activity, actorCalled, Answerable, Question, QuestionAdapter, Task, the } from '@serenity-js/core'
@@ -501,6 +504,10 @@ export class Helpline {
         Task.where(the`#actor chooses option ${ option }`,
             Press(option),
         )
+
+    connectedNumber = () =>
+        ConnectedNumber()
+            .describedAs('the number the helpline connected to')
 
     isConnected = () =>
         Question.about('whether the helpline is connected', async actor => {

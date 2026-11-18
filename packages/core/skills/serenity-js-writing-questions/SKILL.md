@@ -40,7 +40,8 @@ export const ConnectedNumber = () =>
   "Alice, the cardholder ensures that the connected number does equal "(555) 123-4567"".
 
 Until a question is reused, a standalone one is fine. When different tasks or specs need different parts of the same
-thing, group the questions about it under one object, together with the tasks about it, so that one test reads
+thing, group the questions about it under one object, together with the tasks about it, an interaction object named with a
+noun, so that one test reads
 `Line.connectedNumber()` and another `Line.isConnected()`. When several places would repeat the same combined check
 instead, such as "connected, and without errors", define an expectation for it, as "Define an expectation for a
 comparison that's missing" describes:
