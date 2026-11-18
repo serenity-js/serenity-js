@@ -1,6 +1,6 @@
 ---
 name: serenity-js-writing-tasks
-description: "Writing Screenplay Pattern tasks with Serenity/JS: composing activities into business-level tasks with Task.where, describing them with the, passing parameters, naming actors, repeating activities with List.of().forEach, pending tasks, tasks that wait for their own outcome with Wait.until, growing the structure of tasks and questions as a project needs it, and refactoring tests that grew without them. Use when adding or changing a task, or a test step that does more than one thing, and when asked to refactor, clean up or restructure tests."
+description: "Writing Screenplay Pattern tasks with Serenity/JS: composing activities into business-level tasks with Task.where, describing them with the, passing parameters, naming actors, repeating activities with List.of().forEach, pending tasks, tasks that wait for their own outcome with Wait.until, tasks that check their own work with custom expectations, growing the structure of tasks and questions as a project needs it, and refactoring tests that grew without them. Use when adding or changing a task, or a test step that does more than one thing, and when asked to refactor, clean up or restructure tests."
 ---
 
 # Writing Screenplay tasks
@@ -338,6 +338,43 @@ export const CallHelpline = () =>
         Wait.upTo(Duration.ofSeconds(30))
             .until(ConnectedNumber(), equals('0800 999 999'))
             .pollingEvery(Duration.ofSeconds(1)),
+    )
+```
+
+## Make a task check that it did what it should
+
+A task may check its own work. A check inside a task is a valid design: it fails the task where the problem is,
+rather than in a later step that only sees its effects.
+
+When several fields of a response would be checked wherever a request is made, such as its status, its content type
+and the absence of errors, don't repeat the checks. Define a custom expectation over the typed response with
+`Expectation.define`, and use it in the task that makes the request:
+
+```typescript
+import { Activity, Answerable, Expectation, QuestionAdapter, Task, the } from '@serenity-js/core'
+
+// what the phone line reports about the last call
+interface CallRecord {
+    connectedNumber: string
+    error: string | null
+}
+
+// the interaction from "Where tasks fit", a question about the last call, and Ensure from @serenity-js/assertions
+declare const Dial: (phoneNumber: Answerable<string>) => Activity
+declare const LastCall: () => QuestionAdapter<CallRecord>
+declare const Ensure: { that: <T>(actual: Answerable<T>, expectation: Expectation<T>) => Activity }
+
+// the checks every call would repeat, as one expectation
+export const wentThrough = Expectation.define(
+    'wentThrough',          // the function's name, used in assertion errors
+    'go through',           // the relationship, used in the report
+    (call: CallRecord) => call.error === null && call.connectedNumber !== '',
+)
+
+export const CallBank = () =>
+    Task.where(the`#actor calls the bank`,
+        Dial('0800 123 456'),
+        Ensure.that(LastCall(), wentThrough()),
     )
 ```
 
