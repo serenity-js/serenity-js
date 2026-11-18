@@ -417,6 +417,33 @@ export const ReportAStolenCard = () =>
 
 - **With nothing to follow, start with the simplest structure that fits**: tasks and questions as standalone
   functions, as in this skill.
+- **An activity or a question may start in the spec that needs it**, while no other spec uses it, or as a first
+  pass while you refactor one spec. Once it works, or another spec needs it, move it to `src/`, next to the code
+  it's related to, and import it from there:
+
+```typescript
+import { Activity, actorCalled, Answerable, Task, the } from '@serenity-js/core'
+
+// the actors' names and the interactions from "Where tasks fit", and Mocha's it
+declare enum Role { Cardholder = 'Alice, the cardholder' }
+declare const Dial: (phoneNumber: Answerable<string>) => Activity
+declare const Press: (key: Answerable<string>) => Activity
+declare const it: (title: string, scenario: () => Promise<void>) => void
+
+// in spec/lost_cards.spec.ts, while no other spec reports a lost card; once spec/stolen_cards.spec.ts needs it too,
+// it moves to src/cards/ReportALostCard.ts, and both specs import it
+const ReportALostCard = () =>
+    Task.where(the`#actor reports a lost card`,
+        Dial('0800 123 456'),
+        Press('2'),
+    )
+
+it('blocks a card reported lost', () =>
+    actorCalled(Role.Cardholder).attemptsTo(
+        ReportALostCard(),
+    ))
+```
+
 - **Group them under one object once you'd write a second question or task about the same thing**, as the
   serenity-js-writing-questions skill does with `Line.connectedNumber()` and `Line.isConnected()`.
 - **Use an interaction object once something has state and behaviour that more than one scenario uses**: a class
