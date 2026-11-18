@@ -444,8 +444,10 @@ it('blocks a card reported lost', () =>
     ))
 ```
 
-- **Group them under one object once you'd write a second question or task about the same thing**, as the
-  serenity-js-writing-questions skill does with `Line.connectedNumber()` and `Line.isConnected()`.
+- **Until anything is reused, standalone questions are fine.** Group questions under one object when different
+  tasks or specs need different parts of the same thing, as the serenity-js-writing-questions skill does with
+  `Line.connectedNumber()` and `Line.isConnected()`. When several places would repeat the same combined check, define
+  a custom expectation instead, as `wentThrough` does in "Make a task check that it did what it should".
 - **Use an interaction object once something has state and behaviour that more than one scenario uses**: a class
   whose fields hold the state, and whose methods return the tasks and questions about it:
 
