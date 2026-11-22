@@ -219,6 +219,10 @@ import type { UsesAbilities } from './UsesAbilities.js';
  * ```ts
  * import { Ability, actorCalled, Interaction } from '@serenity-js/core'
  *
+ * interface Phone {
+ *   dial(phoneNumber: string): Promise<void>;
+ * }
+ *
  * class MakePhoneCalls extends Ability {
  *
  *   // A static method is typically used to inject a client of a given interface
@@ -230,14 +234,14 @@ import type { UsesAbilities } from './UsesAbilities.js';
  *
  *   // Abilities can hold state, for example: the client of a given interface,
  *   // additional configuration, or the result of the last interaction with a given interface.
- *   protected constructor(private readonly phone: Phone) {
+ *   constructor(private readonly phone: Phone) {
  *      super();
  *   }
  *
  *   // Abilities expose methods that enable Interactions to call the system under test,
  *   // and Questions to retrieve information about its state.
  *   dial(phoneNumber: string): Promise<void> {
- *     // ...
+ *     return this.phone.dial(phoneNumber);
  *   }
  * }
  * ```
