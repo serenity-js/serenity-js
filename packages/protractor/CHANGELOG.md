@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.49.1](https://github.com/serenity-js/serenity-js/compare/v3.49.0...v3.49.1) (2026-11-22)
+
+### Bug Fixes
+
+* **deps:** update dependency body-parser to v2.4.0 [security] ([0eb35fe](https://github.com/serenity-js/serenity-js/commit/0eb35fe565939198bc3f1a690c83a8ebef19b867))
+* **deps:** update dependency express to v5.3.0 ([0131462](https://github.com/serenity-js/serenity-js/commit/013146261cc297dc522e800337f404350958be5f))
+
+
 # [3.49.0](https://github.com/serenity-js/serenity-js/compare/v3.48.2...v3.49.0) (2026-10-10)
 
 **Note:** Version bump only for package @serenity-js/protractor

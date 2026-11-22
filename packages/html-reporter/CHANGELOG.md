@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.49.1](https://github.com/serenity-js/serenity-js/compare/v3.49.0...v3.49.1) (2026-11-22)
+
+### Bug Fixes
+
+* **deps:** update dependency zod to v4.6.6 [security] ([ae2ffdf](https://github.com/serenity-js/serenity-js/commit/ae2ffdf03b42b1007dfdf883f32d52aa8223fd37))
+* **deps:** update html reporter dependencies ([fa8973e](https://github.com/serenity-js/serenity-js/commit/fa8973e19a1a9d81392d2bec339eb5813cda0636))
+* **deps:** update playwright dependencies ([69bf45d](https://github.com/serenity-js/serenity-js/commit/69bf45dabdd11cdaa5229592d4a809709d5b7ea5))
+
+
 # [3.49.0](https://github.com/serenity-js/serenity-js/compare/v3.48.2...v3.49.0) (2026-10-10)
 
 ### Bug Fixes

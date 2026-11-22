@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.49.1](https://github.com/serenity-js/serenity-js/compare/v3.49.0...v3.49.1) (2026-11-22)
+
+### Bug Fixes
+
+* **deps:** update dependency body-parser to v2.4.0 [security] ([0eb35fe](https://github.com/serenity-js/serenity-js/commit/0eb35fe565939198bc3f1a690c83a8ebef19b867))
+* **deps:** update dependency express to v5.3.0 ([0131462](https://github.com/serenity-js/serenity-js/commit/013146261cc297dc522e800337f404350958be5f))
+* **deps:** update dependency semver to v7.8.6 ([539e47c](https://github.com/serenity-js/serenity-js/commit/539e47caaeb11a1d574c01d1058f508b2309389e))
+* **deps:** update dependency zod to v4.6.6 [security] ([ae2ffdf](https://github.com/serenity-js/serenity-js/commit/ae2ffdf03b42b1007dfdf883f32d52aa8223fd37))
+* **deps:** update html reporter dependencies ([fa8973e](https://github.com/serenity-js/serenity-js/commit/fa8973e19a1a9d81392d2bec339eb5813cda0636))
+* **deps:** update playwright dependencies ([69bf45d](https://github.com/serenity-js/serenity-js/commit/69bf45dabdd11cdaa5229592d4a809709d5b7ea5))
+* **deps:** update react monorepo to v19.3.1 ([1d811c4](https://github.com/serenity-js/serenity-js/commit/1d811c469838829404963e31bb9516f9197dbcc7))
+* **playwright-test:** remove the unused deepmerge dependency ([9a8db3d](https://github.com/serenity-js/serenity-js/commit/9a8db3d0f2e956196e3ead2e24d9f705f2ad61f8)), closes [#3604](https://github.com/serenity-js/serenity-js/issues/3604)
+
+
 # [3.49.0](https://github.com/serenity-js/serenity-js/compare/v3.48.2...v3.49.0) (2026-10-10)
 
 ### Bug Fixes
