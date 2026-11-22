@@ -69,7 +69,7 @@
     "test:no-coverage": "npx playwright test",
     "compile": "npm run compile:clean && npm run compile:esm && npm run compile:cjs-package && npm run compile:cjs && npm run compile:template && npm run compile:schema",
     "compile:template": "node scripts/bundle-template.mjs",
-    "compile:schema": "npx tsx scripts/generate-summary-schema.mjs",
+    "compile:schema": "node --import tsx scripts/generate-summary-schema.mjs",
     "compile:clean": "rimraf lib esm",
     "compile:esm": "tsc --project tsconfig-esm.build.json",
     "compile:cjs-package": "node -e \"require('fs').mkdirSync('lib', { recursive: true }); require('fs').writeFileSync('lib/package.json', '{ \\\"type\\\": \\\"commonjs\\\" }')\"",
