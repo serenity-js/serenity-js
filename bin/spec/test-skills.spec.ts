@@ -88,6 +88,48 @@ describe('test-skills', function () {
         expect(exitCode).to.equal(1);
     });
 
+    describe('with examples that import the package', () => {
+
+        // conditions nested as the Serenity/JS packages have them: { import: { types, default }, require: { types, default } }
+        const entry = (directory: string) => ({
+            import:  { types: `./esm/${ directory }index.d.ts`, default: `./esm/${ directory }index.js` },
+            require: { types: `./lib/${ directory }index.d.ts`, default: `./lib/${ directory }index.js` },
+        });
+
+        beforeEach(() => {
+            writeFileSync(path.join(root, 'package.json'), JSON.stringify({
+                name: '@serenity-js/example', version: '1.0.0', main: './lib/index.js', types: './lib/index.d.ts',
+                exports: { '.': entry(''), './errors': entry('errors/') },
+            }));
+            for (const format of [ 'esm', 'lib' ]) {
+                file(`${ format }/index.d.ts`, 'export interface Greeting { text: string; }\nexport declare function greet(name: string): Greeting;\n');
+                file(`${ format }/index.js`, '');
+                file(`${ format }/errors/index.d.ts`, 'export declare class GreetingError extends Error {}\n');
+                file(`${ format }/errors/index.js`, '');
+            }
+        });
+
+        it("compiles examples that import the package's entry point and a subpath, through their nested export conditions", () => {
+            file('skills/serenity-js-a/SKILL.md', example("import { greet, type Greeting } from '@serenity-js/example';\n\nconst greeting: Greeting = greet('Alice');"));
+            file('skills/serenity-js-a/references/errors.md', example("import { GreetingError } from '@serenity-js/example/errors';\n\nconst error: Error = new GreetingError();"));
+
+            const { exitCode, output } = testSkills();
+
+            expect(output).to.include('test-skills: 2 example(s) in 2 file(s) compiled');
+            expect(exitCode).to.equal(0);
+        });
+
+        it('fails when an example uses a type it imports from the package wrongly', () => {
+            file('skills/serenity-js-a/SKILL.md', example("import { greet, type Greeting } from '@serenity-js/example';\n\nconst greeting: Greeting = greet(42);"));
+
+            const { exitCode, output } = testSkills();
+
+            expect(output).to.include('skills/serenity-js-a/SKILL.md, example 1');
+            expect(output).to.include("Argument of type 'number' is not assignable to parameter of type 'string'");
+            expect(exitCode).to.equal(1);
+        });
+    });
+
     it('fails when the package has no skills to check', () => {
         const { exitCode, output } = testSkills();
 
