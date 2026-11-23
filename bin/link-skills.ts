@@ -132,15 +132,111 @@ function problemsWithUniqueness(root: string, skills: Skill[]): Map<Skill, strin
     return problems;
 }
 
-/** Problems with the skills' frontmatter, as `<path to SKILL.md>: <problem>`. */
+interface PackageManifest {
+    name: string;
+    dependsOn: Set<string>;
+}
+
+function packageManifestOf(skill: Skill): PackageManifest | undefined {
+    const manifestPath = path.join(skill.source, '..', '..', 'package.json');
+    if (skill.kind !== 'package' || ! existsSync(manifestPath)) {
+        return undefined;
+    }
+    const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+    const dependsOn = new Set(Object.keys({ ...manifest.dependencies, ...manifest.peerDependencies }));
+    return { name: manifest.name, dependsOn };
+}
+
+function markdownFilesOf(skill: Skill): string[] {
+    return readdirSync(skill.source, { recursive: true, encoding: 'utf8' })
+        .filter(file => file.endsWith('.md'))
+        .sort()
+        .map(file => path.join(skill.source, file));
+}
+
+/** Who publishes each skill: the name of its package, or `undefined` for contributor skills, which aren't published. */
+function publishersOf(skills: Skill[]): Map<string, string | undefined> {
+    return new Map(skills.map(skill => [ skill.name, packageManifestOf(skill)?.name ]));
+}
+
+function referenceProblem(skill: Skill, manifest: PackageManifest, name: string, publishers: Map<string, string | undefined>): string | undefined {
+    if (name === skill.name || ! publishers.has(name)) {
+        return undefined;   // the skill itself, or a name that isn't a skill
+    }
+    const publisher = publishers.get(name);
+    if (publisher === undefined) {
+        return `refers to ${ name }, a contributor skill, which is not published with the package`;
+    }
+    return publisher === manifest.name || manifest.dependsOn.has(publisher)
+        ? undefined
+        : `refers to ${ name }, a skill of ${ publisher }, which ${ manifest.name } does not depend on`;
+}
+
+/**
+ * Package skills refer to other skills by name, and `problemsWithLinks` rejects links to their files.
+ * A skill, and its supporting files, may only refer to skills of its own package, or of a package it depends on.
+ */
+function problemsWithReferences(root: string, skills: Skill[]): string[] {
+    const publishers = publishersOf(skills);
+
+    return skills.flatMap(skill => {
+        const manifest = packageManifestOf(skill);
+        return manifest
+            ? markdownFilesOf(skill).flatMap(file => {
+                const mentioned = new Set(readFileSync(file, 'utf8').match(/\bserenity-js-[\da-z-]+/g) ?? []);
+                return [ ...mentioned ]
+                    .map(name => referenceProblem(skill, manifest, name, publishers))
+                    .filter(problem => problem !== undefined)
+                    .map(problem => `${ posix(root, file) }: ${ problem }`);
+            })
+            : [];
+    });
+}
+
+/** The destinations of a Markdown file's inline links, `[text](destination "title")`, and link definitions, `[label]: destination`. */
+function linkDestinationsIn(markdown: string): string[] {
+    const inline = [ ...markdown.matchAll(/]\(\s*<?([^\s)>]+)/g) ];
+    const definitions = [ ...markdown.matchAll(/^ {0,3}\[[^\]]+]:\s*<?(\S+?)>?(?:\s|$)/gm) ];
+    return [ ...inline, ...definitions ].map(([ , destination ]) => destination);
+}
+
+function isRelative(destination: string): boolean {
+    return ! /^[a-z][\d+.a-z-]*:/i.test(destination) && ! destination.startsWith('#') && ! destination.startsWith('/');
+}
+
+/**
+ * Package skills that link to the files of other skills. Agents reach installed skills through links in their skill
+ * directories, and one that resolves `..` from the link rather than from the package lands outside the project,
+ * so skills refer to each other by name.
+ */
+function problemsWithLinks(root: string, skills: Skill[]): string[] {
+    return skills
+        .filter(skill => skill.kind === 'package')
+        .flatMap(skill => markdownFilesOf(skill).flatMap(file =>
+            linkDestinationsIn(readFileSync(file, 'utf8'))
+                .filter(isRelative)
+                .filter(destination => {
+                    const target = path.resolve(path.dirname(file), destination.replace(/[#?].*$/, ''));
+                    const inOwnSkill = ! path.relative(skill.source, target).startsWith('..');
+                    return ! inOwnSkill && isSkillSource(root, target);
+                })
+                .map(destination => `${ posix(root, file) }: links to ${ destination }, a file of another skill, which agents may not reach once the skills are installed: refer to the skill by name instead`),
+        ));
+}
+
+/** Problems with the skills' frontmatter, references and links, as `<path to file>: <problem>`. */
 export function problemsWith(root: string, skills: Skill[]): string[] {
     const duplicates = problemsWithUniqueness(root, skills);
 
-    return skills.flatMap(skill =>
-        [ ...problemsWithFrontmatter(skill), duplicates.get(skill) ]
-            .filter(problem => problem !== undefined)
-            .map(problem => `${ posix(root, path.join(skill.source, 'SKILL.md')) }: ${ problem }`),
-    );
+    return [
+        ...skills.flatMap(skill =>
+            [ ...problemsWithFrontmatter(skill), duplicates.get(skill) ]
+                .filter(problem => problem !== undefined)
+                .map(problem => `${ posix(root, path.join(skill.source, 'SKILL.md')) }: ${ problem }`),
+        ),
+        ...problemsWithReferences(root, skills),
+        ...problemsWithLinks(root, skills),
+    ];
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
