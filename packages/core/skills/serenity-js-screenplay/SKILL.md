@@ -9,14 +9,14 @@ Serenity/JS tests are written with the Screenplay Pattern. Choose the building b
 
 | The test needs to | Write | Read |
 |---|---|---|
-| Reach a goal of the business domain, or take a step that does several things | a task | [tasks.md](tasks.md) |
-| Do one thing with the system under test | an interaction | [interactions-and-abilities.md](interactions-and-abilities.md) |
-| Reach an interface that no Serenity/JS integration covers | an ability | [interactions-and-abilities.md](interactions-and-abilities.md) |
-| Find out about the system under test, to check it or to wait for it | a question | [questions.md](questions.md) |
+| Reach a goal of the business domain, or take a step that does several things | a task | [tasks.md](references/tasks.md) |
+| Do one thing with the system under test | an interaction | [interactions-and-abilities.md](references/interactions-and-abilities.md) |
+| Reach an interface that no Serenity/JS integration covers | an ability | [interactions-and-abilities.md](references/interactions-and-abilities.md) |
+| Find out about the system under test, to check it or to wait for it | a question | [questions.md](references/questions.md) |
 
 ## What each file covers
 
-### [tasks.md](tasks.md)
+### [tasks.md](references/tasks.md)
 
 Tasks: composing activities into the goals of the business domain, describing them, waiting for their outcome, and
 growing and refactoring the tests they're part of.
@@ -32,7 +32,7 @@ growing and refactoring the tests they're part of.
 - Refactor what's there
 - Avoid
 
-### [interactions-and-abilities.md](interactions-and-abilities.md)
+### [interactions-and-abilities.md](references/interactions-and-abilities.md)
 
 Interactions, which do one thing with the system under test, and the abilities that give them access to its
 interfaces.
@@ -45,7 +45,7 @@ interfaces.
 - Make implementations interchangeable
 - Avoid
 
-### [questions.md](questions.md)
+### [questions.md](references/questions.md)
 
 Questions, which find out about the system under test, and debugging a scenario by what they answer.
 
@@ -128,7 +128,7 @@ the names in an enum or constants, as `Role` does: its keys are the roles, and i
 them, so that every scenario calls the same actor the same way, and the report says who did what.
 
 Most projects get their abilities, and many interactions and questions, from the Serenity/JS integrations, such as
-`BrowseTheWeb` and `Click` from `@serenity-js/web`. [interactions-and-abilities.md](interactions-and-abilities.md) covers
-writing your own, and [questions.md](questions.md) covers questions. The other files of this skill use the
+`BrowseTheWeb` and `Click` from `@serenity-js/web`. [interactions-and-abilities.md](references/interactions-and-abilities.md) covers
+writing your own, and [questions.md](references/questions.md) covers questions. The other files of this skill use the
 interactions and the question above.
 

@@ -35,9 +35,9 @@ describe('The skills of @serenity-js/core', function () {
 
         expect(skills).to.include.members([
             'skills/serenity-js-screenplay/SKILL.md',
-            'skills/serenity-js-screenplay/tasks.md',
-            'skills/serenity-js-screenplay/interactions-and-abilities.md',
-            'skills/serenity-js-screenplay/questions.md',
+            'skills/serenity-js-screenplay/references/tasks.md',
+            'skills/serenity-js-screenplay/references/interactions-and-abilities.md',
+            'skills/serenity-js-screenplay/references/questions.md',
         ]);
         expect(skills.filter(file => ! published.has(file)), 'files under skills/ missing from the tarball').to.deep.equal([]);
     });
