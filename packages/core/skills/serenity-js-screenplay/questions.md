@@ -1,8 +1,3 @@
----
-name: serenity-js-writing-questions
-description: "Writing Screenplay Pattern questions with Serenity/JS: retrieving information with Question.about, using the actor's abilities, naming and grouping questions, transforming answers through QuestionAdapter, composing questions, questions about part of something with .of(), custom expectations with Expectation.define, and debugging a scenario with Log.the and StreamReporter. Use when a test or a task needs information about the system under test."
----
-
 # Writing Screenplay questions
 
 A question is how an actor finds out about the system under test: the number a phone is connected to, the text of
@@ -19,7 +14,7 @@ abilities:
 ```typescript
 import { Ability, Question } from '@serenity-js/core'
 
-// an ability your project already has; the serenity-js-writing-interactions-and-abilities skill covers those
+// an ability your project already has; interactions-and-abilities.md covers those
 declare class MakePhoneCalls extends Ability {
     connectedNumber(): Promise<string>
 }
@@ -163,7 +158,7 @@ the value:
 ```typescript
 import { actorCalled, Log, QuestionAdapter } from '@serenity-js/core'
 
-// your project's actor names, as the serenity-js-writing-tasks skill describes them
+// your project's actor names, as SKILL.md describes them
 declare enum Role { Cardholder = 'Alice, the cardholder' }
 
 declare const ConnectedNumber: () => QuestionAdapter<string>

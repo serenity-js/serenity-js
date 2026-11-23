@@ -5,7 +5,7 @@ import { parseArguments, problemsWithSkillCommits } from '../check-skill-commits
 
 describe('check-skill-commits', () => {
 
-    const skill = 'packages/core/skills/serenity-js-writing-tasks/SKILL.md';
+    const skill = 'packages/core/skills/serenity-js-screenplay/SKILL.md';
 
     function commit(subject: string, files: string[]) {
         return { sha: '1234567890abcdef', subject, files };

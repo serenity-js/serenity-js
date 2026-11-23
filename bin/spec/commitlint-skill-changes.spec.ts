@@ -7,17 +7,17 @@ describe('commitlint rule: skill changes release the package', () => {
     const rule = (stagedFiles: string[]) => skillChangesRelease(() => stagedFiles);
 
     it('accepts feat for a commit that only changes package skills', () => {
-        expect(rule([ 'packages/core/skills/serenity-js-writing-tasks/SKILL.md' ])({ type: 'feat' }))
+        expect(rule([ 'packages/core/skills/serenity-js-screenplay/SKILL.md' ])({ type: 'feat' }))
             .to.deep.equal([ true ]);
     });
 
     it('accepts fix for a commit that only changes package skills', () => {
-        expect(rule([ 'packages/core/skills/serenity-js-writing-tasks/SKILL.md', 'packages/web/skills/x/references/y.md' ])({ type: 'fix' }))
+        expect(rule([ 'packages/core/skills/serenity-js-screenplay/SKILL.md', 'packages/web/skills/x/references/y.md' ])({ type: 'fix' }))
             .to.deep.equal([ true ]);
     });
 
     it('rejects any other type for a commit that only changes package skills', () => {
-        const [ valid, message ] = rule([ 'packages/core/skills/serenity-js-writing-tasks/SKILL.md' ])({ type: 'docs' });
+        const [ valid, message ] = rule([ 'packages/core/skills/serenity-js-screenplay/SKILL.md' ])({ type: 'docs' });
 
         expect(valid).to.equal(false);
         expect(message).to.equal(
@@ -26,7 +26,7 @@ describe('commitlint rule: skill changes release the package', () => {
     });
 
     it('accepts any type when the commit also changes other files', () => {
-        expect(rule([ 'packages/core/skills/serenity-js-writing-tasks/SKILL.md', 'packages/core/src/index.ts' ])({ type: 'refactor' }))
+        expect(rule([ 'packages/core/skills/serenity-js-screenplay/SKILL.md', 'packages/core/src/index.ts' ])({ type: 'refactor' }))
             .to.deep.equal([ true ]);
     });
 

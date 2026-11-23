@@ -107,6 +107,6 @@ agent, read them in `.agents/contributing-skills/<name>/SKILL.md`.
 | `serenity-js-contributing-debugging-ci` | Failing builds, tests and CI jobs, here and in the project templates |
 | `serenity-js-contributing-documentation` | Writing and publishing documentation on serenity-js.org |
 
-Packages also ship skills for their users, in `packages/<package>/skills/`, such as `serenity-js-writing-tasks` in
+Packages also ship skills for their users, in `packages/<package>/skills/`, such as `serenity-js-screenplay` in
 `@serenity-js/core`. They're linked the same way, and they describe how the package's API is meant to be used, so
 read them before changing that API.

@@ -1,89 +1,8 @@
----
-name: serenity-js-writing-tasks
-description: "Writing Screenplay Pattern tasks with Serenity/JS: composing activities into business-level tasks with Task.where, describing them with the, passing parameters, naming actors, repeating activities with List.of().forEach, pending tasks, tasks that wait for their own outcome with Wait.until, tasks that check their own work with custom expectations, growing the structure of tasks and questions as a project needs it, and refactoring tests that grew without them. Use when adding or changing a task, or a test step that does more than one thing, and when asked to refactor, clean up or restructure tests."
----
-
 # Writing Screenplay tasks
 
 A task is something an actor does to achieve a goal in the business domain: call the bank, report a lost card,
 place an order. It's made of other activities, either interactions with the system or other tasks, and it's how a
 test speaks the language of the domain rather than of the user interface.
-
-## Where tasks fit
-
-In the Screenplay Pattern, an actor uses **abilities** to perform **interactions** and to answer **questions**,
-and **tasks** compose interactions and other tasks into goals:
-
-```typescript
-import { Ability, actorCalled, Answerable, Interaction, Question, Task, the } from '@serenity-js/core'
-
-// an ability wraps the client of one of the system's interfaces, here a phone
-interface Phone {
-    dial(phoneNumber: string): Promise<void>
-    press(key: string): Promise<void>
-    connectedNumber(): Promise<string>
-}
-declare const phone: Phone
-
-class MakePhoneCalls extends Ability {
-    static using(phone: Phone): MakePhoneCalls {
-        return new MakePhoneCalls(phone)
-    }
-
-    constructor(private readonly phone: Phone) {
-        super()
-    }
-
-    dial(phoneNumber: string): Promise<void> { return this.phone.dial(phoneNumber) }
-    press(key: string): Promise<void> { return this.phone.press(key) }
-    connectedNumber(): Promise<string> { return this.phone.connectedNumber() }
-}
-
-// interactions do one thing with the system, using the ability
-const Dial = (phoneNumber: Answerable<string>) =>
-    Interaction.where(the`#actor dials ${ phoneNumber }`, async actor => {
-        const number = await actor.answer(phoneNumber)
-        await MakePhoneCalls.as(actor).dial(number)
-    })
-
-const Press = (key: Answerable<string>) =>
-    Interaction.where(the`#actor presses ${ key }`, async actor => {
-        const pressed = await actor.answer(key)
-        await MakePhoneCalls.as(actor).press(pressed)
-    })
-
-// questions find out about the system, using the ability
-const ConnectedNumber = () =>
-    Question.about('the connected number', actor => MakePhoneCalls.as(actor).connectedNumber())
-
-// tasks compose interactions and other tasks into a goal of the business domain
-const ReportALostCard = () =>
-    Task.where(the`#actor reports a lost card`,
-        Dial('0800 123 456'),
-        Press('2'),
-    )
-
-// an actor performs them, under the name of a persona who plays a role
-enum Role {
-    Cardholder = 'Alice, the cardholder',
-}
-
-await actorCalled(Role.Cardholder)
-    .whoCan(MakePhoneCalls.using(phone))
-    .attemptsTo(
-        ReportALostCard(),      // reported as: Alice, the cardholder reports a lost card
-    )
-```
-
-`actorCalled` returns the actor with the name you give it. Always `await` what `attemptsTo` returns: it settles once
-the actor has performed every activity, or one of them has failed. Name actors after the role they play, and keep
-the names in an enum or constants, as `Role` does: its keys are the roles, and its values the personas who play
-them, so that every scenario calls the same actor the same way, and the report says who did what.
-
-Most projects get their abilities, and many interactions and questions, from the Serenity/JS integrations, such as
-`BrowseTheWeb` and `Click` from `@serenity-js/web`. The serenity-js-writing-interactions-and-abilities skill covers
-writing your own, and the serenity-js-writing-questions skill covers questions. The rest of this skill uses the
-interactions and the question above.
 
 ## Write a task as a function that returns `Task.where`
 
@@ -92,7 +11,7 @@ Name the function after the goal, and list the activities that achieve it:
 ```typescript
 import { Activity, Answerable, Task, the } from '@serenity-js/core'
 
-// the interactions from "Where tasks fit"
+// the interactions from SKILL.md
 declare const Dial: (phoneNumber: Answerable<string>) => Activity
 declare const Press: (key: Answerable<string>) => Activity
 
@@ -113,7 +32,7 @@ An actor performs it like any other activity:
 ```typescript
 import { actorCalled, Task } from '@serenity-js/core'
 
-// the actors' names, from "Where tasks fit"
+// the actors' names, from SKILL.md
 declare enum Role { Cardholder = 'Alice, the cardholder' }
 
 // the task above
@@ -141,7 +60,7 @@ The description appears in the test report, so it should read as a sentence abou
 ```typescript
 import { Activity, actorCalled, Answerable, Task, the } from '@serenity-js/core'
 
-// the actors' names, from "Where tasks fit"
+// the actors' names, from SKILL.md
 declare enum Role { Cardholder = 'Alice, the cardholder' }
 
 declare const Dial: (phoneNumber: Answerable<string>) => Activity
@@ -279,7 +198,7 @@ domain, and implement the steps later:
 ```typescript
 import { actorCalled, Task, the } from '@serenity-js/core'
 
-// the actors' names, from "Where tasks fit"
+// the actors' names, from SKILL.md
 declare enum Role { Cardholder = 'Alice, the cardholder' }
 
 const DisputeACharge = () =>
@@ -302,7 +221,7 @@ afterwards, without knowing how long the task takes:
 ```typescript
 import { Activity, Answerable, Duration, Expectation, QuestionAdapter, Task, the, Wait } from '@serenity-js/core'
 
-// the interaction and the question from "Where tasks fit", and an expectation from @serenity-js/assertions
+// the interaction and the question from SKILL.md, and an expectation from @serenity-js/assertions
 declare const Dial: (phoneNumber: Answerable<string>) => Activity
 declare const ConnectedNumber: () => QuestionAdapter<string>
 declare const equals: (expected: Answerable<string>) => Expectation<string>
@@ -382,7 +301,7 @@ interface CallRecord {
     error: string | null
 }
 
-// the interaction from "Where tasks fit", a question about the last call, and Ensure from @serenity-js/assertions
+// the interaction from SKILL.md, a question about the last call, and Ensure from @serenity-js/assertions
 declare const Dial: (phoneNumber: Answerable<string>) => Activity
 declare const LastCall: () => QuestionAdapter<CallRecord>
 declare const Ensure: { that: <T>(actual: Answerable<T>, expectation: Expectation<T>) => Activity }
@@ -413,7 +332,7 @@ Keep the two levels of checks apart:
 ```typescript
 import { Activity, actorCalled, Answerable, Expectation, QuestionAdapter } from '@serenity-js/core'
 
-// the actors' names from "Where tasks fit", a task that checks its calls went through, a question about the card,
+// the actors' names from SKILL.md, a task that checks its calls went through, a question about the card,
 // and Ensure and equals from @serenity-js/assertions
 declare enum Role { Cardholder = 'Alice, the cardholder' }
 declare const ReportALostCard: () => Activity
@@ -445,7 +364,7 @@ Where tasks and questions live, and how they're grouped, follows from how much o
 ```typescript
 import { Activity, Answerable, Task, the } from '@serenity-js/core'
 
-// the tasks above, and an interaction from "Where tasks fit"
+// the tasks above, and an interaction from SKILL.md
 declare const CallBank: () => Activity
 declare const Press: (key: Answerable<string>) => Activity
 
@@ -473,7 +392,7 @@ export const ReportAStolenCard = () =>
 ```typescript
 import { Activity, actorCalled, Answerable, Task, the } from '@serenity-js/core'
 
-// the actors' names and the interactions from "Where tasks fit", and Mocha's it
+// the actors' names and the interactions from SKILL.md, and Mocha's it
 declare enum Role { Cardholder = 'Alice, the cardholder' }
 declare const Dial: (phoneNumber: Answerable<string>) => Activity
 declare const Press: (key: Answerable<string>) => Activity
@@ -494,7 +413,7 @@ it('blocks a card reported lost', () =>
 ```
 
 - **Until anything is reused, standalone questions are fine.** Group questions under one object when different
-  tasks or specs need different parts of the same thing, as the serenity-js-writing-questions skill does with
+  tasks or specs need different parts of the same thing, as [questions.md](questions.md) does with
   `Line.connectedNumber()` and `Line.isConnected()`. When several places would repeat the same combined check, define
   a custom expectation instead, as `wentThrough` does in "Make a task check that it did what it should".
 - **Use an interaction object once something has state and behaviour that more than one scenario uses**: a class
@@ -506,10 +425,10 @@ it('blocks a card reported lost', () =>
 ```typescript
 import { Activity, actorCalled, Answerable, Question, QuestionAdapter, Task, the } from '@serenity-js/core'
 
-// the actors' names, from "Where tasks fit"
+// the actors' names, from SKILL.md
 declare enum Role { Cardholder = 'Alice, the cardholder' }
 
-// the interactions and the question from "Where tasks fit"
+// the interactions and the question from SKILL.md
 declare const Dial: (phoneNumber: Answerable<string>) => Activity
 declare const Press: (key: Answerable<string>) => Activity
 declare const ConnectedNumber: () => QuestionAdapter<string>
@@ -564,7 +483,7 @@ refactor each to what replaces it:
 - **Tasks named after their mechanics**, such as `PostThenGet`, get names from the domain, such as
   `SubmitCalculation`.
 - **The same request built, or the same value read, in several places** becomes a function that builds or reads
-  it, or a group of them under one object, as the serenity-js-writing-questions skill does with `Line`.
+  it, or a group of them under one object, as [questions.md](questions.md) does with `Line`.
 - **A scenario that waits for what an earlier step caused** gets the wait moved into the task that caused it.
 - **`setTimeout`, `console.log`, or `Array.forEach` with an `async` callback** become `Wait.until`, `Log.the`, and
   `List.of(…).forEach`.
@@ -574,7 +493,7 @@ Here's a task that has most of these signs:
 ```typescript
 import { Activity, Answerable, Interaction, Task, the } from '@serenity-js/core'
 
-// the interactions from "Where tasks fit"
+// the interactions from SKILL.md
 declare const Dial: (phoneNumber: Answerable<string>) => Activity
 declare const Press: (key: Answerable<string>) => Activity
 
@@ -594,7 +513,7 @@ bank to answer rather than for two seconds:
 ```typescript
 import { Activity, Answerable, Expectation, QuestionAdapter, Task, the, Wait } from '@serenity-js/core'
 
-// the interactions and the question from "Where tasks fit", and an expectation from @serenity-js/assertions
+// the interactions and the question from SKILL.md, and an expectation from @serenity-js/assertions
 declare const Dial: (phoneNumber: Answerable<string>) => Activity
 declare const Press: (key: Answerable<string>) => Activity
 declare const ConnectedNumber: () => QuestionAdapter<string>

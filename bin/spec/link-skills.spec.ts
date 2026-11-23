@@ -43,11 +43,11 @@ describe('link-skills', () => {
     });
 
     it('links the skills that packages ship', () => {
-        skill('packages/core/skills/serenity-js-writing-tasks');
+        skill('packages/core/skills/serenity-js-screenplay');
 
         linkSkills(root);
 
-        expect(existsSync(path.join(root, '.claude/skills/serenity-js-writing-tasks/SKILL.md'))).to.equal(true);
+        expect(existsSync(path.join(root, '.claude/skills/serenity-js-screenplay/SKILL.md'))).to.equal(true);
     });
 
     it('ignores directories without a SKILL.md', () => {
@@ -277,21 +277,21 @@ describe('link-skills', () => {
             packageJson('packages/core', { name: '@serenity-js/core' });
             packageJson('packages/web', { name: '@serenity-js/web', dependencies: { '@serenity-js/core': '3.0.0' } });
             skill('packages/web/skills/serenity-js-locating-elements');
-            frontmatter('packages/core/skills/serenity-js-writing-tasks',
-                '---\nname: serenity-js-writing-tasks\ndescription: "Use when …"\n---\n\nSee the serenity-js-locating-elements skill.\n');
+            frontmatter('packages/core/skills/serenity-js-screenplay',
+                '---\nname: serenity-js-screenplay\ndescription: "Use when …"\n---\n\nSee the serenity-js-locating-elements skill.\n');
 
-            expect(problems()).to.include('packages/core/skills/serenity-js-writing-tasks/SKILL.md: refers to serenity-js-locating-elements, a skill of @serenity-js/web, which @serenity-js/core does not depend on');
+            expect(problems()).to.include('packages/core/skills/serenity-js-screenplay/SKILL.md: refers to serenity-js-locating-elements, a skill of @serenity-js/web, which @serenity-js/core does not depend on');
         });
 
         it('nothing because of references to skills of the same package, or of its dependencies', () => {
             packageJson('packages/core', { name: '@serenity-js/core' });
             packageJson('packages/web', { name: '@serenity-js/web', peerDependencies: { '@serenity-js/core': '3.0.0' } });
-            skill('packages/core/skills/serenity-js-writing-tasks');
-            skill('packages/core/skills/serenity-js-writing-questions');
+            skill('packages/core/skills/serenity-js-screenplay');
+            skill('packages/core/skills/serenity-js-example-skill');
             frontmatter('packages/web/skills/serenity-js-locating-elements',
-                '---\nname: serenity-js-locating-elements\ndescription: "Use when …"\n---\n\nSee serenity-js-writing-tasks, and serenity-js-locating-elements itself.\n');
-            frontmatter('packages/core/skills/serenity-js-writing-questions',
-                '---\nname: serenity-js-writing-questions\ndescription: "Use when …"\n---\n\nSee serenity-js-writing-tasks.\n');
+                '---\nname: serenity-js-locating-elements\ndescription: "Use when …"\n---\n\nSee serenity-js-screenplay, and serenity-js-locating-elements itself.\n');
+            frontmatter('packages/core/skills/serenity-js-example-skill',
+                '---\nname: serenity-js-example-skill\ndescription: "Use when …"\n---\n\nSee serenity-js-screenplay.\n');
 
             expect(() => linkSkills(root)).not.to.throw();
         });
@@ -300,8 +300,8 @@ describe('link-skills', () => {
             packageJson('packages/core', { name: '@serenity-js/core' });
             packageJson('packages/web', { name: '@serenity-js/web', dependencies: { '@serenity-js/core': '3.0.0' } });
             skill('packages/web/skills/serenity-js-locating-elements');
-            frontmatter('packages/core/skills/serenity-js-writing-tasks',
-                '---\nname: serenity-js-writing-tasks\ndescription: "Use when …"\n---\n\nThe serenity-js-monorepo is not a skill.\n');
+            frontmatter('packages/core/skills/serenity-js-screenplay',
+                '---\nname: serenity-js-screenplay\ndescription: "Use when …"\n---\n\nThe serenity-js-monorepo is not a skill.\n');
             frontmatter('.agents/contributing-skills/serenity-js-contributing-core-internals',
                 '---\nname: serenity-js-contributing-core-internals\ndescription: "Use when …"\n---\n\nSee serenity-js-locating-elements.\n');
 
@@ -311,28 +311,28 @@ describe('link-skills', () => {
         it("a package skill with a relative link to a dependency's skill, rather than its name", () => {
             packageJson('packages/core', { name: '@serenity-js/core' });
             packageJson('packages/web', { name: '@serenity-js/web', dependencies: { '@serenity-js/core': '3.0.0' } });
-            skill('packages/core/skills/serenity-js-writing-tasks');
+            skill('packages/core/skills/serenity-js-screenplay');
             frontmatter('packages/web/skills/serenity-js-locating-elements',
-                '---\nname: serenity-js-locating-elements\ndescription: "Use when …"\n---\n\nSee [serenity-js-writing-tasks](../../../core/skills/serenity-js-writing-tasks/SKILL.md#describe-it-with-the).\n');
+                '---\nname: serenity-js-locating-elements\ndescription: "Use when …"\n---\n\nSee [serenity-js-screenplay](../../../core/skills/serenity-js-screenplay/SKILL.md#describe-it-with-the).\n');
 
-            expect(problems()).to.include('packages/web/skills/serenity-js-locating-elements/SKILL.md: links to ../../../core/skills/serenity-js-writing-tasks/SKILL.md#describe-it-with-the, a file of another skill, which agents may not reach once the skills are installed: refer to the skill by name instead');
+            expect(problems()).to.include('packages/web/skills/serenity-js-locating-elements/SKILL.md: links to ../../../core/skills/serenity-js-screenplay/SKILL.md#describe-it-with-the, a file of another skill, which agents may not reach once the skills are installed: refer to the skill by name instead');
         });
 
         it('a package skill with a relative link to another skill of the same package', () => {
             packageJson('packages/core', { name: '@serenity-js/core' });
-            skill('packages/core/skills/serenity-js-writing-questions');
-            frontmatter('packages/core/skills/serenity-js-writing-tasks',
-                '---\nname: serenity-js-writing-tasks\ndescription: "Use when …"\n---\n\nSee [questions][q].\n\n[q]: ../serenity-js-writing-questions/SKILL.md\n');
+            skill('packages/core/skills/serenity-js-example-skill');
+            frontmatter('packages/core/skills/serenity-js-screenplay',
+                '---\nname: serenity-js-screenplay\ndescription: "Use when …"\n---\n\nSee [questions][q].\n\n[q]: ../serenity-js-example-skill/SKILL.md\n');
 
-            expect(problems()).to.include('packages/core/skills/serenity-js-writing-tasks/SKILL.md: links to ../serenity-js-writing-questions/SKILL.md, a file of another skill');
+            expect(problems()).to.include('packages/core/skills/serenity-js-screenplay/SKILL.md: links to ../serenity-js-example-skill/SKILL.md, a file of another skill');
         });
 
         it("nothing because of links to the skill's own supporting files, or to web pages", () => {
             packageJson('packages/core', { name: '@serenity-js/core' });
-            frontmatter('packages/core/skills/serenity-js-writing-tasks',
-                '---\nname: serenity-js-writing-tasks\ndescription: "Use when …"\n---\n\nSee [more](references/more.md), [the API](https://serenity-js.org/api/core/) and [below](#avoid).\n');
-            mkdirSync(path.join(root, 'packages/core/skills/serenity-js-writing-tasks/references'));
-            writeFileSync(path.join(root, 'packages/core/skills/serenity-js-writing-tasks/references/more.md'), 'Back to [the skill](../SKILL.md).\n');
+            frontmatter('packages/core/skills/serenity-js-screenplay',
+                '---\nname: serenity-js-screenplay\ndescription: "Use when …"\n---\n\nSee [more](references/more.md), [the API](https://serenity-js.org/api/core/) and [below](#avoid).\n');
+            mkdirSync(path.join(root, 'packages/core/skills/serenity-js-screenplay/references'));
+            writeFileSync(path.join(root, 'packages/core/skills/serenity-js-screenplay/references/more.md'), 'Back to [the skill](../SKILL.md).\n');
 
             expect(() => linkSkills(root)).not.to.throw();
         });
@@ -340,21 +340,21 @@ describe('link-skills', () => {
         it('a package skill that refers to a contributor skill, which users do not get', () => {
             packageJson('packages/core', { name: '@serenity-js/core' });
             skill('.agents/contributing-skills/serenity-js-contributing-core-internals');
-            frontmatter('packages/core/skills/serenity-js-writing-tasks',
-                '---\nname: serenity-js-writing-tasks\ndescription: "Use when …"\n---\n\nSee serenity-js-contributing-core-internals.\n');
+            frontmatter('packages/core/skills/serenity-js-screenplay',
+                '---\nname: serenity-js-screenplay\ndescription: "Use when …"\n---\n\nSee serenity-js-contributing-core-internals.\n');
 
-            expect(problems()).to.include('packages/core/skills/serenity-js-writing-tasks/SKILL.md: refers to serenity-js-contributing-core-internals, a contributor skill, which is not published with the package');
+            expect(problems()).to.include('packages/core/skills/serenity-js-screenplay/SKILL.md: refers to serenity-js-contributing-core-internals, a contributor skill, which is not published with the package');
         });
 
         it("a reference that is out of reach in one of the skill's supporting files", () => {
             packageJson('packages/core', { name: '@serenity-js/core' });
             packageJson('packages/web', { name: '@serenity-js/web', dependencies: { '@serenity-js/core': '3.0.0' } });
             skill('packages/web/skills/serenity-js-locating-elements');
-            skill('packages/core/skills/serenity-js-writing-tasks');
-            mkdirSync(path.join(root, 'packages/core/skills/serenity-js-writing-tasks/references'));
-            writeFileSync(path.join(root, 'packages/core/skills/serenity-js-writing-tasks/references/more.md'), 'See serenity-js-locating-elements.\n');
+            skill('packages/core/skills/serenity-js-screenplay');
+            mkdirSync(path.join(root, 'packages/core/skills/serenity-js-screenplay/references'));
+            writeFileSync(path.join(root, 'packages/core/skills/serenity-js-screenplay/references/more.md'), 'See serenity-js-locating-elements.\n');
 
-            expect(problems()).to.include('packages/core/skills/serenity-js-writing-tasks/references/more.md: refers to serenity-js-locating-elements, a skill of @serenity-js/web, which @serenity-js/core does not depend on');
+            expect(problems()).to.include('packages/core/skills/serenity-js-screenplay/references/more.md: refers to serenity-js-locating-elements, a skill of @serenity-js/web, which @serenity-js/core does not depend on');
         });
 
         it("only the duplicate, when another package has a skill with the same name, rather than the skill's own name as a reference", () => {

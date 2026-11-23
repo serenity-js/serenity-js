@@ -33,7 +33,12 @@ describe('The skills of @serenity-js/core', function () {
         const skills = filesUnder('skills');
         const published = new Set(filesInTarball());
 
-        expect(skills).to.include('skills/serenity-js-writing-tasks/SKILL.md');
+        expect(skills).to.include.members([
+            'skills/serenity-js-screenplay/SKILL.md',
+            'skills/serenity-js-screenplay/tasks.md',
+            'skills/serenity-js-screenplay/interactions-and-abilities.md',
+            'skills/serenity-js-screenplay/questions.md',
+        ]);
         expect(skills.filter(file => ! published.has(file)), 'files under skills/ missing from the tarball').to.deep.equal([]);
     });
 });

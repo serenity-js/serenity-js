@@ -1,8 +1,3 @@
----
-name: serenity-js-writing-interactions-and-abilities
-description: "Writing Screenplay Pattern interactions and abilities with Serenity/JS: interactions with Interaction.where, abilities that wrap a client of the system under test, retrieving them with Ability.as, abilities that initialise and discard their resources, and interchangeable implementations. Use when adding an interaction, or when the system under test has an interface that no Serenity/JS integration covers."
----
-
 # Writing Screenplay interactions and abilities
 
 An interaction is one thing an actor does with the system under test: dial a number, click a button, send a
@@ -10,7 +5,7 @@ request. An ability is what enables it. It wraps the client of one of the system
 HTTP client or a phone, and gives the actor's interactions and questions access to it.
 
 Tests rarely use either directly. They use tasks, which compose interactions into goals in the business domain;
-the serenity-js-writing-tasks skill covers those.
+[tasks.md](tasks.md) covers those.
 
 ## Check whether you need a new ability
 
@@ -29,7 +24,7 @@ is the test's own, and the ability wraps it:
 ```typescript
 import { Ability, actorCalled } from '@serenity-js/core'
 
-// your project's actor names, as the serenity-js-writing-tasks skill describes them
+// your project's actor names, as SKILL.md describes them
 declare enum Role { Cardholder = 'Alice, the cardholder' }
 
 // a client of the interface the system offers its callers, its phone lines, at the address the test environment gives
@@ -66,7 +61,7 @@ interface does:
 ```typescript
 import { Ability, actorCalled } from '@serenity-js/core'
 
-// your project's actor names, as the serenity-js-writing-tasks skill describes them
+// your project's actor names, as SKILL.md describes them
 declare enum Role { Cardholder = 'Alice, the cardholder' }
 
 // the client your project uses to reach the system under test
@@ -271,5 +266,5 @@ tests work with either. That's how `BrowseTheWeb` works with both `BrowseTheWebW
 - **Changing the system under test to suit the test**, by importing its modules, exposing its internals, or adding
   client code to it. Reach it through its interfaces, with a client of the test's own
 - **Interactions that perform other activities.** Composing activities is what tasks are for
-- **Retrieving information in an interaction.** Information is what questions are for; the
-  serenity-js-writing-questions skill covers those
+- **Retrieving information in an interaction.** Information is what questions are for;
+  [questions.md](questions.md) covers those
