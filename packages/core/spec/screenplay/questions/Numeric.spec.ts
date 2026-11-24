@@ -248,6 +248,13 @@ describe('Numeric', () => {
             expect(result).to.equal(4);
         });
 
+        it('compares the values as numbers', async () => {
+
+            const result = await Numeric.max(9, 10, 2).answeredBy(Sigma);
+
+            expect(result).to.equal(10);
+        });
+
         it('fails when a value is not a number', async () => {
             const max = Numeric.max(1, [ '2' as any ], 3);
 
@@ -279,6 +286,13 @@ describe('Numeric', () => {
             const result = await min.answeredBy(Sigma);
 
             expect(result).to.equal(0);
+        });
+
+        it('compares the values as numbers', async () => {
+
+            const result = await Numeric.min(10, 9, 20).answeredBy(Sigma);
+
+            expect(result).to.equal(9);
         });
 
         it('fails when a value is not a number', async () => {

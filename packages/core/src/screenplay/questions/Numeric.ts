@@ -442,7 +442,7 @@ export class Numeric {
         return Question.about<number>(the`the max of ${ values }`, async actor => {
             const numbers = await actor.answer(this.flatten(values, isNumber()));
 
-            return numbers.sort().pop();
+            return numbers.sort((left, right) => left - right).pop();
         });
     }
 
@@ -485,7 +485,7 @@ export class Numeric {
         return Question.about<number>(the`the min of ${ values }`, async actor => {
             const numbers = await actor.answer(this.flatten(values, isNumber()));
 
-            return numbers.sort().shift();
+            return numbers.sort((left, right) => left - right).shift();
         });
     }
 
