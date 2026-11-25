@@ -19,7 +19,7 @@ runs:
   steps:
     - name: Publish coverage
       if: inputs.command == 'publish' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
-      uses: qltysh/qlty-action/coverage@c9b09987143d1e4ac955f4803c7bea742102feb5 # v2.4.0
+      uses: qltysh/qlty-action/coverage@56bee2d751c94b7bd8de22f64c9b5f398048e13f # v2.8.1
       with:
         oidc: true
         command: publish
@@ -28,7 +28,7 @@ runs:
 
     - name: Complete coverage
       if: inputs.command == 'complete' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
-      uses: qltysh/qlty-action/coverage@c9b09987143d1e4ac955f4803c7bea742102feb5 # v2.4.0
+      uses: qltysh/qlty-action/coverage@56bee2d751c94b7bd8de22f64c9b5f398048e13f # v2.8.1
       with:
         oidc: true
         command: complete
