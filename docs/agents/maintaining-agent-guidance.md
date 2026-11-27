@@ -61,9 +61,9 @@ projects, so they follow a few more rules:
 - **They're released with the package.** A new skill is `feat(<package>)` and a change to one is `fix(<package>)`;
   see [commit-conventions.md](commit-conventions.md#skill-changes).
 - **A package with skills runs the shared script.** Its `test:skills` script is
-  `node --import tsx ../../bin/test-skills.ts`, which `test:no-coverage` runs. The script
+  `node --import tsx ../../bin/test-skills.ts`, which `test:no-coverage` runs, like `@serenity-js/core`'s. The script
   finds every Markdown file under the package's `skills/`, so new skills and supporting files need no change to it.
-- **A package with skills tests that they're published.** A spec, such as `spec/skills.spec.ts`,
+- **A package with skills tests that they're published.** Like `@serenity-js/core`'s `spec/skills.spec.ts`, a spec
   checks that `npm pack` includes every file under `skills/`, so a `files` field or an `.npmignore` can't drop them.
   On Windows, `npm` is `npm.cmd`, which Node only starts with a shell, so call it with
   `execFileSync('npm', [ ... ], { shell: process.platform === 'win32' })`, and only with constant arguments.
