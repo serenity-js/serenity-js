@@ -351,15 +351,17 @@ await actorCalled(Role.Cardholder).attemptsTo(
 Where tasks and questions live, and how they're grouped, follows from how much of the system the tests cover:
 
 - **Follow the project's conventions**, even where you'd have started differently: its file layout, its naming
-  style, and where it configures its actors.
-- **Don't introduce a second way of doing what the project already does.** Two styles side by side make the code
-  harder to read than either would on its own. Either follow the project's convention and suggest the new one in
-  your report, or apply the new one consistently, across the project, and say so in your report. If the project
-  names its actors with plain strings, such as `'Apisitt'`, either keep calling `actorCalled('Apisitt')`, or extract
-  a shared `Role` enum, in `src/Role.ts` for example, and use it in every spec. Never a `Role` enum in one spec next
-  to plain names in the others.
+  style, how it groups tasks and questions, and where it configures its actors.
+- **Where the project already does it differently from this skill, follow the project in your change, and suggest
+  the better design in your reply.** Say what you'd change, and where, and leave the decision to the user. Two styles
+  side by side make the code harder to read than either would on its own. If the project names its actors with plain
+  strings, such as `'Apisitt'`, keep calling `actorCalled('Apisitt')`, and suggest extracting a shared `Role` enum,
+  in `src/Role.ts` for example, used in every spec. Never a `Role` enum in one spec next to plain names in the others.
+- **When the request asks you to follow best practice, or to improve the design, apply it**, consistently, across
+  the code it covers, and say what you changed in your reply.
 - **Don't copy its poor abstractions.** A task named after its mechanics, or one that mixes business steps with
-  key presses, isn't a convention to follow. Write yours from the domain, and improve the ones your change touches:
+  key presses, isn't a convention to follow. Write yours from the domain, and suggest improving the existing ones in
+  your reply, unless the request asks you to improve them:
 
 ```typescript
 import { Activity, Answerable, Task, the } from '@serenity-js/core'
@@ -383,8 +385,8 @@ export const ReportAStolenCard = () =>
     )
 ```
 
-- **With nothing to follow, start with the simplest structure that fits**: tasks and questions as standalone
-  functions, as in this skill.
+- **With nothing to follow, start with the simplest structure that fits**: a task or a question as a standalone
+  function, as in this skill, until there's a second one about the same concept.
 - **An activity or a question may start in the spec that needs it**, while no other spec uses it, or as a first
   pass while you refactor one spec. Once it works, or another spec needs it, move it to `src/`, next to the code
   it's related to, and import it from there:
@@ -412,10 +414,12 @@ it('blocks a card reported lost', () =>
     ))
 ```
 
-- **Until anything is reused, standalone questions are fine.** Group questions under one object when different
-  tasks or specs need different parts of the same thing, as [questions.md](questions.md) does with
-  `Line.connectedNumber()` and `Line.isConnected()`. When several places would repeat the same combined check, define
-  a custom expectation instead, as `wentThrough` does in "Make a task check that it did what it should".
+- **Group the tasks and questions about the same concept under one object, named with the concept's noun, as soon
+  as there are two or more of them**: `Calculation.result()` and `Calculation.error()`, `Basket.addProduct()` and
+  `Basket.totalPrice()`, or `Actions.trigger()` and `Actions.status(jobId)`, as [questions.md](questions.md) does with
+  `Line.connectedNumber()` and `Line.isConnected()`. A single one can stand alone. When several places would repeat
+  the same combined check, define a custom expectation instead, as `wentThrough` does in "Make a task check that it
+  did what it should".
 - **Use an interaction object once something has state and behaviour that more than one scenario uses**: a class
   whose fields hold the state, and whose methods return the tasks and questions about it. Any object that groups
   tasks and questions is an interaction object, so name it like one: a noun for the object, `Helpline`, verbs for
@@ -467,9 +471,9 @@ await actorCalled(Role.Cardholder).attemptsTo(
 )
 ```
 
-Restructure, and improve abstractions, only in the code your change touches, unless you're applying a new convention
-across the project, as above. When the rest of the project would be easier to work with in another structure, or
-with better abstractions, suggest it in your report, rather than changing code the change doesn't need.
+Restructure, and improve abstractions, only when the request asks you to follow best practice or to improve the
+design, as above. When the project would be easier to work with in another structure, or with better abstractions,
+suggest it in your reply, saying what to change, rather than changing code the request doesn't need.
 
 ## Refactor what's there
 
@@ -552,10 +556,11 @@ Refactor in small steps, with the scenarios to tell you when a step went wrong:
 - **Keep what the scenarios verify the same.** Activity descriptions appear in the reports, so treat a changed
   description as a deliberate rename, as "dials and presses keys" becoming "reports a lost card" is.
 - **Apply a new convention everywhere, or not at all.** Refactoring one spec to a shared `Role` enum, while the
-  others still name their actors with plain strings, leaves the project with two ways of doing one thing. Either
-  move every spec to the new convention, and say so in your report, or keep the project's, and suggest the new one.
-- **When you were asked for something else, refactor only what your change touches**, and suggest the rest in your
-  report.
+  others still name their actors with plain strings, leaves the project with two ways of doing one thing. When the
+  request asks for the new convention, move every spec to it, and say so in your reply. Otherwise, keep the
+  project's, and suggest the new one.
+- **When you were asked for something else, leave the code your change doesn't need as it is**, and suggest the
+  refactoring in your reply, saying what to change.
 
 ## Avoid
 
