@@ -357,8 +357,9 @@ Where tasks and questions live, and how they're grouped, follows from how much o
   side by side make the code harder to read than either would on its own. If the project names its actors with plain
   strings, such as `'Apisitt'`, keep calling `actorCalled('Apisitt')`, and suggest extracting a shared `Role` enum,
   in `src/Role.ts` for example, used in every spec. Never a `Role` enum in one spec next to plain names in the others.
-- **When the request asks you to follow best practice, or to improve the design, apply it**, consistently, across
-  the code it covers, and say what you changed in your reply.
+- **When the request asks for a better design, apply it**, such as when it asks you to remove duplication, to
+  follow best practice or to improve the design. Apply it consistently, across the code the request covers, and say
+  what you changed in your reply.
 - **Don't copy its poor abstractions.** A task named after its mechanics, or one that mixes business steps with
   key presses, isn't a convention to follow. Write yours from the domain, and suggest improving the existing ones in
   your reply, unless the request asks you to improve them:
@@ -471,8 +472,8 @@ await actorCalled(Role.Cardholder).attemptsTo(
 )
 ```
 
-Restructure, and improve abstractions, only when the request asks you to follow best practice or to improve the
-design, as above. When the project would be easier to work with in another structure, or with better abstractions,
+Restructure, and improve abstractions, only when the request asks for it, such as removing duplication, following
+best practice or improving the design, as above. When the project would be easier to work with in another structure, or with better abstractions,
 suggest it in your reply, saying what to change, rather than changing code the request doesn't need.
 
 ## Refactor what's there
